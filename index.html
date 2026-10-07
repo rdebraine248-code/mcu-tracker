@@ -1882,6 +1882,52 @@ function mindStone(x, y) {
   haptic([10, 80, 10, 80, 10, 80, 10, 600, 30, 400, 80]);
 }
 
+function ironHud(q) {
+  if (REDUCED) { found("ironhud"); return; }
+  const tg = openEntry ? [...panel.querySelectorAll(".row")] : [];
+  const hd = document.createElement("div"); hd.className = "fx-ihud";
+  hd.innerHTML = `<div class="visor"></div><div class="top"><span class="lbl">SYSTEMS BOOTING</span></div>
+    <div class="gauge l"><i></i></div><div class="gauge r"><i></i></div><div class="ret"><i></i><i></i><b></b></div><div class="core"></div>`;
+  document.body.appendChild(hd);
+  const lbl = hd.querySelector(".lbl"), ret = hd.querySelector(".ret"), gl = hd.querySelectorAll(".gauge i"), brks = [];
+  const set = t => { lbl.textContent = t; };
+  hd.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, fill: "forwards" });
+  haptic([15, 30, 15, 30, 15]);
+  // 1. boot: the visor frame and gauges draw in
+  gl.forEach(g => g.animate([{ height: "0%" }, { height: "100%" }], { duration: 900, easing: "ease-out", fill: "forwards" }));
+  let t = 900;
+  setTimeout(() => set("SCANNING"), t);
+  // 2. the reticle hops from title to title, locking each one
+  ret.style.left = innerWidth / 2 + "px"; ret.style.top = innerHeight / 2 + "px";
+  tg.forEach((row, k) => {
+    t += 460;
+    setTimeout(() => {
+      // keep the next target on screen
+      const rb = row.getBoundingClientRect(); if (rb.top < 90 || rb.bottom > innerHeight - 90) panel.scrollTo({ top: panel.scrollTop + rb.top - innerHeight / 2, behavior: "smooth" });
+    }, t - 200);
+    setTimeout(() => {
+      const r = row.getBoundingClientRect(), cx = r.left + 46, cy = r.top + r.height / 2;
+      ret.animate([{ left: ret.style.left, top: ret.style.top }, { left: cx + "px", top: cy + "px" }], { duration: 260, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" });
+      ret.style.left = cx + "px"; ret.style.top = cy + "px";
+      setTimeout(() => {
+        const b = document.createElement("div"); b.className = "fx-brk inrow"; b.style.cssText = "left:-6px;right:-6px;top:3px;bottom:3px"; row.appendChild(b); brks.push(b);
+        b.animate([{ transform: "scale(1.2)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }], { duration: 220, fill: "both" });
+        set(`TARGET ${k + 1} OF ${tg.length} LOCKED`); haptic(12);
+      }, 260);
+    }, t);
+  });
+  // 3. every target locked: the repulsor charges in the middle, then fires
+  t += 700; setTimeout(() => { set("ALL TARGETS LOCKED"); ret.animate([{ left: ret.style.left, top: ret.style.top }, { left: innerWidth / 2 + "px", top: innerHeight / 2 + "px" }], { duration: 400, fill: "forwards" }); }, t);
+  t += 600; setTimeout(() => { set("REPULSOR CHARGING"); hd.querySelector(".core").animate([{ transform: "scale(.2)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }], { duration: 800, easing: "ease-in", fill: "forwards" }); haptic([10, 60, 10, 60, 10, 60, 10]); }, t);
+  t += 900; setTimeout(() => {
+    set("FIRE");
+    fxRing(innerWidth / 2, innerHeight / 2, Math.hypot(innerWidth, innerHeight), "#BDEFFF", 700, 0, 6);
+    veil("fxl", "z-index:97;background:radial-gradient(circle at 50% 50%, rgba(230,250,255,.95), rgba(120,210,255,.5) 30%, rgba(95,211,255,0) 70%)", [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 700);
+    haptic([80, 30, 120]);
+    brks.forEach(b => b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => b.remove());
+  }, t);
+  t += 900; setTimeout(() => { hd.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => hd.remove(); found("ironhud"); }, t);
+}
 /* ---------- Power Stone: kinetic energy. Hold Black Panther's quote to charge it, let go to release it ---------- */
 let charging = null;
 function chargeStart(x, y) {
