@@ -400,19 +400,51 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .fx-echo > div{ position:absolute; inset:0; }
 .fx-ring{ position:fixed; z-index:98; pointer-events:none; border-radius:50%; border:2px solid #FF3B2F; box-shadow:0 0 10px #FF3B2F, 0 0 22px rgba(255,180,60,.7), inset 0 0 8px rgba(255,180,60,.8); }
 .fx-canvas{ position:fixed; top:0; left:0; z-index:97; pointer-events:none; }
+.fx-arrow.trick::before{ display:none; }
+.hf-sec h3{ align-items:center; }
+.hf-pager{ display:inline-flex; align-items:center; gap:6px; }
+.hf-pager button{ border:0; background:transparent; color:#7FA6D8; font:300 22px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; padding:0 8px; cursor:pointer; touch-action:manipulation; }
+.hf-pager button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; }
+.hf-grid.hf-pg.flip{ animation:sagaIn .35s ease both; }
+.fx-files{ position:fixed; left:50%; top:50%; z-index:98; width:min(84vw,330px); height:min(64vh,410px); margin:calc(min(64vh,410px) / -2) 0 0 calc(min(84vw,330px) / -2); pointer-events:none; }
+.fx-file{ position:absolute; inset:0; padding:16px 16px 14px; border-radius:3px; background:linear-gradient(180deg,#EFE4C8,#E2D3AE); box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(120,95,50,.35); color:#2A241A; font:13px/1.4 'Special Elite','Courier New',monospace; transform:rotate(var(--r)); }
+.fx-file .fh{ display:flex; justify-content:space-between; padding-bottom:6px; margin-bottom:12px; border-bottom:1.5px solid rgba(138,27,27,.6); color:#8A1B1B; font-size:11px; letter-spacing:2px; }
+.fx-file .fp{ float:right; width:74px; height:92px; margin:0 0 8px 10px; border:1px solid rgba(80,65,40,.45); background:radial-gradient(circle at 50% 38%, #A3A3A3 0 17px, rgba(0,0,0,0) 17.5px), radial-gradient(ellipse 34px 26px at 50% 100%, #A3A3A3 0 99%, rgba(0,0,0,0) 100%), #D8D8D8; }
+.fx-file .fr{ margin:0 0 8px; }
+.fx-file .fr span{ display:block; color:#6B5C40; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
+.fx-file .fr b{ position:relative; display:inline-block; font-weight:400; font-size:14px; }
+.fx-file .rd{ position:absolute; left:-3px; top:1px; bottom:1px; width:calc(100% + 6px); background:#111; }
+.fx-file .fn{ clear:both; padding-top:4px; }
+.fx-file .fn b{ position:relative; display:block; width:max-content; max-width:100%; margin:3px 0; font-weight:400; font-size:12px; white-space:nowrap; overflow:hidden; }
+.fx-stamp{ position:absolute; left:50%; top:54%; padding:6px 14px; border:4px double #B3261E; color:#B3261E; font:400 30px/1 'Anton','Impact',sans-serif; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; }
+.fx-noir{ position:fixed; inset:0; z-index:96; pointer-events:none; -webkit-backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6)); }
+.fx-bloodstone{ position:fixed; z-index:98; pointer-events:none; width:44px; height:56px; margin:-28px 0 0 -22px; filter:drop-shadow(0 0 6px #FF1A2A) drop-shadow(0 0 16px rgba(255,26,42,.7)); }
+.fx-bloodstone i{ position:absolute; inset:0; clip-path:polygon(50% 0, 100% 30%, 82% 100%, 18% 100%, 0 30%);
+  background:linear-gradient(115deg, rgba(255,255,255,.55) 0 18%, rgba(255,255,255,0) 30%), conic-gradient(from 20deg at 50% 45%, #FF6A6A, #B80F1A 20%, #5A0008 40%, #E0202A 60%, #FF8A8A 75%, #8A0010 90%, #FF6A6A); }
+.fx-tip{ position:absolute; display:block; }
+.fx-tip.boom{ left:146px; top:-5px; width:15px; height:13px; border-radius:2px 3px 3px 2px; background:linear-gradient(180deg,#FF7A5A,#D02A1C 50%,#7E1009); box-shadow:inset 3px 0 0 #3A3A40; }
+.fx-tip.boom::after{ content:""; position:absolute; left:15px; top:1px; border-left:9px solid #4A4C54; border-top:5.5px solid transparent; border-bottom:5.5px solid transparent; }
+.fx-tip.usb{ left:144px; top:-6px; width:17px; height:15px; border-radius:4px 2px 2px 4px; background:linear-gradient(180deg,#4A5262,#232833 60%,#161A22); box-shadow:inset 0 1px 0 rgba(255,255,255,.18); }
+.fx-tip.usb::before{ content:""; position:absolute; left:4px; top:6px; width:3px; height:3px; border-radius:50%; background:#5FA8FF; box-shadow:0 0 4px #5FA8FF; }
+.fx-tip.usb i{ position:absolute; left:17px; top:2px; width:12px; height:11px; border:1px solid #8A9099; border-left:0; border-radius:0 1px 1px 0;
+  background:linear-gradient(#2B2B30,#2B2B30) 4px 2px/3px 2px no-repeat, linear-gradient(#2B2B30,#2B2B30) 4px 6px/3px 2px no-repeat, linear-gradient(180deg,#F4F6F9,#B5BBC4); }
+.fx-tip.goo{ left:147px; top:-6px; width:15px; height:15px; border-radius:45% 60% 60% 45%; background:radial-gradient(circle at 62% 35%, #DFFFCF 0, #74DC52 35%, #2E8A1F 100%); }
+.fx-tip.zap{ left:146px; top:-6px; width:14px; height:15px; clip-path:polygon(0 25%, 45% 25%, 100% 50%, 45% 75%, 0 75%); background:linear-gradient(90deg,#3A3A40 0 40%,#FFE45C 40%); filter:drop-shadow(0 0 3px #FFE45C); }
+.fx-goowrap{ position:fixed; z-index:98; pointer-events:none; width:320px; height:480px; filter:url(#fx-goo-f); }
+.fx-goowrap i{ position:absolute; left:160px; top:120px; border-radius:50%; background:#45BE2C; }
 .fx-cards{ position:fixed; inset:0; z-index:98; pointer-events:none; overflow:hidden; perspective:800px; }
 .fx-card{ position:absolute; left:0; top:0; width:64px; height:90px; margin:-45px 0 0 -32px; transform-style:preserve-3d; }
 .fx-card > div{ position:absolute; inset:0; border-radius:5px; -webkit-backface-visibility:hidden; backface-visibility:hidden; border:3px solid #F7F1E2; box-shadow:0 0 0 1px #B9A77E, 0 5px 12px rgba(0,0,0,.45); }
 .fx-card .fr{ background:radial-gradient(circle at 50% 40%, #1F4E9E 0 8px, #C8202E 8.5px 12px, #F4EFE2 12.5px 16px, #C8202E 16.5px 20px, rgba(0,0,0,0) 20.5px),
   radial-gradient(ellipse 30% 20% at 78% 82%, rgba(120,80,30,.18), rgba(120,80,30,0)), linear-gradient(160deg,#F1E6CC,#E2D3AE); }
-.fx-card .fr i{ position:absolute; left:0; right:0; top:40%; margin-top:-6px; text-align:center; font-style:normal; font-size:10px; line-height:12px; color:#FFFFFF; }
+.fx-card .fr i{ position:absolute; left:50%; top:40%; width:13px; height:13px; margin:-6.5px 0 0 -6.5px; font-size:0; background:#FFFFFF; clip-path:polygon(50% 0%, 61.2% 34.5%, 97.6% 34.5%, 68.2% 55.9%, 79.4% 90.5%, 50% 69.1%, 20.6% 90.5%, 31.8% 55.9%, 2.4% 34.5%, 38.8% 34.5%); }
 .fx-card .fr b{ position:absolute; left:0; right:0; bottom:5px; text-align:center; font:700 6.5px/1 'Oswald','Arial Narrow',sans-serif; letter-spacing:.5px; color:#B3261E; }
 .fx-card .bk{ transform:rotateY(180deg); background:repeating-linear-gradient(45deg,#1F3E7A 0 4px,#26498E 4px 8px); }
 .fx-armstar{ font-size:26px; line-height:1; padding:6px 4px; color:#B3261E; opacity:.55; cursor:pointer; text-shadow:0 0 6px rgba(179,38,30,.5); -webkit-user-select:none; user-select:none; }
 .fx-shield{ position:fixed; left:0; top:0; z-index:98; width:76px; height:76px; margin:-38px 0 0 -38px; border-radius:50%; pointer-events:none;
   background:linear-gradient(135deg, rgba(255,255,255,.38), rgba(255,255,255,0) 45%, rgba(0,0,0,.2)), radial-gradient(circle, #1F4E9E 0 12px, #C8202E 12.5px 20px, #F4EFE2 20.5px 28px, #C8202E 28.5px 38px);
   box-shadow:0 5px 16px rgba(0,0,0,.45), inset 0 0 0 2px rgba(0,0,0,.25); }
-.fx-shield i{ position:absolute; left:0; right:0; top:50%; margin-top:-11px; text-align:center; font-style:normal; font-size:19px; line-height:22px; color:#FFFFFF; }
+.fx-shield i{ position:absolute; left:50%; top:50%; width:25px; height:25px; margin:-12.5px 0 0 -12.5px; font-size:0; background:#FFFFFF; clip-path:polygon(50% 0%, 61.2% 34.5%, 97.6% 34.5%, 68.2% 55.9%, 79.4% 90.5%, 50% 69.1%, 20.6% 90.5%, 31.8% 55.9%, 2.4% 34.5%, 38.8% 34.5%); }
 .fx-cosmos{ position:fixed; top:0; left:0; width:100%; height:100vh; height:100lvh; z-index:-1; pointer-events:none; overflow:hidden; opacity:0;
   background-color:rgba(3,4,10,.72);
   background-image:radial-gradient(ellipse 70% 45% at 72% 22%, rgba(120,70,200,.32), rgba(120,70,200,0) 70%),
@@ -1663,7 +1695,7 @@ panel.addEventListener("pointerdown", ev => {
   else if (h && bid && TITLE_EGGS[bid]) act = () => TITLE_EGGS[bid](h, x, y);
   else if (row && bid && BOX_ROW_EGGS[bid]) act = () => BOX_ROW_EGGS[bid](x, y, row);
   else if (row && ROW_EGGS[row.dataset.t]) { const fn = ROW_EGGS[row.dataset.t]; act = () => fn(x, y, row); }
-  const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow], "cx-iron-man": [650, 0, () => ironHud()],
+  const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow], "cx-iron-man": [650, 0, () => ironHud()],
     "cx-the-watcher": [650, 0, shatter] };
   if (!act && ANY[bid]) { const [a, b, fn] = ANY[bid]; pnlStart = [x, y]; pnlTimer = setTimeout(() => { pnlFired = true; fn(x, y); }, a + Math.random() * b); return; }
   if (!act) return;
@@ -2039,22 +2071,69 @@ function punyTap() {
     if (!REDUCED) sc.animate([{ transform: "none" }, { transform: `translate(${a}px,${a / 3}px)` }, { transform: `translate(${-a}px,${-a / 4}px)` }, { transform: `translate(${a / 2}px,0)` }, { transform: "none" }], { duration: 260 + punyN * 40 });
     return;
   }
-  punyN = 0; haptic([160, 30, 260]);
+  punyN = 0; haptic([260, 30, 400]);
   if (!REDUCED) {
-    const W = innerWidth, H = innerHeight, cx = W / 2, cy = H * .45, R = Math.hypot(W, H);
-    sc.animate([{ transform: "none" }, { transform: "scale(.9) translateY(26px)", offset: .12 }, { transform: "scale(1.04) translateY(-10px)", offset: .3 }, { transform: "translate(8px,4px)", offset: .5 }, { transform: "translate(-5px,-2px)", offset: .7 }, { transform: "none" }], { duration: 900, easing: "ease-out" });
-    veil("fxl", "z-index:96;background:radial-gradient(ellipse at 50% 45%, rgba(120,220,90,.5), rgba(30,90,30,0) 70%)", [{ opacity: 0 }, { opacity: 1, offset: .12 }, { opacity: 0 }], 900);
-    // the slam knocks every title off its line; they settle back one by one
-    const its = listItems();
-    its.forEach((it, k) => {
-      const dx = (Math.random() - .5) * 60, dy = (Math.random() - .3) * 22, rot = (Math.random() - .5) * 9;
-      it.row.animate([{ transform: "none" }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)`, offset: .12 }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)`, offset: .45 },
-        { transform: `translate(${-dx * .12}px,${-dy * .12}px) rotate(${-rot * .15}deg)`, offset: .8 }, { transform: "none" }], { duration: 1500 + k * 70, delay: 60, easing: "cubic-bezier(.3,.6,.3,1)" });
+    const W = innerWidth, H = innerHeight, cx = W / 2, cy = H * .5, CR = Math.min(W, H) * .34;
+    sc.animate([{ transform: "none" }, { transform: "scale(.84) translateY(44px)", offset: .08 }, { transform: "scale(1.06) translateY(-16px)", offset: .2 }, { transform: "translate(12px,6px)", offset: .32 },
+      { transform: "translate(-9px,-4px)", offset: .44 }, { transform: "translate(6px,3px)", offset: .58 }, { transform: "translate(-3px,0)", offset: .72 }, { transform: "none" }], { duration: 1400, easing: "ease-out" });
+    veil("fxl", "z-index:96;background:radial-gradient(ellipse at 50% 50%, rgba(120,220,90,.55), rgba(30,90,30,0) 70%)", [{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 0 }], 1100);
+    smash(cx, cy, CR);
+    // the slam knocks every title off its line, holds them there, then they settle back one by one
+    listItems().forEach((it, k) => {
+      const dx = (Math.random() - .5) * 100, dy = (Math.random() - .3) * 34, rot = (Math.random() - .5) * 14;
+      it.row.animate([{ transform: "none" }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)`, offset: .08 }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)`, offset: .58 },
+        { transform: `translate(${-dx * .12}px,${-dy * .12}px) rotate(${-rot * .15}deg)`, offset: .84 }, { transform: "none" }], { duration: 2300 + k * 70, delay: 60, easing: "cubic-bezier(.3,.6,.3,1)" });
     });
-    fxRing(cx, cy, 160, "rgba(160,255,120,.6)", 500, 40, 5);
-    burst(cx, H * .9, 36, ["#B9B2A6", "#8E877C", "#9BE07A"], 120, 60);
   }
-  setTimeout(() => { say("Puny god."); found("puny"); }, 1100);
+  setTimeout(() => { say("Puny god."); found("puny"); }, 1900);
+}
+// the slam, all in motion: a ring of dust tears outward, a cloud of concrete dust billows up and hangs,
+// and shaded chunks of rubble are thrown up, spin, hit the bottom of the screen, bounce and settle
+function smash(cx, cy, CR) {
+  const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), W = innerWidth, H = innerHeight;
+  cv.className = "fx-canvas"; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  const rnd = (a, b) => a + Math.random() * (b - a), FLOOR = H - 14, GRAV = 1500;
+  const dust = Array.from({ length: 46 }, () => { const a = rnd(Math.PI * .95, Math.PI * 2.05), sp = rnd(50, 260); return { x: cx + rnd(-20, 20), y: cy + rnd(-10, 10), vx: Math.cos(a) * sp, vy: Math.sin(a) * sp * .7 - rnd(10, 60), r0: rnd(8, 16), r1: rnd(55, 115), life: rnd(2600, 3600), d: rnd(0, 250), c: Math.random() < .5 ? "158,150,136" : "122,115,104" }; });
+  const rocks = Array.from({ length: 30 }, () => {
+    const a = rnd(-Math.PI * .95, -Math.PI * .05), sp = rnd(260, 620), n = 5 + Math.floor(Math.random() * 3), sz = rnd(5, 17);
+    return { x: cx + rnd(-CR * .3, CR * .3), y: cy + rnd(-10, 10), vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, rot: rnd(0, 6), vr: rnd(-12, 12), bounced: 0, d: rnd(0, 90),
+      pts: Array.from({ length: n }, (_, k) => { const b = k / n * Math.PI * 2 + rnd(-.25, .25), q = rnd(.6, 1); return [Math.cos(b) * sz * q, Math.sin(b) * sz * q]; }), base: Math.random() < .5 ? [142, 136, 126] : [112, 107, 99] };
+  });
+  const grit = Array.from({ length: 70 }, () => { const a = rnd(0, Math.PI * 2), sp = rnd(300, 900); return { x: cx, y: cy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 150, s: rnd(1, 2.6) }; });
+  const T = 3800, t0 = performance.now(); let last = t0;
+  const draw = now => {
+    const t = Math.max(0, now - t0), dt = Math.max(0, Math.min(.04, (now - last) / 1000)); last = now; g.clearRect(0, 0, W, H);
+    if (t < 650) {   // the dust shockwave, low and wide, skidding along the ground
+      const p = t / 650, r = CR * .4 + Math.hypot(W, H) * .55 * (1 - Math.pow(1 - p, 2.2)), a = .5 * (1 - p);
+      g.save(); g.translate(cx, cy); g.scale(1, .55);
+      const wg = g.createRadialGradient(0, 0, Math.max(0, r - 70), 0, 0, r);
+      wg.addColorStop(0, "rgba(150,142,128,0)"); wg.addColorStop(.7, `rgba(150,142,128,${a})`); wg.addColorStop(1, "rgba(150,142,128,0)");
+      g.fillStyle = wg; g.beginPath(); g.arc(0, 0, r, 0, Math.PI * 2); g.fill(); g.restore();
+    }
+    dust.forEach(p => {
+      const lt = t - p.d; if (lt < 0 || lt > p.life) return;
+      const f = lt / p.life, slow = 1 - Math.pow(1 - Math.min(1, f * 1.6), 2), x = p.x + p.vx * slow * 1.4, y = p.y + p.vy * slow * 1.4 - 30 * f, r = p.r0 + (p.r1 - p.r0) * slow;
+      const a = (f < .12 ? f / .12 : 1 - (f - .12) / .88) * .42, rg = g.createRadialGradient(x, y, 0, x, y, r);
+      rg.addColorStop(0, `rgba(${p.c},${a})`); rg.addColorStop(.6, `rgba(${p.c},${a * .5})`); rg.addColorStop(1, `rgba(${p.c},0)`);
+      g.fillStyle = rg; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+    });
+    if (t < 700) { g.fillStyle = "rgba(196,188,174,.9)"; g.globalAlpha = 1 - t / 700; grit.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += GRAV * dt; g.fillRect(p.x, p.y, p.s, p.s); }); g.globalAlpha = 1; }
+    rocks.forEach(r => {
+      if (t < r.d) return;
+      r.vy += GRAV * dt; r.x += r.vx * dt; r.y += r.vy * dt; r.rot += r.vr * dt;
+      if (r.y > FLOOR && r.vy > 0) { if (r.bounced < 2) { r.vy *= -.32; r.vx *= .6; r.vr *= .5; r.bounced++; } else { r.y = FLOOR; r.vy = 0; r.vx *= .85; r.vr *= .8; } }
+      g.save(); g.translate(r.x, r.y); g.rotate(r.rot); g.globalAlpha = t > T - 700 ? Math.max(0, (T - t) / 700) : 1;
+      const [R, G, B] = r.base, sh = g.createLinearGradient(-10, -10, 10, 10);
+      sh.addColorStop(0, `rgb(${R + 50},${G + 48},${B + 44})`); sh.addColorStop(.5, `rgb(${R},${G},${B})`); sh.addColorStop(1, `rgb(${R - 50},${G - 48},${B - 44})`);
+      g.beginPath(); r.pts.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath();
+      g.fillStyle = sh; g.fill(); g.lineWidth = 1; g.strokeStyle = "rgba(40,36,32,.55)"; g.stroke();
+      g.restore();
+    });
+    g.globalAlpha = 1;
+    if (t < T) requestAnimationFrame(draw); else cv.remove();
+  };
+  requestAnimationFrame(draw);
 }
 
 /* ---------- bonus: the Mirror Dimension. Hold Doctor Strange: the page folds; tap anywhere to snap back ---------- */
@@ -2418,6 +2497,7 @@ function tenRings(h) {
   setTimeout(() => { fxRing(cx, cy, Math.hypot(W, H), "#FF3B2F", 900, 0, 3); haptic([80, 40, 120]); }, T * .7);
   haptic([20, 40, 20, 40, 20, 40, 20, 40, 20, 40]);
 }
+
 /* ---------- Eternals: hold the name and their golden geometry draws itself across the screen ---------- */
 let eternalsN = 0;
 function eternals(cx, cy) {
@@ -2670,18 +2750,36 @@ window.addEventListener("pointermove", ev => {
 // after the hold, the fingers lifting must not also check or open anything
 window.addEventListener("click", ev => { if (Date.now() < doomBlockUntil) { ev.stopPropagation(); ev.preventDefault(); } }, true);
 function doom(A, B) {
-  found("doom", 3400);
+  found("doom", 4200);
   if (REDUCED || doomOn) return;
   doomOn = true;
   const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), W = innerWidth, H = innerHeight;
   cv.className = "fx-canvas"; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
   const g = cv.getContext("2d"); g.scale(dpr, dpr);
-  const M = [(A[0] + B[0]) / 2, Math.max(140, (A[1] + B[1]) / 2 - 90)], R0 = Math.min(W, H) * .16, Rmax = Math.hypot(W, H);
+  const M = [(A[0] + B[0]) / 2, Math.max(140, (A[1] + B[1]) / 2 - 90)], R0 = Math.min(W, H) * .2, Rmax = Math.hypot(W, H);
   // Kirby Krackle: neat rings of black ink dots, biggest nearest the energy, smaller as they go out
   const rings = [[1.05, 16, 5.5], [1.32, 22, 3.8], [1.58, 30, 2.4]].map(([f, n, r], k) => ({ f, r, dir: k % 2 ? -1 : 1, dots: Array.from({ length: n }, (_, j) => ({ a: j / n * Math.PI * 2 + (Math.random() - .5) * .12, j: (Math.random() - .5) * .06 })) }));
   const bolt = (P) => { const pts = [P]; for (let k = 1; k < 8; k++) { const f = k / 8; pts.push([P[0] + (M[0] - P[0]) * f + (Math.random() - .5) * 18, P[1] + (M[1] - P[1]) * f + (Math.random() - .5) * 18]); } pts.push(M); return pts; };
   let bolts = [bolt(A), bolt(B)], lastBolt = 0;
-  const T = 3400, GATHER = 1700, t0 = performance.now();
+  const T = 3400, GATHER = 1700, WAVE = 1500, t0 = performance.now();
+  // the discharge lands like a punch, and the Krackle on its front knocks each title away as it reaches it
+  setTimeout(() => {
+    haptic([200, 30, 320]);
+    fxScope().animate([{ transform: "none" }, { transform: "scale(.94) translate(8px,10px)", offset: .12 }, { transform: "translate(-10px,-6px)", offset: .3 }, { transform: "translate(7px,4px)", offset: .5 }, { transform: "translate(-4px,-2px)", offset: .7 }, { transform: "none" }], { duration: 900, easing: "ease-out" });
+    veil("fxl", `z-index:96;background:radial-gradient(circle at ${M[0]}px ${M[1]}px, rgba(220,255,225,.7), rgba(60,220,110,.25) 35%, rgba(60,220,110,0) 70%)`, [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 700);
+  }, GATHER);
+  listItems().forEach(it => {
+    const r = it.t.getBoundingClientRect(); if (!r.width || r.bottom < 0 || r.top > H) return;
+    const x = r.left + Math.min(r.width, 140) / 2, y = r.top + r.height / 2, dx = x - M[0], dy = y - M[1], d = Math.hypot(dx, dy) || 1;
+    const f = Math.max(0, Math.min(1, (d - R0) / (Rmax - R0))), at = GATHER + (1 - Math.pow(1 - f, 1 / 2.4)) * WAVE;
+    setTimeout(() => {
+      const far = 160 + Math.random() * 160, rot = (Math.random() < .5 ? -1 : 1) * (20 + Math.random() * 40), kx = dx / d * far, ky = dy / d * far * .6;
+      it.row.animate([{ transform: "none", opacity: 1 }, { transform: `translate(${kx}px,${ky}px) rotate(${rot}deg)`, opacity: .35, offset: .14 }, { transform: `translate(${kx}px,${ky}px) rotate(${rot}deg)`, opacity: .35, offset: .62 },
+        { transform: "none", opacity: 1 }], { duration: 2300, easing: "cubic-bezier(.2,.7,.3,1)" });
+      for (let k = 0; k < 10; k++) sparkC(x, y, dx / d * (30 + Math.random() * 50) + (Math.random() - .5) * 40, dy / d * (30 + Math.random() * 50) + (Math.random() - .5) * 40, 0, 600, ["#06120A", "#0B1A10", "#7CFF9A"], "dark");
+      haptic(18);
+    }, at);
+  });
   const draw = now => {
     const t = now - t0; g.clearRect(0, 0, W, H);
     const grow = Math.min(1, t / GATHER), ease = 1 - Math.pow(1 - grow, 3), R = R0 * ease;
@@ -2705,23 +2803,23 @@ function doom(A, B) {
     }
     if (t > GATHER) {
       // the discharge: a soft green wave rolls out to the edges, one ring of Krackle riding its front
-      const p = Math.min(1, (t - GATHER) / 1500), r = R0 + (Rmax - R0) * (1 - Math.pow(1 - p, 2.4)), a = 1 - p;
-      const wg = g.createRadialGradient(M[0], M[1], Math.max(0, r - 90), M[0], M[1], r);
-      wg.addColorStop(0, "rgba(60,220,110,0)"); wg.addColorStop(.75, `rgba(90,255,140,${.35 * a})`); wg.addColorStop(1, "rgba(90,255,140,0)");
+      const p = Math.min(1, (t - GATHER) / WAVE), r = R0 + (Rmax - R0) * (1 - Math.pow(1 - p, 2.4)), a = 1 - p;
+      const wg = g.createRadialGradient(M[0], M[1], Math.max(0, r - 130), M[0], M[1], r);
+      wg.addColorStop(0, "rgba(60,220,110,0)"); wg.addColorStop(.75, `rgba(90,255,140,${.5 * a})`); wg.addColorStop(1, "rgba(90,255,140,0)");
       g.fillStyle = wg; g.fillRect(0, 0, W, H);
       g.globalAlpha = a; g.fillStyle = "#06120A";
-      rings[0].dots.concat(rings[1].dots).forEach((d, k) => { const rr = r - 30 + (k % 2) * 14; g.beginPath(); g.arc(M[0] + Math.cos(d.a) * rr, M[1] + Math.sin(d.a) * rr, (k % 2 ? 2.6 : 4.2) * (1 - p * .6), 0, Math.PI * 2); g.fill(); });
+      rings[0].dots.concat(rings[1].dots).forEach((d, k) => { const rr = r - 30 + (k % 2) * 14; g.beginPath(); g.arc(M[0] + Math.cos(d.a) * rr, M[1] + Math.sin(d.a) * rr, (k % 2 ? 3.4 : 5.6) * (1 - p * .5), 0, Math.PI * 2); g.fill(); });
       g.globalAlpha = 1;
     }
     if (t < T) requestAnimationFrame(draw); else { cv.remove(); doomOn = false; }
   };
   requestAnimationFrame(draw);
-  haptic([10, 60, 10, 60, 10, 60, 10, 60, 10, 60, 10, 560, 120]);
+  haptic([10, 60, 10, 60, 10, 60, 10, 60, 10, 60, 10, 60, 10, 60, 10, 160]);
 }
 
 /* ---------- Captain America: hold anywhere in his box. The shield ricochets off the edges a few times, then breaks through an edge or sticks in it ---------- */
 let shieldOn = false;
-function shieldThrow(x0, y0) {
+function shieldThrow(x0, y0, quiet) {
   if (REDUCED) { found("shield"); return; }
   if (shieldOn) return;
   shieldOn = true;
@@ -2739,7 +2837,7 @@ function shieldThrow(x0, y0) {
     setTimeout(() => made.forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: "forwards" }).onfinish = () => c.remove()), 1700);
   };
   const ring = (cx, cy) => { burst(cx, cy, 12, ["#FFFFFF", "#DDE6F2", "#AFC0D6"], 40); haptic(40); fxScope().animate([{ transform: "none" }, { transform: `translate(${(Math.random() - .5) * 8}px,${(Math.random() - .5) * 6}px)` }, { transform: "none" }], { duration: 140 }); };
-  const finish = () => { el.remove(); shieldOn = false; found("shield"); };
+  const finish = () => { el.remove(); shieldOn = false; if (!quiet) found("shield"); };
   const step = now => {
     const dt = Math.min(.04, (now - last) / 1000); last = now;
     if (!done) {
@@ -2780,27 +2878,95 @@ function shieldThrow(x0, y0) {
   requestAnimationFrame(step);
 }
 
-/* ---------- Hawkeye: hold anywhere in his box, keep holding... and an arrow lands exactly there ---------- */
-function arrow(x, y) {
-  found("arrow", 2800);
+/* ---------- Hawkeye: hold anywhere in his box, keep holding... and an arrow lands exactly there.
+   Each hold fires the next trick arrow: regular, explosive, USB, goo, shock ---------- */
+const TRICK = [{ n: "regular" }, { n: "explosive", tip: "boom" }, { n: "usb", tip: "usb", inner: "<i></i>" }, { n: "goo", tip: "goo" }, { n: "shock", tip: "zap" }];
+let trickN = 0;
+function arrow(x, y, quiet) {   // quiet: fired by another egg; a plain arrow, and the trick cycle doesn't move
+  if (!quiet) found("arrow", 2800);
   if (REDUCED) return;
+  const kind = quiet ? TRICK[0] : TRICK[trickN++ % TRICK.length];
   const W = innerWidth, H = innerHeight, from = Math.random() < .5 ? [-120, y - 80 - Math.random() * 120] : [W + 120, y - 80 - Math.random() * 120];
   const ang = Math.atan2(y - from[1], x - from[0]) * 180 / Math.PI;
-  const a = document.createElement("div"); a.className = "fx-arrow"; a.style.cssText = `left:${x}px;top:${y}px;transform:rotate(${ang}deg)`; document.body.appendChild(a);
+  const a = document.createElement("div"); a.className = "fx-arrow"; a.style.cssText = `left:${x}px;top:${y}px;transform:rotate(${ang}deg)`;
+  if (kind.tip) { a.classList.add("trick"); a.innerHTML = `<b class="fx-tip ${kind.tip}">${kind.inner || ""}</b>`; }
+  document.body.appendChild(a);
   a.animate([{ transform: `translate(${from[0] - x}px,${from[1] - y}px) rotate(${ang}deg)` }, { transform: `translate(0,0) rotate(${ang}deg)` }], { duration: 170, easing: "linear", fill: "both" });
+  const fade = (els, at) => setTimeout(() => els.forEach(el => el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 600, fill: "forwards" }).onfinish = () => el.remove()), at);
+  const jolt = n => fxScope().animate([{ transform: "none" }, { transform: `translate(${-n}px,${n * .6}px)` }, { transform: `translate(${n * .8}px,${-n * .4}px)` }, { transform: "none" }], { duration: 220 + n * 20 });
   setTimeout(() => {
-    haptic([120, 20, 60]);
-    fxScope().animate([{ transform: "none" }, { transform: "translate(-5px,3px)" }, { transform: "translate(4px,-2px)" }, { transform: "none" }], { duration: 220 });
-    // the screen cracks out from the arrowhead
-    const R = Math.hypot(W, H), cracks = [];
-    for (let k = 0; k < 12; k++) {
-      const an = k / 12 * Math.PI * 2 + (Math.random() - .5) * .5, len = R * (.15 + Math.random() * .45);
-      const c = document.createElement("div"); c.className = "fx-crack"; c.style.cssText = `left:${x}px;top:${y}px;width:${len}px;transform:rotate(${an}rad) scaleX(0)`; document.body.appendChild(c); cracks.push(c);
-      c.animate([{ transform: `rotate(${an}rad) scaleX(0)` }, { transform: `rotate(${an}rad) scaleX(1)` }], { duration: 260, delay: k * 12, easing: "ease-out", fill: "both" });
+    if (kind.n === "regular") {   // the screen cracks out from the arrowhead
+      haptic([120, 20, 60]); jolt(5);
+      const R = Math.hypot(W, H), cracks = [];
+      for (let k = 0; k < 12; k++) {
+        const an = k / 12 * Math.PI * 2 + (Math.random() - .5) * .5, len = R * (.15 + Math.random() * .45);
+        const c = document.createElement("div"); c.className = "fx-crack"; c.style.cssText = `left:${x}px;top:${y}px;width:${len}px;transform:rotate(${an}rad) scaleX(0)`; document.body.appendChild(c); cracks.push(c);
+        c.animate([{ transform: `rotate(${an}rad) scaleX(0)` }, { transform: `rotate(${an}rad) scaleX(1)` }], { duration: 260, delay: k * 12, easing: "ease-out", fill: "both" });
+      }
+      for (let k = 0; k < 5; k++) fxRing(x, y, 20 + k * 22, "rgba(255,255,255,.7)", 200, k * 20, 1.5);
+      burst(x, y, 30, ["#FFFFFF", "#DDE6F2", "#AFC0D6"], 70);
+      fade([a, ...cracks], 2400);
+    } else if (kind.n === "explosive") {   // the tip blinks, then it goes off
+      haptic(40);
+      a.firstChild.animate([{ filter: "none" }, { filter: "brightness(1.9) drop-shadow(0 0 5px #FF4A2A)" }, { filter: "none" }], { duration: 170, iterations: 3 });
+      setTimeout(() => {
+        a.remove(); haptic([180, 30, 260]); jolt(12);
+        glowC(x, y, 0, "orange", 2.6); fxRing(x, y, 120, "#FFB347", 500, 0, 5); fxRing(x, y, Math.hypot(W, H) * .5, "rgba(255,138,31,.6)", 800, 60, 4);
+        burst(x, y, 60, ORANGE_C.concat(["#FFFFFF", "#E0452B"]), 170, 30);
+        for (let k = 0; k < 16; k++) sparkC(x + (Math.random() - .5) * 40, y + (Math.random() - .5) * 30, (Math.random() - .5) * 90, -40 - Math.random() * 80, 200 + Math.random() * 300, 1500, ["#3A3530", "#57514A", "#6E675E"], "dust");
+      }, 520);
+    } else if (kind.n === "usb") {   // it doesn't stick: it bounces back off the spot and tumbles away
+      haptic([30, 20, 30]); burst(x, y, 12, ["#FFFFFF", "#9FD0FF", "#5FA8FF"], 40);
+      const back = ang * Math.PI / 180, bx = -Math.cos(back) * (90 + Math.random() * 60), spin = (Math.random() < .5 ? -1 : 1) * (300 + Math.random() * 300), kf = [];
+      for (let j = 0; j <= 10; j++) { const t = j / 10 * 1.2; kf.push({ transform: `translate(${bx * t}px,${-170 * t + 520 * t * t}px) rotate(${ang + spin * t}deg)`, opacity: j > 8 ? 0 : 1 }); }
+      a.animate(kf, { duration: 1200, easing: "linear", fill: "forwards" }).onfinish = () => a.remove();
+    } else if (kind.n === "goo") {   // live goo: blobs splash out, get pulled back together, and drip in strings, merged by a goo filter
+      haptic([60, 30, 40]); jolt(3);
+      if (!document.getElementById("fx-goo-f")) {
+        const d = document.createElement("div");
+        d.innerHTML = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="fx-goo-f" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11" result="g"/>
+          <feGaussianBlur in="g" stdDeviation="2.5" result="gb"/><feSpecularLighting in="gb" surfaceScale="5" specularConstant="1.1" specularExponent="26" lighting-color="#ffffff" result="s"><feDistantLight azimuth="225" elevation="48"/></feSpecularLighting>
+          <feDiffuseLighting in="gb" surfaceScale="4" diffuseConstant="1.25" lighting-color="#ffffff" result="d"><feDistantLight azimuth="225" elevation="55"/></feDiffuseLighting><feComposite in="g" in2="d" operator="arithmetic" k1="1" result="sh"/><feComposite in="s" in2="g" operator="in" result="si"/><feComposite in="sh" in2="si" operator="arithmetic" k2="1" k3=".8"/></filter></defs></svg>`;
+        document.body.appendChild(d.firstChild);
+      }
+      const wrap = document.createElement("div"); wrap.className = "fx-goowrap"; wrap.style.left = (x - 160) + "px"; wrap.style.top = (y - 120) + "px"; document.body.insertBefore(wrap, a);
+      const blob = (sz, kf, opt) => { const b = document.createElement("i"); b.style.cssText = `width:${sz}px;height:${sz}px;margin:${-sz / 2}px 0 0 ${-sz / 2}px`; wrap.appendChild(b); b.animate(kf, { fill: "both", ...opt }); return b; };
+      blob(66, [{ transform: "scale(.1)" }, { transform: "scale(1.18,1.05)", offset: .3 }, { transform: "scale(.94,1)", offset: .6 }, { transform: "scale(1)" }], { duration: 650, easing: "ease-out" });
+      for (let k = 0; k < 16; k++) {   // splashes: some stay joined by goo, a few small ones land loose further out
+        const loose = k % 4 === 3, an = k / 16 * Math.PI * 2 + (Math.random() - .5) * .4, dd = loose ? 95 + Math.random() * 40 : 40 + Math.random() * 70, sz = loose ? 9 + Math.random() * 5 : 13 + Math.random() * 17, dx = Math.cos(an) * dd, dy = Math.sin(an) * dd * .8, keep = loose ? 1 : .8;
+        blob(sz, [{ transform: "translate(0,0) scale(.3)" }, { transform: `translate(${dx * 1.12}px,${dy * 1.12}px) scale(1)`, offset: .3 }, { transform: `translate(${dx * keep}px,${dy * keep}px) scale(.85)`, offset: .75 }, { transform: `translate(${dx * keep}px,${dy * keep + 4}px) scale(.8)` }],
+          { duration: 1100, easing: "cubic-bezier(.2,.8,.3,1)" });
+      }
+      for (let k = 0; k < 4; k++) {   // drips: a heavy drop slides down on a stretching string, then lets go
+        const dx = -27 + k * 18 + (Math.random() - .5) * 8, len = 70 + Math.random() * 90, dl = 600 + Math.random() * 600, dur = 2200 + Math.random() * 700;
+        blob(17 + Math.random() * 5, [{ transform: `translate(${dx}px,20px)` }, { transform: `translate(${dx}px,${20 + len * .35}px)`, offset: .45 }, { transform: `translate(${dx}px,${20 + len}px)`, offset: .78 }, { transform: `translate(${dx}px,${20 + len + 240}px)`, offset: 1 }],
+          { duration: dur, delay: dl, easing: "ease-in" });
+        [.15, .32, .49, .66, .82].forEach(f => blob(9, [{ transform: `translate(${dx}px,20px)` }, { transform: `translate(${dx}px,${20 + len * .35 * f}px)`, offset: .45 }, { transform: `translate(${dx}px,${20 + len * f}px)`, offset: .78 }, { transform: `translate(${dx}px,${20 + len * f * .5}px)` }], { duration: dur, delay: dl, easing: "ease-in" }));
+      }
+      setTimeout(() => wrap.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, fill: "forwards" }).onfinish = () => wrap.remove(), 3300);
+      fade([a], 3300);
+    } else {   // shock: electric arcs crackle around the arrow and jump to the titles nearby
+      haptic([15, 25, 15, 25, 15, 25, 15, 25, 40]);
+      const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1); cv.className = "fx-canvas"; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
+      const g = cv.getContext("2d"); g.scale(dpr, dpr);
+      const near = listItems().map(it => it.t.getBoundingClientRect()).filter(r => r.width && Math.hypot(r.left + 40 - x, r.top + r.height / 2 - y) < 220).slice(0, 4).map(r => [r.left + 20 + Math.random() * Math.min(120, r.width), r.top + r.height / 2]);
+      const zig = (x0, y0, x1, y1, n, j) => { g.beginPath(); g.moveTo(x0, y0); for (let k = 1; k < n; k++) { const f = k / n; g.lineTo(x0 + (x1 - x0) * f + (Math.random() - .5) * j, y0 + (y1 - y0) * f + (Math.random() - .5) * j); } g.lineTo(x1, y1); g.stroke(); };
+      const T = 1500, t0 = performance.now(); let last = 0;
+      const draw = now => {
+        const t = now - t0;
+        if (t - last > 60) {
+          last = t; g.clearRect(0, 0, W, H); g.globalAlpha = t < T - 300 ? 1 : (T - t) / 300;
+          g.strokeStyle = "#EAF6FF"; g.lineWidth = 1.8; g.shadowColor = "#7FC8FF"; g.shadowBlur = 12;
+          for (let k = 0; k < 5; k++) { const an = Math.random() * Math.PI * 2, r = 30 + Math.random() * 50; zig(x, y, x + Math.cos(an) * r, y + Math.sin(an) * r, 5, 16); }
+          if (t > 300) near.forEach(([nx, ny]) => { if (Math.random() < .6) zig(x, y, nx, ny, 9, 26); });
+        }
+        if (t < T) requestAnimationFrame(draw); else cv.remove();
+      };
+      requestAnimationFrame(draw);
+      veil("fxl", "z-index:96;background:rgba(150,210,255,.18)", [{ opacity: 0 }, { opacity: 1 }, { opacity: .2 }, { opacity: 1 }, { opacity: 0 }], 600);
+      jolt(4); fade([a], 1700);
     }
-    for (let k = 0; k < 5; k++) { const r = 20 + k * 22; fxRing(x, y, r, "rgba(255,255,255,.7)", 200, k * 20, 1.5); }
-    burst(x, y, 30, ["#FFFFFF", "#DDE6F2", "#AFC0D6"], 70);
-    setTimeout(() => { [a, ...cracks].forEach(el => el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 600, fill: "forwards" }).onfinish = () => el.remove()); }, 2400);
   }, 170);
 }
 
@@ -2813,37 +2979,45 @@ function found(id, ms) {
 }
 const anyChecked = t => Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::" + t));
 const allTL = (list, pre, lane) => list.filter(e => !lane || e.lane === lane).every(e => state.checks[pre + e.t]);
+// Classified, split evenly in two: page 1 the Infinity Saga heroes, page 2 the Multiverse Saga (plus the two about the movies themselves), each in release order
 const EGGS = [
-  ["worthy", "Worthy", "Whosoever holds this hammer…", "Complete Thor's box, then hold his name."],
-  ["ironhud", "Heads-up", "Tony's display.", "Hold anywhere in Iron Man's box."],
-  ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times."],
-  ["photon", "Higher, further, faster", "Carol powers up.", "Hold Captain Marvel's name in her box."],
-  ["radar", "World on fire", "The man without fear sees differently.", "Hold Daredevil's name in his box."],
-  ["quantum", "Quantum Realm", "Think small.", "Hold the name in the Ant-Man & the Wasp box."],
-  ["tenrings", "Ten rings", "They're already on his box.", "Hold the name in the Shang-Chi box."],
-  ["eternals", "The Uni-Mind", "Their power, joined as one.", "Hold anywhere in the Eternals box."],
-  ["moon", "Fractured", "Who's in control?", "Hold the name in the Moon Knight box."],
-  ["fury", "Eyes only", "For the Director.", "Hold the name in the Nick Fury & S.H.I.E.L.D. box."],
-  ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top 3 times."],
-  ["penny", "Penny and dime", "Count it out.", "In The Punisher box, tap his quote 4 times."],
-  ["studio", "Marvel Studios", "Every movie starts the same way.", "Tap the main title 5 times."],
-  ["doom", "Doom", "He fights with both hands.", "Hold any Avengers: Doomsday title with two fingers (on a computer, a long hold)."],
-  ["arrow", "Never misses", "Patience, archer.", "Hold anywhere in Hawkeye's box for 3 to 4 seconds."],
-  ["mirror", "Mirror Dimension", "Strange things fold.", "Hold the Doctor Strange title."],
-  ["herald", "The Herald", "Something silver comes first.", "Hold The Fantastic Four: First Steps."],
-  ["dance", "Dance-off", "Star-Lord's distraction.", "Hold Guardians of the Galaxy."],
-  ["chi", "Chi", "An immortal weapon.", "Hold Iron Fist S1 or S2."],
-  ["swap", "Swap", "Three heroes keep trading places.", "Hold The Marvels."],
-  ["skrull", "Not who it says it is", "Shapeshifters among us.", "Hold Secret Invasion, then tap the title that doesn't belong."],
-  ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box."],
-  ["newav", "*The New Avengers", "Bob's darkness. Let it take everything.", "Hold Thunderbolts* until every other title in its list is a shadow."],
-  ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box."],
-  ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box."],
-  ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap anywhere in Spider-Man's box."],
-  ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers."],
-  ["prune", "Pruned", "The TVA's way.", "On a timeline page, hold a branch line."],
-  ["variant", "Variant", "Look at the map.", "Hold a character's name in the Character Map."],
-  ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse on the Sacred Timeline."]
+  ["ironhud", "Heads-up", "Tony's display.", "Hold anywhere in Iron Man's box.", 1],
+  ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times.", 1],
+  ["worthy", "Worthy", "Whosoever holds this hammer…", "Complete Thor's box, then hold his name.", 1],
+  ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box.", 1],
+  ["arrow", "Never misses", "Patience, archer.", "Hold anywhere in Hawkeye's box for 3 to 4 seconds.", 1],
+  ["avengers", "Assemble", "Earth's mightiest, all at once.", "Hold the name in The Avengers box.", 1],
+  ["fury", "Eyes only", "For the Director.", "Hold the name in the Nick Fury & S.H.I.E.L.D. box.", 1],
+  ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top 3 times.", 1],
+  ["groot", "We are Groot", "They protect what they love.", "Hold the quote in the Guardians of the Galaxy box.", 1],
+  ["dance", "Dance-off", "Star-Lord's distraction.", "Hold Guardians of the Galaxy.", 1],
+  ["quantum", "Quantum Realm", "Think small.", "Hold the name in the Ant-Man & the Wasp box.", 1],
+  ["radar", "World on fire", "The man without fear sees differently.", "Hold Daredevil's name in his box.", 1],
+  ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
+  ["mirror", "Mirror Dimension", "Strange things fold.", "Hold the Doctor Strange title.", 1],
+  ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap anywhere in Spider-Man's box.", 1],
+  ["chi", "Chi", "An immortal weapon.", "Hold Iron Fist S1 or S2.", 1],
+  ["penny", "Penny and dime", "Count it out.", "In The Punisher box, tap his quote 4 times.", 1],
+  ["photon", "Higher, further, faster", "Carol powers up.", "Hold Captain Marvel's name in her box.", 1],
+  ["tenrings", "Ten rings", "They're already on his box.", "Hold the name in the Shang-Chi box.", 2],
+  ["eternals", "The Uni-Mind", "Their power, joined as one.", "Hold anywhere in the Eternals box.", 2],
+  ["moon", "Fractured", "Who's in control?", "Hold the name in the Moon Knight box.", 2],
+  ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box.", 2],
+  ["werewolf", "Bloodstone", "Something red sets it off.", "Hold the name in the Werewolf by Night box.", 2],
+  ["sinister", "Hello, Peter.", "Five old enemies.", "Hold anywhere in The Sony Spider-Men box until you've seen all five villains.", 2],
+  ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box.", 2],
+  ["swap", "Swap", "Three heroes keep trading places.", "Hold The Marvels.", 2],
+  ["skrull", "Not who it says it is", "Shapeshifters among us.", "Hold Secret Invasion, then tap the title that doesn't belong.", 2],
+  ["prune", "Pruned", "The TVA's way.", "On a timeline page, hold a branch line.", 2],
+  ["variant", "Variant", "Look at the map.", "Hold a character's name in the Character Map.", 2],
+  ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers.", 2],
+  ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box.", 2],
+  ["herald", "The Herald", "Something silver comes first.", "Hold The Fantastic Four: First Steps.", 2],
+  ["tbolts", "Redacted", "Valentina keeps files on everyone.", "Hold the name in The Thunderbolts box.", 2],
+  ["newav", "*The New Avengers", "Bob's darkness. Let it take everything.", "Hold Thunderbolts* until every other title in its list is a shadow.", 2],
+  ["doom", "Doom", "He fights with both hands.", "Hold any Avengers: Doomsday title with two fingers (on a computer, a long hold).", 2],
+  ["studio", "Marvel Studios", "Every movie starts the same way.", "Tap the main title 5 times.", 2],
+  ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse on the Sacred Timeline.", 2]
 ];
 // the line each Avengers film mission announces itself with (Doomsday and Secret Wars are placeholders until the films are out)
 const FILM_LINES = { "The Avengers": "Have you ever tried shawarma?", "Avengers: Age of Ultron": "There are no strings on me.", "Avengers: Infinity War": "Bring me Thanos!",
@@ -2864,7 +3038,7 @@ function achList() {
   A.push({ id: "multiverse", sec: "missions", done: true, secret: true, t: "The Multiverse", d: "Every branch is complete too.", h: "Every line, not just one.", x: "Complete every chapter including the Extras, or check off every title on the Sacred Timeline page, branches included.", ok: () => DATA.chapters.every(isDone) || allTL(DATA.timeline, "tl::") || allTL(DATA.timelineRelease, "tr::") });
   STONES.forEach(z => A.push({ id: "stone-" + z.id, sec: "artifacts", t: z.n + " Stone", ann: STONE_LINES[z.id], ms: STONE_MS[z.id], lead: true, d: "Found.", h: z.hint, x: STONE_HOW[z.id], ok: () => !!st[z.id] }));
   A.push({ id: "snap", sec: "artifacts", t: "Perfectly balanced", d: "You snapped.", h: "With all six…", x: "With all six stones, tap the colored line under the title and press Snap?", ok: () => !!ex.snap });
-  EGGS.forEach(([id, t, h, x]) => A.push({ id: "egg-" + id, sec: "classified", t, d: "Found.", h, x, secret: true, ok: () => !!ex[id] }));
+  EGGS.forEach(([id, t, h, x, pg]) => A.push({ id: "egg-" + id, sec: "classified", pg, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id] }));
   const pagesDone = () => DATA.chapters.every(isDone) && DATA.chars.every(isDone) && allTL(DATA.timeline, "tl::") && allTL(DATA.timelineRelease, "tr::");
   const eggsDone = () => allStones() && EGGS.every(([id]) => ex[id]);
   A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish the whole app.", x: "Complete every chapter, every character box, and both timeline views.", ok: pagesDone });
@@ -2907,12 +3081,14 @@ function flushAch() {
   if (thanos) say("But this… does put a smile on my face.");
 }
 
-let fileOpen = false; const achTaps = {};
+let fileOpen = false, hfPage = 1, hfFlip = false; const achTaps = {};
 function renderFile() {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = Math.min(10, 1 + Math.floor(done / A.length * 10));
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec !== "chapters" || (a.extra && !state.unlocked[a.cid])) && !ok;
     const note = ok ? a.d : n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : (sec ? "Classified" : "Locked");
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${ok ? "Complete" : sec ? "Classified" : "Locked"}</span><b>${esc(sec ? "???" : a.t)}</b><small>${esc(note)}</small></button>`; };
+  const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
+    return `<section class="hf-sec"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span>${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button></span></h3><div class="hf-grid hf-pg${hfFlip ? " flip" : ""}">${L.map(card).join("")}</div></section>`; };
   const part = (key, title, mini) => { const L = A.filter(a => a.sec === key); return `<section class="hf-sec"><h3><span>${title}</span><span>${L.filter(a => earned(a.id)).length}/${L.length}</span></h3><div class="hf-grid${mini ? " mini" : ""}">${L.map(card).join("")}</div></section>`; };
   const got = key => A.filter(a => a.sec === key && earned(a.id)).length, tot = key => A.filter(a => a.sec === key).length, open = fileSecs(A);
   const stat = (key, label) => open[key] ? `<div><b>${got(key)}/${tot(key)}</b><small>${label} complete</small></div>` : "";
@@ -2921,7 +3097,7 @@ function renderFile() {
     <div class="hf-head"><div class="hf-tag">Avengers Initiative · Hero File</div><div class="hf-name">Hero Profile</div>
       <div class="hf-level">Clearance level ${level} of 10 · ${achCount()} files</div><div class="hf-bar"><span style="width:${pct}%"></span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
-    ${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${sect("classified", "Classified")}${sect("final", "Final")}
+    ${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress lives in this browser. A save code holds all of it (checkmarks, chapters, stones, Hero File) in one line of text. Keep it in your notes, and paste it here on a new version of the app, a new browser, or a new phone.</p>
       <div class="row"><button type="button" class="go" data-save="copy">Copy save code</button><button type="button" data-save="open">Restore code</button></div>
@@ -2937,16 +3113,21 @@ function closeFile(fromHistory) {
 document.getElementById("fileBack").addEventListener("click", () => closeFile());
 document.getElementById("btnFile").addEventListener("click", () => openFile());
 document.getElementById("fileView").addEventListener("click", ev => {
+  const pgb = ev.target.closest("[data-hfpg]");
+  if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = hfPage === 1 ? 2 : 1; hfFlip = true; renderFile(); hfFlip = false; fv.scrollTop = y; return; }
   const b = ev.target.closest("[data-ach]"); if (!b) return;
   const a = achList().find(z => z.id === b.dataset.ach); if (!a || earned(a.id)) return;
-  if ((achTaps[a.id] || 0) >= 20) { achTaps[a.id] = 0; renderFile(); haptic(8); return; }   // tap a revealed answer to hide it again
+  if ((achTaps[a.id] || 0) >= 20) {   // a revealed answer stays put: the next tap only asks whether to hide it
+    ask("Hide the answer again?", "Yes", "No").then(ok => { if (!ok) return; achTaps[a.id] = 0; const sm = b.querySelector("small"); if (sm) sm.textContent = b.dataset.base || sm.textContent; haptic(8); });
+    return;
+  }
   achTaps[a.id] = (achTaps[a.id] || 0) + 1; haptic(achTaps[a.id] === 10 || achTaps[a.id] === 20 ? [20, 40, 20] : 8);
-  if (achTaps[a.id] === 10 || achTaps[a.id] === 20) renderFile();
+  if (achTaps[a.id] === 10 || achTaps[a.id] === 20) { const sm = b.querySelector("small"); if (sm) { if (!b.dataset.base) b.dataset.base = sm.textContent; sm.textContent = achTaps[a.id] === 20 ? a.x + " (tap to hide)" : a.h; } }
 });
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
+const SAVE_KEYS = ["checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -3199,15 +3380,499 @@ function mapVariant(r) {
   requestAnimationFrame(glide);
   for (let k = 0; k < n; k++) {
     let off; do { off = (Math.random() < .5 ? -1 : 1) * (28 + Math.floor(Math.random() * 7) * 22); } while (used.has(off) && used.size < 14); used.add(off);
-    const len = 500 + Math.random() * 2600, bend = 24;
-    // the same weave shape as every other line: out of the start, a curve over, then straight along beside it
-    const d = `M${x0},${y0} L${x0 + 30},${y0} C${x0 + 30 + bend},${y0} ${x0 + 30 + bend},${y0 + off} ${x0 + 30 + bend * 2},${y0 + off} L${x0 + 30 + bend * 2 + len},${y0 + off}`;
+    const len = 800 + Math.random() * 3000, bend = 24, L = y0 + off, xs = x0 + 30 + bend * 2, xe = xs + len;
+    // like a real line, a variant weaves in to cross other titles' stops along the way, then back out to its own lane
+    const stops = []; let lastX = xs;
+    MAP.cols.forEach(c => {
+      if (c.x - lastX < 120 || c.x > xe - 60 || Math.abs(c.my - L) > 420 || Math.random() > .14) return;
+      stops.push([c.x, c.my - c.h / 2 + Math.random() * c.h]); lastX = c.x;
+    });
+    let d = `M${x0},${y0} L${x0 + 30},${y0} C${x0 + 30 + bend},${y0} ${x0 + 30 + bend},${L} ${xs},${L}`, px = xs, pt = L;
+    stops.forEach(([x, t]) => {
+      d += (pt === L ? ` L${px + 48},${L}` : ` C${px + 24},${pt} ${px + 24},${L} ${px + 48},${L}`) + ` L${x - 48},${L} C${x - 24},${L} ${x - 24},${t} ${x},${t}`;
+      px = x; pt = t;
+    });
+    d += (pt === L ? "" : ` C${px + 24},${pt} ${px + 24},${L} ${px + 48},${L}`) + ` L${Math.max(px + 48, xe)},${L}`;
     const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
     p.setAttribute("d", d); p.setAttribute("fill", "none"); p.setAttribute("stroke", row.c); p.setAttribute("stroke-width", "3"); p.setAttribute("stroke-linecap", "round"); p.setAttribute("pathLength", "100"); p.setAttribute("stroke-dasharray", "100 100"); p.setAttribute("opacity", ".75"); p.classList.add("ghost");
     g.appendChild(p);
-    p.animate([{ strokeDashoffset: 100 }, { strokeDashoffset: 0, offset: .4 }, { strokeDashoffset: 0, offset: .55 }, { strokeDashoffset: 100 }], { duration: 4200, delay: 650 + k * 260, easing: "ease-in-out", fill: "both" }).onfinish = () => p.remove();
+    p.animate([{ strokeDashoffset: 100 }, { strokeDashoffset: 0, offset: .2 }, { strokeDashoffset: 0, offset: .84 }, { strokeDashoffset: 100 }], { duration: 13000, delay: 650 + k * 300, easing: "ease-in-out", fill: "both" }).onfinish = () => p.remove();
   }
   haptic([20, 60, 20]);
+}
+
+/* ================= v2.1: every character box gets its own egg ================= */
+// a full-screen drawing layer and a frame loop, shared by the effects below
+function fxCanvas(z) {
+  const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), W = innerWidth, H = innerHeight;
+  cv.className = "fx-canvas"; if (z) cv.style.zIndex = z; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
+  const g = cv.getContext("2d"); g.scale(dpr, dpr); return { cv, g, W, H };
+}
+function fxRun(T, frame, done) { const t0 = performance.now(); let last = t0; const f = now => { const t = Math.max(0, now - t0), dt = Math.max(0, Math.min(.05, (now - last) / 1000)); last = now; frame(t, dt); if (t < T) requestAnimationFrame(f); else if (done) done(); }; requestAnimationFrame(f); }
+// a soft round puff, drawn once and stamped many times (much lighter than a gradient per particle)
+const PUFFS = {};
+function puffSprite(rgb) {
+  if (PUFFS[rgb]) return PUFFS[rgb];
+  const c = document.createElement("canvas"); c.width = c.height = 64; const g = c.getContext("2d"), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  rg.addColorStop(0, `rgba(${rgb},1)`); rg.addColorStop(.45, `rgba(${rgb},.55)`); rg.addColorStop(1, `rgba(${rgb},0)`); g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+  return (PUFFS[rgb] = c);
+}
+const lerp = (a, b, f) => a + (b - a) * f;
+const easeIO = f => { f = Math.max(0, Math.min(1, f)); return f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2; };
+const clamp01 = f => Math.max(0, Math.min(1, f));
+// a title knocked away at a moment, held there, then brought home at a set time
+function knockRow(el, at, back, tx, ty, rot, fadeTo) {
+  const dur = Math.max(1200, back - at + 600), o = fadeTo == null ? .3 : fadeTo, o1 = Math.min(.3, 260 / dur), o2 = Math.max(o1 + .05, (dur - 600) / dur);   // offsets must always climb
+  setTimeout(() => el.animate([{ transform: "none", opacity: 1 }, { transform: `translate(${tx}px,${ty}px) rotate(${rot}deg)`, opacity: o, offset: o1 },
+    { transform: `translate(${tx}px,${ty}px) rotate(${rot}deg)`, opacity: o, offset: o2 }, { transform: "none", opacity: 1 }], { duration: dur, easing: "cubic-bezier(.2,.7,.3,1)" }), at);
+}
+const onScreen = its => its.filter(it => { const r = it.t.getBoundingClientRect(); return r.width && r.bottom > 0 && r.top < innerHeight; });
+// weighted pick that favours what hasn't been seen lately, like the FoX-Men powers
+function cyclePick(keys, bag, lastKey) {
+  const seen = state[bag] = state[bag] || {}, n = state[bag + "N"] = (state[bag + "N"] || 0) + 1, at = seen;
+  const pool = keys.filter(k => k !== lastKey), wts = pool.map(k => seen[k] ? 1 + Math.min(10, n - seen[k]) : 14), tot = wts.reduce((a, b) => a + b, 0);
+  let r = Math.random() * tot; for (let i = 0; i < pool.length; i++) { r -= wts[i]; if (r <= 0) { at[pool[i]] = n; return pool[i]; } }
+  at[pool[0]] = n; return pool[0];
+}
+
+/* ---------- Guardians of the Galaxy: hold "We are Groot." Like the cocoon in the first film, branches grow up and around and weave a sphere
+   that holds the whole box safe; glowing spores drift inside; then it opens again ---------- */
+let grootOn = false;
+function groot(q) {
+  if (REDUCED) { found("groot"); return; }
+  if (grootOn) return; grootOn = true;
+  const { cv, g, W, H } = fxCanvas(), cx = W / 2, cy = H / 2, rx = W * .6, ry = H * .56, spore = puffSprite("255,214,120");
+  const P = [];   // the weave: meridians grow up from the floor, latitudes grow in from the sides
+  [-70, -46, -22, 0, 22, 46, 70].forEach((d, i) => { const c = Math.cos(d * Math.PI / 180), pts = []; for (let k = 0; k <= 46; k++) { const t = Math.PI - k / 46 * Math.PI, wob = Math.sin(k * .55 + i) * 4; pts.push([cx + rx * Math.sin(d * Math.PI / 180) * Math.sin(t) + wob, cy - ry * Math.cos(t), Math.sin(t * 3 + i) > 0 ? 1 : 0]); } P.push({ pts, delay: i * 90, w0: 10 }); });
+  [-55, -28, 0, 28, 55].forEach((d, i) => { const la = d * Math.PI / 180, pts = [], dir = i % 2 ? 1 : -1; for (let k = 0; k <= 46; k++) { const s = (k / 46 - .5) * Math.PI * dir, wob = Math.sin(k * .6 + i * 2) * 4; pts.push([cx + rx * Math.cos(la) * Math.sin(s), cy + ry * Math.sin(la) + ry * .14 * Math.cos(la) * Math.cos(s) + wob, Math.cos(s * 4 + i) > 0 ? 1 : 0]); } P.push({ pts, delay: 500 + i * 110, w0: 8 }); });
+  { const pts = []; for (let k = 0; k <= 70; k++) { const a = -Math.PI / 2 + k / 70 * Math.PI * 2; pts.push([cx + Math.cos(a) * rx, cy + Math.sin(a) * ry, 1]); } P.push({ pts, delay: 300, w0: 12 }); }   // the rim of the cocoon
+  P.forEach(b => { let L = 0; b.pts.forEach((p, k) => { p[3] = k ? (L += Math.hypot(p[0] - b.pts[k - 1][0], p[1] - b.pts[k - 1][1])) : 0; }); b.L = L;
+    b.leaves = Array.from({ length: 4 }, () => ({ s: L * (.1 + Math.random() * .85), side: Math.random() < .5 ? -1 : 1, len: 10 + Math.random() * 10 })); });
+  const spores = Array.from({ length: 46 }, () => { const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * .85; return { x: cx + Math.cos(a) * rx * r, y: cy + Math.sin(a) * ry * r, vy: -8 - Math.random() * 14, ph: Math.random() * 6, r: 3 + Math.random() * 5 }; });
+  const GROW = 1900, HOLD = 4600, T = 5600; let cache = null;
+  // a little bigger than the screen, so you're inside it: past the rim, only the corners, in its shadow
+  const shade = a => { g.fillStyle = `rgba(28,17,8,${.82 * a})`; g.beginPath(); g.rect(0, 0, W, H); g.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2); g.fill("evenodd"); };
+  const drawWeave = (tip) => P.forEach(b => {
+    const reach = tip(b); if (reach <= 1) return;
+    [["#3B2714", 2.6, 1], ["#7A5530", 0, 1], ["#A9814F", -.62, .55]].forEach(([col, extra, hl]) => {
+      for (let k = 1; k < b.pts.length; k++) {
+        const p = b.pts[k - 1], q2 = b.pts[k]; if (p[3] > reach) break;
+        const f = (Math.min(q2[3], reach) - p[3]) / Math.max(.001, q2[3] - p[3]), x2 = lerp(p[0], q2[0], f), y2 = lerp(p[1], q2[1], f);
+        const w = Math.max(1, b.w0 * (1 - p[3] / b.L * .5) * Math.min(1, (reach - p[3]) / 30)) * (q2[2] ? 1 : .75);
+        g.globalAlpha = q2[2] ? 1 : .6; g.strokeStyle = col; g.lineCap = "round"; g.lineWidth = Math.max(.6, w * hl + extra); g.beginPath();
+        if (hl < 1) { const nx = -(y2 - p[1]), ny = x2 - p[0], nl = Math.hypot(nx, ny) || 1, o = w * .22; g.moveTo(p[0] + nx / nl * o, p[1] + ny / nl * o); g.lineTo(x2 + nx / nl * o, y2 + ny / nl * o); }
+        else { g.moveTo(p[0], p[1]); g.lineTo(x2, y2); }
+        g.stroke();
+      }
+    });
+    g.globalAlpha = 1;
+    b.leaves.forEach(lf => { if (reach < lf.s + 20) return; let k = 1; while (k < b.pts.length - 1 && b.pts[k][3] < lf.s) k++; const p = b.pts[k], q2 = b.pts[k - 1], an = Math.atan2(p[1] - q2[1], p[0] - q2[0]) + lf.side * 1.1;
+      g.save(); g.translate(p[0], p[1]); g.rotate(an); const lg = g.createLinearGradient(0, -6, 0, 6); lg.addColorStop(0, "#8FD45E"); lg.addColorStop(1, "#3E8A27"); g.fillStyle = lg; g.beginPath(); g.ellipse(lf.len, 0, lf.len, lf.len * .45, 0, 0, Math.PI * 2); g.fill(); g.restore(); });
+  });
+  fxRun(T, (t, dt) => {
+    g.clearRect(0, 0, W, H);
+    if (t < GROW + 900) { shade(easeIO(clamp01(t / GROW))); drawWeave(b => b.L * easeIO((t - b.delay) / GROW)); }
+    else {
+      if (!cache) { shade(1); drawWeave(b => b.L); cache = document.createElement("canvas"); cache.width = cv.width; cache.height = cv.height; cache.getContext("2d").drawImage(cv, 0, 0); g.clearRect(0, 0, W, H); }
+      const out = t > HOLD ? easeIO((t - HOLD) / (T - HOLD)) : 0, br = 1 + .006 * Math.sin(t / 400);
+      g.save(); g.globalAlpha = 1 - out; g.translate(cx, cy); g.scale(br + out * .2, br + out * .2); g.translate(-cx, -cy); g.drawImage(cache, 0, 0, W, H); g.restore();
+    }
+    if (t > 900) {
+      const a = clamp01((t - 900) / 800) * (t > HOLD ? 1 - (t - HOLD) / (T - HOLD) : 1); g.globalCompositeOperation = "lighter";
+      spores.forEach(s => { s.y += s.vy * dt; s.x += Math.sin(t / 900 + s.ph) * 6 * dt; if (s.y < cy - ry * .8) s.y = cy + ry * .8; const tw = .55 + .45 * Math.sin(t / 300 + s.ph); g.globalAlpha = a * tw * .8; g.drawImage(spore, s.x - s.r * 2, s.y - s.r * 2, s.r * 4, s.r * 4); });
+      g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+    }
+  }, () => { cv.remove(); grootOn = false; });
+  haptic([10, 60, 10, 60, 10, 60, 10, 60, 10]);
+  setTimeout(() => found("groot"), GROW + 500);
+}
+
+/* ---------- Doctor Strange & Wong: double-tap the small circle at the top right. The background circles ripple, then rings of orange runes turn ---------- */
+let runesOn = false; const SIGILS = Array.from({ length: 36 }, () => Array.from({ length: 3 + Math.floor(Math.random() * 3) }, () => {
+  const k = Math.floor(Math.random() * 5), r = () => (Math.random() - .5) * 10;
+  return k === 0 ? ["l", 0, -6, 0, 6] : k === 1 ? ["l", r(), r(), r(), r()] : k === 2 ? ["a", r() * .5, r() * .5, 2 + Math.random() * 3] : k === 3 ? ["l", -5, r() * .6, 5, r() * .6] : ["v", r() * .5, -5, r() * .5];
+}));
+function strangeRunes() {
+  if (REDUCED) { found("runes"); return; }
+  if (runesOn) return; runesOn = true;
+  const { cv, g, W, H } = fxCanvas(), pr = panel.getBoundingClientRect(), C = [pr.right, pr.top], far = Math.hypot(W, H);
+  const RINGS = [[W * .42, 1, 14], [W * .68, -1, 22], [W * .95, 1, 30]], T = 5200;
+  const sigil = (s, x, y, a, sc) => { g.save(); g.translate(x, y); g.rotate(a); g.scale(sc, sc); g.beginPath(); s.forEach(([k, a1, b1, c1, d1]) => { if (k === "l") { g.moveTo(a1, b1); g.lineTo(c1, d1); } else if (k === "a") { g.moveTo(a1 + c1, b1); g.arc(a1, b1, c1, 0, Math.PI * 2); } else { g.moveTo(a1 - 3, b1); g.lineTo(a1, b1 + 4); g.lineTo(c1 + 3, b1); } }); g.stroke(); g.restore(); };
+  fxRun(T, t => {
+    g.clearRect(0, 0, W, H); const out = t > T - 900 ? (T - t) / 900 : 1, wave = t * .9;
+    g.strokeStyle = "#FF9A2E"; g.shadowColor = "#FF8A1F";
+    // the panel's own circles light up as the wave passes them (they sit at the same spacing as the background)
+    for (let r = 16.5; r < Math.min(wave + 60, far); r += 17) { const a = Math.exp(-Math.pow((r - wave) / 46, 2)) * .9 + (r < wave ? .12 : 0); if (a < .02) continue; g.globalAlpha = a * out; g.lineWidth = 1.4; g.shadowBlur = 8; g.beginPath(); g.arc(C[0], C[1], r, 0, Math.PI * 2); g.stroke(); }
+    RINGS.forEach(([R, dir, n], i) => {
+      const f = clamp01((wave - R) / 260) * out; if (!f) return;
+      const spin = dir * t / 1000 * (.35 - i * .07), wobble = 1 + .015 * Math.sin(t / 300 + i);
+      g.globalAlpha = f; g.lineWidth = 1.6; g.shadowBlur = 10;
+      [R - 13, R + 13].forEach(rr => { g.beginPath(); g.arc(C[0], C[1], rr * wobble, 0, Math.PI * 2); g.stroke(); });
+      g.lineWidth = 1.3;
+      for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2 + spin, x = C[0] + Math.cos(a) * R * wobble, y = C[1] + Math.sin(a) * R * wobble; sigil(SIGILS[(k + i * 7) % SIGILS.length], x, y, a + Math.PI / 2, .95 + .1 * Math.sin(t / 200 + k)); }
+      for (let k = 0; k < 8; k++) { const a = spin * 1.6 + k * Math.PI / 4, x = C[0] + Math.cos(a) * (R + 13), y = C[1] + Math.sin(a) * (R + 13); g.fillStyle = "#FFE2B8"; g.beginPath(); g.arc(x, y, 1.8, 0, Math.PI * 2); g.fill(); }
+    });
+    g.shadowBlur = 0; g.globalAlpha = 1;
+  }, () => { cv.remove(); runesOn = false; found("runes"); });
+  haptic([10, 40, 10, 40, 30]);
+}
+
+/* ---------- Werewolf by Night: hold the name. Black and white, the red Bloodstone glows, claws tear the screen, then a red burst and colour comes back ---------- */
+let wolfOn = false;
+function wolfEgg(h) {
+  if (REDUCED) { found("werewolf"); return; }
+  if (wolfOn) return; wolfOn = true;
+  const W = innerWidth, H = innerHeight, T = 4400;
+  const noir = veil("fx-noir", "", [{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 1, offset: .66 }, { opacity: 0, offset: .74 }, { opacity: 0 }], T);
+  const gem = document.createElement("div"); gem.className = "fx-bloodstone"; gem.innerHTML = "<i></i>"; gem.style.left = W / 2 + "px"; gem.style.top = H * .42 + "px"; document.body.appendChild(gem);
+  gem.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(1)", opacity: 1, offset: .14 }, { transform: "scale(1.18)", offset: .2 }, { transform: "scale(1)", offset: .26 }, { transform: "scale(1.18)", offset: .34 }, { transform: "scale(1)", offset: .4 }, { transform: "scale(1)", opacity: 1, offset: .64 }, { transform: "scale(1.5)", opacity: 0, offset: .7 }, { opacity: 0 }], { duration: T, fill: "both" }).onfinish = () => gem.remove();
+  setTimeout(() => haptic([60, 120, 60]), T * .2); setTimeout(() => haptic([60, 120, 60]), T * .34);
+  // the claw marks: four ragged tears, ripped in one after another
+  const { cv, g } = fxCanvas(), slashes = Array.from({ length: 4 }, (_, k) => {
+    const x0 = W * (.62 + k * .1), y0 = H * (.16 + k * .03), x1 = W * (.05 + k * .1), y1 = H * (.78 + k * .03), n = 26;
+    return { x0, y0, x1, y1, n, jag: Array.from({ length: n + 1 }, () => [(Math.random() - .5) * 4, (Math.random() - .5) * 4]), at: 1700 + k * 90 };
+  });
+  fxRun(T, t => {
+    g.clearRect(0, 0, W, H); const fade = t > T * .74 ? Math.max(0, 1 - (t - T * .74) / 600) : 1;
+    slashes.forEach(s => {
+      const p = clamp01((t - s.at) / 230); if (!p) return;
+      const dx = s.x1 - s.x0, dy = s.y1 - s.y0, L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L, m = Math.max(2, Math.floor(s.n * p)), left = [], right = [];
+      for (let i = 0; i <= m; i++) { const f = i / s.n, w = Math.sin(Math.PI * f) * 13 + 1, x = s.x0 + dx * f, y = s.y0 + dy * f; left.push([x + nx * (w + s.jag[i][0]), y + ny * (w + s.jag[i][0])]); right.push([x - nx * (w + s.jag[i][1]), y - ny * (w + s.jag[i][1])]); }
+      g.globalAlpha = fade; g.beginPath(); left.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); right.reverse().forEach(([x, y]) => g.lineTo(x, y)); g.closePath();
+      const tg = g.createLinearGradient(s.x0, s.y0, s.x1, s.y1); tg.addColorStop(0, "#3A0006"); tg.addColorStop(.5, "#120002"); tg.addColorStop(1, "#3A0006");
+      g.fillStyle = tg; g.shadowColor = "rgba(255,30,40,.8)"; g.shadowBlur = 10; g.fill(); g.shadowBlur = 0; g.lineWidth = 2.4; g.strokeStyle = "rgba(235,230,222,.95)"; g.stroke();
+      g.globalAlpha = .5 * fade; g.lineWidth = 2; g.strokeStyle = "#8A0A14"; g.beginPath(); g.moveTo(s.x0, s.y0); g.lineTo(s.x0 + dx * p * .98, s.y0 + dy * p * .98); g.stroke(); g.globalAlpha = 1;
+    });
+  }, () => cv.remove());
+  setTimeout(() => { fxScope().animate([{ transform: "none" }, { transform: "translate(-7px,5px)" }, { transform: "translate(5px,-3px)" }, { transform: "none" }], { duration: 260 }); haptic([30, 20, 30, 20, 60]); }, 1750);
+  setTimeout(() => {   // the burst: red floods out of the gem and the colour comes back
+    veil("fxl", `z-index:97;background:radial-gradient(circle at 50% 42%, rgba(255,60,60,.85), rgba(200,0,20,.55) 35%, rgba(150,0,10,0) 75%)`, [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 900);
+    fxRing(W / 2, H * .42, Math.hypot(W, H) * .6, "#FF2A2A", 800, 0, 4); burst(W / 2, H * .42, 40, ["#FF2A2A", "#FF8A8A", "#8A0010"], 160); haptic([140, 30, 200]);
+  }, T * .68);
+  setTimeout(() => { wolfOn = false; found("werewolf"); }, T);
+}
+
+/* ---------- Pruned Characters: hold anywhere. Alioth gathers at the top, then in one surge rolls all the way down,
+   devouring every title as it passes; it churns over the empty box and withdraws ---------- */
+let aliothOn = false;
+function alioth() {
+  if (REDUCED) { found("alioth"); return; }
+  if (aliothOn) return; aliothOn = true;
+  const { cv, g, W, H } = fxCanvas(), dark = puffSprite("18,4,26"), mid = puffSprite("48,10,58"), rim = puffSprite("120,24,96"), glow = puffSprite("255,40,110"), T = 6200, S0 = 700, S1 = 1700, BACK0 = 3500, BACK1 = 4800;
+  const front = t => t < S0 ? lerp(-140, 60, easeIO(t / S0)) : t < S1 ? lerp(60, H + 160, Math.pow((t - S0) / (S1 - S0), 1.6)) : H + 160;
+  const blobs = Array.from({ length: 80 }, () => ({ x: Math.random() * W, d: Math.random() * 260, r: 50 + Math.random() * 70, ph: Math.random() * 6, sp: .6 + Math.random() }));
+  const its = listItems(), ash = [];
+  its.forEach(it => { it.gone = false; });
+  let bolt = null, nextBolt = 200;
+  fxRun(T, (t, dt) => {
+    g.clearRect(0, 0, W, H); const yF = front(t), lift = t > BACK0 ? easeIO((t - BACK0) / (BACK1 - BACK0)) : 0, a = 1 - (t > BACK1 ? clamp01((t - BACK1) / (T - BACK1 - 200)) : 0), top = yF - lift * (H + 400);
+    // the body: solid dark above a rolling, pyroclastic front
+    g.fillStyle = `rgba(14,3,20,${.95 * a})`; g.fillRect(0, 0, W, Math.max(0, top - 200));
+    const bg = g.createLinearGradient(0, top - 200, 0, top); bg.addColorStop(0, `rgba(14,3,20,${.95 * a})`); bg.addColorStop(1, "rgba(14,3,20,0)"); g.fillStyle = bg; g.fillRect(0, top - 200, W, 200);
+    blobs.forEach(b => { const y = top - b.d + Math.sin(t / 400 * b.sp + b.ph) * 10, x = b.x + Math.sin(t / 600 * b.sp + b.ph) * 22, r = b.r * (1 + .1 * Math.sin(t / 350 + b.ph)); g.globalAlpha = .95 * a; g.drawImage(b.d < 70 ? rim : b.d < 150 ? mid : dark, x - r, y - r, r * 2, r * 2); });
+    // red-magenta lightning flashes inside
+    if (t > nextBolt && t < BACK1) { nextBolt = t + 140 + Math.random() * 260; const x = Math.random() * W, y0 = Math.max(10, Math.min(top - 60, H) - 240 + Math.random() * 160); bolt = { pts: [[x, y0]], at: t }; for (let k = 1; k < 8; k++) bolt.pts.push([x + (Math.random() - .5) * 70, y0 + k * 26]); }
+    if (bolt && t - bolt.at < 130) { g.globalAlpha = a; g.globalCompositeOperation = "lighter"; g.drawImage(glow, bolt.pts[4][0] - 110, bolt.pts[4][1] - 110, 220, 220); g.globalCompositeOperation = "source-over"; g.strokeStyle = "#FFC2DA"; g.lineWidth = 2; g.shadowColor = "#FF2A6A"; g.shadowBlur = 14; g.beginPath(); bolt.pts.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.shadowBlur = 0; }
+    // what it reaches is devoured: the title comes apart into ash that is pulled up into the storm
+    its.forEach((it, k) => {
+      if (it.gone) return; const r = it.t.getBoundingClientRect(); if (yF < r.top + r.height / 2) return;
+      it.gone = true; for (let n = 0; n < 26; n++) ash.push({ x: r.left + Math.random() * Math.min(r.width, 240), y: r.top + Math.random() * r.height, vx: (Math.random() - .5) * 60, vy: -120 - Math.random() * 200, life: 0, c: Math.random() < .5 ? "#C77DFF" : "#FF4F9A" });
+      knockRow(it.row, 0, T + 500 + k * 60 - t, 0, -10, 0, 0); haptic(16);
+    });
+    g.globalAlpha = 1;
+    for (let i = ash.length - 1; i >= 0; i--) { const p = ash[i]; p.life += dt; if (p.life > .9) { ash.splice(i, 1); continue; } p.x += p.vx * dt; p.y += p.vy * dt; p.vy -= 200 * dt; g.globalAlpha = 1 - p.life / .9; g.fillStyle = p.c; g.fillRect(p.x, p.y, 2.2, 2.2); }
+    g.globalAlpha = 1;
+  }, () => { cv.remove(); aliothOn = false; found("alioth"); });
+  setTimeout(() => { haptic([140, 40, 200, 40, 260]); fxScope().animate([{ transform: "none" }, { transform: "translate(5px,4px)" }, { transform: "translate(-5px,-2px)" }, { transform: "translate(3px,2px)" }, { transform: "none" }], { duration: 900 }); }, S0);
+  haptic([30, 60, 30, 60]);
+}
+
+
+/* ---------- The Sony Spider-Men: hold anywhere. Each hold, one of five villains; seeing all five earns the file ---------- */
+let lastVillain = null;
+function sinister() {
+  const V = { ock: villainOck, goblin: villainGoblin, lizard: villainLizard, sandman: villainSandman, electro: villainElectro }, k = cyclePick(Object.keys(V), "sv", lastVillain);
+  lastVillain = k; persist();
+  if (!REDUCED) V[k]();
+  if (Object.keys(V).every(z => (state.sv || {})[z])) found("sinister", 3200);
+}
+function villainOck() {   // Doc Ock: a metal arm reaches in, its claw grabs a title and yanks it away
+  const it = pick(onScreen(listItems()), 1)[0]; if (!it) return;
+  const { cv, g, W, H } = fxCanvas(), r = it.t.getBoundingClientRect(), T0 = [r.left + Math.min(r.width, 160) / 2, r.top + r.height / 2], B = [W + 40, H * .85], T = 2400;
+  let grabbed = false;
+  fxRun(T, t => {
+    g.clearRect(0, 0, W, H);
+    const reach = t < 700 ? easeIO(t / 700) : 1, yank = clamp01((t - 950) / 450), out = t > 1700 ? easeIO((t - 1700) / 600) : 0;
+    const tip = [lerp(B[0], T0[0], reach) + (W + 200 - T0[0]) * easeIO(yank) + out * 200, lerp(B[1], T0[1], reach) + out * 60];
+    if (yank > 0) { grabbed = true; it.row.style.transform = `translate(${tip[0] - T0[0]}px,${tip[1] - T0[1]}px) rotate(${-yank * 12}deg)`; }
+    const c = [lerp(B[0], tip[0], .5) + 30, lerp(B[1], tip[1], .5) + 90];
+    for (let k = 0; k <= 22; k++) {   // the arm: a chain of metal segments, thick at the base
+      const f = k / 22, u = 1 - f, x = u * u * B[0] + 2 * u * f * c[0] + f * f * tip[0], y = u * u * B[1] + 2 * u * f * c[1] + f * f * tip[1], s = lerp(15, 8, f);
+      const mg = g.createRadialGradient(x - s * .35, y - s * .35, 1, x, y, s); mg.addColorStop(0, "#F2F4F7"); mg.addColorStop(.5, "#9AA2AE"); mg.addColorStop(1, "#3B4048");
+      g.fillStyle = mg; g.beginPath(); g.arc(x, y, s, 0, Math.PI * 2); g.fill(); g.strokeStyle = "rgba(20,22,26,.6)"; g.lineWidth = 1; g.stroke();
+    }
+    const close = t < 700 ? 0 : clamp01((t - 700) / 200), an = Math.atan2(tip[1] - c[1], tip[0] - c[0]);
+    g.save(); g.translate(tip[0], tip[1]); g.rotate(an); g.strokeStyle = "#5E6570"; g.lineWidth = 4; g.lineCap = "round";
+    [-1, 0, 1].forEach(s => { const sp = s * lerp(.75, .25, close); g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(sp) * 16, Math.sin(sp) * 16); g.lineTo(Math.cos(sp) * 16 + 8, Math.sin(sp) * 16 - s * 6 * close); g.stroke(); });
+    g.fillStyle = "#FF3B3B"; g.beginPath(); g.arc(0, 0, 3, 0, Math.PI * 2); g.fill(); g.restore();
+  }, () => { cv.remove(); if (it.row.isConnected) { it.row.style.transform = ""; it.row.animate([{ opacity: 0, transform: "translateX(20px)" }, { opacity: 1, transform: "none" }], { duration: 500 }); } });
+  haptic([20, 40, 20, 300, 60]);
+}
+function villainGoblin() {   // the Green Goblin: a pumpkin bomb arcs in, blinks, blows, and green smoke rolls out
+  const { cv, g, W, H } = fxCanvas(), L = [W * .55, H * .55], smokes = [puffSprite("70,170,60"), puffSprite("120,210,90"), puffSprite("40,110,40")], fire = puffSprite("255,140,40"), clouds = [], T = 4400;
+  fxRun(T, (t, dt) => {
+    g.clearRect(0, 0, W, H);
+    if (t < 1400) {
+      const f = clamp01(t / 800), x = lerp(-30, L[0], f), y = lerp(H * .15, L[1], f) - Math.sin(f * Math.PI) * 120, blink = t > 800 && Math.floor(t / 110) % 2;
+      g.save(); g.translate(x, y); g.rotate(t / 160);
+      const pg = g.createRadialGradient(-5, -6, 2, 0, 0, 16); pg.addColorStop(0, "#FFB55A"); pg.addColorStop(.6, "#F07A14"); pg.addColorStop(1, "#9A3E05");
+      g.fillStyle = pg; g.beginPath(); g.ellipse(0, 0, 16, 14, 0, 0, Math.PI * 2); g.fill(); g.strokeStyle = "rgba(90,35,5,.6)"; g.lineWidth = 1.4;
+      [-8, 0, 8].forEach(o => { g.beginPath(); g.ellipse(o, 0, 4, 13.5, 0, 0, Math.PI * 2); g.stroke(); });
+      g.fillStyle = blink ? "#FFF6A0" : "#FFC83A"; g.beginPath(); g.moveTo(-8, -3); g.lineTo(-3, -3); g.lineTo(-5.5, -7); g.fill(); g.beginPath(); g.moveTo(3, -3); g.lineTo(8, -3); g.lineTo(5.5, -7); g.fill();
+      g.beginPath(); g.moveTo(-7, 3); g.lineTo(7, 3); g.lineTo(4, 7); g.lineTo(0, 5); g.lineTo(-4, 7); g.closePath(); g.fill();
+      g.fillStyle = "#4A6A2A"; g.fillRect(-1.5, -18, 3, 5); g.restore();
+    }
+    if (t > 1400 && !clouds.length) {
+      for (let k = 0; k < 130; k++) { const a = Math.random() * Math.PI * 2, sp = 30 + Math.random() * 190; clouds.push({ x: L[0] + (Math.random() - .5) * 20, y: L[1] + (Math.random() - .5) * 20, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp * .7 - 25, r: 8 + Math.random() * 12, b: t + Math.random() * 500, sp: smokes[k % 3], max: .1 + Math.random() * .14, ph: Math.random() * 6 }); }
+      fxRing(L[0], L[1], 160, "#FFB347", 500, 0, 5); burst(L[0], L[1], 40, ORANGE_C, 140); haptic([150, 30, 220]);
+      fxScope().animate([{ transform: "none" }, { transform: "translate(8px,5px)" }, { transform: "translate(-6px,-3px)" }, { transform: "none" }], { duration: 320 });
+      listItems().forEach(it => { const r = it.t.getBoundingClientRect(), d = Math.hypot(r.left + 60 - L[0], r.top - L[1]); if (d < 180) knockRow(it.row, 0, 2400, (r.left + 60 - L[0]) / d * 70, (r.top - L[1]) / d * 50, (Math.random() - .5) * 30); });
+    }
+    if (t > 1400 && t < 1700) { const f = (t - 1400) / 300; g.globalCompositeOperation = "lighter"; g.globalAlpha = 1 - f; g.drawImage(fire, L[0] - 120 * (.5 + f), L[1] - 120 * (.5 + f), 240 * (.5 + f), 240 * (.5 + f)); g.globalCompositeOperation = "source-over"; }
+    clouds.forEach(c => { if (t < c.b) return; c.x += (c.vx + Math.sin(t / 500 + c.ph) * 14) * dt; c.y += (c.vy - 8) * dt; c.vx *= .975; c.vy *= .975; c.r += 30 * dt; const life = (t - c.b) / (T - 1500), a = Math.min(1, (t - c.b) / 250) * (1 - life); g.globalAlpha = Math.max(0, c.max * a); g.drawImage(c.sp, c.x - c.r, c.y - c.r * .8, c.r * 2, c.r * 1.6); });
+    g.globalAlpha = 1;
+  }, () => cv.remove());
+}
+function villainLizard() {   // the Lizard: a huge scaly tail sweeps across and swats the titles sideways
+  const { cv, g, W, H } = fxCanvas(), T = 2300, its = onScreen(listItems()), hit = new Set();
+  const yBase = H * .55;
+  fxRun(T, t => {
+    g.clearRect(0, 0, W, H); const p = clamp01((t - 150) / 1100), sweep = easeIO(p), tipX = lerp(W + 240, -260, sweep), fade = t > 1500 ? Math.max(0, 1 - (t - 1500) / 600) : 1;
+    // the tail: one smooth tapered body, ridged along the top and covered in scales, thickest off-screen to the right
+    const pts = []; for (let k = 0; k <= 40; k++) { const f = k / 40; pts.push([tipX + f * (W + 420), yBase + Math.sin(f * 4 + t / 120) * 46 * (1 - f) - f * 110 - Math.sin(sweep * Math.PI) * 50 * (1 - f)]); }
+    const wd = k => lerp(3, 64, Math.pow(k / 40, .8)), up = [], dn = [];
+    pts.forEach(([x, y], k) => { const q = pts[Math.min(40, k + 1)], pp = pts[Math.max(0, k - 1)], dx = q[0] - pp[0], dy = q[1] - pp[1], l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l, w = wd(k); up.push([x + nx * w, y + ny * w]); dn.push([x - nx * w * .8, y - ny * w * .8]); });
+    g.globalAlpha = fade;
+    const bg = g.createLinearGradient(0, yBase - 120, 0, yBase + 60); bg.addColorStop(0, "#A8D46E"); bg.addColorStop(.45, "#4F8C2F"); bg.addColorStop(1, "#1E3D16");
+    g.beginPath(); up.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); dn.slice().reverse().forEach(([x, y]) => g.lineTo(x, y)); g.closePath();
+    g.fillStyle = bg; g.fill(); g.strokeStyle = "rgba(16,32,10,.8)"; g.lineWidth = 1.5; g.stroke();
+    g.save(); g.clip(); g.strokeStyle = "rgba(20,45,14,.35)"; g.lineWidth = 1;
+    for (let k = 2; k < 40; k++) { const [x, y] = pts[k], w = wd(k); for (let r = -w * .6; r < w * .7; r += 9) { g.beginPath(); g.arc(x, y + r, 5, .2, Math.PI - .2); g.stroke(); } }
+    g.restore();
+    g.fillStyle = "#2E5A1E"; for (let k = 4; k < 40; k += 2) { const [x, y] = up[k], s2 = wd(k) * .22; g.beginPath(); g.moveTo(x - s2, y + 2); g.lineTo(x + s2 * .3, y - s2 * 1.1); g.lineTo(x + s2, y + 2); g.fill(); }
+    g.globalAlpha = 1;
+    its.forEach(it => { if (hit.has(it)) return; const r = it.t.getBoundingClientRect(); if (tipX > r.left + r.width * .5 || tipX < r.left - 40) return; hit.add(it); knockRow(it.row, 0, 1700 - t, -W * .5 - Math.random() * 80, (Math.random() - .5) * 30, -10 - Math.random() * 20, .25); haptic(18); });
+  }, () => cv.remove());
+  haptic([10, 120, 60]);
+}
+function villainSandman() {   // Sandman: sand streams in from the side into a giant fist seen side-on, it lifts, slams down, and breaks into loose sand
+  const { cv, g, W, H } = fxCanvas(), right = Math.random() < .5, dir = right ? 1 : -1, S = Math.min(W, H) * .2, N = 3200, T = 4300, body = puffSprite("190,160,105");
+  const X0 = right ? W * .2 : W * .8, X1 = W * .52, YB = H * .62, YUP = H * .26;
+  const grains = Array.from({ length: N }, () => {
+    let fx, fy, part;
+    if (Math.random() < .4) { for (;;) { fx = -1 - Math.random() * 2.6; fy = (Math.random() - .5) * 2 * (.42 - (-1 - fx) * .02); if (insideFist(fx, fy, true)) break; } part = 3; } else { [fx, fy, part] = fistPoint(1); }
+    return { fx: fx * S, fy: fy * S, part, sx: right ? -20 - Math.random() * 80 : W + 20 + Math.random() * 80, sy: H * (.5 + Math.random() * .4), d: Math.random() * 500,
+      c: part === 2 ? "#E8D4A2" : part === 1 ? "#B89A60" : part === 3 ? ["#B89A60", "#A88A52", "#C8AE76"][Math.floor(Math.random() * 3)] : ["#D8C08A", "#C2A56A", "#CDB27A"][Math.floor(Math.random() * 3)], s: 1.8 + Math.random() * 1.6, x: 0, y: 0, vx: 0, vy: 0, free: false };
+  });
+  const pose = t => {
+    if (t < 1100) return [X0, YB, 0]; if (t < 1800) { const f = easeIO((t - 1100) / 700); return [lerp(X0, X1, f), YB, 0]; }
+    if (t < 2400) { const f = easeIO((t - 1800) / 600); return [X1, lerp(YB, YUP, f), -.32 * f]; }
+    if (t < 2620) { const f = Math.pow((t - 2400) / 220, 2); return [X1, lerp(YUP, YB + S * .3, f), lerp(-.32, .12, f)]; }
+    return [X1, YB + S * .3, .12];
+  };
+  let slammed = false;
+  fxRun(T, (t, dt) => {
+    g.clearRect(0, 0, W, H); const [px, py, rot] = pose(t), c = Math.cos(rot), s = Math.sin(rot);
+    if (t >= 2620 && !slammed) {
+      slammed = true; haptic([200, 30, 260]);
+      fxScope().animate([{ transform: "none" }, { transform: "translateY(14px) scale(.97)", offset: .12 }, { transform: "translate(-8px,-4px)", offset: .35 }, { transform: "translate(5px,2px)", offset: .6 }, { transform: "none" }], { duration: 700 });
+      listItems().forEach(it => { const r = it.t.getBoundingClientRect(), d = Math.abs(r.top - py); if (d < 260) knockRow(it.row, 0, 1300, (r.left + 60 - px) * .25, 30 - d / 12, (Math.random() - .5) * 14); });
+      grains.forEach(p => { p.free = true; const a = Math.random() * Math.PI; p.vx = Math.cos(a) * (60 + Math.random() * 280) * (Math.random() < .5 ? -1 : 1); p.vy = -Math.sin(a) * (80 + Math.random() * 260); });
+    }
+    const out = t > T - 700 ? (T - t) / 700 : 1;
+    grains.forEach(p => {
+      if (!p.free) { const lx = p.fx * dir, ly = p.fy, tx = px + lx * c - ly * s * dir, ty = py + lx * s * dir + ly * c, f = easeIO(clamp01((t - p.d) / 900)); p.x = lerp(p.sx, tx, f); p.y = lerp(p.sy, ty, f) + (1 - f) * Math.sin(t / 150 + p.fy) * 14; p.f = f; }
+      else { p.vy += 1100 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .98; if (p.y > H - 3) { p.y = H - 3; p.vy *= -.15; p.vx *= .7; } p.f = 0; }
+    });
+    grains.forEach((p, k) => { if (k % 3 || p.f < .6) return; g.globalAlpha = .5 * (p.f - .6) / .4 * out; g.drawImage(body, p.x - 9, p.y - 9, 18, 18); });
+    grains.forEach(p => { g.globalAlpha = out; g.fillStyle = p.c; g.fillRect(p.x, p.y, p.s, p.s); });
+    if (!slammed && t > 1000) {
+      g.save(); g.translate(px, py); g.rotate(rot * dir); g.scale(dir, 1); g.globalAlpha = clamp01((t - 1000) / 300) * .8; g.strokeStyle = "#6E5530"; g.lineWidth = 3; g.lineCap = "round";
+      [-.28, .02, .32].forEach(fy => { g.beginPath(); g.ellipse(.32 * S, fy * S, .26 * S, .17 * S, 0, -Math.PI * .45, Math.PI * .55); g.stroke(); });
+      g.beginPath(); g.ellipse(.05 * S, -.52 * S, .45 * S, .17 * S, 0, Math.PI * .05, Math.PI * .95); g.stroke();
+      g.restore();
+    }
+    g.globalAlpha = 1;
+  }, () => cv.remove());
+  haptic([10, 40, 10, 40, 10, 40, 10, 40, 10]);
+}
+function villainElectro() {   // Electro: yellow lightning jumps from title to title
+  const { cv, g, W, H } = fxCanvas(), its = onScreen(listItems()), T = 2400; if (its.length < 2) { cv.remove(); return; }
+  const pts = its.map(it => { const r = it.t.getBoundingClientRect(); return [r.left + 10 + Math.random() * Math.min(r.width, 150), r.top + r.height / 2]; });
+  const zig = (a, b, j) => { g.beginPath(); g.moveTo(a[0], a[1]); const n = 8; for (let k = 1; k < n; k++) { const f = k / n; g.lineTo(lerp(a[0], b[0], f) + (Math.random() - .5) * j, lerp(a[1], b[1], f) + (Math.random() - .5) * j); } g.lineTo(b[0], b[1]); g.stroke(); };
+  let last = -100;
+  its.forEach((it, k) => it.t.animate([{ color: "inherit", textShadow: "none" }, { color: "#FFF6B0", textShadow: "0 0 8px #FFD23F" }, { textShadow: "none" }, { color: "#FFF6B0", textShadow: "0 0 8px #FFD23F" }, { textShadow: "none" }], { duration: 900, delay: k * 120, easing: "steps(5, end)" }));
+  fxRun(T, t => {
+    if (t - last < 55) return; last = t; g.clearRect(0, 0, W, H); if (t > T - 150) return;
+    const n = Math.min(pts.length - 1, Math.floor(t / 150) + 1);
+    g.strokeStyle = "#FFF8C8"; g.shadowColor = "#FFD23F"; g.shadowBlur = 14; g.lineCap = "round";
+    for (let k = 0; k < n; k++) { if (Math.random() < .25) continue; g.lineWidth = 2.2; zig(pts[k], pts[k + 1], 26); g.lineWidth = 1; zig(pts[k], pts[k + 1], 14); }
+    if (Math.random() < .3) { const a = pts[Math.floor(Math.random() * pts.length)]; g.lineWidth = 1.4; zig([Math.random() * W, -10], a, 50); }
+    g.shadowBlur = 0;
+  }, () => cv.remove());
+  veil("fxl", "z-index:96;background:rgba(255,230,120,.12)", [{ opacity: 0 }, { opacity: 1 }, { opacity: .2 }, { opacity: 1 }, { opacity: 0 }], 900);
+  haptic([15, 25, 15, 25, 15, 25, 15, 25, 15, 25, 60]);
+}
+
+/* ---------- The Thunderbolts: hold the name. Valentina's O.X.E. files on the team land on the screen one by one, redaction bars sweep
+   across them, and the stack is stamped before it slides away ---------- */
+let tbOn = false;
+const TB_FILES = [
+  ["YELENA BELOVA", "Black Widow", "Red Room graduate", "Active"],
+  ["JAMES BUCHANAN BARNES", "Winter Soldier", "Former HYDRA asset", "U.S. Congressman"],
+  ["ALEXEI SHOSTAKOV", "Red Guardian", "Soviet super-soldier", "Retired"],
+  ["JOHN F. WALKER", "U.S. Agent", "Former Captain America", "Contract"],
+  ["AVA STARR", "Ghost", "Quantum phasing", "Contract"],
+  ["“BOB”", "Sentry", "Project Sentry", "Unknown"]
+];
+const TB_NOTES = ["Field record and handler notes on file.", "Recovered under O.X.E. contract, see", "addendum 7B. Eyes only."];   // filler text for the notes, blacked out as it lands
+function tboltsEgg(h) {
+  if (REDUCED) { found("tbolts"); return; }
+  if (tbOn) return; tbOn = true;
+  const W = innerWidth, H = innerHeight, STEP = 950, T = 500 + TB_FILES.length * STEP + 2200;
+  const dim = veil("fxl", "z-index:97;background:rgba(8,8,10,.72)", [{ opacity: 0 }, { opacity: 1, offset: .05 }, { opacity: 1, offset: .9 }, { opacity: 0 }], T);
+  const stack = document.createElement("div"); stack.className = "fx-files"; document.body.appendChild(stack);
+  // which fields get blacked out: some are hidden outright, Bob's file is almost all redacted
+  const RED = TB_FILES.map(() => [0, 2, 3]);
+  TB_FILES.forEach((f, k) => setTimeout(() => {
+    const d = document.createElement("div"); d.className = "fx-file"; d.style.setProperty("--r", ((k % 2 ? 1 : -1) * (1 + Math.random() * 2.5)) + "deg");
+    const rows = [["Name", f[0]], ["Alias", f[1]], ["Profile", f[2]], ["Status", f[3]]].map(([lab, val], i) => `<div class="fr"><span>${lab}:</span><b>${esc(val)}<i class="${RED[k].includes(i) ? "rd" : ""}"></i></b></div>`).join("");
+    d.innerHTML = `<div class="fh"><span>O.X.E. GROUP</span><span>FILE ${String(k + 1).padStart(3, "0")}</span></div><div class="fp"></div>${rows}<div class="fn">${TB_NOTES.map(n => `<b>${n}<i class="rd"></i></b>`).join("")}</div>`;
+    stack.appendChild(d);
+    d.animate([{ transform: `translate(${(k % 2 ? 1 : -1) * W}px,-30px) rotate(${(k % 2 ? 1 : -1) * 18}deg)` }, { transform: "translate(0,0) rotate(var(--r))" }], { duration: 380, easing: "cubic-bezier(.2,.8,.3,1)", fill: "both" });
+    d.querySelectorAll(".rd").forEach((r, i) => r.animate([{ width: "0%" }, { width: r.style.width || "100%" }], { duration: 220, delay: 380 + i * 90, easing: "ease-out", fill: "both" }));
+    haptic(18);
+  }, 500 + k * STEP));
+  setTimeout(() => {   // the stamp, then the whole stack slides away
+    const st = document.createElement("div"); st.className = "fx-stamp"; st.textContent = "Thunderbolts*"; stack.appendChild(st);
+    st.animate([{ transform: "translate(-50%,-50%) rotate(-14deg) scale(2.2)", opacity: 0 }, { transform: "translate(-50%,-50%) rotate(-14deg) scale(1)", opacity: .92 }], { duration: 260, easing: "cubic-bezier(.3,1.4,.5,1)", fill: "both" });
+    haptic([120, 30, 40]);
+  }, 500 + TB_FILES.length * STEP + 200);
+  setTimeout(() => stack.animate([{ transform: "none", opacity: 1 }, { transform: `translateY(${H}px) rotate(8deg)`, opacity: 0 }], { duration: 700, easing: "ease-in", fill: "forwards" }).onfinish = () => stack.remove(), T - 900);
+  setTimeout(() => { tbOn = false; found("tbolts"); }, T);
+}
+
+// cracks spreading out from a point on the "glass" of the screen, then fading
+function screenCrack(x, y, n, maxLen, life) {
+  const R = Math.hypot(innerWidth, innerHeight), made = [];
+  for (let k = 0; k < n; k++) {
+    const an = k / n * Math.PI * 2 + (Math.random() - .5) * .5, len = Math.min(R, maxLen) * (.35 + Math.random() * .65);
+    const c = document.createElement("div"); c.className = "fx-crack"; c.style.cssText = `left:${x}px;top:${y}px;width:${len}px;transform:rotate(${an}rad) scaleX(0)`; document.body.appendChild(c); made.push(c);
+    c.animate([{ transform: `rotate(${an}rad) scaleX(0)` }, { transform: `rotate(${an}rad) scaleX(1)` }], { duration: 240, delay: k * 12, easing: "ease-out", fill: "both" });
+  }
+  setTimeout(() => made.forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 600, fill: "forwards" }).onfinish = () => c.remove()), life || 1800);
+}
+// is a point (in fist units) inside a clenched fist seen side-on, facing right; arm: include the forearm trailing left
+function insideFist(x, y, arm) {
+  return (Math.abs(y) < .5 && x > -1 && x < .45) || Math.hypot((x - .45) / .32, y / .5) < 1 || [-.28, .02, .32].some(fy => Math.hypot((x - .32) / .26, (y - fy) / .17) < 1)
+    || Math.hypot((x - .05) / .45, (y + .52) / .17) < 1 || (arm && x <= -.95 && x > -3.4 && Math.abs(y) < .4 - (-.95 - x) * .02);
+}
+function fistPoint(S, scale) {   // a point inside a clenched fist seen side-on, facing right: knuckles at the front, fingers curled under, thumb on top
+  for (;;) { const x = -1.1 + Math.random() * 1.9, y = -.75 + Math.random() * 1.5;
+    const body = Math.abs(y) < .5 && x > -1 && x < .45, front = Math.hypot((x - .45) / .32, y / .5) < 1, fingers = [-.28, .02, .32].some(fy => Math.hypot((x - .32) / .26, (y - fy) / .17) < 1);
+    const thumb = Math.hypot((x - .05) / .45, (y + .52) / .17) < 1, wrist = x < -.9 && x > -1.1 && Math.abs(y) < .38;
+    if (body || front || fingers || thumb || wrist) return [x * S * (scale || 1), y * S * (scale || 1), fingers ? 1 : thumb ? 2 : 0]; }
+}
+/* ---------- The Avengers: hold the name. The Battle of New York in miniature: a portal tears open in the sky above the box, the
+   Chitauri pour out, and the Avengers take them down together, each in their own way, until the Hulk ends it and the portal closes ---------- */
+let assembleOn = false;
+function assemble(h) {
+  if (REDUCED) { found("avengers"); return; }
+  if (assembleOn) return; assembleOn = true;
+  const { cv, g, W, H } = fxCanvas(97), PX = W / 2, PY = H * .15, PR = Math.min(W, H) * .17, T = 12800, CLOSE = 11300, cloud = puffSprite("70,80,110"), blue = puffSprite("120,200,255"), fire = puffSprite("255,150,60");
+  const sky = veil("fxl", "z-index:96;background:linear-gradient(180deg, rgba(10,16,40,.75), rgba(10,16,40,.35) 60%, rgba(10,16,40,.15))", [{ opacity: 0 }, { opacity: 1, offset: .08 }, { opacity: 1, offset: .9 }, { opacity: 0 }], T);
+  const foes = [], booms = [], fx = [];
+  const spawn = (big, at) => foes.push({ x: PX, y: PY, vx: (Math.random() - .5) * 120, vy: 40 + Math.random() * 60, big, at, alive: true, held: false, ph: Math.random() * 6, tx: W * (.15 + Math.random() * .7), ty: H * (.32 + Math.random() * .45), s: big ? 34 : 14 });
+  for (let i = 0; i < 12; i++) spawn(false, 1500 + i * 150);
+  spawn(true, 9000); foes[foes.length - 1].tx = W / 2; foes[foes.length - 1].ty = H * .55;   // the big one comes out last, on its own, and heads straight down
+  const live = () => foes.filter(f => f.alive && f.on);
+  // each hero takes random ones that are well clear of the portal (the farthest ones fill in if there aren't enough out yet)
+  const pickFoes = n => { const free = live().filter(f => !f.held && !f.big), far = f => Math.hypot(f.x - PX, f.y - PY);
+    const out = free.filter(f => far(f) > PR * 1.6 + 60).sort(() => Math.random() - .5), rest = free.filter(f => !out.includes(f)).sort((a, b) => far(b) - far(a));
+    const L = out.concat(rest).slice(0, n); L.forEach(f => f.held = true); return L; };
+  const kill = (f, big) => { if (!f || !f.alive) return; f.alive = false; booms.push({ x: f.x, y: f.y, b: now0(), big: big || f.big }); burst(f.x, f.y, f.big ? 40 : 14, ["#FFD08A", "#FF8A1F", "#7FD8FF", "#FFFFFF"], f.big ? 110 : 42); haptic(f.big ? [80, 30, 120] : 18); };
+  let tNow = 0; const now0 = () => tNow;
+  const at = (ms, fn) => setTimeout(fn, ms);
+  // Captain America: the shield is thrown up from below, ricochets off three of them, and flies back down to him
+  at(4200, () => {
+    const L = pickFoes(3); if (!L.length) return; const sh = document.createElement("div"); sh.className = "fx-shield"; sh.innerHTML = "<i></i>"; document.body.appendChild(sh);
+    const pts = [[W * .12, H + 50], ...L.map(f => [f.x, f.y]), [W * .9, H + 60]], LEG = 300; let k = 0;
+    const step = () => { if (k >= pts.length - 1) { sh.remove(); return; } const a = pts[k], b = pts[k + 1];
+      sh.animate([{ transform: `translate(${a[0]}px,${a[1]}px) rotate(${k * 400}deg)` }, { transform: `translate(${b[0]}px,${b[1]}px) rotate(${k * 400 + 400}deg)` }], { duration: LEG, easing: "linear", fill: "forwards" }).onfinish = () => { if (L[k]) { kill(L[k]); haptic(30); } k++; step(); }; };
+    step();
+  });
+  // Iron Man: two repulsor blasts from below right, one after the other
+  at(5600, () => pickFoes(2).forEach((f, i) => at(i * 330, () => { fx.push({ kind: "beam", from: [W + 10, H * .92], to: [f.x, f.y], b: tNow, c: "#BDEFFF", g2: "#5FD3FF" }); kill(f); })));
+  // Thor: lightning comes down on one and jumps on to two more
+  at(6700, () => { const L = pickFoes(3); if (!L.length) return; bolt(W * .2, -10, L[0].x, L[0].y, 0);
+    const skyg = document.createElement("div"); skyg.className = "skyglow"; document.body.appendChild(skyg); skyg.animate([{ opacity: 0 }, { opacity: .8, offset: .15 }, { opacity: .2, offset: .4 }, { opacity: .6, offset: .55 }, { opacity: 0 }], { duration: 800 }).onfinish = () => skyg.remove();
+    haptic([80, 30, 140]); L.forEach((f, i) => at(120 + i * 150, () => { if (i) fx.push({ kind: "arc", from: [L[i - 1].x, L[i - 1].y], to: [f.x, f.y], b: tNow }); kill(f); })); });
+  // Hawkeye: three arrows from the left, the last one explosive
+  at(7800, () => pickFoes(3).forEach((f, i) => at(i * 260, () => { fx.push({ kind: "arrow", from: [-30, H * (.55 + i * .08)], to: [f.x, f.y], b: tNow, dur: 220, boom: i === 2 }); at(220, () => { kill(f, i === 2); if (i === 2) { glowC(f.x, f.y, 0, "orange", 2.2); fxRing(f.x, f.y, 90, "#FFB347", 450, 0, 4); haptic([90, 30, 120]); } }); })));
+  // Black Widow: the last one dives at the titles, and she meets it with her Widow's Bites
+  at(8800, () => { const f = pickFoes(1)[0] || live().find(z => !z.big); if (!f) return; f.dive = true; f.ty = H * .62; f.tx = W * .5;
+    at(500, () => { const x = f.x, y = f.y; fx.push({ kind: "bites", x, y, b: tNow }); [0, 160, 320].forEach(d => at(d, () => { burst(x + (Math.random() - .5) * 30, y + (Math.random() - .5) * 20, 18, ["#E6F6FF", "#4FB4FF", "#FFFFFF"], 70); haptic([15, 20, 40]); }));
+      fxRing(x, y, 110, "#7FD0FF", 500, 160, 4); at(330, () => kill(f)); }); });
+  // the Hulk: the big one comes down at him, and he smashes everything
+  at(10600, () => { const big = foes.find(f => f.big && f.alive); smash(W / 2, H * .86, Math.min(W, H) * .34); haptic([260, 30, 400]);
+    fxScope().animate([{ transform: "none" }, { transform: "scale(.88) translateY(36px)", offset: .1 }, { transform: "scale(1.04) translateY(-12px)", offset: .24 }, { transform: "translate(9px,4px)", offset: .4 }, { transform: "none" }], { duration: 1100, easing: "ease-out" });
+    veil("fxl", "z-index:96;background:radial-gradient(ellipse at 50% 85%, rgba(120,220,90,.5), rgba(30,90,30,0) 70%)", [{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 0 }], 1000);
+    fx.push({ kind: "wave", b: tNow }); if (big) at(150, () => kill(big, true)); live().forEach(f => at(200 + Math.random() * 200, () => kill(f))); });
+  fxRun(T, (t, dt) => {
+    tNow = t; g.clearRect(0, 0, W, H);
+    const open = t < 1200 ? easeIO(t / 1200) : t < CLOSE ? 1 : 1 - easeIO((t - CLOSE) / 700), pr = PR * open;
+    // the Tesseract's beam, straight up into the portal
+    if (open > 0) { const bw = 5 + Math.sin(t / 60) * 1.5; g.globalCompositeOperation = "lighter"; const bg = g.createLinearGradient(PX - bw * 3, 0, PX + bw * 3, 0); bg.addColorStop(0, "rgba(90,170,255,0)"); bg.addColorStop(.5, `rgba(200,235,255,${.9 * open})`); bg.addColorStop(1, "rgba(90,170,255,0)"); g.fillStyle = bg; g.fillRect(PX - bw * 3, PY, bw * 6, H - PY); g.globalCompositeOperation = "source-over"; }
+    // the portal: a hole in the sky ringed with light, clouds turning around it
+    if (pr > 1) {
+      for (let k = 0; k < 14; k++) { const a = k / 14 * Math.PI * 2 + t / 2600, r = pr * (1.25 + .25 * Math.sin(k * 3 + t / 900)); g.globalAlpha = .55 * open; g.drawImage(cloud, PX + Math.cos(a) * r - pr * .6, PY + Math.sin(a) * r * .6 - pr * .4, pr * 1.2, pr * .8); }
+      g.globalAlpha = 1; g.save(); g.translate(PX, PY); g.scale(1, .62);
+      const hole = g.createRadialGradient(0, 0, 0, 0, 0, pr); hole.addColorStop(0, "#02030A"); hole.addColorStop(.7, "#0A1838"); hole.addColorStop(.9, "#2F6FD8"); hole.addColorStop(1, "rgba(190,230,255,0)");
+      g.fillStyle = hole; g.beginPath(); g.arc(0, 0, pr, 0, Math.PI * 2); g.fill();
+      g.strokeStyle = "#D8F0FF"; g.lineWidth = 3; g.shadowColor = "#5FB4FF"; g.shadowBlur = 20; g.beginPath(); g.arc(0, 0, pr * .9, 0, Math.PI * 2); g.stroke(); g.shadowBlur = 0;
+      for (let k = 0; k < 18; k++) { const a = k / 18 * Math.PI * 2 + t / 700; g.fillStyle = "rgba(255,255,255,.5)"; g.fillRect(Math.cos(a) * pr * .55, Math.sin(a) * pr * .55, 1.5, 1.5); }
+      g.restore();
+    }
+    // the Chitauri: dark angular craft with blue engines, weaving down toward the box
+    foes.forEach(f => {
+      if (t < f.at || !f.alive) return; f.on = true;
+      if (!f.held || f.dive) { const sp = f.dive ? 420 : f.big ? 150 : 130; f.vx += ((f.tx - f.x) * .9 - f.vx) * dt * 1.6; f.vy += ((f.ty - f.y) * .9 - f.vy) * dt * 1.6; const v = Math.hypot(f.vx, f.vy) || 1; if (v > sp) { f.vx *= sp / v; f.vy *= sp / v; }
+        f.x += (f.vx + Math.sin(t / 300 + f.ph) * 30) * dt; f.y += f.vy * dt; if (Math.hypot(f.tx - f.x, f.ty - f.y) < 30 && !f.dive) { f.tx = W * (.12 + Math.random() * .76); f.ty = H * (.3 + Math.random() * .5); } }
+      const an = Math.atan2(f.vy, f.vx), s = f.s * Math.min(1, (t - f.at) / 300 + .2);
+      g.save(); g.translate(f.x, f.y); g.rotate(an);
+      g.globalCompositeOperation = "lighter"; g.globalAlpha = .9; g.drawImage(blue, -s * 2.2, -s * .7, s * 1.4, s * 1.4); g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+      g.fillStyle = f.big ? "#3A3F52" : "#2B2F3E"; g.strokeStyle = "#7F8AA8"; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(s, 0); g.lineTo(-s * .7, -s * .6); g.lineTo(-s * .35, 0); g.lineTo(-s * .7, s * .6); g.closePath(); g.fill(); g.stroke();
+      if (f.big) { g.strokeStyle = "#5A6280"; for (let k = -2; k <= 2; k++) { g.beginPath(); g.moveTo(-s * .2 + k * s * .18, -s * .4); g.lineTo(-s * .2 + k * s * .18, s * .4); g.stroke(); } }
+      g.restore();
+    });
+    // the attacks that are drawn: repulsor beams, Thor's arcs, Hawkeye's arrows, the Widow's Bites, the Hulk's shockwave
+    fx.forEach(e => {
+      const age = t - e.b;
+      if (e.kind === "beam" && age < 280) { const f = age / 280; g.globalAlpha = 1 - f; g.strokeStyle = "#EAF8FF"; g.shadowColor = e.g2; g.shadowBlur = 18; g.lineWidth = 8 * (1 - f) + 2; g.beginPath(); g.moveTo(e.from[0], e.from[1]); g.lineTo(e.to[0], e.to[1]); g.stroke(); g.shadowBlur = 0; }
+      if (e.kind === "arc" && age < 260) { g.globalAlpha = 1 - age / 260; g.strokeStyle = "#E6F4FF"; g.shadowColor = "#8EC9FF"; g.shadowBlur = 14; g.lineWidth = 2; g.beginPath(); g.moveTo(e.from[0], e.from[1]); for (let k = 1; k < 7; k++) { const f = k / 7; g.lineTo(lerp(e.from[0], e.to[0], f) + (Math.random() - .5) * 18, lerp(e.from[1], e.to[1], f) + (Math.random() - .5) * 18); } g.lineTo(e.to[0], e.to[1]); g.stroke(); g.shadowBlur = 0; }
+      if (e.kind === "arrow" && age < e.dur) { const f = age / e.dur, x = lerp(e.from[0], e.to[0], f), y = lerp(e.from[1], e.to[1], f), an = Math.atan2(e.to[1] - e.from[1], e.to[0] - e.from[0]);
+        g.globalAlpha = 1; g.save(); g.translate(x, y); g.rotate(an); const tg = g.createLinearGradient(-90, 0, 0, 0); tg.addColorStop(0, "rgba(180,150,255,0)"); tg.addColorStop(1, "rgba(200,180,255,.7)"); g.fillStyle = tg; g.fillRect(-90, -1.5, 90, 3);
+        g.fillStyle = "#2B2B30"; g.fillRect(-40, -1.2, 40, 2.4); g.fillStyle = e.boom ? "#E0452B" : "#D9DDE4"; g.beginPath(); g.moveTo(10, 0); g.lineTo(0, -4.5); g.lineTo(0, 4.5); g.fill(); g.fillStyle = "#7B4FC4"; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-50, -5); g.lineTo(-34, 0); g.lineTo(-50, 5); g.fill(); g.restore(); }
+      if (e.kind === "bites" && age < 600) { g.globalAlpha = 1 - age / 600; g.strokeStyle = "#E6F6FF"; g.shadowColor = "#4FB4FF"; g.shadowBlur = 14; g.lineWidth = 2; for (let n = 0; n < 8; n++) { const a = Math.random() * Math.PI * 2, r = 40 + Math.random() * 50; g.beginPath(); g.moveTo(e.x, e.y); for (let k = 1; k <= 5; k++) { const f = k / 5; g.lineTo(e.x + Math.cos(a) * r * f + (Math.random() - .5) * 14, e.y + Math.sin(a) * r * f + (Math.random() - .5) * 14); } g.stroke(); } g.shadowBlur = 0; }
+      if (e.kind === "wave" && age < 900) { const f = age / 900, r = 40 + f * Math.hypot(W, H); g.globalAlpha = .7 * (1 - f); g.strokeStyle = "#B9F59A"; g.lineWidth = 10 * (1 - f) + 2; g.shadowColor = "#5CC46A"; g.shadowBlur = 16; g.beginPath(); g.ellipse(W / 2, H * .86, r, r * .55, 0, Math.PI, Math.PI * 2); g.stroke(); g.shadowBlur = 0; }
+      g.globalAlpha = 1;
+    });
+    // explosions where they fall
+    booms.forEach(b => { const age = (t - b.b) / (b.big ? 900 : 550); if (age >= 1) return; const r = (b.big ? 70 : 26) * (.4 + age); g.globalCompositeOperation = "lighter"; g.globalAlpha = 1 - age; g.drawImage(fire, b.x - r, b.y - r, r * 2, r * 2); g.globalCompositeOperation = "source-over"; g.globalAlpha = 1; });
+    if (t > CLOSE + 650 && t < CLOSE + 900) { g.fillStyle = `rgba(230,245,255,${1 - (t - CLOSE - 650) / 250})`; g.beginPath(); g.ellipse(PX, PY, PR * .6, PR * .3, 0, 0, Math.PI * 2); g.fill(); }
+  }, () => { cv.remove(); assembleOn = false; found("avengers"); });
+  haptic([30, 60, 30, 60, 60]);
 }
 
 /* ---------- which held row, quote or name does what ---------- */
@@ -3226,8 +3891,9 @@ const ROW_EGGS = {
 };
 // any title held in these boxes
 const BOX_ROW_EGGS = {};
-const QUOTE_EGGS = {};
-const TITLE_EGGS = { "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h), "cx-daredevil": h => radar(h), "cx-captain-marvel": h => photon(h),
+const QUOTE_EGGS = { "cx-guardians-of-the-galaxy": q => groot(q) };
+const TITLE_EGGS = { "cx-the-avengers": h => assemble(h), "cx-werewolf-by-night": h => wolfEgg(h),
+  "cx-the-thunderbolts": h => tboltsEgg(h), "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h), "cx-daredevil": h => radar(h), "cx-captain-marvel": h => photon(h),
   "cx-ant-man-the-wasp": h => quantum(h), "cx-moon-knight": h => moonKnight(h), "cx-nick-fury-s-h-i-e-l-d": h => fury(h), "cx-shang-chi-the-ten-rings": h => tenRings(h), "ch-the-spider-verse": () => glitch() };
 const FOX_BOXES = { "ch-the-fox-men": 1, "cx-the-fox-men": 1 };   // hold the title for the claws, keep holding for Magneto
 let laneTimer = null, laneFired = false, laneStart = null;
@@ -3321,7 +3987,8 @@ document.getElementById("view").addEventListener("keydown", ev => {
   const t = ev.target.closest(".tile");
   if (t && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); activate(t); }
 });
-let spTap = null;
+let spTap = null, dblTap = null;
+function dblCheck(ev) { const now = Date.now(), ok = dblTap && now - dblTap.t < 380 && Math.hypot(ev.clientX - dblTap.x, ev.clientY - dblTap.y) < 40; dblTap = ok ? null : { t: now, x: ev.clientX, y: ev.clientY }; return ok; }
 panel.addEventListener("click", ev => {
   if (openEntry && openEntry.id === "cx-spider-man") {
     const now = Date.now();
@@ -3329,6 +3996,10 @@ panel.addEventListener("click", ev => {
     else spTap = { t: now, x: ev.clientX, y: ev.clientY };
   }
   if (pnlFired) { pnlFired = false; return; }
+  if (openEntry) {
+    const id = openEntry.id, pr = panel.getBoundingClientRect(), onName = ev.target.closest("#panelTitle");
+    if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 70) { if (dblCheck(ev)) strangeRunes(); return; }
+  }
   if (ev.target.closest("#panelTitle") && openEntry && openEntry.id === "cx-hulk") { punyTap(); return; }
   if (openEntry && openEntry.id === "cx-falcon-winter-soldier" && starTap(ev)) return;
   if (openEntry && openEntry.id === "cx-the-punisher" && ev.target.closest(".pquote")) { pennyTap(); return; }
@@ -3408,7 +4079,7 @@ document.getElementById("btnResetAll").addEventListener("click", () => {
   ask("Reset everything? Every chapter is covered again, and all checkmarks in Chapters, Characters, and both Sacred Timeline views are cleared. This can't be undone.", "Reset everything").then(ok => {
     if (!ok) return;
     state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.achSeen = {}; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
+    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.achSeen = {}; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist(); renderAll();
     showGate();
   });
@@ -3665,8 +4336,8 @@ document.getElementById("btnReset").addEventListener("click", () => {
     persist(); renderAll();
   });
 });
-/* ---------- the Watcher is watching: leave the app untouched for 30 seconds and the page behind the boxes slowly turns into deep space, then two faint eyes open over everything; touch the screen and it fades (not a Hero File) ---------- */
-let idleAt = Date.now(), cosmos = null;
+/* ---------- the Watcher is watching: leave the app untouched for 45 to 60 seconds and the page behind the boxes slowly turns into deep space, then two faint eyes open over everything; touch the screen and it fades (not a Hero File) ---------- */
+let idleAt = Date.now(), cosmos = null, idleWait = 45000 + Math.random() * 15000;
 function openCosmos() {
   const c = cosmos = document.createElement("div"); c.className = "fx-cosmos"; c.setAttribute("aria-hidden", "true");
   const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), W = innerWidth * 1.08, H = innerHeight * 1.08;
@@ -3694,12 +4365,12 @@ function closeCosmos() {
   c.animate([{ opacity: o }, { opacity: 0 }], { duration: 700, easing: "ease-out", fill: "forwards" }).onfinish = () => c.remove();
   c.eyes.animate([{ opacity: getComputedStyle(c.eyes).opacity }, { opacity: 0 }], { duration: 500, easing: "ease-out", fill: "forwards" }).onfinish = () => c.eyes.remove();
 }
-const wake = () => { idleAt = Date.now(); if (cosmos) closeCosmos(); };
+const wake = () => { idleAt = Date.now(); idleWait = 45000 + Math.random() * 15000; if (cosmos) closeCosmos(); };
 ["pointerdown", "keydown", "wheel", "scroll", "touchstart"].forEach(n => document.addEventListener(n, wake, { capture: true, passive: true }));
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") idleAt = Date.now(); });
 setInterval(() => {
   if (cosmos || sayBusy || document.visibilityState !== "visible") return;
-  if (Date.now() - idleAt >= 30000) openCosmos();
+  if (Date.now() - idleAt >= idleWait) openCosmos();
 }, 2000);
 /* ---------- outside Claude (opened from a file, or as the installed app from its website): saved on this device, and the app works offline ---------- */
 if (!(window.claude && window.claude.use)) {
