@@ -1655,7 +1655,7 @@ panel.addEventListener("pointerdown", ev => {
   else if (row && bid && BOX_ROW_EGGS[bid]) act = () => BOX_ROW_EGGS[bid](x, y, row);
   else if (row && ROW_EGGS[row.dataset.t]) { const fn = ROW_EGGS[row.dataset.t]; act = () => fn(x, y, row); }
   const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow], "cx-iron-man": [650, 0, () => ironHud()],
-    "ch-beyond-the-mcu": [650, 0, shatter], "cx-the-watcher": [650, 0, shatter] };
+    "cx-the-watcher": [650, 0, shatter] };
   if (!act && ANY[bid]) { const [a, b, fn] = ANY[bid]; pnlStart = [x, y]; pnlTimer = setTimeout(() => { pnlFired = true; fn(x, y); }, a + Math.random() * b); return; }
   if (!act) return;
   pnlStart = [ev.clientX, ev.clientY];
@@ -2493,8 +2493,7 @@ function moonKnight(h) {
 
 /* ---------- Nick Fury & S.H.I.E.L.D.: hold the name. Coulson's vintage Captain America cards tumble down the screen ---------- */
 function fury(h) {
-  found("fury", 3000);
-  if (REDUCED) { say("They were in his jacket."); return; }
+  if (REDUCED) { say("They were in his jacket."); found("fury"); return; }
   const W = innerWidth, H = innerHeight, box = document.createElement("div"); box.className = "fx-cards"; document.body.appendChild(box);
   let last = 0;
   for (let k = 0; k < 7; k++) {
@@ -2507,7 +2506,7 @@ function fury(h) {
     last = Math.max(last, dur + delay);
   }
   haptic([8, 120, 8, 120, 8, 120, 8]);
-  setTimeout(() => { box.remove(); say("They were in his jacket."); }, last + 100);   // the line waits until the last card has left
+  setTimeout(() => { box.remove(); say("They were in his jacket."); found("fury"); }, last + 100);   // the Hero File news rides on the line   // the line waits until the last card has left
 }
 /* ---------- Winter Soldier: tap the red star at the top of the Falcon & Winter Soldier box 3 times. Soviet red, the trigger words, "Ready to comply." ---------- */
 let starN = 0, starLast = 0, wsOn = false;
@@ -2829,8 +2828,8 @@ const EGGS = [
   ["skrull", "Not who it says it is", "Shapeshifters among us.", "Hold Secret Invasion, then tap the title that doesn't belong."],
   ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box."],
   ["newav", "*The New Avengers", "Bob's darkness. Let it take everything.", "Hold Thunderbolts* until every other title in its list is a shadow."],
-  ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box or Beyond the MCU."],
-  ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box or The Sony Spider-Men box."],
+  ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box."],
+  ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box."],
   ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap anywhere in Spider-Man's box."],
   ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers."],
   ["prune", "Pruned", "The TVA's way.", "On a timeline page, hold a branch line."],
@@ -3217,7 +3216,7 @@ const ROW_EGGS = {
 const BOX_ROW_EGGS = {};
 const QUOTE_EGGS = {};
 const TITLE_EGGS = { "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h), "cx-daredevil": h => radar(h), "cx-captain-marvel": h => photon(h),
-  "cx-the-sony-spider-men": () => glitch(), "cx-ant-man-the-wasp": h => quantum(h), "cx-moon-knight": h => moonKnight(h), "cx-nick-fury-s-h-i-e-l-d": h => fury(h), "cx-shang-chi-the-ten-rings": h => tenRings(h), "ch-the-spider-verse": () => glitch() };
+  "cx-ant-man-the-wasp": h => quantum(h), "cx-moon-knight": h => moonKnight(h), "cx-nick-fury-s-h-i-e-l-d": h => fury(h), "cx-shang-chi-the-ten-rings": h => tenRings(h), "ch-the-spider-verse": () => glitch() };
 const FOX_BOXES = { "ch-the-fox-men": 1, "cx-the-fox-men": 1 };   // hold the title for the claws, keep holding for Magneto
 let laneTimer = null, laneFired = false, laneStart = null;
 document.getElementById("view").addEventListener("pointerdown", ev => {
@@ -3565,6 +3564,7 @@ function openMap() {
 function closeMap(fromHistory) {
   if (!fromHistory && navAt("map")) { navBack(); return; }
   document.getElementById("mapPanel").hidden = true; document.getElementById("mapPop").hidden = true; mapOpen = false; document.body.style.overflow = "";
+  if (mapFocusI !== null) mapFocus(null);   // leaving the map clears any highlighted lane
   const b = document.getElementById("btnMap"); if (b) b.focus({ preventScroll: true });
 }
 (() => {
