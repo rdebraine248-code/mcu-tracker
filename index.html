@@ -413,6 +413,15 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
   background:linear-gradient(135deg, rgba(255,255,255,.38), rgba(255,255,255,0) 45%, rgba(0,0,0,.2)), radial-gradient(circle, #1F4E9E 0 12px, #C8202E 12.5px 20px, #F4EFE2 20.5px 28px, #C8202E 28.5px 38px);
   box-shadow:0 5px 16px rgba(0,0,0,.45), inset 0 0 0 2px rgba(0,0,0,.25); }
 .fx-shield i{ position:absolute; left:0; right:0; top:50%; margin-top:-11px; text-align:center; font-style:normal; font-size:19px; line-height:22px; color:#FFFFFF; }
+.fx-cosmos{ position:fixed; top:0; left:0; width:100%; height:100vh; height:100lvh; z-index:-1; pointer-events:none; overflow:hidden; opacity:0;
+  background-color:rgba(3,4,10,.72);
+  background-image:radial-gradient(ellipse 70% 45% at 72% 22%, rgba(120,70,200,.32), rgba(120,70,200,0) 70%),
+                   radial-gradient(ellipse 60% 40% at 18% 70%, rgba(40,90,200,.28), rgba(40,90,200,0) 70%),
+                   radial-gradient(ellipse 40% 30% at 55% 55%, rgba(200,80,160,.14), rgba(200,80,160,0) 70%); }
+.fx-cosmos canvas{ position:absolute; left:-4%; top:-4%; width:108%; height:108%; }
+.fx-eyes{ position:fixed; left:50%; top:24%; z-index:121; pointer-events:none; opacity:0; width:min(30vw,190px); height:min(7vw,44px); transform:translate(-50%,-50%);
+  --eg:rgba(255,255,255,.98) 0 18%, rgba(150,190,255,.75) 38%, rgba(70,120,230,.3) 56%, rgba(70,120,230,0) 74%;
+  background:radial-gradient(ellipse 24% 50% at 22% 50%, var(--eg)), radial-gradient(ellipse 24% 50% at 78% 50%, var(--eg)); }
 .fx-cut{ position:fixed; inset:0; z-index:99; background:#000; pointer-events:none; }
 .fx-soviet{ position:fixed; inset:0; z-index:96; pointer-events:none; overflow:hidden; -webkit-backdrop-filter:grayscale(.85) brightness(.75); backdrop-filter:grayscale(.85) brightness(.75); background:rgba(120,10,14,.38); }
 .fx-soviet .hx-grain{ position:absolute; inset:-20px; opacity:.1; }
@@ -3653,6 +3662,42 @@ document.getElementById("btnReset").addEventListener("click", () => {
     persist(); renderAll();
   });
 });
+/* ---------- the Watcher is watching: leave the app untouched for 30 seconds and the page behind the boxes slowly turns into deep space, then two faint eyes open over everything; touch the screen and it fades (not a Hero File) ---------- */
+let idleAt = Date.now(), cosmos = null;
+function openCosmos() {
+  const c = cosmos = document.createElement("div"); c.className = "fx-cosmos"; c.setAttribute("aria-hidden", "true");
+  const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), W = innerWidth * 1.08, H = innerHeight * 1.08;
+  cv.width = W * dpr; cv.height = H * dpr; c.appendChild(cv); document.body.prepend(c);
+  const ey = c.eyes = document.createElement("div"); ey.className = "fx-eyes"; ey.setAttribute("aria-hidden", "true"); document.body.appendChild(ey);   // one pair of eyes, above everything: boxes, the Hero File, the map, even the doors
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  for (let k = 0, n = Math.round(W * H / 2600); k < n; k++) {   // stars: mostly faint pinpricks, a few brighter ones with a soft glow
+    const x = Math.random() * W, y = Math.random() * H, big = Math.random() < .06, r = big ? 1.1 + Math.random() * .8 : .4 + Math.random() * .6;
+    g.globalAlpha = big ? .9 : .25 + Math.random() * .5; g.fillStyle = Math.random() < .2 ? "#C9D8FF" : "#FFFFFF";
+    if (big) { g.shadowColor = "rgba(190,210,255,.9)"; g.shadowBlur = 6; } else g.shadowBlur = 0;
+    g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+  }
+  if (REDUCED) { c.style.opacity = "1"; ey.style.opacity = ".55"; } else {
+    c.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 5000, easing: "ease-in-out", fill: "forwards" });
+    // once space has settled, two faint eyes open far off in it, and blink now and then
+    const TR = "translate(-50%,-50%)";
+    ey.animate([{ opacity: 0 }, { opacity: .55 }], { duration: 4000, delay: 6000, easing: "ease-in-out", fill: "forwards" });
+    ey.animate([{ transform: TR + " scaleY(1)" }, { transform: TR + " scaleY(1)", offset: .96 }, { transform: TR + " scaleY(.08)", offset: .98 }, { transform: TR + " scaleY(1)" }], { duration: 9000, delay: 10000, iterations: Infinity });
+    cv.animate([{ transform: "translate(0,0) scale(1)" }, { transform: "translate(-2%,-1.5%) scale(1.03)" }], { duration: 60000, easing: "linear", fill: "forwards" });   // space drifts, very slowly
+  }
+}
+function closeCosmos() {
+  const c = cosmos; cosmos = null; if (!c) return;
+  const o = getComputedStyle(c).opacity;
+  c.animate([{ opacity: o }, { opacity: 0 }], { duration: 700, easing: "ease-out", fill: "forwards" }).onfinish = () => c.remove();
+  c.eyes.animate([{ opacity: getComputedStyle(c.eyes).opacity }, { opacity: 0 }], { duration: 500, easing: "ease-out", fill: "forwards" }).onfinish = () => c.eyes.remove();
+}
+const wake = () => { idleAt = Date.now(); if (cosmos) closeCosmos(); };
+["pointerdown", "keydown", "wheel", "scroll", "touchstart"].forEach(n => document.addEventListener(n, wake, { capture: true, passive: true }));
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") idleAt = Date.now(); });
+setInterval(() => {
+  if (cosmos || sayBusy || document.visibilityState !== "visible") return;
+  if (Date.now() - idleAt >= 30000) openCosmos();
+}, 2000);
 /* ---------- outside Claude (opened from a file, or as the installed app from its website): saved on this device, and the app works offline ---------- */
 if (!(window.claude && window.claude.use)) {
   document.getElementById("syncTxt").textContent = "Saved on this device";
