@@ -2877,7 +2877,9 @@ const STONE_LINES = { power: "Yibambe!", space: "The Tesseract was the jewel of 
   soul: "In order to take the stone, you must lose that which you love.", time: "I know what kind of god I need to be.", mind: "I am." };
 const STONE_HOW = { power: "In the Black Panther & Wakanda box, hold anywhere, then let go.", space: "Hold Captain America: The First Avenger, then drag it somewhere and let go.", reality: "Hold WandaVision, then drop the Hex.", soul: "In the Black Widow box, hold her name, then let go.", time: "Prune a timeline, then bring it back.", mind: "Hold Avengers: Age of Ultron until the web turns gold." };
 const earned = id => !!(state.achSeen || {})[id];
-function achCount() { const A = achList(); return `${A.filter(a => earned(a.id)).length}/${A.length}`; }
+// Hero File sections appear once their first file is earned (Chapters always shows); the totals count only the files in sections you can see
+function fileSecs(A) { const o = { chapters: true }; A.forEach(a => { if (earned(a.id)) o[a.sec] = true; }); return o; }
+function achCount() { const A = achList(), o = fileSecs(A), V = A.filter(a => o[a.sec]); return `${V.filter(a => earned(a.id)).length}/${V.length}`; }
 let achPending = [], achDefer = [], achFlushT = null;
 
 function checkAch() {
@@ -2885,7 +2887,7 @@ function checkAch() {
   if (!state.achSeen) { state.achSeen = {}; A.forEach(a => { if (a.ok()) state.achSeen[a.id] = 1; }); return; }
   const fresh = [];
   for (let pass = 0; pass < 2; pass++) A.forEach(a => { if (!state.achSeen[a.id] && a.ok()) { state.achSeen[a.id] = 1; fresh.push(a); } });
-  const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = `${A.filter(a => state.achSeen[a.id]).length}/${A.length}`;
+  const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount();
   if (!fresh.length) return;
   achPending.push(...fresh); clearTimeout(achFlushT); achFlushT = setTimeout(flushAch, 450);
   if (fileOpen) renderFile();
@@ -2912,13 +2914,14 @@ function renderFile() {
     const note = ok ? a.d : n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : (sec ? "Classified" : "Locked");
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${ok ? "Complete" : sec ? "Classified" : "Locked"}</span><b>${esc(sec ? "???" : a.t)}</b><small>${esc(note)}</small></button>`; };
   const part = (key, title, mini) => { const L = A.filter(a => a.sec === key); return `<section class="hf-sec"><h3><span>${title}</span><span>${L.filter(a => earned(a.id)).length}/${L.length}</span></h3><div class="hf-grid${mini ? " mini" : ""}">${L.map(card).join("")}</div></section>`; };
-  const eggN = EGGS.filter(([id]) => earned("egg-" + id)).length;
+  const got = key => A.filter(a => a.sec === key && earned(a.id)).length, tot = key => A.filter(a => a.sec === key).length, open = fileSecs(A);
+  const stat = (key, label) => open[key] ? `<div><b>${got(key)}/${tot(key)}</b><small>${label} complete</small></div>` : "";
+  const sect = (key, title, mini) => open[key] ? part(key, title, mini) : "";
   document.getElementById("fileView").innerHTML = `
     <div class="hf-head"><div class="hf-tag">Avengers Initiative · Hero File</div><div class="hf-name">Hero Profile</div>
-      <div class="hf-level">Clearance level ${level} of 10 · ${done}/${A.length} files</div><div class="hf-bar"><span style="width:${pct}%"></span></div>
-      <div class="hf-stats"><div><b>${DATA.chapters.filter(c => earned("ch-" + c.id)).length}/${DATA.chapters.length}</b><small>Chapters complete</small></div><div><b>${DATA.chars.filter(isDone).length}/${DATA.chars.length}</b><small>Heroes complete</small></div>
-        <div><b>${STONES.filter(z => earned("stone-" + z.id)).length}/6</b><small>Infinity Stones</small></div><div><b>${eggN}/${EGGS.length}</b><small>Classified found</small></div></div></div>
-    ${part("chapters", "Chapters complete", true)}${part("missions", "Missions")}${part("artifacts", "Artifacts")}${part("classified", "Classified")}${part("final", "Final")}
+      <div class="hf-level">Clearance level ${level} of 10 · ${achCount()} files</div><div class="hf-bar"><span style="width:${pct}%"></span></div>
+      <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
+    ${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${sect("classified", "Classified")}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress lives in this browser. A save code holds all of it (checkmarks, chapters, stones, Hero File) in one line of text. Keep it in your notes, and paste it here on a new version of the app, a new browser, or a new phone.</p>
       <div class="row"><button type="button" class="go" data-save="copy">Copy save code</button><button type="button" data-save="open">Restore code</button></div>
