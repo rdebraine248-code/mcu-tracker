@@ -406,6 +406,33 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-pager button{ border:0; background:transparent; color:#7FA6D8; font:300 22px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; padding:0 8px; cursor:pointer; touch-action:manipulation; }
 .hf-pager button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; }
 .hf-grid.hf-pg.flip{ animation:sagaIn .35s ease both; }
+.fx-sue{ position:fixed; top:0; bottom:0; left:0; width:90px; z-index:98; pointer-events:none; background:linear-gradient(90deg, rgba(190,225,255,0), rgba(190,225,255,.35) 35%, rgba(255,255,255,.75) 50%, rgba(190,225,255,.35) 65%, rgba(190,225,255,0)); -webkit-backdrop-filter:blur(2px) brightness(1.15); backdrop-filter:blur(2px) brightness(1.15); }
+.fx-sueghost{ position:fixed; inset:0; z-index:96; pointer-events:none; overflow:hidden; opacity:0; filter:blur(1.2px); }
+.fx-lokidim{ z-index:97; opacity:0; transition:opacity .5s ease; background:radial-gradient(ellipse at 50% 40%, rgba(8,40,20,.6), rgba(2,10,6,.9)); }
+.fx-runner{ position:fixed; left:-6px; top:0; width:34px; height:150px; z-index:99; pointer-events:none; border-radius:40%; background:linear-gradient(180deg, rgba(190,205,230,0), rgba(190,205,230,.55) 35%, rgba(60,80,120,.55) 60%, rgba(190,205,230,0)); filter:blur(7px); }
+.fx-oyldim{ position:fixed; inset:0; z-index:97; pointer-events:none; opacity:0; transition:opacity .3s ease; background:rgba(8,12,20,.42); }
+.fx-oyl{ position:fixed; left:30px; z-index:99; pointer-events:none; white-space:nowrap; font:600 clamp(16px,4.6vw,22px)/1 'Oswald','Arial Narrow',sans-serif; letter-spacing:1px; color:#F4F7FB; text-shadow:0 2px 10px rgba(0,0,0,.7); }
+.fx-oyl.sam{ left:auto; right:22px; font-weight:400; font-style:italic; text-transform:none; color:#E6ECF4; }
+.fx-helm{ position:fixed; inset:0; z-index:99; pointer-events:none; transform:translateY(-100%); will-change:transform; }
+.fx-helm .hm{ position:absolute; inset:0; overflow:hidden; background:linear-gradient(90deg, rgba(0,0,0,.38) 0, rgba(0,0,0,0) 14%, rgba(0,0,0,0) 86%, rgba(0,0,0,.38) 100%), radial-gradient(ellipse 55% 30% at 36% 12%, rgba(255,160,150,.45), rgba(255,160,150,0) 70%), radial-gradient(ellipse 95% 72% at 50% 48%, #C8252B 0%, #921319 60%, #3A0406 100%); }
+.fx-helm .fw{ position:absolute; left:50%; top:54%; width:min(90vw,60vh); aspect-ratio:4/5; transform:translate(-50%,-50%); filter:drop-shadow(0 5px 6px rgba(0,0,0,.6)); }
+.fx-helm .fo, .fx-helm .fc, .fx-helm .fi, .fx-helm .ey, .fx-helm .fc i, .fx-helm .ey i{ position:absolute; inset:0; }
+.fx-helm .fo, .fx-helm .fc, .fx-helm .fi{ clip-path:polygon(9% 3%,50% 0,91% 3%,97% 20%,96% 42%,90% 55%,87% 70%,79% 86%,63% 100%,37% 100%,21% 86%,13% 70%,10% 55%,4% 42%,3% 20%); }
+.fx-helm .fo{ transform:scale(1.035); transform-origin:50% 46%; background:#2A0405; }
+.fx-helm .fc{ background:linear-gradient(175deg,#C08A2A,#6A440C); }
+.fx-helm .fi{ display:block; transform:scale(.955); transform-origin:50% 46%; background:linear-gradient(90deg, rgba(255,255,255,.1) 0 50%, rgba(0,0,0,.12) 50%), radial-gradient(ellipse 50% 35% at 34% 24%, rgba(255,248,210,.9), rgba(255,248,210,0) 70%), linear-gradient(175deg,#F6D985 0%,#E7B648 28%,#C99230 58%,#9A6A18 85%,#7A500F 100%); }
+.fx-helm .fc i{ background:rgba(70,40,4,.8); }
+.fx-helm .fc .sm{ clip-path:polygon(19.5% 47%,21% 47%,36% 96%,34.5% 96.3%); }
+.fx-helm .fc .sm.r{ clip-path:polygon(80.5% 47%,79% 47%,64% 96%,65.5% 96.3%); }
+.fx-helm .fc .hl{ background:rgba(255,240,190,.45); clip-path:polygon(21% 47%,22% 47%,37% 96%,36% 96.2%); }
+.fx-helm .fc .hl.r{ clip-path:polygon(81.5% 47%,80.5% 47%,65.5% 96%,66.5% 96.2%); }
+.fx-helm .fc .mo{ clip-path:polygon(33% 82%,67% 82%,65% 84%,35% 84%); background:#241604; }
+.fx-helm .ey i{ background:#0A0806; clip-path:polygon(12% 34%,41% 38.5%,40% 42.5%,17% 41.5%); }
+.fx-helm .ey i.r{ clip-path:polygon(88% 34%,59% 38.5%,60% 42.5%,83% 41.5%); }
+.fx-helm .ey.on{ opacity:0; filter:drop-shadow(0 0 5px #CFF6FF) drop-shadow(0 0 16px #5FD3FF); }
+.fx-helm .ey.on i{ background:linear-gradient(180deg,#FFFFFF,#D6F7FF); }
+.fx-mk-host{ position:relative; }
+.fx-mk{ position:absolute; z-index:1; pointer-events:none; background:#0B0B0B; border-radius:2px 3px 2px 4px; box-shadow:0 0 0 1px rgba(11,11,11,.6); }
 .fx-files{ position:fixed; left:50%; top:50%; z-index:98; width:min(84vw,330px); height:min(64vh,410px); margin:calc(min(64vh,410px) / -2) 0 0 calc(min(84vw,330px) / -2); pointer-events:none; }
 .fx-file{ position:absolute; inset:0; padding:16px 16px 14px; border-radius:3px; background:linear-gradient(180deg,#EFE4C8,#E2D3AE); box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(120,95,50,.35); color:#2A241A; font:13px/1.4 'Special Elite','Courier New',monospace; transform:rotate(var(--r)); }
 .fx-file .fh{ display:flex; justify-content:space-between; padding-bottom:6px; margin-bottom:12px; border-bottom:1.5px solid rgba(138,27,27,.6); color:#8A1B1B; font-size:11px; letter-spacing:2px; }
@@ -1237,6 +1264,8 @@ function renderPanel(e, fresh) {
   const pqWait = pqHoldUntil - Date.now();
   const pqHtml = cls => pq ? `<p class="pquote${cls}${pqWait > 0 ? " pending" : ""}" style="font-family:${esc(fontOf(e.h2) || "inherit")}">“${esc(pq).replace(" / ", "” “")}”</p>` : "";
   if (pqWait > 0) setTimeout(() => { const q = panel.querySelector(".pquote"); if (q) q.classList.remove("pending"); }, pqWait);
+  // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap): the page itself mustn't zoom under the fingers
+  panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders"].includes(e.id) ? "pan-y" : "";
   panel.innerHTML = `${panelDecor(e)}
     <div class="pin">
       <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}</div>
@@ -1695,7 +1724,7 @@ panel.addEventListener("pointerdown", ev => {
   else if (h && bid && TITLE_EGGS[bid]) act = () => TITLE_EGGS[bid](h, x, y);
   else if (row && bid && BOX_ROW_EGGS[bid]) act = () => BOX_ROW_EGGS[bid](x, y, row);
   else if (row && ROW_EGGS[row.dataset.t]) { const fn = ROW_EGGS[row.dataset.t]; act = () => fn(x, y, row); }
-  const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow], "cx-iron-man": [650, 0, () => ironHud()],
+  const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow],
     "cx-the-watcher": [650, 0, shatter] };
   if (!act && ANY[bid]) { const [a, b, fn] = ANY[bid]; pnlStart = [x, y]; pnlTimer = setTimeout(() => { pnlFired = true; fn(x, y); }, a + Math.random() * b); return; }
   if (!act) return;
@@ -1708,6 +1737,678 @@ panel.addEventListener("pointermove", ev => { if (pnlStart && Math.hypot(ev.clie
   foxStage = 0; foxXY = null;
 }));
 panel.addEventListener("contextmenu", ev => ev.preventDefault());
+/* ---------- gestures with a story: Iron Man pulls his faceplate down, Ant-Man pinches the box small, Daredevil hears a heartbeat,
+   Carol flicks herself up, the Ten Rings wake when you touch one, and a black marker strikes out the Thunderbolts' name ---------- */
+let gest = null, pinch = null, gestBlock = 0, quantumOn = false, ringsOn = false, ddTaps = [], antWheel = 0, antWheelT = 0, lokiPress = null, holdTimer2 = null, twoHold = null, mouseFeel = null;
+const boxIs = id => openEntry && openKind === "char" && openEntry.id === id;
+// while one of these owns the finger, the page must not scroll (or zoom) underneath it
+panel.addEventListener("touchmove", ev => { if (gest || pinch || twoHold) ev.preventDefault(); }, { passive: false });
+window.addEventListener("click", ev => { if (Date.now() < gestBlock) { ev.stopPropagation(); ev.preventDefault(); } }, true);
+panel.addEventListener("pointerdown", ev => {
+  gest = null;
+  if (!openEntry || openKind !== "char" || ev.button > 0) return;
+  const h = document.getElementById("panelTitle"), onName = ev.target.closest("#panelTitle"), x = ev.clientX, y = ev.clientY, id = openEntry.id;
+  if (id === "cx-iron-man" && panel.scrollTop < 8 && h && y < Math.max(150, h.getBoundingClientRect().bottom + 12)) gest = { k: "iron", x, y, el: null };
+  else if (id === "cx-captain-marvel" && onName) gest = { k: "carol", x, y, h };
+  else if (id === "cx-the-thunderbolts" && onName && !tbOn) gest = tbStart(h, x, y);
+  else if (id === "cx-daredevil" && onName) heartTap(h, x, y);
+  else if (id === "cx-the-champions" && onName) gest = doodleStart(x, y);
+  else if (id === "cx-the-fantastic-four" && onName) ffTap(h);
+  else if (id === "cx-loki-the-tva" && !ev.target.closest(".back") && !ev.target.closest(DOOM_SEL) && !lokiOn) { lokiPress = [x, y]; clearTimeout(lokiTimer); lokiTimer = setTimeout(() => { lokiPress = null; clearTimeout(pnlTimer); gest = lokiGrab(x, y); }, 500); }
+  // with a mouse there's no second finger: a long press stands in for the two-finger and four-finger ones
+  if (ev.pointerType === "mouse") { clearTimeout(holdTimer2);
+    if (id === "cx-wanda-vision" && ev.target.closest(".pquote")) holdTimer2 = setTimeout(() => { holdTimer2 = null; gestBlock = Date.now() + 600; mouseFeel = onlyFeel([x - 90, y + 60], [x + 90, y + 60]); }, 900);
+    if (id === "cx-the-defenders" && onName) holdTimer2 = setTimeout(() => { gestBlock = Date.now() + 600; defenders(); }, 1200); }
+}, true);
+panel.addEventListener("pointermove", ev => {
+  if (lokiPress && Math.hypot(ev.clientX - lokiPress[0], ev.clientY - lokiPress[1]) > 10) { clearTimeout(lokiTimer); lokiPress = null; }   // it moved first: that's a scroll
+  if (holdTimer2) { clearTimeout(holdTimer2); holdTimer2 = null; }
+  if (!gest) return;
+  const dx = ev.clientX - gest.x, dy = ev.clientY - gest.y;
+  if (gest.k === "iron") {   // the faceplate follows your finger down, part of the way
+    if (!gest.el) { if (dy < -4 || Math.abs(dx) > 16) { gest = null; return; } if (dy < 10) return; if (REDUCED) { gest = null; gestBlock = Date.now() + 500; found("ironhud"); return; } gest.el = helmMake(); }
+    gest.p = clamp01(dy / (innerHeight * .4)); gest.el.style.transform = `translateY(${-100 + gest.p * 42}%)`;
+  } else if (gest.k === "carol") {
+    gest.h.style.transform = `translateY(${Math.max(-46, Math.min(0, dy * .55))}px)`;
+    if (dy < -64 && Math.abs(dy) > Math.abs(dx)) { const h = gest.h; gest = null; gestBlock = Date.now() + 500; carolUp(h, dy * .55); }
+  } else if (gest.k === "tb") tbMove(gest, ev.clientX, ev.clientY);
+  else if (gest.k === "doodle") doodleMove(gest, ev.clientX, ev.clientY);
+  else if (gest.k === "loki") lokiMove(gest, ev.clientX, ev.clientY);
+});
+["pointerup", "pointercancel"].forEach(n => panel.addEventListener(n, () => {
+  clearTimeout(lokiTimer); lokiPress = null; clearTimeout(holdTimer2); if (mouseFeel) { mouseFeel.release(); mouseFeel = null; }
+  if (!gest) return;
+  const g = gest; gest = null;
+  if (g.k === "iron" && g.el) { gestBlock = Date.now() + 500; if (g.p > .22) helmShut(g.el); else g.el.animate([{ transform: g.el.style.transform }, { transform: "translateY(-100%)" }], { duration: 260, easing: "ease-out", fill: "forwards" }).onfinish = () => g.el.remove(); }
+  if (g.k === "carol") { const t = g.h.style.transform; g.h.style.transform = ""; if (t) g.h.animate([{ transform: t }, { transform: "none" }], { duration: 320, easing: "cubic-bezier(.3,1.6,.5,1)" }); }
+  if (g.k === "tb" && !g.done) { gestBlock = Date.now() + 500; tbClear(g, 700); }
+  if (g.k === "doodle") { if (g.len > 12) gestBlock = Date.now() + 500; doodleEnd(g); }
+  if (g.k === "loki") lokiSlip(g);
+}));
+
+/* Iron Man: the faceplate comes down and locks, the eyes light, and you go in through them to the HUD */
+function helmMake() {
+  const el = document.createElement("div"); el.className = "fx-helm";
+  el.innerHTML = `<div class="hm"><div class="fw"><div class="fo"></div><div class="fc"><b class="fi"></b><i class="hl"></i><i class="hl r"></i><i class="sm"></i><i class="sm r"></i><i class="mo"></i></div><div class="ey"><i></i><i class="r"></i></div><div class="ey on"><i></i><i class="r"></i></div></div></div>`;
+  document.body.appendChild(el); return el;
+}
+function helmShut(el) {
+  const from = el.style.transform; el.style.transform = "translateY(0)";
+  el.animate([{ transform: from }, { transform: "translateY(0)" }], { duration: 170, easing: "cubic-bezier(.5,0,1,1)" }).onfinish = () => {
+    haptic([70, 25, 30]);
+    el.animate([{ transform: "translateY(0)" }, { transform: "translateY(-1.2%)" }, { transform: "translateY(0)" }], { duration: 170, easing: "ease-out" });
+    el.querySelector(".ey.on").animate([{ opacity: 0 }, { opacity: 0, offset: .3 }, { opacity: 1, offset: .38 }, { opacity: .15, offset: .46 }, { opacity: 1, offset: .56 }, { opacity: 1 }], { duration: 1000, fill: "forwards" });
+    setTimeout(() => haptic([10, 40, 10]), 330);
+    setTimeout(() => {   // in through the eyes
+      const f = el.querySelector(".fc").getBoundingClientRect(), hm = el.querySelector(".hm");
+      hm.style.transformOrigin = `${f.left + f.width / 2}px ${f.top + f.height * .38}px`;
+      hm.animate([{ transform: "none" }, { transform: "scale(7)" }], { duration: 700, easing: "cubic-bezier(.6,0,.9,.6)", fill: "forwards" });
+      veil("fxl", "z-index:99;background:#000", [{ opacity: 0 }, { opacity: 1, offset: .45 }, { opacity: 1, offset: .62 }, { opacity: 0 }], 1600);
+      setTimeout(() => { el.remove(); ironHud(); }, 760);
+    }, 1700);
+  };
+}
+
+/* Wanda & Vision: two fingers held still for a moment. The Defenders: four fingers at once */
+panel.addEventListener("touchstart", ev => {
+  const n = ev.touches.length;
+  if (boxIs("cx-the-defenders") && n >= 4) { clearTimeout(pnlTimer); gestBlock = Date.now() + 800; defenders(); return; }
+  if (!boxIs("cx-wanda-vision")) return;
+  if (n === 2 && ![...ev.touches].some(t => t.target.closest && t.target.closest(DOOM_SEL))) {
+    clearTimeout(pnlTimer);
+    const [a, b] = ev.touches; twoHold = { a: [a.clientX, a.clientY], b: [b.clientX, b.clientY] };
+    twoHold.timer = setTimeout(() => { if (!twoHold) return; gestBlock = Date.now() + 800; twoHold.live = onlyFeel(twoHold.a, twoHold.b); if (!twoHold.live) twoHold = null; }, 450);
+  } else if (n > 2 && twoHold) { clearTimeout(twoHold.timer); if (twoHold.live) twoHold.live.release(); twoHold = null; }
+}, { passive: true });
+panel.addEventListener("touchmove", ev => {
+  if (!twoHold) return;
+  if (twoHold.live) { if (ev.touches.length >= 2) { const [a, b] = ev.touches; twoHold.live.A = [a.clientX, a.clientY]; twoHold.live.B = [b.clientX, b.clientY]; } return; }   // the beams follow your fingers
+  const moved = [...ev.touches].some(t => Math.min(Math.hypot(t.clientX - twoHold.a[0], t.clientY - twoHold.a[1]), Math.hypot(t.clientX - twoHold.b[0], t.clientY - twoHold.b[1])) > 16);
+  if (moved) { clearTimeout(twoHold.timer); twoHold = null; }
+}, { passive: true });
+["touchend", "touchcancel"].forEach(n => panel.addEventListener(n, () => { if (twoHold) { clearTimeout(twoHold.timer); if (twoHold.live) { gestBlock = Date.now() + 600; twoHold.live.release(); } twoHold = null; } }));
+
+/* ---------- Sam, in the Falcon & Winter Soldier box. "On your left.": tap the left edge of the box. Steve laps Sam on the morning run from The Winter Soldier: a blur tears past down the
+      left side, the titles shiver in its wake, and the lines come back lap by lap. The box gets more out of breath each time */
+let oylLap = 0, oylLast = 0, oylBusy = false, oylDim = null, oylDimT = 0;
+function oylShade(ms) { if (!oylDim) { oylDim = document.createElement("div"); oylDim.className = "fx-oyldim"; document.body.appendChild(oylDim); requestAnimationFrame(() => { if (oylDim) oylDim.style.opacity = "1"; }); }
+  clearTimeout(oylDimT); oylDimT = setTimeout(() => { const d = oylDim; oylDim = null; if (d) { d.style.opacity = "0"; setTimeout(() => d.remove(), 350); } }, ms); }
+function oylLine(txt, sam, y, hold) {   // Steve's lines on the left, where he passes; Sam's replies on the right, a step behind
+  const w = document.createElement("div"); w.className = "fx-oyl" + (sam ? " sam" : ""); w.textContent = txt; w.style.top = y + "px"; document.body.appendChild(w);
+  w.animate([{ opacity: 0, transform: `translateX(${sam ? 8 : -14}px)`, filter: "blur(4px)" }, { opacity: 1, transform: "none", filter: "blur(0)", offset: .14 }, { opacity: 1, offset: .8 }, { opacity: 0, transform: `translateY(-4px)` }], { duration: hold || 2400, easing: "ease-out", fill: "both" }).onfinish = () => w.remove();
+}
+function oylRun(ms, then) {   // the blur coming from behind, up the left side, faster every lap; each title shivers as it goes by
+  const W = innerWidth, H = innerHeight, b = document.createElement("div"); b.className = "fx-runner"; document.body.appendChild(b);
+  b.animate([{ transform: `translateY(${H + 140}px) scaleY(1)` }, { transform: `translateY(${H * .5}px) scaleY(1.4)`, offset: .5 }, { transform: "translateY(-220px) scaleY(1)" }], { duration: ms, easing: "cubic-bezier(.4,.1,.6,.9)" }).onfinish = () => b.remove();
+  rowsOnScreen().forEach(r => { const y = centerOf(r)[1], at = ms * (1 - (y + 140) / (H + 360));
+    setTimeout(() => r.animate([{ transform: "none" }, { transform: "translateX(9px) skewX(-6deg)", offset: .25 }, { transform: "translateX(-3px)", offset: .6 }, { transform: "none" }], { duration: 420, easing: "ease-out" }), Math.max(0, at)); });
+  [0, .25, .5, .75].forEach(f => setTimeout(() => haptic(14), ms * f));
+  if (then) setTimeout(then, ms);
+}
+function oylBreath(n, amp) {   // the box catching its breath: heavier and longer each lap
+  const sc = fxScope(), kf = [{ transform: "none" }]; for (let k = 0; k < n; k++) { kf.push({ transform: `scaleY(${1 + amp}) translateY(${-amp * 120}px)`, offset: (k + .4) / n }); kf.push({ transform: "none", offset: (k + 1) / n }); }
+  sc.style.transformOrigin = "50% 100%"; sc.animate(kf, { duration: n * 900, easing: "ease-in-out" }).onfinish = () => { sc.style.transformOrigin = ""; };
+}
+function onYourLeft() {
+  if (oylBusy) return;
+  const now = Date.now(); oylLap = now - oylLast < 9000 ? oylLap + 1 : 1; oylLast = now;
+  const H = innerHeight, y = () => H * (.3 + Math.random() * .3);
+  if (REDUCED) { if (oylLap >= 3) { oylLap = 0; say("On your left."); found("onyourleft"); } return; }
+  oylBusy = true; oylShade(oylLap >= 3 ? 4700 : oylLap === 2 ? 3300 : 2500);
+  if (oylLap === 1) oylRun(520, () => { oylLine("On your left.", false, y()); oylBreath(1, .006); setTimeout(() => { oylBusy = false; }, 900); });
+  else if (oylLap === 2) oylRun(400, () => { const yy = y(); oylLine("On your left.", false, yy); setTimeout(() => oylLine("Uh-huh, on my left. Got it.", true, yy + 44, 2600), 700); oylBreath(2, .01); setTimeout(() => { oylBusy = false; }, 1600); });
+  else {   // the last lap: Sam sees it coming
+    oylLap = 0;
+    oylLine("Don't say it.", true, H * .62, 1800); setTimeout(() => oylLine("Don't you say it!", true, H * .62 + 40, 1800), 650);
+    setTimeout(() => oylRun(300, () => { const yy = H * .36; oylLine("On your left.", false, yy, 2600); setTimeout(() => { oylLine("Come on!", true, yy + 44, 2200); haptic([40, 60, 40]); }, 900);
+      oylBreath(4, .016); setTimeout(() => { oylBusy = false; found("onyourleft"); }, 3600); }), 1500);
+  }
+}
+
+/* Ant-Man & the Wasp: pinch the box and it shrinks under your fingers, then all the way into the Quantum Realm */
+panel.addEventListener("touchstart", ev => {
+  if (!boxIs("cx-ant-man-the-wasp") || ev.touches.length !== 2 || quantumOn) return;
+  const [a, b] = ev.touches; pinch = { d0: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) || 1, s: 1 }; clearTimeout(pnlTimer);
+}, { passive: true });
+panel.addEventListener("touchmove", ev => {
+  if (!pinch || ev.touches.length < 2) return;
+  const [a, b] = ev.touches, r = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) / pinch.d0, sc = fxScope(), sr = sc.getBoundingClientRect();
+  pinch.s = Math.max(.5, Math.min(1, r)); sc.style.transformOrigin = `${innerWidth / 2 - sr.left}px ${innerHeight / 2 - sr.top}px`; sc.style.transform = `scale(${pinch.s})`;
+  if (r < .62) { const s = pinch.s; pinch = null; gestBlock = Date.now() + 600; quantum(document.getElementById("panelTitle"), s); }
+}, { passive: false });
+["touchend", "touchcancel"].forEach(n => panel.addEventListener(n, () => {
+  if (!pinch) return; const s = pinch.s, sc = fxScope(); pinch = null; sc.style.transform = "";
+  if (s < 1) sc.animate([{ transform: `scale(${s})` }, { transform: "none" }], { duration: 380, easing: "cubic-bezier(.3,1.5,.5,1)" }).onfinish = () => { sc.style.transformOrigin = ""; };
+}));
+// on a computer, a trackpad pinch (or ctrl + scroll) does the same
+panel.addEventListener("wheel", ev => {
+  if (!boxIs("cx-ant-man-the-wasp") || !ev.ctrlKey) return; ev.preventDefault();
+  const now = Date.now(); if (now - antWheelT > 600) antWheel = 0; antWheelT = now; antWheel += ev.deltaY;
+  if (antWheel > 140 && !quantumOn) { antWheel = 0; quantum(document.getElementById("panelTitle")); }
+}, { passive: false });
+
+/* Daredevil: tap a heartbeat on his name (two quick, a pause, two quick). Every beat thumps */
+function heartTap(h, x, y) {
+  const now = Date.now(); ddTaps = ddTaps.filter(t => now - t < 2400); ddTaps.push(now);
+  haptic(14); if (!REDUCED) { h.animate([{ transform: "none" }, { transform: "scale(1.035)" }, { transform: "none" }], { duration: 160, easing: "ease-out" }); fxRing(x, y, 46, "rgba(255,60,40,.7)", 420, 0, 2); }
+  if (ddTaps.length < 4) return;
+  const [a, b, c, d] = ddTaps.slice(-4), g1 = b - a, g2 = c - b, g3 = d - c;
+  if (g1 < 400 && g3 < 400 && g2 > 380 && g2 > g1 * 1.5 && g2 < 1500) { ddTaps = []; setTimeout(() => radar(h), 250); }
+}
+
+/* Captain Marvel: flick her name up and it launches off the top of the screen, then the photon blast; it drops back in after */
+function carolUp(h, from) {
+  const r = h.getBoundingClientRect(), y0 = centerOf(h)[1]; h.style.transform = "";
+  photon(h, y0);
+  if (REDUCED) return;
+  h.animate([{ transform: `translateY(${from}px)` }, { transform: `translateY(${-r.bottom - 80}px)`, offset: .08 }, { transform: `translateY(${-r.bottom - 80}px)`, offset: .82 }, { transform: "none" }], { duration: 3400, easing: "cubic-bezier(.4,0,.2,1)" });
+  haptic([40, 20, 80]);
+}
+
+/* Shang-Chi: tap one of the ten rings drawn on his box */
+function ringHit(ev) {
+  return [...panel.querySelectorAll("svg circle")].some(c => { if ((c.getAttribute("stroke") || "").toUpperCase() !== "#B80F0A") return false; const b = c.getBoundingClientRect(); return ev.clientX > b.left - 12 && ev.clientX < b.right + 12 && ev.clientY > b.top - 12 && ev.clientY < b.bottom + 12; });
+}
+
+/* The Thunderbolts: a black marker follows your finger across the name, line by line; black it all out and Valentina's files come out */
+function tbStart(h, x, y) {
+  const hr = h.getBoundingClientRect(), rng = document.createRange(); rng.selectNodeContents(h);
+  const L = []; [...rng.getClientRects()].filter(r => r.width > 2).forEach(r => { const m = L.find(l => Math.abs(l.t - r.top) < 6); if (m) { m.l = Math.min(m.l, r.left); m.r = Math.max(m.r, r.right); m.b = Math.max(m.b, r.bottom); } else L.push({ l: r.left, r: r.right, t: r.top, b: r.bottom }); });
+  if (!L.length) return null;
+  h.classList.add("fx-mk-host");
+  L.forEach(l => { const s = document.createElement("span"); s.className = "fx-mk"; const lh = l.b - l.t; s.style.cssText = `left:${l.l - hr.left}px;top:${l.t - hr.top + lh * .1}px;height:${lh * .8}px;width:0`; h.appendChild(s); l.bar = s; l.a = null; l.z = null; });
+  const g = { k: "tb", x, y, h, hr, L, done: false }; tbMove(g, x, y); return g;
+}
+function tbMove(g, x, y) {
+  if (g.done) return;
+  const l = g.L.reduce((best, k) => { const d = y < k.t ? k.t - y : y > k.b ? y - k.b : 0; return !best || d < best.d ? { k, d } : best; }, null);
+  if (!l || l.d > 34) return;
+  const k = l.k, cx = Math.max(k.l - 4, Math.min(k.r + 4, x));
+  k.a = k.a == null ? cx : Math.min(k.a, cx); k.z = k.z == null ? cx : Math.max(k.z, cx);
+  k.bar.style.left = (k.a - g.hr.left) + "px"; k.bar.style.width = (k.z - k.a) + "px";
+  if (g.L.every(q => q.a != null && (Math.min(q.z, q.r) - Math.max(q.a, q.l)) / (q.r - q.l) > .85)) {
+    g.done = true; gest = null; gestBlock = Date.now() + 600; haptic([30, 20, 60]);
+    g.L.forEach(q => q.bar.animate([{ left: q.bar.style.left, width: q.bar.style.width }, { left: (q.l - 4 - g.hr.left) + "px", width: (q.r - q.l + 8) + "px" }], { duration: 160, easing: "ease-out", fill: "forwards" }));
+    setTimeout(() => tboltsEgg(g.h), 300);
+    tbClear(g, 300 + 500 + TB_FILES.length * 950 + 2200);
+  }
+}
+function tbClear(g, after) {
+  setTimeout(() => { g.L.forEach(q => q.bar.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => { q.bar.remove(); if (!g.h.querySelector(".fx-mk")) g.h.classList.remove("fx-mk-host"); }); }, after);
+}
+/* ---------- shared: a canvas layer that runs until it's told to stop (for effects that follow your finger) ---------- */
+function liveFx(z) {
+  const o = fxCanvas(z); o.on = true; o.t0 = performance.now();
+  o.loop = fn => { let last = o.t0; const f = now => { if (!o.on) { o.cv.remove(); return; } const dt = Math.min(.05, Math.max(0, now - last) / 1000); last = now; fn(Math.max(0, now - o.t0), dt); requestAnimationFrame(f); }; requestAnimationFrame(f); };
+  return o;
+}
+const rowsOnScreen = () => onScreen(listItems()).map(it => it.row);
+
+// the crown shape (Wanda's in Multiverse of Madness; Billy's in Agatha All Along is a blue one like it), drawn small as a Wiccan doodle (x, y, sharp corner)
+const CROWN = [[-0.824, -1.294, 1], [-0.741, -1.0, 0], [-0.624, -0.765, 0], [-0.506, -0.624, 1], [-0.294, -0.471, 0], [0.0, -0.2, 1], [0.294, -0.471, 0], [0.506, -0.624, 1], [0.624, -0.765, 0], [0.741, -1.0, 0], [0.824, -1.294, 1], [0.906, -1.0, 0], [0.976, -0.706, 0], [1.0, -0.412, 0], [0.976, -0.118, 1], [0.929, 0.294, 0], [0.859, 0.706, 0], [0.788, 1.059, 0], [0.741, 1.329, 1], [0.671, 1.0, 0], [0.624, 0.647, 0], [0.588, 0.294, 0], [0.553, 0.082, 1], [0.294, 0.153, 0], [0.0, 0.388, 1], [-0.294, 0.153, 0], [-0.553, 0.082, 1], [-0.588, 0.294, 0], [-0.624, 0.647, 0], [-0.671, 1.0, 0], [-0.741, 1.329, 1], [-0.788, 1.059, 0], [-0.859, 0.706, 0], [-0.929, 0.294, 0], [-0.976, -0.118, 1], [-1.0, -0.412, 0], [-0.976, -0.706, 0], [-0.906, -1.0, 0]];
+/* ---------- Wanda & Vision: "I just feel you." Hold with two fingers (both hands): a red beam pours from each into the Mind Stone,
+   it fights back, cracks, and bursts ---------- */
+let ofOn = false;
+function onlyFeel(A0, B0) {
+  if (ofOn) return null;
+  if (REDUCED) { found("onlyfeel"); return null; }
+  ofOn = true;
+  const o = liveFx(98), { g, W, H } = o, S = [W / 2, H * .4], r = Math.min(W, H) * .1, BURST = 3700, END = 5800, red = puffSprite("235,25,60"), gold = puffSprite("255,214,90"), P = [], shards = [];
+  const ctl = { A: A0, B: B0, gone: null };   // gone: when you let go (before the stone broke), or when it broke
+  const dim = document.createElement("div"); dim.className = "fxl"; dim.style.cssText = "z-index:97;background:rgba(8,4,10,.82);opacity:0;transition:opacity .45s ease"; document.body.appendChild(dim); requestAnimationFrame(() => { dim.style.opacity = "1"; });
+  ctl.release = () => { if (ctl.broke || ctl.gone != null) return; ctl.gone = performance.now() - o.t0; dim.style.opacity = "0"; haptic(30); };
+  const G = [[0, -1.25], [.8, -.45], [.8, .45], [0, 1.25], [-.8, .45], [-.8, -.45]];
+  const cracks = Array.from({ length: 6 }, (_, k) => { const a = k / 6 * Math.PI * 2 + Math.random() * .5, pts = []; let x = Math.cos(a) * r * .95, y = Math.sin(a) * r * 1.2; pts.push([x, y]);
+    for (let s2 = 0; s2 < 4; s2++) { x *= .66; y *= .66; pts.push([x + (Math.random() - .5) * r * .35, y + (Math.random() - .5) * r * .35]); } return { pts, at: 1700 + k * 280 }; });
+  const beam = (F, t, k, a) => {
+    const [fx, fy] = F, dx = S[0] - fx, dy = S[1] - fy, d = Math.hypot(dx, dy) || 1, nx = -dy / d, ny = dx / d;
+    for (let s2 = 0; s2 < 4; s2++) {
+      const w = Math.sin(t / 110 + s2 * 1.7 + k) * (10 + s2 * 6), m = [fx + dx * .5 + nx * w, fy + dy * .5 + ny * w];
+      g.globalAlpha = a; g.strokeStyle = s2 ? `rgba(255,${60 + s2 * 20},${90 + s2 * 10},.55)` : "#FFD6DE"; g.lineWidth = s2 ? 6 - s2 : 2.5; g.shadowColor = "#FF1F4F"; g.shadowBlur = 16;
+      g.beginPath(); g.moveTo(fx, fy); g.quadraticCurveTo(m[0], m[1], S[0] - dx / d * r * .7, S[1] - dy / d * r * .7); g.stroke();
+    }
+    g.shadowBlur = 0; g.globalAlpha = 1;
+    if (a > .5 && Math.random() < .7) P.push({ x: fx, y: fy, tx: S[0], ty: S[1], f: 0, sp: .9 + Math.random() * .6, w: (Math.random() - .5) * 30, nx, ny });
+  };
+  haptic([30, 40, 30, 40, 30]);
+  let last = 0;
+  o.loop((t, dt) => {
+    g.clearRect(0, 0, W, H);
+    if (ctl.gone != null && !ctl.broke && t - ctl.gone > 600) { o.on = false; ofOn = false; dim.remove(); return; }   // you let go: the stone settles and fades, nothing happens
+    if (ctl.broke && t > END) { o.on = false; ofOn = false; dim.remove(); return; }
+    // how far along: it only builds while you're holding on
+    const held = ctl.gone == null ? t : ctl.gone, rel = ctl.gone != null && !ctl.broke ? 1 - clamp01((t - ctl.gone) / 500) : 1;
+    const grow = easeIO(t / 500) * (ctl.broke ? 1 : rel), push = clamp01((held - 600) / (BURST - 600)), shake = !ctl.broke && ctl.gone == null ? push * push * 5 : 0, ox = (Math.random() - .5) * shake, oy = (Math.random() - .5) * shake;
+    if (!ctl.broke && held >= BURST) {   // you held on all the way: it breaks, and the file is yours
+      ctl.broke = true; found("onlyfeel");
+      for (let k = 0; k < 26; k++) { const a = Math.random() * Math.PI * 2, sp = 200 + Math.random() * 420; shards.push({ x: S[0], y: S[1], vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, rot: Math.random() * 6, vr: (Math.random() - .5) * 12, s: 4 + Math.random() * 9 }); }
+      fxRing(S[0], S[1], Math.hypot(W, H), "rgba(255,240,180,.9)", 1100, 0, 8); haptic([260, 40, 120]);
+      veil("fxl", "z-index:99;background:radial-gradient(circle at 50% 40%, #FFFFFF 0, rgba(255,250,220,.95) 30%, rgba(255,230,140,.4) 60%, rgba(255,230,140,0) 85%)", [{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 0 }], 1300);
+      setTimeout(() => { dim.style.opacity = "0"; }, END - BURST - 900);
+    }
+    if (!ctl.broke) {
+      if (t > 300) { g.globalCompositeOperation = "lighter"; const a = ctl.gone == null ? 1 : rel; beam(ctl.A, t, 0, a); beam(ctl.B, t, 3, a); g.globalCompositeOperation = "source-over"; if (ctl.gone == null && t - last > 120) { last = t; haptic(8 + push * 30); } }
+      g.globalCompositeOperation = "lighter";
+      for (let i = P.length - 1; i >= 0; i--) { const p = P[i]; p.f += dt * p.sp; if (p.f >= 1) { P.splice(i, 1); continue; } const b = Math.sin(p.f * Math.PI) * p.w, x = lerp(p.x, p.tx, p.f) + p.nx * b, y = lerp(p.y, p.ty, p.f) + p.ny * b; g.globalAlpha = .7 * rel; g.drawImage(red, x - 9, y - 9, 18, 18); }
+      // the stone: yellow, faceted, pushing back harder the longer you hold
+      g.globalAlpha = (.5 + push * .5) * rel; const gl = r * (2.2 + push * 2.5 + Math.sin(t / 60) * .2); g.drawImage(gold, S[0] - gl + ox, S[1] - gl + oy, gl * 2, gl * 2); g.globalAlpha = 1;
+      if (push > .3 && ctl.gone == null) { g.strokeStyle = `rgba(255,236,150,${push * .8})`; g.lineWidth = 1.5; for (let k = 0; k < 10; k++) { const a = Math.random() * Math.PI * 2, l = r * (1.6 + Math.random() * 2 * push); g.beginPath(); g.moveTo(S[0] + Math.cos(a) * r, S[1] + Math.sin(a) * r * 1.2); g.lineTo(S[0] + Math.cos(a) * l, S[1] + Math.sin(a) * l * 1.2); g.stroke(); } }
+      g.globalCompositeOperation = "source-over";
+      g.save(); g.globalAlpha = rel; g.translate(S[0] + ox, S[1] + oy); g.scale(grow, grow);
+      g.beginPath(); G.forEach(([x, y], i) => i ? g.lineTo(x * r, y * r) : g.moveTo(x * r, y * r)); g.closePath();
+      const gg = g.createRadialGradient(-r * .2, -r * .35, 0, 0, 0, r * 1.3); gg.addColorStop(0, "#FFFBE0"); gg.addColorStop(.35, "#FFE15A"); gg.addColorStop(.8, "#E0A800"); gg.addColorStop(1, "#8A5A00");
+      g.fillStyle = gg; g.shadowColor = "#FFD84A"; g.shadowBlur = 24; g.fill(); g.shadowBlur = 0;
+      g.strokeStyle = "rgba(120,70,0,.55)"; g.lineWidth = 1; G.forEach(([x, y]) => { g.beginPath(); g.moveTo(x * r * .42, y * r * .42); g.lineTo(x * r, y * r); g.stroke(); });
+      g.beginPath(); G.forEach(([x, y], i) => i ? g.lineTo(x * r * .42, y * r * .42) : g.moveTo(x * r * .42, y * r * .42)); g.closePath(); g.strokeStyle = "rgba(255,255,255,.55)"; g.stroke();
+      g.strokeStyle = "#FFFFFF"; g.shadowColor = "#FFF3B0"; g.shadowBlur = 10; g.lineWidth = 1.6;   // cracks of white light, only as far as you've pushed it
+      cracks.forEach(c => { const f = clamp01((held - c.at) / 500); if (!f) return; const n = Math.max(1, Math.floor(f * (c.pts.length - 1))); g.beginPath(); c.pts.slice(0, n + 1).forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); });
+      g.restore(); g.shadowBlur = 0;
+    } else {
+      const f = clamp01((t - BURST) / (END - BURST));
+      shards.forEach(s2 => { s2.x += s2.vx * dt; s2.y += s2.vy * dt; s2.vx *= .97; s2.vy *= .97; s2.rot += s2.vr * dt;
+        g.save(); g.translate(s2.x, s2.y); g.rotate(s2.rot); g.globalAlpha = 1 - f; g.fillStyle = "#FFE15A"; g.beginPath(); g.moveTo(0, -s2.s); g.lineTo(s2.s * .6, s2.s * .5); g.lineTo(-s2.s * .6, s2.s * .4); g.closePath(); g.fill(); g.restore(); });
+      g.globalAlpha = 1;
+    }
+  });
+  return ctl;
+}
+
+/* ---------- The Defenders: tap the box with four fingers at once. Street lights, like the show's opening credits: the screen goes dark,
+   then a night-time city street grid lights up block by block, a neighbourhood at a time, each in one hero's colour (red Daredevil,
+   yellow Luke Cage, blue Jessica Jones, green Iron Fist), until all four spread into each other in the middle ---------- */
+let defOn = false;
+function defenders() {
+  found("defenders", 3800);
+  if (REDUCED || defOn) return; defOn = true;
+  const { cv, g, W, H } = fxCanvas(98), T = 5800, D = Math.hypot(W, H), ANG = -.51;   // the Manhattan grid sits about 29 degrees off true
+  const HEROES = [
+    { c: [255, 70, 64], o: [W * .22, H * .2], at: 350 },     // Daredevil
+    { c: [255, 196, 70], o: [W * .25, H * .8], at: 950 },    // Luke Cage
+    { c: [90, 150, 255], o: [W * .8, H * .24], at: 1550 },   // Jessica Jones
+    { c: [70, 230, 120], o: [W * .78, H * .76], at: 2150 }]; // Iron Fist
+  // each neighbourhood's streets, drawn once: runs of street lights along the streets (with dark gaps), brighter avenues, a dark park,
+  // windows lit here and there inside the blocks, and a faint haze of its colour over it all
+  const ca = Math.cos(ANG), sa = Math.sin(ANG), P = (u, v) => [W / 2 + u * ca - v * sa, H / 2 + u * sa + v * ca], SP = 27, AV = 74;
+  const park = { u0: -40, u1: 70, v0: -150, v1: 80 };   // a long dark rectangle, like Central Park
+  const inPark = (u, v) => u > park.u0 && u < park.u1 && v > park.v0 && v < park.v1;
+  HEROES.forEach(hh => {
+    const c = document.createElement("canvas"); c.width = W; c.height = H; const q = c.getContext("2d"), [r, gg, b] = hh.c;
+    const dot = (x, y, a, w) => { if (x < -4 || y < -4 || x > W + 4 || y > H + 4) return; q.fillStyle = `rgba(${r},${gg},${b},${a})`; q.fillRect(x - w / 2, y - w / 2, w, w); };
+    const street = (fixed, isU, big) => {   // walk along one street, in lit runs and dark gaps
+      let p2 = -D / 2, on = Math.random() < .8, run = 40 + Math.random() * 160;
+      while (p2 < D / 2) {
+        const u = isU ? fixed : p2, v = isU ? p2 : fixed;
+        if (on && !inPark(u, v)) { const [x, y] = P(u, v), br = Math.random(); dot(x, y, (big ? .8 : .5) + br * .2, big ? (br > .9 ? 2.6 : 1.8) : (br > .95 ? 2.2 : 1.2)); if (big && br > .6) dot(x, y, .12, 6); }
+        p2 += big ? 5 : 6; run -= big ? 5 : 6;
+        if (run <= 0) { on = !on; run = on ? 50 + Math.random() * 180 : 8 + Math.random() * (big ? 20 : 50); }
+      }
+    };
+    for (let v = -D / 2; v <= D / 2; v += SP) street(v, false, Math.round(v / SP) % 6 === 0);
+    for (let u = -D / 2; u <= D / 2; u += AV) street(u, true, Math.round(u / AV) % 3 === 0);
+    for (let k = 0; k < 900; k++) { const u = (Math.random() - .5) * D, v = (Math.random() - .5) * D; if (inPark(u, v)) continue; const [x, y] = P(u, v); dot(x, y, .12 + Math.random() * .25, 1); }   // windows
+    hh.cv = c;
+    hh.noise = Array.from({ length: 40 }, () => .75 + Math.random() * .5);   // a ragged edge, the way a neighbourhood's lights spread
+  });
+  haptic([40, 60, 20]);
+  fxRun(T, t => {
+    g.clearRect(0, 0, W, H);
+    const dark = t < 400 ? t / 400 : t > T - 1100 ? Math.max(0, (T - t) / 1100) : 1, together = t > 3300 ? Math.sin(clamp01((t - 3300) / 1100) * Math.PI) : 0, zoom = 1 + t / T * .06;
+    g.fillStyle = `rgba(2,3,8,${.94 * dark})`; g.fillRect(0, 0, W, H);
+    g.save(); g.translate(W / 2, H / 2); g.scale(zoom, zoom); g.translate(-W / 2, -H / 2);
+    g.globalCompositeOperation = "lighter";
+    HEROES.forEach((hh, k) => {
+      const u = t - hh.at; if (u < 0) return;
+      if (u < 40 && !hh.hit) { hh.hit = 1; haptic(20); }
+      // each neighbourhood keeps mostly to its own corner, with a soft ragged edge; when the four come together they spread to meet in the middle
+      const R = D * (.34 * (1 - Math.pow(1 - clamp01(u / 1500), 3)) + .16 * easeIO(clamp01((t - 3300) / 900))), tw = .92 + .08 * Math.sin(t / 90 + k * 2);
+      const hz = g.createRadialGradient(hh.o[0], hh.o[1], 0, hh.o[0], hh.o[1], Math.max(1, R * 1.15)); hz.addColorStop(0, `rgba(${hh.c.join(",")},${.16 * dark})`); hz.addColorStop(1, `rgba(${hh.c.join(",")},0)`);
+      g.globalAlpha = 1; g.fillStyle = hz; g.fillRect(0, 0, W, H);   // the glow of the neighbourhood's lights in the air above it
+      [[1, .45], [.82, .35], [.66, .45]].forEach(([sc2, al]) => {   // three nested cut-outs: brightest at the centre of the neighbourhood, fading at its edge
+        g.save(); g.beginPath();
+        for (let i = 0; i <= 40; i++) { const a = i / 40 * Math.PI * 2, rr = R * sc2 * hh.noise[i % 40]; i ? g.lineTo(hh.o[0] + Math.cos(a) * rr, hh.o[1] + Math.sin(a) * rr) : g.moveTo(hh.o[0] + Math.cos(a) * rr, hh.o[1] + Math.sin(a) * rr); }
+        g.clip(); g.globalAlpha = Math.min(1, dark * tw * al * (1 + together * .35)); g.drawImage(hh.cv, 0, 0); g.restore(); });
+    });
+    g.restore(); g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+  }, () => { cv.remove(); defOn = false; });
+  setTimeout(() => haptic([60, 30, 120]), 3600);
+}
+
+/* ---------- The Champions: draw on the name. Your line becomes one of Kamala's doodles, like the hand-drawn ones that come alive in
+   Ms. Marvel, and the team's symbols draw themselves in around the titles: Kate's arrow, America's star, Ironheart's heart, Kamala's bolt ---------- */
+let doodleOn = false;
+const DD = {
+  arrow: { c: "#8A4FE0", fill: null, s: [[[-1.9, 0], [1.25, 0]], [[.9, -.36], [1.3, 0], [.9, .36]], [[-1.9, 0], [-2.2, -.36]], [[-1.65, 0], [-1.95, -.36]], [[-1.9, 0], [-2.2, .36]], [[-1.65, 0], [-1.95, .36]]] },
+  star: { c: "#2E9BFF", fill: "#CDEBFF", s: [Array.from({ length: 11 }, (_, k) => { const a = k * Math.PI / 5 - Math.PI / 2, r = k % 2 ? .45 : 1; return [Math.cos(a) * r, Math.sin(a) * r]; })] },
+  heart: { c: "#E5303A", fill: "#FFD3D0", s: [Array.from({ length: 33 }, (_, k) => { const t = k / 32 * Math.PI * 2; return [Math.pow(Math.sin(t), 3) * .95, -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) / 16 * .95]; }),
+    Array.from({ length: 17 }, (_, k) => { const t = k / 16 * Math.PI * 2; return [Math.cos(t) * .28, -.05 + Math.sin(t) * .28]; })] },
+  bolt: { c: "#E2232A", fill: "#FFD400", s: [[[.3, -1.2], [-.5, .12], [.02, .12], [-.32, 1.2], [.55, -.22], [.05, -.22], [.3, -1.2]]] },
+  wcrown: { c: "#2F5BFF", fill: null, w: [5, 2.6], s: [CROWN.map(p => [p[0] * .8, p[1] * .8]).concat([[CROWN[0][0] * .8, CROWN[0][1] * .8]])] },   // Billy's blue crown, the Wiccan one from Agatha All Along
+  spiral: { c: "#6A94FF", fill: null, w: [4, 2], s: [Array.from({ length: 41 }, (_, k) => { const a = k / 40 * Math.PI * 3, r = .5 + k / 40 * .8; return [Math.cos(a) * r, Math.sin(a) * r]; })] },
+  bspark: { c: "#2F5BFF", fill: "#CFE0FF", s: [[[0, -1], [.22, -.22], [1, 0], [.22, .22], [0, 1], [-.22, .22], [-1, 0], [-.22, -.22], [0, -1]]] },
+  speed: { c: "#7FA8E8", fill: null, s: [[[0, -.5], [-2.4, -.5]], [[.5, 0], [-3.2, 0]], [[0, .5], [-2, .5]]] },
+  puff: { c: "#7FA8E8", fill: "#FFFFFF", s: [Array.from({ length: 31 }, (_, k) => { const a = k / 30 * Math.PI * 2, r = .75 + .25 * Math.cos(a * 5); return [Math.cos(a) * r, Math.sin(a) * r * .8]; })] },
+  grow: { c: "#E5303A", fill: null, s: [[[0, 0], [1, 0]], [[.55, -.38], [1, 0], [.55, .38]]] },
+  spark: { c: "#FF9F1C", fill: "#FFE14D", s: [[[0, -1], [.22, -.22], [1, 0], [.22, .22], [0, 1], [-.22, .22], [-1, 0], [-.22, -.22], [0, -1]]] }
+};
+function ddPath(g, pts, x, y, sz, rot, seed, upto) {   // a hand-drawn line: every few frames each point shifts a little (the "boil")
+  const c = Math.cos(rot), s = Math.sin(rot); let n = 0; g.beginPath();
+  for (let i = 0; i < pts.length; i++) { if (upto != null && i > upto) break; const j1 = Math.sin(seed * 12.9 + i * 78.2) * 1.3, j2 = Math.cos(seed * 4.1 + i * 37.7) * 1.3, px = pts[i][0] * sz, py = pts[i][1] * sz;
+    const X = x + px * c - py * s + j1, Y = y + px * s + py * c + j2; i ? g.lineTo(X, Y) : g.moveTo(X, Y); n++; }
+  return n;
+}
+function doodleShape(g, d, x, y, sz, rot, seed, prog) {
+  const all = d.s.reduce((a, p) => a + p.length - 1, 0); let left = prog * all;
+  if (d.fill && prog >= 1) { d.s.forEach(p => { if (p.length > 6) { ddPath(g, p, x, y, sz, rot, seed); g.fillStyle = d.fill; g.fill(); } }); }
+  d.s.forEach(p => { if (left <= 0) return; const upto = Math.min(p.length - 1, Math.ceil(left)); left -= p.length - 1;
+    ddPath(g, p, x, y, sz, rot, seed, upto); g.lineJoin = g.lineCap = "round"; g.strokeStyle = "#1A1F2B"; g.lineWidth = d.w ? d.w[0] : 7; g.stroke(); ddPath(g, p, x, y, sz, rot, seed, upto); g.strokeStyle = d.c; g.lineWidth = d.w ? d.w[1] : 3.5; g.stroke(); });
+}
+function doodleStart(x, y) {
+  const o = liveFx(98), g = { k: "doodle", pts: [[x, y]], len: 0, o };
+  o.loop(t => {
+    const { g: c, W, H } = o, seed = Math.floor(t / 110); c.clearRect(0, 0, W, H); if (g.pts.length < 2) return;
+    c.lineJoin = c.lineCap = "round";
+    [["#1A1F2B", 10], ["#FF3E8A", 5], ["#FFC2DA", 1.6]].forEach(([col, w], k) => { c.beginPath(); g.pts.forEach(([px, py], i) => { const j = k === 2 ? 0 : Math.sin(seed * 7.3 + i * 1.9) * .9; i ? c.lineTo(px + j, py - j) : c.moveTo(px + j, py - j); }); c.strokeStyle = col; c.lineWidth = w; c.globalAlpha = g.fade == null ? 1 : g.fade; c.stroke(); });
+    c.globalAlpha = 1;
+    if (g.after) g.after(c, t, seed);
+  });
+  return g;
+}
+function doodleMove(g, x, y) { const l = g.pts[g.pts.length - 1], d = Math.hypot(x - l[0], y - l[1]); if (d < 3) return; g.pts.push([x, y]); g.len += d; }
+function doodleEnd(g) {
+  if (g.len < 200 || doodleOn || REDUCED) {   // too short (or already going): the line just fades away
+    if (REDUCED && g.len >= 200) found("doodles");
+    const t0 = performance.now(), f = () => { g.fade = 1 - (performance.now() - t0) / 500; if (g.fade > 0) requestAnimationFrame(f); else g.o.on = false; }; requestAnimationFrame(f); return;
+  }
+  doodleOn = true; found("doodles", 3400); haptic([15, 30, 15]);
+  const W = innerWidth, H = innerHeight, rows = rowsOnScreen(), pickRow = k => rows.length ? rows[Math.min(rows.length - 1, Math.floor((k + .5) / 7 * rows.length))] : null;
+  const end = g.pts[g.pts.length - 1], start = g.pts[0];
+  // where each symbol lands: beside a title, alternating sides
+  // each one goes on the title where that hero arrived: Kate in Hawkeye, America in Multiverse of Madness, Riri in Ironheart, Kamala in Ms. Marvel,
+  // Billy (Wiccan) in Agatha All Along, Tommy (Speed) in VisionQuest, Cassie in Quantumania
+  const HOME = { arrow: "Hawkeye", star: "Doctor Strange in the Multiverse of Madness", heart: "Ironheart", bolt: "Ms. Marvel", wiccan: "Agatha All Along", speed: "VisionQuest", cassie: "Ant-Man and the Wasp: Quantumania" };
+  const KINDS = Object.keys(HOME);
+  const spots = KINDS.map((k, i) => { const r = rows.find(x => x.dataset.t === HOME[k]) || pickRow(i), b = r ? r.getBoundingClientRect() : { top: H * (.3 + i * .15), height: 30, right: W * .8 };
+    const t = r && r.querySelector(".t"), tb = t ? t.getBoundingClientRect() : b, y = b.top + b.height / 2;
+    const base = { k, y, row: r, tb, at: 300 + i * 400, rot: (Math.random() - .5) * .4 };
+    if (k === "arrow") return { ...base, x: Math.min(W - 50, tb.right + 66), sz: 21, rot: Math.PI, at: 300 };
+    if (k === "speed") return { ...base, x: Math.min(W - 30, tb.right + 160), sz: 16, rot: 0 };
+    if (k === "cassie") return { ...base, x: tb.left + tb.width / 2, sz: 9 };
+    return { ...base, x: Math.min(W - 44, tb.right + 40), sz: k === "bolt" ? 26 : k === "wiccan" ? 22 : 23 }; });
+  const sparks = [[end[0] + 16, end[1] - 14, 9], [start[0] - 12, start[1] + 16, 7], [W * .5, H * .12, 8], [W * .15, H * .82, 10], [W * .86, H * .2, 7]];
+  spots.forEach(s => {
+    if (s.k === "arrow" && s.row) setTimeout(() => { s.row.animate([{ transform: "none" }, { transform: "translateX(-6px) rotate(-1deg)" }, { transform: "translateX(3px)" }, { transform: "none" }], { duration: 380 }); haptic(25); }, s.at + 220);
+    // Tommy blows past: the title shudders in his wake
+    if (s.k === "speed" && s.row) setTimeout(() => { const t = s.row.querySelector(".t"); if (t) t.animate([{ transform: "none" }, { transform: "translateX(-5px) skewX(-8deg)" }, { transform: "translateX(3px) skewX(4deg)" }, { transform: "translateX(-1px)" }, { transform: "none" }], { duration: 420 }); haptic([10, 20, 10]); }, s.at + 160);
+    // Cassie: the title shrinks right down, then grows past its size, then settles
+    if (s.k === "cassie" && s.row) setTimeout(() => { const t = s.row.querySelector(".t"); if (!t) return; t.style.transformOrigin = "50% 50%"; t.style.display = "inline-block";
+      t.animate([{ transform: "none" }, { transform: "scale(.4)", offset: .25 }, { transform: "scale(.4)", offset: .4 }, { transform: "scale(1.3)", offset: .66 }, { transform: "scale(.95)", offset: .82 }, { transform: "none" }], { duration: 1500, easing: "ease-in-out" }).onfinish = () => { t.style.transformOrigin = ""; t.style.display = ""; }; haptic([15, 200, 40]); }, s.at);
+  });
+  const T = 5800, t0 = performance.now();
+  g.after = (c, now, seed) => {
+    const t = performance.now() - t0, pop = t > T - 600 ? 1 - clamp01((t - (T - 600)) / 500) : 1;
+    if (t > T) { g.o.on = false; doodleOn = false; return; }
+    g.fade = pop;
+    spots.forEach((s, i) => {
+      const u = t - s.at; if (u < 0) return;
+      let x = s.x, sc = pop;
+      if (s.k === "speed") {   // speed lines zip in from the edge and leave a puff of dust where he stopped
+        const f = clamp01(u / 160), px = lerp(W + 40, s.x - 40, 1 - Math.pow(1 - f, 2)), shake = u < 600 ? Math.sin(u / 20) * 1.5 : 0;
+        doodleShape(c, DD.speed, px + 34, s.y + shake, s.sz * sc, 0, seed + i, 1);
+        if (u > 140) doodleShape(c, DD.puff, s.x - 62, s.y, 10 * sc * (u < 300 ? (u - 140) / 160 * 1.2 : 1 + .05 * Math.sin(u / 150)), 0, seed + 20, 1);
+        return;
+      }
+      if (s.k === "cassie") {   // four little arrows push out round her title as it grows
+        const tb = s.tb, f = clamp01((u - 500) / 300), off = 6 + f * 10;
+        if (f > 0) [[tb.left - off, s.y, Math.PI], [tb.right + off, s.y, 0], [s.x, tb.top - off, -Math.PI / 2], [s.x, tb.bottom + off, Math.PI / 2]].forEach(([ax, ay, ar], m) => doodleShape(c, DD.grow, ax - Math.cos(ar) * s.sz, ay - Math.sin(ar) * s.sz, s.sz * pop, ar, seed + 30 + m, f));
+        return;
+      }
+      if (s.k === "wiccan") {   // Billy's blue crown, with his blue magic spiralling round it
+        [[-1.5, -.9, 1], [1.55, -.7, -1]].forEach(([dx, dy, dir], m) => doodleShape(c, DD.spiral, s.x + dx * s.sz, s.y + dy * s.sz, s.sz * .42 * pop, dir * u / 500, seed + 40 + m, clamp01((u - m * 150) / 500)));   // little curls of his blue magic
+        [[-1.6, -1.1], [1.7, -.6], [1.2, 1.3]].forEach(([dx, dy], m) => { if (u > 300 + m * 120) doodleShape(c, DD.bspark, s.x + dx * s.sz, s.y + dy * s.sz, 5 * pop * (1 + .2 * Math.sin(u / 120 + m)), u / 800, seed + 50 + m, 1); });
+        doodleShape(c, DD.wcrown, s.x, s.y + 4, s.sz * 1.05 * sc * (u < 250 ? 1.25 * Math.sin(u / 250 * Math.PI / 2) : 1), 0, seed + i, clamp01(u / 450));
+        return;
+      }
+      if (s.k === "arrow") { const f = clamp01(u / 220); x = lerp(W + 60, s.x, 1 - Math.pow(1 - f, 3)); }   // Kate's arrow flies in and sticks
+      else sc *= u < 250 ? 1.25 * Math.sin(u / 250 * Math.PI / 2) : 1 + .06 * Math.sin(u / 160);
+      const rot = s.rot + (s.k === "star" ? u / 2200 : 0);
+      doodleShape(c, DD[s.k], x, s.y, s.sz * sc, rot, seed + i, s.k === "arrow" ? 1 : clamp01(u / 450));
+      if (s.k !== "arrow" && u > 450) { c.strokeStyle = "#1A1F2B"; c.lineWidth = 2.5; c.lineCap = "round"; for (let m = 0; m < 3; m++) { const a = -2.4 + m * .5 + Math.sin(seed + m) * .05, r0 = s.sz * sc * 1.45, r1 = r0 + 7; c.beginPath(); c.moveTo(s.x + Math.cos(a) * r0, s.y + Math.sin(a) * r0); c.lineTo(s.x + Math.cos(a) * r1, s.y + Math.sin(a) * r1); c.stroke(); } }
+    });
+    sparks.forEach(([x, y, sz], i) => { const u = t - 200 - i * 260; if (u > 0) doodleShape(c, DD.spark, x, y, sz * pop * (1 + .15 * Math.sin(u / 140)), u / 900, seed + 10 + i, 1); });
+  };
+}
+
+/* ---------- Loki & the TVA: Glorious purpose. Press and hold for a moment and green timeline threads gather under your finger (a normal
+   scroll or tap never pauses, so it never grabs them). Pull them up to the name and they wrap into the World Tree, Loki's throne
+   from the end of season 2. Let go early and they slip away ---------- */
+let lokiOn = false, lokiTimer = null;
+// one canvas from the moment you grab the threads to the end, so nothing ever disappears: the threads you pull up become the trunk,
+// their ends spread into the roots, and the branches grow straight out of them into Yggdrasil's round crown
+function lokiGrab(x, y) {
+  haptic([20, 30, 40]);
+  const o = liveFx(98), { W, H } = o, N = 14, cx = W / 2, BASE = H * .8, SAMP = 30;
+  const roots = Array.from({ length: N }, (_, k) => ({ x: W * (k + .5) / N + (Math.random() - .5) * 20, ph: Math.random() * 6, br: k / N * Math.PI * 2, frail: Math.random() < .4 }));
+  const dim = document.createElement("div"); dim.className = "fxl fx-lokidim"; document.body.appendChild(dim); requestAnimationFrame(() => { dim.style.opacity = ".4"; });
+  const g = { k: "loki", x, y, fx: x, fy: y, o, roots, mode: "pull", m0: 0, dim };
+  // a thread while you pull it: from the bottom of the screen, bowing, up to your finger
+  const pullPts = (r, k, t, grip, fall, fx, fy) => { const tx = fx + Math.sin(k * 2.3) * 6, ty = fy + fall * (H - fy) * .8, mx = lerp(r.x, tx, .5) + Math.sin(t / 400 + r.ph) * 30, my = lerp(H + 20, ty, .55), out = [];
+    for (let i = 0; i <= SAMP; i++) { const f = i / SAMP * grip, a = (1 - f) * (1 - f), b = 2 * (1 - f) * f, c = f * f; out.push([a * r.x + b * mx + c * tx, a * (H + 20) + b * my + c * ty]); } return out; };
+  // the same thread as part of the tree: it spreads out at the bottom (a root), gathers into the trunk, and braids up to the name
+  const treePts = (r, k, t, top) => { const out = [];
+    for (let i = 0; i <= SAMP; i++) { const f = i / SAMP, y = lerp(H + 20, top, f), fb = (H + 20 - BASE) / (H + 20 - top);
+      let x; if (f < fb) { const u = f / fb, e = 1 - Math.pow(1 - u, 2.2); x = lerp(r.x, cx, e) + Math.sin(u * Math.PI) * (r.x - cx) * .15; }
+      else { const u = (f - fb) / (1 - fb), tw = lerp(14, 5, u); x = cx + Math.sin(u * 11 + r.br + t / 520) * tw; }
+      out.push([x, y]); } return out; };
+  let seg = [], tips = [], frozen = null, top = 0;
+  g.grow = () => {   // you reached the name: the tree takes over from here
+    const h = document.getElementById("panelTitle"), hb = h.getBoundingClientRect(); top = hb.top + hb.height / 2;
+    const now = performance.now() - o.t0; frozen = roots.map((r, k) => pullPts(r, k, now, 1, 0, g.fx, g.fy)); g.mode = "tree"; g.m0 = now;
+    dim.style.opacity = "1";
+    const CROWN_E = [cx, H * .27, W * .5, H * .26], ROOT_E = [cx, H * .9, W * .53, H * .13];
+    const branch = (x, y, a, len, w, depth, max, t0, E) => {
+      const pts = [[x, y]]; let ang = a;
+      for (let s2 = 1; s2 <= 5; s2++) { ang += (Math.random() - .5) * .28; let nx = x + Math.cos(ang) * len / 5, ny = y + Math.sin(ang) * len / 5;
+        const e = Math.pow((nx - E[0]) / E[2], 2) + Math.pow((ny - E[1]) / E[3], 2); const lim = .9 + Math.random() * .1; if (e > lim) { const q = Math.sqrt(lim / e); pts.push([E[0] + (nx - E[0]) * q, E[1] + (ny - E[1]) * q]); x = pts[pts.length - 1][0]; y = pts[pts.length - 1][1]; depth = max; break; }   // a branch that reaches the edge of the crown ends right on it, so the crown is round, with a ragged edge
+        x = nx; y = ny; pts.push([x, y]); }
+      if (pts.length < 2) return;
+      const dur = 110 + len * 1.1; seg.push({ pts, w, t0, dur });
+      if (depth < max) [-1, 1].forEach(q => branch(x, y, ang + q * (.36 + Math.random() * .22), len * (.76 + Math.random() * .08), w * .7, depth + 1, max, t0 + dur * .75, E));
+      else tips.push({ x, y, t: t0 + dur, ph: Math.random() * 6 });
+    };
+    // the crown: pairs of branches leave the trunk one level after another, the lowest first, so it grows up the trunk as the braid reaches it
+    const levels = [.47, .41, .35, .29, .23, .18].map(f => H * f).filter(yy => yy > top + 24);
+    levels.forEach((yy, i) => { const at = 380 + i * 120; branch(cx, yy, -2.55 - Math.random() * .3, H * .1, 5.5 - i * .4, 0, 5, at, CROWN_E); branch(cx, yy, -.59 + Math.random() * .3, H * .1, 5.5 - i * .4, 0, 5, at + 40, CROWN_E); });
+    [-1.95, -1.57, -1.2].forEach((a, i) => branch(cx, top, a, H * .07, 3.5, 0, 3, 380 + levels.length * 120 + i * 40, CROWN_E));
+    // the roots: they fork out of the thread ends at the bottom while the braid tightens
+    [.35, .8, 1.25, 1.57, 1.89, 2.34, 2.79].forEach((a, i) => branch(cx, BASE, a, H * .07, 4.5, 0, 3, 250 + i * 30, ROOT_E));
+    h.animate([{ color: "", textShadow: "none" }, { color: "#B9FFC9", textShadow: "0 0 10px #3CFF7A, 0 0 26px rgba(60,255,122,.6)", offset: .15 }, { color: "#B9FFC9", textShadow: "0 0 10px #3CFF7A, 0 0 26px rgba(60,255,122,.6)", offset: .82 }, { color: "", textShadow: "none" }], { duration: 5600 });
+    setTimeout(() => { fxRing(cx, H * .3, Math.hypot(W, H), "rgba(90,255,140,.7)", 1500, 0, 4); haptic([60, 30, 140]); }, 1500);
+    haptic([30, 30, 30, 30, 60]);
+  };
+  const line = (c, pts, col, w) => { c.strokeStyle = col; c.lineWidth = w; c.beginPath(); pts.forEach(([px, py], i) => i ? c.lineTo(px, py) : c.moveTo(px, py)); c.stroke(); };
+  o.loop(t => {
+    const c = o.g; c.clearRect(0, 0, W, H); c.globalCompositeOperation = "lighter"; c.lineCap = c.lineJoin = "round";
+    if (g.mode !== "tree") {
+      const grip = clamp01(t / 400), fall = g.mode === "slip" ? clamp01((t - g.m0) / 600) : 0;
+      if (fall >= 1) { o.on = false; dim.remove(); return; }
+      roots.forEach((r, k) => { const fl = r.frail && g.mode === "pull" ? .5 + .5 * Math.sin(t / 50 + r.ph) : 1, pts = pullPts(r, k, t, grip, fall, g.fx, g.fy);
+        line(c, pts, `rgba(60,255,120,${.18 * fl * (1 - fall)})`, 7); line(c, pts, `rgba(160,255,190,${.75 * fl * (1 - fall)})`, 1.6); });
+      const gl = c.createRadialGradient(g.fx, g.fy, 0, g.fx, g.fy, 46); gl.addColorStop(0, `rgba(200,255,210,${.8 * grip * (1 - fall)})`); gl.addColorStop(1, "rgba(60,255,120,0)"); c.fillStyle = gl; c.fillRect(g.fx - 46, g.fy - 46, 92, 92);
+    } else {
+      const u = t - g.m0, T = 5600, fade = u > T - 1000 ? clamp01((T - u) / 1000) : 1, braid = easeIO(u / 650), pulse = .8 + .2 * Math.sin(t / 240);
+      if (u > T) { o.on = false; dim.remove(); lokiOn = false; return; }
+      if (u > T - 1000) dim.style.opacity = String(fade);
+      // the threads, never let go of: they slide from where you pulled them into the trunk
+      roots.forEach((r, k) => { const A = frozen[k], B = treePts(r, k, t, top), pts = A.map((p2, i) => [lerp(p2[0], B[i][0], braid), lerp(p2[1], B[i][1], braid)]);
+        line(c, pts, `rgba(60,255,120,${.16 * fade})`, 7); line(c, pts, `rgba(175,255,200,${.72 * fade * pulse})`, 1.5); });
+      seg.forEach(s3 => { const f = clamp01((u - s3.t0) / s3.dur); if (!f) return; const n = s3.pts.length - 1, upto = f * n, pts = [s3.pts[0]];
+        for (let i = 1; i <= Math.ceil(upto); i++) { const p2 = s3.pts[i], q = s3.pts[i - 1], kk = Math.min(1, upto - (i - 1)); pts.push([lerp(q[0], p2[0], kk), lerp(q[1], p2[1], kk)]); }
+        line(c, pts, `rgba(50,255,110,${.13 * fade})`, s3.w * 3); line(c, pts, `rgba(110,255,160,${.45 * fade})`, s3.w * 1.2); line(c, pts, `rgba(220,255,230,${.85 * fade * pulse})`, Math.max(.7, s3.w * .4)); });
+      tips.forEach(p2 => { if (u < p2.t) return; c.fillStyle = `rgba(210,255,220,${fade * (.5 + .5 * Math.sin(t / 300 + p2.ph))})`; c.beginPath(); c.arc(p2.x, p2.y, 1.7, 0, Math.PI * 2); c.fill(); });
+    }
+    c.globalCompositeOperation = "source-over";
+  });
+  return g;
+}
+function lokiMove(g, x, y) {
+  g.fx = x; g.fy = y;
+  const h = document.getElementById("panelTitle"), hb = h && h.getBoundingClientRect();
+  if (hb && y < hb.bottom + 24) { gest = null; gestBlock = Date.now() + 600; found("glorious", 3000); if (REDUCED || lokiOn) { lokiSlip(g); return; } lokiOn = true; g.grow(); }
+}
+function lokiSlip(g) { if (g.mode !== "pull") return; g.mode = "slip"; g.m0 = performance.now() - g.o.t0; g.dim.style.opacity = "0"; gestBlock = Date.now() + 600; }
+
+/* ---------- The Fantastic Four: tap the name four times. Each time, the next of the four: Mister Fantastic stretches everything in the
+   box, the Invisible Woman makes everything in it vanish, the Human Torch flies a "4" in fire, the Thing clobbers the list between his fists ---------- */
+let ffN = 0, ffLast = 0, lastFF = null, ffOn = false;
+function ffTap(h) {
+  const now = Date.now(); ffN = now - ffLast < 1200 ? ffN + 1 : 1; ffLast = now; haptic(12 + ffN * 6);
+  if (!REDUCED && !ffOn) h.animate([{ transform: "none" }, { transform: `scale(${1 + ffN * .02})` }, { transform: "none" }], { duration: 180, easing: "ease-out" });
+  if (ffN === 2 && !rockFistCache) setTimeout(() => rockFist(thingS()), 30);
+  if (ffN >= 4) { ffN = 0; ffPower(); }
+}
+function ffPower() {
+  if (ffOn) return;
+  const P = { stretch: ffStretch, invisible: ffInvisible, torch: ffTorch, thing: ffThing }, k = cyclePick(Object.keys(P), "f4", lastFF); lastFF = k; persist();
+  ffOn = true; const ms = REDUCED ? 300 : P[k](); setTimeout(() => { ffOn = false; }, ms);
+  if (Object.keys(state.f4 || {}).length >= 4) found("fantastic", ms);
+}
+// a damped spring: pulled out to S, let go, and it overshoots back and forth a few times before it settles
+const springKF = (S, mk, pullAt) => { const kf = [{ transform: mk(1), offset: 0 }, { transform: mk(S), offset: pullAt }]; for (let k = 1; k <= 26; k++) { const u = k / 26; kf.push({ transform: mk(1 + (S - 1) * Math.exp(-4.2 * u) * Math.cos(Math.PI * 2 * 2.4 * u)), offset: pullAt + (1 - pullAt) * u }); } return kf; };
+function ffStretch() {   // Mister Fantastic: every piece of the box is pulled way out like rubber, then let go to wobble back
+  const h = document.getElementById("panelTitle"), rows = [...panel.querySelectorAll(".row")];
+  const els = [[panel.querySelector(".back"), "r"], [h, "up"], [panel.querySelector(".pquote"), "l"], [document.getElementById("pCount"), "r"], [panel.querySelector(".pbar"), "mid"], ...rows.map((r, i) => [r, i % 2 ? "l" : "r"]), [panel.querySelector("#pDone .complete"), "up"]].filter(e => e[0]);
+  els.forEach(([el, d], i) => {
+    const up = d === "up", S = up ? 2.1 : d === "mid" ? 1.9 : 2.5, sg = d === "l" ? 1 : -1;
+    el.style.transformOrigin = up ? "50% 100%" : d === "l" ? "100% 50%" : d === "mid" ? "50% 50%" : "0 50%";
+    const mk = s => { s = Math.max(.45, s); return up ? `scaleY(${s.toFixed(3)}) scaleX(${(1 / Math.sqrt(s)).toFixed(3)})` : `scaleX(${s.toFixed(3)}) scaleY(${(1 / Math.sqrt(s)).toFixed(3)}) skewX(${((s - 1) * 7 * sg).toFixed(2)}deg)`; };
+    el.animate(springKF(S, mk, .22), { duration: 2300, delay: i * 45, easing: "linear" }).onfinish = () => { el.style.transformOrigin = ""; };
+  });
+  haptic([20, 60, 20, 60, 20, 60, 20]);
+  return 2300 + els.length * 45 + 200;
+}
+function ffInvisible() {   // the Invisible Woman: everything inside the box disappears behind a shimmering edge (the box itself stays), then comes back
+  const pin = fxScope(), W = innerWidth, T = 3400;
+  pin.animate([{ clipPath: "inset(0 0 0 0%)" }, { clipPath: "inset(0 0 0 100%)", offset: .27 }, { clipPath: "inset(0 100% 0 0)", offset: .7 }, { clipPath: "inset(0 0% 0 0)" }], { duration: T, easing: "ease-in-out" });
+  const band = document.createElement("div"); band.className = "fx-sue"; document.body.appendChild(band);
+  band.animate([{ transform: "translateX(-90px)", opacity: 1 }, { transform: `translateX(${W + 20}px)`, opacity: 1, offset: .27 }, { transform: `translateX(${W + 20}px)`, opacity: 0, offset: .28 }, { transform: "translateX(-90px)", opacity: 0, offset: .69 }, { transform: "translateX(-90px)", opacity: 1, offset: .7 }, { transform: `translateX(${W + 20}px)`, opacity: 1 }],
+    { duration: T, easing: "ease-in-out" }).onfinish = () => band.remove();
+  // while it's gone, only a faint ripple of it is left, like light bending round it
+  const ghost = document.createElement("div"); ghost.className = "fx-sueghost"; ghost.appendChild(pinCopy()); document.body.appendChild(ghost);
+  ghost.animate([{ opacity: 0, transform: "none" }, { opacity: 0, offset: .26 }, { opacity: .07, transform: "translate(2px,-1px) skewX(.6deg)", offset: .4 }, { opacity: .05, transform: "translate(-2px,1px) skewX(-.6deg)", offset: .55 }, { opacity: 0, offset: .7 }, { opacity: 0 }], { duration: T }).onfinish = () => ghost.remove();
+  haptic([10, 200, 10, 900, 10, 200, 10]);
+  return T + 100;
+}
+function ffTorch() {   // the Human Torch: he streaks across the screen and flies a "4" in fire; it burns, then cools to smoke
+  const { cv, g, W, H } = fxCanvas(98), T = 5800, F0 = 350, FL = 2400, u = Math.min(W * .62, H * .36) / 2, cx = W / 2, cy = H * .44;
+  const flame = puffSprite("255,140,40"), ember = puffSprite("255,220,140"), smoke = puffSprite("90,90,96");
+  veil("fxl", "z-index:97;background:rgba(4,8,22,.62)", [{ opacity: 0 }, { opacity: 1, offset: .06 }, { opacity: 1, offset: .85 }, { opacity: 0 }], T);
+  // the flight path, with which parts of it are the 4 (the rest is just him getting into place and flying off)
+  const K = [[-2.4, -1.7, 0], [-1.3, -1.55, 0], [-.35, -1.38, 0], [.15, -1.12, 0], [.25, -1, 1], [.25, -1, 1], [-.75, .35, 1], [-.75, .35, 1], [.78, .35, 0], [.78, .35, 0], [1.02, .1, 0], [1.05, -.45, 0], [.88, -.9, 0], [.56, -1.14, 0], [.27, -1.02, 1], [.25, -.95, 1], [.25, 1, 0], [.25, 1, 0], [.34, 1.35, 0], [.65, 1.7, 0], [1.4, 2.1, 0], [2.4, 2.4, 0]];
+  const pts = [];
+  for (let i = 0; i < K.length - 1; i++) { const p0 = K[Math.max(0, i - 1)], p1 = K[i], p2 = K[i + 1], p3 = K[Math.min(K.length - 1, i + 2)];
+    for (let s = 0; s < 10; s++) { const t = s / 10, t2 = t * t, t3 = t2 * t, f = (a, b, c, d) => .5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (-a + 3 * b - 3 * c + d) * t3);
+      pts.push({ x: cx + f(p0[0], p1[0], p2[0], p3[0]) * u, y: cy + f(p0[1], p1[1], p2[1], p3[1]) * u, w: (i >= 4 && i <= 8) || (i >= 14 && i <= 16) }); } }   // segments 4 to 8 are the diagonal and the bar, 14 to 16 the upright
+  let L = 0; pts.forEach((p, i) => { p.s = i ? (L += Math.hypot(p.x - pts[i - 1].x, p.y - pts[i - 1].y)) : 0; });
+  const trail = [], P = [];
+  haptic([30, 40, 30, 40, 30, 40, 30, 40, 30]);
+  fxRun(T, (t, dt) => {
+    g.clearRect(0, 0, W, H);
+    const fl = clamp01((t - F0) / FL), dist = (fl < .5 ? 2 * fl * fl : 1 - Math.pow(-2 * fl + 2, 2) / 2) * .25 + fl * .75, at = dist * L;
+    while (trail.length < pts.length && pts[trail.length].s <= at) trail.push({ ...pts[trail.length], t });
+    g.globalCompositeOperation = "lighter"; g.lineCap = "round";
+    for (let i = 1; i < trail.length; i++) {
+      const a = trail[i - 1], b = trail[i], age = t - b.t, heat = b.w ? 1 - clamp01((age - 1500) / 1500) : 1 - clamp01(age / 420);
+      if (heat <= 0) continue;
+      const fk = .85 + .15 * Math.sin(t / 45 + i * 1.7);
+      [[`rgba(255,${70 + heat * 40},20,${.22 * heat})`, 24 * fk], [`rgba(255,${110 + heat * 60},${30 + heat * 30},${.6 * heat})`, 10 * fk], [`rgba(255,${200 + heat * 50},${140 + heat * 90},${heat * heat})`, 3.6]].forEach(([col, w]) => { g.strokeStyle = col; g.lineWidth = w; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); });
+      if (b.w && heat < .9 && Math.random() < .02) P.push({ x: b.x, y: b.y, vx: (Math.random() - .5) * 10, vy: -20 - Math.random() * 20, life: 0, max: 1.6, smoke: 1 });
+    }
+    // Johnny himself: a white-hot core in a ball of fire, licks of flame streaming behind
+    if (fl > 0 && fl < 1) {
+      const hd = trail[trail.length - 1] || pts[0];
+      for (let k = 1; k <= 6; k++) { const q = trail[Math.max(0, trail.length - 1 - k * 2)] || hd, r = 22 - k * 2.4 + Math.random() * 4; g.globalAlpha = .55 - k * .06; g.drawImage(flame, q.x - r + (Math.random() - .5) * 6, q.y - r + (Math.random() - .5) * 6, r * 2, r * 2); }
+      g.globalAlpha = 1; const r = 30 + Math.random() * 4; g.drawImage(flame, hd.x - r, hd.y - r, r * 2, r * 2); g.drawImage(ember, hd.x - 12, hd.y - 12, 24, 24);
+      if (Math.random() < .6) P.push({ x: hd.x, y: hd.y, vx: (Math.random() - .5) * 90, vy: (Math.random() - .5) * 90, life: 0, max: .5 });
+    }
+    for (let i = P.length - 1; i >= 0; i--) { const p = P[i]; p.life += dt; if (p.life > p.max) { P.splice(i, 1); continue; } p.x += p.vx * dt; p.y += p.vy * dt; const f = p.life / p.max;
+      if (p.smoke) { g.globalCompositeOperation = "source-over"; g.globalAlpha = .35 * (1 - f); const r = 10 + f * 26; g.drawImage(smoke, p.x - r, p.y - r, r * 2, r * 2); g.globalCompositeOperation = "lighter"; }
+      else { g.globalAlpha = 1 - f; g.drawImage(ember, p.x - 3, p.y - 3, 6, 6); } }
+    g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+  }, () => cv.remove());
+  return T;
+}
+
+// the Thing's fists: side-on, built once out of orange rock plates (each plate lit from above, dark cracks between them)
+let rockFistCache = null;
+const thingS = () => Math.round(Math.min(innerWidth * .28, 130));
+// the Thing's fist as you'd see your own two fists bumping: the curled fingers facing you (he has three), stacked, the thumb across the
+// top, the forearm behind; facing right. Returns which part a point is on and how far down that part it sits (for the shading)
+const ROCK_FINGERS = [-.37, .03, .43];
+function rockPart(x, y) {
+  const cap = (ax, bx, cy, r) => { const qx = Math.max(ax, Math.min(bx, x)), d = Math.hypot(x - qx, y - cy); return d < r ? (y - cy) / r : null; };
+  let v = cap(-.78, .3, -.6, .17); if (v != null) return ["t", v];   // the thumb
+  for (let k = 0; k < 3; k++) { v = cap(-.32, .62, ROCK_FINGERS[k], .2); if (v != null) return ["f" + k, v]; }
+  const rx = Math.max(0, Math.abs(x + .05) - .5), ry = Math.max(0, Math.abs(y - .02) - .32); if (Math.hypot(rx, ry) < .3) return ["p", (y + .6) / 1.24 * 2 - 1];   // the back of the hand
+  const hw = .44 - (-.85 - x) * .015; if (x <= -.75 && x > -3.6 && Math.abs(y) < hw) return ["a", y / hw];   // the forearm
+  return null;
+}
+function rockFist(S) {
+  if (rockFistCache && rockFistCache.S === S) return rockFistCache;
+  const dpr = Math.min(2, window.devicePixelRatio || 1), X0 = -3.5, X1 = .86, Y0 = -.82, Y1 = .68, k = S * dpr, w = Math.ceil((X1 - X0) * k), h = Math.ceil((Y1 - Y0) * k);
+  const cv = document.createElement("canvas"); cv.width = w; cv.height = h; const g = cv.getContext("2d"), img = g.createImageData(w, h), d = img.data;
+  const cell = .12 * k, gw = Math.ceil(w / cell) + 2, gh = Math.ceil(h / cell) + 2, TONES = [[226, 128, 62], [210, 112, 50], [236, 146, 76], [198, 100, 44], [218, 120, 56]];
+  const seeds = []; for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) seeds.push({ x: (gx + .1 + Math.random() * .8) * cell, y: (gy + .1 + Math.random() * .8) * cell, c: TONES[Math.floor(Math.random() * TONES.length)], b: .94 + Math.random() * .12 });
+  const part = (px, py) => rockPart(X0 + px / k, Y0 + py / k), sm = (a, b, x) => { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); }, o = 1.6 * dpr;
+  for (let py = 0; py < h; py++) for (let px = 0; px < w; px++) {
+    const P = part(px, py); if (!P) continue;
+    const gx = Math.floor(px / cell), gy = Math.floor(py / cell); let d1 = 1e9, d2 = 1e9, best = null;
+    for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) { const X = gx + ox, Y = gy + oy; if (X < 0 || Y < 0 || X >= gw || Y >= gh) continue; const s = seeds[Y * gw + X], dd = Math.hypot(px - s.x, py - s.y); if (dd < d1) { d2 = d1; d1 = dd; best = s; } else if (dd < d2) d2 = dd; }
+    const edge = d2 - d1, vx = (px - best.x) / cell, vy = (py - best.y) / cell, v = P[1];
+    // each part is rounded like a cylinder lying sideways: lit along its top, falling into shadow underneath
+    let b = best.b * (1.3 - .78 * sm(-1, 1, v)) * (1 - .35 * sm(.7, 1, Math.abs(v))) * (.94 + .16 * (-.6 * vx - .8 * vy));
+    if (P[0] === "p") b *= .8; if (P[0] === "a") b *= .92;
+    // where one part meets another (finger on finger, thumb on finger) there's a deep crease, and a dark outline round the whole shape
+    const nb = [part(px - o, py), part(px + o, py), part(px, py - o), part(px, py + o)];
+    if (nb.some(q => !q)) b *= .42; else if (nb.some(q => q[0] !== P[0])) b *= .3;
+    if (edge < 2.6 * dpr) b *= .58 + .42 * edge / (2.6 * dpr);   // the cracks between the rock plates
+    const i = (py * w + px) * 4, n = (Math.random() - .5) * 12, cr = edge < 1 * dpr;
+    d[i] = cr ? 52 : Math.min(255, best.c[0] * b + n); d[i + 1] = cr ? 22 : Math.min(255, best.c[1] * b + n * .7); d[i + 2] = cr ? 10 : Math.min(255, best.c[2] * b + n * .5); d[i + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  rockFistCache = { cv, S, X0, Y0, w: w / dpr, h: h / dpr }; return rockFistCache;
+}
+function ffThing() {   // the Thing: two rock fists come in from left and right and smash together in the middle, squishing the titles between them
+  const W = innerWidth, H = innerHeight, S = thingS(), F = rockFist(S), y = H * .5, T = 2900, HIT = 950, KN = .82 * S;
+  const { cv, g } = fxCanvas(98), dust = puffSprite("196,140,96"), rows = rowsOnScreen(), chunks = [];
+  const off = W / 2 + KN + 10, D = t => t < 450 ? lerp(off + S, W * .3, easeIO(t / 450)) : t < 760 ? lerp(W * .3, W * .37, easeIO((t - 450) / 310)) : t < HIT ? lerp(W * .37, 2, Math.pow((t - 760) / (HIT - 760), 2.2))
+    : t < 1550 ? 2 + Math.abs(Math.sin(t / 30)) * 1.5 : t < 2150 ? lerp(2, W * .3, easeIO((t - 1550) / 600)) : lerp(W * .3, off + S, easeIO((t - 2150) / 600));
+  const wy = r => { const c = centerOf(r)[1]; return Math.exp(-Math.pow((c - y) / (H * .24), 2)); }, wt = rows.map(wy);
+  const org = rows.map(r => W / 2 - r.getBoundingClientRect().left); let hit = false, sprung = false;
+  haptic([20, 80, 20]);
+  fxRun(T, (t, dt) => {
+    g.clearRect(0, 0, W, H);
+    const dd = D(t), gap = 2 * dd;
+    // the titles get squeezed between the knuckles while they close, until the fists let go
+    if (t < 1550) rows.forEach((r, i) => { const sx = Math.max(.26, Math.min(1, gap / (W * .92))), s = 1 - (1 - sx) * wt[i]; r.style.transformOrigin = `${org[i]}px 50%`; r.style.transform = `scaleX(${s.toFixed(3)}) scaleY(${(1 + (1 - s) * .45).toFixed(3)})`; });
+    else if (!sprung) { sprung = true; rows.forEach((r, i) => { const s0 = 1 - (1 - .26) * wt[i]; r.style.transform = ""; const kf = springKF(s0, s => `scaleX(${Math.max(.2, s).toFixed(3)}) scaleY(${(1 + (1 - Math.min(1, s)) * .45).toFixed(3)})`, 0).slice(1); kf[0].offset = 0; r.animate(kf, { duration: 1300, easing: "linear" }).onfinish = () => { r.style.transformOrigin = ""; }; }); }
+    if (t >= HIT && !hit) {
+      hit = true; haptic([220, 30, 300]);
+      fxScope().animate([{ transform: "none" }, { transform: "translate(0,7px)", offset: .15 }, { transform: "translate(0,-4px)", offset: .35 }, { transform: "translate(0,2px)", offset: .6 }, { transform: "none" }], { duration: 520 });
+      fxRing(W / 2, y, Math.min(W, H) * .7, "rgba(255,210,150,.85)", 600, 0, 5);
+      for (let k = 0; k < 22; k++) { const a = -Math.PI / 2 + (Math.random() - .5) * 2.6, sp = 160 + Math.random() * 360; chunks.push({ x: W / 2 + (Math.random() - .5) * 20, y: y + (Math.random() - .5) * S * .8, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, r: Math.random() * 6, vr: (Math.random() - .5) * 14, s: 3 + Math.random() * 7, c: ["#C8733A", "#A85A28", "#E08A4A", "#7A3E18"][k % 4], dust: k < 12 }); }
+    }
+    // the fists: the left one as built, the right one mirrored; knuckles meet in the middle
+    g.save(); g.shadowColor = "rgba(0,0,0,.45)"; g.shadowBlur = 16; g.shadowOffsetY = 8;
+    g.drawImage(F.cv, W / 2 - dd - KN + F.X0 * S, y + F.Y0 * S, F.w, F.h);
+    g.translate(W / 2 + dd + KN, y); g.scale(-1, 1); g.drawImage(F.cv, F.X0 * S, F.Y0 * S, F.w, F.h); g.restore();
+    // rock dust and chunks thrown up by the hit
+    chunks.forEach(c => { c.vy += 900 * dt; c.x += c.vx * dt; c.y += c.vy * dt; c.r += c.vr * dt; const age = (t - HIT) / 1500; if (age > 1) return;
+      if (c.dust) { g.globalAlpha = .45 * (1 - age); const r = 14 + age * 40; g.drawImage(dust, c.x - r, c.y - r * 1.4 - age * 30, r * 2, r * 2); }
+      g.globalAlpha = 1 - age * .5; g.save(); g.translate(c.x, c.y); g.rotate(c.r); g.fillStyle = c.c; g.beginPath(); g.moveTo(-c.s, -c.s * .6); g.lineTo(c.s * .8, -c.s); g.lineTo(c.s, c.s * .5); g.lineTo(-c.s * .4, c.s); g.closePath(); g.fill(); g.restore(); });
+    g.globalAlpha = 1;
+  }, () => { cv.remove(); rows.forEach(r => { r.style.transform = ""; }); });
+  return T + 300;
+}
 /* ---------- the Infinity Stones: six of the easter eggs each hold one; with all six, the Gauntlet card offers the snap ---------- */
 const STONES = [   // in the order of the colours in the title bar
   { id: "power", n: "Power", g: "#8E3BE0", gl: "#D7B0FF", gd: "#4A1580", a: 0, b: 16.5, hint: "Wakanda's king stores it up." },
@@ -2217,9 +2918,9 @@ function radar(q) {
 }
 
 /* ---------- bonus: photon power. Hold Captain Marvel's quote: the edges glow, then a beam goes up ---------- */
-function photon(q) {
+function photon(q, y0) {
   found("photon", 3200);
-  const x = innerWidth / 2, y = centerOf(q)[1];
+  const x = innerWidth / 2, y = y0 == null ? centerOf(q)[1] : y0;
   if (REDUCED) return;
   veil("fxl", "z-index:96", [{ boxShadow: "inset 0 0 0 0 rgba(255,190,60,0)" }, { boxShadow: "inset 0 0 70px 14px rgba(255,190,60,.85)", offset: .5 }, { boxShadow: "inset 0 0 40px 6px rgba(255,190,60,.5)", offset: .8 }, { boxShadow: "inset 0 0 0 0 rgba(255,190,60,0)" }], 3200);
   for (let k = 0; k < 40; k++) sparkC(Math.random() * innerWidth, innerHeight - Math.random() * 40, (Math.random() - .5) * 30, -120 - Math.random() * 160, Math.random() * 1400, 1500, GOLD_C);
@@ -2438,12 +3139,14 @@ function pyro(x, y) {
 }
 
 /* ---------- Ant-Man & the Wasp: hold the name and the box shrinks into the Quantum Realm, then comes back giant ---------- */
-function quantum(h) {
+function quantum(h, s0) {
   if (REDUCED) { found("quantum"); return; }
+  if (quantumOn) return; quantumOn = true; setTimeout(() => { quantumOn = false; }, 4500);
   const sc = fxScope(), W = innerWidth, H = innerHeight, T = 4400, sr = sc.getBoundingClientRect();
   // shrink to the middle of the screen, become a speck that travels the quantum tunnel, then grow back out of it, a little too big, before settling
   sc.style.transformOrigin = `${W / 2 - sr.left}px ${H / 2 - sr.top}px`;
-  sc.animate([{ transform: "none", opacity: 1 }, { transform: "scale(.01)", opacity: 1, offset: .22 }, { transform: "scale(.01)", opacity: 0, offset: .25 }, { transform: "scale(.01)", opacity: 0, offset: .7 }, { transform: "scale(.01)", opacity: 1, offset: .72 }, { transform: "scale(1.12)", opacity: 1, offset: .88 }, { transform: "none", opacity: 1 }], { duration: T, easing: "ease-in-out" }).onfinish = () => { sc.style.transformOrigin = ""; };
+  sc.style.transform = "";
+  sc.animate([{ transform: s0 ? `scale(${s0})` : "none", opacity: 1 }, { transform: "scale(.01)", opacity: 1, offset: .22 }, { transform: "scale(.01)", opacity: 0, offset: .25 }, { transform: "scale(.01)", opacity: 0, offset: .7 }, { transform: "scale(.01)", opacity: 1, offset: .72 }, { transform: "scale(1.12)", opacity: 1, offset: .88 }, { transform: "none", opacity: 1 }], { duration: T, easing: "ease-in-out" }).onfinish = () => { sc.style.transformOrigin = ""; };
   const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1); cv.className = "fx-canvas"; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
   const g = cv.getContext("2d"); g.scale(dpr, dpr);
   const HUES = [330, 280, 220, 190, 30], parts = Array.from({ length: 120 }, () => ({ a: Math.random() * Math.PI * 2, d: Math.random(), h: HUES[Math.floor(Math.random() * HUES.length)], s: .4 + Math.random() }));
@@ -2473,6 +3176,7 @@ function quantum(h) {
 
 /* ---------- Shang-Chi: hold the name and the ten rings on his box come alive ---------- */
 function tenRings(h) {
+  if (ringsOn) return; ringsOn = true; setTimeout(() => { ringsOn = false; }, 5600);
   found("tenrings", 5300);
   const circles = [...panel.querySelectorAll("svg circle")].filter(c => (c.getAttribute("stroke") || "").toUpperCase() === "#B80F0A");
   if (!circles.length || REDUCED) return;
@@ -2979,9 +3683,9 @@ function found(id, ms) {
 }
 const anyChecked = t => Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::" + t));
 const allTL = (list, pre, lane) => list.filter(e => !lane || e.lane === lane).every(e => state.checks[pre + e.t]);
-// Classified, split evenly in two: page 1 the Infinity Saga heroes, page 2 the Multiverse Saga (plus the two about the movies themselves), each in release order
+// Classified, split evenly in two: page 1 the Infinity Saga heroes (plus the two about the movies themselves), page 2 the Multiverse Saga, each in release order
 const EGGS = [
-  ["ironhud", "Heads-up", "Tony's display.", "Hold anywhere in Iron Man's box.", 1],
+  ["ironhud", "Heads-up", "Suit up. The helmet comes down first.", "In Iron Man's box, at the top, swipe down.", 1],
   ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times.", 1],
   ["worthy", "Worthy", "Whosoever holds this hammer…", "Complete Thor's box, then hold his name.", 1],
   ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box.", 1],
@@ -2989,23 +3693,29 @@ const EGGS = [
   ["avengers", "Assemble", "Earth's mightiest, all at once.", "Hold the name in The Avengers box.", 1],
   ["fury", "Eyes only", "For the Director.", "Hold the name in the Nick Fury & S.H.I.E.L.D. box.", 1],
   ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top 3 times.", 1],
+  ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
   ["groot", "We are Groot", "They protect what they love.", "Hold the quote in the Guardians of the Galaxy box.", 1],
   ["dance", "Dance-off", "Star-Lord's distraction.", "Hold Guardians of the Galaxy.", 1],
-  ["quantum", "Quantum Realm", "Think small.", "Hold the name in the Ant-Man & the Wasp box.", 1],
-  ["radar", "World on fire", "The man without fear sees differently.", "Hold Daredevil's name in his box.", 1],
+  ["quantum", "Quantum Realm", "Think small.", "Pinch the Ant-Man & the Wasp box smaller.", 1],
+  ["radar", "World on fire", "He can hear your heartbeat.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
   ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
   ["mirror", "Mirror Dimension", "Strange things fold.", "Hold the Doctor Strange title.", 1],
   ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap anywhere in Spider-Man's box.", 1],
   ["chi", "Chi", "An immortal weapon.", "Hold Iron Fist S1 or S2.", 1],
+  ["defenders", "Four colors", "Red, yellow, blue, green. The city at night.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
   ["penny", "Penny and dime", "Count it out.", "In The Punisher box, tap his quote 4 times.", 1],
-  ["photon", "Higher, further, faster", "Carol powers up.", "Hold Captain Marvel's name in her box.", 1],
-  ["tenrings", "Ten rings", "They're already on his box.", "Hold the name in the Shang-Chi box.", 2],
+  ["onlyfeel", "I just feel you", "You could never hurt me.", "In the Wanda & Vision box, hold two fingers on the screen until the stone breaks (on a computer, hold the quote).", 1],
+  ["photon", "Higher, further, faster", "She only goes one way: up.", "Flick Captain Marvel's name upward.", 1],
+  ["studio", "Marvel Studios", "Every movie starts the same way.", "Tap the main title 5 times.", 1],
+  ["tenrings", "Ten rings", "They're already on his box.", "In the Shang-Chi box, tap one of the rings at the top.", 2],
   ["eternals", "The Uni-Mind", "Their power, joined as one.", "Hold anywhere in the Eternals box.", 2],
   ["moon", "Fractured", "Who's in control?", "Hold the name in the Moon Knight box.", 2],
+  ["doodles", "Doodles", "Kamala draws what she dreams.", "Draw on the name in The Champions box.", 2],
   ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box.", 2],
   ["werewolf", "Bloodstone", "Something red sets it off.", "Hold the name in the Werewolf by Night box.", 2],
   ["sinister", "Hello, Peter.", "Five old enemies.", "Hold anywhere in The Sony Spider-Men box until you've seen all five villains.", 2],
   ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box.", 2],
+  ["glorious", "Glorious purpose", "Hold on to them, then pull them together.", "In the Loki & the TVA box, hold your finger still for a moment, then pull up to the name.", 2],
   ["swap", "Swap", "Three heroes keep trading places.", "Hold The Marvels.", 2],
   ["skrull", "Not who it says it is", "Shapeshifters among us.", "Hold Secret Invasion, then tap the title that doesn't belong.", 2],
   ["prune", "Pruned", "The TVA's way.", "On a timeline page, hold a branch line.", 2],
@@ -3013,10 +3723,10 @@ const EGGS = [
   ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers.", 2],
   ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box.", 2],
   ["herald", "The Herald", "Something silver comes first.", "Hold The Fantastic Four: First Steps.", 2],
-  ["tbolts", "Redacted", "Valentina keeps files on everyone.", "Hold the name in The Thunderbolts box.", 2],
+  ["fantastic", "Fantastic", "Four taps, four powers.", "Tap the name in The Fantastic Four box four times, until you've seen all four powers.", 2],
+  ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
   ["newav", "*The New Avengers", "Bob's darkness. Let it take everything.", "Hold Thunderbolts* until every other title in its list is a shadow.", 2],
   ["doom", "Doom", "He fights with both hands.", "Hold any Avengers: Doomsday title with two fingers (on a computer, a long hold).", 2],
-  ["studio", "Marvel Studios", "Every movie starts the same way.", "Tap the main title 5 times.", 2],
   ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse on the Sacred Timeline.", 2]
 ];
 // the line each Avengers film mission announces itself with (Doomsday and Secret Wars are placeholders until the films are out)
@@ -3127,7 +3837,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
+const SAVE_KEYS = ["checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -3893,8 +4603,8 @@ const ROW_EGGS = {
 const BOX_ROW_EGGS = {};
 const QUOTE_EGGS = { "cx-guardians-of-the-galaxy": q => groot(q) };
 const TITLE_EGGS = { "cx-the-avengers": h => assemble(h), "cx-werewolf-by-night": h => wolfEgg(h),
-  "cx-the-thunderbolts": h => tboltsEgg(h), "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h), "cx-daredevil": h => radar(h), "cx-captain-marvel": h => photon(h),
-  "cx-ant-man-the-wasp": h => quantum(h), "cx-moon-knight": h => moonKnight(h), "cx-nick-fury-s-h-i-e-l-d": h => fury(h), "cx-shang-chi-the-ten-rings": h => tenRings(h), "ch-the-spider-verse": () => glitch() };
+  "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h),
+  "cx-moon-knight": h => moonKnight(h), "cx-nick-fury-s-h-i-e-l-d": h => fury(h), "ch-the-spider-verse": () => glitch() };
 const FOX_BOXES = { "ch-the-fox-men": 1, "cx-the-fox-men": 1 };   // hold the title for the claws, keep holding for Magneto
 let laneTimer = null, laneFired = false, laneStart = null;
 document.getElementById("view").addEventListener("pointerdown", ev => {
@@ -3998,6 +4708,8 @@ panel.addEventListener("click", ev => {
   if (pnlFired) { pnlFired = false; return; }
   if (openEntry) {
     const id = openEntry.id, pr = panel.getBoundingClientRect(), onName = ev.target.closest("#panelTitle");
+    if (id === "cx-shang-chi-the-ten-rings" && ringHit(ev)) { tenRings(); return; }
+    if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button")) { onYourLeft(); return; }
     if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 70) { if (dblCheck(ev)) strangeRunes(); return; }
   }
   if (ev.target.closest("#panelTitle") && openEntry && openEntry.id === "cx-hulk") { punyTap(); return; }
@@ -4079,7 +4791,7 @@ document.getElementById("btnResetAll").addEventListener("click", () => {
   ask("Reset everything? Every chapter is covered again, and all checkmarks in Chapters, Characters, and both Sacred Timeline views are cleared. This can't be undone.", "Reset everything").then(ok => {
     if (!ok) return;
     state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.achSeen = {}; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
+    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.achSeen = {}; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist(); renderAll();
     showGate();
   });
