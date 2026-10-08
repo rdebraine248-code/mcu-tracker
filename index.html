@@ -180,7 +180,7 @@ button{ font:inherit; color:inherit; }
 .row[aria-pressed="true"] .tag{ background:#1E4D2B; color:#F3E7B3; border-color:#D4AF37; opacity:1; }
 .row .tag{ margin-left:auto; font-size:12px; letter-spacing:1px; padding:2px 8px; border:1px solid currentColor; border-radius:999px; opacity:.8; }
 
-.ask{ position:fixed; inset:0; z-index:80; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; padding:20px; }
+.ask{ position:fixed; inset:0; z-index:88; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; padding:20px; }
 .ask[hidden]{ display:none; }
 .askbox{ max-width:420px; width:100%; background:var(--chip); color:var(--chip-ink); border-radius:14px; padding:22px 22px 18px; box-shadow:0 18px 50px rgba(0,0,0,.35); }
 .askbox p{ margin:0 0 18px; font-size:17px; line-height:1.4; }
@@ -293,7 +293,8 @@ body[data-mode="timeline"] .stonebar i{ display:none; }
 .ggrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px 10px; }
 .gslot{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; }
 .gslot b{ font-size:14px; font-weight:600; }
-.gslot small{ font-size:12px; line-height:1.3; color:var(--muted); }
+.gslot small{ font-size:12px; line-height:1.3; color:var(--muted); min-height:1px; }
+.gslot[data-stone]{ cursor:pointer; -webkit-user-select:none; user-select:none; }
 .gbtns{ display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
 .gbtns button{ border:1px solid rgba(255,255,255,.2); background:transparent; color:inherit; padding:10px 18px; border-radius:999px; cursor:pointer; font-size:15px; }
 .gbtns .gsnap{ border-color:#E9C46A; color:#1B1A24; background:linear-gradient(90deg,#7D4FA8,#3A78C9,#C8443A,#D9822B,#3E9B5C,#D9B32B); color:#fff; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,.5); }
@@ -1264,8 +1265,8 @@ function renderPanel(e, fresh) {
   const pqWait = pqHoldUntil - Date.now();
   const pqHtml = cls => pq ? `<p class="pquote${cls}${pqWait > 0 ? " pending" : ""}" style="font-family:${esc(fontOf(e.h2) || "inherit")}">“${esc(pq).replace(" / ", "” “")}”</p>` : "";
   if (pqWait > 0) setTimeout(() => { const q = panel.querySelector(".pquote"); if (q) q.classList.remove("pending"); }, pqWait);
-  // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap): the page itself mustn't zoom under the fingers
-  panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders"].includes(e.id) ? "pan-y" : "";
+  // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap, Fury's swipe): the page itself mustn't zoom under the fingers
+  panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders", "cx-nick-fury-s-h-i-e-l-d"].includes(e.id) ? "pan-y" : "";
   panel.innerHTML = `${panelDecor(e)}
     <div class="pin">
       <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}</div>
@@ -1511,7 +1512,6 @@ function paintPruned(sec) {
 function pruneLane(lane, heldLi, y) {
   const sec = document.querySelector(".tl"); if (!sec || prunedLanes[lane] || burning) return;
   if (tlFocus === lane) tlSetFocus(lane);
-  found("prune", 3200);
   // remember a row that stays visible, so a restore can bring you back here
   let a = heldLi; while (a && a.dataset.lane !== "main") a = a.nextElementSibling;
   if (!a || !a.querySelector(".tl-row")) { a = heldLi; while (a && a.dataset.lane !== "main") a = a.previousElementSibling; }
@@ -1524,7 +1524,7 @@ function pruneLane(lane, heldLi, y) {
     anims.forEach(x => x.cancel());
     rows.forEach(li => { clearFx(li.querySelector(".tl-text")); li.style.height = li.style.overflow = li.style.transition = ""; });
     lis.forEach(li => li.style.removeProperty("--bd"));
-    renderMeter(); burning = false;
+    renderMeter(); burning = false; found("prune");   // the Hero File news waits until the lane has burned away
   };
   if (REDUCED) { finish(); return; }
   burning = true;
@@ -1758,7 +1758,8 @@ panel.addEventListener("pointerdown", ev => {
   // with a mouse there's no second finger: a long press stands in for the two-finger and four-finger ones
   if (ev.pointerType === "mouse") { clearTimeout(holdTimer2);
     if (id === "cx-wanda-vision" && ev.target.closest(".pquote")) holdTimer2 = setTimeout(() => { holdTimer2 = null; gestBlock = Date.now() + 600; mouseFeel = onlyFeel([x - 90, y + 60], [x + 90, y + 60]); }, 900);
-    if (id === "cx-the-defenders" && onName) holdTimer2 = setTimeout(() => { gestBlock = Date.now() + 600; defenders(); }, 1200); }
+    if (id === "cx-the-defenders" && onName) holdTimer2 = setTimeout(() => { gestBlock = Date.now() + 600; defenders(); }, 1200);
+    if (id === "cx-nick-fury-s-h-i-e-l-d" && onName) holdTimer2 = setTimeout(() => { gestBlock = Date.now() + 600; fury(h); }, 1200); }
 }, true);
 panel.addEventListener("pointermove", ev => {
   if (lokiPress && Math.hypot(ev.clientX - lokiPress[0], ev.clientY - lokiPress[1]) > 10) { clearTimeout(lokiTimer); lokiPress = null; }   // it moved first: that's a scroll
@@ -1864,6 +1865,21 @@ function onYourLeft() {
       oylBreath(4, .016); setTimeout(() => { oylBusy = false; found("onyourleft"); }, 3600); }), 1500);
   }
 }
+
+/* Nick Fury & S.H.I.E.L.D.: swipe down with two fingers, like knocking the cards loose so they fall */
+let furySwipe = null;
+panel.addEventListener("touchstart", ev => {
+  if (!boxIs("cx-nick-fury-s-h-i-e-l-d")) return;
+  if (ev.touches.length === 2) { const [a, b] = ev.touches; furySwipe = { x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2, done: false }; clearTimeout(pnlTimer); }
+  else if (ev.touches.length > 2) furySwipe = null;
+}, { passive: true });
+panel.addEventListener("touchmove", ev => {
+  if (!furySwipe || ev.touches.length < 2) return;
+  ev.preventDefault();
+  const [a, b] = ev.touches, dx = (a.clientX + b.clientX) / 2 - furySwipe.x, dy = (a.clientY + b.clientY) / 2 - furySwipe.y;
+  if (!furySwipe.done && dy > 70 && Math.abs(dx) < dy * .7) { furySwipe.done = true; gestBlock = Date.now() + 700; fury(document.getElementById("panelTitle")); }
+}, { passive: false });
+["touchend", "touchcancel"].forEach(n => panel.addEventListener(n, ev => { if (furySwipe && ev.touches.length < 2) furySwipe = null; }));
 
 /* Ant-Man & the Wasp: pinch the box and it shrinks under your fingers, then all the way into the Quantum Realm */
 panel.addEventListener("touchstart", ev => {
@@ -1975,12 +1991,12 @@ function onlyFeel(A0, B0) {
   o.loop((t, dt) => {
     g.clearRect(0, 0, W, H);
     if (ctl.gone != null && !ctl.broke && t - ctl.gone > 600) { o.on = false; ofOn = false; dim.remove(); return; }   // you let go: the stone settles and fades, nothing happens
-    if (ctl.broke && t > END) { o.on = false; ofOn = false; dim.remove(); return; }
+    if (ctl.broke && t > END) { o.on = false; ofOn = false; dim.remove(); found("onlyfeel"); return; }   // the Hero File news once the screen is back
     // how far along: it only builds while you're holding on
     const held = ctl.gone == null ? t : ctl.gone, rel = ctl.gone != null && !ctl.broke ? 1 - clamp01((t - ctl.gone) / 500) : 1;
     const grow = easeIO(t / 500) * (ctl.broke ? 1 : rel), push = clamp01((held - 600) / (BURST - 600)), shake = !ctl.broke && ctl.gone == null ? push * push * 5 : 0, ox = (Math.random() - .5) * shake, oy = (Math.random() - .5) * shake;
     if (!ctl.broke && held >= BURST) {   // you held on all the way: it breaks, and the file is yours
-      ctl.broke = true; found("onlyfeel");
+      ctl.broke = true;
       for (let k = 0; k < 26; k++) { const a = Math.random() * Math.PI * 2, sp = 200 + Math.random() * 420; shards.push({ x: S[0], y: S[1], vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, rot: Math.random() * 6, vr: (Math.random() - .5) * 12, s: 4 + Math.random() * 9 }); }
       fxRing(S[0], S[1], Math.hypot(W, H), "rgba(255,240,180,.9)", 1100, 0, 8); haptic([260, 40, 120]);
       veil("fxl", "z-index:99;background:radial-gradient(circle at 50% 40%, #FFFFFF 0, rgba(255,250,220,.95) 30%, rgba(255,230,140,.4) 60%, rgba(255,230,140,0) 85%)", [{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 0 }], 1300);
@@ -2018,7 +2034,7 @@ function onlyFeel(A0, B0) {
    yellow Luke Cage, blue Jessica Jones, green Iron Fist), until all four spread into each other in the middle ---------- */
 let defOn = false;
 function defenders() {
-  found("defenders", 3800);
+  found("defenders", 5900);
   if (REDUCED || defOn) return; defOn = true;
   const { cv, g, W, H } = fxCanvas(98), T = 5800, D = Math.hypot(W, H), ANG = -.51;   // the Manhattan grid sits about 29 degrees off true
   const HEROES = [
@@ -2127,7 +2143,7 @@ function doodleEnd(g) {
     if (REDUCED && g.len >= 200) found("doodles");
     const t0 = performance.now(), f = () => { g.fade = 1 - (performance.now() - t0) / 500; if (g.fade > 0) requestAnimationFrame(f); else g.o.on = false; }; requestAnimationFrame(f); return;
   }
-  doodleOn = true; found("doodles", 3400); haptic([15, 30, 15]);
+  doodleOn = true; found("doodles", 5900); haptic([15, 30, 15]);
   const W = innerWidth, H = innerHeight, rows = rowsOnScreen(), pickRow = k => rows.length ? rows[Math.min(rows.length - 1, Math.floor((k + .5) / 7 * rows.length))] : null;
   const end = g.pts[g.pts.length - 1], start = g.pts[0];
   // where each symbol lands: beside a title, alternating sides
@@ -2258,7 +2274,7 @@ function lokiGrab(x, y) {
       const gl = c.createRadialGradient(g.fx, g.fy, 0, g.fx, g.fy, 46); gl.addColorStop(0, `rgba(200,255,210,${.8 * grip * (1 - fall)})`); gl.addColorStop(1, "rgba(60,255,120,0)"); c.fillStyle = gl; c.fillRect(g.fx - 46, g.fy - 46, 92, 92);
     } else {
       const u = t - g.m0, T = 5600, fade = u > T - 1000 ? clamp01((T - u) / 1000) : 1, braid = easeIO(u / 650), pulse = .8 + .2 * Math.sin(t / 240);
-      if (u > T) { o.on = false; dim.remove(); lokiOn = false; return; }
+      if (u > T) { o.on = false; dim.remove(); lokiOn = false; found("glorious"); return; }   // the Hero File news once the tree has gone
       if (u > T - 1000) dim.style.opacity = String(fade);
       // the threads, never let go of: they slide from where you pulled them into the trunk
       roots.forEach((r, k) => { const A = frozen[k], B = treePts(r, k, t, top), pts = A.map((p2, i) => [lerp(p2[0], B[i][0], braid), lerp(p2[1], B[i][1], braid)]);
@@ -2275,7 +2291,7 @@ function lokiGrab(x, y) {
 function lokiMove(g, x, y) {
   g.fx = x; g.fy = y;
   const h = document.getElementById("panelTitle"), hb = h && h.getBoundingClientRect();
-  if (hb && y < hb.bottom + 24) { gest = null; gestBlock = Date.now() + 600; found("glorious", 3000); if (REDUCED || lokiOn) { lokiSlip(g); return; } lokiOn = true; g.grow(); }
+  if (hb && y < hb.bottom + 24) { gest = null; gestBlock = Date.now() + 600; if (REDUCED || lokiOn) { if (REDUCED) found("glorious"); lokiSlip(g); return; } lokiOn = true; g.grow(); }
 }
 function lokiSlip(g) { if (g.mode !== "pull") return; g.mode = "slip"; g.m0 = performance.now() - g.o.t0; g.dim.style.opacity = "0"; gestBlock = Date.now() + 600; }
 
@@ -2464,14 +2480,26 @@ function awardStone(id, x, y, now) {   // now: the stone and its line land this 
 function openGauntlet() {
   const have = state.stones || {}, all = allStones(), snapped = Object.keys(state.dusted || {}).length > 0;
   document.getElementById("gCard").innerHTML = `<h2 id="gTitle">Infinity Stones</h2><p class="gsub">${all ? "All six are yours." : STONES.filter(st => have[st.id]).length + " of 6 found"}</p>
-    <div class="ggrid">${STONES.map(st => `<div class="gslot"><div class="gem${have[st.id] ? "" : " empty"}" style="${gemVars(st)}"></div><b>${st.n}</b>${have[st.id] ? "" : `<small>${esc(st.hint)}</small>`}</div>`).join("")}</div>
+    <div class="ggrid">${STONES.map(st => `<div class="gslot"${have[st.id] ? "" : ` data-stone="${st.id}"`}><div class="gem${have[st.id] ? "" : " empty"}" style="${gemVars(st)}"></div><b>${have[st.id] ? st.n : "???"}</b>${have[st.id] ? "" : `<small>${stoneClue(st)}</small>`}</div>`).join("")}</div>
     <div class="gbtns"><button type="button" id="gClose">Close</button>${all ? `<button type="button" class="gsnap" id="gSnap">${snapped ? "Whatever it takes" : "Snap?"}</button>` : ""}</div>`;
   const g = document.getElementById("gauntlet"); g.hidden = false;
   document.getElementById("gClose").focus();
 }
 function closeGauntlet() { document.getElementById("gauntlet").hidden = true; }
+// a stone you haven't found stays a mystery: tap it 5 times for the hint, 5 more for the answer (like the Hero File)
+const stoneTaps = {};
+const stoneClue = st => { const n = stoneTaps[st.id] || 0; return n >= 10 ? esc(STONE_HOW[st.id]) : n >= 5 ? esc(st.hint) : ""; };
 document.getElementById("gauntlet").addEventListener("click", ev => {
   if (ev.target.id === "gauntlet" || ev.target.closest("#gClose")) { closeGauntlet(); return; }
+  const slot = ev.target.closest(".gslot[data-stone]");
+  if (slot) {
+    const st = STONES.find(z => z.id === slot.dataset.stone), sm = slot.querySelector("small");
+    if ((stoneTaps[st.id] || 0) >= 10) { ask("Hide the answer again?", "Yes", "No").then(ok => { if (!ok) return; stoneTaps[st.id] = 0; sm.textContent = ""; haptic(8); }); return; }
+    stoneTaps[st.id] = (stoneTaps[st.id] || 0) + 1; const n = stoneTaps[st.id];
+    haptic(n === 5 || n === 10 ? [20, 40, 20] : 8);
+    if (n === 5 || n === 10) { sm.innerHTML = stoneClue(st); sm.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 }); }
+    return;
+  }
   if (ev.target.closest("#gSnap")) { const snapped = Object.keys(state.dusted || {}).length > 0; closeGauntlet(); setTimeout(() => snapped ? unsnap() : snap(), 250); }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && !document.getElementById("gauntlet").hidden) closeGauntlet(); });
@@ -2648,10 +2676,13 @@ function mindStone(x, y) {
 
 function ironHud(q) {
   if (REDUCED) { found("ironhud"); return; }
-  const tg = openEntry ? [...panel.querySelectorAll(".row")] : [];
+  // one to five titles on screen, picked at random, each locked and then shot on its own
+  const vis = openEntry ? [...panel.querySelectorAll(".row")].filter(r => { const b = r.getBoundingClientRect(); return b.top > 90 && b.bottom < innerHeight - 90; }) : [];
+  const tg = vis.sort(() => Math.random() - .5).slice(0, Math.min(vis.length, 1 + Math.floor(Math.random() * 5))).sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+  const W = innerWidth, H = innerHeight, palm = [W / 2, H + 30];
   const hd = document.createElement("div"); hd.className = "fx-ihud";
   hd.innerHTML = `<div class="visor"></div><div class="top"><span class="lbl">SYSTEMS BOOTING</span></div>
-    <div class="gauge l"><i></i></div><div class="gauge r"><i></i></div><div class="ret"><i></i><i></i><b></b></div><div class="core"></div>`;
+    <div class="gauge l"><i></i></div><div class="gauge r"><i></i></div><div class="ret"><i></i><i></i><b></b></div>`;
   document.body.appendChild(hd);
   const lbl = hd.querySelector(".lbl"), ret = hd.querySelector(".ret"), gl = hd.querySelectorAll(".gauge i"), brks = [];
   const set = t => { lbl.textContent = t; };
@@ -2661,36 +2692,46 @@ function ironHud(q) {
   gl.forEach(g => g.animate([{ height: "0%" }, { height: "100%" }], { duration: 900, easing: "ease-out", fill: "forwards" }));
   let t = 900;
   setTimeout(() => set("SCANNING"), t);
-  // 2. the reticle hops from title to title, locking each one
-  ret.style.left = innerWidth / 2 + "px"; ret.style.top = innerHeight / 2 + "px";
+  // 2. the reticle hops to each chosen title and locks it
+  ret.style.left = W / 2 + "px"; ret.style.top = H / 2 + "px";
+  const aim = row => { const r = row.getBoundingClientRect(); return [r.left + 46, r.top + r.height / 2]; };
   tg.forEach((row, k) => {
-    t += 460;
+    t += 520;
     setTimeout(() => {
-      // keep the next target on screen
-      const rb = row.getBoundingClientRect(); if (rb.top < 90 || rb.bottom > innerHeight - 90) panel.scrollTo({ top: panel.scrollTop + rb.top - innerHeight / 2, behavior: "smooth" });
-    }, t - 200);
-    setTimeout(() => {
-      const r = row.getBoundingClientRect(), cx = r.left + 46, cy = r.top + r.height / 2;
+      const [cx, cy] = aim(row);
       ret.animate([{ left: ret.style.left, top: ret.style.top }, { left: cx + "px", top: cy + "px" }], { duration: 260, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" });
       ret.style.left = cx + "px"; ret.style.top = cy + "px";
       setTimeout(() => {
-        const b = document.createElement("div"); b.className = "fx-brk inrow"; b.style.cssText = "left:-6px;right:-6px;top:3px;bottom:3px"; row.appendChild(b); brks.push(b);
+        const b = document.createElement("div"); b.className = "fx-brk inrow red"; b.style.cssText = "left:-6px;right:-6px;top:3px;bottom:3px"; row.appendChild(b); brks[k] = b;
         b.animate([{ transform: "scale(1.2)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }], { duration: 220, fill: "both" });
         set(`TARGET ${k + 1} OF ${tg.length} LOCKED`); haptic(12);
       }, 260);
     }, t);
   });
-  // 3. every target locked: the repulsor charges in the middle, then fires
-  t += 700; setTimeout(() => { set("ALL TARGETS LOCKED"); ret.animate([{ left: ret.style.left, top: ret.style.top }, { left: innerWidth / 2 + "px", top: innerHeight / 2 + "px" }], { duration: 400, fill: "forwards" }); }, t);
-  t += 600; setTimeout(() => { set("REPULSOR CHARGING"); hd.querySelector(".core").animate([{ transform: "scale(.2)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }], { duration: 800, easing: "ease-in", fill: "forwards" }); haptic([10, 60, 10, 60, 10, 60, 10]); }, t);
-  t += 900; setTimeout(() => {
-    set("FIRE");
-    fxRing(innerWidth / 2, innerHeight / 2, Math.hypot(innerWidth, innerHeight), "#BDEFFF", 700, 0, 6);
-    veil("fxl", "z-index:97;background:radial-gradient(circle at 50% 50%, rgba(230,250,255,.95), rgba(120,210,255,.5) 30%, rgba(95,211,255,0) 70%)", [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 700);
-    haptic([80, 30, 120]);
-    brks.forEach(b => b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => b.remove());
-  }, t);
-  t += 900; setTimeout(() => { hd.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => hd.remove(); found("ironhud"); }, t);
+  t += 700; setTimeout(() => { set(tg.length > 1 ? "ALL TARGETS LOCKED" : "TARGET LOCKED"); ret.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }); }, t);
+  // 3. a repulsor blast at each one in turn, from his palm below the screen: the beam, the hit, the title knocked back
+  const { cv, g } = fxCanvas(97), shots = [];
+  fxRun(t + 600 + tg.length * 520 + 900, now => {
+    g.clearRect(0, 0, W, H);
+    shots.forEach(sh => { const a = now - sh.at; if (a < 0 || a > 320) return; const f = a / 320, [x, y] = sh.to;
+      g.globalCompositeOperation = "lighter"; g.lineCap = "round";
+      [["rgba(95,211,255,.35)", 22 * (1 - f) + 4], ["rgba(189,239,255,.85)", 9 * (1 - f) + 2], ["#FFFFFF", 3 * (1 - f) + 1]].forEach(([c, w]) => { g.strokeStyle = c; g.lineWidth = w; g.beginPath(); g.moveTo(palm[0], palm[1]); g.lineTo(x, y); g.stroke(); });
+      const rg = g.createRadialGradient(x, y, 0, x, y, 60 * (1 - f * .4)); rg.addColorStop(0, `rgba(255,255,255,${1 - f})`); rg.addColorStop(.4, `rgba(140,225,255,${.7 * (1 - f)})`); rg.addColorStop(1, "rgba(95,211,255,0)"); g.fillStyle = rg; g.fillRect(x - 70, y - 70, 140, 140);
+      g.globalCompositeOperation = "source-over"; });
+  }, () => cv.remove());
+  const t0 = performance.now();
+  tg.forEach((row, k) => {
+    t += 520;
+    setTimeout(() => {
+      set(`FIRING ${k + 1} OF ${tg.length}`);
+      const r = row.getBoundingClientRect(), to = [r.left + Math.min(r.width * .5, 140), r.top + r.height / 2];
+      shots.push({ at: performance.now() - t0, to }); haptic([40, 20, 60]);
+      fxRing(to[0], to[1], 120, "#BDEFFF", 500, 0, 4);
+      setTimeout(() => { if (brks[k]) brks[k].animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" }).onfinish = () => brks[k].remove(); knockRow(row, 0, 900, 46, -6, k % 2 ? 3 : -3, .35); }, 90);
+    }, t);
+  });
+  t += 1100; setTimeout(() => { set(tg.length > 1 ? "TARGETS DOWN" : "TARGET DOWN"); }, t);
+  t += 800; setTimeout(() => { hd.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => { hd.remove(); found("ironhud"); }; }, t);
 }
 /* ---------- Power Stone: kinetic energy. Hold Black Panther's quote to charge it, let go to release it ---------- */
 let charging = null;
@@ -2903,7 +2944,7 @@ function mirrorDim(x, y) {
 
 /* ---------- bonus: the Herald. Hold The Fantastic Four: First Steps: a silver streak crosses the screen ---------- */
 function herald(x, y) {
-  found("herald", 2600);
+  found("herald", 3400);
   if (REDUCED) return;
   const W = innerWidth, H = innerHeight, x0 = -40, y0 = H * .86, x1 = W + 40, y1 = H * .14, T = 1700;
   const len = Math.hypot(x1 - x0, y1 - y0), ang = Math.atan2(y1 - y0, x1 - x0) * 180 / Math.PI;
@@ -3333,7 +3374,7 @@ function starTap(ev) {
   return true;
 }
 function winterSoldier() {
-  found("wsoldier", 8600);
+  found("wsoldier", 900 + 10 * 620 + 900 + 3300);
   if (wsOn) return;
   const WORDS = ["Longing.", "Rusted.", "Seventeen.", "Daybreak.", "Furnace.", "Nine.", "Benign.", "Homecoming.", "One.", "Freight car."];
   if (REDUCED) { say("Ready to comply."); return; }
@@ -3373,7 +3414,7 @@ function pennyTap() {
   if (pennyN >= 4) { pennyN = 0; setTimeout(sprayPaint, 450); }
 }
 function sprayPaint() {
-  found("penny", 2500);
+  found("penny", 4500);
   if (REDUCED) return;
   pennyOn = true;
   const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), W = innerWidth, H = innerHeight;
@@ -3410,8 +3451,7 @@ function sprayPaint() {
 /* ---------- Studio intro: tap the main title 5 times. Comic pages flip past in red, then the title lands ---------- */
 let studioOn = false;
 function studioIntro() {
-  found("studio", 3400);
-  if (REDUCED || studioOn) return;
+    if (REDUCED || studioOn) return;
   studioOn = true;
   const o = document.createElement("div"); o.className = "fx-studio"; document.body.appendChild(o);
   const COLORS = ["#E9B949", "#2E5C9E", "#B8323A", "#3A3A40", "#E8DFC9", "#4C8A5E", "#D9823B", "#7A5596"];
@@ -3446,7 +3486,7 @@ function studioIntro() {
     setTimeout(() => haptic([30, 50, 60]), 500);
   }, done);
   setTimeout(() => {
-    o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 800, easing: "ease-in-out", fill: "forwards" }).onfinish = () => { o.remove(); studioOn = false; };
+    o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 800, easing: "ease-in-out", fill: "forwards" }).onfinish = () => { o.remove(); studioOn = false; found("studio"); };
   }, done + 2100);
 }
 
@@ -3609,7 +3649,7 @@ function shieldThrow(x0, y0, quiet) {
 const TRICK = [{ n: "regular" }, { n: "explosive", tip: "boom" }, { n: "usb", tip: "usb", inner: "<i></i>" }, { n: "goo", tip: "goo" }, { n: "shock", tip: "zap" }];
 let trickN = 0;
 function arrow(x, y, quiet) {   // quiet: fired by another egg; a plain arrow, and the trick cycle doesn't move
-  if (!quiet) found("arrow", 2800);
+  if (!quiet) found("arrow", 4000);
   if (REDUCED) return;
   const kind = quiet ? TRICK[0] : TRICK[trickN++ % TRICK.length];
   const W = innerWidth, H = innerHeight, from = Math.random() < .5 ? [-120, y - 80 - Math.random() * 120] : [W + 120, y - 80 - Math.random() * 120];
@@ -3713,7 +3753,7 @@ const EGGS = [
   ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box.", 1],
   ["arrow", "Never misses", "Patience, archer.", "Hold anywhere in Hawkeye's box for 3 to 4 seconds.", 1],
   ["avengers", "Assemble", "Earth's mightiest, all at once.", "Hold the name in The Avengers box.", 1],
-  ["fury", "Eyes only", "For the Director.", "Hold the name in the Nick Fury & S.H.I.E.L.D. box.", 1],
+  ["fury", "Eyes only", "For the Director. Shake them loose.", "Swipe down with two fingers in the Nick Fury & S.H.I.E.L.D. box (on a computer, hold the name).", 1],
   ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top 3 times.", 1],
   ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
   ["groot", "We are Groot", "They protect what they love.", "Hold the quote in the Guardians of the Galaxy box.", 1],
@@ -3831,7 +3871,7 @@ function renderFile() {
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
     ${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
-      <p>Your progress lives in this browser. A save code holds all of it (checkmarks, chapters, stones, Hero File) in one line of text. Keep it in your notes, and paste it here on a new version of the app, a new browser, or a new phone.</p>
+      <p>Your progress is saved in this browser. A save code holds all of it in one line of text. Keep it in your notes, and paste it here to restore your progress.</p>
       <div class="row"><button type="button" class="go" data-save="copy">Copy save code</button><button type="button" data-save="open">Restore code</button></div>
       <div id="hfRestore" hidden><textarea id="hfCode" spellcheck="false" autocomplete="off" placeholder="Paste your save code here"></textarea><div class="row"><button type="button" class="go" data-save="load">Restore progress</button></div></div>
       <p class="msg" id="hfMsg"></p></div></section>`;
@@ -3994,7 +4034,7 @@ function danceOff(x, y, held) {
 
 /* ---------- Chapter 5: Iron Fist. Hold Iron Fist S1: chi gathers, then a golden shockwave knocks the list back ---------- */
 function chiPunch(x, y) {
-  found("chi", 1600);
+  found("chi", 2200);
   if (REDUCED) return;
   glowC(x, y, 0, "gold", 2.2);
   for (let k = 0; k < 40; k++) { const a = Math.random() * Math.PI * 2, r = 80 + Math.random() * 70; sparkC(x + Math.cos(a) * r, y + Math.sin(a) * r, -Math.cos(a) * r, -Math.sin(a) * r, Math.random() * 300, 600, GOLD_C); }
@@ -4011,7 +4051,7 @@ function chiPunch(x, y) {
 
 /* ---------- Chapter 9: The Marvels (three titles swap places) and Secret Invasion (one title isn't what it seems) ---------- */
 function marvelsSwap(x, y, held) {
-  found("swap", 2600);
+  found("swap", 3300);
   const its = pick(listItems(held), 3); if (its.length < 2) return;
   const orig = its.map(it => it.t.textContent), cls = ["gold", "blue", "purple"];
   const flash = () => its.forEach((it, k) => { const [cx, cy] = centerOf(it.t); if (!REDUCED) glowC(cx, cy, 0, cls[k], 1.3); });
@@ -4103,7 +4143,7 @@ function checkAllVoided(held) {
 
 /* ---------- the Character Map: Variant (hold a name), the weave (double-tap empty space), Incursion (zoom all the way out) ---------- */
 function mapVariant(r) {
-  found("variant", 4600);
+  found("variant", 14200);
   const g = document.querySelector(`#mapView .lane[data-r="${r}"]`), row = MAP.rows[r]; if (!g || !row || REDUCED) return;
   const m = /M\s*([-\d.]+)[ ,]([-\d.]+)/.exec(row.d); if (!m) return;
   const x0 = +m[1], y0 = +m[2], n = 1 + Math.floor(Math.random() * 7), used = new Set();
@@ -4216,7 +4256,7 @@ function groot(q) {
     }
   }, () => { cv.remove(); grootOn = false; });
   haptic([10, 60, 10, 60, 10, 60, 10, 60, 10]);
-  setTimeout(() => found("groot"), GROW + 500);
+  setTimeout(() => found("groot"), T + 100);
 }
 
 /* ---------- Doctor Strange & Wong: double-tap the small circle at the top right. The background circles ripple, then rings of orange runes turn ---------- */
@@ -4326,7 +4366,7 @@ function sinister() {
   const V = { ock: villainOck, goblin: villainGoblin, lizard: villainLizard, sandman: villainSandman, electro: villainElectro }, k = cyclePick(Object.keys(V), "sv", lastVillain);
   lastVillain = k; persist();
   if (!REDUCED) V[k]();
-  if (Object.keys(V).every(z => (state.sv || {})[z])) found("sinister", 3200);
+  if (Object.keys(V).every(z => (state.sv || {})[z])) found("sinister", 4500);
 }
 function villainOck() {   // Doc Ock: a metal arm reaches in, its claw grabs a title and yanks it away
   const it = pick(onScreen(listItems()), 1)[0]; if (!it) return;
@@ -4626,7 +4666,7 @@ const BOX_ROW_EGGS = {};
 const QUOTE_EGGS = { "cx-guardians-of-the-galaxy": q => groot(q) };
 const TITLE_EGGS = { "cx-the-avengers": h => assemble(h), "cx-werewolf-by-night": h => wolfEgg(h),
   "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h),
-  "cx-moon-knight": h => moonKnight(h), "cx-nick-fury-s-h-i-e-l-d": h => fury(h), "ch-the-spider-verse": () => glitch() };
+  "cx-moon-knight": h => moonKnight(h), "ch-the-spider-verse": () => glitch() };
 const FOX_BOXES = { "ch-the-fox-men": 1, "cx-the-fox-men": 1 };   // hold the title for the claws, keep holding for Magneto
 let laneTimer = null, laneFired = false, laneStart = null;
 document.getElementById("view").addEventListener("pointerdown", ev => {
