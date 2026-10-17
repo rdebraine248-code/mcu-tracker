@@ -831,7 +831,6 @@ body{ padding-bottom:var(--dockh); }
 .dock button{ position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:0; background:none; color:#7D8BA6; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
 .dock svg{ width:22px; height:22px; }
 .dock button[aria-current="page"]{ color:#EEF1F6; }
-.dock button[aria-current="page"]::before{ content:""; position:absolute; top:-1px; left:26%; right:26%; height:2px; border-radius:0 0 2px 2px; background:linear-gradient(90deg,#7D4FA8,#3A78C9,#C8443A,#D9822B,#3E9B5C,#D9B32B); }
 .dock button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:-4px; border-radius:10px; }
 #gate:not([hidden]) ~ .dock, #panel:not([hidden]) ~ .dock{ display:none; }
 .filepanel, .mappanel, .dossier:not(.plog){ bottom:var(--dockh); }
