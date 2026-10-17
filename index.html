@@ -772,7 +772,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .atl-views button[aria-selected="true"]{ background:#1E2A44; color:#EEF1F6; box-shadow:inset 0 0 0 1px #3A78C9; }
 .atl-views button.lk{ color:#3A4660; }
 .atl-views button.nw::after{ content:""; position:absolute; top:3px; right:4px; width:5px; height:5px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
-.atl-map{ position:relative; flex:none; overflow:hidden; touch-action:none; user-select:none; -webkit-user-select:none; border-top:1px solid #1C2538; background:radial-gradient(ellipse at 50% 42%, rgba(40,96,170,.2), rgba(11,16,25,0) 70%); }
+.atl-map{ position:relative; flex:none; background-color:#0B1019 !important; overflow:hidden; touch-action:none; user-select:none; -webkit-user-select:none; border-top:1px solid #1C2538; background:radial-gradient(ellipse at 50% 42%, rgba(40,96,170,.2), rgba(11,16,25,0) 70%); }
 .atl-map.sky.beyond{ background:radial-gradient(ellipse at 50% 47%, rgba(110,80,200,.22), rgba(11,16,25,0) 70%); }
 .atl-map canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
 .atl-pins{ position:absolute; inset:0; pointer-events:none; }
@@ -800,7 +800,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .atl-list, .atl-sheet{ position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding:6px 16px calc(28px + env(safe-area-inset-bottom,0px)); }
 .atl-sheet{ padding-top:14px; background:#0B1019; animation:atlup .22s ease-out; }
 @keyframes atlup{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
-.atl-lh{ margin:10px 0 2px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
+.atl-lh{ margin:18px 0 2px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
 .atl-row{ width:100%; display:block; padding:10px 0; border:0; border-bottom:1px solid #1C2538; background:none; color:inherit; text-align:left; cursor:pointer; touch-action:manipulation; }
 .atl-row b{ display:block; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:17px; line-height:1.15; letter-spacing:.5px; text-transform:uppercase; color:#EEF1F6; }
 .atl-row small{ display:block; margin-top:2px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
@@ -828,6 +828,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 :root{ --dockh:calc(60px + env(safe-area-inset-bottom,0px)); }
 body{ padding-bottom:var(--dockh); }
 .dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+@keyframes dockin{ from{ transform:translateY(100%); opacity:0; } to{ transform:none; opacity:1; } }
+.dock.rise{ animation:dockin .5s cubic-bezier(.2,.7,.2,1) .35s both; }
 .dock button{ position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:0; background:none; color:#7D8BA6; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
 .dock svg{ width:22px; height:22px; }
 .dock button[aria-current="page"]{ color:#EEF1F6; }
@@ -1177,7 +1179,7 @@ function tbodyHTML(e) {
     <div class="tbody">
       <div class="hrow"><h2 style="${esc(e.h2)}">${e.titleHtml}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}
       <div class="prog" style="color:${esc(fg)}">
-        <span>${n} of ${t}</span>
+        ${String(e.id).startsWith("cx-") ? "" : `<span>${n} of ${t}</span>`}
         <span class="pbar" style="background:color-mix(in srgb, ${esc(fg)} 22%, transparent)"><span style="width:${pct}%;background:${esc(e.box || fg)}"></span></span>
 
       </div>
@@ -2649,13 +2651,15 @@ function atlPlace(map, W, H) {   // move the pins, then show as many names as fi
     p.el.classList.toggle("lft", left); p.el.classList.toggle("nolab", !show); if (show) used.push([...r, p]); });
 }
 function atlPins(map) {   // only places you've charted are on the map; the rest stay off it entirely
-  const seen = state.atlas = state.atlas || {}, city = atlView === "city", L = atlPlaces().filter(atlLit); let d = 0;
-  const step = Math.min(.22, 2.4 / Math.max(1, L.filter(p => !p.home && !seen[p.id]).length));   // a big batch still lands within a few seconds
-  map.querySelector(".atl-pins").innerHTML = L.map(p => { const fresh = !city && !p.home && !seen[p.id];
+  const seen = state.atlas = state.atlas || {}, city = atlView === "city", key = p => city ? "city:" + atlCity + ":" + p.id : p.id, L = atlPlaces().filter(atlLit); let d = 0;
+  const news = L.filter(p => !p.home && !seen[key(p)]), step = Math.min(.22, 2.4 / Math.max(1, news.length));   // a big batch still lands within a few seconds
+  map.querySelector(".atl-pins").innerHTML = L.map(p => { const fresh = !p.home && !seen[key(p)];
     return `<button type="button" class="atl-pin${p.home ? " home" : ""}${fresh ? " new" : ""}" data-p="${esc(p.id)}"${fresh ? ` style="--d:${(d++ * step).toFixed(2)}s"` : ""} aria-label="${esc(p.n)}"><i></i><span>${esc(p.n)}</span></button>`; }).join("");
   const els = [...map.querySelectorAll(".atl-pin")];
   map._pins = L.map((p, i) => { const [x, y] = atlXY(p); return { id: p.id, x, y, el: els[i], w: p.home ? 99 : (p.e || []).filter(e => atlSeenT(e[0])).length, lw: p.n.length * 7.3 }; });
-  if (!city) { L.forEach(p => { if (!p.home) seen[p.id] = 1; }); persist(); }
+  // a place only counts as seen once its ping has played out on screen, so leaving early keeps the rest for next time
+  const run = map._run = (map._run || 0) + 1;
+  news.forEach((p, i) => setTimeout(() => { if (!atlOpen || map._run !== run || !map.isConnected) return; seen[key(p)] = 1; persist(); }, (i * step + 1.4) * 1000));
 }
 function atlSheet(p) {
   const evs = p.e.filter(e => atlSeenT(e[0])).sort((a, b) => ATL_ORDER[a[0]] - ATL_ORDER[b[0]]), hid = p.e.length - evs.length, groups = [], city = atlView === "city";
@@ -2681,11 +2685,20 @@ function atlClose(map) {
   atlSel = null; const sh = document.querySelector(".atl-low .atl-sheet"); if (sh) sh.hidden = true;
   map.querySelectorAll(".atl-pin.sel").forEach(b => b.classList.remove("sel")); atlQueue();
 }
+const ATL_GROUPS = {
+  earth: [["North America", "ny westview lehigh compound dc baltimore culver cambridge chicago ohio missouri tennessee alabama oklahoma miami louisiana nm la sf"], ["Central America and the Caribbean", "haiti talokan"], ["South America", "rio amazon"],
+    ["Europe", "london edinburgh norway stuttgart leipzig berlin prague venice italy pompeii vienna budapest sokovia bucharest riga greece"], ["Africa", "lagos egypt wakanda johannesburg"],
+    ["Asia", "siberia mesopotamia afghanistan karachi mumbai kolkata kathmandu talo hongkong madripoor kl seoul busan tokyo"], ["Oceania", "australia"], ["Oceans and poles", "arctic indianocean"]],
+  cosmos: [["Near Earth", "saber"], ["The Nine Realms", "asgard jotunheim svartalfheim muspelheim nidavellir"], ["Across the galaxy", "*"]],
+  beyond: [["Other dimensions", "quantum mirror dark kunlun duat shadow eternity witches"], ["Outside time", "tva citadel void"], ["Other realities", "*"]] };
 function atlList() {
   const L = atlPlaces().filter(p => !p.home), lit = L.filter(atlLit).map(p => [p, p.e.filter(e => atlSeenT(e[0])).length]).sort((a, b) => b[1] - a[1] || a[0].n.localeCompare(b[0].n));
   const [n, t] = atlCount(), left = atlView === "city" ? 0 : L.length - lit.length;
-  return `<div class="atl-lh">${atlView === "city" ? "Charted in " + esc(ATL_CITY[atlCity].n) : "Charted"}</div>${lit.map(([p]) => `<button type="button" class="atl-row" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small></button>`).join("")}
-`;
+  const row = p => `<button type="button" class="atl-row" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small></button>`, abc = (a, b) => a.n.replace(/^The /, "").localeCompare(b.n.replace(/^The /, ""));
+  if (atlView === "city") return `<div class="atl-lh">Charted in ${esc(ATL_CITY[atlCity].n)}</div>${lit.map(x => x[0]).sort(abc).map(row).join("")}`;
+  const G = ATL_GROUPS[atlView], named = new Set(G.flatMap(g => g[1].split(" ")));
+  return G.map(([h, ids]) => { const L = lit.map(x => x[0]).filter(p => ids === "*" ? !named.has(p.id) : ids.split(" ").includes(p.id)).sort(abc);
+    return L.length ? `<div class="atl-lh">${esc(h)}</div>${L.map(row).join("")}` : ""; }).join("");
 }
 function atlSwitch(v, city) {
   if (v !== "city" && !atlOpenV(v)) { haptic(8); toast("No data yet. Keep watching to chart it.", null, false, null, 1500); return; }
@@ -4784,7 +4797,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["atlas", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
+const SAVE_KEYS = ["atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -5681,6 +5694,9 @@ function onNavBack() { navBusy = false; if (dossierOpen === "saga") { if (!navAt
 try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
 /* ---------- the dock: Story (the watch list), Log, Atlas, Map and File, always one tap away ---------- */
+(() => { const g = document.getElementById("gate"), d = document.getElementById("dock"); if (!g) return; let shown = !g.hidden;   // the dock rises once, as the opening doors part
+  const mo = new MutationObserver(() => { if (!g.hidden) { shown = true; return; } if (!shown) return; mo.disconnect(); d.classList.add("rise"); d.addEventListener("animationend", () => d.classList.remove("rise"), { once: true }); });
+  mo.observe(g, { attributes: true, attributeFilter: ["hidden"] }); setTimeout(() => { if (!shown) mo.disconnect(); }, 4000); })();
 const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : fileOpen ? "file" : "story";
 function dockSync() { const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 document.getElementById("dock").addEventListener("click", ev => {
@@ -5901,9 +5917,14 @@ function mapData(hide) {   // every line runs as far as you've watched, anywhere
       else d += (pt === L ? ` L${px + 48},${L}` : ` C${px + 24},${pt} ${px + 24},${L} ${px + 48},${L}`) + ` L${x - 48},${L}` + (t === L ? ` L${x},${L}` : ` C${x - 24},${L} ${x - 24},${t} ${x},${t}`);
       px = x; pt = t;
     });
+    const dk = []; { let dd = "", qx = 0, qt = L; nodes.forEach((ci, j) => { const c = cols[ci], x = c.x, t = c.top + 6 * c.m.indexOf(k);
+      if (!j) dd = `M${x - 36},${L} ` + (t === L ? `L${x},${L}` : `C${x - 18},${L} ${x - 18},${t} ${x},${t}`);
+      else if (x - qx < 96) { const mx = qx + (x - qx) / 2; dd += ` C${mx},${qt} ${mx},${t} ${x},${t}`; }
+      else dd += (qt === L ? ` L${qx + 48},${L}` : ` C${qx + 24},${qt} ${qx + 24},${L} ${qx + 48},${L}`) + ` L${x - 48},${L}` + (t === L ? ` L${x},${L}` : ` C${x - 24},${L} ${x - 24},${t} ${x},${t}`);
+      qx = x; qt = t; dk.push(dd); }); }
     if (nodes.length) d += pt === L ? ` L${px + 36},${L}` : ` C${px + 18},${pt} ${px + 18},${L} ${px + 36},${L}`;
     else { px = 194; d = `M${px},${L} L${px + 36},${L}`; }
-    return { n: r.n, c: r.c, y: L, x0: nodes.length ? cols[nodes[0]].x - 36 : px, pruned: r.pruned, d, nodes, nx: more ? px + 66 : 0, ex: px + 36 };
+    return { n: r.n, c: r.c, y: L, x0: nodes.length ? cols[nodes[0]].x - 36 : px, pruned: r.pruned, d, dk, nodes, nx: more ? px + 66 : 0, ex: px + 36 };
   });
   const years = []; cols.forEach(c => { const y = years[years.length - 1]; if (y && y.y === c.yr) y.x1 = c.x; else years.push({ y: c.yr, x0: c.x, x1: c.x }); });
   const w = Math.max(cols.length ? cols[cols.length - 1].x : 230, ...rows.map(r => r.nx)) + 140;
@@ -5913,7 +5934,24 @@ function openMap() {
   const hide = new Set(DATA.chars.map((c, i) => charHidden(c) ? i : -1).filter(i => i >= 0)), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("");
   if (!mapBuilt || sig !== mapSig) { MAP = mapData(hide); mapSig = sig; mapFocusI = null; buildMap(); }
   document.getElementById("mapPanel").hidden = false; mapOpen = true; document.body.style.overflow = "hidden";
-  pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true });
+  pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true }); mapGrow();
+}
+// lines draw on from where they stopped the last time you looked; new stops and titles fade in as the lines reach them
+function mapGrow() {
+  const svg = document.querySelector("#mapView svg"); if (!svg) return;
+  const was = state.pathT = state.pathT || {}, fresh = !Object.keys(was).length && !state.pathSeenOnce, isNew = ci => !was[MAP.cols[ci].t];
+  let k = 0;
+  MAP.rows.forEach((r, ri) => {
+    const g = svg.querySelector(`.lane[data-r="${ri}"]`), line = g && g.querySelector(".lline"), nxt = g && g.querySelector(".lnext"); if (!line) return;
+    const first = r.nodes.findIndex(isNew); if (first < 0 || REDUCED) return;
+    const tmp = document.createElementNS("http://www.w3.org/2000/svg", "path"); tmp.setAttribute("d", first ? r.dk[first - 1] : "M0,0"); svg.appendChild(tmp);
+    const Lp = first ? tmp.getTotalLength() : 0, Lf = line.getTotalLength(); tmp.remove();
+    const delay = 250 + k++ * 45, dash = r.pruned ? null : `${Lf} ${Lf}`;
+    if (dash) { line.style.strokeDasharray = dash; line.animate([{ strokeDashoffset: Lf - Lp }, { strokeDashoffset: 0 }], { duration: 1100, delay, easing: "cubic-bezier(.45,0,.2,1)", fill: "backwards" }).onfinish = () => { line.style.strokeDasharray = ""; }; }
+    if (nxt) nxt.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: delay + 1000, fill: "backwards" });
+  });
+  if (!REDUCED) svg.querySelectorAll(".nd, .ttl").forEach(x => { if (isNew(+x.dataset.c)) x.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, delay: 900, fill: "backwards" }); });
+  MAP.cols.forEach(c => { was[c.t] = 1; }); state.pathSeenOnce = 1; persist();
 }
 function closeMap(fromHistory) {
   if (!fromHistory && navAt("map")) { navBack(); return; }
