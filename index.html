@@ -2044,8 +2044,10 @@ function openDossier(id) {
   const R = D.rows || {}, ROWS = isCh ? [["Period", R.period], ["Status", null]] : [["Subjects", R.subjects], ["Aliases", R.aliases], ["Affiliation", R.affiliation], ["Status", R.status]];
   const rowsHtml = ROWS.map(([l, v], i) => `<div class="drow"><dt>${l}</dt><dd>${isCh && l === "Status" ? (complete ? "Complete" : done ? "Recording" : "Not started") : stage("r" + i, v)}</dd></div>`).join("");
   const storyHtml = D.story.map(([t, x]) => {
-    const w = here(t), body = !x ? `<p class="dwait">No data yet.</p>` : open(t) ? `<p>${reveal("s:" + t, t, esc(x))}</p>` : (delete seen["s:" + t], `<p class="dwait">${K.wait || "Awaiting data. Watch it to record this entry."}</p>`);
-    return `<li class="${x ? (open(t) ? "on" : "off") : "pend"}"><div class="dt"><span>${esc(SG ? chName(t) : t)}</span>${w ? `<i class="dck">${K.ck || "Recorded"}</i>` : ""}</div>${body}</li>`; }).join("");
+    // story log: a sealed chapter has no data yet; once it is unlocked it waits for you to finish it
+    const shut = SG && !state.unlocked[t];
+    const w = here(t), body = shut ? (delete seen["s:" + t], `<p class="dwait">No data yet.</p>`) : SG && !open(t) ? (delete seen["s:" + t], `<p class="dwait">${K.wait}</p>`) : !x ? `<p class="dwait">No data yet.</p>` : open(t) ? `<p>${reveal("s:" + t, t, esc(x))}</p>` : (delete seen["s:" + t], `<p class="dwait">${K.wait || "Awaiting data. Watch it to record this entry."}</p>`);
+    return `<li class="${SG ? (shut ? "pend" : open(t) ? "on" : "off") : x ? (open(t) ? "on" : "off") : "pend"}"><div class="dt"><span>${esc(SG ? chName(t) : t)}</span>${w ? `<i class="dck">${K.ck || "Recorded"}</i>` : ""}</div>${body}</li>`; }).join("");
   const debrief = !isCh ? "" : `<section class="dsec"><h3>${K.debrief || "Debrief"}</h3><div class="dcard">${!D.debrief ? `<p class="dwait">No data yet.</p>` : complete ? `<p>${reveal("d", titles, esc(D.debrief))}</p>` : (delete seen.d, `<p class="dwait">${K.dwait || "Awaiting data. Finish the chapter to record the debrief."}</p>`)}</div></section>`;
   const links = !(D.links && D.links.length) ? "" : `<section class="dsec"><h3>${K.links || "Connections"}</h3><div class="dlinks">${D.links.map(([n, r, g], i) => open(g) ? `<div class="dl">${reveal("l" + i, g, `<b>${esc(n)}</b><small>${esc(r)}</small>`)}</div>` : (delete seen["l" + i], `<div class="dl off"><b>Unknown</b><small class="dnone">No data</small></div>`)).join("")}</div></section>`;
   const name = isCh ? (box.num ? "Chapter " + box.num : "Extras") : "", title = isCh ? box.title : box.title;
