@@ -2599,8 +2599,7 @@ function atlClamp(map, T) {
 }
 function atlHome(map) {
   const { W, H, fit } = atlKs(map);
-  if (atlView !== "earth") return atlClamp(map, { k: fit, x: 0, y: 0 });
-  const k = Math.max(fit, W / 230); return atlClamp(map, { k, x: 170 - W / 2 / k, y: 58 - H / 2 / k });   // the Atlantic, with the Americas and Europe either side
+  return atlClamp(map, { k: fit, x: 0, y: 0 });   // always the whole map, so every newly charted place is in view
 }
 function atlTo(map, to, ms) {   // ease the view to a new position
   const from = { ...atlT }, t0 = performance.now(), run = map._anim = (map._anim || 0) + 1; atlClamp(map, to);
@@ -2651,8 +2650,9 @@ function atlPlace(map, W, H) {   // move the pins, then show as many names as fi
 }
 function atlPins(map) {   // only places you've charted are on the map; the rest stay off it entirely
   const seen = state.atlas = state.atlas || {}, city = atlView === "city", L = atlPlaces().filter(atlLit); let d = 0;
+  const step = Math.min(.22, 2.4 / Math.max(1, L.filter(p => !p.home && !seen[p.id]).length));   // a big batch still lands within a few seconds
   map.querySelector(".atl-pins").innerHTML = L.map(p => { const fresh = !city && !p.home && !seen[p.id];
-    return `<button type="button" class="atl-pin${p.home ? " home" : ""}${fresh ? " new" : ""}" data-p="${esc(p.id)}"${fresh ? ` style="--d:${(d++ * .22).toFixed(2)}s"` : ""} aria-label="${esc(p.n)}"><i></i><span>${esc(p.n)}</span></button>`; }).join("");
+    return `<button type="button" class="atl-pin${p.home ? " home" : ""}${fresh ? " new" : ""}" data-p="${esc(p.id)}"${fresh ? ` style="--d:${(d++ * step).toFixed(2)}s"` : ""} aria-label="${esc(p.n)}"><i></i><span>${esc(p.n)}</span></button>`; }).join("");
   const els = [...map.querySelectorAll(".atl-pin")];
   map._pins = L.map((p, i) => { const [x, y] = atlXY(p); return { id: p.id, x, y, el: els[i], w: p.home ? 99 : (p.e || []).filter(e => atlSeenT(e[0])).length, lw: p.n.length * 7.3 }; });
   if (!city) { L.forEach(p => { if (!p.home) seen[p.id] = 1; }); persist(); }
@@ -2701,7 +2701,7 @@ function renderAtlas() {
       <div class="atl-zoom"><button type="button" data-atlz="1" aria-label="Zoom in">+</button><button type="button" data-atlz="-1" aria-label="Zoom out">−</button><button type="button" data-atlz="0" aria-label="Show everything">Fit</button></div></div>
     <div class="atl-low"><div class="atl-list">${atlList()}</div><div class="atl-sheet" hidden></div></div></div>`;
   const map = document.getElementById("atlMap"), W = fv.clientWidth, room = fv.clientHeight - fv.querySelector(".atl-head").offsetHeight;
-  const want = atlView === "earth" ? Math.round(133 * W / 230) + 10 : city ? Math.round(W * atlCityGeo(atlCity).h / 1000) : Math.round(W * .92);
+  const want = atlView === "earth" ? Math.round(133 * W / 360) + 24 : city ? Math.round(W * atlCityGeo(atlCity).h / 1000) : Math.round(W * .92);
   map.style.height = Math.max(200, Math.min(room - 150, want)) + "px";
   fv.querySelector(".atl-low").addEventListener("click", ev => {
     if (ev.target.closest(".atl-x")) { haptic(8); atlClose(map); return; }
@@ -2711,7 +2711,7 @@ function renderAtlas() {
       sh.querySelectorAll(".atl-grp").forEach(gp => { gp.hidden = !!k && gp.dataset.g !== k; }); return; }
     const r = ev.target.closest(".atl-row"); if (r) atlSelect(map, r.dataset.p, true);
   });
-  atlPins(map); atlT = atlTs[atlKey()] ? atlClamp(map, { ...atlTs[atlKey()] }) : atlHome(map); atlTs[atlKey()] = atlT; atlDraw();
+  atlPins(map); atlT = atlHome(map); atlTs[atlKey()] = atlT; atlDraw();
   const ptr = new Map(); let base = null, moved = false, start = null;
   const local = (x, y) => { const r = map.getBoundingClientRect(); return [x - r.left, y - r.top]; };
   const rebase = () => { base = { T: { ...atlT }, P: [...ptr.values()] }; };
