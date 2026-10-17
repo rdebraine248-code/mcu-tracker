@@ -2755,7 +2755,15 @@ function renderAtlas() {
   });
   map.addEventListener("dblclick", ev => { if (ev.target.closest(".atl-zoom")) return; const [sx, sy] = local(ev.clientX, ev.clientY); atlZoomAt(map, 2, sx, sy, 260); });
 }
+// anything you've since un-watched (unchecked, or reset) forgets it was charted, so it pings in again when it comes back
+function atlForget() {
+  const A = state.atlas = state.atlas || {};
+  Object.keys(A).forEach(k => { const m = k.match(/^city:([^:]+):(.*)$/), host = m && ATLAS.earth.find(p => p.city === m[1]);
+    const lit = m ? !!host && host.e.some(e => (atlSpot(e[1]) || ATL_CITY[m[1]].n) === m[2] && atlSeenT(e[0])) : Object.values(ATLAS).some(L => L.some(p => p.id === k && atlLit(p)));
+    if (!lit) delete A[k]; });
+}
 function openAtlas() {
+  atlForget();
   if (!(atlView in ATLAS) && atlView !== "city") atlView = "earth";
   document.getElementById("atlasPanel").hidden = false; atlOpen = true; document.body.style.overflow = "hidden"; renderAtlas();
   pushNav("atlas"); document.getElementById("atlBack").focus({ preventScroll: true });
@@ -5764,7 +5772,7 @@ document.getElementById("btnResetAll").addEventListener("click", () => {
   ask("Reset everything? Every chapter is covered again, and all checkmarks in Chapters, Characters, and both Sacred Timeline views are cleared. This can't be undone.", "Reset everything").then(ok => {
     if (!ok) return;
     state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
+    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist(); renderAll();
     showGate();
   });
@@ -5939,7 +5947,8 @@ function openMap() {
 // lines draw on from where they stopped the last time you looked; new stops and titles fade in as the lines reach them
 function mapGrow() {
   const svg = document.querySelector("#mapView svg"); if (!svg) return;
-  const was = state.pathT = state.pathT || {}, fresh = !Object.keys(was).length && !state.pathSeenOnce, isNew = ci => !was[MAP.cols[ci].t];
+  const was = state.pathT = state.pathT || {}; Object.keys(was).forEach(t => { if (!atlSeenT(t)) delete was[t]; });   // un-watched titles draw on again later
+  const isNew = ci => !was[MAP.cols[ci].t];
   let k = 0;
   MAP.rows.forEach((r, ri) => {
     const g = svg.querySelector(`.lane[data-r="${ri}"]`), line = g && g.querySelector(".lline"), nxt = g && g.querySelector(".lnext"); if (!line) return;
