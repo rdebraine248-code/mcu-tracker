@@ -916,7 +916,7 @@ const MV_BOXES = { "cx-the-watcher": 1, "cx-the-sony-spider-men": 1, "cx-the-fox
 const charHidden = e => !!MV_BOXES[e.id] && !(state.charOpen || {})[e.id];
 const charSealed = e => charHidden(e) && !multiverseOpen();
 const QUOTE_MS = 2500;
-let toastTimer = null, sealedTaps = 0, lastSealedTap = 0;
+let toastTimer = null, sealedTaps = 0, lastSealedTap = 0, forceOpen = null;
 function themeToast(el, style, fg, bd, font) {
   if (!style) { el.removeAttribute("style"); return; }
   const bg = String(style).split(";").map(s => s.trim()).filter(s => /^background/.test(s)).join(";");
@@ -970,7 +970,7 @@ function prevOf(e) {
   return i > 0 ? ex[i - 1] : null;
 }
 function available(e) {
-  if (state.unlocked[e.id]) return true;
+  if (state.unlocked[e.id] || forceOpen === e.id) return true;
   if (!e.num) return multiverseOpen();
   const p = prevOf(e);
   return !p || !!state.unlocked[p.id];
@@ -1454,7 +1454,10 @@ function activate(el) {
     el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake");
     if (!e.num && !multiverseOpen()) {
       const now = Date.now(); sealedTaps = now - lastSealedTap < 1600 ? sealedTaps + 1 : 1; lastSealedTap = now;
-      if (sealedTaps >= 10) { sealedTaps = 0; toast("The Multiverse will open after Loki S1.", e, true); found("sealed"); }
+      if (sealedTaps >= 10) {   // the hint and the choice come together: open this box early, or leave it sealed
+        sealedTaps = 0; found("sealed");
+        ask("The Multiverse opens after Loki S1.", "Reveal this box", "Hide").then(ok => { if (ok) { forceOpen = id; activate(el); forceOpen = null; } });
+      }
       else if (sealedTaps >= 5) { const left = 10 - sealedTaps; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unseal.`, e, true); }
       else toast("Sealed. Keep watching.", e, true);
     } else toast(lockedNote(e) + ".", e, true);
@@ -2110,7 +2113,7 @@ document.addEventListener("click", ev => {
 });
 const SAGA = {"kind":"chapter","rows":{"period":[["1942 to 2012","ch-1"],["1942 to 2014","ch-2"],["1942 to 2015","ch-3"],["1942 to 2016","ch-4"],["1942 to 2019","ch-5"],["1942 to 2023","ch-6"],["1942 to 2024","ch-7"],["5000 BC to 2026","ch-8"],["5000 BC to 2027","ch-10"],["5000 BC to 2027, and across the multiverse","ch-11"]]},"brief":"It starts with one idea: that a few remarkable people, standing together, can fight the battles no one else can. Everything that follows tests it.","story":[["ch-1","The idea is born in a war and finally gets a name. Steve Rogers proves that one good man can turn a battle, then gives himself to the ice to save millions. Decades later, Nick Fury starts gathering people who are remarkable in ways no army can use: a genius in a suit of armor, a scientist hiding a monster, a god cast down to Earth, and two of his own agents. When Loki opens the sky over New York, the six fight as one for the first time, and the world learns they exist. Thor takes Loki and the Tesseract home, and somewhere in the dark, whoever gave Loki his army is still waiting."],["ch-2","The story leaves Earth behind. Beyond the Nine Realms, the universe turns out to be older and stranger than Earth imagined, and full of people as lost as they are powerful. The Aether and the Orb surface, and the Collector gives them a name: Infinity Stones, six of them, older than the universe itself. A band of outlaws saves a world and becomes the Guardians of the Galaxy, and Peter Quill finally learns where he comes from. Long before any of it, in 1995, a pilot named Carol Danvers became the strongest hero the universe had seen, and left Nick Fury a way to call her if he ever needed to."],["ch-3",null],["ch-4",null],["ch-5",null],["ch-6",null],["ch-7",null],["ch-8",null],["ch-9",null],["ch-10",null],["ch-11",null],["ch-beyond-the-mcu",null],["ch-the-spider-verse",null],["ch-the-fox-men",null],["ch-pruned-timelines",null]],"debrief":null};
 function chDone(id) { const c = DATA.chapters.find(x => x.id === id); return !!c && c.items.every(i => !!state.checks[ck(c, i.t)]); }
-function chName(id) { const c = DATA.chapters.find(x => x.id === id); return c ? (c.num ? "Chapter " + c.num + " · " : "") + c.title : id; }
+function chName(id) { const c = DATA.chapters.find(x => x.id === id); if (!c) return id; if (!state.unlocked[c.id]) return c.label; return (c.num ? "Chapter " + c.num + " · " : "") + c.title; }   // a locked chapter keeps its name hidden, as on the chapters page
 function glide(el, to, ms) {   // move a scrolling box to a position over ms, eased
   const from = el.scrollTop, t0 = performance.now(), host = el.closest(".dossier") || el, g = host._glide = (host._glide || 0) + 1;
   if (!ms || Math.abs(to - from) < 2) { el.scrollTop = to; return; }
