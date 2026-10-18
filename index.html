@@ -875,6 +875,13 @@ body{ padding-bottom:var(--dockh); }
 .cm-msg.email em{ color:#E0BE6A; }
 .cm-msg.notice{ border-left-color:#3E9A6C; background:#0F1814; border-color:#1F3A2C; }
 .cm-msg.notice em{ color:#6CCB98; }
+.whih.bugle b, .cm-head b.bugle{ background:#F1EFEA; color:#111; }
+.whih.bulletin b, .cm-head b.bulletin{ background:#566884; }
+.cm-msg.tva{ border-left-color:#D9822B; background:#17120C; border-color:#3B2C1B; } .cm-msg.tva em{ color:#F0A04B; }
+.cm-msg.telegram{ border-left-color:#B9A27A; background:#17150F; border-color:#38311F; } .cm-msg.telegram em{ color:#D8C08F; }
+.cm-msg.telegram p{ font-family:'Share Tech Mono','Courier New',monospace; font-size:14px; letter-spacing:1px; color:#EADFC6; }
+.cm-msg.cerebro{ border-left-color:#8E6BE0; background:#130F1D; border-color:#2E2547; } .cm-msg.cerebro em{ color:#B39BFF; }
+.cm-msg.watcher{ border-left-color:#E0B865; background:#141210; border-color:#3A321F; } .cm-msg.watcher em{ color:#F0CF86; }
 .cm-red{ display:inline-block; vertical-align:middle; height:1em; width:7em; background:#000; color:transparent; text-decoration:none; user-select:none; }
 .commspanel .maptop h2{ margin-right:auto; }
 .commspanel .atl-views{ margin-left:auto; }
@@ -7431,8 +7438,73 @@ const NEWS = {
 ],
 "Ant-Man and the Wasp: Quantumania": [
 "Scott Lang's memoir \"Look Out for the Little Guy\" hits shelves"
+],
+"Spider-Man (2002)": [
+"Spider-Man: threat or menace?",
+"Green Goblin attacks the World Unity Festival"
+],
+"Spider-Man 2": [
+"Spider-Man no more",
+"Dr. Otto Octavius's fusion demonstration ends in disaster"
+],
+"Spider-Man 3": [
+"Spider-Man receives the key to the city",
+"Bugle photographer fired over faked Spider-Man photo"
+],
+"The Amazing Spider-Man": [
+"Giant lizard attacks the Williamsburg Bridge",
+"Police Captain George Stacy killed"
+],
+"The Amazing Spider-Man 2": [
+"Electro blacks out New York",
+"Norman Osborn dies; son Harry takes over Oscorp"
+],
+"Venom": [
+"Life Foundation rocket explodes on launch"
+],
+"Venom: Let There Be Carnage": [
+"Cletus Kasady escapes his own execution"
+],
+"Morbius": [
+"Dr. Michael Morbius turns down the Nobel Prize",
+"Crew found drained of blood aboard a cargo ship"
+],
+"Spider-Man: Into the Spider-Verse": [
+"Spider-Man is dead"
+],
+"X-Men (2000)": [
+"Senate debates the Mutant Registration Act"
+],
+"X2": [
+"Mutant attacks the President in the Oval Office"
+],
+"X-Men: The Last Stand": [
+"Worthington Labs announces a cure for mutation"
+],
+"X-Men: Days of Future Past": [
+"1973: Mutant saves the President at the White House"
+],
+"X-Men: Apocalypse": [
+"1983: Every nuclear missile on Earth launched into space"
+],
+"Dark Phoenix": [
+"1992: X-Men rescue the crew of the Endeavour"
+],
+"X-Men '97": [
+"Genosha destroyed by Sentinels"
+],
+"Fantastic Four (2005)": [
+"Four heroes save the Brooklyn Bridge",
+"The press calls them the Fantastic Four"
+],
+"Fantastic Four: Rise of the Silver Surfer": [
+"The River Thames drains overnight",
+"Reed Richards and Sue Storm's wedding interrupted"
 ]
 };
+const NEWS_SRC = {"Spider-Man (2002)": "bugle", "Spider-Man 2": "bugle", "Spider-Man 3": "bugle", "The Amazing Spider-Man": "bugle", "The Amazing Spider-Man 2": "bugle", "Venom": "bulletin", "Venom: Let There Be Carnage": "bulletin", "Morbius": "bulletin", "Spider-Man: Into the Spider-Verse": "bulletin", "X-Men (2000)": "bulletin", "X2": "bulletin", "X-Men: The Last Stand": "bulletin", "X-Men: Days of Future Past": "bulletin", "X-Men: Apocalypse": "bulletin", "Dark Phoenix": "bulletin", "X-Men '97": "bulletin", "Fantastic Four (2005)": "bulletin", "Fantastic Four: Rise of the Silver Surfer": "bulletin"};   // every world hears its news from its own outlet
+const OUTLETS = { whih: ["WHIH", "Newsfront"], bugle: ["DAILY BUGLE", "New York"], bulletin: ["BULLETIN", "Breaking news"] };
+const newsSrc = t => NEWS_SRC[t] || "whih";
 const newsKey = (t, i) => t + "::" + i;
 const newsTitles = () => Object.keys(NEWS).filter(atlSeenT).sort((a, b) => (ATL_ORDER[a] ?? 1e9) - (ATL_ORDER[b] ?? 1e9));
 // anything you've since un-watched forgets its news played, so it breaks again when it comes back
@@ -7489,22 +7561,6 @@ const COMMS = [
 "b": "Under the Sokovia Accords, the Avengers now operate under the supervision of a United Nations panel. All personnel are required to register. Those who refuse will not be permitted to operate. This is not a request."
 },
 {
-"t": "Black Panther",
-"f": "Princess Shuri, Wakandan Design Group",
-"to": "Agent",
-"cl": "Wakandan guest",
-"re": "Visiting the lab",
-"b": "My brother has opened Wakanda to the world, so now I get visitors. You are welcome in my lab. Do not touch anything that hums. Do not touch anything that does not hum either."
-},
-{
-"t": "Spider-Man: Homecoming",
-"f": "Happy Hogan, Stark Industries",
-"to": "Agent",
-"cl": "Internal",
-"re": "The kid",
-"b": "If a teenager from Queens calls this line asking for a mission, do not give him one. Do not give him my number. I already have forty voicemails."
-},
-{
 "t": "Avengers: Infinity War",
 "f": "Colonel James Rhodes",
 "to": "Anyone still here",
@@ -7526,7 +7582,8 @@ const COMMS = [
 "to": "Variant",
 "cl": "For All Time. Always.",
 "re": "Notice of a Nexus Event",
-"b": "Your actions have been flagged for deviation from the Sacred Timeline. Please remain where you are. A Minuteman will be with you shortly. Any attempt to resist will be noted in your file."
+"b": "Your actions have been flagged for deviation from the Sacred Timeline. Please remain where you are. A Minuteman will be with you shortly. Any attempt to resist will be noted in your file.",
+"k": "tva"
 },
 {
 "t": "The Falcon and the Winter Soldier",
@@ -7597,22 +7654,101 @@ const COMMS = [
 "cl": "The Black Order",
 "re": "Earth",
 "b": "Two stones are on Earth. The Time Stone is guarded by a sorcerer in New York. The Mind Stone walks among them in a body of its own. Our father expects both. Do not keep him waiting."
+},
+{
+"t": "Agent Carter (One-Shot)",
+"k": "telegram",
+"f": "Howard Stark",
+"to": "Agent Peggy Carter",
+"cl": "Western Union",
+"re": "A new job",
+"b": "SSR DOESN'T KNOW WHAT IT HAS STOP I DO STOP STARTING SOMETHING NEW STOP NEED YOU RUNNING IT WITH ME STOP HOWARD"
+},
+{
+"t": "Thor",
+"f": "Agent Phil Coulson, S.H.I.E.L.D.",
+"to": "Recruit",
+"cl": "Confidential",
+"re": "New Mexico",
+"b": "Something fell out of the sky in New Mexico. A hammer nobody can lift, and a man who says he's a god. I've seen strange. This is stranger."
+},
+{
+"t": "Loki S2",
+"k": "tva",
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "The Temporal Loom",
+"b": "The Temporal Loom is running beyond capacity. Report any branch anomalies to Ouroboros in Repairs and Advancements. Do not touch the Loom. Do not look directly at the Loom."
+},
+{
+"t": "Deadpool & Wolverine",
+"k": "tva",
+"f": "Mr. Paradox, Time Variance Authority",
+"to": "Time Ripper team",
+"cl": "For All Time. Always.",
+"re": "Timeline 10-005",
+"b": "Timeline 10-005 has lost its anchor being and is in decline. Accelerated removal with the Time Ripper is approved. Paperwork to follow."
+},
+{
+"t": "Agents of S.H.I.E.L.D.",
+"f": "Agent Phil Coulson",
+"to": "Agent",
+"cl": "Level 7",
+"re": "Yes, it's me",
+"b": "Yes, it's really me. No, I can't tell you how. Fury's orders: I'm putting together a small team, and we have a plane. Bring your own coffee."
+},
+{
+"t": "What If...?",
+"k": "watcher",
+"f": "The Watcher",
+"to": "You",
+"cl": "Beyond every reality",
+"re": "Observation",
+"b": "I am the Watcher. I observe the multiverse in all its vastness, every reality where one moment went another way. I do not interfere. But I do see you."
+},
+{
+"t": "X-Men (2000)",
+"k": "cerebro",
+"f": "Cerebro",
+"to": "Professor Charles Xavier",
+"cl": "Xavier's School",
+"re": "New signature",
+"b": "New mutant signature detected in Meridian, Mississippi. A teenage girl. Her ability: she draws the life out of anyone she touches. She is running."
+},
+{
+"t": "X2",
+"k": "cerebro",
+"f": "Cerebro",
+"to": "Professor Charles Xavier",
+"cl": "Xavier's School",
+"re": "Warning",
+"b": "A second Cerebro is active under Alkali Lake. It is not looking for mutants. It is locked on every one of them at once."
+},
+{
+"t": "Black Widow",
+"f": "Natasha Romanoff",
+"to": "Recruit",
+"cl": "Burn after reading",
+"re": "The Red Room",
+"b": "The Red Room is gone. Dreykov is gone. Dozens of women just got their own minds back, and they'll need help nobody will officially give them. If anyone asks, you never heard from me. N."
 }
 ];
 function msgForget() { const M = state.msgs = state.msgs || {}; Object.keys(M).forEach(t => { if (!COMMS.some(m => m.t === t) || !atlSeenT(t)) delete M[t]; }); }
 const msgSeen = () => COMMS.filter(m => atlSeenT(m.t)).sort((a, b) => (ATL_ORDER[a.t] ?? 1e9) - (ATL_ORDER[b.t] ?? 1e9));
-function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[m.t]).map(m => [m.t, -1, (m.k === "intercept" ? "Intercepted: " : m.k === "email" ? "New email from " : m.k === "notice" ? "Notice from " : "Incoming from ") + m.f + ": " + m.re, "msg"]); }
-const MSG_KIND = { intercept: "Intercepted transmission", email: "Email", notice: "Notice" };
+function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[m.t]).map(m => [m.t, -1, ({ intercept: "Intercepted: ", email: "New email from ", notice: "Notice from ", tva: "TVA notice: ", telegram: "Telegram from ", cerebro: "Cerebro: ", watcher: "" }[m.k] ?? "Incoming from ") + m.f + ": " + m.re, "msg"]); }
+const MSG_KIND = { intercept: "Intercepted transmission", email: "Email", notice: "Notice", tva: "TVA notice", telegram: "Telegram", cerebro: "Cerebro alert", watcher: "Observation" };
 function newsMark(batch) { batch.forEach(([t, i, h, k]) => { if (k === "msg") (state.msgs = state.msgs || {})[t] = 1; else state.news[newsKey(t, i)] = 1; }); persist(); }
 function newsHide() { const w = document.getElementById("whih"); w.classList.remove("in"); setTimeout(() => { if (!newsRun) { w.hidden = true; w.classList.remove("still"); } }, 450); }
 function newsStop(played) {   // a story only counts as heard once it has scrolled all the way through
   if (!newsRun) return; const r = newsRun; newsRun = null; r.cancel(); if (played) newsMark(r.batch); newsHide();
 }
-function newsPlay(all, msg) {
+function newsPlay(all, msg, src) {
   // a big backlog (a long session, or a first look at the wire) only breaks its latest few; the rest wait in Comms
   const cap = msg ? 2 : 5, batch = all.slice(-cap); if (all.length > batch.length) newsMark(all.slice(0, -cap));
   const w = document.getElementById("whih"), run = w.querySelector(".whih-run"), sp = run.querySelector("span");
-  w.classList.toggle("msg", !!msg); w.querySelector("b").textContent = msg ? "COMMS" : "WHIH";   // a message for you comes first, on its own
+  w.classList.remove("msg", "bugle", "bulletin"); if (msg) w.classList.add("msg"); else if (src && src !== "whih") w.classList.add(src);
+  w.querySelector("b").textContent = msg ? "COMMS" : OUTLETS[src || "whih"][0];   // a message for you comes first, on its own
   w.hidden = false; w.classList.toggle("still", REDUCED); void w.offsetWidth; w.classList.add("in");
   if (REDUCED) {   // no scrolling: one headline at a time
     let i = 0, tm = 0; const show = () => { if (i === batch.length) { newsStop(true); return; } sp.textContent = batch[i++][2]; sp.style.animation = "none"; void sp.offsetWidth; sp.style.animation = ""; tm = setTimeout(show, 4200); };
@@ -7627,7 +7763,7 @@ function newsTick() {
   if (!newsHome()) { newsCalm = 0; return; }
   if (++newsCalm < 2) return;   // let the page settle for a moment first
   const m = msgPending(); if (m.length) { newsPlay(m, true); return; }
-  const p = newsPending(); if (p.length) newsPlay(p);
+  const p = newsPending(); if (p.length) { const o = newsSrc(p[p.length - 1][0]); newsPlay(p.filter(x => newsSrc(x[0]) === o), false, o); }
 }
 setInterval(newsTick, 800);
 document.addEventListener("visibilitychange", () => { if (document.hidden) newsStop(false); });
@@ -7639,7 +7775,7 @@ function renderComms() {
   document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}">${l}</button>`).join("");
   document.getElementById("commsView").innerHTML = commsTab === "msg"
     ? (M.length ? `<section class="cm-sec">${M.map(m => `<article class="cm-msg${m.k ? " " + m.k : ""}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
-    : (T.length ? `<section class="cm-sec"><div class="cm-head"><b>WHIH</b><span>Newsfront</span></div>${T.map(t => `<div class="cm-grp"><small>${esc(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>` : `<p class="cm-quiet">Nothing on the wire yet.</p>`);
+    : (T.length ? [...new Set(T.map(newsSrc))].map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${esc(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`);
 }
 let commsTab = "news";
 function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true);   // News is the landing; only tapping an incoming message opens Messages
