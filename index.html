@@ -860,6 +860,26 @@ body{ padding-bottom:var(--dockh); }
 .cm-grp p{ position:relative; margin:0 0 8px; padding-left:16px; font-size:16px; line-height:1.4; color:#E3E8F0; }
 .cm-grp p::before{ content:""; position:absolute; left:0; top:.6em; width:6px; height:6px; background:#C8102E; }
 .cm-grp p:last-child{ margin-bottom:0; }
+.whih.msg b{ background:#2D63C8; }
+.cm-head b.msg{ background:#2D63C8; }
+.cm-sec + .cm-sec{ margin-top:34px; }
+.cm-msg{ margin:0 0 16px; padding:14px 16px 16px; background:#101828; border:1px solid #22314B; border-left:3px solid #2D63C8; }
+.cm-msg dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 12px; font:11px/1.45 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
+.cm-msg dt{ color:#5F7393; } .cm-msg dd{ margin:0; color:#B9CBE6; }
+.cm-msg p{ margin:0; font-size:16px; line-height:1.5; color:#E3E8F0; }
+.cm-msg em{ display:block; margin:0 0 10px; font:700 10px/1 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6E8; }
+.cm-msg.intercept{ border-left-color:#D98A2B; background:#15130F; border-color:#3A2F1F; }
+.cm-msg.intercept em{ color:#E8A64A; }
+.cm-msg.intercept p{ font-family:'Share Tech Mono','Courier New',monospace; font-size:14px; letter-spacing:.5px; color:#EADFCB; }
+.cm-msg.email{ border-left-color:#C8A24A; background:#121620; }
+.cm-msg.email em{ color:#E0BE6A; }
+.cm-msg.notice{ border-left-color:#3E9A6C; background:#0F1814; border-color:#1F3A2C; }
+.cm-msg.notice em{ color:#6CCB98; }
+.cm-red{ display:inline-block; vertical-align:middle; height:1em; width:7em; background:#000; color:transparent; text-decoration:none; user-select:none; }
+.commspanel .maptop h2{ margin-right:auto; }
+.commspanel .atl-views{ margin-left:auto; }
+.commspanel .cm-sec:first-child{ padding-top:6px; }
+@media (max-width:460px){ .commspanel .maptop h2{ display:none; } .commspanel .maptop{ justify-content:space-between; } }
 .cm-quiet{ margin:30px 0; font:13px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#6F84A6; }
 
 .list li.rin{ animation:rowin .55s cubic-bezier(.2,.7,.2,1) .12s both; }
@@ -907,7 +927,7 @@ body{ padding-bottom:var(--dockh); }
   <div class="fileview atl-on" id="atlView"></div>
 </div>
 <div class="filepanel commspanel" id="commsPanel" hidden role="dialog" aria-modal="true" aria-label="Comms">
-  <div class="maptop"><button type="button" class="back" id="commsBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Comms</h2></div>
+  <div class="maptop"><button type="button" class="back" id="commsBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Comms</h2><div class="atl-views" id="commsTabs" role="tablist"></div></div>
   <div class="fileview" id="commsView"></div>
 </div>
 <div class="mappanel" id="mapPanel" hidden role="dialog" aria-modal="true" aria-label="Character Map">
@@ -4276,7 +4296,7 @@ function atlForget() {
 }
 function openAtlas() {
   atlForget();
-  if (!(atlView in ATLAS) && atlView !== "city") atlView = "earth";
+  atlView = "earth"; atlCity = null; atlUni = null;   // the Atlas always opens on Earth
   document.getElementById("atlasPanel").hidden = false; atlOpen = true; document.body.style.overflow = "hidden"; renderAtlas();
   pushNav("atlas"); document.getElementById("atlBack").focus({ preventScroll: true });
 }
@@ -6317,7 +6337,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
+const SAVE_KEYS = ["msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7425,15 +7445,174 @@ function newsHome() {
     && !document.querySelector(".fx-studio, .fx-portal, .dustfx, .toast.show");
 }
 let newsRun = null, newsCalm = 0;
-function newsMark(batch) { batch.forEach(([t, i]) => { state.news[newsKey(t, i)] = 1; }); persist(); }
+
+/* ---------- Comms: messages for you, as a recruit in the Avengers Initiative, one at each turning point ---------- */
+const COMMS = [
+{
+"t": "Iron Man",
+"f": "Agent Phil Coulson, S.H.I.E.L.D.",
+"to": "Recruit",
+"cl": "Confidential",
+"re": "Welcome aboard",
+"b": "You've been flagged for something we're calling the Avengers Initiative. Mr. Stark just told the whole world he's Iron Man, so our job got harder overnight. Keep your head down and your eyes open. You'll hear from us."
+},
+{
+"t": "The Avengers",
+"f": "Director Nick Fury",
+"to": "Recruit",
+"cl": "Secret",
+"re": "New York",
+"b": "The Tesseract is off-world and so is Loki. The Council wanted to fix Manhattan with a nuke. They got a team instead. That team is scattered now, and that's fine. They'll come back when we need them."
+},
+{
+"t": "Captain America: The Winter Soldier",
+"f": "Deputy Director Maria Hill",
+"to": "Recruit",
+"cl": "Eyes only",
+"re": "S.H.I.E.L.D. is gone",
+"b": "Hydra was inside S.H.I.E.L.D. from the start. Every file we had is public now, yours included, and your clearance no longer exists. This channel is one Fury still trusts. Lay low until you hear from me."
+},
+{
+"t": "Avengers: Age of Ultron",
+"f": "Maria Hill, Avengers Facility",
+"to": "Agent",
+"cl": "Secret",
+"re": "Report upstate",
+"b": "Sokovia is gone, and so is Ultron. Steve and Natasha are training a new team at the facility upstate, and you're on the list. Your clearance is restored. Bring a jacket. Wilson keeps the hangar cold."
+},
+{
+"t": "Captain America: Civil War",
+"f": "Secretary of State Thaddeus Ross",
+"to": "All Avengers personnel",
+"cl": "Official notice",
+"re": "The Sokovia Accords",
+"b": "Under the Sokovia Accords, the Avengers now operate under the supervision of a United Nations panel. All personnel are required to register. Those who refuse will not be permitted to operate. This is not a request."
+},
+{
+"t": "Black Panther",
+"f": "Princess Shuri, Wakandan Design Group",
+"to": "Agent",
+"cl": "Wakandan guest",
+"re": "Visiting the lab",
+"b": "My brother has opened Wakanda to the world, so now I get visitors. You are welcome in my lab. Do not touch anything that hums. Do not touch anything that does not hum either."
+},
+{
+"t": "Spider-Man: Homecoming",
+"f": "Happy Hogan, Stark Industries",
+"to": "Agent",
+"cl": "Internal",
+"re": "The kid",
+"b": "If a teenager from Queens calls this line asking for a mission, do not give him one. Do not give him my number. I already have forty voicemails."
+},
+{
+"t": "Avengers: Infinity War",
+"f": "Colonel James Rhodes",
+"to": "Anyone still here",
+"cl": "Emergency",
+"re": "Roll call",
+"b": "If you're reading this, you're still here. Get to the compound. We're counting heads, and right now the count is bad."
+},
+{
+"t": "Avengers: Endgame",
+"f": "Pepper Potts",
+"to": "Everyone on Tony's list",
+"cl": "Personal",
+"re": "From Tony",
+"b": "Tony asked me to send this to everyone on his list if it ever came to it. He wanted to say thank you. And he said to get some rest. You've all earned it."
+},
+{
+"t": "Loki S1",
+"f": "Time Variance Authority",
+"to": "Variant",
+"cl": "For All Time. Always.",
+"re": "Notice of a Nexus Event",
+"b": "Your actions have been flagged for deviation from the Sacred Timeline. Please remain where you are. A Minuteman will be with you shortly. Any attempt to resist will be noted in your file."
+},
+{
+"t": "The Falcon and the Winter Soldier",
+"f": "Sam Wilson",
+"to": "Agent",
+"cl": "Open channel",
+"re": "Same job",
+"b": "I'm not asking anyone to call me Captain America. I'm asking you to show up. The world is still putting itself back together after the Blip, and that's the job now."
+},
+{
+"t": "Thunderbolts*",
+"f": "Valentina Allegra de Fontaine",
+"to": "Candidate",
+"cl": "Need to know",
+"re": "Congratulations",
+"b": "Your file came across my desk, and I liked it. The New Avengers are going to need support staff. Discretion is the whole job description. Don't make me regret this."
+},
+{
+"t": "Iron Man 2",
+"k": "email",
+"f": "Tony Stark",
+"to": "Recruit",
+"cl": "Stark Industries",
+"re": "Your evaluation",
+"b": "Romanoff's assessment of me came back: \"Iron Man, yes. Tony Stark, not recommended.\" Yours came back better. Don't let it go to your head. I'm still the one with the suit."
+},
+{
+"t": "Captain Marvel",
+"k": "intercept",
+"f": "Kree Starforce",
+"to": "Supreme Intelligence",
+"cl": "Kree military",
+"re": "Operative lost",
+"b": "Starforce operative Vers was lost on planet C-53 during a pursuit of Skrull infiltrators. The planet is primitive and of no strategic value. Recover her before the Skrulls do. [[redacted]]"
+},
+{
+"t": "Guardians of the Galaxy",
+"k": "intercept",
+"f": "Nova Corps, Xandar",
+"to": "All Corps units",
+"cl": "Nova Corps record",
+"re": "Records expunged",
+"b": "For their defense of Xandar, the criminal records of Peter Quill, Gamora, Drax, Rocket and Groot are hereby expunged. Any further infraction will be prosecuted in full. Corpsman Dey adds that this includes taking things that belong to other people."
+},
+{
+"t": "Guardians of the Galaxy Vol. 2",
+"k": "intercept",
+"f": "Ravager channel",
+"to": "All Ravager clans",
+"cl": "Open frequency",
+"re": "Yondu Udonta",
+"b": "Yondu Udonta died saving his boy. Every clan is to light the sky for him. Stakar's orders."
+},
+{
+"t": "Doctor Strange",
+"k": "notice",
+"f": "Wong, Library of Kamar-Taj",
+"to": "All masters and students",
+"cl": "Restricted section",
+"re": "The Book of Cagliostro",
+"b": "Pages have been torn from the Book of Cagliostro. Whoever took them should know the library keeps its own records. Also, someone has been reading it without permission. We know who you are, Stephen."
+},
+{
+"t": "Avengers: Infinity War",
+"k": "intercept",
+"f": "Ebony Maw",
+"to": "Proxima Midnight",
+"cl": "The Black Order",
+"re": "Earth",
+"b": "Two stones are on Earth. The Time Stone is guarded by a sorcerer in New York. The Mind Stone walks among them in a body of its own. Our father expects both. Do not keep him waiting."
+}
+];
+function msgForget() { const M = state.msgs = state.msgs || {}; Object.keys(M).forEach(t => { if (!COMMS.some(m => m.t === t) || !atlSeenT(t)) delete M[t]; }); }
+const msgSeen = () => COMMS.filter(m => atlSeenT(m.t)).sort((a, b) => (ATL_ORDER[a.t] ?? 1e9) - (ATL_ORDER[b.t] ?? 1e9));
+function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[m.t]).map(m => [m.t, -1, (m.k === "intercept" ? "Intercepted: " : m.k === "email" ? "New email from " : m.k === "notice" ? "Notice from " : "Incoming from ") + m.f + ": " + m.re, "msg"]); }
+const MSG_KIND = { intercept: "Intercepted transmission", email: "Email", notice: "Notice" };
+function newsMark(batch) { batch.forEach(([t, i, h, k]) => { if (k === "msg") (state.msgs = state.msgs || {})[t] = 1; else state.news[newsKey(t, i)] = 1; }); persist(); }
 function newsHide() { const w = document.getElementById("whih"); w.classList.remove("in"); setTimeout(() => { if (!newsRun) { w.hidden = true; w.classList.remove("still"); } }, 450); }
 function newsStop(played) {   // a story only counts as heard once it has scrolled all the way through
   if (!newsRun) return; const r = newsRun; newsRun = null; r.cancel(); if (played) newsMark(r.batch); newsHide();
 }
-function newsPlay(all) {
+function newsPlay(all, msg) {
   // a big backlog (a long session, or a first look at the wire) only breaks its latest few; the rest wait in Comms
-  const batch = all.slice(-5); if (all.length > batch.length) newsMark(all.slice(0, -5));
+  const cap = msg ? 2 : 5, batch = all.slice(-cap); if (all.length > batch.length) newsMark(all.slice(0, -cap));
   const w = document.getElementById("whih"), run = w.querySelector(".whih-run"), sp = run.querySelector("span");
+  w.classList.toggle("msg", !!msg); w.querySelector("b").textContent = msg ? "COMMS" : "WHIH";   // a message for you comes first, on its own
   w.hidden = false; w.classList.toggle("still", REDUCED); void w.offsetWidth; w.classList.add("in");
   if (REDUCED) {   // no scrolling: one headline at a time
     let i = 0, tm = 0; const show = () => { if (i === batch.length) { newsStop(true); return; } sp.textContent = batch[i++][2]; sp.style.animation = "none"; void sp.offsetWidth; sp.style.animation = ""; tm = setTimeout(show, 4200); };
@@ -7447,22 +7626,30 @@ function newsTick() {
   if (newsRun) { if (!newsHome()) newsStop(false); return; }
   if (!newsHome()) { newsCalm = 0; return; }
   if (++newsCalm < 2) return;   // let the page settle for a moment first
+  const m = msgPending(); if (m.length) { newsPlay(m, true); return; }
   const p = newsPending(); if (p.length) newsPlay(p);
 }
 setInterval(newsTick, 800);
 document.addEventListener("visibilitychange", () => { if (document.hidden) newsStop(false); });
-document.getElementById("whih").addEventListener("click", () => { haptic(8); newsStop(true); openComms(); });
+document.getElementById("whih").addEventListener("click", () => { haptic(8); const k = document.getElementById("whih").classList.contains("msg") ? "msg" : "news"; newsStop(true); openComms(k); });   // opens on whatever was playing
 // Comms: every headline you've heard, newest first, to read again any time
 function renderComms() {
-  newsForget(); const T = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).reverse();
-  document.getElementById("commsView").innerHTML = `<div class="cm-head"><b>WHIH</b><span>Newsfront</span></div>` + (T.length ? T.map(t => `<div class="cm-grp"><small>${esc(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`);
+  newsForget(); msgForget(); const T = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).reverse(), M = msgSeen().filter(m => state.msgs[m.t]).reverse();
+  const row = (k, v) => `<dt>${k}</dt><dd>${esc(v)}</dd>`;
+  document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}">${l}</button>`).join("");
+  document.getElementById("commsView").innerHTML = commsTab === "msg"
+    ? (M.length ? `<section class="cm-sec">${M.map(m => `<article class="cm-msg${m.k ? " " + m.k : ""}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
+    : (T.length ? `<section class="cm-sec"><div class="cm-head"><b>WHIH</b><span>Newsfront</span></div>${T.map(t => `<div class="cm-grp"><small>${esc(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>` : `<p class="cm-quiet">Nothing on the wire yet.</p>`);
 }
-function openComms() { newsStop(true); renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
+let commsTab = "news";
+function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true);   // News is the landing; only tapping an incoming message opens Messages
+  renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
   document.getElementById("commsPanel").hidden = true; commsOpen = false; document.body.style.overflow = "";
 }
 document.getElementById("commsBack").addEventListener("click", () => closeComms());
+document.getElementById("commsTabs").addEventListener("click", ev => { const b = ev.target.closest("[data-cmt]"); if (!b || b.dataset.cmt === commsTab) return; haptic(8); commsTab = b.dataset.cmt; renderComms(); document.getElementById("commsView").scrollTop = 0; });
 
 // a little secret: double-tap (or press and hold) Sacred Timeline to jump straight to Loki S1
 let lastTimelineTap = 0, holdTimer = null, held = false;
@@ -7517,7 +7704,7 @@ document.getElementById("btnResetAll").addEventListener("click", () => {
   ask("Reset everything? Every chapter is covered again, and all checkmarks in Chapters, Characters, and both Sacred Timeline views are cleared. This can't be undone.", "Reset everything").then(ok => {
     if (!ok) return;
     state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.news = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
+    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist(); renderAll();
     showGate();
   });
