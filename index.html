@@ -773,6 +773,11 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .atl-views button.lk{ color:#3A4660; }
 .atl-views button.nw::after{ content:""; position:absolute; top:3px; right:4px; width:5px; height:5px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .atl-map{ position:relative; flex:none; background-color:#0B1019 !important; overflow:hidden; touch-action:none; user-select:none; -webkit-user-select:none; border-top:1px solid #1C2538; background:radial-gradient(ellipse at 50% 42%, rgba(40,96,170,.2), rgba(11,16,25,0) 70%); }
+.atl-map.sky.multi{ background:radial-gradient(ellipse at 50% 50%, rgba(200,150,70,.18), rgba(11,16,25,0) 70%); }
+.atl-map.sky.multi .atl-pin:not(.home) i{ background:#FFD58A; box-shadow:0 0 0 2px rgba(235,185,105,.25), 0 0 10px rgba(235,185,105,.9); }
+.atl-map.sky.multi .atl-pin span{ color:#FFE7BD; }
+.atl-map.sky.multi .atl-pin.new i::after{ border-color:#FFD58A; }
+@media (max-width:460px){ .atlpanel .maptop h2{ display:none; } .atl-views button{ padding:6px 8px; letter-spacing:1px; } }
 .atl-map.sky.beyond{ background:radial-gradient(ellipse at 50% 47%, rgba(110,80,200,.22), rgba(11,16,25,0) 70%); }
 .atl-map canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
 .atl-pins{ position:absolute; inset:0; pointer-events:none; }
@@ -2251,7 +2256,8 @@ earth: [
 ["Thunderbolts*","Midtown","The Void spreads darkness across Manhattan from the top of the old Avengers Tower."],
 ["Daredevil: Born Again S2","Courthouse","Matt reveals in open court that he is Daredevil."],
 ["The Punisher: One Last Kill","Manhattan","Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."],
-["Spider-Man: Brand New Day","Manhattan","Jean Grey's power traps much of Manhattan, and Peter reaches her through a memory of Aunt May."]]},
+["Spider-Man: Brand New Day","Manhattan","Jean Grey's power traps much of Manhattan, and Peter reaches her through a memory of Aunt May."],
+["Agents of S.H.I.E.L.D.", "Manhattan, 1931", "The team chases the Chronicoms through New York in 1931.", "Agents of S.H.I.E.L.D. S6–S7"]]},
 {id:"westview", n:"Westview", r:"New Jersey", at:[40.86,-74.62], e:[
 ["WandaVision","","Wanda turns a small town into a sitcom inside a hex of red energy."],
 ["Agatha All Along","","A teenager breaks Wanda's spell on Agatha Harkness and asks her to take him down the Witches' Road."]]},
@@ -2262,6 +2268,14 @@ earth: [
 {id:"compound", n:"Avengers Compound", r:"Upstate New York", at:[41.62,-74.08], e:[
 ["Avengers: Age of Ultron","","Steve and Natasha start training a new team at the Avengers' new home upstate."],
 ["Ant-Man","","Scott breaks into the compound for a piece of tech and ends up fighting Sam Wilson."]]},
+{id:"malta", n:"Malta", r:"Mediterranean", at:[35.9, 14.5], e:[["Agents of S.H.I.E.L.D.", "", "Skye slips into Ian Quinn's mansion party so Coulson and Ward can rescue Dr. Franklin Hall.", "Agents of S.H.I.E.L.D. S1"]]},
+{id:"sanjuan", n:"San Juan", r:"Puerto Rico", at:[18.47, -66.1], e:[["Agents of S.H.I.E.L.D.", "", "Coulson's team hunts for a hidden alien city, and Skye is changed inside it.", "Agents of S.H.I.E.L.D. S2"]]},
+{id:"manitowoc", n:"Manitowoc", r:"Wisconsin", at:[44.09, -87.66], e:[["Agents of S.H.I.E.L.D.", "", "Gifted criminals take over the stadium in Coulson's hometown.", "Agents of S.H.I.E.L.D. S2"]]},
+{id:"morocco", n:"Morocco", r:"North Africa", at:[31.8, -7.1], e:[["Agents of S.H.I.E.L.D.", "", "S.H.I.E.L.D. tracks Donnie Gill to a Hydra ship.", "Agents of S.H.I.E.L.D. S2"]]},
+{id:"bogota", n:"Bogot\u00e1", r:"Colombia", at:[4.71, -74.07], e:[["Agents of S.H.I.E.L.D.", "", "S.H.I.E.L.D. finds Elena Rodriguez, an Inhuman with super speed.", "Agents of S.H.I.E.L.D. S3"]]},
+{id:"england", n:"An English castle", r:"England", at:[52.3, -1.6], e:[["Agents of S.H.I.E.L.D.", "", "Hydra opens a portal to another planet from a castle in the English countryside.", "Agents of S.H.I.E.L.D. S3"]]},
+{id:"tahiti", n:"Tahiti", r:"French Polynesia", at:[-17.65, -149.43], e:[["Agents of S.H.I.E.L.D.", "", "Coulson goes to Tahiti with May for his last days.", "Agents of S.H.I.E.L.D. S5"]]},
+{id:"area51", n:"Area 51", r:"Nevada", at:[37.24, -115.81], e:[["Agents of S.H.I.E.L.D.", "1955", "The team chases the Chronicoms to a secret base in 1955.", "Agents of S.H.I.E.L.D. S6–S7"]]},
 {id:"dc", n:"Washington, D.C.", r:"United States", at:[38.9,-77.04], e:[
 ["Captain America: The Winter Soldier","The Triskelion","HYDRA launches three helicarriers from S.H.I.E.L.D.'s headquarters on the Potomac."],
 ["Captain America: The Winter Soldier","The Smithsonian","Bucky visits the Captain America exhibit to learn who he used to be."],
@@ -2303,7 +2317,8 @@ earth: [
 ["Agent Carter S2","Hollywood","Peggy chases Whitney Frost and Zero Matter through Hollywood."],
 ["The Guardians of the Galaxy Holiday Special","Beverly Hills","Mantis and Drax kidnap Kevin Bacon as a Christmas present."],
 ["She-Hulk: Attorney at Law","Downtown","Jen Walters becomes head of GLK&H's new superhuman law division."],
-["Wonder Man","Hollywood","Simon Williams chases the lead in Von Kovak's remake of Wonder Man."]]},
+["Wonder Man","Hollywood","Simon Williams chases the lead in Von Kovak's remake of Wonder Man."],
+["Agents of S.H.I.E.L.D.", "Momentum Energy", "A Darkhold experiment leaves ghosts behind, and the Ghost Rider joins the hunt.", "Agents of S.H.I.E.L.D. S4"]]},
 {id:"sf", n:"San Francisco", r:"California", at:[37.77,-122.42], e:[
 ["Black Panther","Oakland, 1992","King T'Chaka confronts his brother N'Jobu in an Oakland apartment."],
 ["Ant-Man","","Scott robs Hank Pym's house and finds the Ant-Man suit."],
@@ -2367,7 +2382,9 @@ earth: [
 {id:"riga", n:"Riga", r:"Latvia", at:[56.95,24.1], e:[
 ["The Falcon and the Winter Soldier","","Sam, Bucky and Zemo track Karli Morgenthau to Riga."]]},
 {id:"siberia", n:"Siberia", r:"Russia", at:[61.0,96.0], e:[
-["Captain America: Civil War","HYDRA facility","Tony finds out who killed his parents."]]},
+["Captain America: Civil War","HYDRA facility","Tony finds out who killed his parents."],
+["Agents of S.H.I.E.L.D.", "", "Hunter and Morse follow Malick to a Russian facility meant to become an Inhuman sanctuary.", "Agents of S.H.I.E.L.D. S3"],
+["Agents of S.H.I.E.L.D.", "Ivanov's oil platform", "Aida runs the Framework from an oil platform off the Russian coast.", "Agents of S.H.I.E.L.D. S4"]]},
 {id:"lagos", n:"Lagos", r:"Nigeria", at:[6.45,3.39], e:[
 ["Captain America: Civil War","","Crossbones sets off a bomb, and Wanda's attempt to contain it destroys a building."]]},
 {id:"greece", n:"Ancient Greece", r:"Aegean Sea", at:[37.9,23.7], e:[
@@ -2482,10 +2499,14 @@ cosmos: [
 ["The Marvels","","Dar-Benn's world is dying, and she blames Captain Marvel."]]},
 {id:"tarnax", n:"Tarnax", r:"The Skrull refuge", at:[90,420], e:[
 ["The Marvels","","Dar-Benn drains the atmosphere from the world where the Skrulls settled."]]},
+{id:"maveth", n:"Maveth", r:"A dark, dying world", at:[180,870], e:[["Agents of S.H.I.E.L.D.", "", "Simmons is stranded for months on a dark planet with one other survivor, Will Daniels.", "Agents of S.H.I.E.L.D. S3"]]},
+{id:"kitson", n:"Kitson", r:"A gambling world", at:[960,780], e:[["Agents of S.H.I.E.L.D.", "", "Fitz wagers himself in a casino game where the losers are sold.", "Agents of S.H.I.E.L.D. S6\u2013S7"]]},
 {id:"aladna", n:"Aladna", r:"A world of song", at:[90,700], e:[
 ["The Marvels","","On Aladna, people speak in song, and Carol is married to its prince."]]}
 ],
 beyond: [
+{id:"framework", n:"The Framework", r:"A world made of code", at:[120,600], e:[["Agents of S.H.I.E.L.D.", "", "Aida traps the team in a virtual world where Hydra won.", "Agents of S.H.I.E.L.D. S4"]]},
+{id:"future", n:"Earth's future", r:"A shattered planet", at:[880,640], e:[["Agents of S.H.I.E.L.D.", "", "The team wakes in a future where Earth has been torn apart and the Kree rule the survivors.", "Agents of S.H.I.E.L.D. S5"]]},
 {id:"quantum", n:"The Quantum Realm", r:"Below the subatomic", at:[450,870], e:[
 ["Ant-Man","","Scott shrinks past the atoms and somehow comes back."],
 ["Ant-Man and the Wasp","","Hank finds Janet after thirty years."],
@@ -2515,58 +2536,1448 @@ beyond: [
 ["Loki S2","","Loki sits on a throne at the end of time."]]},
 {id:"void", n:"The Void", r:"Where pruned things go", at:[380,700], e:[
 ["Loki S1","","Pruned variants land in the Void, where Alioth feeds."],
-["Deadpool & Wolverine","","Cassandra Nova rules the Void from inside a giant fallen Ant-Man."]]},
-{id:"e838", n:"Earth-838", r:"Another universe", at:[160,800], e:[
-["Doctor Strange in the Multiverse of Madness","","The Illuminati put Strange on trial."]]},
-{id:"watcher", n:"The Watcher", r:"Outside every reality", at:[130,90], e:[
+["Deadpool & Wolverine","","Cassandra Nova rules the Void from inside a giant fallen Ant-Man."]]}
+],
+multi: [
+{id:"watcher", n:"The Watcher", r:"Outside every reality", at:[500,500], e:[
 ["What If...?","","Uatu watches every reality where one moment went differently, and has sworn never to interfere.","What If...? S1"],
 ["What If...?","","Uatu pulls Peggy and Kahhori out of Strange Supreme's collapsing Sanctum.","What If...? S2"],
 ["What If...?","The Observational Plane","The Eminence, Uatu's old mentor, puts him on trial for interfering.","What If...? S3"],
 ["What If...?","The Observational Plane","Uatu stands up to the other Watchers and invites Storm, Kahhori and Byrdie to watch the multiverse with him.","What If...? S3"]]},
-{id:"carter", n:"Captain Carter's world", r:"Another reality", at:[70,610], e:[
+{id:"e838", n:"Earth-838", r:"Another universe", at:[330,470], e:[
+["Doctor Strange in the Multiverse of Madness","","The Illuminati put Strange on trial."]]},
+{id:"e828", n:"Earth-828", r:"Another universe", at:[670,530], e:[
+["The Fantastic Four: First Steps","","The Fantastic Four face Galactus."]]},
+{id:"carter", n:"Captain Carter's world", r:"Another reality", at:[500,210], e:[
 ["What If...?","","Peggy Carter takes the super soldier serum, and Steve Rogers fights beside her in a suit of armor.","What If...? S1"],
 ["What If...?","","Peggy wakes in the present and learns the Hydra Stomper is Steve, kept by the Red Room.","What If...? S2"],
 ["What If...?","","Shards from the Watchers' fight spill into Peggy's world, and her team holds off an interdimensional creature.","What If...? S3"]]},
-{id:"tchalla", n:"T'Challa's galaxy", r:"Another reality", at:[930,610], e:[
+{id:"tchalla", n:"T'Challa's galaxy", r:"Another reality", at:[686,722], e:[
 ["What If...?","","Yondu's Ravagers take T'Challa instead of Peter Quill, and he grows up to be Star-Lord.","What If...? S1"]]},
-{id:"strange", n:"Strange Supreme's world", r:"Another reality", at:[300,965], e:[
+{id:"strange", n:"Strange Supreme's world", r:"Another reality", at:[214,450], e:[
 ["What If...?","","Doctor Strange tears his universe apart trying to save Christine.","What If...? S1"],
 ["What If...?","The Sanctum Infinitum","Strange Supreme feeds captured heroes and villains into the Forge, trying to rebuild his universe and Christine.","What If...? S2"]]},
-{id:"ultron", n:"Ultron's world", r:"Another reality", at:[700,965], e:[
+{id:"ultron", n:"Ultron's world", r:"Another reality", at:[751,355], e:[
 ["What If...?","","Ultron takes all six Infinity Stones and wipes out life across his universe.","What If...? S1"],
 ["What If...?","","Ultron gives up on destroying his universe, joins Peggy's team against the Watchers and dies saving them.","What If...? S3"]]},
-{id:"zombies", n:"The zombie world", r:"Another reality", at:[930,940], e:[
+{id:"zombies", n:"The zombie world", r:"Another reality", at:[401,773], e:[
 ["What If...?","","A plague spreads from the Quantum Realm and turns the Avengers into the walking dead.","What If...? S1"],
 ["Marvel Zombies","","Kamala, Kate, Yelena and Riri fight their way across a ruined Earth while Wanda rules the dead."]]},
-{id:"nebula", n:"Nebula's Xandar", r:"Another reality", at:[330, 60], e:[
+{id:"nebula", n:"Nebula's Xandar", r:"Another reality", at:[401,227], e:[
 ["What If...?","","Nebula, now in the Nova Corps, investigates Yondu's murder on a Xandar sealed behind its planetary shield.","What If...? S2"]]},
-{id:"e1988", n:"Earth, 1988", r:"Another reality", at:[680, 60], e:[
+{id:"e1988", n:"Earth, 1988", r:"Another reality", at:[751,645], e:[
 ["What If...?","","Ego's son Peter Quill crash-lands in New York, and Peggy Carter and Howard Stark assemble a team to stop him.","What If...? S2"]]},
-{id:"happy", n:"Happy Hogan's Christmas", r:"Another reality", at:[60, 180], e:[
+{id:"happy", n:"Happy Hogan's Christmas", r:"Another reality", at:[214,550], e:[
 ["What If...?","","Justin Hammer takes Avengers Tower on Christmas Eve, and Happy Hogan, turned into a purple brute by Bruce's blood, stops him with Darcy Lewis.","What If...? S2"]]},
-{id:"tonysakaar", n:"Tony Stark's Sakaar", r:"Another reality", at:[800, 170], e:[
+{id:"tonysakaar", n:"Tony Stark's Sakaar", r:"Another reality", at:[686,278], e:[
 ["What If...?","","Tony is pulled through a wormhole to Sakaar and races the Grandmaster's grand prix with Valkyrie and Korg.","What If...? S2"]]},
-{id:"kahhori", n:"Kahhori's world", r:"Another reality", at:[40, 500], e:[
+{id:"kahhori", n:"Kahhori's world", r:"Another reality", at:[500,790], e:[
 ["What If...?","","Kahhori, a Mohawk woman, falls into a lake the Tesseract has changed, gains its power in the Sky World and drives off the Spanish conquistadors.","What If...? S2"]]},
-{id:"hela", n:"Hela's Earth", r:"Another reality", at:[960, 470], e:[
+{id:"hela", n:"Hela's Earth", r:"Another reality", at:[314,278], e:[
 ["What If...?","","Odin casts Hela out to Earth, where she turns down Wenwu, learns from the guardians of Ta Lo and takes back her power.","What If...? S2"]]},
-{id:"y1602", n:"1602", r:"Another reality", at:[250, 700], e:[
+{id:"y1602", n:"1602", r:"Another reality", at:[786,550], e:[
 ["What If...?","","Captain Carter is pulled into 1602 England, where King Thor rules and an outlaw named Rogers Hood turns out to be Steve Rogers, lost in time.","What If...? S2"]]},
-{id:"apex", n:"The Apex's Earth", r:"Another reality", at:[560, 980], e:[
+{id:"apex", n:"The Apex's Earth", r:"Another reality", at:[249,645], e:[
 ["What If...?","","Bruce's attempt to rid himself of the Hulk creates the Apex, and years later Sam Wilson's Mech Avengers fight it in New York.","What If...? S3"]]},
-{id:"agatha", n:"Agatha's Hollywood", r:"Another reality", at:[100, 940], e:[
+{id:"agatha", n:"Agatha's Hollywood", r:"Another reality", at:[599,227], e:[
 ["What If...?","","In Old Hollywood, Agatha stars in Howard Stark's Cosmic Queen while plotting to drain the Celestial buried in Earth, and Kingo talks her out of it.","What If...? S3"]]},
-{id:"redguardian", n:"The Red Guardian's America", r:"Another reality", at:[980, 720], e:[
+{id:"redguardian", n:"The Red Guardian's America", r:"Another reality", at:[599,773], e:[
 ["What If...?","","Red Guardian stops the Winter Soldier from killing Howard and Maria Stark, and the two go on the run together.","What If...? S3"]]},
-{id:"howard", n:"Howard and Darcy's galaxy", r:"Another reality", at:[600, 250], e:[
+{id:"howard", n:"Howard and Darcy's galaxy", r:"Another reality", at:[249,355], e:[
 ["What If...?","","Howard the Duck and Darcy Lewis flee across the galaxy, from Las Vegas to Knowhere and Jotunheim, to protect their unhatched egg.","What If...? S3"]]},
-{id:"shattered", n:"The shattered Earth", r:"Another reality", at:[360, 380], e:[
+{id:"shattered", n:"The shattered Earth", r:"Another reality", at:[786,450], e:[
 ["What If...?","","A Celestial's emergence breaks Earth apart, and Riri Williams fights Quentin Beck's regime with a hidden resistance.","What If...? S3"]]},
-{id:"y1872", n:"1872", r:"Another reality", at:[560, 760], e:[
+{id:"y1872", n:"1872", r:"Another reality", at:[314,722], e:[
 ["What If...?","","In the Old West, Shang-Chi and Kate Bishop hunt the Hood, who turns out to be Xialing.","What If...? S3"]]},
-{id:"e828", n:"Earth-828", r:"Another universe", at:[860,800], e:[
-["The Fantastic Four: First Steps","","The Fantastic Four face Galactus."]]}
+{id:"u-fox", n:"The X-Men's Earth", r:"Another universe", at:[574,66], uni:"fox", e:[]},
+{id:"u-animx", n:"The animated X-Men's Earth", r:"Another universe", at:[732,874], e:[["X-Men: The Animated Series", "", "Led by Professor X and Cyclops, the X-Men protect a world that fears them from Sentinels, Magneto and Apocalypse."], ["X-Men '97", "Genosha", "Sentinels wipe out the mutant nation of Genosha, and Magneto takes the world hostage."]]},
+{id:"u-raimi", n:"Raimi's New York", r:"Another universe", at:[78,374], uni:"raimi", e:[]},
+{id:"u-amazing", n:"The Amazing New York", r:"Another universe", at:[899,315], uni:"amazing", e:[]},
+{id:"u-miles", n:"Miles Morales's New York", r:"Another universe", at:[324,903], uni:"miles", e:[]},
+{id:"u-e65", n:"Earth-65", r:"Another universe", at:[364,81], e:[["Spider-Man: Into the Spider-Verse", "", "Gwen Stacy's world, where she was bitten instead of Peter Parker."], ["Spider-Man: Across the Spider-Verse", "", "Gwen's father, a police captain, learns she is Spider-Woman."]]},
+{id:"u-mumbattan", n:"Mumbattan", r:"Another universe", at:[879,723], e:[["Spider-Man: Across the Spider-Verse", "", "Miles and Gwen help Pavitr Prabhakar fight the Spot, who breaks a canon event."]]},
+{id:"u-nueva", n:"Nueva York", r:"Another universe", at:[68,584], e:[["Spider-Man: Across the Spider-Verse", "", "Miguel O'Hara's Spider-Society keeps its headquarters here, and Miles learns about canon events."]]},
+{id:"u-e42", n:"Earth-42", r:"Another universe", at:[767,151], e:[["Spider-Man: Across the Spider-Verse", "", "Miles lands in a world where his spider never bit him, and his uncle Aaron is still alive."]]},
+{id:"u-noir", n:"Spider-Noir's New York", r:"Another universe", at:[532,939], e:[["Spider-Noir", "1930s", "Ben Reilly, a private eye who was once the Spider, is pulled back in by Silvermane and Dr. Faber."]]},
+{id:"u-yfnsm", n:"A friendly neighborhood", r:"Another universe", at:[185,192], e:[["Your Friendly Neighborhood Spider-Man", "", "Peter Parker gets his powers and an internship at Oscorp under Norman Osborn."]]},
+{id:"u-sony", n:"Eddie Brock's Earth", r:"Another universe", at:[939,522], uni:"sony", e:[]},
+{id:"u-pruned", n:"The pruned timelines", r:"Another universe", at:[157,775], uni:"pruned", e:[]}
 ]};
+
+const ATLAS_UNI = {
+"fox": {
+"n": "The X-Men's Earth",
+"map": "earth",
+"places": [
+{
+"id": "mansion",
+"n": "Xavier's School",
+"r": "Westchester, New York",
+"at": [
+41.12,
+-73.79
+],
+"e": [
+[
+"X-Men: First Class",
+"1944",
+"Young Charles finds Raven raiding his family's kitchen and takes her in."
+],
+[
+"X-Men: First Class",
+"1962",
+"Charles opens his mansion to the young mutants the CIA has recruited."
+],
+[
+"X-Men (2000)",
+"",
+"Logan and Rogue are taken in at Charles Xavier's school for mutants."
+],
+[
+"X2",
+"",
+"William Stryker's soldiers raid the school and carry off students."
+],
+[
+"X-Men: The Last Stand",
+"",
+"Charles tells the X-Men about the Phoenix, a side of Jean he kept locked away."
+],
+[
+"X-Men: Days of Future Past",
+"1973",
+"Logan's mind wakes in 1973 and finds the school closed and Charles lost."
+],
+[
+"X-Men: Apocalypse",
+"1983",
+"The mansion explodes as Charles is taken, and Quicksilver gets the students out."
+],
+[
+"Dark Phoenix",
+"",
+"Jean is brought to the school as a child, and comes back from space years later carrying a cosmic force."
+],
+[
+"Deadpool",
+"",
+"Wade shows up at the mansion looking for Colossus and Negasonic Teenage Warhead."
+],
+[
+"Deadpool 2",
+"",
+"Colossus brings Wade to the mansion and makes him an X-Men trainee."
+]
+]
+},
+{
+"id": "ny",
+"n": "New York",
+"r": "New York City",
+"at": [
+40.69,
+-74.04
+],
+"e": [
+[
+"X-Men (2000)",
+"Liberty Island",
+"The Brotherhood sets its machine on the Statue of Liberty, aimed at a summit on Ellis Island."
+],
+[
+"Dark Phoenix",
+"",
+"Jean's friends try to stop her in the streets of New York."
+]
+]
+},
+{
+"id": "meridian",
+"n": "Meridian",
+"r": "Mississippi",
+"at": [
+32.36,
+-88.7
+],
+"e": [
+[
+"X-Men (2000)",
+"",
+"Marie's first kiss puts her boyfriend into a coma, and she runs away."
+]
+]
+},
+{
+"id": "alberta",
+"n": "Alberta",
+"r": "Canada",
+"at": [
+51.5,
+-113.5
+],
+"e": [
+[
+"X-Men (2000)",
+"",
+"Rogue meets Logan at a cage fight, and Sabretooth attacks them on the road."
+]
+]
+},
+{
+"id": "alkali",
+"n": "Alkali Lake",
+"r": "Alberta, Canada",
+"at": [
+53.6,
+-116.2
+],
+"e": [
+[
+"X2",
+"",
+"Stryker's base hides inside a dam, and Jean holds back the flood so the others can escape."
+],
+[
+"X-Men: The Last Stand",
+"",
+"Jean rises from the lake as the Phoenix."
+],
+[
+"X-Men: Apocalypse",
+"",
+"Stryker takes Hank, Raven and Moira to his base, and Jean frees the prisoner he calls Weapon X."
+]
+]
+},
+{
+"id": "dc",
+"n": "Washington, D.C.",
+"r": "United States",
+"at": [
+38.9,
+-77.04
+],
+"e": [
+[
+"X-Men: First Class",
+"CIA",
+"Charles and Raven convince the CIA that mutants exist."
+],
+[
+"X2",
+"White House",
+"A teleporting mutant attacks the President in the Oval Office."
+],
+[
+"X-Men: Days of Future Past",
+"The Pentagon, 1973",
+"Quicksilver helps break Magneto out of a prison under the Pentagon."
+],
+[
+"X-Men: Days of Future Past",
+"White House, 1973",
+"Magneto drops a stadium around the White House to stop the Sentinels' unveiling."
+]
+]
+},
+{
+"id": "boston",
+"n": "Boston",
+"r": "Massachusetts",
+"at": [
+42.36,
+-71.06
+],
+"e": [
+[
+"X2",
+"",
+"Bobby tells his family he's a mutant, and the police are waiting outside."
+]
+]
+},
+{
+"id": "sf",
+"n": "San Francisco",
+"r": "California",
+"at": [
+37.81,
+-122.42
+],
+"e": [
+[
+"X-Men: The Last Stand",
+"Alcatraz",
+"The Brotherhood attacks Alcatraz, where the mutant cure is made."
+],
+[
+"X-Men: The Last Stand",
+"",
+"Erik, cured of his powers, sits at a chessboard in the park."
+]
+]
+},
+{
+"id": "poland",
+"n": "Poland",
+"r": "Europe",
+"at": [
+50.03,
+19.2
+],
+"e": [
+[
+"X-Men (2000)",
+"Auschwitz, 1944",
+"Young Erik bends the camp's iron gates as he's torn from his parents."
+],
+[
+"X-Men: First Class",
+"Auschwitz, 1944",
+"Shaw kills Erik's mother to make him use his power."
+],
+[
+"X-Men: Apocalypse",
+"1983",
+"Erik is living quietly with his wife and daughter when the police find him."
+],
+[
+"X-Men: Apocalypse",
+"Auschwitz, 1983",
+"Erik tears the camp apart with En Sabah Nur beside him."
+]
+]
+},
+{
+"id": "vegas",
+"n": "Las Vegas",
+"r": "Nevada",
+"at": [
+36.17,
+-115.14
+],
+"e": [
+[
+"X-Men Origins: Wolverine",
+"",
+"Logan finds two old teammates at a boxing gym."
+],
+[
+"X-Men: First Class",
+"",
+"Moira follows Colonel Hendry into the Hellfire Club."
+]
+]
+},
+{
+"id": "moscow",
+"n": "Moscow",
+"r": "Russia",
+"at": [
+55.75,
+37.62
+],
+"e": [
+[
+"X-Men: First Class",
+"",
+"Shaw pushes the Soviet generals to put their missiles in Cuba."
+],
+[
+"X-Men: Days of Future Past",
+"2023",
+"Sentinels hunt down the last X-Men in hiding."
+]
+]
+},
+{
+"id": "cuba",
+"n": "Cuba",
+"r": "Caribbean",
+"at": [
+21.8,
+-79.5
+],
+"e": [
+[
+"X-Men: First Class",
+"",
+"The mutants fight Shaw on a Cuban beach, Erik turns the navies' missiles back, and Charles is paralyzed."
+]
+]
+},
+{
+"id": "argentina",
+"n": "Argentina",
+"r": "South America",
+"at": [
+-37.3,
+-57.0
+],
+"e": [
+[
+"X-Men: First Class",
+"",
+"Erik tracks Nazis to a small Argentine town."
+]
+]
+},
+{
+"id": "china",
+"n": "A Chinese temple",
+"r": "China",
+"at": [
+30.0,
+103.0
+],
+"e": [
+[
+"X-Men: Days of Future Past",
+"2023",
+"The last X-Men hide in a mountain temple and send Logan's mind back to 1973."
+]
+]
+},
+{
+"id": "paris",
+"n": "Paris",
+"r": "France",
+"at": [
+48.86,
+2.35
+],
+"e": [
+[
+"X-Men: Days of Future Past",
+"1973",
+"Mystique tries to kill Bolivar Trask at the Paris Peace Accords."
+],
+[
+"Dark Phoenix",
+"",
+"Charles and Erik make peace over a game of chess at a café."
+]
+]
+},
+{
+"id": "berlin",
+"n": "East Berlin",
+"r": "Germany",
+"at": [
+52.52,
+13.4
+],
+"e": [
+[
+"X-Men: Apocalypse",
+"1983",
+"Raven rescues Kurt Wagner from an underground cage fight."
+]
+]
+},
+{
+"id": "cairo",
+"n": "Cairo",
+"r": "Egypt",
+"at": [
+30.04,
+31.24
+],
+"e": [
+[
+"X-Men: Apocalypse",
+"3600 BC",
+"En Sabah Nur is buried alive inside his pyramid."
+],
+[
+"X-Men: Apocalypse",
+"1983",
+"En Sabah Nur wakes under Cairo, and the final battle tears the city apart."
+]
+]
+},
+{
+"id": "genosha",
+"n": "Genosha",
+"r": "An island refuge",
+"at": [
+-20.0,
+47.0
+],
+"e": [
+[
+"X-Men (2000)",
+"",
+"Magneto tests his machine on Senator Kelly at the Brotherhood's island hideout."
+],
+[
+"Dark Phoenix",
+"",
+"Erik runs the island as a refuge for mutants."
+]
+]
+},
+{
+"id": "nwt",
+"n": "Northwest Territories",
+"r": "Canada",
+"at": [
+63.0,
+-118.0
+],
+"e": [
+[
+"X-Men Origins: Wolverine",
+"1845",
+"Young James Howlett's claws come out the night his father is killed."
+]
+]
+},
+{
+"id": "rockies",
+"n": "The Canadian Rockies",
+"r": "Canada",
+"at": [
+50.5,
+-118.5
+],
+"e": [
+[
+"X-Men Origins: Wolverine",
+"1979",
+"Logan lives with Kayla as a logger until Stryker comes for him."
+]
+]
+},
+{
+"id": "neworleans",
+"n": "New Orleans",
+"r": "Louisiana",
+"at": [
+29.95,
+-90.07
+],
+"e": [
+[
+"X-Men Origins: Wolverine",
+"",
+"Logan finds Gambit."
+]
+]
+},
+{
+"id": "tmi",
+"n": "Three Mile Island",
+"r": "Pennsylvania",
+"at": [
+40.15,
+-76.72
+],
+"e": [
+[
+"X-Men Origins: Wolverine",
+"",
+"Logan fights Weapon XI at Stryker's facility, and a bullet wipes his memory."
+]
+]
+},
+{
+"id": "nagasaki",
+"n": "Nagasaki",
+"r": "Japan",
+"at": [
+32.75,
+129.88
+],
+"e": [
+[
+"The Wolverine",
+"1945",
+"Logan shields a young soldier, Yashida, from the atomic bomb."
+],
+[
+"The Wolverine",
+"",
+"Logan protects Mariko at Yashida's house."
+]
+]
+},
+{
+"id": "tokyo",
+"n": "Tokyo",
+"r": "Japan",
+"at": [
+35.68,
+139.69
+],
+"e": [
+[
+"The Wolverine",
+"",
+"Yakuza attack Yashida's funeral, and the fight carries onto a bullet train."
+]
+]
+},
+{
+"id": "yukon",
+"n": "Yukon",
+"r": "Canada",
+"at": [
+64.0,
+-136.0
+],
+"e": [
+[
+"The Wolverine",
+"",
+"Logan lives alone in the wilderness, haunted by Jean."
+]
+]
+},
+{
+"id": "border",
+"n": "The border",
+"r": "El Paso and northern Mexico",
+"at": [
+31.76,
+-106.49
+],
+"e": [
+[
+"Logan",
+"",
+"Logan drives a limousine and hides Charles in an abandoned smelting plant across the border."
+]
+]
+},
+{
+"id": "okc",
+"n": "Oklahoma City",
+"r": "Oklahoma",
+"at": [
+35.47,
+-97.52
+],
+"e": [
+[
+"Logan",
+"",
+"Charles has a seizure in a hotel that freezes everyone around him."
+]
+]
+},
+{
+"id": "nd",
+"n": "North Dakota",
+"r": "Near the Canadian border",
+"at": [
+48.6,
+-100.5
+],
+"e": [
+[
+"Logan",
+"",
+"Logan dies saving Laura and the children, and she sets an X on his grave."
+]
+]
+}
+]
+},
+"raimi": {
+"n": "Raimi's New York",
+"map": "ny",
+"places": [
+{
+"id": "foresthills",
+"n": "Forest Hills",
+"r": "Queens",
+"at": [
+40.72,
+-73.845
+],
+"e": [
+[
+"Spider-Man (2002)",
+"",
+"Peter lives with Aunt May and Uncle Ben, next door to Mary Jane Watson."
+]
+]
+},
+{
+"id": "columbia",
+"n": "Columbia University",
+"r": "Manhattan",
+"at": [
+40.8075,
+-73.9626
+],
+"e": [
+[
+"Spider-Man (2002)",
+"",
+"A genetically altered spider bites Peter on a school trip to a Columbia lab."
+]
+]
+},
+{
+"id": "timessq",
+"n": "Times Square",
+"r": "Manhattan",
+"at": [
+40.758,
+-73.9855
+],
+"e": [
+[
+"Spider-Man (2002)",
+"",
+"The Green Goblin attacks the World Unity Festival."
+]
+]
+},
+{
+"id": "queensboro",
+"n": "Queensboro Bridge",
+"r": "East River",
+"at": [
+40.757,
+-73.954
+],
+"e": [
+[
+"Spider-Man (2002)",
+"",
+"The Goblin makes Spider-Man choose between Mary Jane and a tram full of children."
+]
+]
+},
+{
+"id": "manhattan",
+"n": "Manhattan",
+"r": "New York City",
+"at": [
+40.745,
+-73.995
+],
+"e": [
+[
+"Spider-Man 2",
+"",
+"Spider-Man stops a runaway elevated train, and its passengers see his face."
+],
+[
+"Spider-Man 3",
+"",
+"Peter tears off the symbiote in a church bell tower, and it falls onto Eddie Brock below."
+],
+[
+"Spider-Man 3",
+"",
+"Venom and the Sandman hold Mary Jane over a construction site, and Harry dies helping Peter."
+]
+]
+},
+{
+"id": "pier",
+"n": "Otto's pier",
+"r": "East River",
+"at": [
+40.7,
+-73.99
+],
+"e": [
+[
+"Spider-Man 2",
+"",
+"Otto rebuilds his fusion reactor on an abandoned pier, and Peter talks him into drowning it."
+]
+]
+}
+]
+},
+"amazing": {
+"n": "The Amazing New York",
+"map": "ny",
+"places": [
+{
+"id": "foresthills",
+"n": "Forest Hills",
+"r": "Queens",
+"at": [
+40.72,
+-73.845
+],
+"e": [
+[
+"The Amazing Spider-Man",
+"",
+"Peter lives with Aunt May and Uncle Ben, who is shot by a robber."
+]
+]
+},
+{
+"id": "oscorp",
+"n": "Oscorp Tower",
+"r": "Midtown",
+"at": [
+40.752,
+-73.977
+],
+"e": [
+[
+"The Amazing Spider-Man",
+"",
+"Peter is bitten by a spider in Oscorp's lab, and later stops the Lizard on the tower's roof."
+],
+[
+"The Amazing Spider-Man 2",
+"",
+"Max Dillon falls into a tank of electric eels and becomes Electro."
+]
+]
+},
+{
+"id": "williamsburg",
+"n": "Williamsburg Bridge",
+"r": "East River",
+"at": [
+40.713,
+-73.972
+],
+"e": [
+[
+"The Amazing Spider-Man",
+"",
+"The Lizard throws cars off the bridge, and Spider-Man saves a boy."
+]
+]
+},
+{
+"id": "timessq",
+"n": "Times Square",
+"r": "Manhattan",
+"at": [
+40.758,
+-73.9855
+],
+"e": [
+[
+"The Amazing Spider-Man 2",
+"",
+"Electro and Spider-Man fight for the first time."
+]
+]
+},
+{
+"id": "manhattan",
+"n": "Manhattan",
+"r": "New York City",
+"at": [
+40.745,
+-73.995
+],
+"e": [
+[
+"The Amazing Spider-Man",
+"Midtown Science High",
+"Peter fights the Lizard in the halls of his high school."
+],
+[
+"The Amazing Spider-Man 2",
+"Clock tower",
+"Gwen falls, and Peter's web catches her too late."
+]
+]
+}
+]
+},
+"miles": {
+"n": "Miles Morales's New York",
+"map": "ny",
+"places": [
+{
+"id": "brooklyn",
+"n": "Brooklyn",
+"r": "New York City",
+"at": [
+40.678,
+-73.944
+],
+"e": [
+[
+"Spider-Man: Into the Spider-Verse",
+"",
+"Miles lives with his parents and starts at Brooklyn Visions Academy."
+],
+[
+"Spider-Man: Across the Spider-Verse",
+"",
+"Miles balances school, his parents and being Spider-Man, until Gwen comes back."
+]
+]
+},
+{
+"id": "collider",
+"n": "Kingpin's collider",
+"r": "Under the city",
+"at": [
+40.7,
+-73.99
+],
+"e": [
+[
+"Spider-Man: Into the Spider-Verse",
+"",
+"Miles watches his world's Peter Parker die, and the collider pulls in Spider-People from other worlds."
+]
+]
+},
+{
+"id": "may",
+"n": "Aunt May's house",
+"r": "Queens",
+"at": [
+40.72,
+-73.845
+],
+"e": [
+[
+"Spider-Man: Into the Spider-Verse",
+"",
+"The Spider-People gather in Aunt May's basement."
+]
+]
+}
+]
+},
+"sony": {
+"n": "Eddie Brock's Earth",
+"map": "earth",
+"places": [
+{
+"id": "sf",
+"n": "San Francisco",
+"r": "California",
+"at": [
+37.77,
+-122.42
+],
+"e": [
+[
+"Venom",
+"Life Foundation",
+"Eddie bonds with the symbiote inside the Life Foundation's lab."
+],
+[
+"Venom: Let There Be Carnage",
+"San Quentin",
+"Carnage breaks out during Cletus Kasady's execution."
+],
+[
+"Venom: Let There Be Carnage",
+"Grace Cathedral",
+"Cletus and Frances take hostages for their wedding, and the cathedral comes down."
+]
+]
+},
+{
+"id": "miri",
+"n": "Miri",
+"r": "Malaysia",
+"at": [
+4.4,
+113.99
+],
+"e": [
+[
+"Venom",
+"",
+"A probe carrying symbiotes crashes, and one of them, Riot, starts jumping from body to body."
+]
+]
+},
+{
+"id": "mexico",
+"n": "Mexico",
+"r": "North America",
+"at": [
+23.6,
+-102.5
+],
+"e": [
+[
+"Venom: The Last Dance",
+"",
+"Eddie and Venom hide out in a bar, and Venom leaves a piece of himself behind."
+]
+]
+},
+{
+"id": "vegas",
+"n": "Las Vegas",
+"r": "Nevada",
+"at": [
+36.17,
+-115.14
+],
+"e": [
+[
+"Venom: The Last Dance",
+"",
+"Eddie rides in with a hippie family and finds Mrs. Chen."
+]
+]
+},
+{
+"id": "area51",
+"n": "Area 51",
+"r": "Nevada",
+"at": [
+37.24,
+-115.81
+],
+"e": [
+[
+"Venom: The Last Dance",
+"",
+"Imperium studies captured symbiotes, and Venom gives his life to stop the Xenophages."
+]
+]
+},
+{
+"id": "ny",
+"n": "New York",
+"r": "New York City",
+"at": [
+40.71,
+-74.0
+],
+"e": [
+[
+"Morbius",
+"",
+"Michael Morbius becomes a doctor, and comes back a living vampire."
+],
+[
+"Madame Web",
+"",
+"Paramedic Cassie Webb starts seeing the future and saves three girls from Ezekiel Sims."
+],
+[
+"Venom: The Last Dance",
+"Statue of Liberty",
+"Eddie visits the statue to remember Venom."
+]
+]
+},
+{
+"id": "greece",
+"n": "Greece",
+"r": "Europe",
+"at": [
+37.98,
+23.73
+],
+"e": [
+[
+"Morbius",
+"",
+"Young Michael meets Lucien, whom he renames Milo, in a hospital for their blood disease."
+]
+]
+},
+{
+"id": "peru",
+"n": "Peru",
+"r": "The Amazon",
+"at": [
+-10.5,
+-74.0
+],
+"e": [
+[
+"Madame Web",
+"1973",
+"Constance Webb's team finds a rare spider, and Ezekiel betrays them."
+],
+[
+"Madame Web",
+"",
+"Cassie returns to learn what her mother was looking for."
+]
+]
+},
+{
+"id": "ghana",
+"n": "Ghana",
+"r": "West Africa",
+"at": [
+7.95,
+-1.02
+],
+"e": [
+[
+"Kraven the Hunter",
+"",
+"Young Sergei is mauled by a lion, and Calypso's potion saves him."
+]
+]
+},
+{
+"id": "russia",
+"n": "Russia",
+"r": "Europe and Asia",
+"at": [
+55.75,
+37.62
+],
+"e": [
+[
+"Kraven the Hunter",
+"",
+"Sergei hides at his late mother's animal sanctuary, and later kills an arms trafficker inside a prison."
+]
+]
+},
+{
+"id": "london",
+"n": "London",
+"r": "England",
+"at": [
+51.5,
+-0.12
+],
+"e": [
+[
+"Kraven the Hunter",
+"",
+"Kraven reunites with his brother Dmitri, who is taken soon after."
+]
+]
+},
+{
+"id": "turkey",
+"n": "Turkey",
+"r": "Europe and Asia",
+"at": [
+39.0,
+35.0
+],
+"e": [
+[
+"Kraven the Hunter",
+"",
+"Aleksei lures Kraven to a monastery for an ambush."
+]
+]
+}
+]
+},
+"pruned": {
+"n": "The pruned timelines",
+"map": "earth",
+"places": [
+{
+"id": "ny",
+"n": "New York",
+"r": "Several timelines",
+"at": [
+40.71,
+-74.0
+],
+"e": [
+[
+"Daredevil (2003)",
+"Hell's Kitchen",
+"Matt Murdock is a lawyer by day and Daredevil by night."
+],
+[
+"Fantastic Four (2005)",
+"",
+"The Four save people on the Brooklyn Bridge and become celebrities."
+],
+[
+"Fantastic Four: Rise of the Silver Surfer",
+"",
+"The Silver Surfer interrupts Reed and Sue's wedding."
+],
+[
+"Moon Girl and Devil Dinosaur",
+"Lower East Side",
+"Lunella Lafayette brings a red Tyrannosaurus through a time portal."
+]
+]
+},
+{
+"id": "london",
+"n": "London",
+"r": "England",
+"at": [
+51.5,
+-0.12
+],
+"e": [
+[
+"Fantastic Four: Rise of the Silver Surfer",
+"",
+"The Surfer's strike drains the River Thames."
+]
+]
+},
+{
+"id": "greenland",
+"n": "Greenland",
+"r": "Russell Glacier",
+"at": [
+67.1,
+-50.0
+],
+"e": [
+[
+"Fantastic Four: Rise of the Silver Surfer",
+"",
+"The Surfer strikes down Doom on a glacier."
+]
+]
+},
+{
+"id": "siberia",
+"n": "Siberia",
+"r": "Russia",
+"at": [
+61.0,
+96.0
+],
+"e": [
+[
+"Fantastic Four: Rise of the Silver Surfer",
+"",
+"The army holds the weakened Surfer prisoner."
+]
+]
+},
+{
+"id": "shanghai",
+"n": "Shanghai",
+"r": "China",
+"at": [
+31.23,
+121.47
+],
+"e": [
+[
+"Fantastic Four: Rise of the Silver Surfer",
+"",
+"The Four face Doom, and Johnny brings him down."
+]
+]
+},
+{
+"id": "japan",
+"n": "Japan",
+"r": "Asia",
+"at": [
+35.0,
+135.76
+],
+"e": [
+[
+"Fantastic Four: Rise of the Silver Surfer",
+"",
+"Reed and Sue finally get married."
+]
+]
+},
+{
+"id": "centralam",
+"n": "Central America",
+"r": "North America",
+"at": [
+14.6,
+-90.5
+],
+"e": [
+[
+"Fantastic Four (2015)",
+"",
+"Reed hides here after escaping the government."
+]
+]
+},
+{
+"id": "tampa",
+"n": "Tampa",
+"r": "Florida",
+"at": [
+27.95,
+-82.46
+],
+"e": [
+[
+"The Punisher (2004)",
+"",
+"Frank Castle tears down crime boss Howard Saint's empire."
+]
+]
+},
+{
+"id": "pr",
+"n": "Puerto Rico",
+"r": "Caribbean",
+"at": [
+18.2,
+-66.5
+],
+"e": [
+[
+"The Punisher (2004)",
+"",
+"Frank's family is murdered at a reunion."
+]
+]
+},
+{
+"id": "bladecity",
+"n": "Blade's city",
+"r": "Unnamed, United States",
+"at": [
+39.0,
+-98.0
+],
+"e": [
+[
+"Blade",
+"",
+"Blade hunts vampires with Whistler and stops Deacon Frost."
+],
+[
+"Blade: Trinity",
+"",
+"Blade is framed for murder and joins the Nightstalkers."
+]
+]
+},
+{
+"id": "prague",
+"n": "Prague",
+"r": "Czech Republic",
+"at": [
+50.08,
+14.43
+],
+"e": [
+[
+"Blade II",
+"",
+"Blade leads the vampires' Bloodpack against the Reapers."
+]
+]
+},
+{
+"id": "syria",
+"n": "The Syrian Desert",
+"r": "Syria",
+"at": [
+34.8,
+38.5
+],
+"e": [
+[
+"Blade: Trinity",
+"",
+"Vampires dig up Dracula's tomb."
+]
+]
+},
+{
+"id": "hawaii",
+"n": "Hawaii",
+"r": "Oahu",
+"at": [
+21.3,
+-157.86
+],
+"e": [
+[
+"Inhumans",
+"",
+"Black Bolt's family flees Attilan on the Moon and lands scattered across Oahu."
+]
+]
+},
+{
+"id": "la",
+"n": "Los Angeles",
+"r": "California",
+"at": [
+34.05,
+-118.24
+],
+"e": [
+[
+"Runaways S1–S2",
+"",
+"Six teens learn their parents are PRIDE and run away together."
+],
+[
+"Runaways S3",
+"",
+"The Runaways take on Morgan le Fay."
+]
+]
+},
+{
+"id": "neworleans",
+"n": "New Orleans",
+"r": "Louisiana",
+"at": [
+29.95,
+-90.07
+],
+"e": [
+[
+"Cloak & Dagger",
+"",
+"Tyrone and Tandy gain powers of darkness and light and fight the city's corruption."
+]
+]
+},
+{
+"id": "portland",
+"n": "Portland",
+"r": "Oregon",
+"at": [
+45.52,
+-122.68
+],
+"e": [
+[
+"Helstrom",
+"",
+"Daimon Helstrom teaches ethics and hunts demons."
+]
+]
+},
+{
+"id": "sf",
+"n": "San Francisco",
+"r": "California",
+"at": [
+37.77,
+-122.42
+],
+"e": [
+[
+"Helstrom",
+"",
+"Ana Helstrom runs an auction house as cover while she hunts killers."
+]
+]
+}
+]
+}
+};
 
 const ATL_CITY = {
   ny: { n: "New York", b: [-74.25, 40.5, -73.66, 40.9], land: "0,3993,44,7,64,0,119,-28,180,-67,180,-17,108,-85,180,-84,144,-68,72,0,72,17,324,-219,468,-473,-72,-118,-108,-85,-36,-118,36,-34,0,-67,-36,-34,-72,-17,-144,68,-108,50,-180,51,-288,-51,-144,-50,-144,50,-72,102,-36,152,-36,270,-36,152,-36,101,-144,68,-144,50,-72,85,36,118,0,118,-108,34,-11,15,0,107;0,3376,11,-12,144,-33,144,-51,36,-203,72,-422,180,-152,108,-34,180,-101,108,-17,108,-118,72,-152,72,-118,144,-135,72,118,-324,473,-36,118,108,17,180,-51,144,-50,72,-152,180,-169,252,-135,144,-135,36,-136,72,-151,36,-85,36,-152,72,-152,144,-169,396,-608,203,-409,-3166,0,0,3376;2099,2807,108,135,252,85,72,84,-36,51,-108,50,72,85,144,17,468,-68,108,-17,72,-67,288,0,36,67,144,-50,-36,-186,-108,-135,0,-101,108,-68,36,-51,108,-33,144,-34,216,-51,144,17,180,84,180,85,108,67,0,34,-72,85,-108,101,-612,203,-900,253,0,135,432,-135,828,-287,468,-51,144,34,432,34,489,-7,0,-120,-489,-8,-36,-152,180,-102,252,-50,93,54,0,-2101,-57,-81,-72,-186,-324,-101,-144,17,-108,118,-36,101,324,102,36,118,-36,118,-144,51,-72,-68,-72,-118,-108,-101,-144,17,-72,219,144,186,-72,202,-216,-202,-468,-51,-360,203,-108,-68,-144,34,-216,-84,-216,152,-288,304,-36,185,-72,152,-108,34,-108,51,-72,50,-36,51,-144,118,36,135,-108,152,-144,102,-36,202;2315,2014,180,-51,252,-101,36,-136,0,-135,252,-371,144,-186,-72,-169,0,-152,108,-152,108,-202,0,-102,-108,-33,-36,84,-72,152,-468,760,-180,219,-72,254,-72,321;3179,815,36,135,360,17,252,-85,360,17,324,-34,-72,-135,-144,-118,36,-236,36,-85,144,-17,108,0,36,-33,72,-186,52,-55,-1424,0,-68,139,72,51,36,118,-36,118,-108,220,-72,101,0,68;5843,2959,57,14,0,-41,-57,27", spots: {"Brooklyn":[40.678,-73.944],"Times Square":[40.758,-73.9855],"Flushing Meadows, Queens":[40.7397,-73.8408],"Harlem":[40.8116,-73.9465],"Midtown":[40.7531,-73.9765],"Hell's Kitchen":[40.7638,-73.9918],"Midland Circle":[40.7155,-73.997],"Queens":[40.7181,-73.8448],"Staten Island Ferry":[40.668,-74.04],"Coney Island":[40.5755,-73.9707],"Manhattan":[40.7831,-73.9712],"Greenwich Village":[40.7292,-74.0003],"Statue of Liberty":[40.6892,-74.0445],"Rockefeller Center":[40.7587,-73.9787],"Jersey City":[40.7178,-74.0431],"City Hall":[40.7128,-74.006],"Courthouse":[40.7142,-74.0019]} },
@@ -2576,8 +3987,8 @@ const ATL_CITY = {
 /* ---------- Atlas: places light up as you watch. Earth (and its cities), the cosmos, and what lies beyond ---------- */
 const ATL_ORDER = (() => { const o = {}; let i = 0; [...DATA.chapters, ...DATA.chars].forEach(c => c.items.forEach(it => { if (!(it.t in o)) o[it.t] = i++; })); return o; })();
 const ATL_BOX = (() => { const m = {}; [...DATA.chapters, ...DATA.chars].forEach(b => b.items.forEach(it => (m[it.t] = m[it.t] || []).push(b))); return m; })();
-const ATL_VIEWS = [["earth", "Earth"], ["cosmos", "Cosmos"], ["beyond", "Beyond"]];
-let atlView = "earth", atlCity = null, atlSel = null, atlPath = null, atlRaf = 0, atlT = null, atlOpen = false;
+const ATL_VIEWS = [["earth", "Earth"], ["cosmos", "Cosmos"], ["beyond", "Beyond"], ["multi", "Multiverse"]];
+let atlView = "earth", atlCity = null, atlUni = null, atlSel = null, atlPath = null, atlRaf = 0, atlT = null, atlOpen = false;
 const atlTs = {}, atlSky = {}, atlCityPath = {};
 // the timelines split some shows into seasons; in the boxes they are one checkmark for the whole show
 const ATL_TLSEASONS = (() => { const m = {}; [["tl::", DATA.timeline], ["tr::", DATA.timelineRelease]].forEach(([pre, L]) => (L || []).forEach(e => {
@@ -2587,7 +3998,7 @@ const atlTl = t => !!state.checks["tl::" + t] || !!state.checks["tr::" + t];
 const atlSeenT = t => atlTl(t) || Object.values(ATL_TLSEASONS[t] || {}).some(ks => ks.every(k => !!state.checks[k])) || (ATL_BOX[t] || []).some(b => !!state.checks[ck(b, t)]);
 // an Atlas entry that belongs to one season also lights up when just that season is checked
 const atlEvSeen = e => atlSeenT(e[0]) || (!!e[3] && atlTl(e[3]));
-const atlLit = p => !!p.home || (p.e || []).some(e => atlEvSeen(e));
+const atlLit = p => !!p.home || (p.uni ? ATLAS_UNI[p.uni].places.some(atlLit) : (p.e || []).some(e => atlEvSeen(e)));   // a universe lights up once anything in it has
 const atlOpenV = v => v === "earth" || ATLAS[v].some(p => !p.home && atlLit(p));
 const atlNew = v => ATLAS[v].some(p => !p.home && atlLit(p) && !(state.atlas || {})[p.id]);
 const atlSpot = sub => String(sub || "").replace(/,\s*(1[0-9]{3}|20[0-9]{2})$/, "");   // "Midtown, 2012" happens in Midtown
@@ -2597,15 +4008,18 @@ function atlCityGeo(id) {
   const C = ATL_CITY[id], [x0, y0, x1, y1] = C.b, cs = Math.cos((y0 + y1) / 2 * Math.PI / 180), S = 1000 / ((x1 - x0) * cs);
   return { C, S, cs, x0, y1, h: (y1 - y0) * S, xy: (lat, lon) => [(lon - x0) * cs * S, (y1 - lat) * S] };
 }
-const atlKey = () => atlView === "city" ? "city:" + atlCity : atlView;
-const atlBounds = () => atlView === "earth" ? [0, 15, 360, 148] : atlView === "city" ? [0, 0, 1000, atlCityGeo(atlCity).h] : [0, 0, 1000, 1000];
+// what kind of map is on screen: the Earth, a city close-up, or open sky. Another universe uses an Earth or a city map of its own
+const atlGeo = () => atlView === "earth" ? ["earth"] : atlView === "city" ? ["city", atlCity] : atlView === "uni" ? (ATLAS_UNI[atlUni].map === "earth" ? ["earth"] : ["city", ATLAS_UNI[atlUni].map]) : ["sky"];
+const atlKey = () => atlView === "city" ? "city:" + atlCity : atlView === "uni" ? "uni:" + atlUni : atlView;
+const atlBounds = () => { const g = atlGeo(); return g[0] === "earth" ? [0, 15, 360, 148] : g[0] === "city" ? [0, 0, 1000, atlCityGeo(g[1]).h] : [0, 0, 1000, 1000]; };
 function atlPlaces() {   // what can be pinned in the view you're looking at
+  if (atlView === "uni") return ATLAS_UNI[atlUni].places;
   if (atlView !== "city") return ATLAS[atlView];
   const G = atlCityGeo(atlCity), host = ATLAS.earth.find(p => p.city === atlCity), spots = {};
   host.e.forEach(e => { const k = atlSpot(e[1]) || G.C.n; (spots[k] = spots[k] || { id: k, n: k, r: G.C.n, at: G.C.spots[k] || [(G.C.b[1] + G.C.b[3]) / 2, (G.C.b[0] + G.C.b[2]) / 2], e: [] }).e.push(e); });
   return Object.values(spots);
 }
-const atlXY = p => atlView === "earth" ? [p.at[1] + 180, 90 - p.at[0]] : atlView === "city" ? atlCityGeo(atlCity).xy(p.at[0], p.at[1]) : p.at;
+const atlXY = p => { const g = atlGeo(); return g[0] === "earth" ? [p.at[1] + 180, 90 - p.at[0]] : g[0] === "city" ? atlCityGeo(g[1]).xy(p.at[0], p.at[1]) : p.at; };
 function atlLand() {   // a coastline that crosses the date line is cut there and closed along the map's edge
   if (atlPath) return atlPath; const P = new Path2D();
   LAND.split(";").forEach(r => { const a = r.split(",").map(Number), pts = []; let x = 0, y = 0;
@@ -2625,15 +4039,15 @@ function atlCityLand(id) {
   return atlCityPath[id] = P;
 }
 function atlStars(v) {
-  if (atlSky[v]) return atlSky[v]; let s = v === "cosmos" ? 7 : 11; const r = () => (s = s * 16807 % 2147483647) / 2147483647;
+  if (atlSky[v]) return atlSky[v]; let s = v === "cosmos" ? 7 : v === "multi" ? 23 : 11; const r = () => (s = s * 16807 % 2147483647) / 2147483647;
   return atlSky[v] = Array.from({ length: 260 }, () => [r() * 1000, r() * 1000, r() * .8 + .4, r() * .5 + .15]);
 }
 function atlKs(map) {
   const W = map.clientWidth, H = map.clientHeight, [x0, y0, x1, y1] = atlBounds();
-  const fit = Math.min(W / (x1 - x0), H / (y1 - y0)); return { W, H, fit, max: fit * (atlView === "earth" ? 18 : atlView === "city" ? 8 : 3.5) };
+  const fit = Math.min(W / (x1 - x0), H / (y1 - y0)); return { W, H, fit, max: fit * (atlGeo()[0] === "earth" ? 18 : atlGeo()[0] === "city" ? 8 : atlView === "multi" ? 5 : 3.5) };
 }
 function atlClamp(map, T) {
-  const { W, H, fit, max } = atlKs(map), [x0, y0, x1, y1] = atlBounds(), pad = atlView === "earth" ? 0 : 40;
+  const { W, H, fit, max } = atlKs(map), [x0, y0, x1, y1] = atlBounds(), pad = atlGeo()[0] === "earth" ? 0 : 40;
   T.k = Math.max(fit, Math.min(max, T.k)); const vw = W / T.k, vh = H / T.k;
   T.x = vw >= x1 - x0 ? (x0 + x1) / 2 - vw / 2 : Math.max(x0 - pad, Math.min(x1 + pad - vw, T.x));
   T.y = vh >= y1 - y0 ? (y0 + y1) / 2 - vh / 2 : Math.max(y0 - pad, Math.min(y1 + pad - vh, T.y));
@@ -2661,23 +4075,24 @@ function atlDraw() {
   if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
   const g = cv.getContext("2d"); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height);
   g.setTransform(dpr * T.k, 0, 0, dpr * T.k, -T.x * T.k * dpr, -T.y * T.k * dpr); const px = 1 / T.k;
-  if (atlView === "earth" || atlView === "city") {
-    const [x0, y0, x1, y1] = atlBounds(), step = atlView === "earth" ? 15 : 50;
+  const geo = atlGeo();
+  if (geo[0] !== "sky") {
+    const [x0, y0, x1, y1] = atlBounds(), step = geo[0] === "earth" ? 15 : 50;
     g.lineWidth = px; g.strokeStyle = "rgba(90,140,210,.13)"; g.beginPath();
     for (let x = x0; x <= x1 + .01; x += step) { g.moveTo(x, y0); g.lineTo(x, y1); }
     for (let y = y0; y <= y1 + .01; y += step) { g.moveTo(x0, y); g.lineTo(x1, y); }
-    g.stroke(); const P = atlView === "earth" ? atlLand() : atlCityLand(atlCity);
+    g.stroke(); const P = geo[0] === "earth" ? atlLand() : atlCityLand(geo[1]);
     g.fillStyle = "rgba(60,130,220,.15)"; g.fill(P); g.lineWidth = 1.1 * px; g.strokeStyle = "rgba(125,198,255,.75)"; g.stroke(P);
-    const rv = atlView === "city" && ATL_CITY[atlCity].river;
-    if (rv) { const G = atlCityGeo(atlCity); g.beginPath(); rv.forEach(([la, lo], i) => { const [X, Y] = G.xy(la, lo); i ? g.lineTo(X, Y) : g.moveTo(X, Y); });
+    const rv = geo[0] === "city" && ATL_CITY[geo[1]].river;
+    if (rv) { const G = atlCityGeo(geo[1]); g.beginPath(); rv.forEach(([la, lo], i) => { const [X, Y] = G.xy(la, lo); i ? g.lineTo(X, Y) : g.moveTo(X, Y); });
       g.lineJoin = g.lineCap = "round"; g.lineWidth = Math.max(16, 5 * px); g.strokeStyle = "rgba(125,198,255,.75)"; g.stroke(); g.lineWidth = Math.max(16, 5 * px) - 2.2 * px; g.strokeStyle = "#0B1019"; g.stroke(); }
   } else {
-    const c = atlView === "cosmos" ? [500, 540] : [500, 470], col = atlView === "cosmos" ? "90,140,210" : "160,130,255";
+    const c = atlView === "cosmos" ? [500, 540] : atlView === "multi" ? [500, 500] : [500, 470], col = atlView === "cosmos" ? "90,140,210" : atlView === "multi" ? "235,185,105" : "160,130,255";
     atlStars(atlView).forEach(([x, y, s, a]) => { g.fillStyle = `rgba(210,225,255,${a})`; g.fillRect(x, y, s * 1.4 * px, s * 1.4 * px); });
     g.lineWidth = px; g.strokeStyle = `rgba(${col},.2)`; g.setLineDash([4 * px, 6 * px]);
     [130, 260, 390, 520].forEach(r => { g.beginPath(); g.arc(c[0], c[1], r, 0, Math.PI * 2); g.stroke(); });
     g.setLineDash([]);
-    if (atlView === "beyond") { g.strokeStyle = `rgba(${col},.1)`; g.beginPath(); for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; g.moveTo(c[0] + Math.cos(a) * 60, c[1] + Math.sin(a) * 60); g.lineTo(c[0] + Math.cos(a) * 700, c[1] + Math.sin(a) * 700); } g.stroke(); }
+    if (atlView !== "cosmos") { g.strokeStyle = `rgba(${col},.1)`; g.beginPath(); for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; g.moveTo(c[0] + Math.cos(a) * 60, c[1] + Math.sin(a) * 60); g.lineTo(c[0] + Math.cos(a) * 700, c[1] + Math.sin(a) * 700); } g.stroke(); }
   }
   atlPlace(map, W, H);
 }
@@ -2691,7 +4106,7 @@ function atlPlace(map, W, H) {   // move the pins, then show as many names as fi
     p.el.classList.toggle("lft", left); p.el.classList.toggle("nolab", !show); if (show) used.push([...r, p]); });
 }
 function atlPins(map) {   // only places you've charted are on the map; the rest stay off it entirely
-  const seen = state.atlas = state.atlas || {}, city = atlView === "city", key = p => city ? "city:" + atlCity + ":" + p.id : p.id, L = atlPlaces().filter(atlLit); let d = 0;
+  const seen = state.atlas = state.atlas || {}, key = p => atlView === "city" ? "city:" + atlCity + ":" + p.id : atlView === "uni" ? "uni:" + atlUni + ":" + p.id : p.id, L = atlPlaces().filter(atlLit); let d = 0;
   const news = L.filter(p => !p.home && !seen[key(p)]), step = Math.min(.22, 2.4 / Math.max(1, news.length));   // a big batch still lands within a few seconds
   map.querySelector(".atl-pins").innerHTML = L.map(p => { const fresh = !p.home && !seen[key(p)];
     return `<button type="button" class="atl-pin${p.home ? " home" : ""}${fresh ? " new" : ""}" data-p="${esc(p.id)}"${fresh ? ` style="--d:${(d++ * step).toFixed(2)}s"` : ""} aria-label="${esc(p.n)}"><i></i><span>${esc(p.n)}</span></button>`; }).join("");
@@ -2714,11 +4129,12 @@ function atlSelect(map, id, fromList) {
   const p = atlPlaces().find(q => q.id === id), sh = document.querySelector(".atl-low .atl-sheet");
   if (!p) return; if (p.home) { haptic(10); atlSwitch("earth"); return; }
   if (p.city) { haptic(10); atlSwitch("city", p.city); return; }   // places with a city map open straight into it
+  if (p.uni) { haptic(10); atlSwitch("uni", p.uni); return; }      // and other universes open their own map
   haptic(10); atlSel = id; sh.innerHTML = atlSheet(p); sh.hidden = false; sh.scrollTop = 0;
   map.querySelectorAll(".atl-pin").forEach(b => b.classList.toggle("sel", b.dataset.p === id));
   const pin = map._pins.find(q => q.id === id), H = map.clientHeight, W = map.clientWidth; if (!pin) return;
   if (fromList || pin.sy < 24 || pin.sy > H - 24 || pin.sx < 24 || pin.sx > W - 60) {   // from the list, fly to it; close in on a crowded Earth
-    const k = fromList && atlView === "earth" ? Math.max(atlT.k, atlKs(map).fit * 3.2) : atlT.k; atlTo(map, { k, x: pin.x - W / 2 / k, y: pin.y - H / 2 / k }, 460); }
+    const k = fromList && atlGeo()[0] === "earth" ? Math.max(atlT.k, atlKs(map).fit * 3.2) : atlT.k; atlTo(map, { k, x: pin.x - W / 2 / k, y: pin.y - H / 2 / k }, 460); }
   else atlQueue();
 }
 function atlClose(map) {
@@ -2726,35 +4142,36 @@ function atlClose(map) {
   map.querySelectorAll(".atl-pin.sel").forEach(b => b.classList.remove("sel")); atlQueue();
 }
 const ATL_GROUPS = {
-  earth: [["North America", "ny westview lehigh compound dc baltimore culver cambridge chicago ohio missouri tennessee alabama oklahoma miami louisiana nm la sf"], ["Central America and the Caribbean", "haiti talokan"], ["South America", "rio amazon"],
-    ["Europe", "london edinburgh norway stuttgart leipzig berlin prague venice italy pompeii vienna budapest sokovia bucharest riga greece"], ["Africa", "lagos egypt wakanda johannesburg"],
-    ["Asia", "siberia mesopotamia afghanistan karachi mumbai kolkata kathmandu talo hongkong madripoor kl seoul busan tokyo"], ["Oceania", "australia"], ["Oceans and poles", "arctic indianocean"]],
+  earth: [["North America", "manitowoc area51 ny westview lehigh compound dc baltimore culver cambridge chicago ohio missouri tennessee alabama oklahoma miami louisiana nm la sf"], ["Central America and the Caribbean", "sanjuan haiti talokan"], ["South America", "bogota rio amazon"],
+    ["Europe", "malta england london edinburgh norway stuttgart leipzig berlin prague venice italy pompeii vienna budapest sokovia bucharest riga greece"], ["Africa", "morocco lagos egypt wakanda johannesburg"],
+    ["Asia", "siberia mesopotamia afghanistan karachi mumbai kolkata kathmandu talo hongkong madripoor kl seoul busan tokyo"], ["Oceania", "tahiti australia"], ["Oceans and poles", "arctic indianocean"]],
   cosmos: [["Near Earth", "saber"], ["The Nine Realms", "asgard jotunheim svartalfheim muspelheim nidavellir"], ["Across the galaxy", "*"]],
-  beyond: [["Other dimensions", "quantum mirror dark kunlun duat shadow eternity witches"], ["Outside time", "tva citadel void"], ["Other realities", "*"]] };
+  beyond: [["Other dimensions", "quantum mirror dark kunlun duat shadow eternity witches framework"], ["Outside time", "tva citadel void future"]],
+  multi: [["Outside every reality", "watcher"], ["Other Earths", "e838 e828"], ["Other universes", "u-fox u-animx u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-pruned"], ["What If…? realities", "*"]] };
 function atlList() {
   const L = atlPlaces().filter(p => !p.home), lit = L.filter(atlLit).map(p => [p, p.e.filter(e => atlEvSeen(e)).length]).sort((a, b) => b[1] - a[1] || a[0].n.localeCompare(b[0].n));
   const [n, t] = atlCount(), left = atlView === "city" ? 0 : L.length - lit.length;
   const row = p => `<button type="button" class="atl-row" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small></button>`, abc = (a, b) => a.n.replace(/^The /, "").localeCompare(b.n.replace(/^The /, ""));
-  if (atlView === "city") return `<div class="atl-lh">Charted in ${esc(ATL_CITY[atlCity].n)}</div>${lit.map(x => x[0]).sort(abc).map(row).join("")}`;
+  if (atlView === "city" || atlView === "uni") return `<div class="atl-lh">Charted in ${esc(atlView === "city" ? ATL_CITY[atlCity].n : ATLAS_UNI[atlUni].n)}</div>${lit.map(x => x[0]).sort(abc).map(row).join("")}`;
   const G = ATL_GROUPS[atlView], named = new Set(G.flatMap(g => g[1].split(" ")));
   return G.map(([h, ids]) => { const L = lit.map(x => x[0]).filter(p => ids === "*" ? !named.has(p.id) : ids.split(" ").includes(p.id)).sort(abc);
     return L.length ? `<div class="atl-lh">${esc(h)}</div>${L.map(row).join("")}` : ""; }).join("");
 }
-function atlSwitch(v, city) {
-  if (v !== "city" && !atlOpenV(v)) { haptic(8); toast("No data yet. Keep watching to chart it.", null, false, null, 1500); return; }
-  atlView = v; atlCity = city || null; atlSel = null; renderAtlas();
+function atlSwitch(v, id) {
+  if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("No data yet. Keep watching to chart it.", null, false, null, 1500); return; }
+  atlView = v; atlCity = v === "city" ? id : null; atlUni = v === "uni" ? id : null; atlSel = null; renderAtlas();
 }
 function renderAtlas() {
-  const fv = document.getElementById("atlView"), [n, t] = atlCount(), city = atlView === "city";
-  document.getElementById("atlTabs").innerHTML = ATL_VIEWS.map(([v, l]) => { const o = atlOpenV(v), on = v === atlView || (city && v === "earth");
+  const fv = document.getElementById("atlView"), city = atlView === "city", uni = atlView === "uni", geo = atlGeo();
+  document.getElementById("atlTabs").innerHTML = ATL_VIEWS.map(([v, l]) => { const o = atlOpenV(v), on = v === atlView || (city && v === "earth") || (uni && v === "multi");
     return `<button type="button" role="tab" data-atlv="${v}" aria-selected="${on}" class="${o ? "" : "lk"}${o && !on && atlNew(v) ? " nw" : ""}">${o ? l : "???"}</button>`; }).join("");
   fv.innerHTML = `<div class="atl">
-    <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : ""}</div>
-    <div class="atl-map${atlView === "earth" ? "" : " sky " + atlView}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
+    <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : uni ? `<button type="button" class="atl-crumb" data-atlv="multi"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Multiverse</button><span class="atl-cname">${esc(ATLAS_UNI[atlUni].n)}</span>` : ""}</div>
+    <div class="atl-map${geo[0] === "sky" ? " sky " + atlView : uni ? " uni" : ""}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
       <div class="atl-zoom"><button type="button" data-atlz="1" aria-label="Zoom in">+</button><button type="button" data-atlz="-1" aria-label="Zoom out">−</button><button type="button" data-atlz="0" aria-label="Show everything">Fit</button></div></div>
     <div class="atl-low"><div class="atl-list">${atlList()}</div><div class="atl-sheet" hidden></div></div></div>`;
   const map = document.getElementById("atlMap"), W = fv.clientWidth, room = fv.clientHeight - fv.querySelector(".atl-head").offsetHeight;
-  const want = atlView === "earth" ? Math.round(133 * W / 360) + 24 : city ? Math.round(W * atlCityGeo(atlCity).h / 1000) : Math.round(W * .92);
+  const want = geo[0] === "earth" ? Math.round(133 * W / 360) + 24 : geo[0] === "city" ? Math.round(W * atlCityGeo(geo[1]).h / 1000) : Math.round(W * .92);
   map.style.height = Math.max(200, Math.min(room - 150, want)) + "px";
   fv.querySelector(".atl-low").addEventListener("click", ev => {
     if (ev.target.closest(".atl-x")) { haptic(8); atlClose(map); return; }
@@ -2798,8 +4215,8 @@ function renderAtlas() {
 // anything you've since un-watched (unchecked, or reset) forgets it was charted, so it pings in again when it comes back
 function atlForget() {
   const A = state.atlas = state.atlas || {};
-  Object.keys(A).forEach(k => { const m = k.match(/^city:([^:]+):(.*)$/), host = m && ATLAS.earth.find(p => p.city === m[1]);
-    const lit = m ? !!host && host.e.some(e => (atlSpot(e[1]) || ATL_CITY[m[1]].n) === m[2] && atlEvSeen(e)) : Object.values(ATLAS).some(L => L.some(p => p.id === k && atlLit(p)));
+  Object.keys(A).forEach(k => { const m = k.match(/^city:([^:]+):(.*)$/), host = m && ATLAS.earth.find(p => p.city === m[1]), u = k.match(/^uni:([^:]+):(.*)$/);
+    const lit = m ? !!host && host.e.some(e => (atlSpot(e[1]) || ATL_CITY[m[1]].n) === m[2] && atlEvSeen(e)) : u ? !!ATLAS_UNI[u[1]] && ATLAS_UNI[u[1]].places.some(p => p.id === u[2] && atlLit(p)) : Object.values(ATLAS).some(L => L.some(p => p.id === k && atlLit(p)));
     if (!lit) delete A[k]; });
 }
 function openAtlas() {
@@ -2814,7 +4231,7 @@ function closeAtlas(fromHistory) {
   const b = document.getElementById("btnAtlas"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("atlBack").addEventListener("click", () => closeAtlas());
-document.addEventListener("click", ev => { const b = ev.target.closest("[data-atlv]"); if (!b || (b.getAttribute("aria-selected") === "true" && atlView !== "city")) return; haptic(8); atlSwitch(b.dataset.atlv); });
+document.addEventListener("click", ev => { const b = ev.target.closest("[data-atlv]"); if (!b || (b.getAttribute("aria-selected") === "true" && atlView !== "city" && atlView !== "uni")) return; haptic(8); atlSwitch(b.dataset.atlv); });
 window.addEventListener("resize", () => { const map = document.getElementById("atlMap"); if (atlOpen && map && atlT) { atlT = atlClamp(map, { ...atlT }); atlTs[atlKey()] = atlT; atlQueue(); } });
 
 const SAGA = {"kind":"chapter","rows":{"period":[["1942 to 2012","ch-1"],["1942 to 2014","ch-2"],["1942 to 2015","ch-3"],["1942 to 2016","ch-4"],["1942 to 2019","ch-5"],["1942 to 2023","ch-6"],["1942 to 2024","ch-7"],["5000 BC to 2026","ch-8"],["5000 BC to 2027","ch-10"],["5000 BC to 2027, and across the multiverse","ch-11"]]},"brief":"Across our world and far beyond it, extraordinary people are emerging. They are super soldiers, armored inventors, gods, sorcerers, spies and beings from other worlds. As the threat grows from city streets to the edges of the universe, they are the ones the world will call heroes.","story":[["ch-1","In 1942, a skinny kid from Brooklyn is chosen for a serum that makes him a super soldier, and he gives himself to the Arctic ice to save millions. Decades later, a weapons maker escapes a cave in a suit of armor and tells the world he's Iron Man, a scientist runs from the monster inside him, and a god is cast down to Earth. Nick Fury is watching all of them. When Loki opens the sky over New York, Fury loses Phil Coulson and gets what he wanted: six people who can barely share a room, fighting side by side. Thor takes Loki and the Tesseract home, and somewhere in the dark, the one who gave Loki his army smiles."],["ch-2","Thor's war follows him home to Asgard, where the Aether surfaces and his mother dies. Across the galaxy, a thief from Earth, an assassin, a raccoon, a tree and a man out for revenge steal an orb that turns out to hold another Infinity Stone,. Peter Quill meets his father, Ego, a living planet, and has to kill him, and Yondu dies saving Peter. Then, in 1995, a Kree soldier crash-lands in a Blockbuster, remembers she's Carol Danvers, and leaves a young S.H.I.E.L.D. agent named Nick Fury a pager and her old call sign, Avenger, which he types at the top of a new proposal."],["ch-3","Tony can't sleep after New York, and the terrorist called the Mandarin turns out to be an actor named Trevor Slattery. Steve learns S.H.I.E.L.D. has been HYDRA since the war, finds Bucky behind the Winter Soldier's mask and brings the agency down, with Fury faking his own death to help. In Hell's Kitchen, Matt Murdock exposes Wilson Fisk, and Jessica Jones kills Kilgrave. Then Tony builds Ultron to protect the world, Ultron decides the world should end, and Sokovia's capital falls from the sky. Vision is born, and the Avengers move upstate with a new roster and no one above them."],["ch-4","Thaddeus Ross arrives with the Sokovia Accords. Tony signs, Steve won't, and when Zemo frames Bucky, friends fight at a Leipzig airport and in a Siberian bunker until the shield is left on the floor. Others find their own way: Scott Lang shrinks into the fight, T'Challa takes the throne and opens Wakanda to the world, and Peter Parker learns he doesn't need Tony's suit to be Spider-Man. Natasha, now a fugitive, goes back to the family the Red Room gave her. In New York, Matt, Jessica, Luke and Danny stop the Hand beneath Midland Circle, and the building comes down on Matt."],["ch-5","Matt survived Midland Circle. Frank Castle hunts the men behind his family's murder, including his best friend, Billy Russo. Jessica finds her mother alive and as dangerous as she is, Luke wins Harlem from Bushmaster and ends up running Mariah's club, and Colleen Wing takes up the Iron Fist. Matt takes down Wilson Fisk a second time without killing him. Then Jessica turns in her own sister and leaves New York."],["ch-6","Stephen Strange loses his hands, finds Kamar-Taj and ends up guarding the Time Stone. Thor loses his hammer, his father and Asgard itself, and leaves with his people on a ship. Then Thanos comes for the stones, and the Avengers, still divided, can't stop him: he snaps his fingers, half of all life turns to dust, and Fury's last act is to page Carol Danvers. Five years later, Scott Lang climbs out of the Quantum Realm with a way back through time. The Avengers assemble once more, and it costs them Natasha on Vormir and Tony in the final battle, while Steve goes back to Peggy and hands his shield to Sam, and Thor leaves Earth with the Guardians. At Natasha's grave, Yelena is told who to blame."],["ch-7","Everyone who vanished is back, five years later. Wanda rewrites a New Jersey town into a sitcom to keep Vision, Sam decides whether he can carry Steve's shield, Peter loses May and asks Strange to make the world forget him, and Clint spends Christmas teaching Kate Bishop while Yelena comes for him. Far from Earth, a Loki who escaped with the Tesseract is arrested by the Time Variance Authority, and Sylvie kills He Who Remains at the end of time. The timeline branches, Strange runs from universe to universe with a girl who can cross them, and Wanda tears through all of them for her sons until a mountain falls on her."],["ch-8","Ten immortals who have quietly guided humanity for seven thousand years learn the Celestial who made them planned to hatch a new one from the Earth, and Sersi turns the newborn Celestial to stone. In San Francisco, a valet named Shaun turns out to be Shang-Chi, and he stops his father, the thousand-year-old leader of the Ten Rings, at the gates of a hidden village. Marc Spector and Steven Grant share a body and a god, and at a monster hunt, Jack Russell turns out to be a werewolf. Thor fights Gorr, who kills gods, and loses Jane but comes home with a daughter. The Guardians save Rocket from the High Evolutionary, and Peter Quill goes back to Earth to see his grandfather."],["ch-9","In Jersey City, Kamala Khan writes fan fiction about Captain Marvel until her great-grandmother's bangle gives her powers of her own. Jen Walters gets her cousin's blood and would rather practice law, Shuri loses T'Challa and becomes Black Panther, and Riri Williams builds a suit in her MIT dorm, then makes a deal with the devil to keep it. Nick Fury comes home after years in space to find the Skrulls he promised a home have turned against Earth, and it costs him Maria Hill and Talos. Carol, Monica and Kamala swap places every time they use their powers, until Monica is stranded in another universe and Kamala knocks on Kate Bishop's door. In Washington, the new director of the CIA, Valentina Allegra de Fontaine, has Everett Ross arrested for helping Wakanda."],["ch-10",null],["ch-11",null],["ch-beyond-the-mcu","Phil Coulson didn't stay dead. He leads a small S.H.I.E.L.D. team through HYDRA, the Inhumans and the end of the world, more than once, without the Avengers or the public ever hearing about it. Peggy Carter, back from the war, fights to be taken seriously at the SSR. Thor spends his time off sharing an Australian flat with an office worker named Darryl. And Uatu, the Watcher, keeps an eye on the worlds where it went differently: Peggy takes the serum, T'Challa joins the Ravagers, Ultron wins, and the Avengers become the walking dead. When Ultron threatens all of them at once, Uatu breaks his oath to stop him."],["ch-the-spider-verse",null],["ch-the-fox-men","Charles Xavier runs a school for mutants, people born with powers and feared for it, and his oldest friend, Erik Lehnsherr, becomes Magneto. The X-Men fight Stryker, the Brotherhood and the Sentinels, send Logan back to 1973 to rewrite their future, and lose Jean, then Charles, then Logan, who dies protecting a girl with his claws. Deadpool joins them on his own terms. In an animated world, the same team loses Xavier, fights on under Magneto and ends up scattered across time."],["ch-pruned-timelines","Other versions of these heroes lived in worlds that ran beside this one. A Fantastic Four fought Doom and met the Silver Surfer, Blade hunted vampires through three films, a blind lawyer in red loved and lost Elektra, and Frank Castle took his first revenge. Later, the Inhumans' royal family fled to Hawaii, a group of kids learned their parents were villains, and Cloak and Dagger found each other in New Orleans."]],"debrief":null};
