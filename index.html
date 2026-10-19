@@ -753,9 +753,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .gate[hidden]{ display:none; }
 .gate{ background:#05080D; }
 .gate canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
-.gate .gseal{ position:absolute; left:50%; top:40%; width:190px; height:190px; margin:-95px 0 0 -95px; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+.gate .gseal{ position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }   /* the whole screen: it says "Tap to initialize" */
 .gate .gseal:focus-visible{ outline:2px solid #8FE0FF; outline-offset:6px; }
-.fx-initline{ position:absolute; left:0; right:0; height:2px; margin-top:-1px; z-index:6; pointer-events:none; background:linear-gradient(90deg,rgba(143,224,255,0),rgba(200,240,255,.95),rgba(143,224,255,0)); box-shadow:0 0 10px rgba(143,224,255,.9); }
+body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the home page shows until the terminal has cleared and it starts initializing */
 .postcredits{ display:flex; align-items:center; justify-content:center; text-align:center; padding:44px 16px 8px; }
 .postcredits[hidden]{ display:none; }
 .postcredits p{ margin:0; font-family:'Anton','Impact',sans-serif; font-size:clamp(22px,4.4vw,38px); letter-spacing:2px; text-transform:uppercase; color:#FFFFFF; opacity:0; transition:opacity 2.4s ease; }
@@ -938,7 +938,7 @@ body{ padding-bottom:var(--dockh); }
 <body>
 <div class="gate" id="gate" hidden>
   <canvas aria-hidden="true"></canvas>
-  <button type="button" class="gseal" id="gateEnter" aria-label="Enter: tap the S.H.I.E.L.D. eagle to initialize"></button>
+  <button type="button" class="gseal" id="gateEnter" aria-label="Tap to initialize"></button>
 </div>
 <div class="wrap" id="app">
   <header class="mast">
@@ -7346,14 +7346,13 @@ if (!(window.claude && window.claude.use)) {
     });
   }
 }
-/* ---------- the front door: every time the app opens, a S.H.I.E.L.D. terminal powers on and the eagle traces itself in. The eagle is the way in:
-   tap it and the terminal boots, then clears away, and the home page itself initializes piece by piece ---------- */
+/* ---------- the front door, the very first time only (and after Reset everything): a S.H.I.E.L.D. terminal powers on and the eagle traces itself in.
+   Tap to initialize: the terminal boots, clears away, and the home page itself initializes piece by piece ---------- */
 const GATE = { run: 0, t0: 0, tap: null, skip: 0, done: false };
 const GATE_LOGO = () => { const g = document.getElementById("gate"); return [g.clientWidth / 2, Math.round(g.clientHeight * .4)]; };
 function showGate() {
   const g = document.getElementById("gate"); g.hidden = false; g.style.opacity = ""; document.body.style.overflow = "hidden";
   Object.assign(GATE, { run: GATE.run + 1, t0: performance.now(), tap: null, skip: 0, done: false });
-  const [, ly] = GATE_LOGO(); g.querySelector(".gseal").style.top = ly + "px";
   if (REDUCED) { gateFrame(2600); return; }
   const run = GATE.run, loop = () => { if (GATE.run !== run || g.hidden) return; gateFrame(performance.now() - GATE.t0 + GATE.skip); requestAnimationFrame(loop); }; requestAnimationFrame(loop);
 }
@@ -7396,11 +7395,10 @@ function gateFrame(t) {
   if (draw > 0) { c.setLineDash([GATE_EL * draw, GATE_EL]); c.strokeStyle = `rgba(${C},${1 - fill * .6})`; c.lineWidth = .5; c.shadowColor = `rgb(${C})`; c.shadowBlur = 8; c.stroke(GATE_EP); c.setLineDash([]); c.shadowBlur = 0; }
   if (scan > 0 && scan < 1) { c.save(); c.clip(GATE_EP, "evenodd"); const sy = scan * 70 - 3, sg = c.createLinearGradient(0, sy - 6, 0, sy + 2); sg.addColorStop(0, "rgba(143,224,255,0)"); sg.addColorStop(1, "rgba(220,245,255,.95)"); c.fillStyle = sg; c.fillRect(0, sy - 6, 64, 8); c.restore(); }
   c.restore();
-  c.textAlign = "center"; c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = "rgba(200,215,235,.75)";
-  const sub = ey + 32 * es + 22; c.fillText(gType("STRATEGIC HOMELAND INTERVENTION,", 2300, t, 60), cx, sub); c.fillText(gType("ENFORCEMENT AND LOGISTICS DIVISION", 2800, t, 60), cx, sub + 16);
-  if (tp == null && t > 3300) { c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},${.45 + .5 * breathe})`; c.fillText("TAP THE EAGLE TO INITIALIZE", cx, sub + 58); }
+  c.textAlign = "center"; const sub = ey + 32 * es + 22;
+  if (tp == null && t > 2700) { c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},${(.45 + .5 * breathe) * clamp01((t - 2700) / 400)})`; c.fillText("TAP TO INITIALIZE", cx, sub + 30); }
   // the boot log, once it's been tapped
-  if (tp != null) { const L0 = gateLog(), y0 = sub + 50; c.textAlign = "left"; c.font = "11.5px 'Share Tech Mono','Courier New',monospace";
+  if (tp != null) { const L0 = gateLog(), y0 = sub + 24; c.textAlign = "left"; c.font = "11.5px 'Share Tech Mono','Courier New',monospace";
     L0.forEach(([a, b], i) => { const t0 = 450 + i * 190; if (bt < t0) return; const y = y0 + i * 21, w0 = c.measureText("> " + a).width; c.fillStyle = "rgba(200,215,235,.85)"; c.fillText("> " + gType(a, t0, bt, 110), 28, y);
       if (bt > t0 + 160) { let dots = ""; while (c.measureText("> " + a + " " + dots + " " + b).width < W - 56) dots += "."; c.fillStyle = "rgba(120,140,170,.5)"; c.fillText(" " + dots.slice(0, -1), 28 + w0, y);
         c.textAlign = "right"; c.fillStyle = b === "ACCESS DENIED" ? "rgba(255,90,90,.95)" : "rgba(110,235,160,.95)"; c.fillText(b, W - 28, y); c.textAlign = "left"; } });
@@ -7418,7 +7416,7 @@ function gateTap() {
   if (t < 2500) { GATE.skip += 2500 - t; return; }
   if (GATE.tap != null) return; GATE.tap = t; haptic(HAPTIC.enter);
 }
-document.getElementById("gateEnter").addEventListener("click", gateTap);
+document.getElementById("gate").addEventListener("click", gateTap);
 // the terminal clears away, leaving the page's own grid, and the home page builds itself on it
 function gateOpen() {
   if (GATE.done) return; GATE.done = true;
@@ -7426,48 +7424,58 @@ function gateOpen() {
   if (first) state.mode = "chapters"; renderAll(); window.scrollTo(0, 0);
   state.entered = true; if (!state.since) state.since = new Date().toISOString(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
   document.body.style.overflow = "";
-  homeInit();
-  if (REDUCED) { g.hidden = true; return; }
-  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); };
+  if (REDUCED) { g.hidden = true; homeInit(); return; }
+  document.body.classList.add("booting");
+  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); homeInit(); };
 }
-// the home page initializing: the title decrypts, the numbers count up, the bars fill, the buttons draw in, the boxes on screen scan in one after another, and the dock rises
-function scramble(el, delay, dur) {
-  const nodes = []; const walk = n => n.childNodes.forEach(k => { if (k.nodeType === 3 && k.nodeValue.trim()) nodes.push([k, k.nodeValue]); else if (k.nodeType === 1 && k.tagName !== "BUTTON") walk(k); }); walk(el);
-  const G = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*/<>", t0 = performance.now() + delay;
-  const tick = () => { const f = Math.max(0, Math.min(1, (performance.now() - t0) / dur));
-    nodes.forEach(([k, s]) => { const n = Math.floor(s.length * f); k.nodeValue = s.slice(0, n) + s.slice(n).replace(/\S/g, () => G[Math.random() * G.length | 0]); });
-    if (f < 1) requestAnimationFrame(tick); else nodes.forEach(([k, s]) => { k.nodeValue = s; }); };
-  tick();
-}
-function countUp(el, delay, dur) {
-  const k = [...el.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.nodeValue)); if (!k) return; const s = k.nodeValue, to = parseInt(s, 10); if (!to) return;
-  const t0 = performance.now() + delay, tick = () => { const f = Math.max(0, Math.min(1, (performance.now() - t0) / dur)); k.nodeValue = s.replace(/\d+/, Math.round(to * easeIO(f))); if (f < 1) requestAnimationFrame(tick); else k.nodeValue = s; }; tick();
-}
+// the home page initializing, in the same blue as the terminal: each piece on screen is first drawn as a holographic outline (the title and text as
+// line frames, the buttons and the dock as outlines, each box as its frame with a line of code typing inside), then a scan runs down it and it becomes the real thing
 function homeInit() {
-  const d = document.getElementById("dock");
+  const app = document.getElementById("app"), d = document.getElementById("dock");
+  document.body.classList.remove("booting");
   if (REDUCED) return;
-  homeBusy = Date.now() + 4200;
-  const B = 320;   // the terminal is gone by now: nothing of the home page shows until it has cleared
-  const A = (el, kf, delay, dur) => el && el.animate(kf, { duration: dur || 500, delay: delay + B, easing: "cubic-bezier(.2,.7,.2,1)", fill: "backwards" });
-  const IN = [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }];
-  const h1 = document.getElementById("mainTitle"); scramble(h1, 200 + B, 800); A(h1, [{ opacity: 0 }, { opacity: 1 }], 120, 300);
-  try { h1.animate([{ transform: "scaleX(0)", transformOrigin: "0 50%" }, { transform: "scaleX(1)", transformOrigin: "0 50%" }], { pseudoElement: "::after", duration: 700, delay: 700 + B, easing: "cubic-bezier(.2,.7,.2,1)", fill: "backwards" }); } catch (e) {}   // the colored rule under the title draws across
-  A(document.getElementById("modeSub"), IN, 900); 
-  const num = document.getElementById("meterNum"); A(num, IN, 1000); countUp(num, 1000 + B, 900);
-  const bar = document.getElementById("meterBar"); if (bar) { const w = bar.style.width || getComputedStyle(bar).width; A(bar, [{ width: "0%" }, { width: w }], 1100, 1000); }
-  const pct = document.getElementById("meterPct"); A(pct, IN, 1100); countUp(pct, 1100 + B, 1000);
-  [...document.querySelectorAll(".mast .meter > *:not(.num):not(.barrow)")].forEach((el, i) => A(el, IN, 1300 + i * 80));
-  [...document.querySelectorAll(".modes button")].forEach((b, i) => A(b, [{ opacity: 0, transform: "scale(.92)", boxShadow: "0 0 0 1px rgba(143,224,255,.9)" }, { opacity: 1, transform: "none", boxShadow: "0 0 0 0 rgba(143,224,255,0)" }], 1250 + i * 90, 450));
-  // the boxes in view scan in from the top, a cyan line running down each, in reading order
-  const vis = [...document.querySelectorAll("#view .saga h3, #view .tile, #view .tl-row, #view .tl-head")].filter(el => { const r = el.getBoundingClientRect(); return r.height && r.top < innerHeight && r.bottom > 0; }).slice(0, 14);
-  vis.forEach((el, i) => { const dl = 1500 + i * 110;
-    if (el.tagName === "H3") { A(el, [{ opacity: 0 }, { opacity: 1 }], dl, 300); scramble(el, dl + B, 600); return; }
-    A(el, [{ clipPath: "inset(0 0 100% 0)", opacity: .2 }, { clipPath: "inset(0 0 0% 0)", opacity: 1 }], dl, 520);
-    if (el.classList.contains("tile")) { const ln = document.createElement("i"); ln.className = "fx-initline"; el.appendChild(ln);
-      ln.animate([{ top: "0%", opacity: 1 }, { top: "100%", opacity: 1 }, { top: "100%", opacity: 0 }], { duration: 640, delay: dl + B, easing: "cubic-bezier(.2,.7,.2,1)", fill: "both" }).onfinish = () => ln.remove(); } });
-  if (d) { d.classList.remove("rise"); void d.offsetWidth; d.style.animationDelay = (1500 + vis.length * 110 + B) + "ms"; d.classList.add("rise"); d.addEventListener("animationend", () => { d.classList.remove("rise"); d.style.animationDelay = ""; }, { once: true }); }
+  homeBusy = Date.now() + 4600; document.body.style.overflow = "hidden";
+  const C = "143,224,255", vis = el => { const r = el.getBoundingClientRect(); return r.width && r.height && r.top < innerHeight && r.bottom > 0; };
+  const lines = el => { const rg = document.createRange(); rg.selectNodeContents(el); const L = [];   // one frame per line of text
+    [...rg.getClientRects()].filter(r => r.width > 2 && r.height > 2).forEach(r => { const l = L.find(q => Math.abs(q.top - r.top) < 4); if (l) { l.left = Math.min(l.left, r.left); l.right = Math.max(l.right, r.right); l.bottom = Math.max(l.bottom, r.bottom); } else L.push({ left: r.left, right: r.right, top: r.top, bottom: r.bottom }); });
+    return L.map(r => ({ x: r.left - 3, y: r.top - 1, w: r.right - r.left + 6, h: r.bottom - r.top + 2, rad: 3 })); };
+  const box = (el, rad) => { const r = el.getBoundingClientRect(), br = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0; return [{ x: r.left, y: r.top, w: r.width, h: r.height, rad: rad != null ? rad : br }]; };
+  const items = [], add = (el, shapes, kind, out, rev, code) => { if (!el || !shapes.length) return; items.push({ el, shapes, kind, out, rev, code });
+    el.animate([{ clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)" }], { duration: 460, delay: rev, easing: "cubic-bezier(.3,.6,.3,1)", fill: "backwards" }); };
+  const h1 = document.getElementById("mainTitle"); add(h1, lines(h1), "text", 0, 950);
+  const ul = h1.getBoundingClientRect(); items.push({ shapes: [{ x: ul.left, y: ul.bottom - 4, w: ul.width, h: 4, rad: 0 }], kind: "line", out: 250, rev: 950 });   // the colored rule under it
+  const sub = document.getElementById("modeSub"); if (sub && vis(sub)) add(sub, lines(sub), "text", 200, 1050);
+  const meter = document.querySelector(".mast .meter");
+  [...meter.children].filter(el => !el.hidden && vis(el)).forEach((el, i) => add(el, el.classList.contains("upnext") ? box(el, 999) : el.classList.contains("barrow") ? box(el.querySelector(".bar"), 4) : lines(el), "text", 300 + i * 90, 1100 + i * 90));
+  const mast = document.querySelector(".mast"), mr = mast.getBoundingClientRect(); items.push({ shapes: [{ x: mr.left, y: mr.bottom - 1, w: mr.width, h: 1, rad: 0 }], kind: "line", out: 450, rev: 1350 });
+  mast.animate([{ borderBottomColor: "transparent" }, { borderBottomColor: "transparent" }], { duration: 1, delay: 1350, fill: "backwards" });
+  [...document.querySelectorAll(".modes button")].filter(vis).forEach((b, i) => add(b, box(b, 999), "box", 500 + i * 80, 1350 + i * 80));
+  // the boxes, top to bottom, each one its frame and a line or two of code first
+  const view = [...document.querySelectorAll("#view .saga h3, #view .saga .note, #view .tile, #view .tl-head, #view .tl-row")].filter(vis).slice(0, 16);
+  view.forEach((el, i) => { const tile = el.classList.contains("tile"), o = 650 + i * 120, rv = 1500 + i * 150;
+    const lbl = (el.getAttribute("aria-label") || "").split(",")[0].toUpperCase().slice(0, 28), id = (el.dataset.id || "").toUpperCase();
+    add(el, tile ? box(el) : lines(el), tile ? "box" : "text", o, rv, tile ? ["> MOUNT " + id, "> " + (lbl || "RECORD") + " ... OK"] : null); });
+  const last = view.length ? 1500 + (view.length - 1) * 150 : 1500;
+  if (d) { d.classList.remove("rise"); add(d, box(d, 0), "box", 800, last + 200); }
+  const T = last + 200 + 700;
+  // the overlay the frames are drawn on
+  const cv = document.createElement("canvas"), dpr = Math.min(2, devicePixelRatio || 1), W = innerWidth, H = innerHeight; cv.className = "fx-canvas"; cv.style.zIndex = 90; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  const rr = (s, p) => { const { x, y, w, h } = s, r = Math.min(s.rad, h / 2, w / 2), per = 2 * (w + h); g.beginPath(); g.roundRect(x + .5, y + .5, w - 1, h - 1, r); g.setLineDash([per * p, per]); g.stroke(); g.setLineDash([]); };
+  fxRun(T, t => {
+    g.clearRect(0, 0, W, H); g.lineCap = "round";
+    items.forEach(it => { const p = easeIO((t - it.out) / 380), q = clamp01((t - it.rev) / 460); if (p <= 0 || q >= 1) return; const a = 1 - q;
+      it.shapes.forEach(s => {
+        if (it.kind === "line") { g.strokeStyle = `rgba(${C},${.9 * a})`; g.lineWidth = 1.2; g.beginPath(); g.moveTo(s.x, s.y + s.h / 2); g.lineTo(s.x + s.w * p, s.y + s.h / 2); g.stroke(); return; }
+        g.fillStyle = `rgba(${C},${.05 * p * a})`; g.beginPath(); g.roundRect(s.x, s.y, s.w, s.h, Math.min(s.rad, s.h / 2, s.w / 2)); g.fill();
+        g.strokeStyle = `rgba(${C},${.85 * a})`; g.lineWidth = 1.2; g.shadowColor = `rgb(${C})`; g.shadowBlur = 6; rr(s, p); g.shadowBlur = 0;
+        if (it.code && t > it.out + 250) { g.font = "10px 'Share Tech Mono','Courier New',monospace"; g.textBaseline = "top"; g.fillStyle = `rgba(${C},${.75 * a})`;
+          it.code.forEach((ln, k) => { const t0 = it.out + 250 + k * 260; if (t > t0) g.fillText(ln.slice(0, Math.floor((t - t0) / 1000 * 70)), s.x + 12, s.y + 12 + k * 14); }); }
+        // the scan that turns it into the real thing
+        if (q > 0) { const y = s.y + s.h * q; g.fillStyle = `rgba(210,245,255,${.9 * (1 - q * .4)})`; g.shadowColor = `rgb(${C})`; g.shadowBlur = 10; g.fillRect(s.x, y - 1, s.w, 2); g.shadowBlur = 0; } }); });
+  }, () => { cv.remove(); document.body.style.overflow = ""; });
 }
-showGate();
+if (!state.entered) showGate();   // a first boot only: like a datapad you've just been handed. Reset everything brings it back
 /* ---------- one consistent feel for every press ---------- */
 const HAPTIC = { tap: 14, enter: [16, 40, 26], success: [18, 50, 30] };
 function haptic(p) { if (!navigator.vibrate) return; try { navigator.vibrate(p); } catch (e) {} }
