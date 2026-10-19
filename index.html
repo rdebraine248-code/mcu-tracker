@@ -770,11 +770,6 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 @keyframes exPop{ 0%{ transform:scale(.2) rotate(-8deg); opacity:0; } 18%{ transform:scale(1.12) rotate(3deg); opacity:1; } 30%{ transform:scale(1) rotate(-2deg); } 80%{ transform:scale(1.02); opacity:1; } 100%{ transform:scale(1.25); opacity:0; } }
 @keyframes exSpin{ 0%{ transform:rotate(0) scale(.3); opacity:0; } 20%{ opacity:1; } 100%{ transform:rotate(70deg) scale(1); opacity:0; } }
 @keyframes exGlow{ 0%{ transform:scale(.2); opacity:0; } 20%{ opacity:1; } 100%{ transform:scale(1.4); opacity:0; } }
-.foot{ margin-top:44px; padding-top:18px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px 20px; align-items:center; justify-content:space-between; color:var(--muted); font-size:14px; }
-.foot button{ border:1px solid var(--line); background:var(--chip); color:var(--chip-ink); padding:9px 16px; border-radius:999px; cursor:pointer; font-size:14px; }
-.sync{ display:inline-flex; align-items:center; gap:8px; }
-.sync i{ width:8px; height:8px; border-radius:50%; background:var(--muted); display:inline-block; }
-.sync.on i{ background:#2E8B57; }
 
 @media (prefers-reduced-motion: reduce){
   .excel .burst, .excel .glow, .excel .word{ animation-duration:.01s; }
@@ -960,9 +955,6 @@ body{ padding-bottom:var(--dockh); }
   </nav>
   <main id="view"></main>
   <div class="postcredits" id="postCredits" hidden aria-live="polite"><p>The Marvel Cinematic Universe will return.</p></div>
-  <footer class="foot">
-    <span class="sync" id="sync"><i></i><span id="syncTxt">Saved on this device</span></span>
-  </footer>
 </div>
 <div class="panel" id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="panelTitle"></div>
 <div class="filepanel" id="filePanel" hidden role="dialog" aria-modal="true" aria-label="Archive">
@@ -1045,11 +1037,7 @@ function persist() {
     writing = writing.then(() => remoteRef.set(body)).then(() => { lastRemote = sig; setSync(true); }).catch(() => setSync(false, true));
   }, 700);
 }
-function setSync(on, failed) {
-  const el = document.getElementById("sync"), t = document.getElementById("syncTxt");
-  el.classList.toggle("on", !!on);
-  t.textContent = on ? "Synced to your account" : failed ? "Saved on this device; account sync paused" : "Saved on this device";
-}
+function setSync() {}   // the sync notice under the boxes is gone; account sync still runs quietly
 (async () => {
   try {
     if (!window.claude || !window.claude.use) return;
@@ -7005,7 +6993,7 @@ document.getElementById("mainTitle").addEventListener("click", ev => {
 });
 // Reset datapad (the button under the save code in the Hero File): back to factory, and the first boot plays again
 function resetDatapad() {
-  ask("Reset this datapad? All your progress, files, messages and Easter eggs are wiped, and it boots up like new. Copy your save code first to keep your progress. This can't be undone.", "Reset datapad").then(ok => {
+  ask("Reset this datapad? All your progress will be lost. This cannot be undone.", "Reset datapad").then(ok => {
     if (!ok) return;
     closeFile();
     SAVE_KEYS.forEach(k => { delete state[k]; });   // everything saved goes, your profile picture, codename and recruit date included
@@ -7325,7 +7313,6 @@ setInterval(() => {
 }, 2000);
 /* ---------- outside Claude (opened from a file, or as the installed app from its website): saved on this device, and the app works offline ---------- */
 if (!(window.claude && window.claude.use)) {
-  document.getElementById("syncTxt").textContent = "Saved on this device";
   if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(reg => {
