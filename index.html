@@ -522,31 +522,6 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .plog .dcard p.dwait, .plog .dlog p.dwait{ letter-spacing:0; }
 .dcover[data-q]::after{ content:attr(data-q); } .dcover.on[data-a]::after{ content:attr(data-a); }
 .dbtn{ border:1.5px solid currentColor; background:transparent; border-radius:4px; padding:7px 12px; font:400 12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
-.fx-helm{ position:fixed; inset:0; z-index:99; pointer-events:none; transform:translateY(-100%); will-change:transform; }
-.fx-helm .hm{ position:absolute; inset:0; overflow:hidden; background:radial-gradient(ellipse 70% 55% at 50% 48%, #15161A 0%, #08090B 70%, #020203 100%); }
-.fx-helm .fw{ position:absolute; left:50%; top:50%; width:min(112vw,74vh); aspect-ratio:4/5; transform:translate(-50%,-50%); }
-.fx-helm .fw > i, .fx-helm .ey, .fx-helm .ey i{ position:absolute; inset:0; display:block; }
-/* the inside of the helmet as it closes over your face: an olive gold rim, then dark circuitry, copper ribbing, gold struts and two rows of blue lights for eyes */
-.fx-helm .rim{ clip-path:polygon(13% 4%,31% 1.5%,36% 5%,64% 5%,69% 1.5%,87% 4%,93.5% 16%,96% 38%,93% 57%,88% 72%,78% 86%,64% 97%,50% 99.5%,36% 97%,22% 86%,12% 72%,7% 57%,4% 38%,6.5% 16%); background:linear-gradient(100deg,#2B2716 0%,#6E6440 18%,#3A3420 30%,#1E1B10 50%,#3A3420 70%,#6E6440 82%,#2B2716 100%); }
-.fx-helm .cav{ clip-path:polygon(16.5% 8%,31.5% 5.5%,35.5% 9%,64.5% 9%,68.5% 5.5%,83.5% 8%,89.5% 18%,91.5% 38%,89% 56%,84.5% 69.5%,75% 83%,62% 93%,50% 95.5%,38% 93%,25% 83%,15.5% 69.5%,11% 56%,8.5% 38%,10.5% 18%); background:repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, rgba(0,0,0,0) 1px 4px), repeating-linear-gradient(0deg, rgba(0,0,0,.25) 0 1px, rgba(0,0,0,0) 1px 6px), radial-gradient(ellipse 60% 50% at 50% 45%, #2A2C32 0%, #17181C 65%, #0C0D10 100%); }
-.fx-helm .hl{ clip-path:polygon(14% 5.2%,30.8% 3%,31.2% 4.4%,15% 6.6%,8.6% 17%,7.6% 16.6%); background:rgba(214,206,160,.7); } .fx-helm .hl.r{ clip-path:polygon(86% 5.2%,69.2% 3%,68.8% 4.4%,85% 6.6%,91.4% 17%,92.4% 16.6%); background:rgba(214,206,160,.35); }
-.fx-helm .pn{ clip-path:polygon(18.5% 11%,33.5% 9.5%,34% 37%,26% 40%,18% 43%); background:linear-gradient(165deg, rgba(130,160,255,.45) 0%, rgba(130,160,255,0) 30%), repeating-linear-gradient(90deg,#8A5A3A 0 2px,#2A1D16 2px 5px); }
-.fx-helm .pn.r{ clip-path:polygon(81.5% 11%,66.5% 9.5%,66% 37%,74% 40%,82% 43%); background:linear-gradient(195deg, rgba(130,160,255,.45) 0%, rgba(130,160,255,0) 30%), repeating-linear-gradient(90deg,#8A5A3A 0 2px,#2A1D16 2px 5px); }
-.fx-helm .blk{ clip-path:polygon(36.5% 4%,63.5% 4%,63.5% 27%,58% 31%,42% 31%,36.5% 27%); background:repeating-linear-gradient(0deg,#25262B 0 1px,#45464C 1px 3px), #3A3B40; background-blend-mode:normal; }
-.fx-helm .blk2{ clip-path:polygon(36.5% 4%,63.5% 4%,63.5% 27%,58% 31%,42% 31%,36.5% 27%); background:repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 1px,rgba(0,0,0,0) 1px 3px); }
-.fx-helm .chip{ clip-path:polygon(40% 14%,47.5% 14%,47.5% 25%,40% 25%); background:repeating-linear-gradient(0deg,#E44AA8 0 2px,#5C1242 2px 4px); } .fx-helm .chip.r{ clip-path:polygon(52.5% 14%,60% 14%,60% 25%,52.5% 25%); }
-.fx-helm .brow{ clip-path:polygon(33% 30%,67% 30%,63% 44%,56% 46%,44% 46%,37% 44%); background:linear-gradient(180deg,#3B3D44 0%,#23252A 60%,#15161A 100%); }
-.fx-helm .nose{ clip-path:polygon(44% 40%,56% 40%,56.5% 53%,43.5% 53%); background:repeating-linear-gradient(0deg,#5A4C7E 0 2px,#1C1828 2px 4.5px); }
-.fx-helm .rail{ clip-path:polygon(14.6% 20%,16.4% 20%,17.2% 57%,15.4% 57%); background:linear-gradient(180deg,#F0B54A,#C07A1E); } .fx-helm .rail.r{ clip-path:polygon(85.4% 20%,83.6% 20%,82.8% 57%,84.6% 57%); }
-.fx-helm .st{ clip-path:polygon(35.3% 12%,36.9% 12%,36.9% 35.2%,45% 41.4%,44% 42.8%,35.3% 36.4%); background:linear-gradient(180deg,#F0B54A,#B8731A); } .fx-helm .st.r{ clip-path:polygon(64.7% 12%,63.1% 12%,63.1% 35.2%,55% 41.4%,56% 42.8%,64.7% 36.4%); }
-.fx-helm .lid{ clip-path:polygon(15% 44.5%,34% 40.5%,44% 43.5%,42% 49.5%,18% 50.5%,13% 48%); background:linear-gradient(175deg,#2E3036 0%,#101114 100%); } .fx-helm .lid.r{ clip-path:polygon(85% 44.5%,66% 40.5%,56% 43.5%,58% 49.5%,82% 50.5%,87% 48%); }
-.fx-helm .chk{ clip-path:polygon(16% 60%,41% 58%,43% 64%,37% 79%,28% 78%,19% 68%); background:linear-gradient(160deg,#2C2E34 0%,#121316 70%); } .fx-helm .chk.r{ clip-path:polygon(84% 60%,59% 58%,57% 64%,63% 79%,72% 78%,81% 68%); background:linear-gradient(200deg,#2C2E34 0%,#121316 70%); }
-.fx-helm .rib{ clip-path:polygon(22% 62%,36% 61.5%,37.5% 66%,33% 76%,28.5% 75.5%,23.5% 67%); background:repeating-linear-gradient(120deg,#7A4E32 0 1.5px,#1E1612 1.5px 4px); opacity:.85; } .fx-helm .rib.r{ clip-path:polygon(78% 62%,64% 61.5%,62.5% 66%,67% 76%,71.5% 75.5%,76.5% 67%); background:repeating-linear-gradient(60deg,#7A4E32 0 1.5px,#1E1612 1.5px 4px); }
-.fx-helm .arch{ clip-path:polygon(37.5% 89%,37.5% 76%,40.5% 69.5%,45.5% 66.5%,54.5% 66.5%,59.5% 69.5%,62.5% 76%,62.5% 89%,58.5% 89%,58.5% 77%,55.5% 72%,44.5% 72%,41.5% 77%,41.5% 89%); background:repeating-linear-gradient(90deg,#4A4B52 0 1.5px,#16171B 1.5px 3.5px); }
-.fx-helm .grl{ clip-path:polygon(45% 85%,55% 85%,55% 92%,45% 92%); background:radial-gradient(circle,#A8763E 0 30%,rgba(0,0,0,0) 40%) 0 0/2% 1.6%, #141418; }
-.fx-helm .ey i{ background:#0B0E1A; clip-path:polygon(18.5% 51%,40.5% 50%,42% 55.6%,23% 57.4%); } .fx-helm .ey i.r{ clip-path:polygon(81.5% 51%,59.5% 50%,58% 55.6%,77% 57.4%); }
-.fx-helm .ey.on{ opacity:0; filter:drop-shadow(0 0 4px #E6EEFF) drop-shadow(0 0 14px #6F8CFF) drop-shadow(0 0 30px rgba(111,140,255,.6)); }
-.fx-helm .ey.on i{ background:radial-gradient(circle, #FFFFFF 0 26%, #C9D7FF 40%, rgba(120,150,255,0) 62%) 0 53.7%/2.4% 4.2% repeat-x, linear-gradient(180deg,#1E2A5E,#0E1430); }
 .fx-mk-host{ position:relative; }
 .fx-mk{ position:absolute; z-index:1; pointer-events:none; background:#0B0B0B; border-radius:2px 3px 2px 4px; box-shadow:0 0 0 1px rgba(11,11,11,.6); }
 .fx-files{ position:fixed; left:50%; top:50%; z-index:98; width:min(84vw,330px); height:min(64vh,410px); margin:calc(min(64vh,410px) / -2) 0 0 calc(min(84vw,330px) / -2); pointer-events:none; }
@@ -2098,8 +2073,7 @@ panel.addEventListener("pointerdown", ev => {
   gest = null;
   if (!openEntry || openKind !== "char" || ev.button > 0) return;
   const h = document.getElementById("panelTitle"), onName = ev.target.closest("#panelTitle"), x = ev.clientX, y = ev.clientY, id = openEntry.id;
-  if (id === "cx-iron-man" && panel.scrollTop < 8 && h && y < Math.max(150, h.getBoundingClientRect().bottom + 12)) gest = { k: "iron", x, y, el: null };
-  else if (id === "cx-captain-marvel" && onName) gest = { k: "carol", x, y, h };
+  if (id === "cx-captain-marvel" && onName) gest = { k: "carol", x, y, h };
   else if (id === "cx-the-thunderbolts" && onName && !tbOn) gest = tbStart(h, x, y);
   else if (id === "cx-daredevil" && onName) heartTap(h, x, y);
   else if (id === "cx-the-champions" && onName) gest = doodleStart(x, y);
@@ -2116,10 +2090,7 @@ panel.addEventListener("pointermove", ev => {
   if (holdTimer2) { clearTimeout(holdTimer2); holdTimer2 = null; }
   if (!gest) return;
   const dx = ev.clientX - gest.x, dy = ev.clientY - gest.y;
-  if (gest.k === "iron") {   // the faceplate follows your finger down, part of the way
-    if (!gest.el) { if (dy < -4 || Math.abs(dx) > 16) { gest = null; return; } if (dy < 10) return; if (REDUCED) { gest = null; gestBlock = Date.now() + 500; found("ironhud"); return; } gest.el = helmMake(); }
-    gest.p = clamp01(dy / (innerHeight * .4)); gest.el.style.transform = `translateY(${-100 + gest.p * 42}%)`;
-  } else if (gest.k === "carol") {
+  if (gest.k === "carol") {
     gest.h.style.transform = `translateY(${Math.max(-46, Math.min(0, dy * .55))}px)`;
     if (dy < -64 && Math.abs(dy) > Math.abs(dx)) { const h = gest.h; gest = null; gestBlock = Date.now() + 500; carolUp(h, dy * .55); }
   } else if (gest.k === "tb") tbMove(gest, ev.clientX, ev.clientY);
@@ -2130,36 +2101,11 @@ panel.addEventListener("pointermove", ev => {
   clearTimeout(lokiTimer); lokiPress = null; clearTimeout(holdTimer2); if (mouseFeel) { mouseFeel.release(); mouseFeel = null; }
   if (!gest) return;
   const g = gest; gest = null;
-  if (g.k === "iron" && g.el) { gestBlock = Date.now() + 500; if (g.p > .22) helmShut(g.el); else g.el.animate([{ transform: g.el.style.transform }, { transform: "translateY(-100%)" }], { duration: 260, easing: "ease-out", fill: "forwards" }).onfinish = () => g.el.remove(); }
   if (g.k === "carol") { const t = g.h.style.transform; g.h.style.transform = ""; if (t) g.h.animate([{ transform: t }, { transform: "none" }], { duration: 320, easing: "cubic-bezier(.3,1.6,.5,1)" }); }
   if (g.k === "tb" && !g.done) { gestBlock = Date.now() + 500; tbClear(g, 700); }
   if (g.k === "doodle") { if (g.len > 12) gestBlock = Date.now() + 500; doodleEnd(g); }
   if (g.k === "loki") lokiSlip(g);
 }));
-
-/* Iron Man: the helmet closes over your face, seen from inside it, the eye lights come on, and you go in through them to the HUD */
-function helmMake() {
-  const el = document.createElement("div"); el.className = "fx-helm";
-  el.innerHTML = `<div class="hm"><div class="fw"><i class="rim"></i><i class="cav"></i><i class="hl"></i><i class="hl r"></i><i class="pn"></i><i class="pn r"></i><i class="blk"></i><i class="blk2"></i><i class="chip"></i><i class="chip r"></i><i class="brow"></i><i class="nose"></i><i class="rail"></i><i class="rail r"></i><i class="st"></i><i class="st r"></i><i class="lid"></i><i class="lid r"></i><i class="chk"></i><i class="chk r"></i><i class="rib"></i><i class="rib r"></i><i class="arch"></i><i class="grl"></i><div class="ey"><i></i><i class="r"></i></div><div class="ey on"><i></i><i class="r"></i></div></div></div>`;
-  document.body.appendChild(el); return el;
-}
-function helmShut(el) {
-  const from = el.style.transform; el.style.transform = "translateY(0)";
-  el.animate([{ transform: from }, { transform: "translateY(0)" }], { duration: 170, easing: "cubic-bezier(.5,0,1,1)" }).onfinish = () => {
-    haptic([70, 25, 30]);
-    el.animate([{ transform: "translateY(0)" }, { transform: "translateY(-1.4%)" }, { transform: "translateY(.4%)" }, { transform: "translateY(0)" }], { duration: 220, easing: "ease-out" });   // it locks with a clunk
-    el.querySelector(".fw").animate([{ transform: "translate(-50%,-50%)" }, { transform: "translate(calc(-50% + 3px),-50%)" }, { transform: "translate(calc(-50% - 2px),-50%)" }, { transform: "translate(-50%,-50%)" }], { duration: 180, delay: 40 });
-    el.querySelector(".ey.on").animate([{ opacity: 0 }, { opacity: 0, offset: .3 }, { opacity: 1, offset: .38 }, { opacity: .15, offset: .46 }, { opacity: 1, offset: .56 }, { opacity: 1 }], { duration: 1000, fill: "forwards" });
-    setTimeout(() => haptic([10, 40, 10]), 330);
-    setTimeout(() => {   // in through the eyes
-      const f = el.querySelector(".fw").getBoundingClientRect(), hm = el.querySelector(".hm");
-      hm.style.transformOrigin = `${f.left + f.width * .3}px ${f.top + f.height * .537}px`;   // through the left eye
-      hm.animate([{ transform: "none" }, { transform: "scale(7)" }], { duration: 700, easing: "cubic-bezier(.6,0,.9,.6)", fill: "forwards" });
-      veil("fxl", "z-index:99;background:#000", [{ opacity: 0 }, { opacity: 1, offset: .45 }, { opacity: 1, offset: .62 }, { opacity: 0 }], 1600);
-      setTimeout(() => { el.remove(); ironHud(); }, 760);
-    }, 1700);
-  };
-}
 
 /* Wanda & Vision: two fingers held still for a moment. The Defenders: four fingers at once */
 panel.addEventListener("touchstart", ev => {
@@ -3736,8 +3682,10 @@ function mindStone(x, y) {
   haptic([10, 80, 10, 80, 10, 80, 10, 600, 30, 400, 80]);
 }
 
+let hudOn = false;
 function ironHud(q) {
   if (REDUCED) { found("ironhud"); return; }
+  if (hudOn) return; hudOn = true;
   // every title actually listed on screen (up to five), each locked and then shot on its own; with none in view, the HUD stands down
   const vis = openEntry ? [...panel.querySelectorAll(".row")].filter(r => { const b = r.getBoundingClientRect(); return b.height > 0 && b.top > 90 && b.bottom < innerHeight - 90 && getComputedStyle(r).visibility !== "hidden"; }) : [];
   const tg = vis.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top).slice(0, 5);
@@ -3772,7 +3720,7 @@ function ironHud(q) {
   });
   if (!tg.length) {   // nothing to shoot at
     t += 900; setTimeout(() => { set("NO TARGETS"); ret.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }); }, t);
-    t += 1300; setTimeout(() => { hd.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => { hd.remove(); found("ironhud"); }; }, t);
+    t += 1300; setTimeout(() => { hd.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => { hd.remove(); hudOn = false; found("ironhud"); }; }, t);
     return;
   }
   t += 700; setTimeout(() => { set(tg.length > 1 ? "ALL TARGETS LOCKED" : "TARGET LOCKED"); ret.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }); }, t);
@@ -3798,7 +3746,7 @@ function ironHud(q) {
     }, t);
   });
   t += 1100; setTimeout(() => { set(tg.length > 1 ? "TARGETS DOWN" : "TARGET DOWN"); }, t);
-  t += 800; setTimeout(() => { hd.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => { hd.remove(); found("ironhud"); }; }, t);
+  t += 800; setTimeout(() => { hd.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "forwards" }).onfinish = () => { hd.remove(); hudOn = false; found("ironhud"); }; }, t);
 }
 /* ---------- Power Stone: kinetic energy. Hold Black Panther's quote to charge it, let go to release it ---------- */
 let charging = null;
@@ -4848,7 +4796,7 @@ const anyChecked = t => Object.keys(state.checks).some(k => state.checks[k] && k
 const allTL = (list, pre, lane) => list.filter(e => !lane || e.lane === lane).every(e => state.checks[pre + e.t]);
 // Classified, split evenly in two: page 1 the Infinity Saga heroes (plus the two about the movies themselves), page 2 the Multiverse Saga, each in release order
 const EGGS = [
-  ["ironhud", "Heads-up", "Suit up. The helmet comes down first.", "In Iron Man's box, at the top, swipe down.", 1],
+  ["ironhud", "Heads-up", "Suit up.", "In Iron Man's box, double-tap his name.", 1],
   ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times.", 1],
   ["worthy", "Worthy", "Whosoever holds this hammer…", "Complete Thor's box, then hold his name.", 1],
   ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box.", 1],
@@ -6281,6 +6229,7 @@ panel.addEventListener("click", ev => {
     if (id === "cx-shang-chi-the-ten-rings" && ringHit(ev)) { tenRings(); return; }
     if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button")) { onYourLeft(); return; }
     if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 70) { if (dblCheck(ev)) strangeRunes(); return; }
+    if (id === "cx-iron-man" && onName) { if (dblCheck(ev)) ironHud(); return; }   // double-tap his name and the suit's HUD boots up
   }
   if (ev.target.closest("#panelTitle") && openEntry && openEntry.id === "cx-hulk") { punyTap(); return; }
   if (openEntry && openEntry.id === "cx-falcon-winter-soldier" && starTap(ev)) return;
