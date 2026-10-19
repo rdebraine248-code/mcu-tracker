@@ -751,18 +751,11 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 @media (max-width:560px){ .maptop h2{ font-size:17px; } .maptop .back{ font-size:0; padding:7px 9px; gap:0; } .maptop .back svg{ margin:0; } }
 .gate{ position:fixed; inset:0; z-index:120; }
 .gate[hidden]{ display:none; }
-.gate .door{ position:absolute; top:0; bottom:0; width:50%; overflow:hidden; background-color:#10141D;
-  background-image:radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1.4px), radial-gradient(1100px 620px at 88% -12%, rgba(64,108,214,0.22), transparent 62%), radial-gradient(900px 560px at -8% 108%, rgba(196,40,52,0.16), transparent 60%);
-  background-size:14px 14px, 100vw 100vh, 100vw 100vh; transition:transform 1.1s cubic-bezier(.7,0,.25,1); }
-.gate .door.l{ left:0; background-position:0 0, 0 0, 0 0; }
-.gate .door.r{ right:0; width:calc(50% + 1px); background-position:calc(-50vw + 1px) 0, calc(-50vw + 1px) 0, calc(-50vw + 1px) 0; }
-.gate .gin{ position:absolute; top:0; bottom:0; width:100vw; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:24px; text-align:center; }
-.gate .door.l .gin{ left:0; } .gate .door.r .gin{ left:calc(-50vw + 1px); }
-.gate .gtitle{ font-family:'Anton','Impact',sans-serif; font-size:clamp(46px,10vw,120px); line-height:.95; text-transform:uppercase; color:#FFFFFF; max-width:12ch; text-shadow:0 3px 0 rgba(0,0,0,.35); }
-.gate .genter{ border:1.5px solid rgba(255,255,255,.75); background:rgba(255,255,255,.04); color:#FFFFFF; border-radius:999px; padding:14px 28px; font-size:16px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
-.gate .genter:focus-visible{ outline:3px solid #fff; outline-offset:4px; }
-.gate.open .door.l{ transform:translateX(-101%); }
-.gate.open .door.r{ transform:translateX(101%); }
+.gate{ background:#05080D; }
+.gate canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+.gate .gseal{ position:absolute; left:50%; top:40%; width:190px; height:190px; margin:-95px 0 0 -95px; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+.gate .gseal:focus-visible{ outline:2px solid #8FE0FF; outline-offset:6px; }
+.fx-initline{ position:absolute; left:0; right:0; height:2px; margin-top:-1px; z-index:6; pointer-events:none; background:linear-gradient(90deg,rgba(143,224,255,0),rgba(200,240,255,.95),rgba(143,224,255,0)); box-shadow:0 0 10px rgba(143,224,255,.9); }
 .postcredits{ display:flex; align-items:center; justify-content:center; text-align:center; padding:44px 16px 8px; }
 .postcredits[hidden]{ display:none; }
 .postcredits p{ margin:0; font-family:'Anton','Impact',sans-serif; font-size:clamp(22px,4.4vw,38px); letter-spacing:2px; text-transform:uppercase; color:#FFFFFF; opacity:0; transition:opacity 2.4s ease; }
@@ -787,7 +780,6 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
   .excel .burst, .excel .glow, .excel .word{ animation-duration:.01s; }
   .postcredits p{ transition:none; }
   .saga h3.reveal, .saga .note.reveal{ animation:none; }
-  .gate .door{ transition:none; }
   .row.just, .row.just .box{ animation:none; }
   .tl-row.nexus .tl-node{ animation:none; }
   .tl.grow .tl-br, .tl.grow li.br .tl-text, .tl.grow li.br .tl-node{ animation:none; }
@@ -945,8 +937,8 @@ body{ padding-bottom:var(--dockh); }
 </head>
 <body>
 <div class="gate" id="gate" hidden>
-  <div class="door l"><div class="gin"><div class="gtitle">The Marvel Cinematic Universe</div><button type="button" class="genter" tabindex="-1" aria-hidden="true">Enter the Marvel Cinematic Universe</button></div></div>
-  <div class="door r"><div class="gin"><div class="gtitle">The Marvel Cinematic Universe</div><button type="button" class="genter" id="gateEnter">Enter the Marvel Cinematic Universe</button></div></div>
+  <canvas aria-hidden="true"></canvas>
+  <button type="button" class="gseal" id="gateEnter" aria-label="Enter: tap the S.H.I.E.L.D. eagle to initialize"></button>
 </div>
 <div class="wrap" id="app">
   <header class="mast">
@@ -6273,9 +6265,6 @@ function onNavBack() { navBusy = false; if (dossierOpen === "saga") { if (!navAt
 try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
 /* ---------- the dock: Story (the watch list), Log, Atlas, Map and File, always one tap away ---------- */
-(() => { const g = document.getElementById("gate"), d = document.getElementById("dock"); if (!g) return; let shown = !g.hidden;   // the dock rises once, as the opening doors part
-  const mo = new MutationObserver(() => { if (!g.hidden) { shown = true; return; } if (!shown) return; mo.disconnect(); d.classList.add("rise"); d.addEventListener("animationend", () => d.classList.remove("rise"), { once: true }); });
-  mo.observe(g, { attributes: true, attributeFilter: ["hidden"] }); setTimeout(() => { if (!shown) mo.disconnect(); }, 4000); })();
 let commsOpen = false;
 const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : commsOpen ? "comms" : fileOpen ? "file" : "story";
 function dockSync() { const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
@@ -6633,9 +6622,10 @@ const newsTitles = () => Object.keys(NEWS).filter(atlSeenT).sort((a, b) => (ATL_
 function newsForget() { const N = state.news = state.news || {}; Object.keys(N).forEach(k => { const t = k.slice(0, k.lastIndexOf("::")); if (!NEWS[t] || !atlSeenT(t)) delete N[k]; }); }
 function newsPending() { newsForget(); return newsTitles().flatMap(t => NEWS[t].map((h, i) => [t, i, h])).filter(([t, i]) => !state.news[newsKey(t, i)]); }
 // the ticker only runs on the home page, with nothing else over it, so it plays where you can see it
+let homeBusy = 0;   // while the home page is still initializing, the ticker waits
 function newsHome() {
   const $ = id => document.getElementById(id), shut = id => !$(id) || $(id).hidden;
-  return !document.hidden && shut("gate") && shut("panel") && shut("ask") && shut("gauntlet") && !openEntry && !dossierOpen && !atlOpen && !mapOpen && !fileOpen && !commsOpen
+  return !document.hidden && Date.now() > homeBusy && shut("gate") && shut("panel") && shut("ask") && shut("gauntlet") && !openEntry && !dossierOpen && !atlOpen && !mapOpen && !fileOpen && !commsOpen
     && !document.querySelector(".fx-studio, .fx-portal, .dustfx, .toast.show");
 }
 let newsRun = null, newsCalm = 0;
@@ -7356,18 +7346,128 @@ if (!(window.claude && window.claude.use)) {
     });
   }
 }
-/* ---------- the front door: shown until you enter, and again after Reset everything ---------- */
-function showGate() { const g = document.getElementById("gate"); g.classList.remove("open"); g.hidden = false; document.body.style.overflow = "hidden"; }
-document.getElementById("gate").addEventListener("click", ev => {
-  if (!ev.target.closest(".genter")) return;
-  const g = document.getElementById("gate");
-  state.mode = "chapters"; renderAll(); window.scrollTo(0, 0);
-  g.classList.add("open");
+/* ---------- the front door: every time the app opens, a S.H.I.E.L.D. terminal powers on and the eagle traces itself in. The eagle is the way in:
+   tap it and the terminal boots, then clears away, and the home page itself initializes piece by piece ---------- */
+const GATE = { run: 0, t0: 0, tap: null, skip: 0, done: false };
+const GATE_LOGO = () => { const g = document.getElementById("gate"); return [g.clientWidth / 2, Math.round(g.clientHeight * .4)]; };
+function showGate() {
+  const g = document.getElementById("gate"); g.hidden = false; g.style.opacity = ""; document.body.style.overflow = "hidden";
+  Object.assign(GATE, { run: GATE.run + 1, t0: performance.now(), tap: null, skip: 0, done: false });
+  const [, ly] = GATE_LOGO(); g.querySelector(".gseal").style.top = ly + "px";
+  if (REDUCED) { gateFrame(2600); return; }
+  const run = GATE.run, loop = () => { if (GATE.run !== run || g.hidden) return; gateFrame(performance.now() - GATE.t0 + GATE.skip); requestAnimationFrame(loop); }; requestAnimationFrame(loop);
+}
+// the eagle, from the app's own traced S.H.I.E.L.D. emblem, and the length of its outline so it can be drawn in
+const GATE_EP = new Path2D(EMBLEMS.eagle.l[1].d), GATE_EL = (() => { try { const p = document.createElementNS("http://www.w3.org/2000/svg", "path"); p.setAttribute("d", EMBLEMS.eagle.l[1].d); return p.getTotalLength(); } catch (e) { return 900; } })();
+const gType = (s, t0, t, cps) => s.slice(0, Math.max(0, Math.floor((t - t0) / 1000 * (cps || 40))));
+function gateLog() {
+  const T = Object.keys(ATL_ORDER), seen = T.filter(atlSeenT).length, pct = T.length ? Math.round(seen / T.length * 100) : 0;
+  return [["SECURE BOOT · S.H.I.E.L.D. OS 8.2", "OK"], ["SATELLITE UPLINK", "OK"], ["INDEXING MCU ARCHIVE", T.length + " TITLES"], ["FIELD PROGRESS", pct + "%"], ["AGENT FILE", state.codename ? String(state.codename).toUpperCase() : "LOADED"], ["TVA RECORDS", "ACCESS DENIED"]];
+}
+function gateFrame(t) {
+  const g = document.getElementById("gate"), cv = g.querySelector("canvas"), W = g.clientWidth, H = g.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+  const c = cv.getContext("2d"), C = "143,224,255", cx = W / 2, [, ly] = GATE_LOGO(), tp = GATE.tap, bt = tp == null ? -1 : t - tp;
+  const clamp = f => Math.max(0, Math.min(1, f)), out = f => 1 - Math.pow(1 - clamp(f), 3);
+  c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+  // power on: a line across the middle, then the picture opens out from it with bright edges
+  const line = out(t / 380), open = easeIO((t - 380) / 420), oh = H * open;
+  if (open < 1) { c.fillStyle = `rgba(${C},${.95 * (1 - open)})`; c.shadowColor = `rgb(${C})`; c.shadowBlur = 16;
+    c.fillRect(cx - W / 2 * line, H / 2 - 1 - oh / 2, W * line, 2); c.fillRect(cx - W / 2 * line, H / 2 - 1 + oh / 2, W * line, 2); c.shadowBlur = 0; }
+  if (open <= 0) return;
+  c.save(); c.beginPath(); c.rect(0, H / 2 - oh / 2, W, oh); c.clip();
+  const vg = c.createRadialGradient(cx, ly, 30, cx, H * .45, H * .8); vg.addColorStop(0, "rgba(40,90,170,.16)"); vg.addColorStop(1, "rgba(0,0,0,0)"); c.fillStyle = vg; c.fillRect(0, 0, W, H);
+  // corner brackets and the status line
+  const br = out((t - 600) / 500), L = 26 * br;
+  c.strokeStyle = `rgba(${C},.8)`; c.lineWidth = 2; c.beginPath();
+  [[14, 14, 1, 1], [W - 14, 14, -1, 1], [14, H - 14, 1, -1], [W - 14, H - 14, -1, -1]].forEach(([x, y, sx, sy]) => { c.moveTo(x, y + sy * L); c.lineTo(x, y); c.lineTo(x + sx * L, y); }); c.stroke();
+  c.font = "11px 'Share Tech Mono','Courier New',monospace"; c.textBaseline = "middle"; c.textAlign = "left"; c.fillStyle = `rgba(${C},.85)`;
+  const top = 40 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0);
+  c.fillText(gType("S.H.I.E.L.D. // SECURE TERMINAL", 700, t, 45), 28, top);
+  if (t > 1300) { const d = new Date(), ck = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"), s = "ENCRYPTED  " + ck; c.textAlign = "right"; c.fillText(s, W - 28, top);
+    c.fillStyle = Math.floor(t / 600) % 2 ? "rgba(90,230,140,.95)" : "rgba(90,230,140,.35)"; c.beginPath(); c.arc(W - 28 - c.measureText(s).width - 9, top, 3, 0, 6.29); c.fill(); }
+  c.strokeStyle = `rgba(${C},.25)`; c.lineWidth = 1; c.beginPath(); c.moveTo(28, top + 16); c.lineTo(28 + (W - 56) * out((t - 700) / 700), top + 16); c.stroke();
+  // the eagle: traced in, then lit; it waits, breathing, until tapped, then lifts to the top as the terminal boots
+  const lift = easeIO(bt / 600), es = (170 - 70 * lift) / 64, ey = lerp(ly, top + 80, lift), draw = easeIO((t - 900) / 1200), fill = easeIO((t - 1900) / 600);
+  const breathe = tp == null && t > 2500 ? .5 + .5 * Math.sin((t - 2500) / 520) : 0, scan = tp == null ? clamp((t - 2400) / 600) : clamp(bt / 500);
+  c.save(); c.translate(cx - 32 * es, ey - 32 * es); c.scale(es, es);
+  if (fill > 0) { const gr = c.createLinearGradient(0, 0, 64, 64); gr.addColorStop(0, "#FFFFFF"); gr.addColorStop(.4, "#D4DBE4"); gr.addColorStop(1, "#8D98A9");
+    c.globalAlpha = fill; c.shadowColor = "rgba(150,200,255,.85)"; c.shadowBlur = (14 + 14 * breathe) * fill; c.fillStyle = gr; c.fill(GATE_EP, "evenodd"); c.shadowBlur = 0; c.globalAlpha = 1; }
+  if (draw > 0) { c.setLineDash([GATE_EL * draw, GATE_EL]); c.strokeStyle = `rgba(${C},${1 - fill * .6})`; c.lineWidth = .5; c.shadowColor = `rgb(${C})`; c.shadowBlur = 8; c.stroke(GATE_EP); c.setLineDash([]); c.shadowBlur = 0; }
+  if (scan > 0 && scan < 1) { c.save(); c.clip(GATE_EP, "evenodd"); const sy = scan * 70 - 3, sg = c.createLinearGradient(0, sy - 6, 0, sy + 2); sg.addColorStop(0, "rgba(143,224,255,0)"); sg.addColorStop(1, "rgba(220,245,255,.95)"); c.fillStyle = sg; c.fillRect(0, sy - 6, 64, 8); c.restore(); }
+  c.restore();
+  c.textAlign = "center"; c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = "rgba(200,215,235,.75)";
+  const sub = ey + 32 * es + 22; c.fillText(gType("STRATEGIC HOMELAND INTERVENTION,", 2300, t, 60), cx, sub); c.fillText(gType("ENFORCEMENT AND LOGISTICS DIVISION", 2800, t, 60), cx, sub + 16);
+  if (tp == null && t > 3300) { c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},${.45 + .5 * breathe})`; c.fillText("TAP THE EAGLE TO INITIALIZE", cx, sub + 58); }
+  // the boot log, once it's been tapped
+  if (tp != null) { const L0 = gateLog(), y0 = sub + 50; c.textAlign = "left"; c.font = "11.5px 'Share Tech Mono','Courier New',monospace";
+    L0.forEach(([a, b], i) => { const t0 = 450 + i * 190; if (bt < t0) return; const y = y0 + i * 21, w0 = c.measureText("> " + a).width; c.fillStyle = "rgba(200,215,235,.85)"; c.fillText("> " + gType(a, t0, bt, 110), 28, y);
+      if (bt > t0 + 160) { let dots = ""; while (c.measureText("> " + a + " " + dots + " " + b).width < W - 56) dots += "."; c.fillStyle = "rgba(120,140,170,.5)"; c.fillText(" " + dots.slice(0, -1), 28 + w0, y);
+        c.textAlign = "right"; c.fillStyle = b === "ACCESS DENIED" ? "rgba(255,90,90,.95)" : "rgba(110,235,160,.95)"; c.fillText(b, W - 28, y); c.textAlign = "left"; } });
+    const pb = clamp((bt - 450) / 1400), py = y0 + L0.length * 21 + 8; if (bt > 450) { c.strokeStyle = `rgba(${C},.35)`; c.strokeRect(28.5, py + .5, W - 57, 6); c.fillStyle = `rgba(${C},.85)`; c.fillRect(30, py + 2, (W - 60) * easeIO(pb), 3);
+    c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = pb < 1 ? "rgba(200,215,235,.6)" : "rgba(110,235,160,.95)"; c.fillText(pb < 1 ? "INITIALIZING " + Math.round(easeIO(pb) * 100) + "%" : "ACCESS GRANTED", 28, py + 22); }
+    if (bt > 2050 && !GATE.done) gateOpen(); }
+  c.restore();
+  // a faint scanline texture over the whole screen
+  c.fillStyle = "rgba(0,0,0,.18)"; for (let y = (t / 40) % 3; y < H; y += 3) c.fillRect(0, y, W, 1);
+}
+// tap the eagle: the boot runs. A tap before it's finished drawing just skips to it
+function gateTap() {
+  const t = performance.now() - GATE.t0 + GATE.skip;
+  if (REDUCED) { gateOpen(); return; }
+  if (t < 2500) { GATE.skip += 2500 - t; return; }
+  if (GATE.tap != null) return; GATE.tap = t; haptic(HAPTIC.enter);
+}
+document.getElementById("gateEnter").addEventListener("click", gateTap);
+// the terminal clears away, leaving the page's own grid, and the home page builds itself on it
+function gateOpen() {
+  if (GATE.done) return; GATE.done = true;
+  const g = document.getElementById("gate"), first = !state.entered;
+  if (first) state.mode = "chapters"; renderAll(); window.scrollTo(0, 0);
   state.entered = true; if (!state.since) state.since = new Date().toISOString(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
   document.body.style.overflow = "";
-  setTimeout(() => { g.hidden = true; }, REDUCED ? 0 : 1150);
-});
-if (!state.entered) showGate();
+  homeInit();
+  if (REDUCED) { g.hidden = true; return; }
+  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); };
+}
+// the home page initializing: the title decrypts, the numbers count up, the bars fill, the buttons draw in, the boxes on screen scan in one after another, and the dock rises
+function scramble(el, delay, dur) {
+  const nodes = []; const walk = n => n.childNodes.forEach(k => { if (k.nodeType === 3 && k.nodeValue.trim()) nodes.push([k, k.nodeValue]); else if (k.nodeType === 1 && k.tagName !== "BUTTON") walk(k); }); walk(el);
+  const G = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*/<>", t0 = performance.now() + delay;
+  const tick = () => { const f = Math.max(0, Math.min(1, (performance.now() - t0) / dur));
+    nodes.forEach(([k, s]) => { const n = Math.floor(s.length * f); k.nodeValue = s.slice(0, n) + s.slice(n).replace(/\S/g, () => G[Math.random() * G.length | 0]); });
+    if (f < 1) requestAnimationFrame(tick); else nodes.forEach(([k, s]) => { k.nodeValue = s; }); };
+  tick();
+}
+function countUp(el, delay, dur) {
+  const k = [...el.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.nodeValue)); if (!k) return; const s = k.nodeValue, to = parseInt(s, 10); if (!to) return;
+  const t0 = performance.now() + delay, tick = () => { const f = Math.max(0, Math.min(1, (performance.now() - t0) / dur)); k.nodeValue = s.replace(/\d+/, Math.round(to * easeIO(f))); if (f < 1) requestAnimationFrame(tick); else k.nodeValue = s; }; tick();
+}
+function homeInit() {
+  const d = document.getElementById("dock");
+  if (REDUCED) return;
+  homeBusy = Date.now() + 4200;
+  const B = 320;   // the terminal is gone by now: nothing of the home page shows until it has cleared
+  const A = (el, kf, delay, dur) => el && el.animate(kf, { duration: dur || 500, delay: delay + B, easing: "cubic-bezier(.2,.7,.2,1)", fill: "backwards" });
+  const IN = [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }];
+  const h1 = document.getElementById("mainTitle"); scramble(h1, 200 + B, 800); A(h1, [{ opacity: 0 }, { opacity: 1 }], 120, 300);
+  try { h1.animate([{ transform: "scaleX(0)", transformOrigin: "0 50%" }, { transform: "scaleX(1)", transformOrigin: "0 50%" }], { pseudoElement: "::after", duration: 700, delay: 700 + B, easing: "cubic-bezier(.2,.7,.2,1)", fill: "backwards" }); } catch (e) {}   // the colored rule under the title draws across
+  A(document.getElementById("modeSub"), IN, 900); 
+  const num = document.getElementById("meterNum"); A(num, IN, 1000); countUp(num, 1000 + B, 900);
+  const bar = document.getElementById("meterBar"); if (bar) { const w = bar.style.width || getComputedStyle(bar).width; A(bar, [{ width: "0%" }, { width: w }], 1100, 1000); }
+  const pct = document.getElementById("meterPct"); A(pct, IN, 1100); countUp(pct, 1100 + B, 1000);
+  [...document.querySelectorAll(".mast .meter > *:not(.num):not(.barrow)")].forEach((el, i) => A(el, IN, 1300 + i * 80));
+  [...document.querySelectorAll(".modes button")].forEach((b, i) => A(b, [{ opacity: 0, transform: "scale(.92)", boxShadow: "0 0 0 1px rgba(143,224,255,.9)" }, { opacity: 1, transform: "none", boxShadow: "0 0 0 0 rgba(143,224,255,0)" }], 1250 + i * 90, 450));
+  // the boxes in view scan in from the top, a cyan line running down each, in reading order
+  const vis = [...document.querySelectorAll("#view .saga h3, #view .tile, #view .tl-row, #view .tl-head")].filter(el => { const r = el.getBoundingClientRect(); return r.height && r.top < innerHeight && r.bottom > 0; }).slice(0, 14);
+  vis.forEach((el, i) => { const dl = 1500 + i * 110;
+    if (el.tagName === "H3") { A(el, [{ opacity: 0 }, { opacity: 1 }], dl, 300); scramble(el, dl + B, 600); return; }
+    A(el, [{ clipPath: "inset(0 0 100% 0)", opacity: .2 }, { clipPath: "inset(0 0 0% 0)", opacity: 1 }], dl, 520);
+    if (el.classList.contains("tile")) { const ln = document.createElement("i"); ln.className = "fx-initline"; el.appendChild(ln);
+      ln.animate([{ top: "0%", opacity: 1 }, { top: "100%", opacity: 1 }, { top: "100%", opacity: 0 }], { duration: 640, delay: dl + B, easing: "cubic-bezier(.2,.7,.2,1)", fill: "both" }).onfinish = () => ln.remove(); } });
+  if (d) { d.classList.remove("rise"); void d.offsetWidth; d.style.animationDelay = (1500 + vis.length * 110 + B) + "ms"; d.classList.add("rise"); d.addEventListener("animationend", () => { d.classList.remove("rise"); d.style.animationDelay = ""; }, { once: true }); }
+}
+showGate();
 /* ---------- one consistent feel for every press ---------- */
 const HAPTIC = { tap: 14, enter: [16, 40, 26], success: [18, 50, 30] };
 function haptic(p) { if (!navigator.vibrate) return; try { navigator.vibrate(p); } catch (e) {} }
