@@ -127,6 +127,9 @@ button{ font:inherit; color:inherit; }
 .tile .prog{ display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500; }
 .tile .pbar{ flex:1; height:4px; border-radius:2px; overflow:hidden; }
 .tile .pbar span{ display:block; height:100%; }
+.tile[data-id="ch-incursions"]{ border-width:0 !important; padding:16px 18px 15px !important; }
+/* the Incursions' orange frame is drawn inside the box, under its cover, so the cover peels it into view with everything else (a real border sits outside the cover's reach) */
+.tile[data-id="ch-incursions"]::after{ content:""; position:absolute; inset:0; z-index:4; border:2px solid #E8A33D; border-radius:inherit; pointer-events:none; }
 .cover{ position:absolute; inset:0; z-index:5; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px; padding:14px 16px; overflow:hidden;
         transform-origin:100% 0; transition:transform .7s cubic-bezier(.3,.1,.2,1), opacity .7s ease; }
 .cover .clabel{ position:relative; z-index:2; font-family:Helvetica,Arial,sans-serif; font-weight:600; font-size:26px; letter-spacing:1px; }
@@ -1315,8 +1318,7 @@ function tile(e, kind) {
   const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover;
   const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">Extras</span><span class="ctap" style="color:${cc.ink}">${shut ? "Sealed" : "Tap to reveal"}</span></div>`
     : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${shut ? "Sealed" : "???"}</span><span class="ctap">${shut ? "Keep watching" : "Tap to reveal"}</span></div>`;
-  // a sealed box whose frame would give it away wears a plain one until it opens
-  return `<div class="${esc(cls)}${dust ? " dusted" : ""}" style="${esc(e.style)}${locked && e.cover && e.cover.frame ? ";border-color:" + esc(e.cover.frame) + ";box-shadow:none" : ""}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
+  return `<div class="${esc(cls)}${dust ? " dusted" : ""}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
       <div ${locked || sealedC ? 'aria-hidden="true"' : ""} style="display:contents">${tileInner(e)}</div>${cover}${ccover}</div>`;
 }
 function sagaHeads() {
@@ -1713,7 +1715,6 @@ function activate(el) {
     // reveal only: the cover peels away and the chapter stays on the page; tap again to open it
     const finish = () => {
       if (cv) cv.remove();
-      if (e.cover && e.cover.frame) { el.setAttribute("style", e.style + ";transition:border-color .9s ease, box-shadow .9s ease"); setTimeout(() => el.setAttribute("style", e.style), 950); }   // its own frame eases back in with it
       const inner = el.firstElementChild; if (inner) inner.removeAttribute("aria-hidden");
       el.setAttribute("aria-label", e.title + ", " + e.label);
       renderMeter(); refreshChapterChrome();
