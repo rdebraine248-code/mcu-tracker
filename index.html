@@ -881,7 +881,8 @@ body{ padding-bottom:var(--dockh); }
 .dock svg{ width:22px; height:22px; }
 .dock button[aria-current="page"]{ color:#EEF1F6; }
 .dock button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:-4px; border-radius:10px; }
-#gate:not([hidden]) ~ .dock, #panel:not([hidden]) ~ .dock{ display:none; }
+#gate:not([hidden]) ~ .dock{ display:none; }
+#panel:not([hidden]) ~ .dock{ z-index:40; }   /* an open box covers the dock as it grows, and uncovers it as it shrinks, instead of the dock blinking off and on */
 .filepanel, .mappanel, .dossier:not(.plog){ bottom:var(--dockh); }
 .dossier.plog{ z-index:80; }
 .whih{ position:fixed; left:0; right:0; bottom:var(--dockh); z-index:74; display:flex; align-items:stretch; height:32px; background:#0B1424; border-top:1px solid #1F3352; cursor:pointer; transform:translateY(100%); transition:transform .4s cubic-bezier(.2,.7,.2,1); -webkit-tap-highlight-color:transparent; }
