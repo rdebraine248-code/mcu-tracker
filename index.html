@@ -5995,25 +5995,36 @@ function atlMoon(map) {
 function atlTiamut(map) {
   const p = atlPinAt(map, "indianocean"); if (!p || atlFxOn) return; if (REDUCED) { found("tiamut"); return; } atlFxOn = true;
   const { cv, g, at } = atlLayer(map, p), T = 5200;
-  // seen from the side: the back of the hand lies in the water, the fingers rise on the left, the thumb on the right; [base x, base y, tip x, tip y, width]
-  const DIGITS = [[-20, -12, -17, -38, 7], [-12, -11, -7, -46, 8], [-5, -9, -1, -30, 6.5], [15, -7, 14, -28, 7.5]];
-  const digit = ([bx, by, tx, ty, w], c, s) => { const lean = (bx < 5 ? 1 : -1) * c * 3, x1 = tx + lean, y1 = ty + Math.abs(lean) * .5, dx = x1 - bx, dy = y1 - by, L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L, wt = w * .4;
-    g.beginPath(); g.moveTo((bx + nx * w / 2) * s, by * s); g.lineTo((x1 + nx * wt) * s, y1 * s);
-    g.quadraticCurveTo((x1 + dx / L * w * .7) * s, (y1 + dy / L * w * .7) * s, (x1 - nx * wt) * s, y1 * s); g.lineTo((bx - nx * w / 2) * s, by * s); g.closePath(); g.fill(); g.stroke(); };
+  // seen from the side, palm up: the back of the hand lies in the water, three fingers rise on the left and the thumb on the right.
+  // Each digit is jointed: [base x, base y, angle it leaves the palm, length, width, bend at each knuckle (toward the palm), extra bend as it grabs]
+  const DIGITS = [[-19, -11, -1.84, 25, 6.4, [.07, .13, .16], .15], [-11, -11, -1.68, 33, 7.2, [.06, .12, .15], .14], [-4, -8, -1.5, 21, 6, [.09, .15, .2], .16], [16, -6, -1.4, 22, 7.4, [-.06, -.15, -.14], -.15]];
+  // a digit's outline: walk its spine joint by joint, then run either side of it, tapering toward the tip with a slight swell at each knuckle
+  const digit = ([bx, by, a0, len, w, bends, grab], c) => {
+    const segs = [.44, .32, .24], sp = [[bx, by, 0]]; let a = a0, x = bx, y = by, s = 0;
+    segs.forEach((f, k) => { a += bends[k] + grab * c * (k + 1) / 3; for (let q = 1; q <= 6; q++) { x += Math.cos(a) * len * f / 6; y += Math.sin(a) * len * f / 6; s += f / 6; sp.push([x, y, s]); } });
+    const L = [], R = [];
+    sp.forEach(([x, y, s], i) => { const [px, py] = sp[Math.max(0, i - 1)], [nx2, ny2] = sp[Math.min(sp.length - 1, i + 1)], dx = nx2 - px, dy = ny2 - py, d = Math.hypot(dx, dy) || 1;
+      const knuckle = Math.exp(-Math.pow((s - .44) / .05, 2)) * .08 + Math.exp(-Math.pow((s - .76) / .05, 2)) * .06, hw = w / 2 * (1 - .42 * s + knuckle);
+      L.push([x - dy / d * hw, y + dx / d * hw]); R.push([x + dy / d * hw, y - dx / d * hw]); });
+    const [tx, ty] = sp[sp.length - 1], [qx, qy] = sp[sp.length - 2], td = Math.hypot(tx - qx, ty - qy) || 1, hw = w / 2 * .58;
+    g.beginPath(); g.moveTo(...L[0]); L.forEach(pt => g.lineTo(...pt));
+    g.quadraticCurveTo(tx + (tx - qx) / td * hw * 1.6, ty + (ty - qy) / td * hw * 1.6, ...R[R.length - 1]);   // a rounded fingertip
+    for (let i = R.length - 1; i >= 0; i--) g.lineTo(...R[i]); g.closePath(); };
+  // the back of the hand and the cupped palm, from the wrist on the left round to the root of the thumb
+  const palm = () => { g.beginPath(); g.moveTo(-27, 2); g.bezierCurveTo(-29, -6, -26, -13, -18, -14); g.bezierCurveTo(-10, -15, -6, -9, 0, -7); g.bezierCurveTo(6, -5, 10, -9, 14, -9); g.bezierCurveTo(20, -9, 23, -4, 23, 2); g.closePath(); };
   haptic([30, 60, 30, 60, 30]);
   fxRun(T, t => {
     at();
     const rip = t / 1000, rise = easeIO(clamp01((t - 900) / 1800)), curl = easeIO(clamp01((t - 2300) / 900)), stone = clamp01((t - 3000) / 900), fade = 1 - clamp01((t - 4500) / 700);
     for (let k = 0; k < 4; k++) { const r = ((rip * 26 + k * 14) % 56); g.strokeStyle = `rgba(127,216,255,${(1 - r / 56) * .7 * fade})`; g.lineWidth = 1.2; g.beginPath(); g.ellipse(0, 0, r, r * .4, 0, 0, Math.PI * 2); g.stroke(); }
-    if (rise > 0) { const s = .55 + .45 * rise, col = stone ? `rgb(${200 - 90 * stone | 0},${120 - 20 * stone | 0},${60 + 40 * stone | 0})` : "#D9782E"; g.globalAlpha = fade;
-      g.save(); g.beginPath(); g.rect(-80, -120, 160, 120); g.clip(); g.translate(0, (1 - rise) * 30);
-      g.fillStyle = col; g.strokeStyle = stone > .5 ? "rgba(60,60,70,.8)" : "#FFB56B"; g.lineWidth = 1.2; g.shadowColor = stone ? "transparent" : "#FF7A2A"; g.shadowBlur = 12 * (1 - stone);
-      digit(DIGITS[0], curl, s);
-      // the back of the hand and the cupped palm, from the wrist on the left round to the base of the thumb
-      g.beginPath(); g.moveTo(-26 * s, 2); g.quadraticCurveTo(-28 * s, -10 * s, -20 * s, -14 * s); g.lineTo(-6 * s, -12 * s); g.quadraticCurveTo(3 * s, -3 * s, 11 * s, -8 * s); g.quadraticCurveTo(19 * s, -11 * s, 21 * s, -4 * s); g.lineTo(22 * s, 2); g.closePath(); g.fill(); g.stroke();
-      DIGITS.slice(1).forEach(d => digit(d, curl, s));
-      if (stone > .3) { g.strokeStyle = `rgba(40,40,48,${stone})`; g.beginPath(); g.moveTo(-14 * s, -2); g.lineTo(-9 * s, -10 * s); g.lineTo(-4 * s, -5 * s); g.moveTo(-9 * s, -34 * s); g.lineTo(-7 * s, -22 * s); g.moveTo(14 * s, -20 * s); g.lineTo(16 * s, -12 * s); g.stroke(); }
-      g.shadowBlur = 0; g.restore(); g.globalAlpha = 1;
+    if (rise > 0) { const col = stone ? `rgb(${200 - 90 * stone | 0},${120 - 20 * stone | 0},${60 + 40 * stone | 0})` : "#D9782E", edge = stone > .5 ? "rgba(60,60,70,.85)" : "#FFB56B";
+      const parts = [() => digit(DIGITS[0], curl), palm, () => digit(DIGITS[1], curl), () => digit(DIGITS[2], curl), () => digit(DIGITS[3], curl)];
+      g.globalAlpha = fade; g.save(); g.beginPath(); g.rect(-80, -120, 160, 120); g.clip(); g.translate(0, (1 - rise) * 44); g.lineJoin = "round";
+      // one outline round the whole hand, then the hand over it, so it reads as one piece
+      g.shadowColor = stone ? "transparent" : "#FF7A2A"; g.shadowBlur = 12 * (1 - stone); g.strokeStyle = edge; g.lineWidth = 2.4; parts.forEach(f => { f(); g.stroke(); }); g.shadowBlur = 0;
+      g.fillStyle = col; parts.forEach(f => { f(); g.fill(); });
+      if (stone > .3) { g.strokeStyle = `rgba(40,40,48,${stone})`; g.lineWidth = 1; g.beginPath(); g.moveTo(-14, -2); g.lineTo(-9, -9); g.lineTo(-4, -5); g.moveTo(-9, -32); g.lineTo(-7, -22); g.moveTo(16, -19); g.lineTo(17, -12); g.stroke(); }
+      g.restore(); g.globalAlpha = 1;
       g.fillStyle = `rgba(220,240,255,${.45 * fade})`; g.beginPath(); g.ellipse(0, 1, 30, 2.6, 0, 0, Math.PI * 2); g.fill(); }
   }, () => { cv.remove(); atlFxOn = false; found("tiamut"); });
 }
