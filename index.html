@@ -422,7 +422,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .mx-win{ position:absolute; left:34px; right:34px; bottom:9px; height:34px; border-radius:17px; background:#111; display:flex; align-items:center; justify-content:space-between; padding:0 9px; box-shadow:inset 0 0 0 2px #0A0A0A; }
 .mx-reel{ display:block; width:26px; height:26px; border-radius:50%; background:repeating-conic-gradient(#F2F2F2 0 20deg, #2A2A2A 20deg 60deg); box-shadow:0 0 0 3px #5B4632, inset 0 0 0 7px #F2F2F2; }
 .mx-jack{ position:absolute; z-index:1; right:14px; bottom:6px; width:10px; height:10px; border-radius:50%; background:#2C3540; box-shadow:inset 0 1px 2px rgba(0,0,0,.6); }
-.tyr{ font-size:.72em; opacity:.6; letter-spacing:.5px; }
+.tyr{ display:inline-block; vertical-align:.2em; font-size:.72em; opacity:.6; letter-spacing:.5px; }   /* its own box, so a crossed-out title's line doesn't run along the bottom of the smaller year */
+.row[aria-pressed="true"] .tyr, .tl-row[aria-pressed="true"] .tyr{ text-decoration:line-through; text-decoration-thickness:1px; }
 .cm-red.dec{ width:auto; background:none; color:#E9C46A; font-family:'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; }
 .fx-minutes{ position:fixed; z-index:96; display:flex; align-items:center; gap:10px; max-width:268px; pointer-events:none; transform-origin:20% 100%; }
 .fx-minutes canvas{ flex:0 0 auto; filter:drop-shadow(0 0 10px rgba(255,150,40,.45)); }
@@ -1578,10 +1579,11 @@ function panelRow(e, i, cls) {
   return `<li${cls ? ` class="${cls}"` : ""}><button type="button" class="row" aria-pressed="${!!state.checks[ck(e, i.t)]}" data-t="${esc(i.t)}" style="color:${fg}">
           <span class="box">${CHECK(tick)}</span><span class="tw"><span class="t${i.s ? " short" : ""}">${tnh(i.t)}</span>${i.note && openKind === "chapter" ? `<span class="rnote">${esc(i.note)}</span>` : ""}</span>${i.tag ? `<span class="tag">${esc(i.tag)}</span>` : ""}</button></li>`;
 }
-// rows for a box; in the Incursions each Earth gets a header line with its status, and its films sit under it
+// rows for a box; in the Incursions each Earth gets a header line, and its films sit under it. Its status (Terminated) only shows once you've watched them
+const earthStatus = (e, earth) => { const L = e.items.filter(i => i.earth === earth); return L.length && L.every(i => state.checks[ck(e, i.t)]) ? (L.find(i => i.status) || {}).status || "" : ""; };
 function panelList(e, items, cls) {
   let last = null;
-  return items.map(i => { const hd = i.earth && i.earth !== last ? `<li class="earthh"><span>${esc(i.earth)}</span><em>${esc(i.status || "")}</em></li>` : ""; last = i.earth || last; return hd + panelRow(e, i, cls ? cls(i) : ""); }).join("");
+  return items.map(i => { const hd = i.earth && i.earth !== last ? `<li class="earthh" data-earth="${esc(i.earth)}"><span>${esc(i.earth)}</span><em>${esc(earthStatus(e, i.earth))}</em></li>` : ""; last = i.earth || last; return hd + panelRow(e, i, cls ? cls(i) : ""); }).join("");
 }
 function panelRows(e) {
   const ul = panel.querySelector(".list"); if (!ul || (openKind !== "char" && openKind !== "chapter")) return;
@@ -1593,6 +1595,7 @@ function updatePanel(e) {
   panelRows(e);
   const [n, t] = count(e), box = e.box || e.fg || "#111", tick = lum(box) > 0.6 ? "#111111" : "#FFFFFF";
   panel.querySelectorAll(".row").forEach(r => r.setAttribute("aria-pressed", !!state.checks[ck(e, r.dataset.t)]));
+  panel.querySelectorAll(".earthh").forEach(hd => { hd.querySelector("em").textContent = earthStatus(e, hd.dataset.earth); });
   const c = document.getElementById("pCount"), b = document.getElementById("pBar"), d = document.getElementById("pDone");
   if (c) c.textContent = `${n} of ${t} watched`;
   if (b) b.style.width = (t ? n / t * 100 : 0) + "%";
@@ -1709,7 +1712,8 @@ function activate(el) {
     el.firstElementChild.removeAttribute("aria-hidden");
     // reveal only: the cover peels away and the chapter stays on the page; tap again to open it
     const finish = () => {
-      if (cv) cv.remove(); if (e.cover && e.cover.frame) el.setAttribute("style", e.style);   // its own frame comes back with it
+      if (cv) cv.remove();
+      if (e.cover && e.cover.frame) { el.setAttribute("style", e.style + ";transition:border-color .9s ease, box-shadow .9s ease"); setTimeout(() => el.setAttribute("style", e.style), 950); }   // its own frame eases back in with it
       const inner = el.firstElementChild; if (inner) inner.removeAttribute("aria-hidden");
       el.setAttribute("aria-label", e.title + ", " + e.label);
       renderMeter(); refreshChapterChrome();
