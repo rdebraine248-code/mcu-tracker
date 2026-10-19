@@ -1340,7 +1340,10 @@ function tile(e, kind) {
   const sealedC = kind === "char" && charHidden(e), shut = sealedC && !multiverseOpen();
   const name = locked ? e.label + ", locked. Tap to unlock." : sealedC ? (shut ? "Sealed box. Tap to open anyway." : "Hidden box. Tap to reveal.") : e.title + (kind === "chapter" ? ", " + e.label : "");
   const dust = kind === "char" && (state.dusted || {})[e.id];
-  const ccover = sealedC ? `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${shut ? "Sealed" : "???"}</span><span class="ctap">${shut ? "Keep watching" : "Tap to reveal"}</span></div>` : "";
+  // a sealed multiverse character box wears the same cover as its Extras chapter
+  const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover;
+  const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">Extras</span><span class="ctap" style="color:${cc.ink}">${shut ? "Sealed" : "Tap to reveal"}</span></div>`
+    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${shut ? "Sealed" : "???"}</span><span class="ctap">${shut ? "Keep watching" : "Tap to reveal"}</span></div>`;
   return `<div class="${esc(cls)}${dust ? " dusted" : ""}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
       <div ${locked || sealedC ? 'aria-hidden="true"' : ""} style="display:contents">${tileInner(e)}</div>${cover}${ccover}</div>`;
 }
@@ -1678,8 +1681,12 @@ function activate(el) {
   const id = el.dataset.id, kind = el.dataset.kind;
   if (kind === "char") {
     const ce = DATA.chars.find(x => x.id === id);
-    if (ce && charSealed(ce)) {   // sealed until the multiverse opens; anyone following one character can still choose to open it
-      ask("Sealed. This box opens on its own as you keep watching. Open it now instead?", "Open now", "Keep watching").then(ok => {
+    if (ce && charSealed(ce)) {   // sealed until the multiverse opens: the same taps as a sealed Extras chapter, and the same choice at the end
+      el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake");
+      const n = sealedTap("extras"), look = DATA.chapters.find(c => c.id === MV_CHAPTER[id]) || null;   // the toast dresses like its Extras chapter's cover
+      if (n < 10) { if (n >= 5) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unseal.`, look, !!look); } else toast("Sealed. Keep watching.", look, !!look); return; }
+      sealedRun.extras.n = 0; found("sealed");
+      ask("The Multiverse opens after Loki S1.", "Reveal this box", "Hide").then(ok => {
         if (!ok) return;
         (state.charOpen = state.charOpen || {})[id] = true; persist();
         const cv = el.querySelector(".cover"); el.firstElementChild.removeAttribute("aria-hidden"); el.setAttribute("aria-label", ce.title);
