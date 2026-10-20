@@ -1296,10 +1296,10 @@ function tlRow(e, i, show, stepOf) {
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">${main}</svg>
       ${br ? `<svg class="tl-br" viewBox="0 0 100 100" preserveAspectRatio="none" style="--d:${d}ms">${br}</svg>` : ""}
       <span class="tl-node ${e.size || "sm"}" style="left:${L.p}%">${CHECK("#120D09")}</span></span>
-    <span class="tl-text ${side}"><span class="tt">${tnh(e.t)}</span><span class="meta">${e.era ? `<span class="era">${esc(e.era)}</span>` : ""}${laneTxt}${crossTxt}${at && show ? `<span class="lane" style="--lc:#FFD08A">The timeline branches here</span>` : ""}${e.t === INC_MARK && incOpen() ? incMark() : ""}</span></span>
+    <span class="tl-text ${side}"><span class="tt">${tnh(e.t)}</span><span class="meta">${e.era ? `<span class="era">${esc(e.era)}</span>` : ""}${laneTxt}${crossTxt}${at && show ? `<span class="lane" style="--lc:#FFD08A">The timeline branches here</span>` : ""}${e.t === INC_MARK && on ? incMark() : ""}</span></span>
   </button></li>`;
 }
-// the Doomsday marker: once Avengers: Doomsday is watched, its row carries a TVA alert for good. Tapping it opens every Incursion as a list of
+// the Doomsday marker: like the branches after Loki S1, it only shows while Avengers: Doomsday is checked on this timeline. Tapping it opens every Incursion as a list of
 // this timeline's own, checked off separately from the boxes, so the timeline still works as a watch list on its own. The worlds never join the lines
 const INC_MARK = "Avengers: Doomsday";
 const incMark = () => `<span class="lane incm" data-incm="1" role="link" tabindex="0" style="--lc:#FF7A45">Incursions detected · ${new Set(DATA.chapters.find(c => c.id === INC_ID).items.map(i => i.earth)).size} Earths lost ›</span>`;
@@ -1851,7 +1851,7 @@ document.getElementById("view").addEventListener("click", ev => {
       if (on) toast("The Sacred Timeline has branched.");
     } else {
       if (!wasInc && incOpen()) incAlert();
-      if (r.dataset.tl === INC_MARK && wasInc !== incOpen()) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday
+      if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       r.setAttribute("aria-pressed", on); r.classList.remove("just"); void r.offsetWidth; r.classList.add("just"); }
     if (navigator.vibrate) { try { navigator.vibrate(on ? 20 : 12); } catch (e) {} }
     return;
