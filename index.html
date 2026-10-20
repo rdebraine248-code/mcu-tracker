@@ -660,8 +660,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-level{ font:13px/1.4 'Share Tech Mono','Courier New',monospace; color:#E9C46A; letter-spacing:1px; }
 .hf-bar{ height:6px; margin:10px 0 14px; border-radius:3px; background:#1E2638; overflow:hidden; }
 .hf-bar span{ display:block; height:100%; background:linear-gradient(90deg,#7D4FA8,#3A78C9,#C8443A,#D9822B,#3E9B5C,#D9B32B); }
-.hf-stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
-.hf-stats div{ padding:8px 10px; border:1px solid #232D42; border-radius:8px; background:rgba(255,255,255,.02); }
+.hf-stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:12px; }
+.hf-stats button{ text-align:left; color:inherit; font:inherit; cursor:pointer; touch-action:manipulation; }
+.hf-stats div, .hf-stats button{ padding:8px 10px; border:1px solid #232D42; border-radius:8px; background:rgba(255,255,255,.02); }
 .hf-stats b{ display:block; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:22px; letter-spacing:.5px; }
 .hf-stats small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#8EA2C2; text-transform:uppercase; }
 .hf-sec{ max-width:760px; margin:22px auto 0; }
@@ -5826,10 +5827,11 @@ function renderFile() {
     const note = ok ? a.d : n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : (sec ? "Classified" : "Locked");
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${ok ? "Complete" : sec ? "Classified" : "Locked"}</span><b>${esc(sec ? "???" : a.t)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
-    return `<section class="hf-sec"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg${hfFlip ? " flip" : ""}">${L.map(card).join("")}</div></section>`; };
-  const part = (key, title, mini) => { const L = A.filter(a => a.sec === key); return `<section class="hf-sec"><h3><span>${title}</span><span>${L.filter(a => earned(a.id)).length}/${L.length}</span></h3><div class="hf-grid${mini ? " mini" : ""}">${L.map(card).join("")}</div></section>`; };
+    return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg${hfFlip ? " flip" : ""}">${L.map(card).join("")}</div></section>`; };
+  const part = (key, title, mini) => { const L = A.filter(a => a.sec === key); return `<section class="hf-sec" data-hfsec="${key}"><h3><span>${title}</span><span>${L.filter(a => earned(a.id)).length}/${L.length}</span></h3><div class="hf-grid${mini ? " mini" : ""}">${L.map(card).join("")}</div></section>`; };
   const got = key => A.filter(a => a.sec === key && earned(a.id)).length, tot = key => A.filter(a => a.sec === key).length, open = fileSecs(A);
-  const stat = (key, label) => open[key] ? `<div><b>${got(key)}/${tot(key)}</b><small>${label} complete</small></div>` : "";
+  // each count on the agent ID takes you down to its section
+  const stat = (key, label) => open[key] ? `<button type="button" data-hfgo="${key}"><b>${got(key)}/${tot(key)}</b><small>${label} complete</small></button>` : "";
   const sect = (key, title, mini) => open[key] ? part(key, title, mini) : "";
   document.getElementById("fileView").className = "fileview";
   document.getElementById("fileView").innerHTML = `
@@ -5900,6 +5902,7 @@ function closeFile(fromHistory) {
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
 document.getElementById("fileView").addEventListener("click", ev => {
+  const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; renderFile(); fv.scrollTop = y; return; }
   const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; renderFile(); fv.scrollTop = y; return; }
   const rt = ev.target.closest("[data-rt]"); if (rt) { rateSheet(rt.dataset.rt); return; }
