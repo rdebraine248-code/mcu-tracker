@@ -2850,12 +2850,23 @@ function atlSheet(p) {
     ${groups.map(([s, L]) => `<div class="atl-grp" data-g="${esc(atlSpot(s))}">${s ? `<div class="atl-sub">${esc(s)}</div>` : ""}${L.map(e => `<div class="atl-ev"><b>${e[3] ? esc(e[3]) : tnh(e[0])}${city && e[1] !== atlSpot(e[1]) ? " · " + esc(e[1].slice(atlSpot(e[1]).length + 2)) : ""}</b><p>${esc(e[2])}</p></div>`).join("")}</div>`).join("")}
 `;
 }
+// the Atlas's own steps back: a place you've opened, and a city or universe you've gone into. Each is added by the tap that opens it
+// (a step added later, without a tap, is skipped by the phone's back gesture, which then leaves the app)
+let atlHist = [], atlPend = null, atlPrevT = null;
+function atlPush(kind) {
+  const top = atlHist[atlHist.length - 1];
+  if (top === kind) return;
+  if (top === "atlsel" && kind === "atlsub") { try { history.replaceState({ mcu: kind }, ""); } catch (e) {} atlHist[atlHist.length - 1] = kind; return; }   // from a place's entry into its city
+  try { history.pushState({ mcu: kind }, ""); atlHist.push(kind); } catch (e) {}
+}
+function atlSub(v, id) { atlPrevT = null; atlPush("atlsub"); atlSwitch(v, id); }
 function atlSelect(map, id, fromList) {
   const p = atlPlaces().find(q => q.id === id), sh = document.querySelector(".atl-low .atl-sheet");
-  if (!p) return; if (p.home) { haptic(10); atlSwitch("earth"); return; }
-  if (p.city) { haptic(10); atlSwitch("city", p.city); return; }   // places with a city map open straight into it
-  if (p.uni) { haptic(10); atlSwitch("uni", p.uni); return; }      // and other universes open their own map
-  haptic(10); atlSel = id; sh.innerHTML = atlSheet(p); sh.hidden = false; sh.scrollTop = 0;
+  if (!p) return; if (p.home) { haptic(10); atlLeave("earth"); return; }
+  if (p.city) { haptic(10); atlSub("city", p.city); return; }   // places with a city map open straight into it
+  if (p.uni) { haptic(10); atlSub("uni", p.uni); return; }      // and other universes open their own map
+  if (!atlSel) atlPrevT = { ...atlT };   // where the map was, to go back to when the entry closes
+  haptic(10); atlSel = id; sh.innerHTML = atlSheet(p); sh.hidden = false; sh.scrollTop = 0; atlPush("atlsel");
   if (atlBig) { atlSize(false, true); atlBigBack = true; }
   map.querySelectorAll(".atl-pin").forEach(b => b.classList.toggle("sel", b.dataset.p === id));
   const pin = map._pins.find(q => q.id === id), H = map.clientHeight, W = map.clientWidth; if (!pin) return;
@@ -2863,10 +2874,25 @@ function atlSelect(map, id, fromList) {
     const ks = atlKs(map), k = fromList ? Math.max(atlT.k, Math.min(ks.max, ks.fit * (atlGeo()[0] === "earth" ? 3.2 : 2.2))) : atlT.k; atlTo(map, { k, x: pin.x - W / 2 / k, y: pin.y - H / 2 / k }, 460); }
   else atlQueue();
 }
-function atlClose(map) {
+function atlClose(map, fromHistory) {
+  if (!fromHistory && atlHist[atlHist.length - 1] === "atlsel") { navBack(); return; }   // the back step closes it, so the two stay in step
   atlSel = null; const sh = document.querySelector(".atl-low .atl-sheet"); if (sh) sh.hidden = true;
   if (atlBigBack) { atlBigBack = false; atlSize(true); }
-  map.querySelectorAll(".atl-pin.sel").forEach(b => b.classList.remove("sel")); atlQueue();
+  map.querySelectorAll(".atl-pin.sel").forEach(b => b.classList.remove("sel"));
+  if (atlPrevT) { atlTo(map, atlPrevT, 420); atlPrevT = null; } else atlQueue();   // and the map zooms back out to where it was
+}
+// leaving for another map from inside a city, a universe or an open place: unwind the Atlas's steps first, then go
+function atlLeave(v, id) {
+  if (!atlHist.length) { atlSwitch(v, id); return; }
+  atlPend = [v, id]; const n = atlHist.length; atlHist = []; history.go(-n);
+}
+function atlOnBack() {   // a back step inside the Atlas; true if it was the Atlas's own
+  if (atlPend) { const [v, id] = atlPend; atlPend = null; atlPrevT = null; atlSwitch(v, id); return true; }
+  if (!atlHist.length || navAt(atlHist[atlHist.length - 1])) return false;
+  const k = atlHist.pop(), map = document.getElementById("atlMap");
+  if (k === "atlsel") { if (map) atlClose(map, true); }
+  else { atlPrevT = null; atlSwitch(atlView === "uni" ? "multi" : "earth"); }
+  haptic(8); return true;
 }
 const ATL_GROUPS = {
   earth: [["North America", "mojave iowa manitowoc area51 ny westview lehigh compound dc baltimore culver cambridge chicago ohio missouri tennessee alabama oklahoma miami louisiana nm la sf"], ["Central America and the Caribbean", "sanjuan haiti talokan"], ["South America", "bogota rio amazon"],
@@ -2928,7 +2954,7 @@ function renderAtlas() {
     if (ev.target.closest(".atl-grip")) { if (Date.now() - (grip._drag || 0) < 400) return; atlSize(!isBig(), !low.querySelector(".atl-sheet").hidden); return; }
     if (ev.target.closest(".atl-x")) { haptic(8); atlClose(map); return; }
     if (ev.target.closest(".atl-coll")) { haptic(12); openColl(); return; }
-    const go = ev.target.closest("[data-city]"); if (go) { haptic(10); atlSwitch("city", go.dataset.city); return; }
+    const go = ev.target.closest("[data-city]"); if (go) { haptic(10); atlSub("city", go.dataset.city); return; }
     const ch = ev.target.closest("[data-chip]");
     if (ch) { haptic(8); const sh = ch.closest(".atl-sheet"), k = ch.dataset.chip; sh.querySelectorAll("[data-chip]").forEach(b => b.classList.toggle("on", b === ch));
       sh.querySelectorAll(".atl-grp").forEach(gp => { gp.hidden = !!k && gp.dataset.g !== k; }); return; }
@@ -2992,24 +3018,17 @@ function atlForget() {
 }
 function openAtlas() {
   atlForget();
-  atlView = "earth"; atlCity = null; atlUni = null; atlBig = false; atlBigBack = false;   // the Atlas always opens on Earth, at its usual size
+  atlView = "earth"; atlCity = null; atlUni = null; atlBig = false; atlBigBack = false; atlHist = []; atlPend = null; atlPrevT = null;   // the Atlas always opens on Earth, at its usual size
   document.getElementById("atlasPanel").hidden = false; atlOpen = true; document.body.style.overflow = "hidden"; renderAtlas();
   pushNav("atlas"); document.getElementById("atlBack").focus({ preventScroll: true });
-}
-function atlStepBack() {
-  const map = document.getElementById("atlMap");
-  if (atlSel && map) { haptic(8); atlClose(map); return true; }
-  if (atlView === "city") { haptic(8); atlSwitch("earth"); return true; }
-  if (atlView === "uni") { haptic(8); atlSwitch("multi"); return true; }
-  return false;
 }
 function closeAtlas(fromHistory) {
   if (!fromHistory && navAt("atlas")) { navBack(); return; }
   document.getElementById("atlasPanel").hidden = true; atlOpen = false; document.body.style.overflow = "";
   const b = document.getElementById("btnAtlas"); if (b) b.focus({ preventScroll: true });
 }
-document.getElementById("atlBack").addEventListener("click", () => { if (!atlStepBack()) closeAtlas(); });
-document.addEventListener("click", ev => { const b = ev.target.closest("[data-atlv]"); if (!b || (b.getAttribute("aria-selected") === "true" && atlView !== "city" && atlView !== "uni")) return; haptic(8); atlSwitch(b.dataset.atlv); });
+document.getElementById("atlBack").addEventListener("click", () => { if (atlHist.length) navBack(); else closeAtlas(); });
+document.addEventListener("click", ev => { const b = ev.target.closest("[data-atlv]"); if (!b || (b.getAttribute("aria-selected") === "true" && atlView !== "city" && atlView !== "uni")) return; haptic(8); atlLeave(b.dataset.atlv); });
 window.addEventListener("resize", () => { const map = document.getElementById("atlMap"); if (atlOpen && map && atlT) { atlT = atlClamp(map, { ...atlT }); atlTs[atlKey()] = atlT; atlQueue(); } });
 
 /* ---------- the Collector: tap Knowhere in the Atlas cosmos, then visit Taneleer Tivan's archive. Every object, and every hand it passed through,
@@ -5596,8 +5615,8 @@ function avaPick() {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) { pk.remove(); return; }
   pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Choose your profile picture");
   pk.innerHTML = `<div class="hf-pickin"><div class="hf-pickh"><span>Profile picture</span><button type="button" data-ava-x aria-label="Close">&times;</button></div><div class="hf-pickg">${Object.keys(EMBLEMS).map(k => embOpen(k) ? `<button type="button" data-ava="${k}" aria-pressed="${state.avatar === k}"><span class="hf-avr">${embHTML(k)}</span><small>${esc(EMBLEM_NAMES[k])}</small></button>` : `<button type="button" class="lk" disabled aria-label="Locked"><span class="hf-avr"><b>?</b></span><small>Sealed</small></button>`).join("")}</div></div>`;
-  fp.appendChild(pk); haptic(8);
-  pk.addEventListener("click", ev => { const b = ev.target.closest("[data-ava]"); if (b) { state.avatar = b.dataset.ava; persist(); haptic(12); pk.remove(); renderFile(); return; } if (ev.target === pk || ev.target.closest("[data-ava-x]")) pk.remove(); });
+  fp.appendChild(pk); haptic(8); hfPickNav();
+  pk.addEventListener("click", ev => { const b = ev.target.closest("[data-ava]"); if (b) { state.avatar = b.dataset.ava; persist(); haptic(12); hfPickClose(); renderFile(); return; } if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
 }
 // your agent ID: a codename you pick, the day you were recruited, and a number made from it
 const recruitDate = () => { const d = state.since ? new Date(state.since) : new Date(); return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }); };
@@ -5622,9 +5641,12 @@ function caseFile(film) {
   const R = CASES[film]; pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Case file");
   pk.innerHTML = `<div class="hf-pickin hf-case"><div class="hf-pickh"><span>Case file · ${esc(MISSION_NAMES[film] || film.replace("Avengers: ", ""))}</span><button type="button" data-ava-x aria-label="Close">&times;</button></div>
     ${R ? `<dl class="hf-cf">${R.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
-  fp.appendChild(pk); haptic(8);
-  pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) pk.remove(); });
+  fp.appendChild(pk); haptic(8); hfPickNav();
+  pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
 }
+// a report or the picture picker gets its own step back, added by the tap that opens it; closing it by hand takes that step back too
+const hfPickNav = () => { if (!navAt("hfpick")) try { history.pushState({ mcu: "hfpick" }, ""); } catch (e) {} };
+const hfPickClose = () => { if (navAt("hfpick")) navBack(); else { const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); } };
 let fileTab = "file";
 function openFile() { fileTab = "file"; renderFile(); document.getElementById("filePanel").hidden = false; fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
 function closeFile(fromHistory) {
@@ -5634,7 +5656,7 @@ function closeFile(fromHistory) {
   const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); hfPage = 1; document.getElementById("fileView").scrollTop = 0;
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
 }
-document.getElementById("fileBack").addEventListener("click", () => closeFile());
+document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
 document.getElementById("fileView").addEventListener("click", ev => {
   if (ev.target.closest("#hfAva")) { avaPick(); return; }
   if (ev.target.closest("#hfCode")) { codeEdit(); return; }
@@ -7000,7 +7022,7 @@ panel.addEventListener("click", ev => {
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && openEntry && document.getElementById("ask").hidden) uiClose(); });
-function onNavBack() { navBusy = false; if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && navAt("atlas")) return; } if (dossierOpen === "saga") { if (!navAt("log")) closeDossier(true); return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && !navAt("file")) { const pk = document.querySelector("#filePanel .hf-pick"); if (pk) { pk.remove(); pushNav("file"); } else closeFile(true); } else if (atlOpen && !navAt("atlas")) { if (atlStepBack()) pushNav("atlas"); else closeAtlas(true); } else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
+function onNavBack() { navBusy = false; if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) closeDossier(true); return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
 // going back never moves the page by itself: the app decides where you are (after a jump to a new box, that's where it lives)
 try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
