@@ -5803,8 +5803,8 @@ function rateSec() {
     return `<button type="button" class="rc${rOpen === c.id ? " on" : ""}" data-rcell="${c.id}"><small>${lab}</small><b>${esc(slNamed(c) ? c.title : "Classified")}</b><span>${a ? "&#9733; " + a : "Not rated"}</span></button>`; };
   const oc = rOpen && chs.find(c => c.id === rOpen), list = !oc ? "" : `<div class="rlist"><h5>${oc.num ? "Ch. " + oc.num : "Extras"} · ${esc(slNamed(oc) ? oc.title : "Classified")}</h5>${oc.items.filter(i => atlSeenT(i.t)).map(i => { const r = rateOf(i.t).r;
       return `<button type="button" class="rrow" data-rt="${esc(i.t)}"><span>${tnh(i.t)}</span>${r ? `<span class="rst">${starsHTML(r, 15)}</span>` : `<em>Rate</em>`}</button>`; }).join("")}</div>`;
-  return `<section class="hf-sec hf-rate"><h3><span>Personal log</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button><span class="hf-pgt">${all.length} rated</span></span></h3>
-    <div class="rstats"><div><b>${all.length}</b><small>Total rated</small></div><div><b>${avg ? "&#9733;" + avg : "-"}</b><small>Average</small></div>${(lt => lt
+  return `<section class="hf-sec hf-rate"><h3><span>Personal log</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
+    <div class="rstats"><div><b>${all.length}</b><small>Total rated</small></div><div><b>${avg ? "&#9733;" + avg : "-"}</b><small>Overall assessment</small></div>${(lt => lt
       ? `<button type="button" class="rlast" data-rt="${esc(lt)}"><b>${rateOf(lt).r}/5</b><em>${tnh(lt)}</em><small>Latest rated</small></button>` : `<div><b>-</b><small>Latest rated</small></div>`)(rateLatest())}</div>
     <h3 class="ract">${A[2]() ? A[1] : "Act " + A[0]}</h3>
     <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
