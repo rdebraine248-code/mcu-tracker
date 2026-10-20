@@ -2348,8 +2348,8 @@ function openDossier(id, go) {
   if (!el) { el = document.createElement("div"); el.id = "dossier"; el.className = "dossier"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); document.body.appendChild(el);
     el.addEventListener("click", ev => {
       if (ev.target.closest("#dBack")) { if (dossierOpen === "saga") { if (navAt("log")) navBack(); else closeDossier(); return; } if (navAt("dossier")) navBack(); else closeDossier(); return; }
-      // the Story log: fold a chapter open or shut, turn the page, or jump in from a chapter's own log
-      const slc = ev.target.closest("[data-slc]"); if (slc) { haptic(8); slOpen = slOpen === slc.dataset.slc ? null : slc.dataset.slc; openDossier("saga", { redraw: true, at: slc.dataset.slc }); return; }
+      // the Story log: fold a chapter open or shut, or jump in from a chapter's own log
+      const slc = ev.target.closest("[data-slc]"); if (slc) { haptic(8); slFold(el, slc); return; }
       const slg = ev.target.closest("[data-slgo]"); if (slg) { haptic(10); const cid = slg.dataset.slgo; closeDossier(true); if (openEntry) closePanel();
         openDossier("saga", { open: cid }); try { history.replaceState({ mcu: "log" }, ""); } catch (e) {} dockSync(); return; }
       if (el._skip && !ev.target.closest("button, a") && el._skip()) { haptic(6); return; }
@@ -2384,13 +2384,12 @@ function openDossier(id, go) {
   const rowsDl = `<dl class="${SG ? "drows" : "lrows"}">${rowsHtml}</dl>`;
   if (SG) {
     el.className = "dossier"; el.removeAttribute("style");
-    const y0 = go && go.redraw ? (el.querySelector(".dscroll") || {}).scrollTop || 0 : 0;
-    if (!go || !go.redraw) slPlace(go && go.open);
+    slPlace(go && go.open);
     el.innerHTML = `<div class="dscroll"><div class="dtop"><button type="button" class="back" id="dBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span>Story log</span></div><div class="dview">${slHTML()}</div></div>`;
     el.hidden = false; dossierOpen = id; document.body.style.overflow = "hidden";
-    const sc = el.querySelector(".dscroll"); sc.scrollTop = y0;
-    const at = go && (go.open || go.at) && el.querySelector(`[data-sls="${CSS.escape(go.open || go.at)}"]`);
-    if (at && go.open) { sc.scrollTop = Math.max(0, at.offsetTop - 12); at.classList.add("hl"); }
+    const sc = el.querySelector(".dscroll"); sc.scrollTop = 0;
+    const at = go && go.open && el.querySelector(`[data-sls="${CSS.escape(go.open)}"]`);
+    if (at) { sc.scrollTop = Math.max(0, at.offsetTop - 12); at.classList.add("hl"); }
     persist(); dPlay(el, sc, key => dMark(null, key)); return;
   }
   {
@@ -2466,20 +2465,29 @@ function slPlace(open) { slOpen = open || null; }   // the log opens with every 
 function slHTML() {
   const all = DATA.chapters.reduce((n, c) => n + (DOSSIERS[c.id] ? DOSSIERS[c.id].story.filter(([, x]) => x).length : 0), 0);
   const got = DATA.chapters.reduce((n, c) => n + slEntries(c).length, 0);
-  const dnew = (key, html) => `<span class="dnew" data-k="${esc(key)}">${html}<span class="dcover"></span></span>`;
-  const sec = c => {
-    const stripe = `style="--cc:${SL_STRIPE[c.id] || "#3A78C9"}"`, n = c.num ? "Ch. " + c.num : "Extras";
-    if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b>Sealed</b></div></div>`;
-    const E = slEntries(c), tot = c.items.length, w = c.items.filter(i => atlSeenT(i.t)).length;
-    if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>No entries yet</b><small>0 of ${tot}</small></div></div>`;
-    const open = slOpen === c.id, L = DOSSIERS[c.id];
-    const body = !open ? "" : `<div class="sl-body"><ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
-      ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
-    return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b><small>${w} of ${tot}</small>${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
-  };
   return `<header class="dhead"><div class="dhrow"><div><div class="dtag">Avengers Initiative · Story log</div><h2 class="dname">The Marvel Cinematic Universe</h2></div></div>
       <div class="dbar"><span style="width:${all ? got / all * 100 : 0}%"></span></div></header>
-    ${SL_ACTS.map(A => `<div class="sl-pg"><div class="act">${A[2]() ? A[1] : "Act " + A[0]}</div></div>${DATA.chapters.filter(A[3]).map(sec).join("")}`).join("")}`;
+    ${SL_ACTS.map(A => `<div class="sl-pg"><div class="act">${A[2]() ? A[1] : "Act " + A[0]}</div></div>${DATA.chapters.filter(A[3]).map(slSec).join("")}`).join("")}`;
+}
+// one chapter's section of the Story log
+function slSec(c) {
+  const dnew = (key, html) => `<span class="dnew" data-k="${esc(key)}">${html}<span class="dcover"></span></span>`;
+  const stripe = `style="--cc:${SL_STRIPE[c.id] || "#3A78C9"}"`, n = c.num ? "Ch. " + c.num : "Extras";
+  if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b>Sealed</b></div></div>`;
+  const E = slEntries(c), tot = c.items.length, w = c.items.filter(i => atlSeenT(i.t)).length;
+  if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>No entries yet</b><small>0 of ${tot}</small></div></div>`;
+  const open = slOpen === c.id, L = DOSSIERS[c.id];
+  const body = !open ? "" : `<div class="sl-body"><ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
+    ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
+  return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b><small>${w} of ${tot}</small>${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
+}
+// fold a chapter open or shut: only it and the one it replaces are redrawn, and the one you tapped stays put on screen
+function slFold(el, h) {
+  const id = h.dataset.slc, prev = slOpen, sc = el.querySelector(".dscroll"), y0 = h.getBoundingClientRect().top;
+  slOpen = prev === id ? null : id;
+  [prev, id].filter((v, i, a) => v && a.indexOf(v) === i).forEach(cid => { const s = el.querySelector(`[data-sls="${CSS.escape(cid)}"]`), c = DATA.chapters.find(x => x.id === cid); if (s && c) s.outerHTML = slSec(c); });
+  const nh = el.querySelector(`[data-slc="${CSS.escape(id)}"]`); if (nh) { sc.scrollTop += nh.getBoundingClientRect().top - y0; nh.focus({ preventScroll: true }); }
+  persist(); dPlay(el, sc, key => dMark(null, key));
 }
 function ftabs(on) {
   const sg = DATA.chapters.filter(c => chDone(c.id)).length + "/" + DATA.chapters.length;
@@ -5901,15 +5909,16 @@ function closeFile(fromHistory) {
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
 document.getElementById("fileView").addEventListener("click", ev => {
   const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
-  const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; renderFile(); fv.scrollTop = y; return; }
-  const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; renderFile(); fv.scrollTop = y;
+  const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; refreshRates(); fv.scrollTop = y; return; }
+  const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; refreshRates(); fv.scrollTop = y;
     const L = rOpen && fv.querySelector(".rlist"); if (L) { const r = L.getBoundingClientRect(), vr = fv.getBoundingClientRect(); if (r.bottom > vr.bottom - 8) fv.scrollBy({ top: Math.min(r.bottom - vr.bottom + 16, r.top - vr.top - 70), behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rt = ev.target.closest("[data-rt]"); if (rt) { rateSheet(rt.dataset.rt); return; }
   if (ev.target.closest("#hfAva")) { avaPick(); return; }
   if (ev.target.closest("#hfCode")) { codeEdit(); return; }
   const cfb = ev.target.closest('[data-ach^="film-"]'); if (cfb && earned(cfb.dataset.ach)) { caseFile(cfb.dataset.ach.slice(5)); return; }
   const pgb = ev.target.closest("[data-hfpg]");
-  if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = (hfPage - 1 + +pgb.dataset.hfpg + HF_PAGES) % HF_PAGES + 1; hfFlip = true; renderFile(); hfFlip = false; fv.scrollTop = y; return; }
+  if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = (hfPage - 1 + +pgb.dataset.hfpg + HF_PAGES) % HF_PAGES + 1; hfFlip = true;
+    const cs = fv.querySelector('[data-hfsec="classified"]'); if (cs) cs.outerHTML = classPart(); else renderFile(); hfFlip = false; fv.scrollTop = y; return; }
   const b = ev.target.closest("[data-ach]"); if (!b) return;
   const a = achList().find(z => z.id === b.dataset.ach); if (!a || earned(a.id)) return;
   if ((achTaps[a.id] || 0) >= 20) {   // a revealed answer stays put: the next tap only asks whether to hide it
@@ -8528,12 +8537,14 @@ function renderComms() {
   const row = (k, v) => `<dt>${k}</dt><dd>${esc(v)}</dd>`;
   document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}">${l}</button>`).join("");
   const chips = commsTab === "msg" ? (M0.length ? cmChips(M0, cmChan, CM_CHANS) : "") : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS) : ""); persist();
-  document.getElementById("commsView").innerHTML = chips + (commsTab === "msg"
+  const cv = document.getElementById("commsView"), oc = cv.querySelector(".cm-chips"), cx = oc && cv.dataset.tab === commsTab ? oc.scrollLeft : 0; cv.dataset.tab = commsTab;
+  cv.innerHTML = chips + (commsTab === "msg"
     ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
     : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`));
+  const nc = cv.querySelector(".cm-chips"); if (nc && cx) nc.scrollLeft = cx;   // the chip row stays where you'd scrolled it
 }
 let commsTab = "news";
-function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true);   // News is the landing; only tapping an incoming message opens Messages
+function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true); delete document.getElementById("commsView").dataset.tab;   // News is the landing; only tapping an incoming message opens Messages
   renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
