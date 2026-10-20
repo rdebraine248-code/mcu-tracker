@@ -494,6 +494,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .rc b .sl-cl{ display:inline-block; white-space:nowrap; font-size:11px; letter-spacing:1px; color:#7D8BA6; font-weight:400; }
 .sl-h i{ width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; } .sl-h .ch{ color:#5E7290; font-size:13px; }
 .sl-body{ padding:0 14px 14px 18px; } .sl-body .dlog{ margin:0; } .sl-body .dlog li{ margin-top:10px; }
+.sl-per{ margin-top:2px; } .sl-per small{ display:block; margin-bottom:4px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; } .sl-per p{ margin:0; }
 .sl-deb{ margin-top:12px; border:1px dashed #3A4A6A; border-radius:10px; padding:10px 12px; } .sl-deb small{ display:block; margin-bottom:4px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; } .sl-deb p{ margin:0; }
 .sl-more{ display:block; margin:22px auto 8px; padding:11px 18px; border:1.5px solid currentColor; border-radius:999px; background:transparent; color:inherit; font:12px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .dsec h3{ margin:0 0 10px; display:flex; justify-content:space-between; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; }
@@ -553,7 +554,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .dcover[data-q]::after{ content:attr(data-q); } .dcover.on[data-a]::after{ content:attr(data-a); }
 .dbtn{ position:relative; } .modes button{ position:relative; }
 .modes button.nw::after{ content:""; position:absolute; top:-2px; right:-2px; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
-.tile .tdot{ position:absolute; top:9px; right:9px; z-index:6; width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px rgba(10,14,22,.55), 0 0 7px #5FD0FF; pointer-events:none; }
+/* a box's notification dot sits on its top right corner, over the edge; the box clips what's inside it, so the dot lives beside it in the grid */
+.grid{ position:relative; }
+.grid > .tdot{ position:absolute; z-index:6; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2.5px #0A0E16, 0 0 9px #5FD0FF; pointer-events:none; }
 .dbtn.nw::after, .dock button.nw::after{ content:""; position:absolute; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .dbtn.nw::after{ top:-4px; right:-4px; }
 .hf-avdot{ position:absolute; top:18px; right:18px; z-index:2; width:10px; height:10px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; pointer-events:none; }   /* on the picture's rim, top right */
@@ -815,6 +818,7 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .mapview.drag{ cursor:grabbing; }
 .mapview svg{ position:absolute; left:0; top:0; width:100%; height:100%; display:block; }
 .mapview .yrl{ font-family:'Share Tech Mono','Courier New',monospace; font-size:13px; fill:#7F8AA0; }
+.mapview .yrkey{ font-family:'Share Tech Mono','Courier New',monospace; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; fill:#5FD0FF; stroke:#0B1019; stroke-width:5px; stroke-linejoin:round; paint-order:stroke fill; pointer-events:none; }
 .mapview .rname{ font:500 13px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; stroke:#0B1019; stroke-width:4px; stroke-linejoin:round; paint-order:stroke fill; }
 .mapview .ttl{ font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:10.5px; fill:#C9D1DC; }
 .mapview .nd{ cursor:pointer; }
@@ -893,8 +897,8 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-map.sky.incursions{ background:radial-gradient(ellipse at 50% 50%, rgba(200,80,40,.16), rgba(11,16,25,0) 70%); }
 .atl-map.sky.incursions .atl-pin i{ background:#FF7A45; box-shadow:0 0 0 2px rgba(255,122,69,.25), 0 0 10px rgba(255,122,69,.9); }
 .atl-map.sky.incursions .atl-pin span{ color:#FFC9A8; }
-.atl-map.sky.incursions .atl-pin.new i::after{ border-color:#FF7A45; }
-.atl-map.sky.multi .atl-pin.new i::after{ border-color:#FFD58A; }
+.atl-map.sky.incursions .atl-pin.upd i::after, .atl-map.sky.incursions .atl-pin.new i::after{ border-color:#FF7A45; }
+.atl-map.sky.multi .atl-pin.upd i::after, .atl-map.sky.multi .atl-pin.new i::after{ border-color:#FFD58A; }
 @media (max-width:460px){ .atlpanel .maptop h2{ display:none; } .atl-views button{ padding:6px 6px; letter-spacing:.6px; } }
 .atl-map.sky.beyond{ background:radial-gradient(ellipse at 50% 47%, rgba(110,80,200,.22), rgba(11,16,25,0) 70%); }
 .atl-map canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
@@ -914,7 +918,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-pin.home i{ left:-10px; top:-10px; width:20px; height:20px; background:radial-gradient(circle at 35% 32%, #A9E6FF, #2F6FB5 58%, #12305A); box-shadow:0 0 0 3px rgba(95,208,255,.18), 0 0 18px rgba(95,208,255,.7); }
 .atl-pin.home span{ left:16px; color:#EEF1F6; }
 .atl-pin.new{ animation:atlin .5s ease-out var(--d,0s) both; }
-.atl-pin.new i::after{ content:""; position:absolute; inset:-2px; border-radius:50%; border:1.5px solid #8FE0FF; animation:atlping 1.3s ease-out var(--d,0s) 2 both; }
+.atl-pin.new i::after, .atl-pin.upd i::after{ content:""; position:absolute; inset:-2px; border-radius:50%; border:1.5px solid #8FE0FF; animation:atlping 1.3s ease-out var(--d,0s) 2 both; }
 @keyframes atlin{ from{ opacity:0; } to{ opacity:1; } }
 @keyframes atlping{ from{ transform:scale(1); opacity:1; } to{ transform:scale(5); opacity:0; } }
 .atl-zoom{ position:absolute; right:12px; top:12px; display:flex; flex-direction:column; gap:6px; }
@@ -1042,8 +1046,12 @@ body{ padding-bottom:var(--dockh); }
 .cm-log li b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#FFB347; }
 .cm-log li small{ display:block; margin:2px 0 6px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#A88A66; }
 .cm-log li p{ font-size:15px; }
-.cm-chips i{ position:absolute; top:3px; right:4px; width:6px; height:6px; border-radius:50%; background:#E9C46A; }
-.cm-msg{ margin:0 0 16px; padding:14px 16px 16px; background:#101828; border:1px solid #22314B; border-left:3px solid #2D63C8; }
+.cm-chips i{ position:absolute; top:3px; right:4px; width:6px; height:6px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
+/* something new in Comms: a dot on its card's corner, or at the end of its headline */
+.cm-msg.nw::after, .cm-log li.nw::after{ content:""; position:absolute; top:-5px; right:-5px; width:10px; height:10px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0A0E16, 0 0 8px #5FD0FF; }
+.cm-log li.nw{ position:relative; } .cm-log li.nw::after{ top:4px; right:0; width:8px; height:8px; }
+.cm-grp p.nw{ padding-right:18px; } .cm-grp p.nw::after{ content:""; position:absolute; right:2px; top:.45em; width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 7px #5FD0FF; }
+.cm-msg{ position:relative; margin:0 0 16px; padding:14px 16px 16px; background:#101828; border:1px solid #22314B; border-left:3px solid #2D63C8; }
 .cm-msg dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 12px; font:11px/1.45 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
 .cm-msg dt{ color:#5F7393; } .cm-msg dd{ margin:0; color:#B9CBE6; }
 .cm-msg p{ margin:0; font-size:16px; line-height:1.5; color:#E3E8F0; }
@@ -1904,7 +1912,7 @@ function activate(el) {
 }
 // tap a section's name on the Chapters page to fold it away, tap again to open it
 function sagaFold(h) { const sec = h.closest(".saga[data-saga]"); if (!sec) return false; const k = sec.dataset.saga, S = state.sagaShut = state.sagaShut || {};
-  S[k] = !S[k]; if (!S[k]) delete S[k]; sec.classList.toggle("shut", !!S[k]); h.setAttribute("aria-expanded", !S[k]); haptic(8); persist(); return true; }
+  S[k] = !S[k]; if (!S[k]) delete S[k]; sec.classList.toggle("shut", !!S[k]); tdotPlace(); h.setAttribute("aria-expanded", !S[k]); haptic(8); persist(); return true; }
 document.getElementById("view").addEventListener("keydown", ev => { const h = ev.target.closest(".saga[data-saga] > h3"); if (h && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); sagaFold(h); } });
 document.getElementById("view").addEventListener("click", ev => {
   { const h = ev.target.closest(".saga[data-saga] > h3"); if (h && sagaFold(h)) return; }
@@ -2410,9 +2418,11 @@ function openDossier(id, go) {
   const seen = (state.dSeen = state.dSeen || {})[id] = state.dSeen[id] || {};
   const lbox = SG ? null : (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id), here = t => SG ? chRel(t) : !!state.checks[ck(lbox, t)];
   const open = t => !t || (Array.isArray(t) ? t.every(here) : here(t)), NODATA = `<span class="dnone">No data</span>`;
-  const reveal = (key, gate, html) => { if (!gate) return html; if (!open(gate)) { delete seen[key]; return NODATA; } if (seen[key]) return html; return `<span class="dnew" data-k="${esc(key)}">${html}<span class="dcover"${K.q ? ` data-q="${esc(K.q)}" data-a="${esc(K.a)}"` : ""}></span></span>`; };
+  // a chapter's entries are shared with the Story log, which counts what you've watched anywhere, so a chapter's own log never takes back a read mark
+  const forget = k => { if (SG || D.kind !== "chapter") delete seen[k]; };
+  const reveal = (key, gate, html) => { if (!gate) return html; if (!open(gate)) { forget(key); return NODATA; } if (seen[key]) return html; return `<span class="dnew" data-k="${esc(key)}">${html}<span class="dcover"${K.q ? ` data-q="${esc(K.q)}" data-a="${esc(K.a)}"` : ""}></span></span>`; };
   const stage = (key, v) => { if (v == null) return NODATA; if (typeof v === "string") return esc(v);
-    let k = -1; v.forEach((st, i) => { if (open(st[1])) k = i; }); if (k < 0) { v.forEach((st, i) => delete seen[key + "." + i]); return NODATA; }
+    let k = -1; v.forEach((st, i) => { if (open(st[1])) k = i; }); if (k < 0) { v.forEach((st, i) => forget(key + "." + i)); return NODATA; }
     return reveal(key + "." + k, v[k][1], esc(v[k][0])); };
   const isCh = D.kind === "chapter", box = SG ? { title: "The Marvel Cinematic Universe", items: DATA.chapters.map(c => ({ t: c.id })) } : (isCh ? DATA.chapters : DATA.chars).find(c => c.id === id), titles = box.items.map(i => i.t);
   const st = D.story.filter(([, x]) => x), done = st.filter(([t]) => open(t)).length, total = st.length, complete = open(titles), rel = st.map(([t]) => t);
@@ -2423,10 +2433,10 @@ function openDossier(id, go) {
   const storyHtml = storyList.map(([t, x]) => {
     // story log: a sealed chapter has no data yet; once it is unlocked it waits for you to finish it
     const shut = SG && !state.unlocked[t];
-    const w = here(t), body = shut ? (delete seen["s:" + t], `<p class="dwait">No data yet.</p>`) : SG && !open(t) ? (delete seen["s:" + t], `<p class="dwait">${K.wait}</p>`) : !x ? `<p class="dwait">No data yet.</p>` : open(t) ? `<p>${reveal("s:" + t, t, esc(x))}</p>` : (delete seen["s:" + t], `<p class="dwait">${K.wait || "Awaiting data. Watch it to record this entry."}</p>`);
+    const w = here(t), body = shut ? (forget("s:" + t), `<p class="dwait">No data yet.</p>`) : SG && !open(t) ? (forget("s:" + t), `<p class="dwait">${K.wait}</p>`) : !x ? `<p class="dwait">No data yet.</p>` : open(t) ? `<p>${reveal("s:" + t, t, esc(x))}</p>` : (forget("s:" + t), `<p class="dwait">${K.wait || "Awaiting data. Watch it to record this entry."}</p>`);
     return `<li class="${SG ? (shut ? "pend" : open(t) ? "on" : "off") : x ? (open(t) ? "on" : "off") : "pend"}"><div class="dt"><span>${SG ? esc(chName(t)) : tnh(t)}</span>${w ? `<i class="dck">${K.ck || "Recorded"}</i>` : ""}</div>${body}</li>`; }).join("");
   const debrief = !isCh ? "" : `<section class="dsec"><h3>${K.debrief || "Debrief"}</h3><div class="dcard">${!D.debrief ? `<p class="dwait">No data yet.</p>` : open(rel) ? `<p>${reveal("d", rel, esc(D.debrief))}</p>` : (delete seen.d, `<p class="dwait">${K.dwait || "Awaiting data. Finish the chapter to record the debrief."}</p>`)}</div></section>`;
-  const links = !(D.links && D.links.length) ? "" : `<section class="dsec"><h3>${K.links || "Connections"}</h3><div class="dlinks">${D.links.map(([n, r, g], i) => open(g) ? `<div class="dl">${reveal("l" + i, g, `<b>${esc(n)}</b><small>${esc(r)}</small>`)}</div>` : (delete seen["l" + i], `<div class="dl off"><b>Unknown</b><small class="dnone">No data</small></div>`)).join("")}</div></section>`;
+  const links = !(D.links && D.links.length) ? "" : `<section class="dsec"><h3>${K.links || "Connections"}</h3><div class="dlinks">${D.links.map(([n, r, g], i) => open(g) ? `<div class="dl">${reveal("l" + i, g, `<b>${esc(n)}</b><small>${esc(r)}</small>`)}</div>` : (forget("l" + i), `<div class="dl off"><b>Unknown</b><small class="dnone">No data</small></div>`)).join("")}</div></section>`;
   const name = isCh ? (box.num ? "Chapter " + box.num : "Extras") : "", title = isCh ? box.title : box.title;
   const rowsDl = `<dl class="${SG ? "drows" : "lrows"}">${rowsHtml}</dl>`;
   if (SG) {
@@ -2460,10 +2470,12 @@ function openDossier(id, go) {
   const sc = SG ? el.querySelector(".dscroll") : el; sc.scrollTop = 0;
   if (!SG) el.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: "ease-out" });
   if (isCh) { const v = el.querySelector(".pin"); if (v) v.insertAdjacentHTML("beforeend", `<button type="button" class="sl-more" data-slgo="${esc(id)}">Open the full Story log</button>`); }
-  dPlay(el, sc, key => { seen[key] = 1; });
+  dPlay(el, sc, key => dMark(seen, key));
 }
 // an entry's seen mark: a box's own, or (from the Story log, keyed "box|entry") the box it belongs to, so it's read once wherever you read it
-function dMark(seen, key) { const i = key.indexOf("|"); if (i > 0) { const id = key.slice(0, i); ((state.dSeen = state.dSeen || {})[id] = state.dSeen[id] || {})[key.slice(i + 1)] = 1; } else if (seen) seen[key] = 1; }
+function dMark(seen, key) { const i = key.indexOf("|"), S = i > 0 ? ((state.dSeen = state.dSeen || {})[key.slice(0, i)] = state.dSeen[key.slice(0, i)] || {}) : seen; if (!S) return;
+  const k = i > 0 ? key.slice(i + 1) : key, m = k.match(/^(r\d+)\.(\d+)$/); S[k] = 1;
+  if (m) for (let j = 0; j < +m[2]; j++) S[m[1] + "." + j] = 1; }   // a row's later stage, read in the Story log or the box's own log, covers its earlier ones
 function dPlay(el, sc, mark) {
   // one at a time: scroll to it, record it in, pause, then the next. An entry only counts as seen once it has finished recording,
   // so if you leave partway through, the rest still record next time
@@ -2506,8 +2518,10 @@ const slAll = c => c.items.every(i => atlSeenT(i.t));
 const slNamed = c => !!state.unlocked[c.id] || slAll(c);
 const slShown = c => !!c.num || !!state.unlocked[c.id] || ((c.id === INC_ID ? incOpen() : multiverseOpen()) && c.items.some(i => atlSeenT(i.t)));
 const slSeenK = (c, k) => !!((state.dSeen || {})[c.id] || {})[k];
+// the chapter's Period, as far as you've watched anywhere: its stage, or -1 before the first
+const slPer = c => { const v = ((DOSSIERS[c.id] || {}).rows || {}).period; let k = -1; (v || []).forEach((st, i) => { if (atlSeenT(st[1])) k = i; }); return k; };
 const slDeb = c => { const L = DOSSIERS[c.id]; return !!(L && L.debrief) && slAll(c); };
-const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")));
+const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")) || (slEntries(c).length > 0 && slPer(c) >= 0 && !slSeenK(c, "r0." + slPer(c))));
 function slPlace(open) { slOpen = open || null; }   // the log opens with every chapter folded, unless you've jumped in from one of them
 function slHTML() {
   const all = DATA.chapters.reduce((n, c) => n + (DOSSIERS[c.id] ? DOSSIERS[c.id].story.filter(([, x]) => x).length : 0), 0);
@@ -2525,7 +2539,8 @@ function slSec(c) {
   const cnt = state.unlocked[c.id] || w ? `<small>${w} of ${tot}</small>` : "";   // no count until the chapter is revealed or one of its titles is watched
   if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>No entries yet</b>${cnt}</div></div>`;
   const open = slOpen === c.id, L = DOSSIERS[c.id];
-  const body = !open ? "" : `<div class="sl-body"><ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
+  const pk = slPer(c), per = pk < 0 ? "" : `<div class="sl-per"><small>Period</small><p>${slSeenK(c, "r0." + pk) ? esc(L.rows.period[pk][0]) : dnew(c.id + "|r0." + pk, esc(L.rows.period[pk][0]))}</p></div>`;
+  const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
     ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
   return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt}${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
 }
@@ -2633,7 +2648,8 @@ earth: [
 {"id":"tokyo","n":"Tokyo","r":"Japan","at":[35.68,139.69],"e":[["Avengers: Endgame","","Clint, as Ronin, cuts through a yakuza gang in the rain, and Natasha finds him."]]},
 {"id":"hiroshima","n":"Hiroshima","r":"Japan","at":[34.39,132.45],"e":[["Eternals","1945","Phastos stands in the ruins, sure that he helped humanity build the bomb."]]},
 {"id":"australia","n":"Australia","r":"Sydney and the outback","at":[-30,140],"e":[["Team Thor, Team Thor: Part 2 & Team Darryl","Sydney","Thor shares a flat with Darryl and tries to pay his share of the rent."],["Eternals","The outback","Gilgamesh and Thena live in a farmhouse far from anyone."]]},
-{"id":"indianocean","n":"Celestial Island","r":"Indian Ocean","at":[-12,75],"e":[["Eternals","","A Celestial begins to rise from the ocean, and Sersi turns him to stone."],["Captain America: Brave New World","","The nations of the world race for the adamantium inside the island."],["Captain America: The Winter Soldier","The Lemurian Star","Steve and Natasha retake a S.H.I.E.L.D. ship from pirates, and Natasha copies its files on Fury's orders."]]}
+{"id":"indianocean","n":"Celestial Island","r":"Indian Ocean","at":[-12,75],"e":[["Eternals","","A Celestial begins to rise from the ocean, and Sersi turns him to stone."],["Captain America: Brave New World","","The nations of the world race for the adamantium inside the island."]]},
+{"id":"lemurian","n":"The Lemurian Star","r":"Indian Ocean","at":[-1,62],"e":[["Captain America: The Winter Soldier","","Steve and Natasha retake a S.H.I.E.L.D. ship from pirates, and Natasha copies its files on Fury's orders."]]}
 ],
 cosmos: [
 {"id":"earth","n":"Earth","r":"Midgard","at":[500,540],"home":1},
@@ -3025,14 +3041,19 @@ function atlPlace(map, W, H) {   // move the pins, then show as many names as fi
 }
 function atlPins(map) {   // only places you've charted are on the map; the rest stay off it entirely
   const seen = state.atlas = state.atlas || {}, key = p => atlView === "city" ? "city:" + atlCity + ":" + p.id : atlView === "uni" ? "uni:" + atlUni + ":" + p.id : p.id, L = atlPlaces().filter(atlLit); let d = 0;
-  const news = L.filter(p => !p.home && !seen[key(p)]), step = Math.min(.22, 2.4 / Math.max(1, news.length));   // a big batch still lands within a few seconds
-  map.querySelector(".atl-pins").innerHTML = L.map(p => { const fresh = !p.home && !seen[key(p)];
-    return `<button type="button" class="atl-pin${p.home ? " home" : ""}${fresh ? " new" : ""}" data-p="${esc(p.id)}"${fresh ? ` style="--d:${(d++ * step).toFixed(2)}s"` : ""} aria-label="${esc(p.n)}"><i></i><span>${esc(p.n)}</span></button>`; }).join("");
+  const news = L.filter(p => !p.home && !seen[key(p)]);
+  // a place already on the map pings again when something new turns up in it (or, for a city or a universe, anywhere inside it), once, like a new place
+  const sub = atlView === "city" ? atlCity : atlView === "uni" ? atlUni : null, N = state.atlasN = state.atlasN || {};
+  const pn = p => p.city && atlView === "earth" ? atlPlaces("city", p.city).reduce((a, q) => a + atlEvN(q), 0) : p.uni ? ATLAS_UNI[p.uni].places.reduce((a, q) => a + atlEvN(q), 0) : atlEvN(p);
+  L.forEach(p => { if (!p.home && seen[key(p)] && N[key(p)] == null) N[key(p)] = pn(p); });   // places charted before this was kept start out caught up
+  const upds = L.filter(p => !p.home && seen[key(p)] && N[key(p)] < pn(p)), step = Math.min(.22, 2.4 / Math.max(1, news.length + upds.length));   // a big batch still lands within a few seconds
+  map.querySelector(".atl-pins").innerHTML = L.map(p => { const fresh = !p.home && !seen[key(p)], upd = upds.includes(p);
+    return `<button type="button" class="atl-pin${p.home ? " home" : ""}${fresh ? " new" : upd ? " upd" : ""}" data-p="${esc(p.id)}"${fresh || upd ? ` style="--d:${(d++ * step).toFixed(2)}s"` : ""} aria-label="${esc(p.n)}"><i></i><span>${esc(p.n)}</span></button>`; }).join("");
   const els = [...map.querySelectorAll(".atl-pin")];
   map._pins = L.map((p, i) => { const [x, y] = atlXY(p); return { id: p.id, x, y, el: els[i], w: p.home ? 99 : (p.e || []).filter(e => atlEvSeen(e)).length, lw: p.n.length * 7.3 }; });
   // a place only counts as seen once its ping has played out on screen, so leaving early keeps the rest for next time
   const run = map._run = (map._run || 0) + 1;
-  news.forEach((p, i) => setTimeout(() => { if (!atlOpen || map._run !== run || !map.isConnected) return; seen[key(p)] = 1; persist(); }, (i * step + 1.4) * 1000));
+  L.filter(p => news.includes(p) || upds.includes(p)).forEach((p, i) => setTimeout(() => { if (!atlOpen || map._run !== run || !map.isConnected) return; seen[key(p)] = 1; N[key(p)] = pn(p); persist(); }, (i * step + 1.4) * 1000));
 }
 function atlSheet(p) {
   const evs = p.e.filter(e => atlEvSeen(e)).sort((a, b) => ATL_ORDER[a[0]] - ATL_ORDER[b[0]] || String(a[3] || "").localeCompare(String(b[3] || ""))), hid = p.e.length - evs.length, groups = [], city = atlView === "city";
@@ -3093,7 +3114,7 @@ function atlOnBack() {   // a back step inside the Atlas; true if it was the Atl
 const ATL_GROUPS = {
   earth: [["North America", "mojave iowa manitowoc area51 ny westview lehigh compound dc baltimore culver cambridge chicago ohio missouri tennessee alabama oklahoma miami louisiana nm la sf bloodstone mexico"], ["Central America and the Caribbean", "sanjuan haiti talokan"], ["South America", "bogota rio amazon"],
     ["Europe", "moscow russia monaco malta england london edinburgh norway stuttgart leipzig berlin prague venice italy pompeii vienna budapest sokovia bucharest riga greece netherlands bern geneva"], ["Africa", "morocco lagos egypt wakanda johannesburg mali tunisia"],
-    ["Asia", "siberia mesopotamia afghanistan karachi mumbai kolkata kathmandu talo hongkong madripoor kl seoul busan tokyo tenrings hiroshima"], ["Oceania", "tahiti australia"], ["Oceans and poles", "arctic indianocean raft"]],
+    ["Asia", "siberia mesopotamia afghanistan karachi mumbai kolkata kathmandu talo hongkong madripoor kl seoul busan tokyo tenrings hiroshima"], ["Oceania", "tahiti australia"], ["Oceans and poles", "arctic indianocean lemurian raft"]],
   cosmos: [["Near Earth", "saber"], ["The Nine Realms", "asgard jotunheim svartalfheim muspelheim nidavellir"], ["Across the galaxy", "*"]],
   beyond: [["Other dimensions", "quantum mirror dark kunlun duat shadow eternity witches framework"], ["Outside time", "tva citadel void future"]],
   incursions: [["Terminated", "*"]],
@@ -6025,7 +6046,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "atlasN", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7379,23 +7400,27 @@ try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
 /* ---------- the dock: Story (the watch list), Log, Atlas, Map and File, always one tap away ---------- */
 let commsOpen = false;
+// each box's dot, pinned to its box's top right corner
+function tdotPlace() { document.querySelectorAll("#view .grid > .tdot").forEach(d => { const t = d.parentElement.querySelector(`:scope > .tile[data-id="${CSS.escape(d.dataset.for)}"]`);
+  if (!t) { d.remove(); return; } d.style.left = (t.offsetLeft + t.offsetWidth - 3) + "px"; d.style.top = (t.offsetTop + 3) + "px"; }); }
+window.addEventListener("resize", () => tdotPlace()); if (document.fonts) document.fonts.ready.then(() => tdotPlace());
 function newDots() {
   try {
     const n = achList().filter(a => earned(a.id)).length; if (state.hfSeen == null) state.hfSeen = n;
-    const hide = mapHide(), cm = state.cmSeen || {}, cnt = (L, f, k) => L.filter(x => f(x) === k).length;
-    const M0 = msgSeen().filter(m => (state.msgs || {})[msgId(m)]), T0 = newsTitles().filter(t => NEWS[t].some((h, i) => (state.news || {})[newsKey(t, i)]));
+    const hide = mapHide();
     // a box you can open whose log has something unseen: a dot on its tile, on the Chapters or Characters button above it, and on Story
     const box = L => L.filter(c => DOSSIERS[c.id] && logUnread(c.id)).map(c => c.id);
     const chU = box(DATA.chapters.filter(c => state.unlocked[c.id])), cxU = box(DATA.chars.filter(c => !charHidden(c))), U = new Set([...chU, ...cxU]);
     document.getElementById("btnChapters").classList.toggle("nw", chU.length > 0); document.getElementById("btnChars").classList.toggle("nw", cxU.length > 0);
-    document.querySelectorAll("#view .tile[data-id]").forEach(t => { const d = t.querySelector(":scope > .tdot"), want = U.has(t.dataset.id);
-      if (want && !d) t.insertAdjacentHTML("beforeend", '<i class="tdot" aria-hidden="true"></i>'); else if (!want && d) d.remove(); });
+    document.querySelectorAll("#view .tile[data-id]").forEach(t => { const g = t.parentElement, d = g.querySelector(`:scope > .tdot[data-for="${CSS.escape(t.dataset.id)}"]`), want = U.has(t.dataset.id);
+      if (want && !d) g.insertAdjacentHTML("beforeend", `<i class="tdot" data-for="${esc(t.dataset.id)}" aria-hidden="true"></i>`); else if (!want && d) d.remove(); });
+    tdotPlace();
     const on = {
       story: U.size > 0,
       log: logUnread("saga"),
       atlas: Object.keys(ATLAS).some(v => atlOpenV(v) && atlNew(v)),
       map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
-      comms: CM_CHANS.some(([k]) => k && cnt(M0, cmChan, k) > (cm["msg:" + k] || 0)) || CM_OUTLETS.some(([k]) => k && cnt(T0, newsSrc, k) > (cm["news:" + k] || 0)),
+      comms: cmUnread("msg") || cmUnread("news"),
       file: n > state.hfSeen || (embKeep(), embNew().length > 0) };
     document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
     const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", logUnread(openEntry.id));
@@ -8641,33 +8666,44 @@ const cmChan = m => m.k === "tva" || /Time Variance/.test(m.f) ? "tva" : m.k ===
   : /Avengers Facility|Rhodes|Pepper|Sam Wilson|Tony Stark|Natasha/.test(m.f) ? "avengers" : /S\.H\.I\.E\.L\.D\.|Fury|Maria Hill|Coulson|Howard Stark/.test(m.f) ? "shield" : "other";
 const CM_OUTLETS = [["", "All"], ["whih", "WHIH"], ["bugle", "Daily Bugle"], ["bulletin", "Bulletin"], ["e828", "Earth-828"]];
 let cmPick = { msg: "", news: "" };
-function cmChips(L, keyOf, all) {
-  const seen = state.cmSeen = state.cmSeen || {}, pick = cmPick[commsTab], tag = k => commsTab + ":" + k, n = k => L.filter(x => keyOf(x) === k).length;
-  // looking at a channel (or at All) catches you up on it
-  (pick ? [pick] : all.map(a => a[0]).filter(Boolean)).forEach(k => { seen[tag(k)] = n(k); });
-  return `<div class="cm-chips" role="tablist">${all.filter(([k]) => !k || n(k)).map(([k, l]) => `<button type="button" data-cmc="${k}" aria-selected="${k === pick}" class="${k === pick ? "on" : ""}">${l}${k && n(k) > (seen[tag(k)] || 0) ? '<i aria-label="new"></i>' : ""}</button>`).join("")}</div>`;
+// what you've read in Comms: each message and headline, once it's been on your screen here. What turned up new this visit keeps its dot until you leave
+let cmFresh = new Set();
+const cmMK = m => "m:" + msgId(m), cmNK = (t, i) => "n:" + newsKey(t, i);
+const cmHeardM = () => msgSeen().filter(m => (state.msgs || {})[msgId(m)]);
+const cmHeardN = () => newsTitles().flatMap(t => NEWS[t].map((h, i) => (state.news || {})[newsKey(t, i)] ? cmNK(t, i) : null).filter(Boolean));
+function cmReadInit() { if (state.cmRead) return; const R = state.cmRead = {}; cmHeardM().forEach(m => { R[cmMK(m)] = 1; }); cmHeardN().forEach(k => { R[k] = 1; }); }   // the first time, everything already in counts as read
+const cmUnread = tab => (cmReadInit(), tab === "msg" ? cmHeardM().some(m => !state.cmRead[cmMK(m)]) : cmHeardN().some(k => !state.cmRead[k]));
+function cmRead(keys) { keys.forEach(k => { if (!state.cmRead[k]) { state.cmRead[k] = 1; cmFresh.add(k); } }); }
+function cmChips(L, keyOf, all, unreadIn) {
+  const pick = cmPick[commsTab], n = k => L.filter(x => keyOf(x) === k).length;
+  // a channel with something in it you haven't read yet has a dot
+  return `<div class="cm-chips" role="tablist">${all.filter(([k]) => !k || n(k)).map(([k, l]) => `<button type="button" data-cmc="${k}" aria-selected="${k === pick}" class="${k === pick ? "on" : ""}">${l}${k && unreadIn(k) ? '<i aria-label="new"></i>' : ""}</button>`).join("")}</div>`;
 }
 let cmLogOpen = false;
 const cmLogFold = M => { const L = M.filter(m => m.log); if (!L.length) return M; const at = M.indexOf(L[0]); return [...M.slice(0, at).filter(m => !m.log), { caseFile: L }, ...M.slice(at).filter(m => !m.log)]; };
 function cmCaseFile(L) {
-  return `<article class="cm-msg tva cm-case${cmLogOpen ? " open" : ""}"><em>TVA case file</em><dl><dt>From</dt><dd>Time Variance Authority</dd><dt>Re</dt><dd>The Incursion log</dd></dl>
+  return `<article class="cm-msg tva cm-case${cmLogOpen ? " open" : ""}${L.some(m => cmFresh.has(cmMK(m))) ? " nw" : ""}"><em>TVA case file</em><dl><dt>From</dt><dd>Time Variance Authority</dd><dt>Re</dt><dd>The Incursion log</dd></dl>
     <button type="button" class="cm-casebtn" data-cmlog aria-expanded="${cmLogOpen}"><b>${L.length} terminated</b><span>${cmLogOpen ? "Close the log" : "Open the log"}</span></button>
-    ${cmLogOpen ? `<ol class="cm-log">${L.map(m => `<li><b>${esc(m.re)}</b><small>${tnh(m.t)}</small><p>${esc(m.b)}</p></li>`).join("")}</ol>` : ""}</article>`;
+    ${cmLogOpen ? `<ol class="cm-log">${L.map(m => `<li${cmFresh.has(cmMK(m)) ? ' class="nw"' : ""}><b>${esc(m.re)}</b><small>${tnh(m.t)}</small><p>${esc(m.b)}</p></li>`).join("")}</ol>` : ""}</article>`;
 }
 function renderComms() {
   newsForget(); msgForget(); const T0 = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M0 = msgSeen().filter(m => state.msgs[msgId(m)]).reverse();
   const T = cmPick.news ? T0.filter(t => newsSrc(t) === cmPick.news) : T0, M = cmPick.msg ? M0.filter(m => cmChan(m) === cmPick.msg) : M0;
   const row = (k, v) => `<dt>${k}</dt><dd>${esc(v)}</dd>`;
-  document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}">${l}</button>`).join("");
-  const chips = commsTab === "msg" ? (M0.length ? cmChips(M0, cmChan, CM_CHANS) : "") : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS) : ""); persist();
+  // what's on screen now counts as read; the tabs and the channels left with something unread keep their dots
+  cmReadInit(); if (commsTab === "msg") cmRead(M.map(cmMK)); else cmRead(T.flatMap(t => NEWS[t].map((h, i) => state.news[newsKey(t, i)] ? cmNK(t, i) : null).filter(Boolean)));
+  const nw = k => cmFresh.has(k) ? " nw" : "";
+  document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}"${k !== commsTab && cmUnread(k) ? ' class="nw"' : ""}>${l}</button>`).join("");
+  const chips = commsTab === "msg" ? (M0.length ? cmChips(M0, cmChan, CM_CHANS, c => M0.some(m => cmChan(m) === c && !state.cmRead[cmMK(m)])) : "")
+    : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS, o => T0.some(t => newsSrc(t) === o && NEWS[t].some((h, i) => state.news[newsKey(t, i)] && !state.cmRead[cmNK(t, i)]))) : ""); persist();
   const cv = document.getElementById("commsView"), oc = cv.querySelector(".cm-chips"), cx = oc && cv.dataset.tab === commsTab ? oc.scrollLeft : 0; cv.dataset.tab = commsTab;
   swapIn(cv, chips + (commsTab === "msg"
-    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
-    : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`)));
+    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}${nw(cmMK(m))}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
+    : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].map((h, i) => state.news[newsKey(t, i)] ? `<p class="${nw(cmNK(t, i)).trim()}">${esc(h)}</p>` : "").join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`)));
   const nc = cv.querySelector(".cm-chips"); if (nc && cx) nc.scrollLeft = cx;   // the chip row stays where you'd scrolled it
 }
 let commsTab = "news";
-function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true); { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
+function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true); cmFresh = new Set(); { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
   renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
@@ -8828,9 +8864,11 @@ function buildMap() {
     const r = M.rows[c.m[0]];
     return `<g class="nd" data-c="${ci}"><circle cx="${c.x}" cy="${r.y}" r="14" fill="transparent"/><circle cx="${c.x}" cy="${r.y}" r="5" fill="#0B1019" stroke="${r.c}" stroke-width="2.4"/></g>`;
   }).join("");
-  v.innerHTML = `<svg aria-label="Character Map"><g id="mapG">${bands}${heads}${lanes}${stops}${names}</g></svg>`;
+  // the years along the top are release years: the titles run in the order they came out, so in-universe time can jump around
+  const key = `<text class="yrkey" x="14" y="11">Release year</text>`;
+  v.innerHTML = `<svg aria-label="Character Map"><g id="mapG">${bands}${heads}${lanes}${stops}${names}${key}</g></svg>`;
   mapBuilt = true;
-  mapNames = [...v.querySelectorAll(".rname")]; mapNameX = "";
+  mapNames = [...v.querySelectorAll(".rname, .yrkey")]; mapNameX = "";
 }
 let mapRaf = 0, mapNames = null, mapNameX = "";
 function mapApply() { if (mapRaf) return; mapRaf = requestAnimationFrame(() => { mapRaf = 0; mapApplyNow(); }); }
@@ -9019,8 +9057,8 @@ function ask(msg, yes, no) {   // no: the label for the other button (Cancel unl
     box.onkeydown = ev => { if (ev.key === "Escape") { ev.stopPropagation(); done(false); } };
   });
 }
-/* ---------- the Watcher is watching: leave the app untouched for 45 to 60 seconds and the page behind the boxes slowly turns into deep space, then two faint eyes open over everything; touch the screen and it fades (not an Agent File) ---------- */
-let idleAt = Date.now(), cosmos = null, idleWait = 45000 + Math.random() * 15000;
+/* ---------- the Watcher is watching: leave the app untouched for 90 to 120 seconds and the page behind the boxes slowly turns into deep space, then two faint eyes open over everything; touch the screen and it fades (not an Agent File) ---------- */
+let idleAt = Date.now(), cosmos = null, idleWait = 90000 + Math.random() * 30000;
 function openCosmos() {
   const c = cosmos = document.createElement("div"); c.className = "fx-cosmos"; c.setAttribute("aria-hidden", "true");
   const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), W = innerWidth * 1.08, H = innerHeight * 1.08;
@@ -9054,7 +9092,7 @@ function closeCosmos() {
   [c, ...(c.inner || [])].forEach(d => { d.animate([{ opacity: getComputedStyle(d).opacity }, { opacity: 0 }], { duration: 700, easing: "ease-out", fill: "forwards" }).onfinish = () => d.remove(); });
   c.eyes.animate([{ opacity: getComputedStyle(c.eyes).opacity }, { opacity: 0 }], { duration: 500, easing: "ease-out", fill: "forwards" }).onfinish = () => c.eyes.remove();
 }
-const wake = () => { idleAt = Date.now(); idleWait = 45000 + Math.random() * 15000; if (cosmos) closeCosmos(); };
+const wake = () => { idleAt = Date.now(); idleWait = 90000 + Math.random() * 30000; if (cosmos) closeCosmos(); };
 ["pointerdown", "keydown", "wheel", "scroll", "touchstart"].forEach(n => document.addEventListener(n, wake, { capture: true, passive: true }));
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") idleAt = Date.now(); });
 setInterval(() => {
