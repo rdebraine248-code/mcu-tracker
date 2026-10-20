@@ -532,7 +532,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .plog .dnone{ letter-spacing:.5px; text-transform:none; font-size:14px; font-style:italic; opacity:.6; }
 .plog .dcard p.dwait, .plog .dlog p.dwait{ letter-spacing:0; }
 .dcover[data-q]::after{ content:attr(data-q); } .dcover.on[data-a]::after{ content:attr(data-a); }
-.dbtn{ position:relative; }
+.dbtn{ position:relative; } .modes button{ position:relative; }
+.modes button.nw::after{ content:""; position:absolute; top:5px; right:9px; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
+.tile .tdot{ position:absolute; top:9px; right:9px; z-index:6; width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px rgba(10,14,22,.55), 0 0 7px #5FD0FF; pointer-events:none; }
 .dbtn.nw::after, .dock button.nw::after{ content:""; position:absolute; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .dbtn.nw::after{ top:-4px; right:-4px; }
 .dock button.nw::after{ top:7px; left:calc(50% + 10px); }
@@ -1446,6 +1448,7 @@ function refreshChapterChrome() {
 }
 const ATLAS_BTN = `<button type="button" class="mapbtn atlbtn" id="btnAtlas"><svg class="mglobe" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="#7FC6FF" stroke-width="1.6"><circle cx="24" cy="24" r="20" fill="rgba(60,130,220,.18)"/><ellipse cx="24" cy="24" rx="9" ry="20"/><path d="M4 24h40M7 14h34M7 34h34M24 4v40"/><circle cx="31" cy="17" r="2.6" fill="#BFE9FF" stroke="none"/><circle cx="15" cy="29" r="2" fill="#BFE9FF" stroke="none"/></svg><span class="mtxt">Atlas</span></button>`;
 function renderView() {
+  clearTimeout(dotsT); dotsT = setTimeout(newDots, 60);
   const v = document.getElementById("view");
   if (state.mode !== "timeline") prunedLanes = {};
   const chapters = state.mode === "chapters";
@@ -7081,7 +7084,14 @@ function newDots() {
     const n = achList().filter(a => earned(a.id)).length; if (state.hfSeen == null) state.hfSeen = n;
     const hide = mapHide(), cm = state.cmSeen || {}, cnt = (L, f, k) => L.filter(x => f(x) === k).length;
     const M0 = msgSeen().filter(m => (state.msgs || {})[m.t]), T0 = newsTitles().filter(t => NEWS[t].some((h, i) => (state.news || {})[newsKey(t, i)]));
+    // a box you can open whose log has something unseen: a dot on its tile, on the Chapters or Characters button above it, and on Story
+    const box = L => L.filter(c => DOSSIERS[c.id] && logUnread(c.id)).map(c => c.id);
+    const chU = box(DATA.chapters.filter(c => state.unlocked[c.id])), cxU = box(DATA.chars.filter(c => !charHidden(c))), U = new Set([...chU, ...cxU]);
+    document.getElementById("btnChapters").classList.toggle("nw", chU.length > 0); document.getElementById("btnChars").classList.toggle("nw", cxU.length > 0);
+    document.querySelectorAll("#view .tile[data-id]").forEach(t => { const d = t.querySelector(":scope > .tdot"), want = U.has(t.dataset.id);
+      if (want && !d) t.insertAdjacentHTML("beforeend", '<i class="tdot" aria-hidden="true"></i>'); else if (!want && d) d.remove(); });
     const on = {
+      story: U.size > 0,
       log: logUnread("saga"),
       atlas: Object.keys(ATLAS).some(v => atlOpenV(v) && atlNew(v)),
       map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
