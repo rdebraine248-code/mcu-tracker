@@ -650,7 +650,6 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-codein{ display:block; width:calc(100% - 68px); box-sizing:border-box; padding:2px 6px; border:1px solid #3A4A6E; border-radius:6px; background:#0B1019; color:#EEF1F6; }
 .hf-strip{ display:flex; align-items:center; gap:10px; margin-top:12px; } .hf-strip i{ flex:1; height:18px; background:repeating-linear-gradient(90deg,#9FB3D1 0 2px,transparent 2px 4px,#9FB3D1 4px 5px,transparent 5px 8px,#9FB3D1 8px 11px,transparent 11px 13px); opacity:.55; } .hf-strip span{ font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; }
 .hf-cf{ margin:0; padding:4px 16px 24px; overflow-y:auto; } .hf-cf div{ padding:9px 0; border-top:1px solid #1E2638; } .hf-cf dt{ font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .hf-cf dd{ margin:3px 0 0; font:15px/1.45 'IBM Plex Sans',sans-serif; color:#EEF1F6; }
-.hf-cf .hf-cfq dd{ font-style:italic; color:#CFE0FA; }
 .hf-cf dd.st-closed{ color:#7BD88F; } .hf-cf dd.st-open{ color:#FF8A7A; } .hf-cfw{ padding:12px 16px 28px; color:#8EA2C2; }
 .hf-pick{ position:absolute; inset:0; z-index:5; display:flex; align-items:flex-end; justify-content:center; background:rgba(5,8,14,.72); animation:whihfade .2s ease both; }
 .hf-pickin{ width:100%; max-width:760px; max-height:78%; display:flex; flex-direction:column; border:1px solid #26314A; border-bottom:0; border-radius:16px 16px 0 0; background:#0D1320; }
@@ -5736,9 +5735,6 @@ const EGGS = [
   ["doom", "Doom", "He fights with both hands.", "Hold any Avengers: Doomsday title with two fingers (on a computer, a long hold).", 2],
   ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse on the Sacred Timeline.", 2]
 ];
-// the line on record in each Avengers mission's case file (Doomsday and Secret Wars are placeholders until the films are out)
-const FILM_LINES = { "The Avengers": "Have you ever tried shawarma?", "Avengers: Age of Ultron": "There are no strings on me.", "Avengers: Infinity War": "Bring me Thanos!",
-  "Avengers: Endgame": "…assemble.", "Avengers: Doomsday": "Doom has come.", "Avengers: Secret Wars": "Everything ends." };
 // each Avengers film is a mission, named for what the team had to do (Doomsday and Secret Wars keep their titles until they are out)
 const MISSION_NAMES = { "The Avengers": "Save New York", "Avengers: Age of Ultron": "Stop Ultron", "Avengers: Infinity War": "Face Thanos", "Avengers: Endgame": "Bring Them Back" };
 const AVENGERS_FILMS = ["The Avengers", "Avengers: Age of Ultron", "Avengers: Infinity War", "Avengers: Endgame", "Avengers: Doomsday", "Avengers: Secret Wars"];
@@ -6011,7 +6007,7 @@ function caseFile(film) {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) pk.remove();
   const R = CASES[film]; pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Case file");
   pk.innerHTML = `<div class="hf-pickin hf-case"><div class="hf-pickh"><span>Case file · ${esc(MISSION_NAMES[film] || film.replace("Avengers: ", ""))}</span><button type="button" data-ava-x aria-label="Close">&times;</button></div>
-    ${R ? `<dl class="hf-cf">${R.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}${FILM_LINES[film] ? `<div class="hf-cfq"><dt>On record</dt><dd>&ldquo;${esc(FILM_LINES[film])}&rdquo;</dd></div>` : ""}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
+    ${R ? `<dl class="hf-cf">${R.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
   fp.appendChild(pk); haptic(8); hfPickNav();
   pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
 }
