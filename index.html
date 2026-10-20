@@ -1234,7 +1234,7 @@ function prevOf(e) {
 // the Incursions stay sealed until Avengers: Doomsday is checked off, anywhere
 const INC_ID = "ch-incursions", incOpen = () => anyChecked("Avengers: Doomsday");
 // checking off Doomsday for the first time: a warning in the Incursions' colors that something has opened, without naming it
-const incAlert = () => say("Warning: incursion detected. A sealed Extras file is ready to open.", DATA.chapters.find(c => c.id === INC_ID));
+const incAlert = () => say("Warning: Incursions detected.", DATA.chapters.find(c => c.id === INC_ID));
 const extraShut = e => !e.num && (e.id === INC_ID ? !incOpen() : !multiverseOpen());
 function available(e) {
   if (state.unlocked[e.id] || forceOpen === e.id) return true;
