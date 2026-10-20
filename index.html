@@ -952,6 +952,14 @@ body{ padding-bottom:var(--dockh); }
 .cm-chips::-webkit-scrollbar{ display:none; }
 .cm-chips button{ position:relative; flex:none; padding:7px 13px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
 .cm-chips button.on{ background:#2D63C8; border-color:#2D63C8; color:#fff; }
+.cm-case .cm-casebtn{ display:flex; align-items:baseline; justify-content:space-between; width:100%; padding:0; border:0; background:transparent; color:inherit; cursor:pointer; text-align:left; }
+.cm-case .cm-casebtn b{ font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:30px; line-height:1; letter-spacing:1px; text-transform:uppercase; color:#FFB347; }
+.cm-case .cm-casebtn span{ font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#F0A04B; }
+.cm-log{ list-style:none; margin:14px 0 0; padding:0; border-top:1px solid #3B2C1B; }
+.cm-log li{ padding:12px 0; border-bottom:1px solid #2A2015; }
+.cm-log li b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#FFB347; }
+.cm-log li small{ display:block; margin:2px 0 6px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#A88A66; }
+.cm-log li p{ font-size:15px; }
 .cm-chips i{ position:absolute; top:3px; right:4px; width:6px; height:6px; border-radius:50%; background:#E9C46A; }
 .cm-msg{ margin:0 0 16px; padding:14px 16px 16px; background:#101828; border:1px solid #22314B; border-left:3px solid #2D63C8; }
 .cm-msg dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 12px; font:11px/1.45 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
@@ -7219,24 +7227,6 @@ const COMMS = [
 "b": "Welcome to S.H.I.E.L.D., Agent. We protect the world from the threats it isn't ready to know about, and as of today, so do you. This datapad logs all your activity, every file you close and every operation you see through. Stay sharp. We're counting on you."
 },
 {
-"t": "Hulk (2003)",
-"k": "tva",
-"f": "Time Variance Authority",
-"to": "All TVA personnel",
-"cl": "For All Time. Always.",
-"re": "Earth-400083",
-"b": "Earth-400083 has been lost to an incursion. Mark it terminated. No recovery will be attempted."
-},
-{
-"t": "Fantastic Four (2015)",
-"k": "tva",
-"f": "Time Variance Authority",
-"to": "All TVA personnel",
-"cl": "For All Time. Always.",
-"re": "Earth-15866",
-"b": "Earth-15866 has been lost to an incursion. Mark it terminated and close the file."
-},
-{
 "t": "Iron Man",
 "f": "Agent Phil Coulson, S.H.I.E.L.D.",
 "to": "Recruit",
@@ -7448,10 +7438,235 @@ const COMMS = [
 "cl": "Burn after reading",
 "re": "The Red Room",
 "b": "The Red Room is gone. Dreykov is gone. Dozens of women just got their own minds back, and they'll need help nobody will officially give them. If anyone asks, you never heard from me. N."
+},
+// the Incursion log: one notice per lost Earth, filed together in a single TVA case file on the Comms page
+{
+"t": "Captain America (1944)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-600001",
+"b": "A Captain America with a pistol and no shield, a district attorney by day. The incursion closed his last chapter."
+},
+{
+"t": "The Incredible Hulk (1977–1982)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-400005",
+"b": "David Banner spent years walking away from every town he saved. This world didn't get to walk away.",
+"also": ["The Incredible Hulk TV Movies (1988–1990)"]
+},
+{
+"t": "The Amazing Spider-Man (1977–1979)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-730911",
+"b": "A Spider-Man who swung through New York, and once all the way to Hong Kong. Monitor dark."
+},
+{
+"t": "Doctor Strange (1978)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-96173",
+"b": "A psychiatrist who became a sorcerer's heir. No spell held this one together."
+},
+{
+"t": "Captain America (1979)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-600043",
+"b": "A Captain America on a motorcycle, with his shield for a windshield. He didn't outrun this."
+},
+{
+"t": "Howard the Duck",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-58470",
+"b": "One duck, one Dark Overlord, one Cleveland. All of it gone."
+},
+{
+"t": "The Punisher (1989)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-58627",
+"b": "A Punisher who lived in the sewers. The collision came from above."
+},
+{
+"t": "Captain America (1990)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-697064",
+"b": "A Captain America who woke from the ice to save a President. Nobody woke this world."
+},
+{
+"t": "Power Pack (1991)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-635972",
+"b": "Four kids with an alien's gift and a secret kept from their parents. Kept for good now."
+},
+{
+"t": "The Fantastic Four (1994)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-94000",
+"b": "A Fantastic Four the world never got to see. Now no one will."
+},
+{
+"t": "Generation X",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-700029",
+"b": "A class of young mutants, with Emma Frost and Banshee teaching. School's out."
+},
+{
+"t": "Nick Fury: Agent of S.H.I.E.L.D.",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-5724",
+"b": "A Nick Fury with an eyepatch and a cigar, out of retirement for one more job. It was his last."
+},
+{
+"t": "Mutant X",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-704509",
+"b": "Adam Kane's mutants, still running from Genomex. Out of road."
+},
+{
+"t": "Hulk (2003)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-400083",
+"b": "Earth-400083 has been lost to an incursion. Mark it terminated. No recovery will be attempted."
+},
+{
+"t": "Man-Thing",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-58460",
+"b": "A swamp with a guardian. The guardian lost."
+},
+{
+"t": "Ghost Rider",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-121347",
+"b": "A Ghost Rider with a flaming skull and a contract with the devil. Contract void.",
+"also": ["Ghost Rider: Spirit of Vengeance"]
+},
+{
+"t": "Punisher: War Zone",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-47281",
+"b": "A Punisher at war with Jigsaw. Neither side won."
+},
+{
+"t": "Fantastic Four (2015)",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-15866",
+"b": "Earth-15866 has been lost to an incursion. Mark it terminated and close the file."
+},
+{
+"t": "Legion",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-17040",
+"b": "A mutant whose mind held a whole other world. Both of them are gone now."
+},
+{
+"t": "The Gifted",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-17372",
+"b": "The Mutant Underground ran out of places to hide."
+},
+{
+"t": "Helstrom",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-TRN836",
+"b": "Two siblings who hunted demons. Something bigger came for their world. Temporary designation, permanent result."
+},
+{
+"t": "Moon Girl and Devil Dinosaur",
+"k": "tva",
+"log": 1,
+"f": "Time Variance Authority",
+"to": "All TVA personnel",
+"cl": "For All Time. Always.",
+"re": "Earth-32102",
+"b": "A 13-year-old genius and her dinosaur kept the Lower East Side safe. They couldn't keep this."
 }
 ];
 // the welcome isn't tied to a title: it comes with the first boot, so only someone who has been through it gets it (and gets it again after Reset datapad)
-const WELCOME = "__welcome", msgLive = t => t === WELCOME ? !!state.booted : atlSeenT(t);
+// a notice can belong to more than one title (an Earth with two films): any of them delivers it
+const MSG_ALSO = Object.fromEntries(COMMS.filter(m => m.also).map(m => [m.t, m.also]));
+const WELCOME = "__welcome", msgLive = t => t === WELCOME ? !!state.booted : atlSeenT(t) || (MSG_ALSO[t] || []).some(atlSeenT);
 function msgForget() { const M = state.msgs = state.msgs || {}; Object.keys(M).forEach(t => { if (!COMMS.some(m => m.t === t) || !msgLive(t)) delete M[t]; }); }
 const msgSeen = () => COMMS.filter(m => msgLive(m.t)).sort((a, b) => (a.t === WELCOME ? -1 : ATL_ORDER[a.t] ?? 1e9) - (b.t === WELCOME ? -1 : ATL_ORDER[b.t] ?? 1e9));
 function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[m.t]).map(m => [m.t, -1, ({ intercept: "Intercepted: ", email: "New email from ", notice: "Notice from ", tva: "TVA notice: ", telegram: "Telegram from ", cerebro: "Cerebro: ", watcher: "" }[m.k] ?? "Incoming from ") + m.f + ": " + m.re, "msg"]); }
@@ -7528,6 +7743,13 @@ function cmChips(L, keyOf, all) {
   (pick ? [pick] : all.map(a => a[0]).filter(Boolean)).forEach(k => { seen[tag(k)] = n(k); });
   return `<div class="cm-chips" role="tablist">${all.filter(([k]) => !k || n(k)).map(([k, l]) => `<button type="button" data-cmc="${k}" aria-selected="${k === pick}" class="${k === pick ? "on" : ""}">${l}${k && n(k) > (seen[tag(k)] || 0) ? '<i aria-label="new"></i>' : ""}</button>`).join("")}</div>`;
 }
+let cmLogOpen = false;
+const cmLogFold = M => { const L = M.filter(m => m.log); if (!L.length) return M; const at = M.indexOf(L[0]); return [...M.slice(0, at).filter(m => !m.log), { caseFile: L }, ...M.slice(at).filter(m => !m.log)]; };
+function cmCaseFile(L) {
+  return `<article class="cm-msg tva cm-case${cmLogOpen ? " open" : ""}"><em>TVA case file</em><dl><dt>From</dt><dd>Time Variance Authority</dd><dt>Re</dt><dd>The Incursion log</dd></dl>
+    <button type="button" class="cm-casebtn" data-cmlog aria-expanded="${cmLogOpen}"><b>${L.length} terminated</b><span>${cmLogOpen ? "Close the log" : "Open the log"}</span></button>
+    ${cmLogOpen ? `<ol class="cm-log">${L.map(m => `<li><b>${esc(m.re)}</b><small>${tnh(m.t)}</small><p>${esc(m.b)}</p></li>`).join("")}</ol>` : ""}</article>`;
+}
 function renderComms() {
   newsForget(); msgForget(); const T0 = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M0 = msgSeen().filter(m => state.msgs[m.t]).reverse();
   const T = cmPick.news ? T0.filter(t => newsSrc(t) === cmPick.news) : T0, M = cmPick.msg ? M0.filter(m => cmChan(m) === cmPick.msg) : M0;
@@ -7535,7 +7757,7 @@ function renderComms() {
   document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}">${l}</button>`).join("");
   const chips = commsTab === "msg" ? (M0.length ? cmChips(M0, cmChan, CM_CHANS) : "") : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS) : ""); persist();
   document.getElementById("commsView").innerHTML = chips + (commsTab === "msg"
-    ? (M.length ? `<section class="cm-sec">${M.map(m => `<article class="cm-msg${m.k ? " " + m.k : ""}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
+    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
     : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`));
 }
 let commsTab = "news";
@@ -7546,7 +7768,8 @@ function closeComms(fromHistory) {
   document.getElementById("commsPanel").hidden = true; commsOpen = false; document.body.style.overflow = "";
 }
 document.getElementById("commsBack").addEventListener("click", () => closeComms());
-document.getElementById("commsView").addEventListener("click", ev => { const c = ev.target.closest("[data-cmc]"); if (!c) return; haptic(8); cmPick[commsTab] = c.dataset.cmc; renderComms(); document.getElementById("commsView").scrollTop = 0; });
+document.getElementById("commsView").addEventListener("click", ev => { if (ev.target.closest("[data-cmlog]")) { haptic(8); cmLogOpen = !cmLogOpen; const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; return; }
+  const c = ev.target.closest("[data-cmc]"); if (!c) return; haptic(8); cmPick[commsTab] = c.dataset.cmc; renderComms(); document.getElementById("commsView").scrollTop = 0; });
 (() => { let t = 0; const v = document.getElementById("commsView");
   v.addEventListener("pointerdown", ev => { const s = ev.target.closest(".cm-red"); clearTimeout(t); if (s) t = setTimeout(() => cmDecrypt(s), 600); });
   ["pointerup", "pointercancel", "pointerleave"].forEach(n => v.addEventListener(n, () => clearTimeout(t))); })();
