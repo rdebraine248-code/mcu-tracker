@@ -812,6 +812,8 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-views button{ position:relative; border:0; border-radius:999px; padding:6px 11px; background:transparent; color:#8EA2C2; font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .atl-views button[aria-selected="true"]{ background:#1E2A44; color:#EEF1F6; box-shadow:inset 0 0 0 1px #3A78C9; }
 .atl-views button.lk{ color:#3A4660; }
+.atl-row{ position:relative; }
+.atl-row.nw::after{ content:""; position:absolute; top:50%; right:4px; width:7px; height:7px; margin-top:-4px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .atl-views button.nw::after{ content:""; position:absolute; top:3px; right:4px; width:5px; height:5px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .atl-map{ position:relative; flex:none; background-color:#0B1019 !important; overflow:hidden; touch-action:none; user-select:none; -webkit-user-select:none; border-top:1px solid #1C2538; background:radial-gradient(ellipse at 50% 42%, rgba(40,96,170,.2), rgba(11,16,25,0) 70%); }
 .atl-map.sky.multi{ background:radial-gradient(ellipse at 50% 50%, rgba(200,150,70,.18), rgba(11,16,25,0) 70%); }
@@ -2711,7 +2713,23 @@ const atlSeenT = t => atlTl(t) || Object.values(ATL_TLSEASONS[t] || {}).some(ks 
 const atlEvSeen = e => atlSeenT(e[0]) || (!!e[3] && atlTl(e[3]));
 const atlLit = p => !!p.home || (p.uni ? ATLAS_UNI[p.uni].places.some(atlLit) : (p.e || []).some(e => atlEvSeen(e)));   // a universe lights up once anything in it has
 const atlOpenV = v => v === "earth" || ATLAS[v].some(p => !p.home && atlLit(p));
-const atlNew = v => ATLAS[v].some(p => !p.home && atlLit(p) && !(state.atlas || {})[p.id]);
+// what you've read: each place remembers how many of its entries were in when you last opened it. A place with more than that has a dot,
+// and so does the city or universe it sits in, and the tab above them, so the dots lead you down to it
+const atlEvN = p => (p.e || []).filter(atlEvSeen).length;
+const atlRKey = (view, sub, p) => view === "city" ? "city:" + sub + ":" + p.id : view === "uni" ? "uni:" + sub + ":" + p.id : p.id;
+function atlUnread(view, sub, p) {
+  if (p.home) return false;
+  if (p.city && view === "earth") return atlPlaces("city", p.city).some(q => atlUnread("city", p.city, q));
+  if (p.uni) return ATLAS_UNI[p.uni].places.some(q => atlUnread("uni", p.uni, q));
+  const n = atlEvN(p); return n > 0 && ((state.atlRead || {})[atlRKey(view, sub, p)] || 0) < n;
+}
+function atlReadInit() {   // the first time: everything already charted counts as read, so only what turns up from now on gets a dot
+  if (state.atlRead) return; const R = state.atlRead = {};
+  const mark = (view, sub, p) => { if (p.home) return; if (p.city && view === "earth") return atlPlaces("city", p.city).forEach(q => mark("city", p.city, q));
+    if (p.uni) return ATLAS_UNI[p.uni].places.forEach(q => mark("uni", p.uni, q)); const n = atlEvN(p); if (n) R[atlRKey(view, sub, p)] = n; };
+  Object.keys(ATLAS).forEach(v => ATLAS[v].forEach(p => mark(v, null, p))); persist();
+}
+const atlNew = v => (atlReadInit(), ATLAS[v].some(p => atlLit(p) && atlUnread(v, null, p)));
 const atlSpot = sub => String(sub || "").replace(/,\s*(1[0-9]{3}|20[0-9]{2})$/, "");   // "Midtown, 2012" happens in Midtown
 function atlCount() { let n = 0, t = 0; for (const v in ATLAS) ATLAS[v].forEach(p => { if (p.home) return; t++; if (atlLit(p)) n++; }); return [n, t]; }
 // a city map is a close-up of one Earth place, projected flat around its own latitude
@@ -2723,10 +2741,10 @@ function atlCityGeo(id) {
 const atlGeo = () => atlView === "earth" ? ["earth"] : atlView === "city" ? ["city", atlCity] : atlView === "uni" ? (ATLAS_UNI[atlUni].map === "earth" ? ["earth"] : ["city", ATLAS_UNI[atlUni].map]) : ["sky"];
 const atlKey = () => atlView === "city" ? "city:" + atlCity : atlView === "uni" ? "uni:" + atlUni : atlView;
 const atlBounds = () => { const g = atlGeo(); return g[0] === "earth" ? [0, 15, 360, 148] : g[0] === "city" ? [0, 0, 1000, atlCityGeo(g[1]).h] : atlView === "incursions" ? [0, 0, 1000, Math.max(1000, ...ATLAS.incursions.map(q => q.at[1] + 70))] : [0, 0, 1000, 1000]; };
-function atlPlaces() {   // what can be pinned in the view you're looking at
-  if (atlView === "uni") return ATLAS_UNI[atlUni].places;
-  if (atlView !== "city") return ATLAS[atlView];
-  const G = atlCityGeo(atlCity), host = ATLAS.earth.find(p => p.city === atlCity), spots = {};
+function atlPlaces(view = atlView, sub = view === "city" ? atlCity : atlUni) {   // what can be pinned in the view you're looking at (or another one)
+  if (view === "uni") return ATLAS_UNI[sub].places;
+  if (view !== "city") return ATLAS[view];
+  const G = atlCityGeo(sub), host = ATLAS.earth.find(p => p.city === sub), spots = {};
   host.e.forEach(e => { const k = atlSpot(e[1]) || G.C.n; (spots[k] = spots[k] || { id: k, n: k, r: G.C.n, at: G.C.spots[k] || [(G.C.b[1] + G.C.b[3]) / 2, (G.C.b[0] + G.C.b[2]) / 2], e: [] }).e.push(e); });
   return Object.values(spots);
 }
@@ -2868,6 +2886,8 @@ function atlSelect(map, id, fromList) {
   if (p.city) { haptic(10); atlSub("city", p.city); return; }   // places with a city map open straight into it
   if (p.uni) { haptic(10); atlSub("uni", p.uni); return; }      // and other universes open their own map
   if (!atlSel) atlPrevT = { ...atlT };   // where the map was, to go back to when the entry closes
+  atlReadInit(); state.atlRead[atlRKey(atlView, atlView === "city" ? atlCity : atlUni, p)] = atlEvN(p); persist();
+  const rw = document.querySelector(`.atl-row[data-p="${CSS.escape(id)}"]`); if (rw) rw.classList.remove("nw"); atlTabs();
   haptic(10); atlSel = id; sh.innerHTML = atlSheet(p); sh.hidden = false; sh.scrollTop = 0; atlPush("atlsel");
   if (atlBig) { atlSize(false, true); atlBigBack = true; }
   map.querySelectorAll(".atl-pin").forEach(b => b.classList.toggle("sel", b.dataset.p === id));
@@ -2907,7 +2927,8 @@ const ATL_GROUPS = {
 function atlList() {
   const L = atlPlaces().filter(p => !p.home), lit = L.filter(atlLit).map(p => [p, p.e.filter(e => atlEvSeen(e)).length]).sort((a, b) => b[1] - a[1] || a[0].n.localeCompare(b[0].n));
   const [n, t] = atlCount(), left = atlView === "city" ? 0 : L.length - lit.length;
-  const row = p => `<button type="button" class="atl-row" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small></button>`, abc = (a, b) => a.n.replace(/^The /, "").localeCompare(b.n.replace(/^The /, ""));
+  atlReadInit(); const sub = atlView === "city" ? atlCity : atlUni;
+  const row = p => `<button type="button" class="atl-row${atlUnread(atlView, sub, p) ? " nw" : ""}" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small></button>`, abc = (a, b) => a.n.replace(/^The /, "").localeCompare(b.n.replace(/^The /, ""));
   if (atlView === "city" || atlView === "uni") return `<div class="atl-lh">Charted in ${esc(atlView === "city" ? ATL_CITY[atlCity].n : ATLAS_UNI[atlUni].n)}</div>${lit.map(x => x[0]).sort(abc).map(row).join("")}`;
   const G = ATL_GROUPS[atlView], named = new Set(G.flatMap(g => g[1].split(" ")));
   return G.map(([h, ids]) => { const L = lit.map(x => x[0]).filter(p => ids === "*" ? !named.has(p.id) : ids.split(" ").includes(p.id)).sort(abc);
@@ -2928,10 +2949,14 @@ function atlSize(big, keep, h) {   // keep: shrink for a place's sheet without f
   const t0 = performance.now(), step = () => { if (!atlT) return; atlT = atlClamp(map, { ...atlT }); atlTs[atlKey()] = atlT; atlDraw(); if (performance.now() - t0 < 380) requestAnimationFrame(step); else map.style.transition = ""; };
   requestAnimationFrame(step);
 }
+function atlTabs() {
+  const city = atlView === "city", uni = atlView === "uni";
+  document.getElementById("atlTabs").innerHTML = ATL_VIEWS.map(([v, l]) => { const o = atlOpenV(v), on = v === atlView || (city && v === "earth") || (uni && v === "multi");
+    return `<button type="button" role="tab" data-atlv="${v}" aria-selected="${on}" class="${o ? "" : "lk"}${o && atlNew(v) ? " nw" : ""}">${o ? l : "???"}</button>`; }).join("");
+}
 function renderAtlas() {
   const fv = document.getElementById("atlView"), city = atlView === "city", uni = atlView === "uni", geo = atlGeo();
-  document.getElementById("atlTabs").innerHTML = ATL_VIEWS.map(([v, l]) => { const o = atlOpenV(v), on = v === atlView || (city && v === "earth") || (uni && v === "multi");
-    return `<button type="button" role="tab" data-atlv="${v}" aria-selected="${on}" class="${o ? "" : "lk"}${o && !on && atlNew(v) ? " nw" : ""}">${o ? l : "???"}</button>`; }).join("");
+  atlTabs();
   fv.innerHTML = `<div class="atl">
     <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : uni ? `<button type="button" class="atl-crumb" data-atlv="multi"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Multiverse</button><span class="atl-cname">${esc(ATLAS_UNI[atlUni].n)}</span>` : ""}</div>
     <div class="atl-map${geo[0] === "sky" ? " sky " + atlView : uni ? " uni" : ""}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
@@ -5509,9 +5534,11 @@ function logDone(id) {
   const rows = (D.kind === "chapter" ? [R.period] : [R.subjects, R.aliases, R.affiliation, R.status]).every((v, i) => !Array.isArray(v) || !v.length || S["r" + i + "." + (v.length - 1)]);
   return rows && D.story.every(([t, x]) => !x || S["s:" + t]) && (D.kind !== "chapter" || !D.debrief || S.d) && (D.links || []).every((l, i) => S["l" + i]);
 }
-function atlAllSeen() {
-  const A = state.atlas || {};
-  return Object.values(ATLAS).every(L => L.every(p => p.home || (atlLit(p) && !!A[p.id])));   // the main maps only, not every spot inside a city or another universe
+function atlAllSeen() {   // every place on every map, inside the cities and the other universes too, opened and read to the last entry: no dots left
+  atlReadInit();
+  const done = (view, sub, p) => p.home || (p.city && view === "earth" ? atlPlaces("city", p.city).every(q => done("city", p.city, q))
+    : p.uni ? ATLAS_UNI[p.uni].places.every(q => done("uni", p.uni, q)) : atlLit(p) && !atlUnread(view, sub, p));
+  return Object.keys(ATLAS).every(v => ATLAS[v].every(p => done(v, null, p)));
 }
 function everyRecord() {
   try {
@@ -5539,7 +5566,7 @@ function achList() {
   EG.forEach(([id, t, h, x], i) => A.push({ id: "egg-" + id, sec: "classified", pg: Math.floor(i / per) + 1, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id] }));
   const pagesDone = () => DATA.chapters.every(isDone) && DATA.chars.every(isDone) && allTL(DATA.timeline, "tl::") && allTL(DATA.timelineRelease, "tr::") && everyRecord();
   const eggsDone = () => allStones() && EGGS.every(([id]) => ex[id]);
-  A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish the whole app.", x: "Complete every chapter, every character box and both timeline views, then see it all recorded: every log entry, every place on the Atlas, every headline and message in Comms, and every path drawn.", ok: pagesDone });
+  A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish the whole app.", x: "Complete every chapter, every character box and both timeline views, then see it all recorded: every log entry, every place on the Atlas (cities and other universes included) opened and read, every headline and message in Comms, and every path drawn.", ok: pagesDone });
   A.push({ id: "secrets", sec: "final", secret: true, t: "Every secret", d: "Every stone and easter egg found.", h: "Find everything hidden.", x: "Find all six stones and every Classified file.", ok: eggsDone });
   A.push({ id: "excelsior", sec: "final", secret: true, t: "Excelsior!", lead: true, d: "Everything. 'Nuff said.", h: "Earn every other file.", x: "Complete every other achievement in this Hero File.", final: true, ok: () => A.every(a => a.id === "excelsior" || earned(a.id)) });
   return A;
@@ -5677,7 +5704,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -8333,7 +8360,7 @@ function resetDatapad() {
     closeFile();
     SAVE_KEYS.forEach(k => { delete state[k]; });   // everything saved goes, your profile picture, codename and recruit date included
     state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
+    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.atlRead = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist();
     // every page goes back to where it starts: top of each screen, Earth in the Atlas, News in Comms, page 1 of Classified
     hfPage = 1; commsTab = "news"; cmPick = { msg: "", news: "" }; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
