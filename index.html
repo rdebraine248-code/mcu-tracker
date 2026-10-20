@@ -6426,39 +6426,49 @@ function atlJump(map, sx, sy) {
   if (atlFxOn) return; if (REDUCED) { found("jumppoint"); return; } atlFxOn = true;
   const A = atlAnchor(atlT.x + sx / atlT.k, atlT.y + sy / atlT.k), { cv, g, W, H, at } = atlLayer(map, A), T = 5200;
   // the far jump point: somewhere else on the map, well inside its edges
-  let bx = 0, by = 0; for (let k = 0; k < 20; k++) { const a = Math.random() * Math.PI * 2, d = 110 + Math.random() * 50; bx = Math.cos(a) * d; by = Math.sin(a) * d; if (sx + bx > 30 && sx + bx < W - 60 && sy + by > 30 && sy + by < H - 30 && !(map._pins || []).some(q => Math.hypot(q.sx - sx - bx, q.sy - sy - by) < 64)) break; }
+  // the far jump point opens fully on the map, as clear of the planets as it can get
+  let bx = 0, by = 0, best = -1;
+  for (let k = 0; k < 80; k++) { const a = Math.random() * Math.PI * 2, d = 100 + Math.random() * 80, x = Math.cos(a) * d, y = Math.sin(a) * d, X = sx + x, Y = sy + y;
+    if (X < 44 || X > W - 70 || Y < 44 || Y > H - 44) continue;
+    const clear = Math.min(200, ...(map._pins || []).filter(q => !q.off).map(q => Math.hypot(q.sx - X, q.sy - Y))); if (clear > best) { best = clear; bx = x; by = y; } }
+  if (best < 0) { bx = W / 2 - sx; by = H / 2 - sy; }
   const ang = Math.atan2(by, bx), c1 = [Math.cos(ang + 1.9) * 120, Math.sin(ang + 1.9) * 120], c2 = [bx + Math.cos(ang - 1.3) * 130, by + Math.sin(ang - 1.3) * 130];
   const path = f => { const u = 1 - f; return [3 * u * u * f * c1[0] + 3 * u * f * f * c2[0] + f * f * f * bx, 3 * u * u * f * c1[1] + 3 * u * f * f * c2[1] + f * f * f * by]; };
   const C = "143,224,255", V = "190,150,255", trail = [];
-  // a jump point: space cracks into a broken honeycomb, cells a little uneven and the outer ones half missing, with lightning crawling along the cracks the whole time it's open
+  // a jump point: a true honeycomb of light. The middle cell is the hole you fly through, the cells around it are glassy panels with a fine dot grid,
+  // and lightning runs along every edge for as long as it's open
   const portal = () => {
-    const R = 9, cells = [], key = (x, y) => Math.round(x * 4) + "," + Math.round(y * 4), V = new Map(), E = new Map();
-    for (let q = -3; q <= 3; q++) for (let r = -3; r <= 3; r++) { const sN = -q - r; if (Math.max(Math.abs(q), Math.abs(r), Math.abs(sN)) > 3) continue; cells.push([q, r, Math.max(Math.abs(q), Math.abs(r), Math.abs(sN))]); }
-    const vert = (x, y) => { const k = key(x, y); if (!V.has(k)) V.set(k, [x + (Math.random() - .5) * R * .5, y + (Math.random() - .5) * R * .5]); return V.get(k); };
-    cells.forEach(([q, r, ring]) => { const cx = R * 1.5 * q, cy = R * Math.sqrt(3) * (r + q / 2);
-      const pts = Array.from({ length: 6 }, (_, k) => vert(cx + Math.cos(Math.PI / 3 * k) * R, cy + Math.sin(Math.PI / 3 * k) * R));
-      pts.forEach((a, k) => { const b = pts[(k + 1) % 6], id = [a, b].map(v => v.join()).sort().join("|");
-        if (!E.has(id) && Math.random() < [1, .95, .7, .38][ring]) E.set(id, { a, b, ring }); }); });
-    return { edges: [...E.values()], arcs: [], next: 0 };
+    const R = 9, cells = [], E = new Map(), key = v => v.map(n => Math.round(n * 10)).join();
+    for (let q = -2; q <= 2; q++) for (let r = -2; r <= 2; r++) { const ring = Math.max(Math.abs(q), Math.abs(r), Math.abs(q + r)); if (ring > 2) continue;
+      const cx = R * Math.sqrt(3) * (q + r / 2), cy = R * 1.5 * r, pts = Array.from({ length: 6 }, (_, k) => { const a = Math.PI / 3 * k - Math.PI / 2; return [cx + Math.cos(a) * R, cy + Math.sin(a) * R]; });
+      cells.push({ cx, cy, ring, pts });
+      pts.forEach((a, k) => { const b = pts[(k + 1) % 6], id = [key(a), key(b)].sort().join("|"), e = E.get(id); if (e) e.ring = Math.min(e.ring, ring); else E.set(id, { a, b, ring, ph: Math.random() * 6.28 }); }); }
+    return { cells, edges: [...E.values()], sparks: [], next: 0 };
   };
-  const jag = (a, b, amp) => { const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L; g.moveTo(...a);
-    for (let k = 1; k < 4; k++) { const f = k / 4, o = (Math.random() - .5) * amp; g.lineTo(a[0] + dx * f + nx * o, a[1] + dy * f + ny * o); } g.lineTo(...b); };
-  const PA = portal(), PB = portal();
+  const cellPath = c => { g.beginPath(); c.pts.forEach((v, k) => k ? g.lineTo(...v) : g.moveTo(...v)); g.closePath(); };
   const gate = (x, y, o, P, t) => {   // o: how far open, 0 to 1
-    if (o <= 0) return; g.save(); g.translate(x, y); g.globalCompositeOperation = "lighter";
-    const pulse = .8 + .2 * Math.sin(t / 90), gl = g.createRadialGradient(0, 0, 0, 0, 0, 46 * o); gl.addColorStop(0, `rgba(230,245,255,${.55 * o * pulse})`); gl.addColorStop(.35, `rgba(${C},${.28 * o})`); gl.addColorStop(1, `rgba(${C},0)`);
-    g.fillStyle = gl; g.fillRect(-50, -50, 100, 100);
-    const reach = o * 3.4;   // it cracks open from the middle out, and closes the same way
-    P.edges.forEach(e => { if (e.ring > reach) return; g.beginPath(); g.moveTo(...e.a); g.lineTo(...e.b); g.strokeStyle = `rgba(${e.ring > 1 ? V : C},${(.35 - e.ring * .06) * o})`; g.lineWidth = 1.1; g.stroke(); });
-    // fresh lightning every few frames, so it never stops crackling while the point is open
-    if (t > P.next) { P.next = t + 70; P.arcs = P.edges.filter(e => e.ring <= reach && Math.random() < .3).map(e => ({ e, w: .7 + Math.random() * .9 })); }
-    g.shadowColor = `rgb(${C})`; g.shadowBlur = 8;
-    P.arcs.forEach(({ e, w }) => { g.beginPath(); jag(e.a, e.b, 4); g.strokeStyle = `rgba(235,248,255,${.9 * o})`; g.lineWidth = w; g.stroke(); });
-    // a few bolts reach off the rim into open space
-    for (let k = 0; k < 3; k++) { if (Math.random() < .4) continue; const e = P.edges[Math.random() * P.edges.length | 0]; if (!e || e.ring < 2 || e.ring > reach) continue; const L = Math.hypot(...e.a) || 1;
-      g.beginPath(); jag(e.a, [e.a[0] * (1 + 8 / L * (1 + Math.random())), e.a[1] * (1 + 8 / L * (1 + Math.random()))], 5); g.strokeStyle = `rgba(${V},${.8 * o})`; g.lineWidth = .8; g.stroke(); }
+    if (o <= 0) return; g.save(); g.translate(x, y);
+    const reach = o * 2.6, lit = c => clamp01(reach - c.ring);   // it opens from the middle out and closes the same way
+    // the glassy cells, each with a fine grid of dots; the middle one is open space
+    P.cells.forEach(c => { const a = lit(c); if (a <= 0) return; cellPath(c);
+      if (!c.ring) { g.fillStyle = `rgba(4,8,18,${.92 * a})`; g.fill(); return; }
+      g.fillStyle = `rgba(${C},${(.16 - c.ring * .03) * a})`; g.fill();
+      g.save(); g.clip(); g.fillStyle = `rgba(220,240,255,${.35 * a})`; for (let dx = -9; dx <= 9; dx += 2.2) for (let dy = -9; dy <= 9; dy += 2.2) g.fillRect(c.cx + dx, c.cy + dy, .45, .45); g.restore(); });
+    // the edges: bright and electric, each flickering on its own
+    g.globalCompositeOperation = "lighter"; g.lineCap = "round"; g.shadowColor = `rgb(${C})`;
+    P.edges.forEach(e => { const a = clamp01(reach - e.ring + .4); if (a <= 0) return; const f = .65 + .35 * Math.sin(t / 45 + e.ph) * Math.sin(t / 113 + e.ph * 2);
+      g.shadowBlur = 10; g.beginPath(); g.moveTo(...e.a); g.lineTo(...e.b); g.strokeStyle = `rgba(${C},${.55 * a * f})`; g.lineWidth = 2.6; g.stroke();
+      g.shadowBlur = 0; g.strokeStyle = `rgba(240,250,255,${.95 * a * f})`; g.lineWidth = .9; g.stroke(); });
+    // sparks skittering along the edges
+    if (t > P.next) { P.next = t + 60; P.sparks = P.edges.filter(e => e.ring < reach && Math.random() < .22).map(e => ({ e, s: Math.random() * .6, l: .25 + Math.random() * .35 })); }
+    g.shadowBlur = 6; P.sparks.forEach(({ e, s, l }) => { const [ax, ay] = e.a, dx = e.b[0] - ax, dy = e.b[1] - ay, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+      g.beginPath(); for (let k = 0; k <= 4; k++) { const f = s + l * k / 4, j = k && k < 4 ? (Math.random() - .5) * 2.4 : 0; const X = ax + dx * f + nx * j, Y = ay + dy * f + ny * j; k ? g.lineTo(X, Y) : g.moveTo(X, Y); }
+      g.strokeStyle = `rgba(255,255,255,${o})`; g.lineWidth = .8; g.stroke(); });
+    // a glow behind it all
+    g.shadowBlur = 0; const gl = g.createRadialGradient(0, 0, 0, 0, 0, 44 * o); gl.addColorStop(0, `rgba(${C},${.22 * o})`); gl.addColorStop(1, `rgba(${C},0)`); g.fillStyle = gl; g.fillRect(-46, -46, 92, 92);
     g.restore();
   };
+  const PA = portal(), PB = portal();
   haptic([15, 30, 15]);
   fxRun(T, t => {
     at();
