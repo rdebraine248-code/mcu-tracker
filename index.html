@@ -1062,6 +1062,11 @@ body{ padding-bottom:var(--dockh); }
 .cm-msg.telegram{ border-left-color:#B9A27A; background:#17150F; border-color:#38311F; } .cm-msg.telegram em{ color:#D8C08F; }
 .cm-msg.telegram p{ font-family:'Share Tech Mono','Courier New',monospace; font-size:14px; letter-spacing:1px; color:#EADFC6; }
 .cm-msg.cerebro{ border-left-color:#8E6BE0; background:#130F1D; border-color:#2E2547; } .cm-msg.cerebro em{ color:#B39BFF; }
+.cm-msg.hack{ border-left-color:#E8242F; background:#1A0A0D; border-color:#5C1820; box-shadow:0 0 18px rgba(232,36,47,.38), inset 0 0 24px rgba(232,36,47,.13); }
+.cm-msg.hack em{ color:#FF4B55; text-shadow:0 0 8px rgba(255,60,70,.85); }
+.cm-msg.hack dt{ color:#9E5A61; } .cm-msg.hack dd{ color:#F0C3C7; } .cm-msg.hack p{ color:#F6E4E6; }
+.whih.hack{ background:#1A0A0D; border-top-color:#E8242F; box-shadow:0 -4px 16px rgba(232,36,47,.4); }
+.whih.hack b{ background:#E8242F; box-shadow:0 0 14px rgba(232,36,47,.9); } .whih.hack .whih-run span{ color:#F6DCDF; } .whih.hack .whih-run i{ color:#E8242F; }
 .cm-msg.watcher{ border-left-color:#E0B865; background:#141210; border-color:#3A321F; } .cm-msg.watcher em{ color:#F0CF86; }
 .cm-red{ display:inline-block; vertical-align:middle; height:1em; width:7em; background:#000; color:transparent; text-decoration:none; user-select:none; }
 .commspanel .maptop h2{ margin-right:auto; }
@@ -5736,7 +5741,7 @@ function atlAllSeen() {   // every place on every map, inside the cities and the
 function everyRecord() {
   try {
     return ["saga", ...Object.keys(DOSSIERS)].every(logDone) && atlAllSeen()
-      && Object.keys(NEWS).every(t => NEWS[t].every((x, i) => (state.news || {})[newsKey(t, i)])) && COMMS.filter(m => m.t !== WELCOME || state.booted).every(m => (state.msgs || {})[m.t])   /* the welcome only counts for those who booted the pad */
+      && Object.keys(NEWS).every(t => NEWS[t].every((x, i) => (state.news || {})[newsKey(t, i)])) && COMMS.filter(m => m.t !== WELCOME || state.booted).every(m => (state.msgs || {})[msgId(m)])   /* the welcome only counts for those who booted the pad */
       && DATA.map.cols.every(c => (state.pathT || {})[c.t]);
   } catch (e) { return false; }   // Comms loads further down the page; until it has, nothing counts yet
 }
@@ -7377,7 +7382,7 @@ function newDots() {
   try {
     const n = achList().filter(a => earned(a.id)).length; if (state.hfSeen == null) state.hfSeen = n;
     const hide = mapHide(), cm = state.cmSeen || {}, cnt = (L, f, k) => L.filter(x => f(x) === k).length;
-    const M0 = msgSeen().filter(m => (state.msgs || {})[m.t]), T0 = newsTitles().filter(t => NEWS[t].some((h, i) => (state.news || {})[newsKey(t, i)]));
+    const M0 = msgSeen().filter(m => (state.msgs || {})[msgId(m)]), T0 = newsTitles().filter(t => NEWS[t].some((h, i) => (state.news || {})[newsKey(t, i)]));
     // a box you can open whose log has something unseen: a dot on its tile, on the Chapters or Characters button above it, and on Story
     const box = L => L.filter(c => DOSSIERS[c.id] && logUnread(c.id)).map(c => c.id);
     const chU = box(DATA.chapters.filter(c => state.unlocked[c.id])), cxU = box(DATA.chars.filter(c => !charHidden(c))), U = new Set([...chU, ...cxU]);
@@ -7939,6 +7944,36 @@ const COMMS = [
 "cl": "For All Time. Always.",
 "re": "Timeline 10-005",
 "b": "Timeline 10-005 has lost its anchor being and is in decline. Accelerated removal with the Time Ripper is approved. Paperwork to follow."
+},
+{
+"t": "Deadpool & Wolverine",
+"id": "dp3",
+"k": "hack",
+"f": "Deadpool",
+"to": "Bestie",
+"cl": "Marvel Jesus",
+"re": "I live here now",
+"b": "Bestie! I'm moving in. This datapad's got a timeline, a map, a whole log, and nobody's using the guest room. I asked the TVA for a desk and they gave me a lanyard, so I'm squatting here now. Don't mind the red, I redecorated. Also, if a short angry guy with claws comes looking for me, I was never here. He's in a mood. He's always in a mood."
+},
+{
+"t": "Deadpool",
+"id": "dp1",
+"k": "hack",
+"f": "Deadpool",
+"to": "Whoever's holding this",
+"cl": "Maximum effort",
+"re": "Is this thing on?",
+"b": "Is this thing on? Hi! Don't scream, I just hacked your little S.H.I.E.L.D. datapad. Love what you've done with the place. Very blue. Very serious. I fixed it. Now listen, somewhere in here there's a file with my name on it, and I need it to say \"hero.\" Or \"devastatingly handsome.\" Your call. Also, don't tell Fury I was here. Actually, do. Maybe he'll finally call."
+},
+{
+"t": "Deadpool 2",
+"id": "dp2",
+"k": "hack",
+"f": "Deadpool",
+"to": "My favorite reader",
+"cl": "Hacked, obviously",
+"re": "Group chat",
+"b": "Did you just try to swipe me away? Rude. I'm not a pop-up, I'm a delight. Okay, business. I've been reading your other messages. Classified this, eyes only that. Who hurt these people? Your inbox needs a friend, and I'm volunteering. Also, I'm putting a team together and you're on the shortlist. The shortlist is you and a guy named Peter. Peter is very excited."
 },
 {
 "t": "Agents of S.H.I.E.L.D.",
@@ -8522,12 +8557,13 @@ const COMMS = [
 ];
 // the welcome isn't tied to a title: it comes with the first boot, so only someone who has been through it gets it (and gets it again after Reset datapad)
 // a TVA log notice for an Earth with more than one title only arrives once every one of them is watched
+function msgId(m) { return m.id || m.t; }   // two messages on one title each need their own id
 const MSG_ALSO = Object.fromEntries(COMMS.filter(m => m.also).map(m => [m.t, m.also]));
 const WELCOME = "__welcome", msgLive = t => t === WELCOME ? !!state.booted : MSG_ALSO[t] ? [t, ...MSG_ALSO[t]].every(atlSeenT) : atlSeenT(t);
-function msgForget() { const M = state.msgs = state.msgs || {}; Object.keys(M).forEach(t => { if (!COMMS.some(m => m.t === t) || !msgLive(t)) delete M[t]; }); }
+function msgForget() { const M = state.msgs = state.msgs || {}; Object.keys(M).forEach(k => { const m = COMMS.find(m => msgId(m) === k); if (!m || !msgLive(m.t)) delete M[k]; }); }
 const msgSeen = () => COMMS.filter(m => msgLive(m.t)).sort((a, b) => (a.t === WELCOME ? -1 : ATL_ORDER[a.t] ?? 1e9) - (b.t === WELCOME ? -1 : ATL_ORDER[b.t] ?? 1e9));
-function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[m.t]).map(m => [m.t, -1, ({ intercept: "Intercepted: ", email: "New email from ", notice: "Notice from ", tva: "TVA notice: ", telegram: "Telegram from ", cerebro: "Cerebro: ", watcher: "" }[m.k] ?? "Incoming from ") + m.f + ": " + m.re, "msg"]); }
-const MSG_KIND = { intercept: "Intercepted transmission", email: "Email", notice: "Notice", tva: "TVA notice", telegram: "Telegram", cerebro: "Cerebro alert", watcher: "Observation" };
+function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[msgId(m)]).map(m => [msgId(m), -1, ({ intercept: "Intercepted: ", email: "New email from ", notice: "Notice from ", tva: "TVA notice: ", hack: "", telegram: "Telegram from ", cerebro: "Cerebro: ", watcher: "" }[m.k] ?? "Incoming from ") + m.f + ": " + m.re, "msg", m.k === "hack"]); }
+const MSG_KIND = { hack: "Hacked transmission", intercept: "Intercepted transmission", email: "Email", notice: "Notice", tva: "TVA notice", telegram: "Telegram", cerebro: "Cerebro alert", watcher: "Observation" };
 function newsMark(batch) { batch.forEach(([t, i, h, k]) => { if (k === "msg") (state.msgs = state.msgs || {})[t] = 1; else state.news[newsKey(t, i)] = 1; }); persist();
   if (commsOpen) { const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; } }   // reading Comms as it comes in: the list keeps up
 function newsHide() { const w = document.getElementById("whih"); w.classList.remove("in"); setTimeout(() => { if (!newsRun) { w.hidden = true; w.classList.remove("still"); } }, 450); }
@@ -8538,8 +8574,8 @@ function newsPlay(all, msg, src) {
   // a big backlog (a long session, or a first look at the wire) only breaks its latest few; the rest wait in Comms
   const cap = msg ? 2 : 5, batch = all.slice(-cap); if (all.length > batch.length) newsMark(all.slice(0, -cap));
   const w = document.getElementById("whih"), run = w.querySelector(".whih-run"), sp = run.querySelector("span");
-  w.classList.remove("msg", "bugle", "bulletin", "e828"); if (msg) w.classList.add("msg"); else if (src && src !== "whih") w.classList.add(src);
-  w.querySelector("b").textContent = msg ? "COMMS" : (OUTLETS[src || "whih"][2] || OUTLETS[src || "whih"][0]);   // a message for you comes first, on its own
+  w.classList.remove("msg", "hack", "bugle", "bulletin", "e828"); if (msg) w.classList.add("msg"); if (msg && src === "hack") w.classList.add("hack"); else if (src && src !== "whih") w.classList.add(src);
+  w.querySelector("b").textContent = msg ? (src === "hack" ? "HACKED" : "COMMS") : (OUTLETS[src || "whih"][2] || OUTLETS[src || "whih"][0]);   // a message for you comes first, on its own
   w.hidden = false; w.classList.toggle("still", REDUCED); void w.offsetWidth; w.classList.add("in");
   if (REDUCED) {   // no scrolling: one headline at a time
     let i = 0, tm = 0; const show = () => { if (i === batch.length) { newsStop(true); return; } sp.textContent = batch[i++][2]; sp.style.animation = "none"; void sp.offsetWidth; sp.style.animation = ""; tm = setTimeout(show, 4200); };
@@ -8553,7 +8589,7 @@ function newsTick() {
   if (newsRun) { if (!newsHome()) newsStop(false); return; }
   if (!newsHome()) { newsCalm = 0; return; }
   if (++newsCalm < 2) return;   // let the page settle for a moment first
-  const m = msgPending(); if (m.length) { newsPlay(m, true); return; }
+  const m = msgPending(); if (m.length) { const h = m[0][4]; newsPlay(m.filter(x => x[4] === h), true, h ? "hack" : null); return; }   // a hacked one breaks in on its own
   const p = newsPending(); if (p.length) { const o = newsSrc(p[p.length - 1][0]); newsPlay(p.filter(x => newsSrc(x[0]) === o), false, o); }
 }
 setInterval(newsTick, 800);
@@ -8618,7 +8654,7 @@ function cmCaseFile(L) {
     ${cmLogOpen ? `<ol class="cm-log">${L.map(m => `<li><b>${esc(m.re)}</b><small>${tnh(m.t)}</small><p>${esc(m.b)}</p></li>`).join("")}</ol>` : ""}</article>`;
 }
 function renderComms() {
-  newsForget(); msgForget(); const T0 = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M0 = msgSeen().filter(m => state.msgs[m.t]).reverse();
+  newsForget(); msgForget(); const T0 = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M0 = msgSeen().filter(m => state.msgs[msgId(m)]).reverse();
   const T = cmPick.news ? T0.filter(t => newsSrc(t) === cmPick.news) : T0, M = cmPick.msg ? M0.filter(m => cmChan(m) === cmPick.msg) : M0;
   const row = (k, v) => `<dt>${k}</dt><dd>${esc(v)}</dd>`;
   document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}">${l}</button>`).join("");
