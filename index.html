@@ -477,6 +477,23 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .drow dd{ margin:0; min-width:0; font-size:15px; line-height:20px; color:#E4E9F2; }
 .dnone{ font:11px/20px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#56637C; text-transform:uppercase; cursor:pointer; }
 .dsec{ margin:22px 0 0; }
+.sl-pg{ display:flex; align-items:center; justify-content:space-between; margin:16px 0 4px; }
+.sl-pg .lab{ font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; color:#7FA6D8; text-transform:uppercase; }
+.sl-pg .act{ font:400 22px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF1F6; }
+.sl-pgr{ display:flex; align-items:center; gap:2px; } .sl-pgr button{ border:0; background:none; color:#7FA6D8; font:300 26px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; padding:2px 10px; cursor:pointer; touch-action:manipulation; }
+.sl-pgr span{ font:12px 'Share Tech Mono','Courier New',monospace; color:#5E7290; }
+.sl-ch{ position:relative; margin:10px 0; border:1px solid #232D42; border-radius:12px; background:#0F1626; overflow:hidden; }
+.sl-ch::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--cc,#2A3346); }
+.sl-ch.lk::before{ background:#2A3346; } .sl-ch.lk b{ color:#5E6A80; font-weight:400; }
+.sl-ch.hl{ animation:slhl 1.6s ease-out; } @keyframes slhl{ 0%,40%{ box-shadow:0 0 0 2px #5FD0FF, 0 0 22px rgba(95,208,255,.5); } 100%{ box-shadow:none; } }
+.sl-h{ display:flex; align-items:center; gap:10px; width:100%; padding:12px 14px 12px 18px; border:0; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer; touch-action:manipulation; }
+.sl-h .n{ min-width:46px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7D8BA6; text-transform:uppercase; }
+.sl-h b{ flex:1; font:500 16px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#E2E8F3; }
+.sl-h small{ font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#7FA6D8; white-space:nowrap; }
+.sl-h i{ width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; } .sl-h .ch{ color:#5E7290; font-size:13px; }
+.sl-body{ padding:0 14px 14px 18px; } .sl-body .dlog{ margin:0; } .sl-body .dlog li{ margin-top:10px; }
+.sl-deb{ margin-top:12px; border:1px dashed #3A4A6A; border-radius:10px; padding:10px 12px; } .sl-deb small{ display:block; margin-bottom:4px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; } .sl-deb p{ margin:0; }
+.sl-more{ display:block; margin:22px auto 8px; padding:11px 18px; border:1.5px solid currentColor; border-radius:999px; background:transparent; color:inherit; font:12px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .dsec h3{ margin:0 0 10px; display:flex; justify-content:space-between; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; }
 .dcard, .dlog li, .dl{ border:1px solid #232D42; border-radius:10px; background:#0F1626; }
 .dcard{ padding:12px 14px; }
@@ -657,6 +674,39 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ach .st{ font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .ach.done{ border-color:#C9A43A; background:linear-gradient(180deg,#1A1A14,#121218); color:#D8CFAE; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
 .ach.done b{ color:#F4D27A; }
+.yavg{ color:#F4C542; font-weight:600; }
+.ratepill{ position:fixed; left:50%; bottom:calc(var(--dockh, 62px) + 66px); z-index:95; display:flex; align-items:center; gap:12px; max-width:calc(100vw - 24px); padding:9px 12px 9px 18px; border:1px solid #2B3F62; border-radius:999px; background:#0E1424; color:#E9EEF7; box-shadow:0 10px 30px rgba(0,0,0,.55); transform:translate(-50%,24px); opacity:0; pointer-events:none; transition:transform .25s ease, opacity .25s ease; }
+.ratepill.show{ transform:translate(-50%,0); opacity:1; pointer-events:auto; }
+.ratepill .rp-t{ min-width:0; } .ratepill small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; }
+.ratepill b{ display:block; max-width:44vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 15px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.ratepill .rp-s{ display:flex; } .ratepill button, .ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
+.ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
+.ratesheet .rs-in{ width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
+.ratesheet .rs-grip{ width:40px; height:4px; margin:0 auto 14px; border-radius:2px; background:#33405C; }
+.ratesheet small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; }
+.ratesheet h4{ margin:2px 0 14px; font:400 26px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; }
+.rs-f{ display:grid; grid-template-columns:86px 1fr; align-items:center; gap:10px; padding:12px 0; border-top:1px solid #1C2538; font-size:15px; }
+.rs-f > span:first-child{ font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#8FA0BE; text-transform:uppercase; }
+.rs-stars{ display:flex; gap:4px; }
+.rs-date{ position:relative; justify-self:start; padding:6px 12px; border:1px solid #2B3F62; border-radius:999px; color:#9FC3FF; font:13px 'Share Tech Mono','Courier New',monospace; }
+.rs-date input{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; }
+.rs-cnt{ display:flex; align-items:center; gap:14px; font-size:17px; } .rs-cnt button{ width:32px; height:32px; border:1px solid #2B3F62; border-radius:50%; background:none; color:#9FB4D6; font-size:18px; line-height:1; cursor:pointer; }
+.rs-note{ align-items:start; } .rs-note textarea{ width:100%; min-height:72px; padding:10px; border:1px solid #2B3F62; border-radius:10px; background:#0A0F1B; color:#E9EEF7; font:15px/1.4 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; resize:vertical; }
+.hf-rate .rstats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+.hf-rate .rstats div{ padding:10px 6px; border:1px solid #232D42; border-radius:10px; background:#0F1626; text-align:center; }
+.hf-rate .rstats b{ display:block; font:400 22px/1 'Anton','Impact',sans-serif; color:#F4D27A; } .hf-rate .rstats small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#8FA0BE; text-transform:uppercase; }
+.hf-rate .ract{ margin:2px 0 8px; } .hf-rate .ract small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; color:#7FA6D8; text-transform:uppercase; }
+.hf-rate .ract b{ font:400 18px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF1F6; }
+.rcells{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.rc{ min-width:0; padding:10px 8px; border:1px solid #232D42; border-radius:10px; background:#0F1626; color:#B9C6DC; text-align:left; font:inherit; }
+button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9A43A; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
+.rc small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7D8BA6; text-transform:uppercase; }
+.rc b{ display:block; margin:3px 0 2px; font:500 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#E2E8F3; overflow-wrap:anywhere; } .rc span{ font:600 13px system-ui,sans-serif; color:#F4C542; }
+.rc.lk{ border-style:dashed; } .rc.lk b{ color:#5E6A80; font-weight:400; }
+.rlist{ margin-top:10px; padding:4px 12px; border:1px solid #2B3F62; border-radius:12px; background:#0B1120; }
+.rlist h5{ margin:8px 0 2px; font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; color:#7FA6D8; text-transform:uppercase; }
+.rrow{ display:flex; justify-content:space-between; align-items:center; gap:10px; width:100%; padding:11px 0; border:0; border-bottom:1px solid #1C2436; background:none; color:#E2E8F3; text-align:left; font:15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
+.rrow:last-child{ border-bottom:0; } .rrow .rst{ display:flex; flex:none; } .rrow em{ flex:none; padding:3px 10px; border:1px solid #2B3F62; border-radius:999px; color:#7FA6D8; font:12px 'Share Tech Mono','Courier New',monospace; font-style:normal; }
 .ach.hf-glow{ animation:hfGlow 2.2s ease-out; }
 @keyframes hfGlow{ 0%,30%{ box-shadow:0 0 0 2px #F4D27A, 0 0 26px rgba(244,210,122,.75); } 100%{ box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); } }
 .ach.done .st{ color:#E9C46A; }
@@ -866,6 +916,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-list, .atl-sheet{ position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding:6px 16px calc(28px + env(safe-area-inset-bottom,0px)); }
 .atl-sheet{ padding-top:14px; background:#0B1019; animation:atlup .22s ease-out; }
 @keyframes atlup{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+@keyframes fadein{ from{ opacity:0; } to{ opacity:1; } }
 .atl-lh{ margin:18px 0 2px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
 .atl-row{ width:100%; display:block; padding:10px 0; border:0; border-bottom:1px solid #1C2538; background:none; color:inherit; text-align:left; cursor:pointer; touch-action:manipulation; }
 .atl-row b{ display:block; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:17px; line-height:1.15; letter-spacing:.5px; text-transform:uppercase; color:#EEF1F6; }
@@ -1851,8 +1902,9 @@ document.getElementById("view").addEventListener("click", ev => {
     return;
   }
   if (r) {
-    const k = tk(r.dataset.tl), wasInc = incOpen(), wasOpen = multiverseOpen();
+    const k = tk(r.dataset.tl), wasInc = incOpen(), wasOpen = multiverseOpen(), wasSeen = atlSeenT(r.dataset.tl);
     if (state.checks[k]) delete state.checks[k]; else state.checks[k] = true;
+    if (!wasSeen && state.checks[k]) firstWatch(r.dataset.tl);
     const on = !!state.checks[k];
     persist(); renderMeter();
     if (r.dataset.tl === "Loki S1") {
@@ -2283,13 +2335,17 @@ const DOSSIERS = {"cx-wanda-vision":{"kind":"char","rows":{"subjects":[["J.A.R.V
 // file symbols: clip-path shapes painted with CSS gradients (64x64)
 const LSKIN = {"ch-2":{"top":"Flight log","tag":"Chapter 2 · Deep space survey","unit":"entries logged","brief":"Mission briefing","story":"Flight record","ck":"Logged","wait":"No signal yet. Watch it to log this entry.","dwait":"No signal yet. Finish the chapter to log the debrief.","q":"Signal incoming","a":"Receiving"},"ch-8":{"top":"The Chronicle","tag":"Chapter VIII","unit":"tales inscribed","brief":"Prologue","story":"The tales","ck":"Inscribed","wait":"Not yet inscribed. Watch it to add this tale.","debrief":"Epilogue","dwait":"Not yet inscribed. Finish the chapter to add the epilogue.","q":"Unwritten","a":"Inscribing"},"cx-captain-america":{"top":"Character log","tag":"Service record","unit":"missions on record","story":"Service history","ck":"On record","wait":"No record yet. Watch it to add this mission.","links":"Known associates","q":"Classified","a":"Declassifying"},"cx-guardians-of-the-galaxy":{"top":"Awesome Mix","tag":"Awesome Mix","unit":"tracks recorded","story":"Tracklist","wait":"Not on the tape yet. Watch it to record this track.","links":"Featuring","q":"Up next","a":"Recording"},"ch-1":{"top":"Field log","tag":"Chapter 1 · Orders","unit":"operations logged","brief":"Orders","story":"Operations","debrief":"After-action","ck":"Logged","wait":"Not logged yet. Watch it to log this operation.","q":"Pending","a":"Stamping"},"ch-3":{"top":"Security feed","tag":"Chapter 3 · Alert","unit":"incidents logged","brief":"Alert","story":"Incident log","debrief":"Assessment","ck":"Logged","wait":"No intercept yet. Watch it to log this incident.","q":"Intercepting","a":"Decrypting"},"ch-4":{"top":"Field log","tag":"Chapter 4","story":"Fault lines","debrief":"Aftermath","q":"Pending","a":"Recording"},"ch-5":{"top":"Street log","tag":"Chapter 5 · New York","unit":"cases recorded","brief":"The street","story":"Case files","debrief":"Last call","q":"Out there","a":"Recording"},"ch-6":{"top":"Infinity log","tag":"Chapter 6","brief":"The threat","story":"The hunt","debrief":"What remains","q":"Inevitable","a":"Recording"},"ch-7":{"top":"Field log","tag":"Chapter 7","brief":"The return","story":"After","debrief":"What's left","q":"Pending","a":"Recording"},"ch-9":{"top":"Family record","tag":"Chapter 9","brief":"Inheritance","story":"The next ones","debrief":"Legacy","q":"Coming of age","a":"Recording"},"ch-10":{"top":"Surveillance","tag":"Chapter 10 · Feed","brief":"Surveillance","story":"Operations","debrief":"Reckoning","q":"No visual","a":"Acquiring"},"ch-11":{"top":"Incursion log","tag":"Chapter 11","brief":"Incursion","story":"Collisions","debrief":"The end of worlds","q":"Incursion","a":"Merging"},"ch-beyond-the-mcu":{"top":"What if","tag":"Beyond the MCU","unit":"worlds recorded","brief":"What if","story":"The other worlds","debrief":"The branches","q":"Unwritten","a":"Branching"},"ch-the-spider-verse":{"top":"Spider-Verse","tag":"Extras","unit":"issues recorded","brief":"Origin","story":"Every world","debrief":"The lesson","q":"Thwip","a":"Inking"},"ch-the-fox-men":{"top":"Cerebro","tag":"Extras","brief":"The school","story":"Mutants","debrief":"Outcome","q":"Searching","a":"Locating"},"ch-pruned-timelines":{"top":"Pruned","tag":"Extras","unit":"entries recovered","brief":"What was","story":"Branches","debrief":"Pruned","q":"Lost","a":"Recovering"},"cx-the-avengers":{"top":"Avengers log","tag":"Avengers","story":"Assembled","links":"Handlers and threats","q":"Assembling","a":"Recording"},"cx-iron-man":{"top":"Suit log","tag":"Iron Man","story":"Marks","links":"Contacts","ck":"Online","q":"Booting","a":"Rendering"},"cx-thor":{"top":"Saga","tag":"Thor","unit":"sagas recorded","story":"Sagas","links":"The Nine Realms","q":"Unworthy","a":"Summoning"},"cx-black-widow":{"top":"Ledger","tag":"Black Widow","story":"The ledger","links":"Known associates","ck":"Cleared","q":"Red","a":"Clearing"},"cx-hawkeye":{"top":"Range log","tag":"Hawkeye","story":"Missions","links":"Family and team","ck":"On target","q":"Nocking","a":"Release"},"cx-hulk":{"top":"Gamma log","tag":"Hulk","story":"Banner's notes","links":"Known contacts","q":"Calm","a":"Transforming"},"cx-nick-fury-s-h-i-e-l-d":{"top":"S.H.I.E.L.D. terminal","tag":"Nick Fury & S.H.I.E.L.D.","story":"Operations","links":"Agents","ck":"Cleared","q":"Restricted","a":"Clearing"},"cx-captain-marvel":{"top":"Character log","tag":"Captain Marvel","story":"Missions","links":"Wingmen","q":"Charging","a":"Binary"},"cx-ant-man-the-wasp":{"top":"Pym Tech","tag":"Ant-Man & the Wasp","story":"Test log","links":"Big and small","ck":"Logged","q":"Subatomic","a":"Enlarging"},"cx-spider-man":{"top":"Character log","tag":"Spider-Man","unit":"issues recorded","story":"Issues","links":"The neighborhood","ck":"Recorded","q":"Tingling","a":"Swinging in"},"cx-black-panther-wakanda":{"top":"Character log","tag":"Black Panther & Wakanda","story":"The throne","links":"Wakanda","q":"Hidden","a":"Revealing"},"cx-doctor-strange-wong":{"top":"Kamar-Taj","tag":"Doctor Strange & Wong","story":"Spells","links":"The order","ck":"Cast","q":"Sealed","a":"Conjuring"},"cx-wanda-vision":{"top":"Character log","tag":"Wanda & Vision","unit":"found","story":"Lost and found","ck":"Found","wait":"Still lost. Watch it to find this entry.","links":"Bonds","q":"Lost","a":"Finding"},"cx-falcon-winter-soldier":{"top":"Character log","tag":"Falcon & Winter Soldier","story":"Missions","links":"Allies and enemies","q":"Inbound","a":"Engaging"},"cx-loki-the-tva":{"top":"TVA terminal","tag":"Loki & the TVA","story":"Timeline","links":"Variants and agents","ck":"Processed","q":"Pending review","a":"Processing"},"cx-the-thunderbolts":{"top":"Character log","tag":"The Thunderbolts*","story":"Missions","links":"Persons of interest","q":"Unproven","a":"Recruiting"},"cx-the-fantastic-four":{"top":"Character log","tag":"The Fantastic Four","story":"Adventures","links":"Family, Friends, and Foes","ck":"Broadcast","q":"Tuning in","a":"Broadcasting"},"cx-daredevil":{"top":"Character log","tag":"Daredevil","story":"Cases","links":"Clients","q":"Silent","a":"Hearing"},"cx-shang-chi-the-ten-rings":{"top":"Character log","tag":"Shang-Chi & the Ten Rings","story":"Lessons","links":"All who came before","q":"Still","a":"Flowing"},"cx-the-champions":{"top":"Character log","tag":"The Champions","story":"Origin stories","links":"Mentors and rivals","ck":"Leveled up","q":"Pending","a":"Leveling up"},"cx-the-defenders":{"top":"Street log","tag":"The Defenders","story":"Hell's Kitchen to Harlem","links":"Street contacts","q":"Out there","a":"Recording"},"cx-the-punisher":{"top":"Character log","tag":"The Punisher","story":"The war","links":"Known contacts","ck":"Done","q":"In the sights","a":"Locked"},"cx-eternals":{"top":"Character log","tag":"Eternals","story":"Ages","links":"The others","q":"Dormant","a":"Emerging"},"cx-moon-knight":{"top":"Character log","tag":"Moon Knight","story":"Fragments","links":"Gods and mortals","q":"Blackout","a":"Waking"},"cx-werewolf-by-night":{"top":"Character log","tag":"Werewolf by Night","story":"The hunt","links":"The Bloodstone hunt","q":"In the dark","a":"Developing"},"cx-the-watcher":{"top":"Character log","tag":"The Watcher","story":"Observations","links":"The watched","q":"Unobserved","a":"Observing"},"cx-the-sony-spider-men":{"top":"Character log","tag":"The Sony Spider-Men","unit":"issues recorded","story":"Worlds","links":"The Spider-Verse","q":"Thwip","a":"Inking"},"cx-the-fox-men":{"top":"Danger Room","tag":"The FoX-Men","story":"Sessions","links":"Cerebro","q":"Loading","a":"Engaging"},"cx-pruned-characters":{"top":"Pruned","tag":"Pruned Characters","unit":"entries recovered","story":"Records","links":"Last seen","q":"Lost","a":"Recovering"},"saga":{"tag":"Avengers Initiative · Story log","story":"The story","wait":"Awaiting data. Finish the chapter to record this entry.","dwait":"Awaiting data. Finish every chapter to record the debrief."},"ch-incursions":{"top":"TVA monitor","tag":"Extras · Incursions","unit":"Earths logged","brief":"Monitor","story":"Case log","debrief":"Status","q":"Collision","a":"Logging"},"cx-incursions":{"top":"TVA monitor","tag":"Characters · Incursions","unit":"Earths logged","story":"Case log","q":"Collision","a":"Logging","links":"Last seen"}};
 let dossierOpen = null;
-function openDossier(id) {
+function openDossier(id, go) {
   const SG = id === "saga", D = SG ? SAGA : DOSSIERS[id]; if (!D) return;
   const K = LSKIN[id] || {};
   let el = document.getElementById("dossier");
   if (!el) { el = document.createElement("div"); el.id = "dossier"; el.className = "dossier"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); document.body.appendChild(el);
     el.addEventListener("click", ev => {
       if (ev.target.closest("#dBack")) { if (dossierOpen === "saga") { if (navAt("log")) navBack(); else closeDossier(); return; } if (navAt("dossier")) navBack(); else closeDossier(); return; }
+      // the Story log: fold a chapter open or shut, turn the page, or jump in from a chapter's own log
+      const slc = ev.target.closest("[data-slc]"); if (slc) { haptic(8); slOpen = slOpen === slc.dataset.slc ? null : slc.dataset.slc; openDossier("saga", { redraw: true, at: slc.dataset.slc }); return; }
+      const slp = ev.target.closest("[data-slp]"); if (slp) { haptic(8); slPg = (slPg + +slp.dataset.slp + SL_ACTS.length) % SL_ACTS.length; slOpen = slFirst(slPg); openDossier("saga", { redraw: true }); return; }
+      const slg = ev.target.closest("[data-slgo]"); if (slg) { haptic(10); const cid = slg.dataset.slgo; closeDossier(true); openDossier("saga", { open: cid }); pushNav("log"); dockSync(); return; }
       if (el._skip && !ev.target.closest("button, a") && el._skip()) { haptic(6); return; }
       const sd = ev.target.closest(".dl:not(.off)"), sf = sd && !sideOn && SIDE[dossierOpen + "|" + ((sd.querySelector("b") || {}).textContent || "")]; if (sf) { sf(sd); return; }
       if (ev.target.closest(".dnone, .dwait, .dl.off")) { haptic(8); toast("No data yet. Keep watching to record it.", null, false, null, 1500); }
@@ -2308,7 +2364,8 @@ function openDossier(id) {
   const isCh = D.kind === "chapter", box = SG ? { title: "The Marvel Cinematic Universe", items: DATA.chapters.map(c => ({ t: c.id })) } : (isCh ? DATA.chapters : DATA.chars).find(c => c.id === id), titles = box.items.map(i => i.t);
   const st = D.story.filter(([, x]) => x), done = st.filter(([t]) => open(t)).length, total = st.length, complete = open(titles), rel = st.map(([t]) => t);
   const R = D.rows || {}, ROWS = isCh ? [["Period", R.period], ["Status", null]] : [["Subjects", R.subjects], ["Aliases", R.aliases], ["Affiliation", R.affiliation], ["Status", R.status]];
-  const rowsHtml = ROWS.map(([l, v], i) => `<div class="drow"><dt>${l}</dt><dd>${isCh && l === "Status" ? (complete ? "Complete" : done ? "Recording" : "Not started") : stage("r" + i, v)}</dd></div>`).join("");
+  const avg = rateAvg(titles), rowsHtml = ROWS.map(([l, v], i) => `<div class="drow"><dt>${l}</dt><dd>${isCh && l === "Status" ? (complete ? "Complete" : done ? "Recording" : "Not started") : stage("r" + i, v)}</dd></div>`).join("")
+    + (avg ? `<div class="drow"><dt>Your rating</dt><dd><span class="yavg">&#9733; ${avg}</span></dd></div>` : "");
   // a character or numbered chapter log follows its box: entries you've recorded, plus the one that's up next, and nothing past it
   let upNext = false; const storyList = SG || (isCh && !box.num) || MV_BOXES[id] ? D.story : D.story.filter(([t]) => { if (here(t)) return true; if (upNext) return false; upNext = true; return true; });
   const storyHtml = storyList.map(([t, x]) => {
@@ -2322,16 +2379,16 @@ function openDossier(id) {
   const rowsDl = `<dl class="${SG ? "drows" : "lrows"}">${rowsHtml}</dl>`;
   if (SG) {
     el.className = "dossier"; el.removeAttribute("style");
-  el.innerHTML = `<div class="dscroll"><div class="dtop"><button type="button" class="back" id="dBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button>${SG ? `<span>Story log</span>` : `<span>${K.top || "Data log"}</span>`}</div>
-    <div class="dview">
-      <header class="dhead"><div class="dhrow"><div><div class="dtag">${K.tag || "Avengers Initiative · " + (isCh ? esc(name) + " log" : "Character log")}</div><h2 class="dname">${esc(title)}</h2></div></div>
-        <div class="dbar"><span style="width:${total ? done / total * 100 : 0}%"></span></div>
-        ${rowsDl}</header>
-      ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
-      <section class="dsec"><h3><span>${K.story || (isCh ? "What happened" : "The story so far")}</span></h3><ol class="dlog">${storyHtml}</ol></section>
-      ${debrief}${links}
-    </div></div>`;
-  } else {
+    const y0 = go && go.redraw ? (el.querySelector(".dscroll") || {}).scrollTop || 0 : 0;
+    if (!go || !go.redraw) slPlace(go && go.open);
+    el.innerHTML = `<div class="dscroll"><div class="dtop"><button type="button" class="back" id="dBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span>Story log</span></div><div class="dview">${slHTML()}</div></div>`;
+    el.hidden = false; dossierOpen = id; document.body.style.overflow = "hidden";
+    const sc = el.querySelector(".dscroll"); sc.scrollTop = y0;
+    const at = go && (go.open || go.at) && el.querySelector(`[data-sls="${CSS.escape(go.open || go.at)}"]`);
+    if (at && go.open) { sc.scrollTop = Math.max(0, at.offsetTop - 12); at.classList.add("hl"); }
+    persist(); dPlay(el, sc, key => dMark(null, key)); return;
+  }
+  {
     // the cover that hides an entry until it records must be solid: a box painted with a see-through gradient names its own
     const fg = box.fg || "#111", bc = box.box || fg, bg = box.logbg || (String(box.style).match(/background-color:\s*([^;]+)/) || [])[1] || (String(box.style).match(/#[0-9A-Fa-f]{6}|rgb\([^)]*\)/) || [])[0] || "#111";
     el.className = "dossier plog" + (box.cls ? " " + box.cls : "");
@@ -2351,6 +2408,12 @@ function openDossier(id) {
   if (!SG) try { history.pushState({ mcu: "dossier" }, ""); } catch (e) {}
   const sc = SG ? el.querySelector(".dscroll") : el; sc.scrollTop = 0;
   if (!SG) el.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: "ease-out" });
+  if (isCh) { const v = el.querySelector(".pin"); if (v) v.insertAdjacentHTML("beforeend", `<button type="button" class="sl-more" data-slgo="${esc(id)}">Open the full Story log</button>`); }
+  dPlay(el, sc, key => { seen[key] = 1; });
+}
+// an entry's seen mark: a box's own, or (from the Story log, keyed "box|entry") the box it belongs to, so it's read once wherever you read it
+function dMark(seen, key) { const i = key.indexOf("|"); if (i > 0) { const id = key.slice(0, i); ((state.dSeen = state.dSeen || {})[id] = state.dSeen[id] || {})[key.slice(i + 1)] = 1; } else if (seen) seen[key] = 1; }
+function dPlay(el, sc, mark) {
   // one at a time: scroll to it, record it in, pause, then the next. An entry only counts as seen once it has finished recording,
   // so if you leave partway through, the rest still record next time
   // a tap while they record skips ahead: the entry recording now finishes at once and the next one starts
@@ -2367,7 +2430,7 @@ function openDossier(id) {
       haptic([10, 40, 10]); cov.classList.add("on");
       const h = Math.max(20, n.offsetHeight), a = cov.animate([{ top: "0px" }, { top: h + "px" }], { duration: Math.min(1100, 320 + h * 5), easing: "cubic-bezier(.45,0,.55,1)", fill: "forwards" });
       cur = { a, fast };
-      a.onfinish = () => { cov.remove(); seen[key] = 1; persist(); if (cur && cur.fast) next(); else cur = { tm: setTimeout(next, quick ? 380 : 600) }; };
+      a.onfinish = () => { cov.remove(); mark(key); persist(); if (cur && cur.fast) next(); else cur = { tm: setTimeout(next, quick ? 380 : 600) }; };
       if (fast) a.finish();
     };
     cur = { tm: setTimeout(() => go(false), moves ? 720 : 220), go };
@@ -2376,6 +2439,50 @@ function openDossier(id) {
   if (news.length) cur = { tm: setTimeout(next, 380) };
 }
 let dRun = 0;
+/* ---------- the Story log: every title you've watched, in any list, under its chapter, a page per Act. A chapter keeps its name hidden
+   until it's unlocked or every title in it is watched; the Extras stay sealed until they're revealed. Reading an entry here or in its
+   chapter's own log is the same thing: it counts once ---------- */
+const SL_ACTS = [["I", "The Infinity Saga", () => !!state.unlocked["ch-1"], c => c.num && c.num <= 6], ["II", "The Multiverse Saga", () => !!state.unlocked["ch-7"], c => c.num >= 7],
+  ["?", "The Marvel Multiverse", () => multiverseOpen(), c => !c.num]];
+// each chapter's stripe, in the colors of its box
+const SL_STRIPE = { "ch-1": "linear-gradient(#EADFC2,#6B7A3E)", "ch-2": "#9FC3FF", "ch-3": "#C9D1D9", "ch-4": "linear-gradient(#E2A096 0 50%,#9DB4DD 50% 100%)", "ch-5": "#E5252C",
+  "ch-6": "linear-gradient(#5B3A80,#E8C04A)", "ch-7": "#D9A441", "ch-8": "linear-gradient(#F7F4EE,#BE8E17)", "ch-9": "linear-gradient(#F26B1D,#B3122E)", "ch-10": "#8CFFA8",
+  "ch-11": "linear-gradient(#639C7D,#FDEDCE,#6A8FC5)", "ch-beyond-the-mcu": "linear-gradient(#9B59B6,#27AE60,#2E86DE,#F1C40F,#E67E22,#E74C3C)",
+  "ch-the-spider-verse": "linear-gradient(#D32F2F 0 50%,#1E4DB7 50% 100%)", "ch-the-fox-men": "#F2C200", "ch-pruned-timelines": "#B8ABCC", "ch-incursions": "#E8A33D" };
+let slPg = 0, slOpen = null;
+const slEntries = c => { const L = DOSSIERS[c.id]; return L ? L.story.filter(([t, x]) => x && atlSeenT(t)) : []; };
+const slAll = c => c.items.every(i => atlSeenT(i.t));
+const slNamed = c => !!state.unlocked[c.id] || slAll(c);
+const slShown = c => !!c.num || !!state.unlocked[c.id] || ((c.id === INC_ID ? incOpen() : multiverseOpen()) && c.items.some(i => atlSeenT(i.t)));
+const slSeenK = (c, k) => !!((state.dSeen || {})[c.id] || {})[k];
+const slDeb = c => { const L = DOSSIERS[c.id]; return !!(L && L.debrief) && slAll(c); };
+const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")));
+const slFirst = pg => { const L = DATA.chapters.filter(SL_ACTS[pg][3]).filter(slShown); return (L.find(slUnread) || null) && L.find(slUnread).id; };
+function slPlace(open) {   // where the log opens: on the chapter asked for, or the first with something new, or the last with anything in it
+  const where = id => SL_ACTS.findIndex(a => a[3](DATA.chapters.find(c => c.id === id)));
+  if (open) { slPg = where(open); slOpen = open; return; }
+  const all = DATA.chapters.filter(slShown), u = all.find(slUnread), last = [...all].reverse().find(c => slEntries(c).length);
+  const c = u || last; if (c) { slPg = where(c.id); slOpen = u ? c.id : null; } else { slPg = 0; slOpen = null; }
+}
+function slHTML() {
+  const A = SL_ACTS[slPg], chs = DATA.chapters.filter(A[3]), all = DATA.chapters.reduce((n, c) => n + (DOSSIERS[c.id] ? DOSSIERS[c.id].story.filter(([, x]) => x).length : 0), 0);
+  const got = DATA.chapters.reduce((n, c) => n + slEntries(c).length, 0);
+  const dnew = (key, html) => `<span class="dnew" data-k="${esc(key)}">${html}<span class="dcover"></span></span>`;
+  const sec = c => {
+    const stripe = `style="--cc:${SL_STRIPE[c.id] || "#3A78C9"}"`, n = c.num ? "Ch. " + c.num : "Extras";
+    if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b>Sealed</b></div></div>`;
+    const E = slEntries(c), tot = c.items.length, w = c.items.filter(i => atlSeenT(i.t)).length;
+    if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>No entries yet</b><small>0 of ${tot}</small></div></div>`;
+    const open = slOpen === c.id, L = DOSSIERS[c.id];
+    const body = !open ? "" : `<div class="sl-body"><ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
+      ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
+    return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${esc(slNamed(c) ? c.title : "Classified")}</b><small>${w} of ${tot}</small>${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
+  };
+  return `<header class="dhead"><div class="dhrow"><div><div class="dtag">Avengers Initiative · Story log</div><h2 class="dname">The Marvel Cinematic Universe</h2></div></div>
+      <div class="dbar"><span style="width:${all ? got / all * 100 : 0}%"></span></div></header>
+    <div class="sl-pg"><div>${A[2]() ? `<div class="lab">Act ${A[0]}</div><div class="act">${A[1]}</div>` : `<div class="act">Act ${A[0]}</div>`}</div><div class="sl-pgr"><button type="button" data-slp="-1" aria-label="Previous Act">&#8249;</button><span>${slPg + 1}/${SL_ACTS.length}</span><button type="button" data-slp="1" aria-label="Next Act">&#8250;</button></div></div>
+    ${chs.map(sec).join("")}`;
+}
 function ftabs(on) {
   const sg = DATA.chapters.filter(c => chDone(c.id)).length + "/" + DATA.chapters.length;
   return `<div class="ftabs" role="tablist"><button type="button" role="tab" data-ftab="saga" aria-selected="${on === "saga"}">Story log <span>${sg}</span></button><button type="button" role="tab" data-ftab="file" aria-selected="${on === "file"}">Hero File <span>${achCount()}</span></button></div>`;
@@ -5541,7 +5648,8 @@ const AVENGERS_FILMS = ["The Avengers", "Avengers: Age of Ultron", "Avengers: In
 // "Every page" also wants everything recorded: each log fully played in, each Atlas pin pinged, all of Comms heard, every path drawn
 // a log with something you haven't seen written in yet: a row, an entry, the debrief or a connection that has opened up but hasn't played in
 function logUnread(id) {
-  const SG = id === "saga", D = SG ? SAGA : DOSSIERS[id]; if (!D) return false;
+  if (id === "saga") return DATA.chapters.some(slUnread);
+  const SG = false, D = DOSSIERS[id]; if (!D) return false;
   const S = (state.dSeen || {})[id] || {}, box = SG ? null : (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id); if (!SG && !box) return false;
   const here = t => SG ? chRel(t) : !!state.checks[ck(box, t)], open = t => !t || (Array.isArray(t) ? t.every(here) : here(t)), R = D.rows || {};
   const rows = D.kind === "chapter" ? [R.period] : [R.subjects, R.aliases, R.affiliation, R.status];
@@ -5551,7 +5659,8 @@ function logUnread(id) {
   return (D.links || []).some(([n, r, g], i) => open(g) && !S["l" + i]);
 }
 function logDone(id) {
-  const D = id === "saga" ? SAGA : DOSSIERS[id], S = (state.dSeen || {})[id] || {}, R = D.rows || {};
+  if (id === "saga") return DATA.chapters.every(c => slAll(c) && !slUnread(c));
+  const D = DOSSIERS[id], S = (state.dSeen || {})[id] || {}, R = D.rows || {};
   const rows = (D.kind === "chapter" ? [R.period] : [R.subjects, R.aliases, R.affiliation, R.status]).every((v, i) => !Array.isArray(v) || !v.length || S["r" + i + "." + (v.length - 1)]);
   return rows && D.story.every(([t, x]) => !x || S["s:" + t]) && (D.kind !== "chapter" || !D.debrief || S.d) && (D.links || []).every((l, i) => S["l" + i]);
 }
@@ -5627,6 +5736,80 @@ function flushAch() {
   if (thanos) say("But this… does put a smile on my face.");
 }
 
+/* ---------- your log: one rating, date, watch count and note per title, the same wherever the title appears. Nothing asks you to rate:
+   the first time you watch a title, a pill offers five stars, and you can rate or change anything later from the Hero File ---------- */
+const ymd = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const rateOf = t => (state.rate || {})[t] || {};
+const rateDate = t => rateOf(t).d || (state.watchedOn || {})[t] || "";
+const showDate = v => { if (!v) return ""; const [y, m, d] = v.split("-").map(Number); return new Date(y, m - 1, d).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }); };
+function rateSet(t, patch) { const R = state.rate = state.rate || {}; R[t] = Object.assign({}, R[t], patch); persist(); }
+function rateAvg(titles) { const L = [...new Set(titles)].map(t => rateOf(t).r).filter(Boolean); return L.length ? (L.reduce((a, b) => a + b, 0) / L.length).toFixed(1) : ""; }
+const starSvg = (on, sz) => `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z" fill="${on ? "#F4C542" : "#3A4560"}"/></svg>`;
+const starsHTML = (n, sz) => [1, 2, 3, 4, 5].map(i => starSvg(i <= n, sz)).join("");
+function rateStreak() {   // days in a row, up to today or yesterday, with something watched
+  const D = new Set(Object.values(state.watchedOn || {})); let n = 0, d = new Date(); if (!D.has(ymd(d))) d.setDate(d.getDate() - 1);
+  while (D.has(ymd(d))) { n++; d.setDate(d.getDate() - 1); } return n;
+}
+// the first time a title is watched, in any list: the day is noted, and a pill offers stars (unless it's already rated)
+function firstWatch(t) {
+  const W = state.watchedOn = state.watchedOn || {}; if (!W[t]) W[t] = ymd(new Date());
+  if (!rateOf(t).r) ratePill(t);
+}
+let rpTm = 0;
+function ratePill(t) {
+  let el = document.getElementById("ratePill");
+  if (!el) { el = document.createElement("div"); el.id = "ratePill"; el.className = "ratepill"; el.setAttribute("role", "group"); document.body.appendChild(el);
+    el.addEventListener("click", ev => { const b = ev.target.closest("[data-rs]"); if (!b) return; ev.stopPropagation(); const n = +b.dataset.rs, tt = el.dataset.t;
+      rateSet(tt, { r: n }); haptic(12); el.querySelector(".rp-s").innerHTML = [1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= n, 26)}</button>`).join("");
+      el.querySelector("small").textContent = "Rated"; clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 1400); });
+    swipeAway(el, (dx, dy) => `translate(calc(-50% + ${dx}px),${dy}px)`, () => el.classList.contains("show"), () => { clearTimeout(rpTm); el.classList.remove("show"); }); }
+  el.dataset.t = t; el.setAttribute("aria-label", "Rate " + tn(t));
+  el.innerHTML = `<div class="rp-t"><small>Watched</small><b>${tnh(t)}</b></div><div class="rp-s">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(false, 26)}</button>`).join("")}</div>`;
+  el.classList.remove("show"); void el.offsetWidth; el.classList.add("show");
+  clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 7000);
+}
+// the sheet: stars (tap the same one again to clear them), the day you watched it, how many times, and a note. It saves as you go
+function rateSheet(t) {
+  let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
+  el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Your log: " + tn(t));
+  const draw = () => { const R = rateOf(t), n = R.n || (atlSeenT(t) ? 1 : 0);
+    el.innerHTML = `<div class="rs-in"><div class="rs-grip" aria-hidden="true"></div><small>Your log</small><h4>${tnh(t)}</h4>
+      <div class="rs-f"><span>Rating</span><span class="rs-stars">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rss="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= (R.r || 0), 30)}</button>`).join("")}</span></div>
+      <div class="rs-f"><span>Watched</span><label class="rs-date">${rateDate(t) ? esc(showDate(rateDate(t))) : "Add date"}<input type="date" value="${esc(rateDate(t))}" aria-label="Date watched"></label></div>
+      <div class="rs-f"><span>Times</span><span class="rs-cnt"><button type="button" data-rsc="-1" aria-label="One fewer">&minus;</button><b>${n}</b><button type="button" data-rsc="1" aria-label="One more">+</button></span></div>
+      <div class="rs-f rs-note"><span>Note</span><textarea maxlength="600" placeholder="Anything you want to remember">${esc(R.note || "")}</textarea></div></div>`; };
+  draw(); document.body.appendChild(el);
+  try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
+  const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
+  el.addEventListener("click", ev => {
+    if (ev.target === el) { close(); return; }
+    const s = ev.target.closest("[data-rss]"); if (s) { const n = +s.dataset.rss; rateSet(t, { r: rateOf(t).r === n ? 0 : n }); haptic(10); draw(); refreshRates(); return; }
+    const c = ev.target.closest("[data-rsc]"); if (c) { const n = Math.max(0, (rateOf(t).n || (atlSeenT(t) ? 1 : 0)) + +c.dataset.rsc); rateSet(t, { n }); haptic(8); draw(); return; }
+  });
+  el.addEventListener("change", ev => { if (ev.target.matches("input[type=date]")) { rateSet(t, { d: ev.target.value }); draw(); refreshRates(); } });
+  el.addEventListener("input", ev => { if (ev.target.matches("textarea")) rateSet(t, { note: ev.target.value }); });
+  // pull the sheet down by its top to close it
+  let y0 = null; el.addEventListener("touchstart", ev => { y0 = ev.target.closest(".rs-grip, small, h4") ? ev.touches[0].clientY : null; }, { passive: true });
+  el.addEventListener("touchmove", ev => { if (y0 !== null && ev.touches[0].clientY - y0 > 60) { y0 = null; close(); } }, { passive: true });
+}
+function refreshRates() { if (fileOpen) { const fv = document.getElementById("fileView"), y = fv.scrollTop; renderFile(); fv.scrollTop = y; } }
+// the Personal log section: a page per Act, a cell per chapter. A chapter opens once you've watched any of its titles in any list,
+// and only ever lists what you've watched; its name shows once it's unlocked or finished. The Extras stay sealed until they're revealed
+let rPg = 0, rOpen = null;
+function rateSec() {
+  const all = Object.keys(state.rate || {}).filter(t => rateOf(t).r), avg = rateAvg(all), A = SL_ACTS[rPg], chs = DATA.chapters.filter(A[3]);
+  const cell = c => { const seenL = c.items.filter(i => atlSeenT(i.t)), lab = c.num ? "Ch. " + c.num : "Extras";
+    if (!c.num && !slShown(c)) return `<div class="rc lk"><small>${lab}</small><b>Sealed</b></div>`;
+    if (!seenL.length) return `<div class="rc lk"><small>${lab}</small><b>${c.num ? "Locked" : esc(c.title)}</b></div>`;
+    const a = rateAvg(seenL.map(i => i.t));
+    return `<button type="button" class="rc${rOpen === c.id ? " on" : ""}" data-rcell="${c.id}"><small>${lab}</small><b>${esc(slNamed(c) ? c.title : "Classified")}</b><span>${a ? "&#9733; " + a : "Not rated"}</span></button>`; };
+  const oc = rOpen && chs.find(c => c.id === rOpen), list = !oc ? "" : `<div class="rlist"><h5>${oc.num ? "Ch. " + oc.num : "Extras"} · ${esc(slNamed(oc) ? oc.title : "Classified")}</h5>${oc.items.filter(i => atlSeenT(i.t)).map(i => { const r = rateOf(i.t).r;
+      return `<button type="button" class="rrow" data-rt="${esc(i.t)}"><span>${tnh(i.t)}</span>${r ? `<span class="rst">${starsHTML(r, 15)}</span>` : `<em>Rate</em>`}</button>`; }).join("")}</div>`;
+  return `<section class="hf-sec hf-rate"><h3><span>Personal log</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button><span class="hf-pgt">${all.length} rated</span></span></h3>
+    <div class="rstats"><div><b>${all.length}</b><small>rated</small></div><div><b>${avg ? "&#9733;" + avg : "-"}</b><small>average</small></div><div><b>${rateStreak()}</b><small>day streak</small></div></div>
+    <div class="ract">${A[2]() ? `<small>Act ${A[0]}</small><b>${A[1]}</b>` : `<b>Act ${A[0]}</b>`}</div>
+    <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
+}
 let fileOpen = false, hfPage = 1, hfFlip = false; const achTaps = {}, HF_PAGES = 3;
 function renderFile() {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = Math.min(10, 1 + Math.floor(done / A.length * 10));
@@ -5646,7 +5829,7 @@ function renderFile() {
       <dl class="hf-rows"><div><dt>Clearance</dt><dd>Level ${level} of 10</dd></div><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div></dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
-    ${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
+    ${rateSec()}${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress is saved in this browser. A save code holds all of it in one line of text. Keep it in your notes, and paste it here to restore your progress.</p>
       <div class="row"><button type="button" class="go" data-save="copy">Copy save code</button><button type="button" data-save="open">Restore code</button></div>
@@ -5703,11 +5886,14 @@ function closeFile(fromHistory) {
   if (!fromHistory && navAt("file")) { navBack(); return; }
   document.getElementById("filePanel").hidden = true; fileOpen = false; document.body.style.overflow = "";
   // the Hero File always opens at the top, on its first page, with nothing left open
-  const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); hfPage = 1; document.getElementById("fileView").scrollTop = 0;
+  const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); hfPage = 1; rPg = 0; rOpen = null; document.getElementById("fileView").scrollTop = 0;
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
 document.getElementById("fileView").addEventListener("click", ev => {
+  const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; renderFile(); fv.scrollTop = y; return; }
+  const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; renderFile(); fv.scrollTop = y; return; }
+  const rt = ev.target.closest("[data-rt]"); if (rt) { rateSheet(rt.dataset.rt); return; }
   if (ev.target.closest("#hfAva")) { avaPick(); return; }
   if (ev.target.closest("#hfCode")) { codeEdit(); return; }
   const cfb = ev.target.closest('[data-ach^="film-"]'); if (cfb && earned(cfb.dataset.ach)) { caseFile(cfb.dataset.ach.slice(5)); return; }
@@ -5727,7 +5913,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7063,8 +7249,9 @@ panel.addEventListener("click", ev => {
   if (!row) return;
   const t = row.dataset.t;
   const k = ck(openEntry, t);
-  const wasOpen = multiverseOpen(), wasInc = incOpen();
+  const wasOpen = multiverseOpen(), wasInc = incOpen(), wasSeen = atlSeenT(t);
   if (state.checks[k]) delete state.checks[k]; else state.checks[k] = true;
+  if (!wasSeen && state.checks[k]) firstWatch(t);
   if (!wasOpen && multiverseOpen()) toast("The multiverse is now open. Act ? is now The Marvel Multiverse.", TVA);
   if (!wasInc && incOpen()) incAlert();
   if (wasOpen !== multiverseOpen()) revealChanged = true;   // sealed boxes on the page behind change when you close this one
@@ -7074,7 +7261,7 @@ panel.addEventListener("click", ev => {
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && openEntry && document.getElementById("ask").hidden) uiClose(); });
-function onNavBack() { navBusy = false; if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) closeDossier(true); return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
+function onNavBack() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); return; } } if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) closeDossier(true); return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
 // going back never moves the page by itself: the app decides where you are (after a jump to a new box, that's where it lives)
 try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
@@ -7103,7 +7290,7 @@ function newDots() {
   } catch (e) {}
 }
 const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : commsOpen ? "comms" : fileOpen ? "file" : "story";
-function dockSync() { newDots(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
+function dockSync() { newDots(); const rp = document.getElementById("ratePill"); if (rp) rp.classList.remove("show"); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 document.getElementById("dock").addEventListener("click", ev => {
   const b = ev.target.closest("[data-dock]"); if (!b) return; const t = b.dataset.dock, c = dockCur(); haptic(8);
   if (t === c) { if (t === "story") window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); if (t === "atlas" && collOpen) closeColl(); return; }
@@ -8405,7 +8592,7 @@ function resetDatapad() {
     closeFile();
     SAVE_KEYS.forEach(k => { delete state[k]; });   // everything saved goes, your profile picture, codename and recruit date included
     state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.atlRead = {}; delete state.hfSeen; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
+    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.atlRead = {}; delete state.hfSeen; state.rate = {}; state.watchedOn = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist();
     // every page goes back to where it starts: top of each screen, Earth in the Atlas, News in Comms, page 1 of Classified
     hfPage = 1; commsTab = "news"; cmPick = { msg: "", news: "" }; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
