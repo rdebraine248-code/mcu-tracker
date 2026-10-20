@@ -8697,17 +8697,16 @@ document.getElementById("mainTitle").addEventListener("click", ev => {
 function resetDatapad() {
   ask("Reset this datapad? All your progress will be lost. This cannot be undone.", "Reset datapad").then(ok => {
     if (!ok) return;
-    closeFile();
-    SAVE_KEYS.forEach(k => { delete state[k]; });   // everything saved goes, your profile picture, codename and recruit date included
-    state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.atlRead = {}; delete state.hfSeen; state.rate = {}; state.watchedOn = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
-    persist();
-    // every page goes back to where it starts: top of each screen, Earth in the Atlas, News in Comms, page 1 of Classified
-    hfPage = 1; tlFocus = null; tlBy = {}; commsTab = "news"; cmPick = { msg: "", news: "" }; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
-    ["fileView", "commsView", "collView", "atlView", "mapView"].forEach(id => { const el = document.getElementById(id); if (el) el.scrollTop = 0; });
-    document.querySelectorAll(".dscroll").forEach(el => { el.scrollTop = 0; });
-    window.scrollTo(0, 0); renderAll();
-    showGate();
+    // everything goes: the whole save on this device and the account copy, then the datapad starts over from nothing, the same as the first time
+    // it was handed to you, so nothing kept only while the app is open (a focus, a pruned timeline, a page you were on) survives either
+    clearTimeout(writeTimer); Object.keys(state).forEach(k => delete state[k]); Object.assign(state, { checks: {}, unlocked: {}, seen: {}, mode: "chapters" });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    const empty = { checks: {}, unlocked: {}, seen: {}, dusted: {}, stones: {} };
+    const wipe = remoteRef ? writing.then(() => remoteRef.set(empty)).catch(() => {}) : Promise.resolve();
+    Promise.race([wipe, new Promise(r => setTimeout(r, 2500))]).then(() => {
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      location.replace(location.pathname + location.search);
+    });
   });
 }
 function dustSweep(ms) {
