@@ -2926,20 +2926,21 @@ function atlOnBack() {   // a back step inside the Atlas; true if it was the Atl
   haptic(8); return true;
 }
 const ATL_GROUPS = {
-  earth: [["North America", "mojave iowa manitowoc area51 ny westview lehigh compound dc baltimore culver cambridge chicago ohio missouri tennessee alabama oklahoma miami louisiana nm la sf"], ["Central America and the Caribbean", "sanjuan haiti talokan"], ["South America", "bogota rio amazon"],
-    ["Europe", "moscow russia monaco malta england london edinburgh norway stuttgart leipzig berlin prague venice italy pompeii vienna budapest sokovia bucharest riga greece"], ["Africa", "morocco lagos egypt wakanda johannesburg"],
-    ["Asia", "siberia mesopotamia afghanistan karachi mumbai kolkata kathmandu talo hongkong madripoor kl seoul busan tokyo"], ["Oceania", "tahiti australia"], ["Oceans and poles", "arctic indianocean"]],
+  earth: [["North America", "mojave iowa manitowoc area51 ny westview lehigh compound dc baltimore culver cambridge chicago ohio missouri tennessee alabama oklahoma miami louisiana nm la sf bloodstone mexico"], ["Central America and the Caribbean", "sanjuan haiti talokan"], ["South America", "bogota rio amazon"],
+    ["Europe", "moscow russia monaco malta england london edinburgh norway stuttgart leipzig berlin prague venice italy pompeii vienna budapest sokovia bucharest riga greece netherlands bern geneva"], ["Africa", "morocco lagos egypt wakanda johannesburg mali tunisia"],
+    ["Asia", "siberia mesopotamia afghanistan karachi mumbai kolkata kathmandu talo hongkong madripoor kl seoul busan tokyo tenrings hiroshima"], ["Oceania", "tahiti australia"], ["Oceans and poles", "arctic indianocean raft"]],
   cosmos: [["Near Earth", "saber"], ["The Nine Realms", "asgard jotunheim svartalfheim muspelheim nidavellir"], ["Across the galaxy", "*"]],
   beyond: [["Other dimensions", "quantum mirror dark kunlun duat shadow eternity witches framework"], ["Outside time", "tva citadel void future"]],
   incursions: [["Terminated", "*"]],
-  multi: [["Outside every reality", "watcher"], ["Other Earths", "e838 e828"], ["Other universes", "u-fox u-animx u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-pruned"], ["What If…? realities", "*"]] };
+  multi: [["Outside every reality", "watcher"], ["Other Earths", "e838 e828"], ["Other universes", "u-fox u-animx u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-pruned u-67 u-751263 u-26496"], ["What If…? realities", "*"]] };
 function atlList() {
   const L = atlPlaces().filter(p => !p.home), lit = L.filter(atlLit).map(p => [p, p.e.filter(e => atlEvSeen(e)).length]).sort((a, b) => b[1] - a[1] || a[0].n.localeCompare(b[0].n));
   const [n, t] = atlCount(), left = atlView === "city" ? 0 : L.length - lit.length;
   atlReadInit(); const sub = atlView === "city" ? atlCity : atlUni;
   const row = p => `<button type="button" class="atl-row${atlUnread(atlView, sub, p) ? " nw" : ""}" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small></button>`, abc = (a, b) => a.n.replace(/^The /, "").localeCompare(b.n.replace(/^The /, ""));
   if (atlView === "city" || atlView === "uni") return `<div class="atl-lh">Charted in ${esc(atlView === "city" ? ATL_CITY[atlCity].n : ATLAS_UNI[atlUni].n)}</div>${lit.map(x => x[0]).sort(abc).map(row).join("")}`;
-  const G = ATL_GROUPS[atlView], named = new Set(G.flatMap(g => g[1].split(" ")));
+  // a place not filed under any heading still shows, at the end, so nothing charted can go missing from the list
+  const G0 = ATL_GROUPS[atlView], G = G0.some(g => g[1] === "*") ? G0 : [...G0, ["Elsewhere", "*"]], named = new Set(G.flatMap(g => g[1].split(" ")));
   return G.map(([h, ids]) => { const L = lit.map(x => x[0]).filter(p => ids === "*" ? !named.has(p.id) : ids.split(" ").includes(p.id)).sort(abc);
     return L.length ? `<div class="atl-lh">${esc(h)}</div>${L.map(row).join("")}` : ""; }).join("");
 }
