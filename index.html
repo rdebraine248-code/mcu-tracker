@@ -948,6 +948,11 @@ body{ padding-bottom:var(--dockh); }
 .whih.msg b{ background:#2D63C8; }
 .cm-head b.msg{ background:#2D63C8; }
 .cm-sec + .cm-sec{ margin-top:34px; }
+.cm-chips{ position:sticky; top:0; z-index:2; display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin:0 -18px 14px; padding:10px 18px; background:linear-gradient(180deg,#0B1019 78%,rgba(11,16,25,0)); }
+.cm-chips::-webkit-scrollbar{ display:none; }
+.cm-chips button{ position:relative; flex:none; padding:7px 13px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+.cm-chips button.on{ background:#2D63C8; border-color:#2D63C8; color:#fff; }
+.cm-chips i{ position:absolute; top:3px; right:4px; width:6px; height:6px; border-radius:50%; background:#E9C46A; }
 .cm-msg{ margin:0 0 16px; padding:14px 16px 16px; background:#101828; border:1px solid #22314B; border-left:3px solid #2D63C8; }
 .cm-msg dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 12px; font:11px/1.45 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
 .cm-msg dt{ color:#5F7393; } .cm-msg dd{ margin:0; color:#B9CBE6; }
@@ -5560,7 +5565,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll"];
+const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7511,13 +7516,27 @@ document.getElementById("whih").addEventListener("click", () => { haptic(8); con
 const TL_ORDER = (() => { const o = {}; DATA.timeline.forEach((e, i) => { if (!(e.t in o)) o[e.t] = i; }); return o; })();
 // a title missing from the timeline sits with its seasons there (Agent Carter with Agent Carter S1), or else at the bottom
 const cmWhen = t => TL_ORDER[t] ?? DATA.timeline.findIndex(e => e.t.startsWith(t + " "));
+// channel chips: Messages sort by who sent them, News by outlet. A dot marks a channel with something you haven't looked at in it yet
+const CM_CHANS = [["", "All"], ["shield", "S.H.I.E.L.D."], ["avengers", "Avengers"], ["tva", "TVA"], ["intercepts", "Intercepts"], ["other", "Other"]];
+const cmChan = m => m.k === "tva" || /Time Variance/.test(m.f) ? "tva" : m.k === "intercept" ? "intercepts"
+  : /Avengers Facility|Rhodes|Pepper|Sam Wilson|Tony Stark|Natasha/.test(m.f) ? "avengers" : /S\.H\.I\.E\.L\.D\.|Fury|Maria Hill|Coulson|Howard Stark/.test(m.f) ? "shield" : "other";
+const CM_OUTLETS = [["", "All"], ["whih", "WHIH"], ["bugle", "Daily Bugle"], ["bulletin", "Bulletin"], ["e828", "Earth-828"]];
+let cmPick = { msg: "", news: "" };
+function cmChips(L, keyOf, all) {
+  const seen = state.cmSeen = state.cmSeen || {}, pick = cmPick[commsTab], tag = k => commsTab + ":" + k, n = k => L.filter(x => keyOf(x) === k).length;
+  // looking at a channel (or at All) catches you up on it
+  (pick ? [pick] : all.map(a => a[0]).filter(Boolean)).forEach(k => { seen[tag(k)] = n(k); });
+  return `<div class="cm-chips" role="tablist">${all.filter(([k]) => !k || n(k)).map(([k, l]) => `<button type="button" data-cmc="${k}" aria-selected="${k === pick}" class="${k === pick ? "on" : ""}">${l}${k && n(k) > (seen[tag(k)] || 0) ? '<i aria-label="new"></i>' : ""}</button>`).join("")}</div>`;
+}
 function renderComms() {
-  newsForget(); msgForget(); const T = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M = msgSeen().filter(m => state.msgs[m.t]).reverse();
+  newsForget(); msgForget(); const T0 = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M0 = msgSeen().filter(m => state.msgs[m.t]).reverse();
+  const T = cmPick.news ? T0.filter(t => newsSrc(t) === cmPick.news) : T0, M = cmPick.msg ? M0.filter(m => cmChan(m) === cmPick.msg) : M0;
   const row = (k, v) => `<dt>${k}</dt><dd>${esc(v)}</dd>`;
   document.getElementById("commsTabs").innerHTML = [["news", "News"], ["msg", "Messages"]].map(([k, l]) => `<button type="button" role="tab" data-cmt="${k}" aria-selected="${k === commsTab}">${l}</button>`).join("");
-  document.getElementById("commsView").innerHTML = commsTab === "msg"
+  const chips = commsTab === "msg" ? (M0.length ? cmChips(M0, cmChan, CM_CHANS) : "") : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS) : ""); persist();
+  document.getElementById("commsView").innerHTML = chips + (commsTab === "msg"
     ? (M.length ? `<section class="cm-sec">${M.map(m => `<article class="cm-msg${m.k ? " " + m.k : ""}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
-    : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`);
+    : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].filter((h, i) => state.news[newsKey(t, i)]).map(h => `<p>${esc(h)}</p>`).join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`));
 }
 let commsTab = "news";
 function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true);   // News is the landing; only tapping an incoming message opens Messages
@@ -7527,6 +7546,7 @@ function closeComms(fromHistory) {
   document.getElementById("commsPanel").hidden = true; commsOpen = false; document.body.style.overflow = "";
 }
 document.getElementById("commsBack").addEventListener("click", () => closeComms());
+document.getElementById("commsView").addEventListener("click", ev => { const c = ev.target.closest("[data-cmc]"); if (!c) return; haptic(8); cmPick[commsTab] = c.dataset.cmc; renderComms(); document.getElementById("commsView").scrollTop = 0; });
 (() => { let t = 0; const v = document.getElementById("commsView");
   v.addEventListener("pointerdown", ev => { const s = ev.target.closest(".cm-red"); clearTimeout(t); if (s) t = setTimeout(() => cmDecrypt(s), 600); });
   ["pointerup", "pointercancel", "pointerleave"].forEach(n => v.addEventListener(n, () => clearTimeout(t))); })();
@@ -7591,7 +7611,7 @@ function resetDatapad() {
     state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist();
     // every page goes back to where it starts: top of each screen, Earth in the Atlas, News in Comms, page 1 of Classified
-    hfPage = 1; commsTab = "news"; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
+    hfPage = 1; commsTab = "news"; cmPick = { msg: "", news: "" }; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
     ["fileView", "commsView", "collView", "atlView", "mapView"].forEach(id => { const el = document.getElementById(id); if (el) el.scrollTop = 0; });
     document.querySelectorAll(".dscroll").forEach(el => { el.scrollTop = 0; });
     window.scrollTo(0, 0); renderAll();
