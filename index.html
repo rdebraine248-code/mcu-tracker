@@ -552,12 +552,12 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .plog .dcard p.dwait, .plog .dlog p.dwait{ letter-spacing:0; }
 .dcover[data-q]::after{ content:attr(data-q); } .dcover.on[data-a]::after{ content:attr(data-a); }
 .dbtn{ position:relative; } .modes button{ position:relative; }
-.modes button.nw::after{ content:""; position:absolute; top:5px; right:9px; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
+.modes button.nw::after{ content:""; position:absolute; top:-2px; right:-2px; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .tile .tdot{ position:absolute; top:9px; right:9px; z-index:6; width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px rgba(10,14,22,.55), 0 0 7px #5FD0FF; pointer-events:none; }
 .dbtn.nw::after, .dock button.nw::after{ content:""; position:absolute; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .dbtn.nw::after{ top:-4px; right:-4px; }
-.hf-ava.nw::after{ content:""; position:absolute; top:7px; right:7px; z-index:2; width:9px; height:9px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; }
-.hf-pickg button.nw{ position:relative; } .hf-pickg button.nw::after{ content:""; position:absolute; top:6px; right:calc(50% - 30px); width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; }
+.hf-avdot{ position:absolute; top:18px; right:18px; z-index:2; width:10px; height:10px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; pointer-events:none; }   /* on the picture's rim, top right */
+.hf-pickg button.nw{ position:relative; } .hf-pickg button.nw::after{ content:""; position:absolute; top:13px; right:calc(50% - 25px); width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; }
 .dock button.nw::after{ top:7px; left:calc(50% + 10px); }
 .dbtn{ border:1.5px solid currentColor; background:transparent; border-radius:4px; padding:7px 12px; font:400 12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .fx-mk-host{ position:relative; }
@@ -878,7 +878,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-views button.lk{ color:#3A4660; }
 .atl-row{ position:relative; }
 .atl-row.nw::after{ content:""; position:absolute; top:50%; right:4px; width:7px; height:7px; margin-top:-4px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
-.atl-views button.nw::after{ content:""; position:absolute; top:3px; right:4px; width:5px; height:5px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
+.atl-views button.nw::after{ content:""; position:absolute; top:-2px; right:-2px; width:5px; height:5px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .atl-map{ position:relative; flex:none; background-color:#0B1019 !important; overflow:hidden; touch-action:none; user-select:none; -webkit-user-select:none; border-top:1px solid #1C2538; background:radial-gradient(ellipse at 50% 42%, rgba(40,96,170,.2), rgba(11,16,25,0) 70%); }
 .atl-map.sky.multi{ background:radial-gradient(ellipse at 50% 50%, rgba(200,150,70,.18), rgba(11,16,25,0) 70%); }
 .atl-map.sky.multi .atl-pin:not(.home) i{ background:#FFD58A; box-shadow:0 0 0 2px rgba(235,185,105,.25), 0 0 10px rgba(235,185,105,.9); }
@@ -5867,7 +5867,7 @@ function renderFile(fresh) {
   const sect = (key, title, mini) => open[key] ? part(key, title, mini) : "";
   const fv = document.getElementById("fileView"); fv.className = "fileview"; if (fresh) fv.replaceChildren();
   swapIn(fv, `
-    <div class="hf-head hf-id"><button type="button" class="hf-ava${embNew().length ? " nw" : ""}" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button><div class="hf-tag">Avengers Initiative · Agent ID</div>
+    <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button>${embNew().length ? '<i class="hf-avdot" aria-hidden="true"></i>' : ""}<div class="hf-tag">Avengers Initiative · Agent ID</div>
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
       <dl class="hf-rows"><div><dt>Clearance</dt><dd>Level ${level} of 10</dd></div><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
@@ -5903,11 +5903,12 @@ function avaPick() {
   pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Choose your profile picture");
   pk.innerHTML = `<div class="hf-pickin"><div class="hf-pickh"><span>Profile picture</span><button type="button" data-ava-x aria-label="Close">&times;</button></div><div class="hf-pickg">${Object.keys(EMBLEMS).map(embCell).join("")}</div></div>`;
   fp.appendChild(pk); haptic(8); hfPickNav();
-  embNew().forEach(k => { state.embSeen[k] = 1; }); persist(); { const av = document.getElementById("hfAva"); if (av) av.classList.remove("nw"); }   // seen now: the dots in the picker stay until it closes
+  embNew().forEach(k => { state.embSeen[k] = 1; }); persist(); { const d = document.querySelector("#fileView .hf-avdot"); if (d) d.remove(); }   // seen now: the dots in the picker stay until it closes
   pk.addEventListener("click", ev => { const b = ev.target.closest("[data-ava]"); if (b) { state.avatar = b.dataset.ava; persist(); haptic(12); hfPickClose(); renderFile(); return; }
     const l = ev.target.closest("[data-lk]");
     if (l) { const k = l.dataset.lk, n = embTaps[k] = (embTaps[k] || 0) + 1; haptic(n === 5 ? 14 : 6);
       if (n === 5) l.outerHTML = embCell(k);   // the name comes through
+      if (n < 5) toast("Locked. Keep watching."); else if (n < 10) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unlock.`); }
       if (n >= 10) { embTaps[k] = 0;
         ask(EMB_HINT[k], "Unlock anyway", "Hide").then(ok => { if (ok) { (state.embOpen = state.embOpen || {})[k] = 1; embNew(); state.embSeen[k] = 1; persist(); haptic(12); }
           const c = pk.querySelector(`[data-lk="${CSS.escape(k)}"]`); if (c) c.outerHTML = embCell(k); }); }
