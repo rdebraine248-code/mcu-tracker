@@ -650,6 +650,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-codein{ display:block; width:calc(100% - 68px); box-sizing:border-box; padding:2px 6px; border:1px solid #3A4A6E; border-radius:6px; background:#0B1019; color:#EEF1F6; }
 .hf-strip{ display:flex; align-items:center; gap:10px; margin-top:12px; } .hf-strip i{ flex:1; height:18px; background:repeating-linear-gradient(90deg,#9FB3D1 0 2px,transparent 2px 4px,#9FB3D1 4px 5px,transparent 5px 8px,#9FB3D1 8px 11px,transparent 11px 13px); opacity:.55; } .hf-strip span{ font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; }
 .hf-cf{ margin:0; padding:4px 16px 24px; overflow-y:auto; } .hf-cf div{ padding:9px 0; border-top:1px solid #1E2638; } .hf-cf dt{ font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .hf-cf dd{ margin:3px 0 0; font:15px/1.45 'IBM Plex Sans',sans-serif; color:#EEF1F6; }
+.hf-cf .hf-cfq dd{ font-style:italic; color:#CFE0FA; }
 .hf-cf dd.st-closed{ color:#7BD88F; } .hf-cf dd.st-open{ color:#FF8A7A; } .hf-cfw{ padding:12px 16px 28px; color:#8EA2C2; }
 .hf-pick{ position:absolute; inset:0; z-index:5; display:flex; align-items:flex-end; justify-content:center; background:rgba(5,8,14,.72); animation:whihfade .2s ease both; }
 .hf-pickin{ width:100%; max-width:760px; max-height:78%; display:flex; flex-direction:column; border:1px solid #26314A; border-bottom:0; border-radius:16px 16px 0 0; background:#0D1320; }
@@ -955,6 +956,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-sh small{ display:block; margin-top:3px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
 .atl-x{ flex:none; width:32px; height:32px; border:1px solid #26314A; border-radius:9px; background:#0D1320; color:#BFD3F0; font-size:18px; line-height:1; cursor:pointer; }
 .atl-sub{ margin:16px 0 2px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#5FD0FF; }
+.atl-ev.nw b::after{ content:""; display:inline-block; width:7px; height:7px; margin-left:8px; vertical-align:1px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .atl-ev{ padding:9px 0 10px; border-bottom:1px solid #1C2538; }
 .atl-sh + .atl-ev{ margin-top:8px; }
 .atl-ev b{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:1px; color:#8EA2C2; }
@@ -3055,14 +3057,15 @@ function atlPins(map) {   // only places you've charted are on the map; the rest
   const run = map._run = (map._run || 0) + 1;
   L.filter(p => news.includes(p) || upds.includes(p)).forEach((p, i) => setTimeout(() => { if (!atlOpen || map._run !== run || !map.isConnected) return; seen[key(p)] = 1; N[key(p)] = pn(p); persist(); }, (i * step + 1.4) * 1000));
 }
-function atlSheet(p) {
+function atlSheet(p, fresh) {   // fresh: the entries that turned up since you last opened this place, each with a dot that's gone next time
+  fresh = fresh || new Set();
   const evs = p.e.filter(e => atlEvSeen(e)).sort((a, b) => ATL_ORDER[a[0]] - ATL_ORDER[b[0]] || String(a[3] || "").localeCompare(String(b[3] || ""))), hid = p.e.length - evs.length, groups = [], city = atlView === "city";
   evs.forEach(e => { const k = city ? "" : e[1]; let gp = groups.find(x => x[0] === k); if (!gp) groups.push(gp = [k, []]); gp[1].push(e); });
   const spots = [...new Set(evs.map(e => atlSpot(e[1])).filter(Boolean))];
   return `<div class="atl-sh"><div><h3>${esc(p.n)}</h3><small>${esc(p.r)}</small></div><button type="button" class="atl-x" aria-label="Close">×</button></div>
     ${p.id === "knowhere" && collKnown() ? `<button type="button" class="atl-coll"><i aria-hidden="true">&#9670;</i><span><b>Visit the Collector</b><small>Taneleer Tivan's archive</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${spots.length > 2 ? `<div class="atl-chips"><button type="button" class="on" data-chip="">All</button>${spots.map(s => `<button type="button" data-chip="${esc(s)}">${esc(s)}</button>`).join("")}</div>` : ""}
-    ${groups.map(([s, L]) => `<div class="atl-grp" data-g="${esc(atlSpot(s))}">${s ? `<div class="atl-sub">${esc(s)}</div>` : ""}${L.map(e => `<div class="atl-ev"><b>${e[3] ? esc(e[3]) : tnh(e[0])}${city && e[1] !== atlSpot(e[1]) ? " · " + esc(e[1].slice(atlSpot(e[1]).length + 2)) : ""}</b><p>${esc(e[2])}</p></div>`).join("")}</div>`).join("")}
+    ${groups.map(([s, L]) => `<div class="atl-grp" data-g="${esc(atlSpot(s))}">${s ? `<div class="atl-sub">${esc(s)}</div>` : ""}${L.map(e => `<div class="atl-ev${fresh.has(p.e.indexOf(e)) ? " nw" : ""}"><b>${e[3] ? esc(e[3]) : tnh(e[0])}${city && e[1] !== atlSpot(e[1]) ? " · " + esc(e[1].slice(atlSpot(e[1]).length + 2)) : ""}</b><p>${esc(e[2])}</p></div>`).join("")}</div>`).join("")}
 `;
 }
 // the Atlas's own steps back: a place you've opened, and a city or universe you've gone into. Each is added by the tap that opens it
@@ -3081,9 +3084,13 @@ function atlSelect(map, id, fromList) {
   if (p.city) { haptic(10); atlSub("city", p.city); return; }   // places with a city map open straight into it
   if (p.uni) { haptic(10); atlSub("uni", p.uni); return; }      // and other universes open their own map
   if (!atlSel) atlPrevT = { ...atlT };   // where the map was, to go back to when the entry closes
-  atlReadInit(); state.atlRead[atlRKey(atlView, atlView === "city" ? atlCity : atlUni, p)] = atlEvN(p); persist();
+  // which of its entries are new since you last opened it: they get a dot this time, without anything to tap. A place kept before entries were
+  // tracked one by one shows them all as new if it had anything unread, and nothing if it didn't
+  atlReadInit(); const rk = atlRKey(atlView, atlView === "city" ? atlCity : atlUni, p), EV = state.atlEv = state.atlEv || {}, vis = p.e.map((e, i) => atlEvSeen(e) ? i : -1).filter(i => i >= 0);
+  const fresh = new Set(EV[rk] ? vis.filter(i => !EV[rk].includes(i)) : (state.atlRead[rk] || 0) < atlEvN(p) ? vis : []);
+  EV[rk] = vis; state.atlRead[rk] = atlEvN(p); persist();
   const rw = document.querySelector(`.atl-row[data-p="${CSS.escape(id)}"]`); if (rw) rw.classList.remove("nw"); atlTabs();
-  haptic(10); atlSel = id; sh.innerHTML = atlSheet(p); sh.hidden = false; sh.scrollTop = 0; atlPush("atlsel");
+  haptic(10); atlSel = id; sh.innerHTML = atlSheet(p, fresh); sh.hidden = false; sh.scrollTop = 0; atlPush("atlsel");
   if (atlBig) { atlSize(false, true); atlBigBack = true; }
   map.querySelectorAll(".atl-pin").forEach(b => b.classList.toggle("sel", b.dataset.p === id));
   const pin = map._pins.find(q => q.id === id), H = map.clientHeight, W = map.clientWidth; if (!pin) return;
@@ -5729,7 +5736,7 @@ const EGGS = [
   ["doom", "Doom", "He fights with both hands.", "Hold any Avengers: Doomsday title with two fingers (on a computer, a long hold).", 2],
   ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse on the Sacred Timeline.", 2]
 ];
-// the line each Avengers film mission announces itself with (Doomsday and Secret Wars are placeholders until the films are out)
+// the line on record in each Avengers mission's case file (Doomsday and Secret Wars are placeholders until the films are out)
 const FILM_LINES = { "The Avengers": "Have you ever tried shawarma?", "Avengers: Age of Ultron": "There are no strings on me.", "Avengers: Infinity War": "Bring me Thanos!",
   "Avengers: Endgame": "…assemble.", "Avengers: Doomsday": "Doom has come.", "Avengers: Secret Wars": "Everything ends." };
 // each Avengers film is a mission, named for what the team had to do (Doomsday and Secret Wars keep their titles until they are out)
@@ -5773,7 +5780,7 @@ function achList() {
     h: c.num ? "Watch every title in it." : c.id === INC_ID ? "Watch Avengers: Doomsday, then everything in it." : "Open the multiverse, then watch everything in it.",
     x: c.num ? `Check off every title in Chapter ${c.num}.` : c.id === INC_ID ? "After Avengers: Doomsday, unlock this Extras box and check off every title in it." : "After Loki S1, unlock this Extras box and check off every title in it.",
     ok: () => isDone(c) }));
-  AVENGERS_FILMS.forEach(f => A.push({ id: "film-" + f, sec: "missions", t: MISSION_NAMES[f] || f.replace("Avengers: ", ""), ann: FILM_LINES[f], lead: true, d: f + " watched.", h: "An Avengers film.", x: `Check off ${f} in any list.`, ok: () => anyChecked(f) }));
+  AVENGERS_FILMS.forEach(f => A.push({ id: "film-" + f, sec: "missions", t: MISSION_NAMES[f] || f.replace("Avengers: ", ""), lead: true, d: f + " watched.", h: "An Avengers film.", x: `Check off ${f} in any list.`, ok: () => anyChecked(f) }));
   A.push({ id: "hero1", sec: "missions", done: true, t: "First hero", d: "One character box complete.", h: "Pick a hero.", x: "Check off every title in any one character box.", ok: () => DATA.chars.some(isDone) });
   A.push({ id: "heroall", sec: "missions", done: true, t: "Earth's mightiest", d: "Every character box complete.", h: "All of them.", x: "Complete every character box on the Characters page.", ok: () => DATA.chars.every(isDone) });
   // either way of watching counts: the chapters, or the timeline page (in-universe or release order)
@@ -6004,7 +6011,7 @@ function caseFile(film) {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) pk.remove();
   const R = CASES[film]; pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Case file");
   pk.innerHTML = `<div class="hf-pickin hf-case"><div class="hf-pickh"><span>Case file · ${esc(MISSION_NAMES[film] || film.replace("Avengers: ", ""))}</span><button type="button" data-ava-x aria-label="Close">&times;</button></div>
-    ${R ? `<dl class="hf-cf">${R.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
+    ${R ? `<dl class="hf-cf">${R.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}${FILM_LINES[film] ? `<div class="hf-cfq"><dt>On record</dt><dd>&ldquo;${esc(FILM_LINES[film])}&rdquo;</dd></div>` : ""}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
   fp.appendChild(pk); haptic(8); hfPickNav();
   pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
 }
@@ -6046,7 +6053,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "atlasN", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7428,7 +7435,48 @@ function newDots() {
 }
 const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : commsOpen ? "comms" : fileOpen ? "file" : "story";
 function dockSync() { newDots(); const rp = document.getElementById("ratePill"); if (rp) rp.classList.remove("show"); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
+// hold a dock button to mark everything new on that page as read, after a yes. It counts the same as reading it all, Every page included
+const DOCK_NAMES = { story: "Story", log: "the Story log", atlas: "the Atlas", map: "Paths", comms: "Comms", file: "the Agent File" };
+function logReadAll(id) {   // a box's own log, everything in it you've opened up, as if it had all played in
+  const D = DOSSIERS[id], box = (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id); if (!box) return;
+  const here = t => !!state.checks[ck(box, t)], open = t => !t || (Array.isArray(t) ? t.every(here) : here(t)), R = D.rows || {};
+  (D.kind === "chapter" ? [R.period] : [R.subjects, R.aliases, R.affiliation, R.status]).forEach((v, i) => { if (!Array.isArray(v)) return; let k = -1; v.forEach((st, j) => { if (open(st[1])) k = j; }); if (k >= 0) dMark(null, id + "|r" + i + "." + k); });
+  D.story.forEach(([t, x]) => { if (x && open(t)) dMark(null, id + "|s:" + t); });
+  if (D.kind === "chapter" && D.debrief && open(D.story.filter(([, x]) => x).map(([t]) => t))) dMark(null, id + "|d");
+  (D.links || []).forEach(([n, r, g], i) => { if (open(g)) dMark(null, id + "|l" + i); });
+}
+function readAll(t) {
+  if (t === "story") [...DATA.chapters.filter(c => state.unlocked[c.id]), ...DATA.chars.filter(c => !charHidden(c))].forEach(c => { if (DOSSIERS[c.id] && logUnread(c.id)) logReadAll(c.id); });
+  else if (t === "log") DATA.chapters.forEach(c => { if (!slShown(c)) return; slEntries(c).forEach(([x]) => dMark(null, c.id + "|s:" + x)); if (slDeb(c)) dMark(null, c.id + "|d"); if (slPer(c) >= 0) dMark(null, c.id + "|r0." + slPer(c)); });
+  else if (t === "atlas") {
+    atlReadInit(); const R = state.atlRead, EV = state.atlEv = state.atlEv || {}, SN = state.atlas = state.atlas || {}, N = state.atlasN = state.atlasN || {};
+    const evN = L => L.reduce((a, q) => a + atlEvN(q), 0);
+    const mark = (view, sub, p) => { if (p.home || !atlLit(p)) return; const pk = view === "city" ? "city:" + sub + ":" + p.id : view === "uni" ? "uni:" + sub + ":" + p.id : p.id;
+      if (p.city && view === "earth") { SN[pk] = 1; N[pk] = evN(atlPlaces("city", p.city)); atlPlaces("city", p.city).forEach(q => mark("city", p.city, q)); return; }
+      if (p.uni) { SN[pk] = 1; N[pk] = evN(ATLAS_UNI[p.uni].places); ATLAS_UNI[p.uni].places.forEach(q => mark("uni", p.uni, q)); return; }
+      const rk = atlRKey(view, sub, p); R[rk] = atlEvN(p); EV[rk] = p.e.map((e, i) => atlEvSeen(e) ? i : -1).filter(i => i >= 0); SN[pk] = 1; N[pk] = atlEvN(p); };
+    Object.keys(ATLAS).forEach(v => ATLAS[v].forEach(p => mark(v, null, p)));
+  }
+  else if (t === "map") { const was = state.pathT = state.pathT || {}; DATA.map.cols.forEach(c => { if (atlSeenT(c.t)) was[c.t] = 1; }); mapSig = null; }
+  else if (t === "comms") { newsStop(true); newsMark(msgPending()); newsMark(newsPending()); cmReadInit(); cmHeardM().forEach(m => { state.cmRead[cmMK(m)] = 1; }); cmHeardN().forEach(k => { state.cmRead[k] = 1; }); }
+  else if (t === "file") { state.hfSeen = achList().filter(a => earned(a.id)).length; embKeep(); embNew().forEach(k => { state.embSeen[k] = 1; }); }
+  persist();
+  // the page you're on catches up too
+  if (t === "story" && !dossierOpen && !atlOpen && !mapOpen && !commsOpen && !fileOpen) renderView();
+  if (t === "atlas" && atlOpen) renderAtlas(); if (t === "comms" && commsOpen) renderComms(); if (t === "file" && fileOpen) renderFile();
+  if (t === "log" && dossierOpen === "saga") { const el = document.getElementById("dossier"), sc = el && el.querySelector(".dscroll"), y = sc ? sc.scrollTop : 0; openDossier("saga", { open: slOpen }); const s2 = el && el.querySelector(".dscroll"); if (s2) s2.scrollTop = y; }
+  newDots();
+}
+let dockHeld = false, dockT = 0, dockAt = null;
+document.getElementById("dock").addEventListener("pointerdown", ev => { const b = ev.target.closest("[data-dock]"); clearTimeout(dockT); dockHeld = false; if (!b) return; dockAt = [ev.clientX, ev.clientY];
+  dockT = setTimeout(() => { dockHeld = true; const t = b.dataset.dock; haptic([12, 40, 12]);
+    if (!b.classList.contains("nw")) { toast("Nothing new in " + DOCK_NAMES[t] + ".", null, false, null, 1500); return; }
+    ask("Mark everything in " + DOCK_NAMES[t] + " as read?", "Mark as read").then(ok => { if (!ok) return; readAll(t); haptic(12); toast("All caught up.", null, false, null, 1500); }); }, 650); });
+document.getElementById("dock").addEventListener("pointermove", ev => { if (dockAt && Math.hypot(ev.clientX - dockAt[0], ev.clientY - dockAt[1]) > 12) clearTimeout(dockT); });
+["pointerup", "pointercancel", "pointerleave"].forEach(n => document.getElementById("dock").addEventListener(n, () => { clearTimeout(dockT); dockAt = null; if (dockHeld) setTimeout(() => { dockHeld = false; }, 400); }));
+document.getElementById("dock").addEventListener("contextmenu", ev => ev.preventDefault());
 document.getElementById("dock").addEventListener("click", ev => {
+  if (dockHeld) { dockHeld = false; return; }   // that was a hold, not a tap
   const b = ev.target.closest("[data-dock]"); if (!b) return; const t = b.dataset.dock, c = dockCur(); haptic(8);
   if (t === c) { if (t === "story") window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); if (t === "atlas" && collOpen) closeColl(); return; }
   if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (commsOpen) closeComms(true);
