@@ -1418,18 +1418,17 @@ function renderTimeline(v) {
       return `<span class="ld${show ? " off" : ""}">${before}</span><span class="ld${show ? "" : " off"}">${after}</span>`;
     })()}</p>
     <div class="legend" role="group" aria-label="Focus on one timeline">${legendKeys.map(k => `<button type="button" class="lg${keyHidden(k) ? " kh" : ""}${prunedLanes[k] ? " cut" : ""}" data-focus-lane="${k}" aria-pressed="${tlFocus === k}"${keyHidden(k) ? ' tabindex="-1" aria-hidden="true"' : ""}><i style="background:${LANES[k].c}"></i>${LANES[k].name}</button>`).join("")}</div>
-    ${state.tlOpen && tlFoldAt(true) >= 0 ? `<div class="tl-fold tl-foldtop"><button type="button" class="tl-foldbtn" data-tlfold="close">Hide <span aria-hidden="true">&#9652;</span></button></div>` : ""}
-    <ol class="tl-list">${(() => { const F = tlFoldAt(), SPLIT = splitOf();
-      // the fold: the Sacred Timeline's line stops at a button, while the branch lines run on through
+    <ol class="tl-list">${(() => { const F = tlFoldAt(true), open = !!state.tlOpen, SPLIT = splitOf();
+      // one button, just after your next title on the Sacred Timeline: Reveal carries the line on down, Hide folds it away again there;
+      // the branch lines run on through it either way
       const lanes = show && F >= SPLIT ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
-      const foldLi = (open) => `<li class="tl-fold"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none">${open ? `<line data-ln="main" x1="50" y1="0" x2="50" y2="34" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/>` : ""}${open ? lanes : ""}</svg></span>
-        <button type="button" class="tl-foldbtn" data-tlfold="${open ? "open" : "close"}">${open ? "Reveal" : "Hide"} <span aria-hidden="true">${open ? "&#9662;" : "&#9652;"}</span></button></li>`;
-      return TLX().map((e, i) => F < 0 || i <= F ? tlRow(e, i, show, stepOf) + (i === F ? foldLi(true) : "") : e.lane === "main" ? "" : tlRow(e, i, show, stepOf, true)).join("")
-; })()}
+      const foldLi = `<li class="tl-fold"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line data-ln="main" x1="50" y1="0" x2="50" y2="${open ? 100 : 34}" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/>${lanes}</svg></span>
+        <button type="button" class="tl-foldbtn" data-tlfold="${open ? "close" : "open"}">${open ? "Hide" : "Reveal"} <span aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button></li>`;
+      return TLX().map((e, i) => F < 0 || open || i <= F ? tlRow(e, i, show, stepOf) + (i === F ? foldLi : "") : e.lane === "main" ? "" : tlRow(e, i, show, stepOf, true)).join(""); })()}
       ${tlFoldAt() >= 0 ? "" : `<li class="tl-next" aria-label="What's next?"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <line x1="50" y1="0" x2="50" y2="14" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>
         <i style="top:34%;opacity:.85"></i><i style="top:56%;opacity:.55"></i><i style="top:78%;opacity:.28"></i></span></li>`}
-      ${state.tlOpen && tlFoldAt(true) >= 0 ? `<li class="tl-fold"><button type="button" class="tl-foldbtn" data-tlfold="close">Hide <span aria-hidden="true">&#9652;</span></button></li>` : ""}</ol></section>`;
+</ol></section>`;
   guardTele(v);
 }
 const isDone = e => { const [n, t] = count(e); return t > 0 && n === t; };
@@ -1908,8 +1907,7 @@ document.getElementById("view").addEventListener("click", ev => {
   const fb = ev.target.closest("[data-tlfold]");
   if (fb) {   // open the Sacred Timeline out, or fold it back to where you are on it
     haptic(10); const open = fb.dataset.tlfold === "open"; if (open) state.tlOpen = true; else delete state.tlOpen; persist();
-    if (open) { const y = window.scrollY; renderView(); window.scrollTo(0, y); }
-    else { renderView(); const b = document.querySelector(".tl-foldbtn"); if (b) b.scrollIntoView({ block: "center" }); }
+    const y = window.scrollY; renderView(); window.scrollTo(0, y);
     return;
   }
   const sw = ev.target.closest("[data-tlmode]");
@@ -1953,7 +1951,7 @@ document.getElementById("view").addEventListener("click", ev => {
       if (r.dataset.tl === INC_MARK && on) say("Warning: Incursions detected.");
       if (!wasInc && incOpen()) incAlert();
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
-      if (!state.tlOpen && r.closest("li").dataset.lane === "main") {   // a folded Sacred Timeline moves its fold to your new next title
+      if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
         const y = window.scrollY; renderView(); window.scrollTo(0, y);
         const nr = document.querySelector(`.tl-row[data-tl="${CSS.escape(r.dataset.tl)}"]`); if (nr) { nr.classList.add("just"); nr.focus({ preventScroll: true }); }
         // and lifts the view so the new next title and Reveal sit clear of the dock and the rating pill
@@ -7274,7 +7272,7 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
       const wasBranched = branched();
       items.forEach(e => { if (full) delete state.checks[tk(e.t)]; else state.checks[tk(e.t)] = true; });
       persist(); renderMeter();
-      if (wasBranched !== branched() || !state.tlOpen) { growNext = wasBranched !== branched() && branched(); const y = window.scrollY; renderView(); window.scrollTo(0, y); }   // Loki S1 changed: the branches open or fold away; or the fold moves
+      if (wasBranched !== branched() || lane === "main") { growNext = wasBranched !== branched() && branched(); const y = window.scrollY; renderView(); window.scrollTo(0, y); }   // Loki S1 changed: the branches open or fold away; or the Reveal / Hide button moves
       else items.forEach(e => { const r = document.querySelector(`.tl-row[data-tl="${CSS.escape(e.t)}"]`); if (r) r.setAttribute("aria-pressed", String(!full)); });
       if (full) toast(`${label.charAt(0).toUpperCase() + label.slice(1)} Reset`);
       else { toast(`${label} Completed`); haptic(HAPTIC.success); }
