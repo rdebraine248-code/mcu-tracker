@@ -862,6 +862,45 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-sh + .atl-ev{ margin-top:8px; }
 .atl-ev b{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:1px; color:#8EA2C2; }
 .atl-ev p{ margin:3px 0 0; font-size:15px; line-height:1.45; color:#D5DCE8; }
+/* the Collector: a gold door on Knowhere's sheet, then his archive, one lit case per object */
+.atl-coll{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #C9A43A; border-radius:12px; background:linear-gradient(180deg,rgba(201,164,58,.12),rgba(201,164,58,.04)); color:#F4D27A; text-align:left; cursor:pointer; }
+.atl-coll i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(233,196,106,.6); border-radius:8px; font-style:normal; font-size:12px; color:#E9C46A; }
+.atl-coll span{ flex:1; } .atl-coll b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
+.atl-coll small{ display:block; margin-top:1px; font-size:13px; color:#C9B27A; } .atl-coll em{ font-style:normal; font-size:18px; color:#E9C46A; }
+.collpanel{ z-index:63; }
+.co{ max-width:760px; margin:0 auto; padding-top:12px; }
+.co-top small, .co-h{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
+.co-top h3{ margin:2px 0 4px; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:34px; line-height:1.05; letter-spacing:1px; text-transform:uppercase; color:#EEF1F6; }
+.co-sub{ margin:0; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#9AA6BA; }
+.co-bar{ height:4px; margin:10px 0 16px; border-radius:2px; background:#1C2538; overflow:hidden; } .co-bar span{ display:block; height:100%; background:#E9C46A; }
+.co-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+.co-chips button{ padding:7px 14px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font-size:14px; cursor:pointer; }
+.co-chips button.on{ background:#E9C46A; border-color:#E9C46A; color:#1A1408; font-weight:600; }
+.co-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+.co-case{ position:relative; display:block; width:100%; height:206px; padding:0; border:1px solid rgba(170,200,240,.2); border-radius:12px; overflow:hidden; text-align:center; color:#EEF1F6; background:linear-gradient(180deg,rgba(150,190,255,.07),rgba(0,0,0,.35)),#0D131E; cursor:pointer; }
+.co-case::after{ content:""; position:absolute; inset:0; background:linear-gradient(115deg,rgba(255,255,255,.07) 0 18%,rgba(255,255,255,0) 30%); pointer-events:none; }
+.co-case .beam, .co-big .beam{ position:absolute; left:18%; right:18%; top:0; height:76%; clip-path:polygon(32% 0,68% 0,100% 100%,0 100%); background:linear-gradient(180deg,rgba(255,236,200,.16),rgba(255,236,200,0)); }
+.co-case .ped, .co-big .ped{ position:absolute; left:22%; right:22%; bottom:44px; height:16px; border-radius:50%; background:radial-gradient(ellipse,rgba(0,0,0,.6),rgba(0,0,0,0) 70%); }
+.co-case .plinth, .co-big .plinth{ position:absolute; left:26%; right:26%; bottom:28px; height:20px; background:linear-gradient(180deg,#1E2633,#0E131B); clip-path:polygon(6% 0,94% 0,100% 100%,0 100%); }
+.co-obj{ position:absolute; left:50%; top:42%; transform:translate(-50%,-50%); } .co-obj canvas{ display:block; width:132px; height:132px; } .co-obj .emb{ transform:scale(1.4); }
+.co-case .nm{ position:absolute; left:8px; right:8px; bottom:9px; font:600 14px/1.15 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.co-case .nm small{ display:block; margin-top:3px; font:9.5px 'Share Tech Mono','Courier New',monospace; letter-spacing:.4px; color:#8C97A8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.co-case .nw{ position:absolute; top:8px; right:8px; z-index:2; padding:2px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
+.co-case.sealed{ cursor:default; border-style:dashed; border-color:#26314A; background:#0B1019; } .co-case.sealed .nm{ color:#5E6A80; }
+.co-q{ position:absolute; left:50%; top:42%; transform:translate(-50%,-50%); font-family:'Anton','Impact',sans-serif; font-size:40px; color:#26314A; }
+.co-crumb{ display:inline-flex; align-items:center; gap:6px; margin-bottom:12px; padding:6px 12px 6px 9px; border:1px solid #2A3550; border-radius:999px; background:transparent; color:#BFD3F0; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
+.co-big{ position:relative; height:250px; border:1px solid rgba(170,200,240,.2); border-radius:14px; overflow:hidden; background:linear-gradient(180deg,rgba(150,190,255,.07),rgba(0,0,0,.35)),#0D131E; }
+.co-big .co-obj canvas{ width:190px; height:190px; } .co-big .co-obj .emb{ transform:scale(2.1); }
+.co-rec h3{ margin:16px 0 2px; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:32px; line-height:1.05; letter-spacing:1px; text-transform:uppercase; color:#EEF1F6; }
+.co-kind{ margin:0 0 12px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#9AA6BA; }
+.co-tiles{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px; }
+.co-tiles div{ padding:9px 12px; border:1px solid #232D42; border-radius:10px; background:#0F1626; } .co-tiles small{ display:block; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .co-tiles b{ display:block; margin-top:2px; font-size:14px; font-weight:600; color:#EEF1F6; }
+.co-h{ color:#E9C46A; margin-bottom:8px; }
+.co-chain{ list-style:none; margin:0; padding:0 0 0 22px; border-left:2px solid #26314A; margin-left:7px; }
+.co-chain li{ position:relative; padding:0 0 16px; } .co-chain li::before{ content:""; position:absolute; left:-31px; top:3px; width:12px; height:12px; border:2px solid #5FA8FF; border-radius:50%; background:#0B1019; }
+.co-chain li:last-child::before{ background:#5FA8FF; box-shadow:0 0 8px #5FA8FF; }
+.co-chain p{ margin:0; font-size:15px; line-height:1.45; color:#D5DCE8; } .co-chain small{ display:block; margin-top:3px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#8EA2C2; }
+.co-more{ margin:2px 0 0; padding:10px 12px; border:1px dashed #2A3550; border-radius:10px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7F8BA0; text-align:center; text-transform:uppercase; }
 .atl-more{ margin:12px 0 0; font:12px/1.5 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#56637C; }
 
 :root{ --dockh:calc(60px + env(safe-area-inset-bottom,0px)); }
@@ -960,6 +999,10 @@ body{ padding-bottom:var(--dockh); }
 <div class="filepanel" id="filePanel" hidden role="dialog" aria-modal="true" aria-label="Archive">
   <div class="maptop"><button type="button" class="back" id="fileBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Hero File</h2></div>
   <div class="fileview" id="fileView"></div>
+</div>
+<div class="filepanel collpanel" id="collPanel" hidden role="dialog" aria-modal="true" aria-label="The Collection">
+  <div class="maptop"><button type="button" class="back" id="collBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Knowhere</h2></div>
+  <div class="fileview" id="collView"></div>
 </div>
 <div class="filepanel atlpanel" id="atlasPanel" hidden role="dialog" aria-modal="true" aria-label="Atlas">
   <div class="maptop"><button type="button" class="back" id="atlBack" aria-label="Back"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Atlas</h2><div class="atl-views" id="atlTabs" role="tablist"></div></div>
@@ -2740,6 +2783,7 @@ function atlSheet(p) {
   evs.forEach(e => { const k = city ? "" : e[1]; let gp = groups.find(x => x[0] === k); if (!gp) groups.push(gp = [k, []]); gp[1].push(e); });
   const spots = [...new Set(evs.map(e => atlSpot(e[1])).filter(Boolean))];
   return `<div class="atl-sh"><div><h3>${esc(p.n)}</h3><small>${esc(p.r)}</small></div><button type="button" class="atl-x" aria-label="Close">×</button></div>
+    ${p.id === "knowhere" && collKnown() ? `<button type="button" class="atl-coll"><i aria-hidden="true">&#9670;</i><span><b>Visit the Collector</b><small>Taneleer Tivan's archive</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${spots.length > 2 ? `<div class="atl-chips"><button type="button" class="on" data-chip="">All</button>${spots.map(s => `<button type="button" data-chip="${esc(s)}">${esc(s)}</button>`).join("")}</div>` : ""}
     ${groups.map(([s, L]) => `<div class="atl-grp" data-g="${esc(atlSpot(s))}">${s ? `<div class="atl-sub">${esc(s)}</div>` : ""}${L.map(e => `<div class="atl-ev"><b>${e[3] ? esc(e[3]) : tnh(e[0])}${city && e[1] !== atlSpot(e[1]) ? " · " + esc(e[1].slice(atlSpot(e[1]).length + 2)) : ""}</b><p>${esc(e[2])}</p></div>`).join("")}</div>`).join("")}
 `;
@@ -2794,6 +2838,7 @@ function renderAtlas() {
   map.style.height = Math.max(200, Math.min(room - 150, want)) + "px";
   fv.querySelector(".atl-low").addEventListener("click", ev => {
     if (ev.target.closest(".atl-x")) { haptic(8); atlClose(map); return; }
+    if (ev.target.closest(".atl-coll")) { haptic(12); openColl(); return; }
     const go = ev.target.closest("[data-city]"); if (go) { haptic(10); atlSwitch("city", go.dataset.city); return; }
     const ch = ev.target.closest("[data-chip]");
     if (ch) { haptic(8); const sh = ch.closest(".atl-sheet"), k = ch.dataset.chip; sh.querySelectorAll("[data-chip]").forEach(b => b.classList.toggle("on", b === ch));
@@ -2868,6 +2913,448 @@ function closeAtlas(fromHistory) {
 document.getElementById("atlBack").addEventListener("click", () => closeAtlas());
 document.addEventListener("click", ev => { const b = ev.target.closest("[data-atlv]"); if (!b || (b.getAttribute("aria-selected") === "true" && atlView !== "city" && atlView !== "uni")) return; haptic(8); atlSwitch(b.dataset.atlv); });
 window.addEventListener("resize", () => { const map = document.getElementById("atlMap"); if (atlOpen && map && atlT) { atlT = atlClamp(map, { ...atlT }); atlTs[atlKey()] = atlT; atlQueue(); } });
+
+/* ---------- the Collector: tap Knowhere in the Atlas cosmos, then visit Taneleer Tivan's archive. Every object, and every hand it passed through,
+   in story order. An object is catalogued once you've watched a title it's in, and each step of its record stays sealed until you've watched that title ---------- */
+const COLL = [{"id":"tesseract","n":"The Tesseract","s":"Space Stone","c":"stones","a":"tesseract","st":[["Hidden in a church in Tønsberg, Norway, as part of Odin's treasure","Captain America: The First Avenger"],["Red Skull takes it and powers HYDRA's weapons with it","Captain America: The First Avenger"],["Howard Stark pulls it from the ocean while searching for Steve","Captain America: The First Avenger"],["Mar-Vell builds a light-speed engine with it, then hides it in her lab in orbit","Captain Marvel"],["Goose swallows it, and later coughs it up on Fury's desk","Captain Marvel"],["S.H.I.E.L.D. studies it, with Erik Selvig, under Project Pegasus","Thor"],["Loki steals it and opens a portal over New York","The Avengers"],["Thor takes it home to Odin's vault","The Avengers"],["Loki takes it from the vault as Asgard falls","Thor: Ragnarok"],["Thanos crushes it to take the Space Stone","Avengers: Infinity War"],["In 2012, a Loki variant escapes with it; Tony and Steve take another from 1970","Avengers: Endgame"],["The TVA confiscates it from that Loki","Loki S1"]]},{"id":"scepter","n":"The Scepter","s":"Mind Stone","c":"stones","a":"scepter","st":[["Thanos gives it to Loki","The Avengers"],["S.H.I.E.L.D. takes it; HYDRA's Baron Strucker experiments with it","Captain America: The Winter Soldier"],["The Avengers take it back in Sokovia","Avengers: Age of Ultron"],["Tony and Bruce use the stone inside it to create Ultron","Avengers: Age of Ultron"],["The stone becomes part of Vision","Avengers: Age of Ultron"],["Thanos tears the stone out of Vision","Avengers: Infinity War"],["Steve takes the 2012 scepter in an elevator at Stark Tower, and later returns it","Avengers: Endgame"]]},{"id":"aether","n":"The Aether","s":"Reality Stone","c":"stones","a":"aether","st":[["Bor hides it from Malekith and the Dark Elves","Thor: The Dark World"],["Jane Foster absorbs it in London","Thor: The Dark World"],["Malekith draws it out of her","Thor: The Dark World"],["Sif and Volstagg leave it with the Collector on Knowhere","Thor: The Dark World"],["Thanos takes it from the Collector","Avengers: Infinity War"],["Rocket draws the 2013 Aether out of Jane, and it is later returned","Avengers: Endgame"]]},{"id":"orb","n":"The Orb","s":"Power Stone","c":"stones","a":"orb","st":[["Peter Quill steals it from a vault on Morag","Guardians of the Galaxy"],["Ronan takes it on Knowhere and sets it in his hammer","Guardians of the Galaxy"],["The Guardians hold it together, then give it to the Nova Corps on Xandar","Guardians of the Galaxy"],["Thanos takes it as he decimates Xandar","Avengers: Infinity War"],["Rhodey and Nebula take the 2014 Orb from Morag, and it is later returned","Avengers: Endgame"]]},{"id":"agamotto","n":"The Eye of Agamotto","s":"Time Stone","c":"stones","a":"e:agamotto","st":[["Kept at Kamar-Taj, guarded by the Ancient One","Doctor Strange"],["Doctor Strange wears it and traps Dormammu in a loop","Doctor Strange"],["Strange gives the stone to Thanos to save Tony's life","Avengers: Infinity War"],["The Ancient One hands the 2012 stone to Bruce, and it is later returned","Avengers: Endgame"]]},{"id":"soul","n":"The Soul Stone","s":"Soul Stone","c":"stones","a":"soul","st":[["Kept on Vormir, guarded by Red Skull","Avengers: Infinity War"],["Thanos gets it by sacrificing Gamora","Avengers: Infinity War"],["Clint gets it in 2014 when Natasha sacrifices herself","Avengers: Endgame"],["Steve returns it to Vormir","Avengers: Endgame"]]},{"id":"gauntlet","n":"The Infinity Gauntlet","s":"","c":"stones","a":"gauntlet","st":[["Eitri forges it on Nidavellir for Thanos","Avengers: Infinity War"],["Thanos fills it with all six stones and snaps","Avengers: Infinity War"],["Thanos uses it to destroy the stones, burning his arm","Avengers: Endgame"]]},{"id":"mjolnir","n":"Mjolnir","s":"","c":"weapons","a":"mjolnir","st":[["Odin strips it from Thor and casts it to Earth","Thor"],["Thor proves worthy and reclaims it in New Mexico","Thor"],["Vision lifts it, the only one of the team besides Thor","Avengers: Age of Ultron"],["Hela crushes it","Thor: Ragnarok"],["Thor summons the 2013 Mjolnir to the present","Avengers: Endgame"],["Steve wields it against Thanos","Avengers: Endgame"],["Its pieces come back together for Jane Foster","Thor: Love and Thunder"]]},{"id":"stormbreaker","n":"Stormbreaker","s":"","c":"weapons","a":"stormbreaker","st":[["Thor, Rocket, Groot and Eitri forge it on Nidavellir","Avengers: Infinity War"],["Thor drives it into Thanos's chest, too low","Avengers: Infinity War"],["Thor takes Thanos's head with it","Avengers: Endgame"],["Gorr takes it to open the way to Eternity","Thor: Love and Thunder"]]},{"id":"shield","n":"Captain America's shield","s":"","c":"weapons","a":"e:shield","st":[["Howard Stark makes it for Steve out of vibranium","Captain America: The First Avenger"],["Steve takes it up again with the Avengers","The Avengers"],["Steve drops it in Siberia after his fight with Tony","Captain America: Civil War"],["Tony gives it back to Steve","Avengers: Endgame"],["It breaks against Thanos's sword","Avengers: Endgame"],["An older Steve hands a shield to Sam","Avengers: Endgame"],["Sam gives it to the Smithsonian","The Falcon and the Winter Soldier"],["The government gives it to John Walker","The Falcon and the Winter Soldier"],["Sam and Bucky take it back; Sam takes up the name","The Falcon and the Winter Soldier"],["Sam carries it as Captain America","Captain America: Brave New World"]]},{"id":"rings","n":"The Ten Rings","s":"","c":"weapons","a":"e:rings","st":[["Wenwu finds them a thousand years ago and builds an empire","Shang-Chi and the Legend of the Ten Rings"],["They pass to Shang-Chi as Wenwu dies","Shang-Chi and the Legend of the Ten Rings"],["Wong, Bruce and Carol find they're sending out a signal","Shang-Chi and the Legend of the Ten Rings"]]},{"id":"arrow","n":"Yondu's arrow","s":"","c":"weapons","a":"arrow","st":[["Yondu controls it by whistling","Guardians of the Galaxy"],["After the mutiny takes his fin, a prototype fin gives him control again","Guardians of the Galaxy Vol. 2"],["After Yondu dies, Kraglin keeps it and learns to use it","Guardians of the Galaxy Vol. 2"],["Kraglin fights with it","Guardians of the Galaxy Vol. 3"]]},{"id":"darkhold","n":"The Darkhold","s":"","c":"relics","a":"darkhold","st":[["Wanda ends up with it after leaving Westview","WandaVision"],["Wanda uses it to hunt America Chavez","Doctor Strange in the Multiverse of Madness"],["Wanda destroys every copy on Mount Wundagore","Doctor Strange in the Multiverse of Madness"]]},{"id":"bloodstone","n":"The Bloodstone","s":"","c":"relics","a":"e:bloodstone","st":[["Ulysses Bloodstone's relic; at his death, hunters compete for it","Werewolf by Night"],["Elsa Bloodstone wins it","Werewolf by Night"]]},{"id":"herb","n":"The Heart-Shaped Herb","s":"","c":"relics","a":"herb","st":[["T'Challa takes its power to become Black Panther","Black Panther"],["Killmonger burns the garden","Black Panther"],["Nakia saves one, which brings T'Challa back","Black Panther"],["Shuri recreates it in her lab","Black Panther: Wakanda Forever"]]},{"id":"scarab","n":"Khonshu's scarab","s":"","c":"relics","a":"scarab","st":[["Steven Grant has it; Arthur Harrow wants it to find Ammit's tomb","Moon Knight"],["Harrow takes it and frees Ammit","Moon Knight"]]},{"id":"bangle","n":"Kamala's bangle","s":"","c":"relics","a":"bangle","st":[["Kamala finds it among her great-grandmother Aisha's things","Ms. Marvel"],["Dar-Benn wears the other bangle of the pair","The Marvels"]]},{"id":"mix","n":"Awesome Mix Vol. 1","s":"","c":"relics","a":"mix","st":[["Meredith Quill's mixtape, which Peter has with him when he's taken","Guardians of the Galaxy"],["Peter gets his Walkman back from a guard in the Kyln","Guardians of the Galaxy"],["Ego crushes the Walkman","Guardians of the Galaxy Vol. 2"],["Kraglin gives Peter Yondu's Zune","Guardians of the Galaxy Vol. 2"]]},{"id":"redbook","n":"The red book","s":"","c":"relics","a":"redbook","st":[["HYDRA's Vasily Karpov keeps the Winter Soldier's trigger words in it","Captain America: Civil War"],["Zemo takes it from Karpov","Captain America: Civil War"],["Zemo reads the words to Bucky in Berlin","Captain America: Civil War"],["Shuri clears the words from Bucky's mind in Wakanda","Black Panther"],["Ayo reads the words to Bucky, and they no longer work","The Falcon and the Winter Soldier"]]},{"id":"vibranium","n":"Klaue's vibranium","s":"","c":"relics","a":"vibranium","st":[["Klaue steals it from Wakanda with N'Jobu's help","Black Panther"],["Ultron buys Klaue's stockpile, and cuts off his arm","Avengers: Age of Ultron"],["Ultron builds the body that becomes Vision from it","Avengers: Age of Ultron"],["Klaue and Killmonger steal a vibranium axe from a London museum","Black Panther"],["Killmonger brings Klaue's body to Wakanda","Black Panther"]]},{"id":"arc","n":"The arc reactor","s":"","c":"tech","a":"e:arc","st":[["Tony builds the first one in a cave in Afghanistan","Iron Man"],["Pepper has it framed: Proof that Tony Stark has a heart","Iron Man"],["A new element replaces the palladium poisoning him","Iron Man 2"],["Tony has the shrapnel removed and throws his reactor into the sea","Iron Man 3"],["Pepper sets the framed reactor on the lake at his funeral","Avengers: Endgame"]]},{"id":"pym","n":"Pym Particles","s":"","c":"tech","a":"pym","st":[["Hank Pym discovers them, and keeps the formula from S.H.I.E.L.D.","Ant-Man"],["Darren Cross recreates them for the Yellowjacket suit","Ant-Man"],["Scott shrinks with them in Hank's suit, stolen from his safe","Ant-Man"],["The Avengers have only enough left for one trip into the past and back each","Avengers: Endgame"],["Steve and Tony take more from Hank's lab at Camp Lehigh in 1970","Avengers: Endgame"]]},{"id":"edith","n":"E.D.I.T.H.","s":"","c":"tech","a":"edith","st":[["Tony leaves the glasses to Peter","Spider-Man: Far From Home"],["Peter hands them to Quentin Beck","Spider-Man: Far From Home"],["Peter takes them back in London","Spider-Man: Far From Home"]]},{"id":"serum","n":"Super Soldier Serum","s":"","c":"tech","a":"serum","st":[["Dr. Erskine's early formula turns Johann Schmidt into the Red Skull","Captain America: The First Avenger"],["Erskine's serum makes Steve Rogers a super soldier, then a HYDRA agent kills Erskine","Captain America: The First Avenger"],["The government tests a version on Isaiah Bradley and other Black soldiers","The Falcon and the Winter Soldier"],["Bruce Banner's gamma research, meant to recreate it, creates the Hulk","The Incredible Hulk"],["Ross gives Emil Blonsky a dose of it","The Incredible Hulk"],["The Winter Soldier takes the 1991 serum from Howard Stark's car","Captain America: Civil War"],["Karli Morgenthau steals the Power Broker's doses","The Falcon and the Winter Soldier"],["John Walker takes one; Zemo destroys the rest","The Falcon and the Winter Soldier"]]}];
+const COLL_CATS = [["", "All"], ["stones", "Stones"], ["weapons", "Weapons"], ["relics", "Relics"], ["tech", "Tech"]];
+const COLL_KIND = { stones: "Infinity Stones", weapons: "Weapon", relics: "Relic", tech: "Tech" };
+const COLL_ART = (() => {   // every drawer works in a 200 x 200 box centered on (100,100)
+  const lin = (g, x0, y0, x1, y1, st) => { const r = g.createLinearGradient(x0, y0, x1, y1); st.forEach(([o, c]) => r.addColorStop(o, c)); return r; };
+  const rad = (g, x, y, r0, r1, st, x1 = x, y1 = y) => { const r = g.createRadialGradient(x, y, r0, x1, y1, r1); st.forEach(([o, c]) => r.addColorStop(o, c)); return r; };
+  const rr = (g, x, y, w, h, r) => { g.beginPath(); g.roundRect(x, y, w, h, r); };
+  const poly = (g, P) => { g.beginPath(); P.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); };
+  const halo = (g, x, y, r, c) => { g.fillStyle = rad(g, x, y, 0, r, [[0, c], [1, "rgba(0,0,0,0)"]]); g.fillRect(x - r, y - r, r * 2, r * 2); };
+  const GOLD = g => lin(g, 0, 20, 0, 180, [[0, "#FFF1B8"], [.35, "#F0C04E"], [.7, "#C98E22"], [1, "#8A5A12"]]);
+  const STEEL = (g, x0, y0, x1, y1) => lin(g, x0, y0, x1, y1, [[0, "#F4F7FA"], [.45, "#B9C1CB"], [.55, "#8D96A2"], [1, "#E1E6EC"]]);
+  const gem = (g, x, y, r, c0, c1, c2) => {
+    g.save(); g.shadowColor = c1; g.shadowBlur = r * 1.6;
+    g.beginPath(); g.ellipse(x, y, r, r * 1.12, 0, 0, 7); g.fillStyle = rad(g, x - r * .35, y - r * .4, 0, r * 1.5, [[0, "#FFFFFF"], [.25, c0], [.7, c1], [1, c2]]); g.fill();
+    g.restore(); g.lineWidth = 1.2; g.strokeStyle = "rgba(60,40,10,.8)"; g.stroke();
+  };
+  // Mind, Space, Reality, Power, Time, Soul
+  const ST = { mind: ["#FFF6A8", "#F2C618", "#8A6A00"], space: ["#BFE6FF", "#2F86F0", "#0B2E7A"], reality: ["#FFB0B0", "#E0202F", "#5C0008"],
+    power: ["#E8C2FF", "#9B3BF0", "#3A0A70"], time: ["#C8FFD0", "#25C24A", "#0A4A1A"], soul: ["#FFE0B0", "#F08A1E", "#7A3A00"] };
+
+  const D = {};
+
+  D.aether = g => {
+    halo(g, 100, 100, 80, "rgba(200,20,40,.45)");
+    g.save(); g.translate(100, 100);
+    let s = 7; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let k = 0; k < 46; k++) {
+      const a0 = rnd() * 6.28, R = 30 + rnd() * 44, tw = 2.2 + rnd() * 2.2, w = 1.5 + rnd() * 7;
+      g.beginPath();
+      for (let t = 0; t <= 1.001; t += .04) { const r = R * (1 - t * .85), a = a0 + t * tw; const x = Math.cos(a) * r, y = Math.sin(a) * r * .82; t ? g.lineTo(x, y) : g.moveTo(x, y); }
+      const c = k % 3 === 0 ? "rgba(20,0,4,.85)" : k % 3 === 1 ? "rgba(170,10,28,.7)" : "rgba(255,70,80,.55)";
+      g.strokeStyle = c; g.lineWidth = w; g.lineCap = "round"; g.stroke();
+    }
+    g.globalCompositeOperation = "lighter";
+    for (let k = 0; k < 14; k++) {
+      const a0 = rnd() * 6.28, R = 24 + rnd() * 40;
+      g.beginPath(); for (let t = 0; t <= 1.001; t += .04) { const r = R * (1 - t * .8), a = a0 + t * 2.6; const x = Math.cos(a) * r, y = Math.sin(a) * r * .82; t ? g.lineTo(x, y) : g.moveTo(x, y); }
+      g.strokeStyle = "rgba(255,120,110,.35)"; g.lineWidth = 1.2; g.stroke();
+    }
+    g.fillStyle = rad(g, 0, 0, 0, 22, [[0, "rgba(255,180,170,.9)"], [1, "rgba(255,40,50,0)"]]); g.fillRect(-30, -30, 60, 60);
+    g.restore();
+  };
+
+  D.orb = g => {
+    halo(g, 100, 104, 70, "rgba(150,70,255,.35)");
+    const cx = 100, cy = 104, R = 48;
+    g.save(); g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 10; g.beginPath(); g.arc(cx, cy, R, 0, 7);
+    g.fillStyle = rad(g, cx - 18, cy - 20, 2, R * 1.35, [[0, "#FFFFFF"], [.2, "#D9DEE5"], [.6, "#8C949F"], [1, "#2D3138"]]); g.fill(); g.restore();
+    g.save(); g.beginPath(); g.arc(cx, cy, R, 0, 7); g.clip();
+    // grooved bands and the glowing seam
+    g.lineWidth = 2; g.strokeStyle = "rgba(30,33,40,.85)";
+    [-.55, .55].forEach(f => { g.beginPath(); g.ellipse(cx, cy + f * R * .9, R * Math.sqrt(1 - f * f * .8), R * .16, 0, 0, 7); g.stroke(); });
+    [0].forEach(f => { g.beginPath(); g.ellipse(cx + f * R * .9, cy, R * .22 * (1 - Math.abs(f) * .4), R, 0, 0, 7); g.stroke(); });
+    g.shadowColor = "#B66BFF"; g.shadowBlur = 12; g.strokeStyle = "#D9A8FF"; g.lineWidth = 3;
+    g.beginPath(); g.ellipse(cx, cy, R, R * .2, 0, 0, Math.PI); g.stroke();
+    g.shadowBlur = 0; g.strokeStyle = "rgba(255,255,255,.35)"; g.lineWidth = 1; g.beginPath(); g.ellipse(cx, cy - 2, R, R * .2, 0, Math.PI, 7); g.stroke();
+    g.restore();
+    g.beginPath(); g.arc(cx, cy, R, 0, 7); g.strokeStyle = "rgba(20,22,28,.9)"; g.lineWidth = 1.5; g.stroke();
+  };
+
+  // Loki's scepter: a curved gold staff, a finned gold collar, a steel head of three blades around the blue gem
+  D.scepter = g => {
+    halo(g, 140, 60, 50, "rgba(80,160,255,.35)");
+    g.lineCap = "round";
+    g.beginPath(); g.moveTo(34, 190); g.quadraticCurveTo(62, 118, 116, 74); g.strokeStyle = "#6E4A10"; g.lineWidth = 9; g.stroke();
+    g.beginPath(); g.moveTo(34, 190); g.quadraticCurveTo(62, 118, 116, 74); g.strokeStyle = lin(g, 30, 120, 120, 150, [[0, "#F7D774"], [.5, "#C99A2E"], [1, "#8A6216"]]); g.lineWidth = 6.5; g.stroke();
+    g.beginPath(); g.moveTo(36, 184); g.quadraticCurveTo(62, 118, 114, 74); g.strokeStyle = "rgba(255,245,200,.55)"; g.lineWidth = 1.4; g.stroke();
+    rr(g, 31, 178, 11, 14, 2); g.fillStyle = "#A87C22"; g.fill();
+    // steel head
+    const ST2 = lin(g, 120, 20, 190, 90, [[0, "#EEF2F0"], [.45, "#A9B3AE"], [.6, "#7E8984"], [1, "#C9D1CC"]]);
+    const blade = P => { g.beginPath(); P(); g.closePath(); g.fillStyle = ST2; g.fill(); g.strokeStyle = "#3D4440"; g.lineWidth = 1.3; g.stroke(); };
+    blade(() => { g.moveTo(118, 58); g.bezierCurveTo(122, 34, 150, 22, 196, 44); g.bezierCurveTo(164, 40, 146, 44, 136, 54); g.lineTo(128, 50); g.lineTo(126, 58); });
+    blade(() => { g.moveTo(126, 72); g.bezierCurveTo(136, 84, 152, 86, 166, 80); g.bezierCurveTo(154, 78, 144, 74, 136, 66); });
+    blade(() => { g.moveTo(148, 55); g.quadraticCurveTo(166, 56, 182, 61); g.quadraticCurveTo(166, 66, 148, 67); });
+    g.beginPath(); g.moveTo(126, 48); g.bezierCurveTo(134, 36, 152, 30, 176, 38); g.strokeStyle = "rgba(255,255,255,.8)"; g.lineWidth = 1.2; g.stroke();
+    // cage around the gem
+    g.beginPath(); g.arc(140, 61, 12, 0, 7); g.strokeStyle = ST2; g.lineWidth = 6; g.stroke(); g.strokeStyle = "#3D4440"; g.lineWidth = 1; g.beginPath(); g.arc(140, 61, 15, 0, 7); g.stroke(); g.beginPath(); g.arc(140, 61, 9, 0, 7); g.stroke();
+    g.save(); g.shadowColor = "#5AB4FF"; g.shadowBlur = 18; g.beginPath(); g.ellipse(140, 61, 8, 9, 0, 0, 7);
+    g.fillStyle = rad(g, 137, 57, 0, 11, [[0, "#FFFFFF"], [.3, "#8CC8FF"], [.75, "#2A68D0"], [1, "#0E2E7A"]]); g.fill(); g.restore();
+    // finned gold collar between staff and head
+    g.save(); g.translate(114, 76); g.rotate(-.7);
+    rr(g, -4, -7, 30, 14, 4); g.fillStyle = lin(g, 0, -7, 0, 7, [[0, "#FFF0B0"], [.5, "#D9A63A"], [1, "#7A5214"]]); g.fill(); g.strokeStyle = "#5E3E0C"; g.lineWidth = 1.2; g.stroke();
+    [0, 9, 18].forEach(x => { poly(g, [[x - 6, -6], [x + 6, -6], [x - 2, -13]]); g.fillStyle = "#E2B04A"; g.fill(); g.stroke(); poly(g, [[x - 6, 6], [x + 6, 6], [x - 2, 13]]); g.fill(); g.stroke(); });
+    g.restore();
+  };
+
+  // the Infinity Gauntlet, as a fist: Power, Space, Reality and Soul on the knuckles, Mind on the back of the hand, Time on the thumb
+  D.gauntlet = g => {
+    halo(g, 100, 100, 88, "rgba(255,190,80,.28)");
+    const G1 = lin(g, 50, 30, 150, 190, [[0, "#FFE9A8"], [.35, "#F2B743"], [.75, "#CC8A22"], [1, "#94600F"]]), OUT = "#7A4E0E";
+    const edge = () => { g.strokeStyle = OUT; g.lineWidth = 1.5; g.stroke(); };
+    // cuff
+    g.beginPath(); g.moveTo(66, 152); g.lineTo(134, 152); g.bezierCurveTo(140, 168, 146, 180, 148, 192); g.quadraticCurveTo(100, 198, 52, 192); g.bezierCurveTo(54, 180, 60, 168, 66, 152); g.closePath(); g.fillStyle = G1; g.fill(); edge();
+    g.strokeStyle = "rgba(122,78,14,.55)"; g.lineWidth = 1.2; [[78, 158, 70, 192], [122, 158, 130, 192]].forEach(([a, b, c, d]) => { g.beginPath(); g.moveTo(a, b); g.quadraticCurveTo((a + c) / 2 + (a < 100 ? -4 : 4), 176, c, d); g.stroke(); });
+    rr(g, 62, 144, 76, 12, 3); g.fillStyle = G1; g.fill(); edge();
+    // back of the hand
+    rr(g, 58, 76, 84, 74, [6, 6, 14, 14]); g.fillStyle = G1; g.fill(); edge();
+    // thumb wrapping round the right side
+    g.beginPath(); g.moveTo(140, 84); g.bezierCurveTo(158, 86, 160, 112, 156, 130); g.bezierCurveTo(152, 142, 144, 146, 138, 144); g.closePath(); g.fillStyle = lin(g, 140, 0, 160, 0, [[0, "#D99A2E"], [1, "#A86E14"]]); g.fill(); edge();
+    // fingers curled over the top, the index tallest
+    const F = [[60, 46], [80, 38], [100, 32], [120, 28]];
+    F.forEach(([x, top]) => { rr(g, x, top, 20, 84 - top, [9, 9, 2, 2]); g.fillStyle = G1; g.fill(); edge();
+      g.beginPath(); g.moveTo(x + 3, top + 18); g.quadraticCurveTo(x + 10, top + 15, x + 17, top + 18); g.strokeStyle = "rgba(122,78,14,.6)"; g.lineWidth = 1.2; g.stroke();
+      rr(g, x + 4, top + 4, 4, 70 - top + 4, 2); g.fillStyle = "rgba(255,248,215,.35)"; g.fill(); });
+    // knuckle plate with four diamond settings
+    rr(g, 56, 80, 88, 30, 5); g.fillStyle = G1; g.fill(); edge();
+    const set = (x, y, k) => { poly(g, [[x, y - 13], [x + 9, y], [x, y + 13], [x - 9, y]]); g.fillStyle = "#B8791A"; g.fill(); edge(); gem(g, x, y, 5.6, ...ST[k]); };
+    [["soul", 70], ["reality", 90], ["space", 110], ["power", 130]].forEach(([k, x]) => set(x, 95, k));
+    // Mind in the big round setting on the back of the hand
+    g.beginPath(); g.arc(98, 128, 15, 0, 7); g.fillStyle = lin(g, 84, 114, 112, 142, [[0, "#FFE29A"], [1, "#B8791A"]]); g.fill(); edge();
+    gem(g, 98, 128, 10, ...ST.mind);
+    // Time on the side of the thumb
+    g.save(); g.shadowColor = "#25C24A"; g.shadowBlur = 10; g.beginPath(); g.ellipse(154, 112, 4, 8, 0, 0, 7); g.fillStyle = rad(g, 153, 108, 0, 9, [[0, "#FFFFFF"], [.3, ST.time[0]], [.75, ST.time[1]], [1, ST.time[2]]]); g.fill(); g.restore();
+  };
+
+  // Stormbreaker: hammer face on the left, the axe blade on the right, Groot's branch for a handle wrapping the head
+  D.stormbreaker = g => {
+    halo(g, 100, 70, 80, "rgba(160,200,255,.2)");
+    const MET = lin(g, 0, 36, 0, 104, [[0, "#F2F4F7"], [.5, "#C4CAD2"], [1, "#9AA2AD"]]), OUT = "#3D434C";
+    // handle: a slightly bowed branch with a knotted end
+    g.beginPath(); g.moveTo(90, 96); g.bezierCurveTo(92, 130, 88, 160, 76, 186); g.quadraticCurveTo(84, 192, 90, 188); g.bezierCurveTo(100, 160, 104, 128, 102, 96); g.closePath();
+    g.fillStyle = lin(g, 80, 0, 104, 0, [[0, "#5A3A22"], [.45, "#8E6446"], [1, "#4E321E"]]); g.fill(); g.strokeStyle = "#3A2414"; g.lineWidth = 1.2; g.stroke();
+    g.strokeStyle = "rgba(255,220,180,.18)"; g.lineWidth = 1; g.beginPath(); g.moveTo(96, 104); g.bezierCurveTo(97, 140, 92, 165, 84, 184); g.stroke();
+    // hammer side, flaring out toward its face
+    poly(g, [[84, 52], [42, 40], [42, 98], [84, 86]]); g.fillStyle = MET; g.fill(); g.strokeStyle = OUT; g.lineWidth = 1.4; g.stroke();
+    poly(g, [[42, 40], [34, 44], [34, 94], [42, 98]]); g.fillStyle = "#8C949F"; g.fill(); g.stroke();
+    g.strokeStyle = "rgba(61,67,76,.6)"; g.lineWidth = 1.1; [[50, 52, 82, 58], [50, 69, 82, 69], [50, 86, 82, 80]].forEach(([a, b, c, d]) => { g.beginPath(); g.moveTo(a, b); g.lineTo(c, d); g.stroke(); });
+    // axe blade, fanning out, with a darker sharpened edge
+    g.beginPath(); g.moveTo(102, 54); g.lineTo(148, 26); g.quadraticCurveTo(178, 72, 148, 118); g.lineTo(102, 86); g.closePath(); g.fillStyle = MET; g.fill(); g.strokeStyle = OUT; g.stroke();
+    g.beginPath(); g.moveTo(136, 34); g.lineTo(148, 26); g.quadraticCurveTo(178, 72, 148, 118); g.lineTo(136, 110); g.quadraticCurveTo(160, 72, 136, 34); g.closePath(); g.fillStyle = lin(g, 136, 0, 170, 0, [[0, "#8A929C"], [1, "#6A717B"]]); g.fill(); g.stroke();
+    g.beginPath(); g.moveTo(104, 70); g.lineTo(134, 70); g.moveTo(108, 60); g.lineTo(128, 50); g.moveTo(108, 80); g.lineTo(128, 92); g.strokeStyle = "rgba(61,67,76,.6)"; g.lineWidth = 1.1; g.stroke();
+    // center column
+    rr(g, 84, 40, 18, 60, 3); g.fillStyle = lin(g, 84, 0, 102, 0, [[0, "#9AA2AD"], [.5, "#F2F4F7"], [1, "#9AA2AD"]]); g.fill(); g.strokeStyle = OUT; g.lineWidth = 1.4; g.stroke();
+    // the branch splits and crosses over the head
+    g.lineCap = "round";
+    [[[90, 98], [86, 70], [100, 38]], [[102, 98], [104, 70], [86, 38]]].forEach(([a, b, c]) => {
+      g.beginPath(); g.moveTo(...a); g.quadraticCurveTo(...b, ...c); g.strokeStyle = "#3A2414"; g.lineWidth = 7; g.stroke();
+      g.beginPath(); g.moveTo(...a); g.quadraticCurveTo(...b, ...c); g.strokeStyle = "#7E5638"; g.lineWidth = 4.6; g.stroke(); });
+  };
+
+  // Yondu's arrow: a gold dart with a red core behind two crossbars, a leaf tip on an orange neck, and its red trail
+  D.arrow = g => {
+    g.translate(100, 100); g.rotate(-Math.PI / 4);
+    g.save(); g.globalCompositeOperation = "lighter";
+    for (let k = 0; k < 3; k++) { g.beginPath(); g.moveTo(-94, 0); g.bezierCurveTo(-112, 6 + k * 3, -124, -14 + k * 6, -138, 4 + k * 4); g.strokeStyle = lin(g, -94, 0, -138, 0, [[0, "rgba(255,60,50,.75)"], [1, "rgba(255,60,50,0)"]]); g.lineWidth = 5 - k * 1.3; g.lineCap = "round"; g.stroke(); }
+    g.restore();
+    const GD = lin(g, 0, -8, 0, 8, [[0, "#F2CC5A"], [.5, "#D4A321"], [1, "#9C7414"]]), OUT = "#6E5210";
+    const shape = P => { poly(g, P); g.fillStyle = GD; g.fill(); g.strokeStyle = OUT; g.lineWidth = 1.1; g.stroke(); };
+    shape([[-100, 0], [-86, -2], [-86, 2]]);
+    shape([[-86, -2.4], [-56, -3.4], [-48, -8], [-12, -9], [-4, -4], [60, -3.6], [60, 3.6], [-4, 4], [-12, 9], [-48, 8], [-56, 3.4], [-86, 2.4]]);
+    // the window onto the red core
+    poly(g, [[-50, -4.6], [-14, -5.6], [-8, 0], [-14, 5.6], [-50, 4.6], [-53, 0]]); g.fillStyle = "#4A4038"; g.fill();
+    g.save(); g.shadowColor = "#FF2A1E"; g.shadowBlur = 10; poly(g, [[-47, -3], [-15, -3.8], [-11, 0], [-15, 3.8], [-47, 3], [-49, 0]]); g.fillStyle = lin(g, 0, -4, 0, 4, [[0, "#FF7A6A"], [.5, "#FF1A10"], [1, "#B00A06"]]); g.fill(); g.restore();
+    [-40, -28].forEach(x => { rr(g, x, -6, 4, 12, 1); g.fillStyle = GD; g.fill(); g.strokeStyle = OUT; g.stroke(); });
+    // orange neck and the leaf tip
+    rr(g, 60, -2, 6, 4, 1); g.fillStyle = "#F06A2A"; g.fill(); g.strokeStyle = "#8A3A10"; g.stroke();
+    g.beginPath(); g.moveTo(66, 0); g.bezierCurveTo(70, -8, 84, -8, 98, 0); g.bezierCurveTo(84, 8, 70, 8, 66, 0); g.closePath(); g.fillStyle = GD; g.fill(); g.strokeStyle = OUT; g.stroke();
+  };
+
+  // the Darkhold: a bronze frame of carved glyphs, a magenta recessed panel with two pairs of spirals, and torn metal strips at its foot
+  D.darkhold = g => {
+    halo(g, 100, 100, 84, "rgba(190,40,120,.22)");
+    let s = 11; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    // back board and the rough pages
+    rr(g, 56, 34, 104, 132, 3); g.fillStyle = "#14121A"; g.fill();
+    rr(g, 140, 40, 14, 120, 2); g.fillStyle = lin(g, 140, 0, 154, 0, [[0, "#B8964E"], [1, "#7A6030"]]); g.fill();
+    g.strokeStyle = "rgba(60,40,10,.45)"; g.lineWidth = .7; for (let y = 44; y < 158; y += 3) { g.beginPath(); g.moveTo(141, y); g.lineTo(153, y + rnd() * 2 - 1); g.stroke(); }
+    // bronze frame
+    rr(g, 44, 28, 102, 136, 3); g.fillStyle = lin(g, 44, 28, 146, 164, [[0, "#7A6A44"], [.5, "#4A4030"], [1, "#2A2418"]]); g.fill(); g.strokeStyle = "#18140C"; g.lineWidth = 1.4; g.stroke();
+    g.fillStyle = "rgba(220,190,120,.45)"; for (let i = 0; i < 110; i++) { const side = i % 4, t = rnd();
+      const [x, y] = side === 0 ? [48 + t * 94, 31 + rnd() * 7] : side === 1 ? [48 + t * 94, 152 + rnd() * 8] : side === 2 ? [47 + rnd() * 8, 34 + t * 126] : [134 + rnd() * 8, 34 + t * 126];
+      g.fillRect(x, y, 1 + rnd() * 2.5, .8 + rnd() * 1.6); }
+    [[46, 30, 1, 1], [144, 30, -1, 1]].forEach(([x, y, sx]) => { rr(g, sx > 0 ? x : x - 14, y - 4, 14, 8, 1); g.fillStyle = "#6E6040"; g.fill(); g.strokeStyle = "#18140C"; g.lineWidth = 1; g.stroke(); });
+    // recessed magenta panel
+    rr(g, 58, 42, 74, 110, 2); g.fillStyle = "#2A1424"; g.fill();
+    for (let i = 0; i < 120; i++) { g.beginPath(); g.arc(60 + rnd() * 70, 44 + rnd() * 106, .6 + rnd() * 2.6, 0, 7); g.fillStyle = `rgba(${170 + rnd() * 60 | 0},40,${100 + rnd() * 40 | 0},${.18 + rnd() * .3})`; g.fill(); }
+    rr(g, 58, 42, 74, 110, 2); g.strokeStyle = "#8A2A5E"; g.lineWidth = 2; g.stroke(); g.strokeStyle = "#0E0A0C"; g.lineWidth = .8; g.stroke();
+    // rays fanning from the lower spirals
+    g.strokeStyle = "rgba(20,16,12,.85)"; g.lineWidth = 2.2; for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(95, 120); g.lineTo(66 + i * 7.5, 150); g.stroke(); }
+    // central rod and the bronze plate across it
+    rr(g, 93, 58, 4, 90, 1.5); g.fillStyle = "#5E5238"; g.fill();
+    const spiral = (x, y, r) => { g.beginPath(); g.arc(x, y, r, 0, 7); g.fillStyle = "#1A1210"; g.fill(); g.strokeStyle = "#C9A24A"; g.lineWidth = 2.2; g.stroke();
+      g.beginPath(); for (let a = 0; a < 6 * Math.PI; a += .2) { const rr2 = r * .85 * (1 - a / (6 * Math.PI)); g.lineTo(x + Math.cos(a) * rr2, y + Math.sin(a) * rr2); } g.strokeStyle = "rgba(200,160,80,.55)"; g.lineWidth = .8; g.stroke(); };
+    spiral(84, 66, 10); spiral(106, 66, 10); spiral(84, 120, 9.5); spiral(106, 120, 9.5);
+    rr(g, 78, 84, 36, 12, 1.5); g.fillStyle = lin(g, 0, 84, 0, 96, [[0, "#9A8658"], [1, "#4E4430"]]); g.fill(); g.strokeStyle = "#18140C"; g.lineWidth = 1; g.stroke();
+    // torn metal strips hanging off the bottom
+    for (let i = 0; i < 9; i++) { const x = 62 + i * 8.4, L = 12 + rnd() * 14; poly(g, [[x, 146], [x + 7, 146], [x + 6 + rnd() * 2, 146 + L * .7], [x + 3, 146 + L], [x + 1, 146 + L * .6]]);
+      g.fillStyle = lin(g, x, 146, x + 7, 146 + L, [[0, "#6A6458"], [1, "#24221E"]]); g.fill(); g.strokeStyle = "#100E0A"; g.lineWidth = .8; g.stroke(); }
+  };
+
+  // the Heart-Shaped Herb: a glowing violet bloom in the shape of a heart, on a stem with heart-shaped leaves
+  D.herb = g => {
+    halo(g, 100, 86, 86, "rgba(170,80,255,.45)");
+    const heart = (cx, cy, w, h) => { g.beginPath(); g.moveTo(cx, cy + h * .5); g.bezierCurveTo(cx - w * .62, cy + h * .08, cx - w * .62, cy - h * .5, cx - w * .26, cy - h * .5); g.bezierCurveTo(cx - w * .08, cy - h * .5, cx, cy - h * .36, cx, cy - h * .24);
+      g.bezierCurveTo(cx, cy - h * .36, cx + w * .08, cy - h * .5, cx + w * .26, cy - h * .5); g.bezierCurveTo(cx + w * .62, cy - h * .5, cx + w * .62, cy + h * .08, cx, cy + h * .5); g.closePath(); };
+    g.strokeStyle = "#3C1E5E"; g.lineWidth = 5; g.lineCap = "round"; g.beginPath(); g.moveTo(100, 122); g.bezierCurveTo(98, 150, 104, 168, 100, 190); g.stroke();
+    [[-1, 156], [1, 170]].forEach(([sd, y]) => { g.save(); g.translate(100 + 22 * sd, y - 6); g.rotate(sd * 1.25); heart(0, 0, 30, 26); g.fillStyle = lin(g, 0, -13, 0, 13, [[0, "#7A3AC0"], [1, "#3A1A5E"]]); g.fill(); g.strokeStyle = "rgba(20,4,40,.6)"; g.lineWidth = 1; g.stroke(); g.restore(); });
+    // the bloom
+    g.save(); g.shadowColor = "#B86BFF"; g.shadowBlur = 24; heart(100, 80, 104, 92); g.fillStyle = rad(g, 100, 74, 4, 70, [[0, "#FFE8FF"], [.25, "#D58CFF"], [.65, "#8A2BE2"], [1, "#4A0E8C"]]); g.fill(); g.restore();
+    heart(100, 80, 104, 92); g.strokeStyle = "rgba(40,6,80,.8)"; g.lineWidth = 1.5; g.stroke();
+    // inner petals: each lobe, and a smaller glowing heart at the center
+    g.strokeStyle = "rgba(255,220,255,.5)"; g.lineWidth = 1.2;
+    g.beginPath(); g.moveTo(100, 126); g.bezierCurveTo(78, 104, 70, 60, 84, 44); g.stroke(); g.beginPath(); g.moveTo(100, 126); g.bezierCurveTo(122, 104, 130, 60, 116, 44); g.stroke();
+    g.save(); g.globalCompositeOperation = "lighter"; heart(100, 84, 42, 38); g.fillStyle = rad(g, 100, 80, 0, 26, [[0, "rgba(255,255,255,.95)"], [1, "rgba(210,140,255,.15)"]]); g.fill(); g.restore();
+    g.globalCompositeOperation = "lighter"; g.fillStyle = "rgba(230,190,255,.9)";
+    [[44, 52], [158, 64], [150, 128], [50, 122], [124, 24]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 1.6, 0, 7); g.fill(); });
+  };
+
+  // Mjolnir: the Uru head, a leather-wrapped handle, and the leather strap that loops round Thor's wrist
+  D.mjolnir = g => {
+    halo(g, 100, 90, 80, "rgba(200,220,255,.2)");
+    g.translate(13, 0); g.scale(.87, .87);
+    // the strap, hanging from the pommel
+    g.lineCap = "round"; g.beginPath(); g.moveTo(97, 172); g.bezierCurveTo(90, 206, 140, 222, 146, 196); g.bezierCurveTo(150, 178, 120, 168, 104, 172);
+    g.strokeStyle = "#3A2414"; g.lineWidth = 8; g.stroke(); g.strokeStyle = "#8A5A34"; g.lineWidth = 5.6; g.stroke();
+    g.setLineDash([2, 3]); g.strokeStyle = "rgba(255,225,190,.55)"; g.lineWidth = .8; g.stroke(); g.setLineDash([]);
+    // handle wrapped in leather
+    rr(g, 92, 84, 16, 78, 3); g.fillStyle = lin(g, 92, 0, 108, 0, [[0, "#4A2E18"], [.5, "#8A5A34"], [1, "#4A2E18"]]); g.fill();
+    g.strokeStyle = "rgba(30,16,6,.75)"; g.lineWidth = 1.4; for (let y = 88; y < 160; y += 6) { g.beginPath(); g.moveTo(92, y + 4); g.lineTo(108, y); g.stroke(); }
+    rr(g, 92, 84, 16, 78, 3); g.strokeStyle = "#2A1A0C"; g.lineWidth = 1.2; g.stroke();
+    // pommel
+    rr(g, 88, 160, 24, 13, 3); g.fillStyle = lin(g, 88, 0, 112, 0, [[0, "#7E8794"], [.5, "#E9EDF2"], [1, "#7E8794"]]); g.fill(); g.strokeStyle = "#3D434C"; g.lineWidth = 1.2; g.stroke();
+    // head
+    const H = lin(g, 0, 30, 0, 86, [[0, "#F4F6F9"], [.45, "#C2C9D2"], [1, "#8C949F"]]);
+    rr(g, 48, 30, 104, 56, 6); g.fillStyle = H; g.fill(); g.strokeStyle = "#3D434C"; g.lineWidth = 1.6; g.stroke();
+    [[48, 30, 14], [138, 30, 14]].forEach(([x, y, w]) => { rr(g, x, y, w, 56, 5); g.fillStyle = lin(g, x, 0, x + w, 0, x < 100 ? [[0, "#8C949F"], [1, "#D6DCE3"]] : [[0, "#D6DCE3"], [1, "#8C949F"]]); g.fill(); g.strokeStyle = "#3D434C"; g.stroke(); });
+    rr(g, 68, 40, 64, 36, 3); g.strokeStyle = "rgba(61,67,76,.55)"; g.lineWidth = 1.2; g.stroke();
+    // Uru knotwork on the face
+    g.strokeStyle = "rgba(61,67,76,.5)"; g.lineWidth = 1.1;
+    [[78, 58], [100, 58], [122, 58]].forEach(([x, y]) => { g.beginPath(); g.ellipse(x, y, 7, 10, 0, 0, 7); g.stroke(); g.beginPath(); g.moveTo(x - 7, y); g.lineTo(x + 7, y); g.stroke(); });
+    rr(g, 54, 34, 92, 6, 3); g.fillStyle = "rgba(255,255,255,.45)"; g.fill();
+  };
+  D.scarab = g => {
+    halo(g, 100, 100, 80, "rgba(255,200,90,.25)");
+    const GD = GOLD(g);
+    // legs
+    g.strokeStyle = "#8A5A12"; g.lineWidth = 4; g.lineCap = "round";
+    [[-1, 1], [1, 1]].forEach(([s]) => { [[78, [52, 66], [44, 56]], [100, [48, 106], [40, 116]], [124, [54, 146], [48, 160]]].forEach(([y, a, b]) => { g.beginPath(); g.moveTo(100 + (100 - 72) * s * .9, y); g.lineTo(100 + (a[0] - 100) * s * -1, a[1]); g.lineTo(100 + (b[0] - 100) * s * -1, b[1]); g.stroke(); }); });
+    // head and front plate
+    g.beginPath(); g.moveTo(84, 54); g.bezierCurveTo(84, 36, 116, 36, 116, 54); g.closePath(); g.fillStyle = GD; g.fill(); g.strokeStyle = "#5E3E0C"; g.lineWidth = 1.4; g.stroke();
+    [[-1], [1]].forEach(([s]) => { g.beginPath(); g.moveTo(100 + 6 * s, 42); g.lineTo(100 + 14 * s, 30); g.lineTo(100 + 10 * s, 44); g.fill(); g.stroke(); });
+    // thorax
+    g.beginPath(); g.moveTo(68, 84); g.bezierCurveTo(66, 58, 80, 52, 100, 52); g.bezierCurveTo(120, 52, 134, 58, 132, 84); g.closePath(); g.fillStyle = GD; g.fill(); g.stroke();
+    // Khonshu's crescent on the thorax
+    g.save(); g.beginPath(); g.arc(100, 70, 11, 0, 7); g.arc(105, 67, 9, 0, 7, true); g.fillStyle = lin(g, 90, 60, 110, 80, [[0, "#FFFFFF"], [1, "#B9C1CB"]]); g.shadowColor = "#E8F2FF"; g.shadowBlur = 8; g.fill("evenodd"); g.restore();
+    // wing cases
+    [-1, 1].forEach(s => { g.beginPath(); g.moveTo(100, 86); g.bezierCurveTo(100 + 34 * s, 84, 100 + 38 * s, 110, 100 + 34 * s, 132); g.bezierCurveTo(100 + 28 * s, 156, 100 + 10 * s, 164, 100, 164); g.closePath();
+      g.fillStyle = lin(g, 100, 86, 100 + 36 * s, 160, [[0, "#FFF1B8"], [.4, "#E2AE3E"], [1, "#7A4E10"]]); g.fill(); g.strokeStyle = "#5E3E0C"; g.stroke();
+      g.strokeStyle = "rgba(94,62,12,.55)"; g.lineWidth = 1; for (let k = 1; k < 4; k++) { g.beginPath(); g.moveTo(100 + 8 * k * s, 92); g.bezierCurveTo(100 + 10 * k * s, 120, 100 + 8 * k * s, 140, 100 + 4 * k * s, 158); g.stroke(); } g.lineWidth = 1.4; });
+    g.beginPath(); g.moveTo(100, 86); g.lineTo(100, 164); g.strokeStyle = "#5E3E0C"; g.lineWidth = 2; g.stroke();
+  };
+
+  D.bangle = g => {
+    halo(g, 100, 104, 80, "rgba(90,200,255,.3)");
+    const cx = 100, cy = 92, rx = 60, ry = 30, h = 26;
+    // inner wall seen through the top
+    g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, 7); g.fillStyle = lin(g, 0, cy - ry, 0, cy + ry, [[0, "#6E4A10"], [1, "#C9922E"]]); g.fill();
+    g.beginPath(); g.ellipse(cx, cy, rx - 8, ry - 5, 0, 0, 7); g.fillStyle = "#0E131B"; g.fill();
+    g.beginPath(); g.ellipse(cx, cy + 2, rx - 8, ry - 5, 0, Math.PI, 7); g.strokeStyle = "rgba(255,220,140,.35)"; g.lineWidth = 2; g.stroke();
+    // outer front band
+    g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, Math.PI); g.lineTo(cx - rx, cy + h); g.ellipse(cx, cy + h, rx, ry, 0, Math.PI, 0, true); g.closePath();
+    g.fillStyle = lin(g, cx - rx, 0, cx + rx, 0, [[0, "#7A4E10"], [.3, "#F7D774"], [.5, "#FFF1B8"], [.7, "#E2AE3E"], [1, "#6E4A10"]]); g.fill(); g.strokeStyle = "#5E3E0C"; g.lineWidth = 1.4; g.stroke();
+    // engraved rim lines and inset stones along the front
+    g.strokeStyle = "rgba(94,62,12,.7)"; g.lineWidth = 1;
+    [5, h - 5].forEach(o => { g.beginPath(); g.ellipse(cx, cy + o, rx, ry, 0, .1, Math.PI - .1); g.stroke(); });
+    for (let i = 0; i < 7; i++) {
+      const a = .28 + i * (Math.PI - .56) / 6, x = cx + Math.cos(a) * rx, y = cy + h / 2 + Math.sin(a) * ry, w = 4.5 * Math.sin(a) + 1.5;
+      g.save(); g.shadowColor = "#5FD8FF"; g.shadowBlur = 10; g.beginPath(); g.ellipse(x, y, w, 5, 0, 0, 7); g.fillStyle = rad(g, x - 1, y - 2, 0, 6, [[0, "#FFFFFF"], [.4, "#7FE0FF"], [1, "#1E7FC0"]]); g.fill(); g.restore();
+      if (i < 6) { const b = a + (Math.PI - .56) / 12, X = cx + Math.cos(b) * rx, Y = cy + h / 2 + Math.sin(b) * ry; g.beginPath(); g.moveTo(X, Y - 6); g.lineTo(X + 2.5 * Math.sin(b), Y); g.lineTo(X, Y + 6); g.lineTo(X - 2.5 * Math.sin(b), Y); g.closePath(); g.fillStyle = "#8A5A12"; g.fill(); }
+    }
+    g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, Math.PI, 7); g.strokeStyle = "#FFF1B8"; g.lineWidth = 1.2; g.stroke();
+    // cosmic light rising from it
+    g.globalCompositeOperation = "lighter";
+    [[-1, "rgba(120,220,255,.6)"], [1, "rgba(190,140,255,.55)"]].forEach(([s, c]) => { g.beginPath(); g.moveTo(cx + 20 * s, cy); g.bezierCurveTo(cx + 34 * s, cy - 30, cx + 6 * s, cy - 50, cx + 24 * s, cy - 76); g.strokeStyle = c; g.lineWidth = 2; g.shadowColor = c; g.shadowBlur = 10; g.stroke(); });
+  };
+
+  D.mix = g => {
+    g.save(); g.shadowColor = "rgba(0,0,0,.7)"; g.shadowBlur = 12; g.shadowOffsetY = 5;
+    rr(g, 26, 52, 148, 96, 7); g.fillStyle = lin(g, 0, 52, 0, 148, [[0, "#4A4E56"], [1, "#22252A"]]); g.fill(); g.restore();
+    [[32, 58], [168, 58], [32, 142], [168, 142]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 2.4, 0, 7); g.fillStyle = "#9AA0A8"; g.fill(); });
+    rr(g, 36, 60, 128, 58, 4); g.fillStyle = lin(g, 0, 60, 0, 118, [[0, "#F4E7C8"], [.18, "#F4E7C8"], [.18, "#E26A2C"], [.27, "#E26A2C"], [.27, "#F4E7C8"], [1, "#EADBB8"]]); g.fill();
+    g.fillStyle = "#2B2620"; g.font = "italic 600 11.5px 'IBM Plex Sans',sans-serif"; g.textAlign = "center"; g.fillText("Awesome Mix Vol. 1", 100, 88);
+    rr(g, 66, 93, 68, 20, 10); g.fillStyle = "#111"; g.fill();
+    [84, 116].forEach(x => { g.beginPath(); g.arc(x, 103, 7, 0, 7); g.fillStyle = "#F2F2F2"; g.fill(); g.beginPath(); g.arc(x, 103, 7, 0, 7); g.strokeStyle = "#5B4632"; g.lineWidth = 3; g.stroke();
+      for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3; g.beginPath(); g.moveTo(x + Math.cos(a) * 2.5, 103 + Math.sin(a) * 2.5); g.lineTo(x + Math.cos(a) * 5, 103 + Math.sin(a) * 5); g.strokeStyle = "#2A2A2A"; g.lineWidth = 2; g.stroke(); } });
+    poly(g, [[56, 148], [62, 128], [138, 128], [144, 148]]); g.fillStyle = "#2E3238"; g.fill(); g.strokeStyle = "#16181C"; g.lineWidth = 1; g.stroke();
+    [76, 124].forEach(x => { g.beginPath(); g.arc(x, 139, 3, 0, 7); g.fillStyle = "#0E0F12"; g.fill(); });
+  };
+
+  const vial = (g, x, y, w, h, liq, glow) => {
+    g.save(); g.shadowColor = glow; g.shadowBlur = 16;
+    rr(g, x, y + 8, w, h - 16, 4); g.fillStyle = liq; g.fill(); g.restore();
+    rr(g, x, y + 8, w, h - 16, 4); g.fillStyle = lin(g, x, 0, x + w, 0, [[0, "rgba(255,255,255,.05)"], [.25, "rgba(255,255,255,.55)"], [.4, "rgba(255,255,255,.05)"], [1, "rgba(0,0,0,.25)"]]); g.fill();
+    g.strokeStyle = "rgba(220,235,255,.6)"; g.lineWidth = 1; g.stroke();
+    [[y, 10], [y + h - 10, 10]].forEach(([yy, hh]) => { rr(g, x - 2, yy, w + 4, hh, 2); g.fillStyle = STEEL(g, x - 2, 0, x + w + 2, 0); g.fill(); g.strokeStyle = "#4A505A"; g.stroke(); });
+  };
+
+  D.pym = g => {
+    halo(g, 100, 96, 80, "rgba(255,50,50,.32)");
+    const liq = lin(g, 0, 40, 0, 150, [[0, "#FF8A80"], [.5, "#E8202A"], [1, "#8A0A10"]]);
+    [[62, 44], [92, 34], [122, 44]].forEach(([x, y]) => vial(g, x, y, 16, 100, liq, "#FF3A3A"));
+    // the case they sit in
+    poly(g, [[46, 128], [154, 128], [160, 160], [40, 160]]); g.fillStyle = lin(g, 0, 128, 0, 160, [[0, "#C9D0D9"], [.3, "#7E8794"], [1, "#2E333B"]]); g.fill(); g.strokeStyle = "#22262C"; g.lineWidth = 1.2; g.stroke();
+    rr(g, 52, 136, 96, 8, 3); g.fillStyle = "rgba(0,0,0,.4)"; g.fill();
+    g.globalCompositeOperation = "lighter"; g.fillStyle = "rgba(255,120,110,.9)";
+    let s = 3; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < 26; i++) { const x = 40 + rnd() * 120, y = 20 + rnd() * 100, r = .6 + rnd() * 1.6; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); }
+  };
+
+  D.serum = g => {
+    halo(g, 100, 100, 80, "rgba(70,170,255,.4)");
+    vial(g, 80, 24, 40, 152, lin(g, 0, 30, 0, 170, [[0, "#BFEFFF"], [.4, "#3FA6FF"], [1, "#0E4FB0"]]), "#3FA6FF");
+    g.fillStyle = "rgba(230,248,255,.75)"; [[92, 60, 2.6], [104, 84, 1.8], [96, 112, 2.2], [108, 136, 1.5], [90, 148, 1.8]].forEach(([x, y, r]) => { g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); });
+    rr(g, 80, 94, 40, 18, 2); g.fillStyle = "rgba(244,236,214,.92)"; g.fill();
+    g.fillStyle = "#3A2E1E"; g.font = "600 7px 'IBM Plex Mono',monospace"; g.textAlign = "center"; g.fillText("SSR", 100, 102); g.font = "500 5.5px 'IBM Plex Mono',monospace"; g.fillText("No. 1", 100, 109);
+  };
+
+  D.edith = g => {
+    halo(g, 100, 100, 76, "rgba(255,120,60,.25)");
+    g.translate(0, 6);
+    const lens = (x) => { rr(g, x, 76, 62, 42, [10, 10, 20, 20]); };
+    [32, 106].forEach(x => {
+      lens(x); g.fillStyle = lin(g, x, 76, x + 40, 118, [[0, "#FFB070"], [.35, "#D2502A"], [1, "#4A1208"]]); g.fill();
+      g.save(); lens(x); g.clip(); g.beginPath(); g.moveTo(x + 8, 76); g.lineTo(x + 26, 76); g.lineTo(x + 6, 118); g.lineTo(x - 12, 118); g.closePath(); g.fillStyle = "rgba(255,255,255,.28)"; g.fill();
+      g.strokeStyle = "rgba(160,240,255,.75)"; g.lineWidth = 1; g.beginPath(); g.arc(x + 40, 96, 8, 0, 7); g.moveTo(x + 30, 96); g.lineTo(x + 50, 96); g.moveTo(x + 40, 86); g.lineTo(x + 40, 106); g.stroke(); g.restore();
+      lens(x); g.strokeStyle = "#2A2D33"; g.lineWidth = 4; g.stroke(); g.strokeStyle = "rgba(200,206,214,.6)"; g.lineWidth = 1; g.stroke();
+    });
+    g.beginPath(); g.moveTo(94, 98); g.quadraticCurveTo(100, 92, 106, 98); g.strokeStyle = "#2A2D33"; g.lineWidth = 4; g.stroke();
+    [[32, -1], [168, 1]].forEach(([x, s]) => { g.beginPath(); g.moveTo(x, 82); g.lineTo(x + 14 * s, 78); g.strokeStyle = "#2A2D33"; g.lineWidth = 5; g.stroke(); });
+  };
+
+  const book = (g, cover, edge, spine) => {
+    g.save(); g.shadowColor = "rgba(0,0,0,.7)"; g.shadowBlur = 12; g.shadowOffsetY = 6;
+    rr(g, 52, 32, 104, 136, 6); g.fillStyle = edge; g.fill(); g.restore();
+    g.strokeStyle = "rgba(0,0,0,.25)"; g.lineWidth = .8; for (let x = 150; x < 156; x += 1.6) { g.beginPath(); g.moveTo(x, 38); g.lineTo(x, 162); g.stroke(); }
+    rr(g, 46, 28, 104, 140, 6); g.fillStyle = cover; g.fill();
+    rr(g, 46, 28, 14, 140, [6, 0, 0, 6]); g.fillStyle = spine; g.fill();
+  };
+
+  D.redbook = g => {
+    halo(g, 100, 100, 80, "rgba(200,30,30,.2)");
+    book(g, lin(g, 46, 28, 150, 168, [[0, "#C8242A"], [.55, "#9A1418"], [1, "#5E0A0E"]]), "#E6DCC4", lin(g, 46, 0, 60, 0, [[0, "#4A0608"], [1, "#8A1216"]]));
+    // worn leather
+    g.save(); rr(g, 46, 28, 104, 140, 6); g.clip(); g.fillStyle = "rgba(0,0,0,.12)"; let s = 5; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < 70; i++) { g.beginPath(); g.arc(46 + rnd() * 104, 28 + rnd() * 140, .6 + rnd() * 2.4, 0, 7); g.fill(); } g.restore();
+    // black star
+    g.beginPath(); for (let i = 0; i < 10; i++) { const r = i % 2 ? 11 : 28, a = -Math.PI / 2 + i * Math.PI / 5; g.lineTo(104 + Math.cos(a) * r, 94 + Math.sin(a) * r); } g.closePath();
+    g.fillStyle = "#121012"; g.fill(); g.strokeStyle = "rgba(255,255,255,.12)"; g.lineWidth = 1; g.stroke();
+  };
+
+  D.vibranium = g => {
+    halo(g, 100, 104, 84, "rgba(120,110,255,.4)");
+    const P = [[40, 128], [52, 84], [86, 56], [128, 60], [160, 92], [162, 132], [130, 158], [74, 156]], C = [104, 108];
+    P.forEach((p, i) => { const q = P[(i + 1) % P.length]; poly(g, [C, p, q]);
+      const sh = [["#DCE2FF", "#8C96E8"], ["#B8C2FF", "#5A64C8"], ["#EEF0FF", "#9AA4F0"], ["#9AA6F0", "#3A3E9A"], ["#7A84DA", "#2A2C7A"], ["#5A62BA", "#1E1E5E"], ["#8E98E6", "#30347E"], ["#A8B2F4", "#454AA8"]][i];
+      g.fillStyle = lin(g, ...p, ...C, [[0, sh[0]], [1, sh[1]]]); g.fill(); g.strokeStyle = "rgba(20,20,60,.6)"; g.lineWidth = 1; g.stroke(); });
+    // glowing veins
+    g.save(); g.globalCompositeOperation = "lighter"; g.shadowColor = "#9FB4FF"; g.shadowBlur = 10; g.strokeStyle = "rgba(190,210,255,.95)"; g.lineWidth = 1.6; g.lineCap = "round";
+    [[[60, 96], [84, 104], [96, 96], [118, 112], [148, 104]], [[96, 96], [100, 74], [116, 64]], [[118, 112], [124, 134], [140, 146]], [[84, 104], [80, 132], [92, 150]]].forEach(v => { g.beginPath(); v.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); });
+    g.restore();
+    // a few loose shards
+    [[30, 64, 8], [170, 56, 6], [168, 160, 5]].forEach(([x, y, r]) => { poly(g, [[x, y - r], [x + r, y], [x, y + r], [x - r * .8, y]]); g.fillStyle = lin(g, x - r, y - r, x + r, y + r, [[0, "#DCE2FF"], [1, "#3A3E9A"]]); g.fill(); });
+  };
+
+  D.tesseract = g => {
+    const cx = 100, cy = 106, s = 50;
+    const P = (x, y, z) => { const a = .6, b = .35; return [cx + (x - z) * Math.cos(a) * s, cy + (x + z) * Math.sin(b) * s - y * s]; };
+    const V = [[-.6, -.6, -.6], [.6, -.6, -.6], [.6, -.6, .6], [-.6, -.6, .6], [-.6, .6, -.6], [.6, .6, -.6], [.6, .6, .6], [-.6, .6, .6]].map(v => P(...v)), F = [[4, 5, 6, 7], [1, 2, 6, 5], [2, 3, 7, 6]], FC = ["#7FC4FF", "#2F7BE0", "#1C55B4"];
+    halo(g, cx, cy - 8, 92, "rgba(90,170,255,.55)");
+    F.forEach((f, i) => { g.beginPath(); f.forEach((k, j) => j ? g.lineTo(...V[k]) : g.moveTo(...V[k])); g.closePath(); g.fillStyle = FC[i]; g.globalAlpha = .88; g.fill(); g.globalAlpha = 1; g.strokeStyle = "rgba(220,240,255,.9)"; g.lineWidth = 1.4; g.stroke(); });
+    const ic = P(0, 0, 0); halo(g, ic[0], ic[1], 30, "rgba(255,255,255,.95)");
+  };
+
+  D.soul = g => {
+    const cx = 100, cy = 100, R = 44;
+    const out = Array.from({ length: 8 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / 4; return [cx + Math.cos(a) * R, cy + Math.sin(a) * R * 1.12]; }), inn = out.map(([x, y]) => [cx + (x - cx) * .55, cy + (y - cy) * .55]);
+    const tones = ["#FFC27A", "#FF9A3D", "#E8751E", "#C95A10", "#A8460A", "#C95A10", "#E8751E", "#FFB25C"];
+    halo(g, cx, cy, 90, "rgba(255,150,50,.5)");
+    out.forEach((p, i) => { const q = out[(i + 1) % 8], r = inn[(i + 1) % 8], t = inn[i]; poly(g, [p, q, r, t]); g.fillStyle = tones[i]; g.fill(); });
+    poly(g, inn); g.fillStyle = lin(g, cx - 30, cy - 30, cx + 30, cy + 30, [[0, "#FFE2B8"], [1, "#F08A2A"]]); g.fill();
+    g.strokeStyle = "rgba(255,235,210,.7)"; g.lineWidth = 1; out.forEach((p, i) => { g.beginPath(); g.moveTo(...p); g.lineTo(...inn[i]); g.stroke(); }); poly(g, out); g.stroke();
+  };
+
+  return (cv, k) => { const g = cv.getContext("2d"), s = cv.width / 200; g.setTransform(s, 0, 0, s, 0, 0); g.clearRect(0, 0, 200, 200); g.save(); D[k](g); g.restore(); };
+})();
+const collKnown = () => ["Thor: The Dark World", "Guardians of the Galaxy", "Avengers: Infinity War"].some(atlSeenT);   // his door shows once you've met him
+const collSteps = o => o.st.filter(s => atlSeenT(s[1]));
+let collOpen = false, collCat = "", collRec = null;
+function collArt(o) { return o.a.startsWith("e:") ? embHTML(o.a.slice(2)) : `<canvas data-art="${o.a}" aria-hidden="true"></canvas>`; }
+function collPaint(root) {
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  root.querySelectorAll("canvas[data-art]").forEach(cv => { const w = cv.clientWidth || 132; cv.width = cv.height = Math.round(w * dpr); try { COLL_ART(cv, cv.dataset.art); } catch (e) {} });
+}
+function renderColl() {
+  const v = document.getElementById("collView"), seen = state.coll = state.coll || {};
+  if (collRec) {
+    const o = COLL.find(x => x.id === collRec), S = collSteps(o), hid = o.st.length - S.length;
+    // which stone sits inside stays unsaid until Infinity War names them all
+    const kind = o.c !== "stones" ? COLL_KIND[o.c] : o.s && !o.n.includes(o.s) && atlSeenT("Avengers: Infinity War") ? `Holds the ${o.s}` : /Gauntlet/.test(o.n) ? "Made for the Infinity Stones" : o.n.includes(o.s || "@") ? "An Infinity Stone" : "Infinity Stones";
+    v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>The Collection</button>
+      <div class="co-big"><i class="beam"></i><i class="ped"></i><i class="plinth"></i><span class="co-obj">${collArt(o)}</span></div>
+      <h3>${esc(o.n)}</h3><p class="co-kind">${esc(kind)}</p>
+      <div class="co-tiles"><div><small>First seen</small><b>${tnh(S[0][1])}</b></div><div><small>Last seen</small><b>${tnh(S[S.length - 1][1])}</b></div></div>
+      <div class="co-h">Chain of custody</div>
+      <ol class="co-chain">${S.map(s => `<li><p>${esc(s[0])}</p><small>${tnh(s[1])}</small></li>`).join("")}</ol>
+      ${hid ? `<p class="co-more">+ ${hid} more record${hid > 1 ? "s" : ""} sealed · keep watching</p>` : ""}</div>`;
+    collPaint(v); return;
+  }
+  const known = COLL.filter(o => collSteps(o).length), L = COLL.filter(o => !collCat || o.c === collCat);
+  v.innerHTML = `<div class="co"><div class="co-top"><small>Taneleer Tivan's archive</small><h3>The Collection</h3><p class="co-sub">${known.length} of ${COLL.length} catalogued</p></div>
+    <div class="co-bar"><span style="width:${Math.round(known.length / COLL.length * 100)}%"></span></div>
+    <div class="co-chips">${COLL_CATS.map(([c, l]) => `<button type="button" data-cc="${c}" class="${c === collCat ? "on" : ""}">${l}</button>`).join("")}</div>
+    <div class="co-grid">${L.map(o => { const S = collSteps(o);
+      return S.length ? `<button type="button" class="co-case" data-co="${o.id}"><i class="beam"></i><i class="ped"></i><i class="plinth"></i><span class="co-obj">${collArt(o)}</span>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="nm">${esc(o.n)}<small>Last seen · ${esc(tn(S[S.length - 1][1]))}</small></span></button>`
+        : `<div class="co-case sealed" aria-label="An object you haven't found yet"><span class="co-q">?</span><span class="nm">Unknown object<small>Keep watching</small></span></div>`; }).join("")}</div></div>`;
+  collPaint(v);
+}
+function openColl() {
+  collRec = null; collCat = ""; renderColl(); document.getElementById("collView").scrollTop = 0;
+  document.getElementById("collPanel").hidden = false; collOpen = true;
+  try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
+  if (!(state.eggs || {}).collector) { say("The Collector will see you now."); found("collector"); }
+  document.getElementById("collBack").focus({ preventScroll: true });
+}
+function closeColl(fromHistory) {
+  if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null;
+}
+function collShow(id) {
+  collRec = id; (state.coll = state.coll || {})[id] = 1; persist(); renderColl(); document.getElementById("collView").scrollTop = 0;
+  try { history.pushState({ mcu: "collrec" }, ""); } catch (e) {}
+}
+function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); }
+document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
+document.getElementById("collView").addEventListener("click", ev => {
+  if (ev.target.closest("[data-co-back]")) { haptic(8); collGrid(); return; }
+  const c = ev.target.closest("[data-cc]"); if (c) { haptic(8); collCat = c.dataset.cc; renderColl(); return; }
+  const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
+});
 
 const SAGA = {"kind":"chapter","rows":{"period":[["1942 to 2012","ch-1"],["1942 to 2014","ch-2"],["1942 to 2015","ch-3"],["1942 to 2016","ch-4"],["1942 to 2019","ch-5"],["1942 to 2023","ch-6"],["1942 to 2024","ch-7"],["5000 BC to 2026","ch-8"],["5000 BC to 2027","ch-10"],["5000 BC to 2027, and across the multiverse","ch-11"]]},"brief":"Across our world and far beyond it, extraordinary people are emerging. As the threat grows from city streets to the edges of the universe, they are the ones the world will call heroes.","story":[["ch-1","In 1942, a skinny kid from Brooklyn is chosen for a serum that makes him a super soldier, and he gives himself to the Arctic ice to save millions. Decades later, a weapons maker escapes a cave in a suit of armor and tells the world he's Iron Man, a scientist runs from the monster inside him, and a god is cast down to Earth. Nick Fury is watching all of them. When Loki opens the sky over New York, Fury loses Phil Coulson and gets what he wanted: six people who can barely share a room, fighting side by side. Thor takes Loki and the Tesseract home, and somewhere in the dark, the one who gave Loki his army smiles."],["ch-2","Thor's war follows him home to Asgard, where the Aether surfaces and his mother dies. Across the galaxy, a thief from Earth, an assassin, a raccoon, a tree and a man out for revenge steal an orb that turns out to hold another Infinity Stone. Peter Quill meets his father, Ego, a living planet, and has to kill him, and Yondu dies saving Peter. Then, in 1995, a Kree soldier crash-lands in a Blockbuster, remembers she's Carol Danvers, and leaves a young S.H.I.E.L.D. agent named Nick Fury a pager and her old call sign, Avenger, which he types at the top of a new proposal."],["ch-3","Tony can't sleep after New York, and the terrorist called the Mandarin turns out to be an actor named Trevor Slattery. Steve learns S.H.I.E.L.D. has been HYDRA since the war, finds Bucky behind the Winter Soldier's mask and brings the agency down, with Fury faking his own death to help. In Hell's Kitchen, Matt Murdock exposes Wilson Fisk, and Jessica Jones kills Kilgrave. Then Tony builds Ultron to protect the world, Ultron decides the world should end, and Sokovia's capital falls from the sky. Vision is born, and the Avengers move upstate with a new roster and no one above them."],["ch-4","Thaddeus Ross arrives with the Sokovia Accords. Tony signs, Steve won't, and when Zemo frames Bucky, friends fight at a Leipzig airport and in a Siberian bunker until the shield is left on the floor. Others find their own way: Scott Lang shrinks into the fight, T'Challa takes the throne and opens Wakanda to the world, and Peter Parker learns he doesn't need Tony's suit to be Spider-Man. Natasha, now a fugitive, goes back to the family the Red Room gave her. In New York, Matt, Jessica, Luke and Danny stop the Hand beneath Midland Circle, and the building comes down on Matt."],["ch-5","Matt survived Midland Circle. Frank Castle hunts the men behind his family's murder, including his best friend, Billy Russo. Jessica finds her mother alive and as dangerous as she is, Luke wins Harlem from Bushmaster and ends up running Mariah's club, and Colleen Wing takes up the Iron Fist. Matt takes down Wilson Fisk a second time without killing him. Then Jessica turns in her own sister and leaves New York."],["ch-6","Stephen Strange loses his hands, finds Kamar-Taj and ends up guarding the Time Stone. Thor loses his hammer, his father and Asgard itself, and leaves with his people on a ship. Then Thanos comes for the stones, and the Avengers, still divided, can't stop him: he snaps his fingers, half of all life turns to dust, and Fury's last act is to page Carol Danvers. Five years later, Scott Lang climbs out of the Quantum Realm with a way back through time. The Avengers assemble once more, and it costs them Natasha on Vormir and Tony in the final battle, while Steve goes back to Peggy and hands his shield to Sam, and Thor leaves Earth with the Guardians. At Natasha's grave, Yelena is told who to blame."],["ch-7","Everyone who vanished is back, five years later. Wanda rewrites a New Jersey town into a sitcom to keep Vision, Sam decides whether he can carry Steve's shield, Peter loses May and asks Strange to make the world forget him, and Clint spends Christmas teaching Kate Bishop while Yelena comes for him. Far from Earth, a Loki who escaped with the Tesseract is arrested by the Time Variance Authority, and Sylvie kills He Who Remains at the end of time. The timeline branches, Strange runs from universe to universe with a girl who can cross them, and Wanda tears through all of them for her sons until a mountain falls on her."],["ch-8","Ten immortals who have quietly guided humanity for seven thousand years learn the Celestial who made them planned to hatch a new one from the Earth, and Sersi turns the newborn Celestial to stone. In San Francisco, a valet named Shaun turns out to be Shang-Chi, and he stops his father, the thousand-year-old leader of the Ten Rings, at the gates of a hidden village. Marc Spector and Steven Grant share a body and a god, and at a monster hunt, Jack Russell turns out to be a werewolf. Thor fights Gorr, who kills gods, and loses Jane but comes home with a daughter. The Guardians save Rocket from the High Evolutionary, and Peter Quill goes back to Earth to see his grandfather."],["ch-9","In Jersey City, Kamala Khan writes fan fiction about Captain Marvel until her great-grandmother's bangle gives her powers of her own. Jen Walters gets her cousin's blood and would rather practice law, Shuri loses T'Challa and becomes Black Panther, and Riri Williams builds a suit in her MIT dorm, then makes a deal with the devil to keep it. Nick Fury comes home after years in space to find the Skrulls he promised a home have turned against Earth, and it costs him Maria Hill and Talos. Carol, Monica and Kamala swap places every time they use their powers, until Monica is stranded in another universe and Kamala knocks on Kate Bishop's door. In Washington, the new director of the CIA, Valentina Allegra de Fontaine, has Everett Ross arrested for helping Wakanda."],["ch-10","Wilson Fisk survives the bullet Maya Lopez puts in him, and when she won't come home, he runs for mayor of New York and wins. Thaddeus Ross wins bigger and becomes President, until the scientist he wronged poisons him and he turns into a red Hulk in Washington, and Sam Wilson, now Captain America, brings him down. In New York, Bullseye kills Foggy Nelson and Matt Murdock hangs up the mask, while Mayor Fisk builds a task force to hunt vigilantes. Valentina sends her disposable assets to kill each other in a vault; they find Bob instead, and when his darkness swallows Manhattan, they pull him out of it and she names them the New Avengers. In Hollywood, an actor hides his powers from Damage Control. Matt tells a courtroom he is Daredevil and goes to prison, Fisk goes into exile, and Frank Castle comes out of retirement one more time."],["ch-11","Scott Lang's family is pulled into the Quantum Realm, where an exiled conqueror named Kang has built an empire, and they bring him down. At the TVA, the Loom that holds the timelines together fails, and Loki takes the branches in his own hands at the end of time. Deadpool pulls a Wolverine out of another universe to save his own. Four years after the world forgot him, Peter Parker stops a telepath at war with Damage Control by talking instead of fighting, and takes a bullet meant for her. On Earth-828, a family of four faces down Galactus for their son. And after the credits, Ned's tracker finds Spider-Man somewhere in space."],["ch-beyond-the-mcu","Phil Coulson didn't stay dead. He leads a small S.H.I.E.L.D. team through HYDRA, the Inhumans and the end of the world, more than once, without the Avengers or the public ever hearing about it. Peggy Carter, back from the war, fights to be taken seriously at the SSR. Thor spends his time off sharing an Australian flat with an office worker named Darryl. And Uatu, the Watcher, keeps an eye on the worlds where it went differently: Peggy takes the serum, T'Challa joins the Ravagers, Ultron wins, and the Avengers become the walking dead. When Ultron threatens all of them at once, Uatu breaks his oath to stop him."],["ch-the-spider-verse","In one world, Peter Parker learns that with great power comes great responsibility, and it costs him Uncle Ben and his best friend Harry. In another, a different Peter loses Gwen Stacy. Eddie Brock shares his body with Venom until Venom gives his life for him, and others touched by spiders and strange blood, Michael Morbius, Cassandra Webb and Sergei Kravinoff, find their own uses for their powers. In Brooklyn, Miles Morales becomes Spider-Man the day his world's Peter dies, then learns the Spider-Society expects him to let his father die, and refuses. In 1930s New York, Ben Reilly was once the Spider, and in another world, a young Peter Parker learns from Norman Osborn."],["ch-the-fox-men","Charles Xavier runs a school for mutants, people born with powers and feared for it, and his oldest friend, Erik Lehnsherr, becomes Magneto. The X-Men fight Stryker, the Brotherhood and the Sentinels, send Logan back to 1973 to rewrite their future, and lose Jean, then Charles, then Logan, who dies protecting a girl with his claws. Deadpool joins them on his own terms. In an animated world, the same team loses Xavier, fights on under Magneto and ends up scattered across time."],["ch-pruned-timelines","Other versions of these heroes lived in worlds that ran beside this one. A Fantastic Four fought Doom and met the Silver Surfer, Blade hunted vampires through three films, a blind lawyer in red loved and lost Elektra, and Frank Castle took his first revenge. Later, the Inhumans' royal family fled to Hawaii, a group of kids learned their parents were villains, and Cloak and Dagger found each other in New Orleans."],["ch-incursions","Then the TVA's monitors start counting worlds that never touched this one, colliding and going dark. A Hulk's Earth is gone, and so is a Fantastic Four's, and thousands more are falling."]],"debrief":null};
 // a chapter's story is told once everything in it that is out has been watched (titles with no data yet don't hold it back)
@@ -4797,6 +5284,7 @@ const EGGS = [
   ["bifrost", "Bifrost", "Heimdall is watching.", "In the Atlas, hold New Mexico.", 1],
   ["sokovia", "Sokovia", "A city in the sky.", "In the Atlas, hold Sokovia.", 1],
   ["titanmoon", "All that for a drop of blood", "Thanos has a moon to throw.", "In the Atlas cosmos, hold Titan.", 1],
+  ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas cosmos, tap Knowhere and visit the Collector.", 1],
   ["goose", "Not a cat", "Fury's favorite.", "In Captain Marvel's profile, tap Goose.", 1],
   ["decrypt", "Decrypted", "The Kree left something out.", "In Comms, hold the blacked-out words in the Kree intercept.", 1],
   ["tiamut", "Emergence", "Something is waking in the Indian Ocean.", "After Eternals, in the Atlas, hold Celestial Island.", 2],
@@ -5019,7 +5507,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen"];
+const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -6247,7 +6735,7 @@ panel.addEventListener("click", ev => {
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && openEntry && document.getElementById("ask").hidden) uiClose(); });
-function onNavBack() { navBusy = false; if (dossierOpen === "saga") { if (!navAt("log")) closeDossier(true); return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
+function onNavBack() { navBusy = false; if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && navAt("atlas")) return; } if (dossierOpen === "saga") { if (!navAt("log")) closeDossier(true); return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
 // going back never moves the page by itself: the app decides where you are (after a jump to a new box, that's where it lives)
 try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
@@ -6257,8 +6745,8 @@ const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOp
 function dockSync() { const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 document.getElementById("dock").addEventListener("click", ev => {
   const b = ev.target.closest("[data-dock]"); if (!b) return; const t = b.dataset.dock, c = dockCur(); haptic(8);
-  if (t === c) { if (t === "story") window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); return; }
-  if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (commsOpen) closeComms(true);
+  if (t === c) { if (t === "story") window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); if (t === "atlas" && collOpen) closeColl(); return; }
+  if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (commsOpen) closeComms(true);
   if (t === "story") { if (history.state && history.state.mcu) navBack(); }
   else if (t === "log") { openDossier("saga"); pushNav("log"); }
   else if (t === "file") openFile();
@@ -6919,7 +7407,7 @@ swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + $
   () => { clearTimeout(toastTimer); document.getElementById("toast").classList.remove("show"); if (sayOwn) { clearTimeout(sayTm); sayOwn = false; sayCur = null; setTimeout(sayNext, 350); } }, true);
 document.getElementById("whih").addEventListener("click", () => { haptic(8); const k = document.getElementById("whih").classList.contains("msg") ? "msg" : "news"; newsStop(true);   // opens on whatever was playing, from any screen
   if (commsOpen) { commsTab = k; renderComms(); document.getElementById("commsView").scrollTop = 0; return; }
-  if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true);
+  if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true);
   openComms(k); dockSync(); });
 // Comms: every headline you've heard, newest first, to read again any time
 // WHIH comes first, then the other worlds' outlets; within each, stories run in Sacred Timeline order, the latest in the story at the top
