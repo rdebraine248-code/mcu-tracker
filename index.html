@@ -5917,8 +5917,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
   if (ev.target.closest("#hfCode")) { codeEdit(); return; }
   const cfb = ev.target.closest('[data-ach^="film-"]'); if (cfb && earned(cfb.dataset.ach)) { caseFile(cfb.dataset.ach.slice(5)); return; }
   const pgb = ev.target.closest("[data-hfpg]");
-  if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = (hfPage - 1 + +pgb.dataset.hfpg + HF_PAGES) % HF_PAGES + 1; hfFlip = true;
-    const cs = fv.querySelector('[data-hfsec="classified"]'); if (cs) cs.outerHTML = classPart(); else renderFile(); hfFlip = false; fv.scrollTop = y; return; }
+  if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = (hfPage - 1 + +pgb.dataset.hfpg + HF_PAGES) % HF_PAGES + 1; hfFlip = true; renderFile(); hfFlip = false; fv.scrollTop = y; return; }
   const b = ev.target.closest("[data-ach]"); if (!b) return;
   const a = achList().find(z => z.id === b.dataset.ach); if (!a || earned(a.id)) return;
   if ((achTaps[a.id] || 0) >= 20) {   // a revealed answer stays put: the next tap only asks whether to hide it
