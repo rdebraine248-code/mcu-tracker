@@ -1455,7 +1455,7 @@ function tile(e, kind) {
   // a sealed multiverse character box wears the same cover as its Extras chapter
   const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover;
   const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">Extras</span><span class="ctap" style="color:${cc.ink}">${shut ? "Sealed" : "Tap to reveal"}</span></div>`
-    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${shut ? "Sealed" : "???"}</span><span class="ctap">${shut ? "Keep watching" : "Tap to reveal"}</span></div>`;
+    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${shut ? "Sealed" : "???"}</span><span class="ctap">${shut ? "Clearance required" : "Tap to reveal"}</span></div>`;
   return `<div class="${esc(cls)}${dust ? " dusted" : ""}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
       <div ${locked || sealedC ? 'aria-hidden="true"' : ""} style="display:contents">${tileInner(e)}</div>${cover}${ccover}</div>`;
 }
@@ -1465,7 +1465,7 @@ function sagaHeads() {
   return [{ title: act1 && state.unlocked[act1.id] ? "The Infinity Saga" : "Act I", note: "" },
           { title: act2 && state.unlocked[act2.id] ? "The Multiverse Saga" : "Act II", note: "" },
           { title: open ? "The Marvel Multiverse" : "Act ?",
-            note: open ? `<p class="note open">Opened by Loki S1. The multiverse is now open.</p>` : `<p class="note">Sealed. Keep watching to find out what opens it.</p>` }];
+            note: open ? `<p class="note open">Opened by Loki S1. The multiverse is now open.</p>` : `<p class="note">Sealed. What opens it is classified.</p>` }];
 }
 // a heading that changes plays its reveal the next time the page is actually in view
 let seenHeads = {};
@@ -1806,7 +1806,7 @@ function activate(el) {
     if (ce && charSealed(ce)) {   // sealed until the multiverse opens: the same taps as a sealed Extras chapter, and the same choice at the end
       el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake");
       const n = sealedTap("extras"), look = DATA.chapters.find(c => c.id === MV_CHAPTER[id]) || null;   // the toast dresses like its Extras chapter's cover
-      if (n < 10) { if (n >= 5) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unseal.`, look, !!look); } else toast("Sealed. Keep watching.", look, !!look); return; }
+      if (n < 10) { if (n >= 5) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unseal.`, look, !!look); } else toast("Sealed. Clearance required.", look, !!look); return; }
       sealedRun.extras.n = 0; found("sealed");
       ask(id === "cx-incursions" ? "The Incursions open after Avengers: Doomsday." : "The Multiverse opens after Loki S1.", "Reveal this box", "Hide").then(ok => {
         if (!ok) return;
@@ -1837,7 +1837,7 @@ function activate(el) {
         ask(id === INC_ID ? "The Incursions open after Avengers: Doomsday." : "The Multiverse opens after Loki S1.", "Reveal this box", "Hide").then(ok => { if (ok) { forceOpen = id; activate(el); forceOpen = null; } });
       }
       else if (sealedTaps >= 5) { const left = 10 - sealedTaps; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unseal.`, e, true); }
-      else toast("Sealed. Keep watching.", e, true);
+      else toast("Sealed. Clearance required.", e, true);
     } else {   // the same as a sealed box: keep tapping and you can choose to open it early
       const sk = e.num ? id : "extras"; sealedTaps = sealedTap(sk); const p = prevOf(e);
       if (sealedTaps >= 10 && p) {
@@ -2358,7 +2358,7 @@ function openDossier(id, go) {
         openDossier("saga", { open: cid }); try { history.replaceState({ mcu: "log" }, ""); } catch (e) {} dockSync(); return; }
       if (el._skip && !ev.target.closest("button, a") && el._skip()) { haptic(6); return; }
       const sd = ev.target.closest(".dl:not(.off)"), sf = sd && !sideOn && SIDE[dossierOpen + "|" + ((sd.querySelector("b") || {}).textContent || "")]; if (sf) { sf(sd); return; }
-      if (ev.target.closest(".dnone, .dwait, .dl.off")) { haptic(8); toast("No data yet. Keep watching to record it.", null, false, null, 1500); }
+      if (ev.target.closest(".dnone, .dwait, .dl.off")) { haptic(8); toast("No data on file yet.", null, false, null, 1500); }
     });
     // if you start scrolling yourself, the log stops steering
     const hands = () => { el._glide = (el._glide || 0) + 1; };
@@ -3066,7 +3066,7 @@ function atlList() {
     return L.length ? `<div class="atl-lh">${esc(h)}</div>${L.map(row).join("")}` : ""; }).join("");
 }
 function atlSwitch(v, id) {
-  if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("No data yet. Keep watching to chart it.", null, false, null, 1500); return; }
+  if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("Uncharted. No data yet.", null, false, null, 1500); return; }
   atlView = v; atlCity = v === "city" ? id : null; atlUni = v === "uni" ? id : null; atlSel = null; renderAtlas();
 }
 let atlBig = false, atlBigBack = false;
@@ -3653,7 +3653,7 @@ function renderColl() {
       <div class="co-tiles"><div><small>First seen</small><b>${tnh(S[0][1])}</b></div><div><small>Last seen</small><b>${tnh(S[S.length - 1][1])}</b></div></div>
       <div class="co-h">Chain of custody</div>
       <ol class="co-chain">${S.map(s => `<li><p>${esc(s[0])}</p><small>${tnh(s[1])}</small></li>`).join("")}</ol>
-      ${hid ? `<p class="co-more">+ ${hid} more record${hid > 1 ? "s" : ""} sealed · keep watching</p>` : ""}</div>`;
+      ${hid ? `<p class="co-more">+ ${hid} more record${hid > 1 ? "s" : ""} sealed</p>` : ""}</div>`;
     collPaint(v); return;
   }
   const known = COLL.filter(o => collSteps(o).length), L = COLL.filter(o => !collCat || o.c === collCat);
@@ -3662,7 +3662,7 @@ function renderColl() {
     <div class="co-chips">${COLL_CATS.map(([c, l]) => `<button type="button" data-cc="${c}" class="${c === collCat ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="co-grid">${L.map(o => { const S = collSteps(o);
       return S.length ? `<button type="button" class="co-case" data-co="${o.id}"><i class="beam"></i><i class="ped"></i><i class="plinth"></i><span class="co-obj">${collArt(o)}</span>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="nm">${esc(o.n)}<small>Last seen · ${esc(tn(S[S.length - 1][1]))}</small></span></button>`
-        : `<div class="co-case sealed" aria-label="An object you haven't found yet"><span class="co-q">?</span><span class="nm">Unknown object<small>Keep watching</small></span></div>`; }).join("")}</div></div>`;
+        : `<div class="co-case sealed" aria-label="An object you haven't found yet"><span class="co-q">?</span><span class="nm">Unknown object<small>Not yet catalogued</small></span></div>`; }).join("")}</div></div>`;
   collPaint(v);
 }
 function openColl() {
@@ -5891,6 +5891,8 @@ const EMB_UNLOCK = {"avengers": ["The Avengers"], "arc": ["Iron Man", "Iron Man 
 const EMB_HINT = {"avengers": "Unlocks after The Avengers.", "arc": "Unlocks after any Iron Man film.", "shield": "Unlocks after any Captain America film.", "mjolnir": "Unlocks after any Thor film.", "hourglass": "Unlocks after Black Widow.", "hawkeye": "Unlocks after Hawkeye.", "gamma": "Unlocks after The Incredible Hulk.", "hala": "Unlocks after Captain Marvel or The Marvels.", "antman": "Unlocks after any Ant-Man film.", "starlord": "Unlocks after any Guardians of the Galaxy title.", "spider": "Unlocks after any Spider-Man film of the Sacred Timeline.", "claws": "Unlocks after Black Panther, Wakanda Forever or Eyes of Wakanda.", "agamotto": "Unlocks after either Doctor Strange film.", "mind": "Unlocks after WandaVision or VisionQuest.", "redstar": "Unlocks after The Falcon and the Winter Soldier.", "loki": "Unlocks after either season of Loki.", "bolt": "Unlocks after Thunderbolts*.", "four": "Unlocks after The Fantastic Four: First Steps.", "dd": "Unlocks after any season of Daredevil.", "rings": "Unlocks after Shang-Chi and the Legend of the Ten Rings.", "kamala": "Unlocks after Ms. Marvel.", "defenders": "Unlocks after The Defenders.", "skull": "Unlocks after any Punisher title.", "eternals": "Unlocks after Eternals.", "moon": "Unlocks after Moon Knight.", "bloodstone": "Unlocks after Werewolf by Night.", "watcher": "Unlocks after What If...?", "verse": "Unlocks after any Sony Spider-Man film.", "xmen": "Unlocks after any FoX-Men film.", "tva": "Unlocks after any Pruned Timelines title.", "incursion": "Unlocks when the Incursions begin."};
 const embWon = k => k === "incursion" ? incOpen() : k === "tva" ? DATA.chapters.find(c => c.id === "ch-pruned-timelines").items.some(i => atlSeenT(i.t)) : !EMB_UNLOCK[k] || EMB_UNLOCK[k].some(atlSeenT);
 const embOpen = k => k === state.avatar || !!(state.embOpen || {})[k] || embWon(k);
+// once an insignia is unlocked it stays unlocked, even if you uncheck its titles later (only Reset datapad clears it)
+function embKeep() { let ch = false; Object.keys(EMBLEMS).forEach(k => { if (!(state.embOpen || {})[k] && embWon(k)) { (state.embOpen = state.embOpen || {})[k] = 1; ch = true; } }); if (ch) persist(); }
 // a newly unlocked insignia carries a blue dot (on the File button, your profile picture and in the picker) until you've seen it there;
 // the first time this runs, whatever is already open counts as seen
 const embNew = () => { if (!state.embSeen) state.embSeen = Object.fromEntries(Object.keys(EMBLEMS).filter(embOpen).map(k => [k, 1])); return Object.keys(EMBLEMS).filter(k => embOpen(k) && !state.embSeen[k]); };
@@ -5908,7 +5910,7 @@ function avaPick() {
     const l = ev.target.closest("[data-lk]");
     if (l) { const k = l.dataset.lk, n = embTaps[k] = (embTaps[k] || 0) + 1; haptic(n === 5 ? 14 : 6);
       if (n === 5) l.outerHTML = embCell(k);   // the name comes through
-      if (n < 5) toast("Locked. Keep watching."); else if (n < 10) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unlock.`); }
+      if (n < 5) toast("Locked. Clearance required."); else if (n < 10) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unlock.`); }
       if (n >= 10) { embTaps[k] = 0;
         ask(EMB_HINT[k], "Unlock anyway", "Hide").then(ok => { if (ok) { (state.embOpen = state.embOpen || {})[k] = 1; embNew(); state.embSeen[k] = 1; persist(); haptic(12); }
           const c = pk.querySelector(`[data-lk="${CSS.escape(k)}"]`); if (c) c.outerHTML = embCell(k); }); }
@@ -7350,7 +7352,7 @@ function newDots() {
       atlas: Object.keys(ATLAS).some(v => atlOpenV(v) && atlNew(v)),
       map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
       comms: CM_CHANS.some(([k]) => k && cnt(M0, cmChan, k) > (cm["msg:" + k] || 0)) || CM_OUTLETS.some(([k]) => k && cnt(T0, newsSrc, k) > (cm["news:" + k] || 0)),
-      file: n > state.hfSeen || embNew().length > 0 };
+      file: n > state.hfSeen || (embKeep(), embNew().length > 0) };
     document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
     const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", logUnread(openEntry.id));
   } catch (e) {}
