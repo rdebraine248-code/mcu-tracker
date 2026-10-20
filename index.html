@@ -774,6 +774,7 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .tl-next .tl-lanes{ grid-column:2; position:relative; }
 .tl-fold{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) clamp(150px,24vw,260px) minmax(0,1fr); height:76px; }
 .tl-fold .tl-lanes{ grid-column:2; position:relative; }
+.tl-list > .tl-fold:last-child{ margin-bottom:45vh; }   /* room to scroll your next title up into view */
 .tl-foldbtn{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:inline-flex; align-items:center; gap:10px; white-space:nowrap; padding:10px 18px; border:1px solid #FFB347; border-radius:999px; background:#1A1409; color:#FFD08A;
   font:12px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; box-shadow:0 0 14px rgba(255,179,71,.18); }
 .tl-foldbtn span{ font-size:14px; letter-spacing:0; }
@@ -1417,6 +1418,7 @@ function renderTimeline(v) {
       return `<span class="ld${show ? " off" : ""}">${before}</span><span class="ld${show ? "" : " off"}">${after}</span>`;
     })()}</p>
     <div class="legend" role="group" aria-label="Focus on one timeline">${legendKeys.map(k => `<button type="button" class="lg${keyHidden(k) ? " kh" : ""}${prunedLanes[k] ? " cut" : ""}" data-focus-lane="${k}" aria-pressed="${tlFocus === k}"${keyHidden(k) ? ' tabindex="-1" aria-hidden="true"' : ""}><i style="background:${LANES[k].c}"></i>${LANES[k].name}</button>`).join("")}</div>
+    ${state.tlOpen && tlFoldAt(true) >= 0 ? `<div class="tl-fold tl-foldtop"><button type="button" class="tl-foldbtn" data-tlfold="close">Hide <span aria-hidden="true">&#9652;</span></button></div>` : ""}
     <ol class="tl-list">${(() => { const F = tlFoldAt(), SPLIT = splitOf();
       // the fold: the Sacred Timeline's line stops at a button, while the branch lines run on through
       const lanes = show && F >= SPLIT ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
@@ -1954,6 +1956,9 @@ document.getElementById("view").addEventListener("click", ev => {
       if (!state.tlOpen && r.closest("li").dataset.lane === "main") {   // a folded Sacred Timeline moves its fold to your new next title
         const y = window.scrollY; renderView(); window.scrollTo(0, y);
         const nr = document.querySelector(`.tl-row[data-tl="${CSS.escape(r.dataset.tl)}"]`); if (nr) { nr.classList.add("just"); nr.focus({ preventScroll: true }); }
+        // and lifts the view so the new next title and Reveal sit clear of the dock and the rating pill
+        const fb = on && document.querySelector('.tl-foldbtn[data-tlfold="open"]'), dk = document.getElementById("dock");
+        if (fb) { const by = fb.getBoundingClientRect().bottom, lim = innerHeight - (dk ? dk.offsetHeight : 0) - 110; if (by > lim) window.scrollBy({ top: by - lim, behavior: REDUCED ? "auto" : "smooth" }); }
         if (navigator.vibrate) { try { navigator.vibrate(on ? 20 : 12); } catch (e) {} }
         return; }
       r.setAttribute("aria-pressed", on); r.classList.remove("just"); void r.offsetWidth; r.classList.add("just"); }
