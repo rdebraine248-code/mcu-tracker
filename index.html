@@ -1341,6 +1341,9 @@ let growNext = false;
 let tlFocus = null; // which timeline is in focus (from the key), if any
 // the focused timeline, when it is showing on a timeline page; the meter and Up next follow it
 let prunedLanes = {};   // timelines pruned this visit (easter egg): lane -> the row to return to when it's restored
+// Sacred Timeline and Release Order each keep their own focus and pruned timelines; the other order's wait here while you're on this one
+let tlBy = {};
+const tlOrd = () => REL_MODE() ? "release" : "universe";
 const focusLane = () => state.mode === "timeline" && tlFocus && !prunedLanes[tlFocus] && (tlFocus === "main" || branched()) ? tlFocus : null;
 // the titles the meter, Up next and the "Now in" line describe
 const meterList = () => { const f = focusLane(), all = branched() ? TLX().filter(e => !prunedLanes[e.lane]) : TLX().filter(e => e.lane === "main"); return f ? all.filter(e => e.lane === f) : all; };
@@ -1528,7 +1531,7 @@ const ATLAS_BTN = `<button type="button" class="mapbtn atlbtn" id="btnAtlas"><sv
 function renderView() {
   clearTimeout(dotsT); dotsT = setTimeout(newDots, 60);
   const v = document.getElementById("view");
-  if (state.mode !== "timeline") prunedLanes = {};
+  if (state.mode !== "timeline") { prunedLanes = {}; Object.values(tlBy).forEach(b => { b.p = {}; }); }   // pruning lasts for the visit, on both orders
   const chapters = state.mode === "chapters";
   document.body.setAttribute("data-mode", state.mode);
   ["btnChapters", "btnTimeline", "btnChars"].forEach(b => document.getElementById(b).setAttribute("aria-pressed", ({ btnChapters: "chapters", btnTimeline: "timeline", btnChars: "chars" })[b] === state.mode));
@@ -1915,7 +1918,9 @@ document.getElementById("view").addEventListener("click", ev => {
   const sw = ev.target.closest("[data-tlmode]");
   if (sw) {
     if ((state.tlMode || "universe") !== sw.dataset.tlmode) {
-      state.tlMode = sw.dataset.tlmode; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      if (burning) return;   // a pruning or a restore finishes on its own order first
+      tlBy[tlOrd()] = { f: tlFocus, p: prunedLanes };
+      state.tlMode = sw.dataset.tlmode; ({ f: tlFocus = null, p: prunedLanes = {} } = tlBy[tlOrd()] || {}); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
       renderMeter(); renderView();
     }
     return;
@@ -8698,7 +8703,7 @@ function resetDatapad() {
     state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.atlRead = {}; delete state.hfSeen; state.rate = {}; state.watchedOn = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist();
     // every page goes back to where it starts: top of each screen, Earth in the Atlas, News in Comms, page 1 of Classified
-    hfPage = 1; commsTab = "news"; cmPick = { msg: "", news: "" }; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
+    hfPage = 1; tlFocus = null; tlBy = {}; commsTab = "news"; cmPick = { msg: "", news: "" }; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
     ["fileView", "commsView", "collView", "atlView", "mapView"].forEach(id => { const el = document.getElementById(id); if (el) el.scrollTop = 0; });
     document.querySelectorAll(".dscroll").forEach(el => { el.scrollTop = 0; });
     window.scrollTo(0, 0); renderAll();
