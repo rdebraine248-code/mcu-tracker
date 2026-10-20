@@ -679,7 +679,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ratepill.show{ transform:translate(-50%,0); opacity:1; pointer-events:auto; }
 .ratepill .rp-t{ min-width:0; } .ratepill small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; }
 .ratepill b{ display:block; max-width:44vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 15px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
-.ratepill .rp-s{ display:flex; } .ratepill button, .ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
+.ratepill .rp-s{ display:flex; }
+.ratepill .rp-n{ flex:none; padding:5px 10px !important; border:1px solid #2B3F62 !important; border-radius:999px; color:#9FC3FF; font:11px/1 'Share Tech Mono','Courier New',monospace !important; letter-spacing:1.5px; text-transform:uppercase; line-height:1 !important; } .ratepill button, .ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
 .ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
 .ratesheet .rs-in{ width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
 .ratesheet .rs-grip{ width:40px; height:4px; margin:0 auto 14px; border-radius:2px; background:#33405C; }
@@ -695,7 +696,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-rate .rstats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
 .hf-rate .rstats div{ padding:10px 6px; border:1px solid #232D42; border-radius:10px; background:#0F1626; text-align:center; }
 .hf-rate .rstats b{ display:block; font:400 22px/1 'Anton','Impact',sans-serif; color:#F4D27A; } .hf-rate .rstats small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#8FA0BE; text-transform:uppercase; }
-.hf-rate .ract{ margin:4px 0 10px; }
+.hf-rate .ract{ margin:4px 0 10px; color:#9FB4D6; }
+.hf-rlast{ padding:0; border:0; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer; text-decoration:underline; text-decoration-color:rgba(233,196,106,.4); text-underline-offset:3px; }
 .hf-rate .rlast{ display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:0; padding:8px 6px; border:1px solid #232D42; border-radius:10px; background:#0F1626; color:inherit; font:inherit; cursor:pointer; touch-action:manipulation; }
 .hf-rate .rlast em{ display:block; max-width:100%; margin:3px 0 2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 13px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#E2E8F3; }
 .rcells{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
@@ -2346,7 +2348,8 @@ function openDossier(id, go) {
       // the Story log: fold a chapter open or shut, turn the page, or jump in from a chapter's own log
       const slc = ev.target.closest("[data-slc]"); if (slc) { haptic(8); slOpen = slOpen === slc.dataset.slc ? null : slc.dataset.slc; openDossier("saga", { redraw: true, at: slc.dataset.slc }); return; }
       const slp = ev.target.closest("[data-slp]"); if (slp) { haptic(8); slPg = (slPg + +slp.dataset.slp + SL_ACTS.length) % SL_ACTS.length; slOpen = slFirst(slPg); openDossier("saga", { redraw: true }); return; }
-      const slg = ev.target.closest("[data-slgo]"); if (slg) { haptic(10); const cid = slg.dataset.slgo; closeDossier(true); openDossier("saga", { open: cid }); pushNav("log"); dockSync(); return; }
+      const slg = ev.target.closest("[data-slgo]"); if (slg) { haptic(10); const cid = slg.dataset.slgo; closeDossier(true); if (openEntry) closePanel();
+        openDossier("saga", { open: cid }); try { history.replaceState({ mcu: "log" }, ""); } catch (e) {} dockSync(); return; }
       if (el._skip && !ev.target.closest("button, a") && el._skip()) { haptic(6); return; }
       const sd = ev.target.closest(".dl:not(.off)"), sf = sd && !sideOn && SIDE[dossierOpen + "|" + ((sd.querySelector("b") || {}).textContent || "")]; if (sf) { sf(sd); return; }
       if (ev.target.closest(".dnone, .dwait, .dl.off")) { haptic(8); toast("No data yet. Keep watching to record it.", null, false, null, 1500); }
@@ -5757,17 +5760,18 @@ let rpTm = 0;
 function ratePill(t) {
   let el = document.getElementById("ratePill");
   if (!el) { el = document.createElement("div"); el.id = "ratePill"; el.className = "ratepill"; el.setAttribute("role", "group"); document.body.appendChild(el);
-    el.addEventListener("click", ev => { const b = ev.target.closest("[data-rs]"); if (!b) return; ev.stopPropagation(); const n = +b.dataset.rs, tt = el.dataset.t;
+    el.addEventListener("click", ev => { if (ev.target.closest("[data-rnote]")) { ev.stopPropagation(); clearTimeout(rpTm); el.classList.remove("show"); rateSheet(el.dataset.t, true); return; }
+      const b = ev.target.closest("[data-rs]"); if (!b) return; ev.stopPropagation(); const n = +b.dataset.rs, tt = el.dataset.t;
       rateSet(tt, { r: n }); haptic(12); el.querySelector(".rp-s").innerHTML = [1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= n, 26)}</button>`).join("");
       el.querySelector("small").textContent = "Rated"; clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 1400); });
     swipeAway(el, (dx, dy) => `translate(calc(-50% + ${dx}px),${dy}px)`, () => el.classList.contains("show"), () => { clearTimeout(rpTm); el.classList.remove("show"); }); }
   el.dataset.t = t; el.setAttribute("aria-label", "Rate " + tn(t));
-  el.innerHTML = `<div class="rp-t"><small>Watched</small><b>${tnh(t)}</b></div><div class="rp-s">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(false, 26)}</button>`).join("")}</div>`;
+  el.innerHTML = `<div class="rp-t"><small>Watched</small><b>${tnh(t)}</b></div><div class="rp-s">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(false, 26)}</button>`).join("")}</div><button type="button" class="rp-n" data-rnote aria-label="Add a note">Note</button>`;
   el.classList.remove("show"); void el.offsetWidth; el.classList.add("show");
   clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 7000);
 }
 // the sheet: stars (tap the same one again to clear them), the day you watched it, how many times, and a note. It saves as you go
-function rateSheet(t) {
+function rateSheet(t, note) {
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
   el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Your log: " + tn(t));
   const draw = () => { const R = rateOf(t), n = R.n || (atlSeenT(t) ? 1 : 0);
@@ -5778,6 +5782,7 @@ function rateSheet(t) {
       <div class="rs-f rs-note"><span>Note</span><textarea maxlength="600" placeholder="Anything you want to remember">${esc(R.note || "")}</textarea></div></div>`; };
   draw(); document.body.appendChild(el);
   try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
+  if (note) { const ta = el.querySelector("textarea"); if (ta) ta.focus(); }
   const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
   el.addEventListener("click", ev => {
     if (ev.target === el) { close(); return; }
@@ -5794,6 +5799,13 @@ function refreshRates() { if (fileOpen) { const fv = document.getElementById("fi
 // the Personal log section: a page per Act, a cell per chapter. A chapter opens once you've watched any of its titles in any list,
 // and only ever lists what you've watched; its name shows once it's unlocked or finished. The Extras stay sealed until they're revealed
 let rPg = 0, rOpen = null;
+// your ratings on the agent ID: how many, your overall assessment of everything you've rated, and the latest one (tap it to open it)
+function rateRows() {
+  const all = Object.keys(state.rate || {}).filter(t => rateOf(t).r); if (!all.length) return "";
+  const lt = rateLatest();
+  return `<div><dt>Rated</dt><dd>${all.length} title${all.length > 1 ? "s" : ""}</dd></div><div><dt>Assessment</dt><dd>&#9733; ${rateAvg(all)} overall</dd></div>`
+    + (lt ? `<div><dt>Latest</dt><dd><button type="button" class="hf-rlast" data-rt="${esc(lt)}">${tnh(lt)} · ${rateOf(lt).r}/5</button></dd></div>` : "");
+}
 function rateSec() {
   const all = Object.keys(state.rate || {}).filter(t => rateOf(t).r), avg = rateAvg(all), A = SL_ACTS[rPg], chs = DATA.chapters.filter(A[3]);
   const cell = c => { const seenL = c.items.filter(i => atlSeenT(i.t)), lab = c.num ? "Ch. " + c.num : "Extras";
@@ -5803,10 +5815,8 @@ function rateSec() {
     return `<button type="button" class="rc${rOpen === c.id ? " on" : ""}" data-rcell="${c.id}"><small>${lab}</small><b>${esc(slNamed(c) ? c.title : "Classified")}</b><span>${a ? "&#9733; " + a : "Not rated"}</span></button>`; };
   const oc = rOpen && chs.find(c => c.id === rOpen), list = !oc ? "" : `<div class="rlist"><h5>${oc.num ? "Ch. " + oc.num : "Extras"} · ${esc(slNamed(oc) ? oc.title : "Classified")}</h5>${oc.items.filter(i => atlSeenT(i.t)).map(i => { const r = rateOf(i.t).r;
       return `<button type="button" class="rrow" data-rt="${esc(i.t)}"><span>${tnh(i.t)}</span>${r ? `<span class="rst">${starsHTML(r, 15)}</span>` : `<em>Rate</em>`}</button>`; }).join("")}</div>`;
-  return `<section class="hf-sec hf-rate"><h3><span>Personal log</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
-    <div class="rstats"><div><b>${all.length}</b><small>Total rated</small></div><div><b>${avg ? "&#9733;" + avg : "-"}</b><small>Overall assessment</small></div>${(lt => lt
-      ? `<button type="button" class="rlast" data-rt="${esc(lt)}"><b>${rateOf(lt).r}/5</b><em>${tnh(lt)}</em><small>Latest rated</small></button>` : `<div><b>-</b><small>Latest rated</small></div>`)(rateLatest())}</div>
-    <h3 class="ract">${A[2]() ? A[1] : "Act " + A[0]}</h3>
+  return `<section class="hf-sec hf-rate"><h3><span>Personal log</span></h3>
+    <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
     <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
 }
 let fileOpen = false, hfPage = 1, hfFlip = false; const achTaps = {}, HF_PAGES = 3;
@@ -5825,7 +5835,7 @@ function renderFile() {
   document.getElementById("fileView").innerHTML = `
     <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button><div class="hf-tag">Avengers Initiative · Agent ID</div>
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
-      <dl class="hf-rows"><div><dt>Clearance</dt><dd>Level ${level} of 10</dd></div><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div></dl>
+      <dl class="hf-rows"><div><dt>Clearance</dt><dd>Level ${level} of 10</dd></div><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
     ${rateSec()}${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
@@ -7260,7 +7270,7 @@ panel.addEventListener("click", ev => {
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && openEntry && document.getElementById("ask").hidden) uiClose(); });
-function onNavBack() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); return; } } if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) closeDossier(true); return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
+function onNavBack() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); return; } } if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) { closeDossier(true); dockSync(); if (navAt("panel") && !openEntry) navBack(); } return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
 // going back never moves the page by itself: the app decides where you are (after a jump to a new box, that's where it lives)
 try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
