@@ -1421,13 +1421,13 @@ function renderTimeline(v) {
       // the fold: the Sacred Timeline's line stops at a button, while the branch lines run on through
       const lanes = show && F >= SPLIT ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
       const foldLi = (open) => `<li class="tl-fold"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none">${open ? `<line data-ln="main" x1="50" y1="0" x2="50" y2="34" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/>` : ""}${open ? lanes : ""}</svg></span>
-        <button type="button" class="tl-foldbtn" data-tlfold="${open ? "open" : "close"}">${open ? "Expand the Sacred Timeline" : "Collapse the Sacred Timeline"} <span aria-hidden="true">${open ? "&#9662;" : "&#9652;"}</span></button></li>`;
+        <button type="button" class="tl-foldbtn" data-tlfold="${open ? "open" : "close"}">${open ? "Reveal" : "Hide"} <span aria-hidden="true">${open ? "&#9662;" : "&#9652;"}</span></button></li>`;
       return TLX().map((e, i) => F < 0 || i <= F ? tlRow(e, i, show, stepOf) + (i === F ? foldLi(true) : "") : e.lane === "main" ? "" : tlRow(e, i, show, stepOf, true)).join("")
 ; })()}
       ${tlFoldAt() >= 0 ? "" : `<li class="tl-next" aria-label="What's next?"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <line x1="50" y1="0" x2="50" y2="14" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>
         <i style="top:34%;opacity:.85"></i><i style="top:56%;opacity:.55"></i><i style="top:78%;opacity:.28"></i></span></li>`}
-      ${state.tlOpen && tlFoldAt(true) >= 0 ? `<li class="tl-fold"><button type="button" class="tl-foldbtn" data-tlfold="close">Collapse the Sacred Timeline <span aria-hidden="true">&#9652;</span></button></li>` : ""}</ol></section>`;
+      ${state.tlOpen && tlFoldAt(true) >= 0 ? `<li class="tl-fold"><button type="button" class="tl-foldbtn" data-tlfold="close">Hide <span aria-hidden="true">&#9652;</span></button></li>` : ""}</ol></section>`;
   guardTele(v);
 }
 const isDone = e => { const [n, t] = count(e); return t > 0 && n === t; };
