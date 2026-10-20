@@ -2522,11 +2522,12 @@ function slSec(c) {
   const stripe = `style="--cc:${SL_STRIPE[c.id] || "#3A78C9"}"`, n = c.num ? "Ch. " + c.num : "Extras";
   if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b>Sealed</b></div></div>`;
   const E = slEntries(c), tot = c.items.length, w = c.items.filter(i => atlSeenT(i.t)).length;
-  if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>No entries yet</b><small>0 of ${tot}</small></div></div>`;
+  const cnt = state.unlocked[c.id] || w ? `<small>${w} of ${tot}</small>` : "";   // no count until the chapter is revealed or one of its titles is watched
+  if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>No entries yet</b>${cnt}</div></div>`;
   const open = slOpen === c.id, L = DOSSIERS[c.id];
   const body = !open ? "" : `<div class="sl-body"><ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
     ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
-  return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b><small>${w} of ${tot}</small>${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
+  return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt}${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
 }
 // fold a chapter open or shut: only it and the one it replaces are redrawn, and the one you tapped stays put on screen
 function slFold(el, h) {
