@@ -837,6 +837,13 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-zoom button{ width:36px; height:36px; border:1px solid #26314A; border-radius:10px; background:rgba(13,19,32,.88); color:#BFD3F0; font:17px/1 'Share Tech Mono','Courier New',monospace; cursor:pointer; touch-action:manipulation; }
 .atl-zoom button[data-atlz="0"]{ font-size:10px; letter-spacing:1px; text-transform:uppercase; }
 .atl-low{ position:relative; flex:1; min-height:0; border-top:1px solid #1C2538; }
+/* pull the list down and the map takes most of the screen; the grip brings it back */
+.atl-grip{ position:absolute; left:0; right:0; top:0; z-index:3; height:16px; padding:0; border:0; background:transparent; cursor:pointer; touch-action:none; }
+.atl-grip::before{ content:""; position:absolute; left:50%; top:6px; width:38px; height:4px; margin-left:-19px; border-radius:2px; background:#2E3A52; }
+.atl-grip span{ display:none; }
+.atl.big .atl-grip{ height:100%; } .atl.big .atl-grip span{ display:block; margin-top:16px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; text-align:center; }
+.atl.big .atl-list{ visibility:hidden; }
+.atl-list{ padding-top:14px; }
 .atl-list, .atl-sheet{ position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding:6px 16px calc(28px + env(safe-area-inset-bottom,0px)); }
 .atl-sheet{ padding-top:14px; background:#0B1019; animation:atlup .22s ease-out; }
 @keyframes atlup{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
@@ -2747,6 +2754,7 @@ function atlSelect(map, id, fromList) {
   if (p.city) { haptic(10); atlSwitch("city", p.city); return; }   // places with a city map open straight into it
   if (p.uni) { haptic(10); atlSwitch("uni", p.uni); return; }      // and other universes open their own map
   haptic(10); atlSel = id; sh.innerHTML = atlSheet(p); sh.hidden = false; sh.scrollTop = 0;
+  if (atlBig) { atlSize(false, true); atlBigBack = true; }
   map.querySelectorAll(".atl-pin").forEach(b => b.classList.toggle("sel", b.dataset.p === id));
   const pin = map._pins.find(q => q.id === id), H = map.clientHeight, W = map.clientWidth; if (!pin) return;
   if (fromList || pin.sy < 24 || pin.sy > H - 24 || pin.sx < 24 || pin.sx > W - 60) {   // from the list, fly to it; close in on a crowded Earth
@@ -2755,6 +2763,7 @@ function atlSelect(map, id, fromList) {
 }
 function atlClose(map) {
   atlSel = null; const sh = document.querySelector(".atl-low .atl-sheet"); if (sh) sh.hidden = true;
+  if (atlBigBack) { atlBigBack = false; atlSize(true); }
   map.querySelectorAll(".atl-pin.sel").forEach(b => b.classList.remove("sel")); atlQueue();
 }
 const ATL_GROUPS = {
@@ -2777,6 +2786,18 @@ function atlSwitch(v, id) {
   if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("No data yet. Keep watching to chart it.", null, false, null, 1500); return; }
   atlView = v; atlCity = v === "city" ? id : null; atlUni = v === "uni" ? id : null; atlSel = null; renderAtlas();
 }
+let atlBig = false, atlBigBack = false;
+function atlSize(big, keep) {   // keep: shrink for a place's sheet without forgetting the map was big
+  const map = document.getElementById("atlMap"), at = document.querySelector("#atlView .atl"); if (!map || !map._baseH) return;
+  if (!keep) { atlBig = big; atlBigBack = false; } haptic(8);
+  // grow the map and zoom in with it, so the extra room fills with map instead of empty sea; shrinking goes back to the zoom you had
+  const W = map.clientWidth, H0 = map.clientHeight, T0 = { ...atlT }, cx = T0.x + W / 2 / T0.k, cy = T0.y + H0 / 2 / T0.k, b = atlBounds();
+  const k1 = big ? Math.min(atlKs(map).max, Math.max(T0.k, map._bigH / (b[3] - b[1]))) : (map._preK || T0.k); if (big) map._preK = T0.k;
+  map.style.transition = REDUCED ? "" : "height .32s cubic-bezier(.3,.8,.3,1)"; map.style.height = (big ? map._bigH : map._baseH) + "px"; at.classList.toggle("big", big);
+  const t0 = performance.now(), D = REDUCED ? 1 : 340, step = () => { if (!atlT) return; const e = easeIO(clamp01((performance.now() - t0) / D)), k = T0.k + (k1 - T0.k) * e, H = map.clientHeight;
+    atlT = atlClamp(map, { k, x: cx - W / 2 / k, y: cy - H / 2 / k }); atlTs[atlKey()] = atlT; atlDraw(); if (e < 1) requestAnimationFrame(step); else map.style.transition = ""; };
+  requestAnimationFrame(step);
+}
 function renderAtlas() {
   const fv = document.getElementById("atlView"), city = atlView === "city", uni = atlView === "uni", geo = atlGeo();
   document.getElementById("atlTabs").innerHTML = ATL_VIEWS.map(([v, l]) => { const o = atlOpenV(v), on = v === atlView || (city && v === "earth") || (uni && v === "multi");
@@ -2785,11 +2806,17 @@ function renderAtlas() {
     <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : uni ? `<button type="button" class="atl-crumb" data-atlv="multi"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Multiverse</button><span class="atl-cname">${esc(ATLAS_UNI[atlUni].n)}</span>` : ""}</div>
     <div class="atl-map${geo[0] === "sky" ? " sky " + atlView : uni ? " uni" : ""}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
       <div class="atl-zoom"><button type="button" data-atlz="1" aria-label="Zoom in">+</button><button type="button" data-atlz="-1" aria-label="Zoom out">−</button><button type="button" data-atlz="0" aria-label="Show everything">Fit</button></div></div>
-    <div class="atl-low"><div class="atl-list">${atlList()}</div><div class="atl-sheet" hidden></div></div></div>`;
+    <div class="atl-low"><button type="button" class="atl-grip" aria-label="Resize the map"><span>Places &#9652;</span></button><div class="atl-list">${atlList()}</div><div class="atl-sheet" hidden></div></div></div>`;
   const map = document.getElementById("atlMap"), W = fv.clientWidth, room = fv.clientHeight - fv.querySelector(".atl-head").offsetHeight;
   const want = geo[0] === "earth" ? Math.round(133 * W / 360) + 24 : geo[0] === "city" ? Math.round(W * atlCityGeo(geo[1]).h / 1000) : Math.round(W * .92);
-  map.style.height = Math.max(200, Math.min(room - 150, want)) + "px";
-  fv.querySelector(".atl-low").addEventListener("click", ev => {
+  map._baseH = Math.max(200, Math.min(room - 150, want)); map._bigH = Math.max(map._baseH, room - 46);
+  map.style.height = (atlBig ? map._bigH : map._baseH) + "px"; fv.querySelector(".atl").classList.toggle("big", atlBig);
+  const low = fv.querySelector(".atl-low"), list = low.querySelector(".atl-list"); let pull = null;
+  low.addEventListener("touchstart", ev => { const sh = low.querySelector(".atl-sheet"); pull = sh.hidden && (atlBig || list.scrollTop <= 0) ? ev.touches[0].clientY : null; }, { passive: true });
+  low.addEventListener("touchmove", ev => { if (pull === null) return; const dy = ev.touches[0].clientY - pull;
+    if (!atlBig && dy > 46) { pull = null; atlSize(true); } else if (atlBig && dy < -24) { pull = null; atlSize(false); } }, { passive: true });
+  low.addEventListener("click", ev => {
+    if (ev.target.closest(".atl-grip")) { atlSize(!atlBig); return; }
     if (ev.target.closest(".atl-x")) { haptic(8); atlClose(map); return; }
     if (ev.target.closest(".atl-coll")) { haptic(12); openColl(); return; }
     const go = ev.target.closest("[data-city]"); if (go) { haptic(10); atlSwitch("city", go.dataset.city); return; }
@@ -2805,7 +2832,9 @@ function renderAtlas() {
   // hold a place for its egg: Midtown in New York, New Mexico, Sokovia, Titan, Celestial Island. In the Multiverse, an Earth you hold lifts off and can be dropped on another
   let battleT = 0, battleHeld = false, grab = null;
   const ATL_HOLD = { "city:Midtown": () => atlCity === "ny" && atlBattle(map), "earth:nm": () => atlBifrost(map), "earth:sokovia": () => atlSokovia(map), "cosmos:titan": () => atlMoon(map), "earth:indianocean": () => atlSeenT("Eternals") && atlTiamut(map) };
-  map.addEventListener("pointerdown", ev => { battleHeld = false; clearTimeout(battleT); const pin = ev.target.closest(".atl-pin"); if (!pin) return;
+  map.addEventListener("pointerdown", ev => { battleHeld = false; clearTimeout(battleT); const pin = ev.target.closest(".atl-pin");
+    if (!pin) { if (atlView === "cosmos" && !ev.target.closest(".atl-zoom")) { const [x, y] = local(ev.clientX, ev.clientY);
+      battleT = setTimeout(() => { if (!moved && ptr.size === 1) { battleHeld = true; haptic(12); atlJump(map, x, y); } }, 650); } return; }
     const fn = ATL_HOLD[atlView + ":" + pin.dataset.p];
     if (fn) battleT = setTimeout(() => { if (!moved && ptr.size === 1) { battleHeld = true; haptic(12); fn(); } }, 650);
     else if (atlView === "multi" && !atlFxOn && atlSeenT("Doctor Strange in the Multiverse of Madness")) battleT = setTimeout(() => { if (!moved && ptr.size === 1) { const p = atlPinAt(map, pin.dataset.p); if (!p) return; battleHeld = true; haptic(20); grab = { p, x0: p.sx, y0: p.sy }; p.el.classList.add("grab"); } }, 550);
@@ -2854,7 +2883,7 @@ function atlForget() {
 }
 function openAtlas() {
   atlForget();
-  atlView = "earth"; atlCity = null; atlUni = null;   // the Atlas always opens on Earth
+  atlView = "earth"; atlCity = null; atlUni = null; atlBig = false; atlBigBack = false;   // the Atlas always opens on Earth, at its usual size
   document.getElementById("atlasPanel").hidden = false; atlOpen = true; document.body.style.overflow = "hidden"; renderAtlas();
   pushNav("atlas"); document.getElementById("atlBack").focus({ preventScroll: true });
 }
@@ -5284,6 +5313,7 @@ const EGGS = [
   ["sokovia", "Sokovia", "A city in the sky.", "In the Atlas, hold Sokovia.", 1],
   ["titanmoon", "All that for a drop of blood", "Thanos has a moon to throw.", "In the Atlas cosmos, hold Titan.", 1],
   ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas cosmos, tap Knowhere and visit the Collector.", 1],
+  ["jumppoint", "Jump point", "Space is big. Take a shortcut.", "In the Atlas cosmos, hold an empty patch of space.", 1],
   ["goose", "Not a cat", "Fury's favorite.", "In Captain Marvel's profile, tap Goose.", 1],
   ["decrypt", "Decrypted", "The Kree left something out.", "In Comms, hold the blacked-out words in the Kree intercept.", 1],
   ["tiamut", "Emergence", "Something is waking in the Indian Ocean.", "After Eternals, in the Atlas, hold Celestial Island.", 2],
@@ -6342,6 +6372,50 @@ function atlLayer(map, p) {
   return { cv, g, W, H, X: p ? p.sx : 0, Y: p ? p.sy : 0, at, dpr };
 }
 const atlPinAt = (map, id) => (map._pins || []).find(p => p.id === id);
+// a point on the map that stays put while you pan and zoom, for effects that don't start on a pin
+const atlAnchor = (wx, wy) => ({ get sx() { return (wx - atlT.x) * atlT.k; }, get sy() { return (wy - atlT.y) * atlT.k; } });
+/* ---------- Cosmos: hold an empty patch of space. A jump point opens, hexagonal, with lightning running through a honeycomb around it;
+   a little holographic dot flies out, loops around, and jumps through a second one that opens across the map ---------- */
+function atlJump(map, sx, sy) {
+  if (atlFxOn) return; if (REDUCED) { found("jumppoint"); return; } atlFxOn = true;
+  const A = atlAnchor(atlT.x + sx / atlT.k, atlT.y + sy / atlT.k), { cv, g, W, H, at } = atlLayer(map, A), T = 5200;
+  // the far jump point: somewhere else on the map, well inside its edges
+  let bx = 0, by = 0; for (let k = 0; k < 20; k++) { const a = Math.random() * Math.PI * 2, d = 110 + Math.random() * 50; bx = Math.cos(a) * d; by = Math.sin(a) * d; if (sx + bx > 30 && sx + bx < W - 60 && sy + by > 30 && sy + by < H - 30 && !(map._pins || []).some(q => Math.hypot(q.sx - sx - bx, q.sy - sy - by) < 40)) break; }
+  const ang = Math.atan2(by, bx), c1 = [Math.cos(ang + 1.9) * 120, Math.sin(ang + 1.9) * 120], c2 = [bx + Math.cos(ang - 1.3) * 130, by + Math.sin(ang - 1.3) * 130];
+  const path = f => { const u = 1 - f; return [3 * u * u * f * c1[0] + 3 * u * f * f * c2[0] + f * f * f * bx, 3 * u * u * f * c1[1] + 3 * u * f * f * c2[1] + f * f * f * by]; };
+  const C = "143,224,255", V = "190,150,255", trail = [];
+  const hex = (x, y, r) => { g.beginPath(); for (let i = 0; i < 6; i++) { const a = Math.PI / 3 * i; i ? g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r) : g.moveTo(x + Math.cos(a) * r, y + Math.sin(a) * r); } g.closePath(); };
+  const CELLS = [[0, 0]]; for (let i = 0; i < 6; i++) { const a = Math.PI / 6 + Math.PI / 3 * i; CELLS.push([Math.cos(a) * 1.75, Math.sin(a) * 1.75]); } for (let i = 0; i < 12; i++) { const a = Math.PI / 6 * i; CELLS.push([Math.cos(a) * (i % 2 ? 3.03 : 3.5), Math.sin(a) * (i % 2 ? 3.03 : 3.5)]); }
+  const gate = (x, y, o) => {   // o: 0 shut, 1 open
+    if (o <= 0) return; const r = 8 * o;
+    g.globalCompositeOperation = "lighter";
+    const gl = g.createRadialGradient(x, y, 0, x, y, r * 4.5); gl.addColorStop(0, `rgba(${C},${.45 * o})`); gl.addColorStop(1, `rgba(${C},0)`); g.fillStyle = gl; g.fillRect(x - r * 5, y - r * 5, r * 10, r * 10);
+    CELLS.forEach(([u, v], i) => { const far = Math.hypot(u, v), a = clamp01(o * 1.6 - far * .2) * (i ? .35 + .5 * Math.random() : 1); if (a <= 0) return;
+      hex(x + u * r, y + v * r, r * .92); g.strokeStyle = `rgba(${i ? V : C},${a})`; g.lineWidth = i ? .8 : 1.6; g.stroke(); if (!i) { g.fillStyle = `rgba(${C},${.25 * o})`; g.fill(); } });
+    // lightning crawling over the honeycomb
+    for (let k = 0; k < 3; k++) { if (Math.random() < .35) continue; const a0 = Math.random() * Math.PI * 2, r0 = r * (1 + Math.random() * 2.6);
+      g.beginPath(); g.moveTo(x + Math.cos(a0) * r0, y + Math.sin(a0) * r0); let a = a0, rr = r0;
+      for (let n = 0; n < 5; n++) { a += (Math.random() - .3) * .5; rr += (Math.random() - .5) * r * .8; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+      g.strokeStyle = `rgba(230,240,255,${.8 * o})`; g.lineWidth = .9; g.stroke(); }
+    g.globalCompositeOperation = "source-over";
+  };
+  haptic([15, 30, 15]);
+  fxRun(T, t => {
+    at();
+    const oA = clamp01(t / 600) * (1 - clamp01((t - 1500) / 500)), oB = clamp01((t - 3300) / 500) * (1 - clamp01((t - 4500) / 500)), f = clamp01((t - 700) / 3300), fe = easeIO(f);
+    gate(0, 0, oA); gate(bx, by, oB);
+    if (t > 700 && t < 4200) {
+      const [x, y] = path(fe), sh = 1 - clamp01((t - 3950) / 250); trail.push([x, y]); if (trail.length > 22) trail.shift();
+      g.globalCompositeOperation = "lighter"; g.lineCap = "round";
+      for (let k = 1; k < trail.length; k++) { const q = k / trail.length; g.strokeStyle = `rgba(${C},${.5 * q * sh})`; g.lineWidth = .6 + q * 1.6; g.beginPath(); g.moveTo(...trail[k - 1]); g.lineTo(...trail[k]); g.stroke(); }
+      const dg = g.createRadialGradient(x, y, 0, x, y, 7); dg.addColorStop(0, `rgba(255,255,255,${sh})`); dg.addColorStop(.35, `rgba(${C},${.9 * sh})`); dg.addColorStop(1, `rgba(${C},0)`); g.fillStyle = dg; g.fillRect(x - 8, y - 8, 16, 16);
+      g.globalCompositeOperation = "source-over";
+    }
+    // a flash as it jumps through
+    const fl = clamp01((t - 4150) / 120) * (1 - clamp01((t - 4270) / 380)); if (fl > 0) { g.globalCompositeOperation = "lighter"; const fg = g.createRadialGradient(bx, by, 0, bx, by, 26); fg.addColorStop(0, `rgba(255,255,255,${fl})`); fg.addColorStop(1, `rgba(${C},0)`); g.fillStyle = fg; g.fillRect(bx - 28, by - 28, 56, 56); g.globalCompositeOperation = "source-over"; }
+  }, () => { cv.remove(); atlFxOn = false; found("jumppoint"); });
+  setTimeout(() => haptic(10), 700); setTimeout(() => haptic([10, 20, 10]), 3300); setTimeout(() => haptic([20, 30, 50]), 4150);
+}
 let atlFxOn = false;
 // New Mexico: the Bifrost strikes and burns its rune circle into the ground
 function atlBifrost(map) {
