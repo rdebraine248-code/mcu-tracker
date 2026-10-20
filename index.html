@@ -5768,12 +5768,14 @@ function ratePill(t) {
 function rateSheet(t, note) {
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
   el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Your log: " + tn(t));
+  // the panel is built once, so redrawing its fields doesn't replay its slide-up
+  const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
   const draw = () => { const R = rateOf(t), n = R.n || (atlSeenT(t) ? 1 : 0);
-    el.innerHTML = `<div class="rs-in"><div class="rs-grip" aria-hidden="true"></div><small>Your log</small><h4>${tnh(t)}</h4>
+    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><small>Your log</small><h4>${tnh(t)}</h4>
       <div class="rs-f"><span>Rating</span><span class="rs-stars">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rss="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= (R.r || 0), 30)}</button>`).join("")}</span></div>
       <div class="rs-f"><span>Watched</span><label class="rs-date">${rateDate(t) ? esc(showDate(rateDate(t))) : "Add date"}<input type="date" value="${esc(rateDate(t))}" aria-label="Date watched"></label></div>
       <div class="rs-f"><span>Times</span><span class="rs-cnt"><button type="button" data-rsc="-1" aria-label="One fewer">&minus;</button><b>${n}</b><button type="button" data-rsc="1" aria-label="One more">+</button></span></div>
-      <div class="rs-f rs-note"><span>Note</span><textarea maxlength="600" placeholder="Anything you want to remember">${esc(R.note || "")}</textarea></div></div>`; };
+      <div class="rs-f rs-note"><span>Note</span><textarea maxlength="600" placeholder="Anything you want to remember">${esc(R.note || "")}</textarea></div>`; };
   draw(); document.body.appendChild(el);
   try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
   if (note) { const ta = el.querySelector("textarea"); if (ta) ta.focus(); }
@@ -5789,7 +5791,10 @@ function rateSheet(t, note) {
   let y0 = null; el.addEventListener("touchstart", ev => { y0 = ev.target.closest(".rs-grip, small, h4") ? ev.touches[0].clientY : null; }, { passive: true });
   el.addEventListener("touchmove", ev => { if (y0 !== null && ev.touches[0].clientY - y0 > 60) { y0 = null; close(); } }, { passive: true });
 }
-function refreshRates() { if (fileOpen) { const fv = document.getElementById("fileView"), y = fv.scrollTop; renderFile(); fv.scrollTop = y; } }
+// swap in only the ratings parts of the Hero File, so nothing else on it replays while you rate
+function refreshRates() { if (!fileOpen) return; const fv = document.getElementById("fileView"), sec = fv && fv.querySelector(".hf-rate"), dl = fv && fv.querySelector(".hf-rows");
+  if (sec) sec.outerHTML = rateSec();
+  if (dl) { dl.querySelectorAll("[data-rr]").forEach(d => d.remove()); dl.insertAdjacentHTML("beforeend", rateRows()); } }
 // the Personal log section: a page per Act, a cell per chapter. A chapter opens once you've watched any of its titles in any list,
 // and only ever lists what you've watched; its name shows once it's unlocked or finished. The Extras stay sealed until they're revealed
 let rPg = 0, rOpen = null;
@@ -5797,8 +5802,8 @@ let rPg = 0, rOpen = null;
 function rateRows() {
   const all = Object.keys(state.rate || {}).filter(t => rateOf(t).r); if (!all.length) return "";
   const lt = rateLatest();
-  return `<div><dt>Rated</dt><dd>${all.length} title${all.length > 1 ? "s" : ""}</dd></div><div><dt>Assessment</dt><dd>&#9733; ${rateAvg(all)} overall</dd></div>`
-    + (lt ? `<div><dt>Latest</dt><dd><button type="button" class="hf-rlast" data-rt="${esc(lt)}">${tnh(lt)} · ${rateOf(lt).r}/5</button></dd></div>` : "");
+  return `<div data-rr><dt>Rated</dt><dd>${all.length} title${all.length > 1 ? "s" : ""}</dd></div><div data-rr><dt>Assessment</dt><dd>&#9733; ${rateAvg(all)} overall</dd></div>`
+    + (lt ? `<div data-rr><dt>Latest</dt><dd><button type="button" class="hf-rlast" data-rt="${esc(lt)}">${tnh(lt)} · ${rateOf(lt).r}/5</button></dd></div>` : "");
 }
 function rateSec() {
   const all = Object.keys(state.rate || {}).filter(t => rateOf(t).r), avg = rateAvg(all), A = SL_ACTS[rPg], chs = DATA.chapters.filter(A[3]);
