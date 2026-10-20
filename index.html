@@ -556,6 +556,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .tile .tdot{ position:absolute; top:9px; right:9px; z-index:6; width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px rgba(10,14,22,.55), 0 0 7px #5FD0FF; pointer-events:none; }
 .dbtn.nw::after, .dock button.nw::after{ content:""; position:absolute; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .dbtn.nw::after{ top:-4px; right:-4px; }
+.hf-ava.nw::after{ content:""; position:absolute; top:7px; right:7px; z-index:2; width:9px; height:9px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; }
+.hf-pickg button.nw{ position:relative; } .hf-pickg button.nw::after{ content:""; position:absolute; top:6px; right:calc(50% - 30px); width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; }
 .dock button.nw::after{ top:7px; left:calc(50% + 10px); }
 .dbtn{ border:1.5px solid currentColor; background:transparent; border-radius:4px; padding:7px 12px; font:400 12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .fx-mk-host{ position:relative; }
@@ -2864,7 +2866,7 @@ function atlCityGeo(id) {
 // what kind of map is on screen: the Earth, a city close-up, or open sky. Another universe uses an Earth or a city map of its own
 const atlGeo = () => atlView === "earth" ? ["earth"] : atlView === "city" ? ["city", atlCity] : atlView === "uni" ? (ATLAS_UNI[atlUni].map === "earth" ? ["earth"] : ["city", ATLAS_UNI[atlUni].map]) : ["sky"];
 const atlKey = () => atlView === "city" ? "city:" + atlCity : atlView === "uni" ? "uni:" + atlUni : atlView;
-const atlBounds = () => { const g = atlGeo(); return g[0] === "earth" ? [0, 15, 360, 148] : g[0] === "city" ? [0, 0, 1000, atlCityGeo(g[1]).h] : atlView === "incursions" ? [0, 0, 1000, Math.max(1000, ...ATLAS.incursions.map(q => q.at[1] + 70))] : [0, 0, 1000, 1000]; };
+const atlBounds = () => { const g = atlGeo(); return g[0] === "earth" ? [0, 15, 360, 148] : g[0] === "city" ? [0, 0, 1000, atlCityGeo(g[1]).h] : atlView === "incursions" ? [0, 0, 1000, Math.max(1000, ...atlIncLit().map(q => atlIncAt(q)[1] + 70))] : [0, 0, 1000, 1000]; };
 function atlPlaces(view = atlView, sub = view === "city" ? atlCity : atlUni) {   // what can be pinned in the view you're looking at (or another one)
   if (view === "uni") return ATLAS_UNI[sub].places;
   if (view !== "city") return ATLAS[view];
@@ -2872,7 +2874,10 @@ function atlPlaces(view = atlView, sub = view === "city" ? atlCity : atlUni) {  
   host.e.forEach(e => { const k = atlSpot(e[1]) || G.C.n; (spots[k] = spots[k] || { id: k, n: k, r: G.C.n, at: G.C.spots[k] || [(G.C.b[1] + G.C.b[3]) / 2, (G.C.b[0] + G.C.b[2]) / 2], e: [] }).e.push(e); });
   return Object.values(spots);
 }
-const atlXY = p => { const g = atlGeo(); return g[0] === "earth" ? [p.at[1] + 180, 90 - p.at[0]] : g[0] === "city" ? atlCityGeo(g[1]).xy(p.at[0], p.at[1]) : p.at; };
+const atlXY = p => { const g = atlGeo(); return g[0] === "earth" ? [p.at[1] + 180, 90 - p.at[0]] : g[0] === "city" ? atlCityGeo(g[1]).xy(p.at[0], p.at[1]) : atlView === "incursions" && !g[1] ? atlIncAt(p) : p.at; };
+// the incursions wall shows a screen only for each Earth you've watched go, packed in order, two to a row
+const atlIncLit = () => ATLAS.incursions.filter(q => atlLit(q));
+const atlIncAt = p => { const i = Math.max(0, atlIncLit().indexOf(p)); return [i % 2 ? 540 : 60, 48 + Math.floor(i / 2) * 88]; };
 function atlLand() {   // a coastline that crosses the date line is cut there and closed along the map's edge
   if (atlPath) return atlPath; const P = new Path2D();
   LAND.split(";").forEach(r => { const a = r.split(",").map(Number), pts = []; let x = 0, y = 0;
@@ -2952,8 +2957,9 @@ function atlDraw() {
   } else {
     const c = atlView === "cosmos" ? [500, 540] : atlView === "multi" ? [500, 500] : [500, 470], col = atlView === "cosmos" ? "90,140,210" : atlView === "multi" ? "235,185,105" : atlView === "incursions" ? "255,122,69" : "160,130,255";
     if (atlView === "incursions") {   // the TVA's wall of monitors: one screen per lost Earth, dark until you've watched it go
-      atlStars(atlView).forEach(([x, y, s, a]) => { g.fillStyle = `rgba(255,200,170,${a * .6})`; g.fillRect(x, y, s * 1.2 * px, s * 1.2 * px); });
-      ATLAS.incursions.forEach(q => { const [x, y] = q.at, lit = atlLit(q); g.lineWidth = 1.2 * px; g.strokeStyle = `rgba(${col},${lit ? .45 : .14})`; g.fillStyle = `rgba(${col},${lit ? .07 : .025})`;
+      const hgt = atlBounds()[3];   // the stars tile all the way down the wall, however long it grows
+      for (let oy = 0; oy < hgt; oy += 1000) atlStars(atlView).forEach(([x, y, s, a]) => { g.fillStyle = `rgba(255,200,170,${a * .6})`; g.fillRect(x, y + oy, s * 1.2 * px, s * 1.2 * px); });
+      atlIncLit().forEach(q => { const [x, y] = atlIncAt(q); g.lineWidth = 1.2 * px; g.strokeStyle = `rgba(${col},.45)`; g.fillStyle = `rgba(${col},.07)`;
         g.beginPath(); g.roundRect(x - 26, y - 34, 430, 68, 8); g.fill(); g.stroke(); });
       atlPlace(map, W, H); return; }
     atlStars(atlView).forEach(([x, y, s, a]) => { g.fillStyle = `rgba(210,225,255,${a})`; g.fillRect(x, y, s * 1.4 * px, s * 1.4 * px); });
@@ -5861,7 +5867,7 @@ function renderFile(fresh) {
   const sect = (key, title, mini) => open[key] ? part(key, title, mini) : "";
   const fv = document.getElementById("fileView"); fv.className = "fileview"; if (fresh) fv.replaceChildren();
   swapIn(fv, `
-    <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button><div class="hf-tag">Avengers Initiative · Agent ID</div>
+    <div class="hf-head hf-id"><button type="button" class="hf-ava${embNew().length ? " nw" : ""}" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button><div class="hf-tag">Avengers Initiative · Agent ID</div>
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
       <dl class="hf-rows"><div><dt>Clearance</dt><dd>Level ${level} of 10</dd></div><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
@@ -5885,21 +5891,25 @@ const EMB_UNLOCK = {"avengers": ["The Avengers"], "arc": ["Iron Man", "Iron Man 
 const EMB_HINT = {"avengers": "Unlocks after The Avengers.", "arc": "Unlocks after any Iron Man film.", "shield": "Unlocks after any Captain America film.", "mjolnir": "Unlocks after any Thor film.", "hourglass": "Unlocks after Black Widow.", "hawkeye": "Unlocks after Hawkeye.", "gamma": "Unlocks after The Incredible Hulk.", "hala": "Unlocks after Captain Marvel or The Marvels.", "antman": "Unlocks after any Ant-Man film.", "starlord": "Unlocks after any Guardians of the Galaxy title.", "spider": "Unlocks after any Spider-Man film of the Sacred Timeline.", "claws": "Unlocks after Black Panther, Wakanda Forever or Eyes of Wakanda.", "agamotto": "Unlocks after either Doctor Strange film.", "mind": "Unlocks after WandaVision or VisionQuest.", "redstar": "Unlocks after The Falcon and the Winter Soldier.", "loki": "Unlocks after either season of Loki.", "bolt": "Unlocks after Thunderbolts*.", "four": "Unlocks after The Fantastic Four: First Steps.", "dd": "Unlocks after any season of Daredevil.", "rings": "Unlocks after Shang-Chi and the Legend of the Ten Rings.", "kamala": "Unlocks after Ms. Marvel.", "defenders": "Unlocks after The Defenders.", "skull": "Unlocks after any Punisher title.", "eternals": "Unlocks after Eternals.", "moon": "Unlocks after Moon Knight.", "bloodstone": "Unlocks after Werewolf by Night.", "watcher": "Unlocks after What If...?", "verse": "Unlocks after any Sony Spider-Man film.", "xmen": "Unlocks after any FoX-Men film.", "tva": "Unlocks after any Pruned Timelines title.", "incursion": "Unlocks when the Incursions begin."};
 const embWon = k => k === "incursion" ? incOpen() : k === "tva" ? DATA.chapters.find(c => c.id === "ch-pruned-timelines").items.some(i => atlSeenT(i.t)) : !EMB_UNLOCK[k] || EMB_UNLOCK[k].some(atlSeenT);
 const embOpen = k => k === state.avatar || !!(state.embOpen || {})[k] || embWon(k);
+// a newly unlocked insignia carries a blue dot (on the File button, your profile picture and in the picker) until you've seen it there;
+// the first time this runs, whatever is already open counts as seen
+const embNew = () => { if (!state.embSeen) state.embSeen = Object.fromEntries(Object.keys(EMBLEMS).filter(embOpen).map(k => [k, 1])); return Object.keys(EMBLEMS).filter(k => embOpen(k) && !state.embSeen[k]); };
 // a locked one: tap it 5 times for its name, 5 more for what unlocks it
 const embTaps = {};
-const embCell = k => embOpen(k) ? `<button type="button" data-ava="${k}" aria-pressed="${state.avatar === k}"><span class="hf-avr">${embHTML(k)}</span><small>${esc(EMBLEM_NAMES[k])}</small></button>`
+const embCell = k => embOpen(k) ? `<button type="button" data-ava="${k}"${(state.embSeen || {})[k] ? "" : ' class="nw"'} aria-pressed="${state.avatar === k}"><span class="hf-avr">${embHTML(k)}</span><small>${esc(EMBLEM_NAMES[k])}</small></button>`
   : `<button type="button" class="lk" data-lk="${k}" aria-label="Locked insignia"><span class="hf-avr"><b>?</b></span><small>${(embTaps[k] || 0) >= 5 ? esc(EMBLEM_NAMES[k]) : "???"}</small></button>`;
 function avaPick() {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) { pk.remove(); return; }
   pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Choose your profile picture");
   pk.innerHTML = `<div class="hf-pickin"><div class="hf-pickh"><span>Profile picture</span><button type="button" data-ava-x aria-label="Close">&times;</button></div><div class="hf-pickg">${Object.keys(EMBLEMS).map(embCell).join("")}</div></div>`;
   fp.appendChild(pk); haptic(8); hfPickNav();
+  embNew().forEach(k => { state.embSeen[k] = 1; }); persist(); { const av = document.getElementById("hfAva"); if (av) av.classList.remove("nw"); }   // seen now: the dots in the picker stay until it closes
   pk.addEventListener("click", ev => { const b = ev.target.closest("[data-ava]"); if (b) { state.avatar = b.dataset.ava; persist(); haptic(12); hfPickClose(); renderFile(); return; }
     const l = ev.target.closest("[data-lk]");
     if (l) { const k = l.dataset.lk, n = embTaps[k] = (embTaps[k] || 0) + 1; haptic(n === 5 ? 14 : 6);
       if (n === 5) l.outerHTML = embCell(k);   // the name comes through
       if (n >= 10) { embTaps[k] = 0;
-        ask(EMB_HINT[k], "Unlock anyway", "Hide").then(ok => { if (ok) { (state.embOpen = state.embOpen || {})[k] = 1; persist(); haptic(12); }
+        ask(EMB_HINT[k], "Unlock anyway", "Hide").then(ok => { if (ok) { (state.embOpen = state.embOpen || {})[k] = 1; embNew(); state.embSeen[k] = 1; persist(); haptic(12); }
           const c = pk.querySelector(`[data-lk="${CSS.escape(k)}"]`); if (c) c.outerHTML = embCell(k); }); }
       return; }
     if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
@@ -5968,7 +5978,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "embOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7339,7 +7349,7 @@ function newDots() {
       atlas: Object.keys(ATLAS).some(v => atlOpenV(v) && atlNew(v)),
       map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
       comms: CM_CHANS.some(([k]) => k && cnt(M0, cmChan, k) > (cm["msg:" + k] || 0)) || CM_OUTLETS.some(([k]) => k && cnt(T0, newsSrc, k) > (cm["news:" + k] || 0)),
-      file: n > state.hfSeen };
+      file: n > state.hfSeen || embNew().length > 0 };
     document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
     const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", logUnread(openEntry.id));
   } catch (e) {}
