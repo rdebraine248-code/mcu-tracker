@@ -1334,7 +1334,9 @@ const tk = t => (REL_MODE() ? "tr::" : "tl::") + t;
 const branched = () => !!state.checks[tk("Loki S1")];
 // the Sacred Timeline folds away just after your next title on it, and opens out with a button; the branch timelines are extras you can
 // watch whenever, so they carry on all the way down regardless. -1 when it's open (or there's nothing left to fold)
-const tlFoldAt = all => { if (state.tlOpen && !all) return -1; const X = TLX(), i = X.findIndex(e => e.lane === "main" && !state.checks[tk(e.t)]); return i >= 0 && X.slice(i + 1).some(e => e.lane === "main") ? i : -1; };
+// each order keeps its own Reveal / Hide
+const TL_OPEN = () => REL_MODE() ? "trOpen" : "tlOpen";
+const tlFoldAt = all => { if (state[TL_OPEN()] && !all) return -1; const X = TLX(), i = X.findIndex(e => e.lane === "main" && !state.checks[tk(e.t)]); return i >= 0 && X.slice(i + 1).some(e => e.lane === "main") ? i : -1; };
 let growNext = false;
 let tlFocus = null; // which timeline is in focus (from the key), if any
 // the focused timeline, when it is showing on a timeline page; the meter and Up next follow it
@@ -1418,7 +1420,7 @@ function renderTimeline(v) {
       return `<span class="ld${show ? " off" : ""}">${before}</span><span class="ld${show ? "" : " off"}">${after}</span>`;
     })()}</p>
     <div class="legend" role="group" aria-label="Focus on one timeline">${legendKeys.map(k => `<button type="button" class="lg${keyHidden(k) ? " kh" : ""}${prunedLanes[k] ? " cut" : ""}" data-focus-lane="${k}" aria-pressed="${tlFocus === k}"${keyHidden(k) ? ' tabindex="-1" aria-hidden="true"' : ""}><i style="background:${LANES[k].c}"></i>${LANES[k].name}</button>`).join("")}</div>
-    <ol class="tl-list">${(() => { const F = tlFoldAt(true), open = !!state.tlOpen, SPLIT = splitOf();
+    <ol class="tl-list">${(() => { const F = tlFoldAt(true), open = !!state[TL_OPEN()], SPLIT = splitOf();
       // one button, just after your next title on the Sacred Timeline: Reveal carries the line on down, Hide folds it away again there;
       // the branch lines run on through it either way
       const lanes = show && F >= SPLIT ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
@@ -1906,7 +1908,7 @@ document.getElementById("view").addEventListener("click", ev => {
   }
   const fb = ev.target.closest("[data-tlfold]");
   if (fb) {   // open the Sacred Timeline out, or fold it back to where you are on it
-    haptic(10); const open = fb.dataset.tlfold === "open"; if (open) state.tlOpen = true; else delete state.tlOpen; persist();
+    haptic(10); const open = fb.dataset.tlfold === "open"; if (open) state[TL_OPEN()] = true; else delete state[TL_OPEN()]; persist();
     const y = window.scrollY; renderView(); window.scrollTo(0, y);
     return;
   }
@@ -6012,7 +6014,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "tlOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
