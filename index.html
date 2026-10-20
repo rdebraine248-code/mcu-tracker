@@ -8837,7 +8837,9 @@ function mapData(hide) {   // every line runs as far as you've watched, anywhere
 }
 function mapHide() {
   const fromCh = c => { const ch = DATA.chapters.find(x => x.id === MV_CHAPTER[c.id]); return !!ch && c.items.some(i => ch.items.some(j => j.t === i.t) && atlSeenT(i.t)); };
-  return new Set(DATA.chars.map((c, i) => c.id === "cx-incursions" || charHidden(c) && !fromCh(c) ? i : -1).filter(i => i >= 0));
+  // and a character's path stays off the map until you've watched the first title on it, so a new datapad opens on a blank map
+  const lit = i => DATA.map.cols.some(c => c.m.includes(i) && atlSeenT(c.t));
+  return new Set(DATA.chars.map((c, i) => c.id === "cx-incursions" || charHidden(c) && !fromCh(c) || !lit(i) ? i : -1).filter(i => i >= 0));
 }
 function openMap() {
   // a multiverse character's line shows once their box is revealed, or once you've watched any of their titles from their Extras chapter
