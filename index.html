@@ -130,9 +130,9 @@ button{ font:inherit; color:inherit; }
 .tile .prog{ display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500; }
 .tile .pbar{ flex:1; height:4px; border-radius:2px; overflow:hidden; }
 .tile .pbar span{ display:block; height:100%; }
-.tile[data-id="ch-incursions"]{ border-width:0 !important; padding:16px 18px 15px !important; }
-/* the Incursions' orange frame is drawn inside the box, under its cover, so the cover peels it into view with everything else (a real border sits outside the cover's reach) */
-.tile[data-id="ch-incursions"]::after{ content:""; position:absolute; inset:0; z-index:4; border:2px solid #E8A33D; border-radius:inherit; pointer-events:none; }
+.tile[data-id="ch-incursions"], .tile[data-id="cx-incursions"]{ border-width:0 !important; padding:16px 18px 15px !important; }
+/* the Incursions' orange frame (the chapter's and the character box's) is drawn inside the box, under its cover, so the cover peels it into view with everything else (a real border sits outside the cover's reach) */
+.tile[data-id="ch-incursions"]::after, .tile[data-id="cx-incursions"]::after{ content:""; position:absolute; inset:0; z-index:4; border:2px solid #E8A33D; border-radius:inherit; pointer-events:none; }
 .cover{ position:absolute; inset:0; z-index:5; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px; padding:14px 16px; overflow:hidden;
         transform-origin:100% 0; transition:transform .7s cubic-bezier(.3,.1,.2,1), opacity .7s ease; }
 .cover .clabel{ position:relative; z-index:2; font-family:Helvetica,Arial,sans-serif; font-weight:600; font-size:26px; letter-spacing:1px; }
