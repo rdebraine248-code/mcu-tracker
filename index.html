@@ -532,6 +532,10 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .plog .dnone{ letter-spacing:.5px; text-transform:none; font-size:14px; font-style:italic; opacity:.6; }
 .plog .dcard p.dwait, .plog .dlog p.dwait{ letter-spacing:0; }
 .dcover[data-q]::after{ content:attr(data-q); } .dcover.on[data-a]::after{ content:attr(data-a); }
+.dbtn{ position:relative; }
+.dbtn.nw::after, .dock button.nw::after{ content:""; position:absolute; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
+.dbtn.nw::after{ top:-4px; right:-4px; }
+.dock button.nw::after{ top:7px; left:calc(50% + 10px); }
 .dbtn{ border:1.5px solid currentColor; background:transparent; border-radius:4px; padding:7px 12px; font:400 12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .fx-mk-host{ position:relative; }
 .fx-mk{ position:absolute; z-index:1; pointer-events:none; background:#0B0B0B; border-radius:2px 3px 2px 4px; box-shadow:0 0 0 1px rgba(11,11,11,.6); }
@@ -1105,12 +1109,14 @@ if (state.watched) { migrate(state.watched); delete state.watched; }
 /* ---------- saving: this device first, then the account copy so phone and computer stay in step ---------- */
 let remoteRef = null, writeTimer = null, writing = Promise.resolve(), lastRemote = "";
 let endgameN = null;   // how many lists have Avengers: Endgame checked; a new check opens the portals
+let dotsT = 0;
 function persist() {
   const eg = Object.keys(state.checks).filter(k => state.checks[k] && k.endsWith("::Avengers: Endgame")).length;
   if (endgameN !== null && eg > endgameN && !state.portalsSeen) { state.portalsSeen = true; setTimeout(portals, 100); }
   endgameN = eg;
   try { if (typeof achList === "function") checkAch(); } catch (e) {}   // after the moments above, so their lines and the Hero File share one pop-up
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  clearTimeout(dotsT); dotsT = setTimeout(newDots, 150);
   if (!remoteRef) return;
   clearTimeout(writeTimer);
   writeTimer = setTimeout(() => {
@@ -1637,7 +1643,7 @@ function renderPanel(e, fresh) {
 
       <div id="pDone">${t && n === t ? `<button type="button" class="complete" id="btnComplete" style="background:${box};color:${tick};border-color:${box}">${CHECK(tick)}Complete</button>` : ""}</div>
     </div>`;
-  guardTele(panel);
+  guardTele(panel); newDots();
   if (!fresh) panel.scrollTop = scrollY;
 }
 // a character box is a run of its own: it shows what you've checked there, plus the one title that's up next.
@@ -5529,6 +5535,17 @@ const FILM_LINES = { "The Avengers": "Have you ever tried shawarma?", "Avengers:
 const MISSION_NAMES = { "The Avengers": "Save New York", "Avengers: Age of Ultron": "Stop Ultron", "Avengers: Infinity War": "Face Thanos", "Avengers: Endgame": "Bring Them Back" };
 const AVENGERS_FILMS = ["The Avengers", "Avengers: Age of Ultron", "Avengers: Infinity War", "Avengers: Endgame", "Avengers: Doomsday", "Avengers: Secret Wars"];
 // "Every page" also wants everything recorded: each log fully played in, each Atlas pin pinged, all of Comms heard, every path drawn
+// a log with something you haven't seen written in yet: a row, an entry, the debrief or a connection that has opened up but hasn't played in
+function logUnread(id) {
+  const SG = id === "saga", D = SG ? SAGA : DOSSIERS[id]; if (!D) return false;
+  const S = (state.dSeen || {})[id] || {}, box = SG ? null : (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id); if (!SG && !box) return false;
+  const here = t => SG ? chRel(t) : !!state.checks[ck(box, t)], open = t => !t || (Array.isArray(t) ? t.every(here) : here(t)), R = D.rows || {};
+  const rows = D.kind === "chapter" ? [R.period] : [R.subjects, R.aliases, R.affiliation, R.status];
+  if (rows.some((v, i) => { if (!Array.isArray(v)) return false; let k = -1; v.forEach((st, j) => { if (open(st[1])) k = j; }); return k >= 0 && !S["r" + i + "." + k]; })) return true;
+  if (D.story.some(([t, x]) => x && open(t) && !S["s:" + t] && !(SG && !state.unlocked[t]))) return true;
+  if (D.kind === "chapter" && D.debrief && open(D.story.filter(([, x]) => x).map(([t]) => t)) && !S.d) return true;
+  return (D.links || []).some(([n, r, g], i) => open(g) && !S["l" + i]);
+}
 function logDone(id) {
   const D = id === "saga" ? SAGA : DOSSIERS[id], S = (state.dSeen || {})[id] || {}, R = D.rows || {};
   const rows = (D.kind === "chapter" ? [R.period] : [R.subjects, R.aliases, R.affiliation, R.status]).every((v, i) => !Array.isArray(v) || !v.length || S["r" + i + "." + (v.length - 1)]);
@@ -5677,7 +5694,7 @@ function caseFile(film) {
 const hfPickNav = () => { if (!navAt("hfpick")) try { history.pushState({ mcu: "hfpick" }, ""); } catch (e) {} };
 const hfPickClose = () => { if (navAt("hfpick")) navBack(); else { const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); } };
 let fileTab = "file";
-function openFile() { fileTab = "file"; renderFile(); document.getElementById("filePanel").hidden = false; fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
+function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); renderFile(); document.getElementById("filePanel").hidden = false; fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
 function closeFile(fromHistory) {
   if (!fromHistory && navAt("file")) { navBack(); return; }
   document.getElementById("filePanel").hidden = true; fileOpen = false; document.body.style.overflow = "";
@@ -5701,10 +5718,12 @@ document.getElementById("fileView").addEventListener("click", ev => {
   achTaps[a.id] = (achTaps[a.id] || 0) + 1; haptic(achTaps[a.id] === 10 || achTaps[a.id] === 20 ? [20, 40, 20] : 8);
   if (achTaps[a.id] === 10 || achTaps[a.id] === 20) { const sm = b.querySelector("small"); if (sm) { if (!b.dataset.base) b.dataset.base = sm.textContent; sm.textContent = achTaps[a.id] === 20 ? a.x + " (tap to hide)" : a.h; } }
 });
-try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
+try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}
+// on load, what you'd already charted and earned before the dots existed counts as read, so only what's new from here on gets one
+try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["avatar", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7057,8 +7076,23 @@ try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
 /* ---------- the dock: Story (the watch list), Log, Atlas, Map and File, always one tap away ---------- */
 let commsOpen = false;
+function newDots() {
+  try {
+    const n = achList().filter(a => earned(a.id)).length; if (state.hfSeen == null) state.hfSeen = n;
+    const hide = mapHide(), cm = state.cmSeen || {}, cnt = (L, f, k) => L.filter(x => f(x) === k).length;
+    const M0 = msgSeen().filter(m => (state.msgs || {})[m.t]), T0 = newsTitles().filter(t => NEWS[t].some((h, i) => (state.news || {})[newsKey(t, i)]));
+    const on = {
+      log: logUnread("saga"),
+      atlas: Object.keys(ATLAS).some(v => atlOpenV(v) && atlNew(v)),
+      map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
+      comms: CM_CHANS.some(([k]) => k && cnt(M0, cmChan, k) > (cm["msg:" + k] || 0)) || CM_OUTLETS.some(([k]) => k && cnt(T0, newsSrc, k) > (cm["news:" + k] || 0)),
+      file: n > state.hfSeen };
+    document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
+    const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", logUnread(openEntry.id));
+  } catch (e) {}
+}
 const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : commsOpen ? "comms" : fileOpen ? "file" : "story";
-function dockSync() { const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
+function dockSync() { newDots(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 document.getElementById("dock").addEventListener("click", ev => {
   const b = ev.target.closest("[data-dock]"); if (!b) return; const t = b.dataset.dock, c = dockCur(); haptic(8);
   if (t === c) { if (t === "story") window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); if (t === "atlas" && collOpen) closeColl(); return; }
@@ -8360,7 +8394,7 @@ function resetDatapad() {
     closeFile();
     SAVE_KEYS.forEach(k => { delete state[k]; });   // everything saved goes, your profile picture, codename and recruit date included
     state.checks = {}; state.unlocked = {}; state.seen = {}; state.dusted = {}; state.stones = {}; state.charOpen = {}; state.entered = false;
-    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.atlRead = {}; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
+    state.mode = "chapters"; state.tlMode = "sacred"; delete state.portalsSeen; state.eggs = {}; state.xp = {}; state.sv = {}; state.f4 = {}; state.dSeen = {}; state.achSeen = {}; state.atlas = {}; state.atlRead = {}; delete state.hfSeen; state.news = {}; state.msgs = {}; state.pathT = {}; delete state.pathSeenOnce; delete state.thanosSaid; Object.keys(achTaps).forEach(k => delete achTaps[k]);
     persist();
     // every page goes back to where it starts: top of each screen, Earth in the Atlas, News in Comms, page 1 of Classified
     hfPage = 1; commsTab = "news"; cmPick = { msg: "", news: "" }; collCat = ""; collRec = null; atlView = "earth"; atlCity = null; atlUni = null; atlSel = null;
@@ -8533,10 +8567,13 @@ function mapData(hide) {   // every line runs as far as you've watched, anywhere
   const w = Math.max(cols.length ? cols[cols.length - 1].x : 230, ...rows.map(r => r.nx)) + 140;
   return { w, h: Y(keep.length - 1) + 70, top: M.top, dy: M.dy, rows, cols, years };
 }
+function mapHide() {
+  const fromCh = c => { const ch = DATA.chapters.find(x => x.id === MV_CHAPTER[c.id]); return !!ch && c.items.some(i => ch.items.some(j => j.t === i.t) && atlSeenT(i.t)); };
+  return new Set(DATA.chars.map((c, i) => c.id === "cx-incursions" || charHidden(c) && !fromCh(c) ? i : -1).filter(i => i >= 0));
+}
 function openMap() {
   // a multiverse character's line shows once their box is revealed, or once you've watched any of their titles from their Extras chapter
-  const fromCh = c => { const ch = DATA.chapters.find(x => x.id === MV_CHAPTER[c.id]); return !!ch && c.items.some(i => ch.items.some(j => j.t === i.t) && atlSeenT(i.t)); };
-  const hide = new Set(DATA.chars.map((c, i) => c.id === "cx-incursions" || charHidden(c) && !fromCh(c) ? i : -1).filter(i => i >= 0)), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("");
+  const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("");
   if (!mapBuilt || sig !== mapSig) { MAP = mapData(hide); mapSig = sig; mapFocusI = null; buildMap(); }
   document.getElementById("mapPanel").hidden = false; mapOpen = true; document.body.style.overflow = "hidden";
   pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true }); mapGrow();
