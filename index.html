@@ -70,7 +70,7 @@ button{ font:inherit; color:inherit; }
 .saga .note.open{ color:var(--ink); }
 .tile.shake{ animation:shake .42s ease; }
 @keyframes shake{ 20%{ transform:translateX(-6px); } 40%{ transform:translateX(6px); } 60%{ transform:translateX(-4px); } 80%{ transform:translateX(3px); } }
-.toast{ position:fixed; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,20px); z-index:90; max-width:min(92vw,460px);
+.toast{ touch-action:none; position:fixed; left:50%; bottom:calc(22px + env(safe-area-inset-bottom,0px)); transform:translate(-50%,20px); z-index:90; max-width:min(92vw,460px);
         background:linear-gradient(90deg,#7D4FA8,#3A78C9,#C8443A,#D9822B,#3E9B5C,#D9B32B) top/100% 2px no-repeat, linear-gradient(180deg,#1A2030,#121722); color:#EEF1F6; border:1px solid #3A4458; border-radius:12px; padding:12px 18px; font-size:15px; line-height:1.35; text-align:center;
         opacity:0; pointer-events:none; transition:opacity .75s cubic-bezier(.22,.61,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
 .toast .tq{ display:block; font-family:var(--qf, inherit); font-size:17px; line-height:1.35; text-transform:none; letter-spacing:.2px; }
@@ -676,7 +676,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ach.done{ border-color:#C9A43A; background:linear-gradient(180deg,#1A1A14,#121218); color:#D8CFAE; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
 .ach.done b{ color:#F4D27A; }
 .yavg{ color:#F4C542; font-weight:600; }
-.ratepill{ position:fixed; left:50%; bottom:calc(var(--dockh, 62px) + 66px); z-index:95; display:flex; align-items:center; gap:12px; max-width:calc(100vw - 24px); padding:9px 12px 9px 18px; border:1px solid #2B3F62; border-radius:999px; background:#0E1424; color:#E9EEF7; box-shadow:0 10px 30px rgba(0,0,0,.55); transform:translate(-50%,24px); opacity:0; pointer-events:none; transition:transform .25s ease, opacity .25s ease; }
+.ratepill{ touch-action:none; position:fixed; left:50%; bottom:calc(var(--dockh, 62px) + 66px); z-index:95; display:flex; align-items:center; gap:12px; max-width:calc(100vw - 24px); padding:9px 12px 9px 18px; border:1px solid #2B3F62; border-radius:999px; background:#0E1424; color:#E9EEF7; box-shadow:0 10px 30px rgba(0,0,0,.55); transform:translate(-50%,24px); opacity:0; pointer-events:none; transition:transform .25s ease, opacity .25s ease; }
 .ratepill.show{ transform:translate(-50%,0); opacity:1; pointer-events:auto; }
 .ratepill .rp-t{ min-width:0; } .ratepill small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; }
 .ratepill b{ display:block; max-width:44vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 15px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
@@ -2369,8 +2369,7 @@ function openDossier(id, go) {
   const isCh = D.kind === "chapter", box = SG ? { title: "The Marvel Cinematic Universe", items: DATA.chapters.map(c => ({ t: c.id })) } : (isCh ? DATA.chapters : DATA.chars).find(c => c.id === id), titles = box.items.map(i => i.t);
   const st = D.story.filter(([, x]) => x), done = st.filter(([t]) => open(t)).length, total = st.length, complete = open(titles), rel = st.map(([t]) => t);
   const R = D.rows || {}, ROWS = isCh ? [["Period", R.period], ["Status", null]] : [["Subjects", R.subjects], ["Aliases", R.aliases], ["Affiliation", R.affiliation], ["Status", R.status]];
-  const avg = rateAvg(titles), rowsHtml = ROWS.map(([l, v], i) => `<div class="drow"><dt>${l}</dt><dd>${isCh && l === "Status" ? (complete ? "Complete" : done ? "Recording" : "Not started") : stage("r" + i, v)}</dd></div>`).join("")
-    + (avg ? `<div class="drow"><dt>Your rating</dt><dd><span class="yavg">&#9733; ${avg}</span></dd></div>` : "");
+  const rowsHtml = ROWS.map(([l, v], i) => `<div class="drow"><dt>${l}</dt><dd>${isCh && l === "Status" ? (complete ? "Complete" : done ? "Recording" : "Not started") : stage("r" + i, v)}</dd></div>`).join("");
   // a character or numbered chapter log follows its box: entries you've recorded, plus the one that's up next, and nothing past it
   let upNext = false; const storyList = SG || (isCh && !box.num) || MV_BOXES[id] ? D.story : D.story.filter(([t]) => { if (here(t)) return true; if (upNext) return false; upNext = true; return true; });
   const storyHtml = storyList.map(([t, x]) => {
@@ -2399,7 +2398,7 @@ function openDossier(id, go) {
     el.className = "dossier plog" + (box.cls ? " " + box.cls : "");
     el.setAttribute("style", `${box.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${bc};--sfg:${box.sfg || fg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);--logbg:${bg};--hf:${fontOf(box.h2) || "inherit"}`);
     el.innerHTML = `${panelDecor(box)}<div class="pin">
-      <div class="ptop"><button type="button" class="back" id="dBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span class="ltag">${isCh ? esc(name) + " log" : "Character log"}</span></div>
+      <div class="ptop"><button type="button" class="back" id="dBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span class="ltag">${isCh ? esc(name) + " log" : "Character profile"}</span></div>
       <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${box.titleHtml}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span style="width:${total ? done / total * 100 : 0}%;background:${bc}"></span></div>
       ${rowsDl}
@@ -5769,7 +5768,7 @@ function ratePill(t) {
   el.dataset.t = t; el.setAttribute("aria-label", "Rate " + tn(t));
   el.innerHTML = `<div class="rp-t"><small>Watched</small><b>${tnh(t)}</b></div><div class="rp-s">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(false, 26)}</button>`).join("")}</div><button type="button" class="rp-n" data-rnote aria-label="Add a note">Note</button>`;
   el.classList.remove("show"); void el.offsetWidth; el.classList.add("show");
-  clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 7000);
+  clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 4500);
 }
 // the sheet: stars (tap the same one again to clear them), the day you watched it, how many times, and a note. It saves as you go
 function rateSheet(t, note) {
@@ -5904,7 +5903,8 @@ document.getElementById("fileBack").addEventListener("click", () => { if (docume
 document.getElementById("fileView").addEventListener("click", ev => {
   const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; renderFile(); fv.scrollTop = y; return; }
-  const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; renderFile(); fv.scrollTop = y; return; }
+  const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; renderFile(); fv.scrollTop = y;
+    const L = rOpen && fv.querySelector(".rlist"); if (L) { const r = L.getBoundingClientRect(), vr = fv.getBoundingClientRect(); if (r.bottom > vr.bottom - 8) fv.scrollBy({ top: Math.min(r.bottom - vr.bottom + 16, r.top - vr.top - 70), behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rt = ev.target.closest("[data-rt]"); if (rt) { rateSheet(rt.dataset.rt); return; }
   if (ev.target.closest("#hfAva")) { avaPick(); return; }
   if (ev.target.closest("#hfCode")) { codeEdit(); return; }
