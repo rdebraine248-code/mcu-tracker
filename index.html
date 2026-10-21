@@ -1364,37 +1364,63 @@ function pillSet(el, msg, e, cover, foot, o, fresh) {
 }
 const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
 let hudRun = 0;
+// every news pill opens the same way, whatever else is going on. Something added to the one on screen (a file that rides along) just joins it,
+// in place, without restarting or skipping its opening; a new one arriving while another is up waits for that one to tuck away first.
+// Only the Datapad's instant replies to a tap swap in straight away
 function hudShow(el, p, fresh) {
-  const up = el.classList.contains("show") && el.classList.contains("hud") && !el._closing, run = ++hudRun, h0 = up ? el.offsetHeight : 0;
-  el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false;
+  const shown = el.classList.contains("show") && el.classList.contains("hud");
+  if (!fresh && shown) { hudUpdate(el, p); return; }
+  if (fresh && shown && !p.quick && !REDUCED) {   // one already up: it tucks away quickly, then the new one opens properly
+    const run = ++hudRun; el._closing = true; el._opening = false; el.getAnimations({ subtree: true }).forEach(a => a.cancel());
+    el.animate([{ opacity: 1, transform: "translate(-50%,0)" }, { opacity: 0, transform: "translate(-50%,24px)" }], { duration: 180, easing: "ease-in", fill: "forwards" });
+    setTimeout(() => { if (run !== hudRun) return; hudGone(el); hudShow(el, p, true); }, 190);
+    return;
+  }
+  const run = ++hudRun;
+  el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el._opening = false;
   el.removeAttribute("style");
   el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva); el._quick = !!p.quick; if (p.tint) el.style.setProperty("--hc", p.tint);
   el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin"><span class="hd">${esc(p.hd)}</span><b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}</div></div>`;
   const W = Math.min(innerWidth - 48, 460), inn = el.querySelector(".hin"); inn.style.width = W + "px";
   const H = inn.offsetHeight, size = (w, h) => { el.style.width = w + "px"; el.style.height = h + "px"; };
-  if (p.quick && fresh && !up && !REDUCED) { size(W, H); el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, easing: "ease-out" }); return; }
-  if (REDUCED || up || !fresh) { size(W, H); if (up && h0 && h0 !== H && !REDUCED) el.animate([{ height: h0 + "px" }, { height: H + "px" }], { duration: 200, easing: "ease-out" }); return; }   // already up: the new one takes its place
-  const cs = [...el.querySelectorAll(".cn")], clip = el.querySelector(".hclip"), parts = [...inn.children], b = inn.querySelector("b"), text = b.textContent, live = () => run === hudRun && el.classList.contains("show") && !el._closing;
-  size(HUD_S, HUD_L); cs.forEach(c => { c.style.width = HUD_S + "px"; c.style.height = HUD_L + "px"; }); clip.style.opacity = 0; parts.forEach(c => { c.style.opacity = 0; });
+  if (REDUCED || shown || !fresh) { size(W, H); return; }   // a reply to a tap over one that's up: straight in
+  if (p.quick) { size(W, H); el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, easing: "ease-out" }); return; }
+  const cs = [...el.querySelectorAll(".cn")], clip = el.querySelector(".hclip"), hd = inn.querySelector(".hd"), b = inn.querySelector("b"), live = () => run === hudRun && el.classList.contains("show") && !el._closing;
+  el._opening = true; el._text = p.b;
+  size(HUD_S, HUD_L); cs.forEach(c => { c.style.width = HUD_S + "px"; c.style.height = HUD_L + "px"; }); clip.style.opacity = 0; [...inn.children].forEach(c => { c.style.opacity = 0; });
   // the closed frame rises from the bottom
   el.animate([{ transform: `translate(-50%,${HUD_DROP}px)`, opacity: 0 }, { transform: "translate(-50%,0)", opacity: 1 }], { duration: 480, easing: "cubic-bezier(.22,1,.36,1)" });
   setTimeout(() => {
     if (!live()) return;
-    // the corners pull apart and it opens, out and up at once, the panel coming in behind them
-    const o = { duration: 460, easing: "cubic-bezier(.65,0,.35,1)" };
-    el.animate([{ width: HUD_S + "px", height: HUD_L + "px" }, { width: W + "px", height: H + "px" }], o); size(W, H);
+    // the corners pull apart and it opens, out and up at once, the panel coming in behind them (to its height now, if something joined it)
+    const o = { duration: 460, easing: "cubic-bezier(.65,0,.35,1)" }, H2 = inn.offsetHeight;
+    el.animate([{ width: HUD_S + "px", height: HUD_L + "px" }, { width: W + "px", height: H2 + "px" }], o); size(W, H2);
     cs.forEach(c => { c.animate([{ width: HUD_S + "px", height: HUD_L + "px" }, { width: "16px", height: "16px" }], o); c.style.width = c.style.height = ""; });
     clip.animate([{ opacity: 0 }, { opacity: 0, offset: .35 }, { opacity: 1 }], o); clip.style.opacity = "";
     setTimeout(() => {
-      if (!live()) { parts.forEach(c => { c.style.opacity = ""; }); return; }
+      if (!live()) return;
       // who it's from comes on, then what happened types itself in, then anything filed
-      parts[0].style.opacity = ""; parts[0].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180 });
-      b.textContent = ""; b.style.opacity = ""; let i = 0; const step = Math.max(12, 520 / text.length);
-      const type = () => { if (!live()) { b.textContent = text; if (parts[2]) parts[2].style.opacity = ""; return; }
-        b.textContent = text.slice(0, ++i); if (i < text.length) setTimeout(type, step); else if (parts[2]) { parts[2].style.opacity = ""; parts[2].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220 }); } };
+      hd.style.opacity = ""; hd.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180 });
+      b.textContent = ""; b.style.opacity = ""; let i = 0;
+      const type = () => { if (!live()) return; const text = el._text, step = Math.max(12, 520 / text.length);
+        b.textContent = text.slice(0, ++i); if (i < text.length) { setTimeout(type, step); return; }
+        el._opening = false; const sm = inn.querySelector("small"); if (sm) { sm.style.opacity = ""; sm.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220 }); } };
       type();
     }, 470);
   }, 620);
+}
+// something new joins the pill on screen: its lines change in place. Mid-opening, the new words are simply what it goes on to show
+function hudUpdate(el, p) {
+  const inn = el.querySelector(".hin"); if (!inn) return;
+  inn.querySelector(".hd").textContent = p.hd;
+  let sm = inn.querySelector("small");
+  if (p.s && !sm) { sm = document.createElement("small"); inn.appendChild(sm); if (el._opening) sm.style.opacity = 0; }
+  if (sm) { if (p.s) sm.textContent = p.s; else sm.remove(); }
+  if (el._opening) { el._text = p.b; return; }   // the opening carries on, and types this instead
+  if (el._closing) return;
+  inn.querySelector("b").textContent = p.b;
+  const h0 = el.offsetHeight, H = inn.offsetHeight; el.style.height = H + "px";
+  if (h0 && h0 !== H && !REDUCED) el.animate([{ height: h0 + "px" }, { height: H + "px" }], { duration: 200, easing: "ease-out" });
 }
 // time's up: it folds back into the closed frame and drops away
 function pillHide(el) {
@@ -1416,7 +1442,7 @@ function pillHide(el) {
     }, 520);
   }, 160);
 }
-function hudGone(el) { el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el.classList.remove("show"); }
+function hudGone(el) { el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el._opening = false; el.classList.remove("show"); }
 function prevOf(e) {
   if (e.num) return DATA.chapters.find(c => c.num === e.num - 1) || null;
   const ex = DATA.chapters.filter(c => !c.num), i = ex.indexOf(e);
@@ -8903,7 +8929,7 @@ swipeAway(document.getElementById("whih"), (dx, dy) => `translate(${dx}px,${dy}p
   () => { const w = document.getElementById("whih"); newsStop(true); w.classList.remove("in"); w.hidden = true; });
 // the pop-up pill: swiped away (or tapped, since it sits over the dock), the next one in line (if any) follows straight after
 const toastAway = () => { clearTimeout(toastTimer); const el = document.getElementById("toast");
-  if (el.classList.contains("hud") && el.classList.contains("show")) { hudRun++; el.getAnimations({ subtree: true }).forEach(a => a.cancel()); const a = el.animate([{ opacity: getComputedStyle(el).opacity }, { opacity: 0 }], { duration: 150, fill: "forwards" }); a.onfinish = () => hudGone(el); }
+  if (el.classList.contains("hud") && el.classList.contains("show")) { const run = ++hudRun; el._closing = true; el.getAnimations({ subtree: true }).forEach(a => a.cancel()); const a = el.animate([{ opacity: getComputedStyle(el).opacity }, { opacity: 0 }], { duration: 150, fill: "forwards" }); a.onfinish = () => { if (run === hudRun) hudGone(el); }; }
   else el.classList.remove("show");
   if (sayOwn) { clearTimeout(sayTm); sayOwn = false; sayCur = null; setTimeout(sayNext, 350); } };
 swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + ${dx}px),${dy}px)`, () => document.getElementById("toast").classList.contains("show"), toastAway,
