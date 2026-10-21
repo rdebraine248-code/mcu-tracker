@@ -701,7 +701,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ach.done b{ color:#F4D27A; }
 .yavg{ color:#F4C542; font-weight:600; }
 .ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
-.ratecard{ display:block; width:max-content; max-width:100%; box-sizing:border-box; margin-top:7px; padding:5px 6px 6px; overflow:hidden; border:1px solid color-mix(in srgb, var(--lc, currentColor) 45%, transparent); border-radius:8px;
+.ratecard{ touch-action:pan-y; display:block; width:max-content; max-width:100%; box-sizing:border-box; margin-top:7px; padding:5px 6px 6px; overflow:hidden; border:1px solid color-mix(in srgb, var(--lc, currentColor) 45%, transparent); border-radius:8px;
   color:var(--lc, currentColor); background:rgba(11,16,25,.7); font:9.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; text-decoration:none; text-align:left; cursor:default; }
 .ratecard.inbox{ display:flex; align-items:center; gap:10px; width:auto; margin:2px 0 10px 52px; padding:8px 12px; border-radius:10px; background:none; border-color:color-mix(in srgb, currentColor 25%, transparent); font-size:11px; letter-spacing:1.5px; }
 .ratecard.inbox .rc-l{ white-space:nowrap; } .ratecard.inbox .rc-n{ margin:0 0 0 auto; padding:0; border:0; opacity:.75; }
@@ -5978,7 +5978,7 @@ function firstWatch(t) {
 }
 // rating a title you've watched for the first time: a small card right under it, where you checked it off, in that list's own colors.
 // It stays until you rate it, check off another title, or leave the page; + Note opens your log for it
-let rcT = null, rcNew = false;
+let rcT = null, rcNew = false, rcLast = null;   // rcLast: the card on screen (its title, its row's spot and its height), so a redraw can close its space smoothly
 function rcShow(t) { rcT = t; rcNew = true; requestAnimationFrame(rcPlace); }
 function rcClear() { if (!rcT) return; rcT = null; rcPlace(); }
 function rcFind() {   // the row it belongs under: in the open box, or on the timeline
@@ -5991,20 +5991,40 @@ const rcHTML = (n, box) => (box ? `<span class="rc-l">Rate it</span>` : "") + `<
 function rcPlace() {
   const at = rcFind();
   document.querySelectorAll(".ratecard").forEach(c => { if (!c.classList.contains("done") && (!at || c.parentElement !== at.host || c.dataset.rc !== rcT)) rcGo(c); });
+  // a redraw took the last card away mid-list: close its space where it was, rather than letting the rows below jump up
+  if (rcLast && !document.querySelector(`.ratecard[data-rc="${CSS.escape(rcLast.t)}"]`) && (!at || rcLast.t !== rcT) && !REDUCED) {
+    const L = rcLast, row = L.box ? [...panel.querySelectorAll(".row")].find(x => x.dataset.t === L.t) : document.querySelector(`#view .tl-row[data-tl="${CSS.escape(L.t)}"]`);
+    const host = row && (L.box ? row.parentElement : row.querySelector(".tl-text"));
+    if (host) { const g = document.createElement(L.box ? "div" : "span"); g.style.cssText = `display:block;height:${L.h}px;pointer-events:none`; host.appendChild(g);
+      g.animate([{ height: L.h + "px" }, { height: "0px" }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = () => g.remove(); }
+  }
+  rcLast = null;
   if (!at) { rcT = null; return; }   // the title isn't here any more, or isn't checked: the card's done with
-  if (at.host.querySelector(":scope > .ratecard")) return;
+  { const c0 = at.host.querySelector(":scope > .ratecard"); if (c0) { rcLast = { t: rcT, box: !!at.box, h: c0._h }; return; } }   // its full height, from before it grew in
   const c = document.createElement(at.box ? "div" : "span"); c.className = "ratecard" + (at.box ? " inbox" : ""); c.dataset.rc = rcT; c.setAttribute("role", "group"); c.setAttribute("aria-label", "Rate " + tn(rcT));
   if (at.box) c.style.color = getComputedStyle(at.r).color;
   c.innerHTML = rcHTML(0, at.box); at.host.appendChild(c);
-  if (rcNew && !REDUCED) { const h = c.offsetHeight; c.animate([{ height: "0px", opacity: 0 }, { height: h + "px", opacity: 1 }], { duration: 260, easing: "ease-out" }); }
-  rcNew = false;
+  const h = c.offsetHeight + parseFloat(getComputedStyle(c).marginTop) + parseFloat(getComputedStyle(c).marginBottom);
+  if (rcNew && !REDUCED) c.animate([{ height: "0px", opacity: 0 }, { height: c.offsetHeight + "px", opacity: 1 }], { duration: 260, easing: "ease-out" });
+  rcNew = false; c._h = h; rcLast = { t: rcT, box: !!at.box, h };
 }
-function rcGo(c) { if (REDUCED || !c.isConnected) { c.remove(); return; } const h = c.offsetHeight; c.classList.add("done");
+function rcGo(c) { if (rcLast && rcLast.t === c.dataset.rc) rcLast = null; if (REDUCED || !c.isConnected) { c.remove(); return; } const h = c.offsetHeight; c.classList.add("done");
   c.animate([{ height: h + "px", opacity: 1 }, { height: "0px", opacity: 0, marginTop: "0px", marginBottom: "0px", paddingTop: "0px", paddingBottom: "0px", borderWidth: "0px" }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = () => c.remove(); }
-// its taps are its own: the row under it doesn't tick, and the timeline doesn't start a hold
+// its taps are its own: the row under it doesn't tick, and the timeline doesn't start a hold. A sideways swipe sends it away
+let rcDrag = null;
+document.addEventListener("pointermove", ev => { const d = rcDrag; if (!d || ev.pointerId !== d.id) return; const dx = ev.clientX - d.x;
+  if (!d.on) { if (Math.abs(dx) < 8) return; if (Math.abs(ev.clientY - d.y) > Math.abs(dx)) { rcDrag = null; return; } d.on = true; }
+  d.dx = dx; d.c.style.transform = `translateX(${dx}px)`; d.c.style.opacity = String(1 - Math.min(.8, Math.abs(dx) / 160)); }, true);
+["pointerup", "pointercancel"].forEach(n => document.addEventListener(n, ev => { const d = rcDrag; if (!d || ev.pointerId !== d.id) return; rcDrag = null; if (!d.on) return;
+  d.c._swiped = Date.now();
+  if (Math.abs(d.dx) > 70) { haptic(8); if (rcT === d.c.dataset.rc) rcT = null; const w = Math.sign(d.dx) * innerWidth;
+    d.c.animate([{ transform: `translateX(${d.dx}px)`, opacity: d.c.style.opacity }, { transform: `translateX(${w}px)`, opacity: 0 }], { duration: 200, easing: "ease-in", fill: "forwards" }).onfinish = () => { d.c.style.transform = ""; rcGo(d.c); }; }
+  else { d.c.style.transition = "transform .2s ease, opacity .2s ease"; d.c.style.transform = ""; d.c.style.opacity = ""; setTimeout(() => { d.c.style.transition = ""; }, 220); } }, true));
 ["pointerdown", "click"].forEach(n => document.addEventListener(n, ev => {
   const c = ev.target.closest && ev.target.closest(".ratecard"); if (!c) return;
-  ev.stopPropagation(); if (n !== "click" || c.classList.contains("done")) return; ev.preventDefault();
+  ev.stopPropagation();
+  if (n === "pointerdown") { if (!c.classList.contains("done")) rcDrag = { c, id: ev.pointerId, x: ev.clientX, y: ev.clientY, dx: 0, on: false }; return; }
+  if (c.classList.contains("done") || Date.now() - (c._swiped || 0) < 400) return; ev.preventDefault();
   const t = c.dataset.rc, st = ev.target.closest("[data-rcs]");
   if (st) { const v = +st.dataset.rcs; rateSet(t, { r: v }); haptic(12); c.innerHTML = rcHTML(v, c.classList.contains("inbox")); c.classList.add("done"); if (rcT === t) rcT = null; setTimeout(() => rcGo(c), 1100); return; }   // your stars, for a moment, then it tucks away
   if (ev.target.closest("[data-rcn]")) { if (rcT === t) rcT = null; rcGo(c); rateSheet(t, true); }
