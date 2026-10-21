@@ -1073,31 +1073,30 @@ body{ padding-bottom:var(--dockh); }
 .cm-msg.nw::after, .cm-log li.nw::after{ content:""; position:absolute; top:-5px; right:-5px; width:10px; height:10px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0A0E16, 0 0 8px #5FD0FF; }
 .cm-log li.nw{ position:relative; } .cm-log li.nw::after{ top:4px; right:0; width:8px; height:8px; }
 .cm-grp p.nw{ padding-right:18px; } .cm-grp p.nw::after{ content:""; position:absolute; right:2px; top:.45em; width:8px; height:8px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 7px #5FD0FF; }
-.cm-msg{ position:relative; margin:0 0 16px; padding:14px 16px 16px; background:#101828; border:1px solid #22314B; border-left:3px solid #2D63C8; }
+/* each message is a datapad panel, the same as its notifications: a thin frame and faint scan lines, in the color of who sent it */
+.cm-msg{ --c:#5FD0FF; position:relative; margin:0 0 16px; padding:14px 16px 16px; border:1px solid color-mix(in srgb, var(--c) 28%, transparent);
+  background:repeating-linear-gradient(0deg, color-mix(in srgb, var(--c) 5%, transparent) 0 1px, transparent 1px 3px), rgba(8,14,26,.97); }
 .cm-msg dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 12px; font:11px/1.45 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
 .cm-msg dt{ color:#5F7393; } .cm-msg dd{ margin:0; color:#B9CBE6; }
 .cm-msg p{ margin:0; font-size:16px; line-height:1.5; color:#E3E8F0; }
-.cm-msg em{ display:block; margin:0 0 10px; font:700 10px/1 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6E8; }
-.cm-msg.intercept{ border-left-color:#D98A2B; background:#15130F; border-color:#3A2F1F; }
-.cm-msg.intercept em{ color:#E8A64A; }
+.cm-msg em{ display:block; margin:0 0 10px; font:700 10px/1 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:2.5px; text-transform:uppercase; color:var(--c); }
+.cm-msg.intercept{ --c:#E8A64A; }
 .cm-msg.intercept p{ font-family:'Share Tech Mono','Courier New',monospace; font-size:14px; letter-spacing:.5px; color:#EADFCB; }
-.cm-msg.email{ border-left-color:#C8A24A; background:#121620; }
-.cm-msg.email em{ color:#E0BE6A; }
-.cm-msg.notice{ border-left-color:#3E9A6C; background:#0F1814; border-color:#1F3A2C; }
-.cm-msg.notice em{ color:#6CCB98; }
+.cm-msg.email{ --c:#E0BE6A; }
+.cm-msg.notice{ --c:#6CCB98; }
 .whih.bugle b, .cm-head b.bugle{ background:#F1EFEA; color:#111; }
 .whih.bulletin b, .cm-head b.bulletin{ background:#566884; }
 .whih.e828 b, .cm-head b.e828{ background:#3B6FB6; }
-.cm-msg.tva{ border-left-color:#D9822B; background:#17120C; border-color:#3B2C1B; } .cm-msg.tva em{ color:#F0A04B; }
-.cm-msg.telegram{ border-left-color:#B9A27A; background:#17150F; border-color:#38311F; } .cm-msg.telegram em{ color:#D8C08F; }
+.cm-msg.tva{ --c:#F0A04B; }
+.cm-msg.telegram{ --c:#D8C08F; }
 .cm-msg.telegram p{ font-family:'Share Tech Mono','Courier New',monospace; font-size:14px; letter-spacing:1px; color:#EADFC6; }
-.cm-msg.cerebro{ border-left-color:#8E6BE0; background:#130F1D; border-color:#2E2547; } .cm-msg.cerebro em{ color:#B39BFF; }
-.cm-msg.hack{ border-left-color:#E8242F; background:#1A0A0D; border-color:#5C1820; box-shadow:0 0 18px rgba(232,36,47,.38), inset 0 0 24px rgba(232,36,47,.13); }
-.cm-msg.hack em{ color:#FF4B55; text-shadow:0 0 8px rgba(255,60,70,.85); }
+.cm-msg.cerebro{ --c:#B39BFF; }
+.cm-msg.hack{ --c:#FF4B55; border-color:#5C1820; box-shadow:0 0 18px rgba(232,36,47,.38), inset 0 0 24px rgba(232,36,47,.13); }   /* Deadpool's: still glowing red */
+.cm-msg.hack em{ text-shadow:0 0 8px rgba(255,60,70,.85); }
 .cm-msg.hack dt{ color:#9E5A61; } .cm-msg.hack dd{ color:#F0C3C7; } .cm-msg.hack p{ color:#F6E4E6; }
 .whih.hack{ background:#1A0A0D; border-top-color:#E8242F; box-shadow:0 -4px 16px rgba(232,36,47,.4); }
 .whih.hack b{ background:#E8242F; box-shadow:0 0 14px rgba(232,36,47,.9); } .whih.hack .whih-run span{ color:#F6DCDF; } .whih.hack .whih-run i{ color:#E8242F; }
-.cm-msg.watcher{ border-left-color:#E0B865; background:#141210; border-color:#3A321F; } .cm-msg.watcher em{ color:#F0CF86; }
+.cm-msg.watcher{ --c:#F0CF86; }
 .cm-red{ display:inline-block; vertical-align:middle; height:1em; width:7em; background:#000; color:transparent; text-decoration:none; user-select:none; }
 .commspanel .maptop h2{ margin-right:auto; }
 .commspanel .atl-views{ margin-left:auto; }
@@ -8897,7 +8896,7 @@ function renderComms() {
     : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS, o => T0.some(t => newsSrc(t) === o && NEWS[t].some((h, i) => state.news[newsKey(t, i)] && !state.cmRead[cmNK(t, i)]))) : ""); persist();
   const cv = document.getElementById("commsView"), oc = cv.querySelector(".cm-chips"), cx = oc && cv.dataset.tab === commsTab ? oc.scrollLeft : 0; cv.dataset.tab = commsTab;
   swapIn(cv, chips + (commsTab === "msg"
-    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}${nw(cmMK(m))}">${m.k ? `<em>${MSG_KIND[m.k]}</em>` : ""}<dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
+    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}${nw(cmMK(m))}"><em>${m.k ? MSG_KIND[m.k] : "Message"}</em><dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
     : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].map((h, i) => state.news[newsKey(t, i)] ? `<p class="${nw(cmNK(t, i)).trim()}">${esc(h)}</p>` : "").join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`)));
   const nc = cv.querySelector(".cm-chips"); if (nc && cx) nc.scrollLeft = cx;   // the chip row stays where you'd scrolled it
 }
