@@ -6463,7 +6463,8 @@ function yondu(x0, y0) {
     g.fillStyle = "#E8E2DA"; g.beginPath(); g.moveTo(9, 0); g.lineTo(-1, -4); g.lineTo(-1, 4); g.closePath(); g.fill(); g.restore(); g.shadowBlur = 0;
     // whatever it passes through gets knocked over
     rows().forEach(r => { const b = r.getBoundingClientRect(), last = hits.get(r) || -1e9; if (t - last > 900 && px > b.left && px < b.right && py > b.top && py < b.bottom) { hits.set(r, t); knockRow(r, 0, 700, vx > 0 ? 24 : -24, -4, vx > 0 ? 4 : -4, .4); fxRing(px, py, 46, "#FF6A3A", 360, 0, 3); haptic(14); } });
-    if (leaving && py < -60 && !done) done = true;
+    if (leaving && py < -60 && !done) done = t;
+    return !!done && t - done > 350;   // gone off the top and its trail faded: it's over, no waiting out the clock
   }, () => { clean(); cv.remove(); yonduOn = false; found("dance"); });
 }
 
@@ -6615,7 +6616,8 @@ function fxCanvas(z) {
   cv.className = "fx-canvas"; if (z) cv.style.zIndex = z; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
   const g = cv.getContext("2d"); g.scale(dpr, dpr); return { cv, g, W, H };
 }
-function fxRun(T, frame, done) { const t0 = performance.now(); let last = t0; const f = now => { const t = Math.max(0, now - t0), dt = Math.max(0, Math.min(.05, (now - last) / 1000)); last = now; frame(t, dt); if (t < T) requestAnimationFrame(f); else if (done) done(); }; requestAnimationFrame(f); }
+// T is the longest it can run; a frame that returns true has finished early, and done follows straight away
+function fxRun(T, frame, done) { const t0 = performance.now(); let last = t0; const f = now => { const t = Math.max(0, now - t0), dt = Math.max(0, Math.min(.05, (now - last) / 1000)); last = now; const over = frame(t, dt) === true; if (t < T && !over) requestAnimationFrame(f); else if (done) done(); }; requestAnimationFrame(f); }
 // a soft round puff, drawn once and stamped many times (much lighter than a gradient per particle)
 const PUFFS = {};
 function puffSprite(rgb) {
