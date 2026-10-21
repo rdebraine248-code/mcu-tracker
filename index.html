@@ -1258,7 +1258,7 @@ const fontOf = s => { const f = ((String(s).match(/font-family:\s*([^;]+)/) || [
 let sayQ = [], sayBusy = false;
 // how long a pop-up stays: as long as a box's quote for short lines, a little longer the more there is to read
 const toastMs = msg => Math.min(6500, Math.max(QUOTE_MS, 1100 + String(msg).length * 55));
-function say(msg, e, foot, ms, plain, hd) { sayQ.push({ msg, e: e || null, foot, ms, plain, hd }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says; hd: who it's from
+function say(msg, e, foot, ms, plain, hd, done) { sayQ.push({ msg, e: e || null, foot, ms, plain, hd, done }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says; hd: who it's from
 // a new achievement rides on the line that's about to show (or just appeared), instead of a pop-up of its own
 let sayCur = null;
 function attachFoot(text) {
@@ -1266,7 +1266,7 @@ function attachFoot(text) {
   if (last) { last.foot = last.foot ? last.foot + " · " + text.replace(/^Agent File · /, "") : text; return true; }
   if (sayCur && Date.now() - sayCur.at < 2500) {
     sayCur.foot = sayCur.foot ? sayCur.foot + " · " + text.replace(/^Agent File · /, "") : text;
-    const el = document.getElementById("toast"); if (el.classList.contains("show")) pillSet(el, sayCur.msg, sayCur.e, false, sayCur.foot, { quote: true, plain: sayCur.plain, hd: sayCur.hd }); return true;
+    const el = document.getElementById("toast"); if (el.classList.contains("show")) pillSet(el, sayCur.msg, sayCur.e, false, sayCur.foot, { quote: true, plain: sayCur.plain, hd: sayCur.hd, done: sayCur.done }); return true;
   }
   return false;
 }
@@ -1274,7 +1274,7 @@ let sayOwn = false, sayTm = 0;
 function sayNext() {
   const m = sayQ.shift(); if (!m) { sayBusy = false; return; } sayBusy = true;
   if (document.getElementById("toast").classList.contains("show") && !sayOwn) { sayQ.unshift(m); setTimeout(sayNext, 600); return; }
-  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain, hd: m.hd }); clearTimeout(sayTm);
+  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain, hd: m.hd, done: m.done }); clearTimeout(sayTm);
   sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg) + (m.foot ? 900 : 0)) + 700 + (REDUCED ? 0 : HUD_OPEN + HUD_SHUT));
 }
 const TVA = { style: "background:#1E4D2B", fg: "#F3E7B3", box: "#D4AF37" };
@@ -1335,7 +1335,15 @@ function blCarry(e) {
     const q = openEntry && openEntry.id === e.id && panel.querySelector(".pquote"); if (q) { q.style.transition = "opacity .6s ease-out"; q.classList.remove("pending"); }
   }, Math.max(0, b.end - Date.now())));
 }
-function boxNews(e, what, foot, viaSay) { const hd = boxKind(e) + " · " + what; if (viaSay) say(e.title, e, foot, undefined, true, hd); else toast(e.title, e, false, foot, undefined, { hd }); }
+function boxNews(e, what, foot, viaSay) {
+  let hd = boxKind(e) + " · " + what, done;
+  // a chapter finished goes in your Agent File, every time, the same way: Agent File · Updated, its name, and "Chapter 4 Completed" underneath
+  // (with anything else it filed alongside), however you finished it and whether or not it's been finished before
+  if (what === "Complete" && DATA.chapters.includes(e)) {
+    const own = (achList().find(a => a.id === "ch-" + e.id) || {}).t, rest = foot ? foot.split(" · ").slice(1).filter(n => n !== own) : [];
+    hd = "Agent File · Updated"; done = { label: boxKind(e) + " Completed", own }; foot = ["Agent File", ...(own ? [own] : []), ...rest].join(" · ");
+  }
+  if (viaSay) say(e.title, e, foot, undefined, true, hd, done); else toast(e.title, e, false, foot, undefined, { hd, done }); }
 // what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
 const HUD_SAME = { missions: "Mission Completed", artifacts: "Artifact Recovered", classified: "Classified File Accessed", chapters: "Complete" };
 const HUD_NAMED = { missions: n => "Mission Completed: " + n, artifacts: n => "Artifact Recovered: " + n, classified: n => "Classified File Accessed: " + n, chapters: n => n + " complete" };
@@ -1350,7 +1358,7 @@ function pillSet(el, msg, e, cover, foot, o, fresh) {
   el._names = agent ? [msg, ...items] : null;   // a tap opens the Agent File on what it filed
   const tva = e === TVA, box = e && !tva && !cover && e.id ? e : null;
   hudShow(el, { tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box, hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "Datapad"),
-    b: msg, s: agent ? hudFiled(msg, items) : "" }, fresh);
+    b: msg, s: o && o.done ? [o.done.label, hudFiled("", items.filter(n => n !== o.done.own))].filter(Boolean).join(" · ") : agent ? hudFiled(msg, items) : "" }, fresh);
 }
 const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
 let hudRun = 0;
