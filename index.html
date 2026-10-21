@@ -76,6 +76,19 @@ button{ font:inherit; color:inherit; }
 .toast .tq{ display:block; font-family:var(--qf, inherit); font-size:17px; line-height:1.35; text-transform:none; letter-spacing:.2px; }
 .toast .tf{ display:block; margin-top:4px; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; opacity:.75; }
 .toast.show{ opacity:1; transform:translate(-50%,0); }
+/* the datapad's own notifications: two thick corners meet in a closed frame, rise, pull apart and open into a HUD panel. A box's own moment
+   (its unlock quote, a hero's first line, Completed) keeps the box's own pill */
+.toast.hud{ bottom:calc(var(--dockh) + 16px + env(safe-area-inset-bottom,0px)); transition:none; background:none; border:0; border-radius:0; padding:0; box-shadow:none; text-align:left; max-width:none; }
+.toast.hud .cn{ position:absolute; z-index:2; box-sizing:border-box; width:16px; height:16px; border:3px solid #5FD0FF; filter:drop-shadow(0 0 3px rgba(95,208,255,.55)); pointer-events:none; }
+.toast.hud .cn.a{ left:0; top:0; border-right:0; border-bottom:0; } .toast.hud .cn.b{ right:0; bottom:0; border-left:0; border-top:0; }
+.toast.hud .hclip{ position:absolute; inset:0; overflow:hidden; background:rgba(8,14,26,.97); border:1px solid rgba(95,208,255,.25); box-shadow:0 0 22px rgba(95,208,255,.14), 0 10px 26px rgba(0,0,0,.55);
+  background-image:repeating-linear-gradient(0deg,rgba(95,208,255,.05) 0 1px,transparent 1px 3px); }
+.toast.hud .hin{ position:absolute; left:0; top:0; box-sizing:border-box; padding:10px 16px 11px; }
+.toast.hud .hd{ display:block; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#5FD0FF; } .toast.hud .hd::before{ content:"\25B8\00A0\00A0"; }
+.toast.hud b{ display:block; margin-top:5px; font:500 16px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:.2px; color:#EEF6FF; }
+.toast.hud small{ display:block; margin-top:4px; font:11px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#6F86A8; }
+.toast.hud.tva .cn{ border-color:#D4AF37; filter:drop-shadow(0 0 3px rgba(212,175,55,.55)); } .toast.hud.tva .hd{ color:#E8C35A; } .toast.hud.tva b{ color:#F3E7B3; }
+.toast.hud.tva .hclip{ border-color:rgba(212,175,55,.35); background-color:rgba(18,24,12,.97); background-image:repeating-linear-gradient(0deg,rgba(212,175,55,.06) 0 1px,transparent 1px 3px); box-shadow:0 0 22px rgba(212,175,55,.14), 0 10px 26px rgba(0,0,0,.55); }
 /* a pill or the ticker can be dragged away, so a touch on either must not start a scroll (the browser would cancel the drag), select text or open the long-press menu */
 .toast.show{ pointer-events:auto; touch-action:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
 .saga h3{ margin:0 0 14px; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:28px; letter-spacing:1px; text-transform:uppercase; }
@@ -1279,16 +1292,16 @@ const borderOf = s => ((String(s).match(/border:\s*[\d.]+px\s+\w+\s+(#[0-9a-fA-F
 // quotes use the list's title typeface, except decorative brush faces, which fall back to the plain body font
 const fontOf = s => { const f = ((String(s).match(/font-family:\s*([^;]+)/) || [])[1]); return f && /Ma Shan Zheng/i.test(f) ? undefined : f; };
 function toastQuote(line, e) {
-  const el = document.getElementById("toast");
+  const el = document.getElementById("toast"); hudOff(el);
   if (e) themeToast(el, e.style, e.fg, e.box || borderOf(e.style), fontOf(e.h2)); else themeToast(el, null);
-  el.innerHTML = `<span class="tq">“${esc(line).replace(" / ", "”<br>“")}”</span>`;
+  el.innerHTML = `<span class="tq">“${esc(line).replace(" / ", "”<br>“")}”</span>`; el._names = null;
   el.classList.add("show");
   clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("show"), QUOTE_MS);
 }
 let sayQ = [], sayBusy = false;
 // how long a pop-up stays: as long as a box's quote for short lines, a little longer the more there is to read
 const toastMs = msg => Math.min(6500, Math.max(QUOTE_MS, 1100 + String(msg).length * 55));
-function say(msg, e, foot, ms) { sayQ.push({ msg, e: e || openEntry || null, foot, ms }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up
+function say(msg, e, foot, ms, plain) { sayQ.push({ msg, e: e || null, foot, ms, plain }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says
 // a new achievement rides on the line that's about to show (or just appeared), instead of a pop-up of its own
 let sayCur = null;
 function attachFoot(text) {
@@ -1296,7 +1309,7 @@ function attachFoot(text) {
   if (last) { last.foot = last.foot ? last.foot + " · " + text.replace(/^Agent File · /, "") : text; return true; }
   if (sayCur && Date.now() - sayCur.at < 2500) {
     sayCur.foot = sayCur.foot ? sayCur.foot + " · " + text.replace(/^Agent File · /, "") : text;
-    const el = document.getElementById("toast"); el.innerHTML = `<span>${esc(sayCur.msg)}</span><span class="tf">${esc(sayCur.foot)}</span>`; return true;
+    const el = document.getElementById("toast"); if (el.classList.contains("show")) pillSet(el, sayCur.msg, sayCur.e, false, sayCur.foot, { quote: true, plain: sayCur.plain }); return true;
   }
   return false;
 }
@@ -1304,18 +1317,92 @@ let sayOwn = false, sayTm = 0;
 function sayNext() {
   const m = sayQ.shift(); if (!m) { sayBusy = false; return; } sayBusy = true;
   if (document.getElementById("toast").classList.contains("show") && !sayOwn) { sayQ.unshift(m); setTimeout(sayNext, 600); return; }
-  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms); clearTimeout(sayTm); sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg) + (m.foot ? 900 : 0)) + 700);
+  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain }); clearTimeout(sayTm);
+  sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg) + (m.foot ? 900 : 0)) + 700 + (pillHud(m.e) && !REDUCED ? HUD_OPEN + HUD_SHUT : 0));
 }
 const TVA = { style: "background:#1E4D2B", fg: "#F3E7B3", box: "#D4AF37" };
-function toast(msg, e, cover, foot, ms) {
-  const el = document.getElementById("toast");
-  if (e && cover) themeToast(el, e.cover.style, e.cover.ink, borderOf(e.cover.style), "Helvetica, Arial, sans-serif");
-  else if (e) themeToast(el, e.style, e.fg, e.box || borderOf(e.style), fontOf(e.h2));
-  else themeToast(el, null);
-  if (foot) el.innerHTML = `<span>${esc(msg)}</span><span class="tf">${esc(foot)}</span>`; else el.textContent = msg;
-  el.classList.add("show");
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("show"), ms || toastMs(msg) + (foot ? 900 : 0));
+// a box's own moment keeps the box's pill; everything else is the datapad talking
+const pillHud = (e, cover) => !e || !!cover || e === TVA;
+function toast(msg, e, cover, foot, ms, o) {
+  const el = document.getElementById("toast"), hud = pillHud(e, cover);
+  pillSet(el, msg, e, cover, foot, o, true);
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => pillHide(el), (ms || toastMs(msg) + (foot ? 900 : 0)) + (hud && !REDUCED ? HUD_OPEN : 0));
 }
+// what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
+const HUD_SAME = { missions: "Mission", artifacts: "Artifact", classified: "Classified", chapters: "Complete" };
+const HUD_NAMED = { missions: n => "Mission: " + n, artifacts: n => "Artifact: " + n, classified: n => "Classified: " + n, chapters: n => n + " complete" };
+function hudFiled(msg, items) {
+  const A = achList(), of = n => A.find(z => z.t === n || z.ann === n), lead = of(msg), out = [];
+  if (lead && !items.includes(lead.t)) out.push(HUD_SAME[lead.sec] || lead.t);
+  items.forEach(n => { const a = of(n); out.push(!a ? n : (HUD_NAMED[a.sec] || (x => x))(n)); });
+  return out.join(" · ");
+}
+function pillSet(el, msg, e, cover, foot, o, fresh) {
+  const agent = !!foot && /^Agent File/.test(foot), items = agent ? foot.split(" · ").slice(1) : [];
+  el._names = agent ? [msg, ...items] : null;   // a tap opens the Agent File on what it filed
+  if (!pillHud(e, cover)) {   // the box's own pill
+    hudOff(el);
+    if (e && cover) themeToast(el, e.cover.style, e.cover.ink, borderOf(e.cover.style), "Helvetica, Arial, sans-serif"); else themeToast(el, e.style, e.fg, e.box || borderOf(e.style), fontOf(e.h2));
+    if (foot) el.innerHTML = `<span>${esc(msg)}</span><span class="tf">${esc(foot)}</span>`; else el.textContent = msg;
+    el.classList.add("show"); return;
+  }
+  const tva = e === TVA, said = o && o.quote && !o.plain && !tva;
+  hudShow(el, { tva, hd: tva ? "TVA · Alert" : agent ? "Agent File · Updated" : said ? "Audio intercept" : "Datapad",
+    b: said ? "“" + msg + "”" : msg, s: agent ? hudFiled(msg, items) : "" }, fresh);
+}
+const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
+let hudRun = 0;
+function hudOff(el) { if (!el.classList.contains("hud")) return; hudRun++; el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el.classList.remove("hud", "tva"); el.style.width = el.style.height = ""; }
+function hudShow(el, p, fresh) {
+  const up = el.classList.contains("show") && el.classList.contains("hud") && !el._closing, run = ++hudRun, h0 = up ? el.offsetHeight : 0;
+  el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; themeToast(el, null);
+  el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva);
+  el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin"><span class="hd">${esc(p.hd)}</span><b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}</div></div>`;
+  const W = Math.min(innerWidth - 48, 460), inn = el.querySelector(".hin"); inn.style.width = W + "px";
+  const H = inn.offsetHeight, size = (w, h) => { el.style.width = w + "px"; el.style.height = h + "px"; };
+  if (REDUCED || up || !fresh) { size(W, H); if (up && h0 && h0 !== H && !REDUCED) el.animate([{ height: h0 + "px" }, { height: H + "px" }], { duration: 200, easing: "ease-out" }); return; }   // already up: the new one takes its place
+  const cs = [...el.querySelectorAll(".cn")], clip = el.querySelector(".hclip"), parts = [...inn.children], b = inn.querySelector("b"), text = b.textContent, live = () => run === hudRun && el.classList.contains("show") && !el._closing;
+  size(HUD_S, HUD_L); cs.forEach(c => { c.style.width = HUD_S + "px"; c.style.height = HUD_L + "px"; }); clip.style.opacity = 0; parts.forEach(c => { c.style.opacity = 0; });
+  // the closed frame rises from the bottom
+  el.animate([{ transform: `translate(-50%,${HUD_DROP}px)`, opacity: 0 }, { transform: "translate(-50%,0)", opacity: 1 }], { duration: 480, easing: "cubic-bezier(.22,1,.36,1)" });
+  setTimeout(() => {
+    if (!live()) return;
+    // the corners pull apart and it opens, out and up at once, the panel coming in behind them
+    const o = { duration: 460, easing: "cubic-bezier(.65,0,.35,1)" };
+    el.animate([{ width: HUD_S + "px", height: HUD_L + "px" }, { width: W + "px", height: H + "px" }], o); size(W, H);
+    cs.forEach(c => { c.animate([{ width: HUD_S + "px", height: HUD_L + "px" }, { width: "16px", height: "16px" }], o); c.style.width = c.style.height = ""; });
+    clip.animate([{ opacity: 0 }, { opacity: 0, offset: .35 }, { opacity: 1 }], o); clip.style.opacity = "";
+    setTimeout(() => {
+      if (!live()) { parts.forEach(c => { c.style.opacity = ""; }); return; }
+      // who it's from comes on, then what happened types itself in, then anything filed
+      parts[0].style.opacity = ""; parts[0].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180 });
+      b.textContent = ""; b.style.opacity = ""; let i = 0; const step = Math.max(12, 520 / text.length);
+      const type = () => { if (!live()) { b.textContent = text; if (parts[2]) parts[2].style.opacity = ""; return; }
+        b.textContent = text.slice(0, ++i); if (i < text.length) setTimeout(type, step); else if (parts[2]) { parts[2].style.opacity = ""; parts[2].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220 }); } };
+      type();
+    }, 470);
+  }, 620);
+}
+// time's up: it folds back into the closed frame and drops away
+function pillHide(el) {
+  if (!el.classList.contains("hud") || REDUCED) { el.classList.remove("show"); return; }
+  const run = hudRun; el._closing = true; el.getAnimations({ subtree: true }).forEach(a => a.finish());
+  const cs = [...el.querySelectorAll(".cn")], clip = el.querySelector(".hclip"), inn = el.querySelector(".hin"), W = el.offsetWidth, H = el.offsetHeight, live = () => run === hudRun && el.classList.contains("show");
+  [...inn.children].forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: "forwards" }));
+  setTimeout(() => {
+    if (!live()) return;
+    const o = { duration: 400, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards" };
+    el.animate([{ width: W + "px", height: H + "px" }, { width: HUD_S + "px", height: HUD_L + "px" }], o);
+    cs.forEach(c => c.animate([{ width: "16px", height: "16px" }, { width: HUD_S + "px", height: HUD_L + "px" }], o));
+    clip.animate([{ opacity: 1 }, { opacity: 0, offset: .65 }, { opacity: 0 }], o);
+    setTimeout(() => {
+      if (!live()) return;
+      el.animate([{ transform: "translate(-50%,0)", opacity: 1 }, { transform: `translate(-50%,${HUD_DROP}px)`, opacity: 0 }], { duration: 420, easing: "cubic-bezier(.64,0,.78,0)", fill: "forwards" })
+        .onfinish = () => { if (run === hudRun) hudGone(el); };
+    }, 520);
+  }, 160);
+}
+function hudGone(el) { el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el.classList.remove("show"); }
 function prevOf(e) {
   if (e.num) return DATA.chapters.find(c => c.num === e.num - 1) || null;
   const ex = DATA.chapters.filter(c => !c.num), i = ex.indexOf(e);
@@ -1324,7 +1411,7 @@ function prevOf(e) {
 // the Incursions stay sealed until Avengers: Doomsday is checked off, anywhere
 const INC_ID = "ch-incursions", incOpen = () => anyChecked("Avengers: Doomsday");
 // checking off Doomsday for the first time: a warning in the Incursions' colors that something has opened, without naming it
-const incAlert = () => say("Warning: incursion detected. A sealed Extras file is ready to open.", DATA.chapters.find(c => c.id === INC_ID));
+const incAlert = () => say("Warning: incursion detected. A sealed Extras file is ready to open.", TVA);
 const extraShut = e => !e.num && (e.id === INC_ID ? !incOpen() : !multiverseOpen());
 function available(e) {
   if (state.unlocked[e.id] || forceOpen === e.id) return true;
@@ -1966,10 +2053,10 @@ document.getElementById("view").addEventListener("click", ev => {
       const y = window.scrollY; renderView(); window.scrollTo(0, y);
       const nr = document.querySelector('.tl-row[data-tl="Loki S1"]'); if (nr) nr.focus({ preventScroll: true });
       // the timeline's own pill every time, then the multiverse pill if this is what opened it, the same as in a box
-      if (on) say("The Sacred Timeline has branched."); if (!wasOpen && multiverseOpen()) say("The multiverse is now open. Act ? is now The Marvel Multiverse.", TVA);
+      if (on) say("The Sacred Timeline has branched.", TVA); if (!wasOpen && multiverseOpen()) say("The multiverse is now open. Act ? is now The Marvel Multiverse.", TVA);
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
-      if (r.dataset.tl === INC_MARK && on) say("Warning: Incursions detected.");
+      if (r.dataset.tl === INC_MARK && on) say("Warning: Incursions detected.", TVA);
       if (!wasInc && incOpen()) incAlert();
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
@@ -5825,7 +5912,7 @@ function flushAch() {
   if (!list.some(a => a.lead) && attachFoot("Agent File · " + list.map(a => a.t).join(" · "))) return;
   const lead = list.find(a => a.id === "excelsior") || list.find(a => a.lead) || list[list.length - 1], rest = list.filter(a => a !== lead).map(a => a.t);
   const own = lead.ann && !lead.ann.startsWith(lead.t) ? [lead.t] : [];
-  say(lead.ann || lead.t, null, ["Agent File", ...own, ...rest].join(" · "), lead.ms);
+  say(lead.ann || lead.t, null, ["Agent File", ...own, ...rest].join(" · "), lead.ms, !lead.ann);
   if (thanos) say("But this… does put a smile on my face.");
 }
 
@@ -8686,9 +8773,12 @@ function swipeAway(el, base, live, dismiss, tapAway) {   // tapAway: a tap dismi
 swipeAway(document.getElementById("whih"), (dx, dy) => `translate(${dx}px,${dy}px)`, () => { const w = document.getElementById("whih"); return !w.hidden && w.classList.contains("in"); },
   () => { const w = document.getElementById("whih"); newsStop(true); w.classList.remove("in"); w.hidden = true; });
 // the pop-up pill: swiped away (or tapped, since it sits over the dock), the next one in line (if any) follows straight after
-const toastAway = () => { clearTimeout(toastTimer); document.getElementById("toast").classList.remove("show"); if (sayOwn) { clearTimeout(sayTm); sayOwn = false; sayCur = null; setTimeout(sayNext, 350); } };
+const toastAway = () => { clearTimeout(toastTimer); const el = document.getElementById("toast");
+  if (el.classList.contains("hud") && el.classList.contains("show")) { hudRun++; el.getAnimations({ subtree: true }).forEach(a => a.cancel()); const a = el.animate([{ opacity: getComputedStyle(el).opacity }, { opacity: 0 }], { duration: 150, fill: "forwards" }); a.onfinish = () => hudGone(el); }
+  else el.classList.remove("show");
+  if (sayOwn) { clearTimeout(sayTm); sayOwn = false; sayCur = null; setTimeout(sayNext, 350); } };
 swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + ${dx}px),${dy}px)`, () => document.getElementById("toast").classList.contains("show"), toastAway,
-  () => { const el = document.getElementById("toast"), f = el.querySelector(".tf"), hf = f && /^Agent File/i.test(f.textContent) ? [el.firstElementChild.textContent, ...f.textContent.split(" · ").slice(1)] : null; toastAway(); if (hf) fileAt(hf); });
+  () => { const hf = document.getElementById("toast")._names; toastAway(); if (hf) fileAt(hf); });
 // open the Agent File on the file a pop-up announced: its page, scrolled to it, with a glow so you can find it
 function fileAt(names) {
   const A = achList(), a = A.find(z => earned(z.id) && names.some(n => n === z.t || n === z.ann)); haptic(10);
