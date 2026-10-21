@@ -2163,7 +2163,7 @@ document.getElementById("view").addEventListener("click", ev => {
       if (on) tlAlert("Nexus Event Detected", "The Sacred Timeline Has Branched"); if (!wasOpen && multiverseOpen()) mvAlert();
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
-      if (r.dataset.tl === INC_MARK && on) tlAlert("Warning: Incursion Detected", "The Multiverse Is Collapsing");
+      if (r.dataset.tl === INC_MARK && on) tlAlert("Warning: Incursion Detected", "Two Universes Have Collided");
       if (!wasInc && incOpen()) incAlert();
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
