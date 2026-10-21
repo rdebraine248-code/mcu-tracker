@@ -6110,7 +6110,7 @@ function rateSheet(t, note) {
   // the panel is built once, so redrawing its fields doesn't replay its slide-up
   const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
   const draw = () => { const R = rateOf(t), n = R.n || (atlSeenT(t) ? 1 : 0);
-    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><small>Your log</small><h4>${tnh(t)}</h4>
+    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><small>${state.codename ? "Agent " + esc(state.codename) + "'s log" : "Your log"}</small><h4>${tnh(t)}</h4>
       <div class="rs-f"><span>Rating</span><span class="rs-stars">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rss="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= (R.r || 0), 30)}</button>`).join("")}</span></div>
       <div class="rs-f"><span>Watched</span><label class="rs-date">${rateDate(t) ? esc(showDate(rateDate(t))) : "Add date"}<input type="date" value="${esc(rateDate(t))}" aria-label="Date watched"></label></div>
       <div class="rs-f"><span>Times</span><span class="rs-cnt"><button type="button" data-rsc="-1" aria-label="One fewer">&minus;</button><b>${n}</b><button type="button" data-rsc="1" aria-label="One more">+</button></span></div>
@@ -9011,6 +9011,13 @@ function cmCaseFile(L) {
     <button type="button" class="cm-casebtn" data-cmlog aria-expanded="${cmLogOpen}"><b>${L.length} terminated</b><span>${cmLogOpen ? "Close the log" : "Open the log"}</span></button>
     ${cmLogOpen ? `<ol class="cm-log">${L.map(m => `<li${cmFresh.has(cmMK(m)) ? ' class="nw"' : ""}><b>${esc(m.re)}</b><small>${tnh(m.t)}</small><p>${esc(m.b)}</p></li>`).join("")}</ol>` : ""}</article>`;
 }
+// who a message is to: you by your codename, wherever it's addressed to you, once you've chosen one (Deadpool has something to say either way)
+const CM_YOU = { "Recruit": "Agent", "Agent": "Agent", "New agent": "Agent", "Variant": "Variant", "Candidate": "Candidate" };
+function cmTo(m) {
+  const cn = state.codename;
+  if (m.f === "Deadpool" && m.to === "Whoever's holding this") return cn ? `${cn} (cool name, I'd have gone with Deadpool 2)` : "Whoever's holding this (no codename? Bold. Mysterious. I respect it)";
+  return cn && CM_YOU[m.to] ? CM_YOU[m.to] + " " + cn : m.to;
+}
 function renderComms() {
   newsForget(); msgForget(); const T0 = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M0 = msgSeen().filter(m => state.msgs[msgId(m)]).reverse();
   const T = cmPick.news ? T0.filter(t => newsSrc(t) === cmPick.news) : T0, M = cmPick.msg ? M0.filter(m => cmChan(m) === cmPick.msg) : M0;
@@ -9023,7 +9030,7 @@ function renderComms() {
     : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS, o => T0.some(t => newsSrc(t) === o && NEWS[t].some((h, i) => state.news[newsKey(t, i)] && !state.cmRead[cmNK(t, i)]))) : ""); persist();
   const cv = document.getElementById("commsView"), oc = cv.querySelector(".cm-chips"), cx = oc && cv.dataset.tab === commsTab ? oc.scrollLeft : 0; cv.dataset.tab = commsTab;
   swapIn(cv, chips + (commsTab === "msg"
-    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}${nw(cmMK(m))}"><em>${m.k ? MSG_KIND[m.k] : "Message"}</em><dl>${row("From", m.f)}${row("To", m.to)}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
+    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}${nw(cmMK(m))}"><em>${m.k ? MSG_KIND[m.k] : "Message"}</em><dl>${row("From", m.f)}${row("To", cmTo(m))}${row(m.k === "email" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages yet.</p>`)
     : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].map((h, i) => state.news[newsKey(t, i)] ? `<p class="${nw(cmNK(t, i)).trim()}">${esc(h)}</p>` : "").join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">Nothing on the wire yet.</p>`)));
   const nc = cv.querySelector(".cm-chips"); if (nc && cx) nc.scrollLeft = cx;   // the chip row stays where you'd scrolled it
 }
