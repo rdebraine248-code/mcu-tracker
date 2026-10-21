@@ -6110,7 +6110,7 @@ function rateSheet(t, note) {
   // the panel is built once, so redrawing its fields doesn't replay its slide-up
   const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
   const draw = () => { const R = rateOf(t), n = R.n || (atlSeenT(t) ? 1 : 0);
-    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><small>${state.codename ? "Agent " + esc(state.codename) + "'s log" : "Your log"}</small><h4>${tnh(t)}</h4>
+    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><small>${state.codename ? esc(asAgent(state.codename)) + "'s log" : "Your log"}</small><h4>${tnh(t)}</h4>
       <div class="rs-f"><span>Rating</span><span class="rs-stars">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rss="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= (R.r || 0), 30)}</button>`).join("")}</span></div>
       <div class="rs-f"><span>Watched</span><label class="rs-date">${rateDate(t) ? esc(showDate(rateDate(t))) : "Add date"}<input type="date" value="${esc(rateDate(t))}" aria-label="Date watched"></label></div>
       <div class="rs-f"><span>Times</span><span class="rs-cnt"><button type="button" data-rsc="-1" aria-label="One fewer">&minus;</button><b>${n}</b><button type="button" data-rsc="1" aria-label="One more">+</button></span></div>
@@ -9016,8 +9016,10 @@ const CM_YOU = { "Recruit": "Agent", "Agent": "Agent", "New agent": "Agent", "Va
 function cmTo(m) {
   const cn = state.codename;
   if (m.f === "Deadpool" && m.to === "Whoever's holding this") return cn ? `${cn} (cool name, I'd have gone with Deadpool 2)` : "Whoever's holding this (no codename? Bold. Mysterious. I respect it)";
-  return cn && CM_YOU[m.to] ? CM_YOU[m.to] + " " + cn : m.to;
+  return cn && CM_YOU[m.to] ? (CM_YOU[m.to] === "Agent" ? asAgent(cn) : CM_YOU[m.to] + " " + cn) : m.to;
 }
+// "Agent" and your codename, without doubling up when the codename already starts with it ("Agent R" stays Agent R)
+const asAgent = cn => /^agent\b/i.test(cn) ? cn : "Agent " + cn;
 function renderComms() {
   newsForget(); msgForget(); const T0 = newsTitles().filter(t => NEWS[t].some((h, i) => state.news[newsKey(t, i)])).sort((a, b) => cmWhen(b) - cmWhen(a)), M0 = msgSeen().filter(m => state.msgs[msgId(m)]).reverse();
   const T = cmPick.news ? T0.filter(t => newsSrc(t) === cmPick.news) : T0, M = cmPick.msg ? M0.filter(m => cmChan(m) === cmPick.msg) : M0;
