@@ -3110,8 +3110,11 @@ function atlUnread(view, sub, p) {
   if (p.home) return false;
   if (p.city && view === "earth") return atlPlaces("city", p.city).some(q => atlUnread("city", p.city, q));
   if (p.uni) return ATLAS_UNI[p.uni].places.some(q => atlUnread("uni", p.uni, q));
-  const n = atlEvN(p); return n > 0 && ((state.atlRead || {})[atlRKey(view, sub, p)] || 0) < n;
+  // a plain place is caught up once you've looked over its map (atlMap); one with more inside it (Knowhere and its Collector) only once you've opened it
+  const n = atlEvN(p), k = atlRKey(view, sub, p), read = Math.max((state.atlRead || {})[k] || 0, ATL_DEEP[p.id] ? 0 : (state.atlMap || {})[k] || 0);
+  return n > 0 && read < n;
 }
+const ATL_DEEP = { knowhere: 1 };   // places that keep their dot until you open them, like a city or another universe does
 function atlReadInit() {   // the first time: everything already charted counts as read, so only what turns up from now on gets a dot
   if (state.atlRead) return; const R = state.atlRead = {};
   const mark = (view, sub, p) => { if (p.home) return; if (p.city && view === "earth") return atlPlaces("city", p.city).forEach(q => mark("city", p.city, q));
@@ -3257,6 +3260,11 @@ function atlPins(map) {   // only places you've charted are on the map; the rest
   // a place only counts as seen once its ping has played out on screen, so leaving early keeps the rest for next time
   const run = map._run = (map._run || 0) + 1;
   L.filter(p => news.includes(p) || upds.includes(p)).forEach((p, i) => setTimeout(() => { if (!atlOpen || map._run !== run || !map.isConnected) return; seen[key(p)] = 1; N[key(p)] = pn(p); persist(); }, (i * step + 1.4) * 1000));
+  // looking over a map catches you up on its plain places: their dots go once the map has been on screen a moment (no tapping each one).
+  // A city, another universe or Knowhere keeps its dot until you go in; the entries inside a place stay marked new until you open it
+  const view = atlView, vsub = sub;
+  setTimeout(() => { if (!atlOpen || map._run !== run || !map.isConnected) return; const M = state.atlMap = state.atlMap || {};
+    L.forEach(p => { if (p.home || (p.city && view === "earth") || p.uni || ATL_DEEP[p.id]) return; const n = atlEvN(p); if (n) M[atlRKey(view, vsub, p)] = n; }); persist(); }, 1500);
 }
 function atlSheet(p, fresh) {   // fresh: the entries that turned up since you last opened this place, each with a dot that's gone next time
   fresh = fresh || new Set();
@@ -5993,7 +6001,7 @@ function achList() {
   EG.forEach(([id, t, h, x], i) => A.push({ id: "egg-" + id, sec: "classified", pg: Math.floor(i / per) + 1, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id] }));
   const pagesDone = () => DATA.chapters.every(isDone) && DATA.chars.every(isDone) && allTL(DATA.timeline, "tl::") && allTL(DATA.timelineRelease, "tr::") && everyRecord();
   const eggsDone = () => allStones() && EGGS.every(([id]) => ex[id]);
-  A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish the whole app.", x: "Complete every chapter, every character box and both timeline views, then see it all recorded: every log entry, every place on the Atlas (cities and other universes included) opened and read, every headline and message in Comms, and every path drawn.", ok: pagesDone });
+  A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish the whole app.", x: "Complete every chapter, every character box and both timeline views, then see it all recorded: every log entry, every map of the Atlas looked over, with every city, other universe and Knowhere opened and read, every headline and message in Comms, and every path drawn.", ok: pagesDone });
   A.push({ id: "secrets", sec: "final", secret: true, t: "Every secret", d: "Every stone and easter egg found.", h: "Find everything hidden.", x: "Find all six stones and every Classified file.", ok: eggsDone });
   A.push({ id: "excelsior", sec: "final", secret: true, t: "Excelsior!", lead: true, d: "Everything. 'Nuff said.", h: "Earn every other file.", x: "Complete every other achievement in this Agent File.", final: true, ok: () => A.every(a => a.id === "excelsior" || earned(a.id)) });
   return A;
@@ -6310,7 +6318,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
