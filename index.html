@@ -163,7 +163,7 @@ button{ font:inherit; color:inherit; }
 .panel{ position:fixed !important; inset:0 !important; z-index:50; overflow-y:auto !important; overflow-x:hidden !important; border-radius:0 !important;
         transition:clip-path .45s cubic-bezier(.2,.75,.2,1); -webkit-overflow-scrolling:touch; }
 .panel[hidden]{ display:none !important; }
-.pfix{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.pfix{ position:fixed; inset:var(--pb, 0px); pointer-events:none; z-index:0; overflow:hidden; }   /* inside the box's frame, so its art never paints over the border */
 .pin{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:calc(18px + env(safe-area-inset-top,0px)) 8px calc(90px + env(safe-area-inset-bottom,0px)); opacity:0; transition:opacity .3s ease .18s; }
 .panel.open .pin{ opacity:1; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
@@ -914,7 +914,8 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .map-empty b{ font:400 11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
 @keyframes mapWait{ 50%{ transform:scale(1.25); } }
 @media (prefers-reduced-motion: reduce){ .map-empty circle{ animation:none; } }
-.atl-row.sub{ padding-right:34px; } .atl-row .atl-chev{ position:absolute; right:2px; top:50%; transform:translateY(-50%); font:300 30px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#7FA6D8; pointer-events:none; }
+.atl-row.sub{ padding-right:34px; } .atl-row .atl-chev{ position:absolute; right:4px; top:50%; width:10px; height:16px; margin-top:-8px; color:#7FA6D8; pointer-events:none; }   /* drawn, not a text glyph, so its middle is the row's middle, level with the dot */
+.atl-row .atl-chev svg{ display:block; width:100%; height:100%; overflow:visible; }
 .atl-row.sub.nw::after{ right:26px; }
 .atl-row.nw::after{ content:""; position:absolute; top:50%; right:4px; width:7px; height:7px; margin-top:-4px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .atl-views button.nw::after{ content:""; position:absolute; top:-2px; right:-2px; width:5px; height:5px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
@@ -1909,7 +1910,7 @@ function renderPanel(e, fresh) {
   const tick = lum(box) > 0.6 ? "#111111" : "#FFFFFF";
   const scrollY = panel.scrollTop;
   panel.className = "panel" + (e.cls ? " " + e.cls : "") + (fresh ? "" : " open");
-  panel.setAttribute("style", `${e.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${box};--sfg:${sfg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);` + (panel.dataset.clip ? `clip-path:${panel.dataset.clip};` : (fresh ? "" : "clip-path:inset(0px 0px 0px 0px round 0px);")));
+  panel.setAttribute("style", `${e.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${box};--sfg:${sfg};--pb:${(String(e.style).match(/border:\s*([\d.]+)px/) || [0, 0])[1]}px;--rowline:color-mix(in srgb, ${fg} 18%, transparent);` + (panel.dataset.clip ? `clip-path:${panel.dataset.clip};` : (fresh ? "" : "clip-path:inset(0px 0px 0px 0px round 0px);")));
   const back = openKind === "chapter" ? (state.mode === "timeline" ? "Back to timeline" : "Back to chapters") : "Back to characters";
   const pq = openKind === "chapter" ? (QUOTES[e.id] || [])[0] : CHAR_QUOTES[e.title];
   const pqWait = pqHoldUntil - Date.now();
@@ -3332,7 +3333,7 @@ function atlList() {
   const [n, t] = atlCount(), left = atlView === "city" ? 0 : L.length - lit.length;
   atlReadInit(); const sub = atlView === "city" ? atlCity : atlUni;
   const row = p => { const deeper = (p.city && atlView === "earth") || p.uni;   // a city or another universe opens a map of its own: it carries a chevron, like a pill you can tap
-    return `<button type="button" class="atl-row${deeper ? " sub" : ""}${atlUnread(atlView, sub, p) ? " nw" : ""}" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small>${deeper ? '<i class="atl-chev" aria-hidden="true">&#8250;</i>' : ""}</button>`; }, abc = (a, b) => a.n.replace(/^The /, "").localeCompare(b.n.replace(/^The /, ""));
+    return `<button type="button" class="atl-row${deeper ? " sub" : ""}${atlUnread(atlView, sub, p) ? " nw" : ""}" data-p="${esc(p.id)}"><b>${esc(p.n)}</b><small>${esc(p.r)}</small>${deeper ? '<i class="atl-chev" aria-hidden="true"><svg viewBox="0 0 10 16"><path d="M2 1.5 8.5 8 2 14.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i>' : ""}</button>`; }, abc = (a, b) => a.n.replace(/^The /, "").localeCompare(b.n.replace(/^The /, ""));
   if (atlView === "city" || atlView === "uni") return `<div class="atl-lh">Charted in ${esc(atlView === "city" ? ATL_CITY[atlCity].n : ATLAS_UNI[atlUni].n)}</div>${lit.map(x => x[0]).sort(abc).map(row).join("")}`;
   // a place not filed under any heading still shows, at the end, so nothing charted can go missing from the list
   const G0 = ATL_GROUPS[atlView], G = G0.some(g => g[1] === "*") ? G0 : [...G0, ["Elsewhere", "*"]], named = new Set(G.flatMap(g => g[1].split(" ")));
