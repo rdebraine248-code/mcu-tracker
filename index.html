@@ -1209,8 +1209,7 @@ function migrate(old) { // earlier versions shared one checkmark per title; keep
 }
 if (state.watched) { migrate(state.watched); delete state.watched; }
 
-/* ---------- saving: this device first, then the account copy so phone and computer stay in step ---------- */
-let remoteRef = null, writeTimer = null, writing = Promise.resolve(), lastRemote = "";
+/* ---------- saving: on this device ---------- */
 let endgameN = null;   // how many lists have Avengers: Endgame checked; a new check opens the portals
 let dotsT = 0;
 function persist() {
@@ -1220,50 +1219,7 @@ function persist() {
   try { if (typeof achList === "function") checkAch(); } catch (e) {}   // after the moments above, so their lines and the Agent File share one pop-up
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
   clearTimeout(dotsT); dotsT = setTimeout(newDots, 150);
-  if (!remoteRef) return;
-  clearTimeout(writeTimer);
-  writeTimer = setTimeout(() => {
-    const body = { checks: state.checks, unlocked: state.unlocked, seen: state.seen || {}, dusted: state.dusted || {}, stones: state.stones || {} };
-    const sig = JSON.stringify(body);
-    if (sig === lastRemote) return;
-    writing = writing.then(() => remoteRef.set(body)).then(() => { lastRemote = sig; setSync(true); }).catch(() => setSync(false, true));
-  }, 700);
 }
-function setSync() {}   // the sync notice under the boxes is gone; account sync still runs quietly
-(async () => {
-  try {
-    if (!window.claude || !window.claude.use) return;
-    const [user, db] = await Promise.all([claude.use("user"), claude.use("db")]);
-    if (!user || !db) return;
-    const uid = await user.id();
-    if (!uid) return;
-    remoteRef = db.doc("data/users/" + uid + "/progress");
-    setSync(true);
-    remoteRef.onSnapshot(snap => {
-      if (snap.exists) {
-        const d = snap.data() || {};
-        if (d.watched && !d.checks) { migrate(d.watched); }
-        const sig = JSON.stringify({ checks: d.checks || {}, unlocked: d.unlocked || {}, seen: d.seen || {}, dusted: d.dusted || {}, stones: d.stones || {} });
-        if (snap.metadata && snap.metadata.hasPendingWrites) return;
-        lastRemote = sig;
-        const before = JSON.stringify({ checks: state.checks, unlocked: state.unlocked, seen: state.seen || {}, dusted: state.dusted || {}, stones: state.stones || {} });
-        // merge so nothing ticked on this device before the account copy arrived is lost
-        if (d.checks) state.checks = Object.assign({}, renameChecks(d.checks), state.checks);
-        state.unlocked = Object.assign({}, d.unlocked || {}, state.unlocked);
-        state.seen = Object.assign({}, d.seen || {}, state.seen || {});
-        state.stones = Object.assign({}, d.stones || {}, state.stones || {});
-        if (d.dusted && !state.dustedLocal) state.dusted = d.dusted;
-        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
-        const merged = JSON.stringify({ checks: state.checks, unlocked: state.unlocked, seen: state.seen || {}, dusted: state.dusted || {}, stones: state.stones || {} });
-        if (merged !== sig) { endgameN = null; persist(); }
-        if (merged !== before) renderAll();   // our own saves echo back unchanged: nothing to redraw
-      } else if (Object.keys(state.checks).length || Object.keys(state.unlocked).length) {
-        persist();
-      }
-    }, () => setSync(false, true));
-  } catch (e) { /* stays on this device */ }
-})();
-
 /* ---------- helpers ---------- */
 let uidN = 0;
 function scoped(html) { // give every SVG id a unique suffix so repeated decorations never clash
@@ -8991,16 +8947,11 @@ document.getElementById("mainTitle").addEventListener("click", ev => {
 function resetDatapad() {
   ask("Reset this datapad? All your progress will be lost. This cannot be undone.", "Reset datapad").then(ok => {
     if (!ok) return;
-    // everything goes: the whole save on this device and the account copy, then the datapad starts over from nothing, the same as the first time
+    // everything goes: the whole save on this device, then the datapad starts over from nothing, the same as the first time
     // it was handed to you, so nothing kept only while the app is open (a focus, a pruned timeline, a page you were on) survives either
-    clearTimeout(writeTimer); Object.keys(state).forEach(k => delete state[k]); Object.assign(state, { checks: {}, unlocked: {}, seen: {}, mode: "chapters" });
+    Object.keys(state).forEach(k => delete state[k]); Object.assign(state, { checks: {}, unlocked: {}, seen: {}, mode: "chapters" });
     try { localStorage.removeItem(KEY); } catch (e) {}
-    const empty = { checks: {}, unlocked: {}, seen: {}, dusted: {}, stones: {} };
-    const wipe = remoteRef ? writing.then(() => remoteRef.set(empty)).catch(() => {}) : Promise.resolve();
-    Promise.race([wipe, new Promise(r => setTimeout(r, 2500))]).then(() => {
-      try { localStorage.removeItem(KEY); } catch (e) {}
-      location.replace(location.pathname + location.search);
-    });
+    location.replace(location.pathname + location.search);
   });
 }
 function dustSweep(ms) {
@@ -9320,8 +9271,8 @@ setInterval(() => {
   if (cosmos || sayBusy || document.visibilityState !== "visible") return;
   if (Date.now() - idleAt >= idleWait) openCosmos();
 }, 2000);
-/* ---------- outside Claude (opened from a file, or as the installed app from its website): saved on this device, and the app works offline ---------- */
-if (!(window.claude && window.claude.use)) {
+/* ---------- the installed app works offline ---------- */
+{
   if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(reg => {
