@@ -711,7 +711,10 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
   .ratecard.inbox{ gap:6px; padding:7px 9px; letter-spacing:.8px; } .ratecard.inbox .rc-s span{ padding:2px 0; } .ratecard.inbox .rc-s svg{ width:17px; height:17px; } }   /* a small phone's timeline column is narrower */
 .ratecard .rc-n{ display:inline-block; margin-top:6px; padding:3px 7px; border:1px solid color-mix(in srgb, currentColor 55%, transparent); border-radius:6px; white-space:nowrap; cursor:pointer; touch-action:manipulation; }
 .ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
-.ratesheet .rs-in{ width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
+.ratesheet .rs-in{ position:relative; width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
+/* Done sits up top, clear of the keyboard: everything saves as you go, so it just puts the sheet away */
+.ratesheet .rs-done{ position:absolute; top:22px; right:20px; padding:7px 14px; border:1px solid #2B3F62; border-radius:999px; background:#13203A; color:#9FC3FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
+.ratesheet .rs-in > small, .ratesheet .rs-in > h4{ margin-right:96px; }
 .ratesheet .rs-grip{ position:relative; width:40px; height:4px; margin:0 auto 14px; border-radius:2px; background:#33405C; cursor:grab; }
 .ratesheet .rs-grip::before{ content:""; position:absolute; inset:-14px -70px; }   /* a bigger patch to grab than the bar itself */
 .ratesheet .rs-grip, .ratesheet .rs-in > small, .ratesheet .rs-in > h4{ touch-action:none; }
@@ -6092,32 +6095,32 @@ document.addEventListener("pointermove", ev => { const d = rcDrag; if (!d || ev.
   if (c.classList.contains("done") || Date.now() - (c._swiped || 0) < 400) return; ev.preventDefault();
   const t = c.dataset.rc, st = ev.target.closest("[data-rcs]");
   if (st) { const v = +st.dataset.rcs; rateSet(t, { r: v }); haptic(12); c.innerHTML = rcHTML(v, c.classList.contains("inbox")); c.classList.add("done"); if (rcT === t) rcT = null; setTimeout(() => rcGo(c), 1100); return; }   // your stars, for a moment, then it tucks away
-  if (ev.target.closest("[data-rcn]")) { if (rcT === t) rcT = null; rcGo(c); rateSheet(t, true); }
+  if (ev.target.closest("[data-rcn]")) { if (rcT === t) rcT = null; rcGo(c); rateSheet(t); }
 }, true));
 // the sheet: stars (tap the same one again to clear them), the day you watched it, how many times, and a note. It saves as you go
-function rateSheet(t, note) {
+function rateSheet(t) {   // it opens on its own; the keyboard only comes up once you tap into the note
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
   el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Your log: " + tn(t));
   // the panel is built once, so redrawing its fields doesn't replay its slide-up
   const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
   const draw = () => { const R = rateOf(t), n = R.n || (atlSeenT(t) ? 1 : 0);
-    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><small>${state.codename ? esc(asAgent(state.codename)) + "'s log" : "Your log"}</small><h4>${tnh(t)}</h4>
+    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><button type="button" class="rs-done">Done</button><small>${state.codename ? esc(asAgent(state.codename)) + "'s log" : "Your log"}</small><h4>${tnh(t)}</h4>
       <div class="rs-f"><span>Rating</span><span class="rs-stars">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rss="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= (R.r || 0), 30)}</button>`).join("")}</span></div>
       <div class="rs-f"><span>Watched</span><label class="rs-date">${rateDate(t) ? esc(showDate(rateDate(t))) : "Add date"}<input type="date" value="${esc(rateDate(t))}" aria-label="Date watched"></label></div>
       <div class="rs-f"><span>Times</span><span class="rs-cnt"><button type="button" data-rsc="-1" aria-label="One fewer">&minus;</button><b>${n}</b><button type="button" data-rsc="1" aria-label="One more">+</button></span></div>
-      <div class="rs-f rs-note"><span>Note</span><textarea maxlength="600" placeholder="Anything you want to remember">${esc(R.note || "")}</textarea></div>`; };
+      <div class="rs-f rs-note"><span>Note</span><textarea maxlength="600" enterkeyhint="done" placeholder="Anything you want to remember">${esc(R.note || "")}</textarea></div>`; };
   draw(); document.body.appendChild(el);
   try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
-  if (note) { const ta = el.querySelector("textarea"); if (ta) ta.focus(); }
   const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
   el.addEventListener("click", ev => {
     if (Date.now() - grabbed < 400) return;   // the end of a drag on its top isn't a tap on the backdrop
-    if (ev.target === el) { close(); return; }
+    if (ev.target === el || ev.target.closest(".rs-done")) { close(); return; }
     const s = ev.target.closest("[data-rss]"); if (s) { const n = +s.dataset.rss; rateSet(t, { r: rateOf(t).r === n ? 0 : n }); haptic(10); draw(); refreshRates(); return; }
     const c = ev.target.closest("[data-rsc]"); if (c) { const n = Math.max(0, (rateOf(t).n || (atlSeenT(t) ? 1 : 0)) + +c.dataset.rsc); rateSet(t, { n }); haptic(8); draw(); return; }
   });
   el.addEventListener("change", ev => { if (ev.target.matches("input[type=date]")) { rateSet(t, { d: ev.target.value }); draw(); refreshRates(); } });
   el.addEventListener("input", ev => { if (ev.target.matches("textarea")) rateSet(t, { note: ev.target.value }); });
+  el.addEventListener("keydown", ev => { if (ev.key === "Enter" && !ev.shiftKey && ev.target.matches("textarea")) { ev.preventDefault(); ev.target.blur(); } });   // the keyboard's Done puts the keyboard away; the note is already saved
   // hold it by its top (the grip, the title) and it follows your finger: let go far enough down, or flick it, and it slides away; otherwise it settles back
   let drag = null, grabbed = 0;
   el.addEventListener("pointerdown", ev => { if (!ev.target.closest(".rs-grip, .rs-in > small, .rs-in > h4")) return;
