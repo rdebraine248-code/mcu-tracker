@@ -6031,6 +6031,8 @@ function achSay(a) {
     const e = a.sec === "chapters" ? DATA.chapters.find(c => c.id === a.cid) : a.ch;
     if (e) { if (Date.now() - (boxSaid[e.id] || 0) > 8000) boxNews(e, "Complete", undefined, true); return; }
   }
+  // the very last file says your name: Excelsior, Agent R!
+  if (a.id === "excelsior" && state.codename) { say(`Excelsior, ${asAgent(state.codename)}!`, null, "Agent File · " + a.t, a.ms, true, undefined, { label: "Final File Completed", own: a.t }); return; }
   say(a.t, null, "Agent File", a.ms, true);
 }
 
@@ -6264,7 +6266,7 @@ function caseFile(film) {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) pk.remove();
   const R = CASES[film]; pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Case file");
   pk.innerHTML = `<div class="hf-pickin hf-case"><div class="hf-pickh"><span>Case file · ${esc(MISSION_NAMES[film] || film.replace("Avengers: ", ""))}</span><button type="button" data-ava-x aria-label="Close">&times;</button></div>
-    ${R ? `<dl class="hf-cf">${R.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
+    ${R ? `<dl class="hf-cf">${(state.codename ? [...R.slice(0, 5), ["Assigned", asAgent(state.codename)], ...R.slice(5)] : R).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
   fp.appendChild(pk); haptic(8); hfPickNav();
   pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
 }
