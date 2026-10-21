@@ -1331,8 +1331,8 @@ function blCarry(e) {
 }
 function boxNews(e, what, foot, viaSay) { const hd = boxKind(e) + " · " + what; if (viaSay) say(e.title, e, foot, undefined, true, hd); else toast(e.title, e, false, foot, undefined, { hd }); }
 // what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
-const HUD_SAME = { missions: "Mission", artifacts: "Artifact", classified: "Classified", chapters: "Complete" };
-const HUD_NAMED = { missions: n => "Mission: " + n, artifacts: n => "Artifact: " + n, classified: n => "Classified: " + n, chapters: n => n + " complete" };
+const HUD_SAME = { missions: "Mission Completed", artifacts: "Artifact", classified: "Classified", chapters: "Complete" };
+const HUD_NAMED = { missions: n => "Mission Completed: " + n, artifacts: n => "Artifact: " + n, classified: n => "Classified: " + n, chapters: n => n + " complete" };
 function hudFiled(msg, items) {
   const A = achList(), of = n => A.find(z => z.t === n || z.ann === n), lead = of(msg), out = [];
   if (lead && !items.includes(lead.t)) out.push(HUD_SAME[lead.sec] || lead.t);
