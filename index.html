@@ -19,6 +19,7 @@
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 html{ scroll-padding-top:env(safe-area-inset-top,0px); }
+html, body{ overflow-x:clip; }   /* nothing sliding off the side (a card swiped away, a shake) can widen the page and make the phone zoom out */
 @media (prefers-color-scheme: dark){ :root{ color-scheme: dark; } }
 *{ -webkit-tap-highlight-color: transparent; }
 .tile, .cover, .panel, .toast, .tile *, .panel *{ color-scheme: only light; }
