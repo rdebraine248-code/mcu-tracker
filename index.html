@@ -6505,14 +6505,14 @@ function skrull(x, y, held) {
   haptic([10, 30, 10, 30, 10]);
   // a green ripple passes over every title; when it passes the impostor, its name comes back wrong
   its.forEach((i, k) => { shim(i.t, k * 70); if (i === it) setTimeout(() => { it.t.textContent = fake; }, k * 70 + 300); });
-  setTimeout(() => say("One of these isn't what it says it is.", null, undefined, undefined, true), its.length * 70 + 500);
+  setTimeout(() => say("One of these isn't what it says it is.", null, undefined, undefined, true, ""), its.length * 70 + 500);
   const end = won => {
     if (!skrullGame) return; clearTimeout(skrullGame.timer); window.removeEventListener("click", skrullGame.tap, true); skrullGame = null;
     if (!it.t.isConnected) return;
     it.t.animate([{ filter: "none" }, { filter: "drop-shadow(0 0 8px #39D353) brightness(1.3)", color: "#5BE36F", offset: .35 }, { filter: "none" }], { duration: 1100 });
     setTimeout(() => { it.t.textContent = real; }, 380);
     if (won) { haptic([30, 40, 80]); burst(...centerOf(it.t), 24, ["#39D353", "#9BFFB0", "#1E7A35"], 60); found("skrull"); }
-    else say("It got away.", null, undefined, undefined, true);
+    else say("It got away.", null, undefined, undefined, true, "");   // the game's own lines: no System on top
   };
   skrullGame = {
     timer: setTimeout(() => end(false), 14000),
