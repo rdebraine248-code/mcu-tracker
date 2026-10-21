@@ -1660,20 +1660,27 @@ function tlDraw(open, then) {
   // on a branch's row only the Sacred Timeline's own line comes and goes; the branch itself stays put
   const parts = l => { const main = l.dataset.lane === "main"; return { line: main ? l.querySelector(".tl-lanes") : l.querySelector(".tl-lanes > svg:not(.tl-br)"), rest: main ? [l.querySelector(".tl-node"), l.querySelector(".tl-text")] : [] }; };
   const fl = fold.querySelector(".tl-lanes svg"), DRAWN = "inset(0 0 0 0)", GONE = "inset(0 0 100% 0)", STUB = "inset(0 0 66% 0)";
+  // scroll while it's playing and it finishes at once, so what you scroll to is never half drawn
+  const anims = [], y0 = scrollY; let tm = 0;
+  const end = () => { removeEventListener("scroll", onScroll); anims.forEach(a => a.finish()); if (then) { clearTimeout(tm); tlDrawing = false; const t = then; then = null; t(); } };
+  const onScroll = () => { if (Math.abs(scrollY - y0) > 4) end(); };
+  addEventListener("scroll", onScroll, { passive: true });
+  const A = (el, k, o) => { const a = el.animate(k, o); anims.push(a); return a; };
   if (open) {
     const per = 85;
-    if (fl) fl.animate([{ clipPath: STUB }, { clipPath: DRAWN }], { duration: per, easing: "linear", fill: "backwards" });
+    if (fl) A(fl, [{ clipPath: STUB }, { clipPath: DRAWN }], { duration: per, easing: "linear", fill: "backwards" });
     rows.forEach((l, k) => { const p = parts(l), d = (k + 1) * per;
-      if (p.line) p.line.animate([{ clipPath: GONE }, { clipPath: DRAWN }], { duration: per, delay: d, easing: "linear", fill: "backwards" });
-      p.rest.forEach(x => x && x.animate([{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 280, delay: d + per * .5, easing: "ease-out", fill: "backwards" })); });
+      if (p.line) A(p.line, [{ clipPath: GONE }, { clipPath: DRAWN }], { duration: per, delay: d, easing: "linear", fill: "backwards" });
+      p.rest.forEach(x => x && A(x, [{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 280, delay: d + per * .5, easing: "ease-out", fill: "backwards" })); });
+    tm = setTimeout(() => removeEventListener("scroll", onScroll), (rows.length + 1) * per + 300);
     return;
   }
   tlDrawing = true; const per = 60, n = rows.length;
   rows.forEach((l, k) => { const p = parts(l), d = (n - 1 - k) * per;   // from the bottom of the screen back up to the button
-    p.rest.forEach(x => x && x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, delay: d, fill: "forwards" }));
-    if (p.line) p.line.animate([{ clipPath: DRAWN }, { clipPath: GONE }], { duration: per, delay: d + 40, easing: "linear", fill: "forwards" }); });
-  if (fl) fl.animate([{ clipPath: DRAWN }, { clipPath: STUB }], { duration: per, delay: n * per + 40, easing: "linear", fill: "forwards" });
-  setTimeout(() => { tlDrawing = false; then(); }, (n + 1) * per + 60);
+    p.rest.forEach(x => x && A(x, [{ opacity: 1 }, { opacity: 0 }], { duration: 160, delay: d, fill: "forwards" }));
+    if (p.line) A(p.line, [{ clipPath: DRAWN }, { clipPath: GONE }], { duration: per, delay: d + 40, easing: "linear", fill: "forwards" }); });
+  if (fl) A(fl, [{ clipPath: DRAWN }, { clipPath: STUB }], { duration: per, delay: n * per + 40, easing: "linear", fill: "forwards" });
+  tm = setTimeout(end, (n + 1) * per + 60);
 }
 function renderView() {
   requestAnimationFrame(rcPlace);   // a rating card follows its title through a redraw, or goes if the title's gone
@@ -2061,7 +2068,7 @@ document.getElementById("view").addEventListener("click", ev => {
   if (fb) {   // open the Sacred Timeline out, or fold it back to where you are on it
     if (tlDrawing) return;
     haptic(10); const open = fb.dataset.tlfold === "open"; if (open) state[TL_OPEN()] = true; else delete state[TL_OPEN()]; persist();
-    const y = window.scrollY, draw = () => { renderView(); window.scrollTo(0, y); };
+    const draw = () => { const y = window.scrollY; renderView(); window.scrollTo(0, y); };   // wherever you are by then, if you scrolled meanwhile
     if (open) { draw(); tlDraw(true); } else tlDraw(false, () => tlSlide(draw));
     return;
   }
