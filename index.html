@@ -716,6 +716,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ratesheet .rs-grip{ position:relative; width:40px; height:4px; margin:0 auto 14px; border-radius:2px; background:#33405C; cursor:grab; }
 .ratesheet .rs-grip::before{ content:""; position:absolute; inset:-14px -70px; }   /* a bigger patch to grab than the bar itself */
 .ratesheet .rs-grip, .ratesheet .rs-in > small, .ratesheet .rs-in > h4{ touch-action:none; }
+/* while the sheet is up, the page behind it stays still: touching the sheet never scrolls what's underneath (the note can still scroll its own text) */
+html:has(#rateSheet){ overflow:hidden; }
+.ratesheet{ touch-action:none; overscroll-behavior:contain; } .ratesheet textarea{ touch-action:pan-y; overscroll-behavior:contain; }
 .ratesheet small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; }
 .ratesheet h4{ margin:2px 0 14px; font:400 26px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; }
 .rs-f{ display:grid; grid-template-columns:86px 1fr; align-items:center; gap:10px; padding:12px 0; border-top:1px solid #1C2538; font-size:15px; }
