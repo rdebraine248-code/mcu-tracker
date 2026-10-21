@@ -1451,7 +1451,7 @@ const INC_ID = "ch-incursions", incOpen = () => !!state.incEver || anyChecked("A
 // Every time Loki S1 or Doomsday is checked on a timeline: the change it makes to the timeline itself
 const mvAlert = () => say("The Multiverse", TVA, undefined, undefined, true, undefined, { label: "Multiversal Breach Detected", go: extrasAt });
 const incAlert = () => say("Incursion", TVA, undefined, undefined, true, undefined, { label: "Incursion Detected", go: extrasAt });
-const tlAlert = what => say("The Sacred Timeline", TVA, undefined, undefined, true, undefined, { label: what });
+const tlAlert = (what, said) => say(what, TVA, undefined, undefined, true, undefined, { label: said });   // what was detected, then what it did to the timeline, plainly
 const extraShut = e => !e.num && (e.id === INC_ID ? !incOpen() : !multiverseOpen());
 function available(e) {
   if (state.unlocked[e.id] || forceOpen === e.id) return true;
@@ -2160,10 +2160,10 @@ document.getElementById("view").addEventListener("click", ev => {
       const y = window.scrollY; renderView(); window.scrollTo(0, y);
       const nr = document.querySelector('.tl-row[data-tl="Loki S1"]'); if (nr) nr.focus({ preventScroll: true });
       // the timeline's own pill every time, then the multiverse pill if this is what opened it, the same as in a box
-      if (on) tlAlert("Nexus Event Detected"); if (!wasOpen && multiverseOpen()) mvAlert();
+      if (on) tlAlert("Nexus Event Detected", "The Sacred Timeline Has Branched"); if (!wasOpen && multiverseOpen()) mvAlert();
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
-      if (r.dataset.tl === INC_MARK && on) tlAlert("Incursion Event Detected");
+      if (r.dataset.tl === INC_MARK && on) tlAlert("The Sacred Timeline", "Incursion Event Detected");
       if (!wasInc && incOpen()) incAlert();
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
