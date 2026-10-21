@@ -1359,7 +1359,7 @@ function pillSet(el, msg, e, cover, foot, o, fresh) {
   el._names = agent ? [msg, ...items] : null;   // a tap opens the Agent File on what it filed
   el._go = o && o.done && o.done.go || null;   // or somewhere of its own (the TVA's once-only alerts: the Extras they opened)
   const tva = e === TVA, box = e && !tva && !cover && e.id ? e : null;
-  hudShow(el, { tap: agent || !!el._go, tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box && !(o && o.full), hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "Datapad"),
+  hudShow(el, { tap: agent || !!el._go, tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box && !(o && o.full), hd: o && o.hd != null ? o.hd : tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "System",
     b: msg, s: o && o.done ? [o.done.label, hudFiled("", items.filter(n => n !== o.done.own))].filter(Boolean).join(" · ") : agent ? hudFiled(msg, items) : "" }, fresh);
 }
 const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
@@ -1380,7 +1380,7 @@ function hudShow(el, p, fresh) {
   el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el._opening = false;
   el.removeAttribute("style");
   el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva); el._quick = !!p.quick; if (p.tint) el.style.setProperty("--hc", p.tint);
-  el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin${p.tap ? " tap" : ""}"><span class="hd">${esc(p.hd)}</span><b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}${p.tap ? `<i class="hgo" aria-hidden="true">&#8250;</i>` : ""}</div></div>`;
+  el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin${p.tap ? " tap" : ""}">${p.hd ? `<span class="hd">${esc(p.hd)}</span>` : ""}<b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}${p.tap ? `<i class="hgo" aria-hidden="true">&#8250;</i>` : ""}</div></div>`;
   const W = Math.min(innerWidth - 48, 460), inn = el.querySelector(".hin"); inn.style.width = W + "px";
   const H = inn.offsetHeight, size = (w, h) => { el.style.width = w + "px"; el.style.height = h + "px"; };
   if (REDUCED || shown || !fresh) { size(W, H); return; }   // a reply to a tap over one that's up: straight in
@@ -1412,7 +1412,7 @@ function hudShow(el, p, fresh) {
 // something new joins the pill on screen: its lines change in place. Mid-opening, the new words are simply what it goes on to show
 function hudUpdate(el, p) {
   const inn = el.querySelector(".hin"); if (!inn) return;
-  inn.querySelector(".hd").textContent = p.hd;
+  const hd = inn.querySelector(".hd"); if (hd) hd.textContent = p.hd;
   let sm = inn.querySelector("small");
   if (p.s && !sm) { sm = document.createElement("small"); inn.appendChild(sm); if (el._opening) sm.style.opacity = 0; }
   if (sm) { if (p.s) sm.textContent = p.s; else sm.remove(); }
@@ -2032,7 +2032,6 @@ function closePanel() {
 }
 
 /* ---------- interactions ---------- */
-const BLIPPED = ["You should have gone for the head.", "Dread it. Run from it. Destiny arrives all the same.", "Reality is often disappointing.", "The hardest choices require the strongest wills.", "The work is done."];
 function activate(el) {
   const id = el.dataset.id, kind = el.dataset.kind;
   if (kind === "char") {
@@ -2059,7 +2058,7 @@ function activate(el) {
     }
   }
   if (kind === "char" && !(state.dusted || {})[id]) { state.lastChar = id; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} paintUpNext(); }
-  if (kind === "char" && (state.dusted || {})[id]) { toast(BLIPPED[Math.floor(Math.random() * BLIPPED.length)]); return; }
+  if (kind === "char" && (state.dusted || {})[id]) { toast("Subject lost in the snap."); return; }
   const e = (kind === "chapter" ? DATA.chapters : DATA.chars).find(x => x.id === id);
   if (!e) return;
   if (kind === "chapter" && !available(e)) {
@@ -2411,12 +2410,12 @@ function hexCast(x, y) {
   hex = { el, grade, fx, era: 0 };
   haptic([20, 60, 20, 60, 40, 80, 120]);
   const view = el.querySelector(".hx-view"), ring = fx.querySelector(".hx-ring"), R = hexRadius(x, y);
-  if (REDUCED) { hexBusy = false; document.body.dataset.hexEra = "0"; toast(HEX_ERAS[0].n, null, false, null, 1500); return; }
+  if (REDUCED) { hexBusy = false; document.body.dataset.hexEra = "0"; toast(HEX_ERAS[0].n, null, false, null, 1500, { hd: "" }); return; }
   view.style.clipPath = `circle(0px at ${x}px ${y}px)`;
   wisps(x, y, true);
   Object.assign(ring.style, { left: x - R + "px", top: y - R + "px", width: 2 * R + "px", height: 2 * R + "px" });
   const opt = { duration: 2200, delay: 1100, easing: "cubic-bezier(.45,0,.3,1)", fill: "both" };
-  view.animate([{ clipPath: `circle(0px at ${x}px ${y}px)` }, { clipPath: `circle(${R}px at ${x}px ${y}px)` }], opt).onfinish = () => { view.style.clipPath = ""; document.body.dataset.hexEra = "0"; hexBusy = false; toast(HEX_ERAS[0].n, null, false, null, 1500); };
+  view.animate([{ clipPath: `circle(0px at ${x}px ${y}px)` }, { clipPath: `circle(${R}px at ${x}px ${y}px)` }], opt).onfinish = () => { view.style.clipPath = ""; document.body.dataset.hexEra = "0"; hexBusy = false; toast(HEX_ERAS[0].n, null, false, null, 1500, { hd: "" }); };
   ring.animate([{ transform: "scale(0)", opacity: 1 }, { transform: "scale(.85)", opacity: 1, offset: .85 }, { transform: "scale(1)", opacity: 0 }], opt);
 }
 function hexNext(x, y) {
@@ -2425,8 +2424,8 @@ function hexNext(x, y) {
   hexBusy = true; haptic(HAPTIC.tap);
   const st = hex.fx.querySelector(".hx-static"), next = hex.era + 1;
   const swap = () => { hex.era = next; document.body.dataset.hexEra = String(next); hex.el.style.setProperty("--hxf", HEX_ERAS[next].f); };
-  if (REDUCED) { swap(); hexBusy = false; toast(HEX_ERAS[next].n, null, false, null, 1500); return; }
-  st.animate([{ opacity: 0 }, { opacity: .75, offset: .45 }, { opacity: .75, offset: .55 }, { opacity: 0 }], { duration: 650, easing: "ease-in-out" }).onfinish = () => { hexBusy = false; toast(HEX_ERAS[next].n, null, false, null, 1500); };
+  if (REDUCED) { swap(); hexBusy = false; toast(HEX_ERAS[next].n, null, false, null, 1500, { hd: "" }); return; }
+  st.animate([{ opacity: 0 }, { opacity: .75, offset: .45 }, { opacity: .75, offset: .55 }, { opacity: 0 }], { duration: 650, easing: "ease-in-out" }).onfinish = () => { hexBusy = false; toast(HEX_ERAS[next].n, null, false, null, 1500, { hd: "" }); };
   setTimeout(swap, 300);
 }
 function hexDrop(x, y) {   // Wanda lets the Hex go: it pulls back into her hand
