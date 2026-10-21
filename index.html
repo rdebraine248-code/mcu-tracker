@@ -1446,14 +1446,11 @@ function prevOf(e) {
 }
 // the Incursions stay sealed until Avengers: Doomsday is checked off, anywhere
 const INC_ID = "ch-incursions", incOpen = () => !!state.incEver || anyChecked("Avengers: Doomsday");   // the Incursions too: once opened, for good
-// checking off Doomsday for the first time: a warning in the Incursions' colors that something has opened, without naming it
-// the TVA's alerts, in two kinds. Once only, when a project opens a sealed Extras section: what's been detected (a tap takes you to those Extras).
-// Every time Loki S1 or Doomsday is checked on a timeline: the change it makes to the timeline itself
-const mvAlert = () => say("The Multiverse", TVA, undefined, undefined, true, undefined, { label: "Multiversal Breach Detected", go: extrasAt });
-// Doomsday has one alert, the same wherever it shows: every time it's checked on a timeline, and the first time it opens the Incursions from a box.
-// A tap opens the Incursions: on a timeline, that timeline's own list (the same as its marker); anywhere else, the Incursions box on the Story page
+// the TVA's alerts: one each for Loki S1 and Avengers: Doomsday, the same wherever they show. Every time either is checked on a timeline,
+// and the first time it opens its Extras from a box. A tap goes to what it opened
+const mvAlert = () => say("Nexus Event Detected", TVA, undefined, undefined, true, undefined, { label: "The Sacred Timeline Has Branched", go: extrasAt });
+// Doomsday's opens the Incursions: on a timeline, that timeline's own list (the same as its marker); anywhere else, the Incursions box on the Story page
 const incAlert = onTl => say("Warning: Incursions Detected", TVA, undefined, undefined, true, undefined, { label: "Monitoring Earths Lost", go: onTl ? () => openIncList(document.querySelector("#view [data-incm]") || document.getElementById("toast")) : incBoxAt });
-const tlAlert = (what, said) => say(what, TVA, undefined, undefined, true, undefined, { label: said });   // what was detected, then what it did to the timeline, plainly
 const extraShut = e => !e.num && (e.id === INC_ID ? !incOpen() : !multiverseOpen());
 function available(e) {
   if (state.unlocked[e.id] || forceOpen === e.id) return true;
@@ -2162,7 +2159,7 @@ document.getElementById("view").addEventListener("click", ev => {
       const y = window.scrollY; renderView(); window.scrollTo(0, y);
       const nr = document.querySelector('.tl-row[data-tl="Loki S1"]'); if (nr) nr.focus({ preventScroll: true });
       // the timeline's own pill every time, then the multiverse pill if this is what opened it, the same as in a box
-      if (on) tlAlert("Nexus Event Detected", "The Sacred Timeline Has Branched"); if (!wasOpen && multiverseOpen()) mvAlert();
+      if (on) mvAlert();
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
       if (r.dataset.tl === INC_MARK && on) incAlert(true);
