@@ -4607,7 +4607,6 @@ function ultronWins() {
     if (++n >= 22) {
       clearInterval(iv);
       its.forEach((it, k) => { if (it.t.isConnected) { it.t.textContent = orig[k]; it.t.style.color = ""; it.t.style.textShadow = ""; } });
-      say("Ultron got loose.", null, undefined, undefined, true);   // the Mind Stone slipped: a datapad status, not a line
     }
   }, 90);
 }
@@ -5892,7 +5891,7 @@ function achList() {
   A.push({ id: "sacred", sec: "missions", done: true, secret: true, t: "The Sacred Timeline", d: "The main timeline is complete.", h: "Follow the amber line, or the chapters.", x: "Complete Chapters 1 to 11, or check off every title on the Sacred Timeline's main line.", ok: () => mainCh.every(isDone) || allTL(DATA.timeline, "tl::", "main") || allTL(DATA.timelineRelease, "tr::", "main") });
   A.push({ id: "multiverse", sec: "missions", done: true, secret: true, t: "The Multiverse", d: "Every branch is complete too.", h: "Every line, not just one.", x: "Complete every chapter including the Extras, or check off every title on the Sacred Timeline page, branches included.", ok: () => DATA.chapters.every(isDone) || allTL(DATA.timeline, "tl::") || allTL(DATA.timelineRelease, "tr::") });
   STONES.forEach(z => A.push({ id: "stone-" + z.id, sec: "artifacts", t: z.n + " Stone", lead: true, d: "Found.", h: z.hint, x: STONE_HOW[z.id], ok: () => !!st[z.id] }));
-  A.push({ id: "snap", sec: "artifacts", t: "Perfectly balanced", foot: "Snap Complete", d: "You snapped.", h: "With all six…", x: "With all six stones, tap the colored line under the title and press Snap?", ok: () => !!ex.snap });
+  A.push({ id: "snap", sec: "artifacts", t: "Perfectly balanced", foot: "Half of all life erased", d: "You snapped.", h: "With all six…", x: "With all six stones, tap the colored line under the title and press Snap?", ok: () => !!ex.snap });
   const EG = EGGS.map((e, i) => [e, i]).sort((a, b) => a[0][4] - b[0][4] || a[1] - b[1]).map(x => x[0]), per = Math.ceil(EG.length / HF_PAGES);
   EG.forEach(([id, t, h, x], i) => A.push({ id: "egg-" + id, sec: "classified", pg: Math.floor(i / per) + 1, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id] }));
   const pagesDone = () => DATA.chapters.every(isDone) && DATA.chars.every(isDone) && allTL(DATA.timeline, "tl::") && allTL(DATA.timelineRelease, "tr::") && everyRecord();
@@ -9012,7 +9011,8 @@ function toCharacters(then) {
 }
 function snap() {
   const ids = DATA.chars.map(c => c.id).sort(() => Math.random() - .5).slice(0, Math.floor(DATA.chars.length / 2));
-  const settle = () => { state.dusted = {}; ids.forEach(id => state.dusted[id] = true); (state.eggs = state.eggs || {}).snap = 1; persist(); renderView(); };
+  const again = !!(state.eggs || {}).snap;   // the first time it's filed in your Agent File; after that the datapad just reports it
+  const settle = () => { state.dusted = {}; ids.forEach(id => state.dusted[id] = true); (state.eggs = state.eggs || {}).snap = 1; persist(); renderView(); if (again) say("Half of all life erased", null, undefined, undefined, true); };
   if (REDUCED) { settle(); return; }
   toCharacters(() => {
     flash(.9);
@@ -9024,7 +9024,7 @@ function snap() {
 
 function unsnap() {
   const ids = Object.keys(state.dusted || {});
-  const settle = () => { state.dusted = {}; (state.eggs = state.eggs || {}).unsnap = 1; persist(); renderView(); };
+  const settle = () => { state.dusted = {}; (state.eggs = state.eggs || {}).unsnap = 1; persist(); renderView(); say("All life restored", null, undefined, undefined, true); };
   if (REDUCED) { settle(); return; }
   toCharacters(() => {
     flash(.75);
