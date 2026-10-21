@@ -6168,7 +6168,7 @@ function rateSec() {
     <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
     <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
 }
-let fileOpen = false, hfPage = 1, hfFlip = false, hfChPg = 1, hfChFlip = false; const achTaps = {}, HF_PAGES = 3;
+let fileOpen = false, hfPage = 1, hfFlip = false, hfChPg = 1, hfChFlip = false; const achTaps = {}, HF_PAGES = 4;
 // put new markup in place, swapping only the top-level blocks that changed, so everything else on screen stays exactly as it was
 function swapIn(host, html) {
   const tmp = document.createElement("div"); tmp.innerHTML = html;
