@@ -211,11 +211,17 @@ button{ font:inherit; color:inherit; }
 
 .ask{ position:fixed; inset:0; z-index:88; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; padding:20px; }
 .ask[hidden]{ display:none; }
-.askbox{ max-width:420px; width:100%; background:var(--chip); color:var(--chip-ink); border-radius:14px; padding:22px 22px 18px; box-shadow:0 18px 50px rgba(0,0,0,.35); }
-.askbox p{ margin:0 0 18px; font-size:17px; line-height:1.4; }
+/* the datapad asking: a System reply like a quick pill, its thin frame and no corners. Red only for what can't be undone */
+.askbox{ --hc:#5FD0FF; max-width:420px; width:100%; box-sizing:border-box; padding:12px 16px 14px; color:#EEF6FF; background:rgb(8,14,26);
+  border:1px solid color-mix(in srgb, var(--hc) 25%, transparent); box-shadow:0 0 22px color-mix(in srgb, var(--hc) 14%, transparent), 0 10px 26px rgba(0,0,0,.55);
+  background-image:repeating-linear-gradient(0deg,color-mix(in srgb, var(--hc) 5%, transparent) 0 1px,transparent 1px 3px); }
+.askbox.warn{ --hc:#FF5A4E; }
+.askhd{ display:block; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:var(--hc); } .askhd::before{ content:"\25B8\00A0\00A0"; }
+.askbox p{ margin:6px 0 16px; font:500 16px/1.35 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:.2px; }
 .askbtns{ display:flex; gap:10px; justify-content:flex-end; }
-.askbtns button{ border:1px solid var(--line); background:transparent; padding:10px 18px; border-radius:999px; cursor:pointer; font-size:15px; }
-#askYes{ background:#B3261E; border-color:#B3261E; color:#fff; }
+.askbtns button{ border:1px solid #2A3A56; background:transparent; color:#8EA2C2; padding:9px 14px; border-radius:0; cursor:pointer; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; touch-action:manipulation; }
+#askYes{ border-color:var(--hc); color:#DFF6FF; background:color-mix(in srgb, var(--hc) 16%, transparent); } .askbox.warn #askYes{ color:#FFE1DE; }
+.askbtns button:focus-visible{ outline:2px solid var(--hc); outline-offset:2px; }
 .tl{ margin-top:26px; color:#F3E6D2; }
 body[data-mode="timeline"]{ --shell:#0B1019; --ink:#F3E6D2; --muted:#C9B79C; --line:#26314A; --chip:#121A2A; --chip-ink:#F3E6D2;
   background-color:#0B1019; }
@@ -1151,7 +1157,7 @@ body{ padding-bottom:var(--dockh); }
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="gauntlet" id="gauntlet" hidden role="dialog" aria-modal="true" aria-labelledby="gTitle"><div class="gcard" id="gCard"></div></div>
 <div class="ask" id="ask" hidden role="alertdialog" aria-modal="true" aria-labelledby="askMsg">
-  <div class="askbox"><p id="askMsg"></p><div class="askbtns"><button type="button" id="askNo">Cancel</button><button type="button" id="askYes"></button></div></div>
+  <div class="askbox"><span class="askhd" id="askHd">System</span><p id="askMsg"></p><div class="askbtns"><button type="button" id="askNo">Cancel</button><button type="button" id="askYes"></button></div></div>
 </div>
 
 <div class="whih" id="whih" hidden><b>WHIH</b><div class="whih-run"><span></span></div></div>
@@ -1243,13 +1249,13 @@ const fontOf = s => { const f = ((String(s).match(/font-family:\s*([^;]+)/) || [
 let sayQ = [], sayBusy = false;
 // how long a pop-up stays: as long as a box's quote for short lines, a little longer the more there is to read
 const toastMs = msg => Math.min(6500, Math.max(QUOTE_MS, 1100 + String(msg).length * 55));
-function say(msg, e, foot, ms, plain, hd, done) { sayQ.push({ msg, e: e || null, foot, ms, plain, hd, done }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says; hd: who it's from
+function say(msg, e, foot, ms, plain, hd, done, full) { sayQ.push({ msg, e: e || null, foot, ms, plain, hd, done, full }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says; hd: who it's from; full: news, so it opens from its corners
 let sayCur = null;
 let sayOwn = false, sayTm = 0;
 function sayNext() {
   const m = sayQ.shift(); if (!m) { sayBusy = false; return; } sayBusy = true;
   if (document.getElementById("toast").classList.contains("show") && !sayOwn) { sayQ.unshift(m); setTimeout(sayNext, 600); return; }
-  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain, hd: m.hd, done: m.done }); clearTimeout(sayTm);
+  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain, hd: m.hd, done: m.done, full: m.full }); clearTimeout(sayTm);
   sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg) + (m.foot ? 900 : 0)) + 700 + (REDUCED ? 0 : HUD_OPEN + HUD_SHUT));
 }
 const TVA = {};   // marks a pill as the TVA's own: its alert colors come from .toast.hud.tva
@@ -6332,7 +6338,7 @@ document.getElementById("fileView").addEventListener("click", async ev => {
   } else if (b.dataset.save === "load") {
     let o = null; try { o = await readSaveCode(area.value); } catch (e) {}
     if (!o) { msg.textContent = "That code didn't work. Check that it was pasted whole, starting with MCU."; haptic([20, 40, 20]); return; }
-    const ok = await ask("Restore this save code? Progress on this device is replaced by the progress in the code.", "Restore progress");
+    const ok = await ask("Restore this save code? Progress on this device is replaced by the progress in the code.", "Restore progress", undefined, true);
     if (!ok) return;
     SAVE_KEYS.forEach(k => { delete state[k]; });
     Object.assign(state, { checks: {}, unlocked: {}, seen: {}, dusted: {}, stones: {} }, o);
@@ -7545,21 +7551,21 @@ let keyTimer = null, keyFired = false, pressShow = null, pressAt = null;
 document.getElementById("view").addEventListener("pointerdown", ev => {
   const k = ev.target.closest("[data-focus-lane]"); keyFired = false; clearTimeout(keyTimer);
   if (!k || k.classList.contains("kh")) return;
+  const lane = k.dataset.focusLane, items = TLX().filter(e => e.lane === lane);
+  if (!prunedLanes[lane] && items.every(e => state.checks[tk(e.t)])) return;   // holding a key marks its line watched; a finished line has nothing left to mark, the same as a finished box
   keyTimer = setTimeout(() => {
     keyFired = true;
-    const lane = k.dataset.focusLane, L = LANES[lane];
     if (prunedLanes[lane]) { restoreLanes([lane], prunedLanes[lane], false); return; }
-    const items = TLX().filter(e => e.lane === lane), label = L.name + (lane === "main" ? "" : " timeline"), full = items.every(e => state.checks[tk(e.t)]);
+    const label = LANES[lane].name + (lane === "main" ? "" : " timeline");
     haptic(25);
-    ask(full ? `The ${label} is complete. Reset it and uncheck every title?` : `Mark everything on the ${label} as watched?`, full ? "Reset" : "Mark all watched").then(ok => {
+    ask(`Mark everything on the ${label} as watched?`, "Mark all watched").then(ok => {
       if (!ok) return;
       const wasBranched = branched(), wasOpen = multiverseOpen(), wasInc = incOpen();
-      items.forEach(e => { if (full) delete state.checks[tk(e.t)]; else state.checks[tk(e.t)] = true; });
+      items.forEach(e => { state.checks[tk(e.t)] = true; });
       persist(); renderMeter();
       if (wasBranched !== branched() || lane === "main") { growNext = wasBranched !== branched() && branched(); const y = window.scrollY; renderView(); window.scrollTo(0, y); }   // Loki S1 changed: the branches open or fold away; or the Reveal / Hide button moves
-      else items.forEach(e => { const r = document.querySelector(`.tl-row[data-tl="${CSS.escape(e.t)}"]`); if (r) r.setAttribute("aria-pressed", String(!full)); });
-      if (full) toast(`${label.charAt(0).toUpperCase() + label.slice(1)} Reset`, null, false, undefined, undefined, { full: true });   // news, not a reply to a tap: it opens like one
-      else { toast(`${label} Completed`, null, false, undefined, undefined, { full: true }); haptic(HAPTIC.success); }
+      else items.forEach(e => { const r = document.querySelector(`.tl-row[data-tl="${CSS.escape(e.t)}"]`); if (r) r.setAttribute("aria-pressed", "true"); });
+      toast(`${label} Completed`, null, false, undefined, undefined, { full: true }); haptic(HAPTIC.success);   // news, not a reply to a tap: it opens like one
       if (!wasOpen && multiverseOpen()) mvAlert("tl");   // marking it all can be what opens the multiverse or the Incursions, the same as one tick
       if (!wasInc && incOpen()) incAlert("tl");
     });
@@ -9097,7 +9103,7 @@ document.getElementById("mainTitle").addEventListener("click", ev => {
 });
 // Reset datapad (the button under the save code in the Agent File): back to factory, and the first boot plays again
 function resetDatapad() {
-  ask("Reset this datapad? All your progress will be lost. This cannot be undone.", "Reset datapad").then(ok => {
+  ask("Reset this datapad? All your progress will be lost. This cannot be undone.", "Reset datapad", undefined, true).then(ok => {
     if (!ok) return;
     // everything goes: the whole save on this device, then the datapad starts over from nothing, the same as the first time
     // it was handed to you, so nothing kept only while the app is open (a focus, a pruned timeline, a page you were on) survives either
@@ -9149,7 +9155,7 @@ function toCharacters(then) {
 function snap() {
   const ids = DATA.chars.map(c => c.id).sort(() => Math.random() - .5).slice(0, Math.floor(DATA.chars.length / 2));
   const again = !!(state.eggs || {}).snap;   // the first time it's filed in your Agent File; after that the datapad just reports it
-  const settle = () => { state.dusted = {}; ids.forEach(id => state.dusted[id] = true); (state.eggs = state.eggs || {}).snap = 1; persist(); renderView(); if (again) say("Half of all life erased", null, undefined, undefined, true); };
+  const settle = () => { state.dusted = {}; ids.forEach(id => state.dusted[id] = true); (state.eggs = state.eggs || {}).snap = 1; persist(); renderView(); if (again) say("Half of all life erased", null, undefined, undefined, true, undefined, undefined, true); };
   if (REDUCED) { settle(); return; }
   toCharacters(() => {
     flash(.9);
@@ -9161,7 +9167,7 @@ function snap() {
 
 function unsnap() {
   const ids = Object.keys(state.dusted || {});
-  const settle = () => { state.dusted = {}; (state.eggs = state.eggs || {}).unsnap = 1; persist(); renderView(); say("All life restored", null, undefined, undefined, true); };
+  const settle = () => { state.dusted = {}; (state.eggs = state.eggs || {}).unsnap = 1; persist(); renderView(); say("All life restored", null, undefined, undefined, true, undefined, undefined, true); };
   if (REDUCED) { settle(); return; }
   toCharacters(() => {
     flash(.75);
@@ -9370,9 +9376,10 @@ function closeMap(fromHistory) {
   document.getElementById("mapPop").addEventListener("click", ev => { const b = ev.target.closest("[data-li]"); if (b) { mapFocus(+b.dataset.li); document.getElementById("mapPop").hidden = true; } });
   document.addEventListener("keydown", ev => { if (ev.key === "Escape" && mapOpen) closeMap(false); });
 })();
-function ask(msg, yes, no) {   // no: the label for the other button (Cancel unless given)
+function ask(msg, yes, no, warn) {   // no: the label for the other button (Cancel unless given); warn: it can't be undone
   return new Promise(res => {
     const box = document.getElementById("ask");
+    box.firstElementChild.classList.toggle("warn", !!warn); document.getElementById("askHd").textContent = warn ? "System · Warning" : "System";
     document.getElementById("askMsg").textContent = msg;
     const y = document.getElementById("askYes"), n = document.getElementById("askNo"); n.textContent = no || "Cancel";
     y.textContent = yes;
