@@ -713,7 +713,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ratecard .rc-n{ display:inline-block; margin-top:6px; padding:3px 7px; border:1px solid color-mix(in srgb, currentColor 55%, transparent); border-radius:6px; white-space:nowrap; cursor:pointer; touch-action:manipulation; }
 .ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
 .ratesheet .rs-in{ width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
-.ratesheet .rs-grip{ width:40px; height:4px; margin:0 auto 14px; border-radius:2px; background:#33405C; }
+.ratesheet .rs-grip{ position:relative; width:40px; height:4px; margin:0 auto 14px; border-radius:2px; background:#33405C; cursor:grab; }
+.ratesheet .rs-grip::before{ content:""; position:absolute; inset:-14px -70px; }   /* a bigger patch to grab than the bar itself */
+.ratesheet .rs-grip, .ratesheet .rs-in > small, .ratesheet .rs-in > h4{ touch-action:none; }
 .ratesheet small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; }
 .ratesheet h4{ margin:2px 0 14px; font:400 26px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; }
 .rs-f{ display:grid; grid-template-columns:86px 1fr; align-items:center; gap:10px; padding:12px 0; border-top:1px solid #1C2538; font-size:15px; }
@@ -6062,15 +6064,26 @@ function rateSheet(t, note) {
   if (note) { const ta = el.querySelector("textarea"); if (ta) ta.focus(); }
   const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
   el.addEventListener("click", ev => {
+    if (Date.now() - grabbed < 400) return;   // the end of a drag on its top isn't a tap on the backdrop
     if (ev.target === el) { close(); return; }
     const s = ev.target.closest("[data-rss]"); if (s) { const n = +s.dataset.rss; rateSet(t, { r: rateOf(t).r === n ? 0 : n }); haptic(10); draw(); refreshRates(); return; }
     const c = ev.target.closest("[data-rsc]"); if (c) { const n = Math.max(0, (rateOf(t).n || (atlSeenT(t) ? 1 : 0)) + +c.dataset.rsc); rateSet(t, { n }); haptic(8); draw(); return; }
   });
   el.addEventListener("change", ev => { if (ev.target.matches("input[type=date]")) { rateSet(t, { d: ev.target.value }); draw(); refreshRates(); } });
   el.addEventListener("input", ev => { if (ev.target.matches("textarea")) rateSet(t, { note: ev.target.value }); });
-  // pull the sheet down by its top to close it
-  let y0 = null; el.addEventListener("touchstart", ev => { y0 = ev.target.closest(".rs-grip, small, h4") ? ev.touches[0].clientY : null; }, { passive: true });
-  el.addEventListener("touchmove", ev => { if (y0 !== null && ev.touches[0].clientY - y0 > 60) { y0 = null; close(); } }, { passive: true });
+  // hold it by its top (the grip, the title) and it follows your finger: let go far enough down, or flick it, and it slides away; otherwise it settles back
+  let drag = null, grabbed = 0;
+  el.addEventListener("pointerdown", ev => { if (!ev.target.closest(".rs-grip, .rs-in > small, .rs-in > h4")) return;
+    drag = { id: ev.pointerId, y: ev.clientY, dy: 0, t: performance.now(), v: 0 }; inn.style.transition = "none"; try { el.setPointerCapture(ev.pointerId); } catch (e) {} });
+  el.addEventListener("pointermove", ev => { if (!drag || ev.pointerId !== drag.id) return;
+    const now = performance.now(), raw = ev.clientY - drag.y, dy = raw > 0 ? raw : raw / 4;   // up a little, with a pull against you
+    drag.v = (dy - drag.dy) / Math.max(1, now - drag.t); drag.dy = dy; drag.t = now; inn.style.transform = `translateY(${dy}px)`; });
+  const letGo = ev => { if (!drag || ev.pointerId !== drag.id) return; const d = drag; drag = null; grabbed = Date.now();
+    if (d.dy > Math.min(140, inn.offsetHeight * .3) || (d.v > .6 && d.dy > 20)) {
+      inn.style.transition = "transform .22s ease-in"; inn.style.transform = `translateY(${inn.offsetHeight + 20}px)`; el.style.transition = "opacity .22s ease-in"; el.style.opacity = "0";
+      haptic(8); setTimeout(close, 210);
+    } else { inn.style.transition = "transform .25s cubic-bezier(.22,1,.36,1)"; inn.style.transform = ""; } };
+  el.addEventListener("pointerup", letGo); el.addEventListener("pointercancel", letGo);
 }
 // swap in only the ratings parts of the Agent File, so nothing else on it replays while you rate
 function refreshRates() { if (!fileOpen) return; const fv = document.getElementById("fileView"), sec = fv && fv.querySelector(".hf-rate"), dl = fv && fv.querySelector(".hf-rows");
