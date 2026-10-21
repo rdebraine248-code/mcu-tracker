@@ -7397,7 +7397,9 @@ panel.addEventListener("click", ev => {
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && openEntry && document.getElementById("ask").hidden) uiClose(); });
-function onNavBack() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); return; } } if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) { closeDossier(true); dockSync(); if (navAt("panel") && !openEntry) navBack(); } return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel(); }
+function onNavBack() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); return; } } if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) { closeDossier(true); dockSync(); if (navAt("panel") && !openEntry) navBack(); } return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel();
+  // a step back left over from a box that's already closed (the Agent File or another page took its place) is skipped, so one swipe is enough and the next doesn't leave the app
+  if (!openEntry && !dossierOpen && !fileOpen && !atlOpen && !mapOpen && !commsOpen && !collOpen && (navAt("panel") || navAt("dossier"))) navBack(); }
 // going back never moves the page by itself: the app decides where you are (after a jump to a new box, that's where it lives)
 try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
@@ -7475,6 +7477,7 @@ document.getElementById("dock").addEventListener("click", ev => {
   if (dockHeld) { dockHeld = false; return; }   // that was a hold, not a tap
   const b = ev.target.closest("[data-dock]"); if (!b) return; const t = b.dataset.dock, c = dockCur(); haptic(8);
   if (t === c) { if (t === "story") window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); if (t === "atlas" && collOpen) closeColl(); return; }
+  if (t !== "story") { if (dossierOpen && dossierOpen !== "saga") closeDossier(true); if (openEntry) closePanel(); }   // a page from the dock replaces a box that was open, it doesn't stack on it
   if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (commsOpen) closeComms(true);
   if (t === "story") { if (history.state && history.state.mcu) navBack(); }
   else if (t === "log") { openDossier("saga"); pushNav("log"); }
@@ -8689,7 +8692,8 @@ swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + $
 // open the Agent File on the file a pop-up announced: its page, scrolled to it, with a glow so you can find it
 function fileAt(names) {
   const A = achList(), a = A.find(z => earned(z.id) && names.some(n => n === z.t || n === z.ann)); haptic(10);
-  if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true);
+  // the Agent File takes over the screen: a box (and its log) that was open underneath closes first, so back goes to the main page
+  if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true);
   if (a && a.sec === "classified" && a.pg) hfPage = a.pg;
   if (!fileOpen) { openFile(); dockSync(); } else renderFile();
   const c = a && document.querySelector(`#fileView [data-ach="${CSS.escape(a.id)}"]`); if (!c) return;
