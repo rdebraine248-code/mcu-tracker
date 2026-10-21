@@ -6214,6 +6214,8 @@ const embOpen = k => k === state.avatar || !!(state.embOpen || {})[k] || embWon(
 function embKeep() { let ch = false; Object.keys(EMBLEMS).forEach(k => { if (!(state.embOpen || {})[k] && embWon(k)) { (state.embOpen = state.embOpen || {})[k] = 1; ch = true; } }); if (ch) persist(); }
 // a newly unlocked insignia carries a blue dot (on the File button, your profile picture and in the picker) until you've seen it there;
 // the first time this runs, whatever is already open counts as seen
+// visiting the Agent File takes the dock's dot off new insignias; the dot on your picture, and theirs in the picker, stay until you open the picker
+function embAck() { const A = state.embAck = state.embAck || {}; embNew().forEach(k => { A[k] = 1; }); }
 const embNew = () => { if (!state.embSeen) state.embSeen = Object.fromEntries(Object.keys(EMBLEMS).filter(embOpen).map(k => [k, 1])); return Object.keys(EMBLEMS).filter(k => embOpen(k) && !state.embSeen[k]); };
 // a locked one: tap it 5 times for its name, 5 more for what unlocks it
 const embTaps = {};
@@ -6267,10 +6269,10 @@ function caseFile(film) {
 const hfPickNav = () => { if (!navAt("hfpick")) try { history.pushState({ mcu: "hfpick" }, ""); } catch (e) {} };
 const hfPickClose = () => { if (navAt("hfpick")) navBack(); else { const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); } };
 let fileTab = "file";
-function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); renderFile(true); document.getElementById("filePanel").hidden = false; fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
+function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; embAck(); persist(); renderFile(true); document.getElementById("filePanel").hidden = false; fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
 function closeFile(fromHistory) {
   if (!fromHistory && navAt("file")) { navBack(); return; }
-  document.getElementById("filePanel").hidden = true; fileOpen = false; bodyFree();
+  document.getElementById("filePanel").hidden = true; fileOpen = false; bodyFree(); embAck(); persist();   // anything that came in while you were here has been seen too
   // the Agent File always opens at the top, on its first page, with nothing left open
   const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); hfPage = 1; rPg = 0; rOpen = null; document.getElementById("fileView").scrollTop = 0;
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
@@ -6303,7 +6305,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7683,7 +7685,7 @@ function newDots() {
       atlas: Object.keys(ATLAS).some(v => atlOpenV(v) && atlNew(v)),
       map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
       comms: cmUnread("msg") || cmUnread("news"),
-      file: n > state.hfSeen || (embKeep(), embNew().length > 0) };
+      file: n > state.hfSeen || (embKeep(), embNew().some(k => !(state.embAck || {})[k])) };
     document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
     const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", (DOSSIERS[openEntry.id] || {}).kind === "char" && logUnread(openEntry.id));
   } catch (e) {}
