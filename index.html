@@ -79,16 +79,20 @@ button{ font:inherit; color:inherit; }
 /* the datapad's own notifications: two thick corners meet in a closed frame, rise, pull apart and open into a HUD panel. A box's own moment
    (its unlock quote, a hero's first line, Completed) keeps the box's own pill */
 .toast.hud{ bottom:calc(var(--dockh) + 16px + env(safe-area-inset-bottom,0px)); transition:none; background:none; border:0; border-radius:0; padding:0; box-shadow:none; text-align:left; max-width:none; }
-.toast.hud .cn{ position:absolute; z-index:2; box-sizing:border-box; width:16px; height:16px; border:3px solid #5FD0FF; filter:drop-shadow(0 0 3px rgba(95,208,255,.55)); pointer-events:none; }
+.toast.hud{ --hc:#5FD0FF; }
+.toast.hud .cn{ position:absolute; z-index:2; box-sizing:border-box; width:16px; height:16px; border:3px solid var(--hc); filter:drop-shadow(0 0 3px color-mix(in srgb, var(--hc) 55%, transparent)); pointer-events:none; }
 .toast.hud .cn.a{ left:0; top:0; border-right:0; border-bottom:0; } .toast.hud .cn.b{ right:0; bottom:0; border-left:0; border-top:0; }
-.toast.hud .hclip{ position:absolute; inset:0; overflow:hidden; background:rgba(8,14,26,.97); border:1px solid rgba(95,208,255,.25); box-shadow:0 0 22px rgba(95,208,255,.14), 0 10px 26px rgba(0,0,0,.55);
-  background-image:repeating-linear-gradient(0deg,rgba(95,208,255,.05) 0 1px,transparent 1px 3px); }
+.toast.hud .hclip{ position:absolute; inset:0; overflow:hidden; background:rgba(8,14,26,.97); border:1px solid color-mix(in srgb, var(--hc) 25%, transparent); box-shadow:0 0 22px color-mix(in srgb, var(--hc) 14%, transparent), 0 10px 26px rgba(0,0,0,.55);
+  background-image:repeating-linear-gradient(0deg,color-mix(in srgb, var(--hc) 5%, transparent) 0 1px,transparent 1px 3px); }
 .toast.hud .hin{ position:absolute; left:0; top:0; box-sizing:border-box; padding:10px 16px 11px; }
-.toast.hud .hd{ display:block; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#5FD0FF; } .toast.hud .hd::before{ content:"\25B8\00A0\00A0"; }
+.toast.hud .hd{ display:block; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:var(--hc); } .toast.hud .hd::before{ content:"\25B8\00A0\00A0"; }
 .toast.hud b{ display:block; margin-top:5px; font:500 16px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:.2px; color:#EEF6FF; }
 .toast.hud small{ display:block; margin-top:4px; font:11px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#6F86A8; }
-.toast.hud.tva .cn{ border-color:#D9822B; filter:drop-shadow(0 0 3px rgba(217,130,43,.55)); } .toast.hud.tva .hd{ color:#F0A04B; } .toast.hud.tva b{ color:#F6E7D4; }
-.toast.hud.tva .hclip{ border-color:rgba(217,130,43,.35); background-color:rgba(23,18,12,.97); background-image:repeating-linear-gradient(0deg,rgba(217,130,43,.06) 0 1px,transparent 1px 3px); box-shadow:0 0 22px rgba(217,130,43,.14), 0 10px 26px rgba(0,0,0,.55); }
+.toast.hud.tva{ --hc:#D9822B; } .toast.hud.tva .hd{ color:#F0A04B; } .toast.hud.tva b{ color:#F6E7D4; } .toast.hud.tva .hclip{ background-color:rgba(23,18,12,.97); }
+/* a box's own line (its unlock quote, a hero's first words) is the film talking: it plays on the box itself, a title card on its tile or a line across its page */
+.blcard{ position:absolute; inset:0; z-index:4; display:grid; place-items:center; box-sizing:border-box; padding:14px 20px; text-align:center; pointer-events:none; }
+.blcard span{ display:block; font-size:28px; line-height:1.2; text-transform:none; }
+.blline{ position:fixed; z-index:85; left:32px; right:32px; margin:0; text-align:center; pointer-events:none; text-transform:none; }
 /* a pill or the ticker can be dragged away, so a touch on either must not start a scroll (the browser would cancel the drag), select text or open the long-press menu */
 .toast.show{ pointer-events:auto; touch-action:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
 .saga h3{ margin:0 0 14px; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:28px; letter-spacing:1px; text-transform:uppercase; }
@@ -696,12 +700,14 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ach.done{ border-color:#C9A43A; background:linear-gradient(180deg,#1A1A14,#121218); color:#D8CFAE; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
 .ach.done b{ color:#F4D27A; }
 .yavg{ color:#F4C542; font-weight:600; }
-.ratepill{ touch-action:none; position:fixed; left:50%; bottom:calc(var(--dockh, 62px) + 66px); z-index:95; display:flex; align-items:center; gap:12px; max-width:calc(100vw - 24px); padding:9px 12px 9px 18px; border:1px solid #2B3F62; border-radius:999px; background:#0E1424; color:#E9EEF7; box-shadow:0 10px 30px rgba(0,0,0,.55); transform:translate(-50%,24px); opacity:0; pointer-events:none; transition:transform .25s ease, opacity .25s ease; }
-.ratepill.show{ transform:translate(-50%,0); opacity:1; pointer-events:auto; }
-.ratepill .rp-t{ min-width:0; } .ratepill small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; }
-.ratepill b{ display:block; max-width:44vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 15px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
-.ratepill .rp-s{ display:flex; }
-.ratepill .rp-n{ flex:none; padding:5px 10px !important; border:1px solid #2B3F62 !important; border-radius:999px; color:#9FC3FF; font:11px/1 'Share Tech Mono','Courier New',monospace !important; letter-spacing:1.5px; text-transform:uppercase; line-height:1 !important; } .ratepill button, .ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
+.ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
+.ratecard{ display:block; width:max-content; max-width:100%; box-sizing:border-box; margin-top:7px; padding:5px 6px 6px; overflow:hidden; border:1px solid color-mix(in srgb, var(--lc, currentColor) 45%, transparent); border-radius:8px;
+  color:var(--lc, currentColor); background:rgba(11,16,25,.7); font:9.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; text-decoration:none; text-align:left; cursor:default; }
+.ratecard.inbox{ margin:0 0 10px 52px; padding:6px 8px 7px; background:color-mix(in srgb, currentColor 6%, transparent); border-color:color-mix(in srgb, currentColor 35%, transparent); }
+.ratecard .rc-s{ display:flex; } .ratecard .rc-s span{ display:block; padding:2px 0; line-height:0; cursor:pointer; touch-action:manipulation; } .ratecard .rc-s svg{ width:16px; height:16px; }
+.ratecard.inbox .rc-s span{ padding:2px 1px; } .ratecard.inbox .rc-s svg{ width:21px; height:21px; }
+@media (max-width:390px){ .ratecard:not(.inbox) .rc-s svg{ width:12px; height:12px; } .ratecard:not(.inbox){ padding:4px 3px 5px; } }   /* a small phone's timeline column is narrower */
+.ratecard .rc-n{ display:inline-block; margin-top:6px; padding:3px 7px; border:1px solid color-mix(in srgb, currentColor 55%, transparent); border-radius:6px; white-space:nowrap; cursor:pointer; touch-action:manipulation; }
 .ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
 .ratesheet .rs-in{ width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
 .ratesheet .rs-grip{ width:40px; height:4px; margin:0 auto 14px; border-radius:2px; background:#33405C; }
@@ -1283,25 +1289,13 @@ const QUOTE_MS = 2500;
 let toastTimer = null, sealedTaps = 0, forceOpen = null;
 const sealedRun = {};   // each locked chapter counts its own taps (the Extras boxes share one count)
 function sealedTap(k) { const now = Date.now(), r = sealedRun[k] = sealedRun[k] || { n: 0, at: 0 }; r.n = now - r.at < 1600 ? r.n + 1 : 1; r.at = now; return r.n; }
-function themeToast(el, style, fg, bd, font) {
-  if (!style) { el.removeAttribute("style"); return; }
-  const bg = String(style).split(";").map(s => s.trim()).filter(s => /^background/.test(s)).join(";");
-  el.setAttribute("style", `background-image:none;${bg};color:${fg || "#fff"};border-color:${bd || "currentColor"};box-shadow:0 10px 30px rgba(0,0,0,.35)` + (font ? `;--qf:${font}` : ""));
-}
 const borderOf = s => ((String(s).match(/border:\s*[\d.]+px\s+\w+\s+(#[0-9a-fA-F]{3,8}|rgba?\([^)]*\))/) || [])[1]);
 // quotes use the list's title typeface, except decorative brush faces, which fall back to the plain body font
 const fontOf = s => { const f = ((String(s).match(/font-family:\s*([^;]+)/) || [])[1]); return f && /Ma Shan Zheng/i.test(f) ? undefined : f; };
-function toastQuote(line, e) {
-  const el = document.getElementById("toast"); hudOff(el);
-  if (e) themeToast(el, e.style, e.fg, e.box || borderOf(e.style), fontOf(e.h2)); else themeToast(el, null);
-  el.innerHTML = `<span class="tq">“${esc(line).replace(" / ", "”<br>“")}”</span>`; el._names = null;
-  el.classList.add("show");
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("show"), QUOTE_MS);
-}
 let sayQ = [], sayBusy = false;
 // how long a pop-up stays: as long as a box's quote for short lines, a little longer the more there is to read
 const toastMs = msg => Math.min(6500, Math.max(QUOTE_MS, 1100 + String(msg).length * 55));
-function say(msg, e, foot, ms, plain) { sayQ.push({ msg, e: e || null, foot, ms, plain }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says
+function say(msg, e, foot, ms, plain, hd) { sayQ.push({ msg, e: e || null, foot, ms, plain, hd }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says; hd: who it's from
 // a new achievement rides on the line that's about to show (or just appeared), instead of a pop-up of its own
 let sayCur = null;
 function attachFoot(text) {
@@ -1309,7 +1303,7 @@ function attachFoot(text) {
   if (last) { last.foot = last.foot ? last.foot + " · " + text.replace(/^Agent File · /, "") : text; return true; }
   if (sayCur && Date.now() - sayCur.at < 2500) {
     sayCur.foot = sayCur.foot ? sayCur.foot + " · " + text.replace(/^Agent File · /, "") : text;
-    const el = document.getElementById("toast"); if (el.classList.contains("show")) pillSet(el, sayCur.msg, sayCur.e, false, sayCur.foot, { quote: true, plain: sayCur.plain }); return true;
+    const el = document.getElementById("toast"); if (el.classList.contains("show")) pillSet(el, sayCur.msg, sayCur.e, false, sayCur.foot, { quote: true, plain: sayCur.plain, hd: sayCur.hd }); return true;
   }
   return false;
 }
@@ -1317,17 +1311,68 @@ let sayOwn = false, sayTm = 0;
 function sayNext() {
   const m = sayQ.shift(); if (!m) { sayBusy = false; return; } sayBusy = true;
   if (document.getElementById("toast").classList.contains("show") && !sayOwn) { sayQ.unshift(m); setTimeout(sayNext, 600); return; }
-  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain }); clearTimeout(sayTm);
-  sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg) + (m.foot ? 900 : 0)) + 700 + (pillHud(m.e) && !REDUCED ? HUD_OPEN + HUD_SHUT : 0));
+  sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain, hd: m.hd }); clearTimeout(sayTm);
+  sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg) + (m.foot ? 900 : 0)) + 700 + (REDUCED ? 0 : HUD_OPEN + HUD_SHUT));
 }
 const TVA = { style: "background:#1E4D2B", fg: "#F3E7B3", box: "#D4AF37" };
-// a box's own moment keeps the box's pill; everything else is the datapad talking
-const pillHud = (e, cover) => !e || !!cover || e === TVA;
+// every pill is the datapad talking: a status, the Agent File, the TVA, or a box's own news in the box's color
 function toast(msg, e, cover, foot, ms, o) {
-  const el = document.getElementById("toast"), hud = pillHud(e, cover);
+  const el = document.getElementById("toast");
   pillSet(el, msg, e, cover, foot, o, true);
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => pillHide(el), (ms || toastMs(msg) + (foot ? 900 : 0)) + (hud && !REDUCED && !el._quick ? HUD_OPEN : 0));
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => pillHide(el), (ms || toastMs(msg) + (foot ? 900 : 0)) + (!REDUCED && !el._quick ? HUD_OPEN : 0));
 }
+// a box's news (Completed, Reset, Unlocked) wears that box's color, brightened if it's too dark to read on the panel
+const boxTint = e => { const raw = DATA.chapters.includes(e) ? SL_STRIPE[e.id] : (lum(e.box) > .9 ? borderOf(e.style) : e.box) || e.box, c = (String(raw || "").match(/#[0-9a-fA-F]{6}/) || ["#5FD0FF"])[0];
+  return lum(c) < .35 ? `color-mix(in srgb, ${c} 55%, #ffffff)` : c; };
+const boxKind = e => e.num ? e.label : DATA.chapters.includes(e) ? "Extras" : "Character box";
+// a box's own line: the film talking. On its tile it's a title card in the box's own look; in its open box it comes up across the page,
+// and a hero's (or a chapter's) quote then takes its place under the name. Unlock a chapter and open it straight away, and the line carries on inside
+let bl = null;
+const blMs = line => Math.max(2600, 1300 + line.length * 42);
+function boxLine(line, e, settle) {
+  blStop(); const ms = REDUCED ? 2600 : blMs(line);
+  bl = { e, q: "“" + line.replace(" / ", "” “") + "”", settle, end: Date.now() + ms, els: [], tm: [] };
+  if (settle) pqHoldUntil = bl.end + 500;
+  if (openEntry && openEntry.id === e.id) blPage(); else if (!blTile()) bl = null;
+}
+function blStop() { if (!bl) return; bl.tm.forEach(clearTimeout); bl.els.forEach(x => x.remove()); bl = null; }
+function blTile() {
+  const t = document.querySelector(`#view .tile[data-id="${CSS.escape(bl.e.id)}"]`); if (!t) return false;
+  const e = bl.e, c = document.createElement("div"), ms = bl.end - Date.now();
+  c.className = "blcard"; c.setAttribute("aria-hidden", "true");
+  c.setAttribute("style", String(e.style).split(";").map(x => x.trim()).filter(x => /^background/.test(x)).join(";"));
+  Object.assign(c.style, { color: e.fg, fontFamily: fontOf(e.h2) || "inherit" });
+  c.innerHTML = `<span>${esc(bl.q)}</span>`; t.appendChild(c); bl.els.push(c);
+  const sp = c.firstChild, room = t.clientHeight - 30;
+  for (let fs = 28; fs > 15 && sp.offsetHeight > room; fs--) sp.style.fontSize = fs + "px";   // a long line shrinks to fit its tile
+  const under = !!t.querySelector(".cover");   // still under its cover: already there when the peel shows it
+  if (!REDUCED) { c.animate([{ opacity: under ? 1 : 0 }, { opacity: 1, offset: 500 / ms }, { opacity: 1, offset: 1 - 500 / ms }, { opacity: 0 }], { duration: ms, easing: "ease-in-out", fill: "forwards" });
+    sp.animate([{ filter: "blur(3px)" }, { filter: "blur(0)" }], { duration: 700, easing: "ease-out" }); }
+  const b = bl; b.tm.push(setTimeout(() => { if (bl === b) blStop(); }, ms));
+  return true;
+}
+function blPage() {
+  const b = bl, e = b.e, pq = panel.querySelector(".pquote"), ms = Math.max(1600, b.end - Date.now());
+  const l = document.createElement("p"), cs = pq ? getComputedStyle(pq) : null; l.className = "blline"; l.setAttribute("aria-hidden", "true");
+  Object.assign(l.style, { top: Math.round(innerHeight * .36) + "px", fontFamily: fontOf(e.h2) || "inherit", fontStyle: cs ? cs.fontStyle : "normal", fontSize: (b.q.length > 42 ? 24 : 30) + "px", lineHeight: "1.25", color: cs ? cs.color : e.fg });
+  l.textContent = b.q; document.body.appendChild(l); b.els.push(l);
+  if (!REDUCED) l.animate([{ opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0)", offset: 600 / ms }, { opacity: 1, offset: 1 - 450 / ms }, { opacity: 0 }], { duration: ms, easing: "ease-in-out", fill: "forwards" });
+  b.tm.push(setTimeout(() => {   // gone from the middle, and straight away in its place under the name
+    if (bl !== b) return; blStop();
+    const q = b.settle && openEntry && openEntry.id === e.id && panel.querySelector(".pquote");
+    if (q) { q.style.transition = "opacity .6s ease-out"; q.classList.remove("pending"); }
+  }, ms));
+}
+// opening a box while its line plays on the tile: the card goes, the clock keeps running, and when it's up the line fades into its place under the name
+function blCarry(e) {
+  if (!bl) return; if (bl.e.id !== e.id) { blStop(); return; }
+  const b = bl; b.tm.forEach(clearTimeout); b.els.forEach(x => x.remove()); b.els = []; b.tm = [];
+  b.tm.push(setTimeout(() => {
+    if (bl !== b) return; bl = null;
+    const q = openEntry && openEntry.id === e.id && panel.querySelector(".pquote"); if (q) { q.style.transition = "opacity .6s ease-out"; q.classList.remove("pending"); }
+  }, Math.max(0, b.end - Date.now())));
+}
+function boxNews(e, what, foot, viaSay) { const hd = boxKind(e) + " · " + what; if (viaSay) say(e.title, e, foot, undefined, true, hd); else toast(e.title, e, false, foot, undefined, { hd }); }
 // what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
 const HUD_SAME = { missions: "Mission", artifacts: "Artifact", classified: "Classified", chapters: "Complete" };
 const HUD_NAMED = { missions: n => "Mission: " + n, artifacts: n => "Artifact: " + n, classified: n => "Classified: " + n, chapters: n => n + " complete" };
@@ -1340,23 +1385,17 @@ function hudFiled(msg, items) {
 function pillSet(el, msg, e, cover, foot, o, fresh) {
   const agent = !!foot && /^Agent File/.test(foot), items = agent ? foot.split(" · ").slice(1) : [];
   el._names = agent ? [msg, ...items] : null;   // a tap opens the Agent File on what it filed
-  if (!pillHud(e, cover)) {   // the box's own pill
-    hudOff(el);
-    if (e && cover) themeToast(el, e.cover.style, e.cover.ink, borderOf(e.cover.style), "Helvetica, Arial, sans-serif"); else themeToast(el, e.style, e.fg, e.box || borderOf(e.style), fontOf(e.h2));
-    if (foot) el.innerHTML = `<span>${esc(msg)}</span><span class="tf">${esc(foot)}</span>`; else el.textContent = msg;
-    el.classList.add("show"); return;
-  }
-  const tva = e === TVA, said = o && o.quote && !o.plain && !tva;
-  hudShow(el, { tva, quick: !tva && !agent && !said, hd: tva ? "TVA · Alert" : agent ? "Agent File · Updated" : said ? "Audio intercept" : "Datapad",
+  const tva = e === TVA, box = e && !tva && !cover && e.id ? e : null, said = o && o.quote && !o.plain && !tva && !box;
+  hudShow(el, { tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !said && !box, hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : said ? "Audio intercept" : "Datapad"),
     b: said ? "“" + msg + "”" : msg, s: agent ? hudFiled(msg, items) : "" }, fresh);
 }
 const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
 let hudRun = 0;
-function hudOff(el) { if (!el.classList.contains("hud")) return; hudRun++; el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el.classList.remove("hud", "tva"); el.style.width = el.style.height = ""; }
 function hudShow(el, p, fresh) {
   const up = el.classList.contains("show") && el.classList.contains("hud") && !el._closing, run = ++hudRun, h0 = up ? el.offsetHeight : 0;
-  el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; themeToast(el, null);
-  el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva); el._quick = !!p.quick;
+  el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false;
+  el.removeAttribute("style");
+  el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva); el._quick = !!p.quick; if (p.tint) el.style.setProperty("--hc", p.tint);
   el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin"><span class="hd">${esc(p.hd)}</span><b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}</div></div>`;
   const W = Math.min(innerWidth - 48, 460), inn = el.querySelector(".hin"); inn.style.width = W + "px";
   const H = inn.offsetHeight, size = (w, h) => { el.style.width = w + "px"; el.style.height = h + "px"; };
@@ -1632,6 +1671,7 @@ function refreshChapterChrome() {
 }
 const ATLAS_BTN = `<button type="button" class="mapbtn atlbtn" id="btnAtlas"><svg class="mglobe" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="#7FC6FF" stroke-width="1.6"><circle cx="24" cy="24" r="20" fill="rgba(60,130,220,.18)"/><ellipse cx="24" cy="24" rx="9" ry="20"/><path d="M4 24h40M7 14h34M7 34h34M24 4v40"/><circle cx="31" cy="17" r="2.6" fill="#BFE9FF" stroke="none"/><circle cx="15" cy="29" r="2" fill="#BFE9FF" stroke="none"/></svg><span class="mtxt">Atlas</span></button>`;
 function renderView() {
+  requestAnimationFrame(rcPlace);   // a rating card follows its title through a redraw, or goes if the title's gone
   clearTimeout(dotsT); dotsT = setTimeout(newDots, 60);
   const v = document.getElementById("view");
   if (state.mode !== "timeline") { prunedLanes = {}; Object.values(tlBy).forEach(b => { b.p = {}; }); }   // pruning lasts for the visit, on both orders
@@ -1830,7 +1870,7 @@ function renderPanel(e, fresh) {
 
       <div id="pDone">${t && n === t ? `<button type="button" class="complete" id="btnComplete" style="background:${box};color:${tick};border-color:${box}">${CHECK(tick)}Complete</button>` : ""}</div>
     </div>`;
-  guardTele(panel); newDots();
+  guardTele(panel); newDots(); rcPlace();
   if (!fresh) panel.scrollTop = scrollY;
 }
 // a character box is a run of its own: it shows what you've checked there, plus the one title that's up next.
@@ -1858,7 +1898,7 @@ function panelRows(e) {
   ul.innerHTML = panelList(e, panelItems(e), i => have.includes(i.t) || REDUCED ? "" : "rin"); guardTele(panel);
 }
 function updatePanel(e) {
-  panelRows(e);
+  panelRows(e); requestAnimationFrame(rcPlace);
   const [n, t] = count(e), box = e.box || e.fg || "#111", tick = lum(box) > 0.6 ? "#111111" : "#FFFFFF";
   panel.querySelectorAll(".row").forEach(r => r.setAttribute("aria-pressed", !!state.checks[ck(e, r.dataset.t)]));
   panel.querySelectorAll(".earthh[data-earth]").forEach(hd => { hd.querySelector("em").textContent = earthStatus(e, hd.dataset.earth); });
@@ -1879,7 +1919,6 @@ function pushNav(kind) {
 }
 function navBack() { if (navBusy) return; navBusy = true; history.back(); setTimeout(() => { navBusy = false; }, 800); }
 function uiClose() { if (navAt("panel")) navBack(); else closePanel(); }
-const doneName = e => (e.num ? e.label : e.title) + " Completed";
 let openWasDone = false, revealChanged = false;
 function openPanel(e, kind, fromEl) {
   clearTimeout(closeTimer);
@@ -1888,7 +1927,7 @@ function openPanel(e, kind, fromEl) {
   openEntry = e; openKind = kind; openFrom = fromEl;
   panel.dataset.clip = REDUCED ? "" : rectClip(fromEl);
   renderPanel(e, true);
-  panel.hidden = false;
+  panel.hidden = false; blCarry(e);
   panel.scrollTop = 0;
   document.body.style.overflow = "hidden";
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -1899,7 +1938,7 @@ function openPanel(e, kind, fromEl) {
   }));
 }
 function closePanel() {
-  if (!openEntry) return;
+  if (!openEntry) return; blStop(); rcClear();
   const from = document.querySelector(`.tile[data-id="${CSS.escape(openEntry.id)}"]`) || openFrom;
   const id = openEntry.id, closing = openEntry, closingKind = openKind, justFinished = !openWasDone && isDone(openEntry);
   // bring the card up to date first, so it's already correct while the screen fades into it
@@ -1912,7 +1951,7 @@ function closePanel() {
     else renderView();
     const f = document.querySelector(`.tile[data-id="${CSS.escape(id)}"]`); if (f) f.focus({ preventScroll: true });
     const d = achDefer.splice(0);
-    if (justFinished) { toast(doneName(closing), closing, false, d.length ? ["Agent File", ...d.map(a => a.t)].join(" · ") : undefined); haptic(HAPTIC.success); }
+    if (justFinished) { boxNews(closing, "Complete", d.length ? ["Agent File", ...d.map(a => a.t)].join(" · ") : undefined); haptic(HAPTIC.success); }
     else if (d.length) { achPending.push(...d); setTimeout(flushAch, 300); }
   };
   openEntry = null;
@@ -1985,19 +2024,20 @@ function activate(el) {
       el.setAttribute("aria-label", e.title + ", " + e.label);
       renderMeter(); refreshChapterChrome();
       const f = document.querySelector(`.tile[data-id="${CSS.escape(id)}"]`); if (f) f.focus({ preventScroll: true });
-      const q = QUOTES[id];
-      if (q) { toastQuote(q[0], e); pqHoldUntil = Date.now() + QUOTE_MS + 750; } else toast(e.label + " unlocked.", e); };
+      if (!QUOTES[id]) boxNews(e, "Unlocked"); };
     refreshChapterChrome();
+    // the chapter's quote waits under the cover, so the first thing the peel shows is the line
+    if (QUOTES[id]) boxLine(QUOTES[id][0], e, true);
     if (cv && !REDUCED) reveal(cv, el, id, finish);
     else finish();
     return;
   }
   const firstOpen = kind === "char" && CHAR_QUOTES[e.title] && !(state.seen || {})[e.id];
-  if (firstOpen) pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + QUOTE_MS + 750;
+  if (firstOpen) pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + blMs(CHAR_QUOTES[e.title]) + 500;
   openPanel(e, kind, el);
   if (firstOpen) {
     state.seen = state.seen || {}; state.seen[e.id] = true; persist();
-    setTimeout(() => toastQuote(CHAR_QUOTES[e.title], e), REDUCED ? 0 : 380);
+    setTimeout(() => { if (openEntry === e) boxLine(CHAR_QUOTES[e.title], e, true); }, REDUCED ? 0 : 380);
   }
 }
 // tap a section's name on the Chapters page to fold it away, tap again to open it
@@ -2248,17 +2288,17 @@ function worthy(q) {
     k.push({ transform: "translate(0,0)" });
     q.animate(k, { duration: 1100, easing: "linear" });
     haptic([30, 25, 30, 25, 30, 25, 70]);
-    toast("Not worthy… yet.", e);
+    boxLine("Not worthy… yet.", e);
     return;
   }
-  if (REDUCED) { found("worthy"); toast("I'm still worthy!", e); return; }
+  if (REDUCED) { found("worthy"); boxLine("I'm still worthy!", e); return; }
   const r = q.getBoundingClientRect(), tx = r.left + r.width / 2, ty = r.top + r.height / 2, W = window.innerWidth;
   q.animate([{ transform: "translateY(0)", textShadow: "0 0 0 rgba(142,201,255,0)" }, { transform: "translateY(-4px)", textShadow: "0 0 14px rgba(170,215,255,.95)", offset: .3 }, { transform: "translateY(-4px)", textShadow: "0 0 10px rgba(170,215,255,.8)", offset: .8 }, { transform: "translateY(0)", textShadow: "0 0 0 rgba(142,201,255,0)" }], { duration: 1600, easing: "ease-out" });
   [[0, .2], [160, .75], [380, .45]].forEach(([d, fx]) => bolt(W * fx + (Math.random() - .5) * 60, -10, tx + (Math.random() - .5) * 40, ty, d));
   const sky = document.createElement("div"); sky.className = "skyglow"; document.body.appendChild(sky);
   sky.animate([{ opacity: 0 }, { opacity: .85, offset: .12 }, { opacity: .25, offset: .35 }, { opacity: .7, offset: .5 }, { opacity: 0 }], { duration: 900, easing: "ease-out" }).onfinish = () => sky.remove();
   haptic([80, 40, 140]);
-  setTimeout(() => { say("I'm still worthy!", e); found("worthy"); }, 1300);
+  setTimeout(() => { boxLine("I'm still worthy!", e); found("worthy"); }, 1300);
 }
 
 /* ---------- easter egg: the Hex. Hold any WandaVision row: Wanda casts the Hex and the app becomes a sitcom;
@@ -5932,22 +5972,40 @@ const rateLatest = () => Object.keys(state.rate || {}).filter(t => rateOf(t).r).
 // the first time a title is watched, in any list: the day is noted, and a pill offers stars (unless it's already rated)
 function firstWatch(t) {
   const W = state.watchedOn = state.watchedOn || {}; if (!W[t]) W[t] = ymd(new Date());
-  if (!rateOf(t).r) ratePill(t);
+  if (!rateOf(t).r) rcShow(t);
 }
-let rpTm = 0;
-function ratePill(t) {
-  let el = document.getElementById("ratePill");
-  if (!el) { el = document.createElement("div"); el.id = "ratePill"; el.className = "ratepill"; el.setAttribute("role", "group"); document.body.appendChild(el);
-    el.addEventListener("click", ev => { if (ev.target.closest("[data-rnote]")) { ev.stopPropagation(); clearTimeout(rpTm); el.classList.remove("show"); rateSheet(el.dataset.t, true); return; }
-      const b = ev.target.closest("[data-rs]"); if (!b) return; ev.stopPropagation(); const n = +b.dataset.rs, tt = el.dataset.t;
-      rateSet(tt, { r: n }); haptic(12); el.querySelector(".rp-s").innerHTML = [1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= n, 26)}</button>`).join("");
-      el.querySelector("small").textContent = "Rated"; clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 1400); });
-    swipeAway(el, (dx, dy) => `translate(calc(-50% + ${dx}px),${dy}px)`, () => el.classList.contains("show"), () => { clearTimeout(rpTm); el.classList.remove("show"); }); }
-  el.dataset.t = t; el.setAttribute("aria-label", "Rate " + tn(t));
-  el.innerHTML = `<div class="rp-t"><small>Watched</small><b>${tnh(t)}</b></div><div class="rp-s">${[1, 2, 3, 4, 5].map(i => `<button type="button" data-rs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(false, 26)}</button>`).join("")}</div><button type="button" class="rp-n" data-rnote aria-label="Add a note">Note</button>`;
-  el.classList.remove("show"); void el.offsetWidth; el.classList.add("show");
-  clearTimeout(rpTm); rpTm = setTimeout(() => el.classList.remove("show"), 4500);
+// rating a title you've watched for the first time: a small card right under it, where you checked it off, in that list's own colors.
+// It stays until you rate it, check off another title, or leave the page; + Note opens your log for it
+let rcT = null, rcNew = false;
+function rcShow(t) { rcT = t; rcNew = true; requestAnimationFrame(rcPlace); }
+function rcClear() { if (!rcT) return; rcT = null; rcPlace(); }
+function rcFind() {   // the row it belongs under: in the open box, or on the timeline
+  if (!rcT) return null;
+  if (openEntry && !panel.hidden) { const r = [...panel.querySelectorAll(".row")].find(x => x.dataset.t === rcT); return r && r.getAttribute("aria-pressed") === "true" ? { r, host: r.parentElement, box: true } : null; }
+  const r = document.querySelector(`#view .tl-row[data-tl="${CSS.escape(rcT)}"]`); return r && r.getAttribute("aria-pressed") === "true" ? { r, host: r.querySelector(".tl-text") } : null;
 }
+const rcHTML = n => `<span class="rc-s">${[1, 2, 3, 4, 5].map(i => `<span role="button" tabindex="0" data-rcs="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">${starSvg(i <= n, 18)}</span>`).join("")}</span><span role="button" tabindex="0" class="rc-n" data-rcn>+ Note</span>`;
+function rcPlace() {
+  const at = rcFind();
+  document.querySelectorAll(".ratecard").forEach(c => { if (!c.classList.contains("done") && (!at || c.parentElement !== at.host || c.dataset.rc !== rcT)) rcGo(c); });
+  if (!at) { rcT = null; return; }   // the title isn't here any more, or isn't checked: the card's done with
+  if (at.host.querySelector(":scope > .ratecard")) return;
+  const c = document.createElement(at.box ? "div" : "span"); c.className = "ratecard" + (at.box ? " inbox" : ""); c.dataset.rc = rcT; c.setAttribute("role", "group"); c.setAttribute("aria-label", "Rate " + tn(rcT));
+  if (at.box) c.style.color = getComputedStyle(at.r).color;
+  c.innerHTML = rcHTML(0); at.host.appendChild(c);
+  if (rcNew && !REDUCED) { const h = c.offsetHeight; c.animate([{ height: "0px", opacity: 0 }, { height: h + "px", opacity: 1 }], { duration: 260, easing: "ease-out" }); }
+  rcNew = false;
+}
+function rcGo(c) { if (REDUCED || !c.isConnected) { c.remove(); return; } const h = c.offsetHeight; c.classList.add("done");
+  c.animate([{ height: h + "px", opacity: 1 }, { height: "0px", opacity: 0, marginTop: "0px", marginBottom: "0px", paddingTop: "0px", paddingBottom: "0px", borderWidth: "0px" }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = () => c.remove(); }
+// its taps are its own: the row under it doesn't tick, and the timeline doesn't start a hold
+["pointerdown", "click"].forEach(n => document.addEventListener(n, ev => {
+  const c = ev.target.closest && ev.target.closest(".ratecard"); if (!c) return;
+  ev.stopPropagation(); if (n !== "click" || c.classList.contains("done")) return; ev.preventDefault();
+  const t = c.dataset.rc, st = ev.target.closest("[data-rcs]");
+  if (st) { const v = +st.dataset.rcs; rateSet(t, { r: v }); haptic(12); c.innerHTML = rcHTML(v); c.classList.add("done"); if (rcT === t) rcT = null; setTimeout(() => rcGo(c), 1100); return; }   // your stars, for a moment, then it tucks away
+  if (ev.target.closest("[data-rcn]")) { if (rcT === t) rcT = null; rcGo(c); rateSheet(t, true); }
+}, true));
 // the sheet: stars (tap the same one again to clear them), the day you watched it, how many times, and a note. It saves as you go
 function rateSheet(t, note) {
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
@@ -7424,14 +7482,14 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
         if (!ok) return;
         e.items.forEach(i => { delete state.checks[ck(e, i.t)]; });
         if (isChar && state.seen) delete state.seen[e.id];
-        persist(); renderMeter(); syncTile(e, kind); refreshChapterChrome(); toast(`${e.num ? e.label : e.title} Reset`, e);
+        persist(); renderMeter(); syncTile(e, kind); refreshChapterChrome(); boxNews(e, "Reset");
       });
       return;
     }
     ask(`Mark everything in ${name} as watched?`, "Mark all watched").then(ok => {
       if (!ok) return;
       e.items.forEach(i => { state.checks[ck(e, i.t)] = true; });
-      persist(); renderMeter(); syncTile(e, kind); refreshChapterChrome(); say(doneName(e), e); haptic(HAPTIC.success);
+      persist(); renderMeter(); syncTile(e, kind); refreshChapterChrome(); boxNews(e, "Complete", undefined, true); haptic(HAPTIC.success);
     });
   }, 650);
 });
@@ -7521,7 +7579,7 @@ function newDots() {
   } catch (e) {}
 }
 const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : commsOpen ? "comms" : fileOpen ? "file" : "story";
-function dockSync() { newDots(); const rp = document.getElementById("ratePill"); if (rp) rp.classList.remove("show"); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
+function dockSync() { newDots(); rcClear(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 // hold a dock button to mark everything new on that page as read, after a yes. It counts the same as reading it all, Every page included
 const DOCK_NAMES = { story: "Story", log: "the Story log", atlas: "the Atlas", map: "Paths", comms: "Comms", file: "the Agent File" };
 function logReadAll(id) {   // a box's own log, everything in it you've opened up, as if it had all played in
