@@ -2016,7 +2016,7 @@ function closePanel() {
   // bring the card up to date first, so it's already correct while the screen fades into it
   if (state.mode === "chapters" || state.mode === "chars") { syncTile(closing, closingKind); refreshChapterChrome(); }
   const done = () => {
-    panel.hidden = true; panel.style.clipPath = ""; panel.innerHTML = ""; document.body.style.overflow = "";
+    panel.hidden = true; panel.style.clipPath = ""; panel.innerHTML = ""; bodyFree();
     if (revealChanged) { revealChanged = false; renderView(); }
     else if (state.mode === "chapters" || state.mode === "chars") revealHeads();
     else if (document.querySelector("#view .tl")) document.querySelectorAll("#view .tl-row[data-tl]").forEach(r => r.setAttribute("aria-pressed", !!state.checks[tk(r.dataset.tl)]));   // the timeline only needs its ticks brought up to date
@@ -2168,10 +2168,10 @@ document.getElementById("view").addEventListener("click", ev => {
       growNext = on;
       const y = window.scrollY; renderView(); window.scrollTo(0, y);
       const nr = document.querySelector('.tl-row[data-tl="Loki S1"]'); if (nr) nr.focus({ preventScroll: true });
-      // the timeline's own pill every time, then the multiverse pill if this is what opened it, the same as in a box
+      // the multiverse pill if this is what opened it, the same as in a box
       if (!wasOpen && multiverseOpen()) mvAlert("tl");   // only the first time: once it's open it stays open, so there's nothing new to report
     } else {
-      // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
+      // Doomsday matches Loki S1: the Incursions pill if this is what opened them
       if (!wasInc && incOpen()) incAlert("tl");
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
@@ -3463,7 +3463,7 @@ function openAtlas() {
 }
 function closeAtlas(fromHistory) {
   if (!fromHistory && navAt("atlas")) { navBack(); return; }
-  document.getElementById("atlasPanel").hidden = true; atlOpen = false; document.body.style.overflow = "";
+  document.getElementById("atlasPanel").hidden = true; atlOpen = false; bodyFree();
   const b = document.getElementById("btnAtlas"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("atlBack").addEventListener("click", () => { if (atlHist.length) navBack(); else closeAtlas(); });
@@ -3981,9 +3981,10 @@ function glide(el, to, ms) {   // move a scrolling box to a position over ms, ea
 }
 function closeDossier(fromHistory) {
   const el = document.getElementById("dossier"); if (!el || el.hidden) return;
-  el.hidden = true; dossierOpen = null; dRun++;
-  if (panel.hidden && !fileOpen && !atlOpen && !mapOpen && !commsOpen) document.body.style.overflow = "";   // only free the page if nothing else is still over it
+  el.hidden = true; dossierOpen = null; dRun++; bodyFree();
 }
+// the page behind is freed only once nothing is over it any more: a box closing (it finishes a moment later) can't free it under the page that replaced it
+function bodyFree() { if (panel.hidden && !dossierOpen && !fileOpen && !atlOpen && !mapOpen && !commsOpen) document.body.style.overflow = ""; }
 
 /* Ant-Man & the Wasp: pinch the box and it shrinks under your fingers, then all the way into the Quantum Realm */
 panel.addEventListener("touchstart", ev => {
@@ -6256,12 +6257,13 @@ function avaPick() {
 const recruitDate = () => { const d = state.since ? new Date(state.since) : new Date(); return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }); };
 const agentNo = () => { const s = String(state.since || "0"); let x = 7; for (const ch of s) x = (x * 31 + ch.charCodeAt(0)) % 1000000; return "AI-" + String(x).padStart(6, "0"); };
 function codeEdit() {
-  const b = document.getElementById("hfCode"); if (!b) return;
+  const b = document.getElementById("hfCode"); if (!b || !b.isConnected || document.querySelector(".hf-codein")) return;
   const inp = document.createElement("input"); inp.className = "hf-name hf-codein"; inp.maxLength = 24; inp.value = state.codename || ""; inp.placeholder = "Codename"; inp.setAttribute("aria-label", "Codename"); inp.autocomplete = "off"; inp.spellcheck = false;
-  b.replaceWith(inp); inp.focus();
+  try { b.replaceWith(inp); } catch (e) { return; }   // the file redrew under it (a box you'd been typing over saved): nothing to swap
+  inp.focus();
   const save = () => { const v = inp.value.replace(/\s+/g, " ").trim().slice(0, 24); if (v) state.codename = v; else delete state.codename; persist(); renderFile(); };
   inp.addEventListener("keydown", ev => { if (ev.key === "Enter") inp.blur(); if (ev.key === "Escape") { inp.value = state.codename || ""; inp.blur(); } });
-  inp.addEventListener("blur", save, { once: true });
+  inp.addEventListener("blur", () => setTimeout(save), { once: true });   // saved just after: a blur from a redraw swapping it out mustn't redraw inside that redraw
 }
 // case files: every Avengers mission you've watched opens its own record
 const CASES = {
@@ -6285,7 +6287,7 @@ let fileTab = "file";
 function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); renderFile(true); document.getElementById("filePanel").hidden = false; fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
 function closeFile(fromHistory) {
   if (!fromHistory && navAt("file")) { navBack(); return; }
-  document.getElementById("filePanel").hidden = true; fileOpen = false; document.body.style.overflow = "";
+  document.getElementById("filePanel").hidden = true; fileOpen = false; bodyFree();
   // the Agent File always opens at the top, on its first page, with nothing left open
   const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); hfPage = 1; rPg = 0; rOpen = null; document.getElementById("fileView").scrollTop = 0;
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
@@ -7577,13 +7579,15 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
     haptic(25);
     ask(full ? `The ${label} is complete. Reset it and uncheck every title?` : `Mark everything on the ${label} as watched?`, full ? "Reset" : "Mark all watched").then(ok => {
       if (!ok) return;
-      const wasBranched = branched();
+      const wasBranched = branched(), wasOpen = multiverseOpen(), wasInc = incOpen();
       items.forEach(e => { if (full) delete state.checks[tk(e.t)]; else state.checks[tk(e.t)] = true; });
       persist(); renderMeter();
       if (wasBranched !== branched() || lane === "main") { growNext = wasBranched !== branched() && branched(); const y = window.scrollY; renderView(); window.scrollTo(0, y); }   // Loki S1 changed: the branches open or fold away; or the Reveal / Hide button moves
       else items.forEach(e => { const r = document.querySelector(`.tl-row[data-tl="${CSS.escape(e.t)}"]`); if (r) r.setAttribute("aria-pressed", String(!full)); });
       if (full) toast(`${label.charAt(0).toUpperCase() + label.slice(1)} Reset`, null, false, undefined, undefined, { full: true });   // news, not a reply to a tap: it opens like one
       else { toast(`${label} Completed`, null, false, undefined, undefined, { full: true }); haptic(HAPTIC.success); }
+      if (!wasOpen && multiverseOpen()) mvAlert("tl");   // marking it all can be what opens the multiverse or the Incursions, the same as one tick
+      if (!wasInc && incOpen()) incAlert("tl");
     });
   }, 650);
 });
@@ -7604,8 +7608,14 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
     haptic(25);
     ask(`Mark everything in ${name} as watched?`, "Mark all watched").then(ok => {
       if (!ok) return;
+      const wasOpen = multiverseOpen(), wasInc = incOpen();
       e.items.forEach(i => { state.checks[ck(e, i.t)] = true; });
-      persist(); renderMeter(); syncTile(e, kind); refreshChapterChrome(); boxNews(e, "Complete", undefined, true); haptic(HAPTIC.success);
+      persist(); renderMeter();
+      if (wasOpen !== multiverseOpen() || wasInc !== incOpen()) { const y = window.scrollY; renderView(); window.scrollTo(0, y); }   // the sealed boxes on this page open with it
+      else { syncTile(e, kind); refreshChapterChrome(); }
+      boxNews(e, "Complete", undefined, true); haptic(HAPTIC.success);
+      if (!wasOpen && multiverseOpen()) mvAlert(kind);   // the box first, then what it opened, the same as checking the title in it
+      if (!wasInc && incOpen()) incAlert(kind);
     });
   }, 650);
 });
@@ -9052,7 +9062,7 @@ function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(tr
   renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
-  document.getElementById("commsPanel").hidden = true; commsOpen = false; document.body.style.overflow = "";
+  document.getElementById("commsPanel").hidden = true; commsOpen = false; bodyFree();
 }
 document.getElementById("commsBack").addEventListener("click", () => closeComms());
 document.getElementById("commsView").addEventListener("click", ev => { if (ev.target.closest("[data-cmlog]")) { haptic(8); cmLogOpen = !cmLogOpen; const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; return; }
@@ -9327,7 +9337,7 @@ function mapGrow() {
 }
 function closeMap(fromHistory) {
   if (!fromHistory && navAt("map")) { navBack(); return; }
-  document.getElementById("mapPanel").hidden = true; document.getElementById("mapPop").hidden = true; mapOpen = false; document.body.style.overflow = "";
+  document.getElementById("mapPanel").hidden = true; document.getElementById("mapPop").hidden = true; mapOpen = false; bodyFree();
   if (mapFocusI !== null) mapFocus(null);   // leaving the map clears any highlighted lane
   const b = document.getElementById("btnMap"); if (b) b.focus({ preventScroll: true });
 }
