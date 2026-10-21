@@ -1450,7 +1450,9 @@ const INC_ID = "ch-incursions", incOpen = () => !!state.incEver || anyChecked("A
 // the TVA's alerts, in two kinds. Once only, when a project opens a sealed Extras section: what's been detected (a tap takes you to those Extras).
 // Every time Loki S1 or Doomsday is checked on a timeline: the change it makes to the timeline itself
 const mvAlert = () => say("The Multiverse", TVA, undefined, undefined, true, undefined, { label: "Multiversal Breach Detected", go: extrasAt });
-const incAlert = () => say("Incursion", TVA, undefined, undefined, true, undefined, { label: "Incursion Detected", go: extrasAt });
+// Doomsday has one alert, the same wherever it shows: every time it's checked on a timeline, and the first time it opens the Incursions from a box.
+// A tap opens the Incursions: on a timeline, that timeline's own list (the same as its marker); anywhere else, the Incursions box on the Story page
+const incAlert = onTl => say("Warning: Incursions Detected", TVA, undefined, undefined, true, undefined, { label: "Monitoring Earths Lost", go: onTl ? () => openIncList(document.querySelector("#view [data-incm]") || document.getElementById("toast")) : incBoxAt });
 const tlAlert = (what, said) => say(what, TVA, undefined, undefined, true, undefined, { label: said });   // what was detected, then what it did to the timeline, plainly
 const extraShut = e => !e.num && (e.id === INC_ID ? !incOpen() : !multiverseOpen());
 function available(e) {
@@ -2163,8 +2165,7 @@ document.getElementById("view").addEventListener("click", ev => {
       if (on) tlAlert("Nexus Event Detected", "The Sacred Timeline Has Branched"); if (!wasOpen && multiverseOpen()) mvAlert();
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
-      if (r.dataset.tl === INC_MARK && on) tlAlert("Warning: Incursion Detected", "Two Universes Have Collided");
-      if (!wasInc && incOpen()) incAlert();
+      if (r.dataset.tl === INC_MARK && on) incAlert(true);
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
         const y = window.scrollY, grew = tlSlide(() => { renderView(); window.scrollTo(0, y); });
@@ -8937,12 +8938,18 @@ swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + $
   () => { const el = document.getElementById("toast"), hf = el._names, go = el._go; toastAway(); if (go) go(); else if (hf) fileAt(hf); });
 // the Chapters page, at the Extras (opened up if you'd folded them away), over anything that was open
 function extrasAt() {
-  haptic(10);
-  if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (fileOpen) closeFile(true);
+  haptic(10); closeAllOver();
   if (state.sagaShut) delete state.sagaShut["2"];
   if (state.mode !== "chapters") document.getElementById("btnChapters").click(); else renderView();
   dockSync();
   requestAnimationFrame(() => { const x = document.querySelector('#view .saga[data-saga="2"]'); if (x) x.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); });
+}
+function closeAllOver() { if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (fileOpen) closeFile(true); }
+// the Story page's Incursions box: brought into view and tapped, the same as tapping it yourself (still covered, that unlocks it; unlocked, it opens)
+function incBoxAt() {
+  extrasAt();
+  setTimeout(() => { const t = document.querySelector(`#view .tile[data-id="${INC_ID}"]`); if (!t) return;
+    t.scrollIntoView({ block: "center", behavior: REDUCED ? "auto" : "smooth" }); setTimeout(() => activate(t), REDUCED ? 0 : 450); }, 350);
 }
 // open the Agent File on the file a pop-up announced: its page, scrolled to it, with a glow so you can find it
 function fileAt(names) {
