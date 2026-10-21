@@ -7676,10 +7676,11 @@ function newDots() {
   try {
     const n = achList().filter(a => earned(a.id)).length; if (state.hfSeen == null) state.hfSeen = n;
     const hide = mapHide();
-    // a box you can open whose log has something unseen: a dot on its tile, on the Chapters or Characters button above it, and on Story
+    // a character box whose log has something unseen: a dot on its tile, on the Characters button above it, and on Story.
+    // Chapter logs get none: everything in them is in the Story log, which has its own dot
     const box = L => L.filter(c => DOSSIERS[c.id] && logUnread(c.id)).map(c => c.id);
-    const chU = box(DATA.chapters.filter(c => state.unlocked[c.id])), cxU = box(DATA.chars.filter(c => !charHidden(c))), U = new Set([...chU, ...cxU]);
-    document.getElementById("btnChapters").classList.toggle("nw", chU.length > 0); document.getElementById("btnChars").classList.toggle("nw", cxU.length > 0);
+    const cxU = box(DATA.chars.filter(c => !charHidden(c))), U = new Set(cxU);
+    document.getElementById("btnChapters").classList.remove("nw"); document.getElementById("btnChars").classList.toggle("nw", cxU.length > 0);
     document.querySelectorAll("#view .tile[data-id]").forEach(t => { const g = t.parentElement, d = g.querySelector(`:scope > .tdot[data-for="${CSS.escape(t.dataset.id)}"]`), want = U.has(t.dataset.id);
       if (want && !d) g.insertAdjacentHTML("beforeend", `<i class="tdot" data-for="${esc(t.dataset.id)}" aria-hidden="true"></i>`); else if (!want && d) d.remove(); });
     tdotPlace();
@@ -7691,7 +7692,7 @@ function newDots() {
       comms: cmUnread("msg") || cmUnread("news"),
       file: n > state.hfSeen || (embKeep(), embNew().length > 0) };
     document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
-    const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", logUnread(openEntry.id));
+    const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", (DOSSIERS[openEntry.id] || {}).kind === "char" && logUnread(openEntry.id));
   } catch (e) {}
 }
 const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : commsOpen ? "comms" : fileOpen ? "file" : "story";
