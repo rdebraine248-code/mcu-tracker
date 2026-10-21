@@ -1219,6 +1219,9 @@ if (state.watched) { migrate(state.watched); delete state.watched; }
 let endgameN = null;   // how many lists have Avengers: Endgame checked; a new check opens the portals
 let dotsT = 0;
 function persist() {
+  // the first time Loki S1 or Avengers: Doomsday is checked anywhere, what it opens stays open
+  if (!state.mvEver && lokiChecked()) state.mvEver = 1;
+  if (!state.incEver && Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::Avengers: Doomsday"))) state.incEver = 1;
   const eg = Object.keys(state.checks).filter(k => state.checks[k] && k.endsWith("::Avengers: Endgame")).length;
   if (endgameN !== null && eg > endgameN && !state.portalsSeen) { state.portalsSeen = true; setTimeout(portals, 100); }
   endgameN = eg;
@@ -1238,9 +1241,10 @@ const QUOTES = {"ch-1": ["There was an idea…", "The Avengers"], "ch-2": ["Long
 const CHAR_QUOTES = {"Captain America": "I can do this all day.", "Iron Man": "I am Iron Man.", "Thor": "Whosoever holds this hammer, if he be worthy, shall possess the power of Thor.", "Black Widow": "I’ve got red in my ledger. I’d like to wipe it out.", "Hawkeye": "It comes with a price. This life you wanna live.", "Hulk": "That’s my secret, Cap. I’m always angry.", "Nick Fury & S.H.I.E.L.D.": "I’m here to talk to you about the Avengers Initiative.", "Captain Marvel": "Higher. Further. Faster.", "Guardians of the Galaxy": "We are Groot.", "Spider-Man": "Just because we lost someone, doesn’t mean we have to do this alone.", "Black Panther & Wakanda": "Wakanda forever.", "Doctor Strange & Wong": "Forget everything you think you know.", "Wanda & Vision": "We are an unusual couple, you know?", "Falcon & Winter Soldier": "Co-workers. Friends is a stretch.", "Loki & the TVA": "I am Loki of Asgard, and I am burdened with glorious purpose.", "The Thunderbolts": "There’s something… wrong with me. An emptiness.", "The Fantastic Four": "Whatever life throws at us, we’ll face it together, as a family.", "Shang-Chi & The Ten Rings": "You are a product of all who came before you, the legacy of your family.", "The Champions": "There is no normal. There’s just us and what we do with what we’ve been given.", "The Punisher": "One batch, two batch, penny and dime.", "Eternals": "Throughout the years, we have never interfered… until now.", "Moon Knight": "Your mind, I feel it. Fractured. Broken.", "The Watcher": "I observe all that transpires here, but I do not, cannot, will not interfere. For I am the Watcher.", "The Sony Spider-Men": "You know who I am. Your friendly neighborhood Spider-Man!", "The FoX-Men": "You’re in my school for the gifted. For mutants. You’ll be safe here.", "Pruned Characters": "Maybe I was born here, it’s hard to know for sure.", "The Avengers": "Avengers…", "Daredevil": "I’m asking forgiveness for what I’m about to do.", "Werewolf by Night": "I would never hurt you or hurt any one of them.", "The Defenders": "This is what we get, isn’t it? For ever thinking we could make this work.", "Ant-Man & the Wasp": "Look out for the little guy."};
 const LOKI_CH = DATA.chapters.find(c => c.num && c.items.some(i => i.t === "Loki S1"));
 const LOKI_KEY = LOKI_CH ? LOKI_CH.id + "::Loki S1" : null;
-// the multiverse is revealed while Loki S1 is checked in any list (a chapter, the Loki & the TVA box, Sacred Timeline or Release Order);
-// unchecking it everywhere seals it again, except for the Extras and character boxes already opened
-const multiverseOpen = () => !LOKI_KEY || Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::Loki S1"));
+// the multiverse is revealed the first time Loki S1 is checked in any list (a chapter, the Loki & the TVA box, Sacred Timeline or Release Order),
+// and stays revealed for good: unchecking it later doesn't seal anything again. Only Reset datapad does
+function lokiChecked() { return Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::Loki S1")); }
+const multiverseOpen = () => !LOKI_KEY || !!state.mvEver || lokiChecked();
 // character boxes that spoil the multiverse just by existing work like the Extras: sealed until the multiverse opens,
 // then tap to reveal; a revealed box stays revealed, an unrevealed one seals again if the multiverse closes
 const MV_BOXES = { "cx-the-watcher": 1, "cx-the-sony-spider-men": 1, "cx-the-fox-men": 1, "cx-pruned-characters": 1, "cx-incursions": 1 };
@@ -1260,17 +1264,7 @@ let sayQ = [], sayBusy = false;
 // how long a pop-up stays: as long as a box's quote for short lines, a little longer the more there is to read
 const toastMs = msg => Math.min(6500, Math.max(QUOTE_MS, 1100 + String(msg).length * 55));
 function say(msg, e, foot, ms, plain, hd, done) { sayQ.push({ msg, e: e || null, foot, ms, plain, hd, done }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says; hd: who it's from
-// a new achievement rides on the line that's about to show (or just appeared), instead of a pop-up of its own
 let sayCur = null;
-function attachFoot(text) {
-  const last = sayQ[sayQ.length - 1];
-  if (last) { last.foot = last.foot ? last.foot + " · " + text.replace(/^Agent File · /, "") : text; return true; }
-  if (sayCur && Date.now() - sayCur.at < 2500) {
-    sayCur.foot = sayCur.foot ? sayCur.foot + " · " + text.replace(/^Agent File · /, "") : text;
-    const el = document.getElementById("toast"); if (el.classList.contains("show")) pillSet(el, sayCur.msg, sayCur.e, false, sayCur.foot, { quote: true, plain: sayCur.plain, hd: sayCur.hd, done: sayCur.done }); return true;
-  }
-  return false;
-}
 let sayOwn = false, sayTm = 0;
 function sayNext() {
   const m = sayQ.shift(); if (!m) { sayBusy = false; return; } sayBusy = true;
@@ -1336,8 +1330,10 @@ function blCarry(e) {
     const q = openEntry && openEntry.id === e.id && panel.querySelector(".pquote"); if (q) { q.style.transition = "opacity .6s ease-out"; q.classList.remove("pending"); }
   }, Math.max(0, b.end - Date.now())));
 }
+const boxSaid = {};   // when each box last announced it was finished, so it's never announced twice for the same moment
 function boxNews(e, what, foot, viaSay) {
   let hd = boxKind(e) + " · " + what, done;
+  if (what === "Complete") boxSaid[e.id] = Date.now();
   // a chapter finished goes in your Agent File, every time, the same way: Agent File · Updated, its name, and "Chapter 4 Completed" underneath
   // (with anything else it filed alongside), however you finished it and whether or not it's been finished before
   if (what === "Complete") {
@@ -1449,7 +1445,7 @@ function prevOf(e) {
   return i > 0 ? ex[i - 1] : null;
 }
 // the Incursions stay sealed until Avengers: Doomsday is checked off, anywhere
-const INC_ID = "ch-incursions", incOpen = () => anyChecked("Avengers: Doomsday");
+const INC_ID = "ch-incursions", incOpen = () => !!state.incEver || anyChecked("Avengers: Doomsday");   // the Incursions too: once opened, for good
 // checking off Doomsday for the first time: a warning in the Incursions' colors that something has opened, without naming it
 // the TVA's alerts, in two kinds. Once only, when a project opens a sealed Extras section: what's been detected (a tap takes you to those Extras).
 // Every time Loki S1 or Doomsday is checked on a timeline: the change it makes to the timeline itself
@@ -2017,8 +2013,8 @@ function closePanel() {
     else renderView();
     const f = document.querySelector(`.tile[data-id="${CSS.escape(id)}"]`); if (f) f.focus({ preventScroll: true });
     const d = achDefer.splice(0);
-    if (justFinished) { boxNews(closing, "Complete", d.length ? ["Agent File", ...d.map(a => a.t)].join(" · ") : undefined); haptic(HAPTIC.success); }
-    else if (d.length) { achPending.push(...d); setTimeout(flushAch, 300); }
+    if (justFinished) { boxNews(closing, "Complete", undefined, true); haptic(HAPTIC.success); }   // the box first; anything it earned follows, each on its own
+    if (d.length) { achPending.push(...d); setTimeout(flushAch, 300); }
   };
   openEntry = null;
   panel.classList.remove("open");
@@ -6018,11 +6014,16 @@ function flushAch() {
   if (openEntry) { achDefer.push(...list.filter(a => a.done)); list = list.filter(a => !a.done); }   // completions ride on the box's "Completed" pop-up
   if (!list.length) return;
   if (list.some(a => a.id === "excelsior")) setTimeout(excelsior, 700);
-  const thanos = list.some(a => /^stone-/.test(a.id)) && allStones() && !state.thanosSaid;
-  if (thanos) state.thanosSaid = 1;
-  if (!list.some(a => a.lead) && attachFoot("Agent File · " + list.map(a => a.t).join(" · "))) return;
-  const lead = list.find(a => a.id === "excelsior") || list.find(a => a.lead) || list[list.length - 1], rest = list.filter(a => a !== lead).map(a => a.t);
-  say(lead.t, null, ["Agent File", ...rest].join(" · "), lead.ms, true);
+  // each one gets its own moment, one after another: a box finished first, then what it earned, the final files last
+  const rank = a => a.sec === "chapters" || a.sec === "characters" ? 0 : a.sec === "final" ? 2 : 1;
+  list.sort((a, b) => rank(a) - rank(b)).forEach(achSay);
+}
+function achSay(a) {
+  if (a.sec === "chapters" || a.sec === "characters") {   // a finished box is announced as itself (its name, Chapter 4 Completed), once
+    const e = a.sec === "chapters" ? DATA.chapters.find(c => c.id === a.cid) : a.ch;
+    if (e) { if (Date.now() - (boxSaid[e.id] || 0) > 8000) boxNews(e, "Complete", undefined, true); return; }
+  }
+  say(a.t, null, "Agent File", a.ms, true);
 }
 
 /* ---------- your log: one rating, date, watch count and note per title, the same wherever the title appears. Nothing asks you to rate:
@@ -6299,7 +6300,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["achChars", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
