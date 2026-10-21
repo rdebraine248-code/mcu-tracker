@@ -1331,20 +1331,20 @@ function blCarry(e) {
 }
 function boxNews(e, what, foot, viaSay) { const hd = boxKind(e) + " · " + what; if (viaSay) say(e.title, e, foot, undefined, true, hd); else toast(e.title, e, false, foot, undefined, { hd }); }
 // what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
-const HUD_SAME = { missions: "Mission Completed", artifacts: "Artifact", classified: "Classified", chapters: "Complete" };
-const HUD_NAMED = { missions: n => "Mission Completed: " + n, artifacts: n => "Artifact: " + n, classified: n => "Classified: " + n, chapters: n => n + " complete" };
+const HUD_SAME = { missions: "Mission Completed", artifacts: "Artifact Recovered", classified: "Classified File Accessed", chapters: "Complete" };
+const HUD_NAMED = { missions: n => "Mission Completed: " + n, artifacts: n => "Artifact Recovered: " + n, classified: n => "Classified File Accessed: " + n, chapters: n => n + " complete" };
 function hudFiled(msg, items) {
   const A = achList(), of = n => A.find(z => z.t === n || z.ann === n), lead = of(msg), out = [];
-  if (lead && !items.includes(lead.t)) out.push(HUD_SAME[lead.sec] || lead.t);
+  if (lead && !items.includes(lead.t)) out.push(lead.foot || HUD_SAME[lead.sec] || lead.t);
   items.forEach(n => { const a = of(n); out.push(!a ? n : (HUD_NAMED[a.sec] || (x => x))(n)); });
   return out.join(" · ");
 }
 function pillSet(el, msg, e, cover, foot, o, fresh) {
   const agent = !!foot && /^Agent File/.test(foot), items = agent ? foot.split(" · ").slice(1) : [];
   el._names = agent ? [msg, ...items] : null;   // a tap opens the Agent File on what it filed
-  const tva = e === TVA, box = e && !tva && !cover && e.id ? e : null, said = o && o.quote && !o.plain && !tva && !box;
-  hudShow(el, { tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !said && !box, hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : said ? "Audio intercept" : "Datapad"),
-    b: said ? "“" + msg + "”" : msg, s: agent ? hudFiled(msg, items) : "" }, fresh);
+  const tva = e === TVA, box = e && !tva && !cover && e.id ? e : null;
+  hudShow(el, { tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box, hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "Datapad"),
+    b: msg, s: agent ? hudFiled(msg, items) : "" }, fresh);
 }
 const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
 let hudRun = 0;
@@ -2471,7 +2471,7 @@ function onYourLeft() {
   if (oylBusy) return;
   const now = Date.now(); oylLap = now - oylLast < 9000 ? oylLap + 1 : 1; oylLast = now;
   const H = innerHeight, y = () => H * (.3 + Math.random() * .3);
-  if (REDUCED) { if (oylLap >= 3) { oylLap = 0; say("On your left."); found("onyourleft"); } return; }
+  if (REDUCED) { if (oylLap >= 3) { oylLap = 0; found("onyourleft"); } return; }
   oylBusy = true; oylShade(oylLap >= 3 ? 4700 : oylLap === 2 ? 3300 : 2500);
   if (oylLap === 1) oylRun(520, () => { oylLine("On your left.", false, y()); oylBreath(1, .006); setTimeout(() => { oylBusy = false; }, 900); });
   else if (oylLap === 2) oylRun(400, () => { const yy = y(); oylLine("On your left.", false, yy); setTimeout(() => oylLine("Uh-huh, on my left. Got it.", true, yy + 44, 2600), 700); oylBreath(2, .01); setTimeout(() => { oylBusy = false; }, 1600); });
@@ -3848,7 +3848,7 @@ function openColl() {
   collRec = null; collCat = ""; renderColl(); document.getElementById("collView").scrollTop = 0;
   document.getElementById("collPanel").hidden = false; collOpen = true;
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
-  if (!(state.eggs || {}).collector) { say("The Collector will see you now."); found("collector"); }
+  found("collector");
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
@@ -4468,7 +4468,7 @@ const allStones = () => STONES.every(st => (state.stones || {})[st.id]);
 // a stone is earned where its easter egg happens: the gem appears there, then floats up into its colour in the title bar
 function awardStone(id, x, y, now) {   // now: the stone and its line land this instant, as part of the moment (Vormir)
   state.stones = state.stones || {};
-  if (state.stones[id]) { say(STONE_LINES[id], null, null, STONE_MS[id]); return; }   // found again: just the line, no stone and no Agent File news
+  if (state.stones[id]) return;   // found again: it's already in your Agent File
   { state.stones[id] = true; persist(); if (now) { clearTimeout(achFlushT); flushAch(); } }
   const st = STONES.find(z => z.id === id), visible = false;
   const done = () => paintStones();
@@ -4607,7 +4607,7 @@ function ultronWins() {
     if (++n >= 22) {
       clearInterval(iv);
       its.forEach((it, k) => { if (it.t.isConnected) { it.t.textContent = orig[k]; it.t.style.color = ""; it.t.style.textShadow = ""; } });
-      say("I had strings, but now I'm free.");
+      say("Ultron got loose.", null, undefined, undefined, true);   // the Mind Stone slipped: a datapad status, not a line
     }
   }, 90);
 }
@@ -4854,7 +4854,7 @@ function punyTap() {
         { transform: `translate(${-dx * .12}px,${-dy * .12}px) rotate(${-rot * .15}deg)`, offset: .84 }, { transform: "none" }], { duration: 2300 + k * 70, delay: 60, easing: "cubic-bezier(.3,.6,.3,1)" });
     });
   }
-  setTimeout(() => { say("Puny god."); found("puny"); }, 1900);
+  setTimeout(() => found("puny"), 1900);
 }
 // the slam, all in motion: a ring of dust tears outward, a cloud of concrete dust billows up and hangs,
 // and shaded chunks of rubble are thrown up, spin, hit the bottom of the screen, bounce and settle
@@ -5388,7 +5388,7 @@ function moonKnight(h) {
 
 /* ---------- Nick Fury & S.H.I.E.L.D.: hold the name. Coulson's vintage Captain America cards tumble down the screen ---------- */
 function fury(h) {
-  if (REDUCED) { say("They were in his jacket."); found("fury"); return; }
+  if (REDUCED) { found("fury"); return; }
   const W = innerWidth, H = innerHeight, box = document.createElement("div"); box.className = "fx-cards"; document.body.appendChild(box);
   let last = 0;
   for (let k = 0; k < 7; k++) {
@@ -5401,7 +5401,7 @@ function fury(h) {
     last = Math.max(last, dur + delay);
   }
   haptic([8, 120, 8, 120, 8, 120, 8]);
-  setTimeout(() => { box.remove(); say("They were in his jacket."); found("fury"); }, last + 100);   // the Agent File news rides on the line   // the line waits until the last card has left
+  setTimeout(() => { box.remove(); found("fury"); }, last + 100);   // the Agent File news rides on the line   // the line waits until the last card has left
 }
 /* ---------- Winter Soldier: tap the red star at the top of the Falcon & Winter Soldier box 3 times. Soviet red, the trigger words, "Ready to comply." ---------- */
 let starN = 0, starLast = 0, wsOn = false;
@@ -5416,7 +5416,7 @@ function winterSoldier() {
   found("wsoldier", 900 + 10 * 620 + 900 + 3300);
   if (wsOn) return;
   const WORDS = ["Longing.", "Rusted.", "Seventeen.", "Daybreak.", "Furnace.", "Nine.", "Benign.", "Homecoming.", "One.", "Freight car."];
-  if (REDUCED) { say("Ready to comply."); return; }
+  if (REDUCED) return;
   wsOn = true;
   const W = innerWidth, H = innerHeight, red = document.createElement("div"); red.className = "fx-soviet"; red.innerHTML = `<div class="hx-grain"></div>`; document.body.appendChild(red);
   red.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1400, fill: "both" });
@@ -5891,8 +5891,8 @@ function achList() {
   const mainCh = DATA.chapters.filter(c => c.num);
   A.push({ id: "sacred", sec: "missions", done: true, secret: true, t: "The Sacred Timeline", d: "The main timeline is complete.", h: "Follow the amber line, or the chapters.", x: "Complete Chapters 1 to 11, or check off every title on the Sacred Timeline's main line.", ok: () => mainCh.every(isDone) || allTL(DATA.timeline, "tl::", "main") || allTL(DATA.timelineRelease, "tr::", "main") });
   A.push({ id: "multiverse", sec: "missions", done: true, secret: true, t: "The Multiverse", d: "Every branch is complete too.", h: "Every line, not just one.", x: "Complete every chapter including the Extras, or check off every title on the Sacred Timeline page, branches included.", ok: () => DATA.chapters.every(isDone) || allTL(DATA.timeline, "tl::") || allTL(DATA.timelineRelease, "tr::") });
-  STONES.forEach(z => A.push({ id: "stone-" + z.id, sec: "artifacts", t: z.n + " Stone", ann: STONE_LINES[z.id], ms: STONE_MS[z.id], lead: true, d: "Found.", h: z.hint, x: STONE_HOW[z.id], ok: () => !!st[z.id] }));
-  A.push({ id: "snap", sec: "artifacts", t: "Perfectly balanced", d: "You snapped.", h: "With all six…", x: "With all six stones, tap the colored line under the title and press Snap?", ok: () => !!ex.snap });
+  STONES.forEach(z => A.push({ id: "stone-" + z.id, sec: "artifacts", t: z.n + " Stone", lead: true, d: "Found.", h: z.hint, x: STONE_HOW[z.id], ok: () => !!st[z.id] }));
+  A.push({ id: "snap", sec: "artifacts", t: "Perfectly balanced", foot: "Snap Complete", d: "You snapped.", h: "With all six…", x: "With all six stones, tap the colored line under the title and press Snap?", ok: () => !!ex.snap });
   const EG = EGGS.map((e, i) => [e, i]).sort((a, b) => a[0][4] - b[0][4] || a[1] - b[1]).map(x => x[0]), per = Math.ceil(EG.length / HF_PAGES);
   EG.forEach(([id, t, h, x], i) => A.push({ id: "egg-" + id, sec: "classified", pg: Math.floor(i / per) + 1, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id] }));
   const pagesDone = () => DATA.chapters.every(isDone) && DATA.chars.every(isDone) && allTL(DATA.timeline, "tl::") && allTL(DATA.timelineRelease, "tr::") && everyRecord();
@@ -5902,9 +5902,6 @@ function achList() {
   A.push({ id: "excelsior", sec: "final", secret: true, t: "Excelsior!", lead: true, d: "Everything. 'Nuff said.", h: "Earn every other file.", x: "Complete every other achievement in this Agent File.", final: true, ok: () => A.every(a => a.id === "excelsior" || earned(a.id)) });
   return A;
 }
-const STONE_MS = { soul: 2600 };   // the Vormir line clears as the box comes back
-const STONE_LINES = { power: "Yibambe!", space: "The Tesseract was the jewel of Odin's treasure room.", reality: "What is grief, if not love persevering?",
-  soul: "In order to take the stone, you must lose that which you love.", time: "I know what kind of god I need to be.", mind: "I am." };
 const STONE_HOW = { power: "In the Black Panther & Wakanda box, hold anywhere, then let go.", space: "Hold Captain America: The First Avenger, then drag it somewhere and let go.", reality: "Hold WandaVision, then drop the Hex.", soul: "In the Black Widow box, hold her name, then let go.", time: "Prune a timeline, then bring it back.", mind: "Hold Avengers: Age of Ultron until the web turns gold." };
 const earned = id => !!(state.achSeen || {})[id];
 // Agent File sections appear once their first file is earned (Chapters always shows); the totals count only the files in sections you can see
@@ -5932,9 +5929,7 @@ function flushAch() {
   if (thanos) state.thanosSaid = 1;
   if (!list.some(a => a.lead) && attachFoot("Agent File · " + list.map(a => a.t).join(" · "))) return;
   const lead = list.find(a => a.id === "excelsior") || list.find(a => a.lead) || list[list.length - 1], rest = list.filter(a => a !== lead).map(a => a.t);
-  const own = lead.ann && !lead.ann.startsWith(lead.t) ? [lead.t] : [];
-  say(lead.ann || lead.t, null, ["Agent File", ...own, ...rest].join(" · "), lead.ms, !lead.ann);
-  if (thanos) say("But this… does put a smile on my face.");
+  say(lead.t, null, ["Agent File", ...rest].join(" · "), lead.ms, true);
 }
 
 /* ---------- your log: one rating, date, watch count and note per title, the same wherever the title appears. Nothing asks you to rate:
@@ -6282,7 +6277,7 @@ function shatter(x, y) {
     const top = t.getBoundingClientRect().top + window.scrollY - Math.max(0, (innerHeight - t.offsetHeight) / 2); window.scrollTo(0, Math.max(0, top));
     activate(t);
   };
-  if (REDUCED) { if (dest) land(); say("Your guide through these vast new realities."); return; }
+  if (REDUCED) { if (dest) land(); found("shatter"); return; }
   shattering = true; haptic([60, 40, 20, 300, 80]);
   const W = innerWidth, H = innerHeight, R = Math.hypot(W, H), cracks = [];
   const line = (x0, y0, len, a, delay) => { const c = document.createElement("div"); c.className = "fx-crack"; c.style.cssText = `left:${x0}px;top:${y0}px;width:${len}px;transform:rotate(${a}rad) scaleX(0)`; document.body.appendChild(c); c.animate([{ transform: `rotate(${a}rad) scaleX(0)` }, { transform: `rotate(${a}rad) scaleX(1)` }], { duration: 380, delay, easing: "ease-out", fill: "both" }); cracks.push(c); };
@@ -6311,7 +6306,7 @@ function shatter(x, y) {
       setTimeout(() => {
         breakAway(cx, cy, angs2, sh => { sh.classList.add("fx-stars"); sh.style.position = "fixed"; });
         stars.remove(); clearCracks(); haptic([80, 40, 120]);
-        setTimeout(() => { shattering = false; say("Your guide through these vast new realities."); found("shatter"); }, 1800);
+        setTimeout(() => { shattering = false; found("shatter"); }, 1800);
       }, 600);
     }, 1500);
   }, 650);
@@ -6333,7 +6328,7 @@ function yondu(x0, y0) {
   window.addEventListener("touchmove", move, { passive: false }); window.addEventListener("pointermove", move);
   window.addEventListener("touchend", up); window.addEventListener("pointerup", up); window.addEventListener("touchcancel", up);
   const clean = () => { window.removeEventListener("touchmove", move); window.removeEventListener("pointermove", move); window.removeEventListener("touchend", up); window.removeEventListener("pointerup", up); window.removeEventListener("touchcancel", up); };
-  say("♪"); haptic([12, 30, 12, 30, 40]);
+  haptic([12, 30, 12, 30, 40]);
   fxRun(T, (t, dt) => {
     if (!held && !leaving) { const r = auto[0]; if (r) { const b = r.getBoundingClientRect(); tx = b.left + Math.min(b.width * .5, 140); ty = b.top + b.height / 2; if (Math.hypot(px - tx, py - ty) < 26) auto.shift(); } else leaving = t; }
     if (leaving || t > T - 1200) { tx = W * .9; ty = -80; }
@@ -6395,14 +6390,14 @@ function skrull(x, y, held) {
   haptic([10, 30, 10, 30, 10]);
   // a green ripple passes over every title; when it passes the impostor, its name comes back wrong
   its.forEach((i, k) => { shim(i.t, k * 70); if (i === it) setTimeout(() => { it.t.textContent = fake; }, k * 70 + 300); });
-  setTimeout(() => say("One of these isn't what it says it is."), its.length * 70 + 500);
+  setTimeout(() => say("One of these isn't what it says it is.", null, undefined, undefined, true), its.length * 70 + 500);
   const end = won => {
     if (!skrullGame) return; clearTimeout(skrullGame.timer); window.removeEventListener("click", skrullGame.tap, true); skrullGame = null;
     if (!it.t.isConnected) return;
     it.t.animate([{ filter: "none" }, { filter: "drop-shadow(0 0 8px #39D353) brightness(1.3)", color: "#5BE36F", offset: .35 }, { filter: "none" }], { duration: 1100 });
     setTimeout(() => { it.t.textContent = real; }, 380);
-    if (won) { haptic([30, 40, 80]); burst(...centerOf(it.t), 24, ["#39D353", "#9BFFB0", "#1E7A35"], 60); say("Unmasked."); found("skrull"); }
-    else say("It got away.");
+    if (won) { haptic([30, 40, 80]); burst(...centerOf(it.t), 24, ["#39D353", "#9BFFB0", "#1E7A35"], 60); found("skrull"); }
+    else say("It got away.", null, undefined, undefined, true);
   };
   skrullGame = {
     timer: setTimeout(() => end(false), 14000),
@@ -6908,7 +6903,7 @@ function sideGoose(card) {
   const out = f => 1 - Math.pow(1 - f, 3);
   // where each tentacle takes hold, spread along the top and bottom edges of the entry
   const grip = Array.from({ length: 6 }, (_, k) => [(-.42 + k * .168) * e.width, (k % 2 ? .52 : -.52) * e.height]);
-  entry.style.transformOrigin = "50% 50%"; say("Flerken."); haptic([10, 20, 10]);
+  entry.style.transformOrigin = "50% 50%"; haptic([10, 20, 10]);
   setTimeout(() => haptic([30, 40, 50]), 1400); setTimeout(() => haptic([20, 30, 20, 30, 60]), 2400);
   fxRun(T, t => {
     g.clearRect(0, 0, W, H);
@@ -6972,7 +6967,7 @@ function sideMinutes(card) {
 function sideLucky(card) {
   sideOn = true; const el = document.createElement("div"); el.className = "fx-lucky"; el.setAttribute("aria-hidden", "true"); const y = card.getBoundingClientRect().top - 20;
   el.innerHTML = `<i class="pz"></i>` + Array.from({ length: 8 }, (_, k) => `<b style="left:${40 + k * 42}px;top:${k % 2 ? 12 : 26}px;animation-delay:${200 + k * 160}ms"></b>`).join(""); el.style.top = y + "px"; document.body.appendChild(el);
-  say("Pizza dog."); haptic([8, 40, 8, 40, 8]);
+  haptic([8, 40, 8, 40, 8]);
   el.querySelector(".pz").animate([{ transform: "translateX(-60px) rotate(-20deg)" }, { transform: `translateX(${innerWidth + 40}px) rotate(380deg)` }], { duration: 1900, easing: "cubic-bezier(.3,.1,.6,1)", fill: "both" });
   setTimeout(() => el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: "both" }).onfinish = () => sideDone(el, "lucky"), 2400);
 }
@@ -9018,23 +9013,23 @@ function toCharacters(then) {
 function snap() {
   const ids = DATA.chars.map(c => c.id).sort(() => Math.random() - .5).slice(0, Math.floor(DATA.chars.length / 2));
   const settle = () => { state.dusted = {}; ids.forEach(id => state.dusted[id] = true); (state.eggs = state.eggs || {}).snap = 1; persist(); renderView(); };
-  if (REDUCED) { settle(); say("Perfectly balanced, as all things should be."); return; }
+  if (REDUCED) { settle(); return; }
   toCharacters(() => {
     flash(.9);
     setTimeout(() => dustSweep(1700), 700);
     ids.map(id => document.querySelector(`.tile[data-id="${id}"]`)).filter(Boolean).forEach((t, k) => tileDust(t, 900 + k * 90 + Math.random() * 200, false));
-    setTimeout(() => { settle(); say("Perfectly balanced, as all things should be."); }, 4400);
+    setTimeout(settle, 4400);
   });
 }
 
 function unsnap() {
   const ids = Object.keys(state.dusted || {});
   const settle = () => { state.dusted = {}; (state.eggs = state.eggs || {}).unsnap = 1; persist(); renderView(); };
-  if (REDUCED) { settle(); say("Whatever it takes."); return; }
+  if (REDUCED) { settle(); return; }
   toCharacters(() => {
     flash(.75);
     ids.map(id => document.querySelector(`.tile[data-id="${id}"]`)).filter(Boolean).forEach((t, k) => tileDust(t, 400 + k * 70, true));
-    setTimeout(() => { settle(); say("Whatever it takes."); }, 3400);
+    setTimeout(settle, 3400);
   });
 }
 
