@@ -1628,6 +1628,28 @@ function refreshChapterChrome() {
   revealHeads();
 }
 const ATLAS_BTN = `<button type="button" class="mapbtn atlbtn" id="btnAtlas"><svg class="mglobe" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="#7FC6FF" stroke-width="1.6"><circle cx="24" cy="24" r="20" fill="rgba(60,130,220,.18)"/><ellipse cx="24" cy="24" rx="9" ry="20"/><path d="M4 24h40M7 14h34M7 34h34M24 4v40"/><circle cx="31" cy="17" r="2.6" fill="#BFE9FF" stroke="none"/><circle cx="15" cy="29" r="2" fill="#BFE9FF" stroke="none"/></svg><span class="mtxt">Atlas</span></button>`;
+// the Reveal / Hide button moving along: a title coming out from behind it opens up and pushes it down, and one going back in lets it slide up,
+// rather than the rows snapping into place. Hands back how much is still to open, so a scroll can allow for it
+function tlSlide(run) {
+  const lis = () => { const m = new Map(); document.querySelectorAll("#view .tl-list > li").forEach(l => { const r = l.querySelector(".tl-row"); if (r) m.set(r.dataset.tl, l); else if (l.classList.contains("tl-fold")) m.set("\u0000fold", l); }); return m; };
+  if (REDUCED) { run(); return 0; }
+  const near = l => { const b = l.getBoundingClientRect(); return b.bottom > -300 && b.top < innerHeight + 300; };
+  const was = new Map([...lis()].filter(([, l]) => near(l)).map(([k, l]) => [k, l.getBoundingClientRect().top + scrollY]));
+  const had = new Set(lis().keys());
+  run(); rcPlace();   // the rating card settles first, so its own space is counted once
+  const now = lis(), o = { duration: 320, easing: "cubic-bezier(.22,1,.36,1)" };
+  let grew = 0;
+  now.forEach((l, k) => {
+    if (!had.has(k)) { if (!near(l)) return; const h = l.offsetHeight; grew += h; l.style.overflow = "hidden";   // out from behind the button: it opens up
+      l.animate([{ height: "0px", opacity: 0 }, { height: h + "px", opacity: 1 }], o).onfinish = () => { l.style.overflow = ""; }; return; }
+    if (!was.has(k)) return;
+    const dy = was.get(k) - (l.getBoundingClientRect().top + scrollY); if (Math.abs(dy) < 1) return;
+    // the button itself: slides when it's the end of the list, and where titles carry on past it, it fades in at its new spot instead of crossing them
+    if (k === "\u0000fold" && l.nextElementSibling) { l.animate([{ opacity: 0 }, { opacity: 1 }], o); return; }
+    l.animate([{ transform: `translateY(${dy}px)` }, { transform: "none" }], o);
+  });
+  return grew;
+}
 function renderView() {
   requestAnimationFrame(rcPlace);   // a rating card follows its title through a redraw, or goes if the title's gone
   clearTimeout(dotsT); dotsT = setTimeout(newDots, 60);
@@ -2060,11 +2082,11 @@ document.getElementById("view").addEventListener("click", ev => {
       if (!wasInc && incOpen()) incAlert();
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
-        const y = window.scrollY; renderView(); window.scrollTo(0, y);
+        const y = window.scrollY, grew = tlSlide(() => { renderView(); window.scrollTo(0, y); });
         const nr = document.querySelector(`.tl-row[data-tl="${CSS.escape(r.dataset.tl)}"]`); if (nr) { nr.classList.add("just"); nr.focus({ preventScroll: true }); }
         // and lifts the view so the new next title and Reveal sit clear of the dock and the rating pill
         const fb = on && document.querySelector('.tl-foldbtn[data-tlfold="open"]'), dk = document.getElementById("dock");
-        if (fb) { const by = fb.getBoundingClientRect().bottom, lim = innerHeight - (dk ? dk.offsetHeight : 0) - 110; if (by > lim) window.scrollBy({ top: by - lim, behavior: REDUCED ? "auto" : "smooth" }); }
+        if (fb) { const by = fb.getBoundingClientRect().bottom + grew, lim = innerHeight - (dk ? dk.offsetHeight : 0) - 110; if (by > lim) window.scrollBy({ top: by - lim, behavior: REDUCED ? "auto" : "smooth" }); }
         if (navigator.vibrate) { try { navigator.vibrate(on ? 20 : 12); } catch (e) {} }
         return; }
       r.setAttribute("aria-pressed", on); r.classList.remove("just"); void r.offsetWidth; r.classList.add("just"); }
@@ -5952,7 +5974,7 @@ function rcPlace() {
     const L = rcLast, row = L.box ? [...panel.querySelectorAll(".row")].find(x => x.dataset.t === L.t) : document.querySelector(`#view .tl-row[data-tl="${CSS.escape(L.t)}"]`);
     const host = row && (L.box ? row.parentElement : row.querySelector(".tl-text"));
     if (host) { const g = document.createElement(L.box ? "div" : "span"); g.style.cssText = `display:block;height:${L.h}px;pointer-events:none`; host.appendChild(g);
-      g.animate([{ height: L.h + "px" }, { height: "0px" }], { duration: 220, easing: "ease-in", fill: "forwards" }).onfinish = () => g.remove(); }
+      g.animate([{ height: L.h + "px" }, { height: "0px" }], { duration: 260, easing: "ease-out", fill: "forwards" }).onfinish = () => g.remove(); }
   }
   rcLast = null;
   if (!at) { rcT = null; return; }   // the title isn't here any more, or isn't checked: the card's done with
