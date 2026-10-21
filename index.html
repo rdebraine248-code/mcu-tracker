@@ -1346,8 +1346,8 @@ function boxNews(e, what, foot, viaSay) {
   }
   if (viaSay) say(e.title, e, foot, undefined, true, hd, done); else toast(e.title, e, false, foot, undefined, { hd, done }); }
 // what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
-const HUD_SAME = { missions: "Mission Completed", artifacts: "Artifact Recovered", classified: "Classified File Accessed", chapters: "Complete" };
-const HUD_NAMED = { missions: n => "Mission Completed: " + n, artifacts: n => "Artifact Recovered: " + n, classified: n => "Classified File Accessed: " + n, chapters: n => n + " complete" };
+const HUD_SAME = { missions: "Mission Completed", artifacts: "Artifact Recovered", classified: "Classified File Accessed", chapters: "Complete", final: "Final File Completed" };
+const HUD_NAMED = { missions: n => "Mission Completed: " + n, artifacts: n => "Artifact Recovered: " + n, classified: n => "Classified File Accessed: " + n, final: n => "Final File Completed: " + n, chapters: n => n + " complete" };
 function hudFiled(msg, items) {
   const A = achList(), of = n => A.find(z => z.t === n || z.ann === n), lead = of(msg), out = [];
   if (lead && !items.includes(lead.t)) out.push(lead.foot || HUD_SAME[lead.sec] || lead.t);
@@ -2133,7 +2133,7 @@ document.getElementById("view").addEventListener("click", ev => {
       const y = window.scrollY; renderView(); window.scrollTo(0, y);
       const nr = document.querySelector('.tl-row[data-tl="Loki S1"]'); if (nr) nr.focus({ preventScroll: true });
       // the timeline's own pill every time, then the multiverse pill if this is what opened it, the same as in a box
-      if (on) say("The Sacred Timeline has branched.", TVA); if (!wasOpen && multiverseOpen()) say("The multiverse is now open. Act ? is now The Marvel Multiverse.", TVA);
+      if (on) say("The Sacred Timeline", TVA, undefined, undefined, true, undefined, { label: "Nexus Event Detected" }); if (!wasOpen && multiverseOpen()) say("The multiverse is now open. Act ? is now The Marvel Multiverse.", TVA);
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
       if (r.dataset.tl === INC_MARK && on) say("Warning: Incursions detected.", TVA);
