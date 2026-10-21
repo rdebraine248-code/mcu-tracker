@@ -1650,6 +1650,31 @@ function tlSlide(run) {
   });
   return grew;
 }
+// Reveal draws the Sacred Timeline on down from the button, row by row, as if it's being traced in: the line first, then each title.
+// Hide runs it back up into the button, then the list closes. Only what's on screen animates; the rest is simply there (or gone)
+let tlDrawing = false;
+function tlDraw(open, then) {
+  const fold = document.querySelector("#view .tl-list > .tl-fold");
+  if (REDUCED || !fold) { if (then) then(); return; }
+  const rows = []; for (let l = fold.nextElementSibling; l && l.getBoundingClientRect().top < innerHeight; l = l.nextElementSibling) if (l.querySelector(".tl-row")) rows.push(l);
+  // on a branch's row only the Sacred Timeline's own line comes and goes; the branch itself stays put
+  const parts = l => { const main = l.dataset.lane === "main"; return { line: main ? l.querySelector(".tl-lanes") : l.querySelector(".tl-lanes > svg:not(.tl-br)"), rest: main ? [l.querySelector(".tl-node"), l.querySelector(".tl-text")] : [] }; };
+  const fl = fold.querySelector(".tl-lanes svg"), DRAWN = "inset(0 0 0 0)", GONE = "inset(0 0 100% 0)", STUB = "inset(0 0 66% 0)";
+  if (open) {
+    const per = 85;
+    if (fl) fl.animate([{ clipPath: STUB }, { clipPath: DRAWN }], { duration: per, easing: "linear", fill: "backwards" });
+    rows.forEach((l, k) => { const p = parts(l), d = (k + 1) * per;
+      if (p.line) p.line.animate([{ clipPath: GONE }, { clipPath: DRAWN }], { duration: per, delay: d, easing: "linear", fill: "backwards" });
+      p.rest.forEach(x => x && x.animate([{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 280, delay: d + per * .5, easing: "ease-out", fill: "backwards" })); });
+    return;
+  }
+  tlDrawing = true; const per = 60, n = rows.length;
+  rows.forEach((l, k) => { const p = parts(l), d = (n - 1 - k) * per;   // from the bottom of the screen back up to the button
+    p.rest.forEach(x => x && x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, delay: d, fill: "forwards" }));
+    if (p.line) p.line.animate([{ clipPath: DRAWN }, { clipPath: GONE }], { duration: per, delay: d + 40, easing: "linear", fill: "forwards" }); });
+  if (fl) fl.animate([{ clipPath: DRAWN }, { clipPath: STUB }], { duration: per, delay: n * per + 40, easing: "linear", fill: "forwards" });
+  setTimeout(() => { tlDrawing = false; then(); }, (n + 1) * per + 60);
+}
 function renderView() {
   requestAnimationFrame(rcPlace);   // a rating card follows its title through a redraw, or goes if the title's gone
   clearTimeout(dotsT); dotsT = setTimeout(newDots, 60);
@@ -2034,8 +2059,10 @@ document.getElementById("view").addEventListener("click", ev => {
   }
   const fb = ev.target.closest("[data-tlfold]");
   if (fb) {   // open the Sacred Timeline out, or fold it back to where you are on it
+    if (tlDrawing) return;
     haptic(10); const open = fb.dataset.tlfold === "open"; if (open) state[TL_OPEN()] = true; else delete state[TL_OPEN()]; persist();
-    const y = window.scrollY; renderView(); window.scrollTo(0, y);
+    const y = window.scrollY, draw = () => { renderView(); window.scrollTo(0, y); };
+    if (open) { draw(); tlDraw(true); } else tlDraw(false, () => tlSlide(draw));
     return;
   }
   const sw = ev.target.closest("[data-tlmode]");
