@@ -2538,7 +2538,7 @@ function slSec(c) {
   if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b>Sealed</b></div></div>`;
   const E = slEntries(c), tot = c.items.length, w = c.items.filter(i => atlSeenT(i.t)).length;
   const cnt = state.unlocked[c.id] || w ? `<small>${w} of ${tot}</small>` : "";   // no count until the chapter is revealed or one of its titles is watched
-  if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>No entries yet</b>${cnt}</div></div>`;
+  if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : "No entries yet"}</b>${cnt}</div></div>`;   // a revealed chapter shows its name, even before its first entry
   const open = slOpen === c.id, L = DOSSIERS[c.id];
   const pk = slPer(c), per = pk < 0 ? "" : `<div class="sl-per"><small>Period</small><p>${slSeenK(c, "r0." + pk) ? esc(L.rows.period[pk][0]) : dnew(c.id + "|r0." + pk, esc(L.rows.period[pk][0]))}</p></div>`;
   const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
