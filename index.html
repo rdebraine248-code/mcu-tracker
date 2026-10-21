@@ -4797,9 +4797,9 @@ function vormir(h, lifted) {
   sc.animate([{ transform: lifted ? "translateY(12px)" : "none", transformOrigin: "50% 0" }, { transform: "rotate(4deg) translateY(80px) scale(.92)", transformOrigin: "50% 0", offset: at(1600) }, { transform: "rotate(4deg) translateY(80px) scale(.92)", transformOrigin: "50% 0", offset: at(8700) }, { transform: "none", transformOrigin: "50% 0", offset: at(9300) }, { transform: "none", transformOrigin: "50% 0" }], { duration: T, easing: "ease-in-out" });
   // both veils sit just under the pop-ups, so the stone's line shows over the dark
   veil("fxl", "z-index:89;background:#000", [{ opacity: 0 }, { opacity: 1, offset: at(1600) }, { opacity: 1, offset: at(8700) }, { opacity: 0 }], T);
-  veil("fxl", "z-index:89;background:radial-gradient(ellipse 115% 90% at 50% 55%, rgba(255,226,160,1) 0%, rgba(255,170,70,.95) 22%, rgba(255,138,31,.55) 50%, rgba(255,120,20,.15) 75%, rgba(255,120,20,0) 95%)", [{ opacity: 0 }, { opacity: 0, offset: at(2560) }, { opacity: 1, offset: at(3350) }, { opacity: 1, offset: at(3850) }, { opacity: 0, offset: at(4700) }, { opacity: 0 }], T);
-  setTimeout(() => { burst(W / 2, H * .55, 50, ORANGE_C, 180, 30); haptic([40, 50, 140]); }, 3350);   // the buzz lands as the glow peaks
-  setTimeout(() => { awardStone("soul", W / 2, H * .55, true); }, 4750);
+  veil("fxl", "z-index:89;background:radial-gradient(ellipse 115% 90% at 50% 50%, rgba(255,226,160,1) 0%, rgba(255,170,70,.95) 22%, rgba(255,138,31,.55) 50%, rgba(255,120,20,.15) 75%, rgba(255,120,20,0) 95%)", [{ opacity: 0 }, { opacity: 0, offset: at(2560) }, { opacity: 1, offset: at(3350) }, { opacity: 1, offset: at(3850) }, { opacity: 0, offset: at(4700) }, { opacity: 0 }], T);
+  setTimeout(() => { burst(W / 2, H * .5, 50, ORANGE_C, 180, 30); haptic([40, 50, 140]); }, 3350);   // the buzz lands as the glow peaks
+  setTimeout(() => { awardStone("soul", W / 2, H * .5, true); }, 4750);
 }
 
 /* ---------- bonus: Portals. Checking off Avengers: Endgame opens them around the screen ---------- */
