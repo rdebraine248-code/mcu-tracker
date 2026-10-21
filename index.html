@@ -1940,7 +1940,10 @@ function renderPanel(e, fresh) {
 // the Extras are optional, so they show everything at once, and so do their logs; so do the Extras' character boxes
 const panelItems = e => { if ((openKind !== "char" && openKind !== "chapter") || (openKind === "chapter" && !e.num) || (openKind === "char" && MV_BOXES[e.id])) return e.items; let next = false;
   return e.items.filter(i => { if (state.checks[ck(e, i.t)]) return true; if (next) return false; next = true; return true; }); };
+// the stamps Loki S1 and Avengers: Doomsday wear in their chapters, worn in every character box they're in too
+const OPENER_TAGS = { "Loki S1": ["MULTIVERSE OPENS", ""], "Avengers: Doomsday": ["INCURSION ALERT", "inc"] };
 function panelRow(e, i, cls) {
+  if (!i.tag && openKind === "char" && OPENER_TAGS[i.t]) i = Object.assign({}, i, { tag: OPENER_TAGS[i.t][0], tagc: OPENER_TAGS[i.t][1] });
   const fg = e.fg || "#111", box = e.box || fg, tick = lum(box) > 0.6 ? "#111111" : "#FFFFFF";
   return `<li${cls ? ` class="${cls}"` : ""}><button type="button" class="row" aria-pressed="${!!state.checks[ck(e, i.t)]}" data-t="${esc(i.t)}" style="color:${fg}">
           <span class="box">${CHECK(tick)}</span><span class="tw"><span class="t${i.s ? " short" : ""}">${tnh(i.t)}</span>${i.note && openKind === "chapter" ? `<span class="rnote">${esc(i.note)}</span>` : ""}</span>${i.tag ? `<span class="tag${i.tagc ? " " + i.tagc : ""}">${esc(i.tag)}</span>` : ""}</button></li>`;
