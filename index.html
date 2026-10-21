@@ -89,6 +89,10 @@ button{ font:inherit; color:inherit; }
 .toast.hud .hin{ position:absolute; left:0; top:0; box-sizing:border-box; padding:10px 16px 11px; }
 .toast.hud .hd{ display:block; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:var(--hc); } .toast.hud .hd::before{ content:"\25B8\00A0\00A0"; }
 .toast.hud b{ display:block; margin-top:5px; font:500 16px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:.2px; color:#EEF6FF; }
+/* a pill you can tap carries a chevron, like a row that opens */
+.toast.hud .hin.tap{ padding-right:44px; }
+.toast.hud .hgo{ position:absolute; right:18px; top:50%; transform:translateY(-50%); font:300 30px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:var(--hc); pointer-events:none; }
+.toast.hud.tva .hgo{ color:#F0A04B; }
 .toast.hud small{ display:block; margin-top:4px; font:11px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#6F86A8; }
 .toast.hud.tva{ --hc:#D9822B; } .toast.hud.tva .hd{ color:#F0A04B; } .toast.hud.tva b{ color:#F6E7D4; } .toast.hud.tva .hclip{ background-color:rgba(23,18,12,.97); }
 /* a box's own line (its unlock quote, a hero's first words) is the film talking: it plays on the box itself, a title card on its tile or a line across its page */
@@ -1355,7 +1359,7 @@ function pillSet(el, msg, e, cover, foot, o, fresh) {
   el._names = agent ? [msg, ...items] : null;   // a tap opens the Agent File on what it filed
   el._go = o && o.done && o.done.go || null;   // or somewhere of its own (the TVA's once-only alerts: the Extras they opened)
   const tva = e === TVA, box = e && !tva && !cover && e.id ? e : null;
-  hudShow(el, { tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box && !(o && o.full), hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "Datapad"),
+  hudShow(el, { tap: agent || !!el._go, tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box && !(o && o.full), hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "Datapad"),
     b: msg, s: o && o.done ? [o.done.label, hudFiled("", items.filter(n => n !== o.done.own))].filter(Boolean).join(" · ") : agent ? hudFiled(msg, items) : "" }, fresh);
 }
 const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
@@ -1376,7 +1380,7 @@ function hudShow(el, p, fresh) {
   el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el._opening = false;
   el.removeAttribute("style");
   el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva); el._quick = !!p.quick; if (p.tint) el.style.setProperty("--hc", p.tint);
-  el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin"><span class="hd">${esc(p.hd)}</span><b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}</div></div>`;
+  el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin${p.tap ? " tap" : ""}"><span class="hd">${esc(p.hd)}</span><b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}${p.tap ? `<i class="hgo" aria-hidden="true">&#8250;</i>` : ""}</div></div>`;
   const W = Math.min(innerWidth - 48, 460), inn = el.querySelector(".hin"); inn.style.width = W + "px";
   const H = inn.offsetHeight, size = (w, h) => { el.style.width = w + "px"; el.style.height = h + "px"; };
   if (REDUCED || shown || !fresh) { size(W, H); return; }   // a reply to a tap over one that's up: straight in
@@ -1396,7 +1400,7 @@ function hudShow(el, p, fresh) {
     setTimeout(() => {
       if (!live()) return;
       // who it's from comes on, then what happened types itself in, then anything filed
-      hd.style.opacity = ""; hd.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180 });
+      [hd, inn.querySelector(".hgo")].forEach(x => { if (x) { x.style.opacity = ""; x.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180 }); } });
       b.textContent = ""; b.style.opacity = ""; let i = 0;
       const type = () => { if (!live()) return; const text = el._text, step = Math.max(12, 520 / text.length);
         b.textContent = text.slice(0, ++i); if (i < text.length) { setTimeout(type, step); return; }
