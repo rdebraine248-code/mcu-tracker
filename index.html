@@ -1446,8 +1446,8 @@ function prevOf(e) {
 }
 // the Incursions stay sealed until Avengers: Doomsday is checked off, anywhere
 const INC_ID = "ch-incursions", incOpen = () => !!state.incEver || anyChecked("Avengers: Doomsday");   // the Incursions too: once opened, for good
-// the TVA's alerts: one each for Loki S1 and Avengers: Doomsday, the same wherever they show. Every time either is checked on a timeline,
-// and the first time it opens its Extras from a box. A tap goes to what it opened
+// the TVA's alerts: one each for Loki S1 and Avengers: Doomsday, the same wherever they show, and only ever once:
+// the first time either is checked, in any list, since what it opens stays open. A tap goes to what it opened
 const mvAlert = () => say("Nexus Event Detected", TVA, undefined, undefined, true, undefined, { label: "The Sacred Timeline Has Branched", go: extrasAt });
 // Doomsday's opens the Incursions: on a timeline, that timeline's own list (the same as its marker); anywhere else, the Incursions box on the Story page
 const incAlert = onTl => say("Warning: Incursions Detected", TVA, undefined, undefined, true, undefined, { label: "Monitoring Earths Lost", go: onTl ? () => openIncList(document.querySelector("#view [data-incm]") || document.getElementById("toast")) : incBoxAt });
@@ -2162,10 +2162,10 @@ document.getElementById("view").addEventListener("click", ev => {
       const y = window.scrollY; renderView(); window.scrollTo(0, y);
       const nr = document.querySelector('.tl-row[data-tl="Loki S1"]'); if (nr) nr.focus({ preventScroll: true });
       // the timeline's own pill every time, then the multiverse pill if this is what opened it, the same as in a box
-      if (on) mvAlert();
+      if (!wasOpen && multiverseOpen()) mvAlert();   // only the first time: once it's open it stays open, so there's nothing new to report
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
-      if (r.dataset.tl === INC_MARK && on) incAlert(true);
+      if (!wasInc && incOpen()) incAlert(true);
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
         const y = window.scrollY, grew = tlSlide(() => { renderView(); window.scrollTo(0, y); });
