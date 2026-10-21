@@ -1340,9 +1340,9 @@ function boxNews(e, what, foot, viaSay) {
   let hd = boxKind(e) + " · " + what, done;
   // a chapter finished goes in your Agent File, every time, the same way: Agent File · Updated, its name, and "Chapter 4 Completed" underneath
   // (with anything else it filed alongside), however you finished it and whether or not it's been finished before
-  if (what === "Complete" && DATA.chapters.includes(e)) {
-    const own = (achList().find(a => a.id === "ch-" + e.id) || {}).t, rest = foot ? foot.split(" · ").slice(1).filter(n => n !== own) : [];
-    hd = "Agent File · Updated"; done = { label: boxKind(e) + " Completed", own }; foot = ["Agent File", ...(own ? [own] : []), ...rest].join(" · ");
+  if (what === "Complete") {
+    const own = (achList().find(a => a.id === (DATA.chapters.includes(e) ? "ch-" : "char-") + e.id) || {}).t, rest = foot ? foot.split(" · ").slice(1).filter(n => n !== own) : [];
+    hd = "Agent File · Updated"; done = { label: DATA.chapters.includes(e) ? boxKind(e) + " Completed" : "Character Completed", own }; foot = ["Agent File", ...(own ? [own] : []), ...rest].join(" · ");
   }
   if (viaSay) say(e.title, e, foot, undefined, true, hd, done); else toast(e.title, e, false, foot, undefined, { hd, done }); }
 // what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
@@ -1357,8 +1357,9 @@ function hudFiled(msg, items) {
 function pillSet(el, msg, e, cover, foot, o, fresh) {
   const agent = !!foot && /^Agent File/.test(foot), items = agent ? foot.split(" · ").slice(1) : [];
   el._names = agent ? [msg, ...items] : null;   // a tap opens the Agent File on what it filed
+  el._go = o && o.done && o.done.go || null;   // or somewhere of its own (the TVA's once-only alerts: the Extras they opened)
   const tva = e === TVA, box = e && !tva && !cover && e.id ? e : null;
-  hudShow(el, { tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box, hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "Datapad"),
+  hudShow(el, { tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box && !(o && o.full), hd: o && o.hd || (tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "Datapad"),
     b: msg, s: o && o.done ? [o.done.label, hudFiled("", items.filter(n => n !== o.done.own))].filter(Boolean).join(" · ") : agent ? hudFiled(msg, items) : "" }, fresh);
 }
 const HUD_S = 18, HUD_L = 44, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is the two corners meeting
@@ -1424,7 +1425,11 @@ function prevOf(e) {
 // the Incursions stay sealed until Avengers: Doomsday is checked off, anywhere
 const INC_ID = "ch-incursions", incOpen = () => anyChecked("Avengers: Doomsday");
 // checking off Doomsday for the first time: a warning in the Incursions' colors that something has opened, without naming it
-const incAlert = () => say("Warning: incursion detected. A sealed Extras file is ready to open.", TVA);
+// the TVA's alerts, in two kinds. Once only, when a project opens a sealed Extras section: what's been detected (a tap takes you to those Extras).
+// Every time Loki S1 or Doomsday is checked on a timeline: the change it makes to the timeline itself
+const mvAlert = () => say("The Multiverse", TVA, undefined, undefined, true, undefined, { label: "Multiversal Breach Detected", go: extrasAt });
+const incAlert = () => say("Incursion", TVA, undefined, undefined, true, undefined, { label: "Incursion Detected", go: extrasAt });
+const tlAlert = what => say("The Sacred Timeline", TVA, undefined, undefined, true, undefined, { label: what });
 const extraShut = e => !e.num && (e.id === INC_ID ? !incOpen() : !multiverseOpen());
 function available(e) {
   if (state.unlocked[e.id] || forceOpen === e.id) return true;
@@ -2133,10 +2138,10 @@ document.getElementById("view").addEventListener("click", ev => {
       const y = window.scrollY; renderView(); window.scrollTo(0, y);
       const nr = document.querySelector('.tl-row[data-tl="Loki S1"]'); if (nr) nr.focus({ preventScroll: true });
       // the timeline's own pill every time, then the multiverse pill if this is what opened it, the same as in a box
-      if (on) say("The Sacred Timeline", TVA, undefined, undefined, true, undefined, { label: "Nexus Event Detected" }); if (!wasOpen && multiverseOpen()) say("The multiverse is now open. Act ? is now The Marvel Multiverse.", TVA);
+      if (on) tlAlert("Nexus Event Detected"); if (!wasOpen && multiverseOpen()) mvAlert();
     } else {
       // Doomsday matches Loki S1: its own timeline pill every time, then the Incursions pill if this is what opened them
-      if (r.dataset.tl === INC_MARK && on) say("Warning: Incursions detected.", TVA);
+      if (r.dataset.tl === INC_MARK && on) tlAlert("Incursion Event Detected");
       if (!wasInc && incOpen()) incAlert();
       if (r.dataset.tl === INC_MARK) { const y = window.scrollY; renderView(); window.scrollTo(0, y); return; }   // the marker comes and goes with Doomsday on this timeline
       if (r.closest("li").dataset.lane === "main") {   // the Reveal / Hide button moves along to your new next title
@@ -5942,6 +5947,9 @@ function achList() {
     h: c.num ? "Watch every title in it." : c.id === INC_ID ? "Watch Avengers: Doomsday, then everything in it." : "Open the multiverse, then watch everything in it.",
     x: c.num ? `Check off every title in Chapter ${c.num}.` : c.id === INC_ID ? "After Avengers: Doomsday, unlock this Extras box and check off every title in it." : "After Loki S1, unlock this Extras box and check off every title in it.",
     ok: () => isDone(c) }));
+  // every character box, the second page of the same section: Locked until its box is finished, then Complete
+  DATA.chars.forEach(c => A.push({ id: "char-" + c.id, sec: "characters", done: true, t: c.title, d: "Character completed.", ch: c,
+    h: "Watch every title in the box.", x: `Check off every title in the ${c.title} box on the Characters page.`, ok: () => isDone(c) }));
   AVENGERS_FILMS.forEach(f => A.push({ id: "film-" + f, sec: "missions", t: MISSION_NAMES[f] || f.replace("Avengers: ", ""), lead: true, d: f + " watched.", h: "An Avengers film.", x: `Check off ${f} in any list.`, ok: () => anyChecked(f) }));
   A.push({ id: "hero1", sec: "missions", done: true, t: "First hero", d: "One character box complete.", h: "Pick a hero.", x: "Check off every title in any one character box.", ok: () => DATA.chars.some(isDone) });
   A.push({ id: "heroall", sec: "missions", done: true, t: "Earth's mightiest", d: "Every character box complete.", h: "All of them.", x: "Complete every character box on the Characters page.", ok: () => DATA.chars.every(isDone) });
@@ -5963,13 +5971,14 @@ function achList() {
 const STONE_HOW = { power: "In the Black Panther & Wakanda box, hold anywhere, then let go.", space: "Hold Captain America: The First Avenger, then drag it somewhere and let go.", reality: "Hold WandaVision, then drop the Hex.", soul: "In the Black Widow box, hold her name, then let go.", time: "Prune a timeline, then bring it back.", mind: "Hold Avengers: Age of Ultron until the web turns gold." };
 const earned = id => !!(state.achSeen || {})[id];
 // Agent File sections appear once their first file is earned (Chapters always shows); the totals count only the files in sections you can see
-function fileSecs(A) { const o = { chapters: true }; A.forEach(a => { if (earned(a.id)) o[a.sec] = true; }); return o; }
+function fileSecs(A) { const o = { chapters: true, characters: true }; A.forEach(a => { if (earned(a.id)) o[a.sec] = true; }); return o; }
 function achCount() { const A = achList(), o = fileSecs(A), V = A.filter(a => o[a.sec]); return `${V.filter(a => earned(a.id)).length}/${V.length}`; }
 let achPending = [], achDefer = [], achFlushT = null;
 
 function checkAch() {
   const A = achList();
-  if (!state.achSeen) { state.achSeen = {}; A.forEach(a => { if (a.ok()) state.achSeen[a.id] = 1; }); return; }
+  if (!state.achSeen) { state.achSeen = {}; A.forEach(a => { if (a.ok()) state.achSeen[a.id] = 1; }); state.achChars = 1; return; }
+  if (!state.achChars) { A.forEach(a => { if (a.sec === "characters" && a.ok()) state.achSeen[a.id] = 1; }); state.achChars = 1; }   // boxes you'd already finished before characters were filed: no pile of pop-ups
   const fresh = [];
   for (let pass = 0; pass < 2; pass++) A.forEach(a => { if (!state.achSeen[a.id] && a.ok()) { state.achSeen[a.id] = 1; fresh.push(a); } });
   const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount();
@@ -6124,7 +6133,7 @@ function rateSec() {
     <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
     <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
 }
-let fileOpen = false, hfPage = 1, hfFlip = false; const achTaps = {}, HF_PAGES = 3;
+let fileOpen = false, hfPage = 1, hfFlip = false, hfChPg = 1, hfChFlip = false; const achTaps = {}, HF_PAGES = 3;
 // put new markup in place, swapping only the top-level blocks that changed, so everything else on screen stays exactly as it was
 function swapIn(host, html) {
   const tmp = document.createElement("div"); tmp.innerHTML = html;
@@ -6134,7 +6143,7 @@ function swapIn(host, html) {
 }
 function renderFile(fresh) {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = Math.min(10, 1 + Math.floor(done / A.length * 10));
-  const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec !== "chapters" || (a.extra && !state.unlocked[a.cid])) && !ok;
+  const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const note = ok ? a.d : n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : (sec ? "Classified" : "Locked");
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${ok ? "Complete" : sec ? "Classified" : "Locked"}</span><b>${esc(sec ? "???" : a.t)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
@@ -6144,6 +6153,8 @@ function renderFile(fresh) {
   // each count on the agent ID takes you down to its section
   const stat = (key, label) => open[key] ? `<button type="button" data-hfgo="${key}"><b>${got(key)}/${tot(key)}</b><small>${label} complete</small></button>` : "";
   const sect = (key, title, mini) => open[key] ? part(key, title, mini) : "";
+  const chPart = () => { const key = hfChPg === 2 ? "characters" : "chapters", L = A.filter(a => a.sec === key);
+    return `<section class="hf-sec" data-hfsec="chapters"><h3><span>${hfChPg === 2 ? "Characters" : "Chapters"} complete</span><span class="hf-pager"><button type="button" data-hfcpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfChPg}/2</span><button type="button" data-hfcpg="1" aria-label="Next page">›</button><span class="hf-pgt">${L.filter(a => earned(a.id)).length}/${L.length}</span></span></h3><div class="hf-grid mini hf-pg${hfChFlip ? " flip" : ""}">${L.map(card).join("")}</div></section>`; };
   const fv = document.getElementById("fileView"); fv.className = "fileview"; if (fresh) fv.replaceChildren();
   swapIn(fv, `
     <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button>${embNew().length ? '<i class="hf-avdot" aria-hidden="true"></i>' : ""}<div class="hf-tag">Avengers Initiative · Agent ID</div>
@@ -6151,7 +6162,7 @@ function renderFile(fresh) {
       <dl class="hf-rows"><div><dt>Clearance</dt><dd>Level ${level} of 10</dd></div><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
-    ${rateSec()}${sect("chapters", "Chapters complete", true)}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
+    ${rateSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress is saved in this browser. A save code holds all of it in one line of text. Keep it in your notes, and paste it here to restore your progress.</p>
       <div class="row"><button type="button" class="go" data-save="copy">Copy save code</button><button type="button" data-save="open">Restore code</button></div>
@@ -6244,6 +6255,8 @@ document.getElementById("fileView").addEventListener("click", ev => {
   if (ev.target.closest("#hfAva")) { avaPick(); return; }
   if (ev.target.closest("#hfCode")) { codeEdit(); return; }
   const cfb = ev.target.closest('[data-ach^="film-"]'); if (cfb && earned(cfb.dataset.ach)) { caseFile(cfb.dataset.ach.slice(5)); return; }
+  const cpb = ev.target.closest("[data-hfcpg]");
+  if (cpb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfChPg = hfChPg === 1 ? 2 : 1; hfChFlip = true; renderFile(); hfChFlip = false; fv.scrollTop = y; return; }
   const pgb = ev.target.closest("[data-hfpg]");
   if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = (hfPage - 1 + +pgb.dataset.hfpg + HF_PAGES) % HF_PAGES + 1; hfFlip = true; renderFile(); hfFlip = false; fv.scrollTop = y; return; }
   const b = ev.target.closest("[data-ach]"); if (!b) return;
@@ -6260,7 +6273,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["achChars", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7522,8 +7535,8 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
       persist(); renderMeter();
       if (wasBranched !== branched() || lane === "main") { growNext = wasBranched !== branched() && branched(); const y = window.scrollY; renderView(); window.scrollTo(0, y); }   // Loki S1 changed: the branches open or fold away; or the Reveal / Hide button moves
       else items.forEach(e => { const r = document.querySelector(`.tl-row[data-tl="${CSS.escape(e.t)}"]`); if (r) r.setAttribute("aria-pressed", String(!full)); });
-      if (full) toast(`${label.charAt(0).toUpperCase() + label.slice(1)} Reset`);
-      else { toast(`${label} Completed`); haptic(HAPTIC.success); }
+      if (full) toast(`${label.charAt(0).toUpperCase() + label.slice(1)} Reset`, null, false, undefined, undefined, { full: true });   // news, not a reply to a tap: it opens like one
+      else { toast(`${label} Completed`, null, false, undefined, undefined, { full: true }); haptic(HAPTIC.success); }
     });
   }, 650);
 });
@@ -7534,6 +7547,7 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
   if (!t) return;
   const isChar = t.dataset.kind === "char";
   if (isChar ? ((state.dusted || {})[t.dataset.id] || t.querySelector(".cover")) : !state.unlocked[t.dataset.id]) return;
+  if (isDone((isChar ? DATA.chars : DATA.chapters).find(c => c.id === t.dataset.id))) return;   // holding a box marks it all watched; a finished box has nothing left to mark
   pressAt = [ev.clientX, ev.clientY]; clearTimeout(pressShow);
   pressShow = setTimeout(() => t.classList.add("pressing"), ev.pointerType === "mouse" ? 0 : 160);   // a swipe that starts on a box shouldn't shrink it
   pressTimer = setTimeout(() => {
@@ -7541,15 +7555,6 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
     const e = (isChar ? DATA.chars : DATA.chapters).find(c => c.id === t.dataset.id);
     const name = isChar ? e.title : `${e.label}, ${e.title}`, kind = isChar ? "char" : "chapter";
     haptic(25);
-    if (isDone(e)) {
-      ask(`${name} is complete. Reset it and uncheck every title?`, "Reset").then(ok => {
-        if (!ok) return;
-        e.items.forEach(i => { delete state.checks[ck(e, i.t)]; });
-        if (isChar && state.seen) delete state.seen[e.id];
-        persist(); renderMeter(); syncTile(e, kind); refreshChapterChrome(); boxNews(e, "Reset");
-      });
-      return;
-    }
     ask(`Mark everything in ${name} as watched?`, "Mark all watched").then(ok => {
       if (!ok) return;
       e.items.forEach(i => { state.checks[ck(e, i.t)] = true; });
@@ -7599,7 +7604,7 @@ panel.addEventListener("click", ev => {
   const wasOpen = multiverseOpen(), wasInc = incOpen(), wasSeen = atlSeenT(t);
   if (state.checks[k]) delete state.checks[k]; else state.checks[k] = true;
   if (!wasSeen && state.checks[k]) firstWatch(t);
-  if (!wasOpen && multiverseOpen()) toast("The multiverse is now open. Act ? is now The Marvel Multiverse.", TVA);
+  if (!wasOpen && multiverseOpen()) mvAlert();
   if (!wasInc && incOpen()) incAlert();
   if (wasOpen !== multiverseOpen()) revealChanged = true;   // sealed boxes on the page behind change when you close this one
   persist(); renderMeter(); updatePanel(openEntry); syncTile(openEntry, openKind); refreshChapterChrome();
@@ -8902,13 +8907,23 @@ const toastAway = () => { clearTimeout(toastTimer); const el = document.getEleme
   else el.classList.remove("show");
   if (sayOwn) { clearTimeout(sayTm); sayOwn = false; sayCur = null; setTimeout(sayNext, 350); } };
 swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + ${dx}px),${dy}px)`, () => document.getElementById("toast").classList.contains("show"), toastAway,
-  () => { const hf = document.getElementById("toast")._names; toastAway(); if (hf) fileAt(hf); });
+  () => { const el = document.getElementById("toast"), hf = el._names, go = el._go; toastAway(); if (go) go(); else if (hf) fileAt(hf); });
+// the Chapters page, at the Extras (opened up if you'd folded them away), over anything that was open
+function extrasAt() {
+  haptic(10);
+  if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (fileOpen) closeFile(true);
+  if (state.sagaShut) delete state.sagaShut["2"];
+  if (state.mode !== "chapters") document.getElementById("btnChapters").click(); else renderView();
+  dockSync();
+  requestAnimationFrame(() => { const x = document.querySelector('#view .saga[data-saga="2"]'); if (x) x.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); });
+}
 // open the Agent File on the file a pop-up announced: its page, scrolled to it, with a glow so you can find it
 function fileAt(names) {
   const A = achList(), a = A.find(z => earned(z.id) && names.some(n => n === z.t || n === z.ann)); haptic(10);
   // the Agent File takes over the screen: a box (and its log) that was open underneath closes first, so back goes to the main page
   if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true);
   if (a && a.sec === "classified" && a.pg) hfPage = a.pg;
+  if (a && (a.sec === "chapters" || a.sec === "characters")) hfChPg = a.sec === "characters" ? 2 : 1;
   if (!fileOpen) { openFile(); dockSync(); } else renderFile();
   const c = a && document.querySelector(`#fileView [data-ach="${CSS.escape(a.id)}"]`); if (!c) return;
   requestAnimationFrame(() => { c.scrollIntoView({ block: "center", behavior: REDUCED ? "auto" : "smooth" }); c.classList.remove("hf-glow"); void c.offsetWidth; c.classList.add("hf-glow"); });
