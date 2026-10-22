@@ -19,8 +19,8 @@
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 html{ scroll-padding-top:env(safe-area-inset-top,0px); }
-#view{ overflow-x:clip; }   /* a rating card swiped off the side never widens the page (which makes the phone zoom out). Not on html or body:
-   the panels that cover the page lock its scrolling through body overflow, and that only reaches the page while both are left alone */
+#view{ overflow-x:clip; margin:0 -12px; padding:0 12px; }   /* a rating card swiped off the side never widens the page (which makes the phone zoom out). Not on html or body:
+   the panels that cover the page lock its scrolling through body overflow, and that only reaches the page while both are left alone The 12px of padding let a box's corner dot hang over its edge without being cut off. */
 @media (prefers-color-scheme: dark){ :root{ color-scheme: dark; } }
 *{ -webkit-tap-highlight-color: transparent; }
 .tile, .cover, .panel, .toast, .tile *, .panel *{ color-scheme: only light; }
@@ -579,7 +579,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .modes button.nw::after{ content:""; position:absolute; top:-2px; right:-2px; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 /* a box's notification dot sits on its top right corner, over the edge; the box clips what's inside it, so the dot lives beside it in the grid */
 .grid{ position:relative; }
-.grid > .tdot{ position:absolute; z-index:6; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2.5px #0A0E16, 0 0 9px #5FD0FF; pointer-events:none; }
+.grid > .tdot{ position:absolute; z-index:6; width:7px; height:7px; margin:-3.5px 0 0 -3.5px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; pointer-events:none; }   /* the same dot as the dock's, floating just off the corner */
 .dbtn.nw::after, .dock button.nw::after{ content:""; position:absolute; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; }
 .dbtn.nw::after{ top:-4px; right:-4px; }
 .hf-avdot{ position:absolute; top:18px; right:18px; z-index:2; width:10px; height:10px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 0 2px #0D1320, 0 0 7px #5FD0FF; pointer-events:none; }   /* on the picture's rim, top right */
@@ -7736,9 +7736,9 @@ try { history.scrollRestoration = "manual"; } catch (e) {}
 window.addEventListener("popstate", onNavBack);
 /* ---------- the dock: Story (the watch list), Log, Atlas, Map and File, always one tap away ---------- */
 let commsOpen = false;
-// each box's dot, pinned to its box's top right corner
+// each box's dot hovers just above and outside its box's top right corner, like a notification bubble
 function tdotPlace() { document.querySelectorAll("#view .grid > .tdot").forEach(d => { const t = d.parentElement.querySelector(`:scope > .tile[data-id="${CSS.escape(d.dataset.for)}"]`);
-  if (!t) { d.remove(); return; } d.style.left = (t.offsetLeft + t.offsetWidth - 3) + "px"; d.style.top = (t.offsetTop + 3) + "px"; }); }
+  if (!t) { d.remove(); return; } d.style.left = (t.offsetLeft + t.offsetWidth + 2) + "px"; d.style.top = (t.offsetTop - 5) + "px"; }); }
 window.addEventListener("resize", () => tdotPlace()); if (document.fonts) document.fonts.ready.then(() => tdotPlace());
 function newDots() {
   try {
