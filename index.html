@@ -667,7 +667,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-ava .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:scale(.78); }
 .emb{ position:relative; display:block; width:64px; height:64px; isolation:isolate; } .emb i{ position:absolute; inset:0; display:block; }
 .hf-head .hf-tag, .hf-head .hf-name{ padding-right:68px; }
-.hf-idtag{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:2px 10px; } .hf-lvl{ letter-spacing:1px; color:#E9C46A; }
+.hf-idtag{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:2px 10px; } .hf-lvl{ letter-spacing:1px; }
 .hf-rows{ display:grid; gap:4px; margin:10px 0 12px; padding-right:68px; } .hf-rows div{ display:flex; gap:10px; } .hf-rows dt{ min-width:78px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; } .hf-rows dd{ margin:0; font:13px/1.6 'Share Tech Mono','Courier New',monospace; color:#E9C46A; }
 .hf-code{ display:block; width:100%; padding:0 68px 0 0; border:0; background:none; color:inherit; text-align:left; cursor:pointer; } .hf-code span{ color:#56637C; font-size:22px; }
 .hf-codein{ display:block; width:calc(100% - 68px); box-sizing:border-box; padding:2px 6px; border:1px solid #3A4A6E; border-radius:6px; background:#0B1019; color:#EEF1F6; }
@@ -3177,7 +3177,9 @@ const ATL_TLSEASONS = (() => { const m = {}, add = (pre, t, k) => { const base =
   [...DATA.chapters, ...DATA.chars].forEach(b => b.items.forEach(it => add(b.id, it.t, ck(b, it.t)))); return m; })();
 const atlTl = t => !!state.checks["tl::" + t] || !!state.checks["tr::" + t];
 // a whole show counts once every one of its seasons is checked in a timeline view, the same as its single checkmark in a box
-const atlSeenT = t => atlTl(t) || Object.values(ATL_TLSEASONS[t] || {}).some(ks => ks.every(k => !!state.checks[k])) || (ATL_BOX[t] || []).some(b => !!state.checks[ck(b, t)]);
+const atlBase = t => { const b = t.replace(/ S\d.*$/, ""); return b !== t && ATL_BOX[b] ? b : null; };
+// one season counts as watched when its whole show is checked in a box that lists it as one title
+const atlSeenT = t => (!!atlBase(t) && ATL_BOX[atlBase(t)].some(b => !!state.checks[ck(b, atlBase(t))])) || atlTl(t) || Object.values(ATL_TLSEASONS[t] || {}).some(ks => ks.every(k => !!state.checks[k])) || (ATL_BOX[t] || []).some(b => !!state.checks[ck(b, t)]);
 // an Atlas entry that belongs to one season also lights up when just that season is checked
 const atlEvSeen = e => atlSeenT(e[0]) || (!!e[3] && (atlTl(e[3]) || (ATL_BOX[e[3]] || []).some(b => !!state.checks[ck(b, e[3])])));
 const atlLit = p => !!p.home || (p.uni ? ATLAS_UNI[p.uni].places.some(atlLit) : (p.e || []).some(e => atlEvSeen(e)));   // a universe lights up once anything in it has
@@ -7907,6 +7909,13 @@ const NEWS = {
 "Hulk rampages through Johannesburg",
 "Sokovian city lifted into the sky and destroyed"
 ],
+"Agents of S.H.I.E.L.D. S3": [
+"People worldwide develop strange abilities; government forms the Advanced Threat Containment Unit",
+"Anti-Inhuman group the Watchdogs claims attacks across the country"
+],
+"Agents of S.H.I.E.L.D. S4": [
+"S.H.I.E.L.D. returns under the Sokovia Accords, led by Director Jeffrey Mace"
+],
 "WHIH Newsfront (Part 1)": [
 "Relief efforts continue in Sokovia",
 "Scott Lang, VistaCorp burglar, set for release from San Quentin",
@@ -8421,12 +8430,37 @@ const COMMS = [
 "b": "Did you just try to swipe me away? Rude. I'm not a pop-up, I'm a delight. Okay, business. I've been reading your other messages. Classified this, eyes only that. Who hurt these people? Your inbox needs a friend, and I'm volunteering. Also, I'm putting a team together and you're on the shortlist. The shortlist is you and a guy named Peter. Peter is very excited."
 },
 {
-"t": "Agents of S.H.I.E.L.D.",
+"t": "Agents of S.H.I.E.L.D. S1",
+"id": "Agents of S.H.I.E.L.D.",
 "f": "Agent Phil Coulson",
 "to": "Agent",
 "cl": "Level 7",
 "re": "Yes, it's me",
 "b": "Yes, it's really me. No, I can't tell you how. Fury's orders: I'm putting together a small team, and we have a plane. Bring your own coffee."
+},
+{
+"t": "Agents of S.H.I.E.L.D. S2",
+"f": "Director Phil Coulson",
+"to": "Agent",
+"cl": "Level 10",
+"re": "The Playground",
+"b": "Gonzales was right about one thing: I kept too many secrets. So here's one. S.H.I.E.L.D. survived, and we run it out of a base called the Playground. We lost Trip this year, and the world just met the Inhumans. I need agents who can keep a secret and still tell the truth. Report Monday."
+},
+{
+"t": "Agents of S.H.I.E.L.D. S5",
+"f": "Director Alphonso Mackenzie",
+"to": "Agent",
+"cl": "Level 10",
+"re": "New director",
+"b": "Coulson asked me to take the chair. He's on a beach with May, and he's earned it. We lost Fitz. I'm not Fury and I'm not Coulson, I'm just the guy who stayed. If you're still with us, I could use you."
+},
+{
+"t": "Agents of S.H.I.E.L.D. S6–S7",
+"f": "Phil Coulson (L.M.D.)",
+"to": "Agent",
+"cl": "Branched timeline",
+"re": "Nobody will know",
+"b": "Strange thing, remembering a life you didn't live. The Chronicoms are finished, the team has gone their own ways, and in this timeline no one will ever know what they did. That's how it's supposed to be. Fury taught me that. Thanks for keeping the secret."
 },
 {
 "t": "What If...?",
