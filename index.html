@@ -349,11 +349,6 @@ body[data-mode="timeline"] .stonebar i{ display:none; }
   filter:drop-shadow(0 0 4px var(--hc)); }
 .fx-brk.gold{ --hc:#FFD23F; }
 
-.fx-portal{ position:fixed; z-index:97; pointer-events:none; border-radius:50%;
-  background:repeating-conic-gradient(from 0deg, #FFC66B 0 3deg, rgba(255,138,31,.85) 3deg 6deg, rgba(255,138,31,0) 6deg 11deg);
-  -webkit-mask:radial-gradient(circle, transparent 0 60%, #000 63% 71%, transparent 74%); mask:radial-gradient(circle, transparent 0 60%, #000 63% 71%, transparent 74%);
-  filter:drop-shadow(0 0 8px #FF8A1F); }
-
 .fx-streak{ position:fixed; z-index:97; pointer-events:none; height:4px; border-radius:4px; background:linear-gradient(90deg, rgba(160,185,230,0), rgba(170,195,240,.5) 35%, #E9F0FA 85%, #FFFFFF); box-shadow:0 0 0 1px rgba(30,45,80,.25), 0 0 10px #7FA2E0, 0 0 26px rgba(95,130,210,.75); }
 .fx-beam{ position:fixed; z-index:97; pointer-events:none; width:16px; margin-left:-8px; top:0; transform-origin:50% 100%; background:linear-gradient(0deg, #FFF3C4, #FFC14D 40%, rgba(255,193,77,0)); box-shadow:0 0 18px #FFC14D, 0 0 40px rgba(255,193,77,.7); }
 
@@ -1232,14 +1227,14 @@ function migrate(old) { // earlier versions shared one checkmark per title; keep
 if (state.watched) { migrate(state.watched); delete state.watched; }
 
 /* ---------- saving: on this device ---------- */
-let endgameN = null;   // how many lists have Avengers: Endgame checked; a new check opens the portals
+let endgameN = null;   // how many lists have Avengers: Endgame checked; a new check plays On your left
 let dotsT = 0;
 function persist() {
   // the first time Loki S1 or Avengers: Doomsday is checked anywhere, what it opens stays open
   if (!state.mvEver && lokiChecked()) state.mvEver = 1;
   if (!state.incEver && Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::Avengers: Doomsday"))) state.incEver = 1;
   const eg = Object.keys(state.checks).filter(k => state.checks[k] && k.endsWith("::Avengers: Endgame")).length;
-  if (endgameN !== null && eg > endgameN && !state.portalsSeen) { state.portalsSeen = true; setTimeout(portals, 100); }
+  if (endgameN !== null && eg > endgameN && !state.onLeftSeen) { state.onLeftSeen = true; setTimeout(onYourLeft, 100); try { if (!REDUCED) achHold = Date.now() + 100 + ONLEFT_MS; } catch (e) {} }
   endgameN = eg;
   try { if (typeof achList === "function") checkAch(); } catch (e) {}   // after the moments above, so their lines and the Agent File share one pop-up
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
@@ -4996,30 +4991,45 @@ function vormir(h, lifted) {
   setTimeout(() => { awardStone("soul", W / 2, H * .5, true); }, 4750);
 }
 
-/* ---------- bonus: Portals. Checking off Avengers: Endgame opens them around the screen ---------- */
-function portals() {
+/* ---------- bonus: On your left. Checking off Avengers: Endgame: Sam's call, everyone who came arrives down the left edge,
+   they charge across together, and the line at the front of the charge uncovers the Avengers A, which flies out past the screen ---------- */
+const ONLEFT = ["arc", "shield", "mjolnir", "hourglass", "hawkeye", "gamma", "eagle", "hala", "antman", "starlord", "spider", "claws", "agamotto", "mind", "redstar"];
+const ONLEFT_MS = 6200;   // from Sam's call until the screen is back; the Assemble pill waits for it
+function onYourLeft() {
   if (REDUCED) return;
-  const W = innerWidth, H = innerHeight, spots = [[.12, .1], [.55, .06], [.9, .16], [.92, .5], [.85, .88], [.4, .93], [.08, .7], [.06, .38]];
-  const ringSparks = (x, y, r, from, len, n) => { for (let k = 0; k < n; k++) { const a = Math.random() * Math.PI * 2, out = 30 + Math.random() * 70; sparkC(x + Math.cos(a) * r * .9, y + Math.sin(a) * r * .9, Math.cos(a) * out, Math.sin(a) * out + 25 + Math.random() * 40, from + Math.random() * len, 600 + Math.random() * 600, ORANGE_C); } };
-  spots.forEach(([fx, fy], k) => {
-    const r = 46 + Math.random() * 34, x = fx * W, y = fy * H, d = document.createElement("div"); d.className = "fx-portal";
-    d.style.cssText = `left:${x - r}px;top:${y - r}px;width:${2 * r}px;height:${2 * r}px`; document.body.appendChild(d);
-    d.animate([{ transform: "scale(0) rotate(0deg)", opacity: 0 }, { transform: "scale(1) rotate(120deg)", opacity: 1, offset: .15 }, { transform: "scale(1) rotate(600deg)", opacity: 1, offset: .85 }, { transform: "scale(0) rotate(740deg)", opacity: 0 }],
-      { duration: 5200, delay: k * 200, easing: "ease-in-out", fill: "both" }).onfinish = () => d.remove();
-    ringSparks(x, y, r, k * 200 + 300, 4300, 55);
-  });
-  // the last, biggest portal opens in the middle and the screen falls into it
-  const R = Math.min(W, H) * .3, cx = W / 2, cy = H / 2, big = document.createElement("div"), core = document.createElement("div");
-  big.className = "fx-portal"; big.style.cssText = `left:${cx - R}px;top:${cy - R}px;width:${2 * R}px;height:${2 * R}px;z-index:98`;
-  core.className = "fxl"; core.style.cssText = `z-index:97;background:radial-gradient(circle at 50% 50%, rgba(255,170,70,.55) 0, rgba(255,120,30,.25) ${R * .9}px, rgba(255,120,30,0) ${R * 1.05}px)`;
-  document.body.append(core, big);
-  const T = 2400;
-  big.animate([{ transform: "scale(0) rotate(0deg)", opacity: 0 }, { transform: "scale(1) rotate(200deg)", opacity: 1, offset: .25 }, { transform: "scale(1) rotate(520deg)", opacity: 1, offset: .62 }, { transform: "scale(7) rotate(760deg)", opacity: 0 }],
-    { duration: 3600, delay: T, easing: "cubic-bezier(.5,0,.8,.6)", fill: "both" }).onfinish = () => big.remove();
-  core.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(1)", opacity: 1, offset: .25 }, { transform: "scale(1)", opacity: 1, offset: .62 }, { transform: "scale(7)", opacity: .9, offset: .88 }, { transform: "scale(7)", opacity: 0 }],
-    { duration: 3600, delay: T, easing: "cubic-bezier(.5,0,.8,.6)", fill: "both" }).onfinish = () => core.remove();
-  ringSparks(cx, cy, R, T + 500, 1800, 140);
-  haptic([30, 80, 30, 80, 30, 80, 30, 400, 60, 30, 200]);
+  const W = innerWidth, H = innerHeight, t0 = Date.now(), at = (ms, f) => setTimeout(f, Math.max(0, ms - (Date.now() - t0)));
+  const veilEl = document.createElement("div"); veilEl.className = "fxl fx-onleft"; veilEl.style.cssText = "z-index:88;background:#000;opacity:0"; document.body.appendChild(veilEl);
+  const lay = document.createElement("div"); lay.className = "fxl fx-onleft"; lay.style.zIndex = 89; document.body.appendChild(lay);
+  veilEl.animate([{ opacity: 0 }, { opacity: .94 }], { duration: 600, easing: "ease-in-out", fill: "forwards" });
+  say("On your left.", null, undefined, 1500, true, "Comms · Sam Wilson", undefined, true); haptic([20, 40, 20]);
+  // a loose crowd down the left edge, each one arriving on its own
+  const S = Math.min(.7, Math.max(.5, W / 680)), LANE = [0, 2, 1, 2, 0, 1, 2, 0, 1, 0, 2, 1, 0, 2, 1], top = H * .1, step = (H * .8) / (ONLEFT.length - 1), lw = 64 * S * .75;
+  const U = ONLEFT.map((k, i) => { const x = 20 + 32 * S + LANE[i] * lw + (Math.random() * 14 - 7), y = top + i * step + (Math.random() * 10 - 5), e = document.createElement("div");
+    e.style.cssText = `position:absolute;left:${x - 32}px;top:${y - 32}px;width:64px;height:64px;opacity:0`; e.innerHTML = embHTML(k); lay.appendChild(e);
+    return { e, x, y, j: Math.random() * 18 - 9, w: Math.random() * 6.28 }; });
+  const GAP = 80, T_IN = 1900, T_GO = T_IN + U.length * GAP + 300, T_RUN = 1250, T_OUT = T_GO + T_RUN + 150;
+  U.map((u, i) => i).sort(() => Math.random() - .5).forEach((n, i) => at(T_IN + i * GAP, () => { haptic(8);
+    U[n].e.animate([{ opacity: 0, transform: `translateX(-70px) scale(${S})` }, { opacity: 1, transform: `translateX(0) scale(${S})` }], { duration: 240, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" }); }));
+  // the Avengers A waits behind the charge
+  const A = document.createElement("div"); A.style.cssText = `position:absolute;left:${W / 2 - 150}px;top:${H * .45 - 150}px;width:300px;height:300px;clip-path:inset(0 100% 0 0)`;
+  A.innerHTML = `<div style="position:absolute;left:118px;top:118px;width:64px;height:64px;transform:scale(2.3)">${embHTML("avengers")}</div>`; lay.appendChild(A);
+  const line = document.createElement("div"); line.style.cssText = "position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:#FFF6DC;box-shadow:0 0 12px 3px rgba(255,214,140,.85),0 0 40px 10px rgba(255,170,60,.35);opacity:0"; lay.appendChild(line);
+  const cv = document.createElement("canvas"), dpr = Math.min(2, devicePixelRatio || 1); cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%"; cv.width = W * dpr; cv.height = H * dpr; lay.appendChild(cv);
+  const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  const MAXX = Math.max(...U.map(u => u.x)), E0 = MAXX + 30, E1 = W + 220, Al = W / 2 - 150, ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  at(T_GO, () => { haptic([40, 30, 40, 30, 40, 30, 80]); U.forEach(u => u.e.getAnimations().forEach(a => { a.commitStyles(); a.cancel(); }));
+    line.style.opacity = 1; const s0 = performance.now();
+    (function f(now) { const p = Math.min(1, (now - s0) / T_RUN), q = ease(p), edge = E0 + (E1 - E0) * q;
+      line.style.left = edge + "px"; A.style.clipPath = `inset(0 ${Math.max(0, 300 - (edge - Al))}px 0 0)`; g.clearRect(0, 0, W, H);
+      U.forEach(u => { const x = edge - 30 - (MAXX - u.x) + u.j * Math.sin(q * Math.PI), y = u.y + Math.sin(u.w + q * 9) * 4 * q;
+        u.e.style.transform = `translate(${x - u.x}px,${y - u.y}px) scale(${S + .25 * Math.sin(q * Math.PI)})`;
+        const len = 90 * Math.sin(Math.min(1, q * 1.4) * Math.PI); if (len > 2) { const gr = g.createLinearGradient(x - 22 - len, 0, x - 18, 0); gr.addColorStop(0, "rgba(255,214,140,0)"); gr.addColorStop(1, "rgba(255,226,170,.75)");
+          g.strokeStyle = gr; g.lineWidth = 2; g.beginPath(); g.moveTo(x - 22 - len, y); g.lineTo(x - 18, y); g.stroke(); } });
+      if (p < 1) requestAnimationFrame(f); else { line.remove(); cv.remove(); U.forEach(u => u.e.remove()); A.style.clipPath = "none"; } })(s0); });
+  // then straight out past the screen
+  at(T_OUT, () => { haptic(140);
+    A.animate([{ transform: "scale(1)", opacity: 1 }, { transform: "scale(3)", opacity: 1, offset: .5 }, { transform: "scale(16)", opacity: 0 }], { duration: 700, easing: "cubic-bezier(.6,0,.9,.5)", fill: "forwards" });
+    veilEl.animate([{ opacity: .94 }, { opacity: 0 }], { duration: 650, delay: 300, easing: "ease-in-out", fill: "forwards" }).onfinish = () => { veilEl.remove(); lay.remove(); }; });
 }
 
 /* ---------- bonus: Puny god. Tap the Hulk's quote: each tap hits harder, the fifth slams ---------- */
@@ -6417,7 +6427,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
+const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -8215,7 +8225,7 @@ let homeBusy = 0;   // while the home page is still initializing, the ticker wai
 function newsHome() {
   const $ = id => document.getElementById(id), shut = id => !$(id) || $(id).hidden;
   return !document.hidden && Date.now() > homeBusy && shut("gate") && shut("panel") && shut("ask") && shut("gauntlet") && !openEntry && (!dossierOpen || dossierOpen === "saga")
-    && !document.querySelector(".fx-studio, .fx-portal, .dustfx, .toast.show");
+    && !document.querySelector(".fx-studio, .fx-onleft, .dustfx, .toast.show");
 }
 let newsRun = null, newsCalm = 0;
 
