@@ -87,6 +87,8 @@ button{ font:inherit; color:inherit; }
 .toast.hud .hin{ position:absolute; left:0; top:0; box-sizing:border-box; padding:10px 16px 11px; }
 .toast.hud .hd{ display:block; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:var(--hc); } .toast.hud .hd::before{ content:"\25B8\00A0\00A0"; }
 .toast.hud b{ display:block; margin-top:5px; font:500 16px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:.2px; color:#EEF6FF; }
+.toast.hud .hdot{ position:absolute; z-index:2; left:50%; top:50%; width:7px; height:7px; margin:-3.5px 0 0 -3.5px; border-radius:50%; background:color-mix(in srgb, var(--hc) 40%, #FFFFFF); box-shadow:0 0 8px var(--hc); opacity:0; pointer-events:none; }
+.toast.hud.quick .hdot{ display:none; }
 /* a quick reply just fades in, it never opens from its corners, so it has none: only the thin frame (like a Comms message) */
 .toast.hud.quick .cn{ display:none; }
 /* a pill you can tap carries a chevron, like a row that opens */
@@ -1357,7 +1359,7 @@ function pillSet(el, msg, e, cover, foot, o, fresh) {
   hudShow(el, { tap: agent || !!el._go, tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box && !(o && o.full), hd: o && o.hd != null ? o.hd : tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "System",
     b: msg, s: o && o.done ? [o.done.label, hudFiled("", items.filter(n => n !== o.done.own))].filter(Boolean).join(" · ") : agent ? hudFiled(msg, items) : "" }, fresh);
 }
-const HUD_OPEN = 1000, HUD_SHUT = 600;   // about how long the opening (to the last word typed) and the closing take
+const HUD_C = 34, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is a 34px square of two corners with a point of light; it rises and drops this far
 let hudRun = 0;
 // every news pill opens the same way, whatever else is going on. Something added to the one on screen (a file that rides along) just joins it,
 // in place, without restarting or skipping its opening; a new one arriving while another is up waits for that one to tuck away first.
@@ -1375,7 +1377,7 @@ function hudShow(el, p, fresh) {
   el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el._opening = false;
   el.removeAttribute("style");
   el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva); el.classList.toggle("quick", !!p.quick); el._quick = !!p.quick; if (p.tint) el.style.setProperty("--hc", p.tint);
-  el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><div class="hclip"><div class="hin${p.tap ? " tap" : ""}">${p.hd ? `<span class="hd">${esc(p.hd)}</span>` : ""}<b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}${p.tap ? `<i class="hgo" aria-hidden="true">&#8250;</i>` : ""}</div></div>`;
+  el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><i class="hdot"></i><div class="hclip"><div class="hin${p.tap ? " tap" : ""}">${p.hd ? `<span class="hd">${esc(p.hd)}</span>` : ""}<b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}${p.tap ? `<i class="hgo" aria-hidden="true">&#8250;</i>` : ""}</div></div>`;
   const W = Math.min(innerWidth - 48, 460), inn = el.querySelector(".hin"); inn.style.width = W + "px";
   const H = inn.offsetHeight, size = (w, h) => { el.style.width = w + "px"; el.style.height = h + "px"; };
   if (REDUCED || shown || !fresh) { size(W, H); return; }   // a reply to a tap over one that's up: straight in
@@ -1383,16 +1385,16 @@ function hudShow(el, p, fresh) {
   const cs = [...el.querySelectorAll(".cn")], clip = el.querySelector(".hclip"), hd = inn.querySelector(".hd"), b = inn.querySelector("b"), live = () => run === hudRun && el.classList.contains("show") && !el._closing;
   el._opening = true; el._text = p.b;
   clip.style.opacity = 0; [...inn.children].forEach(c => { c.style.opacity = 0; });
-  // it opens right where it stands, out of a single point in its middle: the corners pull apart from there and the panel grows in behind them.
-  // Only transforms move, so it stays smooth even while the page is busy (a size animation could stall halfway)
+  // the closed frame (two corners and a point of light between them) rises from below, then the corners pull apart and the panel opens behind them.
+  // Only transforms and opacity move, so a busy page can't stall it halfway
   {
-    const o = { duration: 460, easing: "cubic-bezier(.65,0,.35,1)" }, dx = W / 2 - 8, dy = H / 2 - 8;
     size(W, H);
-    // no fading at any point: it is solid from its first pixel, it only grows
-    const px = `scale(${1 / W},${1 / H})`;   // one pixel across, one pixel high
-    clip.animate([{ transform: px }, { transform: "scale(1)" }], o); clip.style.opacity = "";
-    cs[0].animate([{ transform: `translate(${dx}px,${dy}px) scale(0)` }, { transform: "none" }], o);
-    cs[1].animate([{ transform: `translate(${-dx}px,${-dy}px) scale(0)` }, { transform: "none" }], o);
+    const D = 620, o = { duration: 460, delay: D, easing: "cubic-bezier(.65,0,.35,1)", fill: "backwards" }, dx = W / 2 - HUD_C / 2, dy = H / 2 - HUD_C / 2, dot = el.querySelector(".hdot");
+    el.animate([{ transform: `translate(-50%,${HUD_DROP}px)`, opacity: 0 }, { transform: "translate(-50%,0)", opacity: 1 }], { duration: 480, easing: "cubic-bezier(.22,1,.36,1)" });
+    cs[0].animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: "none" }], o);
+    cs[1].animate([{ transform: `translate(${-dx}px,${-dy}px)` }, { transform: "none" }], o);
+    clip.animate([{ transform: `scale(${HUD_C / W},${HUD_C / H})`, opacity: 0 }, { opacity: 0, offset: .35 }, { transform: "scale(1)", opacity: 1 }], o); clip.style.opacity = "";
+    dot.animate([{ transform: "scale(1)", opacity: 1 }, { transform: "scale(0)", opacity: 0, offset: .3 }, { transform: "scale(0)", opacity: 0 }], o);
     setTimeout(() => {
       if (!live()) return;
       // who it's from comes on, then what happened types itself in, then anything filed
@@ -1403,7 +1405,7 @@ function hudShow(el, p, fresh) {
         el._opening = false; const sm = inn.querySelector("small"); if (sm) { sm.style.opacity = ""; sm.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220 }); }
         const H3 = inn.offsetHeight; if (H3 !== el.offsetHeight) { el.animate([{ height: el.offsetHeight + "px" }, { height: H3 + "px" }], { duration: 200, easing: "ease-out" }); el.style.height = H3 + "px"; } };   // something joined it while it opened
       type();
-    }, 470);
+    }, 620 + 470);
   }
 }
 // something new joins the pill on screen: its lines change in place. Mid-opening, the new words are simply what it goes on to show
@@ -1419,7 +1421,7 @@ function hudUpdate(el, p) {
   const h0 = el.offsetHeight, H = inn.offsetHeight; el.style.height = H + "px";
   if (h0 && h0 !== H && !REDUCED) el.animate([{ height: h0 + "px" }, { height: H + "px" }], { duration: 200, easing: "ease-out" });
 }
-// time's up: it folds back into nothing, right where it is
+// time's up: it folds back into the closed frame and drops away
 function pillHide(el) {
   if (!el.classList.contains("hud") || REDUCED) { el.classList.remove("show"); return; }
   if (el._quick) { const run = hudRun; el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, fill: "forwards" }).onfinish = () => { if (run === hudRun) hudGone(el); }; return; }
@@ -1428,11 +1430,17 @@ function pillHide(el) {
   [...inn.children].forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: "forwards" }));
   setTimeout(() => {
     if (!live()) return;
-    const o = { duration: 400, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards" }, dx = W / 2 - 8, dy = H / 2 - 8;   // back into the point it came from
-    clip.animate([{ transform: "scale(1)" }, { transform: `scale(${1 / W},${1 / H})` }], o)   // solid all the way down to a single pixel, then gone
-      .onfinish = () => { if (run === hudRun) hudGone(el); };
-    cs[0].animate([{ transform: "none" }, { transform: `translate(${dx}px,${dy}px) scale(0)` }], o);
-    cs[1].animate([{ transform: "none" }, { transform: `translate(${-dx}px,${-dy}px) scale(0)` }], o);
+    // the corners come back together around the point of light, then the closed frame drops away
+    const o = { duration: 400, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards" }, dx = W / 2 - HUD_C / 2, dy = H / 2 - HUD_C / 2, dot = el.querySelector(".hdot");
+    cs[0].animate([{ transform: "none" }, { transform: `translate(${dx}px,${dy}px)` }], o);
+    cs[1].animate([{ transform: "none" }, { transform: `translate(${-dx}px,${-dy}px)` }], o);
+    clip.animate([{ transform: "scale(1)", opacity: 1 }, { opacity: 0, offset: .65 }, { transform: `scale(${HUD_C / W},${HUD_C / H})`, opacity: 0 }], o);
+    if (dot) dot.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(0)", opacity: 0, offset: .7 }, { transform: "scale(1)", opacity: 1 }], o);
+    setTimeout(() => {
+      if (!live()) return;
+      el.animate([{ transform: "translate(-50%,0)", opacity: 1 }, { transform: `translate(-50%,${HUD_DROP}px)`, opacity: 0 }], { duration: 420, easing: "cubic-bezier(.64,0,.78,0)", fill: "forwards" })
+        .onfinish = () => { if (run === hudRun) hudGone(el); };
+    }, 520);
   }, 160);
 }
 function hudGone(el) { el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el._opening = false; el.classList.remove("show"); }
