@@ -3263,11 +3263,11 @@ function atlPins(map) {   // only places you've charted are on the map; the rest
 // looking over a map catches you up on its plain places (no tapping each one), but only once you leave the Atlas: moving between its maps keeps
 // every dot where it is. A city or another universe keeps its dot until you go in; the entries inside a place stay marked new until you open it
 const atlLooked = new Set();
-function atlCatchUp() {
+function atlCatchUp(only) {   // only: just that one map (a city or universe you're coming out of); otherwise every map looked over this visit
   const M = state.atlMap = state.atlMap || {};
-  atlLooked.forEach(k => { const [v, s] = k.split("|"), sub = s || null;
+  (only ? [only] : [...atlLooked]).forEach(k => { const [v, s] = k.split("|"), sub = s || null; atlLooked.delete(k);
     atlPlaces(v, sub).filter(atlLit).forEach(p => { if (p.home || (p.city && v === "earth") || p.uni) return; const n = atlEvN(p); if (n) M[atlRKey(v, sub, p)] = n; }); });
-  atlLooked.clear(); persist();
+  persist();
 }
 function atlSheet(p, fresh) {   // fresh: the entries that turned up since you last opened this place, each with a dot that's gone next time
   fresh = fresh || new Set();
@@ -3352,6 +3352,7 @@ function atlList() {
 }
 function atlSwitch(v, id) {
   if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("Uncharted. No data yet.", null, false, null, 1500); return; }
+  if ((atlView === "city" || atlView === "uni") && !(v === atlView && id === (atlView === "city" ? atlCity : atlUni))) atlCatchUp(atlView + "|" + (atlView === "city" ? atlCity : atlUni));   // coming out of a city or another universe: you've seen it, and everything in it
   atlView = v; atlCity = v === "city" ? id : null; atlUni = v === "uni" ? id : null; atlSel = null; renderAtlas();
 }
 let atlBig = false, atlBigBack = false;
