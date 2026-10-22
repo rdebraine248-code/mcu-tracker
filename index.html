@@ -1318,9 +1318,9 @@ const boxKind = e => e.num ? e.label : DATA.chapters.includes(e) ? "Extras" : "C
 // a box's own line: the film talking. On its tile it's a title card in the box's own look; in its open box it comes up across the page,
 // and a hero's (or a chapter's) quote then takes its place under the name. Unlock a chapter and open it straight away, and the line carries on inside
 let bl = null;
-const blMs = line => Math.max(2600, 1300 + line.length * 42);
+const BL_MS = 4580;   // every box's line plays for the same time, as long as Thor's
 function boxLine(line, e, settle) {
-  blStop(); const ms = REDUCED ? 2600 : blMs(line);
+  blStop(); const ms = REDUCED ? 2600 : BL_MS;
   bl = { e, q: "“" + line.replace(" / ", "” “") + "”", settle, end: Date.now() + ms, els: [], tm: [] };
   if (settle) pqHoldUntil = bl.end + 500;
   if (openEntry && openEntry.id === e.id) blPage(); else if (!blTile()) bl = null;
@@ -2134,7 +2134,7 @@ function activate(el) {
     return;
   }
   const firstOpen = kind === "char" && CHAR_QUOTES[e.title] && !(state.seen || {})[e.id];
-  if (firstOpen) pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + blMs(CHAR_QUOTES[e.title]) + 500;
+  if (firstOpen) pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + BL_MS + 500;
   openPanel(e, kind, el);
   if (firstOpen) {
     state.seen = state.seen || {}; state.seen[e.id] = true; persist();
