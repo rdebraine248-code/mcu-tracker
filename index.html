@@ -9571,7 +9571,7 @@ function gateFrame(t) {
   const c = cv.getContext("2d"), C = "143,224,255", cx = W / 2, [, ly] = GATE_LOGO(), tp = GATE.tap, bt = tp == null ? -1 : t - tp;
   const clamp = f => Math.max(0, Math.min(1, f)), out = f => 1 - Math.pow(1 - clamp(f), 3);
   c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
-  if (t < 380) { c.globalAlpha = 1 - t / 380; bootSplash(c, W, H, dpr, 1); c.globalAlpha = 1; }   // the browser's launch screen, fading as the power line comes on
+  if (t < 380) { c.globalAlpha = 1 - t / 380; bootSplash(c, W, H, dpr); c.globalAlpha = 1; }   // the browser's launch screen, fading as the power line comes on
   // power on: a line across the middle, then the picture opens out from it with bright edges
   const line = out(t / 380), open = easeIO((t - 380) / 420), oh = H * open;
   if (open < 1) { c.fillStyle = `rgba(${C},${.95 * (1 - open)})`; c.shadowColor = `rgb(${C})`; c.shadowBlur = 16;
@@ -9624,23 +9624,16 @@ function gateTap() {
 }
 document.getElementById("gate").addEventListener("click", gateTap);
 // every launch after the first: the datapad switching back on. Its first frame is the picture the browser shows while the app loads (the lit
-// emblem, small, with the app's name under it, on the terminal's black), so the hand-off can't be seen: the name fades, the emblem comes forward,
-// the terminal knows you, and it clears to the page. A tap skips straight to the page
-const BOOT_S = 120, BOOT_NAME = "Marvel Datapad";
-// where the phone's own launch screen puts its icon and name (measured on a Galaxy, in page pixels from the middle of the screen), and how big
-const BOOT_SPLASH = { dy: -17, size: 57 * .78, base: 85 };   // the icon is 57px; the emblem fills .78 of it
+// emblem, small, on the terminal's black), so the hand-off can't be seen: as the browser fades its screen out, taking the app's name under the
+// emblem with it, the emblem comes forward, the terminal knows you, and it clears to the page. A tap skips straight to the page
+const BOOT_S = 120;
+const BOOT_SPLASH = { dy: -17, size: 30 };   // where the phone's own launch screen puts the emblem, and how big (measured on a Galaxy, in page pixels from the middle of the screen)
 function bootEagle(c, cx, cy, size, glow) {   // the emblem fully lit; glow is its halo, in canvas pixels
   const es = size / 64; c.save(); c.translate(cx - 32 * es, cy - 32 * es); c.scale(es, es);
   const gr = c.createLinearGradient(0, 0, 64, 64); gr.addColorStop(0, "#FFFFFF"); gr.addColorStop(.4, "#D4DBE4"); gr.addColorStop(1, "#8D98A9");
   c.shadowColor = "rgba(150,200,255,.85)"; c.shadowBlur = glow; c.fillStyle = gr; c.fill(GATE_EP, "evenodd"); c.restore();
 }
-let bootFs = 0;   // the name's size, so it lines up with the browser's own lettering on this phone
-function bootSplash(c, W, H, dpr, a) {   // the browser's launch screen, redrawn: a is how much of the name is left
-  bootEagle(c, W / 2, H / 2 + BOOT_SPLASH.dy, BOOT_SPLASH.size, BOOT_SPLASH.size * .13 * dpr);
-  if (a <= 0) return;
-  if (!bootFs) { c.font = "400 100px system-ui,'Roboto',sans-serif"; bootFs = Math.round(219 / c.measureText("MCU Watch Tracker").width * 100 * 10) / 10 || 26; }
-  c.font = `400 ${bootFs}px system-ui,'Roboto',sans-serif`; c.textAlign = "center"; c.textBaseline = "alphabetic"; c.fillStyle = `rgba(255,255,255,${a})`; c.fillText(BOOT_NAME, W / 2, H / 2 + BOOT_SPLASH.base);
-}
+const bootSplash = (c, W, H, dpr) => bootEagle(c, W / 2, H / 2 + BOOT_SPLASH.dy, BOOT_SPLASH.size, BOOT_SPLASH.size * .13 * dpr);   // the browser's launch screen, redrawn
 function showBoot() {
   if (REDUCED) return;
   const g = document.getElementById("gate"); g.hidden = false; g.style.opacity = ""; document.body.style.overflow = "hidden"; g.querySelector(".gseal").setAttribute("aria-label", "Skip");
@@ -9655,9 +9648,8 @@ function bootFrame(t) {
   // the launch screen, then the emblem comes forward to the middle as the name fades and the terminal powers up around it
   const fwd = easeIO((t - 120) / 520), on = clamp((t - 150) / 350); if (t > 120) gBuzz("on", 10);
   if (on > 0) { const vg = c.createRadialGradient(cx, cy, 30, cx, cy, H * .7); vg.addColorStop(0, `rgba(40,90,170,${.16 * on})`); vg.addColorStop(1, "rgba(0,0,0,0)"); c.fillStyle = vg; c.fillRect(0, 0, W, H); }
-  if (fwd <= 0) bootSplash(c, W, H, dpr, 1);
-  else { const sz = lerp(BOOT_SPLASH.size, BOOT_S, fwd); bootEagle(c, cx, lerp(cy + BOOT_SPLASH.dy, cy, fwd), sz, sz * lerp(.13, .07, fwd) * dpr);
-    const a = 1 - clamp((t - 120) / 260); if (a > 0) { c.font = `400 ${bootFs || 26}px system-ui,'Roboto',sans-serif`; c.textAlign = "center"; c.textBaseline = "alphabetic"; c.fillStyle = `rgba(255,255,255,${a})`; c.fillText(BOOT_NAME, cx, cy + BOOT_SPLASH.base); } }
+  if (fwd <= 0) bootSplash(c, W, H, dpr);
+  else { const sz = lerp(BOOT_SPLASH.size, BOOT_S, fwd); bootEagle(c, cx, lerp(cy + BOOT_SPLASH.dy, cy, fwd), sz, sz * lerp(.13, .07, fwd) * dpr); }
   // the terminal around it: corners, its name, the time
   const br = out((t - 300) / 350), L = 26 * br, top = 40 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0);
   if (br > 0) { c.strokeStyle = `rgba(${C},.8)`; c.lineWidth = 2; c.beginPath();
@@ -9745,7 +9737,8 @@ function homeInit() {
 let homeLock = false;
 ["touchmove", "wheel"].forEach(n => document.addEventListener(n, ev => { if (homeLock && ev.cancelable) ev.preventDefault(); }, { passive: false }));
 if (!state.entered) showGate();   // a first boot only: like a datapad you've just been handed. Reset datapad brings it back
-else showBoot();
+else if (!reloaded()) showBoot();   // a pull to refresh isn't the datapad switching on
+function reloaded() { try { const n = performance.getEntriesByType("navigation")[0]; return n ? n.type === "reload" : performance.navigation.type === 1; } catch (e) { return false; } }
 /* ---------- one consistent feel for every press ---------- */
 const HAPTIC = { tap: 14, enter: [16, 40, 26], success: [18, 50, 30] };
 function haptic(p) { if (!navigator.vibrate) return; try { navigator.vibrate(p); } catch (e) {} }
