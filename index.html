@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <title>Marvel Datapad</title>
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest?v=6">
 <meta name="theme-color" content="#10141D">
 <link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png?v=6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:ital,wght@1,800&amp;family=Bebas+Neue&amp;family=Big+Shoulders+Display:wght@800&amp;family=Bungee&amp;family=Chakra+Petch:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:ital,wght@0,700;1,700&amp;family=Fraunces:ital,wght@0,700;1,700&amp;family=IBM+Plex+Mono:wght@600&amp;family=IBM+Plex+Sans+Condensed:ital,wght@0,500;1,500&amp;family=Kaushan+Script&amp;family=Ma+Shan+Zheng&amp;family=Oswald:wght@700&amp;family=Playfair+Display:wght@700&amp;family=Rajdhani:wght@700&amp;family=Righteous&amp;family=Russo+One&amp;family=Saira+Stencil+One&amp;family=Share+Tech+Mono&amp;family=Special+Elite&amp;family=Teko:wght@600&amp;display=swap" rel="stylesheet">
@@ -9295,7 +9295,7 @@ function buildMap() {
   // the years along the top are release years: the titles run in the order they came out, so in-universe time can jump around
   const key = M.cols.length ? `<text class="yrkey" x="14" y="11">Release year</text>` : "";   // only once there's a year to label
   // nothing watched yet: one dotted lane waiting at its next stop, the same open dot the map uses for what's still to come
-  const empty = M.cols.length ? "" : `<div class="map-empty" aria-hidden="true"><svg viewBox="0 0 200 20"><path d="M10,10 L88,10" stroke="#7FA6D8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 6"/><circle cx="100" cy="10" r="7" fill="#0B1019" stroke="#7FA6D8" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>No data yet</b></div>`;
+  const empty = M.cols.length ? "" : `<div class="map-empty" aria-hidden="true"><svg viewBox="0 0 200 20"><path d="M10,10 L88,10" stroke="#7FA6D8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 6"/><circle cx="100" cy="10" r="7" fill="#0B1019" stroke="#7FA6D8" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>No data</b></div>`;
   v.innerHTML = `<svg aria-label="Character Map"><g id="mapG">${bands}${heads}${lanes}${stops}${names}${key}</g></svg>${empty}`;
   mapBuilt = true;
   mapNames = [...v.querySelectorAll(".rname, .yrkey")]; mapNameX = "";
