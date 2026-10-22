@@ -171,6 +171,7 @@ button{ font:inherit; color:inherit; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
 .ptop{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
 .pquote{ transition:opacity 1.8s cubic-bezier(.22,.61,.36,1); }
+.tile h2.anon{ visibility:hidden; } #panelTitle.anon{ opacity:0; }
 .pquote.pending{ opacity:0; }
 .pquote{ margin:0; text-align:center; font-size:15px; line-height:1.35; font-style:italic; opacity:.9; text-transform:none; letter-spacing:.2px; }
 /* quotes and titles can be held for easter eggs: pressing them shouldn't select text */
@@ -1318,6 +1319,8 @@ const boxKind = e => e.num ? e.label : DATA.chapters.includes(e) ? "Extras" : "C
 // a box's own line: the film talking. On its tile it's a title card in the box's own look; in its open box it comes up across the page,
 // and a hero's (or a chapter's) quote then takes its place under the name. Unlock a chapter and open it straight away, and the line carries on inside
 let bl = null;
+// a box's quote is set in its name's font, except where that font is too ornate to read as a sentence
+const QUOTE_FONT = { "cx-shang-chi-the-ten-rings": "'Cormorant Garamond', serif" }, quoteFont = e => QUOTE_FONT[e.id] || fontOf(e.h2) || "inherit";
 const BL_MS = 4580;   // every box's line plays for the same time, as long as Thor's
 function boxLine(line, e, settle) {
   blStop(); const ms = REDUCED ? 2600 : BL_MS;
@@ -1331,7 +1334,7 @@ function blTile() {
   const e = bl.e, c = document.createElement("div"), ms = bl.end - Date.now();
   c.className = "blcard"; c.setAttribute("aria-hidden", "true");
   c.setAttribute("style", String(e.style).split(";").map(x => x.trim()).filter(x => /^background/.test(x)).join(";"));
-  Object.assign(c.style, { color: e.fg, fontFamily: fontOf(e.h2) || "inherit" });
+  Object.assign(c.style, { color: e.fg, fontFamily: quoteFont(e) });
   c.innerHTML = `<span>${esc(bl.q)}</span>`; t.appendChild(c); bl.els.push(c);
   const sp = c.firstChild, room = t.clientHeight - 30;
   for (let fs = 28; fs > 15 && sp.offsetHeight > room; fs--) sp.style.fontSize = fs + "px";   // a long line shrinks to fit its tile
@@ -1344,7 +1347,7 @@ function blTile() {
 function blPage() {
   const b = bl, e = b.e, pq = panel.querySelector(".pquote"), ms = Math.max(1600, b.end - Date.now());
   const l = document.createElement("p"), cs = pq ? getComputedStyle(pq) : null; l.className = "blline"; l.setAttribute("aria-hidden", "true");
-  Object.assign(l.style, { top: Math.round(innerHeight * .36) + "px", fontFamily: fontOf(e.h2) || "inherit", fontStyle: cs ? cs.fontStyle : "normal", fontSize: (b.q.length > 42 ? 24 : 30) + "px", lineHeight: "1.25", color: cs ? cs.color : e.fg });
+  Object.assign(l.style, { top: Math.round(innerHeight * .36) + "px", fontFamily: quoteFont(e), fontStyle: cs ? cs.fontStyle : "normal", fontSize: (b.q.length > 42 ? 24 : 30) + "px", lineHeight: "1.25", color: cs ? cs.color : e.fg });
   l.textContent = b.q; document.body.appendChild(l); b.els.push(l);
   if (!REDUCED) l.animate([{ opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0)", offset: 600 / ms }, { opacity: 1, offset: 1 - 450 / ms }, { opacity: 0 }], { duration: ms, easing: "ease-in-out", fill: "forwards" });
   b.tm.push(setTimeout(() => {   // gone from the middle, and straight away in its place under the name
@@ -1629,6 +1632,9 @@ function stampHTML(e) {
   const [n, t] = count(e), fg = e.fg || "currentColor";
   return n === t && t ? `<span class="stamp" aria-label="Complete" style="color:${esc(e.box || fg)};font-family:${esc(fontOf(e.h2) || "inherit")}">Complete</span>` : "";
 }
+// a character you haven't met yet: the box shows its colours but not its name, until you open it the first time
+const charMeeting = new Set();   // boxes opened for the first time whose name hasn't faded in yet
+const charAnon = e => String(e.id).startsWith("cx-") && !!CHAR_QUOTES[e.title] && (!(state.seen || {})[e.id] || charMeeting.has(e.id));
 function tileInner(e) { return scoped(e.tileDecor || e.decor) + stampHTML(e) + tbodyHTML(e); }
 function tbodyHTML(e) {
   const [n, t] = count(e);
@@ -1636,7 +1642,7 @@ function tbodyHTML(e) {
   const fg = e.fg || "currentColor";
   return `
     <div class="tbody">
-      <div class="hrow"><h2 style="${esc(e.h2)}">${e.titleHtml}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}
+      <div class="hrow"><h2${charAnon(e) ? ' class="anon"' : ""} style="${esc(e.h2)}">${e.titleHtml}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}
       <div class="prog" style="color:${esc(fg)}">
         ${String(e.id).startsWith("cx-") ? "" : `<span>${n} of ${t}</span>`}
         <span class="pbar" style="background:color-mix(in srgb, ${esc(fg)} 22%, transparent)"><span style="width:${pct}%;background:${esc(e.box || fg)}"></span></span>
@@ -1957,14 +1963,14 @@ function renderPanel(e, fresh) {
   const back = openKind === "chapter" ? (state.mode === "timeline" ? "Back to timeline" : "Back to chapters") : "Back to characters";
   const pq = openKind === "chapter" ? (QUOTES[e.id] || [])[0] : CHAR_QUOTES[e.title];
   const pqWait = pqHoldUntil - Date.now();
-  const pqHtml = cls => pq ? `<p class="pquote${cls}${pqWait > 0 ? " pending" : ""}" style="font-family:${esc(fontOf(e.h2) || "inherit")}">“${esc(pq).replace(" / ", "” “")}”</p>` : "";
+  const pqHtml = cls => pq ? `<p class="pquote${cls}${pqWait > 0 ? " pending" : ""}" style="font-family:${esc(quoteFont(e))}">“${esc(pq).replace(" / ", "” “")}”</p>` : "";
   if (pqWait > 0) setTimeout(() => { const q = panel.querySelector(".pquote"); if (q) q.classList.remove("pending"); }, pqWait);
   // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap, Fury's swipe): the page itself mustn't zoom under the fingers
   panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders", "cx-nick-fury-s-h-i-e-l-d"].includes(e.id) ? "pan-y" : "";
   panel.innerHTML = `${panelDecor(e)}
     <div class="pin">
       <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}${(openKind === "char" || openKind === "chapter") && DOSSIERS[e.id] ? `<button type="button" class="dbtn" id="btnDossier" style="color:${fg}">${openKind === "char" ? "Profile" : "Log"}</button>` : ""}</div>
-      <div class="hrow big"><h2 class="big" id="panelTitle" style="${esc(e.h2)}">${e.titleHtml}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
+      <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${e.titleHtml}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span id="pBar" style="width:${t ? n / t * 100 : 0}%;background:${box}"></span></div>
       <ul class="list">${panelList(e, panelItems(e))}</ul>
@@ -2139,8 +2145,13 @@ function activate(el) {
   if (firstOpen) pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + BL_MS + 500;
   openPanel(e, kind, el);
   if (firstOpen) {
-    state.seen = state.seen || {}; state.seen[e.id] = true; persist();
-    setTimeout(() => { if (openEntry === e) boxLine(CHAR_QUOTES[e.title], e, true); }, REDUCED ? 0 : 380);
+    charMeeting.add(e.id); state.seen = state.seen || {}; state.seen[e.id] = true; persist();
+    setTimeout(() => {
+      // the name fades in where it sits, as the quote does; the box on the page has it from now on
+      charMeeting.delete(e.id);
+      document.querySelectorAll(`.tile[data-id="${CSS.escape(e.id)}"] h2.anon`).forEach(h => h.classList.remove("anon"));
+      const pt = openEntry === e && document.querySelector("#panelTitle.anon"); if (pt) { pt.classList.remove("anon"); if (!REDUCED) pt.animate([{ opacity: 0 }, { opacity: 1, offset: 600 / BL_MS }, { opacity: 1 }], { duration: BL_MS, easing: "ease-in-out" }); }   // the quote's own fade-in, step for step
+      if (openEntry === e) boxLine(CHAR_QUOTES[e.title], e, true); }, REDUCED ? 0 : 380);
   }
 }
 // tap a section's name on the Chapters page to fold it away, tap again to open it
