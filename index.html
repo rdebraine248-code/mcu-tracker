@@ -696,7 +696,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ach{ text-align:left; padding:10px 11px; border:1px solid #232D42; border-radius:10px; background:#0F1626; color:#8E9AB3; cursor:pointer; font:inherit; display:flex; flex-direction:column; gap:4px; min-height:62px; }
 .ach b{ font-size:14px; font-weight:600; color:#B9C3D6; }
 .ach small{ font-size:12px; line-height:1.35; }
-.ach .st{ font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
+.ach.cl{ justify-content:center; } .ach .st{ font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .ach.done{ border-color:#C9A43A; background:linear-gradient(180deg,#1A1A14,#121218); color:#D8CFAE; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
 .ach.done b{ color:#F4D27A; }
 .ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
@@ -744,7 +744,7 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .ach.hf-glow{ animation:hfGlow 2.2s ease-out; }
 @keyframes hfGlow{ 0%,30%{ box-shadow:0 0 0 2px #F4D27A, 0 0 26px rgba(244,210,122,.75); } 100%{ box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); } }
 .ach.done .st{ color:#E9C46A; }
-.hf-grid.mini .ach{ min-height:0; padding:8px; align-items:center; text-align:center; }
+.hf-grid.mini .ach{ min-height:70px; padding:8px; align-items:center; justify-content:center; text-align:center; }
 .ach.final{ grid-column:1 / -1; }
 .hf-save{ padding:14px; border:1px solid #232D42; border-radius:10px; background:#0F1626; }
 .hf-save p{ margin:0 0 12px; font-size:13px; line-height:1.45; color:#8E9AB3; }
@@ -4998,23 +4998,22 @@ function vormir(h, lifted) {
   setTimeout(() => { awardStone("soul", W / 2, H * .5, true); }, 4750);
 }
 
-/* ---------- bonus: On your left. Checking off Avengers: Endgame: Sam's call, everyone who came arrives down the left edge,
+/* ---------- bonus: On your left. Checking off Avengers: Endgame: everyone who came arrives down the left edge,
    they charge across together, and the line at the front of the charge uncovers the Avengers A, which flies out past the screen ---------- */
 const ONLEFT = ["arc", "shield", "mjolnir", "hourglass", "hawkeye", "gamma", "eagle", "hala", "antman", "starlord", "spider", "claws", "agamotto", "mind", "redstar"];
-const ONLEFT_MS = 6200;   // from Sam's call until the screen is back; the Assemble pill waits for it
+const ONLEFT_MS = 5000;   // until the screen is back; the Assemble pill waits for it
 function onYourLeft() {
   if (REDUCED) return;
   const W = innerWidth, H = innerHeight, t0 = Date.now(), at = (ms, f) => setTimeout(f, Math.max(0, ms - (Date.now() - t0)));
   const veilEl = document.createElement("div"); veilEl.className = "fxl fx-onleft"; veilEl.style.cssText = "z-index:88;background:#000;opacity:0"; document.body.appendChild(veilEl);
   const lay = document.createElement("div"); lay.className = "fxl fx-onleft"; lay.style.zIndex = 89; document.body.appendChild(lay);
   veilEl.animate([{ opacity: 0 }, { opacity: .94 }], { duration: 600, easing: "ease-in-out", fill: "forwards" });
-  say("On your left.", null, undefined, 1500, true, "Comms · Sam Wilson", undefined, true); haptic([20, 40, 20]);
   // a loose crowd down the left edge, each one arriving on its own
   const S = Math.min(.7, Math.max(.5, W / 680)), LANE = [0, 2, 1, 2, 0, 1, 2, 0, 1, 0, 2, 1, 0, 2, 1], top = H * .1, step = (H * .8) / (ONLEFT.length - 1), lw = 64 * S * .75;
   const U = ONLEFT.map((k, i) => { const x = 20 + 32 * S + LANE[i] * lw + (Math.random() * 14 - 7), y = top + i * step + (Math.random() * 10 - 5), e = document.createElement("div");
     e.style.cssText = `position:absolute;left:${x - 32}px;top:${y - 32}px;width:64px;height:64px;opacity:0`; e.innerHTML = embHTML(k); lay.appendChild(e);
     return { e, x, y, j: Math.random() * 18 - 9, w: Math.random() * 6.28 }; });
-  const GAP = 80, T_IN = 1900, T_GO = T_IN + U.length * GAP + 300, T_RUN = 1250, T_OUT = T_GO + T_RUN + 150;
+  const GAP = 80, T_IN = 700, T_GO = T_IN + U.length * GAP + 300, T_RUN = 1250, T_OUT = T_GO + T_RUN + 150;
   U.map((u, i) => i).sort(() => Math.random() - .5).forEach((n, i) => at(T_IN + i * GAP, () => { haptic(8);
     U[n].e.animate([{ opacity: 0, transform: `translateX(-70px) scale(${S})` }, { opacity: 1, transform: `translateX(0) scale(${S})` }], { duration: 240, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" }); }));
   // the Avengers A waits behind the charge
@@ -6303,12 +6302,10 @@ function renderFile(fresh) {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = Math.min(10, 1 + Math.floor(done / A.length * 10));
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
-    // chapters and characters read like their logs: Classified (???, No data) until the name is known, then Not started, Recording, Complete
-    const box = a.sec === "chapters" ? DATA.chapters.find(c => c.id === a.cid) : a.sec === "characters" ? a.ch : null;
-    let st, nm, note;
-    if (box) { const hid = !ok && (sec || (a.sec === "characters" && charAnon(a.ch))), [w, t] = count(box);
-      st = ok ? "Complete" : hid ? "Classified" : w ? "Recording" : "Not started"; nm = hid ? "???" : a.t; note = ok ? a.d : tip || (hid ? "No data" : `${w} of ${t} watched`); }
-    else { st = ok ? "Complete" : sec ? "Classified" : "Locked"; nm = sec ? "???" : a.t; note = ok ? a.d : tip || (sec ? "Classified" : "Locked"); }
+    // every file reads the same way: Classified while it's locked and unknown; Locked, its name, In progress once it's known; then Complete
+    const hid = !ok && (a.sec === "chapters" ? !state.unlocked[a.cid] : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
+    if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b>Classified</b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
+    const st = ok ? "Complete" : "Locked", nm = a.t, note = ok ? a.d : tip || "In progress";
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${st}</span><b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
     return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg">${L.map(card).join("")}</div></section>`; };
@@ -6433,7 +6430,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
     return;
   }
   achTaps[a.id] = (achTaps[a.id] || 0) + 1; haptic(achTaps[a.id] === 10 || achTaps[a.id] === 20 ? [20, 40, 20] : 8);
-  if (achTaps[a.id] === 10 || achTaps[a.id] === 20) { const sm = b.querySelector("small"); if (sm) { if (!b.dataset.base) b.dataset.base = sm.textContent; sm.textContent = achTaps[a.id] === 20 ? a.x + " (tap to hide)" : a.h; } }
+  if (achTaps[a.id] === 10 || achTaps[a.id] === 20) { const sm = b.querySelector("small") || b.appendChild(document.createElement("small")); if (sm) { if (!b.dataset.base) b.dataset.base = sm.textContent; sm.textContent = achTaps[a.id] === 20 ? a.x + " (tap to hide)" : a.h; } }
 });
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}
 // on load, what you'd already charted and earned before the dots existed counts as read, so only what's new from here on gets one
