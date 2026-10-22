@@ -1630,7 +1630,13 @@ function stampHTML(e) {
 }
 // a character you haven't met yet: the box shows its colours but not its name, until you open it the first time
 const charMeeting = new Set();   // boxes opened for the first time whose name hasn't faded in yet
-const charAnon = e => String(e.id).startsWith("cx-") && !!CHAR_QUOTES[e.title] && (!(state.seen || {})[e.id] || charMeeting.has(e.id));
+// its name is known once you've opened the box, or once its insignia is yours from watching its films (or from its hint).
+// S.H.I.E.L.D.'s insignia is yours from the start, so Fury's name still waits for his box
+let charEmbK = null;
+const charEmb = e => { if (!charEmbK) { const n = x => String(x).toLowerCase().replace(/\*/g, "").replace(/\band\b/g, "&").trim(); charEmbK = {};
+  Object.keys(EMBLEM_NAMES).forEach(k => { charEmbK[n(EMBLEM_NAMES[k])] = k; }); charEmbK.n = n; } return charEmbK[charEmbK.n(e.title)]; };
+const charNamed = e => { if ((state.seen || {})[e.id]) return true; const k = charEmb(e); return !!k && k !== "eagle" && (!!(state.embOpen || {})[k] || embWon(k)); };
+const charAnon = e => String(e.id).startsWith("cx-") && !!CHAR_QUOTES[e.title] && (!charNamed(e) || charMeeting.has(e.id));
 function tileInner(e) { return scoped(e.tileDecor || e.decor) + stampHTML(e) + tbodyHTML(e); }
 function tbodyHTML(e) {
   const [n, t] = count(e);
@@ -2144,7 +2150,7 @@ function activate(el) {
   if (firstOpen) pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + BL_MS + 500;
   openPanel(e, kind, el);
   if (firstOpen) {
-    charMeeting.add(e.id); state.seen = state.seen || {}; state.seen[e.id] = true; persist();
+    if (!charNamed(e)) charMeeting.add(e.id); state.seen = state.seen || {}; state.seen[e.id] = true; persist();
     setTimeout(() => {
       // the name fades in where it sits, as the quote does; the box on the page has it from now on
       charMeeting.delete(e.id);
@@ -6296,7 +6302,7 @@ function renderFile(fresh) {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = Math.min(10, 1 + Math.floor(done / A.length * 10));
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const note = ok ? a.d : n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : (sec ? "Classified" : "Locked");
-    return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${ok ? "Complete" : sec ? "Classified" : "Locked"}</span><b>${esc(sec ? "???" : a.t)}</b><small>${esc(note)}</small></button>`; };
+    return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${ok ? "Complete" : sec ? "Classified" : "Locked"}</span><b>${esc(sec ? "???" : a.sec === "characters" && !ok && charAnon(a.ch) ? "Classified" : a.t)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
     return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg">${L.map(card).join("")}</div></section>`; };
   const part = (key, title, mini) => { const L = A.filter(a => a.sec === key); return `<section class="hf-sec" data-hfsec="${key}"><h3><span>${title}</span><span>${L.filter(a => earned(a.id)).length}/${L.length}</span></h3><div class="hf-grid${mini ? " mini" : ""}">${L.map(card).join("")}</div></section>`; };
