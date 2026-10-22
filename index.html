@@ -912,10 +912,8 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-views button.lk{ color:#3A4660; }
 .atl-row{ position:relative; }
 .map-empty{ position:absolute; left:0; right:0; top:42%; display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
-.mapview .map-empty svg{ position:static; width:200px; height:20px; overflow:visible; } .map-empty circle{ transform-box:fill-box; transform-origin:center; animation:mapWait 1.8s ease-in-out infinite; }
+.mapview .map-empty svg{ position:static; width:200px; height:20px; overflow:visible; }
 .map-empty b{ font:400 11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
-@keyframes mapWait{ 50%{ transform:scale(1.25); } }
-@media (prefers-reduced-motion: reduce){ .map-empty circle{ animation:none; } }
 .atl-row.sub{ padding-right:34px; } .atl-row .atl-chev{ position:absolute; right:4px; top:50%; width:10px; height:16px; margin-top:-8px; color:#7FA6D8; pointer-events:none; }   /* drawn, not a text glyph, so its middle is the row's middle, level with the dot */
 .atl-row .atl-chev svg{ display:block; width:100%; height:100%; overflow:visible; }
 .atl-row.sub.nw::after{ right:26px; }
