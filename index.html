@@ -1409,7 +1409,9 @@ function hudShow(el, p, fresh) {
   el.removeAttribute("style");
   el.classList.add("hud", "show"); el.classList.toggle("tva", !!p.tva); el.classList.toggle("quick", !!p.quick); el._quick = !!p.quick; if (p.tint) el.style.setProperty("--hc", p.tint);
   el.innerHTML = `<i class="cn a"></i><i class="cn b"></i><i class="hdot"></i><div class="hclip"><div class="hin${p.tap ? " tap" : ""}">${p.hd ? `<span class="hd">${esc(p.hd)}</span>` : ""}<b>${esc(p.b)}</b>${p.s ? `<small>${esc(p.s)}</small>` : ""}${p.tap ? `<i class="hgo" aria-hidden="true">&#8250;</i>` : ""}</div></div>`;
-  const W = Math.min(innerWidth - 48, 460), inn = el.querySelector(".hin"); inn.style.width = W + "px";
+  const inn = el.querySelector(".hin"); let W = Math.min(innerWidth - 48, 460);
+  if (p.quick) { inn.style.width = "max-content"; W = Math.min(W, Math.ceil(inn.getBoundingClientRect().width)); }   // a plain message fits its words, like a text bubble
+  inn.style.width = W + "px";
   const H = inn.offsetHeight, size = (w, h) => { el.style.width = w + "px"; el.style.height = h + "px"; };
   if (REDUCED || shown || !fresh) { size(W, H); return; }   // a reply to a tap over one that's up: straight in
   if (p.quick) { size(W, H); el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, easing: "ease-out" }); return; }
