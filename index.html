@@ -4638,17 +4638,19 @@ function paintStones() {
 }
 const allStones = () => STONES.every(st => (state.stones || {})[st.id]);
 // a stone is earned where its easter egg happens: the gem appears there, then floats up into its colour in the title bar
-function awardStone(id, x, y, now) {   // now: the stone and its line land this instant, as part of the moment (Vormir)
+function awardStone(id, x, y, now) {   // now: the stone lingers a little longer, as part of the moment (Vormir)
   state.stones = state.stones || {};
   if (state.stones[id]) return;   // found again: it's already in your Agent File
-  { state.stones[id] = true; persist(); if (now) { clearTimeout(achFlushT); flushAch(); } }
-  const st = STONES.find(z => z.id === id), visible = false;
+  const dur = now ? 2600 : 2000, fly = !REDUCED && x != null;
+  if (fly) achHold = Date.now() + dur + 150;   // its pop-up waits until the gem has finished rising into the bar
+  state.stones[id] = true; persist();
+  const st = STONES.find(z => z.id === id);
   const done = () => paintStones();
-  if (REDUCED || x == null) { done(); return; }
+  if (!fly) { done(); return; }
   const gm = document.createElement("div"); gm.className = "gem fly"; gm.style.cssText = `${gemVars(st)};left:${x}px;top:${y}px`; document.body.appendChild(gm);
   const k = [{ transform: "scale(.2)", opacity: 0 }, { transform: "scale(1.15)", opacity: 1, offset: .15 }, { transform: "scale(1)", opacity: 1, offset: .45 }];
   k.push({ transform: "translateY(-60px) scale(.6)", opacity: 0 });
-  gm.animate(k, { duration: now ? 2600 : 2000, easing: "cubic-bezier(.4,0,.2,1)", fill: "both" }).onfinish = () => { gm.remove(); done(); };
+  gm.animate(k, { duration: dur, easing: "cubic-bezier(.4,0,.2,1)", fill: "both" }).onfinish = () => { gm.remove(); done(); };
   haptic([20, 40, 60]);
 }
 function openGauntlet() {
@@ -4963,7 +4965,7 @@ function soulHold(h) {
 function vormir(h, lifted) {
   const [x, y] = centerOf(h);
   if (REDUCED) { awardStone("soul", x, y); return; }
-  // the fall into the dark; the orange glow; as it fades, the stone is left behind with its line at the same instant;
+  // the fall into the dark; the orange glow; as it fades, the stone is left behind, and its line follows once it has risen;
   // the line fades and the dark holds a beat; only then does the box come back
   const sc = fxScope(), T = 9700, at = ms => ms / T, W = innerWidth, H = innerHeight;
   sc.animate([{ transform: lifted ? "translateY(12px)" : "none", transformOrigin: "50% 0" }, { transform: "rotate(4deg) translateY(80px) scale(.92)", transformOrigin: "50% 0", offset: at(1600) }, { transform: "rotate(4deg) translateY(80px) scale(.92)", transformOrigin: "50% 0", offset: at(8700) }, { transform: "none", transformOrigin: "50% 0", offset: at(9300) }, { transform: "none", transformOrigin: "50% 0" }], { duration: T, easing: "ease-in-out" });
@@ -6081,7 +6083,7 @@ const earned = id => !!(state.achSeen || {})[id];
 // Agent File sections appear once their first file is earned (Chapters always shows); the totals count only the files in sections you can see
 function fileSecs(A) { const o = { chapters: true, characters: true }; A.forEach(a => { if (earned(a.id)) o[a.sec] = true; }); return o; }
 function achCount() { const A = achList(), o = fileSecs(A), V = A.filter(a => o[a.sec]); return `${V.filter(a => earned(a.id)).length}/${V.length}`; }
-let achPending = [], achDefer = [], achFlushT = null;
+let achPending = [], achDefer = [], achFlushT = null, achHold = 0;
 
 function checkAch() {
   const A = achList();
@@ -6096,6 +6098,7 @@ function checkAch() {
 }
 // one pop-up per moment: a new achievement rides on the line that's already there, or becomes the pop-up itself
 function flushAch() {
+  if (Date.now() < achHold) { clearTimeout(achFlushT); achFlushT = setTimeout(flushAch, achHold - Date.now()); return; }   // a stone is still on its way to the bar
   let list = achPending.splice(0);
   if (openEntry) { achDefer.push(...list.filter(a => a.done)); list = list.filter(a => !a.done); }   // completions ride on the box's "Completed" pop-up
   if (!list.length) return;
