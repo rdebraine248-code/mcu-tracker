@@ -474,9 +474,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-pager button{ border:0; background:transparent; color:#7FA6D8; font:300 22px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; padding:0 8px; cursor:pointer; touch-action:manipulation; }
 .hf-pager button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; }
 .hf-pgn{ min-width:2.4em; text-align:center; color:#5E7290; } .hf-pgt{ margin-left:8px; }
-/* a page turn slides the new page in from the side you turned to; it never fades out and back (that read as a blink) */
-.hf-grid.hf-pg.flip{ animation:hfTurn .28s cubic-bezier(.22,1,.36,1) both; } .hf-grid.hf-pg.flip.back{ animation-name:hfTurnB; }
-@keyframes hfTurn{ from{ transform:translateX(18px); } to{ transform:none; } } @keyframes hfTurnB{ from{ transform:translateX(-18px); } to{ transform:none; } }
+/* a page turn just swaps the page in place: a fade read as a blink, and a slide as a shake */
 .fx-sue{ position:fixed; top:0; bottom:0; left:0; width:90px; z-index:98; pointer-events:none; background:linear-gradient(90deg, rgba(190,225,255,0), rgba(190,225,255,.35) 35%, rgba(255,255,255,.75) 50%, rgba(190,225,255,.35) 65%, rgba(190,225,255,0)); -webkit-backdrop-filter:blur(2px) brightness(1.15); backdrop-filter:blur(2px) brightness(1.15); }
 .fx-sueghost{ position:fixed; inset:0; z-index:96; pointer-events:none; overflow:hidden; opacity:0; filter:blur(1.2px); }
 .fx-lokidim{ z-index:97; opacity:0; transition:opacity .5s ease; background:radial-gradient(ellipse at 50% 40%, rgba(8,40,20,.6), rgba(2,10,6,.9)); }
@@ -6251,7 +6249,7 @@ function rateSec() {
     <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
     <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
 }
-let fileOpen = false, hfPage = 1, hfFlip = false, hfChPg = 1, hfChFlip = false; const achTaps = {}, HF_PAGES = 4;
+let fileOpen = false, hfPage = 1, hfChPg = 1; const achTaps = {}, HF_PAGES = 4;
 // put new markup in place, swapping only the top-level blocks that changed, so everything else on screen stays exactly as it was
 function swapIn(host, html) {
   const tmp = document.createElement("div"); tmp.innerHTML = html;
@@ -6265,14 +6263,14 @@ function renderFile(fresh) {
     const note = ok ? a.d : n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : (sec ? "Classified" : "Locked");
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${ok ? "Complete" : sec ? "Classified" : "Locked"}</span><b>${esc(sec ? "???" : a.t)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
-    return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg${hfFlip ? (hfFlip < 0 ? " flip back" : " flip") : ""}">${L.map(card).join("")}</div></section>`; };
+    return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg">${L.map(card).join("")}</div></section>`; };
   const part = (key, title, mini) => { const L = A.filter(a => a.sec === key); return `<section class="hf-sec" data-hfsec="${key}"><h3><span>${title}</span><span>${L.filter(a => earned(a.id)).length}/${L.length}</span></h3><div class="hf-grid${mini ? " mini" : ""}">${L.map(card).join("")}</div></section>`; };
   const got = key => A.filter(a => a.sec === key && earned(a.id)).length, tot = key => A.filter(a => a.sec === key).length, open = fileSecs(A);
   // each count on the agent ID takes you down to its section
   const stat = (key, label) => open[key] ? `<button type="button" data-hfgo="${key}"><b>${got(key)}/${tot(key)}</b><small>${label} complete</small></button>` : "";
   const sect = (key, title, mini) => open[key] ? part(key, title, mini) : "";
   const chPart = () => { const key = hfChPg === 2 ? "characters" : "chapters", L = A.filter(a => a.sec === key);
-    return `<section class="hf-sec" data-hfsec="chapters"><h3><span>${hfChPg === 2 ? "Characters" : "Chapters"}</span><span class="hf-pager"><button type="button" data-hfcpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfChPg}/2</span><button type="button" data-hfcpg="1" aria-label="Next page">›</button><span class="hf-pgt">${L.filter(a => earned(a.id)).length}/${L.length}</span></span></h3><div class="hf-grid mini hf-pg${hfChFlip ? (hfChFlip < 0 ? " flip back" : " flip") : ""}">${L.map(card).join("")}</div></section>`; };
+    return `<section class="hf-sec" data-hfsec="chapters"><h3><span>${hfChPg === 2 ? "Characters" : "Chapters"}</span><span class="hf-pager"><button type="button" data-hfcpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfChPg}/2</span><button type="button" data-hfcpg="1" aria-label="Next page">›</button><span class="hf-pgt">${L.filter(a => earned(a.id)).length}/${L.length}</span></span></h3><div class="hf-grid mini hf-pg">${L.map(card).join("")}</div></section>`; };
   const fv = document.getElementById("fileView"); fv.className = "fileview"; if (fresh) fv.replaceChildren();
   swapIn(fv, `
     <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button>${embNew().length ? '<i class="hf-avdot" aria-hidden="true"></i>' : ""}<div class="hf-tag">Agent ID</div>
@@ -6377,9 +6375,9 @@ document.getElementById("fileView").addEventListener("click", ev => {
   if (ev.target.closest("#hfCode")) { codeEdit(); return; }
   const cfb = ev.target.closest('[data-ach^="film-"]'); if (cfb && earned(cfb.dataset.ach)) { caseFile(cfb.dataset.ach.slice(5)); return; }
   const cpb = ev.target.closest("[data-hfcpg]");
-  if (cpb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfChPg = hfChPg === 1 ? 2 : 1; hfChFlip = +cpb.dataset.hfcpg; renderFile(); hfChFlip = 0; fv.scrollTop = y; return; }
+  if (cpb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfChPg = hfChPg === 1 ? 2 : 1; renderFile(); fv.scrollTop = y; return; }
   const pgb = ev.target.closest("[data-hfpg]");
-  if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = (hfPage - 1 + +pgb.dataset.hfpg + HF_PAGES) % HF_PAGES + 1; hfFlip = +pgb.dataset.hfpg; renderFile(); hfFlip = 0; fv.scrollTop = y; return; }
+  if (pgb) { const fv = document.getElementById("fileView"), y = fv.scrollTop; hfPage = (hfPage - 1 + +pgb.dataset.hfpg + HF_PAGES) % HF_PAGES + 1; renderFile(); fv.scrollTop = y; return; }
   const b = ev.target.closest("[data-ach]"); if (!b) return;
   const a = achList().find(z => z.id === b.dataset.ach); if (!a || earned(a.id)) return;
   if ((achTaps[a.id] || 0) >= 20) {   // a revealed answer stays put: the next tap only asks whether to hide it
