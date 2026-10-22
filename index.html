@@ -9293,7 +9293,7 @@ function buildMap() {
   // the years along the top are release years: the titles run in the order they came out, so in-universe time can jump around
   const key = M.cols.length ? `<text class="yrkey" x="14" y="11">Release year</text>` : "";   // only once there's a year to label
   // nothing watched yet: one dotted lane waiting at its next stop, the same open dot the map uses for what's still to come
-  const empty = M.cols.length ? "" : `<div class="map-empty" aria-hidden="true"><svg viewBox="0 0 200 20"><path d="M10,10 L88,10" stroke="#7FA6D8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 6"/><circle cx="100" cy="10" r="7" fill="#0B1019" stroke="#7FA6D8" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>No data</b></div>`;
+  const empty = M.cols.length ? "" : `<div class="map-empty" aria-hidden="true"><svg viewBox="0 0 200 20"><path d="M50,10 L128,10" stroke="#7FA6D8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 6"/><circle cx="140" cy="10" r="7" fill="#0B1019" stroke="#7FA6D8" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>No data</b></div>`;
   v.innerHTML = `<svg aria-label="Character Map"><g id="mapG">${bands}${heads}${lanes}${stops}${names}${key}</g></svg>${empty}`;
   mapBuilt = true;
   mapNames = [...v.querySelectorAll(".rname, .yrkey")]; mapNameX = "";
