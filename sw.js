@@ -2,7 +2,7 @@
 // It always tries the internet first, so a new index.html shows up on the next open;
 // the saved copy is only used when you're offline.
 const CACHE = "mcu-tracker";
-const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./splash-512.png"];
+const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
   self.skipWaiting();

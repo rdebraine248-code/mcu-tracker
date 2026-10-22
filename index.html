@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<title>MCU Watch Tracker</title>
+<title>Marvel Datapad</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#10141D">
 <link rel="icon" href="icon-192.png">
@@ -9573,7 +9573,7 @@ function gateFrame(t) {
   const c = cv.getContext("2d"), C = "143,224,255", cx = W / 2, [, ly] = GATE_LOGO(), tp = GATE.tap, bt = tp == null ? -1 : t - tp;
   const clamp = f => Math.max(0, Math.min(1, f)), out = f => 1 - Math.pow(1 - clamp(f), 3);
   c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
-  if (t < 380) { c.globalAlpha = 1 - t / 380; bootEagle(c, cx, H / 2, BOOT_S, 0); c.globalAlpha = 1; }   // the powered-down eagle Android showed while it loaded
+  if (t < 380) { c.globalAlpha = 1 - t / 380; bootSplash(c, W, H, dpr, 1); c.globalAlpha = 1; }   // the browser's launch screen, fading as the power line comes on
   // power on: a line across the middle, then the picture opens out from it with bright edges
   const line = out(t / 380), open = easeIO((t - 380) / 420), oh = H * open;
   if (open < 1) { c.fillStyle = `rgba(${C},${.95 * (1 - open)})`; c.shadowColor = `rgb(${C})`; c.shadowBlur = 16;
@@ -9625,17 +9625,23 @@ function gateTap() {
   if (GATE.tap != null) return; GATE.tap = t;   // (the press itself already buzzes, like every button)
 }
 document.getElementById("gate").addEventListener("click", gateTap);
-// every launch after the first: the datapad switching back on. Its first frame is the picture Android shows while the app loads (the eagle,
-// powered down, on the terminal's black), so the hand-off can't be seen: the eagle lights, the terminal knows you, and it clears to the page.
-// A tap skips straight to the page
-const BOOT_S = 120;   // the eagle's width on the splash
-function bootEagle(c, cx, cy, size, lit) {   // lit: how far down the emblem the scan has lit it, 0 to 1
+// every launch after the first: the datapad switching back on. Its first frame is the picture the browser shows while the app loads (the lit
+// emblem, small, with the app's name under it, on the terminal's black), so the hand-off can't be seen: the name fades, the emblem comes forward,
+// the terminal knows you, and it clears to the page. A tap skips straight to the page
+const BOOT_S = 120, BOOT_NAME = "Marvel Datapad";
+// where the phone's own launch screen puts its icon and name (measured on a Galaxy, in page pixels from the middle of the screen), and how big
+const BOOT_SPLASH = { dy: -17, size: 57 * .78, base: 85 };   // the icon is 57px; the emblem fills .78 of it
+function bootEagle(c, cx, cy, size, glow) {   // the emblem fully lit; glow is its halo, in canvas pixels
   const es = size / 64; c.save(); c.translate(cx - 32 * es, cy - 32 * es); c.scale(es, es);
-  const dim = c.createLinearGradient(0, 0, 64, 64); dim.addColorStop(0, "#4A5466"); dim.addColorStop(1, "#232A36"); c.fillStyle = dim; c.fill(GATE_EP, "evenodd");
-  if (lit > 0) { c.save(); c.beginPath(); c.rect(-8, -8, 80, 8 + 70 * lit); c.clip();
-    const gr = c.createLinearGradient(0, 0, 64, 64); gr.addColorStop(0, "#FFFFFF"); gr.addColorStop(.4, "#D4DBE4"); gr.addColorStop(1, "#8D98A9");
-    c.shadowColor = "rgba(150,200,255,.85)"; c.shadowBlur = 16 * lit; c.fillStyle = gr; c.fill(GATE_EP, "evenodd"); c.restore(); }
-  c.restore();
+  const gr = c.createLinearGradient(0, 0, 64, 64); gr.addColorStop(0, "#FFFFFF"); gr.addColorStop(.4, "#D4DBE4"); gr.addColorStop(1, "#8D98A9");
+  c.shadowColor = "rgba(150,200,255,.85)"; c.shadowBlur = glow; c.fillStyle = gr; c.fill(GATE_EP, "evenodd"); c.restore();
+}
+let bootFs = 0;   // the name's size, so it lines up with the browser's own lettering on this phone
+function bootSplash(c, W, H, dpr, a) {   // the browser's launch screen, redrawn: a is how much of the name is left
+  bootEagle(c, W / 2, H / 2 + BOOT_SPLASH.dy, BOOT_SPLASH.size, BOOT_SPLASH.size * .13 * dpr);
+  if (a <= 0) return;
+  if (!bootFs) { c.font = "400 100px system-ui,'Roboto',sans-serif"; bootFs = Math.round(219 / c.measureText("MCU Watch Tracker").width * 100 * 10) / 10 || 26; }
+  c.font = `400 ${bootFs}px system-ui,'Roboto',sans-serif`; c.textAlign = "center"; c.textBaseline = "alphabetic"; c.fillStyle = `rgba(255,255,255,${a})`; c.fillText(BOOT_NAME, W / 2, H / 2 + BOOT_SPLASH.base);
 }
 function showBoot() {
   if (REDUCED) return;
@@ -9648,27 +9654,27 @@ function bootFrame(t) {
   if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
   const c = cv.getContext("2d"), C = "143,224,255", cx = W / 2, cy = H / 2, clamp = clamp01, out = f => 1 - Math.pow(1 - clamp(f), 3);
   c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
-  const on = clamp((t - 150) / 300), scan = easeIO((t - 150) / 450); if (t > 150) gBuzz("on", 10);
+  // the launch screen, then the emblem comes forward to the middle as the name fades and the terminal powers up around it
+  const fwd = easeIO((t - 120) / 520), on = clamp((t - 150) / 350); if (t > 120) gBuzz("on", 10);
   if (on > 0) { const vg = c.createRadialGradient(cx, cy, 30, cx, cy, H * .7); vg.addColorStop(0, `rgba(40,90,170,${.16 * on})`); vg.addColorStop(1, "rgba(0,0,0,0)"); c.fillStyle = vg; c.fillRect(0, 0, W, H); }
-  // the eagle lights from the top down, a bright scan line ahead of it
-  bootEagle(c, cx, cy, BOOT_S, scan);
-  if (scan > 0 && scan < 1) { const es = BOOT_S / 64, y = cy - 32 * es + 70 * es * scan - 3 * es; c.save(); c.translate(cx - 32 * es, cy - 32 * es); c.scale(es, es); c.clip(GATE_EP, "evenodd"); c.setTransform(dpr, 0, 0, dpr, 0, 0);
-    c.fillStyle = "rgba(220,245,255,.95)"; c.shadowColor = `rgb(${C})`; c.shadowBlur = 10; c.fillRect(0, y - 1, W, 2); c.restore(); }
+  if (fwd <= 0) bootSplash(c, W, H, dpr, 1);
+  else { const sz = lerp(BOOT_SPLASH.size, BOOT_S, fwd); bootEagle(c, cx, lerp(cy + BOOT_SPLASH.dy, cy, fwd), sz, sz * lerp(.13, .07, fwd) * dpr);
+    const a = 1 - clamp((t - 120) / 260); if (a > 0) { c.font = `400 ${bootFs || 26}px system-ui,'Roboto',sans-serif`; c.textAlign = "center"; c.textBaseline = "alphabetic"; c.fillStyle = `rgba(255,255,255,${a})`; c.fillText(BOOT_NAME, cx, cy + BOOT_SPLASH.base); } }
   // the terminal around it: corners, its name, the time
-  const br = out((t - 250) / 350), L = 26 * br, top = 40 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0);
+  const br = out((t - 300) / 350), L = 26 * br, top = 40 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0);
   if (br > 0) { c.strokeStyle = `rgba(${C},.8)`; c.lineWidth = 2; c.beginPath();
     [[14, 14, 1, 1], [W - 14, 14, -1, 1], [14, H - 14, 1, -1], [W - 14, H - 14, -1, -1]].forEach(([x, y, sx, sy]) => { c.moveTo(x, y + sy * L); c.lineTo(x, y); c.lineTo(x + sx * L, y); }); c.stroke(); }
   c.font = "11px 'Share Tech Mono','Courier New',monospace"; c.textBaseline = "middle"; c.textAlign = "left"; c.fillStyle = `rgba(${C},.85)`;
-  c.fillText(gType("S.H.I.E.L.D. // SECURE TERMINAL", 350, t, 90), 28, top);
-  if (t > 600) { const d = new Date(), s = "ENCRYPTED  " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); c.textAlign = "right"; c.fillText(s, W - 28, top);
+  c.fillText(gType("S.H.I.E.L.D. // SECURE TERMINAL", 380, t, 90), 28, top);
+  if (t > 620) { const d = new Date(), s = "ENCRYPTED  " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); c.textAlign = "right"; c.fillText(s, W - 28, top);
     c.fillStyle = "rgba(90,230,140,.95)"; c.beginPath(); c.arc(W - 28 - c.measureText(s).width - 9, top, 3, 0, 6.29); c.fill(); }
-  c.strokeStyle = `rgba(${C},.25)`; c.lineWidth = 1; c.beginPath(); c.moveTo(28, top + 16); c.lineTo(28 + (W - 56) * out((t - 350) / 500), top + 16); c.stroke();
+  c.strokeStyle = `rgba(${C},.25)`; c.lineWidth = 1; c.beginPath(); c.moveTo(28, top + 16); c.lineTo(28 + (W - 56) * out((t - 380) / 500), top + 16); c.stroke();
   // who's back, and the session picking up where it left off
-  const sub = cy + BOOT_S / 2 + 30, who = "WELCOME BACK, " + (state.codename ? asAgent(String(state.codename)) : "Agent").toUpperCase(); c.textAlign = "center";
-  c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = "rgba(200,215,235,.75)"; c.fillText(gType("IDENTITY CONFIRMED", 600, t, 70), cx, sub);
-  c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},.95)`; c.fillText(gType(who, 820, t, 70), cx, sub + 20);
-  const pb = clamp((t - 700) / 550), bw = Math.min(220, W - 56), bx = cx - bw / 2, by = sub + 44;
-  if (t > 700) { c.strokeStyle = `rgba(${C},.35)`; c.strokeRect(bx + .5, by + .5, bw - 1, 6); c.fillStyle = `rgba(${C},.85)`; c.fillRect(bx + 2, by + 2, (bw - 4) * easeIO(pb), 3);
+  const sub = cy + BOOT_S / 2 + 30, who = "WELCOME BACK, " + (state.codename ? asAgent(String(state.codename)) : "Agent").toUpperCase(); c.textAlign = "center"; c.textBaseline = "middle";
+  c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = "rgba(200,215,235,.75)"; c.fillText(gType("IDENTITY CONFIRMED", 650, t, 70), cx, sub);
+  c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},.95)`; c.fillText(gType(who, 860, t, 70), cx, sub + 20);
+  const pb = clamp((t - 740) / 520), bw = Math.min(220, W - 56), bx = cx - bw / 2, by = sub + 44;
+  if (t > 740) { c.strokeStyle = `rgba(${C},.35)`; c.strokeRect(bx + .5, by + .5, bw - 1, 6); c.fillStyle = `rgba(${C},.85)`; c.fillRect(bx + 2, by + 2, (bw - 4) * easeIO(pb), 3);
     c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = pb < 1 ? "rgba(200,215,235,.6)" : "rgba(110,235,160,.95)"; c.fillText(pb < 1 ? "RESUMING SESSION " + Math.round(easeIO(pb) * 100) + "%" : "ACCESS GRANTED", cx, by + 22); if (pb >= 1) gBuzz("granted", [12, 30, 18]); }
   c.fillStyle = `rgba(0,0,0,${.18 * on})`; for (let y = (t / 40) % 3; y < H; y += 3) c.fillRect(0, y, W, 1);   // the terminal's scanlines
   if (t > 1450) bootClose();
