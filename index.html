@@ -1210,6 +1210,23 @@ function renameChecks(c) {
   return c;
 }
 renameChecks(state.checks);
+// the pruned timelines were one universe until each Earth got its own: what you'd charted there moves with the place to its Earth
+function splitPruned() {
+  const TO = { bladecity: "blade", detroit: "blade", prague: "blade", syria: "blade", island: "daredevil", tampa: "punisher", pr: "punisher", london: "ff", greenland: "ff", siberia: "ff", shanghai: "ff", japan: "ff" };
+  const K = "uni:pruned:ny", C = ["atlasN", "atlRead", "atlMap"]; let moved = false;
+  ["atlas", "atlEv", ...C].forEach(st => { const A = state[st]; if (!A) return;
+    Object.keys(TO).forEach(id => { const k = "uni:pruned:" + id; if (k in A) { A["uni:" + TO[id] + ":" + id] = A[k]; delete A[k]; moved = true; } });
+    if (K in A) { const v = A[K]; delete A[K]; moved = true;   // New York held Daredevil (2003) first, then the two Fantastic Four films
+      if (st === "atlas") A["uni:daredevil:ny"] = A["uni:ff:ny"] = v;
+      else if (st === "atlEv") { A["uni:daredevil:ny"] = v.filter(i => i === 0); A["uni:ff:ny"] = v.filter(i => i > 0).map(i => i - 1); }
+      else { A["uni:daredevil:ny"] = Math.min(v, 1); A["uni:ff:ny"] = Math.max(0, v - 1); } } });
+  if (!moved) return;
+  const S = state.atlas = state.atlas || {}, sum = (A, u) => Object.keys(A).filter(k => k.startsWith("uni:" + u + ":")).reduce((a, k) => a + A[k], 0);
+  ["blade", "daredevil", "punisher", "ff", "pruned"].forEach(u => { const has = Object.keys(S).some(k => k.startsWith("uni:" + u + ":"));
+    if (S["u-pruned"] && has) S["u-" + u] = 1; else if (u !== "pruned") delete S["u-" + u];
+    C.forEach(st => { const A = state[st]; if (!A || A["u-pruned"] == null) return; if (has) A["u-" + u] = sum(A, u); else if (u === "pruned") delete A["u-pruned"]; }); });
+}
+splitPruned();
 function migrate(old) { // earlier versions shared one checkmark per title; keep those only in chapters already unlocked
   if (!old) return;
   DATA.chapters.forEach(c => { if (state.unlocked[c.id]) c.items.forEach(i => { if (old[i.t]) state.checks[ck(c, i.t)] = true; }); });
@@ -2918,8 +2935,8 @@ beyond: [
 ],
 multi: [
 {"id":"watcher","n":"The Watcher","r":"Outside every reality","at":[500,500],"e":[["What If...?","","Uatu watches every reality where one moment went differently, and has sworn never to interfere.","What If...? S1"],["What If...?","","Uatu pulls Peggy and Kahhori out of Strange Supreme's collapsing Sanctum.","What If...? S2"],["What If...?","The Observational Plane","The Eminence, Uatu's old mentor, puts him on trial for interfering.","What If...? S3"],["What If...?","The Observational Plane","Uatu stands up to the other Watchers and invites Storm, Kahhori and Byrdie to watch the multiverse with him.","What If...? S3"]]},
-{"id":"e838","n":"Earth-838","r":"Another universe","at":[330,470],"e":[["Doctor Strange in the Multiverse of Madness","","The Illuminati put Strange on trial."]]},
-{"id":"e828","n":"Earth-828","r":"Another universe","at":[670,530],"e":[["The Fantastic Four: First Steps","","The Fantastic Four face Galactus."]]},
+{"id":"e838","n":"Earth-838","r":"The Illuminati's Earth","at":[330,470],"e":[["Doctor Strange in the Multiverse of Madness","","The Illuminati put Strange on trial."]]},
+{"id":"e828","n":"Earth-828","r":"The Fantastic Four's Earth","at":[670,530],"e":[["The Fantastic Four: First Steps","","The Fantastic Four face Galactus."]]},
 {"id":"carter","n":"Captain Carter's world","r":"Earth-82111","at":[500,210],"e":[["What If...?","","Peggy Carter takes the super soldier serum, and Steve Rogers fights beside her in a suit of armor.","What If...? S1"],["What If...?","","Peggy wakes in the present and learns the Hydra Stomper is Steve, kept by the Red Room.","What If...? S2"],["What If...?","","Shards from the Watchers' fight spill into Peggy's world, and her team holds off an interdimensional creature.","What If...? S3"]]},
 {"id":"tchalla","n":"T'Challa's galaxy","r":"Another reality","at":[686,722],"e":[["What If...?","","Yondu's Ravagers take T'Challa instead of Peter Quill, and he grows up to be Star-Lord.","What If...? S1"]]},
 {"id":"strange","n":"Strange Supreme's world","r":"Another reality","at":[214,450],"e":[["What If...?","","Doctor Strange tears his universe apart trying to save Christine.","What If...? S1"],["What If...?","The Sanctum Infinitum","Strange Supreme feeds captured heroes and villains into the Forge, trying to rebuild his universe and Christine.","What If...? S2"]]},
@@ -2939,21 +2956,25 @@ multi: [
 {"id":"shattered","n":"The shattered Earth","r":"Another reality","at":[786,450],"e":[["What If...?","","A Celestial's emergence breaks Earth apart, and Riri Williams fights Quentin Beck's regime with a hidden resistance.","What If...? S3"]]},
 {"id":"y1872","n":"1872","r":"Another reality","at":[314,722],"e":[["What If...?","","In the Old West, Shang-Chi and Kate Bishop hunt the Hood, who turns out to be Xialing.","What If...? S3"]]},
 {"id":"u-fox","n":"Earth-10005","r":"The X-Men's universe","at":[574,66],"uni":"fox","e":[]},
-{"id":"u-animx","n":"The animated X-Men's Earth","r":"Another universe","at":[732,874],"e":[["Spider-Man (1994)","","Peter Parker takes on the Kingpin while his powers start to change him."],["X-Men: The Animated Series","","Led by Professor X and Cyclops, the X-Men protect a world that fears them from Sentinels, Magneto and Apocalypse."],["X-Men '97","Genosha","Sentinels wipe out the mutant nation of Genosha, and Magneto takes the world hostage."]]},
-{"id":"u-raimi","n":"Earth-96283","r":"Another universe","at":[78,374],"uni":"raimi","e":[]},
-{"id":"u-amazing","n":"Earth-120703","r":"Another universe","at":[899,315],"uni":"amazing","e":[]},
-{"id":"u-miles","n":"Earth-1610","r":"Another universe","at":[324,903],"uni":"miles","e":[]},
-{"id":"u-e65","n":"Earth-65","r":"Another universe","at":[364,81],"e":[["Spider-Man: Into the Spider-Verse","","Gwen Stacy's world, where she was bitten instead of Peter Parker."],["Spider-Man: Across the Spider-Verse","","Gwen's father, a police captain, learns she is Spider-Woman."]]},
+{"id":"u-animx","n":"Earth-92131","r":"The animated X-Men's universe","at":[732,874],"e":[["Spider-Man (1994)","","Peter Parker takes on the Kingpin while his powers start to change him."],["X-Men: The Animated Series","","Led by Professor X and Cyclops, the X-Men protect a world that fears them from Sentinels, Magneto and Apocalypse."],["X-Men '97","Genosha","Sentinels wipe out the mutant nation of Genosha, and Magneto takes the world hostage."]]},
+{"id":"u-raimi","n":"Earth-96283","r":"The first Spider-Man's universe","at":[78,374],"uni":"raimi","e":[]},
+{"id":"u-amazing","n":"Earth-120703","r":"The Amazing Spider-Man's universe","at":[899,315],"uni":"amazing","e":[]},
+{"id":"u-miles","n":"Earth-1610","r":"Miles Morales's universe","at":[324,903],"uni":"miles","e":[]},
+{"id":"u-e65","n":"Earth-65","r":"Gwen Stacy's universe","at":[364,81],"e":[["Spider-Man: Into the Spider-Verse","","Gwen Stacy's world, where she was bitten instead of Peter Parker."],["Spider-Man: Across the Spider-Verse","","Gwen's father, a police captain, learns she is Spider-Woman."]]},
 {"id":"u-mumbattan","n":"Mumbattan","r":"Earth-50101","at":[879,723],"e":[["Spider-Man: Across the Spider-Verse","","Miles and Gwen help Pavitr Prabhakar fight the Spot, who breaks a canon event."]]},
 {"id":"u-nueva","n":"Nueva York","r":"Earth-928","at":[68,584],"e":[["Spider-Man: Across the Spider-Verse","","Miguel O'Hara's Spider-Society keeps its headquarters here, and Miles learns about canon events."]]},
-{"id":"u-e42","n":"Earth-42","r":"Another universe","at":[767,151],"e":[["Spider-Man: Across the Spider-Verse","","Miles lands in a world where his spider never bit him, and his uncle Aaron is still alive."]]},
-{"id":"u-noir","n":"Earth-90214","r":"Another universe","at":[532,939],"e":[["Spider-Noir","1930s","Ben Reilly, a private eye who was once the Spider, is pulled back in by Silvermane and Dr. Faber."]]},
-{"id":"u-yfnsm","n":"A friendly neighborhood","r":"Another universe","at":[185,192],"e":[["Your Friendly Neighborhood Spider-Man","","Peter Parker gets his powers and an internship at Oscorp under Norman Osborn."]]},
-{"id":"u-sony","n":"Earth-688","r":"Another universe","at":[939,522],"uni":"sony","e":[]},
-{"id":"u-67","n":"Earth-67","r":"Another universe","at":[935,75],"e":[["Spider-Man (1967)","","Peter Parker swings through New York, stopping the Vulture and the Green Goblin."]]},
-{"id":"u-751263","n":"Earth-751263","r":"Another universe","at":[930,930],"e":[["Spider-Man Unlimited","","Spider-Man follows a lost shuttle to Counter-Earth."]]},
-{"id":"u-26496","n":"Earth-26496","r":"Another universe","at":[110,940],"e":[["The Spectacular Spider-Man","","Peter Parker's junior year, and a crime lord called the Big Man."]]},
-{"id":"u-pruned","n":"The pruned timelines","r":"Another universe","at":[157,775],"uni":"pruned","e":[]}
+{"id":"u-e42","n":"Earth-42","r":"Where the spider came from","at":[767,151],"e":[["Spider-Man: Across the Spider-Verse","","Miles lands in a world where his spider never bit him, and his uncle Aaron is still alive."]]},
+{"id":"u-noir","n":"Earth-90214","r":"Spider-Noir's universe","at":[532,939],"e":[["Spider-Noir","1930s","Ben Reilly, a private eye who was once the Spider, is pulled back in by Silvermane and Dr. Faber."]]},
+{"id":"u-yfnsm","n":"A friendly neighborhood","r":"A young Peter Parker's universe","at":[185,192],"e":[["Your Friendly Neighborhood Spider-Man","","Peter Parker gets his powers and an internship at Oscorp under Norman Osborn."]]},
+{"id":"u-sony","n":"Earth-688","r":"Venom's universe","at":[939,522],"uni":"sony","e":[]},
+{"id":"u-67","n":"Earth-67","r":"The 1967 Spider-Man's universe","at":[935,75],"e":[["Spider-Man (1967)","","Peter Parker swings through New York, stopping the Vulture and the Green Goblin."]]},
+{"id":"u-751263","n":"Earth-751263","r":"Spider-Man Unlimited's universe","at":[930,930],"e":[["Spider-Man Unlimited","","Spider-Man follows a lost shuttle to Counter-Earth."]]},
+{"id":"u-26496","n":"Earth-26496","r":"The Spectacular Spider-Man's universe","at":[110,940],"e":[["The Spectacular Spider-Man","","Peter Parker's junior year, and a crime lord called the Big Man."]]},
+{"id":"u-blade","n":"Earth-26320","r":"Blade's universe","at":[40,250],"uni":"blade","e":[]},
+{"id":"u-daredevil","n":"Earth-701306","r":"Daredevil and Elektra's universe","at":[250,60],"uni":"daredevil","e":[]},
+{"id":"u-punisher","n":"Earth-58732","r":"The Punisher's universe","at":[620,880],"uni":"punisher","e":[]},
+{"id":"u-ff","n":"Earth-121698","r":"The Fantastic Four's universe","at":[960,380],"uni":"ff","e":[]},
+{"id":"u-pruned","n":"The pruned timelines","r":"Inhumans, Runaways, Cloak & Dagger","at":[157,775],"uni":"pruned","e":[]}
 ],
 incursions: [
 {"id":"x-600001","n":"Earth-600001","r":"Captain America · 1944","at":[60,48],"e":[["Captain America (1944)","","District Attorney Grant Gardner fights the Scarab as Captain America."]]},
@@ -3079,20 +3100,29 @@ const ATLAS_UNI = {
 {"id":"london","n":"London","r":"England","at":[51.5,-0.12],"e":[["Kraven the Hunter","","Kraven reunites with his brother Dmitri, who is taken soon after."]]},
 {"id":"turkey","n":"Turkey","r":"Europe and Asia","at":[39,35],"e":[["Kraven the Hunter","","Aleksei lures Kraven to a monastery for an ambush."]]}
 ]},
-"pruned": {"n": "The pruned timelines", "map": "earth", "places": [
-{"id":"island","n":"An island hideaway","r":"Location Unknown","at":[48.6,-123],"e":[["Elektra","","Elektra waits on a remote island for her next contract, and befriends the father and daughter she was hired to kill."]]},
-{"id":"ny","n":"New York","r":"Several timelines","at":[40.71,-74],"e":[["Daredevil (2003)","Hell's Kitchen","Matt Murdock is a lawyer by day and Daredevil by night."],["Fantastic Four (2005)","","The Four save people on the Brooklyn Bridge and become celebrities."],["Fantastic Four: Rise of the Silver Surfer","","The Silver Surfer interrupts Reed and Sue's wedding."]]},
+"blade": {"n": "Earth-26320", "map": "earth", "places": [
+{"id":"bladecity","n":"Blade's city","r":"Unnamed, United States","at":[39,-98],"e":[["Blade","","Blade hunts vampires with Whistler and stops Deacon Frost."],["Blade: Trinity","","Blade is framed for murder and joins the Nightstalkers."]]},
+{"id":"detroit","n":"Detroit","r":"Michigan","at":[42.33,-83.05],"e":[["Blade: The Series","","Blade comes home to Detroit and teams up with Krista Starr, a veteran turned vampire, against the House of Chthon."]]},
+{"id":"prague","n":"Prague","r":"Czech Republic","at":[50.08,14.43],"e":[["Blade II","","Blade leads the vampires' Bloodpack against the Reapers."]]},
+{"id":"syria","n":"The Syrian Desert","r":"Syria","at":[34.8,38.5],"e":[["Blade: Trinity","","Vampires dig up Dracula's tomb."]]}
+]},
+"daredevil": {"n": "Earth-701306", "map": "earth", "places": [
+{"id":"ny","n":"New York","r":"Hell's Kitchen","at":[40.76,-73.99],"e":[["Daredevil (2003)","","Matt Murdock is a lawyer by day and Daredevil by night."]]},
+{"id":"island","n":"An island hideaway","r":"Location Unknown","at":[48.6,-123],"e":[["Elektra","","Elektra waits on a remote island for her next contract, and befriends the father and daughter she was hired to kill."]]}
+]},
+"punisher": {"n": "Earth-58732", "map": "earth", "places": [
+{"id":"tampa","n":"Tampa","r":"Florida","at":[27.95,-82.46],"e":[["The Punisher (2004)","","Frank Castle tears down crime boss Howard Saint's empire."]]},
+{"id":"pr","n":"Puerto Rico","r":"Caribbean","at":[18.2,-66.5],"e":[["The Punisher (2004)","","Frank's family is murdered at a reunion."]]}
+]},
+"ff": {"n": "Earth-121698", "map": "earth", "places": [
+{"id":"ny","n":"New York","r":"New York City","at":[40.71,-74],"e":[["Fantastic Four (2005)","","The Four save people on the Brooklyn Bridge and become celebrities."],["Fantastic Four: Rise of the Silver Surfer","","The Silver Surfer interrupts Reed and Sue's wedding."]]},
 {"id":"london","n":"London","r":"England","at":[51.5,-0.12],"e":[["Fantastic Four: Rise of the Silver Surfer","","The Surfer's strike drains the River Thames."]]},
 {"id":"greenland","n":"Greenland","r":"Russell Glacier","at":[67.1,-50],"e":[["Fantastic Four: Rise of the Silver Surfer","","The Surfer strikes down Doom on a glacier."]]},
 {"id":"siberia","n":"Siberia","r":"Russia","at":[61,96],"e":[["Fantastic Four: Rise of the Silver Surfer","","The army holds the weakened Surfer prisoner."]]},
 {"id":"shanghai","n":"Shanghai","r":"China","at":[31.23,121.47],"e":[["Fantastic Four: Rise of the Silver Surfer","","The Four face Doom, and Johnny brings him down."]]},
-{"id":"japan","n":"Japan","r":"Asia","at":[35,135.76],"e":[["Fantastic Four: Rise of the Silver Surfer","","Reed and Sue finally get married."]]},
-{"id":"tampa","n":"Tampa","r":"Florida","at":[27.95,-82.46],"e":[["The Punisher (2004)","","Frank Castle tears down crime boss Howard Saint's empire."]]},
-{"id":"pr","n":"Puerto Rico","r":"Caribbean","at":[18.2,-66.5],"e":[["The Punisher (2004)","","Frank's family is murdered at a reunion."]]},
-{"id":"bladecity","n":"Blade's city","r":"Unnamed, United States","at":[39,-98],"e":[["Blade","","Blade hunts vampires with Whistler and stops Deacon Frost."],["Blade: Trinity","","Blade is framed for murder and joins the Nightstalkers."]]},
-{"id":"detroit","n":"Detroit","r":"Michigan","at":[42.33,-83.05],"e":[["Blade: The Series","","Blade comes home to Detroit and teams up with Krista Starr, a veteran turned vampire, against the House of Chthon."]]},
-{"id":"prague","n":"Prague","r":"Czech Republic","at":[50.08,14.43],"e":[["Blade II","","Blade leads the vampires' Bloodpack against the Reapers."]]},
-{"id":"syria","n":"The Syrian Desert","r":"Syria","at":[34.8,38.5],"e":[["Blade: Trinity","","Vampires dig up Dracula's tomb."]]},
+{"id":"japan","n":"Japan","r":"Asia","at":[35,135.76],"e":[["Fantastic Four: Rise of the Silver Surfer","","Reed and Sue finally get married."]]}
+]},
+"pruned": {"n": "The pruned timelines", "map": "earth", "places": [
 {"id":"hawaii","n":"Hawaii","r":"Oahu","at":[21.3,-157.86],"e":[["Inhumans","","Black Bolt's family flees Attilan on the Moon and lands scattered across Oahu."]]},
 {"id":"la","n":"Los Angeles","r":"California","at":[34.05,-118.24],"e":[["Runaways S1–S2","","Six teens learn their parents are PRIDE and run away together."],["Runaways S3","","The Runaways take on Morgan le Fay."]]},
 {"id":"neworleans","n":"New Orleans","r":"Louisiana","at":[29.95,-90.07],"e":[["Cloak & Dagger","","Tyrone and Tandy gain powers of darkness and light and fight the city's corruption."]]}
@@ -3356,7 +3386,7 @@ const ATL_GROUPS = {
   cosmos: [["Near Earth", "saber"], ["The Nine Realms", "asgard jotunheim svartalfheim muspelheim nidavellir"], ["Across the galaxy", "*"]],
   beyond: [["Other dimensions", "quantum mirror dark kunlun noor duat shadow eternity witches framework"], ["Outside time", "tva citadel void future"]],
   incursions: [["Terminated", "*"]],
-  multi: [["Outside every reality", "watcher"], ["Other Earths", "e838 e828"], ["Other universes", "u-fox u-animx u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-pruned u-67 u-751263 u-26496"], ["What If…? realities", "*"]] };
+  multi: [["Outside every reality", "watcher"], ["Other Earths", "e838 e828"], ["Other universes", "u-fox u-animx u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-67 u-751263 u-26496 u-blade u-daredevil u-punisher u-ff u-pruned"], ["What If…? realities", "*"]] };
 function atlList() {
   const L = atlPlaces().filter(p => !p.home), lit = L.filter(atlLit).map(p => [p, p.e.filter(e => atlEvSeen(e)).length]).sort((a, b) => b[1] - a[1] || a[0].n.localeCompare(b[0].n));
   const [n, t] = atlCount(), left = atlView === "city" ? 0 : L.length - lit.length;
@@ -6390,7 +6420,7 @@ document.getElementById("fileView").addEventListener("click", async ev => {
     if (!ok) return;
     SAVE_KEYS.forEach(k => { delete state[k]; });
     Object.assign(state, { checks: {}, unlocked: {}, seen: {}, dusted: {}, stones: {} }, o);
-    renameChecks(state.checks); state.entered = true; if (!state.since) state.since = new Date().toISOString();
+    renameChecks(state.checks); splitPruned(); state.entered = true; if (!state.since) state.since = new Date().toISOString();
     endgameN = null; persist(); renderAll(); renderFile(true);
     const m2 = document.getElementById("hfMsg"); if (m2) m2.textContent = "Progress restored.";
     haptic([15, 30, 40]);
@@ -8940,7 +8970,7 @@ const MSG_ALSO = Object.fromEntries(COMMS.filter(m => m.also).map(m => [m.t, m.a
 const WELCOME = "__welcome", msgLive = t => t === WELCOME ? !!state.booted : MSG_ALSO[t] ? [t, ...MSG_ALSO[t]].every(atlSeenT) : atlSeenT(t);
 function msgForget() { const M = state.msgs = state.msgs || {}; Object.keys(M).forEach(k => { const m = COMMS.find(m => msgId(m) === k); if (!m || !msgLive(m.t)) delete M[k]; }); }
 const msgSeen = () => COMMS.filter(m => msgLive(m.t)).sort((a, b) => (a.t === WELCOME ? -1 : ATL_ORDER[a.t] ?? 1e9) - (b.t === WELCOME ? -1 : ATL_ORDER[b.t] ?? 1e9));
-function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[msgId(m)]).map(m => [msgId(m), -1, ({ intercept: "Intercepted: ", email: "New email from ", notice: "Notice from ", tva: "TVA notice: ", hack: "", telegram: "Telegram from ", cerebro: "Cerebro: ", watcher: "" }[m.k] ?? "Incoming from ") + m.f + ": " + m.re, "msg", m.k === "hack"]); }
+function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[msgId(m)]).map(m => [msgId(m), -1, ({ intercept: "Intercepted: ", email: "New email from ", notice: "Notice from ", tva: "TVA notice: ", hack: "", telegram: "Telegram from ", cerebro: "", watcher: "" }[m.k] ?? "Incoming from ") + m.f + ": " + m.re, "msg", m.k === "hack"]); }
 const MSG_KIND = { hack: "Hacked transmission", intercept: "Intercepted transmission", email: "Email", notice: "Notice", tva: "TVA notice", telegram: "Telegram", cerebro: "Cerebro alert", watcher: "Observation" };
 function newsMark(batch) { batch.forEach(([t, i, h, k]) => { if (k === "msg") (state.msgs = state.msgs || {})[t] = 1; else state.news[newsKey(t, i)] = 1; }); persist();
   if (commsOpen) { const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; } }   // reading Comms as it comes in: the list keeps up
