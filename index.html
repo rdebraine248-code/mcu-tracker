@@ -9556,7 +9556,7 @@ const gBuzz = (k, p) => { if (GATE.buzz[k]) return; GATE.buzz[k] = 1; haptic(p);
 const GATE_LOGO = () => { const g = document.getElementById("gate"); return [g.clientWidth / 2, Math.round(g.clientHeight * .4)]; };
 function showGate() {
   const g = document.getElementById("gate"); g.hidden = false; g.style.opacity = ""; document.body.style.overflow = "hidden";
-  Object.assign(GATE, { run: GATE.run + 1, t0: performance.now(), tap: null, skip: 0, done: false, buzz: {} });
+  Object.assign(GATE, { run: GATE.run + 1, t0: performance.now(), tap: null, skip: 0, done: false, buzz: {}, boot: false });
   if (REDUCED) { gateFrame(2600); return; }
   const run = GATE.run, loop = () => { if (GATE.run !== run || g.hidden) return; gateFrame(performance.now() - GATE.t0 + GATE.skip); requestAnimationFrame(loop); }; requestAnimationFrame(loop);
 }
@@ -9573,6 +9573,7 @@ function gateFrame(t) {
   const c = cv.getContext("2d"), C = "143,224,255", cx = W / 2, [, ly] = GATE_LOGO(), tp = GATE.tap, bt = tp == null ? -1 : t - tp;
   const clamp = f => Math.max(0, Math.min(1, f)), out = f => 1 - Math.pow(1 - clamp(f), 3);
   c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+  if (t < 380) { c.globalAlpha = 1 - t / 380; bootEagle(c, cx, H / 2, BOOT_S, 0); c.globalAlpha = 1; }   // the powered-down eagle Android showed while it loaded
   // power on: a line across the middle, then the picture opens out from it with bright edges
   const line = out(t / 380), open = easeIO((t - 380) / 420), oh = H * open;
   if (open < 1) { c.fillStyle = `rgba(${C},${.95 * (1 - open)})`; c.shadowColor = `rgb(${C})`; c.shadowBlur = 16;
@@ -9617,12 +9618,65 @@ function gateFrame(t) {
 }
 // tap the eagle: the boot runs. A tap before it's finished drawing just skips to it
 function gateTap() {
+  if (GATE.boot) { bootClose(); return; }
   const t = performance.now() - GATE.t0 + GATE.skip;
   if (REDUCED) { gateOpen(); return; }
   if (t < 2500) { GATE.skip += 2500 - t; return; }
   if (GATE.tap != null) return; GATE.tap = t;   // (the press itself already buzzes, like every button)
 }
 document.getElementById("gate").addEventListener("click", gateTap);
+// every launch after the first: the datapad switching back on. Its first frame is the picture Android shows while the app loads (the eagle,
+// powered down, on the terminal's black), so the hand-off can't be seen: the eagle lights, the terminal knows you, and it clears to the page.
+// A tap skips straight to the page
+const BOOT_S = 120;   // the eagle's width on the splash
+function bootEagle(c, cx, cy, size, lit) {   // lit: how far down the emblem the scan has lit it, 0 to 1
+  const es = size / 64; c.save(); c.translate(cx - 32 * es, cy - 32 * es); c.scale(es, es);
+  const dim = c.createLinearGradient(0, 0, 64, 64); dim.addColorStop(0, "#4A5466"); dim.addColorStop(1, "#232A36"); c.fillStyle = dim; c.fill(GATE_EP, "evenodd");
+  if (lit > 0) { c.save(); c.beginPath(); c.rect(-8, -8, 80, 8 + 70 * lit); c.clip();
+    const gr = c.createLinearGradient(0, 0, 64, 64); gr.addColorStop(0, "#FFFFFF"); gr.addColorStop(.4, "#D4DBE4"); gr.addColorStop(1, "#8D98A9");
+    c.shadowColor = "rgba(150,200,255,.85)"; c.shadowBlur = 16 * lit; c.fillStyle = gr; c.fill(GATE_EP, "evenodd"); c.restore(); }
+  c.restore();
+}
+function showBoot() {
+  if (REDUCED) return;
+  const g = document.getElementById("gate"); g.hidden = false; g.style.opacity = ""; document.body.style.overflow = "hidden"; g.querySelector(".gseal").setAttribute("aria-label", "Skip");
+  Object.assign(GATE, { run: GATE.run + 1, t0: performance.now(), tap: null, skip: 0, done: false, buzz: {}, boot: true });
+  const run = GATE.run, loop = () => { if (GATE.run !== run || g.hidden) return; bootFrame(performance.now() - GATE.t0); requestAnimationFrame(loop); }; bootFrame(0); requestAnimationFrame(loop);
+}
+function bootFrame(t) {
+  const g = document.getElementById("gate"), cv = g.querySelector("canvas"), W = g.clientWidth, H = g.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+  const c = cv.getContext("2d"), C = "143,224,255", cx = W / 2, cy = H / 2, clamp = clamp01, out = f => 1 - Math.pow(1 - clamp(f), 3);
+  c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+  const on = clamp((t - 150) / 300), scan = easeIO((t - 150) / 450); if (t > 150) gBuzz("on", 10);
+  if (on > 0) { const vg = c.createRadialGradient(cx, cy, 30, cx, cy, H * .7); vg.addColorStop(0, `rgba(40,90,170,${.16 * on})`); vg.addColorStop(1, "rgba(0,0,0,0)"); c.fillStyle = vg; c.fillRect(0, 0, W, H); }
+  // the eagle lights from the top down, a bright scan line ahead of it
+  bootEagle(c, cx, cy, BOOT_S, scan);
+  if (scan > 0 && scan < 1) { const es = BOOT_S / 64, y = cy - 32 * es + 70 * es * scan - 3 * es; c.save(); c.translate(cx - 32 * es, cy - 32 * es); c.scale(es, es); c.clip(GATE_EP, "evenodd"); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.fillStyle = "rgba(220,245,255,.95)"; c.shadowColor = `rgb(${C})`; c.shadowBlur = 10; c.fillRect(0, y - 1, W, 2); c.restore(); }
+  // the terminal around it: corners, its name, the time
+  const br = out((t - 250) / 350), L = 26 * br, top = 40 + (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat")) || 0);
+  if (br > 0) { c.strokeStyle = `rgba(${C},.8)`; c.lineWidth = 2; c.beginPath();
+    [[14, 14, 1, 1], [W - 14, 14, -1, 1], [14, H - 14, 1, -1], [W - 14, H - 14, -1, -1]].forEach(([x, y, sx, sy]) => { c.moveTo(x, y + sy * L); c.lineTo(x, y); c.lineTo(x + sx * L, y); }); c.stroke(); }
+  c.font = "11px 'Share Tech Mono','Courier New',monospace"; c.textBaseline = "middle"; c.textAlign = "left"; c.fillStyle = `rgba(${C},.85)`;
+  c.fillText(gType("S.H.I.E.L.D. // SECURE TERMINAL", 350, t, 90), 28, top);
+  if (t > 600) { const d = new Date(), s = "ENCRYPTED  " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); c.textAlign = "right"; c.fillText(s, W - 28, top);
+    c.fillStyle = "rgba(90,230,140,.95)"; c.beginPath(); c.arc(W - 28 - c.measureText(s).width - 9, top, 3, 0, 6.29); c.fill(); }
+  c.strokeStyle = `rgba(${C},.25)`; c.lineWidth = 1; c.beginPath(); c.moveTo(28, top + 16); c.lineTo(28 + (W - 56) * out((t - 350) / 500), top + 16); c.stroke();
+  // who's back, and the session picking up where it left off
+  const sub = cy + BOOT_S / 2 + 30, who = "WELCOME BACK, " + (state.codename ? asAgent(String(state.codename)) : "Agent").toUpperCase(); c.textAlign = "center";
+  c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = "rgba(200,215,235,.75)"; c.fillText(gType("IDENTITY CONFIRMED", 600, t, 70), cx, sub);
+  c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},.95)`; c.fillText(gType(who, 820, t, 70), cx, sub + 20);
+  const pb = clamp((t - 700) / 550), bw = Math.min(220, W - 56), bx = cx - bw / 2, by = sub + 44;
+  if (t > 700) { c.strokeStyle = `rgba(${C},.35)`; c.strokeRect(bx + .5, by + .5, bw - 1, 6); c.fillStyle = `rgba(${C},.85)`; c.fillRect(bx + 2, by + 2, (bw - 4) * easeIO(pb), 3);
+    c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = pb < 1 ? "rgba(200,215,235,.6)" : "rgba(110,235,160,.95)"; c.fillText(pb < 1 ? "RESUMING SESSION " + Math.round(easeIO(pb) * 100) + "%" : "ACCESS GRANTED", cx, by + 22); if (pb >= 1) gBuzz("granted", [12, 30, 18]); }
+  c.fillStyle = `rgba(0,0,0,${.18 * on})`; for (let y = (t / 40) % 3; y < H; y += 3) c.fillRect(0, y, W, 1);   // the terminal's scanlines
+  if (t > 1450) bootClose();
+}
+function bootClose() {
+  if (GATE.done) return; GATE.done = true; const g = document.getElementById("gate");
+  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); g.querySelector(".gseal").setAttribute("aria-label", "Tap to initialize"); bodyFree(); };
+}
 // the terminal clears away, leaving the page's own grid, and the home page builds itself on it
 function gateOpen() {
   if (GATE.done) return; GATE.done = true;
@@ -9687,6 +9741,7 @@ function homeInit() {
 let homeLock = false;
 ["touchmove", "wheel"].forEach(n => document.addEventListener(n, ev => { if (homeLock && ev.cancelable) ev.preventDefault(); }, { passive: false }));
 if (!state.entered) showGate();   // a first boot only: like a datapad you've just been handed. Reset datapad brings it back
+else showBoot();
 /* ---------- one consistent feel for every press ---------- */
 const HAPTIC = { tap: 14, enter: [16, 40, 26], success: [18, 50, 30] };
 function haptic(p) { if (!navigator.vibrate) return; try { navigator.vibrate(p); } catch (e) {} }
