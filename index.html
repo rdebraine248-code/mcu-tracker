@@ -2644,7 +2644,7 @@ function openDossier(id, go) {
         openDossier("saga", { open: cid }); try { history.replaceState({ mcu: "log" }, ""); } catch (e) {} dockSync(); return; }
       if (el._skip && !ev.target.closest("button, a") && el._skip()) { haptic(6); return; }
       const sd = ev.target.closest(".dl:not(.off)"), sf = sd && !sideOn && SIDE[dossierOpen + "|" + ((sd.querySelector("b") || {}).textContent || "")]; if (sf) { sf(sd); return; }
-      if (ev.target.closest(".dnone, .dwait, .dl.off")) { haptic(8); toast("No data on file yet.", null, false, null, 1500); }
+      if (ev.target.closest(".dnone, .dwait, .dl.off")) { haptic(8); toast("No data on file.", null, false, null, 1500); }
     });
     // if you start scrolling yourself, the log stops steering
     const hands = () => { el._glide = (el._glide || 0) + 1; };
@@ -2668,9 +2668,9 @@ function openDossier(id, go) {
   const storyHtml = storyList.map(([t, x]) => {
     // story log: a sealed chapter has no data yet; once it is unlocked it waits for you to finish it
     const shut = SG && !state.unlocked[t];
-    const w = here(t), body = shut ? (forget("s:" + t), `<p class="dwait">No data yet.</p>`) : SG && !open(t) ? (forget("s:" + t), `<p class="dwait">${K.wait}</p>`) : !x ? `<p class="dwait">No data yet.</p>` : open(t) ? `<p>${reveal("s:" + t, t, esc(x))}</p>` : (forget("s:" + t), `<p class="dwait">${K.wait || "Awaiting data. Watch it to record this entry."}</p>`);
+    const w = here(t), body = shut ? (forget("s:" + t), `<p class="dwait">No data.</p>`) : SG && !open(t) ? (forget("s:" + t), `<p class="dwait">${K.wait}</p>`) : !x ? `<p class="dwait">No data.</p>` : open(t) ? `<p>${reveal("s:" + t, t, esc(x))}</p>` : (forget("s:" + t), `<p class="dwait">${K.wait || "Awaiting data. Watch it to record this entry."}</p>`);
     return `<li class="${SG ? (shut ? "pend" : open(t) ? "on" : "off") : x ? (open(t) ? "on" : "off") : "pend"}"><div class="dt"><span>${SG ? esc(chName(t)) : tnh(t)}</span>${w ? `<i class="dck">${K.ck || "Recorded"}</i>` : ""}</div>${body}</li>`; }).join("");
-  const debrief = !isCh ? "" : `<section class="dsec"><h3>${K.debrief || "Debrief"}</h3><div class="dcard">${!D.debrief ? `<p class="dwait">No data yet.</p>` : open(rel) ? `<p>${reveal("d", rel, esc(D.debrief))}</p>` : (delete seen.d, `<p class="dwait">${K.dwait || "Awaiting data. Finish the chapter to record the debrief."}</p>`)}</div></section>`;
+  const debrief = !isCh ? "" : `<section class="dsec"><h3>${K.debrief || "Debrief"}</h3><div class="dcard">${!D.debrief ? `<p class="dwait">No data.</p>` : open(rel) ? `<p>${reveal("d", rel, esc(D.debrief))}</p>` : (delete seen.d, `<p class="dwait">${K.dwait || "Awaiting data. Finish the chapter to record the debrief."}</p>`)}</div></section>`;
   const links = !(D.links && D.links.length) ? "" : `<section class="dsec"><h3>${K.links || "Connections"}</h3><div class="dlinks">${D.links.map(([n, r, g], i) => open(g) ? `<div class="dl">${reveal("l" + i, g, `<b>${esc(n)}</b><small>${esc(r)}</small>`)}</div>` : (forget("l" + i), `<div class="dl off"><b>Unknown</b><small class="dnone">No data</small></div>`)).join("")}</div></section>`;
   const name = isCh ? (box.num ? "Chapter " + box.num : "Extras") : "", title = isCh ? box.title : box.title;
   const rowsDl = `<dl class="${SG ? "drows" : "lrows"}">${rowsHtml}</dl>`;
@@ -3416,7 +3416,7 @@ function atlList() {
     return L.length ? `<div class="atl-lh">${esc(h)}</div>${L.map(row).join("")}` : ""; }).join("");
 }
 function atlSwitch(v, id) {
-  if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("Uncharted. No data yet.", null, false, null, 1500); return; }
+  if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("Uncharted. No data.", null, false, null, 1500); return; }
   if ((atlView === "city" || atlView === "uni") && !(v === atlView && id === (atlView === "city" ? atlCity : atlUni))) atlCatchUp(atlView + "|" + (atlView === "city" ? atlCity : atlUni));   // coming out of a city or another universe: you've seen it, and everything in it
   atlView = v; atlCity = v === "city" ? id : null; atlUni = v === "uni" ? id : null; atlSel = null; renderAtlas();
 }
@@ -6350,7 +6350,7 @@ function caseFile(film) {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) pk.remove();
   const R = CASES[film]; pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Case file");
   pk.innerHTML = `<div class="hf-pickin hf-case"><div class="hf-pickh"><span>Case file · ${esc(MISSION_NAMES[film] || film.replace("Avengers: ", ""))}</span><button type="button" data-ava-x aria-label="Close">&times;</button></div>
-    ${R ? `<dl class="hf-cf">${(state.codename ? [...R.slice(0, 5), ["Assigned", asAgent(state.codename)], ...R.slice(5)] : R).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data yet.</p>`}</div>`;
+    ${R ? `<dl class="hf-cf">${(state.codename ? [...R.slice(0, 5), ["Assigned", asAgent(state.codename)], ...R.slice(5)] : R).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data.</p>`}</div>`;
   fp.appendChild(pk); haptic(8); hfPickNav();
   pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
 }
