@@ -1297,9 +1297,24 @@ function toast(msg, e, cover, foot, ms, o) {
   pillSet(el, msg, e, cover, foot, o, true);
   clearTimeout(toastTimer); toastTimer = setTimeout(() => pillHide(el), (ms || toastMs(msg) + (foot ? 900 : 0)) + (!REDUCED && !el._quick ? HUD_OPEN : 0));
 }
-// a box's news (Completed, Reset, Unlocked) wears that box's color, brightened if it's too dark to read on the panel
-const boxTint = e => { const raw = DATA.chapters.includes(e) ? SL_STRIPE[e.id] : (lum(e.box) > .9 ? borderOf(e.style) : e.box) || e.box, c = (String(raw || "").match(/#[0-9a-fA-F]{6}/) || ["#5FD0FF"])[0];
-  return lum(c) < .35 ? `color-mix(in srgb, ${c} 55%, #ffffff)` : c; };
+// A character box goes by the color you know it by: its name's, if that has a color, then its ticks', then its border; a box in black and white
+// takes its lightest. Too dark to read, it's lifted in lightness only, so a red stays red instead of washing out to pink
+const rgbOf = c => { const m = String(c || "").match(/#([0-9a-f]{6})/i), n = String(c || "").match(/rgb\((\d+),\s*(\d+),\s*(\d+)/i);
+  return m ? [0, 2, 4].map(i => parseInt(m[1].substr(i, 2), 16)) : n ? [n[1], n[2], n[3]].map(Number) : null; };
+const hexOf = v => "#" + v.map(x => Math.round(Math.max(0, Math.min(255, x))).toString(16).padStart(2, "0")).join("").toUpperCase();
+function tintLift(v) {
+  const [r, g, b] = v.map(x => x / 255), mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn; let L = (mx + mn) / 2, h = 0;
+  const S = d ? d / (1 - Math.abs(2 * L - 1)) : 0; if (d) h = mx === r ? ((g - b) / d + 6) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  const rgb = L => { const C = (1 - Math.abs(2 * L - 1)) * S, X = C * (1 - Math.abs(h % 2 - 1)), m = L - C / 2, k = Math.floor(h) % 6;
+    return [[C, X, 0], [X, C, 0], [0, C, X], [0, X, C], [X, 0, C], [C, 0, X]][k].map(x => (x + m) * 255); };
+  let out = v; while (lum(hexOf(out)) < .4 && L < .9) { L += .02; out = rgb(L); } return hexOf(out);
+}
+const boxTint = e => { let v;
+  if (DATA.chapters.includes(e)) v = rgbOf(SL_STRIPE[e.id]);
+  else { const C = [(String(e.h2 || "").match(/color:\s*(#[0-9a-fA-F]{6}|rgb\([^)]*\))/) || [])[1], e.box, borderOf(e.style)].map(rgbOf).filter(Boolean),
+      bg = rgbOf((String(e.style || "").match(/background(?:-color)?:\s*(#[0-9a-fA-F]{6}|rgb\([^)]*\))/) || [])[1]), chroma = v => (Math.max(...v) - Math.min(...v)) / 255;
+    v = C.find(v => chroma(v) >= .2) || [...C, bg].filter(Boolean).sort((a, b) => lum(hexOf(b)) - lum(hexOf(a)))[0]; }
+  return v ? tintLift(v) : "#5FD0FF"; };
 const boxKind = e => e.num ? e.label : DATA.chapters.includes(e) ? "Extras" : "Character box";
 // a box's own line: the film talking. On its tile it's a title card in the box's own look; in its open box it comes up across the page,
 // and a hero's (or a chapter's) quote then takes its place under the name. Unlock a chapter and open it straight away, and the line carries on inside
