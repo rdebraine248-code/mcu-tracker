@@ -81,7 +81,7 @@ button{ font:inherit; color:inherit; }
 .toast.hud{ bottom:calc(var(--dockh) + 16px + env(safe-area-inset-bottom,0px)); transition:none; background:none; border:0; border-radius:0; padding:0; box-shadow:none; text-align:left; max-width:none; }
 .toast.hud{ --hc:#5FD0FF; }
 .toast.hud .cn{ position:absolute; z-index:2; box-sizing:border-box; width:16px; height:16px; border:3px solid var(--hc); filter:drop-shadow(0 0 3px color-mix(in srgb, var(--hc) 55%, transparent)); pointer-events:none; }
-.toast.hud .cn.a{ left:0; top:0; border-right:0; border-bottom:0; } .toast.hud .cn.b{ right:0; bottom:0; border-left:0; border-top:0; }
+.toast.hud .cn.a{ left:0; top:0; border-right:0; border-bottom:0; transform-origin:0 0; } .toast.hud .cn.b{ right:0; bottom:0; border-left:0; border-top:0; transform-origin:100% 100%; }
 .toast.hud .hclip{ position:absolute; inset:0; overflow:hidden; background:rgba(8,14,26,.97); border:1px solid color-mix(in srgb, var(--hc) 25%, transparent); box-shadow:0 0 22px color-mix(in srgb, var(--hc) 14%, transparent), 0 10px 26px rgba(0,0,0,.55);
   background-image:repeating-linear-gradient(0deg,color-mix(in srgb, var(--hc) 5%, transparent) 0 1px,transparent 1px 3px); }
 .toast.hud .hin{ position:absolute; left:0; top:0; box-sizing:border-box; padding:10px 16px 11px; }
@@ -1388,9 +1388,11 @@ function hudShow(el, p, fresh) {
   {
     const o = { duration: 460, easing: "cubic-bezier(.65,0,.35,1)" }, dx = W / 2 - 8, dy = H / 2 - 8;
     size(W, H);
-    clip.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(.04)", opacity: 0, offset: .12 }, { transform: "scale(1)", opacity: 1 }], o); clip.style.opacity = "";
-    cs[0].animate([{ transform: `translate(${dx}px,${dy}px)`, opacity: 0 }, { opacity: 1, offset: .15 }, { transform: "none", opacity: 1 }], o);
-    cs[1].animate([{ transform: `translate(${-dx}px,${-dy}px)`, opacity: 0 }, { opacity: 1, offset: .15 }, { transform: "none", opacity: 1 }], o);
+    // no fading at any point: it is solid from its first pixel, it only grows
+    const px = `scale(${1 / W},${1 / H})`;   // one pixel across, one pixel high
+    clip.animate([{ transform: px }, { transform: "scale(1)" }], o); clip.style.opacity = "";
+    cs[0].animate([{ transform: `translate(${dx}px,${dy}px) scale(0)` }, { transform: "none" }], o);
+    cs[1].animate([{ transform: `translate(${-dx}px,${-dy}px) scale(0)` }, { transform: "none" }], o);
     setTimeout(() => {
       if (!live()) return;
       // who it's from comes on, then what happened types itself in, then anything filed
@@ -1427,10 +1429,10 @@ function pillHide(el) {
   setTimeout(() => {
     if (!live()) return;
     const o = { duration: 400, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards" }, dx = W / 2 - 8, dy = H / 2 - 8;   // back into the point it came from
-    clip.animate([{ transform: "scale(1)", opacity: 1 }, { transform: "scale(.04)", opacity: 0, offset: .88 }, { transform: "scale(0)", opacity: 0 }], o)
+    clip.animate([{ transform: "scale(1)" }, { transform: `scale(${1 / W},${1 / H})` }], o)   // solid all the way down to a single pixel, then gone
       .onfinish = () => { if (run === hudRun) hudGone(el); };
-    cs[0].animate([{ transform: "none", opacity: 1 }, { opacity: 1, offset: .85 }, { transform: `translate(${dx}px,${dy}px)`, opacity: 0 }], o);
-    cs[1].animate([{ transform: "none", opacity: 1 }, { opacity: 1, offset: .85 }, { transform: `translate(${-dx}px,${-dy}px)`, opacity: 0 }], o);
+    cs[0].animate([{ transform: "none" }, { transform: `translate(${dx}px,${dy}px) scale(0)` }], o);
+    cs[1].animate([{ transform: "none" }, { transform: `translate(${-dx}px,${-dy}px) scale(0)` }], o);
   }, 160);
 }
 function hudGone(el) { el.getAnimations({ subtree: true }).forEach(a => a.cancel()); el._closing = false; el._opening = false; el.classList.remove("show"); }
