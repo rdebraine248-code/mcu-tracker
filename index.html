@@ -2795,7 +2795,7 @@ let dRun = 0;
 // leaving a log you opened: everything it was showing you counts as read, recorded in or not
 function dReadRest(el) { if (!el._mark) return; el.querySelectorAll(".dnew").forEach(n => { if (n.querySelector(".dcover") && n.dataset.k) el._mark(n.dataset.k); }); el._mark = null; persist(); }
 /* ---------- the Story log: every title you've watched, in any list, under its chapter, a page per Act. A chapter keeps its name hidden
-   until it's unlocked or every title in it is watched; the Extras stay sealed until they're revealed. Reading an entry here or in its
+   until it's unlocked; the Extras stay [ Classified ] until they're revealed. Reading an entry here or in its
    chapter's own log is the same thing: it counts once ---------- */
 const SL_ACTS = [["I", "The Infinity Saga", () => !!state.unlocked["ch-1"], c => c.num && c.num <= 6], ["II", "The Multiverse Saga", () => !!state.unlocked["ch-7"], c => c.num >= 7],
   ["?", "The Marvel Multiverse", () => multiverseOpen(), c => !c.num]];
@@ -2807,7 +2807,8 @@ const SL_STRIPE = { "ch-1": "linear-gradient(#EADFC2,#6B7A3E)", "ch-2": "#9FC3FF
 let slOpen = null;
 const slEntries = c => { const L = DOSSIERS[c.id]; return L ? L.story.filter(([t, x]) => x && atlSeenT(t)) : []; };
 const slAll = c => c.items.every(i => atlSeenT(i.t));
-const slNamed = c => !!state.unlocked[c.id] || slAll(c);
+// a chapter's name is known from the moment it's unlocked (its cover peels on Story), the same on Story, the Log, the Personal log and the Agent File
+const slNamed = c => !!state.unlocked[c.id];
 const slShown = c => !!c.num || !!state.unlocked[c.id] || ((c.id === INC_ID ? incOpen() : multiverseOpen()) && c.items.some(i => atlSeenT(i.t)));
 const slSeenK = (c, k) => !!((state.dSeen || {})[c.id] || {})[k];
 // the chapter's Period, as far as you've watched anywhere: its stage, or -1 before the first
