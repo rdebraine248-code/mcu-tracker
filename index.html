@@ -681,8 +681,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
   background-image:var(--padimg); background-size:var(--padsize); color:#EEF1F6; }
 .filepanel[hidden]{ display:none; }
 .fileview{ flex:1; overflow-y:auto; overscroll-behavior:contain; padding:6px 18px 40px; }
-/* the Agent File is one page, like Story and the Log: its title scrolls away with everything under it */
-#filePanel{ display:block; overflow-y:auto; overscroll-behavior:contain; } #filePanel .fileview{ overflow:visible; }
+/* the Agent File and Comms are one page each, like Story and the Log: the title scrolls away with everything under it (Comms' filter chips stay pinned) */
+#filePanel, #commsPanel{ display:block; overflow-y:auto; overscroll-behavior:contain; } #filePanel .fileview, #commsPanel .fileview{ overflow:visible; } #commsPanel .cm-chips{ top:env(safe-area-inset-top,0px); }
 .hf-head{ max-width:760px; margin:0 auto; padding:16px 16px 18px; border:1px solid #26314A; border-radius:14px; background:linear-gradient(180deg,#121A2A,#0D1320); }
 .hf-head{ position:relative; }
 .hf-ava{ position:absolute; top:14px; right:14px; width:58px; height:58px; padding:0; border-radius:50%; border:1px solid #2E3A56; background:radial-gradient(circle at 50% 45%, #1A2336 0%, #0B1019 70%); box-shadow:inset 0 0 14px rgba(0,0,0,.6), 0 0 0 3px rgba(127,166,216,.08); cursor:pointer; overflow:hidden; }
@@ -9554,7 +9554,7 @@ function fileAt(names) {
   requestAnimationFrame(() => { c.scrollIntoView({ block: "center", behavior: REDUCED ? "auto" : "smooth" }); c.classList.remove("hf-glow"); void c.offsetWidth; c.classList.add("hf-glow"); });
 }
 document.getElementById("whih").addEventListener("click", () => { haptic(8); const k = document.getElementById("whih").classList.contains("msg") ? "msg" : "news"; newsStop(true);   // opens on whatever was playing, from any screen
-  if (commsOpen) { commsTab = k; renderComms(); document.getElementById("commsView").scrollTop = 0; return; }
+  if (commsOpen) { commsTab = k; renderComms(); document.getElementById("commsView").scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; return; }
   if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true);
   openComms(k); dockSync(); });
 // Comms: every headline you've heard, newest first, to read again any time
@@ -9615,18 +9615,18 @@ function renderComms() {
 }
 let commsTab = "news";
 function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true); cmFresh = new Set(); { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
-  renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
+  renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
   document.getElementById("commsPanel").hidden = true; commsOpen = false; bodyFree();
 }
 document.getElementById("commsBack").addEventListener("click", () => closeComms());
 document.getElementById("commsView").addEventListener("click", ev => { if (ev.target.closest("[data-cmlog]")) { haptic(8); cmLogOpen = !cmLogOpen; const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; return; }
-  const c = ev.target.closest("[data-cmc]"); if (!c) return; haptic(8); cmPick[commsTab] = c.dataset.cmc; renderComms(); document.getElementById("commsView").scrollTop = 0; });
+  const c = ev.target.closest("[data-cmc]"); if (!c) return; haptic(8); cmPick[commsTab] = c.dataset.cmc; renderComms(); document.getElementById("commsView").scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; });
 (() => { let t = 0; const v = document.getElementById("commsView");
   v.addEventListener("pointerdown", ev => { const s = ev.target.closest(".cm-red"); clearTimeout(t); if (s) t = setTimeout(() => cmDecrypt(s), 600); });
   ["pointerup", "pointercancel", "pointerleave"].forEach(n => v.addEventListener(n, () => clearTimeout(t))); })();
-document.getElementById("commsTabs").addEventListener("click", ev => { const b = ev.target.closest("[data-cmt]"); if (!b || b.dataset.cmt === commsTab) return; haptic(8); commsTab = b.dataset.cmt; renderComms(); document.getElementById("commsView").scrollTop = 0; });
+document.getElementById("commsTabs").addEventListener("click", ev => { const b = ev.target.closest("[data-cmt]"); if (!b || b.dataset.cmt === commsTab) return; haptic(8); commsTab = b.dataset.cmt; renderComms(); document.getElementById("commsView").scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; });
 
 // a little secret: double-tap (or press and hold) Sacred Timeline to jump straight to Loki S1
 let lastTimelineTap = 0, holdTimer = null, held = false;
