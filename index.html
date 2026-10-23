@@ -1688,6 +1688,14 @@ const charMet = e => !!(state.seen || {})[e.id] || (MET_BY[e.id] || []).some(atl
 const PART_NAME = { "cx-loki-the-tva": ["Loki", ["Loki S1", "Loki S2"]] };
 const boxName = e => { const p = PART_NAME[e.id]; return p && !p[1].some(atlSeenT) ? p[0] : e.title; };
 const boxNameHtml = e => { const p = PART_NAME[e.id]; return p && !p[1].some(atlSeenT) ? esc(p[0]) : e.titleHtml; };
+// the box is open when its name grows (Loki S1 checked in Loki's box): the new part fades in after the name, on the quote's curve. Unchecked, it simply goes
+function boxNameGrow(e, was) {
+  const now = boxName(e), h = document.getElementById("panelTitle"); if (now === was || !h || h.classList.contains("anon")) return;
+  const head = esc(PART_NAME[e.id][0]);
+  if (now.length < was.length || !e.titleHtml.startsWith(head)) { h.innerHTML = boxNameHtml(e); return; }
+  h.innerHTML = head + `<span>${e.titleHtml.slice(head.length)}</span>`;
+  if (!REDUCED) h.lastElementChild.animate([{ opacity: 0 }, { opacity: 1, offset: 600 / BL_MS }, { opacity: 1 }], { duration: BL_MS, easing: "ease-in-out" });
+}
 const charNamed = e => { if (charMet(e)) return true; if (NAMED_BY[e.id]) return NAMED_BY[e.id].some(atlSeenT); const k = charEmb(e); return !!k && k !== "eagle" && (!!(state.embOpen || {})[k] || embWon(k)); };
 const charAnon = e => String(e.id).startsWith("cx-") && !!CHAR_QUOTES[e.title] && (!charNamed(e) || charMeeting.has(e.id));
 function tileInner(e) { return scoped(e.tileDecor || e.decor) + stampHTML(e) + tbodyHTML(e); }
@@ -7992,13 +8000,14 @@ panel.addEventListener("click", ev => {
   if (!row) return;
   const t = row.dataset.t;
   const k = ck(openEntry, t);
-  const wasOpen = multiverseOpen(), wasInc = incOpen(), wasSeen = atlSeenT(t);
+  const wasOpen = multiverseOpen(), wasInc = incOpen(), wasSeen = atlSeenT(t), nm0 = openKind === "char" && PART_NAME[openEntry.id] ? boxName(openEntry) : null;
   if (state.checks[k]) delete state.checks[k]; else state.checks[k] = true;
   if (!wasSeen && state.checks[k]) firstWatch(t);
   if (!wasOpen && multiverseOpen()) mvAlert(openKind);
   if (!wasInc && incOpen()) incAlert(openKind);
   if (wasOpen !== multiverseOpen()) revealChanged = true;   // sealed boxes on the page behind change when you close this one
   persist(); renderMeter(); updatePanel(openEntry); syncTile(openEntry, openKind); refreshChapterChrome();
+  if (nm0 !== null) boxNameGrow(openEntry, nm0);
   const nr = [...panel.querySelectorAll(".row")].find(r => r.dataset.t === t);
   if (nr) { nr.classList.remove("just"); void nr.offsetWidth; nr.classList.add("just"); }
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
