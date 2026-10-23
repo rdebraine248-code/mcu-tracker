@@ -1121,6 +1121,7 @@ body{ padding-bottom:var(--dockh); }
 .cm-msg.email{ --c:#E0BE6A; }
 .cm-msg.notice{ --c:#6CCB98; }
 .whih.bugle b, .cm-head b.bugle{ background:#F1EFEA; color:#111; }
+.cm-head b.bugle, .hf-strip{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; touch-action:manipulation; cursor:pointer; }   /* a long press here is an egg, not a text selection */
 .whih.bulletin b, .cm-head b.bulletin{ background:#566884; }
 .whih.e828 b, .cm-head b.e828{ background:#3B6FB6; }
 .cm-msg.tva{ --c:#F0A04B; }
@@ -1158,6 +1159,30 @@ body{ padding-bottom:var(--dockh); }
 #mapPanel .mapzoom{ position:absolute; right:12px; top:calc(100% + 12px); flex-direction:column; gap:6px; }
 #mapPanel .mapzoom button{ width:36px; min-width:0; height:36px; padding:0; border:1px solid #26314A; border-radius:10px; background:rgba(13,19,32,.88); color:#BFD3F0; font:17px/1 'Share Tech Mono','Courier New',monospace; }
 #mapPanel .mapzoom #mapFit{ padding:0; font-size:10px; letter-spacing:1px; text-transform:uppercase; }
+/* Hail Hydra: the scan line over the barcode, the file taken over in red, and Cap's shield */
+.hf-strip{ position:relative; }
+.hf-strip.scan::after{ content:""; position:absolute; top:-5px; bottom:-5px; left:0; width:3px; border-radius:2px; background:#8CFFD6; box-shadow:0 0 10px #8CFFD6, 0 0 22px rgba(140,255,214,.6); animation:hfscan .9s linear forwards; }
+@keyframes hfscan{ from{ left:0; } to{ left:calc(100% - 3px); } }
+.filepanel.hydra .maptop, .filepanel.hydra .fileview{ filter:grayscale(1) sepia(1) hue-rotate(-48deg) saturate(5) brightness(.78) contrast(1.15); }
+.fx-hydra{ position:fixed; inset:0; z-index:62; pointer-events:none; background:radial-gradient(ellipse at 50% 40%, rgba(120,0,0,0) 40%, rgba(40,0,0,.75)), repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 2px, transparent 2px 4px); }
+.fx-cshield{ position:fixed; z-index:63; width:64px; height:64px; margin:-32px 0 0 -32px; pointer-events:none; filter:drop-shadow(0 6px 12px rgba(0,0,0,.6)); }
+.fx-cshield .emb{ transform:scale(1.5); }
+/* the Daily Bugle takes over */
+.fx-bugle{ position:fixed; inset:0; z-index:140; pointer-events:none; display:flex; flex-direction:column; background:#0B0B0C; color:#fff; overflow:hidden; transform-origin:50% 50%; }
+.fx-bugle .bg-top{ display:flex; align-items:center; gap:10px; padding:calc(18px + env(safe-area-inset-top,0px)) 18px 14px; background:#C8102E; }
+.fx-bugle .bg-top b{ font:400 26px/1 'Anton','Impact',sans-serif; letter-spacing:1px; }
+.fx-bugle .bg-top i{ margin-left:auto; padding:5px 8px; border:2px solid #fff; font:700 11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; font-style:normal; animation:bglive .8s steps(2) infinite; }
+@keyframes bglive{ 50%{ opacity:0; } }
+.fx-bugle .bg-main{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:18px; padding:0 22px; }
+.fx-bugle .bg-tag{ align-self:flex-start; padding:5px 9px; background:#F1EFEA; color:#111; font:700 12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; }
+.fx-bugle h2{ margin:0; font:400 clamp(44px,15vw,96px)/.92 'Anton','Impact',sans-serif; text-transform:uppercase; letter-spacing:.5px; }
+.fx-bugle h2 span{ display:block; color:#FF2B3D; }
+.fx-bugle .bg-say{ min-height:3em; font:15px/1.5 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#E8E8E8; }
+.fx-bugle .bg-crawl{ white-space:nowrap; padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px)); background:#C8102E; font:700 13px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; }
+.fx-bugle .bg-crawl span{ display:inline-block; padding-left:100%; animation:bgcrawl 7s linear infinite; }
+@keyframes bgcrawl{ to{ transform:translateX(-100%); } }
+.fx-bugle::after{ content:""; position:absolute; inset:0; box-shadow:inset 0 0 0 0 rgba(255,30,50,0); animation:bgsiren 1s ease-in-out infinite; }
+@keyframes bgsiren{ 50%{ box-shadow:inset 0 0 60px 10px rgba(255,30,50,.45); } }
 </style>
 </head>
 <body>
@@ -2901,6 +2926,68 @@ function slSec(c) {
   const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
     ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
   return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt}${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
+}
+/* ---------- The Winter Soldier: in the Agent File, hold the barcode on your Agent ID to scan it. Access granted... and then Hydra, inside S.H.I.E.L.D.
+   all along, takes the file: it floods red and black, the title reads Hydra, your codename is stamped Asset and your clearance Hail Hydra. Then Cap's
+   shield ricochets in, smashes into the card, and S.H.I.E.L.D. is back ---------- */
+let hydraOn = false, hydraT = null, hydraAt = null;
+document.addEventListener("pointerdown", ev => { const b = ev.target.closest("#fileView .hf-strip"); clearTimeout(hydraT); hydraAt = null;
+  if (!b || hydraOn || !atlSeenT("Captain America: The Winter Soldier")) return;
+  hydraAt = [ev.clientX, ev.clientY, b]; b.classList.remove("scan"); void b.offsetWidth; b.classList.add("scan");
+  hydraT = setTimeout(() => { hydraAt = null; hydra(b); }, 900); }, true);
+document.addEventListener("pointermove", ev => { if (hydraAt && Math.hypot(ev.clientX - hydraAt[0], ev.clientY - hydraAt[1]) > 10) { clearTimeout(hydraT); hydraAt[2].classList.remove("scan"); hydraAt = null; } });
+["pointerup", "pointercancel"].forEach(n => document.addEventListener(n, () => { if (!hydraAt) return; clearTimeout(hydraT); hydraAt[2].classList.remove("scan"); hydraAt = null; }));
+function hydra(strip) {
+  strip.classList.remove("scan");
+  if (REDUCED) { found("hydra"); return; }
+  hydraOn = true;
+  const fp = document.getElementById("filePanel"), card = strip.closest(".hf-id"), num = strip.querySelector("span"), ttl = fp.querySelector(".maptop h2"), code = card.querySelector("#hfCode"),
+    lvl = card.querySelector(".hf-lvl"), tag = card.querySelector(".hf-idtag span"), keep = [[num, num.innerHTML], [ttl, ttl.innerHTML], [code, code.innerHTML], [lvl, lvl.innerHTML], [tag, tag.innerHTML]];
+  num.textContent = "Access granted"; num.style.color = "#8CFFD6"; haptic([10, 30, 10]);
+  let veilEl = null;
+  setTimeout(() => {   // Hydra
+    fp.classList.add("hydra"); veilEl = document.createElement("div"); veilEl.className = "fx-hydra"; document.body.appendChild(veilEl);
+    veilEl.animate([{ opacity: 0 }, { opacity: 1 }, { opacity: .3 }, { opacity: 1 }], { duration: 300, fill: "forwards" });
+    ttl.textContent = "Hydra"; tag.textContent = "Hydra asset"; code.textContent = "Asset"; lvl.textContent = "Hail Hydra"; num.textContent = "Compromised"; num.style.color = "";
+    card.animate([{ transform: "none" }, { transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "none" }], { duration: 240 });
+    haptic([80, 40, 80]);
+  }, 700);
+  setTimeout(() => {   // Cap's shield, in from the left, spinning, straight into the card, and off again
+    const r = card.getBoundingClientRect(), cx = r.left + r.width * .62, cy = r.top + r.height * .45, sh = document.createElement("div");
+    sh.className = "fx-cshield"; sh.innerHTML = embHTML("shield"); document.body.appendChild(sh);
+    sh.animate([{ left: "-60px", top: cy - 60 + "px", transform: "rotate(0deg)" }, { left: cx + "px", top: cy + "px", transform: "rotate(540deg)" }], { duration: 380, easing: "cubic-bezier(.5,0,.9,.6)", fill: "forwards" }).onfinish = () => {
+      haptic([60, 30, 120]); fxRing(cx, cy, 160, "#FFFFFF", 450, 0, 3);
+      card.animate([{ transform: "none" }, { transform: "translate(10px,-4px) rotate(1.2deg)" }, { transform: "translate(-6px,3px) rotate(-.8deg)" }, { transform: "none" }], { duration: 420, easing: "ease-out" });
+      fp.classList.remove("hydra"); keep.forEach(([e, h]) => { e.innerHTML = h; }); num.style.color = "";
+      if (veilEl) veilEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => veilEl.remove();
+      sh.animate([{ left: cx + "px", top: cy + "px", transform: "rotate(540deg)" }, { left: innerWidth + 80 + "px", top: cy - 220 + "px", transform: "rotate(1080deg)" }], { duration: 520, easing: "cubic-bezier(.2,.6,.4,1)", fill: "forwards" }).onfinish = () => { sh.remove(); hydraOn = false; found("hydra"); };
+    };
+  }, 2700);
+}
+/* ---------- Far From Home: in Comms, hold the Daily Bugle's name. J. Jonah Jameson cuts in: TheDailyBugle.net takes the whole screen, live, sirens at the edges,
+   a headline slammed down and his verdict typed out under it, until the feed is cut ---------- */
+let bugleOn = false, bugleT = null, bugleAt = null;
+document.addEventListener("pointerdown", ev => { const b = ev.target.closest("#commsView .cm-head b.bugle"); clearTimeout(bugleT); bugleAt = null;
+  if (!b || bugleOn) return; bugleAt = [ev.clientX, ev.clientY]; bugleT = setTimeout(() => { bugleAt = null; jameson(); }, 650); }, true);
+document.addEventListener("pointermove", ev => { if (bugleAt && Math.hypot(ev.clientX - bugleAt[0], ev.clientY - bugleAt[1]) > 10) { clearTimeout(bugleT); bugleAt = null; } });
+["pointerup", "pointercancel"].forEach(n => document.addEventListener(n, () => { clearTimeout(bugleT); bugleAt = null; }));
+document.addEventListener("contextmenu", ev => { if (ev.target.closest("#commsView .cm-head b.bugle, #fileView .hf-strip")) ev.preventDefault(); });
+function jameson() {
+  if (REDUCED) { found("jameson"); return; }
+  bugleOn = true; haptic([20, 30, 20, 30, 60]);
+  const o = document.createElement("div"); o.className = "fx-bugle"; o.setAttribute("aria-hidden", "true");
+  o.innerHTML = `<div class="bg-top"><b>TheDailyBugle.net</b><i>Live</i></div><div class="bg-main"><span class="bg-tag">Breaking</span><h2>Spider-Man<span>is a menace!</span></h2><div class="bg-say"></div></div>
+    <div class="bg-crawl"><span>Spider-Man: hero or menace? Menace. &#9670; Do not trust the mask &#9670; Spider-Man: hero or menace? Menace. &#9670; Do not trust the mask</span></div>`;
+  document.body.appendChild(o);
+  // he cuts in: the feed opens out from a line, like a set switching on (and it goes off the same way)
+  o.animate([{ transform: "scale(0,.006)", filter: "brightness(3)" }, { transform: "scale(1,.006)", filter: "brightness(3)", offset: .45 }, { transform: "none", filter: "none" }], { duration: 480, easing: "ease-out", fill: "both" });
+  const h = o.querySelector("h2"), say = o.querySelector(".bg-say");
+  h.animate([{ transform: "scale(1.5) rotate(-3deg)", opacity: 0 }, { transform: "scale(.96) rotate(0deg)", opacity: 1, offset: .7 }, { transform: "none", opacity: 1 }], { duration: 420, delay: 560, easing: "cubic-bezier(.3,1.4,.5,1)", fill: "both" });
+  setTimeout(() => haptic([60, 20, 40]), 620);
+  const LINES = ["That's right. I said it.", "And I'll keep saying it until somebody listens!"];
+  let t = 1300; LINES.forEach((line, k) => { for (let n = 1; n <= line.length; n++) setTimeout(() => { say.innerHTML = LINES.slice(0, k).map(esc).join("<br>") + (k ? "<br>" : "") + esc(line.slice(0, n)); }, t + n * 34); t += line.length * 34 + 500; });
+  // and the feed is cut: the picture squeezes down to a line and is gone
+  setTimeout(() => { o.animate([{ transform: "none", filter: "none" }, { transform: "scale(1,.006)", filter: "brightness(3)", offset: .55 }, { transform: "scale(0,.006)", filter: "brightness(3)" }], { duration: 520, easing: "ease-in", fill: "forwards" }).onfinish = () => { o.remove(); bugleOn = false; found("jameson"); }; haptic(30); }, t + 900);
 }
 // fold a chapter open or shut: only it and the one it replaces are redrawn, and the one you tapped stays put on screen
 function slFold(el, h) {
@@ -6119,6 +6206,7 @@ const EGGS = [
   ["herbie", "H.E.R.B.I.E.", "The family's helper.", "In the Fantastic Four's profile, tap H.E.R.B.I.E.", 2],
   ["battle", "The Battle of New York", "Something is coming through the sky over Midtown.", "In the Atlas, open New York and hold Midtown.", 1],
   ["fury", "Eyes only", "For the Director. Shake them loose.", "Swipe down with two fingers in the Nick Fury & S.H.I.E.L.D. box (on a computer, hold the name).", 1],
+  ["hydra", "Hail Hydra", "Not everyone in S.H.I.E.L.D. is S.H.I.E.L.D.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
   ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top 3 times.", 1],
   ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
   ["groot", "Awesome Mix", "Peter's mom made him a tape.", "Hold the name in the Guardians of the Galaxy box.", 1],
@@ -6128,6 +6216,7 @@ const EGGS = [
   ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
   ["bargain", "I've come to bargain", "Again. And again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
   ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap anywhere in Spider-Man's box.", 1],
+  ["jameson", "Menace", "The Bugle has a scoop.", "In Comms, hold the Daily Bugle's name.", 1],
   ["defenders", "Four colors", "Red, yellow, blue, green. The city at night.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
   ["penny", "Penny and dime", "Count it out.", "In The Punisher box, tap his quote 4 times.", 1],
   ["onlyfeel", "I just feel you", "You could never hurt me.", "In the Wanda & Vision box, hold two fingers on the screen until the stone breaks (on a computer, hold the quote).", 1],
