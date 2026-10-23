@@ -1275,6 +1275,7 @@ function persist() {
   const eg = Object.keys(state.checks).filter(k => state.checks[k] && k.endsWith("::Avengers: Endgame")).length;
   if (endgameN !== null && eg > endgameN && !state.onLeftSeen) { state.onLeftSeen = true; setTimeout(endgameCharge, 100); try { if (!REDUCED) achHold = Date.now() + 100 + ONLEFT_MS; } catch (e) {} }
   endgameN = eg;
+  try { nameKeep(); } catch (e) {}   // a name or insignia, once revealed, stays revealed even if the title that revealed it is unchecked
   try { if (typeof achList === "function") checkAch(); } catch (e) {}   // after the moments above, so their lines and the Agent File share one pop-up
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
   clearTimeout(dotsT); dotsT = setTimeout(newDots, 150);
@@ -1686,17 +1687,25 @@ const MET_BY = { "cx-black-widow": ["Iron Man 2"], "cx-hawkeye": ["Thor"], "cx-l
 const charMet = e => !!(state.seen || {})[e.id] || (MET_BY[e.id] || []).some(atlSeenT);
 // a box whose name holds something you haven't seen yet goes by the part you know: Loki is Loki until the TVA turns up in his show
 const PART_NAME = { "cx-loki-the-tva": ["Loki", ["Loki S1", "Loki S2"]] };
-const boxName = e => { const p = PART_NAME[e.id]; return p && !p[1].some(atlSeenT) ? p[0] : e.title; };
-const boxNameHtml = e => { const p = PART_NAME[e.id]; return p && !p[1].some(atlSeenT) ? esc(p[0]) : e.titleHtml; };
-// the box is open when its name grows (Loki S1 checked in Loki's box): the new part fades in after the name, on the quote's curve. Unchecked, it simply goes
+const partFull = e => !!(state.named || {})[e.id + ":full"] || PART_NAME[e.id][1].some(atlSeenT);
+const boxName = e => PART_NAME[e.id] && !partFull(e) ? PART_NAME[e.id][0] : e.title;
+const boxNameHtml = e => PART_NAME[e.id] && !partFull(e) ? esc(PART_NAME[e.id][0]) : e.titleHtml;
+// what's been revealed stays revealed: box names, the rest of a partial name, and insignia, kept the moment they're earned
+function nameKeep() {
+  const nm = state.named = state.named || {}, eo = state.embOpen = state.embOpen || {};
+  DATA.chars.forEach(c => { if (!nm[c.id] && charNamedNow(c)) nm[c.id] = 1; if (PART_NAME[c.id] && !nm[c.id + ":full"] && PART_NAME[c.id][1].some(atlSeenT)) nm[c.id + ":full"] = 1; });
+  Object.keys(EMBLEMS).forEach(k => { if (!eo[k] && embWon(k)) eo[k] = 1; });
+}
+// the box is open when its name grows (Loki S1 checked in Loki's box): the new part fades in after the name, on the quote's curve, and stays
 function boxNameGrow(e, was) {
   const now = boxName(e), h = document.getElementById("panelTitle"); if (now === was || !h || h.classList.contains("anon")) return;
   const head = esc(PART_NAME[e.id][0]);
-  if (now.length < was.length || !e.titleHtml.startsWith(head)) { h.innerHTML = boxNameHtml(e); return; }
+  if (!e.titleHtml.startsWith(head)) { h.innerHTML = boxNameHtml(e); return; }
   h.innerHTML = head + `<span>${e.titleHtml.slice(head.length)}</span>`;
   if (!REDUCED) h.lastElementChild.animate([{ opacity: 0 }, { opacity: 1, offset: 600 / BL_MS }, { opacity: 1 }], { duration: BL_MS, easing: "ease-in-out" });
 }
-const charNamed = e => { if (charMet(e)) return true; if (NAMED_BY[e.id]) return NAMED_BY[e.id].some(atlSeenT); const k = charEmb(e); return !!k && k !== "eagle" && (!!(state.embOpen || {})[k] || embWon(k)); };
+const charNamed = e => !!(state.named || {})[e.id] || charNamedNow(e);
+const charNamedNow = e => { if (charMet(e)) return true; if (NAMED_BY[e.id]) return NAMED_BY[e.id].some(atlSeenT); const k = charEmb(e); return !!k && k !== "eagle" && (!!(state.embOpen || {})[k] || embWon(k)); };
 const charAnon = e => String(e.id).startsWith("cx-") && !!CHAR_QUOTES[e.title] && (!charNamed(e) || charMeeting.has(e.id));
 function tileInner(e) { return scoped(e.tileDecor || e.decor) + stampHTML(e) + tbodyHTML(e); }
 function tbodyHTML(e) {
