@@ -7609,42 +7609,48 @@ function atlBifrost(map) {
       g.restore(); g.globalAlpha = 1; g.shadowBlur = 0; }
   }, () => { cv.remove(); atlFxOn = false; found("bifrost"); });
 }
-// Beyond, the Dark Dimension: "Dormammu, I've come to bargain." His realm boils up out of the pin, his eyes open over it, and every time it
-// closes in, the Time Stone's green ring snaps it all back to the start. Three loops, and he gives in
+// Beyond, the Dark Dimension: "Dormammu, I've come to bargain." His realm boils up out of the pin and his eyes open over it. Twice it closes in and
+// the Time Stone winds it back: the realm spins backwards into the pin under its green rings, and it all starts again. The third time, he gives in:
+// his eyes close and his realm draws back into the pin for good
 function atlDormammu(map) {
   const p = atlPinAt(map, "dark"); if (!p || atlFxOn) return; if (REDUCED) { found("bargain"); return; } atlFxOn = true;
-  const { cv, g, at, dpr } = atlLayer(map, p), LOOP = 1500, N = 3, OUT = 1500, T = LOOP * N + OUT, LINE = "DORMAMMU, I'VE COME TO BARGAIN.";
+  const { cv, g, at, dpr } = atlLayer(map, p), LOOP = 1900, N = 3, OUT = 1400, T = LOOP * N + OUT, LINE = "DORMAMMU, I'VE COME TO BARGAIN.";
   const glow = (x, y, r, c) => { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, c); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); };
   const text = (s, x, y, a, size, col) => { g.save(); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.globalAlpha = a; g.font = `${size}px 'Share Tech Mono','Courier New',monospace`; g.textAlign = "center"; g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 8; g.fillText(s, x, y); g.restore(); };
   haptic([20, 40, 20]);
   fxRun(T, t => {
     at();
-    const loop = Math.min(N - 1, Math.floor(t / LOOP)), u = t < LOOP * N ? (t % LOOP) / LOOP : 1, out = clamp01((t - LOOP * N) / OUT);
-    // his realm: rings of purple and fire turning against each other, spreading out of the pin, then pulled back in at the end
-    const grow = t < LOOP * N ? easeIO(Math.min(1, u / .8)) : 1 - easeIO(out), R = 24 + 104 * grow;
-    glow(0, 0, R * 1.6, `rgba(142,59,224,${.45 * grow})`);
+    const loop = Math.min(N - 1, Math.floor(t / LOOP)), u = t < LOOP * N ? (t % LOOP) / LOOP : 1, last = loop === N - 1, end = clamp01((t - LOOP * N) / OUT);
+    // how far his realm has spread, and how it turns: out and round, then (twice) wound backwards, fast, into the pin
+    let grow, rot, rw = 0;
+    if (t >= LOOP * N) { grow = 1 - easeIO(end); rot = LOOP * .7 / 650 + end * .6; }
+    else if (u < .6) { grow = easeIO(u / .6); rot = u * LOOP / 650; }
+    else if (last || u < .72) { grow = 1 + .07 * Math.sin((u - .6) / .4 * Math.PI * 3); rot = u * LOOP / 650; }   // closing in
+    else { rw = (u - .72) / .28; grow = 1 - easeIO(rw); rot = .72 * LOOP / 650 - easeIO(rw) * 7; }   // the rewind
+    const R = 24 + 104 * Math.max(0, grow);
+    glow(0, 0, R * 1.6, `rgba(142,59,224,${.45 * Math.min(1, grow)})`);
     g.save(); g.globalCompositeOperation = "lighter";
-    for (let k = 0; k < 11; k++) { const r = R * (.22 + k * .075), sp = (k % 2 ? 1 : -1) * (1 + k * .18), a0 = t / 650 * sp + k * 1.7;
-      g.strokeStyle = k % 3 === 2 ? `rgba(255,140,60,${.5 * grow})` : k % 3 === 1 ? `rgba(224,64,192,${.55 * grow})` : `rgba(160,90,255,${.6 * grow})`;
+    for (let k = 0; k < 11; k++) { const r = R * (.22 + k * .075), sp = (k % 2 ? 1 : -1) * (1 + k * .18), a0 = rot * sp + k * 1.7, gr = Math.min(1, grow);
+      g.strokeStyle = k % 3 === 2 ? `rgba(255,140,60,${.5 * gr})` : k % 3 === 1 ? `rgba(224,64,192,${.55 * gr})` : `rgba(160,90,255,${.6 * gr})`;
       g.lineWidth = 1 + (k % 3) * .8; for (let j = 0; j < 4; j++) { g.beginPath(); g.ellipse(0, 0, r, r * .55, 0, a0 + j * 1.57, a0 + j * 1.57 + .9); g.stroke(); } }
-    // embers drifting outward on the spin
     for (let k = 0; k < 26; k++) { const ph = ((t / 1400 + k * .137) % 1), a = k * 2.4 + ph * 3, r = R * (.2 + ph * .95);
-      g.fillStyle = `rgba(255,${150 + (k % 4) * 20},80,${(1 - ph) * .8 * grow})`; g.beginPath(); g.arc(Math.cos(a) * r, Math.sin(a) * r * .55, 1.3, 0, Math.PI * 2); g.fill(); }
+      g.fillStyle = `rgba(255,${150 + (k % 4) * 20},80,${(1 - ph) * .8 * Math.min(1, grow)})`; g.beginPath(); g.arc(Math.cos(a) * r, Math.sin(a) * r * .55, 1.3, 0, Math.PI * 2); g.fill(); }
     g.restore();
-    // his eyes open above it, burning
-    const eye = clamp01((u - .3) / .3) * (t < LOOP * N ? 1 : 1 - out);
-    if (eye > 0) [-1, 1].forEach(sd => { g.save(); g.translate(sd * 30, -R * .72 - 14); g.rotate(sd * -.28); glow(0, 0, 28, `rgba(255,150,50,${.55 * eye})`); g.fillStyle = `rgba(255,225,130,${eye})`; g.shadowColor = "#FF9A3C"; g.shadowBlur = 14; g.beginPath(); g.ellipse(0, 0, 13, 3.4 * eye + .4, 0, 0, Math.PI * 2); g.fill(); g.restore(); });
-    // the Time Stone's ring closes the loop: a green circle opens wide, a flash, and it's the start again
-    if (t < LOOP * N && u > .78) { const e = (u - .78) / .22; g.save(); g.strokeStyle = `rgba(45,190,90,${1 - e * .6})`; g.shadowColor = "#2DBE5A"; g.shadowBlur = 12; g.lineWidth = 2.5;
-      g.beginPath(); g.arc(0, 0, 10 + 190 * e, 0, Math.PI * 2); g.stroke(); g.lineWidth = 1.2; g.beginPath(); g.arc(0, 0, 4 + 152 * e, 0, Math.PI * 2); g.stroke();
-      for (let k = 0; k < 16; k++) { const a = k / 16 * Math.PI * 2 + e * 2; g.beginPath(); g.moveTo(Math.cos(a) * (10 + 152 * e), Math.sin(a) * (10 + 152 * e)); g.lineTo(Math.cos(a) * (10 + 190 * e), Math.sin(a) * (10 + 190 * e)); g.stroke(); } g.restore();
-      if (u > .94) glow(0, 0, 200, `rgba(210,255,225,${(u - .94) / .06 * .7})`); }
-    // the words, said again every loop, and the count
+    // the Time Stone's rings over the rewind: two green circles and their marks, turning backwards with it
+    if (rw > 0) { const a = Math.sin(rw * Math.PI), rr = 40 + 70 * (1 - easeIO(rw)); g.save(); g.globalAlpha = a; g.strokeStyle = "rgba(45,190,90,.95)"; g.shadowColor = "#2DBE5A"; g.shadowBlur = 12;
+      g.lineWidth = 2; g.beginPath(); g.arc(0, 0, rr, 0, Math.PI * 2); g.stroke(); g.lineWidth = 1.2; g.beginPath(); g.arc(0, 0, rr * .78, 0, Math.PI * 2); g.stroke();
+      for (let k = 0; k < 16; k++) { const an = k / 16 * Math.PI * 2 - easeIO(rw) * 4; g.beginPath(); g.moveTo(Math.cos(an) * rr * .78, Math.sin(an) * rr * .78); g.lineTo(Math.cos(an) * rr, Math.sin(an) * rr); g.stroke(); }
+      g.restore(); glow(0, 0, rr * 1.3, `rgba(60,220,120,${.18 * a})`); }
+    // his eyes: open once his realm is out, gone with the rewind, and the last time, closing as he gives in
+    const eye = t >= LOOP * N ? 1 - clamp01(end / .4) : rw > 0 ? 1 - clamp01(rw * 2) : clamp01((u - .3) / .25);
+    if (eye > 0) [-1, 1].forEach(sd => { g.save(); g.translate(sd * 30, -R * .72 - 14); g.rotate(sd * -.28); glow(0, 0, 28, `rgba(255,150,50,${.55 * eye})`); g.fillStyle = `rgba(255,225,130,${eye})`; g.shadowColor = "#FF9A3C"; g.shadowBlur = 14; g.beginPath(); g.ellipse(0, 0, 13, 3.4 * eye + .2, 0, 0, Math.PI * 2); g.fill(); g.restore(); });
+    // the words, said again every time round, and the count; then his answer
     const W = map.clientWidth;
-    if (t < LOOP * N) { const n = Math.floor(clamp01(u / .45) * LINE.length); text(LINE.slice(0, n), W / 2, 26, 1, 12, "#E7C8FF"); text("LOOP " + (loop + 1), W / 2, 44, .8, 10, "#7FE3A0"); }
-    else text("BARGAIN STRUCK.", W / 2, 26, 1 - clamp01((out - .6) / .4), 12, "#7FE3A0");
+    if (t < LOOP * N) { const n = Math.floor(clamp01(u / .45) * LINE.length), fa = rw > 0 ? 1 - rw : 1; text(LINE.slice(0, n), W / 2, 26, fa, 12, "#E7C8FF"); text("LOOP " + (loop + 1), W / 2, 44, .8 * fa, 10, "#BFA2E8"); }
+    else text("BARGAIN STRUCK.", W / 2, 26, Math.min(1, end * 3) * (1 - clamp01((end - .7) / .3)), 12, "#E7C8FF");
   }, () => { cv.remove(); atlFxOn = false; found("bargain"); });
-  for (let k = 1; k <= N; k++) setTimeout(() => haptic([30, 40, 80]), LOOP * k - 80);
+  for (let k = 1; k < N; k++) setTimeout(() => haptic([30, 40, 80]), LOOP * (k - .28));
+  setTimeout(() => haptic([60, 80, 120]), LOOP * N);
 }
 // Beyond, the Duat: Taweret's scales rise over the pin in gold, the heart on one side and the feather on the other. They tip, swing and come to rest
 // level, and the gate to the Field of Reeds opens beneath them
@@ -7677,64 +7683,61 @@ function atlDuat(map) {
       else { g.fillStyle = "rgba(255,110,90,.85)"; g.shadowColor = "rgba(255,90,70,.9)"; g.beginPath(); g.moveTo(0, -1); g.bezierCurveTo(-9, -8, -6, -16, 0, -11); g.bezierCurveTo(6, -16, 9, -8, 0, -1); g.fill(); }
       g.restore(); });
     g.restore();
-    // level at last: a flash of gold, and the gate below opens on the Field of Reeds
-    if (level > 0) { const e = clamp01((t - 3300) / 900), gw = 34 * e;
+    // level at last: a warm light comes up below them, and the Field of Reeds rises in it, straight stalks with their seed heads, swaying at the tips
+    if (level > 0) { const e = easeIO(clamp01((t - 3300) / 1100));
       glow(0, top, 40, `rgba(${GOLD},${.6 * (1 - clamp01((t - 3300) / 600))})`);
-      g.save(); g.globalAlpha = level; g.strokeStyle = `rgba(${GOLD},.9)`; g.shadowColor = `rgba(${GOLD},.9)`; g.shadowBlur = 8; g.lineWidth = 2;
-      g.beginPath(); g.moveTo(-gw / 2, 30); g.lineTo(-gw / 2, 4); g.lineTo(gw / 2, 4); g.lineTo(gw / 2, 30); g.stroke();
-      const lg = g.createLinearGradient(0, 4, 0, 30); lg.addColorStop(0, "rgba(255,240,200,.85)"); lg.addColorStop(1, "rgba(120,220,140,.35)"); g.fillStyle = lg; g.fillRect(-gw / 2 + 2, 6, gw - 4, 24);
-      // reeds rising and swaying on either side
-      g.strokeStyle = "rgba(130,230,150,.85)"; g.shadowColor = "rgba(120,220,140,.9)"; g.lineWidth = 1.3;
-      for (let k = 0; k < 10; k++) { const sd = k < 5 ? -1 : 1, x = sd * (gw / 2 + 6 + (k % 5) * 7), h = (14 + (k * 7) % 12) * e, sw = Math.sin(t / 300 + k) * 3 * e;
-        g.beginPath(); g.moveTo(x, 30); g.quadraticCurveTo(x + sw * .5, 30 - h * .6, x + sw, 30 - h); g.stroke(); }
+      g.save(); g.globalAlpha = level;
+      g.save(); g.translate(0, 34); g.scale(1, .45); const hz = g.createRadialGradient(0, 0, 0, 0, 0, 72); hz.addColorStop(0, `rgba(255,214,140,${.45 * e})`); hz.addColorStop(1, "rgba(255,214,140,0)"); g.fillStyle = hz; g.fillRect(-72, -72, 144, 144); g.restore();
+      for (let k = 0; k < 17; k++) {
+        const x = -56 + k * 7 + ((k * 37) % 5) - 2, hgt = (20 + ((k * 53) % 15)) * e, sw = Math.sin(t / 420 + k * .9) * 2.2 * e, base = 34;
+        if (hgt < 1) continue;
+        const tipX = x + sw, tipY = base - hgt;
+        g.fillStyle = "rgba(196,214,128,.9)"; g.beginPath(); g.moveTo(x - .8, base); g.quadraticCurveTo(x - .5, base - hgt * .6, tipX, tipY); g.quadraticCurveTo(x + .5, base - hgt * .6, x + .8, base); g.fill();
+        if (k % 2 === 0) { g.fillStyle = "rgba(196,142,72,.95)"; g.beginPath(); g.ellipse(x + sw * .8, tipY + 5, 1.3, 3.6, sw * .05, 0, Math.PI * 2); g.fill(); }
+      }
       g.restore(); }
     g.save(); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.globalAlpha = level; g.font = "12px 'Share Tech Mono','Courier New',monospace"; g.textAlign = "center"; g.fillStyle = `rgb(${GOLD})`; g.shadowColor = `rgb(${GOLD})`; g.shadowBlur = 8;
     g.fillText("THE SCALES ARE BALANCED.", map.clientWidth / 2, 26); g.restore();
   }, () => { cv.remove(); atlFxOn = false; found("scales"); });
   setTimeout(() => haptic([40, 60, 40]), 3300);
 }
-// Beyond, the Witches' Road: hold it and the road draws itself, a winding green path out of the pin and on through the places around it, a trial
-// at each one; at the end a door of light opens
+// Beyond, the Witches' Road: "down, down, down the road". Hold it and the road winds itself down into the pin, a spiral of stone lit green, narrowing
+// as it goes down. Then blue magic runs back up it from the bottom and it comes apart into blue sparks: it was never real, Billy made it
 function atlWitches(map) {
   const p = atlPinAt(map, "witches"); if (!p || atlFxOn) return; if (REDUCED) { found("witchroad"); return; } atlFxOn = true;
-  const { cv, g, at } = atlLayer(map, null), T = 7000, W = map.clientWidth, H = map.clientHeight;
-  // the stops: the nearest few places on this map, visited going round the start, so the road winds
-  const others = (map._pins || []).filter(q => q.id !== p.id && q.sx > 10 && q.sx < W - 10 && q.sy > 10 && q.sy < H - 10).sort((a, b) => Math.hypot(a.sx - p.sx, a.sy - p.sy) - Math.hypot(b.sx - p.sx, b.sy - p.sy)).slice(0, 5)
-    .sort((a, b) => Math.atan2(a.sy - p.sy, a.sx - p.sx) - Math.atan2(b.sy - p.sy, b.sx - p.sx));
-  const pts = [[p.sx, p.sy], ...others.map(q => [q.sx, q.sy])];
-  if (pts.length < 2) pts.push([p.sx + 80, p.sy - 40]);
-  const end = pts[pts.length - 1], door = [Math.max(30, Math.min(W - 30, end[0] + (end[0] - pts[pts.length - 2][0]) * .3)), Math.max(80, Math.min(H - 30, end[1] + (end[1] - pts[pts.length - 2][1]) * .3))]; pts.push(door);
-  // a smooth road through every stop, sampled finely so it can be drawn a little further each frame
-  const road = []; for (let i = 0; i < pts.length - 1; i++) { const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
-    for (let k = 0; k < 24; k++) { const u = k / 24, u2 = u * u, u3 = u2 * u; road.push([.5 * ((2 * p1[0]) + (-p0[0] + p2[0]) * u + (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * u2 + (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * u3),
-      .5 * ((2 * p1[1]) + (-p0[1] + p2[1]) * u + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * u2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * u3), i]); } }
-  road.push([door[0], door[1], pts.length - 2]);
-  const DRAW = 4200;
+  const { cv, g, at, dpr } = atlLayer(map, p), T = 6400, D0 = 300, DRAW = 2700, B0 = 3500, BLUE = 1600;
+  // the spiral, outside in: three and a bit turns, the road narrowing as it goes down
+  const M = 300, pts = Array.from({ length: M + 1 }, (_, i) => { const s = i / M, th = -Math.PI / 2 + s * 3.3 * Math.PI * 2, r = 92 * Math.pow(1 - s, .85) + 5; return { s, x: Math.cos(th) * r, y: Math.sin(th) * r * .82, w: 10 * (1 - s) + 2.5 }; });
+  pts.forEach((q, i) => { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(M, i + 1)], dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy) || 1; q.nx = -dy / L; q.ny = dx / L;
+    q.vx = q.nx * (8 + (i * 37) % 13) * (i % 2 ? 1 : -1); q.vy = q.ny * (8 + (i * 53) % 11) - 14; });
+  const WORDS = ["DOWN,", "DOWN,", "DOWN", "THE", "ROAD"];
   haptic([15, 30, 15]);
   fxRun(T, t => {
     at();
-    const f = clamp01((t - 300) / DRAW), n = Math.max(2, Math.floor(road.length * f)), fade = 1 - clamp01((t - T + 800) / 800);
-    g.save(); g.globalAlpha = fade; g.lineCap = g.lineJoin = "round";
-    // the road: a wide dim purple bed, a bright green path down its middle
-    [[9, "rgba(120,70,200,.28)", 0], [3.2, "rgba(110,230,150,.95)", 12]].forEach(([w, c, b]) => { g.strokeStyle = c; g.lineWidth = w; g.shadowColor = "rgba(110,230,150,.9)"; g.shadowBlur = b;
-      g.beginPath(); road.slice(0, n).forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); });
-    g.shadowBlur = 0;
-    // a trial at each stop it reaches: a ring flares, and its number
-    const reached = road[n - 1][2]; pts.slice(1, -1).forEach(([x, y], i) => { if (i + 1 > reached) return; const tt = t - 300 - DRAW * ((i + 1) / (pts.length - 1)), e = clamp01(tt / 700);
-      g.strokeStyle = `rgba(110,230,150,${1 - e * .5})`; g.lineWidth = 1.6; g.beginPath(); g.arc(x, y, 6 + 14 * e, 0, Math.PI * 2); g.stroke();
-      if (e < 1) { g.strokeStyle = `rgba(200,255,215,${1 - e})`; g.beginPath(); g.arc(x, y, 6 + 30 * e, 0, Math.PI * 2); g.stroke(); } });
-    // the door at the end of the road
-    if (f >= 1) { const e = clamp01((t - 300 - DRAW) / 900); const [x, y] = door; g.save(); g.translate(x, y);
-      const gr = g.createRadialGradient(0, -10, 0, 0, -10, 40); gr.addColorStop(0, `rgba(200,255,215,${.7 * e})`); gr.addColorStop(1, "rgba(110,230,150,0)"); g.fillStyle = gr; g.fillRect(-40, -50, 80, 80);
-      g.strokeStyle = `rgba(110,230,150,${e})`; g.lineWidth = 2; g.shadowColor = "rgba(110,230,150,.9)"; g.shadowBlur = 10;
-      g.beginPath(); g.moveTo(-9, 6); g.lineTo(-9, -14); g.arc(0, -14, 9, Math.PI, 0); g.lineTo(9, 6); g.stroke();
-      g.fillStyle = `rgba(230,255,235,${.8 * e})`; g.fillRect(-7 * e, -14, 14 * e, 20); g.restore(); }
-    // the words, one at a time as the road goes
-    const words = ["DOWN", "DOWN", "DOWN", "THE", "ROAD"], k = Math.min(words.length, Math.floor(f * words.length + .3));
-    g.font = "12px 'Share Tech Mono','Courier New',monospace"; g.textAlign = "center"; g.fillStyle = "#C9FFD8"; g.shadowColor = "#6EE696"; g.shadowBlur = 8; g.fillText(words.slice(0, k).join(" "), W / 2, 26);
-    const tri = Math.min(pts.length - 2, reached); if (tri > 0) { g.font = "10px 'Share Tech Mono','Courier New',monospace"; g.fillStyle = "#7FE3A0"; g.fillText(f >= 1 ? "THE ROAD'S END" : "TRIAL " + tri, W / 2, 44); }
-    g.restore();
+    const dr = easeIO(clamp01((t - D0) / DRAW)), lim = Math.floor(M * dr), b = clamp01((t - B0) / BLUE), cut = 1 - b;   // drawn so far; the blue has undone everything below "cut"
+    const live = pts.filter((q, i) => i <= lim && q.s <= cut);
+    if (live.length > 1) {
+      g.save(); g.lineJoin = g.lineCap = "round";
+      g.beginPath(); live.forEach((q, i) => i ? g.lineTo(q.x + q.nx * q.w, q.y + q.ny * q.w) : g.moveTo(q.x + q.nx * q.w, q.y + q.ny * q.w)); for (let i = live.length - 1; i >= 0; i--) g.lineTo(live[i].x - live[i].nx * live[i].w, live[i].y - live[i].ny * live[i].w); g.closePath();
+      g.fillStyle = "rgba(40,70,52,.55)"; g.fill();
+      g.strokeStyle = "rgba(110,230,150,.9)"; g.shadowColor = "rgba(110,230,150,.9)"; g.shadowBlur = 8; g.lineWidth = 1.3;
+      [1, -1].forEach(sd => { g.beginPath(); live.forEach((q, i) => i ? g.lineTo(q.x + sd * q.nx * q.w, q.y + sd * q.ny * q.w) : g.moveTo(q.x + sd * q.nx * q.w, q.y + sd * q.ny * q.w)); g.stroke(); });
+      g.shadowBlur = 0; g.setLineDash([3, 5]); g.strokeStyle = "rgba(170,240,190,.35)"; g.lineWidth = 1; g.beginPath(); live.forEach((q, i) => i ? g.lineTo(q.x, q.y) : g.moveTo(q.x, q.y)); g.stroke(); g.setLineDash([]);
+      g.restore();
+    }
+    // Billy's magic, running back up the road: a bright blue front, and behind it the road in sparks
+    if (b > 0) {
+      g.save(); g.globalCompositeOperation = "lighter";
+      const f = pts.find(q => q.s >= cut); if (f && b < 1) { const gr = g.createRadialGradient(f.x, f.y, 0, f.x, f.y, 26); gr.addColorStop(0, "rgba(150,200,255,.9)"); gr.addColorStop(1, "rgba(70,130,255,0)"); g.fillStyle = gr; g.fillRect(f.x - 26, f.y - 26, 52, 52); }
+      pts.forEach((q, i) => { if (i > lim) return; const born = B0 + (1 - q.s) * BLUE, age = (t - born) / 1200; if (age <= 0 || age >= 1) return;
+        [1, -1].forEach(sd => { g.fillStyle = `rgba(${110 + (i % 3) * 30},${170 + (i % 4) * 15},255,${(1 - age) * .95})`; g.beginPath(); g.arc(q.x + sd * q.nx * q.w * .7 + q.vx * age * sd, q.y + sd * q.ny * q.w * .7 + q.vy * age, 2.2 * (1 - age * .5), 0, Math.PI * 2); g.fill(); }); });
+      g.restore();
+    }
+    // the song, a word at a time as the road goes down, gone when the blue comes
+    const k = Math.min(WORDS.length, Math.floor(dr * WORDS.length + .2)), wa = 1 - clamp01((t - B0) / 500);
+    if (k && wa > 0) { g.save(); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.globalAlpha = wa; g.font = "12px 'Share Tech Mono','Courier New',monospace"; g.textAlign = "center"; g.fillStyle = "#C9FFD8"; g.shadowColor = "#6EE696"; g.shadowBlur = 8; g.fillText(WORDS.slice(0, k).join(" "), map.clientWidth / 2, 26); g.restore(); }
   }, () => { cv.remove(); atlFxOn = false; found("witchroad"); });
+  setTimeout(() => haptic([20, 30, 20, 30, 60]), B0);
 }
 // Sokovia: hold it and Novi Grad rises whole, is struck at its core, cracks apart and falls into a crater lake
 function atlSokovia(map) {
