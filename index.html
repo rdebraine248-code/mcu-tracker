@@ -1267,7 +1267,7 @@ const charHidden = e => !!MV_BOXES[e.id] && !(state.charOpen || {})[e.id];
 // the Incursions box opens with the Incursions themselves, after Avengers: Doomsday; the rest open with the multiverse
 const charGate = e => e.id === "cx-incursions" ? incOpen() : multiverseOpen();
 const charSealed = e => charHidden(e) && !charGate(e);
-const QUOTE_MS = 2500;
+
 let toastTimer = null, sealedTaps = 0, forceOpen = null;
 const sealedRun = {};   // each locked chapter counts its own taps (the Extras boxes share one count)
 function sealedTap(k) { const now = Date.now(), r = sealedRun[k] = sealedRun[k] || { n: 0, at: 0 }; r.n = now - r.at < 1600 ? r.n + 1 : 1; r.at = now; return r.n; }
@@ -1275,8 +1275,11 @@ const borderOf = s => ((String(s).match(/border:\s*[\d.]+px\s+\w+\s+(#[0-9a-fA-F
 // quotes use the list's title typeface, except decorative brush faces, which fall back to the plain body font
 const fontOf = s => { const f = ((String(s).match(/font-family:\s*([^;]+)/) || [])[1]); return f && /Ma Shan Zheng/i.test(f) ? undefined : f; };
 let sayQ = [], sayBusy = false;
-// how long a pop-up stays: as long as a box's quote for short lines, a little longer the more there is to read
-const toastMs = msg => Math.min(6500, Math.max(QUOTE_MS, 1100 + String(msg).length * 55));
+// how long a pop-up stays once it's fully written: one rule for every pill, by how much there is to read (its line, and the line under it when it
+// files something). A box or character finished reads in about a second and a half; a long headline gets up to three and a half
+const toastMs = (msg, foot) => Math.min(3500, Math.max(1100, 600 + (String(msg).length + (foot ? 19 : 0)) * 20));
+// and how long a pill takes to open and type its line out, so that time is counted from when you can read it
+const hudOpenMs = msg => 620 + 470 + Math.max(520, String(msg).length * 12) + 220;
 function say(msg, e, foot, ms, plain, hd, done, full) { sayQ.push({ msg, e: e || null, foot, ms, plain, hd, done, full }); if (!sayBusy) sayNext(); }   // ms: a set length for this pop-up; plain: a name, not a line someone says; hd: who it's from; full: news, so it opens from its corners
 let sayCur = null;
 let sayOwn = false, sayTm = 0;
@@ -1284,14 +1287,14 @@ function sayNext() {
   const m = sayQ.shift(); if (!m) { sayBusy = false; return; } sayBusy = true;
   if (document.getElementById("toast").classList.contains("show") && !sayOwn) { sayQ.unshift(m); setTimeout(sayNext, 600); return; }
   sayOwn = true; m.at = Date.now(); sayCur = m; toast(m.msg, m.e, false, m.foot, m.ms, { quote: true, plain: m.plain, hd: m.hd, done: m.done, full: m.full }); clearTimeout(sayTm);
-  sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg) + (m.foot ? 900 : 0)) + 700 + (REDUCED ? 0 : HUD_OPEN + HUD_SHUT));
+  sayTm = setTimeout(() => { sayOwn = false; sayCur = null; sayNext(); }, (m.ms || toastMs(m.msg, m.foot)) + 700 + (REDUCED ? 0 : hudOpenMs(m.msg) + HUD_SHUT));
 }
 const TVA = {};   // marks a pill as the TVA's own: its alert colors come from .toast.hud.tva
 // every pill is the datapad talking: a status, the Agent File, the TVA, or a box's own news in the box's color
 function toast(msg, e, cover, foot, ms, o) {
   const el = document.getElementById("toast");
   pillSet(el, msg, e, cover, foot, o, true);
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => pillHide(el), (ms || toastMs(msg) + (foot ? 900 : 0)) + (!REDUCED && !el._quick ? HUD_OPEN : 0));
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => pillHide(el), (ms || toastMs(msg, foot)) + (!REDUCED && !el._quick ? hudOpenMs(msg) : 0));
 }
 // A character box goes by the color you know it by: its name's, if that has a color, then its ticks', then its border; a box in black and white
 // takes its lightest. Too dark to read, it's lifted in lightness only, so a red stays red instead of washing out to pink
@@ -1321,8 +1324,9 @@ let bl = null;
 // a box's quote is set in its name's font, except where that font is too ornate to read as a sentence
 const QUOTE_FONT = { "cx-shang-chi-the-ten-rings": "'Cormorant Garamond', serif" }, quoteFont = e => QUOTE_FONT[e.id] || fontOf(e.h2) || "inherit";
 const BL_MS = 4580;   // every box's line plays for the same time, as long as Thor's
-function boxLine(line, e, settle) {
-  blStop(); const ms = REDUCED ? 2600 : BL_MS;
+const BL_CH_MS = 3800;   // a chapter's line, on its tile as the cover peels away, a little shorter
+function boxLine(line, e, settle, len) {
+  blStop(); const ms = REDUCED ? 2600 : len || BL_MS;
   bl = { e, q: "“" + line.replace(" / ", "” “") + "”", settle, end: Date.now() + ms, els: [], tm: [] };
   if (settle) pqHoldUntil = bl.end + 500;
   if (openEntry && openEntry.id === e.id) blPage(); else if (!blTile()) bl = null;
@@ -1392,7 +1396,7 @@ function pillSet(el, msg, e, cover, foot, o, fresh) {
   hudShow(el, { tap: agent || !!el._go, tva, tint: box ? boxTint(box) : "", quick: !tva && !agent && !box && !(o && o.full), hd: o && o.hd != null ? o.hd : tva ? "TVA · Alert" : agent ? "Agent File · Updated" : "System",
     b: msg, s: o && o.done ? [o.done.label, hudFiled("", items.filter(n => n !== o.done.own))].filter(Boolean).join(" · ") : agent ? hudFiled(msg, items) : "" }, fresh);
 }
-const HUD_C = 34, HUD_DROP = 180, HUD_OPEN = 1500, HUD_SHUT = 1000;   // the closed frame is a 34px square of two corners with a point of light; it rises and drops this far
+const HUD_C = 34, HUD_DROP = 180, HUD_SHUT = 1000;   // the closed frame is a 34px square of two corners with a point of light; it rises and drops this far
 let hudRun = 0;
 // every news pill opens the same way, whatever else is going on. Something added to the one on screen (a file that rides along) just joins it,
 // in place, without restarting or skipping its opening; a new one arriving while another is up waits for that one to tuck away first.
@@ -2151,7 +2155,7 @@ function activate(el) {
       if (!QUOTES[id]) boxNews(e, "Unlocked"); };
     refreshChapterChrome();
     // the chapter's quote waits under the cover, so the first thing the peel shows is the line
-    if (QUOTES[id]) boxLine(QUOTES[id][0], e, true);
+    if (QUOTES[id]) boxLine(QUOTES[id][0], e, true, BL_CH_MS);
     if (cv && !REDUCED) reveal(cv, el, id, finish);
     else finish();
     return;
