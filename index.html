@@ -1128,6 +1128,7 @@ body{ padding-bottom:var(--dockh); }
 .cm-msg.email{ --c:#E0BE6A; }
 .cm-msg.notice{ --c:#6CCB98; }
 .whih.bugle b, .cm-head b.bugle{ background:#F1EFEA; color:#111; }
+.cm-head b.bugle, .hf-strip{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; touch-action:manipulation; cursor:pointer; }   /* a long press here is an egg, not a text selection */
 .whih.bulletin b, .cm-head b.bulletin{ background:#566884; }
 .whih.e828 b, .cm-head b.e828{ background:#3B6FB6; }
 .cm-msg.tva{ --c:#F0A04B; }
@@ -2978,6 +2979,7 @@ document.addEventListener("pointerdown", ev => { const b = ev.target.closest("#c
   if (!b || bugleOn) return; bugleAt = [ev.clientX, ev.clientY]; bugleT = setTimeout(() => { bugleAt = null; jameson(); }, 650); }, true);
 document.addEventListener("pointermove", ev => { if (bugleAt && Math.hypot(ev.clientX - bugleAt[0], ev.clientY - bugleAt[1]) > 10) { clearTimeout(bugleT); bugleAt = null; } });
 ["pointerup", "pointercancel"].forEach(n => document.addEventListener(n, () => { clearTimeout(bugleT); bugleAt = null; }));
+document.addEventListener("contextmenu", ev => { if (ev.target.closest("#commsView .cm-head b.bugle, #fileView .hf-strip")) ev.preventDefault(); });
 function jameson() {
   if (REDUCED) { found("jameson"); return; }
   bugleOn = true; haptic([20, 30, 20, 30, 60]);
