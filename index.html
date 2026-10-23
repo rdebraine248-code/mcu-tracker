@@ -627,6 +627,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .fx-noir{ position:fixed; inset:0; z-index:96; pointer-events:none; -webkit-backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6)); }
 .fx-bloodstone{ position:fixed; z-index:98; pointer-events:none; width:64px; height:64px; margin:-32px 0 0 -32px; filter:drop-shadow(0 0 6px #FF1A2A) drop-shadow(0 0 16px rgba(255,26,42,.7)); }
 .fx-bloodstone .emb{ transform:scale(1.15); }
+.fx-bloodstone.fx-wm{ left:0; top:0; margin:0; transform-origin:0 0; filter:none; } .fx-bloodstone.fx-wm .emb{ transform-origin:50% 50%; }
 .fx-tip{ position:absolute; display:block; }
 .fx-tip.boom{ left:146px; top:-5px; width:15px; height:13px; border-radius:2px 3px 3px 2px; background:linear-gradient(180deg,#FF7A5A,#D02A1C 50%,#7E1009); box-shadow:inset 3px 0 0 #3A3A40; }
 .fx-tip.boom::after{ content:""; position:absolute; left:15px; top:1px; border-left:9px solid #4A4C54; border-top:5.5px solid transparent; border-bottom:5.5px solid transparent; }
@@ -6988,21 +6989,48 @@ function strangeRunes() {
   haptic([10, 40, 10, 40, 30]);
 }
 
-/* ---------- Werewolf by Night: hold the name. Black and white, the red Bloodstone glows, claws tear the screen, then a red burst and colour comes back ---------- */
+/* ---------- Werewolf by Night: hold the name. Black and white, and the faint Bloodstone watermark behind his name wakes in full colour, glowing; claws tear
+   the screen, then a red burst out of the stone and colour comes back. Two takes: "draw" fills it in where it sits, "shrink" pulls it down into the gem ---------- */
 let wolfOn = false;
 function wolfEgg(h) {
   if (REDUCED) { found("werewolf"); return; }
   if (wolfOn) return; wolfOn = true;
-  const W = innerWidth, H = innerHeight, T = 4400;
-  const noir = veil("fx-noir", "", [{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 1, offset: .66 }, { opacity: 0, offset: .74 }, { opacity: 0 }], T);
-  // the Bloodstone itself: the same gem in its gold setting as on his insignia and in the Collection
-  const gem = document.createElement("div"); gem.className = "fx-bloodstone"; gem.innerHTML = embHTML("bloodstone"); gem.style.left = W / 2 + "px"; gem.style.top = H * .42 + "px"; document.body.appendChild(gem);
-  gem.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(1)", opacity: 1, offset: .14 }, { transform: "scale(1.18)", offset: .2 }, { transform: "scale(1)", offset: .26 }, { transform: "scale(1.18)", offset: .34 }, { transform: "scale(1)", offset: .4 }, { transform: "scale(1)", opacity: 1, offset: .64 }, { transform: "scale(1.5)", opacity: 0, offset: .7 }, { opacity: 0 }], { duration: T, fill: "both" }).onfinish = () => gem.remove();
-  setTimeout(() => haptic([60, 120, 60]), T * .2); setTimeout(() => haptic([60, 120, 60]), T * .34);
+  const W = innerWidth, H = innerHeight, T = 5000, V = window.WOLF_V || "draw";
+  const noir = veil("fx-noir", "", [{ opacity: 0 }, { opacity: 1, offset: .08 }, { opacity: 1, offset: .7 }, { opacity: 0, offset: .78 }, { opacity: 0 }], T);
+  // the watermark, lifted out of the box onto the screen exactly where it sits, so it can wake in colour above the black and white
+  const wm = (openEntry && panel.querySelector(".pwm")) || null, r = wm ? wm.getBoundingClientRect() : { left: W - 230, top: 80, width: 230, height: 230 }, s0 = r.width / 64;
+  const gem = document.createElement("div"); gem.className = "fx-bloodstone fx-wm"; gem.innerHTML = embHTML("bloodstone"); document.body.appendChild(gem);
+  const [gl, ge] = gem.querySelectorAll(".emb > i").length ? [...gem.querySelectorAll(".emb > i")] : [null, null];   // the stone, then its gold setting
+  const at = (x, y, sc) => `translate(${x}px,${y}px) scale(${sc})`, home = at(r.left, r.top, s0), cx = W / 2, cy = H * .42, mid = at(cx - 32 * 1.15, cy - 32 * 1.15, 1.15);
+  if (wm) wm.style.visibility = "hidden";
+  const glowOf = a => `drop-shadow(0 0 ${6 * a}px rgba(255,26,42,${a})) drop-shadow(0 0 ${16 * a}px rgba(255,26,42,${.7 * a}))`;
+  const pulse = [1800, 2150];
+  // where the burst comes from: the stone's centre, wherever it is
+  let bx = r.left + r.width / 2, by = r.top + r.height / 2;
+  if (V === "shrink") { bx = cx; by = cy; }
+  fxRun(T, t => {
+    const back = clamp01((t - T * .74) / (T * .2));   // the stone settles back into a watermark at the end
+    if (V === "draw") {
+      // the gold setting traces itself round, then the stone fills in from its heart; it brightens from a watermark's faintness to full colour
+      const a = clamp01((t - 250) / 1000), b = clamp01((t - 1050) / 600), on = easeIO(clamp01((t - 150) / 1100)) * (1 - back);
+      if (ge) ge.style.webkitMaskImage = ge.style.maskImage = a >= 1 ? "" : `conic-gradient(from -90deg at 50% 50%, #000 ${a * 360}deg, transparent ${a * 360}deg)`;
+      if (gl) gl.style.webkitMaskImage = gl.style.maskImage = b >= 1 ? "" : `radial-gradient(circle at 50% 51%, #000 ${b * 34}px, transparent ${b * 34 + 2}px)`;
+      gem.style.transform = home; gem.style.opacity = .11 + .89 * on; gem.style.filter = glowOf(on);
+    } else {
+      // it lifts off, shrinks and drifts down to the middle, colour flooding in as it goes; at the end it drifts back up and grows into a watermark again
+      const go = easeIO(clamp01((t - 150) / 1100)), ret = easeIO(back), f = go * (1 - ret);
+      const x = r.left + (cx - 32 * 1.15 - r.left) * f, y = r.top + (cy - 32 * 1.15 - r.top) * f, sc = s0 + (1.15 - s0) * f;
+      gem.style.transform = at(x, y, sc); gem.style.opacity = .11 + .89 * f; gem.style.filter = glowOf(f);
+    }
+    // two heartbeats once it's lit
+    const em = gem.firstElementChild; let p = 0; pulse.forEach(pt => { const d = (t - pt) / 300; if (d > 0 && d < 1) p = Math.max(p, Math.sin(d * Math.PI)); });
+    if (em) em.style.transform = `scale(${1.15 * (1 + .1 * p)})`;
+  }, () => { gem.remove(); if (wm) wm.style.visibility = ""; });
+  pulse.forEach(pt => setTimeout(() => haptic([60, 120, 60]), pt));
   // the claw marks: four ragged tears, ripped in one after another
   const { cv, g } = fxCanvas(), slashes = Array.from({ length: 4 }, (_, k) => {
     const x0 = W * (.62 + k * .1), y0 = H * (.16 + k * .03), x1 = W * (.05 + k * .1), y1 = H * (.78 + k * .03), n = 26;
-    return { x0, y0, x1, y1, n, jag: Array.from({ length: n + 1 }, () => [(Math.random() - .5) * 4, (Math.random() - .5) * 4]), at: 1700 + k * 90 };
+    return { x0, y0, x1, y1, n, jag: Array.from({ length: n + 1 }, () => [(Math.random() - .5) * 4, (Math.random() - .5) * 4]), at: 2400 + k * 90 };
   });
   fxRun(T, t => {
     g.clearRect(0, 0, W, H); const fade = t > T * .74 ? Math.max(0, 1 - (t - T * .74) / 600) : 1;
@@ -7016,10 +7044,10 @@ function wolfEgg(h) {
       g.globalAlpha = .5 * fade; g.lineWidth = 2; g.strokeStyle = "#8A0A14"; g.beginPath(); g.moveTo(s.x0, s.y0); g.lineTo(s.x0 + dx * p * .98, s.y0 + dy * p * .98); g.stroke(); g.globalAlpha = 1;
     });
   }, () => cv.remove());
-  setTimeout(() => { fxScope().animate([{ transform: "none" }, { transform: "translate(-7px,5px)" }, { transform: "translate(5px,-3px)" }, { transform: "none" }], { duration: 260 }); haptic([30, 20, 30, 20, 60]); }, 1750);
-  setTimeout(() => {   // the burst: red floods out of the gem and the colour comes back
-    veil("fxl", `z-index:97;background:radial-gradient(circle at 50% 42%, rgba(255,60,60,.85), rgba(200,0,20,.55) 35%, rgba(150,0,10,0) 75%)`, [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 900);
-    fxRing(W / 2, H * .42, Math.hypot(W, H) * .6, "#FF2A2A", 800, 0, 4); burst(W / 2, H * .42, 40, ["#FF2A2A", "#FF8A8A", "#8A0010"], 160); haptic([140, 30, 200]);
+  setTimeout(() => { fxScope().animate([{ transform: "none" }, { transform: "translate(-7px,5px)" }, { transform: "translate(5px,-3px)" }, { transform: "none" }], { duration: 260 }); haptic([30, 20, 30, 20, 60]); }, 2450);
+  setTimeout(() => {   // the burst: red floods out of the stone and the colour comes back
+    veil("fxl", `z-index:97;background:radial-gradient(circle at ${bx}px ${by}px, rgba(255,60,60,.85), rgba(200,0,20,.55) 35%, rgba(150,0,10,0) 75%)`, [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 900);
+    fxRing(bx, by, Math.hypot(W, H) * .6, "#FF2A2A", 800, 0, 4); burst(bx, by, 40, ["#FF2A2A", "#FF8A8A", "#8A0010"], 160); haptic([140, 30, 200]);
   }, T * .68);
   setTimeout(() => { wolfOn = false; found("werewolf"); }, T);
 }
