@@ -54,7 +54,8 @@ button{ font:inherit; color:inherit; }
 .meter .barrow{ display:flex; align-items:center; gap:10px; margin-top:8px; }
 .meter .pct{ font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:20px; min-width:3.2ch; text-align:right; }
 .meter .bar{ flex:1; height:8px; background:var(--line); border-radius:4px; overflow:hidden; }
-.meter .bar span{ display:block; height:100%; width:0; background:linear-gradient(90deg,#7D4FA8 0%,#7D4FA8 13%,#3A78C9 20%,#3A78C9 30%,#C8443A 37%,#C8443A 47%,#D9822B 54%,#D9822B 63%,#3E9B5C 70%,#3E9B5C 80%,#D9B32B 87%,#D9B32B 100%); background-size:var(--full,100%) 100%; transition:width .5s ease; }
+.meter .bar span{ display:block; height:100%; width:0; background:linear-gradient(90deg,#2F6FC0,#8FE0FF); transition:width .5s ease; }
+.meter .bar span.inf{ background:linear-gradient(90deg,#7D4FA8 0%,#7D4FA8 13%,#3A78C9 20%,#3A78C9 30%,#C8443A 37%,#C8443A 47%,#D9822B 54%,#D9822B 63%,#3E9B5C 70%,#3E9B5C 80%,#D9B32B 87%,#D9B32B 100%); background-size:var(--full,100%) 100%; transition:width .5s ease; }
 
 /* mode switch */
 .modes{ display:flex; justify-content:space-between; gap:10px; margin:22px 0 6px; }
@@ -1912,7 +1913,7 @@ function renderMeter() {
     const f = focusLane(), list = meterList();
     const n = list.filter(e => state.checks[tk(e.t)]).length, t = list.length, pct = t ? Math.round(n / t * 100) : 0;
     document.getElementById("meterNum").innerHTML = `<span class="nowline">${esc(nowLine())}</span>`;
-    const bar = document.getElementById("meterBar");
+    const bar = document.getElementById("meterBar"); bar.classList.remove("inf");
     bar.style.width = pct + "%";
     bar.style.background = f && f !== "main" ? LANES[f].c : "";   // a branch fills in its own color
     document.getElementById("meterPct").textContent = pct + "%";
@@ -1930,13 +1931,13 @@ function renderMeter() {
   const n = list.filter(isDone).length, t = list.length;
   const pct = t ? Math.round(n / t * 100) : 0;
   document.getElementById("meterNum").innerHTML = `${n} <small>of ${t} ${state.mode === "chapters" ? "chapters" : "characters"} complete</small>`;
-  document.getElementById("meterBar").style.width = pct + "%";
-  document.getElementById("meterBar").style.background = "";
+  const mb = document.getElementById("meterBar");
+  mb.style.width = pct + "%"; mb.style.background = "";
+  mb.classList.toggle("inf", t > 0 && n === t);   // the datapad's blue as it fills; the six stones once it's all done
   document.getElementById("meterPct").textContent = pct + "%";
-  if (state.mode === "chapters") {
-    const mainDone = DATA.chapters.filter(c => c.num).every(isDone), allDone = DATA.chapters.every(isDone);
-    setStatus(allDone ? "<b>Multiverse Completed</b>" : mainDone ? "<b>Sacred Timeline Completed</b><br>The Multiverse Remains" : "");
-  } else setStatus("");
+  // the same two lines for chapters and characters: the numbered chapters (or every character but the Extras) are the Sacred Timeline; all of it, the Multiverse
+  const mainDone = list.filter(c => state.mode === "chapters" ? c.num : !MV_BOXES[c.id]).every(isDone), allDone = list.every(isDone);
+  setStatus(allDone ? "<b>Multiverse Completed</b>" : mainDone ? "<b>Sacred Timeline Completed</b><br>The Multiverse Remains" : "");
 }
 function renderAll() { renderMeter(); renderView(); if (openEntry) renderPanel(openEntry, false); }
 
@@ -6332,9 +6333,10 @@ function swapIn(host, html) {
   neu.forEach((n, i) => { if (old[i].outerHTML !== n.outerHTML) old[i].replaceWith(n); });
 }
 // your clearance rises a level for every tenth of the Agent File you complete
-const CLEARANCE = ["Recruit", "Field Agent", "Specialist", "Strike Team", "Black Ops", "Classified", "Top Secret", "World Security", "Omega", "Avenger"];
+// and everything in it, complete, takes you one past the top: Excelsior
+const CLEARANCE = ["Recruit", "Field Agent", "Specialist", "Strike Team", "Black Ops", "Classified", "Top Secret", "World Security", "Omega", "Avenger", "Excelsior"];
 function renderFile(fresh) {
-  const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = Math.min(10, 1 + Math.floor(done / A.length * 10));
+  const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = done === A.length ? 11 : Math.min(10, 1 + Math.floor(done / A.length * 10));
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
@@ -7768,7 +7770,7 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
       persist(); renderMeter();
       if (wasBranched !== branched() || lane === "main") { growNext = wasBranched !== branched() && branched(); const y = window.scrollY; renderView(); window.scrollTo(0, y); }   // Loki S1 changed: the branches open or fold away; or the Reveal / Hide button moves
       else items.forEach(e => { const r = document.querySelector(`.tl-row[data-tl="${CSS.escape(e.t)}"]`); if (r) r.setAttribute("aria-pressed", "true"); });
-      toast(`${label} Completed`, null, false, undefined, undefined, { full: true }); haptic(HAPTIC.success);   // news, not a reply to a tap: it opens like one
+      haptic(HAPTIC.success);   // the meter says it's complete; no pill of its own
       if (!wasOpen && multiverseOpen()) mvAlert("tl");   // marking it all can be what opens the multiverse or the Incursions, the same as one tick
       if (!wasInc && incOpen()) incAlert("tl");
     });
