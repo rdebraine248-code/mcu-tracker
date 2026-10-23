@@ -2987,10 +2987,10 @@ function jameson() {
   o.innerHTML = `<div class="bg-top"><b>TheDailyBugle.net</b><i>Live</i></div><div class="bg-main"><span class="bg-tag">Breaking</span><h2>Spider-Man<span>is a menace!</span></h2><div class="bg-say"></div></div>
     <div class="bg-crawl"><span>Spider-Man: hero or menace? Menace. &#9670; Do not trust the mask &#9670; Spider-Man: hero or menace? Menace. &#9670; Do not trust the mask</span></div>`;
   document.body.appendChild(o);
-  // he cuts in: a burst of static, then the feed
-  o.animate([{ opacity: 0, filter: "contrast(3) brightness(2)" }, { opacity: 1, offset: .2 }, { opacity: .2, offset: .35 }, { opacity: 1, filter: "none" }], { duration: 420, fill: "both" });
+  // he cuts in: the feed opens out from a line, like a set switching on (and it goes off the same way)
+  o.animate([{ transform: "scale(0,.006)", filter: "brightness(3)" }, { transform: "scale(1,.006)", filter: "brightness(3)", offset: .45 }, { transform: "none", filter: "none" }], { duration: 480, easing: "ease-out", fill: "both" });
   const h = o.querySelector("h2"), say = o.querySelector(".bg-say");
-  h.animate([{ transform: "scale(1.5) rotate(-3deg)", opacity: 0 }, { transform: "scale(.96) rotate(0deg)", opacity: 1, offset: .7 }, { transform: "none", opacity: 1 }], { duration: 420, delay: 500, easing: "cubic-bezier(.3,1.4,.5,1)", fill: "both" });
+  h.animate([{ transform: "scale(1.5) rotate(-3deg)", opacity: 0 }, { transform: "scale(.96) rotate(0deg)", opacity: 1, offset: .7 }, { transform: "none", opacity: 1 }], { duration: 420, delay: 560, easing: "cubic-bezier(.3,1.4,.5,1)", fill: "both" });
   setTimeout(() => haptic([60, 20, 40]), 620);
   const LINES = ["That's right. I said it.", "And I'll keep saying it until somebody listens!"];
   let t = 1300; LINES.forEach((line, k) => { for (let n = 1; n <= line.length; n++) setTimeout(() => { say.innerHTML = LINES.slice(0, k).map(esc).join("<br>") + (k ? "<br>" : "") + esc(line.slice(0, n)); }, t + n * 34); t += line.length * 34 + 500; });
