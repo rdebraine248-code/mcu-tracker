@@ -749,7 +749,7 @@ html:has(#rateSheet){ overflow:hidden; }
 .hf-rate .ract{ margin:4px 0 10px; color:#9FB4D6; }
 .hf-rlast{ padding:0; border:0; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer; text-decoration:underline; text-decoration-color:rgba(233,196,106,.4); text-underline-offset:3px; }
 .rcells{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-.rc{ min-width:0; padding:10px 8px; border:1px solid #232D42; border-radius:10px; background:#0F1626; color:#B9C6DC; text-align:left; font:inherit; }
+.rc{ display:flex; flex-direction:column; justify-content:flex-start; min-width:0; padding:10px 8px; border:1px solid #232D42; border-radius:10px; background:#0F1626; color:#B9C6DC; text-align:left; font:inherit; }
 button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9A43A; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
 .rc small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7D8BA6; text-transform:uppercase; }
 .rc b{ display:block; margin:3px 0 2px; font:500 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#E2E8F3; overflow-wrap:anywhere; } .rc span{ font:600 13px system-ui,sans-serif; color:#F4C542; }
@@ -6356,6 +6356,9 @@ function renderFile(fresh) {
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
     const hid = !ok && (a.sec === "chapters" ? !state.unlocked[a.cid] : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
+    // a chapter's number is never secret (its cover on Story shows it), so a chapter card keeps it, as the Personal log and the Log do: Ch. 3 over [ Classified ]
+    const pub = a.sec === "chapters" ? (DATA.chapters.find(c => c.id === a.cid) || {}).num : null;
+    if (hid && a.sec === "chapters") return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b>${pub ? "Ch. " + pub : "Extras"}</b><small><span class="sl-cl">[ Classified ]</span></small>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
     if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b><span class="sl-cl">[ Classified ]</span></b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
     const nm = a.t, note = ok ? a.d : tip || "In progress";
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}">${ok ? `<span class="st">Complete</span>` : ""}<b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
