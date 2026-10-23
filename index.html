@@ -44,7 +44,11 @@ button{ font:inherit; color:inherit; }
 /* masthead */
 .mast{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:18px 28px; padding-bottom:20px; border-bottom:1px solid var(--line); }
 /* the title fits on one line at any width; it carries the datapad's soft blue glow, as the Sacred Timeline's carries the TVA's amber */
-.mast h1{ margin:0; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:clamp(20px, calc((100vw - 60px) / 12.6), 52px); line-height:1; letter-spacing:.5px; white-space:nowrap; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 14px rgba(109,189,255,.35), 0 2px 0 rgba(0,0,0,.35); }
+.mast h1{ margin:0; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:clamp(20px, calc((100vw - 60px) / 12.6), 52px); line-height:1; letter-spacing:.5px; white-space:nowrap; text-transform:uppercase; color:#EEF5FF; text-shadow:0 2px 0 rgba(0,0,0,.35); }
+/* the titles' glow is a blurred copy of the title behind it, not a blurred text shadow: Samsung Internet doesn't draw those */
+.mast h1, .dockpg .maptop h2, .pgtitle{ isolation:isolate; }
+.mast h1::before, .dockpg .maptop h2::before, .pgtitle::before{ content:attr(data-glow); position:absolute; left:0; top:0; z-index:-1; color:rgba(109,189,255,.55); filter:blur(9px); white-space:nowrap; pointer-events:none; }
+body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 /* the line under the title is dark until you earn an Infinity Stone; each one lights its own segment, in its colour */
 .mast h1::after{ content:""; display:block; width:100%; height:4px; margin-top:9px; border-radius:2px; background:#1C2536; }
 .mast .sub{ margin:8px 0 0; color:var(--muted); font-size:16px; }
@@ -257,7 +261,7 @@ body[data-mode="timeline"]::before{ background-color:#120D09;
                    radial-gradient(1100px 600px at 12% -8%, rgba(255,150,40,0.16), transparent 62%),
                    radial-gradient(900px 600px at 100% 100%, rgba(200,110,30,0.10), transparent 60%);
   background-size:auto, 22px 22px, auto, auto, auto; }
-body[data-mode="timeline"] .mast h1{ color:#FFB347; text-shadow:0 0 18px rgba(255,150,40,.45), 0 3px 0 rgba(0,0,0,.35); }
+body[data-mode="timeline"] .mast h1{ color:#FFB347; text-shadow:0 3px 0 rgba(0,0,0,.35); }
 body[data-mode="timeline"] .mast h1::after{ background:linear-gradient(90deg,#FFB347,#C8661E); }
 body[data-mode="timeline"] .meter .bar span{ background:linear-gradient(90deg,#FFB347,#C8661E); }
 body[data-mode="timeline"] .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
@@ -1150,7 +1154,7 @@ body{ padding-bottom:var(--dockh); }
    there's no Back (inside an Atlas city or universe, the map's own "‹ Earth" steps up a level). The Story log's title is the same */
 .dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(26px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
 .dockpg .maptop .back{ display:none; }
-.dockpg .maptop h2, .pgtitle{ display:block; margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 14px rgba(109,189,255,.35), 0 2px 0 rgba(0,0,0,.35); }
+.dockpg .maptop h2, .pgtitle{ position:relative; display:block; margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 2px 0 rgba(0,0,0,.35); }
 .pgtitle{ margin:calc(12px + env(safe-area-inset-top,0px)) 0 0; }
 .dockpg .atl-views{ flex-basis:100%; display:flex; gap:8px; margin-top:12px; padding:4px 0 0; overflow-x:auto; scrollbar-width:none; border:0; border-radius:0; background:none; }
 .dockpg .atl-views::-webkit-scrollbar{ display:none; }
@@ -1195,7 +1199,7 @@ body{ padding-bottom:var(--dockh); }
 <div class="wrap" id="app">
   <header class="mast">
     <div>
-      <h1 id="mainTitle">The Marvel Cinematic Universe<button type="button" class="stonebar" id="stoneBar" aria-label="Infinity Stones"></button></h1>
+      <h1 id="mainTitle" data-glow="The Marvel Cinematic Universe">The Marvel Cinematic Universe<button type="button" class="stonebar" id="stoneBar" aria-label="Infinity Stones"></button></h1>
       <div class="subrow"><p class="sub" id="modeSub">Watch tracker</p></div>
     </div>
     <div class="meter" aria-live="polite">
@@ -1215,7 +1219,7 @@ body{ padding-bottom:var(--dockh); }
 </div>
 <div class="panel" id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="panelTitle"></div>
 <div class="filepanel dockpg" id="filePanel" hidden role="dialog" aria-modal="true" aria-label="Archive">
-  <div class="maptop"><button type="button" class="back" id="fileBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Agent File</h2></div>
+  <div class="maptop"><button type="button" class="back" id="fileBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2 data-glow="Agent File">Agent File</h2></div>
   <div class="fileview" id="fileView"></div>
 </div>
 <div class="filepanel collpanel" id="collPanel" hidden role="dialog" aria-modal="true" aria-label="The Collection">
@@ -1223,17 +1227,17 @@ body{ padding-bottom:var(--dockh); }
   <div class="fileview" id="collView"></div>
 </div>
 <div class="filepanel atlpanel dockpg" id="atlasPanel" hidden role="dialog" aria-modal="true" aria-label="Atlas">
-  <div class="maptop"><button type="button" class="back" id="atlBack" aria-label="Back"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Atlas</h2><div class="atl-views" id="atlTabs" role="tablist"></div></div>
+  <div class="maptop"><button type="button" class="back" id="atlBack" aria-label="Back"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2 data-glow="Atlas">Atlas</h2><div class="atl-views" id="atlTabs" role="tablist"></div></div>
   <div class="fileview atl-on" id="atlView"></div>
 </div>
 <div class="filepanel commspanel dockpg" id="commsPanel" hidden role="dialog" aria-modal="true" aria-label="Comms">
-  <div class="maptop"><button type="button" class="back" id="commsBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Comms</h2><div class="atl-views" id="commsTabs" role="tablist"></div></div>
+  <div class="maptop"><button type="button" class="back" id="commsBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2 data-glow="Comms">Comms</h2><div class="atl-views" id="commsTabs" role="tablist"></div></div>
   <div class="fileview" id="commsView"></div>
 </div>
 <div class="mappanel dockpg" id="mapPanel" hidden role="dialog" aria-modal="true" aria-label="Character Map">
   <div class="maptop">
     <button type="button" class="back" id="mapBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back to characters</button>
-    <h2>Character Map</h2>
+    <h2 data-glow="Character Map">Character Map</h2>
     <div class="mapzoom"><button type="button" id="mapIn" aria-label="Zoom in">+</button><button type="button" id="mapOut" aria-label="Zoom out">−</button><button type="button" id="mapFit" aria-label="Fit the map">Fit</button></div>
   </div>
   <div class="mapview" id="mapView"></div>
@@ -2912,7 +2916,7 @@ const slDeb = c => { const L = DOSSIERS[c.id]; return !!(L && L.debrief) && slAl
 const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")) || (slEntries(c).length > 0 && slPer(c) >= 0 && !slSeenK(c, "r0." + slPer(c))));
 function slPlace(open) { slOpen = open || null; }   // the log opens with every chapter folded, unless you've jumped in from one of them
 function slHTML() {
-  return `<h2 class="pgtitle">Story Log</h2>
+  return `<h2 class="pgtitle" data-glow="Story Log">Story Log</h2>
     ${SL_ACTS.map(A => `<div class="sl-pg"><div class="act">${A[2]() ? A[1] : "Act " + A[0]}</div></div>${DATA.chapters.filter(A[3]).map(slSec).join("")}`).join("")}`;
 }
 // one chapter's section of the Story log
@@ -2950,7 +2954,7 @@ function hydra(strip) {
   setTimeout(() => {   // Hydra
     fp.classList.add("hydra"); veilEl = document.createElement("div"); veilEl.className = "fx-hydra"; document.body.appendChild(veilEl);
     veilEl.animate([{ opacity: 0 }, { opacity: 1 }, { opacity: .3 }, { opacity: 1 }], { duration: 300, fill: "forwards" });
-    ttl.textContent = "Hydra"; tag.textContent = "Hydra asset"; code.textContent = "Asset"; lvl.textContent = "Hail Hydra"; num.textContent = "Compromised"; num.style.color = "";
+    ttl.textContent = "Hydra"; ttl.dataset.glow = "Hydra"; tag.textContent = "Hydra asset"; code.textContent = "Asset"; lvl.textContent = "Hail Hydra"; num.textContent = "Compromised"; num.style.color = "";
     card.animate([{ transform: "none" }, { transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "none" }], { duration: 240 });
     haptic([80, 40, 80]);
   }, 700);
@@ -2960,7 +2964,7 @@ function hydra(strip) {
     sh.animate([{ left: "-60px", top: cy - 60 + "px", transform: "rotate(0deg)" }, { left: cx + "px", top: cy + "px", transform: "rotate(540deg)" }], { duration: 380, easing: "cubic-bezier(.5,0,.9,.6)", fill: "forwards" }).onfinish = () => {
       haptic([60, 30, 120]); fxRing(cx, cy, 160, "#FFFFFF", 450, 0, 3);
       card.animate([{ transform: "none" }, { transform: "translate(10px,-4px) rotate(1.2deg)" }, { transform: "translate(-6px,3px) rotate(-.8deg)" }, { transform: "none" }], { duration: 420, easing: "ease-out" });
-      fp.classList.remove("hydra"); keep.forEach(([e, h]) => { e.innerHTML = h; }); num.style.color = "";
+      fp.classList.remove("hydra"); keep.forEach(([e, h]) => { e.innerHTML = h; }); ttl.dataset.glow = "Agent File"; num.style.color = "";
       if (veilEl) veilEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => veilEl.remove();
       sh.animate([{ left: cx + "px", top: cy + "px", transform: "rotate(540deg)" }, { left: innerWidth + 80 + "px", top: cy - 220 + "px", transform: "rotate(1080deg)" }], { duration: 520, easing: "cubic-bezier(.2,.6,.4,1)", fill: "forwards" }).onfinish = () => { sh.remove(); hydraOn = false; found("hydra"); };
     };
