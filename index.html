@@ -9687,7 +9687,9 @@ function unsnap() {
 let mapOpen = false, mapBuilt = false, mapFocusI = null;
 const MV = { s: 1, tx: 0, ty: 0 };
 // a line in Paths keeps its character's name back until you've met them, the same as their box, their insignia and their Agent File card
-const mapAnon = n => { const e = DATA.chars.find(c => c.title === n); return !!e && (charAnon(e) || charHidden(e)); };
+// a name on the map is hidden until it's known, the same test as everywhere else: a multiverse box you haven't opened still shows its name once
+// you've earned its insignia (on the Sacred Timeline you never open the box)
+const mapAnon = n => { const e = DATA.chars.find(c => c.title === n); return !!e && (charAnon(e) || charHidden(e) && !charNamed(e)); };
 const mapName = n => { const e = DATA.chars.find(c => c.title === n); return e ? boxName(e) : n; };
 function buildMap() {
   const M = MAP, v = document.getElementById("mapView");
