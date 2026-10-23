@@ -552,6 +552,10 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .dlog{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
 .dlog li{ padding:12px 14px; }
 .dlog li.on{ border-color:#2B3F62; box-shadow:inset 3px 0 0 #3A78C9; }
+#dossier li[data-slt="She-Hulk: Attorney at Law"]{ touch-action:pan-y; }   /* a sideways swipe on her entry is hers, not the page's */
+.fx-4w{ position:fixed; inset:0; z-index:5; pointer-events:none; background:rgba(5,8,14,.74); }
+.dlog li.fx-4wli{ position:relative; z-index:6; border-color:#7BD86A !important; box-shadow:0 0 0 1px rgba(123,216,106,.5), 0 18px 40px rgba(0,0,0,.55), inset 3px 0 0 #7BD86A !important; background:#101A14; }
+.dlog li.fx-4wli p.aside{ font-size:18px; line-height:1.4; color:#E9FFE4; font-style:italic; }
 .dlog .dt{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:6px; font:12px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#B9C6DC; text-transform:uppercase; }
 .dlog li.off .dt, .dlog li.pend .dt{ color:#6F7C95; margin-bottom:4px; }
 .dck{ flex:0 0 auto; font-style:normal; font-size:10px; letter-spacing:1.5px; color:#E9C46A; }
@@ -2906,9 +2910,36 @@ function slSec(c) {
   if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt || "<small>No entries</small>"}</div></div>`;   // a revealed chapter shows its name, even before its first entry
   const open = slOpen === c.id, L = DOSSIERS[c.id];
   const pk = slPer(c), per = pk < 0 ? "" : `<div class="sl-per"><small>Period</small><p>${slSeenK(c, "r0." + pk) ? esc(L.rows.period[pk][0]) : dnew(c.id + "|r0." + pk, esc(L.rows.period[pk][0]))}</p></div>`;
-  const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
+  const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on" data-slt="${esc(t)}"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
     ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
   return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt}${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
+}
+/* ---------- She-Hulk: in the Story Log, swipe her entry sideways. Jen notices you reading: her entry turns to face you while the rest of the log
+   dims like a paused show, says a word to you, then she shoulders the entries either side out of line on her way back in. They straighten after ---------- */
+let fwOn = false, fwG = null;
+document.addEventListener("pointerdown", ev => { const li = ev.target.closest('#dossier li[data-slt="She-Hulk: Attorney at Law"]'); fwG = li && !fwOn ? { li, x: ev.clientX, y: ev.clientY } : null; }, true);
+document.addEventListener("pointermove", ev => { if (!fwG) return; const dx = ev.clientX - fwG.x, dy = ev.clientY - fwG.y;
+  if (Math.abs(dy) > 24 && Math.abs(dy) > Math.abs(dx)) { fwG.li.style.transform = ""; fwG = null; return; }   // it's a scroll
+  fwG.li.style.transform = `translateX(${Math.sign(dx) * Math.min(46, Math.abs(dx) * .45)}px)`;
+  if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 1.6) { const li = fwG.li; fwG = null; gestBlock = Date.now() + 600; fourthWall(li, Math.sign(dx)); } });
+["pointerup", "pointercancel"].forEach(n => document.addEventListener(n, () => { if (!fwG) return; const li = fwG.li; fwG = null; if (li.style.transform) { li.animate([{ transform: li.style.transform }, { transform: "none" }], { duration: 220, easing: "ease-out" }); li.style.transform = ""; } }));
+function fourthWall(li, dir) {
+  if (REDUCED) { li.style.transform = ""; found("fourthwall"); return; }
+  fwOn = true;
+  const el = document.getElementById("dossier"), p = li.querySelector("p"), was = p.innerHTML, from = li.style.transform || "none";
+  const veilEl = document.createElement("div"); veilEl.className = "fx-4w"; el.appendChild(veilEl);
+  veilEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 350, fill: "forwards" });
+  li.style.transform = ""; li.classList.add("fx-4wli"); haptic([20, 40, 20]);
+  // she turns to face you: a swing round on the spot, then a step toward the screen
+  li.animate([{ transform: from }, { transform: `perspective(700px) rotateY(${dir * 24}deg) translateX(${dir * 20}px)`, offset: .45 }, { transform: "perspective(700px) rotateY(0deg) scale(1.05)" }], { duration: 620, easing: "cubic-bezier(.3,.7,.3,1)", fill: "forwards" });
+  setTimeout(() => { p.classList.add("aside"); p.textContent = "Oh. You're reading my file? Okay. Hi."; p.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260 }); haptic(14); }, 640);
+  setTimeout(() => { p.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" }).onfinish = () => { p.classList.remove("aside"); p.innerHTML = was; p.getAnimations().forEach(a => a.cancel()); };
+    li.animate([{ transform: "perspective(700px) rotateY(0deg) scale(1.05)" }, { transform: "none" }], { duration: 420, easing: "ease-in-out", fill: "forwards" }).onfinish = a => { a.target.cancel(); li.classList.remove("fx-4wli"); };
+    veilEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, fill: "forwards" }).onfinish = () => veilEl.remove(); }, 3000);
+  // on her way back in she shoulders the entries either side of hers out of line; they hang crooked a moment, then straighten themselves
+  setTimeout(() => { [[li.previousElementSibling, -1], [li.nextElementSibling, 1]].forEach(([n, k]) => { if (!n) return;
+      n.animate([{ transform: "none" }, { transform: `translate(${dir * 16}px,${k * 4}px) rotate(${dir * k * 2.5}deg)`, offset: .12 }, { transform: `translate(${dir * 12}px,${k * 3}px) rotate(${dir * k * 2}deg)`, offset: .7 }, { transform: "none" }], { duration: 1500, easing: "cubic-bezier(.3,.7,.3,1)" }); });
+    haptic([30, 30, 12]); setTimeout(() => { fwOn = false; found("fourthwall"); }, 1500); }, 3300);
 }
 // fold a chapter open or shut: only it and the one it replaces are redrawn, and the one you tapped stays put on screen
 function slFold(el, h) {
@@ -6163,7 +6194,7 @@ function found(id, ms) {
 }
 const anyChecked = t => Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::" + t));
 const allTL = (list, pre, lane) => list.filter(e => !lane || e.lane === lane).every(e => state.checks[pre + e.t]);
-// Classified, split evenly in two: page 1 the Infinity Saga heroes (plus the two about the movies themselves), page 2 the Multiverse Saga, each in release order
+// Classified, dealt out evenly across its pages: the Infinity Saga heroes first (plus the two about the movies themselves), then the Multiverse Saga, each in release order
 const EGGS = [
   ["ironhud", "Heads-up", "Suit up.", "In Iron Man's box, swipe down on his name.", 1],
   ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times.", 1],
@@ -6205,6 +6236,7 @@ const EGGS = [
   ["eternals", "The Uni-Mind", "Their power, joined as one.", "Hold anywhere in the Eternals box.", 2],
   ["moon", "Fractured", "Who's in control?", "Hold the name in the Moon Knight box.", 2],
   ["scales", "Weighing the heart", "Taweret keeps the scales.", "After Moon Knight, in the Atlas Beyond, hold the Duat.", 2],
+  ["fourthwall", "Fourth wall", "Someone knows you're reading.", "In the Story Log, swipe the She-Hulk: Attorney at Law entry sideways.", 2],
   ["doodles", "Doodles", "Kamala draws what she dreams.", "Draw on the name in The Champions box.", 2],
   ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box or the Beyond the MCU chapter.", 2],
   ["werewolf", "Bloodstone", "Something red sets it off.", "Hold the Bloodstone watermark in the Werewolf by Night box.", 2],
