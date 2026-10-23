@@ -6124,7 +6124,7 @@ function achList() {
     h: c.num ? "Watch every title in it." : c.id === INC_ID ? "Watch Avengers: Doomsday, then everything in it." : "Open the multiverse, then watch everything in it.",
     x: c.num ? `Check off every title in Chapter ${c.num}.` : c.id === INC_ID ? "After Avengers: Doomsday, unlock this Extras box and check off every title in it." : "After Loki S1, unlock this Extras box and check off every title in it.",
     ok: () => isDone(c) }));
-  // every character box, the second page of the same section: Locked until its box is finished, then Complete
+  // every character box, the second page of the same section: In progress until its box is finished, then Complete
   DATA.chars.forEach(c => A.push({ id: "char-" + c.id, sec: "characters", done: true, t: c.title, d: "Complete.", ch: c,
     h: "Watch every title in the box.", x: `Check off every title in the ${c.title} box on the Characters page.`, ok: () => isDone(c) }));
   AVENGERS_FILMS.forEach(f => A.push({ id: "film-" + f, sec: "missions", t: MISSION_NAMES[f] || f.replace("Avengers: ", ""), lead: true, d: f + " watched.", h: "An Avengers film.", x: `Check off ${f} in any list.`, ok: () => anyChecked(f) }));
@@ -6333,11 +6333,11 @@ function renderFile(fresh) {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = Math.min(10, 1 + Math.floor(done / A.length * 10));
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
-    // every file reads the same way: Classified while it's locked and unknown; Locked, its name, In progress once it's known; then Complete
+    // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
     const hid = !ok && (a.sec === "chapters" ? !state.unlocked[a.cid] : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
     if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b>Classified</b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
-    const st = ok ? "Complete" : "Locked", nm = a.t, note = ok ? a.d : tip || "In progress";
-    return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}"><span class="st">${st}</span><b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
+    const nm = a.t, note = ok ? a.d : tip || "In progress";
+    return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}">${ok ? `<span class="st">Complete</span>` : ""}<b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
     return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg">${L.map(card).join("")}</div></section>`; };
   const part = (key, title, mini) => { const L = A.filter(a => a.sec === key); return `<section class="hf-sec" data-hfsec="${key}"><h3><span>${title}</span><span>${L.filter(a => earned(a.id)).length}/${L.length}</span></h3><div class="hf-grid${mini ? " mini" : ""}">${L.map(card).join("")}</div></section>`; };
