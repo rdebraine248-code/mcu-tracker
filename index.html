@@ -761,6 +761,7 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .ach.hf-glow{ animation:hfGlow 2.2s ease-out; }
 @keyframes hfGlow{ 0%,30%{ box-shadow:0 0 0 2px #F4D27A, 0 0 26px rgba(244,210,122,.75); } 100%{ box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); } }
 .ach.done .st{ color:#E9C46A; }
+.hf-grid.mini .ach.chc{ min-height:92px; justify-content:center; gap:3px; } .ach.chc b{ line-height:1.2; }
 .hf-grid.mini .ach{ min-height:70px; padding:8px; align-items:center; justify-content:center; text-align:center; }
 .ach.final{ grid-column:1 / -1; }
 .hf-save{ padding:14px; border:1px solid #232D42; border-radius:10px; background:#0F1626; }
@@ -6358,7 +6359,9 @@ function renderFile(fresh) {
     const hid = !ok && (a.sec === "chapters" ? !state.unlocked[a.cid] : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
     // a chapter's number is never secret (its cover on Story shows it), so a chapter card keeps it, as the Personal log and the Log do: Ch. 3 over [ Classified ]
     const pub = a.sec === "chapters" ? (DATA.chapters.find(c => c.id === a.cid) || {}).num : null;
-    if (hid && a.sec === "chapters") return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b>${pub ? "Ch. " + pub : "Extras"}</b><small><span class="sl-cl">[ Classified ]</span></small>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
+    // a chapter card reads like its row in the Log and its cell in the Personal log: its number on top, its name (or [ Classified ]), then where you are
+    if (a.sec === "chapters") { const ch = DATA.chapters.find(c => c.id === a.cid) || {};
+      return `<button type="button" class="ach chc${ok ? " done" : ""}${hid ? " cl" : ""}" data-ach="${esc(a.id)}"><span class="st">${pub ? "Ch. " + pub : "Extras"}</span><b>${hid ? '<span class="sl-cl">[ Classified ]</span>' : esc(ch.title || a.t)}</b>${hid ? (tip ? `<small>${esc(tip)}</small>` : "") : `<small>${ok ? "Complete" : esc(tip || "In progress")}</small>`}</button>`; }
     if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b><span class="sl-cl">[ Classified ]</span></b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
     const nm = a.t, note = ok ? a.d : tip || "In progress";
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}">${ok ? `<span class="st">Complete</span>` : ""}<b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
