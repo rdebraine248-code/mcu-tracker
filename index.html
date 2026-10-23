@@ -127,6 +127,8 @@ button{ font:inherit; color:inherit; }
 @media (hover:hover) and (pointer:fine){ .tile:hover{ transform:translateY(-2px); } }
 .tile:focus-visible{ box-shadow:0 0 0 3px var(--shell),0 0 0 6px var(--ink) !important; }
 .hrow{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+/* a character's profile carries their insignia at the right of their name */
+.hrow .pemb{ flex:none; width:56px; height:56px; margin:-6px 0 -6px auto; align-self:center; } .hrow .pemb .emb{ transform:scale(.875); transform-origin:0 0; }
 .hrow .kick{ flex-shrink:0; font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:2px; opacity:.9; }
 .hrow.big{ margin-top:26px; }
 .hrow.big .kick{ font-size:13px; }
@@ -2751,7 +2753,7 @@ function openDossier(id, go) {
     el.setAttribute("style", `${box.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${bc};--sfg:${box.sfg || fg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);--logbg:${bg};--hf:${fontOf(box.h2) || "inherit"}`);
     el.innerHTML = `${panelDecor(box)}<div class="pin">
       <div class="ptop"><button type="button" class="back" id="dBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span class="ltag">${isCh ? esc(name) + " log" : "Character profile"}</span></div>
-      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
+      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}${!isCh && charEmb(box) && embOpen(charEmb(box)) ? `<span class="pemb" aria-hidden="true">${embHTML(charEmb(box))}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span style="width:${total ? done / total * 100 : 0}%;background:${bc}"></span></div>
       ${rowsDl}
       ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
