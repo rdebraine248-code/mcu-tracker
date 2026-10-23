@@ -670,7 +670,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .fx-stencil{ position:fixed; left:0; right:0; top:40%; z-index:99; pointer-events:none; text-align:center; padding:0 12px; font:400 clamp(44px,13vw,96px)/1 'Saira Stencil One','Arial Black',sans-serif; letter-spacing:2px; color:#F4F4F4; text-shadow:0 0 2px rgba(255,255,255,.8), 0 4px 14px rgba(0,0,0,.7); }
 .fx-studio{ position:fixed; inset:0; z-index:130; pointer-events:none; overflow:hidden; background:#A80F18; perspective:1700px; }
 .fx-studio .pg{ position:absolute; inset:-2%; background:#EFE6D2; transform-origin:0 50%; -webkit-backface-visibility:hidden; backface-visibility:hidden; will-change:transform; }
-.fx-studio .pg i{ position:absolute; border-radius:2px; border:2px solid rgba(20,20,20,.75); background-image:radial-gradient(rgba(0,0,0,.18) 1.3px, rgba(0,0,0,0) 1.8px); background-size:7px 7px; }
+.fx-studio .pg svg{ position:absolute; left:0; top:0; display:block; }
+#mainTitle{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+.fx-dim{ position:fixed; inset:0; z-index:129; pointer-events:none; background:#030407; opacity:0; }
 .fx-studio .pg::before{ content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(0,0,0,.28), rgba(0,0,0,0) 12%, rgba(0,0,0,0) 85%, rgba(255,255,255,.18)); }
 .fx-studio .pg::after{ content:""; position:absolute; inset:0; background:rgba(190,16,26,.5); mix-blend-mode:multiply; }
 .fx-studio .pg b{ position:absolute; inset:0; background:linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.4)); opacity:0; }
@@ -1906,7 +1908,7 @@ function paintPostCredits(statusHtml) {
     pcObs.observe(pc);
   }
 }
-let exClicks = 0, exLast = 0;
+
 function excelsior() {
   const o = document.createElement("div"); o.className = "excel"; o.setAttribute("role", "status");
   o.innerHTML = `<div class="burst"></div><div class="glow"></div><div class="word">Excelsior!</div>`;
@@ -5818,27 +5820,45 @@ function sprayPaint() {
   setTimeout(() => cv.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1500, fill: "forwards" }).onfinish = () => { cv.remove(); pennyOn = false; }, T - 1400);
 }
 
-/* ---------- Studio intro: tap the main title 5 times. Comic pages flip past in red, then the title lands ---------- */
+/* ---------- Studio intro: hold the main title. The lights go down as in a cinema; once they're down, comic pages fade in and flip past in red,
+   then the title lands, and the lights come back up. Let go before they're down and they come straight back up ---------- */
 let studioOn = false;
-function studioIntro() {
-    if (REDUCED || studioOn) return;
+// a comic page's panels: the page is split again and again, straight across or on a slant, always the biggest panel next, until it's 4 to 7 panels
+// of different sizes and shapes that fill it, with even gutters between them. Each panel is a quad: top left, top right, bottom right, bottom left
+function comicPanels(w, h) {
+  const m = Math.min(w, h) * .05, G = 8, n = 4 + Math.floor(Math.random() * 4), ps = [[[m, m], [w - m, m], [w - m, h - m], [m, h - m]]];
+  const lerp = (a, b, u) => [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u], len = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const area = q => Math.abs(q.reduce((s, p, i) => { const nx = q[(i + 1) % 4]; return s + p[0] * nx[1] - nx[0] * p[1]; }, 0)) / 2;
+  while (ps.length < n) {
+    ps.sort((a, b) => area(b) - area(a));
+    const [A, B, C, D] = ps.shift(), wq = len(A, B), hq = len(A, D);
+    const across = hq > wq * 1.15 ? true : wq > hq * 1.15 ? false : Math.random() < .5;   // cut a tall panel across, a wide one down
+    const u = .34 + Math.random() * .32, sl = Math.random() < .35 ? (Math.random() - .5) * .22 : 0, u1 = u + sl, u2 = u - sl;
+    if (across) { const e1 = G / 2 / hq, e2 = G / 2 / len(B, C);
+      ps.push([A, B, lerp(B, C, u2 - e2), lerp(A, D, u1 - e1)], [lerp(A, D, u1 + e1), lerp(B, C, u2 + e2), C, D]); }
+    else { const e1 = G / 2 / wq, e2 = G / 2 / len(D, C);
+      ps.push([A, lerp(A, B, u1 - e1), lerp(D, C, u2 - e2), D], [lerp(A, B, u1 + e1), B, C, lerp(D, C, u2 + e2)]); }
+  }
+  return ps;
+}
+function studioIntro(dim) {
+  if (studioOn) return;
   studioOn = true;
   const o = document.createElement("div"); o.className = "fx-studio"; document.body.appendChild(o);
+  o.innerHTML = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="stuHt" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="1.4" fill="rgba(0,0,0,.2)"/></pattern></defs></svg>`;
   const COLORS = ["#E9B949", "#2E5C9E", "#B8323A", "#3A3A40", "#E8DFC9", "#4C8A5E", "#D9823B", "#7A5596"];
-  const N = 14, pages = [];
-  for (let k = 0; k < N; k++) {   // an abstract comic page: a few softly drawn panels with halftone; the stack sits with the first page on top
+  const N = 14, pages = [], pw = innerWidth * 1.04, ph = innerHeight * 1.04;
+  for (let k = 0; k < N; k++) {   // a comic page, every inch of it panels, each its own colour with halftone; the stack sits with the first page on top
     const pg = document.createElement("div"); pg.className = "pg"; pg.style.zIndex = String(N - k);
-    const cols = 1 + Math.floor(Math.random() * 2), rows = 2 + Math.floor(Math.random() * 2);
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-      if (Math.random() < .12) continue;
-      const i = document.createElement("i");
-      i.style.cssText = `left:${6 + c * 88 / cols}%;top:${6 + r * 88 / rows}%;width:${88 / cols - 3}%;height:${88 / rows - 3}%;background-color:${COLORS[Math.floor(Math.random() * COLORS.length)]}`;
-      pg.appendChild(i);
-    }
+    let last = -1;
+    pg.innerHTML = `<svg width="${pw}" height="${ph}" viewBox="0 0 ${pw} ${ph}" aria-hidden="true">${comicPanels(pw, ph).map(q => {
+      let c = Math.floor(Math.random() * COLORS.length); if (c === last) c = (c + 1) % COLORS.length; last = c;
+      const pts = q.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
+      return `<polygon points="${pts}" fill="${COLORS[c]}"/><polygon points="${pts}" fill="url(#stuHt)" stroke="rgba(20,20,20,.8)" stroke-width="2.5" stroke-linejoin="round"/>`; }).join("")}</svg>`;
     pg.appendChild(document.createElement("b"));
     o.appendChild(pg); pages.push(pg);
   }
-  o.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: "both" });
+  o.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dim ? 700 : 300, fill: "both" });   // out of the dark
   // each page curls over from the right edge to the left: it bends as it lifts, shades as it turns, and the next is already underneath
   let t = 450, gap = 420;
   pages.forEach((pg, k) => {
@@ -5856,7 +5876,8 @@ function studioIntro() {
     setTimeout(() => haptic([30, 50, 60]), 500);
   }, done);
   setTimeout(() => {
-    o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 800, easing: "ease-in-out", fill: "forwards" }).onfinish = () => { o.remove(); studioOn = false; found("studio"); };
+    o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 800, easing: "ease-in-out", fill: "forwards" }).onfinish = () => { o.remove(); studioOn = false; found("studio");
+      if (dim) dim.animate([{ opacity: getComputedStyle(dim).opacity }, { opacity: 0 }], { duration: 700, easing: "ease-out", fill: "forwards" }).onfinish = () => dim.remove(); };   // the lights come back up
   }, done + 2100);
 }
 
@@ -6152,7 +6173,7 @@ const EGGS = [
   ["penny", "Penny and dime", "Count it out.", "In The Punisher box, tap his quote 4 times.", 1],
   ["onlyfeel", "I just feel you", "You could never hurt me.", "In the Wanda & Vision box, hold two fingers on the screen until the stone breaks (on a computer, hold the quote).", 1],
   ["photon", "Higher, further, faster", "She only goes one way: up.", "Flick Captain Marvel's name upward.", 1],
-  ["studio", "Marvel Studios", "Every movie starts the same way.", "Tap the main title 5 times.", 1],
+  ["studio", "Marvel Studios", "Every movie starts the same way.", "Hold the main title until the lights go down.", 1],
   ["tenrings", "Ten rings", "They're already on his box.", "In the Shang-Chi box, tap one of the rings at the top.", 2],
   ["eternals", "The Uni-Mind", "Their power, joined as one.", "Hold anywhere in the Eternals box.", 2],
   ["moon", "Fractured", "Who's in control?", "Hold the name in the Moon Knight box.", 2],
@@ -9675,9 +9696,22 @@ function reveal(cv, tile, id, done) {
 document.getElementById("upNext").addEventListener("click", goUpNext);
 document.getElementById("mainTitle").addEventListener("click", ev => {
   if (ev.target.closest("#stoneBar")) { if (state.mode !== "timeline") openGauntlet(); return; }
-  const now = Date.now(); exClicks = now - exLast < 1500 ? exClicks + 1 : 1; exLast = now;
-  if (exClicks >= 5) { exClicks = 0; studioIntro(); }
 });
+// hold the title: the lights go down while you hold, and the show starts once they're down
+{ const mt = document.getElementById("mainTitle"); let dim = null, dimT = null, dimAt = null;
+  const up = () => { clearTimeout(dimT); dimAt = null; if (!dim) return; const d = dim; dim = null; d.getAnimations().forEach(a => a.pause());
+    d.animate([{ opacity: getComputedStyle(d).opacity }, { opacity: 0 }], { duration: 300, easing: "ease-out", fill: "forwards" }).onfinish = () => d.remove(); };
+  mt.addEventListener("pointerdown", ev => {
+    if (ev.target.closest("#stoneBar") || studioOn || ev.button > 0) return;
+    dimAt = [ev.clientX, ev.clientY];
+    if (REDUCED) { dimT = setTimeout(() => { dimAt = null; found("studio"); }, 900); return; }
+    dim = document.createElement("div"); dim.className = "fx-dim"; document.body.appendChild(dim);
+    dim.animate([{ opacity: 0 }, { opacity: .94 }], { duration: 1100, easing: "ease-in", fill: "forwards" });
+    dimT = setTimeout(() => { const d = dim; dim = null; dimAt = null; haptic(20); studioIntro(d); }, 1100);
+  });
+  mt.addEventListener("pointermove", ev => { if (dimAt && Math.hypot(ev.clientX - dimAt[0], ev.clientY - dimAt[1]) > 12) up(); });   // it was a scroll
+  ["pointerup", "pointercancel", "pointerleave"].forEach(n => mt.addEventListener(n, up));
+  mt.addEventListener("contextmenu", ev => ev.preventDefault()); }
 // Reset datapad (the button under the save code in the Agent File): back to factory, and the first boot plays again
 function resetDatapad() {
   ask("Reset this datapad? All your progress will be lost. This cannot be undone.", "Reset datapad", undefined, true).then(ok => {
