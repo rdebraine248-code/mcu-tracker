@@ -2631,6 +2631,7 @@ panel.addEventListener("pointerdown", ev => {
   if (!openEntry || openKind !== "char" || ev.button > 0) return;
   const h = document.getElementById("panelTitle"), onName = ev.target.closest("#panelTitle"), x = ev.clientX, y = ev.clientY, id = openEntry.id;
   if (id === "cx-captain-marvel" && onName) gest = { k: "carol", x, y, h };
+  else if (id === "cx-iron-man" && onName && !hudOn) gest = { k: "iron", x, y, h };
   else if (id === "cx-the-thunderbolts" && onName && !tbOn) gest = tbStart(h, x, y);
   else if (id === "cx-daredevil" && onName) heartTap(h, x, y);
   else if (id === "cx-the-champions" && onName) gest = doodleStart(x, y);
@@ -2650,6 +2651,9 @@ panel.addEventListener("pointermove", ev => {
   if (gest.k === "carol") {
     gest.h.style.transform = `translateY(${Math.max(-46, Math.min(0, dy * .55))}px)`;
     if (dy < -64 && Math.abs(dy) > Math.abs(dx)) { const h = gest.h; gest = null; gestBlock = Date.now() + 500; carolUp(h, dy * .55); }
+  } else if (gest.k === "iron") {   // the name comes down with the finger, like his faceplate, and the HUD boots up
+    gest.h.style.transform = `translateY(${Math.max(0, Math.min(18, dy * .4))}px)`;
+    if (dy > 56 && dy > Math.abs(dx)) { const h = gest.h, t = h.style.transform; gest = null; gestBlock = Date.now() + 500; h.style.transform = ""; h.animate([{ transform: t }, { transform: "none" }], { duration: 260, easing: "ease-out" }); ironHud(); }
   } else if (gest.k === "tb") tbMove(gest, ev.clientX, ev.clientY);
   else if (gest.k === "doodle") doodleMove(gest, ev.clientX, ev.clientY);
   else if (gest.k === "loki") lokiMove(gest, ev.clientX, ev.clientY);
@@ -2658,7 +2662,7 @@ panel.addEventListener("pointermove", ev => {
   clearTimeout(lokiTimer); lokiPress = null; clearTimeout(holdTimer2); if (mouseFeel) { mouseFeel.release(); mouseFeel = null; }
   if (!gest) return;
   const g = gest; gest = null;
-  if (g.k === "carol") { const t = g.h.style.transform; g.h.style.transform = ""; if (t) g.h.animate([{ transform: t }, { transform: "none" }], { duration: 320, easing: "cubic-bezier(.3,1.6,.5,1)" }); }
+  if (g.k === "carol" || g.k === "iron") { const t = g.h.style.transform; g.h.style.transform = ""; if (t) g.h.animate([{ transform: t }, { transform: "none" }], { duration: 320, easing: "cubic-bezier(.3,1.6,.5,1)" }); }
   if (g.k === "tb" && !g.done) { gestBlock = Date.now() + 500; tbClear(g, 700); }
   if (g.k === "doodle") { if (g.len > 12) gestBlock = Date.now() + 500; doodleEnd(g); }
   if (g.k === "loki") lokiSlip(g);
@@ -6110,7 +6114,7 @@ const anyChecked = t => Object.keys(state.checks).some(k => state.checks[k] && k
 const allTL = (list, pre, lane) => list.filter(e => !lane || e.lane === lane).every(e => state.checks[pre + e.t]);
 // Classified, split evenly in two: page 1 the Infinity Saga heroes (plus the two about the movies themselves), page 2 the Multiverse Saga, each in release order
 const EGGS = [
-  ["ironhud", "Heads-up", "Suit up.", "In Iron Man's box, double-tap his name.", 1],
+  ["ironhud", "Heads-up", "Suit up.", "In Iron Man's box, swipe down on his name.", 1],
   ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times.", 1],
   ["worthy", "Worthy", "Whosoever holds this hammer…", "Complete Thor's box, then hold his name.", 1],
   ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box.", 1],
@@ -6132,7 +6136,7 @@ const EGGS = [
   ["fury", "Eyes only", "For the Director. Shake them loose.", "Swipe down with two fingers in the Nick Fury & S.H.I.E.L.D. box (on a computer, hold the name).", 1],
   ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top 3 times.", 1],
   ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
-  ["groot", "Awesome Mix", "Peter's mom made him a tape.", "Hold the quote in the Guardians of the Galaxy box.", 1],
+  ["groot", "Awesome Mix", "Peter's mom made him a tape.", "Hold the name in the Guardians of the Galaxy box.", 1],
   ["dance", "Whistle", "He's got a fin on his head now.", "Hold Guardians of the Galaxy Vol. 2, then drag your finger.", 1],
   ["quantum", "Quantum Realm", "Think small.", "Pinch the Ant-Man & the Wasp box smaller.", 1],
   ["radar", "World on fire", "He can hear your heartbeat.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
@@ -6913,7 +6917,7 @@ function cyclePick(keys, bag, lastKey) {
 
 /* ---------- Guardians of the Galaxy: hold "We are Groot." Like the cocoon in the first film, branches grow up and around and weave a sphere
    that holds the whole box safe; glowing spores drift inside; then it opens again ---------- */
-/* ---------- Guardians: hold the quote. Peter's Walkman slides up, Awesome Mix Vol. 1 clicks in and plays one song from it, picked at random,
+/* ---------- Guardians: hold the name. Peter's Walkman slides up, Awesome Mix Vol. 1 clicks in and plays one song from it, picked at random,
    the titles move to the beat, and when the song ends the play key pops back up ---------- */
 let grootOn = false, mixLast = -1;
 const MIX = [["Hooked on a Feeling", "Blue Swede"], ["Go All the Way", "Raspberries"], ["Spirit in the Sky", "Norman Greenbaum"], ["Moonage Daydream", "David Bowie"],
@@ -7895,8 +7899,8 @@ const ROW_EGGS = {
 };
 // any title held in these boxes
 const BOX_ROW_EGGS = {};
-const QUOTE_EGGS = { "cx-guardians-of-the-galaxy": q => groot(q) };
-const TITLE_EGGS = { "cx-the-avengers": () => avengersRing(), "cx-werewolf-by-night": h => wolfEgg(h),
+const QUOTE_EGGS = {};
+const TITLE_EGGS = { "cx-the-avengers": () => avengersRing(), "cx-guardians-of-the-galaxy": () => groot(), "cx-werewolf-by-night": h => wolfEgg(h),
   "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h),
   "cx-moon-knight": h => moonKnight(h), "ch-the-spider-verse": () => glitch() };
 const FOX_BOXES = { "ch-the-fox-men": 1, "cx-the-fox-men": 1 };   // hold the title for the claws, keep holding for Magneto
@@ -8010,7 +8014,6 @@ panel.addEventListener("click", ev => {
     if (id === "cx-shang-chi-the-ten-rings" && ringHit(ev)) { tenRings(); return; }
     if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button")) { oylLaps(); return; }
     if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 70) { if (dblCheck(ev)) strangeRunes(); return; }
-    if (id === "cx-iron-man" && onName) { if (dblCheck(ev)) ironHud(); return; }   // double-tap his name and the suit's HUD boots up
   }
   if (ev.target.closest("#panelTitle") && openEntry && openEntry.id === "cx-hulk") { punyTap(); return; }
   if (openEntry && openEntry.id === "cx-falcon-winter-soldier" && starTap(ev)) return;
