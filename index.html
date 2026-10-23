@@ -1756,9 +1756,9 @@ function tile(e, kind) {
   const name = locked ? e.label + ", locked. Tap to unlock." : sealedC ? (shut ? "Classified box. Tap to open anyway." : "Classified box. Tap to reveal.") : e.title + (kind === "chapter" ? ", " + e.label : "");
   const dust = kind === "char" && (state.dusted || {})[e.id];
   // a sealed multiverse character box wears the same cover as its Extras chapter
-  const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover;
-  const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">Extras</span><span class="ctap${shut ? " ccl" : ""}" style="color:${cc.ink}">${shut ? "[ Classified ]" : "Tap to reveal"}</span></div>`
-    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">Extras</span><span class="ctap${shut ? " ccl" : ""}">${shut ? "[ Classified ]" : "Tap to reveal"}</span></div>`;
+  const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover, known = sealedC && charNamed(e);   // a name you already know reads on the cover; the box still waits for its reveal
+  const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}" style="color:${cc.ink}">${shut ? "[ Classified ]" : "Tap to reveal"}</span>`}</div>`
+    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}">${shut ? "[ Classified ]" : "Tap to reveal"}</span>`}</div>`;
   return `<div class="${esc(cls)}${dust ? " dusted" : ""}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
       <div ${locked || sealedC ? 'aria-hidden="true"' : ""} style="display:contents">${tileInner(e)}</div>${cover}${ccover}</div>`;
 }
