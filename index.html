@@ -2019,17 +2019,18 @@ const panelItems = e => { if ((openKind !== "char" && openKind !== "chapter") ||
 // the stamps Loki S1 and Avengers: Doomsday wear in their chapters, worn in every character box they're in too
 const OPENER_TAGS = { "Loki S1": ["MULTIVERSE OPENS", ""], "Avengers: Doomsday": ["INCURSION ALERT", "inc"] };
 function panelRow(e, i, cls) {
-  if (!i.tag && openKind === "char" && OPENER_TAGS[i.t]) i = Object.assign({}, i, { tag: OPENER_TAGS[i.t][0], tagc: OPENER_TAGS[i.t][1] });
+  if (!i.tag && openKind === "char" && OPENER_TAGS[i.t] && e.id !== "cx-incursions") i = Object.assign({}, i, { tag: OPENER_TAGS[i.t][0], tagc: OPENER_TAGS[i.t][1] });
   const fg = e.fg || "#111", box = e.box || fg, tick = lum(box) > 0.6 ? "#111111" : "#FFFFFF";
   return `<li${cls ? ` class="${cls}"` : ""}><button type="button" class="row" aria-pressed="${!!state.checks[ck(e, i.t)]}" data-t="${esc(i.t)}" style="color:${fg}">
           <span class="box">${CHECK(tick)}</span><span class="tw"><span class="t${i.s ? " short" : ""}">${tnh(i.t)}</span>${i.note && openKind === "chapter" ? `<span class="rnote">${esc(i.note)}</span>` : ""}</span>${i.tag ? `<span class="tag${i.tagc ? " " + i.tagc : ""}">${esc(i.tag)}</span>` : ""}</button></li>`;
 }
-// rows for a box; in the Incursions each Earth gets a header line, and its films sit under it. Its status (Terminated) only shows once you've watched them.
+// rows for a box; in the Incursions each Earth gets a header line, and its films sit under it (Convergence too, in the same amber; Doomsday there
+// goes without its Incursion Alert stamp, since that's what opened the box). Its status (Terminated) only shows once you've watched them.
 // Pruned Characters does the same for each character, in the box's own colors
 const earthStatus = (e, earth) => { const L = e.items.filter(i => i.earth === earth); return L.length && L.every(i => state.checks[ck(e, i.t)]) ? (L.find(i => i.status) || {}).status || "" : ""; };
 function panelList(e, items, cls) {
   let last = null;
-  return items.map(i => { const g = i.earth || i.grp, hd = g && g !== last ? (i.earth ? `<li class="earthh" data-earth="${esc(i.earth)}"><span>${esc(i.earth)}</span><em>${esc(earthStatus(e, i.earth))}</em></li>` : `<li class="earthh grph"><span>${esc(g)}</span></li>`) : ""; last = g || last; return hd + panelRow(e, i, cls ? cls(i) : ""); }).join("");
+  return items.map(i => { const g = i.earth || i.grp, hd = g && g !== last ? (i.earth ? `<li class="earthh" data-earth="${esc(i.earth)}"><span>${esc(i.earth)}</span><em>${esc(earthStatus(e, i.earth))}</em></li>` : `<li class="earthh${e.id === "cx-incursions" ? "" : " grph"}"><span>${esc(g)}</span></li>`) : ""; last = g || last; return hd + panelRow(e, i, cls ? cls(i) : ""); }).join("");
 }
 function panelRows(e) {
   const ul = panel.querySelector(".list"); if (!ul || (openKind !== "char" && openKind !== "chapter")) return;
