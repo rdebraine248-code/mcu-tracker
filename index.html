@@ -7449,29 +7449,75 @@ function atlBifrost(map) {
       g.restore(); g.globalAlpha = 1; g.shadowBlur = 0; }
   }, () => { cv.remove(); atlFxOn = false; found("bifrost"); });
 }
-// Sokovia: the city tears off the map, rises into the sky, then falls and shatters
+// Sokovia: hold it and Novi Grad tears loose, rises, is struck at its core, and falls into a crater lake
 function atlSokovia(map) {
   const p = atlPinAt(map, "sokovia"); if (!p || atlFxOn) return; if (REDUCED) { found("sokovia"); return; } atlFxOn = true;
-  const { cv, g, at } = atlLayer(map, p), T = 5200, R = 28;
-  const edge = Array.from({ length: 14 }, (_, k) => { const a = k / 14 * Math.PI * 2, r = R * (.75 + Math.random() * .4); return [Math.cos(a) * r, Math.sin(a) * r * .7]; });
-  const shards = edge.map(([x, y]) => ({ x, y, vx: x * .08 + (Math.random() - .5) * 2, vy: 1 + Math.random() * 2 }));
-  const slab = (dx, dy, s, a) => { g.beginPath(); edge.forEach(([x, y], k) => { const px = dx + x * s, py = dy + y * s; k ? g.lineTo(px, py) : g.moveTo(px, py); }); g.closePath(); g.globalAlpha = a; g.fillStyle = "#1C3B5C"; g.fill(); g.strokeStyle = "#7FD8FF"; g.lineWidth = 1.6; g.stroke();
-    g.strokeStyle = "rgba(127,216,255,.55)"; g.lineWidth = 1; for (let k = -2; k <= 2; k++) { const bx = dx + k * 8 * s, by = dy; g.strokeRect(bx - 3 * s, by - (8 + (k + 3) % 3 * 4) * s, 6 * s, (8 + (k + 3) % 3 * 4) * s); } g.globalAlpha = 1; };
+  // Novi Grad as one of the Atlas's holograms: it cracks around the church, tears loose on its cone of rock and rises with Ultron's drones
+  // swarming it; at the top the core in the church flares, Thor's lightning and Iron Man's beam hit it together, the city breaks apart
+  // and comes down, and a crater lake is left where it stood
+  const { cv, g, at } = atlLayer(map, p), T = 6800, RISE = 900, TOP = 2600, HIT = 3300, BREAK = 3700, LAND = 4700, rnd = (lo, hi) => lo + Math.random() * (hi - lo);
+  const B = "127,216,255", RX = 38, RY = 14, UP = 64;
+  const rim = Array.from({ length: 18 }, (_, k) => { const a = k / 18 * Math.PI * 2, j = .9 + Math.random() * .16; return [Math.cos(a) * RX * j, Math.sin(a) * RY * j]; });
+  const blocks = [[-27, 6, 8], [-17, 9, 13], [-6, 7, 10], [9, 8, 12], [20, 6, 15], [29, 5, 7], [-33, 4, 5]];
+  const cracks = Array.from({ length: 7 }, (_, k) => { let x = 0, y = 0, a = k / 7 * Math.PI * 2 + rnd(-.2, .2); const pts = [[0, 0]]; for (let i = 0; i < 6; i++) { a += rnd(-.5, .5); x += Math.cos(a) * 5.5; y += Math.sin(a) * 2.2; pts.push([x, y]); } return pts; });
+  // the pieces it breaks into: wedges of the slab, each falling on its own
+  const N = 9, chunks = Array.from({ length: N }, (_, k) => { const a0 = k / N * Math.PI * 2, a1 = (k + 1) / N * Math.PI * 2, am = (a0 + a1) / 2;
+    const pts = [[rnd(-3, 3), rnd(-1, 1)], ...[0, .5, 1].map(f => { const a = a0 + (a1 - a0) * f; return [Math.cos(a) * RX * rnd(.85, 1.05), Math.sin(a) * RY * rnd(.85, 1.05)]; })];
+    return { pts, vx: Math.cos(am) * rnd(14, 30), vy: rnd(-14, 0), va: rnd(-2.5, 2.5), at: BREAK + rnd(0, 220) }; });
+  const drones = Array.from({ length: 12 }, (_, k) => ({ a: k / 12 * Math.PI * 2, r: rnd(48, 62), sp: rnd(.9, 1.4) }));
+  const rubble = Array.from({ length: 26 }, () => ({ x: rnd(-RX, RX) * .8, at: rnd(RISE, TOP + 400), v: rnd(30, 60) }));
+  const glow = (x, y, r, c) => { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, c); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); };
+  const slab = (dy, alpha, buildings) => {   // the city: the rock cone under it, the ground, the blocks and the church spire in the middle
+    g.beginPath(); rim.forEach(([x, y], i) => i ? g.lineTo(x, y + dy) : g.moveTo(x, y + dy)); g.lineTo(0, dy + 52); g.closePath();
+    const rg = g.createLinearGradient(0, dy, 0, dy + 52); rg.addColorStop(0, `rgba(${B},${.24 * alpha})`); rg.addColorStop(1, `rgba(${B},0)`); g.fillStyle = rg; g.fill();
+    g.strokeStyle = `rgba(${B},${.35 * alpha})`; g.lineWidth = .8; for (let k = 0; k < 18; k += 3) { g.beginPath(); g.moveTo(rim[k][0], rim[k][1] + dy); g.lineTo(0, dy + 52); g.stroke(); }
+    g.beginPath(); rim.forEach(([x, y], i) => i ? g.lineTo(x, y + dy) : g.moveTo(x, y + dy)); g.closePath(); g.fillStyle = `rgba(16,52,92,${.6 * alpha})`; g.fill(); g.strokeStyle = `rgba(${B},${alpha})`; g.lineWidth = 1.3; g.stroke();
+    if (!buildings) return; g.strokeStyle = `rgba(${B},${.85 * alpha})`; g.lineWidth = .9;
+    blocks.forEach(([x, w, h]) => g.strokeRect(x, dy - h - 1, w, h));
+    g.beginPath(); g.moveTo(-3, dy - 1); g.lineTo(-3, dy - 14); g.lineTo(0, dy - 26); g.lineTo(3, dy - 14); g.lineTo(3, dy - 1); g.moveTo(-3, dy - 14); g.lineTo(3, dy - 14); g.stroke(); };
   haptic([20, 30, 20, 30, 40]);
   fxRun(T, (t, dt) => {
     at();
-    const crack = clamp01(t / 700), lift = easeIO(clamp01((t - 700) / 1500)), fall = clamp01((t - 3000) / 700), heal = clamp01((t - 4300) / 800);
-    // the hole it leaves, then the cracks
-    g.globalAlpha = (crack > .9 ? 1 : 0) * (1 - heal); g.beginPath(); edge.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fillStyle = "#05080F"; g.fill(); g.globalAlpha = 1;
-    if (t < 1000) { g.strokeStyle = `rgba(255,120,80,${crack})`; g.lineWidth = 1.2; g.beginPath(); edge.forEach(([x, y]) => { g.moveTo(0, 0); g.lineTo(x * crack, y * crack); }); g.stroke(); }
-    const up = lift * 60 - fall * fall * 70, s = 1 + lift * .45 - fall * .2;
-    if (fall < 1) { const sh = g.createRadialGradient(0, 0, 0, 0, 0, R * 1.6); sh.addColorStop(0, `rgba(0,0,0,${.5 * lift})`); sh.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = sh; g.fillRect(-60, -40, 120, 80);
-      slab(Math.sin(t / 300) * 2 * lift, -up, s, 1);
-      if (t > 1400 && t < 3000) for (let k = 0; k < 10; k++) { const a = t / 400 + k * .63, d = R * 1.6 + 6 * Math.sin(t / 200 + k); g.fillStyle = "rgba(255,90,70,.9)"; g.beginPath(); g.arc(Math.cos(a) * d, -up + Math.sin(a) * d * .45, 1.6, 0, Math.PI * 2); g.fill(); } }
-    if (fall >= 1) { shards.forEach(q => { q.x += q.vx * dt * 60; q.y += q.vy * dt * 60; q.vy += .25 * dt * 60; g.fillStyle = `rgba(127,216,255,${1 - heal})`; g.fillRect(q.x, q.y - 10, 3, 3); });
-      const fl = clamp01(1 - (t - 3700) / 400); if (fl > 0) { const fg = g.createRadialGradient(0, 0, 0, 0, 0, 70); fg.addColorStop(0, `rgba(255,230,200,${fl})`); fg.addColorStop(1, "rgba(255,230,200,0)"); g.fillStyle = fg; g.fillRect(-80, -80, 160, 160); } }
+    const show = clamp01(t / 400) * (1 - clamp01((t - T + 700) / 700)), lift = easeIO(clamp01((t - RISE) / (TOP - RISE))), dy = -UP * lift + (t > TOP && t < BREAK ? Math.sin(t / 120) * 1.2 : 0);
+    if (t < BREAK) {
+      // the shadow it leaves on the ground as it goes up
+      if (lift > 0) { g.globalAlpha = show; g.fillStyle = `rgba(0,0,0,${.35 * lift})`; g.beginPath(); g.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2); g.fill(); g.strokeStyle = `rgba(255,120,80,${.5 * lift})`; g.setLineDash([3, 3]); g.lineWidth = 1; g.stroke(); g.setLineDash([]); }
+      g.globalAlpha = show; slab(dy, 1, true);
+      // the cracks: light running out from the church as it tears loose
+      const cr = clamp01(t / RISE); g.strokeStyle = `rgba(190,240,255,${.9 * (1 - lift * .5)})`; g.lineWidth = 1;
+      cracks.forEach(pts => { const n = Math.max(1, Math.round(pts.length * cr)); g.beginPath(); pts.slice(0, n).forEach(([x, y], i) => i ? g.lineTo(x, y + dy) : g.moveTo(x, y + dy)); g.stroke(); });
+      // rubble dropping off the bottom while it climbs
+      rubble.forEach(r => { const f = (t - r.at) / 1000; if (f < 0 || f > 1.1) return; g.fillStyle = `rgba(${B},${.8 * (1 - f)})`; g.fillRect(r.x * .6, dy + 30 + f * r.v * 1.6, 1.6, 1.6); });
+      // Ultron's drones, red points circling it
+      const dr = clamp01((t - RISE - 300) / 500); if (dr > 0) drones.forEach(d => { const a = d.a + t / 900 * d.sp, x = Math.cos(a) * d.r, y = dy - 6 + Math.sin(a) * d.r * .4; glow(x, y, 5, `rgba(255,60,50,${.4 * dr})`); g.fillStyle = `rgba(255,90,70,${dr})`; g.beginPath(); g.arc(x, y, 1.5, 0, Math.PI * 2); g.fill(); });
+      // the core in the church, brightening at the top
+      const core = clamp01((t - TOP) / 500); if (core > 0) glow(0, dy - 8, 10 + 14 * core + (t > HIT ? 10 : 0), `rgba(200,240,255,${.5 + .4 * core})`);
+      if (t > HIT) {   // Thor's lightning from the upper left, Iron Man's beam from the upper right, both into the core
+        const h = 1 - clamp01((t - HIT - 250) / 150), tx = 0, ty = dy - 8; g.globalAlpha = show * h;
+        g.strokeStyle = "rgba(120,200,255,.6)"; g.lineWidth = 3.5; g.beginPath(); let x = -110, y = ty - 80; g.moveTo(x, y); for (let i = 1; i <= 7; i++) { x = -110 + 110 * i / 7 + rnd(-6, 6); y = ty - 80 + 80 * i / 7 + rnd(-4, 4); g.lineTo(i === 7 ? tx : x, i === 7 ? ty : y); } g.stroke();
+        g.strokeStyle = "#EAF6FF"; g.lineWidth = 1.4; g.stroke();
+        g.strokeStyle = "rgba(255,230,180,.95)"; g.lineWidth = 2.2; g.beginPath(); g.moveTo(110, ty - 70); g.lineTo(tx, ty); g.stroke(); glow(110, ty - 70, 6, "rgba(255,230,180,.8)");
+        glow(tx, ty, 34, `rgba(235,248,255,${.9 * h})`); g.globalAlpha = show; }
+      g.globalAlpha = 1; return;
+    }
+    g.globalAlpha = show;
+    // it comes apart: the wedges fall, turning, each with a hot trail, and the drones are gone
+    const fT = (t - BREAK) / 1000;
+    chunks.forEach(c => { const f = Math.max(0, (t - c.at) / 1000), x = c.vx * f, y = -UP + c.vy * f + 150 * f * f, a = c.va * f; if (y > 6) return;
+      g.save(); g.translate(x, y); g.rotate(a); g.beginPath(); c.pts.forEach(([px, py], i) => i ? g.lineTo(px * .55, py * .55) : g.moveTo(px * .55, py * .55)); g.closePath();
+      g.fillStyle = "rgba(16,52,92,.7)"; g.fill(); g.strokeStyle = `rgba(${B},.95)`; g.lineWidth = 1.1; g.stroke(); g.restore();
+      g.strokeStyle = "rgba(255,150,70,.45)"; g.lineWidth = 1.4; g.beginPath(); g.moveTo(x, y - 4); g.lineTo(x - c.vx * .06, y - 14 - f * 6); g.stroke(); });
+    if (fT < .3) glow(0, -UP - 8, 40 * (1 - fT / .3) + 6, `rgba(235,248,255,${1 - fT / .3})`);
+    if (t > LAND) {   // it lands: a flash, a ring spreading out over the map, and the crater lake left behind
+      const e = (t - LAND) / 1000;
+      if (e < .5) glow(0, 0, 20 + 60 * e, `rgba(255,230,200,${1 - e * 2})`);
+      if (e < 1.2) { g.strokeStyle = `rgba(255,210,170,${.9 * (1 - e / 1.2)})`; g.lineWidth = 1.6; g.beginPath(); g.ellipse(0, 0, 14 + 90 * e, (14 + 90 * e) * .32, 0, 0, Math.PI * 2); g.stroke(); }
+      const lake = clamp01((e - .3) / .6); g.fillStyle = `rgba(50,130,210,${.45 * lake})`; g.strokeStyle = `rgba(${B},${.9 * lake})`; g.lineWidth = 1.2;
+      g.beginPath(); g.ellipse(0, 0, RX * .62, RY * .62, 0, 0, Math.PI * 2); g.fill(); g.stroke();
+    }
+    g.globalAlpha = 1;
   }, () => { cv.remove(); atlFxOn = false; found("sokovia"); });
-  setTimeout(() => haptic([80, 40, 120]), 3700);
+  setTimeout(() => haptic([40, 60, 40]), RISE); setTimeout(() => haptic([60, 30, 120]), HIT); setTimeout(() => haptic([100, 40, 160]), LAND);
 }
 // Titan, in the cosmos: Thanos grips one of its moons with the Power Stone, breaks it apart and throws it down onto the planet
 function atlMoon(map) {
