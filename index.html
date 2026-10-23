@@ -11,7 +11,8 @@
 <link rel="apple-touch-icon" href="icon-192.png?v=6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:ital,wght@1,800&amp;family=Bebas+Neue&amp;family=Big+Shoulders+Display:wght@800&amp;family=Bungee&amp;family=Chakra+Petch:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:ital,wght@0,700;1,700&amp;family=Fraunces:ital,wght@0,700;1,700&amp;family=IBM+Plex+Mono:wght@600&amp;family=IBM+Plex+Sans+Condensed:ital,wght@0,500;1,500&amp;family=Kaushan+Script&amp;family=Ma+Shan+Zheng&amp;family=Oswald:wght@700&amp;family=Playfair+Display:wght@700&amp;family=Rajdhani:wght@700&amp;family=Righteous&amp;family=Russo+One&amp;family=Saira+Stencil+One&amp;family=Share+Tech+Mono&amp;family=Special+Elite&amp;family=Teko:wght@600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:ital,wght@1,800&amp;family=Bebas+Neue&amp;family=Big+Shoulders+Display:wght@800&amp;family=Bungee&amp;family=Chakra+Petch:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:ital,wght@0,700;1,700&amp;family=Fraunces:ital,wght@0,700;1,700&amp;family=IBM+Plex+Mono:wght@600&amp;family=IBM+Plex+Sans+Condensed:ital,wght@0,500;1,500&amp;family=Oswald:wght@700&amp;family=Playfair+Display:wght@700&amp;family=Rajdhani:wght@700&amp;family=Righteous&amp;family=Russo+One&amp;family=Saira+Stencil+One&amp;family=Share+Tech+Mono&amp;family=Special+Elite&amp;family=Teko:wght@600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&amp;text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz%26-.%27&amp;display=swap" rel="stylesheet">
 <style>
 :root{
   /* the datapad's screen: the same texture as the TVA's monitors on the Sacred Timeline, in its own blue: scan lines, a faint dot grain,
@@ -40,6 +41,7 @@ body::before{ content:""; position:fixed; top:0; left:0; width:100%; height:100v
   background-size:var(--padsize); }
 button{ font:inherit; color:inherit; }
 .wrap{ max-width:1180px; margin:0 auto; padding:28px 20px 64px; }
+#app{ overflow-x:clip; }
 
 /* masthead */
 .mast{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:18px 28px; padding-bottom:20px; border-bottom:1px solid var(--line); }
@@ -47,7 +49,7 @@ button{ font:inherit; color:inherit; }
 .mast h1{ margin:0; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:clamp(20px, calc((100vw - 60px) / 12.6), 52px); line-height:1; letter-spacing:.5px; white-space:nowrap; text-transform:uppercase; color:#EEF5FF; text-shadow:0 2px 0 rgba(0,0,0,.35); }
 /* the titles' glow is a blurred copy of the title behind it, not a blurred text shadow: Samsung Internet doesn't draw those */
 .mast h1, .dockpg .maptop h2, .pgtitle{ isolation:isolate; }
-.mast h1::before, .dockpg .maptop h2::before, .pgtitle::before{ content:attr(data-glow); position:absolute; left:0; top:0; z-index:-1; color:rgba(109,189,255,.55); filter:blur(9px); white-space:nowrap; pointer-events:none; }
+.mast h1::before, .dockpg .maptop h2::before, .pgtitle::before{ content:attr(data-glow); content:attr(data-glow) / ""; position:absolute; left:0; top:0; z-index:-1; color:rgba(109,189,255,.55); filter:blur(9px); white-space:nowrap; pointer-events:none; }
 body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 /* the line under the title is dark until you earn an Infinity Stone; each one lights its own segment, in its colour */
 .mast h1::after{ content:""; display:block; width:100%; height:4px; margin-top:9px; border-radius:2px; background:#1C2536; }
@@ -221,7 +223,7 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .row.just{ animation:rowflash .5s ease-out; }
 @keyframes boxpop{ 0%{ transform:scale(.88); } 45%{ transform:scale(1.25); } 75%{ transform:scale(.95); } 100%{ transform:scale(1); } }
 @keyframes rowflash{ 0%{ background:color-mix(in srgb, var(--boxc) 22%, transparent); } 100%{ background:transparent; } }
-.row .box{ flex:0 0 auto; width:26px; height:26px; border:2.5px solid var(--boxc); display:flex; align-items:center; justify-content:center; transition:background .2s ease; }
+.row .box{ flex:0 0 auto; width:26px; height:26px; border:2.5px solid var(--boxc); display:flex; align-items:center; justify-content:center; }
 .row .box svg{ width:16px; height:16px; opacity:0; transform:scale(.6); transition:opacity .18s ease, transform .18s ease; }
 .row[aria-pressed="true"] .box{ background:var(--boxc); }
 .row[aria-pressed="true"] .box svg{ opacity:1; transform:scale(1); }
@@ -346,8 +348,9 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .stonebar{ position:absolute; left:0; right:0; bottom:-14px; height:24px; padding:0; margin:0; border:0; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .stonebar i{ position:absolute; top:6px; height:4px; opacity:0; transition:opacity 1.2s ease; background-repeat:no-repeat;
   background-image:linear-gradient(90deg,#B98CFF 0%,#B98CFF 13%,#7FB2FF 20%,#7FB2FF 30%,#FF8A8A 37%,#FF8A8A 47%,#FFC07A 54%,#FFC07A 63%,#7FE3A0 70%,#7FE3A0 80%,#FFE27A 87%,#FFE27A 100%); }
-.stonebar i.on{ opacity:1; animation:stoneBreath 3.6s ease-in-out infinite; }
-@keyframes stoneBreath{ 0%,100%{ box-shadow:0 0 3px 0 var(--g), 0 0 7px 0 var(--g); } 50%{ box-shadow:0 0 4px 1px var(--g), 0 0 12px 1px var(--g); } }
+.stonebar i.on{ opacity:1; }
+.stonebar i.on::after{ content:""; position:absolute; inset:0; box-shadow:0 0 4px 1px var(--g), 0 0 12px 1px var(--g); animation:stoneBreath 3.6s ease-in-out infinite; }
+@keyframes stoneBreath{ 0%,100%{ opacity:.45; } 50%{ opacity:1; } }
 body[data-mode="timeline"] .stonebar i{ display:none; }
 .gem{ --g:#888; --gl:#ddd; --gd:#333; width:30px; height:40px; border-radius:50%;
   background:radial-gradient(ellipse 38% 26% at 38% 28%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%), conic-gradient(from 30deg at 50% 56%, var(--gl), var(--g) 22%, var(--gd) 42%, var(--g) 62%, var(--gl) 82%, var(--g));
@@ -409,20 +412,12 @@ body[data-mode="timeline"] .stonebar i{ display:none; }
 .fx-halftone{ position:fixed; inset:0; z-index:99; pointer-events:none; background-image:radial-gradient(rgba(0,0,0,.4) 1.3px, rgba(0,0,0,0) 1.7px); background-size:6px 6px; mix-blend-mode:multiply; }
 .fx-stain{ position:fixed; z-index:97; pointer-events:none; border-radius:40%; background:radial-gradient(ellipse at 50% 50%, rgba(0,0,0,.95) 0, rgba(5,3,10,.85) 45%, rgba(5,3,10,0) 72%); filter:blur(3px); }
 #embers i.dark{ box-shadow:0 0 6px rgba(0,0,0,.9) !important; }
-
-  background:radial-gradient(ellipse 70% 85% at 35% 50%, rgba(0,0,0,.9), rgba(0,0,0,.6) 45%, rgba(0,0,0,0) 80%); }
-
-#mapView .lline.ghost{ pointer-events:none; }
 .tl-row, .tl-row *{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
 .fx-tele{ position:fixed; z-index:99; pointer-events:none; transform:translate(-50%,-150%); white-space:nowrap; padding:2px 8px; color:#E6F2FF; text-shadow:0 0 8px #2F7BFF, 0 0 20px rgba(47,123,255,.85); }
 .fx-tess{ position:fixed; left:50%; top:50%; width:120px; height:120px; margin:-60px 0 0 -60px; z-index:97; pointer-events:none; perspective:600px; }
 .fx-tess .cube3{ position:absolute; inset:0; transform-style:preserve-3d; }
 .fx-tess .f{ position:absolute; inset:0; border:2px solid #BFDAFF; background:rgba(47,123,255,.16); box-shadow:inset 0 0 22px rgba(120,180,255,.75), 0 0 16px rgba(47,123,255,.8); }
 .fx-tess .core{ position:absolute; left:30%; top:30%; width:40%; height:40%; border-radius:50%; background:radial-gradient(circle, #FFFFFF 0, #9FD0FF 35%, rgba(47,123,255,0) 72%); filter:blur(2px); }
-.fx-mirror{ position:fixed; inset:0; z-index:95; pointer-events:none; overflow:hidden; }
-.fx-mirror > div{ position:absolute; inset:0; }
-  background:linear-gradient(90deg, #8FA9D6, #FFFFFF 45%, #DCE6F5 60%, #6F93D8); box-shadow:0 0 10px #FFFFFF, 0 0 26px #9DB7E8, 0 0 50px rgba(111,147,216,.8); }
-.panel .row, .panel .row *, #panelTitle{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
 .fx-block{ position:fixed; z-index:99; pointer-events:none; }
 .fx-wash{ position:fixed; inset:0; z-index:99; pointer-events:none; }
 .fx-cloud{ position:fixed; z-index:97; pointer-events:none; border-radius:50%; background:radial-gradient(ellipse at 50% 60%, rgba(70,76,92,.95), rgba(45,50,64,.85) 45%, rgba(30,34,46,0) 72%); filter:blur(4px); }
@@ -564,7 +559,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 
 
 /* chapter and character logs wear their own page: same background, decor, title, bar and lines */
-.dossier.plog{ position:fixed !important; inset:0 !important; z-index:70; overscroll-behavior:contain; overflow-y:auto !important; overflow-x:hidden !important; border-radius:0 !important; -webkit-overflow-scrolling:touch; }
+.dossier.plog{ position:fixed !important; inset:0 !important; overscroll-behavior:contain; overflow-y:auto !important; overflow-x:hidden !important; border-radius:0 !important; -webkit-overflow-scrolling:touch; }
 .plog .pin{ opacity:1; }
 .plog .ptop .ltag{ font-size:12px; font-weight:500; letter-spacing:2px; text-transform:uppercase; opacity:.75; text-align:right; }
 .plog .lrows{ margin:0 0 6px; border-top:1px solid var(--rowline); }
@@ -913,6 +908,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 @media (prefers-reduced-motion: reduce){
   .excel .burst, .excel .glow, .excel .word{ animation-duration:.01s; }
   .hex-fx > .hx-band{ animation:none; }
+  .atl-pin.new, .atl-pin.new i::after, .atl-pin.upd i::after, .stonebar i.on::after{ animation:none; }
   .postcredits p{ transition:none; }
   .saga h3.reveal, .saga .note.reveal{ animation:none; }
   .row.just, .row.just .box{ animation:none; }
@@ -998,7 +994,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl.big .atl-grip{ height:100%; } .atl.big .atl-grip span{ display:block; margin-top:16px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; text-align:center; }
 .atl.big .atl-list{ visibility:hidden; }
 .atl-list{ padding-top:14px; }
-.atl-list, .atl-sheet{ position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding:6px 16px calc(28px + env(safe-area-inset-bottom,0px)); }
+.atl-list, .atl-sheet{ position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding:6px 16px calc(48px + env(safe-area-inset-bottom,0px)); }
 .atl-sheet{ padding-top:14px; background:#0B1019; animation:atlup .22s ease-out; }
 @keyframes atlup{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
 @keyframes fadein{ from{ opacity:0; } to{ opacity:1; } }
@@ -1193,7 +1189,7 @@ body{ padding-bottom:var(--dockh); }
 </style>
 </head>
 <body>
-<div class="gate" id="gate" hidden>
+<div class="gate" id="gate">
   <canvas aria-hidden="true"></canvas>
   <button type="button" class="gseal" id="gateEnter" aria-label="Tap to initialize"></button>
 </div>
@@ -10091,8 +10087,8 @@ setInterval(() => {
         document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") reg.update().catch(() => {}); });
       }).catch(() => {});
       // when a new version takes over, reload once so it shows immediately
-      let reloaded = false;
-      navigator.serviceWorker.addEventListener("controllerchange", () => { if (reloaded) return; reloaded = true; location.reload(); });
+      let reloaded = false; const hadController = !!navigator.serviceWorker.controller;
+      navigator.serviceWorker.addEventListener("controllerchange", () => { if (reloaded || !hadController) return; reloaded = true; location.reload(); });
     });
   }
 }
@@ -10287,7 +10283,8 @@ let homeLock = false;
 const homeBlock = ev => { if (homeLock && ev.cancelable) ev.preventDefault(); };
 function setHomeLock(on) { homeLock = on; ["touchmove", "wheel"].forEach(n => on ? document.addEventListener(n, homeBlock, { passive: false }) : document.removeEventListener(n, homeBlock, { passive: false })); }
 if (!state.entered) showGate();   // a first boot only: like a datapad you've just been handed. Reset datapad brings it back
-else if (!reloaded()) showBoot();   // a pull to refresh isn't the datapad switching on
+else if (!reloaded() && !REDUCED) showBoot();   // a pull to refresh isn't the datapad switching on
+else document.getElementById("gate").hidden = true;   // the screen starts covered (no flash of the empty app); with no boot to play it just lifts
 function reloaded() { try { const n = performance.getEntriesByType("navigation")[0]; return n ? n.type === "reload" : performance.navigation.type === 1; } catch (e) { return false; } }
 /* ---------- one consistent feel for every press ---------- */
 const HAPTIC = { tap: 14, enter: [16, 40, 26], success: [18, 50, 30] };
