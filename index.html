@@ -1140,6 +1140,18 @@ body{ padding-bottom:var(--dockh); }
 .list li.rin{ animation:rowin .55s cubic-bezier(.2,.7,.2,1) .12s both; }
 @keyframes rowin{ from{ opacity:0; transform:translateY(-8px); clip-path:inset(0 0 100% 0); } to{ opacity:1; transform:none; clip-path:inset(0 0 0 0); } }
 .lnext{ opacity:.75; }
+/* the dock's pages share one header: the page's name in the title's style, its tabs as pills under it, and nothing else. The dock is the way out, so
+   there's no Back (inside an Atlas city or universe, the map's own "‹ Earth" steps up a level). The Story log's title is the same */
+.dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(26px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
+.dockpg .maptop .back{ display:none; }
+.dockpg .maptop h2, .pgtitle{ display:block; margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 14px rgba(109,189,255,.35), 0 2px 0 rgba(0,0,0,.35); }
+.pgtitle{ margin:calc(12px + env(safe-area-inset-top,0px)) 0 0; }
+.dockpg .atl-views{ flex-basis:100%; display:flex; gap:8px; margin-top:12px; padding:4px 0 0; overflow-x:auto; scrollbar-width:none; border:0; border-radius:0; background:none; }
+.dockpg .atl-views::-webkit-scrollbar{ display:none; }
+.dockpg .atl-views button{ flex:0 0 auto; border:1px solid #2A3140; border-radius:999px; padding:9px 15px; background:#1A2030; color:#EEF1F6; font:500 15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:0; text-transform:none; box-shadow:none; }
+.dockpg .atl-views button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; border-color:#EEF1F6; }
+.dockpg .atl-views button.lk{ color:#56637C; }
+.dockpg .mapzoom{ position:absolute; right:16px; top:calc(22px + env(safe-area-inset-top,0px)); }
 </style>
 </head>
 <body>
@@ -1169,7 +1181,7 @@ body{ padding-bottom:var(--dockh); }
   <div class="postcredits" id="postCredits" hidden aria-live="polite"><p>The Marvel Cinematic Universe will return.</p></div>
 </div>
 <div class="panel" id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="panelTitle"></div>
-<div class="filepanel" id="filePanel" hidden role="dialog" aria-modal="true" aria-label="Archive">
+<div class="filepanel dockpg" id="filePanel" hidden role="dialog" aria-modal="true" aria-label="Archive">
   <div class="maptop"><button type="button" class="back" id="fileBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Agent File</h2></div>
   <div class="fileview" id="fileView"></div>
 </div>
@@ -1177,15 +1189,15 @@ body{ padding-bottom:var(--dockh); }
   <div class="maptop"><button type="button" class="back" id="collBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Knowhere</h2></div>
   <div class="fileview" id="collView"></div>
 </div>
-<div class="filepanel atlpanel" id="atlasPanel" hidden role="dialog" aria-modal="true" aria-label="Atlas">
+<div class="filepanel atlpanel dockpg" id="atlasPanel" hidden role="dialog" aria-modal="true" aria-label="Atlas">
   <div class="maptop"><button type="button" class="back" id="atlBack" aria-label="Back"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Atlas</h2><div class="atl-views" id="atlTabs" role="tablist"></div></div>
   <div class="fileview atl-on" id="atlView"></div>
 </div>
-<div class="filepanel commspanel" id="commsPanel" hidden role="dialog" aria-modal="true" aria-label="Comms">
+<div class="filepanel commspanel dockpg" id="commsPanel" hidden role="dialog" aria-modal="true" aria-label="Comms">
   <div class="maptop"><button type="button" class="back" id="commsBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Comms</h2><div class="atl-views" id="commsTabs" role="tablist"></div></div>
   <div class="fileview" id="commsView"></div>
 </div>
-<div class="mappanel" id="mapPanel" hidden role="dialog" aria-modal="true" aria-label="Character Map">
+<div class="mappanel dockpg" id="mapPanel" hidden role="dialog" aria-modal="true" aria-label="Character Map">
   <div class="maptop">
     <button type="button" class="back" id="mapBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back to characters</button>
     <h2>Character Map</h2>
@@ -2772,7 +2784,7 @@ function openDossier(id, go) {
   if (SG) {
     el.className = "dossier"; el.removeAttribute("style");
     slPlace(go && go.open);
-    el.innerHTML = `<div class="dscroll"><div class="dtop"><button type="button" class="back" id="dBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span>Story log</span></div><div class="dview">${slHTML()}</div></div>`;
+    el.innerHTML = `<div class="dscroll"><div class="dview">${slHTML()}</div></div>`;
     el.hidden = false; dossierOpen = id; document.body.style.overflow = "hidden";
     const sc = el.querySelector(".dscroll"); sc.scrollTop = 0;
     const at = go && go.open && el.querySelector(`[data-sls="${CSS.escape(go.open)}"]`);
@@ -2864,10 +2876,7 @@ const slDeb = c => { const L = DOSSIERS[c.id]; return !!(L && L.debrief) && slAl
 const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")) || (slEntries(c).length > 0 && slPer(c) >= 0 && !slSeenK(c, "r0." + slPer(c))));
 function slPlace(open) { slOpen = open || null; }   // the log opens with every chapter folded, unless you've jumped in from one of them
 function slHTML() {
-  const all = DATA.chapters.reduce((n, c) => n + (DOSSIERS[c.id] ? DOSSIERS[c.id].story.filter(([, x]) => x).length : 0), 0);
-  const got = DATA.chapters.reduce((n, c) => n + slEntries(c).length, 0);
-  return `<header class="dhead"><div class="dhrow"><div><div class="dtag">Avengers Initiative · Story log</div><h2 class="dname">The Marvel Cinematic Universe</h2></div></div>
-      <div class="dbar"><span style="width:${all ? got / all * 100 : 0}%"></span></div></header>
+  return `<h2 class="pgtitle">Story Log</h2>
     ${SL_ACTS.map(A => `<div class="sl-pg"><div class="act">${A[2]() ? A[1] : "Act " + A[0]}</div></div>${DATA.chapters.filter(A[3]).map(slSec).join("")}`).join("")}`;
 }
 // one chapter's section of the Story log
