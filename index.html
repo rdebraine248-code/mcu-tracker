@@ -379,7 +379,6 @@ body[data-mode="timeline"] .stonebar i{ display:none; }
   filter:drop-shadow(0 0 4px var(--hc)); }
 .fx-brk.gold{ --hc:#FFD23F; }
 
-.fx-streak{ position:fixed; z-index:97; pointer-events:none; height:4px; border-radius:4px; background:linear-gradient(90deg, rgba(160,185,230,0), rgba(170,195,240,.5) 35%, #E9F0FA 85%, #FFFFFF); box-shadow:0 0 0 1px rgba(30,45,80,.25), 0 0 10px #7FA2E0, 0 0 26px rgba(95,130,210,.75); }
 .fx-beam{ position:fixed; z-index:97; pointer-events:none; width:16px; margin-left:-8px; top:0; transform-origin:50% 100%; background:linear-gradient(0deg, #FFF3C4, #FFC14D 40%, rgba(255,193,77,0)); box-shadow:0 0 18px #FFC14D, 0 0 40px rgba(255,193,77,.7); }
 
 
@@ -407,12 +406,7 @@ body[data-mode="timeline"] .stonebar i{ display:none; }
 .fx-stain{ position:fixed; z-index:97; pointer-events:none; border-radius:40%; background:radial-gradient(ellipse at 50% 50%, rgba(0,0,0,.95) 0, rgba(5,3,10,.85) 45%, rgba(5,3,10,0) 72%); filter:blur(3px); }
 #embers i.dark{ box-shadow:0 0 6px rgba(0,0,0,.9) !important; }
 
-.voided .t, .voided .tt{ color:#000 !important; text-shadow:1px 1px 0 #000, -1px 0 0 #000, 0 2px 4px rgba(0,0,0,.9), 3px 4px 10px rgba(0,0,0,.75) !important; filter:blur(.5px) contrast(3); letter-spacing:.4px; }
-.voided .box, .voided .tl-node{ background:#000 !important; border-color:#000 !important; box-shadow:0 0 12px #000 !important; }
-.voided .tag, .voided .meta, .voided .rnote{ visibility:hidden; }
-.row.vlight::before{ content:""; position:absolute; left:-8px; right:-8px; top:1px; bottom:1px; z-index:0; pointer-events:none; filter:blur(3px);
   background:radial-gradient(ellipse 70% 85% at 35% 50%, rgba(0,0,0,.9), rgba(0,0,0,.6) 45%, rgba(0,0,0,0) 80%); }
-.row.vlight > *{ position:relative; z-index:1; }
 
 #mapView .lline.ghost{ pointer-events:none; }
 .tl-row, .tl-row *{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
@@ -423,7 +417,6 @@ body[data-mode="timeline"] .stonebar i{ display:none; }
 .fx-tess .core{ position:absolute; left:30%; top:30%; width:40%; height:40%; border-radius:50%; background:radial-gradient(circle, #FFFFFF 0, #9FD0FF 35%, rgba(47,123,255,0) 72%); filter:blur(2px); }
 .fx-mirror{ position:fixed; inset:0; z-index:95; pointer-events:none; overflow:hidden; }
 .fx-mirror > div{ position:absolute; inset:0; }
-.fx-surfer{ position:fixed; z-index:98; pointer-events:none; width:34px; height:9px; margin:-4.5px 0 0 -17px; border-radius:50%;
   background:linear-gradient(90deg, #8FA9D6, #FFFFFF 45%, #DCE6F5 60%, #6F93D8); box-shadow:0 0 10px #FFFFFF, 0 0 26px #9DB7E8, 0 0 50px rgba(111,147,216,.8); }
 .panel .row, .panel .row *, #panelTitle{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
 .fx-block{ position:fixed; z-index:99; pointer-events:none; }
@@ -2319,7 +2312,6 @@ document.getElementById("view").addEventListener("click", ev => {
   if (im) { openIncList(im); return; }
   const r = ev.target.closest(".tl-row");
   if (r && laneFired) { laneFired = false; return; }
-  if (r && r.closest("li") && r.closest("li").classList.contains("voided")) { unvoid(r.closest("li")); return; }
   if (r && hex && r.dataset.tl === "WandaVision" && ev.target.closest(".tl-text")) { hexNext(ev.clientX, ev.clientY); return; }
   if (r && ev.detail !== 0 && !ev.target.closest(".tl-node") && !ev.target.closest(".tl-text")) {
     const lanes = ev.target.closest(".tl-lanes");
@@ -2638,7 +2630,7 @@ panel.addEventListener("pointerdown", ev => {
   else if (bid === "cx-werewolf-by-night" && !row && wmHit(x, y)) act = () => wolfEgg();
   else if (row && bid && BOX_ROW_EGGS[bid]) act = () => BOX_ROW_EGGS[bid](x, y, row);
   else if (row && ROW_EGGS[row.dataset.t]) { const fn = ROW_EGGS[row.dataset.t]; act = () => fn(x, y, row); }
-  const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "ch-pruned-timelines": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow],
+  const ANY = { "cx-hawkeye": [1000, 0, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "ch-pruned-timelines": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow],
     "cx-the-watcher": [650, 0, shatter], "ch-beyond-the-mcu": [650, 0, shatter] };
   if (!act && ANY[bid]) { const [a, b, fn] = ANY[bid]; pnlStart = [x, y]; pnlTimer = setTimeout(() => { pnlFired = true; fn(x, y); }, a + Math.random() * b); return; }
   if (!act) return;
@@ -5326,7 +5318,6 @@ function smash(cx, cy, CR) {
   requestAnimationFrame(draw);
 }
 
-/* ---------- bonus: the Mirror Dimension. Hold Doctor Strange: the page folds; tap anywhere to snap back ---------- */
 // a frozen copy of whatever is on screen: the open box, or the page
 function screenCopy() {
   if (openEntry) return pinCopy();
@@ -5335,58 +5326,7 @@ function screenCopy() {
   c.style.cssText = `position:absolute;left:${r.left}px;top:${r.top}px;width:${r.width}px;margin:0;pointer-events:none`;
   const w = document.createElement("div"); w.appendChild(c); return w;
 }
-let mirrorOn = null;
-function mirrorDim(x, y) {
-  found("mirror", 9000);
-  if (mirrorOn || REDUCED) return;
-  mirrorOn = true;
-  const sc = fxScope(), T = 9000;
-  const m = document.createElement("div"); m.className = "fx-mirror"; document.body.appendChild(m);
-  // mirrored copies fold out of the page, wheel around it like a kaleidoscope, tile away into infinity, then all fold back in
-  const kids = [0, 1, 2, 3, 4, 5].map(k => {
-    const d = screenCopy(); d.style.opacity = "0"; d.style.transformOrigin = "50% 50%"; m.appendChild(d);
-    const a = k * 60, flip = k % 2 ? "scaleX(-1)" : "scaleY(-1)", gx = ((k % 3) - 1) * 70, gy = (Math.floor(k / 3) - .5) * 80;
-    d.animate([
-      { transform: "none", opacity: 0 },
-      { transform: `perspective(900px) ${flip} rotateY(${40 + k * 8}deg) rotateZ(${a * .3}deg) scale(.8)`, opacity: .5, offset: .18 },
-      { transform: `perspective(900px) rotateZ(${a + 90}deg) translateY(-28%) ${flip} scale(.5)`, opacity: .55, offset: .42 },
-      { transform: `perspective(900px) rotateZ(${a + 200}deg) translate(${gx}%,${gy}%) ${flip} scale(.3)`, opacity: .6, offset: .64 },
-      { transform: `perspective(900px) rotateZ(${a + 360}deg) translate(${gx * .5}%,${gy * .5}%) ${flip} scale(.55)`, opacity: .45, offset: .82 },
-      { transform: `rotateZ(${a + 360 + (360 - ((a + 360) % 360))}deg) scale(1)`, opacity: 0 }], { duration: T, easing: "ease-in-out", fill: "both" });
-    return d;
-  });
-  sc.animate([
-    { transform: "none" },
-    { transform: "perspective(800px) rotateY(34deg) skewY(-10deg) scale(.86)", offset: .14 },
-    { transform: "perspective(800px) rotateX(48deg) rotateZ(-30deg) skewX(14deg) scale(.78)", offset: .3 },
-    { transform: "perspective(800px) rotateZ(150deg) rotateY(-24deg) scale(.6)", offset: .46 },
-    { transform: "perspective(800px) rotateZ(250deg) rotateX(-40deg) skewY(12deg) scale(.45)", offset: .6 },
-    { transform: "perspective(800px) rotateZ(330deg) rotateY(30deg) scale(.7)", offset: .78 },
-    { transform: "perspective(800px) rotateZ(360deg) scale(1)" }], { duration: T, easing: "ease-in-out" });
-  burst(x, y, 30, ORANGE_C, 100);
-  haptic([20, 50, 20, 50, 20, 400, 40, 400, 40]);
-  setTimeout(() => { m.remove(); mirrorOn = null; }, T + 100);
-}
 
-/* ---------- bonus: the Herald. Hold The Fantastic Four: First Steps: a silver streak crosses the screen ---------- */
-function herald(x, y) {
-  found("herald", 3400);
-  if (REDUCED) return;
-  const W = innerWidth, H = innerHeight, x0 = -40, y0 = H * .86, x1 = W + 40, y1 = H * .14, T = 1700;
-  const len = Math.hypot(x1 - x0, y1 - y0), ang = Math.atan2(y1 - y0, x1 - x0) * 180 / Math.PI;
-  // the sky goes dark and starry first, as if the screen has opened onto space
-  veil("fx-stars", "z-index:96", [{ opacity: 0 }, { opacity: .9, offset: .15 }, { opacity: .9, offset: .8 }, { opacity: 0 }], T + 2600);
-  setTimeout(() => {
-    const trail = document.createElement("div"); trail.className = "fx-streak"; trail.style.cssText = `left:${x0}px;top:${y0 - 2}px;width:0;transform-origin:0 50%;transform:rotate(${ang}deg);z-index:98`; document.body.appendChild(trail);
-    trail.animate([{ width: "0px" }, { width: len + "px" }], { duration: T, easing: "cubic-bezier(.35,0,.25,1)", fill: "forwards" });
-    setTimeout(() => { trail.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1300, easing: "ease-in", fill: "forwards" }).onfinish = () => trail.remove(); }, T + 300);
-    const sf = document.createElement("div"); sf.className = "fx-surfer"; sf.style.cssText = `left:${x0}px;top:${y0}px`; document.body.appendChild(sf);
-    sf.animate([{ transform: `translate(0,0) rotate(${ang}deg)` }, { transform: `translate(${x1 - x0}px,${y1 - y0}px) rotate(${ang}deg)` }], { duration: T, easing: "cubic-bezier(.35,0,.25,1)", fill: "both" }).onfinish = () => sf.remove();
-    for (let k = 0; k < 110; k++) { const f = k / 110, px = x0 + (x1 - x0) * f, py = y0 + (y1 - y0) * f; sparkC(px + (Math.random() - .5) * 8, py + (Math.random() - .5) * 8, (Math.random() - .5) * 30, 6 + Math.random() * 26, f * T * .9, 1400 + Math.random() * 700, SILVER_C); }
-    // where it leaves, something vast stirs: a cold purple glow and a low rumble
-    haptic([10, 20, 10, 20, 80]);
-  }, 500);
-}
 
 /* ---------- bonus: radar sense. Hold Daredevil's quote: the world goes dark red, seen in outlines and echoes ---------- */
 function radar(q) {
@@ -5494,14 +5434,15 @@ function claws(x, y) {
   fxScope().animate([{ transform: "none" }, { transform: "translate(-7px,5px)" }, { transform: "translate(4px,-3px)" }, { transform: "none" }], { duration: 300, delay: 60 });
   haptic([15, 10, 40]);
 }
-/* ---------- FoX-Men: each hold of the box's name is one random mutant power ---------- */
+/* ---------- FoX-Men: each hold of the box's name is one mutant power: the ten in turn until you've seen them all, then shuffled ---------- */
 let lastPower = null;
 function xPower(x, y) {
   const P = { claws, cerebro, storm, cyclops, jean, nightcrawler, iceman, pyro, colossus, jubilee }, keys = Object.keys(P).filter(k => k !== lastPower), seen = state.xp || {};
-  // still random, but weighted toward what you haven't seen, or haven't seen in a while, so they keep cycling round
   state.xpN = (state.xpN || 0) + 1; const at = state.xpAt = state.xpAt || {};
-  const wts = keys.map(k => seen[k] ? 1 + Math.min(10, state.xpN - (at[k] || 0)) : 14), tot = wts.reduce((a, b) => a + b, 0); let r = Math.random() * tot, k = keys[0];
-  for (let i = 0; i < keys.length; i++) { r -= wts[i]; if (r <= 0) { k = keys[i]; break; } }
+  // the first ten holds show each power once, in turn; after that it's random, weighted toward the ones you haven't seen in a while
+  let k = Object.keys(P).find(z => !seen[z]);
+  if (!k) { const wts = keys.map(z => 1 + Math.min(10, state.xpN - (at[z] || 0))), tot = wts.reduce((a, b) => a + b, 0); let r = Math.random() * tot; k = keys[0];
+    for (let i = 0; i < keys.length; i++) { r -= wts[i]; if (r <= 0) { k = keys[i]; break; } } }
   lastPower = k; at[k] = state.xpN; P[k](x, y);
   state.xp = state.xp || {}; state.xp[k] = 1; persist(); if (Object.keys(P).every(z => state.xp[z])) found("xmen8", 3600);
 }
@@ -5995,28 +5936,21 @@ function studioIntro(dim) {
   }, done + 2100);
 }
 
-/* ---------- Doctor Doom: hold any Avengers: Doomsday title with two fingers (a long hold with a mouse). Green energy full of Kirby Krackle ---------- */
+/* ---------- Doctor Doom: hold any Avengers: Doomsday title. Green energy full of Kirby Krackle ---------- */
 let doomPress = null, doomTimer = null, doomBlockUntil = 0, doomOn = false;
 const DOOM_SEL = '.row[data-t="Avengers: Doomsday"], .tl-row[data-tl="Avengers: Doomsday"]';
 window.addEventListener("pointerdown", ev => {
-  if (doomPress && ev.pointerId !== doomPress.id && ev.pointerType !== "mouse") {   // the second finger
-    doomPress.second = { id: ev.pointerId, x: ev.clientX, y: ev.clientY };
-    clearTimeout(doomTimer);
-    const a = doomPress, b = doomPress.second;
-    doomTimer = setTimeout(() => { doomBlockUntil = Date.now() + 900; doom([a.x, a.y], [b.x, b.y]); doomPress = null; }, 600);
-    return;
-  }
+  if (doomPress) { clearTimeout(doomTimer); doomPress = null; return; }   // a second finger: that's a pinch or a scroll, not a hold
   if (!ev.target.closest || !ev.target.closest(DOOM_SEL)) return;
-  doomPress = { id: ev.pointerId, x: ev.clientX, y: ev.clientY };
-  if (ev.pointerType === "mouse") doomTimer = setTimeout(() => { doomBlockUntil = Date.now() + 900; doom([ev.clientX - 60, ev.clientY], [ev.clientX + 60, ev.clientY]); doomPress = null; }, 1500);
+  const x = ev.clientX, y = ev.clientY; doomPress = { id: ev.pointerId, x, y };
+  doomTimer = setTimeout(() => { doomBlockUntil = Date.now() + 900; doom([x - 60, y], [x + 60, y]); doomPress = null; }, 900);
 }, true);
 window.addEventListener("pointermove", ev => {
   if (!doomPress) return;
-  const p = ev.pointerId === doomPress.id ? doomPress : doomPress.second && ev.pointerId === doomPress.second.id ? doomPress.second : null;
-  if (p && Math.hypot(ev.clientX - p.x, ev.clientY - p.y) > 14) { clearTimeout(doomTimer); doomPress = null; }
+  if (ev.pointerId === doomPress.id && Math.hypot(ev.clientX - doomPress.x, ev.clientY - doomPress.y) > 14) { clearTimeout(doomTimer); doomPress = null; }
 }, true);
 ["pointerup", "pointercancel"].forEach(n => window.addEventListener(n, ev => {
-  if (doomPress && (ev.pointerId === doomPress.id || (doomPress.second && ev.pointerId === doomPress.second.id))) { clearTimeout(doomTimer); doomPress = null; }
+  if (doomPress && ev.pointerId === doomPress.id) { clearTimeout(doomTimer); doomPress = null; }
 }, true));
 // after the hold, the fingers lifting must not also check or open anything
 window.addEventListener("click", ev => { if (Date.now() < doomBlockUntil) { ev.stopPropagation(); ev.preventDefault(); } }, true);
@@ -6256,7 +6190,7 @@ const EGGS = [
   ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times.", 1],
   ["worthy", "Worthy", "Whosoever holds this hammer…", "Complete Thor's box, then hold his name.", 1],
   ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box.", 1],
-  ["arrow", "Never misses", "Patience, archer.", "Hold anywhere in Hawkeye's box for 3 to 4 seconds.", 1],
+  ["arrow", "Never misses", "Patience, archer.", "Hold anywhere in Hawkeye's box.", 1],
   ["avengers", "Assemble", "Earth's mightiest, all at once.", "Hold the name in The Avengers box.", 1],
   ["bifrost", "Bifrost", "Heimdall is watching.", "In the Atlas, hold New Mexico.", 1],
   ["sokovia", "Sokovia", "A city in the sky.", "In the Atlas, hold Sokovia.", 1],
@@ -6280,11 +6214,9 @@ const EGGS = [
   ["quantum", "Quantum Realm", "Think small.", "Pinch the Ant-Man & the Wasp box smaller.", 1],
   ["radar", "World on fire", "He can hear your heartbeat.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
   ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
-  ["mirror", "Mirror Dimension", "Strange things fold.", "Hold the Doctor Strange title.", 1],
   ["bargain", "I've come to bargain", "Again. And again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
   ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap anywhere in Spider-Man's box.", 1],
   ["jameson", "Menace", "The Bugle has a scoop.", "In Comms, hold the Daily Bugle's name.", 1],
-  ["chi", "Chi", "An immortal weapon.", "Hold Iron Fist S1 or S2.", 1],
   ["defenders", "Four colors", "Red, yellow, blue, green. The city at night.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
   ["penny", "Penny and dime", "Count it out.", "In The Punisher box, tap his quote 4 times.", 1],
   ["onlyfeel", "I just feel you", "You could never hurt me.", "In the Wanda & Vision box, hold two fingers on the screen until the stone breaks (on a computer, hold the quote).", 1],
@@ -6300,18 +6232,15 @@ const EGGS = [
   ["sinister", "Hello, Peter.", "Five old enemies.", "Hold anywhere in The Sony Spider-Men box until you've seen all five villains.", 2],
   ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box.", 2],
   ["glorious", "Glorious purpose", "Hold on to them, then pull them together.", "In the Loki & The TVA box, hold your finger still for a moment, then pull up to the name.", 2],
-  ["swap", "Swap", "Three heroes keep trading places.", "Hold The Marvels.", 2],
   ["skrull", "Not who it says it is", "Shapeshifters among us.", "Hold Secret Invasion, then tap the title that doesn't belong.", 2],
   ["prune", "Pruned", "The TVA's way.", "On a timeline page, hold a branch line.", 2],
   ["variant", "Variant", "Look at the map.", "Hold a character's name in the Character Map.", 2],
   ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers.", 2],
   ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box or the Pruned Timelines chapter.", 2],
   ["witchroad", "The Witches' Road", "Down, down, down the road.", "After Agatha All Along, in the Atlas Beyond, hold the Witches' Road.", 2],
-  ["herald", "The Herald", "Something silver comes first.", "Hold The Fantastic Four: First Steps.", 2],
   ["fantastic", "Fantastic", "Four taps, four powers.", "Tap the name in The Fantastic Four box four times, until you've seen all four powers.", 2],
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
-  ["newav", "*The New Avengers", "Bob's darkness. Let it take everything.", "Hold Thunderbolts* until every other title in its list is a shadow.", 2],
-  ["doom", "Doom", "He fights with both hands.", "Hold any Avengers: Doomsday title with two fingers (on a computer, a long hold).", 2],
+  ["doom", "Doom", "Hold on to the end of the world.", "Hold any Avengers: Doomsday title.", 2],
   ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse on the Sacred Timeline.", 2]
 ];
 // each Avengers film is a mission, named for what the team had to do (Doomsday and Secret Wars keep their titles until they are out)
@@ -6883,33 +6812,8 @@ function yondu(x0, y0) {
   }, () => { clean(); cv.remove(); yonduOn = false; found("dance"); });
 }
 
-/* ---------- Chapter 5: Iron Fist. Hold Iron Fist S1: chi gathers, then a golden shockwave knocks the list back ---------- */
-function chiPunch(x, y) {
-  found("chi", 2200);
-  if (REDUCED) return;
-  glowC(x, y, 0, "gold", 2.2);
-  for (let k = 0; k < 40; k++) { const a = Math.random() * Math.PI * 2, r = 80 + Math.random() * 70; sparkC(x + Math.cos(a) * r, y + Math.sin(a) * r, -Math.cos(a) * r, -Math.sin(a) * r, Math.random() * 300, 600, GOLD_C); }
-  haptic([10, 60, 10, 60, 10, 200, 140]);
-  setTimeout(() => {
-    [0, 140, 280].forEach((d, k) => fxRing(x, y, Math.hypot(innerWidth, innerHeight) * (.7 - k * .12), "#FFC94D", 1000, d, 4 - k));
-    burst(x, y, 50, GOLD_C, 150);
-    listItems().forEach(it => {
-      const r = it.row.getBoundingClientRect(), cy = r.top + r.height / 2, d = cy - y, push = Math.sign(d || 1) * Math.max(4, 34 - Math.abs(d) / 12);
-      it.row.animate([{ transform: "none" }, { transform: `translateY(${push}px)`, offset: .25 }, { transform: `translateY(${-push * .25}px)`, offset: .6 }, { transform: "none" }], { duration: 750, easing: "ease-out" });
-    });
-  }, 700);
-}
 
-/* ---------- Chapter 9: The Marvels (three titles swap places) and Secret Invasion (one title isn't what it seems) ---------- */
-function marvelsSwap(x, y, held) {
-  found("swap", 3300);
-  const its = pick(listItems(held), 3); if (its.length < 2) return;
-  const orig = its.map(it => it.t.textContent), cls = ["gold", "blue", "purple"];
-  const flash = () => its.forEach((it, k) => { const [cx, cy] = centerOf(it.t); if (!REDUCED) glowC(cx, cy, 0, cls[k], 1.3); });
-  flash(); haptic([20, 40, 20, 40, 20]);
-  its.forEach((it, k) => { it.t.textContent = orig[(k + 1) % its.length]; });
-  setTimeout(() => { flash(); haptic([20, 40, 20]); its.forEach((it, k) => { it.t.textContent = orig[k]; }); }, 3000);
-}
+/* ---------- Chapter 9: Secret Invasion. One title isn't what it seems ---------- */
 let skrullGame = null;
 function skrull(x, y, held) {
   if (skrullGame) return;
@@ -6946,51 +6850,8 @@ function skrull(x, y, held) {
   setTimeout(() => { if (skrullGame) window.addEventListener("click", skrullGame.tap, true); }, 400);
 }
 
-/* ---------- Chapter 10: the Void. Hold Thunderbolts*: darkness spreads and leaves a title as a shadow; tap a shadow to bring it back ---------- */
-function theVoid(x, y, held) {
-  const its = listItems(held).filter(it => !it.row.classList.contains("voided")); if (!its.length) return;
-  const vic = its[Math.floor(Math.random() * its.length)], victim = vic.row;
-  haptic([120, 20, 60]);
-  if (!REDUCED) {
-    // darkness pours out of your finger and crawls to the title it takes
-    const [tx, ty] = centerOf(vic.t), DARK = ["#000000", "#0B0910", "#1A1424"];
-    for (let k = 0; k < 90; k++) { const ox = (Math.random() - .5) * 40, oy = (Math.random() - .5) * 20; sparkC(x + ox, y + oy, tx - x + (Math.random() - .5) * 120, ty - y + (Math.random() - .5) * 24, Math.random() * 70, 240, DARK, "dark"); }
-    const r = vic.t.getBoundingClientRect(), stain = document.createElement("div"); stain.className = "fx-stain";
-    stain.style.cssText = `left:${r.left - 30}px;top:${r.top - 18}px;width:${r.width + 60}px;height:${r.height + 36}px`; document.body.appendChild(stain);
-    stain.animate([{ transform: "scale(.4)", opacity: 0 }, { transform: "scale(1.15)", opacity: 1, offset: .2 }, { transform: "scale(1)", opacity: 1, offset: .5 }, { transform: "scale(1.05)", opacity: 0 }], { duration: 700, delay: 120, easing: "ease-out", fill: "both" }).onfinish = () => stain.remove();
-    fxScope().animate([{ transform: "none" }, { transform: "translate(-3px,2px)" }, { transform: "translate(2px,-1px)" }, { transform: "none" }], { duration: 160, delay: 150 });
-  }
-  // on a light box the shadow needs a dark smear behind it to read, like a shadow burned onto a wall
-  const light = openEntry && lum(getComputedStyle(panel).backgroundColor) > .6;
-  setTimeout(() => { victim.classList.add("voided"); if (light) victim.classList.add("vlight"); checkAllVoided(held); }, REDUCED ? 0 : 220);
-}
 
-function unvoid(row) {
-  // the shadow lifts off the title like smoke and drifts away
-  const t = row.querySelector(".t, .tt");
-  if (t && !REDUCED) { const r = t.getBoundingClientRect(); for (let k = 0; k < 40; k++) sparkC(r.left + Math.random() * r.width, r.top + Math.random() * r.height, (Math.random() - .5) * 40, -20 - Math.random() * 50, Math.random() * 400, 1100, ["#000000", "#16121E", "#2A2433"], "dark"); }
-  setTimeout(() => row.classList.remove("voided", "vlight"), REDUCED ? 0 : 250); haptic([20, 40]);
-}
 
-function checkAllVoided(held) {
-  if (!openEntry) return;
-  const rest = [...panel.querySelectorAll(".row")].filter(r => r !== held);
-  if (!rest.length || !rest.every(r => r.classList.contains("voided"))) return;
-  setTimeout(() => {
-    if (!REDUCED) veil("fxl", "z-index:96;background:#000", [{ opacity: 0 }, { opacity: 1, offset: .3 }, { opacity: 1, offset: .55 }, { opacity: 0 }], 3000);
-    haptic([100, 80, 200]);
-    setTimeout(() => {
-      rest.forEach(r => unvoid(r)); found("newav");
-      // the asterisk pays off: the title itself becomes *The New Avengers for a while
-      const names = [held && held.querySelector(".t, .tt"), openEntry && openEntry.id === "cx-the-thunderbolts" ? document.getElementById("panelTitle") : null].filter(Boolean);
-      names.forEach(n => {
-        const was = n.innerHTML, nu = n.id === "panelTitle" ? "*The New Avengers" : "*The New Avengers";
-        n.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300 }).onfinish = () => { n.textContent = nu; n.animate([{ opacity: 0, textShadow: "0 0 14px rgba(255,255,255,.9)" }, { opacity: 1, textShadow: "0 0 0 rgba(255,255,255,0)" }], { duration: 700 }); };
-        setTimeout(() => { n.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300 }).onfinish = () => { n.innerHTML = was; n.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500 }); }; }, 5500);
-      });
-    }, REDUCED ? 0 : 1600);
-  }, 900);
-}
 
 /* ---------- the Character Map: Variant (hold a name), the weave (double-tap empty space), Incursion (zoom all the way out) ---------- */
 function mapVariant(r) {
@@ -7052,8 +6913,10 @@ function knockRow(el, at, back, tx, ty, rot, fadeTo) {
 }
 const onScreen = its => its.filter(it => { const r = it.t.getBoundingClientRect(); return r.width && r.bottom > 0 && r.top < innerHeight; });
 // weighted pick that favours what hasn't been seen lately, like the FoX-Men powers
+// until you've seen every one, each turn is the next one you haven't, in order; after that they shuffle, weighted toward the ones not seen in a while
 function cyclePick(keys, bag, lastKey) {
   const seen = state[bag] = state[bag] || {}, n = state[bag + "N"] = (state[bag + "N"] || 0) + 1, at = seen;
+  const fresh = keys.find(k => !seen[k]); if (fresh) { at[fresh] = n; return fresh; }
   const pool = keys.filter(k => k !== lastKey), wts = pool.map(k => seen[k] ? 1 + Math.min(10, n - seen[k]) : 14), tot = wts.reduce((a, b) => a + b, 0);
   let r = Math.random() * tot; for (let i = 0; i < pool.length; i++) { r -= wts[i]; if (r <= 0) { at[pool[i]] = n; return pool[i]; } }
   at[pool[0]] = n; return pool[0];
@@ -8174,14 +8037,8 @@ const ROW_EGGS = {
   "Captain America: The First Avenger": (x, y, el) => tesseract(x, y, el),
   "Avengers: Age of Ultron": (x, y) => mindStone(x, y),
   "WandaVision": (x, y) => hex ? hexDrop(x, y) : hexCast(x, y),
-  "Doctor Strange": (x, y) => mirrorDim(x, y),
-  "The Fantastic Four: First Steps": (x, y) => herald(x, y),
   "Guardians of the Galaxy Vol. 2": (x, y) => yondu(x, y),
-  "Iron Fist S1": (x, y) => chiPunch(x, y),
-  "Iron Fist S2": (x, y) => chiPunch(x, y),
-  "The Marvels": (x, y, el) => marvelsSwap(x, y, el),
-  "Secret Invasion": (x, y, el) => skrull(x, y, el),
-  "Thunderbolts*": (x, y, el) => theVoid(x, y, el)
+  "Secret Invasion": (x, y, el) => skrull(x, y, el)
 };
 // any title held in these boxes
 const BOX_ROW_EGGS = {};
@@ -8308,7 +8165,6 @@ panel.addEventListener("click", ev => {
   if (openEntry && openEntry.id === "cx-the-punisher" && ev.target.closest(".pquote")) { pennyTap(); return; }
   if (ev.target.closest("#btnBack") || ev.target.closest("#btnComplete")) return uiClose();
   const hr = ev.target.closest(".row");
-  if (hr && hr.classList.contains("voided")) { unvoid(hr); return; }
   if (hex && hr && hr.dataset.t === "WandaVision" && !ev.target.closest(".box")) { hexNext(ev.clientX, ev.clientY); return; }
   const row = ev.target.closest(".row");
   if (!row) return;
