@@ -7451,17 +7451,16 @@ function atlBifrost(map) {
       g.restore(); g.globalAlpha = 1; g.shadowBlur = 0; }
   }, () => { cv.remove(); atlFxOn = false; found("bifrost"); });
 }
-// Sokovia: hold it and Novi Grad tears loose, rises, is struck at its core, and falls into a crater lake
+// Sokovia: hold it and Novi Grad rises whole, is struck at its core, cracks apart and falls into a crater lake
 function atlSokovia(map) {
   const p = atlPinAt(map, "sokovia"); if (!p || atlFxOn) return; if (REDUCED) { found("sokovia"); return; } atlFxOn = true;
-  // Novi Grad as one of the Atlas's holograms: it cracks around the church, tears loose on its cone of rock and rises with Ultron's drones
+  // Novi Grad as one of the Atlas's holograms: whole, it tears loose on its cone of rock and rises with Ultron's drones
   // swarming it; at the top the core in the church flares, Thor's lightning and Iron Man's beam hit it together, the city breaks apart
   // and comes down, and a crater lake is left where it stood
   const { cv, g, at } = atlLayer(map, p), T = 6800, RISE = 900, TOP = 2600, HIT = 3300, BREAK = 3700, LAND = 4700, rnd = (lo, hi) => lo + Math.random() * (hi - lo);
   const B = "127,216,255", RX = 38, RY = 14, UP = 64;
   const rim = Array.from({ length: 18 }, (_, k) => { const a = k / 18 * Math.PI * 2, j = .9 + Math.random() * .16; return [Math.cos(a) * RX * j, Math.sin(a) * RY * j]; });
   const blocks = [[-27, 6, 8], [-17, 9, 13], [-6, 7, 10], [9, 8, 12], [20, 6, 15], [29, 5, 7], [-33, 4, 5]];
-  const cracks = Array.from({ length: 7 }, (_, k) => { let x = 0, y = 0, a = k / 7 * Math.PI * 2 + rnd(-.2, .2); const pts = [[0, 0]]; for (let i = 0; i < 6; i++) { a += rnd(-.5, .5); x += Math.cos(a) * 5.5; y += Math.sin(a) * 2.2; pts.push([x, y]); } return pts; });
   // the pieces it breaks into: the city cut along six seams from the church out to the rim, each piece keeping its own ground, its own rock
   // underneath and whatever stands on it, so the moment it splits looks exactly like the whole city
   const N = 6, hub = [rnd(-2, 2), rnd(-1, 1)], ang = (x, y) => (Math.atan2(y / RY, x / RX) + Math.PI * 2) % (Math.PI * 2);
@@ -7488,9 +7487,6 @@ function atlSokovia(map) {
       // the shadow it leaves on the ground as it goes up
       if (lift > 0) { g.globalAlpha = show; g.fillStyle = `rgba(0,0,0,${.35 * lift})`; g.beginPath(); g.ellipse(0, 0, RX, RY, 0, 0, Math.PI * 2); g.fill(); g.strokeStyle = `rgba(255,120,80,${.5 * lift})`; g.setLineDash([3, 3]); g.lineWidth = 1; g.stroke(); g.setLineDash([]); }
       g.globalAlpha = show; slab(dy, 1, true);
-      // the cracks: light running out from the church as it tears loose
-      const cr = clamp01(t / RISE); g.strokeStyle = `rgba(190,240,255,${.9 * (1 - lift * .5)})`; g.lineWidth = 1;
-      cracks.forEach(pts => { const n = Math.max(1, Math.round(pts.length * cr)); g.beginPath(); pts.slice(0, n).forEach(([x, y], i) => i ? g.lineTo(x, y + dy) : g.moveTo(x, y + dy)); g.stroke(); });
       // rubble dropping off the bottom while it climbs
       rubble.forEach(r => { const f = (t - r.at) / 1000; if (f < 0 || f > 1.1) return; g.fillStyle = `rgba(${B},${.8 * (1 - f)})`; g.fillRect(r.x * .6, dy + 30 + f * r.v * 1.6, 1.6, 1.6); });
       // Ultron's drones, red points circling it
