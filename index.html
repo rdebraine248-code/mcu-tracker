@@ -752,7 +752,8 @@ html:has(#rateSheet){ overflow:hidden; }
 button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9A43A; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
 .rc small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7D8BA6; text-transform:uppercase; }
 .rc b{ display:block; margin:3px 0 2px; font:500 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#E2E8F3; overflow-wrap:anywhere; } .rc span{ font:600 13px system-ui,sans-serif; color:#F4C542; }
-.rc.lk{ border-style:dashed; } .rc.lk b{ color:#5E6A80; font-weight:400; }
+.rc.lk b{ color:#5E6A80; font-weight:400; }
+.rc b.rcl{ font-size:14px; font-weight:600; color:#B9C3D6; }   /* Classified, the way the Agent File's other cards say it */
 .rlist{ margin-top:10px; padding:4px 12px; border:1px solid #2B3F62; border-radius:12px; background:#0B1120; }
 .rlist h5{ margin:8px 0 2px; font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; color:#7FA6D8; text-transform:uppercase; }
 .rrow{ display:flex; justify-content:space-between; align-items:center; gap:10px; width:100%; padding:11px 0; border:0; border-bottom:1px solid #1C2436; background:none; color:#E2E8F3; text-align:left; font:15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
@@ -6327,11 +6328,12 @@ function rateRows() {
 function rateSec() {
   const all = Object.keys(state.rate || {}).filter(t => rateOf(t).r), avg = rateAvg(all), A = SL_ACTS[rPg], chs = DATA.chapters.filter(A[3]);
   const cell = c => { const seenL = c.items.filter(i => atlSeenT(i.t)), lab = c.num ? "Ch. " + c.num : "Extras";
-    if (!c.num && !slShown(c)) return `<div class="rc lk"><small>${lab}</small><b>Sealed</b></div>`;
-    if (!seenL.length) return `<div class="rc lk"><small>${lab}</small><b>${c.num ? "Locked" : esc(c.title)}</b></div>`;
+    // the same as the rest of the Agent File: a name you haven't uncovered reads Classified, whether or not you've watched anything in it yet
+    if (!c.num && !slShown(c)) return `<div class="rc lk"><small>${lab}</small><b class="rcl">Classified</b></div>`;
+    if (!seenL.length) return `<div class="rc lk"><small>${lab}</small><b${c.num && !slNamed(c) ? ' class="rcl">Classified' : ">" + esc(c.title)}</b></div>`;
     const a = rateAvg(seenL.map(i => i.t));
-    return `<button type="button" class="rc${rOpen === c.id ? " on" : ""}" data-rcell="${c.id}"><small>${lab}</small><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b><span>${a ? "&#9733; " + a : "Not rated"}</span></button>`; };
-  const oc = rOpen && chs.find(c => c.id === rOpen), list = !oc ? "" : `<div class="rlist"><h5>${oc.num ? "Ch. " + oc.num : "Extras"} · ${slNamed(oc) ? esc(oc.title) : "[ Classified ]"}</h5>${oc.items.filter(i => atlSeenT(i.t)).map(i => { const r = rateOf(i.t).r;
+    return `<button type="button" class="rc${rOpen === c.id ? " on" : ""}" data-rcell="${c.id}"><small>${lab}</small><b${slNamed(c) ? ">" + esc(c.title) : ' class="rcl">Classified'}</b><span>${a ? "&#9733; " + a : "Not rated"}</span></button>`; };
+  const oc = rOpen && chs.find(c => c.id === rOpen), list = !oc ? "" : `<div class="rlist"><h5>${oc.num ? "Ch. " + oc.num : "Extras"} · ${slNamed(oc) ? esc(oc.title) : "Classified"}</h5>${oc.items.filter(i => atlSeenT(i.t)).map(i => { const r = rateOf(i.t).r;
       return `<button type="button" class="rrow" data-rt="${esc(i.t)}"><span>${tnh(i.t)}</span>${r ? `<span class="rst">${starsHTML(r, 15)}</span>` : `<em>Rate</em>`}</button>`; }).join("")}</div>`;
   return `<section class="hf-sec hf-rate"><h3><span>Personal log</span></h3>
     <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
