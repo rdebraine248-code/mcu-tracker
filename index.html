@@ -1234,7 +1234,7 @@ function persist() {
   if (!state.mvEver && lokiChecked()) state.mvEver = 1;
   if (!state.incEver && Object.keys(state.checks).some(k => state.checks[k] && k.endsWith("::Avengers: Doomsday"))) state.incEver = 1;
   const eg = Object.keys(state.checks).filter(k => state.checks[k] && k.endsWith("::Avengers: Endgame")).length;
-  if (endgameN !== null && eg > endgameN && !state.onLeftSeen) { state.onLeftSeen = true; setTimeout(onYourLeft, 100); try { if (!REDUCED) achHold = Date.now() + 100 + ONLEFT_MS; } catch (e) {} }
+  if (endgameN !== null && eg > endgameN && !state.onLeftSeen) { state.onLeftSeen = true; setTimeout(endgameCharge, 100); try { if (!REDUCED) achHold = Date.now() + 100 + ONLEFT_MS; } catch (e) {} }
   endgameN = eg;
   try { if (typeof achList === "function") checkAch(); } catch (e) {}   // after the moments above, so their lines and the Agent File share one pop-up
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
@@ -2498,6 +2498,7 @@ function hexDrop(x, y) {   // Wanda lets the Hex go: it pulls back into her hand
 let pnlTimer = null, pnlFired = false, pnlStart = null, foxStage = 0, foxXY = null;
 panel.addEventListener("pointerdown", ev => {
   pnlFired = false; clearTimeout(pnlTimer); pnlStart = null;
+  if (ev.target.closest("#btnDossier")) { pnlStart = [ev.clientX, ev.clientY]; pnlTimer = setTimeout(() => { pnlFired = true; dosHeld = true; logHold(openEntry && openEntry.id); }, 650); return; }   // a hold on Profile or Log, not an egg
   if (doomPress || ev.target.closest('.row[data-t="Avengers: Doomsday"]')) return;
   const q = ev.target.closest(".pquote"), row = ev.target.closest(".row"), h = ev.target.closest("#panelTitle");
   let act = null;
@@ -2610,7 +2611,7 @@ function oylBreath(n, amp) {   // the box catching its breath: heavier and longe
   const sc = fxScope(), kf = [{ transform: "none" }]; for (let k = 0; k < n; k++) { kf.push({ transform: `scaleY(${1 + amp}) translateY(${-amp * 120}px)`, offset: (k + .4) / n }); kf.push({ transform: "none", offset: (k + 1) / n }); }
   sc.style.transformOrigin = "50% 100%"; sc.animate(kf, { duration: n * 900, easing: "ease-in-out" }).onfinish = () => { sc.style.transformOrigin = ""; };
 }
-function onYourLeft() {
+function oylLaps() {
   if (oylBusy) return;
   const now = Date.now(); oylLap = now - oylLast < 9000 ? oylLap + 1 : 1; oylLast = now;
   const H = innerHeight, y = () => H * (.3 + Math.random() * .3);
@@ -2665,7 +2666,10 @@ function openDossier(id, go) {
     });
     // if you start scrolling yourself, the log stops steering
     const hands = () => { el._glide = (el._glide || 0) + 1; };
-    el.addEventListener("touchstart", hands, { passive: true }); el.addEventListener("wheel", hands, { passive: true }); }
+    let hy = null; const free = () => { el._glide = (el._glide || 0) + 1; el._free = true; };
+    el.addEventListener("touchstart", ev => { hands(); hy = ev.touches[0].clientY; }, { passive: true });
+    el.addEventListener("touchmove", ev => { if (hy != null && Math.abs(ev.touches[0].clientY - hy) > 12) free(); }, { passive: true });
+    el.addEventListener("wheel", free, { passive: true }); }
   // every entry you've unlocked, however long ago you watched it, records in the first time the log shows it
   const seen = (state.dSeen = state.dSeen || {})[id] = state.dSeen[id] || {};
   const lbox = SG ? null : (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id), here = t => SG ? chRel(t) : !!state.checks[ck(lbox, t)];
@@ -2733,11 +2737,17 @@ function dPlay(el, sc, mark) {
   // so if you leave partway through, the rest still record next time
   // a tap while they record skips ahead: the entry recording now finishes at once and the next one starts
   const run = ++dRun, news = [...el.querySelectorAll(".dnew")], quick = news.length > 6;
+  el._mark = mark; el._free = false;
   let k = 0, cur = null; const next = () => {
     cur = null; if (run !== dRun || el.hidden || k >= news.length) return;
-    const n = news[k++], key = n.dataset.k, cov = n.querySelector(".dcover"), host = n.closest("li, .drow, .dl, .dcard") || n;
+    const n = news[k], key = n.dataset.k, cov = n.querySelector(".dcover"), host = n.closest("li, .drow, .dl, .dcard") || n;
+    if (!n.isConnected || !cov) { k++; next(); return; }
     // every entry comes to the same spot, about a third of the way down the screen, even if part of it was already showing
-    const r = host.getBoundingClientRect(), sr = sc.getBoundingClientRect(), to = Math.max(0, Math.min(sc.scrollHeight - sc.clientHeight, Math.round(sc.scrollTop + (r.top - sr.top) - sc.clientHeight * .32))), moves = Math.abs(to - sc.scrollTop) > 3;
+    const r = host.getBoundingClientRect(), sr = sc.getBoundingClientRect();
+    // once you've scrolled away yourself, it leaves you there: the next entry records when it's on screen, and waits until you scroll to it
+    if (el._free && (r.bottom < sr.top + 40 || r.top > sr.bottom - 60)) { cur = { tm: setTimeout(next, 250) }; return; }
+    k++;
+    const to = el._free ? sc.scrollTop : Math.max(0, Math.min(sc.scrollHeight - sc.clientHeight, Math.round(sc.scrollTop + (r.top - sr.top) - sc.clientHeight * .32))), moves = Math.abs(to - sc.scrollTop) > 3;
     if (moves) glide(sc, to, REDUCED ? 0 : 560);
     const go = fast => {
       if (run !== dRun || el.hidden) return;
@@ -2754,6 +2764,8 @@ function dPlay(el, sc, mark) {
   if (news.length) cur = { tm: setTimeout(next, 380) };
 }
 let dRun = 0;
+// leaving a log you opened: everything it was showing you counts as read, recorded in or not
+function dReadRest(el) { if (!el._mark) return; el.querySelectorAll(".dnew").forEach(n => { if (n.querySelector(".dcover") && n.dataset.k) el._mark(n.dataset.k); }); el._mark = null; persist(); }
 /* ---------- the Story log: every title you've watched, in any list, under its chapter, a page per Act. A chapter keeps its name hidden
    until it's unlocked or every title in it is watched; the Extras stay sealed until they're revealed. Reading an entry here or in its
    chapter's own log is the same thing: it counts once ---------- */
@@ -3438,8 +3450,12 @@ function atlList() {
 function atlSwitch(v, id) {
   if (v !== "city" && v !== "uni" && !atlOpenV(v)) { haptic(8); toast("Uncharted. No data.", null, false, null, 1500); return; }
   if ((atlView === "city" || atlView === "uni") && !(v === atlView && id === (atlView === "city" ? atlCity : atlUni))) atlCatchUp(atlView + "|" + (atlView === "city" ? atlCity : atlUni));   // coming out of a city or another universe: you've seen it, and everything in it
+  const lst = document.querySelector("#atlView .atl-list"), into = v === "city" || v === "uni", out = (atlView === "city" || atlView === "uni") && !into;
+  if (lst && into && atlView !== "city" && atlView !== "uni") atlListY[atlView] = lst.scrollTop;   // going into a city or another universe: remember where you were in the list
   atlView = v; atlCity = v === "city" ? id : null; atlUni = v === "uni" ? id : null; atlSel = null; renderAtlas();
+  if (out && atlListY[v] != null) { const l = document.querySelector("#atlView .atl-list"); if (l) l.scrollTop = atlListY[v]; }   // and coming back out lands you there again
 }
+const atlListY = {};
 let atlBig = false, atlBigBack = false;
 function atlSize(big, keep, h) {   // keep: shrink for a place's sheet without forgetting the map was big; h: a height you dragged it to
   const map = document.getElementById("atlMap"), at = document.querySelector("#atlView .atl"); if (!map || !map._baseH) return;
@@ -4072,6 +4088,7 @@ function glide(el, to, ms) {   // move a scrolling box to a position over ms, ea
 }
 function closeDossier(fromHistory) {
   const el = document.getElementById("dossier"); if (!el || el.hidden) return;
+  dReadRest(el);
   el.hidden = true; dossierOpen = null; dRun++; bodyFree();
 }
 // the page behind is freed only once nothing is over it any more: a box closing (it finishes a moment later) can't free it under the page that replaced it
@@ -4999,10 +5016,11 @@ function vormir(h, lifted) {
 }
 
 /* ---------- bonus: On your left. Checking off Avengers: Endgame: everyone who came arrives down the left edge,
-   they charge across together, and the line at the front of the charge uncovers the Avengers A, which flies out past the screen ---------- */
+   they charge across together, and the Avengers A is left standing in their wake, then flies out past the screen.
+   Everything moves on the compositor (no per-frame drawing), so the charge doesn't drop frames ---------- */
 const ONLEFT = ["arc", "shield", "mjolnir", "hourglass", "hawkeye", "gamma", "eagle", "hala", "antman", "starlord", "spider", "claws", "agamotto", "mind", "redstar"];
 const ONLEFT_MS = 5000;   // until the screen is back; the Assemble pill waits for it
-function onYourLeft() {
+function endgameCharge() {
   if (REDUCED) return;
   const W = innerWidth, H = innerHeight, t0 = Date.now(), at = (ms, f) => setTimeout(f, Math.max(0, ms - (Date.now() - t0)));
   const veilEl = document.createElement("div"); veilEl.className = "fxl fx-onleft"; veilEl.style.cssText = "z-index:88;background:#000;opacity:0"; document.body.appendChild(veilEl);
@@ -5011,27 +5029,28 @@ function onYourLeft() {
   // a loose crowd down the left edge, each one arriving on its own
   const S = Math.min(.7, Math.max(.5, W / 680)), LANE = [0, 2, 1, 2, 0, 1, 2, 0, 1, 0, 2, 1, 0, 2, 1], top = H * .1, step = (H * .8) / (ONLEFT.length - 1), lw = 64 * S * .75;
   const U = ONLEFT.map((k, i) => { const x = 20 + 32 * S + LANE[i] * lw + (Math.random() * 14 - 7), y = top + i * step + (Math.random() * 10 - 5), e = document.createElement("div");
-    e.style.cssText = `position:absolute;left:${x - 32}px;top:${y - 32}px;width:64px;height:64px;opacity:0`; e.innerHTML = embHTML(k); lay.appendChild(e);
-    return { e, x, y, j: Math.random() * 18 - 9, w: Math.random() * 6.28 }; });
+    e.style.cssText = `position:absolute;left:${x - 32}px;top:${y - 32}px;width:64px;height:64px;opacity:0;will-change:transform,opacity`;
+    e.innerHTML = `<i style="position:absolute;right:46px;top:31px;width:110px;height:2px;border-radius:1px;background:linear-gradient(90deg,rgba(225,235,255,0),rgba(235,242,255,.55));transform-origin:100% 50%;transform:scaleX(0)"></i>` + embHTML(k);
+    lay.appendChild(e); return { e, x, y, j: Math.random() * 18 - 9, w: Math.random() * 6.28 }; });
   const GAP = 80, T_IN = 700, T_GO = T_IN + U.length * GAP + 300, T_RUN = 1250, T_OUT = T_GO + T_RUN + 150;
   U.map((u, i) => i).sort(() => Math.random() - .5).forEach((n, i) => at(T_IN + i * GAP, () => { haptic(8);
     U[n].e.animate([{ opacity: 0, transform: `translateX(-70px) scale(${S})` }, { opacity: 1, transform: `translateX(0) scale(${S})` }], { duration: 240, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" }); }));
-  // the Avengers A waits behind the charge
-  const A = document.createElement("div"); A.style.cssText = `position:absolute;left:${W / 2 - 150}px;top:${H * .45 - 150}px;width:300px;height:300px;clip-path:inset(0 100% 0 0)`;
-  A.innerHTML = `<div style="position:absolute;left:118px;top:118px;width:64px;height:64px;transform:scale(2.3)">${embHTML("avengers")}</div>`; lay.appendChild(A);
-  const line = document.createElement("div"); line.style.cssText = "position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:#FFF6DC;box-shadow:0 0 12px 3px rgba(255,214,140,.85),0 0 40px 10px rgba(255,170,60,.35);opacity:0"; lay.appendChild(line);
-  const cv = document.createElement("canvas"), dpr = Math.min(2, devicePixelRatio || 1); cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%"; cv.width = W * dpr; cv.height = H * dpr; lay.appendChild(cv);
-  const g = cv.getContext("2d"); g.scale(dpr, dpr);
-  const MAXX = Math.max(...U.map(u => u.x)), E0 = MAXX + 30, E1 = W + 220, Al = W / 2 - 150, ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  at(T_GO, () => { haptic([40, 30, 40, 30, 40, 30, 80]); U.forEach(u => u.e.getAnimations().forEach(a => { a.commitStyles(); a.cancel(); }));
-    line.style.opacity = 1; const s0 = performance.now();
-    (function f(now) { const p = Math.min(1, (now - s0) / T_RUN), q = ease(p), edge = E0 + (E1 - E0) * q;
-      line.style.left = edge + "px"; A.style.clipPath = `inset(0 ${Math.max(0, 300 - (edge - Al))}px 0 0)`; g.clearRect(0, 0, W, H);
-      U.forEach(u => { const x = edge - 30 - (MAXX - u.x) + u.j * Math.sin(q * Math.PI), y = u.y + Math.sin(u.w + q * 9) * 4 * q;
-        u.e.style.transform = `translate(${x - u.x}px,${y - u.y}px) scale(${S + .25 * Math.sin(q * Math.PI)})`;
-        const len = 90 * Math.sin(Math.min(1, q * 1.4) * Math.PI); if (len > 2) { const gr = g.createLinearGradient(x - 22 - len, 0, x - 18, 0); gr.addColorStop(0, "rgba(255,214,140,0)"); gr.addColorStop(1, "rgba(255,226,170,.75)");
-          g.strokeStyle = gr; g.lineWidth = 2; g.beginPath(); g.moveTo(x - 22 - len, y); g.lineTo(x - 18, y); g.stroke(); } });
-      if (p < 1) requestAnimationFrame(f); else { line.remove(); cv.remove(); U.forEach(u => u.e.remove()); A.style.clipPath = "none"; } })(s0); });
+  // the Avengers A waits behind the charge: a window that opens as the front of the crowd passes, with the A held still inside it
+  const Al = W / 2 - 150, A = document.createElement("div"); A.style.cssText = `position:absolute;left:${Al}px;top:${H * .45 - 150}px;width:300px;height:300px`;
+  A.innerHTML = `<div style="position:absolute;inset:0;overflow:hidden;will-change:transform;transform:translateX(-300px)"><div style="position:absolute;inset:0;will-change:transform;transform:translateX(300px)"><div style="position:absolute;left:118px;top:118px;width:64px;height:64px;transform:scale(2.3)">${embHTML("avengers")}</div></div></div>`;
+  lay.appendChild(A); const win = A.firstElementChild, held = win.firstElementChild;
+  const MAXX = Math.max(...U.map(u => u.x)), E0 = MAXX + 30, E1 = W + 220, ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  at(T_GO, () => { haptic([40, 30, 40, 30, 40, 30, 80]);
+    // the whole run is worked out up front as keyframes, so it plays on the compositor
+    const N = 36, P = [...Array(N + 1)].map((_, k) => k / N), edge = P.map(p => E0 + (E1 - E0) * ease(p)), run = { duration: T_RUN, easing: "linear", fill: "forwards" };
+    U.forEach(u => { u.e.getAnimations().forEach(a => a.cancel()); u.e.style.opacity = 1;
+      u.e.animate(P.map((p, k) => { const q = ease(p), x = edge[k] - 30 - (MAXX - u.x) + u.j * Math.sin(q * Math.PI), y = u.y + Math.sin(u.w + q * 9) * 4 * q;
+        return { transform: `translate(${x - u.x}px,${y - u.y}px) scale(${S + .25 * Math.sin(q * Math.PI)})`, offset: p }; }), run);
+      u.e.firstElementChild.animate(P.map(p => ({ transform: `scaleX(${Math.sin(Math.min(1, ease(p) * 1.4) * Math.PI).toFixed(3)})`, offset: p })), run); });
+    const open = P.map((p, k) => Math.max(0, Math.min(300, edge[k] - 30 - Al)));
+    win.animate(P.map((p, k) => ({ transform: `translateX(${open[k] - 300}px)`, offset: p })), run);
+    held.animate(P.map((p, k) => ({ transform: `translateX(${300 - open[k]}px)`, offset: p })), run);
+    at(T_GO + T_RUN, () => U.forEach(u => u.e.remove())); });
   // then straight out past the screen
   at(T_OUT, () => { haptic(140);
     A.animate([{ transform: "scale(1)", opacity: 1 }, { transform: "scale(3)", opacity: 1, offset: .5 }, { transform: "scale(16)", opacity: 0 }], { duration: 700, easing: "cubic-bezier(.6,0,.9,.5)", fill: "forwards" });
@@ -7750,7 +7769,7 @@ document.getElementById("view").addEventListener("keydown", ev => {
 let spTap = null, dblTap = null;
 function dblCheck(ev) { const now = Date.now(), ok = dblTap && now - dblTap.t < 380 && Math.hypot(ev.clientX - dblTap.x, ev.clientY - dblTap.y) < 40; dblTap = ok ? null : { t: now, x: ev.clientX, y: ev.clientY }; return ok; }
 panel.addEventListener("click", ev => {
-  if (ev.target.closest("#btnDossier")) { openDossier(openEntry.id); return; }
+  if (ev.target.closest("#btnDossier")) { if (dosHeld) { dosHeld = false; return; } openDossier(openEntry.id); return; }
   if (openEntry && openEntry.id === "cx-spider-man") {
     const now = Date.now();
     if (spTap && now - spTap.t < 320 && Math.hypot(ev.clientX - spTap.x, ev.clientY - spTap.y) < 40) { spTap = null; webAt(ev.clientX, ev.clientY); }
@@ -7760,7 +7779,7 @@ panel.addEventListener("click", ev => {
   if (openEntry) {
     const id = openEntry.id, pr = panel.getBoundingClientRect(), onName = ev.target.closest("#panelTitle");
     if (id === "cx-shang-chi-the-ten-rings" && ringHit(ev)) { tenRings(); return; }
-    if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button")) { onYourLeft(); return; }
+    if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button")) { oylLaps(); return; }
     if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 70) { if (dblCheck(ev)) strangeRunes(); return; }
     if (id === "cx-iron-man" && onName) { if (dblCheck(ev)) ironHud(); return; }   // double-tap his name and the suit's HUD boots up
   }
@@ -7856,7 +7875,13 @@ function readAll(t) {
   if (t === "log" && dossierOpen === "saga") { const el = document.getElementById("dossier"), sc = el && el.querySelector(".dscroll"), y = sc ? sc.scrollTop : 0; openDossier("saga", { open: slOpen }); const s2 = el && el.querySelector(".dscroll"); if (s2) s2.scrollTop = y; }
   newDots();
 }
-let dockHeld = false, dockT = 0, dockAt = null;
+let dockHeld = false, dockT = 0, dockAt = null, dosHeld = false;
+// hold a box's Profile or Log button: the same prompt as holding a page in the dock, for just that one
+function logHold(id) {
+  const D = id && DOSSIERS[id]; if (!D) return; const what = D.kind === "char" ? "profile" : "log"; haptic([12, 40, 12]);
+  if (!logUnread(id)) { toast("Nothing new in this " + what + ".", null, false, null, 1500); return; }
+  ask("Mark everything in this " + what + " as read?", "Mark as read").then(ok => { if (!ok) return; logReadAll(id); persist(); haptic(12); toast("All caught up.", null, false, null, 1500); newDots(); });
+}
 document.getElementById("dock").addEventListener("pointerdown", ev => { const b = ev.target.closest("[data-dock]"); clearTimeout(dockT); dockHeld = false; if (!b) return; dockAt = [ev.clientX, ev.clientY];
   dockT = setTimeout(() => { dockHeld = true; const t = b.dataset.dock; haptic([12, 40, 12]);
     if (!b.classList.contains("nw")) { toast("Nothing new in " + DOCK_NAMES[t] + ".", null, false, null, 1500); return; }
