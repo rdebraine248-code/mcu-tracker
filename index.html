@@ -35,8 +35,9 @@ button{ font:inherit; color:inherit; }
 
 /* masthead */
 .mast{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:18px 28px; padding-bottom:20px; border-bottom:1px solid var(--line); }
-.mast h1{ margin:0; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:clamp(40px,7.2vw,80px); line-height:.95; letter-spacing:1px; text-transform:uppercase; color:#FFFFFF; text-shadow:0 3px 0 rgba(0,0,0,.35); }
-.mast h1::after{ content:""; display:block; width:100%; height:4px; margin-top:12px;
+/* the title fits on one line at any width; it carries the datapad's soft blue glow, as the Sacred Timeline's carries the TVA's amber */
+.mast h1{ margin:0; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:clamp(20px, calc((100vw - 60px) / 12.6), 52px); line-height:1; letter-spacing:.5px; white-space:nowrap; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 14px rgba(109,189,255,.35), 0 2px 0 rgba(0,0,0,.35); }
+.mast h1::after{ content:""; display:block; width:100%; height:4px; margin-top:9px;
   background:linear-gradient(90deg,#7D4FA8 0%,#7D4FA8 13%,#3A78C9 20%,#3A78C9 30%,#C8443A 37%,#C8443A 47%,#D9822B 54%,#D9822B 63%,#3E9B5C 70%,#3E9B5C 80%,#D9B32B 87%,#D9B32B 100%); }
 .mast .sub{ margin:8px 0 0; color:var(--muted); font-size:16px; }
 .meter{ min-width:220px; flex:0 1 300px; }
