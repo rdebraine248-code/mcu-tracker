@@ -5877,12 +5877,15 @@ function studioIntro(dim) {
     pg.appendChild(document.createElement("b"));
     o.appendChild(pg); pages.push(pg);
   }
-  if (dim) { dim.getAnimations().forEach(a => a.pause()); dim.animate([{ opacity: getComputedStyle(dim).opacity }, { opacity: 1 }], { duration: 400, fill: "forwards" }); }   // all the way to black
-  o.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dim ? 1800 : 300, easing: "ease-in", fill: "both" });   // out of the dark, the pages already turning as it comes up
+  if (dim) { dim.getAnimations().forEach(a => a.pause()); dim.animate([{ opacity: getComputedStyle(dim).opacity }, { opacity: 1 }], { duration: 600, easing: "ease-out", fill: "forwards" }); }   // all the way to black, as the comic comes up over it
+  o.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dim ? 1500 : 300, easing: "cubic-bezier(.3,0,.6,1)", fill: "both" });   // out of the dark, the pages already turning as it comes up
   // each page curls over from the right edge to the left: it bends as it lifts, shades as it turns, and the next is already underneath
   let t = dim ? 120 : 450, gap = dim ? 470 : 420;
+  // only the top two pages are drawn at first; each page shows the one two below it as it starts to turn, so the screen never has to paint the whole stack at once
+  pages.forEach((pg, k) => { if (k >= 2) pg.style.visibility = "hidden"; });
   pages.forEach((pg, k) => {
     const dur = Math.max(560, 1000 - k * 32);
+    setTimeout(() => { if (pages[k + 2]) pages[k + 2].style.visibility = ""; }, t);
     pg.animate([{ transform: "rotateY(0deg) skewY(0deg) scaleX(1)" }, { transform: "rotateY(-38deg) skewY(-3deg) scaleX(.97)", offset: .35 }, { transform: "rotateY(-92deg) skewY(-1deg) scaleX(.9)" }],
       { duration: dur, delay: t, easing: "cubic-bezier(.45,.05,.4,1)", fill: "both" }).onfinish = () => pg.remove();
     pg.lastChild.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dur, delay: t, fill: "both" });
@@ -9597,7 +9600,7 @@ document.getElementById("mainTitle").addEventListener("click", ev => {
     if (REDUCED) { dimT = setTimeout(() => { dimAt = null; found("studio"); }, 900); return; }
     dim = document.createElement("div"); dim.className = "fx-dim"; document.body.appendChild(dim);
     dim.animate([{ opacity: 0 }, { opacity: .94 }], { duration: 1100, easing: "ease-in", fill: "forwards" });
-    dimT = setTimeout(() => { const d = dim; dim = null; dimAt = null; haptic(20); studioIntro(d); }, 1100);
+    dimT = setTimeout(() => { const d = dim; dim = null; dimAt = null; haptic(20); studioIntro(d); }, 950);   // just before they're all the way down, so the comic is already coming up
   });
   mt.addEventListener("pointermove", ev => { if (dimAt && Math.hypot(ev.clientX - dimAt[0], ev.clientY - dimAt[1]) > 12) up(); });   // it was a scroll
   ["pointerup", "pointercancel", "pointerleave"].forEach(n => mt.addEventListener(n, up));
