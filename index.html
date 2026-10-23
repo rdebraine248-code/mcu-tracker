@@ -701,6 +701,9 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-codein{ display:block; width:calc(100% - 68px); box-sizing:border-box; padding:2px 6px; border:1px solid #3A4A6E; border-radius:6px; background:#0B1019; color:#EEF1F6; }
 .hf-strip{ display:flex; align-items:center; gap:10px; margin-top:12px; } .hf-strip i{ flex:1; height:18px; background:repeating-linear-gradient(90deg,#9FB3D1 0 2px,transparent 2px 4px,#9FB3D1 4px 5px,transparent 5px 8px,#9FB3D1 8px 11px,transparent 11px 13px); opacity:.55; } .hf-strip span{ font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; }
 .hf-cf{ margin:0; padding:4px 16px 24px; overflow-y:auto; } .hf-cf div{ padding:9px 0; border-top:1px solid #1E2638; } .hf-cf dt{ font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .hf-cf dd{ margin:3px 0 0; font:15px/1.45 'IBM Plex Sans',sans-serif; color:#EEF1F6; }
+.hf-cf .hf-rpf dd{ margin-top:6px; }
+.hf-rp{ display:inline-flex; align-items:center; gap:8px; padding:9px 14px 9px 12px; border:1px solid #3A78C9; border-radius:999px; background:#13213A; color:#CFE4FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
+.hf-rp svg{ width:10px; height:10px; }
 .hf-cf dd.st-closed{ color:#7BD88F; } .hf-cf dd.st-open{ color:#FF8A7A; } .hf-cfw{ padding:12px 16px 28px; color:#8EA2C2; }
 .hf-pick{ position:absolute; inset:0; z-index:5; display:flex; align-items:flex-end; justify-content:center; background:rgba(5,8,14,.72); animation:whihfade .2s ease both; }
 .hf-pickin{ width:100%; max-width:760px; max-height:78%; display:flex; flex-direction:column; border:1px solid #26314A; border-bottom:0; border-radius:16px 16px 0 0; background:#0D1320; }
@@ -6570,9 +6573,10 @@ function caseFile(film) {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) pk.remove();
   const R = CASES[film]; pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Case file");
   pk.innerHTML = `<div class="hf-pickin hf-case"><div class="hf-pickh"><span>Case file · ${esc(MISSION_NAMES[film] || film.replace("Avengers: ", ""))}</span><button type="button" data-ava-x aria-label="Close">&times;</button></div>
-    ${R ? `<dl class="hf-cf">${(state.codename ? [...R.slice(0, 5), ["Assigned", asAgent(state.codename)], ...R.slice(5)] : R).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data.</p>`}</div>`;
+    ${R ? `<dl class="hf-cf">${film === "Avengers: Endgame" && state.onLeftSeen && !REDUCED ? `<div class="hf-rpf"><dt>Footage</dt><dd><button type="button" class="hf-rp" data-replay><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor"/></svg>Play the recording</button></dd></div>` : ""}${(state.codename ? [...R.slice(0, 5), ["Assigned", asAgent(state.codename)], ...R.slice(5)] : R).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd${k === "Status" ? ` class="st-${v.toLowerCase()}"` : ""}>${esc(v)}</dd></div>`).join("")}</dl>` : `<p class="hf-cfw">No data.</p>`}</div>`;
   fp.appendChild(pk); haptic(8); hfPickNav();
-  pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose(); });
+  pk.addEventListener("click", ev => { if (ev.target === pk || ev.target.closest("[data-ava-x]")) hfPickClose();
+    else if (ev.target.closest("[data-replay]")) { haptic(12); hfPickClose(); setTimeout(endgameCharge, 250); } });   // the Endgame charge, once you've seen it, plays again from its case file
 }
 // a report or the picture picker gets its own step back, added by the tap that opens it; closing it by hand takes that step back too
 const hfPickNav = () => { if (!navAt("hfpick")) try { history.pushState({ mcu: "hfpick" }, ""); } catch (e) {} };
