@@ -9496,7 +9496,8 @@ function newsPlay(all, msg, src) {
   newsRun = { batch, cancel: () => a.cancel(), pause: () => a.pause(), play: () => a.play() }; a.onfinish = () => { if (newsRun && newsRun.cancel) newsStop(true); };
 }
 // a box, a log or a question opening while a story runs: the ticker slides away mid-sentence and picks up from the same word when you're back
-function newsPause() { if (!newsRun || newsRun.paused) return; newsRun.paused = true; newsRun.pause(); document.getElementById("whih").classList.remove("in"); }
+function newsPause() { if (!newsRun || newsRun.paused) return; newsRun.paused = true; newsRun.pause(); const w = document.getElementById("whih"); w.classList.remove("in");
+  setTimeout(() => { if (newsRun && newsRun.paused) w.hidden = true; }, 420); }   // gone, not just slid down: a box hides the dock it would slide behind
 function newsResume() { if (!newsRun || !newsRun.paused) return; newsRun.paused = false; const w = document.getElementById("whih"); w.hidden = false; void w.offsetWidth; w.classList.add("in"); setTimeout(() => { if (newsRun && !newsRun.paused) newsRun.play(); }, 400); }
 function newsTick() {
   if (newsRun) { if (!newsHome()) newsPause(); else newsResume(); return; }
