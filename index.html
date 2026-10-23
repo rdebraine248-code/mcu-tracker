@@ -178,7 +178,8 @@ button{ font:inherit; color:inherit; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
 .ptop{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
 .pquote{ transition:opacity 1.8s cubic-bezier(.22,.61,.36,1); }
-.tile h2.anon{ visibility:hidden; } #panelTitle.anon{ opacity:0; }
+.tile h2.anon{ visibility:hidden; position:relative; }
+.tile h2.anon::after{ content:"[ Classified ]"; visibility:visible; position:absolute; left:0; bottom:0; font:13px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:currentColor; opacity:.65; white-space:nowrap; text-shadow:none; } #panelTitle.anon{ opacity:0; }
 .pquote.pending{ opacity:0; }
 .pquote{ margin:0; text-align:center; font-size:15px; line-height:1.35; font-style:italic; opacity:.9; text-transform:none; letter-spacing:.2px; }
 /* quotes and titles can be held for easter eggs: pressing them shouldn't select text */
@@ -858,6 +859,7 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .mapview .yrl{ font-family:'Share Tech Mono','Courier New',monospace; font-size:13px; fill:#7F8AA0; }
 .mapview .yrkey{ font-family:'Share Tech Mono','Courier New',monospace; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; fill:#7F8AA0; stroke:#0B1019; stroke-width:5px; stroke-linejoin:round; paint-order:stroke fill; pointer-events:none; }
 .mapview .rname{ font:500 13px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; stroke:#0B1019; stroke-width:4px; stroke-linejoin:round; paint-order:stroke fill; }
+.mapview .rname.anon{ font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; fill:#7D8BA6; }
 .mapview .ttl{ font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:10.5px; fill:#C9D1DC; }
 .mapview .nd{ cursor:pointer; }
 .mapview .ttl{ cursor:pointer; stroke:rgba(0,0,0,0); stroke-width:12px; paint-order:stroke; }
@@ -6399,7 +6401,10 @@ const embHTML = k => { const a = EMBLEMS[k]; return a ? `<span class="emb" style
 // or when you unlock it anyway from its hint; the one you're wearing always stays yours
 const EMB_UNLOCK = {"avengers": ["The Avengers"], "arc": ["Iron Man", "Iron Man 2", "Iron Man 3"], "shield": ["Captain America: The First Avenger", "Captain America: The Winter Soldier", "Captain America: Civil War", "Captain America: Brave New World"], "mjolnir": ["Thor", "Thor: The Dark World", "Thor: Ragnarok", "Thor: Love and Thunder"], "hourglass": ["Black Widow"], "hawkeye": ["Hawkeye"], "gamma": ["The Incredible Hulk"], "hala": ["Captain Marvel", "The Marvels"], "antman": ["Ant-Man", "Ant-Man and the Wasp", "Ant-Man and the Wasp: Quantumania"], "starlord": ["Guardians of the Galaxy", "Guardians of the Galaxy Vol. 2", "Guardians of the Galaxy Vol. 3", "The Guardians of the Galaxy Holiday Special"], "spider": ["Spider-Man: Homecoming", "Spider-Man: Far From Home", "Spider-Man: No Way Home", "Spider-Man: Brand New Day"], "claws": ["Black Panther", "Black Panther: Wakanda Forever", "Eyes of Wakanda"], "agamotto": ["Doctor Strange", "Doctor Strange in the Multiverse of Madness"], "mind": ["WandaVision", "VisionQuest"], "redstar": ["The Falcon and the Winter Soldier"], "loki": ["Loki S1", "Loki S2"], "bolt": ["Thunderbolts*"], "four": ["The Fantastic Four: First Steps"], "dd": ["Daredevil S1", "Daredevil S2", "Daredevil S3", "Daredevil: Born Again S1", "Daredevil: Born Again S2", "Daredevil: Born Again S3"], "rings": ["Shang-Chi and the Legend of the Ten Rings"], "kamala": ["Ms. Marvel"], "defenders": ["The Defenders"], "skull": ["The Punisher S1", "The Punisher S2", "The Punisher: One Last Kill"], "eternals": ["Eternals"], "moon": ["Moon Knight"], "bloodstone": ["Werewolf by Night"], "watcher": ["What If...?"], "verse": ["Spider-Man (2002)", "Spider-Man 2", "Spider-Man 3", "The Amazing Spider-Man", "The Amazing Spider-Man 2", "Spider-Man: Into the Spider-Verse", "Spider-Man: Across the Spider-Verse", "Spider-Man: Beyond the Spider-Verse"], "xmen": ["X-Men (2000)", "X2", "X-Men: The Last Stand", "X-Men Origins: Wolverine", "The Wolverine", "X-Men: First Class", "X-Men: Days of Future Past", "X-Men: Apocalypse", "Dark Phoenix", "Logan", "Deadpool", "Deadpool 2", "The New Mutants"]};
 const EMB_HINT = {"avengers": "Unlocks after The Avengers.", "arc": "Unlocks after any Iron Man film.", "shield": "Unlocks after any Captain America film.", "mjolnir": "Unlocks after any Thor film.", "hourglass": "Unlocks after Black Widow.", "hawkeye": "Unlocks after Hawkeye.", "gamma": "Unlocks after The Incredible Hulk.", "hala": "Unlocks after Captain Marvel or The Marvels.", "antman": "Unlocks after any Ant-Man film.", "starlord": "Unlocks after any Guardians of the Galaxy title.", "spider": "Unlocks after any Spider-Man film of this Earth.", "claws": "Unlocks after Black Panther, Wakanda Forever or Eyes of Wakanda.", "agamotto": "Unlocks after either Doctor Strange film.", "mind": "Unlocks after WandaVision or VisionQuest.", "redstar": "Unlocks after The Falcon and the Winter Soldier.", "loki": "Unlocks after either season of Loki.", "bolt": "Unlocks after Thunderbolts*.", "four": "Unlocks after The Fantastic Four: First Steps.", "dd": "Unlocks after any season of Daredevil.", "rings": "Unlocks after Shang-Chi and the Legend of the Ten Rings.", "kamala": "Unlocks after Ms. Marvel.", "defenders": "Unlocks after The Defenders.", "skull": "Unlocks after any Punisher title.", "eternals": "Unlocks after Eternals.", "moon": "Unlocks after Moon Knight.", "bloodstone": "Unlocks after Werewolf by Night.", "watcher": "Unlocks after What If...?", "verse": "Unlocks after any Sony Spider-Man film.", "xmen": "Unlocks after any FoX-Men film.", "tva": "Unlocks after any Pruned Timelines title.", "incursion": "Unlocks when the Incursions begin."};
-const embWon = k => k === "incursion" ? incOpen() : k === "tva" ? DATA.chapters.find(c => c.id === "ch-pruned-timelines").items.some(i => atlSeenT(i.t)) : !EMB_UNLOCK[k] || EMB_UNLOCK[k].some(atlSeenT);
+// an insignia is yours from its own titles, or from opening its character's box: the moment you meet them, their name, insignia and line in Paths
+// all turn up together
+const embBoxOpened = k => DATA.chars.some(c => (state.seen || {})[c.id] && charEmb(c) === k);
+const embWon = k => embBoxOpened(k) || (k === "incursion" ? incOpen() : k === "tva" ? DATA.chapters.find(c => c.id === "ch-pruned-timelines").items.some(i => atlSeenT(i.t)) : !EMB_UNLOCK[k] || EMB_UNLOCK[k].some(atlSeenT));
 const embOpen = k => k === state.avatar || !!(state.embOpen || {})[k] || embWon(k);
 // once an insignia is unlocked it stays unlocked, even if you uncheck its titles later (only Reset datapad clears it)
 function embKeep() { let ch = false; Object.keys(EMBLEMS).forEach(k => { if (!(state.embOpen || {})[k] && embWon(k)) { (state.embOpen = state.embOpen || {})[k] = 1; ch = true; } }); if (ch) persist(); }
@@ -9526,12 +9531,14 @@ function unsnap() {
 /* ---------- Character Map: drag to pan, pinch or scroll to zoom, tap a stop or a line ---------- */
 let mapOpen = false, mapBuilt = false, mapFocusI = null;
 const MV = { s: 1, tx: 0, ty: 0 };
+// a line in Paths keeps its character's name back until you've met them, the same as their box, their insignia and their Agent File card
+const mapAnon = n => { const e = DATA.chars.find(c => c.title === n); return !!e && (charAnon(e) || charHidden(e)); };
 function buildMap() {
   const M = MAP, v = document.getElementById("mapView");
   const bands = M.years.map((y, i) => (i % 2 === 0 ? `<rect x="${y.x0 - 20}" y="0" width="${y.x1 - y.x0 + 40}" height="${M.h}" fill="#FFFFFF" opacity=".035"/>` : "")
     + `<text class="yrl" x="${(y.x0 + y.x1) / 2}" y="28" text-anchor="middle">${y.y}</text>`).join("");
   const heads = M.cols.map((c, ci) => { const ty = M.top - 22; return `<text class="ttl" data-c="${ci}" x="${c.x + 2}" y="${ty}" transform="rotate(-55 ${c.x + 2} ${ty})">${esc(tnY(c.t))}</text>`; }).join("");
-  const names = M.rows.map((r, ri) => `<text class="rname" data-r="${ri}" x="14" y="${r.y + 4.5}" fill="${r.c}">${esc(r.n)}</text>`).join("");
+  const names = M.rows.map((r, ri) => mapAnon(r.n) ? `<text class="rname anon" data-r="${ri}" x="14" y="${r.y + 4.5}">[ CLASSIFIED ]</text>` : `<text class="rname" data-r="${ri}" x="14" y="${r.y + 4.5}" fill="${r.c}">${esc(r.n)}</text>`).join("");
   // each character's line weaves in to meet the others at a shared title, then back out to its own lane
   const lanes = M.rows.map((r, ri) => `<g class="lane" data-r="${ri}"><path class="lhit" d="${r.d}" fill="none" stroke="transparent" stroke-width="16"/>`
     + `<path class="lline" d="${r.d}" fill="none" stroke="${r.c}" stroke-width="3" stroke-linecap="round"${r.pruned ? ' stroke-dasharray="6 5"' : ""}/>`
@@ -9589,7 +9596,7 @@ function mapPopup(ci, px, py) {
   if (!pop0.hidden && mapPopCol === ci) { pop0.hidden = true; mapPopCol = null; return; }
   mapPopCol = ci;
   const c = MAP.cols[ci], pop = document.getElementById("mapPop"), panelR = document.getElementById("mapPanel").getBoundingClientRect();
-  pop.innerHTML = `<h4>${esc(tnY(c.t))}</h4><div class="yr">${esc(c.yr)}</div><ul>${c.m.map(r => { const l = MAP.rows[r]; return `<li><button type="button" data-li="${r}"><i style="background:${l.c}"></i>${esc(l.n)}</button></li>`; }).join("")}</ul>`;
+  pop.innerHTML = `<h4>${esc(tnY(c.t))}</h4><div class="yr">${esc(c.yr)}</div><ul>${c.m.map(r => { const l = MAP.rows[r]; return `<li><button type="button" data-li="${r}"><i style="background:${l.c}"></i>${mapAnon(l.n) ? '<span class="sl-cl">[ Classified ]</span>' : esc(l.n)}</button></li>`; }).join("")}</ul>`;
   pop.hidden = false;
   const w = pop.offsetWidth, h = pop.offsetHeight;
   pop.style.left = Math.max(8, Math.min(panelR.width - w - 8, px - w / 2)) + "px";
@@ -9635,7 +9642,7 @@ function mapHide() {
 }
 function openMap() {
   // a multiverse character's line shows once their box is revealed, or once you've watched any of their titles from their Extras chapter
-  const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("");
+  const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("") + "|" + DATA.chars.map(c => mapAnon(c.title) ? 1 : 0).join("");   // and redrawn when someone's name turns up
   if (!mapBuilt || sig !== mapSig) { MAP = mapData(hide); mapSig = sig; mapFocusI = null; buildMap(); }
   document.getElementById("mapPanel").hidden = false; mapOpen = true; document.body.style.overflow = "hidden";
   pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true }); mapGrow();
