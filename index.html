@@ -128,8 +128,9 @@ button{ font:inherit; color:inherit; }
 .tile:focus-visible{ box-shadow:0 0 0 3px var(--shell),0 0 0 6px var(--ink) !important; }
 .hrow{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
 /* a character's profile carries their insignia at the right of their name */
-.dossier .pwm{ position:absolute; top:34px; right:-58px; width:64px; height:64px; transform:scale(3.6); transform-origin:100% 0; opacity:.11; pointer-events:none; z-index:0; }
-.dossier .pwm .emb{ filter:none !important; }
+.pwm.anon{ opacity:0 !important; } .pwm{ transition:opacity .6s ease; }
+.dossier .pwm, .panel .pwm{ position:absolute; top:34px; right:-58px; width:64px; height:64px; transform:scale(3.6); transform-origin:100% 0; opacity:.11; pointer-events:none; z-index:0; }
+.dossier .pwm .emb, .panel .pwm .emb{ filter:none !important; }
 .hrow .kick{ flex-shrink:0; font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:2px; opacity:.9; }
 .hrow.big{ margin-top:26px; }
 .hrow.big .kick{ font-size:13px; }
@@ -1997,6 +1998,9 @@ function panelDecor(e) {
     : h);
   return (fixed.length ? `<div class="pfix" aria-hidden="true">${fixed.join("")}</div>` : "") + flowOut.join("");
 }
+// a character's insignia sits large and faint behind the top of their box and their profile, cut off by the edge, like a mark printed into the
+// record. Opening the box is meeting them, so it's there whenever the box is open; the first time, it comes in with their name
+const wmHTML = e => { const k = charEmb(e); return k ? `<span class="pwm${charAnon(e) ? " anon" : ""}" aria-hidden="true">${embHTML(k)}</span>` : ""; };
 function renderPanel(e, fresh) {
   const [n, t] = count(e);
   const fg = e.fg || "#111", box = e.box || fg, sfg = e.sfg || fg;
@@ -2014,7 +2018,7 @@ function renderPanel(e, fresh) {
   if (pqWait > 0) setTimeout(pqLet, pqWait);
   // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap, Fury's swipe): the page itself mustn't zoom under the fingers
   panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders", "cx-nick-fury-s-h-i-e-l-d"].includes(e.id) ? "pan-y" : "";
-  panel.innerHTML = `${panelDecor(e)}
+  panel.innerHTML = `${panelDecor(e)}${openKind === "char" ? wmHTML(e) : ""}
     <div class="pin">
       <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}${(openKind === "char" || openKind === "chapter") && DOSSIERS[e.id] ? `<button type="button" class="dbtn" id="btnDossier" style="color:${fg}">${openKind === "char" ? "Profile" : "Log"}</button>` : ""}</div>
       <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
@@ -2198,6 +2202,7 @@ function activate(el) {
       // the name fades in where it sits, as the quote does; the box on the page has it from now on
       charMeeting.delete(e.id);
       document.querySelectorAll(`.tile[data-id="${CSS.escape(e.id)}"] h2.anon`).forEach(h => h.classList.remove("anon"));
+      panel.querySelectorAll(".pwm.anon").forEach(w => w.classList.remove("anon"));
       const pt = openEntry === e && document.querySelector("#panelTitle.anon"); if (pt) { pt.classList.remove("anon"); if (!REDUCED) pt.animate([{ opacity: 0 }, { opacity: 1, offset: 600 / BL_MS }, { opacity: 1 }], { duration: BL_MS, easing: "ease-in-out" }); }   // the quote's own fade-in, step for step
       if (openEntry === e) boxLine(CHAR_QUOTES[e.title], e, true); }, REDUCED ? 0 : 380);
   }
@@ -2752,9 +2757,7 @@ function openDossier(id, go) {
     const fg = box.fg || "#111", bc = box.box || fg, bg = box.logbg || (String(box.style).match(/background-color:\s*([^;]+)/) || [])[1] || (String(box.style).match(/#[0-9A-Fa-f]{6}|rgb\([^)]*\)/) || [])[0] || "#111";
     el.className = "dossier plog" + (box.cls ? " " + box.cls : "");
     el.setAttribute("style", `${box.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${bc};--sfg:${box.sfg || fg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);--logbg:${bg};--hf:${fontOf(box.h2) || "inherit"}`);
-    // a character's insignia sits large and faint behind the top of their profile, cut off by the edge, like a mark printed into the record
-    const wm = !isCh && charEmb(box) && embOpen(charEmb(box)) ? `<span class="pwm" aria-hidden="true">${embHTML(charEmb(box))}</span>` : "";
-    el.innerHTML = `${panelDecor(box)}${wm}<div class="pin">
+    el.innerHTML = `${panelDecor(box)}${isCh ? "" : wmHTML(box)}<div class="pin">
       <div class="ptop"><button type="button" class="back" id="dBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span class="ltag">${isCh ? esc(name) + " log" : "Character profile"}</span></div>
       <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span style="width:${total ? done / total * 100 : 0}%;background:${bc}"></span></div>
