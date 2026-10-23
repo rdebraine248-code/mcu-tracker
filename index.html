@@ -428,7 +428,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .fx-echo > div{ position:absolute; inset:0; }
 .fx-avring{ position:fixed; inset:0; z-index:96; pointer-events:none; }
 .fx-avring .ar-veil{ position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 50%, rgba(16,24,42,.95), rgba(5,8,16,.98)); }
-.fx-avring .ar-a{ position:absolute; left:50%; top:44%; opacity:0; z-index:20; }
+.fx-avring .ar-a{ position:absolute; left:50%; top:58%; opacity:0; z-index:60; }
 .fx-avring .ar-sky{ position:absolute; inset:0; width:100%; height:100%; }
 .fx-avring .ar-hero{ position:absolute; left:0; top:0; will-change:transform; } .fx-avring .ar-hero .hf-avr{ display:block; box-shadow:0 0 0 2px rgba(140,170,220,.25), 0 8px 18px rgba(0,0,0,.6); }
 .fx-mix{ position:fixed; left:0; right:0; bottom:0; z-index:96; display:flex; flex-direction:column; align-items:center; gap:20px; padding:0 16px calc(28px + env(safe-area-inset-bottom,0px)); pointer-events:none; }
@@ -452,7 +452,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .tyr{ display:inline-block; vertical-align:.2em; font-size:.72em; opacity:.6; letter-spacing:.5px; }   /* its own box, so a crossed-out title's line doesn't run along the bottom of the smaller year */
 .row[aria-pressed="true"] .tyr, .tl-row[aria-pressed="true"] .tyr{ text-decoration:line-through; text-decoration-thickness:1px; }
 .cm-red.dec{ width:auto; background:none; color:#E9C46A; font-family:'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; }
-.fx-minutes{ position:fixed; z-index:96; display:flex; align-items:center; gap:10px; max-width:268px; pointer-events:none; transform-origin:20% 100%; }
+.fx-minutes{ position:fixed; z-index:96; display:flex; align-items:center; gap:4px; max-width:300px; pointer-events:none; transform-origin:20% 100%; }
 .fx-minutes canvas{ flex:0 0 auto; filter:drop-shadow(0 0 10px rgba(255,150,40,.45)); }
 .fx-minutes span{ padding:8px 11px; border-radius:12px; background:#FFF3E0; color:#5A2E00; font:600 13px/1.3 'IBM Plex Sans',sans-serif; box-shadow:0 6px 16px rgba(0,0,0,.4); }
 .fx-lucky{ position:fixed; left:0; right:0; height:60px; z-index:96; pointer-events:none; }
@@ -594,9 +594,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .fx-file .fn b{ position:relative; display:block; width:max-content; max-width:100%; margin:3px 0; font-weight:400; font-size:12px; white-space:nowrap; overflow:hidden; }
 .fx-stamp{ position:absolute; left:50%; top:54%; padding:6px 14px; border:4px double #B3261E; color:#B3261E; font:400 30px/1 'Anton','Impact',sans-serif; letter-spacing:2px; text-transform:uppercase; white-space:nowrap; }
 .fx-noir{ position:fixed; inset:0; z-index:96; pointer-events:none; -webkit-backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6)); }
-.fx-bloodstone{ position:fixed; z-index:98; pointer-events:none; width:44px; height:56px; margin:-28px 0 0 -22px; filter:drop-shadow(0 0 6px #FF1A2A) drop-shadow(0 0 16px rgba(255,26,42,.7)); }
-.fx-bloodstone i{ position:absolute; inset:0; clip-path:polygon(50% 0, 100% 30%, 82% 100%, 18% 100%, 0 30%);
-  background:linear-gradient(115deg, rgba(255,255,255,.55) 0 18%, rgba(255,255,255,0) 30%), conic-gradient(from 20deg at 50% 45%, #FF6A6A, #B80F1A 20%, #5A0008 40%, #E0202A 60%, #FF8A8A 75%, #8A0010 90%, #FF6A6A); }
+.fx-bloodstone{ position:fixed; z-index:98; pointer-events:none; width:64px; height:64px; margin:-32px 0 0 -32px; filter:drop-shadow(0 0 6px #FF1A2A) drop-shadow(0 0 16px rgba(255,26,42,.7)); }
+.fx-bloodstone .emb{ transform:scale(1.15); }
 .fx-tip{ position:absolute; display:block; }
 .fx-tip.boom{ left:146px; top:-5px; width:15px; height:13px; border-radius:2px 3px 3px 2px; background:linear-gradient(180deg,#FF7A5A,#D02A1C 50%,#7E1009); box-shadow:inset 3px 0 0 #3A3A40; }
 .fx-tip.boom::after{ content:""; position:absolute; left:15px; top:1px; border-left:9px solid #4A4C54; border-top:5.5px solid transparent; border-bottom:5.5px solid transparent; }
@@ -2513,7 +2512,7 @@ panel.addEventListener("pointerdown", ev => {
   else if (h && bid && TITLE_EGGS[bid]) act = () => TITLE_EGGS[bid](h, x, y);
   else if (row && bid && BOX_ROW_EGGS[bid]) act = () => BOX_ROW_EGGS[bid](x, y, row);
   else if (row && ROW_EGGS[row.dataset.t]) { const fn = ROW_EGGS[row.dataset.t]; act = () => fn(x, y, row); }
-  const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow],
+  const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "ch-pruned-timelines": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow],
     "cx-the-watcher": [650, 0, shatter] };
   if (!act && ANY[bid]) { const [a, b, fn] = ANY[bid]; pnlStart = [x, y]; pnlTimer = setTimeout(() => { pnlFired = true; fn(x, y); }, a + Math.random() * b); return; }
   if (!act) return;
@@ -2692,7 +2691,7 @@ function openDossier(id, go) {
     const w = here(t), body = shut ? (forget("s:" + t), `<p class="dwait">No data.</p>`) : SG && !open(t) ? (forget("s:" + t), `<p class="dwait">${K.wait}</p>`) : !x ? `<p class="dwait">No data.</p>` : open(t) ? `<p>${reveal("s:" + t, t, esc(x))}</p>` : (forget("s:" + t), `<p class="dwait">${K.wait || "Awaiting data."}</p>`);
     return `<li class="${SG ? (shut ? "pend" : open(t) ? "on" : "off") : x ? (open(t) ? "on" : "off") : "pend"}"><div class="dt"><span>${SG ? esc(chName(t)) : tnh(t)}</span>${w ? `<i class="dck">${K.ck || "Recorded"}</i>` : ""}</div>${body}</li>`; }).join("");
   const debrief = !isCh ? "" : `<section class="dsec"><h3>${K.debrief || "Debrief"}</h3><div class="dcard">${!D.debrief ? `<p class="dwait">No data.</p>` : open(rel) ? `<p>${reveal("d", rel, esc(D.debrief))}</p>` : (delete seen.d, `<p class="dwait">${K.dwait || "Awaiting data."}</p>`)}</div></section>`;
-  const links = !(D.links && D.links.length) ? "" : `<section class="dsec"><h3>${K.links || "Connections"}</h3><div class="dlinks">${D.links.map(([n, r, g], i) => open(g) ? `<div class="dl">${reveal("l" + i, g, `<b>${esc(n)}</b><small>${esc(r)}</small>`)}</div>` : (forget("l" + i), `<div class="dl off"><b>Unknown</b><small class="dnone">No data</small></div>`)).join("")}</div></section>`;
+  const links = !(D.links && D.links.length) ? "" : `<section class="dsec"><h3>${K.links || "Connections"}</h3><div class="dlinks">${D.links.map(([n, r, g], i) => open(g) ? `<div class="dl">${reveal("l" + i, g, `<b>${esc(n)}</b><small>${esc(sideR(id, n, r))}</small>`)}</div>` : (forget("l" + i), `<div class="dl off"><b>Unknown</b><small class="dnone">No data</small></div>`)).join("")}</div></section>`;
   const name = isCh ? (box.num ? "Chapter " + box.num : "Extras") : "", title = isCh ? box.title : box.title;
   const rowsDl = `<dl class="${SG ? "drows" : "lrows"}">${rowsHtml}</dl>`;
   if (SG) {
@@ -4888,9 +4887,10 @@ let hudOn = false;
 function ironHud(q) {
   if (REDUCED) { found("ironhud"); return; }
   if (hudOn) return; hudOn = true;
-  // every title actually listed on screen (up to five), each locked and then shot on its own; with none in view, the HUD stands down
+  // between one and five of the titles actually listed on screen, picked at random and in no set order, each locked and then shot on its own;
+  // with none in view, the HUD stands down
   const vis = openEntry ? [...panel.querySelectorAll(".row")].filter(r => { const b = r.getBoundingClientRect(); return b.height > 0 && b.top > 90 && b.bottom < innerHeight - 90 && getComputedStyle(r).visibility !== "hidden"; }) : [];
-  const tg = vis.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top).slice(0, 5);
+  const tg = pick(vis, 1 + Math.floor(Math.random() * Math.min(5, vis.length)));
   const W = innerWidth, H = innerHeight, palm = [W / 2, H + 30];
   const hd = document.createElement("div"); hd.className = "fx-ihud";
   hd.innerHTML = `<div class="visor"></div><div class="top"><span class="lbl">SYSTEMS BOOTING</span></div>
@@ -5218,7 +5218,9 @@ function photon(q, y0) {
   found("photon", 3200);
   const x = innerWidth / 2, y = y0 == null ? centerOf(q)[1] : y0;
   if (REDUCED) return;
-  veil("fxl", "z-index:96", [{ boxShadow: "inset 0 0 0 0 rgba(255,190,60,0)" }, { boxShadow: "inset 0 0 70px 14px rgba(255,190,60,.85)", offset: .5 }, { boxShadow: "inset 0 0 40px 6px rgba(255,190,60,.5)", offset: .8 }, { boxShadow: "inset 0 0 0 0 rgba(255,190,60,0)" }], 3200);
+  // she powers up where she stands: the glow builds from the bottom, with the sparks; the top only lights when she breaks through it
+  veil("fxl", "z-index:96;background:linear-gradient(to top, rgba(255,190,60,.7), rgba(255,190,60,.18) 22%, rgba(255,190,60,0) 45%)", [{ opacity: 0 }, { opacity: 1, offset: .42 }, { opacity: .8, offset: .62 }, { opacity: 0 }], 3200);
+  veil("fxl", "z-index:96;background:radial-gradient(ellipse 80% 38% at 50% 0, rgba(255,236,180,.95), rgba(255,190,60,.45) 35%, rgba(255,190,60,0) 70%)", [{ opacity: 0 }, { opacity: 0, offset: .56 }, { opacity: 1, offset: .6 }, { opacity: 0 }], 3200);
   for (let k = 0; k < 40; k++) sparkC(Math.random() * innerWidth, innerHeight - Math.random() * 40, (Math.random() - .5) * 30, -120 - Math.random() * 160, Math.random() * 1400, 1500, GOLD_C);
   glowC(x, y, 600, "gold", 1.8);
   const b = document.createElement("div"); b.className = "fx-beam"; b.style.cssText = `left:${x}px;top:auto;bottom:0;height:100vh`; document.body.appendChild(b);
@@ -6063,7 +6065,7 @@ const EGGS = [
   ["prune", "Pruned", "The TVA's way.", "On a timeline page, hold a branch line.", 2],
   ["variant", "Variant", "Look at the map.", "Hold a character's name in the Character Map.", 2],
   ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers.", 2],
-  ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box.", 2],
+  ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box or the Pruned Timelines chapter.", 2],
   ["herald", "The Herald", "Something silver comes first.", "Hold The Fantastic Four: First Steps.", 2],
   ["fantastic", "Fantastic", "Four taps, four powers.", "Tap the name in The Fantastic Four box four times, until you've seen all four powers.", 2],
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
@@ -6868,7 +6870,8 @@ function wolfEgg(h) {
   if (wolfOn) return; wolfOn = true;
   const W = innerWidth, H = innerHeight, T = 4400;
   const noir = veil("fx-noir", "", [{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 1, offset: .66 }, { opacity: 0, offset: .74 }, { opacity: 0 }], T);
-  const gem = document.createElement("div"); gem.className = "fx-bloodstone"; gem.innerHTML = "<i></i>"; gem.style.left = W / 2 + "px"; gem.style.top = H * .42 + "px"; document.body.appendChild(gem);
+  // the Bloodstone itself: the same gem in its gold setting as on his insignia and in the Collection
+  const gem = document.createElement("div"); gem.className = "fx-bloodstone"; gem.innerHTML = embHTML("bloodstone"); gem.style.left = W / 2 + "px"; gem.style.top = H * .42 + "px"; document.body.appendChild(gem);
   gem.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(1)", opacity: 1, offset: .14 }, { transform: "scale(1.18)", offset: .2 }, { transform: "scale(1)", offset: .26 }, { transform: "scale(1.18)", offset: .34 }, { transform: "scale(1)", offset: .4 }, { transform: "scale(1)", opacity: 1, offset: .64 }, { transform: "scale(1.5)", opacity: 0, offset: .7 }, { opacity: 0 }], { duration: T, fill: "both" }).onfinish = () => gem.remove();
   setTimeout(() => haptic([60, 120, 60]), T * .2); setTimeout(() => haptic([60, 120, 60]), T * .34);
   // the claw marks: four ragged tears, ripped in one after another
@@ -7133,6 +7136,7 @@ function avengersRing() {
     + SIX.map(k => `<div class="ar-hero"><span class="hf-avr">${embHTML(k)}</span></div>`).join("");
   document.body.appendChild(fx);
   const a = fx.querySelector(".ar-a"), heroes = [...fx.querySelectorAll(".ar-hero")], sky = fx.querySelector(".ar-sky"), dpr = Math.min(2, devicePixelRatio || 1);
+  a.style.top = cy + "px";   // the A stands in the middle of the ring: the three at the back pass behind it, the three at the front in front
   sky.width = W * dpr; sky.height = H * dpr; const g = sky.getContext("2d"); g.scale(dpr, dpr);
   let spinA = 0; const bits = Array.from({ length: 70 }, () => ({ x: Math.random() * W, y: Math.random() * H, s: 1 + Math.random() * 3, v: 20 + Math.random() * 60, smoke: Math.random() < .3 }));
   fx.querySelector(".ar-veil").animate([{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 1, offset: .88 }, { opacity: 0 }], { duration: T, fill: "both" });
@@ -7154,7 +7158,8 @@ function avengersRing() {
       el.style.transform = `translate(${(ex - 28).toFixed(1)}px,${(ey - 28).toFixed(1)}px) scale(${s.toFixed(3)})`;
       el.style.opacity = (enter * (.5 + .5 * (z + 1) / 2) * (1 - clamp01((t - 6500) / 600))).toFixed(2); el.style.zIndex = Math.round(60 + z * 30);
     });
-    const ap = clamp01((t - 4700) / 700) * (1 - clamp01((t - 6500) / 600)); a.style.opacity = ap.toFixed(2); a.style.transform = `translate(-50%,-50%) scale(${(1.4 + 1.2 * ap).toFixed(3)})`;
+    // the A is there in the middle as they circle it, faint, then blazes up once they turn to face out
+    const a0 = .3 * enter, ap = clamp01((t - 4700) / 700), out = 1 - clamp01((t - 6500) / 600); a.style.opacity = ((a0 + (1 - a0) * ap) * out).toFixed(2); a.style.zIndex = ap > .5 ? 100 : 60; a.style.transform = `translate(-50%,-50%) scale(${(1.4 + 1.2 * ap).toFixed(3)})`;
   }, () => { fx.remove(); ringOn = false; found("avengers"); });
   setTimeout(() => haptic([60, 30, 90]), 4800);
 }
@@ -7164,8 +7169,8 @@ const sideDone = (el, id) => { el.remove(); sideOn = false; found(id); };
 // Goose, in Captain Marvel's log: the Flerken's mouth opens on her card, tentacles shoot out and take hold of the entry above, and drag it
 // back in; she swallows it whole, then coughs it back up the way she coughed up the Tesseract
 function sideGoose(card) {
-  const host = card.closest(".dossier"), all = [...host.querySelectorAll(".dlog li.on")], inView = all.filter(x => { const b = x.getBoundingClientRect(); return b.top > 50 && b.bottom < innerHeight - 50; });
-  const entry = inView.pop() || all.pop(); if (!entry) return; sideOn = true;   // the latest entry she can see
+  const host = card.closest(".dossier"), all = [...host.querySelectorAll(".dlog li.on, .dl:not(.off)")].filter(x => x !== card), inView = all.filter(x => { const b = x.getBoundingClientRect(); return b.top > 50 && b.bottom < innerHeight - 50; });
+  const entry = pick(inView.length ? inView : all, 1)[0]; if (!entry) return; sideOn = true;   // any entry she can see: a story entry, or someone else under Connections
   const { cv, g, W, H } = fxCanvas(97), c = card.getBoundingClientRect(), e = entry.getBoundingClientRect(), mx = c.left + 24, my = c.top + c.height / 2, ex = e.left + e.width / 2, ey = e.top + e.height / 2, T = 3500;
   const out = f => 1 - Math.pow(1 - f, 3);
   // where each tentacle takes hold, spread along the top and bottom edges of the entry
@@ -7190,7 +7195,11 @@ function sideGoose(card) {
         g.strokeStyle = "#E7738F"; g.lineWidth = 3; g.stroke();
         g.fillStyle = "#F5B3C2"; for (let q = .3; q < .95; q += .17) { const u = 1 - q, px = u * u * mx + 2 * u * q * qx + q * q * tx, py = u * u * my + 2 * u * q * qy + q * q * ty; g.beginPath(); g.arc(px, py, 1.1, 0, Math.PI * 2); g.fill(); } });   // suckers
     }
-  }, () => { entry.style.transform = entry.style.opacity = entry.style.transformOrigin = ""; cv.remove(); sideOn = false; found("goose"); });
+  }, () => { entry.style.transform = entry.style.opacity = entry.style.transformOrigin = ""; cv.remove(); sideOn = false;
+    const was = (state.eggs || {}).goose; found("goose");
+    const sm = card.querySelector("small"), id = dossierOpen, real = id && (((DOSSIERS[id] || {}).links || []).find(l => l[0] === "Goose") || [])[1];
+    if (!was && sm && real && sm.textContent !== real) setTimeout(() => { if (!sm.isConnected) return;
+      sm.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" }).onfinish = () => { sm.textContent = real; sm.animate([{ opacity: 0, filter: "blur(3px)" }, { opacity: 1, filter: "blur(0)" }], { duration: 420, fill: "forwards" }); }; }, 2300); });
 }
 // Miss Minutes, in Loki's log: the TVA's cartoon clock pops up beside her card, waving, with something to say. She is drawn the way the show draws her:
 // an orange clock with hour marks round her face, big pie-cut eyes and lashes, a wide smile, white gloves and little shoes, with the jitter of an old cartoon
@@ -7222,9 +7231,9 @@ function minutesDraw(g, t, W, H) {
   g.fillStyle = "#FF7A6A"; g.beginPath(); g.ellipse(cx, cy + 17, 5, 2.6, 0, 0, Math.PI * 2); g.fill();
 }
 function sideMinutes(card) {
-  sideOn = true; const c = card.getBoundingClientRect(), el = document.createElement("div"), dpr = Math.min(2, devicePixelRatio || 1), CW = 130, CH = 162; el.className = "fx-minutes"; el.setAttribute("aria-hidden", "true");
+  sideOn = true; const c = card.getBoundingClientRect(), el = document.createElement("div"), dpr = Math.min(2, devicePixelRatio || 1), CW = 166, CH = 162; el.className = "fx-minutes"; el.setAttribute("aria-hidden", "true");
   el.innerHTML = `<canvas width="${CW * dpr}" height="${CH * dpr}" style="width:${CW}px;height:${CH}px"></canvas><span>${esc(MINUTES[Math.floor(Math.random() * MINUTES.length)])}</span>`;
-  el.style.left = Math.max(8, Math.min(innerWidth - 268, c.left - 10)) + "px"; el.style.top = Math.max(60, c.top - 170) + "px"; document.body.appendChild(el); haptic([8, 30, 8]);
+  el.style.left = Math.max(4, Math.min(innerWidth - 300, c.left - 26)) + "px"; el.style.top = Math.max(60, c.top - 170) + "px"; document.body.appendChild(el); haptic([8, 30, 8]);
   const g = el.querySelector("canvas").getContext("2d"); g.scale(dpr * 1.25, dpr * 1.25);
   el.animate([{ transform: "scale(.2) translateY(30px)", opacity: 0 }, { transform: "scale(1.06)", opacity: 1, offset: .6 }, { transform: "none", opacity: 1 }], { duration: 420, easing: "ease-out", fill: "both" });
   fxRun(3600, t => minutesDraw(g, t, CW / 1.25, CH / 1.25));
@@ -7278,7 +7287,10 @@ function sideHerbie(card) {
       g.beginPath(); g.roundRect(x - bw / 2, Y - 196, bw, 22, 8); g.fill(); g.fillStyle = "#BFE9FF"; g.fillText(beep, x, Y - 185); }
   }, () => { black.remove(); cv.remove(); sideOn = false; found("herbie"); });
 }
-const SIDE = { "cx-captain-marvel|Goose": sideGoose, "cx-loki-the-tva|Miss Minutes": sideMinutes, "cx-hawkeye|Lucky": sideLucky, "cx-the-fantastic-four|H.E.R.B.I.E.": sideHerbie };
+// a side character who isn't what they look like goes by the look until you've found out: Goose is a cat until she isn't
+const SIDE_GUESS = { "cx-captain-marvel|Goose": ["A cat?", "goose"] };
+const sideR = (id, n, r) => { const g = SIDE_GUESS[id + "|" + n]; return g && !(state.eggs || {})[g[1]] ? g[0] : r; };
+const SIDE = { "cx-nick-fury-s-h-i-e-l-d|Goose": sideGoose, "cx-captain-marvel|Goose": sideGoose, "cx-loki-the-tva|Miss Minutes": sideMinutes, "cx-hawkeye|Lucky": sideLucky, "cx-the-fantastic-four|H.E.R.B.I.E.": sideHerbie };
 // the Kree intercept in Comms: hold the blacked-out words and they decrypt
 function cmDecrypt(s) {
   if (s.dataset.done) return; s.dataset.done = 1; const real = "She must not remember who she was.", glyph = "▓▒░<>/\\|#%&*+=";
@@ -7416,36 +7428,57 @@ function atlSokovia(map) {
 // Titan, in the cosmos: Thanos grips one of its moons with the Power Stone, breaks it apart and throws it down onto the planet
 function atlMoon(map) {
   const p = atlPinAt(map, "titan"); if (!p || atlFxOn) return; if (REDUCED) { found("titanmoon"); return; } atlFxOn = true;
-  const { cv, g, at } = atlLayer(map, p), T = 5400, MX = 52, MY = -58, MR = 13;
+  const { cv, g, at } = atlLayer(map, p), T = 5400, MX = 52, MY = -58, MR = 13, BREAK = 2300, rnd = (lo, hi) => lo + Math.random() * (hi - lo);
   const crust = Array.from({ length: 12 }, (_, k) => { const a = k / 12 * Math.PI * 2; return [Math.cos(a) * MR * (.88 + Math.random() * .2), Math.sin(a) * MR * (.88 + Math.random() * .2)]; });
-  const rocks = Array.from({ length: 30 }, () => { const a = Math.random() * Math.PI * 2, r = Math.random() * MR; return { x0: MX + Math.cos(a) * r, y0: MY + Math.sin(a) * r, x1: (Math.random() - .5) * 34, y1: (Math.random() - .5) * 14, s: 1.4 + Math.random() * 2.8, at: 2300 + Math.random() * 900, d: 700 + Math.random() * 300 }; });
+  // the cracks, the way the Incursion's worlds crack: they start where the beam holds the moon and run in across it, branching as they go.
+  // Drawn in the moon's own frame: x runs in from the gripped edge, y across, both in radii
+  const segs = [], run = (x, y, an, len, d, depth) => { let px = x, py = y; const n = Math.ceil(len / .13);
+    for (let i = 0; i < n; i++) { an += rnd(-.42, .42); const st = rnd(.09, .16), nx = px + Math.cos(an) * st, ny = py + Math.sin(an) * st;
+      if (nx * nx - 2 * nx + ny * ny < 0) { segs.push([px, py, nx, ny, d, d + st, depth]); px = nx; py = ny; d += st; } else break;
+      if (depth < 2 && Math.random() < (depth ? .16 : .3)) run(px, py, an + (Math.random() < .5 ? -1 : 1) * rnd(.5, 1.1), len * rnd(.3, .55), d, depth + 1); } };
+  { const k = 4 + (Math.random() * 2 | 0); for (let i = 0; i < k; i++) run(0, 0, (i - (k - 1) / 2) * rnd(.3, .42) + rnd(-.12, .12), rnd(1.3, 2.1), 0, 0); }
+  const ul = Math.hypot(MX, MY), ux = -MX / ul, uy = -MY / ul, P = (lx, ly) => [MX + ux * MR - ux * lx * MR - uy * ly * MR, MY + uy * MR - uy * lx * MR + ux * ly * MR];
+  // then it comes apart along them: jagged shards that spread for a moment, then come down onto Titan, each a streak ending in a burst
+  const rocks = Array.from({ length: 34 }, () => { const a = Math.random() * Math.PI * 2, r = MR * Math.sqrt(Math.random()), sz = rnd(1.8, 4.4);
+    return { x0: MX + Math.cos(a) * r, y0: MY + Math.sin(a) * r, ox: Math.cos(a), oy: Math.sin(a), x1: (Math.random() - .5) * 34, y1: (Math.random() - .5) * 14, s: sz, rot: rnd(0, 6), va: rnd(-5, 5),
+      pts: [0, 1, 2, 3].slice(0, 3 + (Math.random() < .5 ? 1 : 0)).map((j, _, A) => { const aa = j * Math.PI * 2 / A.length + rnd(-.4, .4); return [Math.cos(aa) * sz * rnd(.6, 1.3), Math.sin(aa) * sz * rnd(.6, 1.3)]; }),
+      at: BREAK + 350 + Math.random() * 900, d: 700 + Math.random() * 300 }; });
+  const shard = (r, x, y, a, hot) => { const c = Math.cos(a), si = Math.sin(a); g.fillStyle = "#958D82"; g.strokeStyle = `rgba(255,${150 + 70 * hot | 0},${70 + 80 * hot | 0},${.4 + .5 * hot})`; g.lineWidth = .7;
+    g.beginPath(); r.pts.forEach(([px, py], j) => g[j ? "lineTo" : "moveTo"](x + px * c - py * si, y + px * si + py * c)); g.closePath(); g.fill(); g.stroke(); };
   haptic([20, 40, 20, 40, 20]);
   fxRun(T, t => {
     at();
-    const grip = clamp01((t - 300) / 500) * (1 - clamp01((t - 2300) / 300)), shake = t > 900 && t < 2300 ? (t - 900) / 1400 : 0, whole = t < 2300, fade = 1 - clamp01((t - T + 600) / 600);
+    const grip = clamp01((t - 300) / 500) * (1 - clamp01((t - BREAK) / 300)), shake = t > 900 && t < BREAK ? (t - 900) / 1400 : 0, whole = t < BREAK, fade = 1 - clamp01((t - T + 600) / 600);
     // the Power Stone's glow on Titan, and the purple beam that holds the moon
     const pg = g.createRadialGradient(0, 0, 0, 0, 0, 24); pg.addColorStop(0, `rgba(205,140,255,${.9 * grip})`); pg.addColorStop(1, "rgba(142,59,224,0)"); g.fillStyle = pg; g.fillRect(-26, -26, 52, 52);
     if (grip > 0) { g.globalCompositeOperation = "lighter"; g.strokeStyle = `rgba(181,123,255,${.75 * grip})`; g.lineCap = "round";
       for (let k = 0; k < 3; k++) { g.lineWidth = 3 - k; g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(MX * .3 + Math.sin(t / 90 + k) * 8, MY * .7 + Math.cos(t / 110 + k) * 8, MX, MY); g.stroke(); }
       g.globalCompositeOperation = "source-over"; }
-    // the moon, shaking harder as it's pulled, cracking just before it breaks
-    if (whole) { const jx = (Math.random() - .5) * 3 * shake, jy = (Math.random() - .5) * 3 * shake, mg = g.createRadialGradient(MX - 4 + jx, MY - 4 + jy, 1, MX + jx, MY + jy, MR);
-      mg.addColorStop(0, "#C9C1B6"); mg.addColorStop(1, "#5E5850"); g.fillStyle = mg; g.globalAlpha = clamp01(t / 300); g.beginPath(); crust.forEach(([x, y], k) => k ? g.lineTo(MX + x + jx, MY + y + jy) : g.moveTo(MX + x + jx, MY + y + jy)); g.closePath(); g.fill();
-      g.strokeStyle = `rgba(181,123,255,${grip})`; g.lineWidth = 1.2; g.stroke();
-      if (shake > .6) { g.strokeStyle = `rgba(255,170,90,${(shake - .6) * 2.5})`; g.lineWidth = 1; g.beginPath(); crust.forEach(([x, y], k) => { if (k % 3) return; g.moveTo(MX + jx, MY + jy); g.lineTo(MX + x * .9 + jx, MY + y * .9 + jy); }); g.stroke(); }
+    // the moon, shaking harder as it's pulled, the cracks running across it until it breaks
+    if (whole) { const jx = (Math.random() - .5) * 3 * shake, jy = (Math.random() - .5) * 3 * shake, mg = g.createRadialGradient(MX - 4 + jx, MY - 4 + jy, 1, MX + jx, MY + jy, MR), heat = clamp01((t - 1300) / 1000);
+      mg.addColorStop(0, "#C9C1B6"); mg.addColorStop(1, "#5E5850"); g.fillStyle = mg; g.globalAlpha = clamp01(t / 300);
+      const rim = () => { g.beginPath(); crust.forEach(([x, y], k) => k ? g.lineTo(MX + x + jx, MY + y + jy) : g.moveTo(MX + x + jx, MY + y + jy)); g.closePath(); };
+      rim(); g.fill(); g.strokeStyle = `rgba(181,123,255,${grip})`; g.lineWidth = 1.2; g.stroke();
+      const reach = easeIO(clamp01((t - 1000) / (BREAK - 1050))) * 2.2;
+      if (reach > 0) { g.save(); rim(); g.clip(); g.translate(jx, jy);
+        [[2.6, "rgba(20,4,2,.8)"], [1.7, `rgba(255,${150 - 60 * heat | 0},40,.6)`], [.7, "rgba(255,238,215,.95)"]].forEach(([lw, col]) => { g.strokeStyle = col; g.lineCap = "round"; g.lineJoin = "round";
+          segs.forEach(([x1, y1, x2, y2, d1, d2, dep]) => { if (d1 >= reach) return; const f = Math.min(1, (reach - d1) / (d2 - d1)), p1 = P(x1, y1), p2 = P(lerp(x1, x2, f), lerp(y1, y2, f));
+            g.lineWidth = lw * (dep ? .6 : 1) * Math.max(.45, 1 - d1 / 2.4) * (MR / 16); g.beginPath(); g.moveTo(p1[0], p1[1]); g.lineTo(p2[0], p2[1]); g.stroke(); }); });
+        g.restore(); }
       g.globalAlpha = 1; }
-    // the pieces come down onto Titan, each one a streak ending in a burst
-    rocks.forEach(r => { const f = (t - r.at) / r.d; if (t < 2300) return;
-      if (f < 0) { g.fillStyle = "#8A8278"; g.fillRect(r.x0 - r.s / 2, r.y0 - r.s / 2, r.s, r.s); return; }
-      const e = Math.min(1, f) * Math.min(1, f), cx = (r.x0 + r.x1) / 2 + 26, cy = Math.min(r.y0, r.y1) - 30, u = 1 - e;
-      const x = u * u * r.x0 + 2 * u * e * cx + e * e * r.x1, y = u * u * r.y0 + 2 * u * e * cy + e * e * r.y1;
-      if (f < 1) { g.strokeStyle = `rgba(255,150,70,${.7 * fade})`; g.lineWidth = r.s * .7; g.lineCap = "round"; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (r.x0 - x) * .12, y + (r.y0 - y) * .12); g.stroke();
-        g.fillStyle = "#9A9286"; g.fillRect(x - r.s / 2, y - r.s / 2, r.s, r.s); }
+    else if (t < BREAK + 320) {   // the instant it goes: the light in the cracks flares
+      const e = (t - BREAK) / 320, fg = g.createRadialGradient(MX, MY, 0, MX, MY, MR * (1 + e)); fg.addColorStop(0, `rgba(255,240,215,${1 - e})`); fg.addColorStop(.5, `rgba(255,150,70,${.7 * (1 - e)})`); fg.addColorStop(1, "rgba(255,90,40,0)");
+      g.fillStyle = fg; g.fillRect(MX - 30, MY - 30, 60, 60); }
+    rocks.forEach(r => { if (t < BREAK) return; const f = (t - r.at) / r.d, sp = easeIO(clamp01((t - BREAK) / 420)) * 5, sx = r.x0 + r.ox * sp, sy = r.y0 + r.oy * sp, a = r.rot + r.va * (t - BREAK) / 1000, hot = 1 - clamp01((t - BREAK) / 700);
+      if (f < 0) { shard(r, sx, sy, a, hot); return; }
+      const e = Math.min(1, f) * Math.min(1, f), cx = (sx + r.x1) / 2 + 26, cy = Math.min(sy, r.y1) - 30, u = 1 - e;
+      const x = u * u * sx + 2 * u * e * cx + e * e * r.x1, y = u * u * sy + 2 * u * e * cy + e * e * r.y1;
+      if (f < 1) { g.strokeStyle = `rgba(255,150,70,${.7 * fade})`; g.lineWidth = r.s * .6; g.lineCap = "round"; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (sx - x) * .12, y + (sy - y) * .12); g.stroke(); shard(r, x, y, a, 0); }
       else { const b = clamp01((t - r.at - r.d) / 450); if (b < 1) { const bg = g.createRadialGradient(r.x1, r.y1, 0, r.x1, r.y1, 4 + 10 * b); bg.addColorStop(0, `rgba(255,220,160,${1 - b})`); bg.addColorStop(1, "rgba(255,120,40,0)"); g.fillStyle = bg; g.fillRect(r.x1 - 16, r.y1 - 16, 32, 32); } } });
     // dust hanging over the planet afterward
     const dust = clamp01((t - 2800) / 800) * fade; if (dust > 0) { const dg = g.createRadialGradient(0, 0, 0, 0, 0, 34); dg.addColorStop(0, `rgba(170,140,110,${.35 * dust})`); dg.addColorStop(1, "rgba(170,140,110,0)"); g.fillStyle = dg; g.fillRect(-36, -36, 72, 72); }
   }, () => { cv.remove(); atlFxOn = false; found("titanmoon"); });
-  setTimeout(() => haptic([60, 30, 40, 30, 80, 30, 40]), 2700);
+  setTimeout(() => haptic([90, 30, 140]), BREAK); setTimeout(() => haptic([60, 30, 40, 30, 80, 30, 40]), 2700);
 }
 // Celestial Island: hold it and Tiamut's hand and forearm come up out of the Indian Ocean as a hologram, throw the map a gesture, and sink back down.
 // One of five at random, each with its own effect on the places around it: a wave they sway along to, a peace sign they hop with,
