@@ -681,6 +681,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
   background-image:var(--padimg); background-size:var(--padsize); color:#EEF1F6; }
 .filepanel[hidden]{ display:none; }
 .fileview{ flex:1; overflow-y:auto; overscroll-behavior:contain; padding:6px 18px 40px; }
+/* the Agent File is one page, like Story and the Log: its title scrolls away with everything under it */
+#filePanel{ display:block; overflow-y:auto; overscroll-behavior:contain; } #filePanel .fileview{ overflow:visible; }
 .hf-head{ max-width:760px; margin:0 auto; padding:16px 16px 18px; border:1px solid #26314A; border-radius:14px; background:linear-gradient(180deg,#121A2A,#0D1320); }
 .hf-head{ position:relative; }
 .hf-ava{ position:absolute; top:14px; right:14px; width:58px; height:58px; padding:0; border-radius:50%; border:1px solid #2E3A56; background:radial-gradient(circle at 50% 45%, #1A2336 0%, #0B1019 70%); box-shadow:inset 0 0 14px rgba(0,0,0,.6), 0 0 0 3px rgba(127,166,216,.08); cursor:pointer; overflow:hidden; }
@@ -698,7 +700,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-rp{ display:inline-flex; align-items:center; gap:8px; padding:9px 14px 9px 12px; border:1px solid #3A78C9; border-radius:999px; background:#13213A; color:#CFE4FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
 .hf-rp svg{ width:10px; height:10px; }
 .hf-cf dd.st-closed{ color:#7BD88F; } .hf-cf dd.st-open{ color:#FF8A7A; } .hf-cfw{ padding:12px 16px 28px; color:#8EA2C2; }
-.hf-pick{ position:absolute; inset:0; z-index:5; display:flex; align-items:flex-end; justify-content:center; background:rgba(5,8,14,.72); animation:whihfade .2s ease both; }
+.hf-pick{ position:fixed; inset:0; z-index:5; display:flex; align-items:flex-end; justify-content:center; background:rgba(5,8,14,.72); animation:whihfade .2s ease both; }
 .hf-pickin{ width:100%; max-width:760px; max-height:78%; display:flex; flex-direction:column; border:1px solid #26314A; border-bottom:0; border-radius:16px 16px 0 0; background:#0D1320; }
 .hf-pickh{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px 8px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; }
 .hf-pickh button{ width:36px; height:36px; border:0; background:none; color:#B8C4D8; font-size:24px; cursor:pointer; }
@@ -6604,12 +6606,12 @@ function caseFile(film) {
 const hfPickNav = () => { if (!navAt("hfpick")) try { history.pushState({ mcu: "hfpick" }, ""); } catch (e) {} };
 const hfPickClose = () => { if (navAt("hfpick")) navBack(); else { const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); } };
 let fileTab = "file";
-function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; embAck(); persist(); renderFile(true); document.getElementById("filePanel").hidden = false; document.getElementById("fileView").scrollTop = 0; /* always from the top: a reset while it was hidden doesn't hold */ fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
+function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; embAck(); persist(); renderFile(true); document.getElementById("filePanel").hidden = false; document.getElementById("fileView").scrollTop = 0; document.getElementById("filePanel").scrollTop = 0; /* always from the top: a reset while it was hidden doesn't hold */ fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
 function closeFile(fromHistory) {
   if (!fromHistory && navAt("file")) { navBack(); return; }
   document.getElementById("filePanel").hidden = true; fileOpen = false; bodyFree(); embAck(); persist();   // anything that came in while you were here has been seen too
   // the Agent File always opens at the top, on its first page, with nothing left open
-  const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); hfPage = 1; rPg = 0; rOpen = null; document.getElementById("fileView").scrollTop = 0;
+  const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); hfPage = 1; rPg = 0; rOpen = null; document.getElementById("fileView").scrollTop = 0; document.getElementById("filePanel").scrollTop = 0;
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
