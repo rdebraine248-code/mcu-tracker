@@ -232,8 +232,18 @@ button{ font:inherit; color:inherit; }
 #askYes{ border-color:var(--hc); color:#DFF6FF; background:color-mix(in srgb, var(--hc) 16%, transparent); } .askbox.warn #askYes{ color:#FFE1DE; }
 .askbtns button:focus-visible{ outline:2px solid var(--hc); outline-offset:2px; }
 .tl{ margin-top:26px; color:#F3E6D2; }
-body[data-mode="timeline"]{ --shell:#0B1019; --ink:#F3E6D2; --muted:#C9B79C; --line:#26314A; --chip:#121A2A; --chip-ink:#F3E6D2;
-  background-color:#0B1019; }
+/* the Sacred Timeline is the TVA's record, pulled up on your datapad: their amber on brown-black, a faint dot grain and scan lines like their
+   monitors, a warm glow from the corners and a vignette. The dock and the pills stay the datapad's own */
+body[data-mode="timeline"]{ --shell:#120D09; --ink:#F3E6D2; --muted:#C9B79C; --line:#3A2A18; --chip:#1E160F; --chip-ink:#F3E6D2;
+  background-color:#120D09; }
+body[data-mode="timeline"]::before{ background-color:#120D09;
+  background-image:repeating-linear-gradient(0deg, rgba(255,179,71,.035) 0 1px, transparent 1px 3px),
+                   radial-gradient(rgba(255,179,71,0.055) 1px, transparent 1.4px),
+                   radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.45)),
+                   radial-gradient(1100px 600px at 12% -8%, rgba(255,150,40,0.16), transparent 62%),
+                   radial-gradient(900px 600px at 100% 100%, rgba(200,110,30,0.10), transparent 60%);
+  background-size:auto, 22px 22px, auto, auto, auto; }
+body[data-mode="timeline"] .mast h1{ color:#FFB347; text-shadow:0 0 18px rgba(255,150,40,.45), 0 3px 0 rgba(0,0,0,.35); }
 body[data-mode="timeline"] .mast h1::after{ background:linear-gradient(90deg,#FFB347,#C8661E); }
 body[data-mode="timeline"] .meter .bar span{ background:linear-gradient(90deg,#FFB347,#C8661E); }
 body[data-mode="timeline"] .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
