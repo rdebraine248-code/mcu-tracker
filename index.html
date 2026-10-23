@@ -5054,7 +5054,7 @@ function endgameCharge() {
   // the Avengers A waits behind the charge: a window that opens as the front of the crowd passes, with the A held still inside it
   const Al = W / 2 - 150, A = document.createElement("div"); A.style.cssText = `position:absolute;left:${Al}px;top:${H * .45 - 150}px;width:300px;height:300px`;
   A.innerHTML = `<div style="position:absolute;inset:0;overflow:hidden;will-change:transform;transform:translateX(-300px)"><div style="position:absolute;inset:0;will-change:transform;transform:translateX(300px)"><div style="position:absolute;left:118px;top:118px;width:64px;height:64px;transform:scale(2.3)">${embHTML("avengers")}</div></div></div>`;
-  lay.appendChild(A); const win = A.firstElementChild, held = win.firstElementChild;
+  lay.insertBefore(A, lay.firstChild); const win = A.firstElementChild, held = win.firstElementChild;   // under the crowd: they charge across it as it appears
   const MAXX = Math.max(...U.map(u => u.x)), E0 = MAXX + 30, E1 = W + 220, ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   at(T_GO, () => { haptic([40, 30, 40, 30, 40, 30, 80]);
     // the whole run is worked out up front as keyframes, so it plays on the compositor
