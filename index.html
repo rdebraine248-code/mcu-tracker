@@ -1400,7 +1400,8 @@ function boxNews(e, what, foot, viaSay) {
     const own = (achList().find(a => a.id === (DATA.chapters.includes(e) ? "ch-" : "char-") + e.id) || {}).t, rest = foot ? foot.split(" · ").slice(1).filter(n => n !== own) : [];
     hd = "Agent File · Updated"; done = { label: DATA.chapters.includes(e) ? boxKind(e) + " Completed" : "Character Completed", own }; foot = ["Agent File", ...(own ? [own] : []), ...rest].join(" · ");
   }
-  if (viaSay) say(e.title, e, foot, undefined, true, hd, done); else toast(e.title, e, false, foot, undefined, { hd, done }); }
+  const nm = DATA.chars.includes(e) ? boxName(e) : e.title;
+  if (viaSay) say(nm, e, foot, undefined, true, hd, done); else toast(nm, e, false, foot, undefined, { hd, done }); }
 // what a datapad notification says: who it's from on top, what happened, and underneath, anything it filed in your Agent File
 const HUD_SAME = { missions: "Mission Completed", artifacts: "Artifact Recovered", classified: "Classified File Accessed", chapters: "Complete", final: "Final File Completed" };
 const HUD_NAMED = { missions: n => "Mission Completed: " + n, artifacts: n => "Artifact Recovered: " + n, classified: n => "Classified File Accessed: " + n, final: n => "Final File Completed: " + n, chapters: n => n + " complete" };
@@ -1665,7 +1666,15 @@ let charEmbK = null;
 const charEmb = e => { if (!charEmbK) { const n = x => String(x).toLowerCase().replace(/\*/g, "").replace(/\band\b/g, "&").trim(); charEmbK = {};
   Object.keys(EMBLEM_NAMES).forEach(k => { charEmbK[n(EMBLEM_NAMES[k])] = k; }); charEmbK.n = n; } return charEmbK[charEmbK.n(e.title)]; };
 const NAMED_BY = { "cx-nick-fury-s-h-i-e-l-d": ["Iron Man", "Iron Man 2", "Thor", "Captain America: The First Avenger", "The Avengers", "Agents of S.H.I.E.L.D. S1", "Captain America: The Winter Soldier", "Captain Marvel", "Secret Invasion"] };
-const charNamed = e => { if ((state.seen || {})[e.id]) return true; if (NAMED_BY[e.id]) return NAMED_BY[e.id].some(atlSeenT); const k = charEmb(e); return !!k && k !== "eagle" && (!!(state.embOpen || {})[k] || embWon(k)); };
+// you've met a character once you open their box, or watch the title where they're first named on screen (when that's before their own titles)
+const MET_BY = { "cx-black-widow": ["Iron Man 2"], "cx-hawkeye": ["Thor"], "cx-loki-the-tva": ["Thor"], "cx-wanda-vision": ["Avengers: Age of Ultron"],
+  "cx-falcon-winter-soldier": ["Captain America: The Winter Soldier"], "cx-spider-man": ["Captain America: Civil War"], "cx-black-panther-wakanda": ["Captain America: Civil War"], "cx-the-punisher": ["Daredevil S2"] };
+const charMet = e => !!(state.seen || {})[e.id] || (MET_BY[e.id] || []).some(atlSeenT);
+// a box whose name holds something you haven't seen yet goes by the part you know: Loki is Loki until the TVA turns up in his show
+const PART_NAME = { "cx-loki-the-tva": ["Loki", ["Loki S1", "Loki S2"]] };
+const boxName = e => { const p = PART_NAME[e.id]; return p && !p[1].some(atlSeenT) ? p[0] : e.title; };
+const boxNameHtml = e => { const p = PART_NAME[e.id]; return p && !p[1].some(atlSeenT) ? esc(p[0]) : e.titleHtml; };
+const charNamed = e => { if (charMet(e)) return true; if (NAMED_BY[e.id]) return NAMED_BY[e.id].some(atlSeenT); const k = charEmb(e); return !!k && k !== "eagle" && (!!(state.embOpen || {})[k] || embWon(k)); };
 const charAnon = e => String(e.id).startsWith("cx-") && !!CHAR_QUOTES[e.title] && (!charNamed(e) || charMeeting.has(e.id));
 function tileInner(e) { return scoped(e.tileDecor || e.decor) + stampHTML(e) + tbodyHTML(e); }
 function tbodyHTML(e) {
@@ -1674,7 +1683,7 @@ function tbodyHTML(e) {
   const fg = e.fg || "currentColor";
   return `
     <div class="tbody">
-      <div class="hrow"><h2${charAnon(e) ? ' class="anon"' : ""} style="${esc(e.h2)}">${e.titleHtml}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}
+      <div class="hrow"><h2${charAnon(e) ? ' class="anon"' : ""} style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}
       <div class="prog" style="color:${esc(fg)}">
         ${String(e.id).startsWith("cx-") ? "" : `<span>${n} of ${t}</span>`}
         <span class="pbar" style="background:color-mix(in srgb, ${esc(fg)} 22%, transparent)"><span style="width:${pct}%;background:${esc(e.box || fg)}"></span></span>
@@ -2005,7 +2014,7 @@ function renderPanel(e, fresh) {
   panel.innerHTML = `${panelDecor(e)}
     <div class="pin">
       <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}${(openKind === "char" || openKind === "chapter") && DOSSIERS[e.id] ? `<button type="button" class="dbtn" id="btnDossier" style="color:${fg}">${openKind === "char" ? "Profile" : "Log"}</button>` : ""}</div>
-      <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${e.titleHtml}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
+      <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span id="pBar" style="width:${t ? n / t * 100 : 0}%;background:${box}"></span></div>
       <ul class="list">${panelList(e, panelItems(e))}</ul>
@@ -2742,7 +2751,7 @@ function openDossier(id, go) {
     el.setAttribute("style", `${box.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${bc};--sfg:${box.sfg || fg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);--logbg:${bg};--hf:${fontOf(box.h2) || "inherit"}`);
     el.innerHTML = `${panelDecor(box)}<div class="pin">
       <div class="ptop"><button type="button" class="back" id="dBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span class="ltag">${isCh ? esc(name) + " log" : "Character profile"}</span></div>
-      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${box.titleHtml}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
+      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span style="width:${total ? done / total * 100 : 0}%;background:${bc}"></span></div>
       ${rowsDl}
       ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
@@ -6366,7 +6375,7 @@ function renderFile(fresh) {
     if (a.sec === "chapters") { const ch = DATA.chapters.find(c => c.id === a.cid) || {};
       return `<button type="button" class="ach chc${ok ? " done" : ""}${hid ? " cl" : ""}" data-ach="${esc(a.id)}"><span class="st">${pub ? "Ch. " + pub : "Extras"}</span><b>${hid ? '<span class="sl-cl">[ Classified ]</span>' : esc(ch.title || a.t)}</b>${hid ? (tip ? `<small>${esc(tip)}</small>` : "") : `<small>${ok ? "Complete" : esc(tip || "In progress")}</small>`}</button>`; }
     if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b><span class="sl-cl">[ Classified ]</span></b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
-    const nm = a.t, note = ok ? a.d : tip || "In progress";
+    const nm = a.sec === "characters" ? boxName(a.ch) : a.t, note = ok ? a.d : tip || "In progress";
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}">${ok ? `<span class="st">Complete</span>` : ""}<b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
     return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg">${L.map(card).join("")}</div></section>`; };
@@ -6403,7 +6412,7 @@ const EMB_UNLOCK = {"avengers": ["The Avengers"], "arc": ["Iron Man", "Iron Man 
 const EMB_HINT = {"avengers": "Unlocks after The Avengers.", "arc": "Unlocks after any Iron Man film.", "shield": "Unlocks after any Captain America film.", "mjolnir": "Unlocks after any Thor film.", "hourglass": "Unlocks after Black Widow.", "hawkeye": "Unlocks after Hawkeye.", "gamma": "Unlocks after The Incredible Hulk.", "hala": "Unlocks after Captain Marvel or The Marvels.", "antman": "Unlocks after any Ant-Man film.", "starlord": "Unlocks after any Guardians of the Galaxy title.", "spider": "Unlocks after any Spider-Man film of this Earth.", "claws": "Unlocks after Black Panther, Wakanda Forever or Eyes of Wakanda.", "agamotto": "Unlocks after either Doctor Strange film.", "mind": "Unlocks after WandaVision or VisionQuest.", "redstar": "Unlocks after The Falcon and the Winter Soldier.", "loki": "Unlocks after either season of Loki.", "bolt": "Unlocks after Thunderbolts*.", "four": "Unlocks after The Fantastic Four: First Steps.", "dd": "Unlocks after any season of Daredevil.", "rings": "Unlocks after Shang-Chi and the Legend of the Ten Rings.", "kamala": "Unlocks after Ms. Marvel.", "defenders": "Unlocks after The Defenders.", "skull": "Unlocks after any Punisher title.", "eternals": "Unlocks after Eternals.", "moon": "Unlocks after Moon Knight.", "bloodstone": "Unlocks after Werewolf by Night.", "watcher": "Unlocks after What If...?", "verse": "Unlocks after any Sony Spider-Man film.", "xmen": "Unlocks after any FoX-Men film.", "tva": "Unlocks after any Pruned Timelines title.", "incursion": "Unlocks when the Incursions begin."};
 // an insignia is yours from its own titles, or from opening its character's box: the moment you meet them, their name, insignia and line in Paths
 // all turn up together
-const embBoxOpened = k => DATA.chars.some(c => (state.seen || {})[c.id] && charEmb(c) === k);
+const embBoxOpened = k => DATA.chars.some(c => charEmb(c) === k && charMet(c));
 const embWon = k => embBoxOpened(k) || (k === "incursion" ? incOpen() : k === "tva" ? DATA.chapters.find(c => c.id === "ch-pruned-timelines").items.some(i => atlSeenT(i.t)) : !EMB_UNLOCK[k] || EMB_UNLOCK[k].some(atlSeenT));
 const embOpen = k => k === state.avatar || !!(state.embOpen || {})[k] || embWon(k);
 // once an insignia is unlocked it stays unlocked, even if you uncheck its titles later (only Reset datapad clears it)
@@ -6415,7 +6424,8 @@ function embAck() { const A = state.embAck = state.embAck || {}; embNew().forEac
 const embNew = () => { if (!state.embSeen) state.embSeen = Object.fromEntries(Object.keys(EMBLEMS).filter(embOpen).map(k => [k, 1])); return Object.keys(EMBLEMS).filter(k => embOpen(k) && !state.embSeen[k]); };
 // a locked one: tap it 5 times for its name, 5 more for what unlocks it
 const embTaps = {};
-const embCell = k => embOpen(k) ? `<button type="button" data-ava="${k}"${(state.embSeen || {})[k] ? "" : ' class="nw"'} aria-pressed="${state.avatar === k}"><span class="hf-avr">${embHTML(k)}</span><small>${esc(EMBLEM_NAMES[k])}</small></button>`
+const embName = k => { const e = DATA.chars.find(c => charEmb(c) === k); return e ? boxName(e) : EMBLEM_NAMES[k]; };
+const embCell = k => embOpen(k) ? `<button type="button" data-ava="${k}"${(state.embSeen || {})[k] ? "" : ' class="nw"'} aria-pressed="${state.avatar === k}"><span class="hf-avr">${embHTML(k)}</span><small>${esc(embName(k))}</small></button>`
   : `<button type="button" class="lk" data-lk="${k}" aria-label="Locked insignia"><span class="hf-avr"><b>?</b></span><small>${(embTaps[k] || 0) >= 5 ? esc(EMBLEM_NAMES[k]) : '<span class="sl-cl">[ Classified ]</span>'}</small></button>`;
 function avaPick() {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) { pk.remove(); return; }
@@ -9533,12 +9543,13 @@ let mapOpen = false, mapBuilt = false, mapFocusI = null;
 const MV = { s: 1, tx: 0, ty: 0 };
 // a line in Paths keeps its character's name back until you've met them, the same as their box, their insignia and their Agent File card
 const mapAnon = n => { const e = DATA.chars.find(c => c.title === n); return !!e && (charAnon(e) || charHidden(e)); };
+const mapName = n => { const e = DATA.chars.find(c => c.title === n); return e ? boxName(e) : n; };
 function buildMap() {
   const M = MAP, v = document.getElementById("mapView");
   const bands = M.years.map((y, i) => (i % 2 === 0 ? `<rect x="${y.x0 - 20}" y="0" width="${y.x1 - y.x0 + 40}" height="${M.h}" fill="#FFFFFF" opacity=".035"/>` : "")
     + `<text class="yrl" x="${(y.x0 + y.x1) / 2}" y="28" text-anchor="middle">${y.y}</text>`).join("");
   const heads = M.cols.map((c, ci) => { const ty = M.top - 22; return `<text class="ttl" data-c="${ci}" x="${c.x + 2}" y="${ty}" transform="rotate(-55 ${c.x + 2} ${ty})">${esc(tnY(c.t))}</text>`; }).join("");
-  const names = M.rows.map((r, ri) => mapAnon(r.n) ? `<text class="rname anon" data-r="${ri}" x="14" y="${r.y + 4.5}">[ CLASSIFIED ]</text>` : `<text class="rname" data-r="${ri}" x="14" y="${r.y + 4.5}" fill="${r.c}">${esc(r.n)}</text>`).join("");
+  const names = M.rows.map((r, ri) => mapAnon(r.n) ? `<text class="rname anon" data-r="${ri}" x="14" y="${r.y + 4.5}">[ CLASSIFIED ]</text>` : `<text class="rname" data-r="${ri}" x="14" y="${r.y + 4.5}" fill="${r.c}">${esc(mapName(r.n))}</text>`).join("");
   // each character's line weaves in to meet the others at a shared title, then back out to its own lane
   const lanes = M.rows.map((r, ri) => `<g class="lane" data-r="${ri}"><path class="lhit" d="${r.d}" fill="none" stroke="transparent" stroke-width="16"/>`
     + `<path class="lline" d="${r.d}" fill="none" stroke="${r.c}" stroke-width="3" stroke-linecap="round"${r.pruned ? ' stroke-dasharray="6 5"' : ""}/>`
@@ -9596,7 +9607,7 @@ function mapPopup(ci, px, py) {
   if (!pop0.hidden && mapPopCol === ci) { pop0.hidden = true; mapPopCol = null; return; }
   mapPopCol = ci;
   const c = MAP.cols[ci], pop = document.getElementById("mapPop"), panelR = document.getElementById("mapPanel").getBoundingClientRect();
-  pop.innerHTML = `<h4>${esc(tnY(c.t))}</h4><div class="yr">${esc(c.yr)}</div><ul>${c.m.map(r => { const l = MAP.rows[r]; return `<li><button type="button" data-li="${r}"><i style="background:${l.c}"></i>${mapAnon(l.n) ? '<span class="sl-cl">[ Classified ]</span>' : esc(l.n)}</button></li>`; }).join("")}</ul>`;
+  pop.innerHTML = `<h4>${esc(tnY(c.t))}</h4><div class="yr">${esc(c.yr)}</div><ul>${c.m.map(r => { const l = MAP.rows[r]; return `<li><button type="button" data-li="${r}"><i style="background:${l.c}"></i>${mapAnon(l.n) ? '<span class="sl-cl">[ Classified ]</span>' : esc(mapName(l.n))}</button></li>`; }).join("")}</ul>`;
   pop.hidden = false;
   const w = pop.offsetWidth, h = pop.offsetHeight;
   pop.style.left = Math.max(8, Math.min(panelR.width - w - 8, px - w / 2)) + "px";
@@ -9642,7 +9653,7 @@ function mapHide() {
 }
 function openMap() {
   // a multiverse character's line shows once their box is revealed, or once you've watched any of their titles from their Extras chapter
-  const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("") + "|" + DATA.chars.map(c => mapAnon(c.title) ? 1 : 0).join("");   // and redrawn when someone's name turns up
+  const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("") + "|" + DATA.chars.map(c => mapAnon(c.title) ? 1 : boxName(c) !== c.title ? 2 : 0).join("");   // and redrawn when someone's name turns up
   if (!mapBuilt || sig !== mapSig) { MAP = mapData(hide); mapSig = sig; mapFocusI = null; buildMap(); }
   document.getElementById("mapPanel").hidden = false; mapOpen = true; document.body.style.overflow = "hidden";
   pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true }); mapGrow();
