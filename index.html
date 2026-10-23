@@ -5822,23 +5822,43 @@ function sprayPaint() {
 /* ---------- Studio intro: hold the main title. The lights go down as in a cinema; once they're down, comic pages fade in and flip past in red,
    then the title lands, and the lights come back up. Let go before they're down and they come straight back up ---------- */
 let studioOn = false;
-// a comic page's panels: the page is split again and again, straight across or on a slant, always the biggest panel next, until it's 4 to 7 panels
-// of different sizes and shapes that fill it, with even gutters between them. Each panel is a quad: top left, top right, bottom right, bottom left
+// a comic page laid out the way Marvel lays them out: tiers across the page with one to three panels each, widescreen strips a third or a quarter
+// of the page tall, a full-page splash (sometimes with an inset), a big panel over a row of small ones, or one tall panel down the side with others
+// stacked beside it. About one page in four cuts one gutter on a slant, for the action. Every panel is a quad: top left, top right, bottom right, bottom left
 function comicPanels(w, h) {
-  const m = Math.min(w, h) * .05, G = 8, n = 4 + Math.floor(Math.random() * 4), ps = [[[m, m], [w - m, m], [w - m, h - m], [m, h - m]]];
-  const lerp = (a, b, u) => [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u], len = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
-  const area = q => Math.abs(q.reduce((s, p, i) => { const nx = q[(i + 1) % 4]; return s + p[0] * nx[1] - nx[0] * p[1]; }, 0)) / 2;
-  while (ps.length < n) {
-    ps.sort((a, b) => area(b) - area(a));
-    const [A, B, C, D] = ps.shift(), wq = len(A, B), hq = len(A, D);
-    const across = hq > wq * 1.15 ? true : wq > hq * 1.15 ? false : Math.random() < .5;   // cut a tall panel across, a wide one down
-    const u = .34 + Math.random() * .32, sl = Math.random() < .35 ? (Math.random() - .5) * .22 : 0, u1 = u + sl, u2 = u - sl;
-    if (across) { const e1 = G / 2 / hq, e2 = G / 2 / len(B, C);
-      ps.push([A, B, lerp(B, C, u2 - e2), lerp(A, D, u1 - e1)], [lerp(A, D, u1 + e1), lerp(B, C, u2 + e2), C, D]); }
-    else { const e1 = G / 2 / wq, e2 = G / 2 / len(D, C);
-      ps.push([A, lerp(A, B, u1 - e1), lerp(D, C, u2 - e2), D], [lerp(A, B, u1 + e1), B, C, lerp(D, C, u2 + e2)]); }
+  const m = Math.min(w, h) * .05, G = 9, X0 = m, X1 = w - m, Y0 = m, Y1 = h - m, R = Math.random, pick = a => a[Math.floor(R() * a.length)];
+  const split = (n, jit) => { const v = Array.from({ length: n }, () => 1 + (R() - .5) * jit), t = v.reduce((a, b) => a + b, 0); let c = 0; return v.slice(0, -1).map(x => (c += x / t)); };
+  // a box of tiers: each tier is a row of panels. Tier lines and panel lines may lean (dy, dx): the gutter is cut on a slant
+  const tiers = (x0, x1, y0, y1, rows, out, lean) => {
+    const cuts = split(rows.length, .35).map(f => y0 + (y1 - y0) * f), ys = [y0, ...cuts, y1], tl = lean && lean.t != null ? lean.t : -9;
+    rows.forEach((cols, r) => {
+      const ya = ys[r], yb = ys[r + 1], da = r - 1 === tl ? lean.d : 0, db = r === tl ? lean.d : 0;   // a tier line that leans: left end up, right end down
+      const top = x => (r ? ya + G / 2 : ya) + da * ((x - x0) / (x1 - x0) - .5), bot = x => (r < rows.length - 1 ? yb - G / 2 : yb) + db * ((x - x0) / (x1 - x0) - .5);
+      const xs = [x0, ...split(cols, .6).map(f => x0 + (x1 - x0) * f), x1], vl = lean && lean.r === r ? lean.s : 0;
+      for (let c = 0; c < cols; c++) {
+        const L = c ? xs[c] + G / 2 : xs[c], Rr = c < cols - 1 ? xs[c + 1] - G / 2 : xs[c + 1], sl = c ? vl : 0, sr = c < cols - 1 ? vl : 0;
+        out.push([[L + sl, top(L + sl)], [Rr + sr, top(Rr + sr)], [Rr - sr, bot(Rr - sr)], [L - sl, bot(L - sl)]]);
+      }
+    });
+    return out;
+  };
+  const kind = pick(["tiers", "tiers", "tiers", "wide", "wide", "big", "big", "tall", "splash"]), out = [], inset = [];
+  if (kind === "splash") {   // one panel for the whole page, sometimes with a small one set into a corner
+    out.push([[X0, Y0], [X1, Y0], [X1, Y1], [X0, Y1]]);
+    if (R() < .6) { const iw = (X1 - X0) * .38, ih = (Y1 - Y0) * .2, ix = R() < .5 ? X0 + 14 : X1 - 14 - iw, iy = R() < .5 ? Y0 + 14 : Y1 - 14 - ih; inset.push([[ix, iy], [ix + iw, iy], [ix + iw, iy + ih], [ix, iy + ih]]); }
+    return { out, inset };
   }
-  return ps;
+  const slant = R() < .27, n = kind === "wide" ? (R() < .5 ? 3 : 4) : 3;
+  if (kind === "wide") tiers(X0, X1, Y0, Y1, Array(n).fill(1), out, slant ? { t: Math.floor(R() * (n - 1)), d: (R() < .5 ? -1 : 1) * h * .06 } : null);
+  else if (kind === "tiers") { const rows = [pick([1, 2, 2, 3]), pick([2, 2, 3]), pick([1, 2, 3])]; const tr = Math.floor(R() * 3);
+    tiers(X0, X1, Y0, Y1, rows, out, slant ? (R() < .5 ? { t: Math.floor(R() * 2), d: (R() < .5 ? -1 : 1) * h * .05 } : { r: tr, s: (R() < .5 ? -1 : 1) * w * .05 }) : null); }
+  else if (kind === "big") { const top = R() < .6, bigH = .52 + R() * .1, yc = top ? Y0 + (Y1 - Y0) * bigH : Y1 - (Y1 - Y0) * bigH;
+    tiers(X0, X1, Y0, yc - G / 2, top ? [1] : [pick([2, 3])], out, null); tiers(X0, X1, yc + G / 2, Y1, top ? [pick([2, 3])] : [1], out, null); }
+  else {   // tall: one panel the full height of the page down one side, two or three stacked beside it
+    const left = R() < .5, xc = left ? X0 + (X1 - X0) * (.38 + R() * .08) : X1 - (X1 - X0) * (.38 + R() * .08);
+    out.push(left ? [[X0, Y0], [xc - G / 2, Y0], [xc - G / 2, Y1], [X0, Y1]] : [[xc + G / 2, Y0], [X1, Y0], [X1, Y1], [xc + G / 2, Y1]]);
+    tiers(left ? xc + G / 2 : X0, left ? X1 : xc - G / 2, Y0, Y1, Array(pick([2, 3, 3])).fill(1), out, null); }
+  return { out, inset };
 }
 function studioIntro(dim) {
   if (studioOn) return;
@@ -5846,20 +5866,21 @@ function studioIntro(dim) {
   const o = document.createElement("div"); o.className = "fx-studio"; document.body.appendChild(o);
   o.innerHTML = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="stuHt" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="1.4" fill="rgba(0,0,0,.2)"/></pattern></defs></svg>`;
   const COLORS = ["#E9B949", "#2E5C9E", "#B8323A", "#3A3A40", "#E8DFC9", "#4C8A5E", "#D9823B", "#7A5596"];
-  const N = 14, pages = [], pw = innerWidth * 1.04, ph = innerHeight * 1.04;
+  const N = 18, pages = [], pw = innerWidth * 1.04, ph = innerHeight * 1.04;
   for (let k = 0; k < N; k++) {   // a comic page, every inch of it panels, each its own colour with halftone; the stack sits with the first page on top
     const pg = document.createElement("div"); pg.className = "pg"; pg.style.zIndex = String(N - k);
-    let last = -1;
-    pg.innerHTML = `<svg width="${pw}" height="${ph}" viewBox="0 0 ${pw} ${ph}" aria-hidden="true">${comicPanels(pw, ph).map(q => {
-      let c = Math.floor(Math.random() * COLORS.length); if (c === last) c = (c + 1) % COLORS.length; last = c;
+    const { out, inset } = comicPanels(pw, ph);
+    const prev = [], poly = (q, edge) => { let c = Math.floor(Math.random() * COLORS.length); while (prev.includes(c)) c = (c + 1) % COLORS.length; prev.unshift(c); prev.length = Math.min(prev.length, 2);
       const pts = q.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
-      return `<polygon points="${pts}" fill="${COLORS[c]}"/><polygon points="${pts}" fill="url(#stuHt)" stroke="rgba(20,20,20,.8)" stroke-width="2.5" stroke-linejoin="round"/>`; }).join("")}</svg>`;
+      return `${edge ? `<polygon points="${pts}" fill="none" stroke="#EFE6D2" stroke-width="12" stroke-linejoin="round"/>` : ""}<polygon points="${pts}" fill="${COLORS[c]}"/><polygon points="${pts}" fill="url(#stuHt)" stroke="rgba(20,20,20,.8)" stroke-width="2.5" stroke-linejoin="round"/>`; };
+    pg.innerHTML = `<svg width="${pw}" height="${ph}" viewBox="0 0 ${pw} ${ph}" aria-hidden="true">${out.map(q => poly(q)).join("")}${inset.map(q => poly(q, true)).join("")}</svg>`;
     pg.appendChild(document.createElement("b"));
     o.appendChild(pg); pages.push(pg);
   }
-  o.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dim ? 700 : 300, fill: "both" });   // out of the dark
+  if (dim) { dim.getAnimations().forEach(a => a.pause()); dim.animate([{ opacity: getComputedStyle(dim).opacity }, { opacity: 1 }], { duration: 400, fill: "forwards" }); }   // all the way to black
+  o.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dim ? 1800 : 300, easing: "ease-in", fill: "both" });   // out of the dark, the pages already turning as it comes up
   // each page curls over from the right edge to the left: it bends as it lifts, shades as it turns, and the next is already underneath
-  let t = 450, gap = 420;
+  let t = dim ? 120 : 450, gap = dim ? 470 : 420;
   pages.forEach((pg, k) => {
     const dur = Math.max(560, 1000 - k * 32);
     pg.animate([{ transform: "rotateY(0deg) skewY(0deg) scaleX(1)" }, { transform: "rotateY(-38deg) skewY(-3deg) scaleX(.97)", offset: .35 }, { transform: "rotateY(-92deg) skewY(-1deg) scaleX(.9)" }],
