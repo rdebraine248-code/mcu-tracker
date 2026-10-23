@@ -9489,18 +9489,14 @@ function newsPlay(all, msg, src) {
   w.hidden = false; w.classList.toggle("still", REDUCED); void w.offsetWidth; w.classList.add("in");
   if (REDUCED) {   // no scrolling: one headline at a time
     let i = 0, tm = 0; const show = () => { if (i === batch.length) { newsStop(true); return; } sp.textContent = batch[i++][2]; sp.style.animation = "none"; void sp.offsetWidth; sp.style.animation = ""; tm = setTimeout(show, 4200); };
-    newsRun = { batch, cancel: () => clearTimeout(tm), pause: () => clearTimeout(tm), play: () => { tm = setTimeout(show, 4200); } }; show(); return;
+    newsRun = { batch, cancel: () => clearTimeout(tm) }; show(); return;
   }
   sp.innerHTML = batch.map(b => esc(b[2])).join('<i aria-hidden="true">&#9670;</i>');
   const from = run.clientWidth, to = -sp.scrollWidth, a = sp.animate([{ transform: `translateX(${from}px)` }, { transform: `translateX(${to}px)` }], { duration: (from - to) / 75 * 1000, delay: 450, easing: "linear", fill: "both" });
-  newsRun = { batch, cancel: () => a.cancel(), pause: () => a.pause(), play: () => a.play() }; a.onfinish = () => { if (newsRun && newsRun.cancel) newsStop(true); };
+  newsRun = { batch, cancel: () => a.cancel() }; a.onfinish = () => { if (newsRun && newsRun.cancel) newsStop(true); };
 }
-// a box, a log or a question opening while a story runs: the ticker slides away mid-sentence and picks up from the same word when you're back
-function newsPause() { if (!newsRun || newsRun.paused) return; newsRun.paused = true; newsRun.pause(); const w = document.getElementById("whih"); w.classList.remove("in");
-  setTimeout(() => { if (newsRun && newsRun.paused) w.hidden = true; }, 420); }   // gone, not just slid down: a box hides the dock it would slide behind
-function newsResume() { if (!newsRun || !newsRun.paused) return; newsRun.paused = false; const w = document.getElementById("whih"); w.hidden = false; void w.offsetWidth; w.classList.add("in"); setTimeout(() => { if (newsRun && !newsRun.paused) newsRun.play(); }, 400); }
 function newsTick() {
-  if (newsRun) { if (!newsHome()) newsPause(); else newsResume(); return; }
+  if (newsRun) { if (!newsHome()) newsStop(false); return; }
   if (!newsHome()) { newsCalm = 0; return; }
   if (++newsCalm < 2) return;   // let the page settle for a moment first
   const m = msgPending(); if (m.length) { const h = m[0][4]; newsPlay(m.filter(x => x[4] === h), true, h ? "hack" : null); return; }   // a hacked one breaks in on its own
