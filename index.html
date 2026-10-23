@@ -2849,8 +2849,7 @@ function dPlay(el, sc, mark) {
     if (!n.isConnected || !cov) { k++; next(); return; }
     // every entry comes to the same spot, about a third of the way down the screen, even if part of it was already showing
     const r = host.getBoundingClientRect(), sr = sc.getBoundingClientRect();
-    // once you've scrolled away yourself, it leaves you there: the next entry records when it's on screen, and waits until you scroll to it
-    if (el._free && (r.bottom < sr.top + 40 || r.top > sr.bottom - 60)) { cur = { tm: setTimeout(next, 250) }; return; }
+    // once you've scrolled away yourself, it leaves you there and keeps recording the rest where they are, on screen or not; a tap still skips ahead
     k++;
     const to = el._free ? sc.scrollTop : Math.max(0, Math.min(sc.scrollHeight - sc.clientHeight, Math.round(sc.scrollTop + (r.top - sr.top) - sc.clientHeight * .32))), moves = Math.abs(to - sc.scrollTop) > 3;
     if (moves) glide(sc, to, REDUCED ? 0 : 560);
