@@ -128,7 +128,8 @@ button{ font:inherit; color:inherit; }
 .tile:focus-visible{ box-shadow:0 0 0 3px var(--shell),0 0 0 6px var(--ink) !important; }
 .hrow{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
 /* a character's profile carries their insignia at the right of their name */
-.hrow .pemb{ flex:none; margin-left:auto; align-self:flex-start; } .hrow .pemb .hf-avr{ display:block; width:46px; height:46px; } .hrow .pemb .hf-avr .emb{ transform:scale(.62); }
+.dossier .pwm{ position:absolute; top:34px; right:-58px; width:64px; height:64px; transform:scale(3.6); transform-origin:100% 0; opacity:.11; pointer-events:none; z-index:0; }
+.dossier .pwm .emb{ filter:none !important; }
 .hrow .kick{ flex-shrink:0; font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:2px; opacity:.9; }
 .hrow.big{ margin-top:26px; }
 .hrow.big .kick{ font-size:13px; }
@@ -2751,9 +2752,11 @@ function openDossier(id, go) {
     const fg = box.fg || "#111", bc = box.box || fg, bg = box.logbg || (String(box.style).match(/background-color:\s*([^;]+)/) || [])[1] || (String(box.style).match(/#[0-9A-Fa-f]{6}|rgb\([^)]*\)/) || [])[0] || "#111";
     el.className = "dossier plog" + (box.cls ? " " + box.cls : "");
     el.setAttribute("style", `${box.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${bc};--sfg:${box.sfg || fg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);--logbg:${bg};--hf:${fontOf(box.h2) || "inherit"}`);
-    el.innerHTML = `${panelDecor(box)}<div class="pin">
+    // a character's insignia sits large and faint behind the top of their profile, cut off by the edge, like a mark printed into the record
+    const wm = !isCh && charEmb(box) && embOpen(charEmb(box)) ? `<span class="pwm" aria-hidden="true">${embHTML(charEmb(box))}</span>` : "";
+    el.innerHTML = `${panelDecor(box)}${wm}<div class="pin">
       <div class="ptop"><button type="button" class="back" id="dBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span class="ltag">${isCh ? esc(name) + " log" : "Character profile"}</span></div>
-      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}${!isCh && charEmb(box) && embOpen(charEmb(box)) ? `<span class="pemb" aria-hidden="true"><span class="hf-avr">${embHTML(charEmb(box))}</span></span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
+      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span style="width:${total ? done / total * 100 : 0}%;background:${bc}"></span></div>
       ${rowsDl}
       ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
@@ -2767,7 +2770,7 @@ function openDossier(id, go) {
   const sc = SG ? el.querySelector(".dscroll") : el; sc.scrollTop = 0;
   if (!SG) el.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: "ease-out" });
   if (isCh) { const v = el.querySelector(".pin"); if (v) v.insertAdjacentHTML("beforeend", `<button type="button" class="sl-more" data-slgo="${esc(id)}">Open the full Story log</button>`); }
-  pembPlace(el); if (document.fonts) document.fonts.ready.then(() => pembPlace(el));
+
   dPlay(el, sc, key => dMark(seen, key));
 }
 // an entry's seen mark: a box's own, or (from the Story log, keyed "box|entry") the box it belongs to, so it's read once wherever you read it
@@ -2806,14 +2809,6 @@ function dPlay(el, sc, mark) {
   if (news.length) cur = { tm: setTimeout(next, 380) };
 }
 let dRun = 0;
-// a profile's insignia badge lines up with the middle of the capital letters on the first line of the name
-function pembPlace(el) {
-  const b = el.querySelector(".hrow .pemb"), h = b && b.parentElement.querySelector("h2"); if (!b || !h) return;
-  const rg = document.createRange(); rg.selectNodeContents(h); const l1 = rg.getClientRects()[0]; if (!l1) return;
-  const cs = getComputedStyle(h), g = document.createElement("canvas").getContext("2d"); g.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-  const m = g.measureText("H"), base = l1.top + (l1.height + m.fontBoundingBoxAscent - m.fontBoundingBoxDescent) / 2, mid = base - m.actualBoundingBoxAscent / 2;
-  b.style.marginTop = "0px"; const top = b.getBoundingClientRect().top; b.style.marginTop = Math.round(mid - b.offsetHeight / 2 - top) + "px";
-}
 // leaving a log you opened: everything it was showing you counts as read, recorded in or not
 function dReadRest(el) { if (!el._mark) return; el.querySelectorAll(".dnew").forEach(n => { if (n.querySelector(".dcover") && n.dataset.k) el._mark(n.dataset.k); }); el._mark = null; persist(); }
 /* ---------- the Story log: every title you've watched, in any list, under its chapter, a page per Act. A chapter keeps its name hidden
