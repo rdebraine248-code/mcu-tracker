@@ -3653,7 +3653,8 @@ function renderAtlas() {
     if (z) { haptic(8); const W = map.clientWidth, H = map.clientHeight, f = +z.dataset.atlz;
       if (f) atlZoomAt(map, f > 0 ? 1.9 : 1 / 1.9, W / 2, H / 2, 260); else atlTo(map, { k: atlKs(map).fit, x: 0, y: 0 }, 320); return; }
     if (moved) return;
-    const b = ev.target.closest(".atl-pin"); if (b) { if (ev.target.closest(".atl-pin span") || atlView === "incursions" || !atlSpread(map, b.dataset.p)) atlSelect(map, b.dataset.p); return; }
+    // a place opened from the map while it's zoomed out flies in to it, as from the list, on every map (Incursions and Beyond have no clusters to spread)
+    const b = ev.target.closest(".atl-pin"); if (b) { if (ev.target.closest(".atl-pin span") || atlView === "incursions" || !atlSpread(map, b.dataset.p)) atlSelect(map, b.dataset.p, atlT.k < atlKs(map).fit * 1.4); return; }
     if (atlSel) atlClose(map);
   });
   map.addEventListener("dblclick", ev => { if (ev.target.closest(".atl-zoom")) return; const [sx, sy] = local(ev.clientX, ev.clientY); atlZoomAt(map, 2, sx, sy, 260); });
