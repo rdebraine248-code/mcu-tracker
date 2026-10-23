@@ -191,7 +191,7 @@ button{ font:inherit; color:inherit; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
 .ptop{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
 .pquote{ transition:opacity 1.8s cubic-bezier(.22,.61,.36,1); }
-.tile h2.anon{ visibility:hidden; }   /* a box not yet met keeps its name's space, empty: it opens straight away, so nothing on it says Classified */
+.tile h2.anon, #panelTitle.anon{ visibility:hidden; }   /* a box not yet met keeps its name's space, empty: it opens straight away, so nothing on it says Classified */
 .pquote.pending{ opacity:0; }
 .pquote{ margin:0; text-align:center; font-size:15px; line-height:1.35; font-style:italic; opacity:.9; text-transform:none; letter-spacing:.2px; }
 /* quotes and titles can be held for easter eggs: pressing them shouldn't select text */
@@ -627,7 +627,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .fx-noir{ position:fixed; inset:0; z-index:96; pointer-events:none; -webkit-backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); backdrop-filter:grayscale(1) contrast(1.3) brightness(.82); background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.6)); }
 .fx-bloodstone{ position:fixed; z-index:98; pointer-events:none; width:64px; height:64px; margin:-32px 0 0 -32px; filter:drop-shadow(0 0 6px #FF1A2A) drop-shadow(0 0 16px rgba(255,26,42,.7)); }
 .fx-bloodstone .emb{ transform:scale(1.15); }
-.fx-bloodstone.fx-wm{ left:0; top:0; margin:0; transform-origin:0 0; filter:none; } .fx-bloodstone.fx-wm .emb{ transform-origin:50% 50%; }
+.fx-bloodstone.fx-wm{ left:0; top:0; margin:0; transform-origin:0 0; filter:none; } .fx-bloodstone.fx-wm .emb{ transform:none; transform-origin:50% 50%; }
 .fx-tip{ position:absolute; display:block; }
 .fx-tip.boom{ left:146px; top:-5px; width:15px; height:13px; border-radius:2px 3px 3px 2px; background:linear-gradient(180deg,#FF7A5A,#D02A1C 50%,#7E1009); box-shadow:inset 3px 0 0 #3A3A40; }
 .fx-tip.boom::after{ content:""; position:absolute; left:15px; top:1px; border-left:9px solid #4A4C54; border-top:5.5px solid transparent; border-bottom:5.5px solid transparent; }
@@ -2605,6 +2605,7 @@ panel.addEventListener("pointerdown", ev => {
   }
   if (q && box && QUOTE_EGGS[box]) act = () => QUOTE_EGGS[box](q);
   else if (h && bid && TITLE_EGGS[bid]) act = () => TITLE_EGGS[bid](h, x, y);
+  else if (bid === "cx-werewolf-by-night" && !row && wmHit(x, y)) act = () => wolfEgg();
   else if (row && bid && BOX_ROW_EGGS[bid]) act = () => BOX_ROW_EGGS[bid](x, y, row);
   else if (row && ROW_EGGS[row.dataset.t]) { const fn = ROW_EGGS[row.dataset.t]; act = () => fn(x, y, row); }
   const ANY = { "cx-hawkeye": [3000, 1000, arrow], "cx-pruned-characters": [650, 0, () => alioth()], "ch-pruned-timelines": [650, 0, () => alioth()], "cx-the-sony-spider-men": [650, 0, () => sinister()], "cx-eternals": [650, 0, eternals], "cx-black-panther-wakanda": [650, 0, chargeStart], "cx-captain-america": [650, 0, shieldThrow],
@@ -3609,8 +3610,7 @@ function renderAtlas() {
   const rebase = () => { base = { T: { ...atlT }, P: [...ptr.values()] }; };
   // hold a place for its egg: Midtown in New York, New Mexico, Sokovia, Titan, Celestial Island. In the Multiverse, an Earth you hold lifts off and can be dropped on another
   let battleT = 0, battleHeld = false, grab = null;
-  const ATL_HOLD = { "city:Midtown": () => atlCity === "ny" && atlBattle(map), "earth:nm": () => atlBifrost(map), "earth:sokovia": () => atlSokovia(map), "cosmos:titan": () => atlMoon(map), "earth:indianocean": () => atlSeenT("Eternals") && atlTiamut(map),
-    "beyond:dark": () => atlSeenT("Doctor Strange") && atlDormammu(map), "beyond:duat": () => atlSeenT("Moon Knight") && atlDuat(map), "beyond:witches": () => atlSeenT("Agatha All Along") && atlWitches(map) };
+  const ATL_HOLD = { "city:Midtown": () => atlCity === "ny" && atlBattle(map), "earth:nm": () => atlBifrost(map), "earth:sokovia": () => atlSokovia(map), "cosmos:titan": () => atlMoon(map), "earth:indianocean": () => atlSeenT("Eternals") && atlTiamut(map) };
   map.addEventListener("pointerdown", ev => { battleHeld = false; clearTimeout(battleT); const pin = ev.target.closest(".atl-pin");
     if (!pin) { if (atlView === "cosmos" && !ev.target.closest(".atl-zoom")) { const [x, y] = local(ev.clientX, ev.clientY);
       battleT = setTimeout(() => { if (!moved && ptr.size === 1) { battleHeld = true; haptic(12); atlJump(map, x, y); } }, 650); } return; }
@@ -6144,7 +6144,6 @@ const EGGS = [
   ["radar", "World on fire", "He can hear your heartbeat.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
   ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
   ["mirror", "Mirror Dimension", "Strange things fold.", "Hold the Doctor Strange title.", 1],
-  ["bargain", "I've come to bargain", "Again. And again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
   ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap anywhere in Spider-Man's box.", 1],
   ["chi", "Chi", "An immortal weapon.", "Hold Iron Fist S1 or S2.", 1],
   ["defenders", "Four colors", "Red, yellow, blue, green. The city at night.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
@@ -6155,10 +6154,9 @@ const EGGS = [
   ["tenrings", "Ten rings", "They're already on his box.", "In the Shang-Chi box, tap one of the rings at the top.", 2],
   ["eternals", "The Uni-Mind", "Their power, joined as one.", "Hold anywhere in the Eternals box.", 2],
   ["moon", "Fractured", "Who's in control?", "Hold the name in the Moon Knight box.", 2],
-  ["scales", "Weighing the heart", "Taweret keeps the scales.", "After Moon Knight, in the Atlas Beyond, hold the Duat.", 2],
   ["doodles", "Doodles", "Kamala draws what she dreams.", "Draw on the name in The Champions box.", 2],
   ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box or the Beyond the MCU chapter.", 2],
-  ["werewolf", "Bloodstone", "Something red sets it off.", "Hold the name in the Werewolf by Night box.", 2],
+  ["werewolf", "Bloodstone", "Something red sets it off.", "Hold the Bloodstone watermark in the Werewolf by Night box.", 2],
   ["sinister", "Hello, Peter.", "Five old enemies.", "Hold anywhere in The Sony Spider-Men box until you've seen all five villains.", 2],
   ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box.", 2],
   ["glorious", "Glorious purpose", "Hold on to them, then pull them together.", "In the Loki & The TVA box, hold your finger still for a moment, then pull up to the name.", 2],
@@ -6168,7 +6166,6 @@ const EGGS = [
   ["variant", "Variant", "Look at the map.", "Hold a character's name in the Character Map.", 2],
   ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers.", 2],
   ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box or the Pruned Timelines chapter.", 2],
-  ["witchroad", "The Witches' Road", "Down, down, down the road.", "After Agatha All Along, in the Atlas Beyond, hold the Witches' Road.", 2],
   ["herald", "The Herald", "Something silver comes first.", "Hold The Fantastic Four: First Steps.", 2],
   ["fantastic", "Fantastic", "Four taps, four powers.", "Tap the name in The Fantastic Four box four times, until you've seen all four powers.", 2],
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
@@ -6989,44 +6986,29 @@ function strangeRunes() {
   haptic([10, 40, 10, 40, 30]);
 }
 
-/* ---------- Werewolf by Night: hold the name. Black and white, and the faint Bloodstone watermark behind his name wakes in full colour, glowing; claws tear
-   the screen, then a red burst out of the stone and colour comes back. Two takes: "draw" fills it in where it sits, "shrink" pulls it down into the gem ---------- */
+/* ---------- Werewolf by Night: hold the Bloodstone watermark (or his name). Black and white, and the watermark lifts off, shrinking down to the middle of the
+   screen as it floods with colour, the gem in its gold setting. It beats, claws tear the screen, a red burst brings the colour back, and the gem
+   drifts back up into the watermark, landing exactly where and as big as it was ---------- */
 let wolfOn = false;
-function wolfEgg(h) {
+function wolfEgg() {
   if (REDUCED) { found("werewolf"); return; }
   if (wolfOn) return; wolfOn = true;
-  const W = innerWidth, H = innerHeight, T = 5000, V = window.WOLF_V || "draw";
-  const noir = veil("fx-noir", "", [{ opacity: 0 }, { opacity: 1, offset: .08 }, { opacity: 1, offset: .7 }, { opacity: 0, offset: .78 }, { opacity: 0 }], T);
-  // the watermark, lifted out of the box onto the screen exactly where it sits, so it can wake in colour above the black and white
-  const wm = (openEntry && panel.querySelector(".pwm")) || null, r = wm ? wm.getBoundingClientRect() : { left: W - 230, top: 80, width: 230, height: 230 }, s0 = r.width / 64;
+  const W = innerWidth, H = innerHeight, T = 5000, cx = W / 2, cy = H * .42, BIG = 1.15;
+  veil("fx-noir", "", [{ opacity: 0 }, { opacity: 1, offset: .08 }, { opacity: 1, offset: .7 }, { opacity: 0, offset: .78 }, { opacity: 0 }], T);
+  // the watermark is lifted out of the box onto the screen exactly where it sits, so it can wake in colour above the black and white
+  const wm = panel.querySelector(".pwm"), r = wm ? (wm.querySelector(".emb") || wm).getBoundingClientRect() : { left: W - 230, top: 80, width: 230 }, s0 = r.width / 64;
   const gem = document.createElement("div"); gem.className = "fx-bloodstone fx-wm"; gem.innerHTML = embHTML("bloodstone"); document.body.appendChild(gem);
-  const [gl, ge] = gem.querySelectorAll(".emb > i").length ? [...gem.querySelectorAll(".emb > i")] : [null, null];   // the stone, then its gold setting
-  const at = (x, y, sc) => `translate(${x}px,${y}px) scale(${sc})`, home = at(r.left, r.top, s0), cx = W / 2, cy = H * .42, mid = at(cx - 32 * 1.15, cy - 32 * 1.15, 1.15);
-  if (wm) wm.style.visibility = "hidden";
-  const glowOf = a => `drop-shadow(0 0 ${6 * a}px rgba(255,26,42,${a})) drop-shadow(0 0 ${16 * a}px rgba(255,26,42,${.7 * a}))`;
-  const pulse = [1800, 2150];
-  // where the burst comes from: the stone's centre, wherever it is
-  let bx = r.left + r.width / 2, by = r.top + r.height / 2;
-  if (V === "shrink") { bx = cx; by = cy; }
+  const em = gem.firstElementChild; if (wm) wm.style.visibility = "hidden";
+  const PULSE = [1800, 2150];
   fxRun(T, t => {
-    const back = clamp01((t - T * .74) / (T * .2));   // the stone settles back into a watermark at the end
-    if (V === "draw") {
-      // the gold setting traces itself round, then the stone fills in from its heart; it brightens from a watermark's faintness to full colour
-      const a = clamp01((t - 250) / 1000), b = clamp01((t - 1050) / 600), on = easeIO(clamp01((t - 150) / 1100)) * (1 - back);
-      if (ge) ge.style.webkitMaskImage = ge.style.maskImage = a >= 1 ? "" : `conic-gradient(from -90deg at 50% 50%, #000 ${a * 360}deg, transparent ${a * 360}deg)`;
-      if (gl) gl.style.webkitMaskImage = gl.style.maskImage = b >= 1 ? "" : `radial-gradient(circle at 50% 51%, #000 ${b * 34}px, transparent ${b * 34 + 2}px)`;
-      gem.style.transform = home; gem.style.opacity = .11 + .89 * on; gem.style.filter = glowOf(on);
-    } else {
-      // it lifts off, shrinks and drifts down to the middle, colour flooding in as it goes; at the end it drifts back up and grows into a watermark again
-      const go = easeIO(clamp01((t - 150) / 1100)), ret = easeIO(back), f = go * (1 - ret);
-      const x = r.left + (cx - 32 * 1.15 - r.left) * f, y = r.top + (cy - 32 * 1.15 - r.top) * f, sc = s0 + (1.15 - s0) * f;
-      gem.style.transform = at(x, y, sc); gem.style.opacity = .11 + .89 * f; gem.style.filter = glowOf(f);
-    }
-    // two heartbeats once it's lit
-    const em = gem.firstElementChild; let p = 0; pulse.forEach(pt => { const d = (t - pt) / 300; if (d > 0 && d < 1) p = Math.max(p, Math.sin(d * Math.PI)); });
-    if (em) em.style.transform = `scale(${1.15 * (1 + .1 * p)})`;
+    const f = easeIO(clamp01((t - 150) / 1100)) * (1 - easeIO(clamp01((t - T * .74) / (T * .2))));   // 0 as the watermark, 1 as the gem in the middle
+    const sc = s0 + (BIG - s0) * f, x = r.left + (cx - 32 * BIG - r.left) * f, y = r.top + (cy - 32 * BIG - r.top) * f;
+    let p = 0; PULSE.forEach(pt => { const d = (t - pt) / 300; if (d > 0 && d < 1) p = Math.max(p, Math.sin(d * Math.PI)); });
+    gem.style.transform = `translate(${x}px,${y}px) scale(${sc})`; gem.style.opacity = .11 + .89 * f;
+    gem.style.filter = `drop-shadow(0 0 ${6 * f / sc * BIG}px rgba(255,26,42,${f})) drop-shadow(0 0 ${16 * f / sc * BIG}px rgba(255,26,42,${.7 * f}))`;
+    if (em) em.style.transform = p ? `scale(${1 + .1 * p})` : "";
   }, () => { gem.remove(); if (wm) wm.style.visibility = ""; });
-  pulse.forEach(pt => setTimeout(() => haptic([60, 120, 60]), pt));
+  PULSE.forEach(pt => setTimeout(() => haptic([60, 120, 60]), pt));
   // the claw marks: four ragged tears, ripped in one after another
   const { cv, g } = fxCanvas(), slashes = Array.from({ length: 4 }, (_, k) => {
     const x0 = W * (.62 + k * .1), y0 = H * (.16 + k * .03), x1 = W * (.05 + k * .1), y1 = H * (.78 + k * .03), n = 26;
@@ -7045,9 +7027,9 @@ function wolfEgg(h) {
     });
   }, () => cv.remove());
   setTimeout(() => { fxScope().animate([{ transform: "none" }, { transform: "translate(-7px,5px)" }, { transform: "translate(5px,-3px)" }, { transform: "none" }], { duration: 260 }); haptic([30, 20, 30, 20, 60]); }, 2450);
-  setTimeout(() => {   // the burst: red floods out of the stone and the colour comes back
-    veil("fxl", `z-index:97;background:radial-gradient(circle at ${bx}px ${by}px, rgba(255,60,60,.85), rgba(200,0,20,.55) 35%, rgba(150,0,10,0) 75%)`, [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 900);
-    fxRing(bx, by, Math.hypot(W, H) * .6, "#FF2A2A", 800, 0, 4); burst(bx, by, 40, ["#FF2A2A", "#FF8A8A", "#8A0010"], 160); haptic([140, 30, 200]);
+  setTimeout(() => {   // the burst: red floods out of the gem and the colour comes back
+    veil("fxl", `z-index:97;background:radial-gradient(circle at 50% 42%, rgba(255,60,60,.85), rgba(200,0,20,.55) 35%, rgba(150,0,10,0) 75%)`, [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], 900);
+    fxRing(cx, cy, Math.hypot(W, H) * .6, "#FF2A2A", 800, 0, 4); burst(cx, cy, 40, ["#FF2A2A", "#FF8A8A", "#8A0010"], 160); haptic([140, 30, 200]);
   }, T * .68);
   setTimeout(() => { wolfOn = false; found("werewolf"); }, T);
 }
@@ -7575,133 +7557,6 @@ function atlBifrost(map) {
       g.restore(); g.globalAlpha = 1; g.shadowBlur = 0; }
   }, () => { cv.remove(); atlFxOn = false; found("bifrost"); });
 }
-// Beyond, the Dark Dimension: "Dormammu, I've come to bargain." His realm boils up out of the pin, his eyes open over it, and every time it
-// closes in, the Time Stone's green ring snaps it all back to the start. Three loops, and he gives in
-function atlDormammu(map) {
-  const p = atlPinAt(map, "dark"); if (!p || atlFxOn) return; if (REDUCED) { found("bargain"); return; } atlFxOn = true;
-  const { cv, g, at, dpr } = atlLayer(map, p), LOOP = 1500, N = 3, OUT = 1500, T = LOOP * N + OUT, LINE = "DORMAMMU, I'VE COME TO BARGAIN.";
-  const glow = (x, y, r, c) => { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, c); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); };
-  const text = (s, x, y, a, size, col) => { g.save(); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.globalAlpha = a; g.font = `${size}px 'Share Tech Mono','Courier New',monospace`; g.textAlign = "center"; g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 8; g.fillText(s, x, y); g.restore(); };
-  haptic([20, 40, 20]);
-  fxRun(T, t => {
-    at();
-    const loop = Math.min(N - 1, Math.floor(t / LOOP)), u = t < LOOP * N ? (t % LOOP) / LOOP : 1, out = clamp01((t - LOOP * N) / OUT);
-    // his realm: rings of purple and fire turning against each other, spreading out of the pin, then pulled back in at the end
-    const grow = t < LOOP * N ? easeIO(Math.min(1, u / .8)) : 1 - easeIO(out), R = 24 + 104 * grow;
-    glow(0, 0, R * 1.6, `rgba(142,59,224,${.45 * grow})`);
-    g.save(); g.globalCompositeOperation = "lighter";
-    for (let k = 0; k < 11; k++) { const r = R * (.22 + k * .075), sp = (k % 2 ? 1 : -1) * (1 + k * .18), a0 = t / 650 * sp + k * 1.7;
-      g.strokeStyle = k % 3 === 2 ? `rgba(255,140,60,${.5 * grow})` : k % 3 === 1 ? `rgba(224,64,192,${.55 * grow})` : `rgba(160,90,255,${.6 * grow})`;
-      g.lineWidth = 1 + (k % 3) * .8; for (let j = 0; j < 4; j++) { g.beginPath(); g.ellipse(0, 0, r, r * .55, 0, a0 + j * 1.57, a0 + j * 1.57 + .9); g.stroke(); } }
-    // embers drifting outward on the spin
-    for (let k = 0; k < 26; k++) { const ph = ((t / 1400 + k * .137) % 1), a = k * 2.4 + ph * 3, r = R * (.2 + ph * .95);
-      g.fillStyle = `rgba(255,${150 + (k % 4) * 20},80,${(1 - ph) * .8 * grow})`; g.beginPath(); g.arc(Math.cos(a) * r, Math.sin(a) * r * .55, 1.3, 0, Math.PI * 2); g.fill(); }
-    g.restore();
-    // his eyes open above it, burning
-    const eye = clamp01((u - .3) / .3) * (t < LOOP * N ? 1 : 1 - out);
-    if (eye > 0) [-1, 1].forEach(sd => { g.save(); g.translate(sd * 30, -R * .72 - 14); g.rotate(sd * -.28); glow(0, 0, 28, `rgba(255,150,50,${.55 * eye})`); g.fillStyle = `rgba(255,225,130,${eye})`; g.shadowColor = "#FF9A3C"; g.shadowBlur = 14; g.beginPath(); g.ellipse(0, 0, 13, 3.4 * eye + .4, 0, 0, Math.PI * 2); g.fill(); g.restore(); });
-    // the Time Stone's ring closes the loop: a green circle opens wide, a flash, and it's the start again
-    if (t < LOOP * N && u > .78) { const e = (u - .78) / .22; g.save(); g.strokeStyle = `rgba(45,190,90,${1 - e * .6})`; g.shadowColor = "#2DBE5A"; g.shadowBlur = 12; g.lineWidth = 2.5;
-      g.beginPath(); g.arc(0, 0, 10 + 190 * e, 0, Math.PI * 2); g.stroke(); g.lineWidth = 1.2; g.beginPath(); g.arc(0, 0, 4 + 152 * e, 0, Math.PI * 2); g.stroke();
-      for (let k = 0; k < 16; k++) { const a = k / 16 * Math.PI * 2 + e * 2; g.beginPath(); g.moveTo(Math.cos(a) * (10 + 152 * e), Math.sin(a) * (10 + 152 * e)); g.lineTo(Math.cos(a) * (10 + 190 * e), Math.sin(a) * (10 + 190 * e)); g.stroke(); } g.restore();
-      if (u > .94) glow(0, 0, 200, `rgba(210,255,225,${(u - .94) / .06 * .7})`); }
-    // the words, said again every loop, and the count
-    const W = map.clientWidth;
-    if (t < LOOP * N) { const n = Math.floor(clamp01(u / .45) * LINE.length); text(LINE.slice(0, n), W / 2, 26, 1, 12, "#E7C8FF"); text("LOOP " + (loop + 1), W / 2, 44, .8, 10, "#7FE3A0"); }
-    else text("BARGAIN STRUCK.", W / 2, 26, 1 - clamp01((out - .6) / .4), 12, "#7FE3A0");
-  }, () => { cv.remove(); atlFxOn = false; found("bargain"); });
-  for (let k = 1; k <= N; k++) setTimeout(() => haptic([30, 40, 80]), LOOP * k - 80);
-}
-// Beyond, the Duat: Taweret's scales rise over the pin in gold, the heart on one side and the feather on the other. They tip, swing and come to rest
-// level, and the gate to the Field of Reeds opens beneath them
-function atlDuat(map) {
-  const p = atlPinAt(map, "duat"); if (!p || atlFxOn) return; if (REDUCED) { found("scales"); return; } atlFxOn = true;
-  const { cv, g, at, dpr } = atlLayer(map, p), T = 6200, GOLD = "255,205,110";
-  const glow = (x, y, r, c) => { const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, c); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); };
-  haptic([15, 30, 15]);
-  fxRun(T, t => {
-    at(); g.scale(1.5, 1.5);
-    const rise = easeIO(clamp01(t / 700)), fade = 1 - clamp01((t - T + 700) / 700), a = rise * fade, H = 74;
-    // the swing: heavy on the heart's side first, then back and forth, settling level
-    const s = clamp01((t - 700) / 2600), th = t < 700 ? 0 : .42 * Math.exp(-3.2 * s) * Math.cos(s * 11) * (1 - s);
-    const level = clamp01((t - 3300) / 300) * fade;
-    g.save(); g.globalAlpha = a; g.lineCap = g.lineJoin = "round"; g.shadowColor = `rgba(${GOLD},.9)`; g.shadowBlur = 8;
-    g.strokeStyle = `rgba(${GOLD},.95)`; g.lineWidth = 2.2;
-    // the post and its base
-    g.beginPath(); g.moveTo(0, -4); g.lineTo(0, -H * rise); g.moveTo(-14, -2); g.lineTo(14, -2); g.stroke();
-    g.beginPath(); g.arc(0, -H * rise - 4, 3.5, 0, Math.PI * 2); g.stroke();
-    // the beam, tipping on its pivot
-    const L = 46, bx = Math.cos(th) * L, by = Math.sin(th) * L, top = -H * rise;
-    g.beginPath(); g.moveTo(-bx, top - by); g.lineTo(bx, top + by); g.stroke();
-    // each pan hangs straight down from its end of the beam
-    [[-bx, top - by, "feather"], [bx, top + by, "heart"]].forEach(([x, y, what]) => {
-      const py = y + 26; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x, y); g.lineTo(x - 13, py); g.moveTo(x, y); g.lineTo(x + 13, py); g.stroke();
-      g.lineWidth = 2; g.beginPath(); g.moveTo(x - 16, py); g.quadraticCurveTo(x, py + 9, x + 16, py); g.stroke();
-      g.save(); g.translate(x, py - 2);
-      if (what === "feather") { g.strokeStyle = `rgba(230,240,255,.95)`; g.shadowColor = "rgba(200,225,255,.9)"; g.lineWidth = 1.2;
-        g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -20); g.stroke(); g.beginPath(); g.moveTo(0, -20); g.bezierCurveTo(-7, -14, -6, -6, 0, -2); g.moveTo(0, -20); g.bezierCurveTo(6, -14, 5, -6, 0, -2); g.stroke(); }
-      else { g.fillStyle = "rgba(255,110,90,.85)"; g.shadowColor = "rgba(255,90,70,.9)"; g.beginPath(); g.moveTo(0, -1); g.bezierCurveTo(-9, -8, -6, -16, 0, -11); g.bezierCurveTo(6, -16, 9, -8, 0, -1); g.fill(); }
-      g.restore(); });
-    g.restore();
-    // level at last: a flash of gold, and the gate below opens on the Field of Reeds
-    if (level > 0) { const e = clamp01((t - 3300) / 900), gw = 34 * e;
-      glow(0, top, 40, `rgba(${GOLD},${.6 * (1 - clamp01((t - 3300) / 600))})`);
-      g.save(); g.globalAlpha = level; g.strokeStyle = `rgba(${GOLD},.9)`; g.shadowColor = `rgba(${GOLD},.9)`; g.shadowBlur = 8; g.lineWidth = 2;
-      g.beginPath(); g.moveTo(-gw / 2, 30); g.lineTo(-gw / 2, 4); g.lineTo(gw / 2, 4); g.lineTo(gw / 2, 30); g.stroke();
-      const lg = g.createLinearGradient(0, 4, 0, 30); lg.addColorStop(0, "rgba(255,240,200,.85)"); lg.addColorStop(1, "rgba(120,220,140,.35)"); g.fillStyle = lg; g.fillRect(-gw / 2 + 2, 6, gw - 4, 24);
-      // reeds rising and swaying on either side
-      g.strokeStyle = "rgba(130,230,150,.85)"; g.shadowColor = "rgba(120,220,140,.9)"; g.lineWidth = 1.3;
-      for (let k = 0; k < 10; k++) { const sd = k < 5 ? -1 : 1, x = sd * (gw / 2 + 6 + (k % 5) * 7), h = (14 + (k * 7) % 12) * e, sw = Math.sin(t / 300 + k) * 3 * e;
-        g.beginPath(); g.moveTo(x, 30); g.quadraticCurveTo(x + sw * .5, 30 - h * .6, x + sw, 30 - h); g.stroke(); }
-      g.restore(); }
-    g.save(); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.globalAlpha = level; g.font = "12px 'Share Tech Mono','Courier New',monospace"; g.textAlign = "center"; g.fillStyle = `rgb(${GOLD})`; g.shadowColor = `rgb(${GOLD})`; g.shadowBlur = 8;
-    g.fillText("THE SCALES ARE BALANCED.", map.clientWidth / 2, 26); g.restore();
-  }, () => { cv.remove(); atlFxOn = false; found("scales"); });
-  setTimeout(() => haptic([40, 60, 40]), 3300);
-}
-// Beyond, the Witches' Road: hold it and the road draws itself, a winding green path out of the pin and on through the places around it, a trial
-// at each one; at the end a door of light opens
-function atlWitches(map) {
-  const p = atlPinAt(map, "witches"); if (!p || atlFxOn) return; if (REDUCED) { found("witchroad"); return; } atlFxOn = true;
-  const { cv, g, at } = atlLayer(map, null), T = 7000, W = map.clientWidth, H = map.clientHeight;
-  // the stops: the nearest few places on this map, visited going round the start, so the road winds
-  const others = (map._pins || []).filter(q => q.id !== p.id && q.sx > 10 && q.sx < W - 10 && q.sy > 10 && q.sy < H - 10).sort((a, b) => Math.hypot(a.sx - p.sx, a.sy - p.sy) - Math.hypot(b.sx - p.sx, b.sy - p.sy)).slice(0, 5)
-    .sort((a, b) => Math.atan2(a.sy - p.sy, a.sx - p.sx) - Math.atan2(b.sy - p.sy, b.sx - p.sx));
-  const pts = [[p.sx, p.sy], ...others.map(q => [q.sx, q.sy])];
-  if (pts.length < 2) pts.push([p.sx + 80, p.sy - 40]);
-  const end = pts[pts.length - 1], door = [Math.max(30, Math.min(W - 30, end[0] + (end[0] - pts[pts.length - 2][0]) * .3)), Math.max(80, Math.min(H - 30, end[1] + (end[1] - pts[pts.length - 2][1]) * .3))]; pts.push(door);
-  // a smooth road through every stop, sampled finely so it can be drawn a little further each frame
-  const road = []; for (let i = 0; i < pts.length - 1; i++) { const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
-    for (let k = 0; k < 24; k++) { const u = k / 24, u2 = u * u, u3 = u2 * u; road.push([.5 * ((2 * p1[0]) + (-p0[0] + p2[0]) * u + (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * u2 + (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * u3),
-      .5 * ((2 * p1[1]) + (-p0[1] + p2[1]) * u + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * u2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * u3), i]); } }
-  road.push([door[0], door[1], pts.length - 2]);
-  const DRAW = 4200;
-  haptic([15, 30, 15]);
-  fxRun(T, t => {
-    at();
-    const f = clamp01((t - 300) / DRAW), n = Math.max(2, Math.floor(road.length * f)), fade = 1 - clamp01((t - T + 800) / 800);
-    g.save(); g.globalAlpha = fade; g.lineCap = g.lineJoin = "round";
-    // the road: a wide dim purple bed, a bright green path down its middle
-    [[9, "rgba(120,70,200,.28)", 0], [3.2, "rgba(110,230,150,.95)", 12]].forEach(([w, c, b]) => { g.strokeStyle = c; g.lineWidth = w; g.shadowColor = "rgba(110,230,150,.9)"; g.shadowBlur = b;
-      g.beginPath(); road.slice(0, n).forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); });
-    g.shadowBlur = 0;
-    // a trial at each stop it reaches: a ring flares, and its number
-    const reached = road[n - 1][2]; pts.slice(1, -1).forEach(([x, y], i) => { if (i + 1 > reached) return; const tt = t - 300 - DRAW * ((i + 1) / (pts.length - 1)), e = clamp01(tt / 700);
-      g.strokeStyle = `rgba(110,230,150,${1 - e * .5})`; g.lineWidth = 1.6; g.beginPath(); g.arc(x, y, 6 + 14 * e, 0, Math.PI * 2); g.stroke();
-      if (e < 1) { g.strokeStyle = `rgba(200,255,215,${1 - e})`; g.beginPath(); g.arc(x, y, 6 + 30 * e, 0, Math.PI * 2); g.stroke(); } });
-    // the door at the end of the road
-    if (f >= 1) { const e = clamp01((t - 300 - DRAW) / 900); const [x, y] = door; g.save(); g.translate(x, y);
-      const gr = g.createRadialGradient(0, -10, 0, 0, -10, 40); gr.addColorStop(0, `rgba(200,255,215,${.7 * e})`); gr.addColorStop(1, "rgba(110,230,150,0)"); g.fillStyle = gr; g.fillRect(-40, -50, 80, 80);
-      g.strokeStyle = `rgba(110,230,150,${e})`; g.lineWidth = 2; g.shadowColor = "rgba(110,230,150,.9)"; g.shadowBlur = 10;
-      g.beginPath(); g.moveTo(-9, 6); g.lineTo(-9, -14); g.arc(0, -14, 9, Math.PI, 0); g.lineTo(9, 6); g.stroke();
-      g.fillStyle = `rgba(230,255,235,${.8 * e})`; g.fillRect(-7 * e, -14, 14 * e, 20); g.restore(); }
-    // the words, one at a time as the road goes
-    const words = ["DOWN", "DOWN", "DOWN", "THE", "ROAD"], k = Math.min(words.length, Math.floor(f * words.length + .3));
-    g.font = "12px 'Share Tech Mono','Courier New',monospace"; g.textAlign = "center"; g.fillStyle = "#C9FFD8"; g.shadowColor = "#6EE696"; g.shadowBlur = 8; g.fillText(words.slice(0, k).join(" "), W / 2, 26);
-    const tri = Math.min(pts.length - 2, reached); if (tri > 0) { g.font = "10px 'Share Tech Mono','Courier New',monospace"; g.fillStyle = "#7FE3A0"; g.fillText(f >= 1 ? "THE ROAD'S END" : "TRIAL " + tri, W / 2, 44); }
-    g.restore();
-  }, () => { cv.remove(); atlFxOn = false; found("witchroad"); });
-}
 // Sokovia: hold it and Novi Grad rises whole, is struck at its core, cracks apart and falls into a crater lake
 function atlSokovia(map) {
   const p = atlPinAt(map, "sokovia"); if (!p || atlFxOn) return; if (REDUCED) { found("sokovia"); return; } atlFxOn = true;
@@ -8059,9 +7914,11 @@ const ROW_EGGS = {
 // any title held in these boxes
 const BOX_ROW_EGGS = {};
 const QUOTE_EGGS = {};
-const TITLE_EGGS = { "cx-the-avengers": () => avengersRing(), "cx-guardians-of-the-galaxy": () => groot(), "cx-werewolf-by-night": h => wolfEgg(h),
+const TITLE_EGGS = { "cx-the-avengers": () => avengersRing(), "cx-guardians-of-the-galaxy": () => groot(), "cx-werewolf-by-night": () => wolfEgg(),
   "cx-black-widow": h => soulHold(h), "cx-thor": h => worthy(h),
   "cx-moon-knight": h => moonKnight(h), "ch-the-spider-verse": () => glitch() };
+// a press inside the open box's insignia watermark (the part of it on screen)
+const wmHit = (x, y) => { const w = panel.querySelector(".pwm:not(.anon)"); if (!w) return false; const r = w.getBoundingClientRect(); return x >= r.left && x <= Math.min(r.right, innerWidth) && y >= r.top && y <= r.bottom; };
 const FOX_BOXES = { "ch-the-fox-men": 1, "cx-the-fox-men": 1 };   // hold the title for the claws, keep holding for Magneto
 let laneTimer = null, laneFired = false, laneStart = null;
 document.getElementById("view").addEventListener("pointerdown", ev => {
