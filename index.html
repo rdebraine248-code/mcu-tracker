@@ -525,7 +525,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .sl-h b{ flex:1; font:500 16px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#E2E8F3; }
 .sl-h small{ font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#7FA6D8; white-space:nowrap; }
 .sl-cl{ font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7D8BA6; text-transform:uppercase; }
-.rc b .sl-cl{ display:inline-block; white-space:nowrap; font-size:11px; letter-spacing:1px; color:#7D8BA6; font-weight:400; }
+[data-lk] .sl-cl{ white-space:nowrap; font-size:9.5px; letter-spacing:.5px; }
+.rc b .sl-cl, .ach .sl-cl{ display:inline-block; white-space:nowrap; font-size:11px; letter-spacing:1px; color:#7D8BA6; font-weight:400; }
 .sl-h i{ width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; } .sl-h .ch{ color:#5E7290; font-size:13px; }
 .sl-body{ padding:0 14px 14px 18px; } .sl-body .dlog{ margin:0; } .sl-body .dlog li{ margin-top:10px; }
 .sl-per{ margin-top:2px; } .sl-per small{ display:block; margin-bottom:4px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; text-transform:uppercase; } .sl-per p{ margin:0; }
@@ -752,8 +753,7 @@ html:has(#rateSheet){ overflow:hidden; }
 button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9A43A; box-shadow:0 0 0 1px rgba(233,196,106,.25), 0 0 14px rgba(233,196,106,.12); }
 .rc small{ display:block; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7D8BA6; text-transform:uppercase; }
 .rc b{ display:block; margin:3px 0 2px; font:500 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#E2E8F3; overflow-wrap:anywhere; } .rc span{ font:600 13px system-ui,sans-serif; color:#F4C542; }
-.rc.lk b{ color:#5E6A80; font-weight:400; }
-.rc b.rcl{ font-size:14px; font-weight:600; color:#B9C3D6; }   /* Classified, the way the Agent File's other cards say it */
+.rc.lk{ border-style:dashed; } .rc.lk b{ color:#5E6A80; font-weight:400; }
 .rlist{ margin-top:10px; padding:4px 12px; border:1px solid #2B3F62; border-radius:12px; background:#0B1120; }
 .rlist h5{ margin:8px 0 2px; font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; color:#7FA6D8; text-transform:uppercase; }
 .rrow{ display:flex; justify-content:space-between; align-items:center; gap:10px; width:100%; padding:11px 0; border:0; border-bottom:1px solid #1C2436; background:none; color:#E2E8F3; text-align:left; font:15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
@@ -2825,10 +2825,10 @@ function slHTML() {
 function slSec(c) {
   const dnew = (key, html) => `<span class="dnew" data-k="${esc(key)}">${html}<span class="dcover"></span></span>`;
   const stripe = `style="--cc:${SL_STRIPE[c.id] || "#3A78C9"}"`, n = c.num ? "Ch. " + c.num : "Extras";
-  if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b>Sealed</b></div></div>`;
+  if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b><span class="sl-cl">[ Classified ]</span></b><small>No entries</small></div></div>`;
   const E = slEntries(c), tot = c.items.length, w = c.items.filter(i => atlSeenT(i.t)).length;
   const cnt = state.unlocked[c.id] || w ? `<small>${w} of ${tot}</small>` : "";   // no count until the chapter is revealed or one of its titles is watched
-  if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : "No entries"}</b>${cnt}</div></div>`;   // a revealed chapter shows its name, even before its first entry
+  if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt || "<small>No entries</small>"}</div></div>`;   // a revealed chapter shows its name, even before its first entry
   const open = slOpen === c.id, L = DOSSIERS[c.id];
   const pk = slPer(c), per = pk < 0 ? "" : `<div class="sl-per"><small>Period</small><p>${slSeenK(c, "r0." + pk) ? esc(L.rows.period[pk][0]) : dnew(c.id + "|r0." + pk, esc(L.rows.period[pk][0]))}</p></div>`;
   const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
@@ -6328,12 +6328,12 @@ function rateRows() {
 function rateSec() {
   const all = Object.keys(state.rate || {}).filter(t => rateOf(t).r), avg = rateAvg(all), A = SL_ACTS[rPg], chs = DATA.chapters.filter(A[3]);
   const cell = c => { const seenL = c.items.filter(i => atlSeenT(i.t)), lab = c.num ? "Ch. " + c.num : "Extras";
-    // the same as the rest of the Agent File: a name you haven't uncovered reads Classified, whether or not you've watched anything in it yet
-    if (!c.num && !slShown(c)) return `<div class="rc lk"><small>${lab}</small><b class="rcl">Classified</b></div>`;
-    if (!seenL.length) return `<div class="rc lk"><small>${lab}</small><b${c.num && !slNamed(c) ? ' class="rcl">Classified' : ">" + esc(c.title)}</b></div>`;
+    // the same as the rest of the Agent File and the Log: a name you haven't uncovered reads [ Classified ], whether or not you've watched anything in it yet
+    if (!c.num && !slShown(c)) return `<div class="rc lk"><small>${lab}</small><b><span class="sl-cl">[ Classified ]</span></b></div>`;
+    if (!seenL.length) return `<div class="rc lk"><small>${lab}</small><b>${c.num && !slNamed(c) ? '<span class="sl-cl">[ Classified ]</span>' : esc(c.title)}</b></div>`;
     const a = rateAvg(seenL.map(i => i.t));
-    return `<button type="button" class="rc${rOpen === c.id ? " on" : ""}" data-rcell="${c.id}"><small>${lab}</small><b${slNamed(c) ? ">" + esc(c.title) : ' class="rcl">Classified'}</b><span>${a ? "&#9733; " + a : "Not rated"}</span></button>`; };
-  const oc = rOpen && chs.find(c => c.id === rOpen), list = !oc ? "" : `<div class="rlist"><h5>${oc.num ? "Ch. " + oc.num : "Extras"} · ${slNamed(oc) ? esc(oc.title) : "Classified"}</h5>${oc.items.filter(i => atlSeenT(i.t)).map(i => { const r = rateOf(i.t).r;
+    return `<button type="button" class="rc${rOpen === c.id ? " on" : ""}" data-rcell="${c.id}"><small>${lab}</small><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b><span>${a ? "&#9733; " + a : "Not rated"}</span></button>`; };
+  const oc = rOpen && chs.find(c => c.id === rOpen), list = !oc ? "" : `<div class="rlist"><h5>${oc.num ? "Ch. " + oc.num : "Extras"} · ${slNamed(oc) ? esc(oc.title) : "[ Classified ]"}</h5>${oc.items.filter(i => atlSeenT(i.t)).map(i => { const r = rateOf(i.t).r;
       return `<button type="button" class="rrow" data-rt="${esc(i.t)}"><span>${tnh(i.t)}</span>${r ? `<span class="rst">${starsHTML(r, 15)}</span>` : `<em>Rate</em>`}</button>`; }).join("")}</div>`;
   return `<section class="hf-sec hf-rate"><h3><span>Personal log</span></h3>
     <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
@@ -6356,7 +6356,7 @@ function renderFile(fresh) {
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
     const hid = !ok && (a.sec === "chapters" ? !state.unlocked[a.cid] : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
-    if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b>Classified</b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
+    if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b><span class="sl-cl">[ Classified ]</span></b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
     const nm = a.t, note = ok ? a.d : tip || "In progress";
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}">${ok ? `<span class="st">Complete</span>` : ""}<b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
@@ -6404,7 +6404,7 @@ const embNew = () => { if (!state.embSeen) state.embSeen = Object.fromEntries(Ob
 // a locked one: tap it 5 times for its name, 5 more for what unlocks it
 const embTaps = {};
 const embCell = k => embOpen(k) ? `<button type="button" data-ava="${k}"${(state.embSeen || {})[k] ? "" : ' class="nw"'} aria-pressed="${state.avatar === k}"><span class="hf-avr">${embHTML(k)}</span><small>${esc(EMBLEM_NAMES[k])}</small></button>`
-  : `<button type="button" class="lk" data-lk="${k}" aria-label="Locked insignia"><span class="hf-avr"><b>?</b></span><small>${(embTaps[k] || 0) >= 5 ? esc(EMBLEM_NAMES[k]) : "???"}</small></button>`;
+  : `<button type="button" class="lk" data-lk="${k}" aria-label="Locked insignia"><span class="hf-avr"><b>?</b></span><small>${(embTaps[k] || 0) >= 5 ? esc(EMBLEM_NAMES[k]) : '<span class="sl-cl">[ Classified ]</span>'}</small></button>`;
 function avaPick() {
   const fp = document.getElementById("filePanel"); let pk = fp.querySelector(".hf-pick"); if (pk) { pk.remove(); return; }
   pk = document.createElement("div"); pk.className = "hf-pick"; pk.setAttribute("role", "dialog"); pk.setAttribute("aria-label", "Choose your profile picture");
