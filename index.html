@@ -1073,6 +1073,8 @@ body{ padding-bottom:var(--dockh); }
 #panel:not([hidden]) ~ .dock{ z-index:40; }   /* an open box covers the dock as it grows, and uncovers it as it shrinks, instead of the dock blinking off and on */
 .filepanel, .mappanel, .dossier:not(.plog){ bottom:var(--dockh); }
 .dossier.plog{ z-index:80; }
+/* over a profile or a chapter's log, which cover the dock, the ticker sits at the very bottom of the screen and above them */
+body:has(.dossier.plog:not([hidden])) .whih{ bottom:env(safe-area-inset-bottom,0px); z-index:81; }
 .whih{ position:fixed; left:0; right:0; bottom:var(--dockh); z-index:74; display:flex; align-items:stretch; height:32px; background:#0B1424; border-top:1px solid #1F3352; cursor:pointer; transform:translateY(100%); transition:transform .4s cubic-bezier(.2,.7,.2,1); -webkit-tap-highlight-color:transparent; }
 .whih[hidden]{ display:none; }
 .whih{ touch-action:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
@@ -8636,13 +8638,13 @@ const newsTitles = () => Object.keys(NEWS).filter(atlSeenT).sort((a, b) => (ATL_
 // anything you've since un-watched forgets its news played, so it breaks again when it comes back
 function newsForget() { const N = state.news = state.news || {}; Object.keys(N).forEach(k => { const t = k.slice(0, k.lastIndexOf("::")); if (!NEWS[t] || !atlSeenT(t)) delete N[k]; }); }
 function newsPending() { newsForget(); return newsTitles().flatMap(t => NEWS[t].map((h, i) => [t, i, h])).filter(([t, i]) => !state.news[newsKey(t, i)]); }
-// news and messages don't wait for you: the ticker runs on every screen (Story, Log, Atlas, Paths, Comms, File),
-// only holding back while a chapter or character box is open, a question is up, or a full-screen effect is playing
+// news and messages don't wait for you: the ticker runs on every screen, boxes, logs and profiles included. It only holds back while a question
+// is up, the Infinity Stones are open, a pill is showing, or an effect is playing (an egg, a moment), so it never cuts across one
 let homeBusy = 0;   // while the home page is still initializing, the ticker waits
 function newsHome() {
   const $ = id => document.getElementById(id), shut = id => !$(id) || $(id).hidden;
-  return !document.hidden && Date.now() > homeBusy && shut("gate") && shut("panel") && shut("ask") && shut("gauntlet") && !openEntry && (!dossierOpen || dossierOpen === "saga")
-    && !document.querySelector(".fx-studio, .fx-onleft, .dustfx, .toast.show");
+  return !document.hidden && Date.now() > homeBusy && shut("gate") && shut("ask") && shut("gauntlet") && !atlFxOn
+    && !document.querySelector('.fxl, [class*="fx-"], .dustfx, .toast.show');
 }
 let newsRun = null, newsCalm = 0;
 
