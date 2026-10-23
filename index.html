@@ -2917,7 +2917,7 @@ function slSec(c) {
 /* ---------- She-Hulk: in the Story Log, swipe her entry sideways. Jen notices you reading: her entry turns to face you while the rest of the log
    dims like a paused show, says a word to you, then she shoulders the entries either side out of line on her way back in. They straighten after ---------- */
 let fwOn = false, fwG = null;
-document.addEventListener("pointerdown", ev => { const li = ev.target.closest('#dossier li[data-slt="She-Hulk: Attorney at Law"]'); fwG = li && !fwOn && !li.querySelector(".dcover") ? { li, x: ev.clientX, y: ev.clientY } : null; }, true);   // once her entry has finished recording
+document.addEventListener("pointerdown", ev => { const li = ev.target.closest('#dossier li[data-slt="She-Hulk: Attorney at Law"]'); fwG = li && !fwOn ? { li, x: ev.clientX, y: ev.clientY } : null; }, true);
 document.addEventListener("pointermove", ev => { if (!fwG) return; const dx = ev.clientX - fwG.x, dy = ev.clientY - fwG.y;
   if (Math.abs(dy) > 24 && Math.abs(dy) > Math.abs(dx)) { fwG.li.style.transform = ""; fwG = null; return; }   // it's a scroll
   fwG.li.style.transform = `translateX(${Math.sign(dx) * Math.min(46, Math.abs(dx) * .45)}px)`;
