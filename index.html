@@ -1100,7 +1100,8 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-card{ position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:8px; min-width:0; padding:14px 12px 11px; border:0; border-radius:12px; background:#EEF3FA; color:#0B1424; text-align:left; cursor:pointer; touch-action:manipulation; box-shadow:inset 0 4px 0 var(--sc); }
 .cp-card.s-dec{ background:#D5DBE4; }
 .cp-ph{ display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:#0B1424; color:#EEF3FA; font:400 18px/1 'Anton','Impact',sans-serif; letter-spacing:.5px; box-shadow:0 0 0 2px var(--sc); overflow:hidden; }
-.cp-ph.em{ background:#101A2E; } .cp-ph .emb, .cp-ph svg{ width:78%; height:78%; }
+.cp-ph{ position:relative; } .cp-ph.em{ background:#101A2E; }
+.cp-ph .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:translate(6px,6px) scale(.8); } .cp-id .cp-ph .emb{ transform:translate(9px,9px) scale(1.15); }   /* drawn at 64px and scaled whole, set off-centre so the badge's round edge crops it, never a straight cut */
 .cp-tx{ display:block; min-width:0; width:100%; }
 .cp-tx b{ display:block; font:400 17px/1.1 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
 .cp-tx b .nw{ display:inline-block; margin-left:6px; vertical-align:2px; padding:1px 5px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; }

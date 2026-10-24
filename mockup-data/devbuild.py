@@ -84,6 +84,21 @@ _seen_a=set(); allies=[o for o in allies if not (o['id'] in _seen_a or _seen_a.a
 for f in sorted(_g2.glob(D+'allies_zz_*.json')):   # completions: full records replaced, new files added, duplicates dropped
     z=json.load(open(f,encoding='utf8')); R={o['id']:o for o in z.get('replace',[])}; X=set(z.get('drop',[]))
     allies=[R.get(o['id'],o) for o in allies if o['id'] not in X]+[o for o in z.get('add',[]) if o['id'] not in {a['id'] for a in allies}]
+    for d_ in z.get('drop_steps',[]):
+        o=next((x for x in allies if x['id']==d_['id']),None)
+        if o: o['st']=[x for x in o['st'] if not (x[1]==d_['title'] and d_.get('has','') in x[0])]
+    for f_ in z.get('fix_steps',[]):
+        o=next((x for x in allies if x['id']==f_['id']),None)
+        if o: o['st']=[f_['new'] if x[1]==f_['title'] else x for x in o['st']]
+    allies=[o for o in allies if o['st']]
+    for o in allies:   # staged names and teams only ever start at a step that's still there
+        T=[x[1] for x in o['st']]
+        for fld in ('n','k','tm'):
+            if isinstance(o.get(fld),list):
+                L=[x for x in o[fld] if x[1] in T]
+                if not L: L=[[o[fld][0][0],T[0]]]
+                L[0]=[L[0][0],T[0]] if L[0][1]!=T[0] and o[fld][0][1] not in T else L[0]
+                o[fld]=L if len(L)>1 else L[0][0]
 for o in allies:
     if o['id'].startswith('st-') and o.get('st'):
         c=_ch.get(o['st'][0][1])
