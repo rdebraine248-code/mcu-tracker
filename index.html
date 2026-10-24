@@ -1118,6 +1118,34 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-rf span{ flex:1; } .cp-rf small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#E9897E; } .cp-rf b{ display:block; margin-top:2px; font-size:15px; } .cp-rf em{ font-style:normal; font-size:18px; }
 .cpx .rf-seg button[aria-pressed="true"]{ background:#EEF3FA; border-color:#EEF3FA; }
 .cp-intake i{ background:#4FA3FF; box-shadow:0 0 8px #4FA3FF; }
+/* the Collector's archive: every object in its own lit glass case, marked with its kind */
+.s-use{ --sc:#E9C46A; } .s-sec{ --sc:#5FA8FF; } .s-lost{ --sc:#B9A3E8; } .s-des{ --sc:#7F8796; }
+.cx-gl{ display:block; width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.cx-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin-top:10px; }
+.cx-case{ position:relative; display:flex; flex-direction:column; min-width:0; padding:0; border:1px solid rgba(170,200,240,.2); border-radius:12px; overflow:hidden; background:linear-gradient(180deg,rgba(150,190,255,.07),rgba(0,0,0,.3)),#0D131E; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
+.cx-case::after{ content:""; position:absolute; inset:0; background:linear-gradient(115deg,rgba(255,255,255,.06) 0 16%,rgba(255,255,255,0) 28%); pointer-events:none; }
+.cx-stage{ position:relative; display:block; height:86px; }
+.cx-stage .beam, .cx-big .beam{ position:absolute; left:22%; right:22%; top:0; height:88%; clip-path:polygon(34% 0,66% 0,100% 100%,0 100%); background:linear-gradient(180deg,rgba(255,236,200,.15),rgba(255,236,200,0)); }
+.cx-stage .plinth, .cx-big .plinth{ position:absolute; left:32%; right:32%; bottom:8px; height:12px; background:linear-gradient(180deg,#1E2633,#0E131B); clip-path:polygon(8% 0,92% 0,100% 100%,0 100%); }
+.cx-obj{ position:absolute; left:50%; top:46%; width:38px; height:38px; transform:translate(-50%,-50%); color:var(--sc); filter:drop-shadow(0 0 6px color-mix(in srgb,var(--sc) 55%,transparent)); }
+.cx-stage .rf-lamp{ position:absolute; top:9px; left:9px; }
+.cx-case.s-des .cx-obj{ opacity:.6; } .cx-case.s-lost .cx-obj{ opacity:.75; }
+.cx-case .nw{ position:absolute; top:8px; right:8px; z-index:2; padding:2px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
+.cx-tx{ display:block; min-width:0; padding:8px 11px 11px; border-top:1px solid rgba(170,200,240,.12); }
+.cx-tx b{ display:block; font:600 15px/1.15 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.cx-tx small{ display:block; margin-top:3px; font-size:12.5px; line-height:1.3; color:#9AA6BA; }
+.cx-tx em{ display:block; margin-top:6px; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.2px; text-transform:uppercase; color:var(--sc); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cx-big{ position:relative; height:190px; border:1px solid rgba(170,200,240,.2); border-radius:14px; overflow:hidden; background:linear-gradient(180deg,rgba(150,190,255,.07),rgba(0,0,0,.35)),#0D131E; }
+.cx-big .cx-obj{ width:78px; height:78px; top:47%; } .cx-big .plinth{ left:36%; right:36%; bottom:14px; height:18px; }
+.cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
+.cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
+.co-rec .cx-lot + h3{ margin-top:2px; }
+.cx-hands{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 16px; } .cx-hands span{ padding:5px 10px; border:1px solid #4A3F22; border-radius:999px; background:#17140C; color:#F1E2B8; font-size:13px; }
+.cx-hd{ display:inline-block; margin-left:6px; color:#E9D9AE; } .cx-hd::before{ content:"· "; color:#8EA2C2; }
+.cx-chain li::before{ border-color:var(--sc); } .cx-chain li:last-child::before{ background:var(--sc); box-shadow:0 0 8px var(--sc); }
+.rf-sh .cx-gl{ flex:none; width:16px; height:16px; color:#E9C46A; }
+.cx-intake i{ background:#E9C46A; box-shadow:0 0 8px #E9C46A; }
+.s-des .rf-lamp{ box-shadow:none; }
 
 .raft .co-top small{ color:#9DB4CC; } .raft .co-bar span{ background:#E04A3A; }
 .rf-tabs{ display:flex; gap:8px; overflow-x:auto; margin:14px 0 14px; padding:0 0 2px; scrollbar-width:none; } .rf-tabs::-webkit-scrollbar{ display:none; }
@@ -4423,6 +4451,7 @@ function collPaint(root) {
 function renderColl() {
   if (collMode === "raft") { renderRaft(); return; }
   if (collMode === "cp") { renderCp(); return; }
+  if (COLLX.length) { renderCx(); return; }
   const v = document.getElementById("collView"), seen = state.coll = state.coll || {};
   if (collRec) {
     const o = COLL.find(x => x.id === collRec), S = collSteps(o), hid = o.st.length - S.length;
@@ -4452,6 +4481,7 @@ function openColl(mode) {
   const h2 = cp.querySelector(".maptop h2"); h2.textContent = raft ? "The Raft" : cpm ? cpHome()[0] : "The Collection"; h2.dataset.glow = h2.textContent;
   if (cpm && !state.cpIn) { const L = ALLIES.filter(o => cpSteps(o).length), R = state.cpSeen = state.cpSeen || {}; L.forEach(o => R[o.id] = 1); state.cpIn = 1; cpIntake = L.length; persist(); }
   // the first time you board the Raft, everything already on file comes over in one intake, read; from then on, a file that's new to you says so
+  if (!raft && !cpm && COLLX.length && !state.collIn) { const L = COLLX.filter(o => cxSteps(o).length), R = state.collSeen = state.collSeen || {}; L.forEach(o => R[o.id] = 1); state.collIn = 1; cxIntake = L.length; persist(); }
   if (raft && !state.raftIn) { const L = THREATS.filter(o => rfSteps(o).length), R = state.raftSeen = state.raftSeen || {}; L.forEach(o => R[o.id] = 1); state.raftIn = 1; rfIntake = L.length; persist(); }
   collRec = null; collCat = ""; renderColl(); document.getElementById("collView").scrollTop = 0;
   cp.hidden = false; collOpen = true;
@@ -4462,23 +4492,31 @@ function openColl(mode) {
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; rfIntakeStop();
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cxIntake = 0; cxQ = ""; rfIntakeStop();
 }
 function collShow(id) {
   const v = document.getElementById("collView"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
-  collRec = id; if (collMode === "raft") (state.raftSeen = state.raftSeen || {})[id] = 1; else if (collMode === "cp") (state.cpSeen = state.cpSeen || {})[id] = 1; else (state.coll = state.coll || {})[id] = 1; persist(); renderColl(); v.scrollTop = 0;
+  collRec = id; if (collMode === "raft") (state.raftSeen = state.raftSeen || {})[id] = 1; else if (collMode === "cp") (state.cpSeen = state.cpSeen || {})[id] = 1; else if (COLLX.length) (state.collSeen = state.collSeen || {})[id] = 1; else (state.coll = state.coll || {})[id] = 1; persist(); renderColl(); v.scrollTop = 0;
   try { history.pushState({ mcu: "collrec" }, ""); } catch (e) {}
 }
 function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collView").scrollTop = collY; }
+document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cxQ") return; cxQ = ev.target.value; const v = document.getElementById("collView");
+  v.querySelector(".pg-qx").hidden = !cxQ; v.querySelector(".cx-body").innerHTML = cxBody(); v.querySelectorAll("[data-cxu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cxu === cxUni && !cxQ)); });
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cpQ") return; cpQ = ev.target.value; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !cpQ; v.querySelector(".cp-body").innerHTML = cpBody(); v.querySelectorAll("[data-cpu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cpu === cpUni && !cpQ)); });
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "rfQ") return; rfQ = ev.target.value; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !rfQ; v.querySelector(".rf-body").innerHTML = rfBody(); v.querySelectorAll("[data-rfu]").forEach(b => b.setAttribute("aria-selected", b.dataset.rfu === rfUni && !rfQ)); });
-document.getElementById("collView").addEventListener("keydown", ev => { if ((ev.target.id === "rfQ" || ev.target.id === "cpQ") && ev.key === "Enter") ev.target.blur(); });
+document.getElementById("collView").addEventListener("keydown", ev => { if ((ev.target.id === "rfQ" || ev.target.id === "cpQ" || ev.target.id === "cxQ") && ev.key === "Enter") ev.target.blur(); });
 document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
 document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest("[data-co-back]")) { haptic(8); collGrid(); return; }
   const c = ev.target.closest("[data-cc]"); if (c) { haptic(8); collCat = c.dataset.cc; renderColl(); return; }
+  if (collMode === "coll" && COLLX.length) {
+    if (ev.target.closest(".pg-qx")) { haptic(8); cxQ = ""; renderColl(); return; }
+    const xu = ev.target.closest("[data-cxu]"); if (xu) { if (xu.dataset.cxu !== cxUni || cxQ) { haptic(8); cxUni = xu.dataset.cxu; cxQ = ""; renderColl(); } return; }
+    const xg = ev.target.closest("[data-cxg]"); if (xg) { if (xg.dataset.cxg !== cxGrp) { haptic(8); cxGrp = xg.dataset.cxg; renderColl(); } return; }
+    const xf = ev.target.closest("[data-cxf]"); if (xf) { haptic(8); const k = xf.dataset.cxf; cxFold[cxGrp][k] = !cxShut(k); renderColl(); return; }
+  }
   if (collMode === "cp") {
     if (ev.target.closest(".pg-qx")) { haptic(8); cpQ = ""; renderColl(); return; }
     const cu = ev.target.closest("[data-cpu]"); if (cu) { if (cu.dataset.cpu !== cpUni || cpQ) { haptic(8); cpUni = cu.dataset.cpu; cpQ = ""; renderColl(); } return; }
@@ -4492,6 +4530,75 @@ document.getElementById("collView").addEventListener("click", ev => {
   const rf = ev.target.closest("[data-rff]"); if (rf) { haptic(8); const k = rf.dataset.rff; rfFold[rfGrp][k] = !rfShut(k); renderColl(); return; }
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
 });
+
+/* ---------- the Collector's archive, every object (mockup): the third index, beside the Raft's villains and the Compound's heroes. Every object gets
+   a case the first time it's seen, and its card follows it title by title: who holds it, and whether it's in use, locked away, lost or destroyed.
+   No drawings: each case shows the mark of its kind. While COLLX is empty (main), the old Collection below stands */
+const COLLX = /*COLLX*/[];
+const CX_ST = { "In use": "use", "Secured": "sec", "Lost": "lost", "Destroyed": "des" };
+const CX_TY = [["stones", "Infinity Stones"], ["weapons", "Weapons"], ["armor", "Armor"], ["tech", "Tech"], ["mystic", "Mystic"], ["substances", "Substances"], ["vehicles", "Vehicles"], ["keepsakes", "Keepsakes"]];
+const CX_GLYPH = {
+  stones: '<path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M9.5 4L12 9l2.5-5M12 9v11"/>',
+  weapons: '<path d="M19.5 4.5L9 15"/><path d="M19.5 4.5h-4M19.5 4.5v4"/><path d="M6 12l6 6"/><path d="M7.5 16.5L4 20"/>',
+  armor: '<path d="M5 12a7 7 0 0 1 14 0v5l-3 3H8l-3-3z"/><path d="M8 13.5h3M13 13.5h3M12 6v4"/>',
+  tech: '<rect x="7" y="7" width="10" height="10" rx="1.5"/><rect x="10" y="10" width="4" height="4"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/>',
+  mystic: '<circle cx="12" cy="12" r="9"/><path d="M5.5 12c2.5-3.5 10.5-3.5 13 0-2.5 3.5-10.5 3.5-13 0z"/><circle cx="12" cy="12" r="1.6"/>',
+  substances: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.4 15h9.2"/>',
+  vehicles: '<path d="M12 2.5l2 6.5 7 4.2v2.1l-7-1.6-.7 4.8 2.2 1.8v1.2H8.5v-1.2l2.2-1.8-.7-4.8-7 1.6v-2.1L10 9z"/>',
+  keepsakes: '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8.5" cy="11.5" r="2"/><circle cx="15.5" cy="11.5" r="2"/><path d="M10.5 11.5h3M6.5 18l1.5-2.5h8l1.5 2.5"/>'
+};
+const cxGlyph = c => `<svg class="cx-gl" viewBox="0 0 24 24" aria-hidden="true">${CX_GLYPH[c] || CX_GLYPH.keepsakes}</svg>`;
+const cxSteps = o => o.st.filter(x => atlSeenT(x[1]));
+const cxStatus = S => S.length ? S[S.length - 1][2] || "In use" : "In use", cxHolder = S => S.length ? S[S.length - 1][3] || "Unknown" : "Unknown";
+const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", atlSeenT)[0];
+const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
+const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
+let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0;
+const CX_GRP = [["type", "Type"], ["status", "Status"], ["holder", "Held by"]];
+// grouped by who holds them, the list opens as an index of holders, each folded until you tap it; the other groupings open unfolded
+const cxShut = k => { const v = (cxFold[cxGrp] || {})[k]; return v == null ? cxGrp === "holder" : v; };
+function renderCx() {
+  const v = document.getElementById("collView");
+  if (collRec) {
+    const o = COLLX.find(x => x.id === collRec), S = cxSteps(o), st = cxStatus(S);
+    const hands = S.map(x => x[3]).filter((h, i, a) => h && h !== "Nobody" && a.indexOf(h) === i);
+    let pst = null, ph = null;
+    v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>The Collection</button>
+      <div class="cx-big s-${CX_ST[st]}"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><b class="cx-stb">${esc(st)}</b></div>
+      <small class="cx-lot">${cxNo(o)} · ${esc(cxTyName(o.c))}</small><h3>${esc(cxName(o))}</h3><p class="co-kind">${esc(cxKind(o))}</p>
+      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>Held by</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div></div>
+      ${hands.length ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<span>${esc(h)}</span>`).join("")}</div>` : ""}
+      <div class="co-h">Chain of custody</div>
+      <ol class="co-chain cx-chain">${S.map(x => { const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
+        pst = x[2] || pst; ph = x[3] || ph; return `<li class="s-${CX_ST[x[2]] || "use"}"><p>${esc(x[0])}</p><small>${tnh(x[1])}${hd}${chg}</small></li>`; }).join("")}</ol></div>`;
+    return;
+  }
+  const all = COLLX.filter(o => cxSteps(o).length).length;
+  v.innerHTML = `<div class="co"><div class="co-top"><small>Taneleer Tivan's archive · Knowhere</small><p class="co-sub">${all} object${all === 1 ? "" : "s"} catalogued</p></div>
+    ${cxIntake ? `<div class="rf-intake cx-intake"><i aria-hidden="true"></i>Intake complete · ${cxIntake} object${cxIntake === 1 ? "" : "s"} catalogued</div>` : ""}
+    <div class="rf-tabs" role="tablist">${rfUnis().map(x => `<button type="button" role="tab" aria-selected="${x[0] === cxUni && !cxQ}" data-cxu="${x[0]}">${rfUniName(x)}</button>`).join("")}</div>
+    ${all ? pgQ("cxQ", "Search the archive", cxQ) : ""}<div class="cx-body">${cxBody()}</div></div>`;
+}
+function cxBody() {
+  const seen = state.collSeen = state.collSeen || {}, q = qNorm(cxQ.trim());
+  const card = (o, meta) => { const S = cxSteps(o), st = cxStatus(S), n = cxName(o);
+    return `<button type="button" class="cx-case s-${CX_ST[st]}" data-co="${o.id}"><span class="cx-stage"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><i class="rf-lamp" aria-hidden="true"></i></span>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="cx-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}</b><small>${esc(cxKind(o))}</small><em>${esc(meta(o, S, st))}</em></span></button>`; };
+  if (q.length > 1) {
+    const L = COLLX.filter(o => cxSteps(o).length && [cxName(o), cxKind(o)].some(t => qNorm(t).includes(q))).sort((a, b) => qNorm(cxName(b)).includes(q) - qNorm(cxName(a)).includes(q) || cxName(a).localeCompare(cxName(b)));
+    return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => st + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))))).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
+  }
+  const known = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
+  const key = o => cxGrp === "holder" ? cxHolder(cxSteps(o)) : cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c;
+  const keys = cxGrp === "holder" ? [...new Set(known.map(key))].sort((a, b) => (a === "Nobody") - (b === "Nobody") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : cxGrp === "status" ? Object.keys(CX_ST) : CX_TY.map(t => t[0]);
+  const label = k => cxGrp === "type" ? cxTyName(k) : k;
+  const meta = (o, S, st) => cxGrp === "holder" ? st : "Held by " + cxHolder(S);
+  cxFold[cxGrp] = cxFold[cxGrp] || {};
+  const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
+  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CX_GRP.map(([k, l]) => `<button type="button" data-cxg="${k}" aria-pressed="${k === cxGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
+    ${secs.map(([k, L]) => { const shut = cxShut(k), fresh = L.some(o => !seen[o.id]), cls = cxGrp === "status" ? " s-" + CX_ST[k] : "";
+      return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cxf="${esc(k)}" aria-expanded="${!shut}">${cxGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : cxGrp === "type" ? cxGlyph(k) : ""}<span>${esc(label(k))}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+        ${shut ? "" : `<div class="cx-grid">${L.map(o => card(o, meta)).join("")}</div>`}</section>`; }).join("")}`;
+}
 
 /* ---------- the Raft's threat registry: tap the Raft in the Atlas. Every villain gets a file the first time you meet them, and the file follows them
    title by title (escapes, arrests, deaths, comebacks), each record sealed until you've watched its title. Later records are never counted or hinted at */
@@ -7126,7 +7233,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen"];
+const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen", "collIn", "collSeen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -7144,7 +7251,7 @@ async function readSaveCode(code) {
   const o = JSON.parse(new TextDecoder().decode(u8));
   if (!isObj(o) || !isObj(o.checks)) return null;
   const out = {}; SAVE_KEYS.forEach(k => { if (o[k] != null) out[k] = o[k]; });   // only what a save code holds
-  return ["unlocked", "seen", "dusted", "stones", "eggs", "dSeen", "achSeen", "rate", "watchedOn", "news", "msgs", "cmRead", "atlas", "atlasN", "atlEv", "atlRead", "atlMap", "pathT", "embOpen", "embSeen", "embAck", "charOpen", "coll", "sagaShut", "eps", "named", "raftSeen", "cpSeen"].every(k => out[k] == null || isObj(out[k])) ? out : null;
+  return ["unlocked", "seen", "dusted", "stones", "eggs", "dSeen", "achSeen", "rate", "watchedOn", "news", "msgs", "cmRead", "atlas", "atlasN", "atlEv", "atlRead", "atlMap", "pathT", "embOpen", "embSeen", "embAck", "charOpen", "coll", "sagaShut", "eps", "named", "raftSeen", "cpSeen", "collSeen"].every(k => out[k] == null || isObj(out[k])) ? out : null;
 }
 async function copyText(t) {
   try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(t); return true; } } catch (e) {}

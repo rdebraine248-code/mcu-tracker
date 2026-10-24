@@ -143,10 +143,19 @@ def _one(o):
     out=[]
     for x in o['st']:
         p_=out[-1] if out else None
-        if p_ and p_[1]==x[1] and p_[2]==x[2] and x[1] not in _multi: out[-1]=[p_[0]+' '+x[0],p_[1],p_[2]]
+        if p_ and p_[1]==x[1] and p_[2:]==list(x[2:]) and x[1] not in _multi: out[-1]=[p_[0]+' '+x[0]]+p_[1:]
         else: out.append(list(x))
     o['st']=out
-for o in threats+allies: _one(o)
+# the Collector's archive (mockup): every object, from the coll_*.json files (coll_existing.json is the old 27, kept for reference)
+collx=[]
+for f in sorted(_g2.glob(D+'coll_*.json')):
+    if f.endswith('coll_existing.json'): continue
+    try: collx+=json.load(open(f,encoding='utf8'))
+    except Exception as e: print('coll: skip',f,e)
+if os.environ.get('COLLX_FILE'): collx=json.load(open(os.environ['COLLX_FILE'],encoding='utf8'))   # a stand-in while the files are being written
+_seen_c=set(); collx=[o for o in collx if o.get('st') and not (o['id'] in _seen_c or _seen_c.add(o['id']))]
+for o in threats+allies+collx: _one(o)
+if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats)
 put('EPN',epn)
