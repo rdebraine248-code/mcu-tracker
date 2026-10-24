@@ -90,7 +90,8 @@ if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats); eps={k:([x for x in v if x] if isinstance(v,list) else v) for k,v in eps.items()}
 epn={}; epn.update(load('episodes_a.json',{})); epn.update(load('episodes_b.json',{}))
 _c=load('episodes_c.json',{}); eps.update(_c.get('counts',{})); epn.update(_c.get('names',{}))
-_v=load('episodes_verified.json',{}); eps.update(_v.get('counts',{})); epn.update(_v.get('names',{}))   # checked against Wikipedia's episode tables
+_v=load('episodes_verified.json',{}); eps.update(_v.get('counts',{})); epn.update(_v.get('names',{}))
+_m=load('episodes_more.json',{}); eps.update(_m.get('counts',{})); epn.update(_m.get('names',{}))   # the series that had no episode data at all   # checked against Wikipedia's episode tables
 # the lists carry most shows a season at a time ("Agent Carter S2", "Agents of S.H.I.E.L.D. S6–S7"): each gets its own slice of the show's episodes,
 # and EPO says which season it starts at, so its season chips and numbers read 6 and 7, not 1 and 2
 import re
@@ -107,6 +108,12 @@ for k,v in list(eps.items()):
         eps[t]=v[a-1:b]
         if a>1: epo[t]=a-1
         if nested: epn[t]=nm[a-1:b]
+# a title that is one later season of a show shows its real season number, like S6-S7 does: Daredevil S2 reads Season 2, and the
+# Avengers Assemble seasons released under their own names read Season 3, 4 and 5
+for k,v in eps.items():
+    m=re.search(r' S(\d+)$',k)
+    if m and k not in epo and v and not (isinstance(v,list) and len(v)>1): epo[k]=int(m.group(1))-1
+epo.update({"Avengers: Ultron Revolution":2,"Avengers: Secret Wars (2017)":3,"Avengers: Black Panther's Quest":4})
 put('EPS',{k:v for k,v in eps.items() if v}); put('EPO',epo)
 put('EPN',epn)
 out=sys.argv[1] if len(sys.argv)>1 else D+'dev.html'
