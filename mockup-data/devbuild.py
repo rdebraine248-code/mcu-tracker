@@ -150,6 +150,7 @@ def _one(o):
 collx=[]
 for f in sorted(_g2.glob(D+'coll_*.json')):
     if f.endswith('coll_existing.json'): continue
+    if os.environ.get('NOSPEC') and 'coll_spec_' in f: continue   # the specimens stay a mockup until approved
     try: collx+=json.load(open(f,encoding='utf8'))
     except Exception as e: print('coll: skip',f,e)
 if os.environ.get('COLLX_FILE'): collx=json.load(open(os.environ['COLLX_FILE'],encoding='utf8'))   # a stand-in while the files are being written

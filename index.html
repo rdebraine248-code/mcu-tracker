@@ -732,6 +732,17 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-stats div, .hf-stats button{ padding:8px 10px; border:1px solid #232D42; border-radius:8px; background:rgba(255,255,255,.02); }
 .hf-stats b{ display:block; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:22px; letter-spacing:.5px; }
 .hf-stats small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#8EA2C2; text-transform:uppercase; }
+/* mockup: the archives in the Agent File, each in its own index's colors */
+.hf-arch{ display:grid; gap:8px; }
+.hf-arch button{ position:relative; display:block; width:100%; padding:12px 40px 12px 14px; border:1px solid var(--ac); border-radius:12px; background:var(--ab); color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
+.hf-arch button:active{ transform:scale(.99); }
+.hf-arch small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:var(--ak); }
+.hf-arch b{ display:block; margin-top:3px; font:400 20px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
+.hf-arch em{ display:block; margin-top:4px; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#9AA6BA; }
+.hf-arch i{ position:absolute; right:14px; top:50%; transform:translateY(-50%); font-style:normal; font-size:22px; color:var(--ak); }
+.ar-cp{ --ac:#2F4F80; --ab:linear-gradient(135deg,rgba(79,163,255,.14),rgba(11,20,36,.6)); --ak:#8FC1FF; }
+.ar-raft{ --ac:#5A3A36; --ab:linear-gradient(135deg,rgba(224,74,58,.13),rgba(10,15,22,.6)); --ak:#E9897E; }
+.ar-coll{ --ac:#4A3F22; --ab:linear-gradient(135deg,rgba(233,196,106,.13),rgba(23,20,12,.6)); --ak:#E9C46A; }
 .hf-sec{ max-width:760px; margin:22px auto 0; }
 .hf-sec h3{ margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; display:flex; justify-content:space-between; }
 .hf-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; }
@@ -1118,7 +1129,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .tf-bar button{ display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font:10.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; } .tf-bar button i{ font-style:normal; }
 .collpanel:not(.cpx):not(.raft) .tf-bar{ border-color:#4A3F22; background:rgba(233,196,106,.07); } .collpanel:not(.cpx):not(.raft) .tf-bar small{ color:#E9C46A; } .collpanel:not(.cpx):not(.raft) .tf-bar button{ border-color:#4A3F22; background:#17140C; color:#F1E2B8; }
 /* the Collector's archive: every object in its own lit glass case, marked with its kind */
-.s-use{ --sc:#E9C46A; } .s-sec{ --sc:#5FA8FF; } .s-lost{ --sc:#B9A3E8; } .s-des{ --sc:#7F8796; }
+.s-use{ --sc:#E9C46A; } .s-sec{ --sc:#5FA8FF; } .s-lost{ --sc:#B9A3E8; } .s-des{ --sc:#7F8796; } .s-thr{ --sc:#4FCB8A; } .s-end{ --sc:#E9A13A; } .s-ext{ --sc:#8592A6; }
 .cx-gl{ display:block; width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
 .cx-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin-top:10px; }
 .cx-case{ position:relative; display:flex; flex-direction:column; min-width:0; padding:0; border:1px solid rgba(170,200,240,.2); border-radius:12px; overflow:hidden; background:linear-gradient(180deg,rgba(150,190,255,.07),rgba(0,0,0,.3)),#0D131E; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
@@ -1128,7 +1139,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stage .plinth, .cx-big .plinth{ position:absolute; left:32%; right:32%; bottom:8px; height:12px; background:linear-gradient(180deg,#1E2633,#0E131B); clip-path:polygon(8% 0,92% 0,100% 100%,0 100%); }
 .cx-obj{ position:absolute; left:50%; top:46%; width:38px; height:38px; transform:translate(-50%,-50%); color:var(--sc); filter:drop-shadow(0 0 6px color-mix(in srgb,var(--sc) 55%,transparent)); }
 .cx-stage .rf-lamp{ position:absolute; top:9px; left:9px; }
-.cx-case.s-des .cx-obj{ opacity:.6; } .cx-case.s-lost .cx-obj{ opacity:.75; }
+.cx-case.s-des .cx-obj, .cx-case.s-ext .cx-obj{ opacity:.6; } .cx-case.s-lost .cx-obj{ opacity:.75; }
 .cx-case .nw{ position:absolute; top:8px; right:8px; z-index:2; padding:2px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
 .cx-tx{ display:block; min-width:0; padding:8px 11px 11px; border-top:1px solid rgba(170,200,240,.12); }
 .cx-tx b{ display:block; font:600 15px/1.15 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
@@ -1144,7 +1155,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-chain li::before{ border-color:var(--sc); } .cx-chain li:last-child::before{ background:var(--sc); box-shadow:0 0 8px var(--sc); }
 .rf-sh .cx-gl{ flex:none; width:16px; height:16px; color:#E9C46A; }
 .cx-intake i{ background:#E9C46A; box-shadow:0 0 8px #E9C46A; }
-.s-des .rf-lamp{ box-shadow:none; }
+.s-des .rf-lamp, .s-ext .rf-lamp{ box-shadow:none; }
 
 .raft .co-top small{ color:#9DB4CC; }
 .rf-tabs{ display:flex; gap:8px; overflow-x:auto; margin:14px 0 14px; padding:0 0 2px; scrollbar-width:none; } .rf-tabs::-webkit-scrollbar{ display:none; }
@@ -1430,6 +1441,14 @@ function migrate(old) { // earlier versions shared one checkmark per title; keep
 if (state.watched) { migrate(state.watched); delete state.watched; }
 // episode counts used to be shared, one per title, and finishing one checked it off in every list. Each list now keeps its own count, and each starts
 // from where the shared one was, so nothing you've seen changes
+function newsKeysV2() {
+  if (state.newsK === 2) return;
+  const tx = k => { const m = /^(.*)::(\d+)$/.exec(k); if (!m || !NEWS0[m[1]] || NEWS0[m[1]][+m[2]] == null) return null; return m[1] + "::" + NEWS0[m[1]][+m[2]]; };
+  const N = state.news || {}, R = state.cmRead || {};
+  Object.keys(N).forEach(k => { const nk = tx(k); if (nk) { delete N[k]; N[nk] = 1; } });
+  Object.keys(R).forEach(k => { if (!k.startsWith("n:")) return; const nk = tx(k.slice(2)); if (nk) { delete R[k]; R["n:" + nk] = 1; } });
+  state.newsK = 2;
+}
 function epSplit() {
   const E = state.eps; if (!E) return;
   Object.keys(E).filter(t => !t.includes("::")).forEach(t => { const v = E[t]; delete E[t]; if (!Array.isArray(v)) return;
@@ -4054,8 +4073,9 @@ document.getElementById("collView").addEventListener("click", ev => {
    a case the first time it's seen, and its card follows it title by title: who holds it, and whether it's in use, locked away, lost or destroyed.
    No drawings: each case shows the mark of its kind */
 const COLLX = /*COLLX*/[];
-const CX_ST = { "In use": "use", "Secured": "sec", "Lost": "lost", "Destroyed": "des" };
-const CX_TY = [["stones", "Infinity Stones"], ["weapons", "Weapons"], ["armor", "Armor"], ["tech", "Tech"], ["mystic", "Mystic"], ["substances", "Substances"], ["vehicles", "Vehicles"], ["keepsakes", "Keepsakes"]];
+// objects are in use, secured, lost or destroyed; the Collector's living specimens are thriving, endangered or extinct
+const CX_ST = { "In use": "use", "Secured": "sec", "Lost": "lost", "Destroyed": "des", "Thriving": "thr", "Endangered": "end", "Extinct": "ext" };
+const CX_TY = [["stones", "Infinity Stones"], ["weapons", "Weapons"], ["armor", "Armor"], ["tech", "Tech"], ["mystic", "Mystic"], ["substances", "Substances"], ["vehicles", "Vehicles"], ["keepsakes", "Keepsakes"], ["specimens", "Specimens"]];
 const CX_GLYPH = {
   stones: '<path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M9.5 4L12 9l2.5-5M12 9v11"/>',
   weapons: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/>',
@@ -4064,10 +4084,12 @@ const CX_GLYPH = {
   mystic: '<circle cx="12" cy="12" r="9"/><path d="M5.5 12c2.5-3.5 10.5-3.5 13 0-2.5 3.5-10.5 3.5-13 0z"/><circle cx="12" cy="12" r="1.6"/>',
   substances: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.4 15h9.2"/>',
   vehicles: '<path d="M12 2.5l2 6.5 7 4.2v2.1l-7-1.6-.7 4.8 2.2 1.8v1.2H8.5v-1.2l2.2-1.8-.7-4.8-7 1.6v-2.1L10 9z"/>',
+  specimens: '<path d="M8 3h8"/><path d="M9.5 3v3.2a2.5 2.5 0 0 1-.8 1.8A6 6 0 0 0 6 12.6V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6.4a6 6 0 0 0-2.7-4.6 2.5 2.5 0 0 1-.8-1.8V3"/><path d="M6.4 13.5c2-1 3.6 1 5.6 0s3.6-1 5.6 0"/><circle cx="12" cy="16.6" r="1.4"/>',
   keepsakes: '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8.5" cy="11.5" r="2"/><circle cx="15.5" cy="11.5" r="2"/><path d="M10.5 11.5h3M6.5 18l1.5-2.5h8l1.5 2.5"/>'
 };
 const cxGlyph = c => `<svg class="cx-gl" viewBox="0 0 24 24" aria-hidden="true">${CX_GLYPH[c] || CX_GLYPH.keepsakes}</svg>`;
 const cxSteps = o => o.st.filter(x => atlSeenT(x[1]));
+const cxSpec = o => o.c === "specimens";
 const cxStatus = S => S.length ? S[S.length - 1][2] || "In use" : "In use", cxHolder = S => S.length ? S[S.length - 1][3] || "Unknown" : "Unknown";
 const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", atlSeenT)[0];
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
@@ -4085,9 +4107,9 @@ function renderCx() {
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>The Collection</button>
       <div class="cx-big s-${CX_ST[st]}"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><b class="cx-stb">${esc(st)}</b></div>
       <small class="cx-lot">${cxNo(o)} · ${esc(cxTyName(o.c))}</small><h3>${esc(cxName(o))}</h3><p class="co-kind">${esc(cxKind(o))}</p>
-      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>Held by</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div></div>
-      ${hands.length ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}</div>` : ""}
-      <div class="co-h">Chain of custody</div>
+      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>${cxSpec(o) ? "Home world" : "Held by"}</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div></div>
+      ${hands.length && !cxSpec(o) ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}</div>` : ""}
+      <div class="co-h">${cxSpec(o) ? "Field notes" : "Chain of custody"}</div>
       <ol class="co-chain cx-chain">${S.map(x => { const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
         pst = x[2] || pst; ph = x[3] || ph; return `<li class="s-${CX_ST[x[2]] || "use"}"><p>${esc(x[0])}</p><small>${tnh(x[1])}${hd}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
@@ -4103,7 +4125,7 @@ function cxBody() {
   const card = (o, meta) => { const S = cxSteps(o), st = cxStatus(S), n = cxName(o);
     return `<button type="button" class="cx-case s-${CX_ST[st]}" data-co="${o.id}"><span class="cx-stage"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><i class="rf-lamp" aria-hidden="true"></i></span>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="cx-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}</b><small>${esc(cxKind(o))}</small><em>${esc(meta(o, S, st))}</em></span></button>`; };
   if (cxHoldF && q.length < 2) {   // everything one holder has had, as far as you've watched
-    const L = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).some(x => x[3] === cxHoldF)).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
+    const L = COLLX.filter(o => rfUniOf(o) === cxUni && !cxSpec(o) && cxSteps(o).some(x => x[3] === cxHoldF)).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
     return `<div class="tf-bar"><span><small>Held by</small><b>${esc(cxHoldF)}</b></span><button type="button" data-tfx aria-label="Show every object">All objects<i aria-hidden="true">&#10005;</i></button></div>
       <div class="rf-sh rf-found"><span>In their hands</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxHolder(S) === cxHoldF ? st : "Now held by " + cxHolder(S))).join("")}</div>`;
   }
@@ -4113,15 +4135,16 @@ function cxBody() {
   }
   const known = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
   // grouped by holder, it's an index of every hand an object has passed through, the same names as on its card
-  const keyz = o => cxGrp === "holder" ? [...new Set(cxSteps(o).map(x => x[3]).filter(Boolean))] : [cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c];
-  const keys = cxGrp === "holder" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === "Nobody") - (b === "Nobody") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : cxGrp === "status" ? Object.keys(CX_ST) : CX_TY.map(t => t[0]);
+  const SPEC = "Living specimens";
+  const keyz = o => cxGrp === "holder" ? (cxSpec(o) ? [SPEC] : [...new Set(cxSteps(o).map(x => x[3]).filter(Boolean))]) : [cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c];
+  const keys = cxGrp === "holder" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === SPEC) - (b === SPEC) || (a === "Nobody") - (b === "Nobody") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : cxGrp === "status" ? Object.keys(CX_ST) : CX_TY.map(t => t[0]);
   const label = k => cxGrp === "type" ? cxTyName(k) : k;
   cxFold[cxGrp] = cxFold[cxGrp] || {};
   const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CX_GRP.map(([k, l]) => `<button type="button" data-cxg="${k}" aria-pressed="${k === cxGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = cxShut(k), fresh = L.some(o => !seen[o.id]), cls = cxGrp === "status" ? " s-" + CX_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cxf="${esc(k)}" aria-expanded="${!shut}">${cxGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : cxGrp === "type" ? cxGlyph(k) : ""}<span>${esc(label(k))}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
-        ${shut ? "" : `<div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxGrp !== "holder" ? "Held by " + cxHolder(S) : cxHolder(S) === k ? st : "Now held by " + cxHolder(S))).join("")}</div>`}</section>`; }).join("")}`;
+        ${shut ? "" : `<div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxSpec(o) ? (cxGrp === "status" ? "" : st + " · ") + "Home: " + cxHolder(S) : cxGrp !== "holder" ? "Held by " + cxHolder(S) : cxHolder(S) === k ? st : "Now held by " + cxHolder(S))).join("")}</div>`}</section>`; }).join("")}`;
 }
 
 /* ---------- the Raft's threat registry: tap the Raft in the Atlas. Every villain gets a file the first time you meet them, and the file follows them
@@ -6578,6 +6601,17 @@ function swapIn(host, html) {
 // your clearance rises a level for every tenth of the Agent File you complete
 // and everything in it, complete, takes you past the levels altogether: Excelsior, with no number
 const CLEARANCE = ["Recruit", "Field Agent", "Specialist", "Strike Team", "Black Ops", "Classified", "Top Secret", "World Security", "Omega", "Avenger", "Excelsior"];
+/* mockup: the archives you've found, a tap away. Each index is found in the Atlas first (the Compound upstate, the Raft at sea, the Collector on
+   Knowhere); once it is, it's listed here under your Agent ID, and nothing shows before the first one is found */
+const ARCH_MOCK = true;
+function archSec() {
+  if (!ARCH_MOCK) return ""; const ex = state.eggs || {};
+  const L = [["cp", "compound", "The Avengers Compound", "Personnel files", () => ALLIES.filter(o => cpSteps(o).length).length, "on file"],
+    ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
+    ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
+  if (!L.length) return "";
+  return `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${L.map(([m, , t, k, n, w]) => `<button type="button" class="ar-${m}" data-arch="${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em><i aria-hidden="true">&#8250;</i></button>`).join("")}</div></section>`;
+}
 function renderFile(fresh) {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = done === A.length ? 11 : Math.min(10, 1 + Math.floor(done / A.length * 10));
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
@@ -6608,7 +6642,7 @@ function renderFile(fresh) {
       <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
-    ${rateSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
+    ${archSec()}${rateSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress is saved in this browser. A save code holds all of it in one line of text. Keep it in your notes, and paste it here to restore your progress.</p>
       <div class="row"><button type="button" class="go" data-save="copy">Copy save code</button><button type="button" data-save="open">Restore code</button></div>
@@ -6700,6 +6734,7 @@ function closeFile(fromHistory) {
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
+document.getElementById("fileView").addEventListener("click", ev => { const ar = ev.target.closest("[data-arch]"); if (ar) { haptic(12); openColl(ar.dataset.arch === "coll" ? undefined : ar.dataset.arch); } });
 document.getElementById("fileView").addEventListener("click", ev => {
   const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; refreshRates(); fv.scrollTop = y; return; }
@@ -6727,7 +6762,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "orderPicked", "mode", "tlMode", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen", "collIn", "collSeen"];
+const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "orderPicked", "mode", "tlMode", "newsK", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen", "collIn", "collSeen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -6773,7 +6808,7 @@ document.getElementById("fileView").addEventListener("click", async ev => {
     try {
       SAVE_KEYS.forEach(k => { delete state[k]; });
       Object.assign(state, { checks: {}, unlocked: {}, seen: {}, dusted: {}, stones: {} }, o);
-      renameChecks(state.checks); splitPruned(); epSplit(); state.entered = true; if (!state.since) state.since = new Date().toISOString();
+      renameChecks(state.checks); splitPruned(); epSplit(); newsKeysV2(); state.entered = true; if (!state.since) state.since = new Date().toISOString();
       endgameN = null; persist(); renderAll(); renderFile(true);
     } catch (e) {   // something in the code this version can't use: everything goes back as it was
       Object.keys(state).forEach(k => { delete state[k]; }); Object.assign(state, JSON.parse(was)); try { localStorage.setItem(KEY, was); } catch (e2) {}
@@ -8732,7 +8767,7 @@ const NEWS = {
 const NEWS_SRC = {"The Fantastic Four: First Steps": "e828", "Cloak & Dagger": "bulletin", "The Punisher (2004)": "bulletin", "Daredevil (2003)": "bulletin", "Blade: Trinity": "bulletin", "Blade: The Series": "bulletin", "Blade": "bulletin", "X-Men: First Class": "bulletin", "The Wolverine": "bulletin", "X-Men Origins: Wolverine": "bulletin", "Spider-Man: Across the Spider-Verse": "bulletin", "Spider-Man (2002)": "bugle", "Spider-Man 2": "bugle", "Spider-Man 3": "bugle", "The Amazing Spider-Man": "bugle", "The Amazing Spider-Man 2": "bugle", "Venom": "bulletin", "Venom: Let There Be Carnage": "bulletin", "Morbius": "bulletin", "Spider-Man: Into the Spider-Verse": "bulletin", "X-Men (2000)": "bulletin", "X2": "bulletin", "X-Men: The Last Stand": "bulletin", "X-Men: Days of Future Past": "bulletin", "X-Men: Apocalypse": "bulletin", "Dark Phoenix": "bulletin", "X-Men '97": "bulletin", "Fantastic Four (2005)": "bulletin", "Fantastic Four: Rise of the Silver Surfer": "bulletin"};   // every world hears its news from its own outlet
 const OUTLETS = { whih: ["WHIH NEWSFRONT", "World news", "WHIH"], e828: ["EARTH-828", "Future Foundation broadcast"], bugle: ["DAILY BUGLE", "New York"], bulletin: ["BULLETIN", "Breaking news"] };
 const newsSrc = t => NEWS_SRC[t] || "whih";
-const newsKey = (t, i) => t + "::" + i;
+const newsKey = (t, i) => t + "::" + (NEWS[t] || [])[i];   // a headline is remembered as read by its words, so a new one can take its place in the story without moving the others
 const newsTitles = () => Object.keys(NEWS).filter(atlSeenT).sort((a, b) => (ATL_ORDER[a] ?? 1e9) - (ATL_ORDER[b] ?? 1e9));
 // anything you've since un-watched forgets its news played, so it breaks again when it comes back
 function newsForget() { const N = state.news = state.news || {}; Object.keys(N).forEach(k => { const t = k.slice(0, k.lastIndexOf("::")); if (!NEWS[t] || !atlSeenT(t)) delete N[k]; }); }
@@ -9563,8 +9598,11 @@ const COMMS = [
 "also": ["Hit-Monkey"]
 }
 ];
-// mockup: the drafted headlines and messages that fill in every step of the watch order
-{ const NX = /*NEWSX*/{}, MX = /*COMMSX*/[], SX = /*SRCX*/{}; Object.entries(NX).forEach(([t, L]) => { NEWS[t] = (NEWS[t] || []).concat(L); }); MX.forEach(m => COMMS.push(m)); Object.assign(NEWS_SRC, SX); }
+// the rest of the headlines and messages, filling in every step of the watch order. A title's list is either new headlines to add after its own,
+// or (when it holds every one of its own) the whole list in story order
+const NEWS0 = Object.fromEntries(Object.entries(NEWS).map(([t, L]) => [t, L.slice()]));   // as they stood, for the read marks below
+{ const NX = /*NEWSX*/{}, MX = /*COMMSX*/[], SX = /*SRCX*/{}; Object.entries(NX).forEach(([t, L]) => { const O = NEWS[t] || []; NEWS[t] = O.every(h => L.includes(h)) ? L : O.concat(L); }); MX.forEach(m => COMMS.push(m)); Object.assign(NEWS_SRC, SX); }
+newsKeysV2();
 // the welcome isn't tied to a title: it comes with the first boot, so only someone who has been through it gets it (and gets it again after Reset datapad)
 // a TVA log notice for an Earth with more than one title only arrives once every one of them is watched
 function msgId(m) { return m.id || m.t; }   // two messages on one title each need their own id
