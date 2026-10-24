@@ -1479,6 +1479,15 @@ function migrate(old) { // earlier versions shared one checkmark per title; keep
   DATA.chapters.forEach(c => { if (state.unlocked[c.id]) c.items.forEach(i => { if (old[i.t]) state.checks[ck(c, i.t)] = true; }); });
 }
 if (state.watched) { migrate(state.watched); delete state.watched; }
+// episode counts used to be shared, one per title, and finishing one checked it off in every list. Each list now keeps its own count, and each starts
+// from where the shared one was, so nothing you've seen changes
+function epSplit() {
+  const E = state.eps; if (!E) return;
+  Object.keys(E).filter(t => !t.includes("::")).forEach(t => { const v = E[t]; delete E[t]; if (!Array.isArray(v)) return;
+    [...DATA.chapters, ...DATA.chars].forEach(c => { if (c.items.some(i => i.t === t) && !E[ck(c, t)]) E[ck(c, t)] = v.slice(); });
+    [["tl::", DATA.timeline], ["tr::", DATA.timelineRelease]].forEach(([pre, L]) => { if (L.some(e => e.t === t) && !E[pre + t]) E[pre + t] = v.slice(); }); });
+}
+epSplit();
 // the Incursions box ends with where they converge, Avengers: Doomsday and Avengers: Secret Wars. A box you'd already finished stays finished
 // for each of the two you've watched in another list
 if (!state.incConv) { const B = DATA.chars.find(c => c.id === "cx-incursions"), conv = B ? B.items.filter(i => i.grp === "Convergence") : [];
@@ -6942,63 +6951,65 @@ document.addEventListener("pointermove", ev => { const d = rcDrag; if (!d || ev.
   if (ev.target.closest("[data-rcn]")) { clearTimeout(c._go); if (rcT === t) rcT = null; rcGo(c); rateSheet(t); }
 }, true));
 // the sheet: stars (tap the same one again to clear them), the day you watched it, how many times, and a note. It saves as you go
-/* ---------- episodes: a series you're partway through counts its episodes ("4 of 9"), in its boxes and on the timeline alike, so it never reads as
-   unwatched. Tap the count for the episode list: each episode is checked on its own (watching out of order is fine), and checking the last one
-   checks the season off everywhere it appears ---------- */
+/* ---------- episodes: a series you're partway through counts its episodes ("4 of 9"), so it never reads as unwatched. Like a checkmark, the count
+   belongs to the list it's in: every box and each timeline keeps its own, because each is its own watch order. Tap the count for the episode list:
+   each episode is checked on its own (watching out of order is fine), and checking the last one checks the season off in that list ---------- */
 const EPS = /*EPS*/{}, EPN = /*EPN*/{}, EPO = /*EPO*/{};   // EPO: the season a title starts at, for one filed as S6–S7
 const epList = t => { const v = EPS[t]; return v == null ? null : Array.isArray(v) ? v : [v]; };
 const epTotal = t => (epList(t) || []).reduce((a, b) => a + (b || 0), 0);
-const epSet = t => { const v = (state.eps || {})[t]; return new Set(Array.isArray(v) ? v : []); };
-const epAt = t => [...epSet(t)].filter(n => n <= epTotal(t)).length;
+const epT = k => k.slice(k.indexOf("::") + 2);   // a count's key is its checkmark's: "ch-4::Daredevil S1", "tl::Loki S1"
+const epSet = k => { const v = (state.eps || {})[k]; return new Set(Array.isArray(v) ? v : []); };
+const epAt = k => [...epSet(k)].filter(n => n <= epTotal(epT(k))).length;
 const epNames = t => { const v = EPN[t]; return !v ? [] : Array.isArray(v[0]) ? v.flat() : v; };
 // under the title: "13 episodes", then "4 of 13 episodes" with a thin bar once you've started. Tapping it opens the episodes
 const epInner = (a, n) => `<span class="ept">${a ? `${a} of ${n} episodes` : `${n} episodes`}</span>${a ? `<span class="epb"><span style="width:${Math.round(a / n * 100)}%"></span></span>` : ""}`;
-const epChipHTML = (t, a, n) => `<span class="epl${a ? " on" : ""}" role="button" tabindex="0" data-ep="${esc(t)}" aria-label="Episodes: ${a} of ${n} watched">${epInner(a, n)}</span>`;
-// a season you're partway through shows its count in every box and on the timeline, even where it's already checked off on its own
-const epShow = (t, checked) => { const n = epTotal(t), a = epAt(t); return !!n && (!checked || (a > 0 && a < n)); };
-function epLine(e, t) { return epShow(t, state.checks[ck(e, t)]) ? epChipHTML(t, epAt(t), epTotal(t)) : ""; }
-function epChipT(t, on) { return epShow(t, on) ? epChipHTML(t, epAt(t), epTotal(t)) : ""; }
-function epFinish(t) {   // the finale: the season is checked off in every box and on both timelines it's in
-  const was = atlSeenT(t);
-  [...DATA.chapters, ...DATA.chars].forEach(c => { if (c.items.some(i => i.t === t)) state.checks[ck(c, t)] = true; });
-  [["tl::", DATA.timeline], ["tr::", DATA.timelineRelease]].forEach(([pre, L]) => { if (L.some(e => e.t === t)) state.checks[pre + t] = true; });
+const epChipHTML = (k, a, n) => `<span class="epl${a ? " on" : ""}" role="button" tabindex="0" data-ep="${esc(k)}" aria-label="Episodes: ${a} of ${n} watched">${epInner(a, n)}</span>`;
+// a season you're partway through shows its count, even where it's already checked off on its own
+const epShow = (k, checked) => { const n = epTotal(epT(k)), a = epAt(k); return !!n && (!checked || (a > 0 && a < n)); };
+const epChipK = (k, on) => epShow(k, on) ? epChipHTML(k, epAt(k), epTotal(epT(k))) : "";
+function epLine(e, t) { return epChipK(ck(e, t), state.checks[ck(e, t)]); }
+function epChipT(t, on) { return epChipK(tk(t), on); }
+function epFinish(k) {   // the finale: the season is checked off in the list you were counting it in
+  const t = epT(k), was = atlSeenT(t);
+  state.checks[k] = true;
   if (!was) firstWatch(t); persist(); renderAll(); if (openEntry) updatePanel(openEntry);
 }
-function epRefresh(t) { const n = epTotal(t), a = epAt(t); document.querySelectorAll(`[data-ep="${CSS.escape(t)}"]`).forEach(c => { c.classList.toggle("on", !!a); c.innerHTML = epInner(a, n); }); }
-function epSheet(t) {
+function epRefresh(k) { const n = epTotal(epT(k)), a = epAt(k); document.querySelectorAll(`[data-ep="${CSS.escape(k)}"]`).forEach(c => { c.classList.toggle("on", !!a); c.innerHTML = epInner(a, n); }); }
+function epSheet(k) {
+  const t = epT(k);
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
   el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet epsheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Episodes: " + tn(t));
   const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
   const L = epList(t), N = epTotal(t), so = EPO[t] || 0, multi = true, names = epNames(t), start = L.map((c, i) => L.slice(0, i).reduce((a, b) => a + b, 0));
-  const W0 = epSet(t); let sea = multi ? Math.max(0, L.findIndex((c, i) => Array.from({ length: c }, (_, j) => start[i] + j + 1).some(n => !W0.has(n)))) : 0;
-  const draw = () => { const W = epSet(t), a = epAt(t), s0 = start[sea];
+  const W0 = epSet(k); let sea = multi ? Math.max(0, L.findIndex((c, i) => Array.from({ length: c }, (_, j) => start[i] + j + 1).some(n => !W0.has(n)))) : 0;
+  const draw = () => { const W = epSet(k), a = epAt(k), s0 = start[sea];
     inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><button type="button" class="rs-done">Done</button><small>Episodes</small><h4>${tnh(t)}</h4>
       <p class="ep-sum"><b>${a}</b> of ${N} watched</p><div class="ep-bar"><span style="width:${Math.round(a / N * 100)}%"></span></div>
       ${multi ? `<div class="ep-seas">${L.map((c, i) => { const got = Array.from({ length: c }, (_, j) => start[i] + j + 1).filter(n => W.has(n)).length; return `<button type="button" data-eps="${i}" class="${i === sea ? "on" : ""}${got === c ? " done" : ""}">Season ${i + 1 + so}<i>${got}/${c}</i></button>`; }).join("")}</div>` : ""}
       <ol class="ep-list">${Array.from({ length: L[sea] }, (_, j) => { const n = s0 + j + 1, nm = names[n - 1]; return `<li><button type="button" data-epn="${n}" class="${W.has(n) ? "on" : ""}" aria-pressed="${W.has(n)}"><span class="ep-no">${multi ? sea + 1 + so + "." : ""}${j + 1}</span><span class="ep-t">${nm ? esc(nm) : "Episode " + (j + 1)}</span><span class="ep-ck" aria-hidden="true">${CHECK("#06101E")}</span></button></li>`; }).join("")}</ol>
 `; };
-  const sync = () => { const W = epSet(t), a = epAt(t); inn.querySelector(".ep-sum b").textContent = a; inn.querySelector(".ep-bar span").style.width = Math.round(a / N * 100) + "%";
+  const sync = () => { const W = epSet(k), a = epAt(k); inn.querySelector(".ep-sum b").textContent = a; inn.querySelector(".ep-bar span").style.width = Math.round(a / N * 100) + "%";
     inn.querySelectorAll("[data-epn]").forEach(b => { const on = W.has(+b.dataset.epn); b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
     inn.querySelectorAll("[data-eps]").forEach(b => { const i = +b.dataset.eps, got = Array.from({ length: L[i] }, (_, j) => start[i] + j + 1).filter(n => W.has(n)).length; b.querySelector("i").textContent = got + "/" + L[i]; b.classList.toggle("done", got === L[i]); }); };
   // the last one checks it off: the sheet waits for your finger to lift, and the tap that closed it can't land on whatever was under it
   let down = false, pend = null;
-  const finish = () => { pend = null; epBlock = Date.now() + 450; close(); epFinish(t); };
-  const save = W => { (state.eps = state.eps || {})[t] = [...W].sort((x, y) => x - y); persist(); sync(); if (epAt(t) === N) setTimeout(() => { if (down) pend = finish; else finish(); }, 420); };
+  const finish = () => { pend = null; epBlock = Date.now() + 450; close(); epFinish(k); };
+  const save = W => { (state.eps = state.eps || {})[k] = [...W].sort((x, y) => x - y); persist(); sync(); if (epAt(k) === N) setTimeout(() => { if (down) pend = finish; else finish(); }, 420); };
   let holdT = null, held = false;
   draw(); document.body.appendChild(el);
   try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
   // the count on the box behind catches up when the list closes, not tick by tick: repainting it under the dim layer made the dim layer blink
-  el._close = () => epRefresh(t);
+  el._close = () => epRefresh(k);
   const close = () => { epBlock = Math.max(epBlock, Date.now() + 350); if (navAt("rate")) navBack(); else { el.remove(); el._close(); } };
   el.addEventListener("click", ev => {
     if (ev.target === el || ev.target.closest(".rs-done")) { close(); return; }
     const sb = ev.target.closest("[data-eps]"); if (sb) { if (held) { held = false; return; } sea = +sb.dataset.eps; haptic(8); const y = inn.scrollTop; draw(); inn.scrollTop = y; return; }
     const b = ev.target.closest("[data-epn]"); if (!b) return;
-    const n = +b.dataset.epn, W = epSet(t); if (W.has(n)) W.delete(n); else W.add(n);
+    const n = +b.dataset.epn, W = epSet(k); if (W.has(n)) W.delete(n); else W.add(n);
     haptic(W.has(n) ? 12 : 8); save(W);   // the last one checks it off
   });
   // hold a season to mark the whole of it watched (or, if it's all watched already, clear it)
-  el.addEventListener("pointerdown", ev => { down = true; const sb = ev.target.closest("[data-eps]"); if (!sb) return; clearTimeout(holdT); holdT = setTimeout(() => { held = true; const i = +sb.dataset.eps, ns = Array.from({ length: L[i] }, (_, j) => start[i] + j + 1), W = epSet(t), all = ns.every(n => W.has(n));
+  el.addEventListener("pointerdown", ev => { down = true; const sb = ev.target.closest("[data-eps]"); if (!sb) return; clearTimeout(holdT); holdT = setTimeout(() => { held = true; const i = +sb.dataset.eps, ns = Array.from({ length: L[i] }, (_, j) => start[i] + j + 1), W = epSet(k), all = ns.every(n => W.has(n));
     ns.forEach(n => all ? W.delete(n) : W.add(n)); haptic([14, 40, 14]); if (sea !== i) { sea = i; draw(); } save(W); }, 550); });
   ["pointerup", "pointercancel", "pointerleave"].forEach(nm => el.addEventListener(nm, () => clearTimeout(holdT)));
   const up = () => { down = false; if (!el.isConnected) { ["pointerup", "pointercancel"].forEach(nm => window.removeEventListener(nm, up, true)); return; } if (pend) setTimeout(pend, 0); };
@@ -7279,7 +7290,7 @@ document.getElementById("fileView").addEventListener("click", async ev => {
     try {
       SAVE_KEYS.forEach(k => { delete state[k]; });
       Object.assign(state, { checks: {}, unlocked: {}, seen: {}, dusted: {}, stones: {} }, o);
-      renameChecks(state.checks); splitPruned(); state.entered = true; if (!state.since) state.since = new Date().toISOString();
+      renameChecks(state.checks); splitPruned(); epSplit(); state.entered = true; if (!state.since) state.since = new Date().toISOString();
       endgameN = null; persist(); renderAll(); renderFile(true);
     } catch (e) {   // something in the code this version can't use: everything goes back as it was
       Object.keys(state).forEach(k => { delete state[k]; }); Object.assign(state, JSON.parse(was)); try { localStorage.setItem(KEY, was); } catch (e2) {}
