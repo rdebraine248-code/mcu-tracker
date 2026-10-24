@@ -732,7 +732,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-stats div, .hf-stats button{ padding:8px 10px; border:1px solid #232D42; border-radius:8px; background:rgba(255,255,255,.02); }
 .hf-stats b{ display:block; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:22px; letter-spacing:.5px; }
 .hf-stats small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#8EA2C2; text-transform:uppercase; }
-/* mockup: the archives in the Agent File, each in its own index's colors */
+/* the archives in the Agent File, each in its own index's colors */
 .hf-arch{ display:grid; gap:8px; }
 .hf-arch button{ position:relative; display:block; width:100%; padding:12px 40px 12px 14px; border:1px solid var(--ac); border-radius:12px; background:var(--ab); color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
 .hf-arch button:active{ transform:scale(.99); }
@@ -6601,11 +6601,10 @@ function swapIn(host, html) {
 // your clearance rises a level for every tenth of the Agent File you complete
 // and everything in it, complete, takes you past the levels altogether: Excelsior, with no number
 const CLEARANCE = ["Recruit", "Field Agent", "Specialist", "Strike Team", "Black Ops", "Classified", "Top Secret", "World Security", "Omega", "Avenger", "Excelsior"];
-/* mockup: the archives you've found, a tap away. Each index is found in the Atlas first (the Compound upstate, the Raft at sea, the Collector on
+/* the archives you've found, a tap away. Each index is found in the Atlas first (the Compound upstate, the Raft at sea, the Collector on
    Knowhere); once it is, it's listed here under your Agent ID, and nothing shows before the first one is found */
-const ARCH_MOCK = true;
 function archSec() {
-  if (!ARCH_MOCK) return ""; const ex = state.eggs || {};
+  const ex = state.eggs || {};
   const L = [["cp", "compound", "The Avengers Compound", "Personnel files", () => ALLIES.filter(o => cpSteps(o).length).length, "on file"],
     ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
     ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
@@ -8983,16 +8982,7 @@ const COMMS = [
 "re": "Is this thing on?",
 "b": "Is this thing on? Hi! Don't scream. Depending on what order you watch things in, we've either never met or I already live here. Timelines, am I right? Anyway, I just hacked your little S.H.I.E.L.D. datapad. Love what you've done with the place. Very blue. Very serious. I fixed it. Now listen, somewhere in here there's a file with my name on it, and I need it to say \"hero.\" Or \"devastatingly handsome.\" Your call. Also, don't tell Fury I was here. Actually, do. Maybe he'll finally call."
 },
-{
-"t": "Deadpool 2",
-"id": "dp2",
-"k": "hack",
-"f": "Deadpool",
-"to": "My favorite reader",
-"cl": "Hacked, obviously",
-"re": "Group chat",
-"b": "Did you just try to swipe me away? Rude. I'm not a pop-up, I'm a delight. Okay, business. I've been reading your other messages. Classified this, eyes only that. Who hurt these people? Your inbox needs a friend, and I'm volunteering. Also, I'm putting a team together and you're on the shortlist. The shortlist is you and a guy named Peter. Peter is very excited."
-},
+
 {
 "t": "Agents of S.H.I.E.L.D. S1",
 "id": "Agents of S.H.I.E.L.D.",
