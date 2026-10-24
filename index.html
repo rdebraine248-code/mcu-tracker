@@ -1064,9 +1064,9 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-coll i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(233,196,106,.6); border-radius:8px; font-style:normal; font-size:12px; color:#E9C46A; }
 .atl-coll span{ flex:1; } .atl-coll b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
 .atl-coll small{ display:block; margin-top:1px; font-size:13px; color:#C9B27A; } .atl-coll em{ font-style:normal; font-size:18px; color:#E9C46A; }
-.lgsw{ display:inline-flex; gap:3px; margin:10px 0 4px; padding:3px; border:1px solid #26314A; border-radius:999px; background:#0D1320; }
-.lgsw button{ padding:7px 14px; border:0; border-radius:999px; background:none; color:#AFC0D6; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
-.lgsw button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; }
+.lgsw{ display:flex; gap:8px; margin:12px 0 4px; }
+.lgsw button{ flex:0 0 auto; padding:9px 15px; border:1px solid #2A3140; border-radius:999px; background:#1A2030; color:#EEF1F6; font:500 15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
+.lgsw button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; border-color:#EEF1F6; }
 #mapSw{ flex-basis:100%; } #mapSw .lgsw{ margin:6px 0 0; }
 .srch-btn{ display:inline-flex; align-items:center; gap:6px; flex:none; padding:6px 11px; border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--muted); font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .srchpanel{ z-index:66; }
@@ -1084,6 +1084,11 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .sr-it b{ display:block; font-size:16px; font-weight:600; line-height:1.3; } .sr-it small{ display:block; margin-top:3px; font-size:14px; line-height:1.4; color:#AEBBCD; }
 .sr-it em{ display:block; margin-top:3px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#7D8BA6; }
 .sr-it mark{ background:rgba(95,168,255,.28); color:inherit; border-radius:2px; padding:0 1px; }
+.sr-db{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:4px; }
+.sr-db > *{ display:flex; flex-direction:column; align-items:flex-start; gap:2px; min-width:0; padding:10px 10px 9px; border:1px solid #232D42; border-radius:10px; background:rgba(255,255,255,.02); color:#EEF1F6; text-align:left; font:inherit; cursor:pointer; touch-action:manipulation; }
+.sr-db b{ font:400 24px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; } .sr-db small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8EA2C2; }
+.sr-db .lk{ cursor:default; } .sr-db .lk b{ color:#4A5670; } .sr-db .lk small{ color:#56637C; }
+.sr-home .sr-chips{ margin-top:4px; }
 .sr-empty{ margin:28px 0 0; color:#7D8BA6; text-align:center; font:12px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
 .collpanel{ z-index:63; }
 .co{ max-width:760px; margin:0 auto; padding-top:12px; }
@@ -1129,11 +1134,13 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .rf-tabs{ display:flex; gap:8px; overflow-x:auto; margin:14px 0 14px; padding:0 0 2px; scrollbar-width:none; } .rf-tabs::-webkit-scrollbar{ display:none; }
 .rf-tabs button{ flex:0 0 auto; border:1px solid #2A3140; border-radius:999px; padding:9px 15px; background:#1A2030; color:#EEF1F6; font:500 15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
 .rf-tabs button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; border-color:#EEF1F6; }
-.rf-grp{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 4px; }
+.rf-grp{ display:flex; align-items:center; gap:12px; margin:0 0 4px; }
 .rf-grp > span{ font:10.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#8FA4BE; white-space:nowrap; }
-.rf-seg{ display:flex; gap:3px; padding:3px; border:1px solid #26314A; border-radius:999px; background:#0D1320; }
-.rf-seg button{ border:0; border-radius:999px; padding:7px 10px; background:transparent; color:#8EA2C2; font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; cursor:pointer; touch-action:manipulation; }
-.rf-seg button[aria-pressed="true"]{ background:#1E2A44; color:#EEF1F6; box-shadow:inset 0 0 0 1px #3A78C9; }
+.rf-seg{ display:flex; flex-wrap:wrap; gap:6px; }
+.rf-seg button{ padding:6px 12px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font-size:13.5px; cursor:pointer; touch-action:manipulation; }
+.rf-seg button[aria-pressed="true"]{ background:#D6E4F3; border-color:#D6E4F3; color:#0A0F16; font-weight:600; }
+.rf-intake{ display:flex; align-items:center; gap:10px; margin:12px 0 0; padding:10px 12px; border:1px solid #3A4E6A; border-radius:10px; background:rgba(127,155,187,.08); color:#D6E4F3; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
+.rf-intake i{ flex:none; width:8px; height:8px; border-radius:50%; background:#4FCB8A; box-shadow:0 0 8px #4FCB8A; }
 .rf-sec{ --sc:#8FA4BE; margin-top:8px; }
 .rf-sh{ display:flex; align-items:center; gap:9px; width:100%; padding:14px 2px 9px; border:0; border-bottom:1px solid #26344B; background:none; color:#D6E4F3; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; text-align:left; cursor:pointer; touch-action:manipulation; }
 .rf-sh span{ flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } .rf-sh em{ font-style:normal; letter-spacing:1px; color:#8FA4BE; }
@@ -1145,9 +1152,6 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .rf-meta{ flex:none; max-width:36%; text-align:right; font:10px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FA4BE; } .rf-meta em{ font-style:normal; color:var(--sc); }
 .rf-tx .nw{ display:inline-block; margin-left:8px; vertical-align:3px; font-style:normal; }
 .rf-tx .nw, .rf-sh .nw{ flex:none; padding:1px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
-.hf-threat{ display:flex; align-items:center; gap:12px; width:100%; margin-top:8px; padding:9px 12px; border:1px solid #3A2A34; border-radius:8px; background:linear-gradient(90deg,rgba(224,74,58,.12),rgba(224,74,58,.02)); color:inherit; text-align:left; cursor:pointer; touch-action:manipulation; }
-.hf-threat span{ flex:1; min-width:0; } .hf-threat small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#8EA2C2; text-transform:uppercase; } .hf-threat b{ display:block; margin-top:2px; font:400 20px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; }
-.hf-threat em{ flex:none; font:11px/1.4 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1px; color:#AEBBCD; text-transform:uppercase; text-align:right; } .hf-threat em i{ display:block; font-style:normal; color:#FF7A6A; } .hf-threat svg{ flex:none; color:#8EA2C2; }
 .s-large{ --sc:#E04A3A; } .s-active{ --sc:#6FB3FF; } .s-captive{ --sc:#E07AAE; } .s-custody{ --sc:#E9A13A; } .s-dead{ --sc:#8592A6; } .s-reformed{ --sc:#4FCB8A; } .s-missing{ --sc:#A98BE8; }
 .rf-head{ position:relative; margin-top:4px; padding:14px 14px 14px; border:1px solid #2B3A50; border-radius:12px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, rgba(0,0,0,0) 2px 30px), linear-gradient(180deg,#1A2433,#0E141E); }
 .rf-head small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#8FA4BE; }
@@ -1322,8 +1326,8 @@ body{ padding-bottom:var(--dockh); }
   <div class="srch-top"><label class="srch-box"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.4 10.4L14.5 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input id="srchIn" type="search" enterkeyhint="search" autocomplete="off" spellcheck="false" placeholder="Search the datapad"></label></div>
   <div class="fileview" id="srchView"></div>
 </div>
-<div class="filepanel collpanel" id="collPanel" hidden role="dialog" aria-modal="true" aria-label="The Collection">
-  <div class="maptop"><button type="button" class="back" id="collBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Knowhere</h2></div>
+<div class="filepanel collpanel dockpg" id="collPanel" hidden role="dialog" aria-modal="true" aria-label="The Collection">
+  <div class="maptop"><button type="button" class="back" id="collBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2 data-glow="The Collection">The Collection</h2></div>
   <div class="fileview" id="collView"></div>
 </div>
 <div class="filepanel atlpanel dockpg" id="atlasPanel" hidden role="dialog" aria-modal="true" aria-label="Atlas">
@@ -4376,7 +4380,7 @@ function renderColl() {
     collPaint(v); return;
   }
   const known = COLL.filter(o => collSteps(o).length), L = COLL.filter(o => !collCat || o.c === collCat);
-  v.innerHTML = `<div class="co"><div class="co-top"><small>Taneleer Tivan's archive</small><h3>The Collection</h3><p class="co-sub">${known.length} of ${COLL.length} catalogued</p></div>
+  v.innerHTML = `<div class="co"><div class="co-top"><small>Taneleer Tivan's archive · Knowhere</small><p class="co-sub">${known.length} of ${COLL.length} catalogued</p></div>
     <div class="co-bar"><span style="width:${Math.round(known.length / COLL.length * 100)}%"></span></div>
     <div class="co-chips">${COLL_CATS.map(([c, l]) => `<button type="button" data-cc="${c}" class="${c === collCat ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="co-grid">${L.map(o => { const S = collSteps(o);
@@ -4386,16 +4390,20 @@ function renderColl() {
 }
 function openColl(mode) {
   collMode = mode === "raft" ? "raft" : "coll"; const cp = document.getElementById("collPanel"), raft = collMode === "raft";
-  cp.classList.toggle("raft", raft); cp.setAttribute("aria-label", raft ? "Threat registry" : "The Collection"); cp.querySelector(".maptop h2").textContent = raft ? rfHome()[0] : "Knowhere";
+  cp.classList.toggle("raft", raft); cp.setAttribute("aria-label", raft ? "Threat registry" : "The Collection"); const h2 = cp.querySelector(".maptop h2"); h2.textContent = raft ? "The Raft" : "The Collection"; h2.dataset.glow = h2.textContent;
+  // the first time you board the Raft, everything already on file comes over in one intake, read; from then on, a file that's new to you says so
+  if (raft && !state.raftIn) { const L = THREATS.filter(o => rfSteps(o).length), R = state.raftSeen = state.raftSeen || {}; L.forEach(o => R[o.id] = 1); state.raftIn = 1; rfIntake = L.length; persist(); }
   collRec = null; collCat = ""; renderColl(); document.getElementById("collView").scrollTop = 0;
   cp.hidden = false; collOpen = true;
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
   if (!raft) found("collector");
+  else if (rfIntake && !REDUCED) { const n = document.querySelector("#collView .rf-n"), N = rfIntake, t0 = performance.now();   // the count runs up as the files come aboard
+    if (n) { const f = now => { const k = Math.min(1, (now - t0) / 1400); n.textContent = Math.round(N * (1 - Math.pow(1 - k, 3))); if (k < 1 && n.isConnected) requestAnimationFrame(f); }; n.textContent = "0"; requestAnimationFrame(f); } }
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null;
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0;
 }
 function collShow(id) {
   const v = document.getElementById("collView"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
@@ -4419,13 +4427,11 @@ const THREATS = /*THREATS*/[];
 const RF_UNI = [["mcu", "MCU"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"], ["by", "Beyond"]], RF_CH = { sv: "ch-the-spider-verse", fox: "ch-the-fox-men", pr: "ch-pruned-timelines", by: "ch-beyond-the-mcu" };
 const RF_CL = ["Street", "City", "Global", "Cosmic", "Multiversal"];
 const rfUniName = ([u, l]) => u === "mcu" || state.unlocked[RF_CH[u]] ? l : "[ Classified ]";   // named once its Extras chapter is unlocked, like everywhere else
-let rfGrp = "status", rfFold = {};
+let rfGrp = "status", rfFold = {}, rfIntake = 0;
 // grouped by who opposed them, the list opens as an index of heroes, each folded until you tap it; the other groupings open unfolded
 const rfShut = k => { const v = (rfFold[rfGrp] || {})[k]; return v == null ? rfGrp === "op" : v; };
 const RF_GRP = [["status", "Status"], ["class", "Class"], ["op", "Opposed by"]];
-// the registry is S.H.I.E.L.D.'s from the first file, opened from the Agent File; Natasha leaks it in The Winter Soldier, and after Civil War it's kept on the Raft, which opens it from the Atlas too
-const rfHome = () => atlSeenT("Captain America: Civil War") ? ["The Raft", "The Raft · Department of Damage Control"] : atlSeenT("Captain America: The Winter Soldier") ? ["S.H.I.E.L.D.", "S.H.I.E.L.D. index · Leaked by Natasha Romanoff"] : ["S.H.I.E.L.D.", "S.H.I.E.L.D. index · Classified"];
-const RF_ST = { "At large": "large", "Active": "active", "Captive": "captive", "In custody": "custody", "Missing": "missing", "Reformed": "reformed", "Deceased": "dead" };
+const RF_ST = { "At large": "large", "Active": "active", "Captive": "captive", "In custody": "custody", "Missing": "missing", "Ally": "reformed", "Deceased": "dead" };
 const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^pr-/.test(o.id) ? "pr" : /^by-/.test(o.id) ? "by" : "mcu";
 const rfSteps = o => o.st.filter(x => atlSeenT(x[1]));
 const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
@@ -4434,9 +4440,6 @@ const rfLast = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? -1) > (ATL_ORDER[a] ?
 const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
-// on the agent ID from the first file you open: whose index it is, how many are on file, and how many you haven't read yet
-function rfFileBtn() { const L = THREATS.filter(o => rfSteps(o).length), nw = L.filter(o => !(state.raftSeen || {})[o.id]).length; if (!L.length) return "";
-  return `<button type="button" class="hf-threat" data-hfthreat><span><small>${rfHome()[0] === "The Raft" ? "The Raft" : "S.H.I.E.L.D. index"}</small><b>Threat registry</b></span><em>${L.length} on file${nw ? `<i>${nw} new</i>` : ""}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>`; }   // every side of the multiverse has its tab, filled or not
 function renderRaft() {
   const v = document.getElementById("collView"), seen = state.raftSeen = state.raftSeen || {};
   if (collRec) {
@@ -4452,13 +4455,14 @@ function renderRaft() {
   }
   // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header
   const U = rfUnis(), known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
-  const stOf = o => rfStatus(rfSteps(o)), all = THREATS.filter(o => rfSteps(o).length).length, home = rfHome();
+  const stOf = o => rfStatus(rfSteps(o)), all = THREATS.filter(o => rfSteps(o).length).length;
   const key = o => rfGrp === "class" ? o.cl || "Unknown" : rfGrp === "op" ? o.op || "Unknown" : stOf(o);
   const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.map(key))].sort((a, b) => a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
   const fold = rfFold[rfGrp] = rfFold[rfGrp] || {};
   const row = o => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${rfGrp === "status" ? esc(o.cl || "") : `<em>${esc(st)}</em>`}</span></button>`; };
   const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
-  v.innerHTML = `<div class="co"><div class="co-top"><small>${esc(home[1])}</small><h3>Threat registry</h3><p class="co-sub">${all} threat${all === 1 ? "" : "s"} on file</p></div>
+  v.innerHTML = `<div class="co"><div class="co-top"><small>Threat registry · Damage Control</small><p class="co-sub"><span class="rf-n">${all}</span> threat${all === 1 ? "" : "s"} on file</p></div>
+    ${rfIntake ? `<div class="rf-intake"><i aria-hidden="true"></i>Intake complete · ${rfIntake} file${rfIntake === 1 ? "" : "s"} transferred</div>` : ""}
     <div class="rf-tabs" role="tablist">${U.map(x => `<button type="button" role="tab" aria-selected="${x[0] === rfUni}" data-rfu="${x[0]}">${rfUniName(x)}</button>`).join("")}</div>
     ${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = rfShut(k), fresh = L.some(o => !seen[o.id]), cls = rfGrp === "status" ? " s-" + RF_ST[k] : "";
@@ -6649,7 +6653,6 @@ function epFinish(t) {   // the finale: the season is checked off in every box a
   [...DATA.chapters, ...DATA.chars].forEach(c => { if (c.items.some(i => i.t === t)) state.checks[ck(c, t)] = true; });
   [["tl::", DATA.timeline], ["tr::", DATA.timelineRelease]].forEach(([pre, L]) => { if (L.some(e => e.t === t)) state.checks[pre + t] = true; });
   if (!was) firstWatch(t); persist(); renderAll(); if (openEntry) updatePanel(openEntry);
-  toast(tn(t) + " checked off.", null, false, null, 1800);
 }
 function epRefresh(t) { const n = epTotal(t), a = epAt(t); document.querySelectorAll(`[data-ep="${CSS.escape(t)}"]`).forEach(c => { c.classList.toggle("on", !!a); c.innerHTML = epInner(a, n); }); }
 function epSheet(t) {
@@ -6798,7 +6801,7 @@ function renderFile(fresh) {
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
       <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
-      <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div>${rfFileBtn()}</div>
+      <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
     ${rateSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress is saved in this browser. A save code holds all of it in one line of text. Keep it in your notes, and paste it here to restore your progress.</p>
@@ -6892,7 +6895,6 @@ function closeFile(fromHistory) {
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
 document.getElementById("fileView").addEventListener("click", ev => {
-  if (ev.target.closest("[data-hfthreat]")) { haptic(10); openColl("raft"); return; }
   const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; refreshRates(); fv.scrollTop = y; return; }
   const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; refreshRates(); fv.scrollTop = y;
@@ -10623,9 +10625,21 @@ function srIndex() {
 }
 function srOpenTitle(t) { const c = DATA.chapters.find(c => state.unlocked[c.id] && c.items.some(i => i.t === t)) || DATA.chars.find(c => (state.charOpen || {})[c.id] && c.items.some(i => i.t === t)); if (c) openPanel(c, DATA.chapters.includes(c) ? "chapter" : "char", document.querySelector(`.tile[data-id="${c.id}"]`) || document.body); }
 function srOpenPlace(v, id) { openAtlas(); if (v !== "earth") atlLeave(v); setTimeout(() => { const m = document.getElementById("atlMap"); if (m) atlSelect(m, id); }, 450); }
+// with nothing typed, search is the datapad's database: what's on file in each part of it (tap one to go through all of it), and your recent searches
+function srHome(v) {
+  const R = srIndex(), n = k => R.filter(r => r.kind === k).length, recent = (state.srQ || []).slice(0, 6);
+  if (srchKind) { const L = R.map((h, i) => [h, i]).filter(([h]) => h.kind === srchKind), lab = (SR_KINDS.find(x => x[0] === srchKind) || [, ""])[1];
+    if (!["log", "news", "msg"].includes(srchKind)) L.sort((a, b) => a[0].b.replace(/^The /, "").localeCompare(b[0].b.replace(/^The /, "")));
+    window.__srHits = R;
+    v.innerHTML = `<div class="sr"><button type="button" class="co-crumb" data-srk=""><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Database</button>
+      <div class="sr-h">${lab} · ${L.length}</div>${L.map(([h, i]) => `<button type="button" class="sr-it" data-sri="${i}"><b>${esc(h.b)}</b><em>${esc(h.em)}</em></button>`).join("") || `<p class="sr-empty">No data.</p>`}</div>`; return; }
+  v.innerHTML = `<div class="sr sr-home"><div class="sr-h">Database</div><div class="sr-db">${SR_KINDS.map(([k, l]) => { const c = n(k);
+      return c ? `<button type="button" data-srk="${k}"><b>${c}</b><small>${l}</small></button>` : `<div class="lk"><b>0</b><small>${l}</small></div>`; }).join("")}</div>
+    ${recent.length ? `<div class="sr-h">Recent searches</div><div class="sr-chips">${recent.map(x => `<button type="button" data-srq="${esc(x)}">${esc(x)}</button>`).join("")}</div>` : ""}</div>`;
+}
 function renderSearch() {
   const v = document.getElementById("srchView"), q = srNorm(document.getElementById("srchIn").value.trim());
-  if (q.length < 2) { v.innerHTML = ""; return; }
+  if (q.length < 2) { srHome(v); return; }
   const hits = srIndex().filter(r => srNorm(r.b).includes(q) || srNorm(r.sm).includes(q)).sort((a, b) => srNorm(b.b).includes(q) - srNorm(a.b).includes(q)), named = k => hits.some(h => h.kind === k && srNorm(h.b).includes(q));
   const K = SR_KINDS.filter(([k]) => hits.some(h => h.kind === k)).sort((a, b) => named(b[0]) - named(a[0]));   // kinds with a name match come first: "Tesseract" finds the object before the logs that mention it
   if (srchKind && !K.some(([k]) => k === srchKind)) srchKind = "";
@@ -10634,15 +10648,17 @@ function renderSearch() {
     ${K.filter(([k]) => !srchKind || k === srchKind).map(([k, l]) => `<div class="sr-h">${l}</div>${hits.map((h, i) => [h, i]).filter(([h]) => h.kind === k).slice(0, srchKind ? 200 : 6).map(([h, i]) => `<button type="button" class="sr-it" data-sri="${i}"><b>${srMark(h.b, q)}</b>${h.sm && srNorm(h.sm).includes(q) ? `<small>${srMark(srCut(h.sm, q), q)}</small>` : ""}<em>${esc(h.em)}</em></button>`).join("")}`).join("")}
     ${hits.length ? "" : `<p class="sr-empty">No data.</p>`}</div>`;
 }
-function openSearch() { if (srchOpen) return; srchOpen = true; srchKind = ""; const p = document.getElementById("srchPanel"), i = document.getElementById("srchIn"); i.value = ""; renderSearch(); p.hidden = false; document.body.style.overflow = "hidden"; try { history.pushState({ mcu: "search" }, ""); } catch (e) {} setTimeout(() => i.focus(), 60); }
+function openSearch() { if (srchOpen) return; srchOpen = true; srchKind = ""; const p = document.getElementById("srchPanel"), i = document.getElementById("srchIn"); i.value = ""; renderSearch(); p.hidden = false; document.body.style.overflow = "hidden"; try { history.pushState({ mcu: "search" }, ""); } catch (e) {} }
 function closeSearch(fromHistory) { if (!fromHistory && navAt("search")) { navBack(); return; } document.getElementById("srchPanel").hidden = true; srchOpen = false; document.getElementById("srchIn").blur(); bodyFree(); dockSync(); }
 document.getElementById("btnStoryLog").addEventListener("click", () => { haptic(10); if (openEntry) closePanel(); openDossier("saga"); pushNav("log"); dockSync(); });
 document.getElementById("srchBack").addEventListener("click", () => { haptic(8); closeSearch(); });
 document.getElementById("srchIn").addEventListener("input", renderSearch);
 document.getElementById("srchIn").addEventListener("keydown", ev => { if (ev.key === "Enter") ev.target.blur(); });
 document.getElementById("srchView").addEventListener("click", ev => {
-  const k = ev.target.closest("[data-srk]"); if (k) { haptic(8); srchKind = k.dataset.srk; renderSearch(); return; }
+  const k = ev.target.closest("[data-srk]"); if (k) { haptic(8); srchKind = k.dataset.srk; renderSearch(); document.getElementById("srchView").scrollTop = 0; return; }
+  const rq = ev.target.closest("[data-srq]"); if (rq) { haptic(8); document.getElementById("srchIn").value = rq.dataset.srq; srchKind = ""; renderSearch(); return; }
   const it = ev.target.closest("[data-sri]"); if (!it) return; haptic(10); const h = window.__srHits[+it.dataset.sri];
+  const q = document.getElementById("srchIn").value.trim(); if (q.length > 1) { state.srQ = [q, ...(state.srQ || []).filter(x => x.toLowerCase() !== q.toLowerCase())].slice(0, 6); persist(); }
   document.getElementById("srchPanel").hidden = true; srchOpen = false; document.getElementById("srchIn").blur(); h.go();   // the search's own step is skipped on the way back
 });
 { const ns = navStep; navStep = function () { if (srchOpen && !navAt("search")) { navBusy = false; closeSearch(true); return; } return ns.apply(this, arguments); }; }
