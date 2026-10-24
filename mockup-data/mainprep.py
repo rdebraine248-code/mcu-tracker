@@ -11,7 +11,6 @@ s=s.replace("  if (rfIntake && !REDUCED) rfIntakePlay(RF_INTAKE);\n","")
 s=s.replace(' rfIntakeStop();','')
 i=s.index('/* the first time you board the Raft, everything already on file comes with it. Three different ways'); j=s.index('\n}\n',s.index('function rfIntakePlay(style)'))+3
 s=s[:i]+s[j:]
-s=s.replace('const COLLX = /*COLLX*/[];','const COLLX = [];')   # the new Collection stays a mockup: on main the old one stands
 s=s.replace('const PATHS_MOCK = true;','const PATHS_MOCK = false;')   # the path picker and per-path progress stay a mockup
 for bad in ['rfIntakePlay','rfIntakeStop','RF_INTAKE','rfiRun','NEWSX','rfi-','rfd-','rfs-','rfl-']:
     assert bad not in s, bad
