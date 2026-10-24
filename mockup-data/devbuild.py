@@ -77,10 +77,13 @@ if '/*NEWSX*/' in s: put('NEWSX',cx.get('news',{})); put('COMMSX',cx.get('comms'
 import glob as _g2
 allies=[]
 for f in sorted(_g2.glob(D+'allies_*.json')):
-    if f.endswith('allies_groups.json'): continue
+    if f.endswith('allies_groups.json') or '_zz_' in f: continue
     try: allies+=json.load(open(f,encoding='utf8'))
     except Exception as e: print('allies: skip',f,e)
 _seen_a=set(); allies=[o for o in allies if not (o['id'] in _seen_a or _seen_a.add(o['id']))]
+for f in sorted(_g2.glob(D+'allies_zz_*.json')):   # completions: full records replaced, new files added, duplicates dropped
+    z=json.load(open(f,encoding='utf8')); R={o['id']:o for o in z.get('replace',[])}; X=set(z.get('drop',[]))
+    allies=[R.get(o['id'],o) for o in allies if o['id'] not in X]+[o for o in z.get('add',[]) if o['id'] not in {a['id'] for a in allies}]
 for o in allies:
     if o['id'].startswith('st-') and o.get('st'):
         c=_ch.get(o['st'][0][1])

@@ -758,7 +758,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .epsheet .ep-ck{ flex:none; display:grid; place-items:center; width:24px; height:24px; border:2px solid #3E5578; border-radius:3px; } .epsheet .ep-ck svg{ width:15px; height:15px; opacity:0; }
 .epsheet .ep-list button.on .ep-ck{ background:#5FA8FF; border-color:#5FA8FF; } .epsheet .ep-list button.on .ep-ck svg{ opacity:1; } .epsheet .ep-list button.on .ep-t{ color:#8E9BB0; }
 .epsheet .rs-in{ max-height:82vh; overflow-y:auto; }
-.ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
+.ratesheet{ position:fixed; inset:0; z-index:200; will-change:opacity; transform:translateZ(0); display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
 .ratesheet .rs-in{ position:relative; width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
 /* Done sits up top, clear of the keyboard: everything saves as you go, so it just puts the sheet away */
 .ratesheet .rs-done{ position:absolute; top:22px; right:20px; padding:7px 14px; border:1px solid #2B3F62; border-radius:999px; background:#13203A; color:#9FC3FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
@@ -6873,11 +6873,13 @@ function epSheet(t) {
   // the last one checks it off: the sheet waits for your finger to lift, and the tap that closed it can't land on whatever was under it
   let down = false, pend = null;
   const finish = () => { pend = null; epBlock = Date.now() + 450; close(); epFinish(t); };
-  const save = W => { (state.eps = state.eps || {})[t] = [...W].sort((x, y) => x - y); persist(); sync(); epRefresh(t); if (epAt(t) === N) setTimeout(() => { if (down) pend = finish; else finish(); }, 420); };
+  const save = W => { (state.eps = state.eps || {})[t] = [...W].sort((x, y) => x - y); persist(); sync(); if (epAt(t) === N) setTimeout(() => { if (down) pend = finish; else finish(); }, 420); };
   let holdT = null, held = false;
   draw(); document.body.appendChild(el);
   try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
-  const close = () => { epBlock = Math.max(epBlock, Date.now() + 350); if (navAt("rate")) navBack(); else el.remove(); };
+  // the count on the box behind catches up when the list closes, not tick by tick: repainting it under the dim layer made the dim layer blink
+  el._close = () => epRefresh(t);
+  const close = () => { epBlock = Math.max(epBlock, Date.now() + 350); if (navAt("rate")) navBack(); else { el.remove(); el._close(); } };
   el.addEventListener("click", ev => {
     if (ev.target === el || ev.target.closest(".rs-done")) { close(); return; }
     const sb = ev.target.closest("[data-eps]"); if (sb) { if (held) { held = false; return; } sea = +sb.dataset.eps; haptic(8); const y = inn.scrollTop; draw(); inn.scrollTop = y; return; }
@@ -8674,7 +8676,7 @@ panel.addEventListener("click", ev => {
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && openEntry && document.getElementById("ask").hidden) uiClose(); });
-function navStep() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); return; } } if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) { closeDossier(true); dockSync(); if (navAt("panel") && !openEntry) navBack(); } return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel();
+function navStep() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); if (rs._close) rs._close(); return; } } if (collOpen) { if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) { closeDossier(true); dockSync(); if (navAt("panel") && !openEntry) navBack(); } return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (openEntry && !navAt("panel")) closePanel();
   // a step back left over from a box that's already closed (the Agent File or another page took its place) is skipped, so one swipe is enough and the next doesn't leave the app
   if (!openEntry && !dossierOpen && !fileOpen && !atlOpen && !mapOpen && !commsOpen && !collOpen && (navAt("panel") || navAt("dossier"))) navBack(); }
 // going back never moves the page by itself: the app decides where you are (after a jump to a new box, that's where it lives)
