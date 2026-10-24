@@ -1064,6 +1064,12 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-coll i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(233,196,106,.6); border-radius:8px; font-style:normal; font-size:12px; color:#E9C46A; }
 .atl-coll span{ flex:1; } .atl-coll b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
 .atl-coll small{ display:block; margin-top:1px; font-size:13px; color:#C9B27A; } .atl-coll em{ font-style:normal; font-size:18px; color:#E9C46A; }
+.pg-q{ position:relative; display:flex; align-items:center; gap:8px; height:40px; margin:0 0 10px; padding:0 10px 0 12px; border:1px solid #26344B; border-radius:10px; background:#0D1422; color:#7FA6D8; }
+.pg-q:focus-within{ border-color:#5FA8FF; }
+.pg-q input{ flex:1; min-width:0; height:100%; border:0; outline:0; background:transparent; color:#EEF1F6; font:16px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; -webkit-appearance:none; appearance:none; }
+.pg-q input::-webkit-search-cancel-button{ display:none; } .pg-q input::placeholder{ color:#5F7192; }
+.pg-q .pg-qx{ flex:none; width:26px; height:26px; border:0; border-radius:50%; background:#1C2638; color:#AFC0D6; font-size:15px; line-height:1; cursor:pointer; } .pg-q .pg-qx[hidden]{ display:none; }
+.pg-q mark, .atl-row mark, .rf-row mark{ background:rgba(95,168,255,.28); color:inherit; border-radius:2px; }
 .sr-empty{ margin:28px 0 0; color:#7D8BA6; text-align:center; font:12px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
 .collpanel{ z-index:63; }
 .co{ max-width:760px; margin:0 auto; padding-top:12px; }
@@ -1118,9 +1124,11 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .rf-intake i{ flex:none; width:8px; height:8px; border-radius:50%; background:#4FCB8A; box-shadow:0 0 8px #4FCB8A; }
 .rf-sec{ --sc:#8FA4BE; margin-top:8px; }
 .rf-sh{ display:flex; align-items:center; gap:9px; width:100%; padding:14px 2px 9px; border:0; border-bottom:1px solid #26344B; background:none; color:#D6E4F3; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; text-align:left; cursor:pointer; touch-action:manipulation; }
-.rf-sh span{ flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } .rf-sh em{ font-style:normal; letter-spacing:1px; color:#8FA4BE; }
+.rf-sh span{ flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } .rf-found{ cursor:default; }
+.rf-sh em{ font-style:normal; letter-spacing:1px; color:#8FA4BE; }
 .rf-sh svg{ flex:none; color:#7F8BA0; transition:transform .2s ease; } .rf-sec.shut .rf-sh svg{ transform:rotate(-90deg); }
 .rf-lamp{ flex:none; width:8px; height:8px; border-radius:50%; background:var(--sc); box-shadow:0 0 6px var(--sc); } .s-dead .rf-lamp{ box-shadow:none; }
+.rf-found{ cursor:default; }
 .rf-row{ --sc:#E04A3A; display:flex; align-items:center; gap:12px; width:100%; padding:11px 2px; border:0; border-bottom:1px solid #172133; background:none; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
 .rf-tx{ flex:1; min-width:0; } .rf-tx b{ display:block; font:400 18px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; } .rf-tx small{ display:block; margin-top:3px; font-size:13px; line-height:1.3; color:#AEBBCD; }
 .rf-row.s-dead .rf-tx b{ color:#B9C2CF; }
@@ -3732,6 +3740,34 @@ const ATL_GROUPS = {
   beyond: [["Other dimensions", "quantum mirror dark kunlun noor duat valhalla shadow eternity witches framework"], ["Outside time", "tva citadel void future"]],
   incursions: [["Terminated", "*"]],
   multi: [["Outside every reality", "watcher"], ["Other Earths", "e838 e828"], ["Other universes", "u-fox u-animx u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-67 u-751263 u-26496 u-blade u-daredevil u-punisher u-ff u-pruned"], ["What If...? realities", "*"]] };
+// the Atlas's search: every place you've charted, on any of its maps (a city's spots and other universes included), by name, region,
+// title or what happened there. It only finds what's lit, so it can't give anything away
+let atlQ = "";
+const pgQ = (id, ph, v) => `<label class="pg-q"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.4 10.4L14.5 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input id="${id}" type="search" enterkeyhint="search" autocomplete="off" spellcheck="false" placeholder="${ph}" value="${esc(v)}"><button type="button" class="pg-qx" aria-label="Clear"${v ? "" : " hidden"}>&times;</button></label>`;
+const qNorm = x => String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const qMark = (txt, q) => { const i = qNorm(txt).indexOf(q); return i < 0 ? esc(txt) : esc(txt.slice(0, i)) + "<mark>" + esc(txt.slice(i, i + q.length)) + "</mark>" + esc(txt.slice(i + q.length)); };
+function atlFind(q) {
+  const R = [], add = (v, sub, p, where) => { if (p.home || !atlLit(p)) return; const ev = (p.e || []).filter(atlEvSeen);
+    const hay = [p.n, p.r, ...ev.flatMap(e => [tn(e[0]), e[1], e[2], e[3]])].map(qNorm).join(" | "); if (hay.includes(q)) R.push({ v, sub, p, where, name: qNorm(p.n).includes(q) }); };
+  ATL_VIEWS.forEach(([v, l]) => { if (!atlOpenV(v)) return; ATLAS[v].forEach(p => { if (p.uni) { if (!atlLit(p)) return; ATLAS_UNI[p.uni].places.forEach(q => add("uni", p.uni, q, ATLAS_UNI[p.uni].n)); return; }
+    if (p.city && v === "earth") { if (!atlLit(p)) return; atlPlaces("city", p.city).forEach(q => add("city", p.city, q, ATL_CITY[p.city].n)); return; }
+    add(v, null, p, l); }); });
+  return R.sort((a, b) => b.name - a.name || a.p.n.localeCompare(b.p.n));
+}
+function atlFindHTML(q) {
+  const R = atlFind(q); if (!R.length) return `<p class="sr-empty">No data.</p>`;
+  return `<div class="atl-lh">Found · ${R.length}</div>` + R.map((r, i) => `<button type="button" class="atl-row" data-af="${i}"><b>${qMark(r.p.n, q)}</b><small>${esc(r.where === r.p.r ? r.where : r.where + " · " + r.p.r)}</small></button>`).join("");
+}
+// a result takes you to its map and opens it there, the same as tapping its pin
+function atlGo(r) {
+  atlQ = ""; const sel = () => { const m = document.getElementById("atlMap"); if (m) atlSelect(m, r.p.id, true); };
+  const at = (v, sub) => atlView === v && (v === "city" ? atlCity : v === "uni" ? atlUni : null) === sub;
+  if (at(r.v, r.sub)) { renderAtlasList(); sel(); return; }
+  if (r.v === "city" || r.v === "uni") { const top = r.v === "city" ? "earth" : "multi", into = () => { atlSub(r.v, r.sub); setTimeout(sel, 80); };
+    if (atlView === top && !atlHist.length) into(); else { atlLeave(top); setTimeout(into, 420); } return; }
+  atlLeave(r.v); setTimeout(sel, 420);
+}
+function renderAtlasList() { const l = document.querySelector("#atlView .atl-res"); if (l) l.innerHTML = atlQ.length > 1 ? atlFindHTML(qNorm(atlQ)) : atlList(); }
 function atlList() {
   const L = atlPlaces().filter(p => !p.home), lit = L.filter(atlLit).map(p => [p, p.e.filter(e => atlEvSeen(e)).length]).sort((a, b) => b[1] - a[1] || a[0].n.localeCompare(b[0].n));
   const [n, t] = atlCount(), left = atlView === "city" ? 0 : L.length - lit.length;
@@ -3777,7 +3813,7 @@ function renderAtlas() {
     <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : uni ? `<button type="button" class="atl-crumb" data-atlv="multi"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Multiverse</button><span class="atl-cname">${esc(ATLAS_UNI[atlUni].n)}</span>` : ""}</div>
     <div class="atl-map${geo[0] === "sky" ? " sky " + atlView : uni ? " uni" : ""}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
       <div class="atl-zoom"><button type="button" data-atlz="1" aria-label="Zoom in">+</button><button type="button" data-atlz="-1" aria-label="Zoom out">−</button><button type="button" data-atlz="0" aria-label="Show everything">Fit</button></div></div>
-    <div class="atl-low"><button type="button" class="atl-grip" aria-label="Resize the map"><span>Places &#9652;</span></button><div class="atl-list">${atlList()}</div><div class="atl-sheet" hidden></div></div></div>`;
+    <div class="atl-low"><button type="button" class="atl-grip" aria-label="Resize the map"><span>Places &#9652;</span></button><div class="atl-list">${pgQ("atlQ", "Search the Atlas", atlQ)}<div class="atl-res">${atlQ.length > 1 ? atlFindHTML(qNorm(atlQ)) : atlList()}</div></div><div class="atl-sheet" hidden></div></div></div>`;
   const map = document.getElementById("atlMap"), W = fv.clientWidth, room = fv.clientHeight;
   const want = geo[0] === "earth" ? Math.round(133 * W / 360) + 24 : geo[0] === "city" ? Math.round(W * atlCityGeo(geo[1]).h / 1000) : Math.round(W * .92);
   map._baseH = Math.max(200, Math.min(room - 150, want)); map._bigH = Math.max(map._baseH, room - 46);
@@ -3802,8 +3838,12 @@ function renderAtlas() {
     const ch = ev.target.closest("[data-chip]");
     if (ch) { haptic(8); const sh = ch.closest(".atl-sheet"), k = ch.dataset.chip; sh.querySelectorAll("[data-chip]").forEach(b => b.classList.toggle("on", b === ch));
       sh.querySelectorAll(".atl-grp").forEach(gp => { gp.hidden = !!k && gp.dataset.g !== k; }); return; }
+    if (ev.target.closest(".pg-qx")) { haptic(8); atlQ = ""; const i = low.querySelector("#atlQ"); i.value = ""; ev.target.closest(".pg-qx").hidden = true; renderAtlasList(); return; }
+    const f = ev.target.closest("[data-af]"); if (f) { haptic(10); const r = atlFind(qNorm(atlQ))[+f.dataset.af]; if (r) atlGo(r); return; }
     const r = ev.target.closest(".atl-row"); if (r) atlSelect(map, r.dataset.p, true);
   });
+  low.addEventListener("input", ev => { if (ev.target.id !== "atlQ") return; atlQ = ev.target.value; low.querySelector(".pg-qx").hidden = !atlQ; renderAtlasList(); });
+  low.addEventListener("keydown", ev => { if (ev.target.id === "atlQ" && ev.key === "Enter") ev.target.blur(); });
   atlPins(map); atlT = atlHome(map); atlTs[atlKey()] = atlT; atlDraw();
   const ptr = new Map(); let base = null, moved = false, start = null;
   const local = (x, y) => { const r = map.getBoundingClientRect(); return [x - r.left, y - r.top]; };
@@ -4369,7 +4409,7 @@ function openColl(mode) {
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0;
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = "";
 }
 function collShow(id) {
   const v = document.getElementById("collView"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
@@ -4377,11 +4417,15 @@ function collShow(id) {
   try { history.pushState({ mcu: "collrec" }, ""); } catch (e) {}
 }
 function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collView").scrollTop = collY; }
+document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "rfQ") return; rfQ = ev.target.value; const v = document.getElementById("collView");
+  v.querySelector(".pg-qx").hidden = !rfQ; v.querySelector(".rf-body").innerHTML = rfBody(); v.querySelectorAll("[data-rfu]").forEach(b => b.setAttribute("aria-selected", b.dataset.rfu === rfUni && !rfQ)); });
+document.getElementById("collView").addEventListener("keydown", ev => { if (ev.target.id === "rfQ" && ev.key === "Enter") ev.target.blur(); });
 document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
 document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest("[data-co-back]")) { haptic(8); collGrid(); return; }
   const c = ev.target.closest("[data-cc]"); if (c) { haptic(8); collCat = c.dataset.cc; renderColl(); return; }
-  const ru = ev.target.closest("[data-rfu]"); if (ru) { if (ru.dataset.rfu !== rfUni) { haptic(8); rfUni = ru.dataset.rfu; renderColl(); } return; }
+  if (ev.target.closest(".pg-qx")) { haptic(8); rfQ = ""; renderColl(); return; }
+  const ru = ev.target.closest("[data-rfu]"); if (ru) { if (ru.dataset.rfu !== rfUni || rfQ) { haptic(8); rfUni = ru.dataset.rfu; rfQ = ""; renderColl(); } return; }
   const rg = ev.target.closest("[data-rfg]"); if (rg) { if (rg.dataset.rfg !== rfGrp) { haptic(8); rfGrp = rg.dataset.rfg; renderColl(); } return; }
   const rf = ev.target.closest("[data-rff]"); if (rf) { haptic(8); const k = rf.dataset.rff; rfFold[rfGrp][k] = !rfShut(k); renderColl(); return; }
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
@@ -4423,21 +4467,32 @@ function renderRaft() {
         return `<li><p>${esc(x[0])}</p><small>${tnh(x[1])}${chg}${c ? `<span class="rf-chg rf-cls">${esc(c)}</span>` : ""}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
-  // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header
-  const U = rfUnis(), known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
-  const stOf = o => rfStatus(rfSteps(o)), all = THREATS.filter(o => rfSteps(o).length).length;
-  const key = o => rfGrp === "class" ? rfClass(o) || "Unknown" : rfGrp === "op" ? rfOpp(o) || "Unknown" : stOf(o);
-  const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.map(key))].sort((a, b) => a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
-  const fold = rfFold[rfGrp] = rfFold[rfGrp] || {};
-  const row = o => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${rfGrp === "status" ? esc(rfClass(o) || "") : `<em>${esc(st)}</em>`}</span></button>`; };
-  const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
+  // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header. The search
+  // above it looks through every universe's files at once, by name, who they are, who stands against them, and what's on record
+  const U = rfUnis(), all = THREATS.filter(o => rfSteps(o).length).length;
   v.innerHTML = `<div class="co"><div class="co-top"><small>Threat registry · Damage Control</small><p class="co-sub"><span class="rf-n">${all}</span> threat${all === 1 ? "" : "s"} on file</p></div>
     ${rfIntake ? `<div class="rf-intake"><i aria-hidden="true"></i>Intake complete · ${rfIntake} file${rfIntake === 1 ? "" : "s"} transferred</div>` : ""}
-    <div class="rf-tabs" role="tablist">${U.map(x => `<button type="button" role="tab" aria-selected="${x[0] === rfUni}" data-rfu="${x[0]}">${rfUniName(x)}</button>`).join("")}</div>
-    ${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
+    <div class="rf-tabs" role="tablist">${U.map(x => `<button type="button" role="tab" aria-selected="${x[0] === rfUni && !rfQ}" data-rfu="${x[0]}">${rfUniName(x)}</button>`).join("")}</div>
+    ${all ? pgQ("rfQ", "Search threats", rfQ) : ""}<div class="rf-body">${rfBody()}</div></div>`;
+}
+let rfQ = "";
+function rfBody() {
+  const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
+  const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
+  if (q.length > 1) {
+    const L = THREATS.filter(o => { const S = rfSteps(o); return S.length && [rfName(o), rfKind(o), rfOpp(o), rfClass(o), ...S.flatMap(x => [x[0], tn(x[1])])].some(t => qNorm(t).includes(q)); })
+      .sort((a, b) => qNorm(rfName(b)).includes(q) - qNorm(rfName(a)).includes(q) || rfName(a).localeCompare(rfName(b)));
+    return L.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em><br>${rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o)))}`)).join("")}</div></section>` : `<p class="sr-empty">No data.</p>`;
+  }
+  const known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+  const key = o => rfGrp === "class" ? rfClass(o) || "Unknown" : rfGrp === "op" ? rfOpp(o) || "Unknown" : stOf(o);
+  const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.map(key))].sort((a, b) => a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
+  rfFold[rfGrp] = rfFold[rfGrp] || {};
+  const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
+  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = rfShut(k), fresh = L.some(o => !seen[o.id]), cls = rfGrp === "status" ? " s-" + RF_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-rff="${esc(k)}" aria-expanded="${!shut}">${rfGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
-        ${shut ? "" : `<div class="rf-list">${L.map(row).join("")}</div>`}</section>`; }).join("")}</div>`;
+        ${shut ? "" : `<div class="rf-list">${L.map(o => row(o, (o, st) => rfGrp === "status" ? esc(rfClass(o) || "") : `<em>${esc(st)}</em>`)).join("")}</div>`}</section>`; }).join("")}`;
 }
 
 const SAGA = {"kind":"chapter","rows":{"period":[["1942 to 2012","ch-1"],["1942 to 2014","ch-2"],["1942 to 2015","ch-3"],["1942 to 2016","ch-4"],["1942 to 2019","ch-5"],["1942 to 2023","ch-6"],["1942 to 2024","ch-7"],["5000 BC to 2026","ch-8"],["5000 BC to 2027","ch-10"],["5000 BC to 2027, and across the multiverse","ch-11"]]},"brief":"Across our world and far beyond it, extraordinary people are emerging. As the threat grows from city streets to the edges of the universe, they are the ones the world will call heroes.","story":[["ch-1","In 1942, a skinny kid from Brooklyn is chosen for a serum that makes him a super soldier, and he gives himself to the Arctic ice to save millions. Decades later, a weapons maker escapes a cave in a suit of armor and tells the world he's Iron Man, a scientist runs from the monster inside him, and a god is cast down to Earth. Nick Fury is watching all of them. When Loki opens the sky over New York, Fury loses Phil Coulson but gets what he wanted: six people who can barely share a room, fighting side by side. Thor takes Loki and the Tesseract home, and somewhere in the dark, the one who gave Loki his army smiles."],["ch-2","Thor's war follows him home to Asgard, where the Aether surfaces and his mother dies. Across the galaxy, a thief from Earth, an assassin, a raccoon, a tree and a man out for revenge steal an orb that turns out to hold another Infinity Stone. Peter Quill meets his father, Ego, a living planet, and has to kill him, and Yondu dies saving Peter. Then, in 1995, a Kree soldier crash-lands in a Blockbuster, remembers she's Carol Danvers, and leaves a young S.H.I.E.L.D. agent named Nick Fury a pager and her old call sign, Avenger, which he types at the top of a new proposal."],["ch-3","Tony can't sleep after New York, and the terrorist called the Mandarin turns out to be an actor named Trevor Slattery. Steve learns HYDRA has been growing inside S.H.I.E.L.D. since its founding, finds Bucky behind the Winter Soldier's mask and brings the agency down, with Fury faking his own death to help. In Hell's Kitchen, Matt Murdock exposes Wilson Fisk, and Jessica Jones kills Kilgrave. Then Tony builds Ultron to protect the world, Ultron decides the world should end, and Sokovia's capital falls from the sky. Vision is born, and the Avengers move upstate with a new roster and no one above them."],["ch-4","Thaddeus Ross arrives with the Sokovia Accords. Tony signs, Steve won't, and when Zemo frames Bucky, friends fight at a Leipzig airport and in a Siberian bunker until the shield is left on the floor. Others find their own way: Scott Lang shrinks into the fight, T'Challa takes the throne and opens Wakanda to the world, and Peter Parker learns he doesn't need Tony's suit to be Spider-Man. Natasha, now a fugitive, goes back to the family the Red Room gave her. In New York, Matt, Jessica, Luke and Danny stop the Hand beneath Midland Circle, and the building comes down on Matt."],["ch-5","Matt survived Midland Circle. Frank Castle hunts the men behind his family's murder, including his best friend, Billy Russo. Jessica finds her mother alive and as dangerous as she is, Luke wins Harlem from Bushmaster and ends up running Mariah's club, and Colleen Wing takes up the Iron Fist. Matt takes down Wilson Fisk a second time without killing him. Then Jessica turns in her own sister and leaves New York."],["ch-6","Stephen Strange loses his hands, finds Kamar-Taj and ends up guarding the Time Stone. Thor loses his hammer, his father and Asgard itself, and leaves with his people on a ship. Then Thanos comes for the stones, and the Avengers, still divided, can't stop him: he snaps his fingers, half of all life turns to dust, and Fury's last act is to page Carol Danvers. Five years later, Scott Lang climbs out of the Quantum Realm with a way back through time. The Avengers assemble once more, and it costs them Natasha on Vormir and Tony in the final battle, while Steve goes back to Peggy and hands his shield to Sam, and Thor leaves Earth with the Guardians. At Natasha's grave, Yelena is told who to blame."],["ch-7","Everyone who vanished is back, five years later. Wanda rewrites a New Jersey town into a sitcom to keep Vision, Sam decides whether he can carry Steve's shield, Peter loses May and asks Strange to make the world forget him, and Clint spends Christmas teaching Kate Bishop while Yelena comes for him. Far from Earth, a Loki who escaped with the Tesseract is arrested by the Time Variance Authority, and Sylvie kills He Who Remains at the end of time. The timeline branches, Strange runs from universe to universe with a girl who can cross them, and Wanda tears through all of them for her sons until a mountain falls on her."],["ch-8","Ten immortals who have quietly guided humanity for seven thousand years learn the Celestial who made them planned to hatch a new one from the Earth, and Sersi turns the newborn Celestial to stone. In San Francisco, a valet named Shaun turns out to be Shang-Chi, and he stops his father, the thousand-year-old leader of the Ten Rings, at the gates of a hidden village. Marc Spector and Steven Grant share a body and a god, and at a monster hunt, Jack Russell turns out to be a werewolf. Thor fights Gorr, who kills gods, and loses Jane but comes home with a daughter. The Guardians save Rocket from the High Evolutionary, and Peter Quill goes back to Earth to see his grandfather."],["ch-9","In Jersey City, Kamala Khan writes fan fiction about Captain Marvel until her great-grandmother's bangle gives her powers of her own. Jen Walters gets her cousin's blood and would rather practice law, Shuri loses T'Challa and becomes Black Panther, and Riri Williams builds a suit in her MIT dorm, then makes a deal with the devil to bring back her best friend. Nick Fury comes home after years in space to find the Skrulls he promised a home have turned against Earth, and it costs him Maria Hill and Talos. Carol, Monica and Kamala swap places every time they use their powers, until Monica is stranded in another universe and Kamala knocks on Kate Bishop's door. In Washington, the new director of the CIA, Valentina Allegra de Fontaine, has Everett Ross arrested for helping Wakanda."],["ch-10","Wilson Fisk survives the bullet Maya Lopez puts in him, and when she won't come home, he runs for mayor of New York and wins. Thaddeus Ross wins bigger and becomes President, until the scientist he wronged poisons him and he turns into a red Hulk in Washington, and Sam Wilson, now Captain America, brings him down. In New York, Bullseye kills Foggy Nelson and Matt Murdock hangs up the mask, while Mayor Fisk builds a task force to hunt vigilantes. Valentina sends her disposable assets to kill each other in a vault; they find Bob instead, and when his darkness swallows Manhattan, they pull him out of it and she names them the New Avengers. In Hollywood, an actor hides his powers from Damage Control. Matt tells a courtroom he is Daredevil and goes to prison, Fisk goes into exile, and Frank Castle comes out of retirement one more time."],["ch-11","Scott Lang's family is pulled into the Quantum Realm, where an exiled conqueror named Kang has built an empire, and they bring him down. At the TVA, the Loom that holds the timelines together fails, and Loki takes the branches in his own hands at the end of time. Deadpool pulls a Wolverine out of another universe to save his own. Four years after the world forgot him, Peter Parker stops a telepath at war with Damage Control by talking instead of fighting, and takes a bullet meant for her. After the credits, Ned's tracker finds him somewhere in space. On Earth-828, a family of four faces down Galactus for their son."],["ch-beyond-the-mcu","Phil Coulson didn't stay dead. He leads a small S.H.I.E.L.D. team through HYDRA, the Inhumans and the end of the world, more than once, without the Avengers or the public ever hearing about it. Peggy Carter, back from the war, fights to be taken seriously at the SSR. Thor spends his time off sharing an Australian flat with an office worker named Darryl. And Uatu, the Watcher, keeps an eye on the worlds where it went differently: Peggy takes the serum, T'Challa joins the Ravagers, Ultron wins, and the Avengers become the walking dead. When Ultron threatens all of them at once, Uatu breaks his oath to stop him."],["ch-the-spider-verse","In one world, Peter Parker learns that with great power comes great responsibility, and it costs him Uncle Ben and his best friend Harry. In another, a different Peter loses Gwen Stacy. Eddie Brock shares his body with Venom until Venom gives his life for him, and others touched by spiders and strange blood, Michael Morbius, Cassandra Webb and Sergei Kravinoff, find their own uses for their powers. In Brooklyn, Miles Morales becomes Spider-Man the day his world's Peter dies, then learns the Spider-Society expects him to let his father die, and refuses. In 1930s New York, Ben Reilly was once the Spider, and in another world, a young Peter Parker learns from Norman Osborn."],["ch-the-fox-men","Charles Xavier runs a school for mutants, people born with powers and feared for it, and his oldest friend, Erik Lehnsherr, becomes Magneto. The X-Men fight Stryker, the Brotherhood and the Sentinels, send Logan back to 1973 to rewrite their future, and lose Jean, then Charles, then Logan, who dies protecting a girl with his claws. Deadpool joins them on his own terms. In an animated world, the same team loses Xavier, fights on under Magneto and ends up scattered across time."],["ch-pruned-timelines","Other versions of these heroes lived in worlds that ran beside this one. A Fantastic Four fought Doom and met the Silver Surfer, Blade hunted vampires through three films, a blind lawyer in red loved and lost Elektra, and Frank Castle took his first revenge. Later, the Inhumans' royal family fled to Hawaii, a group of kids learned their parents were villains, and Cloak and Dagger found each other in New Orleans."],["ch-incursions","Then the TVA's monitors start counting worlds that never touched this one, colliding and going dark. A Hulk's Earth is gone, and so is a Fantastic Four's, and thousands more are falling."]],"debrief":null};
