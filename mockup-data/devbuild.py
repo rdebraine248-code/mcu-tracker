@@ -108,8 +108,7 @@ _TM={'The CIA':'CIA','Strategic Scientific Reserve':'SSR','Nelson and Murdock':'
 for o in allies:
     if isinstance(o.get('tm'),list): o['tm']=[[_TM.get(t,t),x] for t,x in o['tm']]
     elif o.get('tm'): o['tm']=_TM.get(o['tm'],o['tm'])
-if '/*ALLIES*/' in s: put('ALLIES',allies)
-put('THREATS',threats); eps={k:([x for x in v if x] if isinstance(v,list) else v) for k,v in eps.items()}
+eps={k:([x for x in v if x] if isinstance(v,list) else v) for k,v in eps.items()}
 epn={}; epn.update(load('episodes_a.json',{})); epn.update(load('episodes_b.json',{}))
 _c=load('episodes_c.json',{}); eps.update(_c.get('counts',{})); epn.update(_c.get('names',{}))
 _v=load('episodes_verified.json',{}); eps.update(_v.get('counts',{})); epn.update(_v.get('names',{}))
@@ -137,6 +136,19 @@ for k,v in eps.items():
     if m and k not in epo and v and not (isinstance(v,list) and len(v)>1): epo[k]=int(m.group(1))-1
 epo.update({"Avengers: Ultron Revolution":2,"Avengers: Secret Wars (2017)":3,"Avengers: Black Panther's Quest":4})
 put('EPS',{k:v for k,v in eps.items() if v}); put('EPO',epo)
+# one step per title: a title gets more than one step only when where they stand changes inside it, or when it runs several seasons
+# (one step a season); otherwise what happens in it is told in one step
+_multi={k for k,v in eps.items() if isinstance(v,list) and len([x for x in v if x])>1}
+def _one(o):
+    out=[]
+    for x in o['st']:
+        p_=out[-1] if out else None
+        if p_ and p_[1]==x[1] and p_[2]==x[2] and x[1] not in _multi: out[-1]=[p_[0]+' '+x[0],p_[1],p_[2]]
+        else: out.append(list(x))
+    o['st']=out
+for o in threats+allies: _one(o)
+if '/*ALLIES*/' in s: put('ALLIES',allies)
+put('THREATS',threats)
 put('EPN',epn)
 out=sys.argv[1] if len(sys.argv)>1 else D+'dev.html'
 open(out,'w',encoding='utf8').write(s); print('threats',len(threats),'eps',len(eps),'phases',len(phases),'brief',len(brief))

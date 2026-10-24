@@ -7,11 +7,10 @@ def cut(a,b):   # from the line holding a through the line holding b
 cut('// mockup: the drafted headlines and messages','{ const NX = /*NEWSX*/{}')
 cut('.rfi{ -webkit-tap-highlight-color:transparent; }','.rf-row.rfl-shut .rf-lamp{ animation:rfllamp')
 s=s.replace('.rf-intake.rfi-land{ animation:rfiin .4s ease-out; }\n','')
-s=s.replace('  else if (rfIntake && !REDUCED) rfIntakePlay(RF_INTAKE);\n','')
+s=s.replace("  if (rfIntake && !REDUCED) rfIntakePlay(RF_INTAKE);\n","")
 s=s.replace(' rfIntakeStop();','')
 i=s.index('/* the first time you board the Raft, everything already on file comes with it. Three different ways'); j=s.index('\n}\n',s.index('function rfIntakePlay(style)'))+3
 s=s[:i]+s[j:]
-s=s.replace('const ALLIES = /*ALLIES*/[];','const ALLIES = [];')   # the Compound stays a mockup: on main it has no files, so its door never shows
 for bad in ['rfIntakePlay','rfIntakeStop','RF_INTAKE','rfiRun','NEWSX','rfi-','rfd-','rfs-','rfl-']:
     assert bad not in s, bad
 open(sys.argv[1],'w',encoding='utf8').write(s); print('ok')
