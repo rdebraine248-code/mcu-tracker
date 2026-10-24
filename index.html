@@ -1120,27 +1120,55 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .rf-seg{ display:flex; flex-wrap:wrap; gap:6px; }
 .rf-seg button{ padding:6px 12px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font-size:13.5px; cursor:pointer; touch-action:manipulation; }
 .rf-seg button[aria-pressed="true"]{ background:#D6E4F3; border-color:#D6E4F3; color:#0A0F16; font-weight:600; }
-.rfi{ cursor:pointer; -webkit-tap-highlight-color:transparent; }
-.rfi-boot{ position:absolute; inset:0; z-index:5; display:grid; place-items:center; background:#05080D; color:#8FE0FF; animation:fadein .25s ease-out; }
-.rfi-boot.out{ animation:rfiout .45s ease-in forwards; } @keyframes rfiout{ to{ opacity:0; transform:scale(1.04); } }
-.rfi-boot .rfi-in{ width:min(320px,82vw); text-align:center; }
-.rfi-em{ width:64px; height:64px; margin:0 auto 18px; color:#7FC4FF; filter:drop-shadow(0 0 10px rgba(95,168,255,.6)); animation:rfiem 1.6s ease-in-out infinite; } @keyframes rfiem{ 50%{ opacity:.55; } }
-.rfi-ls{ display:grid; gap:6px; margin-bottom:22px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6D8; }
-.rfi-ls span{ opacity:0; animation:rfiln .3s ease-out forwards; } .rfi-ls span:nth-child(2){ animation-delay:.3s; } .rfi-ls span:nth-child(3){ animation-delay:.6s; color:#CFE6FF; }
-@keyframes rfiln{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:none; } }
-.rfi .rfi-n{ display:block; font:400 64px/1 'Anton','Impact',sans-serif; letter-spacing:1px; color:#EEF5FF; text-shadow:0 0 18px rgba(95,168,255,.45); font-variant-numeric:tabular-nums; }
-.rfi-of, .rfi-row small{ display:block; margin-top:2px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
-.rfi-bar{ height:3px; margin:16px 0 10px; border-radius:2px; background:#152035; overflow:hidden; } .rfi-bar i{ display:block; width:0; height:100%; background:#5FA8FF; box-shadow:0 0 8px #5FA8FF; }
-.rfi-tk{ min-height:16px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#9FB4CF; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.rfi-ok{ margin-top:16px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#4FCB8A; opacity:0; transition:opacity .2s; }
-.rfi.done .rfi-ok{ opacity:1; } .rfi.done .rfi-bar i{ background:#4FCB8A; box-shadow:0 0 8px #4FCB8A; } .rfi.done .rfi-em{ color:#4FCB8A; animation:none; }
-.rfi-panel, .rfi-grid{ overflow:hidden; margin:14px 0 4px; padding:14px 14px 12px; border:1px solid #2F4565; border-radius:12px; background:linear-gradient(180deg,rgba(95,168,255,.10),rgba(95,168,255,.02)); animation:rfiin .35s ease-out; }
-@keyframes rfiin{ from{ opacity:0; transform:translateY(-6px); } }
-.rfi-hd{ display:flex; justify-content:space-between; gap:10px; margin-bottom:8px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#CFE6FF; }
-.rfi-st{ color:#5FA8FF; animation:rfiem 1s ease-in-out infinite; } .rfi.done .rfi-st{ color:#4FCB8A; animation:none; } .rfi.done .rfi-st::before{ content:"Complete"; } .rfi.done .rfi-st{ font-size:0; } .rfi.done .rfi-st::before{ font-size:11px; }
-.rfi-row{ display:flex; align-items:baseline; gap:10px; } .rfi-row .rfi-n{ font-size:44px; }
-.rfi-cv{ display:block; width:100%; margin:4px 0 12px; }
-.rf-body{ transition:opacity .4s ease; } .rf-body.rfi-wait{ opacity:.18; pointer-events:none; }
+.rfi{ -webkit-tap-highlight-color:transparent; }
+/* 1 · doors: a clearance scan, then the Raft's blast doors part */
+.rfi-doors{ position:absolute; inset:0; z-index:5; overflow:hidden; cursor:pointer; }
+.rfd{ position:absolute; top:0; bottom:0; width:50.5%; background:repeating-linear-gradient(180deg,rgba(255,255,255,.035) 0 2px,transparent 2px 46px),linear-gradient(90deg,#0D131D,#1B2433 60%,#121925); box-shadow:inset 0 0 40px rgba(0,0,0,.6); transition:transform .75s cubic-bezier(.6,0,.2,1); }
+.rfd-l{ left:0; } .rfd-r{ right:0; transform:scaleX(-1); }
+.rfd i{ position:absolute; top:0; bottom:0; right:0; width:16px; background:repeating-linear-gradient(135deg,#C9A227 0 10px,#11161F 10px 20px); opacity:.85; }
+.rfi-doors.open .rfd-l{ transform:translateX(-102%); } .rfi-doors.open .rfd-r{ transform:scaleX(-1) translateX(-102%); }
+.rfd-lamp{ position:absolute; top:calc(22px + env(safe-area-inset-top,0px)); left:50%; width:54px; height:10px; margin-left:-27px; border-radius:5px; background:#E04A3A; box-shadow:0 0 14px #E04A3A, 0 0 34px rgba(224,74,58,.6); animation:rfdblink .5s steps(2) infinite; }
+@keyframes rfdblink{ 50%{ opacity:.35; } }
+.rfi-doors.ok .rfd-lamp{ background:#4FCB8A; box-shadow:0 0 14px #4FCB8A, 0 0 34px rgba(79,203,138,.6); animation:none; }
+.rfd-mid{ position:absolute; left:50%; top:50%; width:min(300px,80vw); transform:translate(-50%,-50%); text-align:center; transition:opacity .25s; }
+.rfi-doors.open .rfd-mid, .rfi-doors.open .rfd-lamp{ opacity:0; }
+.rfd-scan{ position:relative; width:120px; height:150px; margin:0 auto 18px; border:1px solid #2F4565; border-radius:16px; background:#05080D; overflow:hidden; color:#5FA8FF; box-shadow:0 0 0 10px #0B1019, 0 0 40px rgba(0,0,0,.8); }
+.rfd-scan svg{ position:absolute; inset:18px 24px; width:calc(100% - 48px); height:calc(100% - 36px); }
+.rfd-scan b{ position:absolute; left:0; right:0; top:0; height:3px; background:currentColor; box-shadow:0 0 12px currentColor, 0 0 30px currentColor; animation:rfdsweep 1.1s ease-in-out infinite alternate; }
+@keyframes rfdsweep{ from{ transform:translateY(6px); } to{ transform:translateY(141px); } }
+.rfi-doors.ok .rfd-scan{ color:#4FCB8A; border-color:#2E7A55; } .rfi-doors.ok .rfd-scan b{ animation:none; opacity:0; }
+.rfd-t1, .rfd-t2{ display:inline-block; padding:3px 8px; background:#0B1019; }
+.rfd-t1{ font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#E9A13A; }
+.rfd-t2{ margin-top:6px; font:13px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#CFE6FF; }
+.rfi-doors.ok .rfd-t2{ color:#4FCB8A; }
+/* 2 · surface: night over the North Atlantic, and the Raft rises out of the sea */
+.rfi-sea{ position:absolute; inset:0; z-index:5; overflow:hidden; background:#03060B; cursor:pointer; animation:fadein .3s ease-out; }
+.rfi-sea svg{ position:absolute; inset:0; width:100%; height:100%; }
+.rfs-raft{ animation:rfsrise 2.2s cubic-bezier(.2,.7,.2,1) .3s both; } @keyframes rfsrise{ from{ transform:translateY(190px); } to{ transform:none; } }
+.rfs-beam{ transform-box:view-box; transform-origin:200px 352px; animation:rfsbeam 3.2s ease-in-out infinite alternate; opacity:0; }
+.rfs-beam.b1{ animation-delay:1.6s; } .rfs-beam.b2{ animation-delay:1.9s; animation-direction:alternate-reverse; }
+@keyframes rfsbeam{ 0%{ opacity:.55; transform:rotate(-38deg); } 100%{ opacity:.55; transform:rotate(38deg); } }
+.rfs-wave{ animation:rfswave 4s linear infinite; } .rfs-wave.w2{ animation-duration:6s; animation-direction:reverse; } @keyframes rfswave{ to{ transform:translateX(-80px); } }
+.rfs-win{ animation:rfswin .2s steps(2) both; } @keyframes rfswin{ from{ opacity:0; } to{ opacity:1; } }
+.rfs-txt{ position:absolute; left:0; right:0; bottom:calc(16% + env(safe-area-inset-bottom,0px)); text-align:center; }
+.rfs-txt h3{ margin:0; font:400 46px/1 'Anton','Impact',sans-serif; letter-spacing:2px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 22px rgba(95,168,255,.5); opacity:0; animation:rfiin .6s ease-out 1.7s forwards; }
+.rfs-txt p{ margin:8px 0 0; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; opacity:0; animation:rfiin .5s ease-out 2.1s forwards; }
+.rfs-txt p.rfs-at{ animation-delay:2.3s; } .rfs-txt p:last-child{ animation-delay:2.6s; color:#CFE6FF; }
+.rfi-sea.out{ animation:rfsdive .55s ease-in forwards; } @keyframes rfsdive{ to{ opacity:0; transform:scale(1.25); } }
+@keyframes rfiin{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+/* 3 · lockdown: the registry itself, every cell sliding shut and its light coming on, under a warning strip */
+.rfi-lock{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 0; padding:9px 12px; border:1px solid #6A2A26; border-radius:8px; overflow:hidden; cursor:pointer;
+  background:repeating-linear-gradient(135deg,rgba(224,74,58,.22) 0 12px,rgba(224,74,58,.06) 12px 24px); background-size:34px 34px; animation:rfistripe .6s linear infinite; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#FFB3A8; }
+@keyframes rfistripe{ to{ background-position:34px 0; } }
+.rfi-lock b{ font-weight:400; color:#fff; }
+.rfi-lock.ok{ border-color:#2E7A55; background:rgba(79,203,138,.12); animation:none; color:#9FE8C2; }
+.rf-row.rfl-open, .rf-row.rfl-shut{ position:relative; }
+.rf-row.rfl-shut::after{ content:""; position:absolute; left:0; right:0; top:0; bottom:0; background:linear-gradient(90deg,transparent,rgba(255,120,100,.35) 40%,rgba(255,255,255,.55) 50%,transparent 60%); background-size:250% 100%; animation:rflflash .45s ease-out both; pointer-events:none; }
+@keyframes rflflash{ from{ background-position:120% 0; } to{ background-position:-30% 0; opacity:0; } }
+.rf-row.rfl-open{ transform:translateX(46px); opacity:.2; } .rf-row.rfl-open .rf-lamp{ background:#2A3346; box-shadow:none; }
+.rf-row.rfl-shut{ animation:rflshut .32s cubic-bezier(.5,0,.3,1.4) both; }
+@keyframes rflshut{ 0%{ transform:translateX(46px); opacity:.2; } 70%{ transform:translateX(-4px); opacity:1; } 100%{ transform:none; opacity:1; } }
+.rf-row.rfl-shut .rf-lamp{ animation:rfllamp .5s ease-out both; } @keyframes rfllamp{ 0%{ background:#2A3346; box-shadow:none; } 40%{ background:#fff; box-shadow:0 0 14px #fff; } }
 .rf-intake[hidden]{ display:none; }
 .rf-intake.rfi-land{ animation:rfiin .4s ease-out; }
 .rf-intake{ display:flex; align-items:center; gap:10px; margin:12px 0 0; padding:10px 12px; border:1px solid #3A4E6A; border-radius:10px; background:rgba(127,155,187,.08); color:#D6E4F3; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
@@ -4498,50 +4526,60 @@ function renderRaft() {
     ${all ? pgQ("rfQ", "Search threats", rfQ) : ""}<div class="rf-body">${rfBody()}</div></div>`;
 }
 let rfQ = "";
-/* the first time you board the Raft, everything already on file is transferred in. Three ways to show it (mockup):
-   "boot": the screen goes dark like the datapad's own start-up, and the files come aboard one by one, counted, before the registry opens;
-   "panel": a transfer panel at the top of the registry runs the files in while the list below waits, then folds down into one line;
-   "grid": a containment grid, one cell per file, lights up in each file's status colour as it comes aboard, then folds away.
-   A tap skips it. Each ends on the "Intake complete" line, which stays until you leave */
-let RF_INTAKE = "boot", rfiRun = 0;
-const RF_SC = { large: "#E04A3A", active: "#6FB3FF", captive: "#E07AAE", custody: "#E9A13A", dead: "#8592A6", reformed: "#4FCB8A", missing: "#A98BE8" };
-function rfIntakeStop() { rfiRun++; document.querySelectorAll(".rfi").forEach(e => e.remove()); const b = document.querySelector("#collView .rf-body"); if (b) b.classList.remove("rfi-wait"); }
+/* the first time you board the Raft, everything already on file comes with it. Three different ways to make that a moment (mockup):
+   "doors": the Raft is restricted. A clearance scan checks you (by codename, once you've set one), the lamp goes green, and the blast doors part;
+   "surface": night over the North Atlantic. The Raft rises out of the sea with its searchlights sweeping, named and placed, before you go in;
+   "lockdown": no screen over it at all. The registry itself locks down, each cell sliding shut and its light coming on, under a warning strip.
+   A tap skips any of them. They end on the "Intake complete" line, which stays until you leave */
+let RF_INTAKE = "doors", rfiRun = 0;
+function rfIntakeStop() { rfiRun++; document.querySelectorAll(".rfi").forEach(e => e.remove()); document.querySelectorAll(".rfl-open, .rfl-shut").forEach(r => r.classList.remove("rfl-open", "rfl-shut")); }
 function rfIntakePlay(style) {
-  rfIntakeStop(); const run = rfiRun, v = document.getElementById("collView");
-  const L = THREATS.filter(o => rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9)), N = L.length; if (!N) return;
-  const T = style === "boot" ? 3000 : 2600, ease = k => 1 - Math.pow(1 - k, 2.2), line = v.querySelector(".rf-intake"), cnt = v.querySelector(".rf-n");
-  if (line) line.hidden = true;
-  const tick = (el, k) => { const o = L[Math.min(N - 1, Math.floor(ease(k) * N))]; el.textContent = rfNo(o) + " · " + rfName(o); };
-  let el, n, bar, tk, cv, t0, skip = false, cells;
-  const finish = () => { if (run !== rfiRun) return; skip = true; if (cnt) cnt.textContent = N; if (n) n.textContent = N; if (bar) bar.style.width = "100%";
-    el.classList.add("done"); haptic([14, 40, 20]);
-    setTimeout(() => { if (run !== rfiRun) return; el.classList.add("out"); const b = v.querySelector(".rf-body"); if (b) b.classList.remove("rfi-wait"); if (line) { line.hidden = false; line.classList.add("rfi-land"); }
-      if (style !== "boot") { const h = el.offsetHeight; el.animate([{ height: h + "px", opacity: 1 }, { height: "0px", opacity: 0, marginTop: "0px", marginBottom: "0px", paddingTop: "0px", paddingBottom: "0px" }], { duration: 380, easing: "ease-in", fill: "forwards" }); }
-      setTimeout(() => { if (run === rfiRun) el.remove(); }, 460); }, style === "boot" ? 900 : 700); };
-  if (style === "boot") {
-    el = document.createElement("div"); el.className = "rfi rfi-boot";
-    el.innerHTML = `<div class="rfi-in"><svg class="rfi-em" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4 56 18v28L32 60 8 46V18z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 22v20M26.5 22v20M32 22v20M37.5 22v20M44 22v20M17 22h30M17 42h30" stroke="currentColor" stroke-width="1.6"/></svg>
-      <div class="rfi-ls"><span>Department of Damage Control</span><span>Secure link · The Raft</span><span>Receiving threat files</span></div>
-      <b class="rfi-n">0</b><small class="rfi-of">of ${N} files</small><div class="rfi-bar"><i></i></div><div class="rfi-tk">&nbsp;</div><div class="rfi-ok">Intake complete</div></div>`;
-    document.getElementById("collPanel").appendChild(el);
+  rfIntakeStop(); const run = rfiRun, v = document.getElementById("collView"), cp = document.getElementById("collPanel"), N = THREATS.filter(o => rfSteps(o).length).length; if (!N) return;
+  const line = v.querySelector(".rf-intake"); if (line) line.hidden = true;
+  const later = (ms, f) => setTimeout(() => { if (run === rfiRun) f(); }, ms);
+  let done = false; const land = () => { if (line) { line.hidden = false; line.classList.add("rfi-land"); } };
+  if (style === "doors") {
+    const who = state.codename ? asAgent(state.codename) : "Agent";
+    const el = document.createElement("div"); el.className = "rfi rfi-doors";
+    el.innerHTML = `<div class="rfd rfd-l"><i></i></div><div class="rfd rfd-r"><i></i></div><div class="rfd-lamp"></div>
+      <div class="rfd-mid"><div class="rfd-scan"><svg viewBox="0 0 72 112" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M8 52c0-18 12-32 28-32s28 14 28 32"/><path d="M16 60c0-14 9-26 20-26s20 12 20 26v8"/><path d="M24 70V62c0-8 5-15 12-15s12 7 12 15v14"/><path d="M36 60v28M16 74c0 10 2 18 6 26M56 80c0 10-2 18-5 24M30 100c-3-8-6-16-6-26M44 104c3-8 4-16 4-24"/><path d="M14 30c6-10 14-16 22-16s16 6 22 16"/></svg><b></b></div>
+      <div class="rfd-t1">The Raft · Restricted</div><div class="rfd-t2">Verifying clearance</div></div>`;
+    cp.appendChild(el); haptic(10);
+    const grant = () => { el.classList.add("ok"); el.querySelector(".rfd-t2").textContent = who + " · Access granted"; haptic([12, 30, 12]); };
+    const open = () => { if (done) return; done = true; el.classList.add("open"); haptic([30, 20, 50]); later(800, () => { el.remove(); land(); }); };
+    later(1500, grant); later(2300, open);
+    el.addEventListener("click", () => { if (done) return; grant(); open(); });
+  } else if (style === "surface") {
+    const el = document.createElement("div"); el.className = "rfi rfi-sea";
+    const wins = Array.from({ length: 9 }, (_, i) => `<rect class="rfs-win" x="${150 + i * 11}" y="${338 + (i % 3) * 6}" width="5" height="3" fill="#FFD27A" style="animation-delay:${1.4 + i * .09}s"/>`).join("");
+    el.innerHTML = `<svg viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs><linearGradient id="rfsSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#02040A"/><stop offset="1" stop-color="#0C1A2C"/></linearGradient>
+        <linearGradient id="rfsBeam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#CFE6FF" stop-opacity=".7"/><stop offset="1" stop-color="#CFE6FF" stop-opacity="0"/></linearGradient>
+        <clipPath id="rfsAbove"><rect x="0" y="0" width="400" height="404"/></clipPath></defs>
+      <rect width="400" height="404" fill="url(#rfsSky)"/>
+      <circle cx="318" cy="112" r="16" fill="#C9D6E8" opacity=".55"/>
+      <g clip-path="url(#rfsAbove)">
+        <polygon class="rfs-beam b1" points="200,352 178,40 222,40" fill="url(#rfsBeam)"/><polygon class="rfs-beam b2" points="200,352 180,60 220,60" fill="url(#rfsBeam)"/>
+        <g class="rfs-raft"><polygon points="70,404 110,372 290,372 330,404" fill="#121A27" stroke="#2F4565"/><rect x="132" y="330" width="136" height="42" fill="#18212F" stroke="#2F4565"/>
+          <rect x="186" y="300" width="28" height="30" fill="#1C2738" stroke="#2F4565"/><rect x="197" y="286" width="6" height="14" fill="#2F4565"/><circle cx="200" cy="352" r="3" fill="#E04A3A"/>${wins}</g></g>
+      <rect x="0" y="404" width="400" height="296" fill="#050C16"/>
+      <path class="rfs-wave" d="M0 412 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#2A4A70" stroke-width="2" fill="none"/>
+      <path class="rfs-wave w2" d="M-40 430 q20 -5 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#1B3352" stroke-width="2" fill="none"/>
+      <path class="rfs-wave" d="M0 456 q20 -4 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#132842" stroke-width="2" fill="none"/></svg>
+      <div class="rfs-txt"><h3>The Raft</h3><p>Maximum security · North Atlantic</p><p class="rfs-at">41° N · 66° W</p><p>${N} threat${N === 1 ? "" : "s"} on file</p></div>`;
+    cp.appendChild(el); haptic(10);
+    const go = () => { if (done) return; done = true; el.classList.add("out"); haptic([20, 30, 20]); later(560, () => { el.remove(); land(); }); };
+    later(3600, go); el.addEventListener("click", go);
   } else {
-    el = document.createElement("div"); el.className = "rfi rfi-" + style;
-    el.innerHTML = `<div class="rfi-hd"><span>Incoming transfer</span><span class="rfi-st">Receiving</span></div>${style === "grid" ? `<canvas class="rfi-cv" aria-hidden="true"></canvas>` : ""}
-      <div class="rfi-row"><b class="rfi-n">0</b><small>of ${N} files</small></div><div class="rfi-bar"><i></i></div><div class="rfi-tk">&nbsp;</div>`;
-    const top = v.querySelector(".co-top"); top.after(el); const b = v.querySelector(".rf-body"); if (b) b.classList.add("rfi-wait");
+    const el = document.createElement("div"); el.className = "rfi rfi-lock"; el.innerHTML = `<span>Lockdown</span><b>Sealing cells</b>`;
+    const tabs = v.querySelector(".rf-tabs"); if (tabs) tabs.before(el);
+    const rows = [...v.querySelectorAll(".rf-body .rf-row")].slice(0, 12); rows.forEach(r => r.classList.add("rfl-open"));
+    rows.forEach((r, i) => later(400 + i * 150, () => { if (done) return; r.classList.remove("rfl-open"); r.classList.add("rfl-shut"); haptic(6); }));
+    const fin = () => { if (done) return; done = true; rows.forEach(r => { r.classList.remove("rfl-open"); r.classList.add("rfl-shut"); });
+      el.classList.add("ok"); el.innerHTML = `<span>All cells secure</span><b>${N} file${N === 1 ? "" : "s"}</b>`; haptic([14, 40, 20]);
+      later(1300, () => { const h = el.offsetHeight; el.animate([{ height: h + "px", opacity: 1 }, { height: "0px", opacity: 0, marginTop: "0px", paddingTop: "0px", paddingBottom: "0px", borderWidth: "0px" }], { duration: 320, easing: "ease-in", fill: "forwards" }).onfinish = () => { el.remove(); land(); }; }); };
+    later(400 + rows.length * 150 + 300, fin); el.addEventListener("click", fin);
   }
-  n = el.querySelector(".rfi-n"); bar = el.querySelector(".rfi-bar i"); tk = el.querySelector(".rfi-tk"); cv = el.querySelector(".rfi-cv");
-  if (cv) { const dpr = Math.min(2, devicePixelRatio || 1), W = cv.clientWidth, s = 7, g = 2, cols = Math.floor((W + g) / (s + g)), rows = Math.ceil(N / cols);
-    cv.width = W * dpr; cv.height = (rows * (s + g) - g) * dpr; cv.style.height = (rows * (s + g) - g) + "px"; const c = cv.getContext("2d"); c.scale(dpr, dpr);
-    cells = { c, s, g, cols, lit: 0 }; c.fillStyle = "#141C2B"; for (let i = 0; i < N; i++) c.fillRect((i % cols) * (s + g), Math.floor(i / cols) * (s + g), s, s); }
-  el.addEventListener("click", () => { if (!skip) finish(); });
-  const delay = style === "boot" ? 900 : 250;
-  setTimeout(() => { if (run !== rfiRun) return; t0 = performance.now();
-    const f = now => { if (run !== rfiRun || skip) return; const k = Math.min(1, (now - t0) / T), m = Math.round(ease(k) * N);
-      n.textContent = m; if (cnt) cnt.textContent = m; bar.style.width = (ease(k) * 100).toFixed(1) + "%"; tick(tk, k);
-      if (cells) { const { c, s, g, cols } = cells; for (; cells.lit < m; cells.lit++) { const o = L[cells.lit]; c.fillStyle = RF_SC[RF_ST[rfStatus(rfSteps(o))]] || "#7F9BBB"; c.fillRect((cells.lit % cols) * (s + g), Math.floor(cells.lit / cols) * (s + g), s, s); } }
-      if (k < 1) requestAnimationFrame(f); else finish(); };
-    requestAnimationFrame(f); }, delay);
 }
 function rfBody() {
   const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
