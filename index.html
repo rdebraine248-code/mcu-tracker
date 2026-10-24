@@ -1101,7 +1101,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-card.s-dec{ background:#D5DBE4; }
 .cp-ph{ display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:#0B1424; color:#EEF3FA; font:400 18px/1 'Anton','Impact',sans-serif; letter-spacing:.5px; box-shadow:0 0 0 2px var(--sc); overflow:hidden; }
 .cp-ph{ position:relative; } .cp-ph.em{ background:#101A2E; }
-.cp-ph .emb{ position:absolute; left:5px; top:5px; } .cp-id .cp-ph .emb{ left:7px; top:7px; }   /* the insignia at full size, close in on its upper part, and only the badge's round edge crops it */
+.cp-ph .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:scale(.56); } .cp-id .cp-ph .emb{ transform:scale(.78); }   /* the whole insignia, centered: drawn at its own size and scaled down, so nothing is cut */
 .cp-tx{ display:block; min-width:0; width:100%; }
 .cp-tx b{ display:block; font:400 17px/1.1 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
 .cp-tx b .nw{ display:inline-block; margin-left:6px; vertical-align:2px; padding:1px 5px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; }
