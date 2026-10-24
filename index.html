@@ -3088,8 +3088,9 @@ const SL_STRIPE = { "ch-1": "linear-gradient(#EADFC2,#6B7A3E)", "ch-2": "#9FC3FF
 let slOpen = null;
 const slEntries = c => { const L = DOSSIERS[c.id]; return L ? L.story.filter(([t, x]) => x && atlSeenT(t)) : []; };
 const slAll = c => c.items.every(i => atlSeenT(i.t));
-// a chapter's name is known from the moment it's unlocked (its cover peels on Story), the same on Story, the Log, the Personal log and the Agent File
-const slNamed = c => !!state.unlocked[c.id];
+// a chapter's name is known from the moment it's unlocked (its cover peels on Story), or once every title in it is watched in any list, so
+// following the timeline or a hero's box names the chapters too. The same in the Log, the Personal log and the Agent File
+const slNamed = c => !!state.unlocked[c.id] || slAll(c);
 const slShown = c => !!c.num || !!state.unlocked[c.id] || ((c.id === INC_ID ? incOpen() : multiverseOpen()) && c.items.some(i => atlSeenT(i.t)));
 const slSeenK = (c, k) => !!((state.dSeen || {})[c.id] || {})[k];
 // the chapter's Period, as far as you've watched anywhere: its stage, or -1 before the first
@@ -6340,10 +6341,9 @@ function achList() {
   AVENGERS_FILMS.forEach(f => A.push({ id: "film-" + f, sec: "missions", t: MISSION_NAMES[f] || f.replace("Avengers: ", ""), lead: true, d: f + " watched.", h: "An Avengers film.", x: `Check off ${f} in any list.`, ok: () => anyChecked(f) }));
   A.push({ id: "hero1", sec: "missions", done: true, t: "First hero", d: "One character box complete.", h: "Pick a hero.", x: "Check off every title in any one character box.", ok: () => DATA.chars.some(isDone) });
   A.push({ id: "heroall", sec: "missions", done: true, t: "Earth's mightiest", d: "Every character box complete.", h: "All of them.", x: "Complete every character box on the Characters page.", ok: () => DATA.chars.every(isDone) });
-  // either way of watching counts: the chapters, or the timeline page (in-universe or release order)
-  const mainCh = DATA.chapters.filter(c => c.num);
-  A.push({ id: "sacred", sec: "missions", done: true, secret: true, t: "The Sacred Timeline", d: "The main timeline is complete.", h: "Follow the amber line, or the chapters.", x: "Complete Chapters 1 to 11, or check off every title on the Sacred Timeline's main line.", ok: () => mainCh.every(isDone) || allTL(DATA.timeline, "tl::", "main") || allTL(DATA.timelineRelease, "tr::", "main") });
-  A.push({ id: "multiverse", sec: "missions", done: true, secret: true, t: "The Multiverse", d: "Every branch is complete too.", h: "Every line, not just one.", x: "Complete every chapter including the Extras, or check off every title on the Sacred Timeline page, branches included.", ok: () => DATA.chapters.every(isDone) || allTL(DATA.timeline, "tl::") || allTL(DATA.timelineRelease, "tr::") });
+  // the timeline's own rewards, in story order or release order. The chapters and the character boxes have theirs (each chapter, First hero, Earth's mightiest)
+  A.push({ id: "sacred", sec: "missions", done: true, secret: true, t: "The Sacred Timeline", d: "The main timeline is complete.", h: "Follow the amber line.", x: "Check off every title on the Sacred Timeline's main line, in story order or release order.", ok: () => allTL(DATA.timeline, "tl::", "main") || allTL(DATA.timelineRelease, "tr::", "main") });
+  A.push({ id: "multiverse", sec: "missions", done: true, secret: true, t: "The Multiverse", d: "Every branch is complete too.", h: "Every line, not just one.", x: "Check off every title on the Sacred Timeline page, branches included, in story order or release order.", ok: () => allTL(DATA.timeline, "tl::") || allTL(DATA.timelineRelease, "tr::") });
   STONES.forEach(z => A.push({ id: "stone-" + z.id, sec: "artifacts", t: z.n + " Stone", lead: true, d: "Found.", h: z.hint, x: STONE_HOW[z.id], ok: () => !!st[z.id] }));
   A.push({ id: "snap", sec: "artifacts", t: "Perfectly balanced", foot: "Half of all life erased", d: "You snapped.", h: "With all six…", x: "With all six stones, tap the colored line under the title and press Snap?", ok: () => !!ex.snap });
   const EG = EGGS.map((e, i) => [e, i]).sort((a, b) => a[0][4] - b[0][4] || a[1] - b[1]).map(x => x[0]), per = Math.ceil(EG.length / HF_PAGES);
@@ -6624,7 +6624,7 @@ function renderFile(fresh) {
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
-    const hid = !ok && (a.sec === "chapters" ? !state.unlocked[a.cid] : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
+    const hid = !ok && (a.sec === "chapters" ? !slNamed(DATA.chapters.find(c => c.id === a.cid)) : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
     // a chapter's number is never secret (its cover on Story shows it), so a chapter card keeps it, as the Personal log and the Log do: Ch. 3 over [ Classified ]
     const pub = a.sec === "chapters" ? (DATA.chapters.find(c => c.id === a.cid) || {}).num : null;
     // a chapter card reads like its row in the Log and its cell in the Personal log: its number on top, its name (or [ Classified ]), then where you are

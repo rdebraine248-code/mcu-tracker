@@ -10,7 +10,7 @@ _fc=[load(f.replace('_out.json','_out2.json'),None) or load(f,None) for f in ['f
 if all(x is not None for x in _fc): threats=[o for L in _fc for o in L]   # the fact-checked files, once all are in
 # the third pass: steps and files for the newest titles (Brand New Day and the rest of 2025 and 2026)
 import glob as _g
-_P=[load('pass3_patch.json',None)]+[json.load(open(f,encoding='utf8')) for f in sorted(_g.glob(D+'cameo_*.json'))]   # then the cameo sweep, saga by saga
+_P=[load('pass3_patch.json',None)]+[json.load(open(f,encoding='utf8')) for f in sorted(f for f in _g.glob(D+'cameo_*.json') if not f.endswith('.bak.json'))]   # then the cameo sweep, saga by saga
 for _p3 in [x for x in _P if x and all(y is not None for y in _fc)]:
     _by={o['id']:o for o in threats}
     for f in _p3.get('fix_steps',[]):
@@ -42,7 +42,7 @@ _drop=('st-maya-lopez','st-kazi','st-eleanor-bishop','st-tracksuit-mafia') if an
 threats=[o for o in threats if o['id'] not in _drop]   # the Hawkeye four were written twice; the fact-checked MCU copies stay
 # class and opposed-by move with the story: stage lists from the staging pass replace the single peak values
 _byid={o['id']:o for o in threats}
-for f in sorted(_g.glob(D+'stages_*.json')):
+for f in sorted(f for f in _g.glob(D+'stages_*.json') if not f.endswith('.bak.json')):
     for k,v in json.load(open(f,encoding='utf8')).items():
         o=_byid.get(k)
         if not o: print('stages: no',k); continue
@@ -76,12 +76,12 @@ if '/*NEWSX*/' in s: put('NEWSX',cx.get('news',{})); put('COMMSX',cx.get('comms'
 # the Compound's personnel files: heroes, allies and support, same rules as the villains (street-level ids land on the tab of their first title)
 import glob as _g2
 allies=[]
-for f in sorted(_g2.glob(D+'allies_*.json')):
+for f in sorted(f for f in _g2.glob(D+'allies_*.json') if not f.endswith('.bak.json')):
     if f.endswith('allies_groups.json') or '_zz_' in f: continue
     try: allies+=json.load(open(f,encoding='utf8'))
     except Exception as e: print('allies: skip',f,e)
 _seen_a=set(); allies=[o for o in allies if not (o['id'] in _seen_a or _seen_a.add(o['id']))]
-for f in sorted(_g2.glob(D+'allies_zz_*.json')):   # completions: full records replaced, new files added, duplicates dropped
+for f in sorted(f for f in _g2.glob(D+'allies_zz_*.json') if not f.endswith('.bak.json')):   # completions: full records replaced, new files added, duplicates dropped
     z=json.load(open(f,encoding='utf8')); R={o['id']:o for o in z.get('replace',[])}; X=set(z.get('drop',[]))
     allies=[R.get(o['id'],o) for o in allies if o['id'] not in X]+[o for o in z.get('add',[]) if o['id'] not in {a['id'] for a in allies}]
     for d_ in z.get('drop_steps',[]):
@@ -159,7 +159,7 @@ def _restage(o):
         v=o.get(fld)
         if isinstance(v,list) and v and isinstance(v[0],list) and v[0][1]!=T[0] and v[0][1] in T and T.index(v[0][1])>0: v[0]=[v[0][0],T[0]]
 _byT={o['id']:o for o in threats}; _byA={o['id']:o for o in allies}
-for f in sorted(_g2.glob(D+'../opp/org_*.json')):
+for f in sorted(f for f in _g2.glob(D+'../opp/org_*.json') if not f.endswith('.bak.json')):
     if '/org_threats_' in f or '/org_allies_' in f: continue   # the inputs the organizations were written from
     z=json.load(open(f,encoding='utf8'))
     for o in z.get('raft',[]):
@@ -181,7 +181,7 @@ for f in sorted(_g2.glob(D+'../opp/org_*.json')):
         _restage(o)
 # the Collector's archive (mockup): every object, from the coll_*.json files (coll_existing.json is the old 27, kept for reference)
 collx=[]
-for f in sorted(_g2.glob(D+'coll_*.json')):
+for f in sorted(f for f in _g2.glob(D+'coll_*.json') if not f.endswith('.bak.json')):
     if f.endswith('coll_existing.json'): continue
     if os.environ.get('NOSPEC') and 'coll_spec_' in f: continue   # the specimens stay a mockup until approved
     try: collx+=json.load(open(f,encoding='utf8'))
@@ -192,7 +192,7 @@ for o in threats+allies+collx: _one(o)
 # who has stood against each villain: lists of the Compound's own files and teams (../opp/opp_*.json, keyed by the final ids). Until a villain
 # has one, its old single "op" stands, cleaned of names that split one person in two
 _ally_ids={o['id'] for o in allies}
-for f in sorted(_g2.glob(D+'../opp/opp_*.json')):
+for f in sorted(f for f in _g2.glob(D+'../opp/opp_*.json') if not f.endswith('.bak.json')):
     for k,v in json.load(open(f,encoding='utf8')).items():
         o=next((x for x in threats if x['id']==k),None)
         if o is None: print('opp: no threat',k); continue
