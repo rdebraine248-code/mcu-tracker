@@ -53,6 +53,8 @@ _l=[x for x in s.split('\n') if x.startswith('const DATA')][0]; _D=json.loads(_l
 _ch={}
 for c in _D['chapters']:
     for i in c['items']: _ch.setdefault(i['t'],c['id'])
+# the ABC shows moved into the Chapters, but their files stay on the registries' Beyond tab (their ids, and everything saved against them, with them)
+for t in ('Agents of S.H.I.E.L.D.','Agents of S.H.I.E.L.D.: Slingshot','Agent Carter'): _ch[t]='ch-beyond-the-mcu'
 for o in threats:
     if o['id'].startswith('st-'):
         c=_ch.get(o['st'][0][1])
