@@ -696,7 +696,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .filepanel[hidden]{ display:none; }
 .fileview{ flex:1; overflow-y:auto; overscroll-behavior:contain; padding:6px 18px 40px; }
 /* the Agent File and Comms are one page each, like Story and the Log: the title scrolls away with everything under it (Comms' filter chips stay pinned) */
-#filePanel:not([hidden]), #commsPanel:not([hidden]){ display:block; overflow-y:auto; overscroll-behavior:contain; }   /* never over a closed page */ #filePanel .fileview, #commsPanel .fileview{ overflow:visible; } #commsPanel .cm-chips{ top:env(safe-area-inset-top,0px); }
+#filePanel:not([hidden]), #commsPanel:not([hidden]), #collPanel:not([hidden]){ display:block; overflow-y:auto; overscroll-behavior:contain; }   /* never over a closed page */ #filePanel .fileview, #commsPanel .fileview, #collPanel .fileview{ overflow:visible; } #commsPanel .cm-chips{ top:env(safe-area-inset-top,0px); }
 .hf-head{ max-width:760px; margin:0 auto; padding:16px 16px 18px; border:1px solid #26314A; border-radius:14px; background:linear-gradient(180deg,#121A2A,#0D1320); }
 .hf-head{ position:relative; }
 .hf-ava{ position:absolute; top:14px; right:14px; width:58px; height:58px; padding:0; border-radius:50%; border:1px solid #2E3A56; background:radial-gradient(circle at 50% 45%, #1A2336 0%, #0B1019 70%); box-shadow:inset 0 0 14px rgba(0,0,0,.6), 0 0 0 3px rgba(127,166,216,.08); cursor:pointer; overflow:hidden; }
@@ -1129,11 +1129,15 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .co-rec .cp-id h3{ color:#0B1424; }
 .cp-id h3{ margin:4px 0 2px; font:400 28px/1.02 'Anton','Impact',sans-serif; letter-spacing:.6px; text-transform:uppercase; } .cp-id p{ margin:0; font-size:14px; color:#3E4C63; }
 .cp-stb{ align-self:flex-start; flex:none; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1424; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
-.cp-teams{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px; } .cp-teams span{ padding:5px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font-size:13px; }
+.cp-teams{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px; } .cp-teams button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cp-teams button:active, .cx-hands button:active{ transform:scale(.96); } .cp-teams button{ padding:5px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font-size:13px; }
 .cp-rf{ display:flex; align-items:center; gap:12px; width:100%; margin:0 0 14px; padding:10px 14px; border:1px solid #6A2A26; border-radius:12px; background:rgba(224,74,58,.08); color:#FFD2CB; text-align:left; cursor:pointer; }
 .cp-rf span{ flex:1; } .cp-rf small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#E9897E; } .cp-rf b{ display:block; margin-top:2px; font-size:15px; } .cp-rf em{ font-style:normal; font-size:18px; }
 .cpx .rf-seg button[aria-pressed="true"]{ background:#EEF3FA; border-color:#EEF3FA; }
 .cp-intake i{ background:#4FA3FF; box-shadow:0 0 8px #4FA3FF; }
+.tf-bar{ display:flex; align-items:center; gap:12px; margin:12px 0 2px; padding:10px 12px 10px 14px; border:1px solid #2F4F80; border-radius:12px; background:rgba(79,163,255,.08); }
+.tf-bar span{ flex:1; min-width:0; } .tf-bar small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#8FC1FF; } .tf-bar b{ display:block; margin-top:2px; font-size:16px; color:#EEF3FA; }
+.tf-bar button{ display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font:10.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; } .tf-bar button i{ font-style:normal; }
+.collpanel:not(.cpx):not(.raft) .tf-bar{ border-color:#4A3F22; background:rgba(233,196,106,.07); } .collpanel:not(.cpx):not(.raft) .tf-bar small{ color:#E9C46A; } .collpanel:not(.cpx):not(.raft) .tf-bar button{ border-color:#4A3F22; background:#17140C; color:#F1E2B8; }
 /* the Collector's archive: every object in its own lit glass case, marked with its kind */
 .s-use{ --sc:#E9C46A; } .s-sec{ --sc:#5FA8FF; } .s-lost{ --sc:#B9A3E8; } .s-des{ --sc:#7F8796; }
 .cx-gl{ display:block; width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
@@ -1156,7 +1160,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
-.cx-hands{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 16px; } .cx-hands span{ padding:5px 10px; border:1px solid #4A3F22; border-radius:999px; background:#17140C; color:#F1E2B8; font-size:13px; }
+.cx-hands{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 16px; } .cx-hands button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cx-hands button{ padding:5px 10px; border:1px solid #4A3F22; border-radius:999px; background:#17140C; color:#F1E2B8; font-size:13px; }
 .cx-hd{ display:inline-block; margin-left:6px; color:#E9D9AE; } .cx-hd::before{ content:"· "; color:#8EA2C2; }
 .cx-chain li::before{ border-color:var(--sc); } .cx-chain li:last-child::before{ background:var(--sc); box-shadow:0 0 8px var(--sc); }
 .rf-sh .cx-gl{ flex:none; width:16px; height:16px; color:#E9C46A; }
@@ -4537,7 +4541,7 @@ function openColl(mode) {
   // the first time you board the Raft, everything already on file comes over in one intake, read; from then on, a file that's new to you says so
   if (!raft && !cpm && COLLX.length && !state.collIn) { const L = COLLX.filter(o => cxSteps(o).length), R = state.collSeen = state.collSeen || {}; L.forEach(o => R[o.id] = 1); state.collIn = 1; cxIntake = L.length; persist(); }
   if (raft && !state.raftIn) { const L = THREATS.filter(o => rfSteps(o).length), R = state.raftSeen = state.raftSeen || {}; L.forEach(o => R[o.id] = 1); state.raftIn = 1; rfIntake = L.length; persist(); }
-  collRec = null; collCat = ""; renderColl(); document.getElementById("collView").scrollTop = 0;
+  collRec = null; collCat = ""; cpTeamF = ""; cxHoldF = ""; renderColl(); document.getElementById("collPanel").scrollTop = 0;
   cp.hidden = false; collOpen = true;
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
   found(raft ? "raft" : cpm ? "compound" : "collector");
@@ -4546,17 +4550,17 @@ function openColl(mode) {
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cxIntake = 0; cxQ = ""; rfIntakeStop();
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = ""; rfIntakeStop();
 }
 function collShow(id) {
-  const v = document.getElementById("collView"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
+  const v = document.getElementById("collPanel"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
   collRec = id; if (collMode === "raft") (state.raftSeen = state.raftSeen || {})[id] = 1; else if (collMode === "cp") (state.cpSeen = state.cpSeen || {})[id] = 1; else if (COLLX.length) (state.collSeen = state.collSeen || {})[id] = 1; else (state.coll = state.coll || {})[id] = 1; persist(); renderColl(); v.scrollTop = 0;
   try { history.pushState({ mcu: "collrec" }, ""); } catch (e) {}
 }
-function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collView").scrollTop = collY; }
-document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cxQ") return; cxQ = ev.target.value; const v = document.getElementById("collView");
+function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collPanel").scrollTop = collY; }
+document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cxQ") return; cxQ = ev.target.value; cxHoldF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !cxQ; v.querySelector(".cx-body").innerHTML = cxBody(); v.querySelectorAll("[data-cxu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cxu === cxUni && !cxQ)); });
-document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cpQ") return; cpQ = ev.target.value; const v = document.getElementById("collView");
+document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cpQ") return; cpQ = ev.target.value; cpTeamF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !cpQ; v.querySelector(".cp-body").innerHTML = cpBody(); v.querySelectorAll("[data-cpu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cpu === cpUni && !cpQ)); });
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "rfQ") return; rfQ = ev.target.value; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !rfQ; v.querySelector(".rf-body").innerHTML = rfBody(); v.querySelectorAll("[data-rfu]").forEach(b => b.setAttribute("aria-selected", b.dataset.rfu === rfUni && !rfQ)); });
@@ -4567,13 +4571,17 @@ document.getElementById("collView").addEventListener("click", ev => {
   const c = ev.target.closest("[data-cc]"); if (c) { haptic(8); collCat = c.dataset.cc; renderColl(); return; }
   if (collMode === "coll" && COLLX.length) {
     if (ev.target.closest(".pg-qx")) { haptic(8); cxQ = ""; renderColl(); return; }
-    const xu = ev.target.closest("[data-cxu]"); if (xu) { if (xu.dataset.cxu !== cxUni || cxQ) { haptic(8); cxUni = xu.dataset.cxu; cxQ = ""; renderColl(); } return; }
+    const xh = ev.target.closest("[data-cxh]"); if (xh) { haptic(10); cxHoldF = xh.dataset.cxh; cxUni = rfUniOf(COLLX.find(o => o.id === collRec)); cxQ = ""; collY = 0; collGrid(); return; }
+    if (ev.target.closest("[data-tfx]")) { haptic(8); cxHoldF = ""; renderColl(); return; }
+    const xu = ev.target.closest("[data-cxu]"); if (xu) { if (xu.dataset.cxu !== cxUni || cxQ || cxHoldF) { haptic(8); cxUni = xu.dataset.cxu; cxQ = ""; cxHoldF = ""; renderColl(); } return; }
     const xg = ev.target.closest("[data-cxg]"); if (xg) { if (xg.dataset.cxg !== cxGrp) { haptic(8); cxGrp = xg.dataset.cxg; renderColl(); } return; }
     const xf = ev.target.closest("[data-cxf]"); if (xf) { haptic(8); const k = xf.dataset.cxf; cxFold[cxGrp][k] = !cxShut(k); renderColl(); return; }
   }
   if (collMode === "cp") {
     if (ev.target.closest(".pg-qx")) { haptic(8); cpQ = ""; renderColl(); return; }
-    const cu = ev.target.closest("[data-cpu]"); if (cu) { if (cu.dataset.cpu !== cpUni || cpQ) { haptic(8); cpUni = cu.dataset.cpu; cpQ = ""; renderColl(); } return; }
+    const ct = ev.target.closest("[data-cpt]"); if (ct) { haptic(10); cpTeamF = ct.dataset.cpt; cpUni = rfUniOf(ALLIES.find(o => o.id === collRec)); cpQ = ""; collY = 0; collGrid(); return; }
+    if (ev.target.closest("[data-tfx]")) { haptic(8); cpTeamF = ""; renderColl(); return; }
+    const cu = ev.target.closest("[data-cpu]"); if (cu) { if (cu.dataset.cpu !== cpUni || cpQ || cpTeamF) { haptic(8); cpUni = cu.dataset.cpu; cpQ = ""; cpTeamF = ""; renderColl(); } return; }
     const cg = ev.target.closest("[data-cpg]"); if (cg) { if (cg.dataset.cpg !== cpGrp) { haptic(8); cpGrp = cg.dataset.cpg; renderColl(); } return; }
     const cf = ev.target.closest("[data-cpf]"); if (cf) { haptic(8); const k = cf.dataset.cpf; cpFold[cpGrp][k] = !cpShut(k); renderColl(); return; }
     const rl = ev.target.closest("[data-cprf]"); if (rl) { haptic(10); const id = rl.dataset.cprf; rfUni = rfUniOf(THREATS.find(o => o.id === id)); openColl("raft"); collShow(id); return; }
@@ -4607,7 +4615,7 @@ const cxStatus = S => S.length ? S[S.length - 1][2] || "In use" : "In use", cxHo
 const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", atlSeenT)[0];
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
 const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
-let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0;
+let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0, cxHoldF = "";
 const CX_GRP = [["type", "Type"], ["status", "Status"], ["holder", "Held by"]];
 // grouped by who holds them, the list opens as an index of holders, each folded until you tap it; the other groupings open unfolded
 const cxShut = k => { const v = (cxFold[cxGrp] || {})[k]; return v == null ? cxGrp === "holder" : v; };
@@ -4621,7 +4629,7 @@ function renderCx() {
       <div class="cx-big s-${CX_ST[st]}"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><b class="cx-stb">${esc(st)}</b></div>
       <small class="cx-lot">${cxNo(o)} · ${esc(cxTyName(o.c))}</small><h3>${esc(cxName(o))}</h3><p class="co-kind">${esc(cxKind(o))}</p>
       <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>Held by</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div></div>
-      ${hands.length ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<span>${esc(h)}</span>`).join("")}</div>` : ""}
+      ${hands.length ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}</div>` : ""}
       <div class="co-h">Chain of custody</div>
       <ol class="co-chain cx-chain">${S.map(x => { const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
         pst = x[2] || pst; ph = x[3] || ph; return `<li class="s-${CX_ST[x[2]] || "use"}"><p>${esc(x[0])}</p><small>${tnh(x[1])}${hd}${chg}</small></li>`; }).join("")}</ol></div>`;
@@ -4637,6 +4645,11 @@ function cxBody() {
   const seen = state.collSeen = state.collSeen || {}, q = qNorm(cxQ.trim());
   const card = (o, meta) => { const S = cxSteps(o), st = cxStatus(S), n = cxName(o);
     return `<button type="button" class="cx-case s-${CX_ST[st]}" data-co="${o.id}"><span class="cx-stage"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><i class="rf-lamp" aria-hidden="true"></i></span>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="cx-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}</b><small>${esc(cxKind(o))}</small><em>${esc(meta(o, S, st))}</em></span></button>`; };
+  if (cxHoldF && q.length < 2) {   // everything one holder has had, as far as you've watched
+    const L = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).some(x => x[3] === cxHoldF)).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
+    return `<div class="tf-bar"><span><small>Held by</small><b>${esc(cxHoldF)}</b></span><button type="button" data-tfx aria-label="Show every object">All objects<i aria-hidden="true">&#10005;</i></button></div>
+      <div class="rf-sh rf-found"><span>In their hands</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxHolder(S) === cxHoldF ? st : "Now held by " + cxHolder(S))).join("")}</div>`;
+  }
   if (q.length > 1) {
     const L = COLLX.filter(o => cxSteps(o).length && [cxName(o), cxKind(o)].some(t => qNorm(t).includes(q))).sort((a, b) => qNorm(cxName(b)).includes(q) - qNorm(cxName(a)).includes(q) || cxName(a).localeCompare(cxName(b)));
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => st + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))))).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
@@ -4785,8 +4798,10 @@ const cpName = o => stageAt(o.n, atlSeenT)[0], cpKind = o => stageAt(o.k || "", 
 const cpNo = o => "ID " + String(ALLIES.indexOf(o) + 1).padStart(4, "0");
 const cpInit = n => String(n).replace(/^(The|Dr\.|Doctor|Captain|Agent|Mister|Miss|Mr\.|Mrs\.|Ms\.) /, "").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
 // the Compound stands until Endgame; its files are recovered from the rubble, and the New Avengers keep them after Thunderbolts* (the page keeps the name of the pin it opens from)
-const cpHome = () => atlSeenT("Thunderbolts*") ? ["The Compound", "Personnel files · The New Avengers"] : atlSeenT("Avengers: Endgame") ? ["The Compound", "Personnel files · Recovered from the ruins"] : ["The Compound", "Personnel files · Avengers Compound"];
-let cpUni = "mcu", cpGrp = "status", cpFold = {}, cpQ = "", cpIntake = 0;
+const cpHome = () => atlSeenT("Thunderbolts*") ? ["The Avengers Compound", "Personnel files · The New Avengers"] : atlSeenT("Avengers: Endgame") ? ["The Avengers Compound", "Personnel files · Recovered from the ruins"] : ["The Avengers Compound", "Personnel files · Upstate New York"];
+let cpUni = "mcu", cpGrp = "status", cpFold = {}, cpQ = "", cpIntake = 0, cpTeamF = "";
+// everyone in this universe who has served on a team, as far as you've watched
+const cpTeams = o => Array.isArray(o.tm) ? o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]) : [o.tm || "Independent"];
 const CP_GRP = [["status", "Status"], ["team", "Team"]];
 const cpShut = k => { const v = (cpFold[cpGrp] || {})[k]; return v == null ? cpGrp === "team" : v; };
 function cpBadge(o) { const em = o.em && EMBLEMS[o.em] && embOpen(o.em) ? o.em : null;
@@ -4801,7 +4816,7 @@ function renderCp() {
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Personnel files</button>
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p></div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div></div>
-      <div class="co-h">Teams</div><div class="cp-teams">${teams.map(t => `<span>${esc(t)}</span>`).join("")}</div>
+      <div class="co-h">Teams</div><div class="cp-teams">${teams.map(t => `<button type="button" data-cpt="${esc(t)}">${esc(t)}</button>`).join("")}</div>
       ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(x[0])}</p><small>${tnh(x[1])}${chg}</small></li>`; }).join("")}</ol></div>`;
@@ -4816,7 +4831,12 @@ function renderCp() {
 function cpBody() {
   const seen = state.cpSeen = state.cpSeen || {}, q = qNorm(cpQ.trim());
   const card = o => { const S = cpSteps(o), st = cpStatus(S), n = cpName(o);
-    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(cpKind(o))}</small><em>${q.length > 1 ? esc(st) + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))) : cpGrp === "status" ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
+    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(cpKind(o))}</small><em>${q.length > 1 ? esc(st) + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))) : cpGrp === "status" && !cpTeamF ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
+  if (cpTeamF && q.length < 2) {
+    const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && cpTeams(o).includes(cpTeamF)).sort((a, b) => (ATL_ORDER[rfFirst(cpSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cpSteps(b))] ?? 1e9));
+    return `<div class="tf-bar"><span><small>Team roster</small><b>${esc(cpTeamF)}</b></span><button type="button" data-tfx aria-label="Show every file">All files<i aria-hidden="true">&#10005;</i></button></div>
+      <div class="rf-sh rf-found"><span>Served</span><em>${L.length}</em></div><div class="cp-grid">${L.map(o => card(o)).join("")}</div>`;
+  }
   if (q.length > 1) {
     const L = ALLIES.filter(o => cpSteps(o).length && [cpName(o), cpKind(o)].some(t => qNorm(t).includes(q))).sort((a, b) => qNorm(cpName(b)).includes(q) - qNorm(cpName(a)).includes(q) || cpName(a).localeCompare(cpName(b)));
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cp-grid">${L.map(card).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
@@ -6775,7 +6795,7 @@ const EGGS = [
   ["sokovia", "Sokovia", "A city in the sky.", "In the Atlas, hold Sokovia.", 1],
   ["titanmoon", "All that for a drop of blood", "Thanos has a moon to throw.", "In the Atlas Cosmos, hold Titan.", 1],
   ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas Cosmos, tap Knowhere and visit the Collector.", 1],
-  ["compound", "The Compound", "Upstate, the team keeps a file on everyone.", "After Age of Ultron, in the Atlas, tap the Avengers Compound and open its personnel files.", 1],
+  ["compound", "The Avengers Compound", "Upstate, the team keeps a file on everyone.", "After Age of Ultron, in the Atlas, tap the Avengers Compound and open its personnel files.", 1],
   ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "After Civil War, in the Atlas, tap the Raft and open its threat registry.", 1],
   ["jumppoint", "Jump point", "Space is big. Take a shortcut.", "In the Atlas Cosmos, hold an empty patch of space.", 1],
   ["goose", "Not a cat", "Fury's favorite.", "In Captain Marvel's profile, tap Goose.", 1],
