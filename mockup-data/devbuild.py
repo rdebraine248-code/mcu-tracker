@@ -146,6 +146,38 @@ def _one(o):
         if p_ and p_[1]==x[1] and p_[2:]==list(x[2:]) and x[1] not in _multi: out[-1]=[p_[0]+' '+x[0]]+p_[1:]
         else: out.append(list(x))
     o['st']=out
+# organizations: every group that acts as one gets a file, villainous ones in the Raft and heroic ones in the Compound (../opp/org_*.json, keyed by
+# the final ids). A fix adds steps to a file that already exists, in story order: before the first step of a title that comes later
+_tl=[x['t'] for x in _D.get('timeline',[])]
+def _ord(t):
+    if t in _tl: return _tl.index(t)
+    m=[i for i,x in enumerate(_tl) if x.startswith(t+' S')]   # an umbrella title sits where its first season does
+    return m[0] if m else None
+def _restage(o):
+    T=[x[1] for x in o['st']]
+    for fld in ('n','k','cl','tm'):
+        v=o.get(fld)
+        if isinstance(v,list) and v and isinstance(v[0],list) and v[0][1]!=T[0] and v[0][1] in T and T.index(v[0][1])>0: v[0]=[v[0][0],T[0]]
+_byT={o['id']:o for o in threats}; _byA={o['id']:o for o in allies}
+for f in sorted(_g2.glob(D+'../opp/org_*.json')):
+    z=json.load(open(f,encoding='utf8'))
+    for o in z.get('raft',[]):
+        if o['id'] in _byT: print('org: dup raft',o['id']); continue
+        threats.append(o); _byT[o['id']]=o
+    for o in z.get('compound',[]):
+        if o['id'] in _byA: print('org: dup cp',o['id']); continue
+        allies.append(o); _byA[o['id']]=o
+    for fx in z.get('fixes',[]):
+        o=_byT.get(fx['id']) or _byA.get(fx['id'])
+        if not o: print('org: no file for fix',fx['id']); continue
+        for st in fx['add_steps']:
+            k=_ord(st[1]); at=len(o['st'])
+            if k is not None:
+                for i,x in enumerate(o['st']):
+                    kx=_ord(x[1])
+                    if kx is not None and kx>k: at=i; break
+            o['st'].insert(at,st)
+        _restage(o)
 # the Collector's archive (mockup): every object, from the coll_*.json files (coll_existing.json is the old 27, kept for reference)
 collx=[]
 for f in sorted(_g2.glob(D+'coll_*.json')):

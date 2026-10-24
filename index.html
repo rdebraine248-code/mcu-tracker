@@ -4053,7 +4053,7 @@ document.getElementById("collView").addEventListener("click", ev => {
   }
   if (collMode === "cp") {
     if (ev.target.closest(".pg-qx")) { haptic(8); cpQ = ""; renderColl(); return; }
-    const ct = ev.target.closest("[data-cpt]"); if (ct) { haptic(10); cpTeamF = ct.dataset.cpt; cpUni = rfUniOf(ALLIES.find(o => o.id === collRec)); cpQ = ""; collY = 0; collGrid(); return; }
+    const ct = ev.target.closest("[data-cpt]"); if (ct) { haptic(10); cpTeamF = ct.dataset.cpt; cpTeamFrom = collRec; cpUni = rfUniOf(ALLIES.find(o => o.id === collRec)); cpQ = ""; collY = 0; collGrid(); return; }
     if (ev.target.closest("[data-tfx]")) { haptic(8); cpTeamF = ""; renderColl(); return; }
     const cu = ev.target.closest("[data-cpu]"); if (cu) { if (cu.dataset.cpu !== cpUni || cpQ || cpTeamF) { haptic(8); cpUni = cu.dataset.cpu; cpQ = ""; cpTeamF = ""; renderColl(); } return; }
     const cg = ev.target.closest("[data-cpg]"); if (cg) { if (cg.dataset.cpg !== cpGrp) { haptic(8); cpGrp = cg.dataset.cpg; renderColl(); } return; }
@@ -4239,7 +4239,14 @@ const cpNo = o => "ID " + String(ALLIES.indexOf(o) + 1).padStart(4, "0");
 const cpInit = n => String(n).replace(/^(The|Dr\.|Doctor|Captain|Agent|Mister|Miss|Mr\.|Mrs\.|Ms\.) /, "").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
 // the Compound stands until Endgame; its files are recovered from the rubble, and the New Avengers keep them after Thunderbolts* (the page keeps the name of the pin it opens from)
 const cpHome = () => atlSeenT("Thunderbolts*") ? ["The Avengers Compound", "Personnel files · The New Avengers"] : atlSeenT("Avengers: Endgame") ? ["The Avengers Compound", "Personnel files · Recovered from the ruins"] : ["The Avengers Compound", "Personnel files · Upstate New York"];
-let cpUni = "mcu", cpGrp = "status", cpFold = {}, cpQ = "", cpIntake = 0, cpTeamF = "";
+let cpUni = "mcu", cpGrp = "status", cpFold = {}, cpQ = "", cpIntake = 0, cpTeamF = "", cpTeamFrom = "";
+// a team's own file: the group file carrying that team name in this universe. Where two continuities share a name (the films' X-Men and the
+// animated X-Men), it's the one whose id is closest to the file you came from
+function cpGroupFile(team, from) {
+  const L = ALLIES.filter(o => o.grp && rfUniOf(o) === cpUni && cpSteps(o).length && cpTeams(o).includes(team)); if (L.length < 2) return L[0] || null;
+  const near = o => { let n = 0; const a = o.id.split("-"), b = (from || "").split("-"); while (n < a.length && a[n] === b[n]) n++; return n; };
+  return L.slice().sort((a, b) => near(b) - near(a))[0];
+}
 // everyone in this universe who has served on a team, as far as you've watched
 const cpTeams = o => Array.isArray(o.tm) ? o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]) : [o.tm || "Independent"];
 const CP_GRP = [["status", "Status"], ["team", "Team"]];
@@ -4274,7 +4281,8 @@ function cpBody() {
     return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(cpKind(o))}</small><em>${q.length > 1 ? esc(st) + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))) : cpGrp === "status" && !cpTeamF ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
   if (cpTeamF && q.length < 2) {
     const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && cpTeams(o).includes(cpTeamF)).sort((a, b) => (ATL_ORDER[rfFirst(cpSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cpSteps(b))] ?? 1e9));
-    return `<div class="tf-bar"><span><small>Team roster</small><b>${esc(cpTeamF)}</b></span><button type="button" data-tfx aria-label="Show every file">All files<i aria-hidden="true">&#10005;</i></button></div>
+    const gf = cpGroupFile(cpTeamF, cpTeamFrom);
+    return `<div class="tf-bar"><span><small>Team roster</small><b>${esc(cpTeamF)}</b></span>${gf ? `<button type="button" data-co="${esc(gf.id)}" aria-label="Open the group's own file">Group file</button>` : ""}<button type="button" data-tfx aria-label="Show every file">All files<i aria-hidden="true">&#10005;</i></button></div>
       <div class="rf-sh rf-found"><span>Served</span><em>${L.length}</em></div><div class="cp-grid">${L.map(o => card(o)).join("")}</div>`;
   }
   if (q.length > 1) {
