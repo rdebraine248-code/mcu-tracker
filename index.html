@@ -223,7 +223,7 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .row.just{ animation:rowflash .5s ease-out; }
 @keyframes boxpop{ 0%{ transform:scale(.88); } 45%{ transform:scale(1.25); } 75%{ transform:scale(.95); } 100%{ transform:scale(1); } }
 @keyframes rowflash{ 0%{ background:color-mix(in srgb, var(--boxc) 22%, transparent); } 100%{ background:transparent; } }
-.row .box{ flex:0 0 auto; width:26px; height:26px; border:2.5px solid var(--boxc); display:flex; align-items:center; justify-content:center; transition:background .2s ease; }
+.row .box{ flex:0 0 auto; width:26px; height:26px; border:2.5px solid var(--boxc); display:flex; align-items:center; justify-content:center; }
 .row .box svg{ width:16px; height:16px; opacity:0; transform:scale(.6); transition:opacity .18s ease, transform .18s ease; }
 .row[aria-pressed="true"] .box{ background:var(--boxc); }
 .row[aria-pressed="true"] .box svg{ opacity:1; transform:scale(1); }
