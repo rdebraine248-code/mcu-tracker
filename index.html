@@ -1101,7 +1101,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-card.s-dec{ background:#D5DBE4; }
 .cp-ph{ display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:#0B1424; color:#EEF3FA; font:400 18px/1 'Anton','Impact',sans-serif; letter-spacing:.5px; box-shadow:0 0 0 2px var(--sc); overflow:hidden; }
 .cp-ph{ position:relative; } .cp-ph.em{ background:#101A2E; }
-.cp-ph .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:translate(6px,6px) scale(.8); } .cp-id .cp-ph .emb{ transform:translate(9px,9px) scale(1.15); }   /* drawn at 64px and scaled whole, set off-centre so the badge's round edge crops it, never a straight cut */
+.cp-ph .emb{ position:absolute; left:5px; top:5px; } .cp-id .cp-ph .emb{ left:7px; top:7px; }   /* the insignia at full size, close in on its upper part, and only the badge's round edge crops it */
 .cp-tx{ display:block; min-width:0; width:100%; }
 .cp-tx b{ display:block; font:400 17px/1.1 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
 .cp-tx b .nw{ display:inline-block; margin-left:6px; vertical-align:2px; padding:1px 5px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; }
@@ -4496,7 +4496,7 @@ document.getElementById("collView").addEventListener("click", ev => {
 /* ---------- the Raft's threat registry: tap the Raft in the Atlas. Every villain gets a file the first time you meet them, and the file follows them
    title by title (escapes, arrests, deaths, comebacks), each record sealed until you've watched its title. Later records are never counted or hinted at */
 const THREATS = /*THREATS*/[];
-const RF_UNI = [["mcu", "MCU"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"], ["by", "Beyond"]], RF_CH = { sv: "ch-the-spider-verse", fox: "ch-the-fox-men", pr: "ch-pruned-timelines", by: "ch-beyond-the-mcu" };
+const RF_UNI = [["mcu", "MCU"], ["by", "Beyond"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"]], RF_CH = { sv: "ch-the-spider-verse", fox: "ch-the-fox-men", pr: "ch-pruned-timelines", by: "ch-beyond-the-mcu" };
 const RF_CL = ["Street", "City", "Global", "Cosmic", "Multiversal"];
 const rfUniName = ([u, l]) => u === "mcu" || state.unlocked[RF_CH[u]] ? l : "[ Classified ]";   // named once its Extras chapter is unlocked, like everywhere else
 let rfGrp = "status", rfFold = {}, rfIntake = 0;
