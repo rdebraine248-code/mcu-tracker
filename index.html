@@ -10301,8 +10301,6 @@ document.addEventListener("click", ev => {
   haptic(b.id === "gateEnter" ? HAPTIC.enter : HAPTIC.tap);
 }, true);
 renderAll();
-// the installed app asks the phone to keep its progress even when storage runs low (granted quietly, with no prompt, on Android)
-try { if (matchMedia("(display-mode: standalone)").matches && navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(p => p || navigator.storage.persist()).catch(() => {}); } catch (e) {}
 ["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
 </script>
 </body>
