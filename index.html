@@ -1126,26 +1126,29 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-raft small{ display:block; margin-top:1px; font-size:13px; color:#9DB0C6; } .atl-raft em{ font-style:normal; font-size:18px; color:#9FB7D0; }
 .collpanel.raft{ background-color:#0A0F16; }
 .raft .co-top small{ color:#9DB4CC; } .raft .co-bar span{ background:#E04A3A; }
-.raft .co-chips button.on{ background:#D6E4F3; border-color:#D6E4F3; color:#0A0F16; }
-.rf-uni{ display:flex; gap:0; margin:0 0 10px; border:1px solid #2A3550; border-radius:10px; overflow:hidden; }
-.rf-uni button{ flex:1; min-width:0; padding:8px 4px; border:0; border-left:1px solid #2A3550; background:#0D1420; color:#AFC0D6; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
-.rf-uni button:first-child{ border-left:0; } .rf-uni button.on{ background:#1B2A40; color:#EEF4FB; box-shadow:inset 0 -2px 0 #E04A3A; }
-.rf-filt{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0 0 10px; }
-.rf-filt label{ display:block; min-width:0; } .rf-filt span{ display:block; margin-bottom:4px; font:10px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#8FA4BE; }
-.rf-filt select{ width:100%; min-width:0; padding:8px 10px; border:1px solid #2A3550; border-radius:8px; background:#0D1420; color:#EEF1F6; font-size:14px; }
-.rf-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
-.rf-cell{ --sc:#E04A3A; position:relative; display:flex; flex-direction:column; justify-content:flex-end; width:100%; min-height:150px; padding:34px 12px 12px; border:1px solid #2B3A50; border-radius:10px; overflow:hidden; text-align:left; color:#EEF1F6; cursor:pointer;
-  background:repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, rgba(0,0,0,0) 2px 26px), linear-gradient(180deg,#1A2433,#0E141E); }
-.rf-cell::before{ content:""; position:absolute; left:0; right:0; top:0; height:26px; background:linear-gradient(180deg,#243247,#172131); border-bottom:1px solid #2F4058; }
-.rf-cell .rf-no{ position:absolute; left:10px; top:6px; font:10px/14px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#8FA4BE; }
-.rf-cell .rf-lamp{ position:absolute; right:10px; top:9px; width:8px; height:8px; border-radius:50%; background:var(--sc); box-shadow:0 0 6px var(--sc), 0 0 12px var(--sc); }
-.rf-cell .rf-nm{ font-family:'Anton','Impact',sans-serif; font-size:20px; line-height:1.05; letter-spacing:.6px; text-transform:uppercase; }
-.rf-cell .rf-k{ margin-top:4px; font-size:12.5px; line-height:1.3; color:#AEBBCD; }
-.rf-cell .rf-st{ align-self:flex-start; margin-top:9px; padding:2px 7px; border:1px solid var(--sc); border-radius:3px; color:var(--sc); font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
-.rf-cell .nw{ position:absolute; top:5px; right:26px; z-index:2; padding:1px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
+.rf-tabs{ display:flex; gap:8px; overflow-x:auto; margin:14px 0 14px; padding:0 0 2px; scrollbar-width:none; } .rf-tabs::-webkit-scrollbar{ display:none; }
+.rf-tabs button{ flex:0 0 auto; border:1px solid #2A3140; border-radius:999px; padding:9px 15px; background:#1A2030; color:#EEF1F6; font:500 15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
+.rf-tabs button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; border-color:#EEF1F6; }
+.rf-grp{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 4px; }
+.rf-grp > span{ font:10.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#8FA4BE; white-space:nowrap; }
+.rf-seg{ display:flex; gap:3px; padding:3px; border:1px solid #26314A; border-radius:999px; background:#0D1320; }
+.rf-seg button{ border:0; border-radius:999px; padding:7px 10px; background:transparent; color:#8EA2C2; font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; cursor:pointer; touch-action:manipulation; }
+.rf-seg button[aria-pressed="true"]{ background:#1E2A44; color:#EEF1F6; box-shadow:inset 0 0 0 1px #3A78C9; }
+.rf-sec{ --sc:#8FA4BE; margin-top:8px; }
+.rf-sh{ display:flex; align-items:center; gap:9px; width:100%; padding:14px 2px 9px; border:0; border-bottom:1px solid #26344B; background:none; color:#D6E4F3; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; text-align:left; cursor:pointer; touch-action:manipulation; }
+.rf-sh span{ flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } .rf-sh em{ font-style:normal; letter-spacing:1px; color:#8FA4BE; }
+.rf-sh svg{ flex:none; color:#7F8BA0; transition:transform .2s ease; } .rf-sec.shut .rf-sh svg{ transform:rotate(-90deg); }
+.rf-lamp{ flex:none; width:8px; height:8px; border-radius:50%; background:var(--sc); box-shadow:0 0 6px var(--sc); } .s-dead .rf-lamp{ box-shadow:none; }
+.rf-row{ --sc:#E04A3A; display:flex; align-items:center; gap:12px; width:100%; padding:11px 2px; border:0; border-bottom:1px solid #172133; background:none; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
+.rf-tx{ flex:1; min-width:0; } .rf-tx b{ display:block; font:400 18px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; } .rf-tx small{ display:block; margin-top:3px; font-size:13px; line-height:1.3; color:#AEBBCD; }
+.rf-row.s-dead .rf-tx b{ color:#B9C2CF; }
+.rf-meta{ flex:none; max-width:36%; text-align:right; font:10px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FA4BE; } .rf-meta em{ font-style:normal; color:var(--sc); }
+.rf-tx .nw{ display:inline-block; margin-left:8px; vertical-align:3px; font-style:normal; }
+.rf-tx .nw, .rf-sh .nw{ flex:none; padding:1px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
+.hf-threat{ display:flex; align-items:center; gap:12px; width:100%; margin-top:8px; padding:9px 12px; border:1px solid #3A2A34; border-radius:8px; background:linear-gradient(90deg,rgba(224,74,58,.12),rgba(224,74,58,.02)); color:inherit; text-align:left; cursor:pointer; touch-action:manipulation; }
+.hf-threat span{ flex:1; min-width:0; } .hf-threat small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#8EA2C2; text-transform:uppercase; } .hf-threat b{ display:block; margin-top:2px; font:400 20px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; }
+.hf-threat em{ flex:none; font:11px/1.4 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1px; color:#AEBBCD; text-transform:uppercase; text-align:right; } .hf-threat em i{ display:block; font-style:normal; color:#FF7A6A; } .hf-threat svg{ flex:none; color:#8EA2C2; }
 .s-large{ --sc:#E04A3A; } .s-active{ --sc:#6FB3FF; } .s-captive{ --sc:#E07AAE; } .s-custody{ --sc:#E9A13A; } .s-dead{ --sc:#8592A6; } .s-reformed{ --sc:#4FCB8A; } .s-missing{ --sc:#A98BE8; }
-.rf-cell.s-dead .rf-lamp{ box-shadow:none; } .rf-cell.s-dead .rf-nm{ color:#B9C2CF; }
-.rf-sealed{ margin:12px 0 0; padding:10px 12px; border:1px dashed #2A3550; border-radius:10px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7F8BA0; text-align:center; text-transform:uppercase; }
 .rf-head{ position:relative; margin-top:4px; padding:14px 14px 14px; border:1px solid #2B3A50; border-radius:12px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, rgba(0,0,0,0) 2px 30px), linear-gradient(180deg,#1A2433,#0E141E); }
 .rf-head small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#8FA4BE; }
 .rf-head h3{ margin:6px 0 2px; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:34px; line-height:1.02; letter-spacing:1px; text-transform:uppercase; color:#EEF1F6; }
@@ -4350,7 +4353,7 @@ const COLL_ART = (() => {   // every drawer works in a 200 x 200 box centered on
 })();
 const collKnown = () => ["Thor: The Dark World", "Guardians of the Galaxy", "Avengers: Infinity War"].some(atlSeenT);   // his door shows once you've met him
 const collSteps = o => o.st.filter(s => atlSeenT(s[1]));
-let collOpen = false, collCat = "", collRec = null, collY = 0, collMode = "coll", rfUni = "mcu", rfSt = "";
+let collOpen = false, collCat = "", collRec = null, collY = 0, collMode = "coll", rfUni = "mcu";
 function collArt(o) { return o.a.startsWith("e:") ? embHTML(o.a.slice(2)) : `<canvas data-art="${o.a}" aria-hidden="true"></canvas>`; }
 function collPaint(root) {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -4383,8 +4386,7 @@ function renderColl() {
 }
 function openColl(mode) {
   collMode = mode === "raft" ? "raft" : "coll"; const cp = document.getElementById("collPanel"), raft = collMode === "raft";
-  cp.classList.toggle("raft", raft); cp.setAttribute("aria-label", raft ? "Threat registry" : "The Collection"); cp.querySelector(".maptop h2").textContent = raft ? "The Raft" : "Knowhere";
-  if (raft) { rfSt = ""; rfCl = ""; rfOp = ""; }
+  cp.classList.toggle("raft", raft); cp.setAttribute("aria-label", raft ? "Threat registry" : "The Collection"); cp.querySelector(".maptop h2").textContent = raft ? rfHome()[0] : "Knowhere";
   collRec = null; collCat = ""; renderColl(); document.getElementById("collView").scrollTop = 0;
   cp.hidden = false; collOpen = true;
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
@@ -4401,13 +4403,13 @@ function collShow(id) {
   try { history.pushState({ mcu: "collrec" }, ""); } catch (e) {}
 }
 function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collView").scrollTop = collY; }
-document.getElementById("collView").addEventListener("change", ev => { if (ev.target.matches("[data-rfcl]")) { rfCl = ev.target.value; renderColl(); } if (ev.target.matches("[data-rfop]")) { rfOp = ev.target.value; renderColl(); } });
 document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
 document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest("[data-co-back]")) { haptic(8); collGrid(); return; }
   const c = ev.target.closest("[data-cc]"); if (c) { haptic(8); collCat = c.dataset.cc; renderColl(); return; }
-  const ru = ev.target.closest("[data-rfu]"); if (ru) { haptic(8); rfUni = ru.dataset.rfu; rfSt = ""; rfCl = ""; rfOp = ""; renderColl(); return; }
-  const rs = ev.target.closest("[data-rfs]"); if (rs) { haptic(8); rfSt = rs.dataset.rfs; renderColl(); return; }
+  const ru = ev.target.closest("[data-rfu]"); if (ru) { if (ru.dataset.rfu !== rfUni) { haptic(8); rfUni = ru.dataset.rfu; renderColl(); } return; }
+  const rg = ev.target.closest("[data-rfg]"); if (rg) { if (rg.dataset.rfg !== rfGrp) { haptic(8); rfGrp = rg.dataset.rfg; renderColl(); } return; }
+  const rf = ev.target.closest("[data-rff]"); if (rf) { haptic(8); const k = rf.dataset.rff; rfFold[rfGrp][k] = !rfShut(k); renderColl(); return; }
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
 });
 
@@ -4417,7 +4419,12 @@ const THREATS = /*THREATS*/[];
 const RF_UNI = [["mcu", "MCU"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"], ["by", "Beyond"]], RF_CH = { sv: "ch-the-spider-verse", fox: "ch-the-fox-men", pr: "ch-pruned-timelines", by: "ch-beyond-the-mcu" };
 const RF_CL = ["Street", "City", "Global", "Cosmic", "Multiversal"];
 const rfUniName = ([u, l]) => u === "mcu" || state.unlocked[RF_CH[u]] ? l : "[ Classified ]";   // named once its Extras chapter is unlocked, like everywhere else
-let rfCl = "", rfOp = "";
+let rfGrp = "status", rfFold = {};
+// grouped by who opposed them, the list opens as an index of heroes, each folded until you tap it; the other groupings open unfolded
+const rfShut = k => { const v = (rfFold[rfGrp] || {})[k]; return v == null ? rfGrp === "op" : v; };
+const RF_GRP = [["status", "Status"], ["class", "Class"], ["op", "Opposed by"]];
+// the registry is S.H.I.E.L.D.'s from the first file, opened from the Agent File; Natasha leaks it in The Winter Soldier, and after Civil War it's kept on the Raft, which opens it from the Atlas too
+const rfHome = () => atlSeenT("Captain America: Civil War") ? ["The Raft", "The Raft · Department of Damage Control"] : atlSeenT("Captain America: The Winter Soldier") ? ["S.H.I.E.L.D.", "S.H.I.E.L.D. index · Leaked by Natasha Romanoff"] : ["S.H.I.E.L.D.", "S.H.I.E.L.D. index · Classified"];
 const RF_ST = { "At large": "large", "Active": "active", "Captive": "captive", "In custody": "custody", "Missing": "missing", "Reformed": "reformed", "Deceased": "dead" };
 const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^pr-/.test(o.id) ? "pr" : /^by-/.test(o.id) ? "by" : "mcu";
 const rfSteps = o => o.st.filter(x => atlSeenT(x[1]));
@@ -4426,7 +4433,10 @@ const rfFirst = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? 1e9) < (ATL_ORDER[a]
 const rfLast = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? -1) > (ATL_ORDER[a] ?? -1) ? x[1] : a, S[0][1]);
 const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
-function rfUnis() { return RF_UNI; }   // every side of the multiverse has its tab, filled or not
+function rfUnis() { return RF_UNI; }
+// on the agent ID from the first file you open: whose index it is, how many are on file, and how many you haven't read yet
+function rfFileBtn() { const L = THREATS.filter(o => rfSteps(o).length), nw = L.filter(o => !(state.raftSeen || {})[o.id]).length; if (!L.length) return "";
+  return `<button type="button" class="hf-threat" data-hfthreat><span><small>${rfHome()[0] === "The Raft" ? "The Raft" : "S.H.I.E.L.D. index"}</small><b>Threat registry</b></span><em>${L.length} on file${nw ? `<i>${nw} new</i>` : ""}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>`; }   // every side of the multiverse has its tab, filled or not
 function renderRaft() {
   const v = document.getElementById("collView"), seen = state.raftSeen = state.raftSeen || {};
   if (collRec) {
@@ -4440,17 +4450,20 @@ function renderRaft() {
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(x[0])}</p><small>${tnh(x[1])}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
-  const U = rfUnis(), mine = THREATS.filter(o => rfUniOf(o) === rfUni), known = mine.filter(o => rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
-  const stOf = o => rfStatus(rfSteps(o)), stats = Object.keys(RF_ST).filter(k => known.some(o => stOf(o) === k)), cls = RF_CL.filter(k => known.some(o => o.cl === k)), ops = [...new Set(known.map(o => o.op).filter(Boolean))].sort();
-  if (rfOp && !ops.includes(rfOp)) rfOp = ""; if (rfCl && !cls.includes(rfCl)) rfCl = "";
-  const L = known.filter(o => (!rfSt || stOf(o) === rfSt) && (!rfCl || o.cl === rfCl) && (!rfOp || o.op === rfOp)), all = THREATS.filter(o => rfSteps(o).length).length;
-  v.innerHTML = `<div class="co"><div class="co-top"><small>The Raft · Department of Damage Control</small><h3>Threat registry</h3><p class="co-sub">${all} threat${all === 1 ? "" : "s"} on file</p></div>
-    <div class="co-bar"><span style="width:${Math.round(known.filter(o => stOf(o) !== "At large").length / Math.max(1, known.length) * 100)}%"></span></div>
-    ${U.length > 1 ? `<div class="rf-uni" role="tablist">${U.map(x => `<button type="button" role="tab" aria-selected="${x[0] === rfUni}" data-rfu="${x[0]}" class="${x[0] === rfUni ? "on" : ""}">${rfUniName(x)}</button>`).join("")}</div>` : ""}
-    ${known.length ? `<div class="rf-filt"><label><span>Class</span><select data-rfcl><option value="">Any</option>${cls.map(k => `<option${k === rfCl ? " selected" : ""}>${k}</option>`).join("")}</select></label><label><span>Opposed by</span><select data-rfop><option value="">Anyone</option>${ops.map(k => `<option${k === rfOp ? " selected" : ""}>${esc(k)}</option>`).join("")}</select></label></div>` : ""}
-    <div class="co-chips"><button type="button" data-rfs="" class="${rfSt ? "" : "on"}">All ${known.length}</button>${stats.map(k => `<button type="button" data-rfs="${k}" class="${k === rfSt ? "on" : ""}">${k} ${known.filter(o => stOf(o) === k).length}</button>`).join("")}</div>
-    ${known.length ? "" : `<p class="rf-sealed">No files yet.</p>`}<div class="rf-grid">${L.map(o => { const S = rfSteps(o), st = rfStatus(S);
-      return `<button type="button" class="rf-cell s-${RF_ST[st]}" data-co="${o.id}"><span class="rf-no">${rfNo(o)}</span><i class="rf-lamp" aria-hidden="true"></i>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="rf-nm">${esc(rfName(o))}</span><span class="rf-k">${esc(rfKind(o))}</span><span class="rf-st">${esc(st)}</span></button>`; }).join("")}</div></div>`;
+  // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header
+  const U = rfUnis(), known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+  const stOf = o => rfStatus(rfSteps(o)), all = THREATS.filter(o => rfSteps(o).length).length, home = rfHome();
+  const key = o => rfGrp === "class" ? o.cl || "Unknown" : rfGrp === "op" ? o.op || "Unknown" : stOf(o);
+  const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.map(key))].sort((a, b) => a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
+  const fold = rfFold[rfGrp] = rfFold[rfGrp] || {};
+  const row = o => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${rfGrp === "status" ? esc(o.cl || "") : `<em>${esc(st)}</em>`}</span></button>`; };
+  const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
+  v.innerHTML = `<div class="co"><div class="co-top"><small>${esc(home[1])}</small><h3>Threat registry</h3><p class="co-sub">${all} threat${all === 1 ? "" : "s"} on file</p></div>
+    <div class="rf-tabs" role="tablist">${U.map(x => `<button type="button" role="tab" aria-selected="${x[0] === rfUni}" data-rfu="${x[0]}">${rfUniName(x)}</button>`).join("")}</div>
+    ${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
+    ${secs.map(([k, L]) => { const shut = rfShut(k), fresh = L.some(o => !seen[o.id]), cls = rfGrp === "status" ? " s-" + RF_ST[k] : "";
+      return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-rff="${esc(k)}" aria-expanded="${!shut}">${rfGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+        ${shut ? "" : `<div class="rf-list">${L.map(row).join("")}</div>`}</section>`; }).join("")}</div>`;
 }
 
 const SAGA = {"kind":"chapter","rows":{"period":[["1942 to 2012","ch-1"],["1942 to 2014","ch-2"],["1942 to 2015","ch-3"],["1942 to 2016","ch-4"],["1942 to 2019","ch-5"],["1942 to 2023","ch-6"],["1942 to 2024","ch-7"],["5000 BC to 2026","ch-8"],["5000 BC to 2027","ch-10"],["5000 BC to 2027, and across the multiverse","ch-11"]]},"brief":"Across our world and far beyond it, extraordinary people are emerging. As the threat grows from city streets to the edges of the universe, they are the ones the world will call heroes.","story":[["ch-1","In 1942, a skinny kid from Brooklyn is chosen for a serum that makes him a super soldier, and he gives himself to the Arctic ice to save millions. Decades later, a weapons maker escapes a cave in a suit of armor and tells the world he's Iron Man, a scientist runs from the monster inside him, and a god is cast down to Earth. Nick Fury is watching all of them. When Loki opens the sky over New York, Fury loses Phil Coulson but gets what he wanted: six people who can barely share a room, fighting side by side. Thor takes Loki and the Tesseract home, and somewhere in the dark, the one who gave Loki his army smiles."],["ch-2","Thor's war follows him home to Asgard, where the Aether surfaces and his mother dies. Across the galaxy, a thief from Earth, an assassin, a raccoon, a tree and a man out for revenge steal an orb that turns out to hold another Infinity Stone. Peter Quill meets his father, Ego, a living planet, and has to kill him, and Yondu dies saving Peter. Then, in 1995, a Kree soldier crash-lands in a Blockbuster, remembers she's Carol Danvers, and leaves a young S.H.I.E.L.D. agent named Nick Fury a pager and her old call sign, Avenger, which he types at the top of a new proposal."],["ch-3","Tony can't sleep after New York, and the terrorist called the Mandarin turns out to be an actor named Trevor Slattery. Steve learns HYDRA has been growing inside S.H.I.E.L.D. since its founding, finds Bucky behind the Winter Soldier's mask and brings the agency down, with Fury faking his own death to help. In Hell's Kitchen, Matt Murdock exposes Wilson Fisk, and Jessica Jones kills Kilgrave. Then Tony builds Ultron to protect the world, Ultron decides the world should end, and Sokovia's capital falls from the sky. Vision is born, and the Avengers move upstate with a new roster and no one above them."],["ch-4","Thaddeus Ross arrives with the Sokovia Accords. Tony signs, Steve won't, and when Zemo frames Bucky, friends fight at a Leipzig airport and in a Siberian bunker until the shield is left on the floor. Others find their own way: Scott Lang shrinks into the fight, T'Challa takes the throne and opens Wakanda to the world, and Peter Parker learns he doesn't need Tony's suit to be Spider-Man. Natasha, now a fugitive, goes back to the family the Red Room gave her. In New York, Matt, Jessica, Luke and Danny stop the Hand beneath Midland Circle, and the building comes down on Matt."],["ch-5","Matt survived Midland Circle. Frank Castle hunts the men behind his family's murder, including his best friend, Billy Russo. Jessica finds her mother alive and as dangerous as she is, Luke wins Harlem from Bushmaster and ends up running Mariah's club, and Colleen Wing takes up the Iron Fist. Matt takes down Wilson Fisk a second time without killing him. Then Jessica turns in her own sister and leaves New York."],["ch-6","Stephen Strange loses his hands, finds Kamar-Taj and ends up guarding the Time Stone. Thor loses his hammer, his father and Asgard itself, and leaves with his people on a ship. Then Thanos comes for the stones, and the Avengers, still divided, can't stop him: he snaps his fingers, half of all life turns to dust, and Fury's last act is to page Carol Danvers. Five years later, Scott Lang climbs out of the Quantum Realm with a way back through time. The Avengers assemble once more, and it costs them Natasha on Vormir and Tony in the final battle, while Steve goes back to Peggy and hands his shield to Sam, and Thor leaves Earth with the Guardians. At Natasha's grave, Yelena is told who to blame."],["ch-7","Everyone who vanished is back, five years later. Wanda rewrites a New Jersey town into a sitcom to keep Vision, Sam decides whether he can carry Steve's shield, Peter loses May and asks Strange to make the world forget him, and Clint spends Christmas teaching Kate Bishop while Yelena comes for him. Far from Earth, a Loki who escaped with the Tesseract is arrested by the Time Variance Authority, and Sylvie kills He Who Remains at the end of time. The timeline branches, Strange runs from universe to universe with a girl who can cross them, and Wanda tears through all of them for her sons until a mountain falls on her."],["ch-8","Ten immortals who have quietly guided humanity for seven thousand years learn the Celestial who made them planned to hatch a new one from the Earth, and Sersi turns the newborn Celestial to stone. In San Francisco, a valet named Shaun turns out to be Shang-Chi, and he stops his father, the thousand-year-old leader of the Ten Rings, at the gates of a hidden village. Marc Spector and Steven Grant share a body and a god, and at a monster hunt, Jack Russell turns out to be a werewolf. Thor fights Gorr, who kills gods, and loses Jane but comes home with a daughter. The Guardians save Rocket from the High Evolutionary, and Peter Quill goes back to Earth to see his grandfather."],["ch-9","In Jersey City, Kamala Khan writes fan fiction about Captain Marvel until her great-grandmother's bangle gives her powers of her own. Jen Walters gets her cousin's blood and would rather practice law, Shuri loses T'Challa and becomes Black Panther, and Riri Williams builds a suit in her MIT dorm, then makes a deal with the devil to bring back her best friend. Nick Fury comes home after years in space to find the Skrulls he promised a home have turned against Earth, and it costs him Maria Hill and Talos. Carol, Monica and Kamala swap places every time they use their powers, until Monica is stranded in another universe and Kamala knocks on Kate Bishop's door. In Washington, the new director of the CIA, Valentina Allegra de Fontaine, has Everett Ross arrested for helping Wakanda."],["ch-10","Wilson Fisk survives the bullet Maya Lopez puts in him, and when she won't come home, he runs for mayor of New York and wins. Thaddeus Ross wins bigger and becomes President, until the scientist he wronged poisons him and he turns into a red Hulk in Washington, and Sam Wilson, now Captain America, brings him down. In New York, Bullseye kills Foggy Nelson and Matt Murdock hangs up the mask, while Mayor Fisk builds a task force to hunt vigilantes. Valentina sends her disposable assets to kill each other in a vault; they find Bob instead, and when his darkness swallows Manhattan, they pull him out of it and she names them the New Avengers. In Hollywood, an actor hides his powers from Damage Control. Matt tells a courtroom he is Daredevil and goes to prison, Fisk goes into exile, and Frank Castle comes out of retirement one more time."],["ch-11","Scott Lang's family is pulled into the Quantum Realm, where an exiled conqueror named Kang has built an empire, and they bring him down. At the TVA, the Loom that holds the timelines together fails, and Loki takes the branches in his own hands at the end of time. Deadpool pulls a Wolverine out of another universe to save his own. Four years after the world forgot him, Peter Parker stops a telepath at war with Damage Control by talking instead of fighting, and takes a bullet meant for her. After the credits, Ned's tracker finds him somewhere in space. On Earth-828, a family of four faces down Galactus for their son."],["ch-beyond-the-mcu","Phil Coulson didn't stay dead. He leads a small S.H.I.E.L.D. team through HYDRA, the Inhumans and the end of the world, more than once, without the Avengers or the public ever hearing about it. Peggy Carter, back from the war, fights to be taken seriously at the SSR. Thor spends his time off sharing an Australian flat with an office worker named Darryl. And Uatu, the Watcher, keeps an eye on the worlds where it went differently: Peggy takes the serum, T'Challa joins the Ravagers, Ultron wins, and the Avengers become the walking dead. When Ultron threatens all of them at once, Uatu breaks his oath to stop him."],["ch-the-spider-verse","In one world, Peter Parker learns that with great power comes great responsibility, and it costs him Uncle Ben and his best friend Harry. In another, a different Peter loses Gwen Stacy. Eddie Brock shares his body with Venom until Venom gives his life for him, and others touched by spiders and strange blood, Michael Morbius, Cassandra Webb and Sergei Kravinoff, find their own uses for their powers. In Brooklyn, Miles Morales becomes Spider-Man the day his world's Peter dies, then learns the Spider-Society expects him to let his father die, and refuses. In 1930s New York, Ben Reilly was once the Spider, and in another world, a young Peter Parker learns from Norman Osborn."],["ch-the-fox-men","Charles Xavier runs a school for mutants, people born with powers and feared for it, and his oldest friend, Erik Lehnsherr, becomes Magneto. The X-Men fight Stryker, the Brotherhood and the Sentinels, send Logan back to 1973 to rewrite their future, and lose Jean, then Charles, then Logan, who dies protecting a girl with his claws. Deadpool joins them on his own terms. In an animated world, the same team loses Xavier, fights on under Magneto and ends up scattered across time."],["ch-pruned-timelines","Other versions of these heroes lived in worlds that ran beside this one. A Fantastic Four fought Doom and met the Silver Surfer, Blade hunted vampires through three films, a blind lawyer in red loved and lost Elektra, and Frank Castle took his first revenge. Later, the Inhumans' royal family fled to Hawaii, a group of kids learned their parents were villains, and Cloak and Dagger found each other in New Orleans."],["ch-incursions","Then the TVA's monitors start counting worlds that never touched this one, colliding and going dark. A Hulk's Earth is gone, and so is a Fantastic Four's, and thousands more are falling."]],"debrief":null};
@@ -6618,7 +6631,7 @@ document.addEventListener("pointermove", ev => { const d = rcDrag; if (!d || ev.
 /* ---------- episodes: a series you're partway through counts its episodes ("4 of 9"), in its boxes and on the timeline alike, so it never reads as
    unwatched. Tap the count for the episode list: each episode is checked on its own (watching out of order is fine), and checking the last one
    checks the season off everywhere it appears ---------- */
-const EPS = /*EPS*/{}, EPN = /*EPN*/{};
+const EPS = /*EPS*/{}, EPN = /*EPN*/{}, EPO = /*EPO*/{};   // EPO: the season a title starts at, for one filed as S6–S7
 const epList = t => { const v = EPS[t]; return v == null ? null : Array.isArray(v) ? v : [v]; };
 const epTotal = t => (epList(t) || []).reduce((a, b) => a + (b || 0), 0);
 const epSet = t => { const v = (state.eps || {})[t]; return new Set(Array.isArray(v) ? v : []); };
@@ -6643,22 +6656,25 @@ function epSheet(t) {
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
   el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet epsheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Episodes: " + tn(t));
   const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
-  const L = epList(t), N = epTotal(t), multi = L.length > 1, names = epNames(t), start = L.map((c, i) => L.slice(0, i).reduce((a, b) => a + b, 0));
+  const L = epList(t), N = epTotal(t), multi = L.length > 1, so = EPO[t] || 0, names = epNames(t), start = L.map((c, i) => L.slice(0, i).reduce((a, b) => a + b, 0));
   const W0 = epSet(t); let sea = multi ? Math.max(0, L.findIndex((c, i) => Array.from({ length: c }, (_, j) => start[i] + j + 1).some(n => !W0.has(n)))) : 0;
   const draw = () => { const W = epSet(t), a = epAt(t), s0 = start[sea];
     inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><button type="button" class="rs-done">Done</button><small>Episodes</small><h4>${tnh(t)}</h4>
       <p class="ep-sum"><b>${a}</b> of ${N} watched</p><div class="ep-bar"><span style="width:${Math.round(a / N * 100)}%"></span></div>
-      ${multi ? `<div class="ep-seas">${L.map((c, i) => { const got = Array.from({ length: c }, (_, j) => start[i] + j + 1).filter(n => W.has(n)).length; return `<button type="button" data-eps="${i}" class="${i === sea ? "on" : ""}${got === c ? " done" : ""}">Season ${i + 1}<i>${got}/${c}</i></button>`; }).join("")}</div>` : ""}
-      <ol class="ep-list">${Array.from({ length: L[sea] }, (_, j) => { const n = s0 + j + 1, nm = names[n - 1]; return `<li><button type="button" data-epn="${n}" class="${W.has(n) ? "on" : ""}" aria-pressed="${W.has(n)}"><span class="ep-no">${multi ? sea + 1 + "." : ""}${j + 1}</span><span class="ep-t">${nm ? esc(nm) : "Episode " + (j + 1)}</span><span class="ep-ck" aria-hidden="true">${CHECK("#06101E")}</span></button></li>`; }).join("")}</ol>
+      ${multi ? `<div class="ep-seas">${L.map((c, i) => { const got = Array.from({ length: c }, (_, j) => start[i] + j + 1).filter(n => W.has(n)).length; return `<button type="button" data-eps="${i}" class="${i === sea ? "on" : ""}${got === c ? " done" : ""}">Season ${i + 1 + so}<i>${got}/${c}</i></button>`; }).join("")}</div>` : ""}
+      <ol class="ep-list">${Array.from({ length: L[sea] }, (_, j) => { const n = s0 + j + 1, nm = names[n - 1]; return `<li><button type="button" data-epn="${n}" class="${W.has(n) ? "on" : ""}" aria-pressed="${W.has(n)}"><span class="ep-no">${multi ? sea + 1 + so + "." : ""}${j + 1}</span><span class="ep-t">${nm ? esc(nm) : "Episode " + (j + 1)}</span><span class="ep-ck" aria-hidden="true">${CHECK("#06101E")}</span></button></li>`; }).join("")}</ol>
 `; };
   const sync = () => { const W = epSet(t), a = epAt(t); inn.querySelector(".ep-sum b").textContent = a; inn.querySelector(".ep-bar span").style.width = Math.round(a / N * 100) + "%";
     inn.querySelectorAll("[data-epn]").forEach(b => { const on = W.has(+b.dataset.epn); b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
     inn.querySelectorAll("[data-eps]").forEach(b => { const i = +b.dataset.eps, got = Array.from({ length: L[i] }, (_, j) => start[i] + j + 1).filter(n => W.has(n)).length; b.querySelector("i").textContent = got + "/" + L[i]; b.classList.toggle("done", got === L[i]); }); };
-  const save = W => { (state.eps = state.eps || {})[t] = [...W].sort((x, y) => x - y); persist(); sync(); epRefresh(t); if (epAt(t) === N) setTimeout(() => { close(); epFinish(t); }, 420); };
+  // the last one checks it off: the sheet waits for your finger to lift, and the tap that closed it can't land on whatever was under it
+  let down = false, pend = null;
+  const finish = () => { pend = null; epBlock = Date.now() + 450; close(); epFinish(t); };
+  const save = W => { (state.eps = state.eps || {})[t] = [...W].sort((x, y) => x - y); persist(); sync(); epRefresh(t); if (epAt(t) === N) setTimeout(() => { if (down) pend = finish; else finish(); }, 420); };
   let holdT = null, held = false;
   draw(); document.body.appendChild(el);
   try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
-  const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
+  const close = () => { epBlock = Math.max(epBlock, Date.now() + 350); if (navAt("rate")) navBack(); else el.remove(); };
   el.addEventListener("click", ev => {
     if (ev.target === el || ev.target.closest(".rs-done")) { close(); return; }
     const sb = ev.target.closest("[data-eps]"); if (sb) { if (held) { held = false; return; } sea = +sb.dataset.eps; haptic(8); const y = inn.scrollTop; draw(); inn.scrollTop = y; return; }
@@ -6667,11 +6683,15 @@ function epSheet(t) {
     haptic(W.has(n) ? 12 : 8); save(W);   // the last one checks it off
   });
   // hold a season to mark the whole of it watched (or, if it's all watched already, clear it)
-  el.addEventListener("pointerdown", ev => { const sb = ev.target.closest("[data-eps]"); if (!sb) return; clearTimeout(holdT); holdT = setTimeout(() => { held = true; const i = +sb.dataset.eps, ns = Array.from({ length: L[i] }, (_, j) => start[i] + j + 1), W = epSet(t), all = ns.every(n => W.has(n));
+  el.addEventListener("pointerdown", ev => { down = true; const sb = ev.target.closest("[data-eps]"); if (!sb) return; clearTimeout(holdT); holdT = setTimeout(() => { held = true; const i = +sb.dataset.eps, ns = Array.from({ length: L[i] }, (_, j) => start[i] + j + 1), W = epSet(t), all = ns.every(n => W.has(n));
     ns.forEach(n => all ? W.delete(n) : W.add(n)); haptic([14, 40, 14]); if (sea !== i) { sea = i; draw(); } save(W); }, 550); });
   ["pointerup", "pointercancel", "pointerleave"].forEach(nm => el.addEventListener(nm, () => clearTimeout(holdT)));
+  const up = () => { down = false; if (!el.isConnected) { ["pointerup", "pointercancel"].forEach(nm => window.removeEventListener(nm, up, true)); return; } if (pend) setTimeout(pend, 0); };
+  ["pointerup", "pointercancel"].forEach(nm => window.addEventListener(nm, up, true));
   el.addEventListener("contextmenu", ev => { if (ev.target.closest("[data-eps]")) ev.preventDefault(); });
 }
+let epBlock = 0;
+window.addEventListener("click", ev => { if (Date.now() < epBlock) { ev.stopPropagation(); ev.preventDefault(); } }, true);
 document.addEventListener("click", ev => { const c = ev.target.closest("[data-ep]"); if (!c) return; ev.stopPropagation(); ev.preventDefault(); epSheet(c.dataset.ep); }, true);
 function rateSheet(t) {   // it opens on its own; the keyboard only comes up once you tap into the note
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
@@ -6778,7 +6798,7 @@ function renderFile(fresh) {
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
       <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
-      <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
+      <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div>${rfFileBtn()}</div>
     ${rateSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress is saved in this browser. A save code holds all of it in one line of text. Keep it in your notes, and paste it here to restore your progress.</p>
@@ -6872,6 +6892,7 @@ function closeFile(fromHistory) {
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
 document.getElementById("fileView").addEventListener("click", ev => {
+  if (ev.target.closest("[data-hfthreat]")) { haptic(10); openColl("raft"); return; }
   const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; refreshRates(); fv.scrollTop = y; return; }
   const rc = ev.target.closest("[data-rcell]"); if (rc) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rOpen = rOpen === rc.dataset.rcell ? null : rc.dataset.rcell; refreshRates(); fv.scrollTop = y;
@@ -10595,7 +10616,7 @@ function srIndex() {
     add("place", p.n, E.map(e => e[2]).join(" "), p.r + " · Atlas", () => srOpenPlace(v, p.id)); }));
   Object.keys(EMBLEMS).filter(embOpen).forEach(k => add("insignia", embName(k) || k, "", "Insignia · Agent File", () => { openFile(); setTimeout(() => { try { avaPick(); } catch (e) {} }, 400); }));
   COLL.forEach(o => { const S = collSteps(o); if (S.length) add("object", o.n, S.map(x => x[0]).join(" "), "The Collection", () => { openAtlas(); openColl(); collShow(o.id); }); });
-  THREATS.forEach(o => { const S = rfSteps(o); if (S.length) add("threat", rfName(o), rfKind(o) + " " + S.map(x => x[0]).join(" "), rfStatus(S) + " · Threat registry", () => { openAtlas(); openColl("raft"); collShow(o.id); }); });
+  THREATS.forEach(o => { const S = rfSteps(o); if (S.length) add("threat", rfName(o), rfKind(o) + " " + S.map(x => x[0]).join(" "), rfStatus(S) + " · Threat registry", () => { rfUni = rfUniOf(o); openColl("raft"); collShow(o.id); }); });
   newsTitles().forEach(t => NEWS[t].forEach((h, i) => { if ((state.news || {})[newsKey(t, i)]) add("news", h, "", (OUTLETS[newsSrc(t)] || [""])[0] + " · " + tn(t), () => openComms("news")); }));
   msgSeen().forEach(m => { if ((state.msgs || {})[msgId(m)]) add("msg", m.re, m.b.replace(/\[\[|\]\]/g, ""), "From " + m.f, () => openComms("msg")); });
   return R;
@@ -10611,7 +10632,7 @@ function renderSearch() {
   window.__srHits = hits;
   v.innerHTML = `<div class="sr">${hits.length ? `<div class="sr-chips"><button type="button" data-srk="" class="${srchKind ? "" : "on"}">All ${hits.length}</button>${K.map(([k, l]) => `<button type="button" data-srk="${k}" class="${k === srchKind ? "on" : ""}">${l} ${hits.filter(h => h.kind === k).length}</button>`).join("")}</div>` : ""}
     ${K.filter(([k]) => !srchKind || k === srchKind).map(([k, l]) => `<div class="sr-h">${l}</div>${hits.map((h, i) => [h, i]).filter(([h]) => h.kind === k).slice(0, srchKind ? 200 : 6).map(([h, i]) => `<button type="button" class="sr-it" data-sri="${i}"><b>${srMark(h.b, q)}</b>${h.sm && srNorm(h.sm).includes(q) ? `<small>${srMark(srCut(h.sm, q), q)}</small>` : ""}<em>${esc(h.em)}</em></button>`).join("")}`).join("")}
-    ${hits.length ? "" : `<p class="sr-empty">Nothing on file matches.</p>`}</div>`;
+    ${hits.length ? "" : `<p class="sr-empty">No data.</p>`}</div>`;
 }
 function openSearch() { if (srchOpen) return; srchOpen = true; srchKind = ""; const p = document.getElementById("srchPanel"), i = document.getElementById("srchIn"); i.value = ""; renderSearch(); p.hidden = false; document.body.style.overflow = "hidden"; try { history.pushState({ mcu: "search" }, ""); } catch (e) {} setTimeout(() => i.focus(), 60); }
 function closeSearch(fromHistory) { if (!fromHistory && navAt("search")) { navBack(); return; } document.getElementById("srchPanel").hidden = true; srchOpen = false; document.getElementById("srchIn").blur(); bodyFree(); dockSync(); }
