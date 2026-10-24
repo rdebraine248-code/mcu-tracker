@@ -1161,6 +1161,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .rf-banner i{ width:10px; height:10px; border-radius:50%; background:var(--sc); box-shadow:0 0 8px var(--sc); }
 .raft .co-h{ color:#D6E4F3; }
 .raft .co-chain li::before{ border-color:#7F9BBB; } .raft .co-chain li:last-child::before{ background:#7F9BBB; box-shadow:0 0 8px #7F9BBB; }
+.rf-chg.rf-cls{ --sc:#D6E4F3; }
 .rf-chg{ display:inline-block; margin-left:6px; padding:0 5px; border:1px solid var(--sc); border-radius:3px; color:var(--sc); font:9.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; vertical-align:1px; }
 
 :root{ --dockh:calc(60px + env(safe-area-inset-bottom,0px)); }
@@ -4438,28 +4439,32 @@ const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2
 const rfFirst = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? 1e9) < (ATL_ORDER[a] ?? 1e9) ? x[1] : a, S[0][1]);
 const rfLast = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? -1) > (ATL_ORDER[a] ?? -1) ? x[1] : a, S[0][1]);
 const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
+// a threat's class and who stands against them move with the story: Wanda is a Global threat until Multiverse of Madness makes her Multiversal
+const rfClass = o => stageAt(o.cl || "", atlSeenT)[0], rfOpp = o => stageAt(o.op || "", atlSeenT)[0];
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
 function renderRaft() {
   const v = document.getElementById("collView"), seen = state.raftSeen = state.raftSeen || {};
   if (collRec) {
-    const o = THREATS.find(x => x.id === collRec), S = rfSteps(o), st = rfStatus(S);
+    const o = THREATS.find(x => x.id === collRec), S = rfSteps(o), st = rfStatus(S), up = new Map(Array.isArray(o.cl) ? o.cl.slice(1).map(c => [c[1], c[0]]) : []);
     let prev = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
-      <div class="rf-head"><small>${rfNo(o)} · ${esc(o.cl || "")} threat</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
+      <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
-      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>Threat class</small><b>${esc(o.cl || "Unknown")}</b></div><div><small>Opposed by</small><b>${esc(o.op || "Unknown")}</b></div></div>
+      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div><div><small>Opposed by</small><b>${esc(rfOpp(o) || "Unknown")}</b></div></div>
       <div class="co-h">Record</div>
-      <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(x[0])}</p><small>${tnh(x[1])}${chg}</small></li>`; }).join("")}</ol></div>`;
+      <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
+        const c = up.get(x[1]); if (c) up.delete(x[1]);   // the step where their class changes says so
+        return `<li><p>${esc(x[0])}</p><small>${tnh(x[1])}${chg}${c ? `<span class="rf-chg rf-cls">${esc(c)}</span>` : ""}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
   // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header
   const U = rfUnis(), known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
   const stOf = o => rfStatus(rfSteps(o)), all = THREATS.filter(o => rfSteps(o).length).length;
-  const key = o => rfGrp === "class" ? o.cl || "Unknown" : rfGrp === "op" ? o.op || "Unknown" : stOf(o);
+  const key = o => rfGrp === "class" ? rfClass(o) || "Unknown" : rfGrp === "op" ? rfOpp(o) || "Unknown" : stOf(o);
   const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.map(key))].sort((a, b) => a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
   const fold = rfFold[rfGrp] = rfFold[rfGrp] || {};
-  const row = o => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${rfGrp === "status" ? esc(o.cl || "") : `<em>${esc(st)}</em>`}</span></button>`; };
+  const row = o => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${rfGrp === "status" ? esc(rfClass(o) || "") : `<em>${esc(st)}</em>`}</span></button>`; };
   const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
   v.innerHTML = `<div class="co"><div class="co-top"><small>Threat registry · Damage Control</small><p class="co-sub"><span class="rf-n">${all}</span> threat${all === 1 ? "" : "s"} on file</p></div>
     ${rfIntake ? `<div class="rf-intake"><i aria-hidden="true"></i>Intake complete · ${rfIntake} file${rfIntake === 1 ? "" : "s"} transferred</div>` : ""}
