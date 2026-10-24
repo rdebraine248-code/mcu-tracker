@@ -4455,7 +4455,7 @@ document.getElementById("collView").addEventListener("click", ev => {
 /* ---------- the Raft's threat registry: tap the Raft in the Atlas. Every villain gets a file the first time you meet them, and the file follows them
    title by title (escapes, arrests, deaths, comebacks), each record sealed until you've watched its title. Later records are never counted or hinted at */
 const THREATS = /*THREATS*/[];
-const RF_UNI = [["mcu", "MCU"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"], ["by", "Beyond"]], RF_CH = { sv: "ch-the-spider-verse", fox: "ch-the-fox-men", pr: "ch-pruned-timelines", by: "ch-beyond-the-mcu" };
+const RF_UNI = [["mcu", "MCU"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"], ["by", "Beyond"], ["inc", "Incursions"]], RF_CH = { sv: "ch-the-spider-verse", fox: "ch-the-fox-men", pr: "ch-pruned-timelines", by: "ch-beyond-the-mcu", inc: "ch-incursions" };
 const RF_CL = ["Street", "City", "Global", "Cosmic", "Multiversal"];
 const rfUniName = ([u, l]) => u === "mcu" || state.unlocked[RF_CH[u]] ? l : "[ Classified ]";   // named once its Extras chapter is unlocked, like everywhere else
 let rfGrp = "status", rfFold = {}, rfIntake = 0;
@@ -4463,7 +4463,7 @@ let rfGrp = "status", rfFold = {}, rfIntake = 0;
 const rfShut = k => { const v = (rfFold[rfGrp] || {})[k]; return v == null ? rfGrp === "op" : v; };
 const RF_GRP = [["status", "Status"], ["class", "Class"], ["op", "Opposed by"]];
 const RF_ST = { "At large": "large", "Active": "active", "Captive": "captive", "In custody": "custody", "Missing": "missing", "Ally": "reformed", "Deceased": "dead" };
-const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^pr-/.test(o.id) ? "pr" : /^by-/.test(o.id) ? "by" : "mcu";
+const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^pr-/.test(o.id) ? "pr" : /^by-/.test(o.id) ? "by" : /^inc-/.test(o.id) ? "inc" : "mcu";
 const rfSteps = o => o.st.filter(x => atlSeenT(x[1]));
 const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
 const rfFirst = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? 1e9) < (ATL_ORDER[a] ?? 1e9) ? x[1] : a, S[0][1]);
