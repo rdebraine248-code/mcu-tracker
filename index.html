@@ -73,8 +73,7 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .meter .bar span.inf{ background:linear-gradient(90deg,#7D4FA8 0%,#7D4FA8 13%,#3A78C9 20%,#3A78C9 30%,#C8443A 37%,#C8443A 47%,#D9822B 54%,#D9822B 63%,#3E9B5C 70%,#3E9B5C 80%,#D9B32B 87%,#D9B32B 100%); background-size:var(--full,100%) 100%; transition:width .5s ease; }
 
 /* mode switch */
-/* mockup: the watch orders are three separate paths. Each button carries its own progress, and a new agent picks a path once, after the first boot */
-.modes button .mpct{ display:block; margin-top:3px; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; opacity:.7; }
+/* the watch orders are three separate paths: a new agent picks one, once, the moment the datapad has initialized */
 .ordpick{ position:fixed; inset:0; z-index:120; display:flex; align-items:flex-end; justify-content:center; padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px)); background:rgba(4,8,14,.72); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); animation:opIn .3s ease-out both; }
 @keyframes opIn{ from{ opacity:0; } } @keyframes opUp{ from{ transform:translateY(28px); opacity:0; } }
 .op-in{ width:100%; max-width:520px; max-height:calc(100% - 20px); overflow:auto; padding:22px 18px 16px; border:1px solid var(--line); border-radius:18px; background:var(--shell); color:var(--ink); box-shadow:0 20px 60px rgba(0,0,0,.55); animation:opUp .4s cubic-bezier(.2,.8,.3,1) .05s both; }
@@ -87,7 +86,6 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .op-c i svg{ width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
 .op-c span{ flex:1; min-width:0; } .op-c b{ display:block; font:600 18px/1.15 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; } .op-c small{ display:block; margin-top:3px; font-size:13.5px; line-height:1.35; color:var(--muted); }
 .op-c em{ flex:none; font-style:normal; font-size:20px; color:var(--muted); }
-.op-c.rec{ border-color:#3A78C9; } .op-c.rec b::after{ content:"First watch"; margin-left:8px; padding:1px 6px; border-radius:4px; background:#3A78C9; color:#fff; font:700 9px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; vertical-align:2px; }
 .op-ft{ margin:6px 0 0; font:10.5px/1.5 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); text-align:center; }
 .modes{ display:flex; justify-content:space-between; gap:10px; margin:22px 0 6px; }
 .modes button{ touch-action:manipulation; -webkit-user-select:none; user-select:none; flex:0 1 auto; border:1px solid var(--line); background:var(--chip); padding:11px 18px; border-radius:999px; font-weight:500; font-size:16px; cursor:pointer; color:var(--ink); white-space:nowrap; }
@@ -2144,7 +2142,7 @@ function nowLine() {
   return e.lane === "beyond" ? "Now beyond the MCU" : `Now in the ${label}`;
 }
 function renderMeter() {
-  paintStones(); paintModePct();
+  paintStones();
   if (state.mode === "timeline") {
     // until Loki S1 branches the timeline, only the Sacred Timeline itself counts; a focused timeline counts on its own
     const f = focusLane(), list = meterList();
@@ -2176,21 +2174,11 @@ function renderMeter() {
   const mainDone = list.filter(c => state.mode === "chapters" ? c.num : !MV_BOXES[c.id]).every(isDone), allDone = list.every(isDone);
   setStatus(allDone ? "<b>Multiverse Completed</b>" : mainDone ? "<b>Sacred Timeline Completed</b><br>The Multiverse Remains" : "");
 }
-/* ---------- mockup: three paths. Chapters, the Sacred Timeline (in story or release order) and Characters are separate watch orders, each with its own
-   checklist, so you can follow one or several. Each button shows how far along its own path you are, and a new agent picks one, once, after the first boot */
-const PATHS_MOCK = false;
-function modePct() {
-  const pc = (n, t) => (t ? Math.round(n / t * 100) : 0) + "%";
-  const tl = branched() ? TLX().filter(e => !prunedLanes[e.lane]) : TLX().filter(e => e.lane === "main");
-  return { btnChapters: pc(DATA.chapters.filter(isDone).length, DATA.chapters.length), btnTimeline: pc(tl.filter(e => state.checks[tk(e.t)]).length, tl.length), btnChars: pc(DATA.chars.filter(isDone).length, DATA.chars.length) };
-}
-function paintModePct() {
-  if (!PATHS_MOCK) return; const P = modePct();
-  Object.keys(P).forEach(id => { const b = document.getElementById(id); if (!b) return; let m = b.querySelector(".mpct"); if (!m) { m = document.createElement("small"); m.className = "mpct"; b.appendChild(m); } m.textContent = P[id]; });
-}
+/* ---------- three paths: Chapters, the Sacred Timeline (in story or release order) and Characters are separate watch orders, each with its own
+   checklist, so you can follow one or several. A new agent picks one, once, the moment the datapad has initialized; it opens on that path from then on */
 const OP_ICON = { chapters: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"/>', timeline: '<path d="M3 12h15"/><path d="M15 8l4 4-4 4"/><circle cx="6" cy="12" r="1.6" fill="currentColor"/><circle cx="11" cy="12" r="1.6" fill="currentColor"/>', chars: '<circle cx="9" cy="8" r="3"/><path d="M3.5 19c.8-3.2 3-5 5.5-5s4.7 1.8 5.5 5"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.6-.4 4.6 1.2 5.2 4.3"/>' };
 function orderPick(then) {
-  if (!PATHS_MOCK || state.orderPicked || document.getElementById("ordPick")) { if (then) then(); return; }
+  if (state.orderPicked || document.getElementById("ordPick")) { if (then) then(); return; }
   const el = document.createElement("div"); el.id = "ordPick"; el.className = "ordpick"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", "Pick your path");
   const card = (m, c, t, d, rec) => `<button type="button" class="op-c${rec ? " rec" : ""}" data-op="${m}" style="--opc:${c}"><i aria-hidden="true"><svg viewBox="0 0 24 24">${OP_ICON[m]}</svg></i><span><b>${t}</b><small>${d}</small></span><em aria-hidden="true">&#8250;</em></button>`;
   el.innerHTML = `<div class="op-in"><small>Your watch order</small><h3>Pick your path</h3>
@@ -10300,7 +10288,7 @@ function gateOpen() {
   if (GATE.done) return; GATE.done = true;
   const g = document.getElementById("gate"), first = !state.entered;
   if (first) state.mode = "chapters"; renderAll(); window.scrollTo(0, 0);
-  const pick = first && PATHS_MOCK && !state.orderPicked && !Object.keys(state.checks).some(k => state.checks[k]);
+  const pick = first && !state.orderPicked && !Object.keys(state.checks).some(k => state.checks[k]);
   state.entered = true; state.booted = true; if (!state.since) state.since = new Date().toISOString(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
   if (REDUCED) { document.body.style.overflow = ""; g.hidden = true; if (pick) orderPick(homeInit); else homeInit(); return; }
   setHomeLock(true);   // the page stays still from the terminal clearing to the last piece drawn, so the illusion holds
