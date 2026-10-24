@@ -23,8 +23,10 @@ tool=r'''
     d.innerHTML = `<div style="font:11px/1.4 'Share Tech Mono','Courier New',monospace;letter-spacing:2px;text-transform:uppercase;color:#7FA6D8">Test build · start from</div>
       <p style="margin:6px 0 10px">Pick the next title to watch. Everything in the chapters before it is marked watched, and the Extras aren't. This page only.</p>
       <div style="margin:0 0 10px"><div style="font:11px/1.4 'Share Tech Mono','Courier New',monospace;letter-spacing:2px;text-transform:uppercase;color:#7FA6D8;margin-bottom:6px">Replay the Raft's first visit</div><div style="display:flex;gap:6px">${[["doors","Doors"],["surface","Surface"],["lockdown","Lockdown"]].map(([k,l]) => `<button type="button" data-tbi="${k}" style="flex:1;padding:9px 4px;border:1px solid #3A78C9;border-radius:999px;background:#13203A;color:#CFE6FF;font:13px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif">${l}</button>`).join("")}</div></div>
+      <div style="margin:0 0 10px"><button type="button" id="tbOp" style="width:100%;padding:9px 4px;border:1px solid #3A78C9;border-radius:999px;background:#13203A;color:#CFE6FF;font:13px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif">Show "Pick your path" (a new agent's first boot)</button></div>
       <select id="tbSel" style="width:100%;padding:10px;border:1px solid #2B3F62;border-radius:8px;background:#0B1019;color:#EEF1F6;font-size:15px"><option value="">Everything watched</option>${T.map(t => `<option value="${t.replace(/"/g, "&quot;")}">Next up: ${t}</option>`).join("")}</select>`;
     document.body.appendChild(d);
+    d.querySelector("#tbOp").addEventListener("click", () => { d.remove(); delete state.orderPicked; if (typeof orderPick === "function") orderPick(); });
     d.querySelectorAll("[data-tbi]").forEach(bt => bt.addEventListener("click", () => { d.remove(); RF_INTAKE = bt.dataset.tbi; state.raftIn = 0;
       if (collOpen) closeColl(true); if (!atlOpen) openAtlas(); setTimeout(() => openColl("raft"), 250); }));
     d.querySelector("select").addEventListener("change", ev => {
