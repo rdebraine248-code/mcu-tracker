@@ -11,8 +11,8 @@
 <link rel="apple-touch-icon" href="icon-192.png?v=6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:ital,wght@1,800&amp;family=Bebas+Neue&amp;family=Big+Shoulders+Display:wght@800&amp;family=Bungee&amp;family=Chakra+Petch:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:ital,wght@0,700;1,700&amp;family=Fraunces:ital,wght@0,700;1,700&amp;family=IBM+Plex+Mono:wght@600&amp;family=IBM+Plex+Sans+Condensed:ital,wght@0,500;1,500&amp;family=Oswald:wght@700&amp;family=Playfair+Display:wght@700&amp;family=Rajdhani:wght@700&amp;family=Righteous&amp;family=Russo+One&amp;family=Saira+Stencil+One&amp;family=Share+Tech+Mono&amp;family=Special+Elite&amp;family=Teko:wght@600&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&amp;text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz%26-.%27&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:ital,wght@1,800&amp;family=Bebas+Neue&amp;family=Big+Shoulders+Display:wght@800&amp;family=Bungee&amp;family=Chakra+Petch:wght@700&amp;family=Cinzel:wght@700&amp;family=Cormorant+Garamond:ital,wght@0,700;1,700&amp;family=Fraunces:ital,wght@0,700;1,700&amp;family=IBM+Plex+Mono:wght@600&amp;family=IBM+Plex+Sans+Condensed:ital,wght@0,500;1,500&amp;family=Kaushan+Script&amp;family=Oswald:wght@700&amp;family=Playfair+Display:wght@700&amp;family=Rajdhani:wght@700&amp;family=Righteous&amp;family=Russo+One&amp;family=Saira+Stencil+One&amp;family=Share+Tech+Mono&amp;family=Special+Elite&amp;family=Teko:wght@600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&amp;text=%20ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz%26-.%27&amp;display=swap" rel="stylesheet">
 <style>
 :root{
   /* the datapad's screen: the same texture as the TVA's monitors on the Sacred Timeline, in its own blue: scan lines, a faint dot grain,
@@ -223,7 +223,7 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .row.just{ animation:rowflash .5s ease-out; }
 @keyframes boxpop{ 0%{ transform:scale(.88); } 45%{ transform:scale(1.25); } 75%{ transform:scale(.95); } 100%{ transform:scale(1); } }
 @keyframes rowflash{ 0%{ background:color-mix(in srgb, var(--boxc) 22%, transparent); } 100%{ background:transparent; } }
-.row .box{ flex:0 0 auto; width:26px; height:26px; border:2.5px solid var(--boxc); display:flex; align-items:center; justify-content:center; }
+.row .box{ flex:0 0 auto; width:26px; height:26px; border:2.5px solid var(--boxc); display:flex; align-items:center; justify-content:center; transition:background .2s ease; }
 .row .box svg{ width:16px; height:16px; opacity:0; transform:scale(.6); transition:opacity .18s ease, transform .18s ease; }
 .row[aria-pressed="true"] .box{ background:var(--boxc); }
 .row[aria-pressed="true"] .box svg{ opacity:1; transform:scale(1); }
@@ -348,9 +348,8 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .stonebar{ position:absolute; left:0; right:0; bottom:-14px; height:24px; padding:0; margin:0; border:0; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .stonebar i{ position:absolute; top:6px; height:4px; opacity:0; transition:opacity 1.2s ease; background-repeat:no-repeat;
   background-image:linear-gradient(90deg,#B98CFF 0%,#B98CFF 13%,#7FB2FF 20%,#7FB2FF 30%,#FF8A8A 37%,#FF8A8A 47%,#FFC07A 54%,#FFC07A 63%,#7FE3A0 70%,#7FE3A0 80%,#FFE27A 87%,#FFE27A 100%); }
-.stonebar i.on{ opacity:1; }
-.stonebar i.on::after{ content:""; position:absolute; inset:0; box-shadow:0 0 4px 1px var(--g), 0 0 12px 1px var(--g); animation:stoneBreath 3.6s ease-in-out infinite; }
-@keyframes stoneBreath{ 0%,100%{ opacity:.45; } 50%{ opacity:1; } }
+.stonebar i.on{ opacity:1; animation:stoneBreath 3.6s ease-in-out infinite; }
+@keyframes stoneBreath{ 0%,100%{ box-shadow:0 0 3px 0 var(--g), 0 0 7px 0 var(--g); } 50%{ box-shadow:0 0 4px 1px var(--g), 0 0 12px 1px var(--g); } }
 body[data-mode="timeline"] .stonebar i{ display:none; }
 .gem{ --g:#888; --gl:#ddd; --gd:#333; width:30px; height:40px; border-radius:50%;
   background:radial-gradient(ellipse 38% 26% at 38% 28%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%), conic-gradient(from 30deg at 50% 56%, var(--gl), var(--g) 22%, var(--gd) 42%, var(--g) 62%, var(--gl) 82%, var(--g));
@@ -694,7 +693,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-code{ display:block; width:100%; padding:0 68px 0 0; border:0; background:none; color:inherit; text-align:left; cursor:pointer; } .hf-code span{ color:#7D8BA6; font-size:22px; }
 .hf-codein{ display:block; width:calc(100% - 68px); box-sizing:border-box; padding:2px 6px; border:1px solid #3A4A6E; border-radius:6px; background:#0B1019; color:#EEF1F6; }
 .hf-strip{ display:flex; align-items:center; gap:10px; margin-top:12px; } .hf-strip i{ flex:1; height:18px; background:repeating-linear-gradient(90deg,#9FB3D1 0 2px,transparent 2px 4px,#9FB3D1 4px 5px,transparent 5px 8px,#9FB3D1 8px 11px,transparent 11px 13px); opacity:.55; } .hf-strip span{ font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7FA6D8; }
-.hf-cf{ margin:0; padding:4px 16px 24px; overflow-y:auto; } .hf-cf div{ padding:9px 0; border-top:1px solid #1E2638; } .hf-cf dt{ font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .hf-cf dd{ margin:3px 0 0; font:15px/1.45 'IBM Plex Sans',sans-serif; color:#EEF1F6; }
+.hf-cf{ margin:0; padding:4px 16px 24px; overflow-y:auto; } .hf-cf div{ padding:9px 0; border-top:1px solid #1E2638; } .hf-cf dt{ font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .hf-cf dd{ margin:3px 0 0; font:15px/1.45 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#EEF1F6; }
 .hf-cf .hf-rpf dd{ margin-top:6px; }
 .hf-rp{ display:inline-flex; align-items:center; gap:8px; padding:9px 14px 9px 12px; border:1px solid #3A78C9; border-radius:999px; background:#13213A; color:#CFE4FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
 .hf-rp svg{ width:10px; height:10px; }
@@ -706,7 +705,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .hf-pickg{ overflow-y:auto; display:grid; grid-template-columns:repeat(auto-fill,minmax(82px,1fr)); gap:10px; padding:4px 16px 56px; }   /* room to scroll the last row clear of the news ticker */
 .hf-pickg button{ display:flex; flex-direction:column; align-items:center; gap:6px; padding:8px 2px; border:1px solid transparent; border-radius:12px; background:none; color:#B8C4D8; cursor:pointer; }
 .hf-pickg button[aria-pressed="true"]{ border-color:#E9C46A; background:rgba(233,196,106,.08); }
-.hf-pickg small{ font:10px/1.25 'IBM Plex Sans',sans-serif; text-align:center; }
+.hf-pickg small{ font:10px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; text-align:center; }
 .hf-avr{ position:relative; width:56px; height:56px; border-radius:50%; border:1px solid #2E3A56; background:radial-gradient(circle at 50% 45%, #1A2336 0%, #0B1019 70%); overflow:hidden; }
 .hf-pickg button.lk{ opacity:.45; cursor:pointer; } .hf-avr b{ display:block; text-align:center; font:300 24px/54px 'IBM Plex Sans',sans-serif; color:#56637C; }
 .hf-avr .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:scale(.76); }
@@ -732,8 +731,8 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .ratesheet .rs-stars button{ border:0; background:none; padding:2px; cursor:pointer; touch-action:manipulation; line-height:0; }
 .ratecard{ touch-action:pan-y; display:block; width:max-content; max-width:100%; box-sizing:border-box; margin-top:7px; padding:5px 6px 6px; overflow:hidden; border:1px solid color-mix(in srgb, var(--lc, currentColor) 45%, transparent); border-radius:8px;
   color:var(--lc, currentColor); background:rgba(11,16,25,.7); font:9.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; text-decoration:none; text-align:left; cursor:default; }
-.ratecard.inbox{ display:flex; align-items:center; gap:10px; width:auto; margin:2px 0 10px 52px; padding:8px 12px; border-radius:10px; background:none; border-color:color-mix(in srgb, currentColor 25%, transparent); font-size:11px; letter-spacing:1.5px; }
-.ratecard.inbox .rc-l{ white-space:nowrap; } .ratecard.inbox .rc-n{ margin:0 0 0 auto; padding:0; border:0; opacity:.75; }
+.ratecard.inbox{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:10px; width:auto; margin:2px 0 10px 52px; padding:8px 12px; border-radius:10px; background:none; border-color:color-mix(in srgb, currentColor 25%, transparent); font-size:11px; letter-spacing:1.5px; }
+.ratecard.inbox .rc-l{ justify-self:start; white-space:nowrap; } .ratecard.inbox .rc-n{ justify-self:end; margin:0; padding:0; border:0; opacity:.75; }
 .ratecard .rc-s{ display:flex; } .ratecard .rc-s span{ display:block; padding:2px 0; line-height:0; cursor:pointer; touch-action:manipulation; } .ratecard .rc-s svg{ width:16px; height:16px; }
 .ratecard.inbox .rc-s span{ padding:2px 1px; } .ratecard.inbox .rc-s svg{ width:21px; height:21px; }
 @media (max-width:390px){ .ratecard:not(.inbox) .rc-s svg{ width:12px; height:12px; } .ratecard:not(.inbox){ padding:4px 3px 5px; }
@@ -908,7 +907,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 @media (prefers-reduced-motion: reduce){
   .excel .burst, .excel .glow, .excel .word{ animation-duration:.01s; }
   .hex-fx > .hx-band{ animation:none; }
-  .atl-pin.new, .atl-pin.new i::after, .atl-pin.upd i::after, .stonebar i.on::after{ animation:none; }
+  .atl-pin.new, .atl-pin.new i::after, .atl-pin.upd i::after, .stonebar i.on{ animation:none; }
   .postcredits p{ transition:none; }
   .saga h3.reveal, .saga .note.reveal{ animation:none; }
   .row.just, .row.just .box{ animation:none; }
@@ -4404,7 +4403,7 @@ function onlyFeel(A0, B0) {
     const [fx, fy] = F, dx = S[0] - fx, dy = S[1] - fy, d = Math.hypot(dx, dy) || 1, nx = -dy / d, ny = dx / d;
     for (let s2 = 0; s2 < 4; s2++) {
       const w = Math.sin(t / 110 + s2 * 1.7 + k) * (10 + s2 * 6), m = [fx + dx * .5 + nx * w, fy + dy * .5 + ny * w];
-      g.globalAlpha = a; g.strokeStyle = s2 ? `rgba(255,${60 + s2 * 20},${90 + s2 * 10},.55)` : "#FFD6DE"; g.lineWidth = s2 ? 6 - s2 : 2.5; g.shadowBlur = 0;   // the nested strokes are the glow
+      g.globalAlpha = a; g.strokeStyle = s2 ? `rgba(255,${60 + s2 * 20},${90 + s2 * 10},.55)` : "#FFD6DE"; g.lineWidth = s2 ? 6 - s2 : 2.5; g.shadowColor = "#FF1F4F"; g.shadowBlur = 16;
       g.beginPath(); g.moveTo(fx, fy); g.quadraticCurveTo(m[0], m[1], S[0] - dx / d * r * .7, S[1] - dy / d * r * .7); g.stroke();
     }
     g.shadowBlur = 0; g.globalAlpha = 1;
@@ -7017,7 +7016,7 @@ function strangeRunes() {
     g.clearRect(0, 0, W, H); const out = t > T - 900 ? (T - t) / 900 : 1, wave = t * .9;
     g.strokeStyle = "#FF9A2E"; g.shadowColor = "#FF8A1F";
     // the panel's own circles light up as the wave passes them (they sit at the same spacing as the background)
-    for (let r = 16.5; r < Math.min(wave + 60, far); r += 17) { const a = Math.exp(-Math.pow((r - wave) / 46, 2)) * .9 + (r < wave ? .12 : 0); if (a < .02) continue; g.shadowBlur = 0; g.beginPath(); g.arc(C[0], C[1], r, 0, Math.PI * 2); g.globalAlpha = a * out * .3; g.lineWidth = 5; g.stroke(); g.globalAlpha = a * out; g.lineWidth = 1.4; g.stroke(); }
+    for (let r = 16.5; r < Math.min(wave + 60, far); r += 17) { const a = Math.exp(-Math.pow((r - wave) / 46, 2)) * .9 + (r < wave ? .12 : 0); if (a < .02) continue; g.globalAlpha = a * out; g.lineWidth = 1.4; g.shadowBlur = 8; g.beginPath(); g.arc(C[0], C[1], r, 0, Math.PI * 2); g.stroke(); }
     RINGS.forEach(([R, dir, n], i) => {
       const f = clamp01((wave - R) / 260) * out; if (!f) return;
       const spin = dir * t / 1000 * Math.max(.08, .35 - i * .05), wobble = 1 + .015 * Math.sin(t / 300 + i);
