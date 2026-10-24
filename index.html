@@ -1233,7 +1233,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .rf-sh{ display:flex; align-items:center; gap:9px; width:100%; padding:14px 2px 9px; border:0; border-bottom:1px solid #26344B; background:none; color:#D6E4F3; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; text-align:left; cursor:pointer; touch-action:manipulation; }
 .rf-sh span{ flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } .rf-found{ cursor:default; }
 .rf-sh em{ font-style:normal; letter-spacing:1px; color:#8FA4BE; }
-.rf-sh svg{ flex:none; color:#7F8BA0; transition:transform .2s ease; } .rf-sec.shut .rf-sh svg{ transform:rotate(-90deg); }
+.rf-sh > svg:not(.cx-gl){ flex:none; color:#7F8BA0; transition:transform .2s ease; } .rf-sec.shut .rf-sh > svg:not(.cx-gl){ transform:rotate(-90deg); }
 .rf-lamp{ flex:none; width:8px; height:8px; border-radius:50%; background:var(--sc); box-shadow:0 0 6px var(--sc); } .s-dead .rf-lamp{ box-shadow:none; }
 .rf-found{ cursor:default; }
 .rf-row{ --sc:#E04A3A; display:flex; align-items:center; gap:12px; width:100%; padding:11px 2px; border:0; border-bottom:1px solid #172133; background:none; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
@@ -2257,21 +2257,21 @@ function paintModePct() {
   if (!PATHS_MOCK) return; const P = modePct();
   Object.keys(P).forEach(id => { const b = document.getElementById(id); if (!b) return; let m = b.querySelector(".mpct"); if (!m) { m = document.createElement("small"); m.className = "mpct"; b.appendChild(m); } m.textContent = P[id]; });
 }
-const OP_ICON = { chapters: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"/>', timeline: '<path d="M3 12h18"/><circle cx="7" cy="12" r="2"/><circle cx="17" cy="12" r="2"/><path d="M12 12c2-4 5-6 9-6"/>', chars: '<circle cx="9" cy="8" r="3"/><path d="M3.5 19c.8-3.2 3-5 5.5-5s4.7 1.8 5.5 5"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.6-.4 4.6 1.2 5.2 4.3"/>' };
-function orderPick() {
-  if (!PATHS_MOCK || state.orderPicked || document.getElementById("ordPick")) return;
+const OP_ICON = { chapters: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"/>', timeline: '<path d="M3 12h15"/><path d="M15 8l4 4-4 4"/><circle cx="6" cy="12" r="1.6" fill="currentColor"/><circle cx="11" cy="12" r="1.6" fill="currentColor"/>', chars: '<circle cx="9" cy="8" r="3"/><path d="M3.5 19c.8-3.2 3-5 5.5-5s4.7 1.8 5.5 5"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.6-.4 4.6 1.2 5.2 4.3"/>' };
+function orderPick(then) {
+  if (!PATHS_MOCK || state.orderPicked || document.getElementById("ordPick")) { if (then) then(); return; }
   const el = document.createElement("div"); el.id = "ordPick"; el.className = "ordpick"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", "Pick your path");
   const card = (m, c, t, d, rec) => `<button type="button" class="op-c${rec ? " rec" : ""}" data-op="${m}" style="--opc:${c}"><i aria-hidden="true"><svg viewBox="0 0 24 24">${OP_ICON[m]}</svg></i><span><b>${t}</b><small>${d}</small></span><em aria-hidden="true">&#8250;</em></button>`;
   el.innerHTML = `<div class="op-in"><small>Your watch order</small><h3>Pick your path</h3>
     <p>There's no one right way through it. Each path keeps its own checklist, so follow one, or more than one at once.</p>
-    ${card("chapters", "#8FC1FF", "Chapters", "The saga in 11 chapters, then the Extras.", true)}
+    ${card("chapters", "#8FC1FF", "Chapters", "The saga in 11 chapters, then the Extras.")}
     ${card("timeline", "#FFB347", "Sacred Timeline", "Every title in story order, or flip it to release order.")}
-    ${card("chars", "#E9C46A", "Characters", "One hero's box at a time. Only Spider-Man? That works.")}
+    ${card("chars", "#E9C46A", "Characters", "One hero's box at a time.")}
     <p class="op-ft">Switch paths any time at the top of Story</p></div>`;
   document.body.appendChild(el); haptic(10);
   el.addEventListener("click", ev => { const b = ev.target.closest("[data-op]"); if (!b) return; haptic(12); state.orderPicked = 1;
     const id = { chapters: "btnChapters", timeline: "btnTimeline", chars: "btnChars" }[b.dataset.op];
-    el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" }).onfinish = () => el.remove();
+    el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" }).onfinish = () => { el.remove(); if (then) then(); };
     if (state.mode !== b.dataset.op) document.getElementById(id).click(); else { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} } });
 }
 function renderAll() { renderMeter(); renderView(); if (openEntry) renderPanel(openEntry, false); }
@@ -4507,6 +4507,14 @@ function collPaint(root) {
   root.querySelectorAll("canvas[data-art]").forEach(cv => { const w = cv.clientWidth || 132; cv.width = cv.height = Math.round(w * dpr); try { COLL_ART(cv, cv.dataset.art); } catch (e) {} });
 }
 function renderColl() {
+  const tb = document.querySelector("#collView .rf-tabs"), sx = tb ? tb.scrollLeft : 0;
+  renderColl0();
+  const nt = document.querySelector("#collView .rf-tabs"); if (!nt) return;
+  nt.scrollLeft = sx; const on = nt.querySelector('[aria-selected="true"]'); if (!on) return;
+  const r = nt.getBoundingClientRect(), b = on.getBoundingClientRect();
+  if (b.left < r.left) nt.scrollLeft -= r.left - b.left + 8; else if (b.right > r.right) nt.scrollLeft += b.right - r.right + 8;
+}
+function renderColl0() {
   if (collMode === "raft") { renderRaft(); return; }
   if (collMode === "cp") { renderCp(); return; }
   if (COLLX.length) { renderCx(); return; }
@@ -4604,8 +4612,8 @@ const CX_ST = { "In use": "use", "Secured": "sec", "Lost": "lost", "Destroyed": 
 const CX_TY = [["stones", "Infinity Stones"], ["weapons", "Weapons"], ["armor", "Armor"], ["tech", "Tech"], ["mystic", "Mystic"], ["substances", "Substances"], ["vehicles", "Vehicles"], ["keepsakes", "Keepsakes"]];
 const CX_GLYPH = {
   stones: '<path d="M7 4h10l4 5-9 11L3 9z"/><path d="M3 9h18M9.5 4L12 9l2.5-5M12 9v11"/>',
-  weapons: '<path d="M19.5 4.5L9 15"/><path d="M19.5 4.5h-4M19.5 4.5v4"/><path d="M6 12l6 6"/><path d="M7.5 16.5L4 20"/>',
-  armor: '<path d="M5 12a7 7 0 0 1 14 0v5l-3 3H8l-3-3z"/><path d="M8 13.5h3M13 13.5h3M12 6v4"/>',
+  weapons: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/>',
+  armor: '<path d="M6 4.5c2.5-1.4 9.5-1.4 12 0v8c0 3.6-2.6 6.6-6 7.8-3.4-1.2-6-4.2-6-7.8z"/><path d="M8.6 10.4l2.6.9M15.4 10.4l-2.6.9"/><path d="M10 15.6h4"/>',
   tech: '<rect x="7" y="7" width="10" height="10" rx="1.5"/><rect x="10" y="10" width="4" height="4"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/>',
   mystic: '<circle cx="12" cy="12" r="9"/><path d="M5.5 12c2.5-3.5 10.5-3.5 13 0-2.5 3.5-10.5 3.5-13 0z"/><circle cx="12" cy="12" r="1.6"/>',
   substances: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.4 15h9.2"/>',
@@ -7328,7 +7336,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "orderPicked", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen", "collIn", "collSeen"];
+const SAVE_KEYS = ["embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "orderPicked", "mode", "tlMode", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen", "collIn", "collSeen"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
@@ -9343,7 +9351,7 @@ function newsPending() { newsForget(); return newsTitles().flatMap(t => NEWS[t].
 let homeBusy = 0;   // while the home page is still initializing, the ticker waits
 function newsHome() {
   const $ = id => document.getElementById(id), shut = id => !$(id) || $(id).hidden;
-  return !document.hidden && Date.now() > homeBusy && shut("gate") && shut("panel") && shut("ask") && shut("gauntlet") && !openEntry && (!dossierOpen || dossierOpen === "saga")
+  return !document.hidden && Date.now() > homeBusy && shut("gate") && !$("ordPick") && shut("panel") && shut("ask") && shut("gauntlet") && !openEntry && (!dossierOpen || dossierOpen === "saga")
     && !document.querySelector(".fx-studio, .fx-onleft, .dustfx, .toast.show");
 }
 let newsRun = null, newsCalm = 0;
@@ -10891,12 +10899,12 @@ function gateOpen() {
   if (GATE.done) return; GATE.done = true;
   const g = document.getElementById("gate"), first = !state.entered;
   if (first) state.mode = "chapters"; renderAll(); window.scrollTo(0, 0);
-  if (first && !Object.keys(state.checks).some(k => state.checks[k])) setTimeout(orderPick, REDUCED ? 300 : 4800);
+  const pick = first && PATHS_MOCK && !state.orderPicked && !Object.keys(state.checks).some(k => state.checks[k]);
   state.entered = true; state.booted = true; if (!state.since) state.since = new Date().toISOString(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
-  if (REDUCED) { document.body.style.overflow = ""; g.hidden = true; homeInit(); return; }
+  if (REDUCED) { document.body.style.overflow = ""; g.hidden = true; if (pick) orderPick(homeInit); else homeInit(); return; }
   setHomeLock(true);   // the page stays still from the terminal clearing to the last piece drawn, so the illusion holds
   document.body.classList.add("booting");
-  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); homeInit(); };
+  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); if (pick) orderPick(homeInit); else homeInit(); };
 }
 // the home page initializing, in the same blue as the terminal: each piece on screen is first drawn as a holographic outline (the title and text as
 // line frames, the buttons and the dock as outlines, each box as its frame with a line of code typing inside), then a scan runs down it and it becomes the real thing
