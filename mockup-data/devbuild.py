@@ -1,7 +1,7 @@
 # fills the mockup placeholders in the working index.html with whatever data is ready, writes dev.html for screenshots
 import json,os,sys
 D=os.path.dirname(os.path.abspath(__file__))+'/'
-s=open('/home/user/mcu-tracker/index.html',encoding='utf8').read()
+s=open(os.environ.get('SRC','/home/user/mcu-tracker/index.html'),encoding='utf8').read()
 def load(n,default):
     p=D+n; return json.load(open(p,encoding='utf8')) if os.path.exists(p) else default
 threats=[]
@@ -25,6 +25,11 @@ for _p3 in [x for x in _P if x and all(y is not None for y in _fc)]:
         at=a_.get('after_title')
         idx=max([k for k,x in enumerate(o['st']) if x[1]==at],default=-1)+1 if at else 0
         o['st'].insert(idx,a_['step'])
+    for k in _p3.get('drop',[]):   # an entry a later check couldn't stand behind
+        if k in _by: threats.remove(_by.pop(k))
+    for d_ in _p3.get('drop_steps',[]):
+        o=_by.get(d_['id'])
+        if o: o['st']=[x for x in o['st'] if x!=d_['step']]
     for e in _p3.get('new_entries',[]):
         if e['entry']['id'] in _by: print('new: dup',e['entry']['id']); continue
         threats.append(e['entry']); _by[e['entry']['id']]=e['entry']
@@ -64,8 +69,8 @@ def put(tag,val):
     j=i+2  # replaces the empty literal [] or {}
     s=s[:s.index(k)]+json.dumps(val,ensure_ascii=False)+s[j:]
 cx=load('comms_draft.json',{})
-put('NEWSX',cx.get('news',{})); put('COMMSX',cx.get('comms',[])); put('SRCX',cx.get('outlets',{}))
-put('THREATS',threats); put('PHASES',{k:v for k,v in phases.items() if isinstance(v,int)}); eps={k:([x for x in v if x] if isinstance(v,list) else v) for k,v in eps.items()}
+if '/*NEWSX*/' in s: put('NEWSX',cx.get('news',{})); put('COMMSX',cx.get('comms',[])); put('SRCX',cx.get('outlets',{}))
+put('THREATS',threats); eps={k:([x for x in v if x] if isinstance(v,list) else v) for k,v in eps.items()}
 epn={}; epn.update(load('episodes_a.json',{})); epn.update(load('episodes_b.json',{}))
 _c=load('episodes_c.json',{}); eps.update(_c.get('counts',{})); epn.update(_c.get('names',{}))
 # the lists carry most shows a season at a time ("Agent Carter S2", "Agents of S.H.I.E.L.D. S6–S7"): each gets its own slice of the show's episodes,
@@ -85,6 +90,6 @@ for k,v in list(eps.items()):
         if a>1: epo[t]=a-1
         if nested: epn[t]=nm[a-1:b]
 put('EPS',{k:v for k,v in eps.items() if v}); put('EPO',epo)
-put('EPN',epn); put('BRIEF',{k:v for k,v in brief.items() if v})
+put('EPN',epn)
 out=sys.argv[1] if len(sys.argv)>1 else D+'dev.html'
 open(out,'w',encoding='utf8').write(s); print('threats',len(threats),'eps',len(eps),'phases',len(phases),'brief',len(brief))
