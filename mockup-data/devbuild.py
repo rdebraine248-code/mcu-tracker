@@ -160,6 +160,7 @@ def _restage(o):
         if isinstance(v,list) and v and isinstance(v[0],list) and v[0][1]!=T[0] and v[0][1] in T and T.index(v[0][1])>0: v[0]=[v[0][0],T[0]]
 _byT={o['id']:o for o in threats}; _byA={o['id']:o for o in allies}
 for f in sorted(_g2.glob(D+'../opp/org_*.json')):
+    if '/org_threats_' in f or '/org_allies_' in f: continue   # the inputs the organizations were written from
     z=json.load(open(f,encoding='utf8'))
     for o in z.get('raft',[]):
         if o['id'] in _byT: print('org: dup raft',o['id']); continue
