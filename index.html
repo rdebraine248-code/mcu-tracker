@@ -6859,7 +6859,7 @@ function epSheet(t) {
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
   el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet epsheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Episodes: " + tn(t));
   const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
-  const L = epList(t), N = epTotal(t), so = EPO[t] || 0, multi = L.length > 1 || t in EPO, names = epNames(t), start = L.map((c, i) => L.slice(0, i).reduce((a, b) => a + b, 0));
+  const L = epList(t), N = epTotal(t), so = EPO[t] || 0, multi = true, names = epNames(t), start = L.map((c, i) => L.slice(0, i).reduce((a, b) => a + b, 0));
   const W0 = epSet(t); let sea = multi ? Math.max(0, L.findIndex((c, i) => Array.from({ length: c }, (_, j) => start[i] + j + 1).some(n => !W0.has(n)))) : 0;
   const draw = () => { const W = epSet(t), a = epAt(t), s0 = start[sea];
     inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><button type="button" class="rs-done">Done</button><small>Episodes</small><h4>${tnh(t)}</h4>
