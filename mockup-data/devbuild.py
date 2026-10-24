@@ -73,6 +73,20 @@ def put(tag,val):
     s=s[:s.index(k)]+json.dumps(val,ensure_ascii=False)+s[j:]
 cx=load('comms_draft.json',{})
 if '/*NEWSX*/' in s: put('NEWSX',cx.get('news',{})); put('COMMSX',cx.get('comms',[])); put('SRCX',cx.get('outlets',{}))
+# the Compound's personnel files: heroes, allies and support, same rules as the villains (street-level ids land on the tab of their first title)
+import glob as _g2
+allies=[]
+for f in sorted(_g2.glob(D+'allies_*.json')):
+    if f.endswith('allies_groups.json'): continue
+    try: allies+=json.load(open(f,encoding='utf8'))
+    except Exception as e: print('allies: skip',f,e)
+_seen_a=set(); allies=[o for o in allies if not (o['id'] in _seen_a or _seen_a.add(o['id']))]
+for o in allies:
+    if o['id'].startswith('st-') and o.get('st'):
+        c=_ch.get(o['st'][0][1])
+        if c=='ch-beyond-the-mcu': o['id']='by-'+o['id']
+        elif c=='ch-pruned-timelines': o['id']='pr-'+o['id']
+if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats); eps={k:([x for x in v if x] if isinstance(v,list) else v) for k,v in eps.items()}
 epn={}; epn.update(load('episodes_a.json',{})); epn.update(load('episodes_b.json',{}))
 _c=load('episodes_c.json',{}); eps.update(_c.get('counts',{})); epn.update(_c.get('names',{}))
