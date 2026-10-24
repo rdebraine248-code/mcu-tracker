@@ -2264,9 +2264,9 @@ function orderPick(then) {
   const card = (m, c, t, d, rec) => `<button type="button" class="op-c${rec ? " rec" : ""}" data-op="${m}" style="--opc:${c}"><i aria-hidden="true"><svg viewBox="0 0 24 24">${OP_ICON[m]}</svg></i><span><b>${t}</b><small>${d}</small></span><em aria-hidden="true">&#8250;</em></button>`;
   el.innerHTML = `<div class="op-in"><small>Your watch order</small><h3>Pick your path</h3>
     <p>There's no one right way through it. Each path keeps its own checklist, so follow one, or more than one at once.</p>
-    ${card("chapters", "#8FC1FF", "Chapters", "The saga in 11 chapters, then the Extras.")}
+    ${card("chapters", "#8FC1FF", "Chapters", "The whole story, chapter by chapter.")}
     ${card("timeline", "#FFB347", "Sacred Timeline", "Every title in story order, or flip it to release order.")}
-    ${card("chars", "#E9C46A", "Characters", "One hero's box at a time.")}
+    ${card("chars", "#E9C46A", "Characters", "Follow just the heroes you want.")}
     <p class="op-ft">Switch paths any time at the top of Story</p></div>`;
   document.body.appendChild(el); haptic(10);
   el.addEventListener("click", ev => { const b = ev.target.closest("[data-op]"); if (!b) return; haptic(12); state.orderPicked = 1;
