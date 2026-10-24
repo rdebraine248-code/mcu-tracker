@@ -1120,6 +1120,29 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .rf-seg{ display:flex; flex-wrap:wrap; gap:6px; }
 .rf-seg button{ padding:6px 12px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font-size:13.5px; cursor:pointer; touch-action:manipulation; }
 .rf-seg button[aria-pressed="true"]{ background:#D6E4F3; border-color:#D6E4F3; color:#0A0F16; font-weight:600; }
+.rfi{ cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.rfi-boot{ position:absolute; inset:0; z-index:5; display:grid; place-items:center; background:#05080D; color:#8FE0FF; animation:fadein .25s ease-out; }
+.rfi-boot.out{ animation:rfiout .45s ease-in forwards; } @keyframes rfiout{ to{ opacity:0; transform:scale(1.04); } }
+.rfi-boot .rfi-in{ width:min(320px,82vw); text-align:center; }
+.rfi-em{ width:64px; height:64px; margin:0 auto 18px; color:#7FC4FF; filter:drop-shadow(0 0 10px rgba(95,168,255,.6)); animation:rfiem 1.6s ease-in-out infinite; } @keyframes rfiem{ 50%{ opacity:.55; } }
+.rfi-ls{ display:grid; gap:6px; margin-bottom:22px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6D8; }
+.rfi-ls span{ opacity:0; animation:rfiln .3s ease-out forwards; } .rfi-ls span:nth-child(2){ animation-delay:.3s; } .rfi-ls span:nth-child(3){ animation-delay:.6s; color:#CFE6FF; }
+@keyframes rfiln{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:none; } }
+.rfi .rfi-n{ display:block; font:400 64px/1 'Anton','Impact',sans-serif; letter-spacing:1px; color:#EEF5FF; text-shadow:0 0 18px rgba(95,168,255,.45); font-variant-numeric:tabular-nums; }
+.rfi-of, .rfi-row small{ display:block; margin-top:2px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
+.rfi-bar{ height:3px; margin:16px 0 10px; border-radius:2px; background:#152035; overflow:hidden; } .rfi-bar i{ display:block; width:0; height:100%; background:#5FA8FF; box-shadow:0 0 8px #5FA8FF; }
+.rfi-tk{ min-height:16px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#9FB4CF; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rfi-ok{ margin-top:16px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#4FCB8A; opacity:0; transition:opacity .2s; }
+.rfi.done .rfi-ok{ opacity:1; } .rfi.done .rfi-bar i{ background:#4FCB8A; box-shadow:0 0 8px #4FCB8A; } .rfi.done .rfi-em{ color:#4FCB8A; animation:none; }
+.rfi-panel, .rfi-grid{ overflow:hidden; margin:14px 0 4px; padding:14px 14px 12px; border:1px solid #2F4565; border-radius:12px; background:linear-gradient(180deg,rgba(95,168,255,.10),rgba(95,168,255,.02)); animation:rfiin .35s ease-out; }
+@keyframes rfiin{ from{ opacity:0; transform:translateY(-6px); } }
+.rfi-hd{ display:flex; justify-content:space-between; gap:10px; margin-bottom:8px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#CFE6FF; }
+.rfi-st{ color:#5FA8FF; animation:rfiem 1s ease-in-out infinite; } .rfi.done .rfi-st{ color:#4FCB8A; animation:none; } .rfi.done .rfi-st::before{ content:"Complete"; } .rfi.done .rfi-st{ font-size:0; } .rfi.done .rfi-st::before{ font-size:11px; }
+.rfi-row{ display:flex; align-items:baseline; gap:10px; } .rfi-row .rfi-n{ font-size:44px; }
+.rfi-cv{ display:block; width:100%; margin:4px 0 12px; }
+.rf-body{ transition:opacity .4s ease; } .rf-body.rfi-wait{ opacity:.18; pointer-events:none; }
+.rf-intake[hidden]{ display:none; }
+.rf-intake.rfi-land{ animation:rfiin .4s ease-out; }
 .rf-intake{ display:flex; align-items:center; gap:10px; margin:12px 0 0; padding:10px 12px; border:1px solid #3A4E6A; border-radius:10px; background:rgba(127,155,187,.08); color:#D6E4F3; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
 .rf-intake i{ flex:none; width:8px; height:8px; border-radius:50%; background:#4FCB8A; box-shadow:0 0 8px #4FCB8A; }
 .rf-sec{ --sc:#8FA4BE; margin-top:8px; }
@@ -4403,13 +4426,12 @@ function openColl(mode) {
   cp.hidden = false; collOpen = true;
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
   if (!raft) found("collector");
-  else if (rfIntake && !REDUCED) { const n = document.querySelector("#collView .rf-n"), N = rfIntake, t0 = performance.now();   // the count runs up as the files come aboard
-    if (n) { const f = now => { const k = Math.min(1, (now - t0) / 1400); n.textContent = Math.round(N * (1 - Math.pow(1 - k, 3))); if (k < 1 && n.isConnected) requestAnimationFrame(f); }; n.textContent = "0"; requestAnimationFrame(f); } }
+  else if (rfIntake && !REDUCED) rfIntakePlay(RF_INTAKE);
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = "";
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; rfIntakeStop();
 }
 function collShow(id) {
   const v = document.getElementById("collView"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
@@ -4476,6 +4498,51 @@ function renderRaft() {
     ${all ? pgQ("rfQ", "Search threats", rfQ) : ""}<div class="rf-body">${rfBody()}</div></div>`;
 }
 let rfQ = "";
+/* the first time you board the Raft, everything already on file is transferred in. Three ways to show it (mockup):
+   "boot": the screen goes dark like the datapad's own start-up, and the files come aboard one by one, counted, before the registry opens;
+   "panel": a transfer panel at the top of the registry runs the files in while the list below waits, then folds down into one line;
+   "grid": a containment grid, one cell per file, lights up in each file's status colour as it comes aboard, then folds away.
+   A tap skips it. Each ends on the "Intake complete" line, which stays until you leave */
+let RF_INTAKE = "boot", rfiRun = 0;
+const RF_SC = { large: "#E04A3A", active: "#6FB3FF", captive: "#E07AAE", custody: "#E9A13A", dead: "#8592A6", reformed: "#4FCB8A", missing: "#A98BE8" };
+function rfIntakeStop() { rfiRun++; document.querySelectorAll(".rfi").forEach(e => e.remove()); const b = document.querySelector("#collView .rf-body"); if (b) b.classList.remove("rfi-wait"); }
+function rfIntakePlay(style) {
+  rfIntakeStop(); const run = rfiRun, v = document.getElementById("collView");
+  const L = THREATS.filter(o => rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9)), N = L.length; if (!N) return;
+  const T = style === "boot" ? 3000 : 2600, ease = k => 1 - Math.pow(1 - k, 2.2), line = v.querySelector(".rf-intake"), cnt = v.querySelector(".rf-n");
+  if (line) line.hidden = true;
+  const tick = (el, k) => { const o = L[Math.min(N - 1, Math.floor(ease(k) * N))]; el.textContent = rfNo(o) + " · " + rfName(o); };
+  let el, n, bar, tk, cv, t0, skip = false, cells;
+  const finish = () => { if (run !== rfiRun) return; skip = true; if (cnt) cnt.textContent = N; if (n) n.textContent = N; if (bar) bar.style.width = "100%";
+    el.classList.add("done"); haptic([14, 40, 20]);
+    setTimeout(() => { if (run !== rfiRun) return; el.classList.add("out"); const b = v.querySelector(".rf-body"); if (b) b.classList.remove("rfi-wait"); if (line) { line.hidden = false; line.classList.add("rfi-land"); }
+      if (style !== "boot") { const h = el.offsetHeight; el.animate([{ height: h + "px", opacity: 1 }, { height: "0px", opacity: 0, marginTop: "0px", marginBottom: "0px", paddingTop: "0px", paddingBottom: "0px" }], { duration: 380, easing: "ease-in", fill: "forwards" }); }
+      setTimeout(() => { if (run === rfiRun) el.remove(); }, 460); }, style === "boot" ? 900 : 700); };
+  if (style === "boot") {
+    el = document.createElement("div"); el.className = "rfi rfi-boot";
+    el.innerHTML = `<div class="rfi-in"><svg class="rfi-em" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4 56 18v28L32 60 8 46V18z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 22v20M26.5 22v20M32 22v20M37.5 22v20M44 22v20M17 22h30M17 42h30" stroke="currentColor" stroke-width="1.6"/></svg>
+      <div class="rfi-ls"><span>Department of Damage Control</span><span>Secure link · The Raft</span><span>Receiving threat files</span></div>
+      <b class="rfi-n">0</b><small class="rfi-of">of ${N} files</small><div class="rfi-bar"><i></i></div><div class="rfi-tk">&nbsp;</div><div class="rfi-ok">Intake complete</div></div>`;
+    document.getElementById("collPanel").appendChild(el);
+  } else {
+    el = document.createElement("div"); el.className = "rfi rfi-" + style;
+    el.innerHTML = `<div class="rfi-hd"><span>Incoming transfer</span><span class="rfi-st">Receiving</span></div>${style === "grid" ? `<canvas class="rfi-cv" aria-hidden="true"></canvas>` : ""}
+      <div class="rfi-row"><b class="rfi-n">0</b><small>of ${N} files</small></div><div class="rfi-bar"><i></i></div><div class="rfi-tk">&nbsp;</div>`;
+    const top = v.querySelector(".co-top"); top.after(el); const b = v.querySelector(".rf-body"); if (b) b.classList.add("rfi-wait");
+  }
+  n = el.querySelector(".rfi-n"); bar = el.querySelector(".rfi-bar i"); tk = el.querySelector(".rfi-tk"); cv = el.querySelector(".rfi-cv");
+  if (cv) { const dpr = Math.min(2, devicePixelRatio || 1), W = cv.clientWidth, s = 7, g = 2, cols = Math.floor((W + g) / (s + g)), rows = Math.ceil(N / cols);
+    cv.width = W * dpr; cv.height = (rows * (s + g) - g) * dpr; cv.style.height = (rows * (s + g) - g) + "px"; const c = cv.getContext("2d"); c.scale(dpr, dpr);
+    cells = { c, s, g, cols, lit: 0 }; c.fillStyle = "#141C2B"; for (let i = 0; i < N; i++) c.fillRect((i % cols) * (s + g), Math.floor(i / cols) * (s + g), s, s); }
+  el.addEventListener("click", () => { if (!skip) finish(); });
+  const delay = style === "boot" ? 900 : 250;
+  setTimeout(() => { if (run !== rfiRun) return; t0 = performance.now();
+    const f = now => { if (run !== rfiRun || skip) return; const k = Math.min(1, (now - t0) / T), m = Math.round(ease(k) * N);
+      n.textContent = m; if (cnt) cnt.textContent = m; bar.style.width = (ease(k) * 100).toFixed(1) + "%"; tick(tk, k);
+      if (cells) { const { c, s, g, cols } = cells; for (; cells.lit < m; cells.lit++) { const o = L[cells.lit]; c.fillStyle = RF_SC[RF_ST[rfStatus(rfSteps(o))]] || "#7F9BBB"; c.fillRect((cells.lit % cols) * (s + g), Math.floor(cells.lit / cols) * (s + g), s, s); } }
+      if (k < 1) requestAnimationFrame(f); else finish(); };
+    requestAnimationFrame(f); }, delay);
+}
 function rfBody() {
   const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
   const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
