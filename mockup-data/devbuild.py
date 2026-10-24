@@ -25,6 +25,9 @@ for _p3 in [x for x in _P if x and all(y is not None for y in _fc)]:
         at=a_.get('after_title')
         idx=max([k for k,x in enumerate(o['st']) if x[1]==at],default=-1)+1 if at else 0
         o['st'].insert(idx,a_['step'])
+    for z in _p3.get('set',[]):   # replace whole fields (a name, description, class or opponent that needs staging)
+        o=_by.get(z['id'])
+        if o: o.update({k:v for k,v in z.items() if k!='id'})
     for k in _p3.get('drop',[]):   # an entry a later check couldn't stand behind
         if k in _by: threats.remove(_by.pop(k))
     for d_ in _p3.get('drop_steps',[]):
