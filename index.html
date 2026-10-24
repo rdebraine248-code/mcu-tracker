@@ -1095,7 +1095,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .co-rec h3{ margin:16px 0 2px; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:32px; line-height:1.05; letter-spacing:1px; text-transform:uppercase; color:#EEF1F6; }
 .co-kind{ margin:0 0 12px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#9AA6BA; }
 .co-tiles{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px; }
-.co-tiles div{ padding:9px 12px; border:1px solid #232D42; border-radius:10px; background:#0F1626; } .co-tiles small{ display:block; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .co-tiles b{ display:block; margin-top:2px; font-size:14px; font-weight:600; color:#EEF1F6; }
+.co-tiles .wide{ grid-column:1 / -1; } .co-tiles div{ padding:9px 12px; border:1px solid #232D42; border-radius:10px; background:#0F1626; } .co-tiles small{ display:block; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .co-tiles b{ display:block; margin-top:2px; font-size:14px; font-weight:600; color:#EEF1F6; }
 .co-h{ color:#E9C46A; margin-bottom:8px; }
 .co-chain{ list-style:none; margin:0; padding:0 0 0 22px; border-left:2px solid #26314A; margin-left:7px; }
 .co-chain li{ position:relative; padding:0 0 16px; } .co-chain li::before{ content:""; position:absolute; left:-31px; top:3px; width:12px; height:12px; border:2px solid #5FA8FF; border-radius:50%; background:#0B1019; }
@@ -4533,8 +4533,9 @@ function renderColl() {
         : `<div class="co-case sealed" aria-label="An object you haven't found yet"><span class="co-q">?</span><span class="nm">Unknown object<small>Not catalogued</small></span></div>`; }).join("")}</div></div>`;
   collPaint(v);
 }
-function openColl(mode) {
-  collMode = mode === "raft" || mode === "cp" ? mode : "coll"; const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp";
+function openColl(mode, keep) {
+  collMode = mode === "raft" || mode === "cp" ? mode : "coll";
+  if (!keep) { rfUni = "mcu"; rfGrp = "status"; rfFold = {}; rfQ = ""; rfOppF = ""; cpUni = "mcu"; cpGrp = "status"; cpFold = {}; cpQ = ""; cpTeamF = ""; cxUni = "mcu"; cxGrp = "type"; cxFold = {}; cxQ = ""; cxHoldF = ""; } const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp";
   cp.classList.toggle("raft", raft); cp.classList.toggle("cpx", cpm); cp.setAttribute("aria-label", raft ? "Threat registry" : cpm ? "Personnel files" : "The Collection");
   const h2 = cp.querySelector(".maptop h2"); h2.textContent = raft ? "The Raft" : cpm ? cpHome()[0] : "The Collection"; h2.dataset.glow = h2.textContent;
   if (cpm && !state.cpIn) { const L = ALLIES.filter(o => cpSteps(o).length), R = state.cpSeen = state.cpSeen || {}; L.forEach(o => R[o.id] = 1); state.cpIn = 1; cpIntake = L.length; persist(); }
@@ -4550,7 +4551,7 @@ function openColl(mode) {
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = ""; rfIntakeStop();
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; cxIntake = 0; cxQ = ""; cxHoldF = ""; rfIntakeStop();
 }
 function collShow(id) {
   const v = document.getElementById("collPanel"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
@@ -4562,7 +4563,7 @@ document.getElementById("collView").addEventListener("input", ev => { if (ev.tar
   v.querySelector(".pg-qx").hidden = !cxQ; v.querySelector(".cx-body").innerHTML = cxBody(); v.querySelectorAll("[data-cxu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cxu === cxUni && !cxQ)); });
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cpQ") return; cpQ = ev.target.value; cpTeamF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !cpQ; v.querySelector(".cp-body").innerHTML = cpBody(); v.querySelectorAll("[data-cpu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cpu === cpUni && !cpQ)); });
-document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "rfQ") return; rfQ = ev.target.value; const v = document.getElementById("collView");
+document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "rfQ") return; rfQ = ev.target.value; rfOppF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !rfQ; v.querySelector(".rf-body").innerHTML = rfBody(); v.querySelectorAll("[data-rfu]").forEach(b => b.setAttribute("aria-selected", b.dataset.rfu === rfUni && !rfQ)); });
 document.getElementById("collView").addEventListener("keydown", ev => { if ((ev.target.id === "rfQ" || ev.target.id === "cpQ" || ev.target.id === "cxQ") && ev.key === "Enter") ev.target.blur(); });
 document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
@@ -4584,10 +4585,12 @@ document.getElementById("collView").addEventListener("click", ev => {
     const cu = ev.target.closest("[data-cpu]"); if (cu) { if (cu.dataset.cpu !== cpUni || cpQ || cpTeamF) { haptic(8); cpUni = cu.dataset.cpu; cpQ = ""; cpTeamF = ""; renderColl(); } return; }
     const cg = ev.target.closest("[data-cpg]"); if (cg) { if (cg.dataset.cpg !== cpGrp) { haptic(8); cpGrp = cg.dataset.cpg; renderColl(); } return; }
     const cf = ev.target.closest("[data-cpf]"); if (cf) { haptic(8); const k = cf.dataset.cpf; cpFold[cpGrp][k] = !cpShut(k); renderColl(); return; }
-    const rl = ev.target.closest("[data-cprf]"); if (rl) { haptic(10); const id = rl.dataset.cprf; rfUni = rfUniOf(THREATS.find(o => o.id === id)); openColl("raft"); collShow(id); return; }
+    const rl = ev.target.closest("[data-cprf]"); if (rl) { haptic(10); const id = rl.dataset.cprf; rfUni = rfUniOf(THREATS.find(o => o.id === id)); openColl("raft", true); collShow(id); return; }
   }
   if (ev.target.closest(".pg-qx")) { haptic(8); rfQ = ""; renderColl(); return; }
-  const ru = ev.target.closest("[data-rfu]"); if (ru) { if (ru.dataset.rfu !== rfUni || rfQ) { haptic(8); rfUni = ru.dataset.rfu; rfQ = ""; renderColl(); } return; }
+  const ro = ev.target.closest("[data-rfo]"); if (ro) { haptic(10); rfOppF = ro.dataset.rfo; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
+  if (ev.target.closest("[data-tfx]")) { haptic(8); rfOppF = ""; renderColl(); return; }
+  const ru = ev.target.closest("[data-rfu]"); if (ru) { if (ru.dataset.rfu !== rfUni || rfQ || rfOppF) { haptic(8); rfUni = ru.dataset.rfu; rfQ = ""; rfOppF = ""; renderColl(); } return; }
   const rg = ev.target.closest("[data-rfg]"); if (rg) { if (rg.dataset.rfg !== rfGrp) { haptic(8); rfGrp = rg.dataset.rfg; renderColl(); } return; }
   const rf = ev.target.closest("[data-rff]"); if (rf) { haptic(8); const k = rf.dataset.rff; rfFold[rfGrp][k] = !rfShut(k); renderColl(); return; }
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
@@ -4655,16 +4658,16 @@ function cxBody() {
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => st + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))))).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
-  const key = o => cxGrp === "holder" ? cxHolder(cxSteps(o)) : cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c;
-  const keys = cxGrp === "holder" ? [...new Set(known.map(key))].sort((a, b) => (a === "Nobody") - (b === "Nobody") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : cxGrp === "status" ? Object.keys(CX_ST) : CX_TY.map(t => t[0]);
+  // grouped by holder, it's an index of every hand an object has passed through, the same names as on its card
+  const keyz = o => cxGrp === "holder" ? [...new Set(cxSteps(o).map(x => x[3]).filter(Boolean))] : [cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c];
+  const keys = cxGrp === "holder" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === "Nobody") - (b === "Nobody") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : cxGrp === "status" ? Object.keys(CX_ST) : CX_TY.map(t => t[0]);
   const label = k => cxGrp === "type" ? cxTyName(k) : k;
-  const meta = (o, S, st) => cxGrp === "holder" ? st : "Held by " + cxHolder(S);
   cxFold[cxGrp] = cxFold[cxGrp] || {};
-  const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
+  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CX_GRP.map(([k, l]) => `<button type="button" data-cxg="${k}" aria-pressed="${k === cxGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = cxShut(k), fresh = L.some(o => !seen[o.id]), cls = cxGrp === "status" ? " s-" + CX_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cxf="${esc(k)}" aria-expanded="${!shut}">${cxGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : cxGrp === "type" ? cxGlyph(k) : ""}<span>${esc(label(k))}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
-        ${shut ? "" : `<div class="cx-grid">${L.map(o => card(o, meta)).join("")}</div>`}</section>`; }).join("")}`;
+        ${shut ? "" : `<div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxGrp !== "holder" ? "Held by " + cxHolder(S) : cxHolder(S) === k ? st : "Now held by " + cxHolder(S))).join("")}</div>`}</section>`; }).join("")}`;
 }
 
 /* ---------- the Raft's threat registry: tap the Raft in the Atlas. Every villain gets a file the first time you meet them, and the file follows them
@@ -4677,7 +4680,8 @@ let rfGrp = "status", rfFold = {}, rfIntake = 0;
 // grouped by who opposed them, the list opens as an index of heroes, each folded until you tap it; the other groupings open unfolded
 const rfShut = k => { const v = (rfFold[rfGrp] || {})[k]; return v == null ? rfGrp === "op" : v; };
 const RF_GRP = [["status", "Status"], ["class", "Class"], ["op", "Opposed by"]];
-const RF_ST = { "At large": "large", "Active": "active", "Captive": "captive", "In custody": "custody", "Missing": "missing", "Ally": "reformed", "Deceased": "dead" };
+// grouped by status, in this order: still a danger, then held, then loose, then gone over to the heroes' side ("Allied": they changed), then dead
+const RF_ST = { "Active": "active", "In custody": "custody", "Captive": "captive", "At large": "large", "Missing": "missing", "Allied": "reformed", "Deceased": "dead" };
 const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^pr-/.test(o.id) ? "pr" : /^by-/.test(o.id) ? "by" : "mcu";
 const rfSteps = o => o.st.filter(x => atlSeenT(x[1]));
 const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
@@ -4685,7 +4689,14 @@ const rfFirst = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? 1e9) < (ATL_ORDER[a]
 const rfLast = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? -1) > (ATL_ORDER[a] ?? -1) ? x[1] : a, S[0][1]);
 const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
 // a threat's class and who stands against them move with the story: Wanda is a Global threat until Multiverse of Madness makes her Multiversal
-const rfClass = o => stageAt(o.cl || "", atlSeenT)[0], rfOpp = o => stageAt(o.op || "", atlSeenT)[0];
+const rfClass = o => stageAt(o.cl || "", atlSeenT)[0];
+// everyone who has stood against them so far: the Compound's own files (named as you know them) and its teams, from the title they first did.
+// A villain only other villains have fought has no one here
+const rfOpps = o => { let L;
+  if (Array.isArray(o.opp)) L = o.opp.filter(x => atlSeenT(x[1])).map(x => x[0].startsWith("team:") ? x[0].slice(5) : (a => a ? cpName(a) : "")(ALLIES.find(a => a.id === x[0])));
+  else L = Array.isArray(o.op) ? o.op.filter(x => atlSeenT(x[1])).map(x => x[0]) : [o.op || ""];
+  return [...new Set(L.filter(Boolean))]; };
+let rfOppF = "";
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
 function renderRaft() {
@@ -4696,7 +4707,8 @@ function renderRaft() {
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
       <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
-      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div><div><small>Opposed by</small><b>${esc(rfOpp(o) || "Unknown")}</b></div></div>
+      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div class="wide"><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div></div>
+      ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
         const c = up.get(x[1]); if (c) up.delete(x[1]);   // the step where their class changes says so
@@ -4770,16 +4782,22 @@ function rfIntakePlay(style) {
 function rfBody() {
   const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
   const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
+  if (rfOppF && q.length < 2) {   // everyone one hero or team has stood against, as far as you've watched
+    const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfOpps(o).includes(rfOppF)).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+    return `<div class="tf-bar"><span><small>Opposed by</small><b>${esc(rfOppF)}</b></span><button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
+      <section class="rf-sec"><div class="rf-sh rf-found"><span>Threats</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
+  }
   if (q.length > 1) {
     const L = THREATS.filter(o => { const S = rfSteps(o); return S.length && [rfName(o), rfKind(o)].some(t => qNorm(t).includes(q)); })
       .sort((a, b) => qNorm(rfName(b)).includes(q) - qNorm(rfName(a)).includes(q) || rfName(a).localeCompare(rfName(b)));
     return L.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em><br>${rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o)))}`)).join("")}</div></section>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
-  const key = o => rfGrp === "class" ? rfClass(o) || "Unknown" : rfGrp === "op" ? rfOpp(o) || "Unknown" : stOf(o);
-  const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.map(key))].sort((a, b) => a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
+  // grouped by who opposed them, it's an index of heroes and teams: a threat is under everyone who has stood against them, the same names as on its file
+  const NONE = "No hero on file", keyz = o => rfGrp === "class" ? [rfClass(o) || "Unknown"] : rfGrp === "op" ? (L => L.length ? L : [NONE])(rfOpps(o)) : [stOf(o)];
+  const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === NONE) - (b === NONE) || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
   rfFold[rfGrp] = rfFold[rfGrp] || {};
-  const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
+  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = rfShut(k), fresh = L.some(o => !seen[o.id]), cls = rfGrp === "status" ? " s-" + RF_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-rff="${esc(k)}" aria-expanded="${!shut}">${rfGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
@@ -4842,10 +4860,11 @@ function cpBody() {
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cp-grid">${L.map(card).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(cpSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cpSteps(b))] ?? 1e9));
-  const key = o => cpGrp === "team" ? cpTeam(o) : cpStatus(cpSteps(o));
-  const keys = cpGrp === "team" ? [...new Set(known.map(key))].sort((a, b) => (a === "Independent") - (b === "Independent") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(CP_ST);
+  // grouped by team, it's an index of every team: each person is under every team on their file, so the tags and the list always agree
+  const keyz = o => cpGrp === "team" ? [...new Set(cpTeams(o))] : [cpStatus(cpSteps(o))];
+  const keys = cpGrp === "team" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === "Independent") - (b === "Independent") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(CP_ST);
   cpFold[cpGrp] = cpFold[cpGrp] || {};
-  const secs = keys.map(k => [k, known.filter(o => key(o) === k)]).filter(x => x[1].length);
+  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CP_GRP.map(([k, l]) => `<button type="button" data-cpg="${k}" aria-pressed="${k === cpGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = cpShut(k), fresh = L.some(o => !seen[o.id]), cls = cpGrp === "status" ? " s-" + CP_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cpf="${esc(k)}" aria-expanded="${!shut}">${cpGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>

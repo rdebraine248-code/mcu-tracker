@@ -60,7 +60,7 @@ for o in threats:
         elif c=='ch-pruned-timelines': o['id']='pr-'+o['id']
 for o in threats:   # a villain who comes over to the heroes' side is an Ally (Wanda is an Avenger by the end of Age of Ultron, not a reformed convict)
     for x in o['st']:
-        if len(x)>2 and x[2]=='Reformed': x[2]='Ally'
+        if len(x)>2 and x[2] in ('Reformed','Ally'): x[2]='Allied'
 ref=load('data_ref.json',{})
 eps=ref.get('episodes') or {"Daredevil S1":13,"Jessica Jones S1":13,"Loki S1":6,"WandaVision":9,"Agents of S.H.I.E.L.D.":[22,22,22,22,22,13,13]}
 ph=ref.get('phases') or {}
@@ -155,6 +155,19 @@ for f in sorted(_g2.glob(D+'coll_*.json')):
 if os.environ.get('COLLX_FILE'): collx=json.load(open(os.environ['COLLX_FILE'],encoding='utf8'))   # a stand-in while the files are being written
 _seen_c=set(); collx=[o for o in collx if o.get('st') and not (o['id'] in _seen_c or _seen_c.add(o['id']))]
 for o in threats+allies+collx: _one(o)
+# who has stood against each villain: lists of the Compound's own files and teams (../opp/opp_*.json, keyed by the final ids). Until a villain
+# has one, its old single "op" stands, cleaned of names that split one person in two
+_ally_ids={o['id'] for o in allies}
+for f in sorted(_g2.glob(D+'../opp/opp_*.json')):
+    for k,v in json.load(open(f,encoding='utf8')).items():
+        o=next((x for x in threats if x['id']==k),None)
+        if o is None: print('opp: no threat',k); continue
+        L=[r for r in v if r[0].startswith('team:') or r[0] in _ally_ids]
+        if len(L)<len(v): print('opp: dropped',k,[r[0] for r in v if r not in L])
+        o['opp']=L
+_OPN={'Young Wilson Fisk':'Wilson Fisk'}
+for o in threats:
+    if isinstance(o.get('op'),str): o['op']=_OPN.get(o['op'],o['op'])
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats)
