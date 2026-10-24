@@ -579,7 +579,7 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .plog .dcard p.dwait, .plog .dlog p.dwait, .plog .dnone{ font-size:14px; font-style:italic; opacity:.6; cursor:pointer; }
 .plog .dlinks{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); column-gap:16px; border-top:1px solid var(--rowline); }
 .plog .dl{ padding:11px 2px; min-height:58px; border-bottom:1px solid var(--rowline); }
-.plog .dl b{ display:block; font-size:16px; font-weight:600; } .plog .drg .dl b{ display:flex; align-items:center; gap:8px; } .drg .dl small em{ font-style:normal; color:var(--sc); font-weight:600; } .drg-n{ margin-left:auto; opacity:.7; } .plog .dl small{ display:block; margin-top:3px; font-size:13px; line-height:1.35; opacity:.75; }
+.plog .dl b{ display:block; font-size:16px; font-weight:600; } .plog .dl small{ display:block; margin-top:3px; font-size:13px; line-height:1.35; opacity:.75; }
 .plog .dl.off b{ opacity:.55; font-weight:500; }
 .plog .dcover{ left:-6px; right:-6px; background:linear-gradient(var(--boxc),var(--boxc)) top/100% 2px no-repeat, var(--logbg); box-shadow:0 -2px 12px color-mix(in srgb, var(--boxc) 70%, transparent); }
 .plog .dcover::after{ font-size:10px; letter-spacing:2px; color:var(--boxc); }
@@ -2951,14 +2951,6 @@ function openDossier(id, go) {
   const debrief = !isCh ? "" : `<section class="dsec"><h3>${K.debrief || "Debrief"}</h3><div class="dcard">${!D.debrief ? `<p class="dwait">No data.</p>` : open(rel) ? `<p>${reveal("d", rel, esc(D.debrief))}</p>` : (delete seen.d, `<p class="dwait">${K.dwait || "Awaiting data."}</p>`)}</div></section>`;
   const links = !(D.links && D.links.length) ? "" : `<section class="dsec"><h3>${K.links || "Connections"}</h3><div class="dlinks">${D.links.map((l, i) => { const g = l[2]; if (!open(g)) { forget("l" + i); [l[0], l[1]].forEach(v => Array.isArray(v) && v.forEach((x, a) => v.forEach((y, b) => forget("l" + i + "." + a + "." + b)))); return `<div class="dl off"><b>Unknown</b><small class="dnone">No data</small></div>`; }
     const c = linkNow(l, i, open); return `<div class="dl">${reveal(c.key, g, `<b>${esc(c.n)}</b><small>${esc(sideR(id, c.n, c.r))}</small>`)}</div>`; }).join("")}</div></section>`;
-  // mockup, one box: the hero's rogues gallery. Every villain on file who has stood against them in this box's titles, with where they stand now
-  const RG_HERO = { "cx-daredevil": ["Daredevil"] };
-  const rogues = isCh || !RG_HERO[id] ? "" : (() => { const names = RG_HERO[id], T = new Set(titles);
-    const L = THREATS.filter(o => { const S = rfSteps(o); if (!S.some(x => T.has(x[1]))) return false; return Array.isArray(o.op) ? o.op.some(x => names.includes(x[0]) && atlSeenT(x[1])) : names.includes(o.op); })
-      .sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
-    if (!L.length) return "";
-    return `<section class="dsec"><h3><span>Rogues gallery</span><span class="drg-n">${L.length}</span></h3><div class="dlinks drg">${L.map(o => { const S = rfSteps(o), st = rfStatus(S);
-      return `<div class="dl s-${RF_ST[st]}"><b><i class="rf-lamp" aria-hidden="true"></i>${esc(rfName(o))}</b><small><em>${esc(st)}</em> · ${tnh(rfLast(S))}</small></div>`; }).join("")}</div></section>`; })();
   const name = isCh ? (box.num ? "Chapter " + box.num : "Extras") : "", title = isCh ? box.title : box.title;
   const rowsDl = `<dl class="${SG ? "drows" : "lrows"}">${rowsHtml}</dl>`;
   if (SG) {
@@ -2983,7 +2975,7 @@ function openDossier(id, go) {
       ${rowsDl}
       ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
       <section class="dsec"><h3><span>${K.story || (isCh ? "What happened" : "The story so far")}</span></h3><ol class="dlog">${storyHtml}</ol></section>
-      ${rogues}${debrief}${links}
+      ${debrief}${links}
     </div>`;
   }
   persist();
