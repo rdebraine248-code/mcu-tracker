@@ -738,6 +738,32 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 @media (max-width:390px){ .ratecard:not(.inbox) .rc-s svg{ width:12px; height:12px; } .ratecard:not(.inbox){ padding:4px 3px 5px; }
   .ratecard.inbox{ gap:6px; padding:7px 9px; letter-spacing:.8px; } .ratecard.inbox .rc-s span{ padding:2px 0; } .ratecard.inbox .rc-s svg{ width:17px; height:17px; } }   /* a small phone's timeline column is narrower */
 .ratecard .rc-n{ display:inline-block; margin-top:6px; padding:3px 7px; border:1px solid color-mix(in srgb, currentColor 55%, transparent); border-radius:6px; white-space:nowrap; cursor:pointer; touch-action:manipulation; }
+.row .epc{ flex:0 0 auto; margin-left:auto; padding:4px 8px; border:1px solid color-mix(in srgb, currentColor 35%, transparent); border-radius:999px; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; opacity:.7; cursor:pointer; touch-action:manipulation; }
+.row .epc i{ font-style:normal; opacity:.7; } .row .epc.on{ opacity:1; border-color:currentColor; }
+.row .epl{ display:block; width:min(160px,60%); height:3px; margin-top:4px; border-radius:2px; background:color-mix(in srgb, currentColor 18%, transparent); overflow:hidden; } .row .epl span{ display:block; height:100%; background:currentColor; }
+.epsheet .ep-sum{ margin:0 0 8px; font-size:15px; color:#C9D3E4; } .epsheet .ep-sum b{ font:400 22px/1 'Anton','Impact',sans-serif; color:#EEF1F6; }
+.epsheet .ep-bar{ height:4px; margin:0 0 14px; border-radius:2px; background:#1C2538; overflow:hidden; } .epsheet .ep-bar span{ display:block; height:100%; background:#5FA8FF; }
+.epsheet .ep-sea{ margin:10px 0 6px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6D8; }
+.epsheet .ep-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(44px,1fr)); gap:6px; }
+.epsheet .ep-grid button{ height:40px; border:1px solid #2B3F62; border-radius:8px; background:#101A2C; color:#9FB2CC; font:14px/1 'Share Tech Mono','Courier New',monospace; cursor:pointer; touch-action:manipulation; }
+.epsheet .ep-grid button.on{ background:#5FA8FF; border-color:#5FA8FF; color:#06101E; }
+.epsheet .ep-hint{ margin:12px 0 0; font-size:13px; color:#7D8BA6; }
+.epsheet .rs-in{ max-height:82vh; overflow-y:auto; }
+.upwrap{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:0 8px; max-width:100%; }
+.upwrap .upnext{ min-width:0; }
+.brief-btn{ flex:none; margin-top:10px; padding:7px 12px; border:1px solid #2D63C8; border-radius:999px; background:rgba(45,99,200,.14); color:#9FC3FF; font:11px/1.25 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
+.brief-btn[hidden]{ display:none; }
+.briefsheet .rs-in{ max-height:86vh; overflow-y:auto; }
+.bf-meta{ display:flex; flex-wrap:wrap; gap:6px; margin:-6px 0 14px; }
+.bf-meta span{ padding:3px 8px; border:1px solid #2B3F62; border-radius:4px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#AFC6E6; text-transform:uppercase; }
+.bf-h{ margin:16px 0 6px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
+.bf-prev{ list-style:none; margin:0; padding:0; border-top:1px solid #1E2638; }
+.bf-prev li{ padding:9px 0; border-bottom:1px solid #1E2638; } .bf-prev b{ display:block; font-size:14px; } .bf-prev p{ margin:3px 0 0; font-size:14.5px; line-height:1.45; color:#C9D3E4; } .briefsheet .bf-prev small{ display:block; margin-top:3px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#7D8BA6; text-transform:uppercase; }
+.bf-stones{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.bf-stones div{ padding:8px 10px; border:1px solid #1E2638; border-radius:8px; background:#0F1626; } .bf-stones b{ display:flex; align-items:center; gap:6px; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:1.5px; text-transform:uppercase; } .bf-stones b i{ width:8px; height:8px; border-radius:50%; background:var(--g); box-shadow:0 0 6px var(--g); } .briefsheet .bf-stones small{ display:block; margin-top:4px; font:13px/1.35 "IBM Plex Sans Condensed","Arial Narrow",sans-serif; letter-spacing:0; text-transform:none; color:#C9D3E4; }
+.bf-large{ display:flex; flex-wrap:wrap; gap:6px; } .bf-large span{ padding:4px 9px; border:1px solid rgba(224,74,58,.6); border-radius:4px; color:#F09080; font-size:13px; }
+.bf-act{ display:flex; gap:8px; margin-top:18px; } .bf-act button{ flex:1; padding:11px; border:1px solid #2B3F62; border-radius:12px; background:#13203A; color:#CFE4FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; } .bf-act button.go{ background:#5FA8FF; border-color:#5FA8FF; color:#06101E; }
+.bf-deb li{ padding:7px 0; border-bottom:1px solid #1E2638; font-size:15px; color:#D5DCE8; list-style:none; } .bf-deb{ margin:0; padding:0; } .bf-deb b{ font:400 20px/1 'Anton','Impact',sans-serif; color:#EEF1F6; margin-right:6px; }
 .ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
 .ratesheet .rs-in{ position:relative; width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
 /* Done sits up top, clear of the keyboard: everything saves as you go, so it just puts the sheet away */
@@ -825,6 +851,10 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .tl-list li.hidden{ display:none; }
 .tl-next{ display:grid; grid-template-columns:minmax(0,1fr) clamp(150px,24vw,260px) minmax(0,1fr); height:78px; }
 .tl-next .tl-lanes{ grid-column:2; position:relative; }
+.tl-phase{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) clamp(150px,24vw,260px) minmax(0,1fr); height:58px; }
+.tl-phase .tl-lanes{ grid-column:2; position:relative; }
+.tl-phtag{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:inline-flex; align-items:baseline; gap:8px; white-space:nowrap; padding:5px 12px; border:1px solid rgba(255,179,71,.55); border-radius:4px; background:#120D09; color:#C9A574; font:10.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
+.tl-phtag b{ color:#FFD08A; font-weight:400; font-size:12px; letter-spacing:2.5px; }
 .tl-fold{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) clamp(150px,24vw,260px) minmax(0,1fr); height:76px; }
 .tl-fold .tl-lanes{ grid-column:2; position:relative; }
 .tl-list > .tl-fold:last-child{ margin-bottom:45vh; }   /* room to scroll your next title up into view */
@@ -1025,6 +1055,23 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .atl-coll i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(233,196,106,.6); border-radius:8px; font-style:normal; font-size:12px; color:#E9C46A; }
 .atl-coll span{ flex:1; } .atl-coll b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
 .atl-coll small{ display:block; margin-top:1px; font-size:13px; color:#C9B27A; } .atl-coll em{ font-style:normal; font-size:18px; color:#E9C46A; }
+.srch-btn{ display:inline-flex; align-items:center; gap:6px; flex:none; padding:6px 11px; border:1px solid var(--line); border-radius:999px; background:transparent; color:var(--muted); font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
+.srchpanel{ z-index:66; }
+.srch-top{ display:flex; align-items:center; gap:8px; padding:calc(12px + env(safe-area-inset-top,0px)) 12px 10px; border-bottom:1px solid #222A3A; }
+.srch-top .back{ flex:none; width:40px; height:40px; justify-content:center; padding:0; }
+.srch-box{ flex:1; min-width:0; display:flex; align-items:center; gap:8px; height:42px; padding:0 12px; border:1px solid #2B3F62; border-radius:12px; background:#0D1422; color:#7FA6D8; }
+.srch-box input{ flex:1; min-width:0; border:0; outline:0; background:transparent; color:#EEF1F6; font:16px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.srch-box:focus-within{ border-color:#5FA8FF; }
+.sr{ max-width:760px; margin:0 auto; padding:10px 2px 40px; }
+.sr-chips{ display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 12px; }
+.sr-chips button{ padding:6px 11px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font-size:13px; cursor:pointer; }
+.sr-chips button.on{ background:#EEF1F6; border-color:#EEF1F6; color:#0B1019; font-weight:600; }
+.sr-h{ margin:18px 0 6px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
+.sr-it{ display:block; width:100%; padding:11px 2px; border:0; border-bottom:1px solid #1E2638; background:none; color:#EEF1F6; text-align:left; cursor:pointer; }
+.sr-it b{ display:block; font-size:16px; font-weight:600; line-height:1.3; } .sr-it small{ display:block; margin-top:3px; font-size:14px; line-height:1.4; color:#AEBBCD; }
+.sr-it em{ display:block; margin-top:3px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#7D8BA6; }
+.sr-it mark{ background:rgba(95,168,255,.28); color:inherit; border-radius:2px; padding:0 1px; }
+.sr-empty{ margin:28px 0 0; color:#7D8BA6; text-align:center; font:12px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
 .collpanel{ z-index:63; }
 .co{ max-width:760px; margin:0 auto; padding-top:12px; }
 .co-top small, .co-h{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
@@ -1059,6 +1106,39 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .co-chain li:last-child::before{ background:#5FA8FF; box-shadow:0 0 8px #5FA8FF; }
 .co-chain p{ margin:0; font-size:15px; line-height:1.45; color:#D5DCE8; } .co-chain small{ display:block; margin-top:3px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#8EA2C2; }
 .co-more{ margin:2px 0 0; padding:10px 12px; border:1px dashed #2A3550; border-radius:10px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7F8BA0; text-align:center; text-transform:uppercase; }
+/* the Raft: a steel door on the Raft's sheet, then its registry, one cell per threat on file */
+.atl-raft{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #6F8FB0; border-radius:12px; background:linear-gradient(180deg,rgba(111,143,176,.16),rgba(111,143,176,.05)); color:#D6E4F3; text-align:left; cursor:pointer; }
+.atl-raft i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(159,183,208,.6); border-radius:8px; }
+.atl-raft span{ flex:1; } .atl-raft b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
+.atl-raft small{ display:block; margin-top:1px; font-size:13px; color:#9DB0C6; } .atl-raft em{ font-style:normal; font-size:18px; color:#9FB7D0; }
+.collpanel.raft{ background-color:#0A0F16; }
+.raft .co-top small{ color:#9DB4CC; } .raft .co-bar span{ background:#E04A3A; }
+.raft .co-chips button.on{ background:#D6E4F3; border-color:#D6E4F3; color:#0A0F16; }
+.rf-uni{ display:flex; gap:0; margin:0 0 10px; border:1px solid #2A3550; border-radius:10px; overflow:hidden; }
+.rf-uni button{ flex:1; min-width:0; padding:8px 4px; border:0; border-left:1px solid #2A3550; background:#0D1420; color:#AFC0D6; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
+.rf-uni button:first-child{ border-left:0; } .rf-uni button.on{ background:#1B2A40; color:#EEF4FB; box-shadow:inset 0 -2px 0 #E04A3A; }
+.rf-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+.rf-cell{ --sc:#E04A3A; position:relative; display:flex; flex-direction:column; justify-content:flex-end; width:100%; min-height:150px; padding:34px 12px 12px; border:1px solid #2B3A50; border-radius:10px; overflow:hidden; text-align:left; color:#EEF1F6; cursor:pointer;
+  background:repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, rgba(0,0,0,0) 2px 26px), linear-gradient(180deg,#1A2433,#0E141E); }
+.rf-cell::before{ content:""; position:absolute; left:0; right:0; top:0; height:26px; background:linear-gradient(180deg,#243247,#172131); border-bottom:1px solid #2F4058; }
+.rf-cell .rf-no{ position:absolute; left:10px; top:6px; font:10px/14px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#8FA4BE; }
+.rf-cell .rf-lamp{ position:absolute; right:10px; top:9px; width:8px; height:8px; border-radius:50%; background:var(--sc); box-shadow:0 0 6px var(--sc), 0 0 12px var(--sc); }
+.rf-cell .rf-nm{ font-family:'Anton','Impact',sans-serif; font-size:20px; line-height:1.05; letter-spacing:.6px; text-transform:uppercase; }
+.rf-cell .rf-k{ margin-top:4px; font-size:12.5px; line-height:1.3; color:#AEBBCD; }
+.rf-cell .rf-st{ align-self:flex-start; margin-top:9px; padding:2px 7px; border:1px solid var(--sc); border-radius:3px; color:var(--sc); font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
+.rf-cell .nw{ position:absolute; top:5px; right:26px; z-index:2; padding:1px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
+.s-custody{ --sc:#E9A13A; } .s-dead{ --sc:#8592A6; } .s-reformed{ --sc:#4FCB8A; } .s-missing{ --sc:#A98BE8; }
+.rf-cell.s-dead .rf-lamp{ box-shadow:none; } .rf-cell.s-dead .rf-nm{ color:#B9C2CF; }
+.rf-sealed{ margin:12px 0 0; padding:10px 12px; border:1px dashed #2A3550; border-radius:10px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#7F8BA0; text-align:center; text-transform:uppercase; }
+.rf-head{ position:relative; margin-top:4px; padding:14px 14px 14px; border:1px solid #2B3A50; border-radius:12px; background:repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, rgba(0,0,0,0) 2px 30px), linear-gradient(180deg,#1A2433,#0E141E); }
+.rf-head small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#8FA4BE; }
+.rf-head h3{ margin:6px 0 2px; font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:34px; line-height:1.02; letter-spacing:1px; text-transform:uppercase; color:#EEF1F6; }
+.rf-head p{ margin:0; color:#AEBBCD; font-size:15px; }
+.rf-banner{ --sc:#E04A3A; display:flex; align-items:center; gap:10px; margin:12px 0; padding:10px 12px; border:1px solid var(--sc); border-radius:10px; background:color-mix(in srgb, var(--sc) 10%, transparent); color:var(--sc); font:13px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; }
+.rf-banner i{ width:10px; height:10px; border-radius:50%; background:var(--sc); box-shadow:0 0 8px var(--sc); }
+.raft .co-h{ color:#D6E4F3; }
+.raft .co-chain li::before{ border-color:#7F9BBB; } .raft .co-chain li:last-child::before{ background:#7F9BBB; box-shadow:0 0 8px #7F9BBB; }
+.rf-chg{ display:inline-block; margin-left:6px; padding:0 5px; border:1px solid var(--sc); border-radius:3px; color:var(--sc); font:9.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; vertical-align:1px; }
 
 :root{ --dockh:calc(60px + env(safe-area-inset-bottom,0px)); }
 body{ padding-bottom:var(--dockh); }
@@ -1196,13 +1276,13 @@ body{ padding-bottom:var(--dockh); }
   <header class="mast">
     <div>
       <h1 id="mainTitle" data-glow="The Marvel Cinematic Universe">The Marvel Cinematic Universe<button type="button" class="stonebar" id="stoneBar" aria-label="Infinity Stones"></button></h1>
-      <div class="subrow"><p class="sub" id="modeSub">Watch tracker</p></div>
+      <div class="subrow"><p class="sub" id="modeSub">Watch tracker</p><button type="button" class="srch-btn" id="btnSearch" aria-label="Search everything you've unlocked"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.4 10.4L14.5 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Search</button></div>
     </div>
     <div class="meter" aria-live="polite">
       <div class="num" id="meterNum">0 <small>of 0 complete</small></div>
       <div class="barrow"><div class="bar"><span id="meterBar"></span></div><span class="pct" id="meterPct">0%</span></div>
       <div class="mstatus" id="meterStatus"></div>
-      <button type="button" class="upnext" id="upNext" hidden></button>
+      <div class="upwrap"><button type="button" class="upnext" id="upNext" hidden></button><button type="button" class="brief-btn" id="btnBrief" hidden aria-label="Mission briefing">Briefing</button></div>
     </div>
   </header>
   <nav class="modes" aria-label="Watch order">
@@ -1217,6 +1297,10 @@ body{ padding-bottom:var(--dockh); }
 <div class="filepanel dockpg" id="filePanel" hidden role="dialog" aria-modal="true" aria-label="Archive">
   <div class="maptop"><button type="button" class="back" id="fileBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2 data-glow="Agent File">Agent File</h2></div>
   <div class="fileview" id="fileView"></div>
+</div>
+<div class="filepanel srchpanel" id="srchPanel" hidden role="dialog" aria-modal="true" aria-label="Search">
+  <div class="srch-top"><button type="button" class="back" id="srchBack" aria-label="Back"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><label class="srch-box"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.4 10.4L14.5 14.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input id="srchIn" type="search" enterkeyhint="search" autocomplete="off" spellcheck="false" placeholder="Search the datapad"></label></div>
+  <div class="fileview" id="srchView"></div>
 </div>
 <div class="filepanel collpanel" id="collPanel" hidden role="dialog" aria-modal="true" aria-label="The Collection">
   <div class="maptop"><button type="button" class="back" id="collBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><h2>Knowhere</h2></div>
@@ -1669,6 +1753,12 @@ function tlSetFocus(lane) {
   sec.querySelectorAll("[data-focus-lane]").forEach(b => b.setAttribute("aria-pressed", b.dataset.focusLane === tlFocus));
   renderMeter();
 }
+const PHASES = /*PHASES*/{};
+const PHASE_NAME = { 1: ["Phase One", "2008 to 2012"], 2: ["Phase Two", "2013 to 2015"], 3: ["Phase Three", "2016 to 2019"], 4: ["Phase Four", "2021 to 2022"], 5: ["Phase Five", "2023 to 2025"], 6: ["Phase Six", "2025 onward"] };
+function phaseLi(ph, i, show) {   // the line runs straight through; the branch lines too, once they've split off
+  const M = LANES.main.p, br = show && i > splitOf() ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
+  return `<li class="tl-phase" aria-label="${PHASE_NAME[ph][0]}, ${PHASE_NAME[ph][1]}"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line data-ln="main" x1="${M}" y1="${i === TLX().findIndex(x => x.lane === "main") ? 50 : 0}" x2="${M}" y2="100" stroke="${LANES.main.c}" stroke-width="3" vector-effect="non-scaling-stroke"/>${br}</svg></span><span class="tl-phtag"><b>${PHASE_NAME[ph][0]}</b>${PHASE_NAME[ph][1]}</span></li>`;
+}
 function renderTimeline(v) {
   const show = branched(), grow = growNext && show && !REDUCED;
   if (grow) setTimeout(() => { const s = document.querySelector(".tl.grow"); if (s) s.classList.remove("grow"); }, TLX().length * 28 + 900);
@@ -1699,7 +1789,9 @@ function renderTimeline(v) {
       const lanes = show && F >= SPLIT ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
       const foldLi = `<li class="tl-fold"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line data-ln="main" x1="50" y1="0" x2="50" y2="${open ? 100 : 34}" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/>${lanes}</svg></span>
         <button type="button" class="tl-foldbtn" data-tlfold="${open ? "close" : "open"}">${open ? "Hide" : "Reveal"} <span aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button></li>`;
-      return TLX().map((e, i) => F < 0 || open || i <= F ? tlRow(e, i, show, stepOf) + (i === F ? foldLi : "") : e.lane === "main" ? "" : tlRow(e, i, show, stepOf, true)).join(""); })()}
+      let lastPh = 0;   // Release Order: a marker where each of Marvel Studios' phases begins
+      return TLX().map((e, i) => { const row = F < 0 || open || i <= F ? tlRow(e, i, show, stepOf) + (i === F ? foldLi : "") : e.lane === "main" ? "" : tlRow(e, i, show, stepOf, true);
+        const ph = rel && PHASES[e.t]; let mk = ""; if (ph && ph > lastPh) { lastPh = ph; if (row) mk = phaseLi(ph, i, show); } return mk + row; }).join(""); })()}
       ${tlFoldAt() >= 0 ? "" : `<li class="tl-next" aria-label="What's next?"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <line x1="50" y1="0" x2="50" y2="14" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>
         <i style="top:34%;opacity:.85"></i><i style="top:56%;opacity:.55"></i><i style="top:78%;opacity:.28"></i></span></li>`}
@@ -1962,11 +2054,12 @@ function upNext() {
 }
 function paintUpNext() {
   const b = document.getElementById("upNext"), u = upNext();
-  if (!u) { b.hidden = true; return; }
+  if (!u) { b.hidden = true; const bb = document.getElementById("btnBrief"); if (bb) bb.hidden = true; return; }
   b.hidden = false;
   // the pill says where tapping takes you; a chapter still to unlock is named as the destination
   const lab = u.kind === "chapter" || u.kind === "char" ? "Jump to · " + esc(u.label) : "Jump to";
   b.innerHTML = `<span class="ul">${lab}</span><span class="ut">${esc(u.kind === "unlock" ? u.e.label : tnY(u.t))}</span>`;
+  const bb = document.getElementById("btnBrief"); if (bb) bb.hidden = u.kind !== "chapter";
 }
 function goUpNext() {
   const u = upNext(); if (!u) return;
@@ -2118,7 +2211,7 @@ function panelRow(e, i, cls) {
   if (!i.tag && openKind === "char" && OPENER_TAGS[i.t] && e.id !== "cx-incursions") i = Object.assign({}, i, { tag: OPENER_TAGS[i.t][0], tagc: OPENER_TAGS[i.t][1] });
   const fg = e.fg || "#111", box = e.box || fg, tick = lum(box) > 0.6 ? "#111111" : "#FFFFFF";
   return `<li${cls ? ` class="${cls}"` : ""}><button type="button" class="row" aria-pressed="${!!state.checks[ck(e, i.t)]}" data-t="${esc(i.t)}" style="color:${fg}">
-          <span class="box">${CHECK(tick)}</span><span class="tw"><span class="t${i.s ? " short" : ""}">${tnh(i.t)}</span>${i.note && openKind === "chapter" ? `<span class="rnote">${esc(i.note)}</span>` : ""}</span>${i.tag ? `<span class="tag${i.tagc ? " " + i.tagc : ""}">${esc(i.tag)}</span>` : ""}</button></li>`;
+          <span class="box">${CHECK(tick)}</span><span class="tw"><span class="t${i.s ? " short" : ""}">${tnh(i.t)}</span>${i.note && openKind === "chapter" ? `<span class="rnote">${esc(i.note)}</span>` : ""}${epLine(e, i.t)}</span>${i.tag ? `<span class="tag${i.tagc ? " " + i.tagc : ""}">${esc(i.tag)}</span>` : ""}${epChip(e, i.t)}</button></li>`;
 }
 // rows for a box; in the Incursions each Earth gets a header line, and its films sit under it (Convergence too, in the same amber; Doomsday there
 // goes without its Incursion Alert stamp, since that's what opened the box). Its status (Terminated) only shows once you've watched them.
@@ -3578,6 +3671,7 @@ function atlSheet(p, fresh) {   // fresh: the entries that turned up since you l
   evs.forEach(e => { const k = city ? "" : e[1]; let gp = groups.find(x => x[0] === k); if (!gp) groups.push(gp = [k, []]); gp[1].push(e); });
   const spots = [...new Set(evs.map(e => atlSpot(e[1])).filter(Boolean))];
   return `<div class="atl-sh"><div><h3>${esc(p.n)}</h3><small>${esc(p.r)}</small></div><button type="button" class="atl-x" aria-label="Close">×</button></div>
+    ${p.id === "raft" ? `<button type="button" class="atl-raft"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM5.5 2v12M8 2v12M10.5 2v12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></i><span><b>Threat registry</b><small>Every threat on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${p.id === "knowhere" && collKnown() ? `<button type="button" class="atl-coll"><i aria-hidden="true">&#9670;</i><span><b>Visit the Collector</b><small>Taneleer Tivan's archive</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${spots.length > 2 ? `<div class="atl-chips"><button type="button" class="on" data-chip="">All</button>${spots.map(s => `<button type="button" data-chip="${esc(s)}">${esc(s)}</button>`).join("")}</div>` : ""}
     ${groups.map(([s, L]) => `<div class="atl-grp" data-g="${esc(atlSpot(s))}">${s ? `<div class="atl-sub">${esc(s)}</div>` : ""}${L.map(e => `<div class="atl-ev${fresh.has(p.e.indexOf(e)) ? " nw" : ""}"><b>${e[3] ? esc(e[3]) : tnh(e[0])}${city && e[1] !== atlSpot(e[1]) ? " · " + esc(e[1].slice(atlSpot(e[1]).length + 2)) : ""}</b><p>${esc(e[2])}</p></div>`).join("")}</div>`).join("")}
@@ -3707,6 +3801,7 @@ function renderAtlas() {
     if (ev.target.closest(".atl-grip")) { if (Date.now() - (grip._drag || 0) < 400) return; atlSize(!isBig(), !low.querySelector(".atl-sheet").hidden); return; }
     if (ev.target.closest(".atl-x")) { haptic(8); atlClose(map); return; }
     if (ev.target.closest(".atl-coll")) { haptic(12); openColl(); return; }
+    if (ev.target.closest(".atl-raft")) { haptic(12); openColl("raft"); return; }
     const go = ev.target.closest("[data-city]"); if (go) { haptic(10); atlSub("city", go.dataset.city); return; }
     const ch = ev.target.closest("[data-chip]");
     if (ch) { haptic(8); const sh = ch.closest(".atl-sheet"), k = ch.dataset.chip; sh.querySelectorAll("[data-chip]").forEach(b => b.classList.toggle("on", b === ch));
@@ -4232,13 +4327,14 @@ const COLL_ART = (() => {   // every drawer works in a 200 x 200 box centered on
 })();
 const collKnown = () => ["Thor: The Dark World", "Guardians of the Galaxy", "Avengers: Infinity War"].some(atlSeenT);   // his door shows once you've met him
 const collSteps = o => o.st.filter(s => atlSeenT(s[1]));
-let collOpen = false, collCat = "", collRec = null, collY = 0;
+let collOpen = false, collCat = "", collRec = null, collY = 0, collMode = "coll", rfUni = "mcu", rfSt = "";
 function collArt(o) { return o.a.startsWith("e:") ? embHTML(o.a.slice(2)) : `<canvas data-art="${o.a}" aria-hidden="true"></canvas>`; }
 function collPaint(root) {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   root.querySelectorAll("canvas[data-art]").forEach(cv => { const w = cv.clientWidth || 132; cv.width = cv.height = Math.round(w * dpr); try { COLL_ART(cv, cv.dataset.art); } catch (e) {} });
 }
 function renderColl() {
+  if (collMode === "raft") { renderRaft(); return; }
   const v = document.getElementById("collView"), seen = state.coll = state.coll || {};
   if (collRec) {
     const o = COLL.find(x => x.id === collRec), S = collSteps(o), hid = o.st.length - S.length;
@@ -4262,11 +4358,14 @@ function renderColl() {
         : `<div class="co-case sealed" aria-label="An object you haven't found yet"><span class="co-q">?</span><span class="nm">Unknown object<small>Not catalogued</small></span></div>`; }).join("")}</div></div>`;
   collPaint(v);
 }
-function openColl() {
+function openColl(mode) {
+  collMode = mode === "raft" ? "raft" : "coll"; const cp = document.getElementById("collPanel"), raft = collMode === "raft";
+  cp.classList.toggle("raft", raft); cp.setAttribute("aria-label", raft ? "Threat registry" : "The Collection"); cp.querySelector(".maptop h2").textContent = raft ? "The Raft" : "Knowhere";
+  if (raft) { const U = rfUnis(); if (!U.some(u => u[0] === rfUni)) rfUni = (U[0] || ["mcu"])[0]; rfSt = ""; }
   collRec = null; collCat = ""; renderColl(); document.getElementById("collView").scrollTop = 0;
-  document.getElementById("collPanel").hidden = false; collOpen = true;
+  cp.hidden = false; collOpen = true;
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
-  found("collector");
+  if (!raft) found("collector");
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
@@ -4275,7 +4374,7 @@ function closeColl(fromHistory) {
 }
 function collShow(id) {
   const v = document.getElementById("collView"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
-  collRec = id; (state.coll = state.coll || {})[id] = 1; persist(); renderColl(); v.scrollTop = 0;
+  collRec = id; if (collMode === "raft") (state.raftSeen = state.raftSeen || {})[id] = 1; else (state.coll = state.coll || {})[id] = 1; persist(); renderColl(); v.scrollTop = 0;
   try { history.pushState({ mcu: "collrec" }, ""); } catch (e) {}
 }
 function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collView").scrollTop = collY; }
@@ -4283,8 +4382,46 @@ document.getElementById("collBack").addEventListener("click", () => { haptic(8);
 document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest("[data-co-back]")) { haptic(8); collGrid(); return; }
   const c = ev.target.closest("[data-cc]"); if (c) { haptic(8); collCat = c.dataset.cc; renderColl(); return; }
+  const ru = ev.target.closest("[data-rfu]"); if (ru) { haptic(8); rfUni = ru.dataset.rfu; rfSt = ""; renderColl(); return; }
+  const rs = ev.target.closest("[data-rfs]"); if (rs) { haptic(8); rfSt = rs.dataset.rfs; renderColl(); return; }
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
 });
+
+/* ---------- the Raft's threat registry: tap the Raft in the Atlas. Every villain gets a file the first time you meet them, and the file follows them
+   title by title (escapes, arrests, deaths, comebacks), each record sealed until you've watched its title. Later records are never counted or hinted at */
+const THREATS = /*THREATS*/[];
+const RF_UNI = [["mcu", "MCU"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"], ["by", "Beyond"]];
+const RF_ST = { "At large": "large", "In custody": "custody", "Deceased": "dead", "Reformed": "reformed", "Missing": "missing" };
+const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^pr-/.test(o.id) ? "pr" : /^by-/.test(o.id) ? "by" : "mcu";
+const rfSteps = o => o.st.filter(x => atlSeenT(x[1]));
+const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
+const rfFirst = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? 1e9) < (ATL_ORDER[a] ?? 1e9) ? x[1] : a, S[0][1]);
+const rfLast = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? -1) > (ATL_ORDER[a] ?? -1) ? x[1] : a, S[0][1]);
+const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
+const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
+function rfUnis() { return RF_UNI.filter(([u]) => THREATS.some(o => rfUniOf(o) === u && rfSteps(o).length)); }
+function renderRaft() {
+  const v = document.getElementById("collView"), seen = state.raftSeen = state.raftSeen || {};
+  if (collRec) {
+    const o = THREATS.find(x => x.id === collRec), S = rfSteps(o), st = rfStatus(S);
+    let prev = null;
+    v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
+      <div class="rf-head"><small>${rfNo(o)} · ${esc(o.cl || "")} threat</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
+      <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
+      <div class="co-tiles"><div><small>First seen</small><b>${tnh(rfFirst(S))}</b></div><div><small>Last seen</small><b>${tnh(rfLast(S))}</b></div><div><small>Threat class</small><b>${esc(o.cl || "Unknown")}</b></div><div><small>Opposed by</small><b>${esc(o.op || "Unknown")}</b></div></div>
+      <div class="co-h">Record</div>
+      <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(x[0])}</p><small>${tnh(x[1])}${chg}</small></li>`; }).join("")}</ol></div>`;
+    return;
+  }
+  const U = rfUnis(), mine = THREATS.filter(o => rfUniOf(o) === rfUni), known = mine.filter(o => rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+  const stOf = o => rfStatus(rfSteps(o)), stats = Object.keys(RF_ST).filter(k => known.some(o => stOf(o) === k)), L = known.filter(o => !rfSt || stOf(o) === rfSt), all = THREATS.filter(o => rfSteps(o).length).length;
+  v.innerHTML = `<div class="co"><div class="co-top"><small>The Raft · Department of Damage Control</small><h3>Threat registry</h3><p class="co-sub">${all} threat${all === 1 ? "" : "s"} on file</p></div>
+    <div class="co-bar"><span style="width:${Math.round(known.filter(o => stOf(o) !== "At large").length / Math.max(1, known.length) * 100)}%"></span></div>
+    ${U.length > 1 ? `<div class="rf-uni" role="tablist">${U.map(([u, l]) => `<button type="button" role="tab" aria-selected="${u === rfUni}" data-rfu="${u}" class="${u === rfUni ? "on" : ""}">${l}</button>`).join("")}</div>` : ""}
+    <div class="co-chips"><button type="button" data-rfs="" class="${rfSt ? "" : "on"}">All ${known.length}</button>${stats.map(k => `<button type="button" data-rfs="${k}" class="${k === rfSt ? "on" : ""}">${k} ${known.filter(o => stOf(o) === k).length}</button>`).join("")}</div>
+    <div class="rf-grid">${L.map(o => { const S = rfSteps(o), st = rfStatus(S);
+      return `<button type="button" class="rf-cell s-${RF_ST[st]}" data-co="${o.id}"><span class="rf-no">${rfNo(o)}</span><i class="rf-lamp" aria-hidden="true"></i>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="rf-nm">${esc(rfName(o))}</span><span class="rf-k">${esc(rfKind(o))}</span><span class="rf-st">${esc(st)}</span></button>`; }).join("")}</div></div>`;
+}
 
 const SAGA = {"kind":"chapter","rows":{"period":[["1942 to 2012","ch-1"],["1942 to 2014","ch-2"],["1942 to 2015","ch-3"],["1942 to 2016","ch-4"],["1942 to 2019","ch-5"],["1942 to 2023","ch-6"],["1942 to 2024","ch-7"],["5000 BC to 2026","ch-8"],["5000 BC to 2027","ch-10"],["5000 BC to 2027, and across the multiverse","ch-11"]]},"brief":"Across our world and far beyond it, extraordinary people are emerging. As the threat grows from city streets to the edges of the universe, they are the ones the world will call heroes.","story":[["ch-1","In 1942, a skinny kid from Brooklyn is chosen for a serum that makes him a super soldier, and he gives himself to the Arctic ice to save millions. Decades later, a weapons maker escapes a cave in a suit of armor and tells the world he's Iron Man, a scientist runs from the monster inside him, and a god is cast down to Earth. Nick Fury is watching all of them. When Loki opens the sky over New York, Fury loses Phil Coulson but gets what he wanted: six people who can barely share a room, fighting side by side. Thor takes Loki and the Tesseract home, and somewhere in the dark, the one who gave Loki his army smiles."],["ch-2","Thor's war follows him home to Asgard, where the Aether surfaces and his mother dies. Across the galaxy, a thief from Earth, an assassin, a raccoon, a tree and a man out for revenge steal an orb that turns out to hold another Infinity Stone. Peter Quill meets his father, Ego, a living planet, and has to kill him, and Yondu dies saving Peter. Then, in 1995, a Kree soldier crash-lands in a Blockbuster, remembers she's Carol Danvers, and leaves a young S.H.I.E.L.D. agent named Nick Fury a pager and her old call sign, Avenger, which he types at the top of a new proposal."],["ch-3","Tony can't sleep after New York, and the terrorist called the Mandarin turns out to be an actor named Trevor Slattery. Steve learns HYDRA has been growing inside S.H.I.E.L.D. since its founding, finds Bucky behind the Winter Soldier's mask and brings the agency down, with Fury faking his own death to help. In Hell's Kitchen, Matt Murdock exposes Wilson Fisk, and Jessica Jones kills Kilgrave. Then Tony builds Ultron to protect the world, Ultron decides the world should end, and Sokovia's capital falls from the sky. Vision is born, and the Avengers move upstate with a new roster and no one above them."],["ch-4","Thaddeus Ross arrives with the Sokovia Accords. Tony signs, Steve won't, and when Zemo frames Bucky, friends fight at a Leipzig airport and in a Siberian bunker until the shield is left on the floor. Others find their own way: Scott Lang shrinks into the fight, T'Challa takes the throne and opens Wakanda to the world, and Peter Parker learns he doesn't need Tony's suit to be Spider-Man. Natasha, now a fugitive, goes back to the family the Red Room gave her. In New York, Matt, Jessica, Luke and Danny stop the Hand beneath Midland Circle, and the building comes down on Matt."],["ch-5","Matt survived Midland Circle. Frank Castle hunts the men behind his family's murder, including his best friend, Billy Russo. Jessica finds her mother alive and as dangerous as she is, Luke wins Harlem from Bushmaster and ends up running Mariah's club, and Colleen Wing takes up the Iron Fist. Matt takes down Wilson Fisk a second time without killing him. Then Jessica turns in her own sister and leaves New York."],["ch-6","Stephen Strange loses his hands, finds Kamar-Taj and ends up guarding the Time Stone. Thor loses his hammer, his father and Asgard itself, and leaves with his people on a ship. Then Thanos comes for the stones, and the Avengers, still divided, can't stop him: he snaps his fingers, half of all life turns to dust, and Fury's last act is to page Carol Danvers. Five years later, Scott Lang climbs out of the Quantum Realm with a way back through time. The Avengers assemble once more, and it costs them Natasha on Vormir and Tony in the final battle, while Steve goes back to Peggy and hands his shield to Sam, and Thor leaves Earth with the Guardians. At Natasha's grave, Yelena is told who to blame."],["ch-7","Everyone who vanished is back, five years later. Wanda rewrites a New Jersey town into a sitcom to keep Vision, Sam decides whether he can carry Steve's shield, Peter loses May and asks Strange to make the world forget him, and Clint spends Christmas teaching Kate Bishop while Yelena comes for him. Far from Earth, a Loki who escaped with the Tesseract is arrested by the Time Variance Authority, and Sylvie kills He Who Remains at the end of time. The timeline branches, Strange runs from universe to universe with a girl who can cross them, and Wanda tears through all of them for her sons until a mountain falls on her."],["ch-8","Ten immortals who have quietly guided humanity for seven thousand years learn the Celestial who made them planned to hatch a new one from the Earth, and Sersi turns the newborn Celestial to stone. In San Francisco, a valet named Shaun turns out to be Shang-Chi, and he stops his father, the thousand-year-old leader of the Ten Rings, at the gates of a hidden village. Marc Spector and Steven Grant share a body and a god, and at a monster hunt, Jack Russell turns out to be a werewolf. Thor fights Gorr, who kills gods, and loses Jane but comes home with a daughter. The Guardians save Rocket from the High Evolutionary, and Peter Quill goes back to Earth to see his grandfather."],["ch-9","In Jersey City, Kamala Khan writes fan fiction about Captain Marvel until her great-grandmother's bangle gives her powers of her own. Jen Walters gets her cousin's blood and would rather practice law, Shuri loses T'Challa and becomes Black Panther, and Riri Williams builds a suit in her MIT dorm, then makes a deal with the devil to bring back her best friend. Nick Fury comes home after years in space to find the Skrulls he promised a home have turned against Earth, and it costs him Maria Hill and Talos. Carol, Monica and Kamala swap places every time they use their powers, until Monica is stranded in another universe and Kamala knocks on Kate Bishop's door. In Washington, the new director of the CIA, Valentina Allegra de Fontaine, has Everett Ross arrested for helping Wakanda."],["ch-10","Wilson Fisk survives the bullet Maya Lopez puts in him, and when she won't come home, he runs for mayor of New York and wins. Thaddeus Ross wins bigger and becomes President, until the scientist he wronged poisons him and he turns into a red Hulk in Washington, and Sam Wilson, now Captain America, brings him down. In New York, Bullseye kills Foggy Nelson and Matt Murdock hangs up the mask, while Mayor Fisk builds a task force to hunt vigilantes. Valentina sends her disposable assets to kill each other in a vault; they find Bob instead, and when his darkness swallows Manhattan, they pull him out of it and she names them the New Avengers. In Hollywood, an actor hides his powers from Damage Control. Matt tells a courtroom he is Daredevil and goes to prison, Fisk goes into exile, and Frank Castle comes out of retirement one more time."],["ch-11","Scott Lang's family is pulled into the Quantum Realm, where an exiled conqueror named Kang has built an empire, and they bring him down. At the TVA, the Loom that holds the timelines together fails, and Loki takes the branches in his own hands at the end of time. Deadpool pulls a Wolverine out of another universe to save his own. Four years after the world forgot him, Peter Parker stops a telepath at war with Damage Control by talking instead of fighting, and takes a bullet meant for her. After the credits, Ned's tracker finds him somewhere in space. On Earth-828, a family of four faces down Galactus for their son."],["ch-beyond-the-mcu","Phil Coulson didn't stay dead. He leads a small S.H.I.E.L.D. team through HYDRA, the Inhumans and the end of the world, more than once, without the Avengers or the public ever hearing about it. Peggy Carter, back from the war, fights to be taken seriously at the SSR. Thor spends his time off sharing an Australian flat with an office worker named Darryl. And Uatu, the Watcher, keeps an eye on the worlds where it went differently: Peggy takes the serum, T'Challa joins the Ravagers, Ultron wins, and the Avengers become the walking dead. When Ultron threatens all of them at once, Uatu breaks his oath to stop him."],["ch-the-spider-verse","In one world, Peter Parker learns that with great power comes great responsibility, and it costs him Uncle Ben and his best friend Harry. In another, a different Peter loses Gwen Stacy. Eddie Brock shares his body with Venom until Venom gives his life for him, and others touched by spiders and strange blood, Michael Morbius, Cassandra Webb and Sergei Kravinoff, find their own uses for their powers. In Brooklyn, Miles Morales becomes Spider-Man the day his world's Peter dies, then learns the Spider-Society expects him to let his father die, and refuses. In 1930s New York, Ben Reilly was once the Spider, and in another world, a young Peter Parker learns from Norman Osborn."],["ch-the-fox-men","Charles Xavier runs a school for mutants, people born with powers and feared for it, and his oldest friend, Erik Lehnsherr, becomes Magneto. The X-Men fight Stryker, the Brotherhood and the Sentinels, send Logan back to 1973 to rewrite their future, and lose Jean, then Charles, then Logan, who dies protecting a girl with his claws. Deadpool joins them on his own terms. In an animated world, the same team loses Xavier, fights on under Magneto and ends up scattered across time."],["ch-pruned-timelines","Other versions of these heroes lived in worlds that ran beside this one. A Fantastic Four fought Doom and met the Silver Surfer, Blade hunted vampires through three films, a blind lawyer in red loved and lost Elektra, and Frank Castle took his first revenge. Later, the Inhumans' royal family fled to Hawaii, a group of kids learned their parents were villains, and Cloak and Dagger found each other in New Orleans."],["ch-incursions","Then the TVA's monitors start counting worlds that never touched this one, colliding and going dark. A Hulk's Earth is gone, and so is a Fantastic Four's, and thousands more are falling."]],"debrief":null};
 // a chapter's story is told once everything in it that is out has been watched (titles with no data yet don't hold it back)
@@ -6448,6 +6585,38 @@ document.addEventListener("pointermove", ev => { const d = rcDrag; if (!d || ev.
   if (ev.target.closest("[data-rcn]")) { clearTimeout(c._go); if (rcT === t) rcT = null; rcGo(c); rateSheet(t); }
 }, true));
 // the sheet: stars (tap the same one again to clear them), the day you watched it, how many times, and a note. It saves as you go
+/* ---------- episodes: a series you're partway through counts its episodes ("4 of 9"), so it never reads as unwatched. Tap the count to step
+   through them; the last episode checks the season off everywhere, the same as checking the row */
+const EPS = /*EPS*/{};
+const epList = t => { const v = EPS[t]; return v == null ? null : Array.isArray(v) ? v : [v]; };
+const epTotal = t => (epList(t) || []).reduce((a, b) => a + (b || 0), 0);
+const epAt = t => Math.min(epTotal(t), ((state.eps || {})[t]) || 0);
+function epChip(e, t) { const n = epTotal(t); if (!n || state.checks[ck(e, t)]) return ""; const a = epAt(t);
+  return `<span class="epc${a ? " on" : ""}" role="button" tabindex="0" data-ep="${esc(t)}" aria-label="Episodes: ${a} of ${n} watched">${a ? `${a}<i>/${n}</i>` : `${n}<i> ep</i>`}</span>`; }
+function epLine(e, t) { const n = epTotal(t), a = epAt(t); if (!n || !a || state.checks[ck(e, t)]) return "";
+  return `<span class="epl"><span style="width:${Math.round(a / n * 100)}%"></span></span>`; }
+function epSheet(t) {
+  let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
+  el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet epsheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Episodes: " + tn(t));
+  const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
+  const L = epList(t), N = epTotal(t), multi = L.length > 1;
+  const draw = () => { const a = epAt(t); let k = 0;
+    inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><button type="button" class="rs-done">Done</button><small>Episodes</small><h4>${tnh(t)}</h4>
+      <p class="ep-sum"><b>${a}</b> of ${N} watched</p><div class="ep-bar"><span style="width:${Math.round(a / N * 100)}%"></span></div>
+      ${L.map((c, si) => `${multi ? `<div class="ep-sea">Season ${si + 1}</div>` : ""}<div class="ep-grid">${Array.from({ length: c }, (_, j) => { k++; return `<button type="button" data-epn="${k}" class="${k <= a ? "on" : ""}" aria-label="Episode ${j + 1}${multi ? " of season " + (si + 1) : ""}">${j + 1}</button>`; }).join("")}</div>`).join("")}
+      <p class="ep-hint">Tap the last episode you watched. The final one checks the ${multi ? "show" : "season"} off.</p>`; };
+  draw(); document.body.appendChild(el);
+  try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
+  const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
+  el.addEventListener("click", ev => {
+    if (ev.target === el || ev.target.closest(".rs-done")) { close(); return; }
+    const b = ev.target.closest("[data-epn]"); if (!b) return;
+    const n = +b.dataset.epn, a = epAt(t), to = n === a ? n - 1 : n; (state.eps = state.eps || {})[t] = to; persist(); haptic(8); draw();
+    if (openEntry) { const r = [...panel.querySelectorAll(".row")].find(x => x.dataset.t === t); if (r) { const c = r.querySelector(".epc"); if (c) c.outerHTML = epChip(openEntry, t); const l = r.querySelector(".epl"); const nl = epLine(openEntry, t); if (l) l.outerHTML = nl; else if (nl) r.querySelector(".tw").insertAdjacentHTML("beforeend", nl); } }
+    if (to === N) setTimeout(() => { close(); const r = openEntry && [...panel.querySelectorAll(".row")].find(x => x.dataset.t === t); if (r && r.getAttribute("aria-pressed") !== "true") r.click(); }, 380);   // the finale checks it off, like tapping the row
+  });
+}
+panel.addEventListener("click", ev => { const c = ev.target.closest("[data-ep]"); if (!c) return; ev.stopPropagation(); ev.preventDefault(); epSheet(c.dataset.ep); }, true);
 function rateSheet(t) {   // it opens on its own; the keyboard only comes up once you tap into the note
   let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
   el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Your log: " + tn(t));
@@ -9509,6 +9678,8 @@ const COMMS = [
 "also": ["Hit-Monkey"]
 }
 ];
+// mockup: the drafted headlines and messages that fill in every step of the watch order
+{ const NX = /*NEWSX*/{}, MX = /*COMMSX*/[], SX = /*SRCX*/{}; Object.entries(NX).forEach(([t, L]) => { NEWS[t] = (NEWS[t] || []).concat(L); }); MX.forEach(m => COMMS.push(m)); Object.assign(NEWS_SRC, SX); }
 // the welcome isn't tied to a title: it comes with the first boot, so only someone who has been through it gets it (and gets it again after Reset datapad)
 // a TVA log notice for an Earth with more than one title only arrives once every one of them is watched
 function msgId(m) { return m.id || m.t; }   // two messages on one title each need their own id
@@ -9725,6 +9896,48 @@ function reveal(cv, tile, id, done) {
   setTimeout(done, 690);
 }
 document.getElementById("upNext").addEventListener("click", goUpNext);
+/* ---------- the mission briefing: a button beside Up next. It only looks back: the last few things you watched (from your logs, with the day you
+   watched them), where each Infinity Stone was last seen, who's still at large, the runtime and how many scenes to stay for. Mark it watched from
+   there and the debrief counts everything it just unlocked across the datapad. Up next itself still jumps straight to the title */
+const BRIEF = /*BRIEF*/{};
+function bfTally() { const n = { log: 0, place: 0, news: 0, msg: 0, threat: 0, object: 0 };
+  Object.values(DOSSIERS).forEach(D => (D.story || []).forEach(([t, x]) => { if (x && atlSeenT(t)) n.log++; }));
+  Object.keys(ATLAS).forEach(v => ATLAS[v].forEach(p => { if (!p.home && atlLit(p)) n.place++; }));
+  newsTitles().forEach(t => n.news += NEWS[t].length); n.msg = msgSeen().length;
+  n.threat = THREATS.filter(o => rfSteps(o).length).length; n.object = COLL.filter(o => collSteps(o).length).length; return n; }
+function briefSheet() {
+  const u = upNext(); if (!u || u.kind !== "chapter") return;
+  let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
+  el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet briefsheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Mission briefing: " + tn(u.t));
+  const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
+  const c = u.e, idx = c.items.findIndex(i => i.t === u.t), B = BRIEF[u.t] || {};
+  // the last few titles you watched before it, with what their logs say about them
+  const before = [], order = DATA.chapters.filter(x => x.num); for (const ch of order) { for (const i of ch.items) { if (ch === c && i.t === u.t) break; if (state.checks[ck(ch, i.t)]) before.push([ch, i.t]); } if (ch === c) break; }
+  const prev = before.slice(-3).reverse().map(([ch, t]) => { const L = DOSSIERS[ch.id], x = L && (L.story.find(st => st[0] === t) || [])[1]; return { t, x, d: rateDate(t) }; }).filter(p => p.x);
+  const stones = COLL.filter(o => o.c === "stones" && o.s && collSteps(o).length).map(o => { const S = collSteps(o); return { n: o.n, s: o.s, g: (STONES.find(z => o.s.startsWith(z.n)) || {}).g || "#7FA6D8", last: S[S.length - 1][0] }; });
+  const large = THREATS.map(o => ({ o, S: rfSteps(o) })).filter(x => x.S.length && rfStatus(x.S) === "At large" && rfUniOf(x.o) === "mcu").sort((a, b) => (ATL_ORDER[rfLast(b.S)] ?? 0) - (ATL_ORDER[rfLast(a.S)] ?? 0)).slice(0, 8);
+  const meta = [B.min ? `${Math.floor(B.min / 60)} h ${B.min % 60} min` : "", B.eps ? `${B.eps} episodes` : "", B.mid != null || B.post != null ? (B.mid || B.post ? `Stay for ${[B.mid ? B.mid + " mid-credits" : "", B.post ? B.post + " after the credits" : ""].filter(Boolean).join(" + ")}` : "No scenes after the credits") : ""].filter(Boolean);
+  const draw = deb => { inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><button type="button" class="rs-done">Done</button><small>${deb ? "Mission debrief" : "Mission briefing · " + esc(c.label)}</small><h4>${tnh(u.t)}</h4>` + (deb ? `
+      <div class="bf-h">Unlocked across the datapad</div><ul class="bf-deb">${deb.map(([n, l]) => `<li><b>+${n}</b>${l}</li>`).join("") || "<li>Nothing new this time.</li>"}</ul>` : `
+      ${meta.length ? `<div class="bf-meta">${meta.map(m => `<span>${esc(m)}</span>`).join("")}</div>` : ""}
+      ${prev.length ? `<div class="bf-h">Previously</div><ul class="bf-prev">${prev.map(p => `<li><b>${tnh(p.t)}</b><p>${esc(p.x)}</p>${p.d ? `<small>Watched ${esc(showDate(p.d))}</small>` : ""}</li>`).join("")}</ul>` : ""}
+      ${stones.length ? `<div class="bf-h">The stones, last seen</div><div class="bf-stones">${stones.map(z => `<div style="--g:${z.g}"><b><i></i>${esc(z.s)}</b><small>${esc(z.last)}</small></div>`).join("")}</div>` : ""}
+      ${large.length ? `<div class="bf-h">Still at large</div><div class="bf-large">${large.map(x => `<span>${esc(rfName(x.o))}</span>`).join("")}</div>` : ""}
+      <div class="bf-act"><button type="button" data-bf="jump">Jump to it</button><button type="button" class="go" data-bf="mark">Mark watched</button></div>`); };
+  draw(); document.body.appendChild(el);
+  try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
+  const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
+  el.addEventListener("click", ev => {
+    if (ev.target === el || ev.target.closest(".rs-done")) { close(); return; }
+    const b = ev.target.closest("[data-bf]"); if (!b) return;
+    if (b.dataset.bf === "jump") { close(); setTimeout(goUpNext, 350); return; }
+    const was = bfTally(), wasSeen = atlSeenT(u.t); state.checks[ck(c, u.t)] = true; if (!wasSeen) firstWatch(u.t); persist(); renderAll(); haptic([18, 50, 30]);
+    const now = bfTally(), L = [["log", "log entries"], ["place", "places in the Atlas"], ["threat", "threat files"], ["object", "objects in the Collection"], ["news", "headlines"], ["msg", "messages"]];
+    draw(L.map(([k, l]) => [now[k] - was[k], l]).filter(([n]) => n > 0));
+  });
+}
+document.getElementById("btnBrief").addEventListener("click", briefSheet);
+
 document.getElementById("mainTitle").addEventListener("click", ev => {
   if (ev.target.closest("#stoneBar")) { if (state.mode !== "timeline") openGauntlet(); return; }
 });
@@ -10303,6 +10516,53 @@ document.addEventListener("click", ev => {
   if (b.closest(".row") || b.classList.contains("tl-row")) return;   // check-offs have their own firmer feel
   haptic(b.id === "gateEnter" ? HAPTIC.enter : HAPTIC.tap);
 }, true);
+/* ---------- search: one box across everything you've unlocked (titles, boxes, logs, the Atlas, the Collection, the Raft, the news and your
+   messages). It only ever finds what you've already seen, so it can't spoil anything ---------- */
+let srchOpen = false, srchKind = "";
+const srNorm = x => String(x || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const srMark = (txt, q) => { const n = srNorm(txt), i = n.indexOf(q); if (i < 0) return esc(txt); return esc(txt.slice(0, i)) + "<mark>" + esc(txt.slice(i, i + q.length)) + "</mark>" + esc(txt.slice(i + q.length)); };
+const srCut = (txt, q, w = 90) => { const i = srNorm(txt).indexOf(q); if (i < 0 || txt.length <= w) return txt; const a = Math.max(0, i - 30); return (a ? "…" : "") + txt.slice(a, a + w) + (a + w < txt.length ? "…" : ""); };
+const SR_KINDS = [["title", "Titles"], ["box", "Boxes"], ["log", "Logs"], ["place", "Atlas"], ["object", "Collection"], ["threat", "Threats"], ["news", "News"], ["msg", "Messages"]];
+function srIndex() {
+  const R = [], add = (kind, b, sm, em, go) => R.push({ kind, b, sm, em, go });
+  const seen = new Set();
+  [...DATA.chapters, ...DATA.chars].forEach(c => c.items.forEach(i => { if (seen.has(i.t) || !atlSeenT(i.t)) return; seen.add(i.t); add("title", tn(i.t), "", "Watched", () => srOpenTitle(i.t)); }));
+  DATA.chapters.filter(c => state.unlocked[c.id]).forEach(c => add("box", (c.num ? "Chapter " + c.num + " · " : "") + c.title, "", c.num ? "Chapter" : "Extras", () => openPanel(c, "chapter", document.querySelector(`.tile[data-id="${c.id}"]`) || document.body)));
+  DATA.chars.filter(c => state.charOpen && state.charOpen[c.id]).forEach(c => add("box", boxName(c), "", "Character box", () => openPanel(c, "char", document.querySelector(`.tile[data-id="${c.id}"]`) || document.body)));
+  Object.entries(DOSSIERS).forEach(([id, D]) => { const box = DATA.chapters.find(c => c.id === id) || DATA.chars.find(c => c.id === id); if (!box || (box.num && !state.unlocked[id]) || (!box.num && DATA.chars.includes(box) && !(state.charOpen || {})[id])) return;
+    (D.story || []).forEach(([t, x]) => { if (x && atlSeenT(t)) add("log", tn(t), x, (DATA.chars.includes(box) ? boxName(box) : box.title) + " · log", () => openDossier(id)); }); });
+  Object.keys(ATLAS).forEach(v => ATLAS[v].forEach(p => { if (p.home || !p.e) return; const E = p.e.filter(e => atlSeenT(e[0])); if (!E.length) return;
+    add("place", p.n, E.map(e => e[2]).join(" "), p.r + " · Atlas", () => srOpenPlace(v, p.id)); }));
+  COLL.forEach(o => { const S = collSteps(o); if (S.length) add("object", o.n, S.map(x => x[0]).join(" "), "The Collection", () => { openAtlas(); openColl(); collShow(o.id); }); });
+  THREATS.forEach(o => { const S = rfSteps(o); if (S.length) add("threat", rfName(o), rfKind(o) + " " + S.map(x => x[0]).join(" "), rfStatus(S) + " · Threat registry", () => { openAtlas(); openColl("raft"); collShow(o.id); }); });
+  newsTitles().forEach(t => NEWS[t].forEach((h, i) => { if ((state.news || {})[newsKey(t, i)]) add("news", h, "", (OUTLETS[newsSrc(t)] || [""])[0] + " · " + tn(t), () => openComms("news")); }));
+  msgSeen().forEach(m => { if ((state.msgs || {})[msgId(m)]) add("msg", m.re, m.b.replace(/\[\[|\]\]/g, ""), "From " + m.f, () => openComms("msg")); });
+  return R;
+}
+function srOpenTitle(t) { const c = DATA.chapters.find(c => state.unlocked[c.id] && c.items.some(i => i.t === t)) || DATA.chars.find(c => (state.charOpen || {})[c.id] && c.items.some(i => i.t === t)); if (c) openPanel(c, DATA.chapters.includes(c) ? "chapter" : "char", document.querySelector(`.tile[data-id="${c.id}"]`) || document.body); }
+function srOpenPlace(v, id) { openAtlas(); if (v !== "earth") atlLeave(v); setTimeout(() => { const m = document.getElementById("atlMap"); if (m) atlSelect(m, id); }, 450); }
+function renderSearch() {
+  const v = document.getElementById("srchView"), q = srNorm(document.getElementById("srchIn").value.trim());
+  if (q.length < 2) { v.innerHTML = `<div class="sr"><p class="sr-empty">Titles, logs, places, objects, threats,<br>headlines and messages.<br>Only what you've unlocked.</p></div>`; return; }
+  const hits = srIndex().filter(r => srNorm(r.b).includes(q) || srNorm(r.sm).includes(q)), K = SR_KINDS.filter(([k]) => hits.some(h => h.kind === k));
+  if (srchKind && !K.some(([k]) => k === srchKind)) srchKind = "";
+  window.__srHits = hits;
+  v.innerHTML = `<div class="sr">${hits.length ? `<div class="sr-chips"><button type="button" data-srk="" class="${srchKind ? "" : "on"}">All ${hits.length}</button>${K.map(([k, l]) => `<button type="button" data-srk="${k}" class="${k === srchKind ? "on" : ""}">${l} ${hits.filter(h => h.kind === k).length}</button>`).join("")}</div>` : ""}
+    ${K.filter(([k]) => !srchKind || k === srchKind).map(([k, l]) => `<div class="sr-h">${l}</div>${hits.map((h, i) => [h, i]).filter(([h]) => h.kind === k).slice(0, srchKind ? 200 : 6).map(([h, i]) => `<button type="button" class="sr-it" data-sri="${i}"><b>${srMark(h.b, q)}</b>${h.sm && srNorm(h.sm).includes(q) ? `<small>${srMark(srCut(h.sm, q), q)}</small>` : ""}<em>${esc(h.em)}</em></button>`).join("")}`).join("")}
+    ${hits.length ? "" : `<p class="sr-empty">Nothing on file matches.</p>`}</div>`;
+}
+function openSearch() { srchOpen = true; srchKind = ""; const p = document.getElementById("srchPanel"), i = document.getElementById("srchIn"); i.value = ""; renderSearch(); p.hidden = false; document.body.style.overflow = "hidden"; try { history.pushState({ mcu: "search" }, ""); } catch (e) {} setTimeout(() => i.focus(), 60); }
+function closeSearch(fromHistory) { if (!fromHistory && navAt("search")) { navBack(); return; } document.getElementById("srchPanel").hidden = true; srchOpen = false; document.getElementById("srchIn").blur(); bodyFree(); }
+document.getElementById("btnSearch").addEventListener("click", () => { haptic(10); openSearch(); });
+document.getElementById("srchBack").addEventListener("click", () => { haptic(8); closeSearch(); });
+document.getElementById("srchIn").addEventListener("input", renderSearch);
+document.getElementById("srchIn").addEventListener("keydown", ev => { if (ev.key === "Enter") ev.target.blur(); });
+document.getElementById("srchView").addEventListener("click", ev => {
+  const k = ev.target.closest("[data-srk]"); if (k) { haptic(8); srchKind = k.dataset.srk; renderSearch(); return; }
+  const it = ev.target.closest("[data-sri]"); if (!it) return; haptic(10); const h = window.__srHits[+it.dataset.sri];
+  document.getElementById("srchPanel").hidden = true; srchOpen = false; document.getElementById("srchIn").blur(); h.go();   // the search's own step is skipped on the way back
+});
+{ const ns = navStep; navStep = function () { if (srchOpen && !navAt("search")) { navBusy = false; closeSearch(true); return; } return ns.apply(this, arguments); }; }
 renderAll();
 ["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
 </script>
