@@ -4654,7 +4654,7 @@ function renderCp() {
 function cpBody() {
   const seen = state.cpSeen = state.cpSeen || {}, q = qNorm(cpQ.trim());
   const card = o => { const S = cpSteps(o), st = cpStatus(S), n = cpName(o);
-    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(cpKind(o))}</small><em>${cpGrp === "status" && q.length < 2 ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
+    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(cpKind(o))}</small><em>${q.length > 1 ? esc(st) + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))) : cpGrp === "status" ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
   if (q.length > 1) {
     const L = ALLIES.filter(o => cpSteps(o).length && [cpName(o), cpKind(o)].some(t => qNorm(t).includes(q))).sort((a, b) => qNorm(cpName(b)).includes(q) - qNorm(cpName(a)).includes(q) || cpName(a).localeCompare(cpName(b)));
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cp-grid">${L.map(card).join("")}</div>` : `<p class="sr-empty">No data.</p>`;

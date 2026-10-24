@@ -89,6 +89,10 @@ for o in allies:
         c=_ch.get(o['st'][0][1])
         if c=='ch-beyond-the-mcu': o['id']='by-'+o['id']
         elif c=='ch-pruned-timelines': o['id']='pr-'+o['id']
+_TM={'The CIA':'CIA','Strategic Scientific Reserve':'SSR','Nelson and Murdock':'Nelson & Murdock'}   # one spelling per team
+for o in allies:
+    if isinstance(o.get('tm'),list): o['tm']=[[_TM.get(t,t),x] for t,x in o['tm']]
+    elif o.get('tm'): o['tm']=_TM.get(o['tm'],o['tm'])
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats); eps={k:([x for x in v if x] if isinstance(v,list) else v) for k,v in eps.items()}
 epn={}; epn.update(load('episodes_a.json',{})); epn.update(load('episodes_b.json',{}))
@@ -103,7 +107,7 @@ _all=set(json.load(open(D+'alltitles.json',encoding='utf8')))
 for k,v in list(eps.items()):
     if not isinstance(v,list) or not v: continue
     nm=epn.get(k); nested=bool(nm) and isinstance(nm[0],list)
-    for t in _all:
+    for t in sorted(_all):
         m=re.fullmatch(re.escape(k)+r' S(\d+)(?:[–-]S(\d+))?',t)
         if not m or t in eps: continue
         a=int(m.group(1)); b=int(m.group(2) or a)
