@@ -758,21 +758,6 @@ body[data-mode="timeline"] .stonebar{ pointer-events:none; }
 .epsheet .ep-ck{ flex:none; display:grid; place-items:center; width:24px; height:24px; border:2px solid #3E5578; border-radius:3px; } .epsheet .ep-ck svg{ width:15px; height:15px; opacity:0; }
 .epsheet .ep-list button.on .ep-ck{ background:#5FA8FF; border-color:#5FA8FF; } .epsheet .ep-list button.on .ep-ck svg{ opacity:1; } .epsheet .ep-list button.on .ep-t{ color:#8E9BB0; }
 .epsheet .rs-in{ max-height:82vh; overflow-y:auto; }
-.upwrap{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:0 8px; max-width:100%; }
-.upwrap .upnext{ min-width:0; }
-.brief-btn{ flex:none; margin-top:10px; padding:7px 12px; border:1px solid #2D63C8; border-radius:999px; background:rgba(45,99,200,.14); color:#9FC3FF; font:11px/1.25 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
-.brief-btn[hidden]{ display:none; }
-.briefsheet .rs-in{ max-height:86vh; overflow-y:auto; }
-.bf-meta{ display:flex; flex-wrap:wrap; gap:6px; margin:-6px 0 14px; }
-.bf-meta span{ padding:3px 8px; border:1px solid #2B3F62; border-radius:4px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#AFC6E6; text-transform:uppercase; }
-.bf-h{ margin:16px 0 6px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
-.bf-prev{ list-style:none; margin:0; padding:0; border-top:1px solid #1E2638; }
-.bf-prev li{ padding:9px 0; border-bottom:1px solid #1E2638; } .bf-prev b{ display:block; font-size:14px; } .bf-prev p{ margin:3px 0 0; font-size:14.5px; line-height:1.45; color:#C9D3E4; } .briefsheet .bf-prev small{ display:block; margin-top:3px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#7D8BA6; text-transform:uppercase; }
-.bf-stones{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-.bf-stones div{ padding:8px 10px; border:1px solid #1E2638; border-radius:8px; background:#0F1626; } .bf-stones b{ display:flex; align-items:center; gap:6px; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:1.5px; text-transform:uppercase; } .bf-stones b i{ width:8px; height:8px; border-radius:50%; background:var(--g); box-shadow:0 0 6px var(--g); } .briefsheet .bf-stones small{ display:block; margin-top:4px; font:13px/1.35 "IBM Plex Sans Condensed","Arial Narrow",sans-serif; letter-spacing:0; text-transform:none; color:#C9D3E4; }
-.bf-large{ display:flex; flex-wrap:wrap; gap:6px; } .bf-large span{ padding:4px 9px; border:1px solid rgba(224,74,58,.6); border-radius:4px; color:#F09080; font-size:13px; }
-.bf-act{ display:flex; gap:8px; margin-top:18px; } .bf-act button{ flex:1; padding:11px; border:1px solid #2B3F62; border-radius:12px; background:#13203A; color:#CFE4FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; } .bf-act button.go{ background:#5FA8FF; border-color:#5FA8FF; color:#06101E; }
-.bf-deb li{ padding:7px 0; border-bottom:1px solid #1E2638; font-size:15px; color:#D5DCE8; list-style:none; } .bf-deb{ margin:0; padding:0; } .bf-deb b{ font:400 20px/1 'Anton','Impact',sans-serif; color:#EEF1F6; margin-right:6px; }
 .ratesheet{ position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
 .ratesheet .rs-in{ position:relative; width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
 /* Done sits up top, clear of the keyboard: everything saves as you go, so it just puts the sheet away */
@@ -860,10 +845,6 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .tl-list li.hidden{ display:none; }
 .tl-next{ display:grid; grid-template-columns:minmax(0,1fr) clamp(150px,24vw,260px) minmax(0,1fr); height:78px; }
 .tl-next .tl-lanes{ grid-column:2; position:relative; }
-.tl-phase{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) clamp(150px,24vw,260px) minmax(0,1fr); height:58px; }
-.tl-phase .tl-lanes{ grid-column:2; position:relative; }
-.tl-phtag{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:inline-flex; align-items:baseline; gap:8px; white-space:nowrap; padding:5px 12px; border:1px solid rgba(255,179,71,.55); border-radius:4px; background:#120D09; color:#C9A574; font:10.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
-.tl-phtag b{ color:#FFD08A; font-weight:400; font-size:12px; letter-spacing:2.5px; }
 .tl-fold{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) clamp(150px,24vw,260px) minmax(0,1fr); height:76px; }
 .tl-fold .tl-lanes{ grid-column:2; position:relative; }
 .tl-list > .tl-fold:last-child{ margin-bottom:45vh; }   /* room to scroll your next title up into view */
@@ -1340,7 +1321,7 @@ body{ padding-bottom:var(--dockh); }
       <div class="num" id="meterNum">0 <small>of 0 complete</small></div>
       <div class="barrow"><div class="bar"><span id="meterBar"></span></div><span class="pct" id="meterPct">0%</span></div>
       <div class="mstatus" id="meterStatus"></div>
-      <div class="upwrap"><button type="button" class="upnext" id="upNext" hidden></button><button type="button" class="brief-btn" id="btnBrief" hidden aria-label="Mission briefing">Briefing</button></div>
+      <button type="button" class="upnext" id="upNext" hidden></button>
     </div>
   </header>
   <nav class="modes" aria-label="Watch order">
@@ -1807,12 +1788,6 @@ function tlSetFocus(lane) {
   sec.querySelectorAll("[data-focus-lane]").forEach(b => b.setAttribute("aria-pressed", b.dataset.focusLane === tlFocus));
   renderMeter();
 }
-const PHASES = /*PHASES*/{};
-const PHASE_NAME = { 1: ["Phase One", "2008 to 2012"], 2: ["Phase Two", "2013 to 2015"], 3: ["Phase Three", "2016 to 2019"], 4: ["Phase Four", "2021 to 2022"], 5: ["Phase Five", "2023 to 2025"], 6: ["Phase Six", "2025 onward"] };
-function phaseLi(ph, i, show) {   // the line runs straight through; the branch lines too, once they've split off
-  const M = LANES.main.p, br = show && i > splitOf() ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
-  return `<li class="tl-phase" aria-label="${PHASE_NAME[ph][0]}, ${PHASE_NAME[ph][1]}"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line data-ln="main" x1="${M}" y1="${i === TLX().findIndex(x => x.lane === "main") ? 50 : 0}" x2="${M}" y2="100" stroke="${LANES.main.c}" stroke-width="3" vector-effect="non-scaling-stroke"/>${br}</svg></span><span class="tl-phtag"><b>${PHASE_NAME[ph][0]}</b>${PHASE_NAME[ph][1]}</span></li>`;
-}
 function renderTimeline(v) {
   const show = branched(), grow = growNext && show && !REDUCED;
   if (grow) setTimeout(() => { const s = document.querySelector(".tl.grow"); if (s) s.classList.remove("grow"); }, TLX().length * 28 + 900);
@@ -1843,9 +1818,7 @@ function renderTimeline(v) {
       const lanes = show && F >= SPLIT ? BR.map(b => `<line data-ln="${b}" x1="${LANES[b].p}" y1="0" x2="${LANES[b].p}" y2="100" stroke="${LANES[b].c}" stroke-width="2.2" vector-effect="non-scaling-stroke" opacity="0.8"/>`).join("") : "";
       const foldLi = `<li class="tl-fold"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line data-ln="main" x1="50" y1="0" x2="50" y2="${open ? 100 : 34}" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/>${lanes}</svg></span>
         <button type="button" class="tl-foldbtn" data-tlfold="${open ? "close" : "open"}">${open ? "Hide" : "Reveal"} <span aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button></li>`;
-      let lastPh = 0;   // Release Order: a marker where each of Marvel Studios' phases begins
-      return TLX().map((e, i) => { const row = F < 0 || open || i <= F ? tlRow(e, i, show, stepOf) + (i === F ? foldLi : "") : e.lane === "main" ? "" : tlRow(e, i, show, stepOf, true);
-        const ph = rel && PHASES[e.t]; let mk = ""; if (ph && ph > lastPh) { lastPh = ph; if (row) mk = phaseLi(ph, i, show); } return mk + row; }).join(""); })()}
+      return TLX().map((e, i) => F < 0 || open || i <= F ? tlRow(e, i, show, stepOf) + (i === F ? foldLi : "") : e.lane === "main" ? "" : tlRow(e, i, show, stepOf, true)).join(""); })()}
       ${tlFoldAt() >= 0 ? "" : `<li class="tl-next" aria-label="What's next?"><span class="tl-lanes" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <line x1="50" y1="0" x2="50" y2="14" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>
         <i style="top:34%;opacity:.85"></i><i style="top:56%;opacity:.55"></i><i style="top:78%;opacity:.28"></i></span></li>`}
@@ -2108,12 +2081,11 @@ function upNext() {
 }
 function paintUpNext() {
   const b = document.getElementById("upNext"), u = upNext();
-  if (!u) { b.hidden = true; const bb = document.getElementById("btnBrief"); if (bb) bb.hidden = true; return; }
+  if (!u) { b.hidden = true; return; }
   b.hidden = false;
   // the pill says where tapping takes you; a chapter still to unlock is named as the destination
   const lab = u.kind === "chapter" || u.kind === "char" ? "Jump to · " + esc(u.label) : "Jump to";
   b.innerHTML = `<span class="ul">${lab}</span><span class="ut">${esc(u.kind === "unlock" ? u.e.label : tnY(u.t))}</span>`;
-  const bb = document.getElementById("btnBrief"); if (bb) bb.hidden = u.kind !== "chapter";
 }
 function goUpNext() {
   const u = upNext(); if (!u) return;
@@ -3073,7 +3045,6 @@ const slSeenK = (c, k) => !!((state.dSeen || {})[c.id] || {})[k];
 const slPer = c => { const v = ((DOSSIERS[c.id] || {}).rows || {}).period; let k = -1; (v || []).forEach((st, i) => { if (atlSeenT(st[1])) k = i; }); return k; };
 const slDeb = c => { const L = DOSSIERS[c.id]; return !!(L && L.debrief) && slAll(c); };
 const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")) || (slEntries(c).length > 0 && slPer(c) >= 0 && !slSeenK(c, "r0." + slPer(c))));
-// the Story log and Character paths are one page with two views: the log's own entries, and who turns up where
 function slPlace(open) { slOpen = open || null; }   // the log opens with every chapter folded, unless you've jumped in from one of them
 function slHTML() {
   return `<h2 class="pgtitle" data-glow="Story Log">Story Log</h2>
@@ -4518,7 +4489,7 @@ function renderRaft() {
     return;
   }
   // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header. The search
-  // above it looks through every universe's files at once, by name, who they are, who stands against them, and what's on record
+  // above it looks through every universe's files at once, by name and by who they are
   const U = rfUnis(), all = THREATS.filter(o => rfSteps(o).length).length;
   v.innerHTML = `<div class="co"><div class="co-top"><small>Threat registry · Damage Control</small><p class="co-sub"><span class="rf-n">${all}</span> threat${all === 1 ? "" : "s"} on file</p></div>
     ${rfIntake ? `<div class="rf-intake"><i aria-hidden="true"></i>Intake complete · ${rfIntake} file${rfIntake === 1 ? "" : "s"} transferred</div>` : ""}
@@ -4585,7 +4556,7 @@ function rfBody() {
   const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
   const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
   if (q.length > 1) {
-    const L = THREATS.filter(o => { const S = rfSteps(o); return S.length && [rfName(o), rfKind(o), rfOpp(o), rfClass(o), ...S.flatMap(x => [x[0], tn(x[1])])].some(t => qNorm(t).includes(q)); })
+    const L = THREATS.filter(o => { const S = rfSteps(o); return S.length && [rfName(o), rfKind(o)].some(t => qNorm(t).includes(q)); })
       .sort((a, b) => qNorm(rfName(b)).includes(q) - qNorm(rfName(a)).includes(q) || rfName(a).localeCompare(rfName(b)));
     return L.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em><br>${rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o)))}`)).join("")}</div></section>` : `<p class="sr-empty">No data.</p>`;
   }
@@ -9933,7 +9904,8 @@ document.addEventListener("visibilitychange", () => { if (document.hidden) newsS
 // any ticker or pop-up can be swiped away: down, or off to either side. It follows your finger, and goes if you pull it far enough
 function swipeAway(el, base, live, dismiss, tapAway) {   // tapAway: a tap dismisses it too, or runs this instead when it's a function
   let s = null;
-  document.addEventListener("pointerdown", ev => { s = null; if (!live()) return; const r = el.getBoundingClientRect();
+  // a sheet open over it (episodes, your log) takes its own taps, even where the pill sits underneath
+  document.addEventListener("pointerdown", ev => { s = null; if (!live() || (ev.target.closest && ev.target.closest(".ratesheet"))) return; const r = el.getBoundingClientRect();
     if (ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top - 6 && ev.clientY <= r.bottom + 6) s = { x: ev.clientX, y: ev.clientY, id: ev.pointerId, on: false, dx: 0, dy: 0 }; }, true);
   document.addEventListener("pointermove", ev => { if (!s || ev.pointerId !== s.id) return; const dx = ev.clientX - s.x, dy = ev.clientY - s.y;
     if (!s.on) { if (Math.hypot(dx, dy) < 8) return; if (dy < 0 && -dy > Math.abs(dx)) { s = null; return; } s.on = true; el.style.transition = "none"; }   // an upward drag is left alone
@@ -10105,47 +10077,6 @@ function reveal(cv, tile, id, done) {
   setTimeout(done, 690);
 }
 document.getElementById("upNext").addEventListener("click", goUpNext);
-/* ---------- the mission briefing: a button beside Up next. It only looks back: the last few things you watched (from your logs, with the day you
-   watched them), where each Infinity Stone was last seen, who's still at large, the runtime and how many scenes to stay for. Mark it watched from
-   there and the debrief counts everything it just unlocked across the datapad. Up next itself still jumps straight to the title */
-const BRIEF = /*BRIEF*/{};
-function bfTally() { const n = { log: 0, place: 0, news: 0, msg: 0, threat: 0, object: 0 };
-  Object.values(DOSSIERS).forEach(D => (D.story || []).forEach(([t, x]) => { if (x && atlSeenT(t)) n.log++; }));
-  Object.keys(ATLAS).forEach(v => ATLAS[v].forEach(p => { if (!p.home && atlLit(p)) n.place++; }));
-  newsTitles().forEach(t => n.news += NEWS[t].length); n.msg = msgSeen().length;
-  n.threat = THREATS.filter(o => rfSteps(o).length).length; n.object = COLL.filter(o => collSteps(o).length).length; return n; }
-function briefSheet() {
-  const u = upNext(); if (!u || u.kind !== "chapter") return;
-  let el = document.getElementById("rateSheet"); if (el) el.remove(); haptic(10);
-  el = document.createElement("div"); el.id = "rateSheet"; el.className = "ratesheet briefsheet"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Mission briefing: " + tn(u.t));
-  const inn = document.createElement("div"); inn.className = "rs-in"; el.appendChild(inn);
-  const c = u.e, idx = c.items.findIndex(i => i.t === u.t), B = BRIEF[u.t] || {};
-  // the last few titles you watched before it, with what their logs say about them
-  const before = [], order = DATA.chapters.filter(x => x.num); for (const ch of order) { for (const i of ch.items) { if (ch === c && i.t === u.t) break; if (state.checks[ck(ch, i.t)]) before.push([ch, i.t]); } if (ch === c) break; }
-  const prev = before.slice(-3).reverse().map(([ch, t]) => { const L = DOSSIERS[ch.id], x = L && (L.story.find(st => st[0] === t) || [])[1]; return { t, x, d: rateDate(t) }; }).filter(p => p.x);
-  const stones = COLL.filter(o => o.c === "stones" && o.s && collSteps(o).length).map(o => { const S = collSteps(o); return { n: o.n, s: o.s, g: (STONES.find(z => o.s.startsWith(z.n)) || {}).g || "#7FA6D8", last: S[S.length - 1][0] }; });
-  const large = THREATS.map(o => ({ o, S: rfSteps(o) })).filter(x => x.S.length && rfStatus(x.S) === "At large" && rfUniOf(x.o) === "mcu").sort((a, b) => (ATL_ORDER[rfLast(b.S)] ?? 0) - (ATL_ORDER[rfLast(a.S)] ?? 0)).slice(0, 8);
-  const meta = [B.min ? `${Math.floor(B.min / 60)} h ${B.min % 60} min` : "", B.eps ? `${B.eps} episodes` : "", B.mid != null || B.post != null ? (B.mid || B.post ? `Stay for ${[B.mid ? B.mid + " mid-credits" : "", B.post ? B.post + " after the credits" : ""].filter(Boolean).join(" + ")}` : "No scenes after the credits") : ""].filter(Boolean);
-  const draw = deb => { inn.innerHTML = `<div class="rs-grip" aria-hidden="true"></div><button type="button" class="rs-done">Done</button><small>${deb ? "Mission debrief" : "Mission briefing · " + esc(c.label)}</small><h4>${tnh(u.t)}</h4>` + (deb ? `
-      <div class="bf-h">Unlocked across the datapad</div><ul class="bf-deb">${deb.map(([n, l]) => `<li><b>+${n}</b>${l}</li>`).join("") || "<li>Nothing new this time.</li>"}</ul>` : `
-      ${meta.length ? `<div class="bf-meta">${meta.map(m => `<span>${esc(m)}</span>`).join("")}</div>` : ""}
-      ${prev.length ? `<div class="bf-h">Previously</div><ul class="bf-prev">${prev.map(p => `<li><b>${tnh(p.t)}</b><p>${esc(p.x)}</p>${p.d ? `<small>Watched ${esc(showDate(p.d))}</small>` : ""}</li>`).join("")}</ul>` : ""}
-      ${stones.length ? `<div class="bf-h">The stones, last seen</div><div class="bf-stones">${stones.map(z => `<div style="--g:${z.g}"><b><i></i>${esc(z.s)}</b><small>${esc(z.last)}</small></div>`).join("")}</div>` : ""}
-      ${large.length ? `<div class="bf-h">Still at large</div><div class="bf-large">${large.map(x => `<span>${esc(rfName(x.o))}</span>`).join("")}</div>` : ""}
-      <div class="bf-act"><button type="button" data-bf="jump">Jump to it</button><button type="button" class="go" data-bf="mark">Mark watched</button></div>`); };
-  draw(); document.body.appendChild(el);
-  try { history.pushState({ mcu: "rate" }, ""); } catch (e) {}
-  const close = () => { if (navAt("rate")) navBack(); else el.remove(); };
-  el.addEventListener("click", ev => {
-    if (ev.target === el || ev.target.closest(".rs-done")) { close(); return; }
-    const b = ev.target.closest("[data-bf]"); if (!b) return;
-    if (b.dataset.bf === "jump") { close(); setTimeout(goUpNext, 350); return; }
-    const was = bfTally(), wasSeen = atlSeenT(u.t); state.checks[ck(c, u.t)] = true; if (!wasSeen) firstWatch(u.t); persist(); renderAll(); haptic([18, 50, 30]);
-    const now = bfTally(), L = [["log", "log entries"], ["place", "places in the Atlas"], ["threat", "threat files"], ["object", "objects in the Collection"], ["news", "headlines"], ["msg", "messages"]];
-    draw(L.map(([k, l]) => [now[k] - was[k], l]).filter(([n]) => n > 0));
-  });
-}
-document.getElementById("btnBrief").addEventListener("click", briefSheet);
 
 document.getElementById("mainTitle").addEventListener("click", ev => {
   if (ev.target.closest("#stoneBar")) { if (state.mode !== "timeline") openGauntlet(); return; }
