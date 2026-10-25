@@ -14,8 +14,8 @@ const T = 'Agents of S.H.I.E.L.D. S6–S7', S6 = 'Agents of S.H.I.E.L.D. S6', S7
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); };
   const r = await p.evaluate(([T, S6, S7]) => {
     const has = k => !!state.checks[k], any = k => Object.keys(state.checks).some(x => x.includes(T));
-    return { checks: ['ch-beyond-the-mcu::', 'tl::', 'cx-nick-fury-s-h-i-e-l-d::'].map(p => has(p + S6) && has(p + S7)), stale: any(), eps: [state.eps['tr::' + S6], state.eps['tr::' + S7]],
-      rate: [state.rate[S6], state.rate[S7]], on: [state.watchedOn[S6], state.watchedOn[S7]], ds: [state.dSeen['ch-beyond-the-mcu']['s:' + S6], state.dSeen['ch-beyond-the-mcu']['s:' + S7], state.dSeen['ch-beyond-the-mcu']['s:' + T]],
+    return { checks: ['ch-beyond-the-mcu::', 'tl::', 'cx-s-h-i-e-l-d::'].map(p => has(p + S6) && has(p + S7)), stale: any(), eps: [state.eps['tr::' + S6], state.eps['tr::' + S7]],
+      rate: [state.rate[S6], state.rate[S7]], on: [state.watchedOn[S6], state.watchedOn[S7]], ds: [state.dSeen['ch-beyond-the-mcu']['s:' + S6], state.dSeen['ch-beyond-the-mcu']['s:' + S7], state.dSeen['ch-beyond-the-mcu']['s:' + T]], dsh: [state.dSeen['cx-s-h-i-e-l-d'] && state.dSeen['cx-s-h-i-e-l-d']['s:' + S6], state.dSeen['cx-s-h-i-e-l-d'] && state.dSeen['cx-s-h-i-e-l-d']['s:' + S7]],
       tl: [DATA.timeline.some(e => e.t === T), DATA.timeline.findIndex(e => e.t === S7) - DATA.timeline.findIndex(e => e.t === S6)],
       tr: DATA.timelineRelease.map(e => e.t).filter(t => [S6, S7, 'Runaways S3', 'The New Mutants', 'Dark Phoenix'].includes(t)),
       box: DATA.chapters.find(c => c.id === 'ch-beyond-the-mcu').items.map(i => i.t).filter(t => t.startsWith('Agents of S.H.I.E.L.D.')),
@@ -26,6 +26,7 @@ const T = 'Agents of S.H.I.E.L.D. S6–S7', S6 = 'Agents of S.H.I.E.L.D. S6', S7
   ok(JSON.stringify(r.eps) === '[[1,2],[1,2]]', 'episodes cut at season 6\'s 13 ' + JSON.stringify(r.eps));
   ok(r.rate.join() === '4,4' && r.on.join() === '2026-01-02,2026-01-02', 'rating and date to both');
   ok(r.ds[0] && r.ds[1] && !r.ds[2], 'read log entry to both');
+  ok(r.dsh[0] && r.dsh[1], 'the combined box\'s read entry reaches S.H.I.E.L.D.\'s log');
   ok(!r.tl[0] && r.tl[1] === 1, 'story timeline: S6 then S7');
   ok(JSON.stringify(r.tr) === JSON.stringify([S6, 'Dark Phoenix', 'Runaways S3', S7, 'The New Mutants']), 'release order ' + JSON.stringify(r.tr));
   ok(JSON.stringify(r.box) === JSON.stringify([S6, S7]) && JSON.stringify(r.log) === JSON.stringify([S6, S7]), 'Extras box and log');
