@@ -147,9 +147,8 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 
 ## Open items
 
-1. **Unreleased films on the main line.** Avengers: Doomsday and Avengers: Secret Wars end the Sacred Timeline's main line, so nobody
-   can honestly finish it yet, or get its pill and its Level 5 moment from the timeline. One option is to count only released titles
-   until each film comes out. The owner hasn't decided.
+None. Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once
+they're out and watched.
 
 ## This round, all on main
 
