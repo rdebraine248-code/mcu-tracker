@@ -4280,8 +4280,8 @@ const rfOpps = o => { let L;
   else L = Array.isArray(o.op) ? o.op.filter(x => atlSeenT(x[1])).map(x => x[0]) : [o.op || ""];
   return [...new Set(L.filter(Boolean))]; };
 let rfOppF = "";
-// MOCKUP, waiting for the owner (test build only): villains carry the organizations they serve (tm, staged by title like a hero's team), shown
-// on their file, as a roster with the group's own file, and as a way to group the registry. With MOCK off (main), none of it shows
+// a villain's factions: the organizations they serve (tm, staged by title like a hero's team; October 2026), shown on their file, as a roster
+// with the group's own file, and as a way to group the registry. A brainwashed or forced servant isn't a member
 const rfTeams = o => Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [o.tm || "Independent"];
 let rfTeamF = "", rfTeamFrom = "";
 function rfGroupFile(team, from) {   // the group file carrying that name in this universe, the one whose id is closest to the file you came from
@@ -4289,7 +4289,7 @@ function rfGroupFile(team, from) {   // the group file carrying that name in thi
   const near = o => { let n = 0; const a = o.id.split("-"), b = (from || "").split("-"); while (n < a.length && a[n] === b[n]) n++; return n; };
   return L.slice().sort((a, b) => near(b) - near(a))[0];
 }
-if (MOCK) RF_GRP.push(["tm", "Organization"]);
+RF_GRP.push(["tm", "Faction"]);
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
 function renderRaft() {
@@ -4301,7 +4301,7 @@ function renderRaft() {
       <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div class="wide"><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div></div>
-      ${MOCK ? `<div class="co-h">Organizations</div><div class="cp-teams">${rfTeams(o).map(t => `<button type="button" data-rft="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : ""}
+      <div class="co-h">Factions</div><div class="cp-teams">${rfTeams(o).map(t => `<button type="button" data-rft="${esc(t)}">${esc(t)}</button>`).join("")}</div>
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
@@ -4326,10 +4326,10 @@ function rfBody() {
     return `<div class="tf-bar"><span><small>Opposed by</small><b>${esc(rfOppF)}</b></span><button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
       <section class="rf-sec"><div class="rf-sh rf-found"><span>Threats</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
   }
-  if (rfTeamF && q.length < 2) {   // mockup: everyone on file who has served one organization, as far as you've watched
+  if (rfTeamF && q.length < 2) {   // everyone on file who has served one faction, as far as you've watched
     const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfTeams(o).includes(rfTeamF)).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
     const gf = rfGroupFile(rfTeamF, rfTeamFrom);
-    return `<div class="tf-bar"><span><small>Organization</small><b>${esc(rfTeamF)}</b></span>${gf ? `<button type="button" data-co="${esc(gf.id)}" aria-label="Open the group's own file">Group file</button>` : ""}<button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
+    return `<div class="tf-bar"><span><small>Faction</small><b>${esc(rfTeamF)}</b></span>${gf ? `<button type="button" data-co="${esc(gf.id)}" aria-label="Open the group's own file">Group file</button>` : ""}<button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
       <section class="rf-sec"><div class="rf-sh rf-found"><span>On file</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
   }
   if (q.length > 1) {
