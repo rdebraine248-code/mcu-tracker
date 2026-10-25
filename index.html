@@ -4283,7 +4283,7 @@ const rfOpps = o => { let L;
   return [...new Set(L.filter(Boolean))]; };
 let rfOppF = "";
 // a villain's factions: the organizations they serve (tm, staged by title like a hero's team; October 2026), shown on their file, as a roster
-// with the group's own file, and as a way to group the registry. A brainwashed or forced servant isn't a member
+// with the group's own file, and as a way to group the registry. Everyone who served counts, brainwashed or forced servants too
 // the factions served so far; "Independent" only for someone who has served none
 const rfTeams = o => { const L = (Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [o.tm || "Independent"]).filter(t => t !== "Independent"); return L.length ? L : ["Independent"]; };
 let rfTeamF = "", rfTeamFrom = "";

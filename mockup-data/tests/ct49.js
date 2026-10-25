@@ -1,5 +1,5 @@
 // a villain's factions (October 2026): staged by what you've watched, a tag opens the faction's roster (with its group file where one is left),
-// the registry groups by faction, a brainwashed servant (the Winter Soldier) carries none, and a villain's file links back to the hero's
+// the registry groups by faction, a brainwashed servant (the Winter Soldier) still counts as HYDRA's, and a villain's file links back to the hero's
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
 const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn: 1, cpIn: 1, checks: Object.fromEntries(w.map(t => ['tl::' + t, true])) });
@@ -27,7 +27,7 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
     return out; });
   ok(JSON.stringify(r.thanos) === '["The Chitauri","The Black Order"]', 'Thanos after Infinity War ' + JSON.stringify(r.thanos));
   ok(JSON.stringify(r.ward) === '["HYDRA","Project Centipede"]', 'Ward in season 1 ' + JSON.stringify(r.ward));
-  ok(JSON.stringify(r.bucky) === '["Independent"]', 'the Winter Soldier is no member ' + JSON.stringify(r.bucky));
+  ok(JSON.stringify(r.bucky) === '["HYDRA"]', 'the Winter Soldier served HYDRA ' + JSON.stringify(r.bucky));
   ok(r.order.head === 'The Black Order' && r.order.gf === null && r.order.rows === 5, 'Black Order roster, its team file gone ' + JSON.stringify(r.order));
   ok(r.hydra.head === 'HYDRA' && r.hydra.gf === 'hydra', 'HYDRA roster keeps its group file ' + JSON.stringify(r.hydra));
   ok(JSON.stringify(r.back) === '["bucky-barnes"]' && r.hero.join() === 'cp,bucky-barnes', 'the Winter Soldier links back to Bucky ' + JSON.stringify([r.back, r.hero]));

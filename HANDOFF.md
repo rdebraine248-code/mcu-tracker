@@ -190,9 +190,9 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   sentence; "In season N," stays at the very start in the data only.
 - **Team files:** a Compound team file goes when every member's file carries the team's tag and the team file has nothing of its own.
   The same rule removed 37 Raft team files once villains carried factions; 17 Raft team files with steps of their own stay.
-- **Factions:** on a villain file, a brainwashed or forced servant isn't a member ("a servant isn't a group, it's an affliction"). A hero
-  file's teams are the person's history: a villain faction they served shows there (Wanda and Pietro's HYDRA), and Bucky's keeps HYDRA
-  ("they were both HYDRA at one point, willingly or not"). Controlled personas (Fitz as the Doctor, Jean as Phoenix) don't count.
+- **Factions:** a faction records everyone who served it, willingly or not; the steps say how. The Winter Soldier, the Widows and other
+  brainwashed or forced servants count, on villain and hero files alike ("these need to be completed logs"). The indexes are meant to be
+  a complete repository: anything about anyone.
 - **Insignia reveal:** each unlocks on the character's main appearances, several titles, not a single one.
 - **Universes:**
   - The Earth and universe distinction matters.
@@ -237,7 +237,8 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 - **Raft factions** (`58a12e4`): 217 villains carry the factions they serve, staged by title, with a tap-to-roster row and a Group by
   Faction option. Brainwashed or forced servants and Kingpin's enforcers (as Alchemax) were left out.
 - **Raft team files and hero links** (`2f9a9ce`): 37 Raft team files removed under the team-file rule;
-  villain files link back to the hero's file; hero files note the villain factions their person served.
+  villain files link back to the hero's file; hero files note the villain factions their person served. Then (waiting for a push)
+  the brainwashed and forced servants were counted again, on both sides.
 
 ## Earlier rounds, all on main
 
