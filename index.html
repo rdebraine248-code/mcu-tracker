@@ -786,6 +786,9 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .epsheet .rs-in{ max-height:82vh; overflow-y:auto; }
 .ratesheet{ position:fixed; inset:0; z-index:200; will-change:opacity; transform:translateZ(0); display:flex; align-items:flex-end; background:rgba(0,0,0,.5); animation:fadein .2s ease-out; }
 .ratesheet .rs-in{ position:relative; width:100%; max-width:760px; margin:0 auto; padding:10px 20px calc(24px + env(safe-area-inset-bottom,0px)); border-top:1px solid #2B3F62; border-radius:18px 18px 0 0; background:#0E1424; color:#E9EEF7; box-shadow:0 -14px 40px rgba(0,0,0,.6); animation:atlup .22s ease-out; }
+/* the sheet keeps its own layer after it slides up: merging it back into the dim layer when the slide ends repainted both, and on some phones
+   (Samsung Internet) the dim layer went missing for that one frame, a blink just as the list finished opening */
+.ratesheet .rs-in{ will-change:transform; }
 /* Done sits up top, clear of the keyboard: everything saves as you go, so it just puts the sheet away */
 .ratesheet .rs-done{ position:absolute; top:22px; right:20px; padding:7px 14px; border:1px solid #2B3F62; border-radius:999px; background:#13203A; color:#9FC3FF; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
 .ratesheet .rs-in > small, .ratesheet .rs-in > h4{ margin-right:96px; }
