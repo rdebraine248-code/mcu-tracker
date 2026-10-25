@@ -76,7 +76,8 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 - **The Collection:** the `coll_*.json` files. `coll_spec_*` are the specimens. `coll_existing.json` is the old list, kept for reference
   only.
 - **The lore audit (October 2026):**
-  - `audit_findings.json`: every finding (F001 to F705), each with its fix, source and status: applied, open, kept, pending.
+  - `audit_findings.json`: every finding (F001 to F705), each with its fix, source and status: applied, corrected, reverted, open, kept, pending.
+    A second, independent pass re-checked every applied edit; `recheck` holds its counts and each changed finding has a `recheck` note.
     The report page is https://claude.ai/artifact/3bB2MxjEMd9mwbv64yWHt4.
   - `audit_fix.json`: the Raft, Compound and Collection fixes, applied by `devbuild.py` just before the ABC move. Each op names its finding;
     "old" is a run of steps that must match exactly, "new" replaces it. A build prints `audit: no step` if a source edit breaks a match.
@@ -143,7 +144,7 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   - Tab order: MCU, Beyond, Spider-Verse, FoX-Men, Pruned.
   - No Incursions in the registries.
 - **Agents of S.H.I.E.L.D. and Agent Carter** are the same universe as the films. AoS S1–S5 and Slingshot are main line (in the Chapters,
-  the timeline and the MCU tab); S6–S7 stay in Beyond. Agent Carter's story order: the One-Shot (1946), then S1 (1946), then S2 (1947).
+  the timeline and the MCU tab); S6–S7 stay in Beyond. Agent Carter's story order: the One-Shot (1946), then S1 (1946), then S2 (1947). This order is contested (see Open items).
 - **Status means real status**, not what the characters believe. On-screen confirmation includes holograms and displays (the Endgame
   vanished display). A death revealed in a later title goes in that title's step.
 - **No visions, dreams or illusions as steps.** Real flashbacks are fine.
@@ -158,6 +159,15 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   carries an old release-order tick to S1 only, and "In season N," on about 116 X-Men '97 steps. See F145 and D1 in `audit_findings.json`.
 - **The rest of the audit:** 337 findings are open (mostly medium confidence, plus the questions). Only high-confidence ones were applied.
   F177 (Victor Timely's year) is disputed: don't apply it as written. F038 (an Incursions quote attribution) is held back.
+- **The One-Shot's place (owner call):** the series' writers set both Agent Carter seasons inside the One-Shot, before its last scene
+  (Howard tells Flynn that Peggy will co-head S.H.I.E.L.D.). Disney+ lists the One-Shot right after The First Avenger. It sits before S1
+  now; the alternative is after S2, as it was before the audit. Peggy's, Howard's and the SSR's One-Shot steps say what's on screen either way.
+- **Re-check leads R1 to R5** in `audit_findings.json`: statuses or wording the owner set before the audit (Coulson's season 5 status,
+  Donnie Gill, Dormammu against Knull, Spencer Smythe, King Thor's scepter). Not changed.
+- **Chapter restructure (proposal, not built):** one complete story per chapter. A new Age of Ultron chapter (Age of Ultron, AoS S2,
+  WHIH Newsfront Part 1, Ant-Man); Secret Empire keeps Iron Man 3, All Hail the King, The Winter Soldier and AoS S1; Disassembled gets
+  Slingshot and AoS S4; The Defenders holds all 13 Netflix seasons; Infinity War gets AoS S5. Waiting on the owner; a mockup goes in the
+  test build first.
 - **VisionQuest:** 8 findings were set aside, per the dropped VisionQuest audit.
 - Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once they're
   out and watched.
@@ -169,9 +179,12 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   - 180 "In season N," prefixes on Agents of S.H.I.E.L.D., Agent Carter and What If...?. With them, seven season 6 and 7 files go back to
     Beyond, and IDMOVE carries their saved marks back.
   - The chapter logs got the AoS and Agent Carter seasons; the Beyond log no longer holds whole-show entries it could never open.
-  - The One-Shot is 1946, before Agent Carter S1. The Dark World comes before Iron Man 3, and Multiverse of Madness before Hawkeye.
-    Years were filled in for recent titles, and two release-order swaps were made.
+  - The One-Shot is 1946, before Agent Carter S1. Years were filled in for recent titles, and two release-order swaps were made.
+  - Moving The Dark World before Iron Man 3, and Multiverse of Madness before Hawkeye, was undone: official sources disagree, so the
+    owner's order stands.
   - Fact, status, custody and order fixes across the indexes and logs, broken raft links fixed, and vision steps removed.
+- The re-check: 348 applied edits were tried against sources a second time. 323 held up; 16 were corrected, 3 reverted (among them
+  Corvus Glaive's Endgame step and the SSR's One-Shot wording), and the One-Shot order went to the owner.
 - Kept by the owner: the Crossover tag on Multiverse of Madness, and the Spider-Verse join on Avengers: Doomsday.
 
 ## The round before, all on main
