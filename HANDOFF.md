@@ -45,7 +45,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48; do node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49; do node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -66,6 +66,7 @@ node tests/ct35.js                                                              
 | ct46 | Nick Fury and S.H.I.E.L.D. as two boxes, from a full old save |
 | ct47 | Seasons shown with the title, never in the sentence |
 | ct48 | Agents of S.H.I.E.L.D. S6 and S7 as two titles, from an old save |
+| ct49 | Raft factions: staging, roster and group file, grouping |
 
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. The test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled.
@@ -101,6 +102,8 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
     The report page is https://claude.ai/artifact/3bB2MxjEMd9mwbv64yWHt4.
   - `audit_sweep.json`: the second sweep (descriptions, teams and names that went stale later in their file, stages keyed to a whole
     show, the nine leads, the out-of-story lines) and the team-file review with the owner's decision on each (`owner`).
+  - `raft_teams_src.json`: who belongs to each of the Raft's 54 factions, one entry per membership with its source; dropped ones are
+    marked. `raft_teams.json` (id to staged `tm`) is built from it and read by `devbuild.py` after the ABC move, so it uses final ids.
   - The log and timeline fixes went straight into `index.html` (DATA, DOSSIERS, SAGA).
 - **Organizations:** `opp/org_*.json`. Villainous groups go to the Raft, heroic ones to the Compound. Group files carry `grp:1`.
 - **Ids:** a prefix says the universe tab: none for MCU, `st-` for street-level (also on the MCU tab), `by-` Beyond, `sv-` Spider-Verse,
@@ -168,7 +171,8 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 - **The three indexes:** the Raft (villains), the Avengers Compound (heroes) and the Collection (objects and specimens). Each is found
   through a discovery egg in the Atlas, and found ones are listed under Archives in the Agent File.
   - In the Compound, a team tag on a file opens that team's roster, built from everyone's tags (`cpTeams`), with a Group file button
-    when the team has its own file (`cpGroupFile`). Raft files have no team tags.
+    when the team has its own file (`cpGroupFile`).
+  - In the Raft, a villain's Factions row works the same way (`rfTeams`, `rfGroupFile`), and the registry can be grouped by Faction.
 
 ## Standing rules from the owner
 
@@ -183,7 +187,9 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 - **No fourth-wall words in file text.** Never write "season", "episode", "finale", "credits", "flashback", "the film" or "the show" in a
   sentence; "In season N," stays at the very start in the data only.
 - **Team files:** a Compound team file goes when every member's file carries the team's tag and the team file has nothing of its own.
-  Raft team files stay, since villains carry no team tags.
+  The 37 Raft team files were kept when villains had no tags; now that they carry factions, the rule could be applied to the Raft too.
+- **Factions:** a brainwashed or forced servant isn't a member ("a servant isn't a group, it's an affliction"). Bucky's hero files still
+  carry HYDRA for the Winter Soldier years; the owner left that open.
 - **Insignia reveal:** each unlocks on the character's main appearances, several titles, not a single one.
 - **Universes:**
   - The Earth and universe distinction matters.
@@ -225,6 +231,8 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   logs, Paths lines and save carry-over.
 - **Team files and Area 55** (`b147d16`): 36 Compound team files removed under the team-file rule, after
   Agatha and Billy got the "Agatha's coven" tag and Matt (2003) "Nelson & Murdock". Teddy Paine's step names Area 55.
+- **Raft factions** (`58a12e4`): 217 villains carry the factions they serve, staged by title, with a tap-to-roster row and a Group by
+  Faction option. Brainwashed or forced servants and Kingpin's enforcers (as Alchemax) were left out.
 
 ## Earlier rounds, all on main
 
