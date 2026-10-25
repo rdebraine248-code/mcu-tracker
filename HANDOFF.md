@@ -172,7 +172,9 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   through a discovery egg in the Atlas, and found ones are listed under Archives in the Agent File.
   - In the Compound, a team tag on a file opens that team's roster, built from everyone's tags (`cpTeams`), with a Group file button
     when the team has its own file (`cpGroupFile`).
-  - In the Raft, a villain's Factions row works the same way (`rfTeams`, `rfGroupFile`), and the registry can be grouped by Faction.
+  - In the Raft, a villain's Factions row works the same way (`rfTeams`, `rfGroupFile`; it lists factions served, and says Independent only
+    for someone who has served none), and the registry can be grouped by Faction. Hero and villain files of the same person link both ways
+    ("Also on file": `rf` on the hero file).
 
 ## Standing rules from the owner
 
@@ -187,9 +189,10 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 - **No fourth-wall words in file text.** Never write "season", "episode", "finale", "credits", "flashback", "the film" or "the show" in a
   sentence; "In season N," stays at the very start in the data only.
 - **Team files:** a Compound team file goes when every member's file carries the team's tag and the team file has nothing of its own.
-  The 37 Raft team files were kept when villains had no tags; now that they carry factions, the rule could be applied to the Raft too.
-- **Factions:** a brainwashed or forced servant isn't a member ("a servant isn't a group, it's an affliction"). Bucky's hero files still
-  carry HYDRA for the Winter Soldier years; the owner left that open.
+  The same rule removed 37 Raft team files once villains carried factions; 17 Raft team files with steps of their own stay.
+- **Factions:** on a villain file, a brainwashed or forced servant isn't a member ("a servant isn't a group, it's an affliction"). A hero
+  file's teams are the person's history: a villain faction they served shows there (Wanda and Pietro's HYDRA), and Bucky's keeps HYDRA
+  ("they were both HYDRA at one point, willingly or not"). Controlled personas (Fitz as the Doctor, Jean as Phoenix) don't count.
 - **Insignia reveal:** each unlocks on the character's main appearances, several titles, not a single one.
 - **Universes:**
   - The Earth and universe distinction matters.
@@ -233,6 +236,8 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   Agatha and Billy got the "Agatha's coven" tag and Matt (2003) "Nelson & Murdock". Teddy Paine's step names Area 55.
 - **Raft factions** (`58a12e4`): 217 villains carry the factions they serve, staged by title, with a tap-to-roster row and a Group by
   Faction option. Brainwashed or forced servants and Kingpin's enforcers (as Alchemax) were left out.
+- **Raft team files and hero links** (`2f9a9ce`): 37 Raft team files removed under the team-file rule;
+  villain files link back to the hero's file; hero files note the villain factions their person served.
 
 ## Earlier rounds, all on main
 

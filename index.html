@@ -1123,6 +1123,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-stb{ align-self:flex-start; flex:none; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1424; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cp-teams{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px; } .cp-teams button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cp-teams button:active, .cx-hands button:active{ transform:scale(.96); } .cp-teams button{ padding:5px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font-size:13px; }
 .cp-rf{ display:flex; align-items:center; gap:12px; width:100%; margin:0 0 14px; padding:10px 14px; border:1px solid #6A2A26; border-radius:12px; background:rgba(224,74,58,.08); color:#FFD2CB; text-align:left; cursor:pointer; }
+.cp-rf.to-cp{ border-color:#2A4A6A; background:rgba(127,166,216,.08); color:#D6E6FA; } .cp-rf.to-cp small{ color:#7FA6D8; }
 .cp-rf span{ flex:1; } .cp-rf small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#E9897E; } .cp-rf b{ display:block; margin-top:2px; font-size:15px; } .cp-rf em{ font-style:normal; font-size:18px; }
 .cpx .rf-seg button[aria-pressed="true"]{ background:#EEF3FA; border-color:#EEF3FA; }
 .cp-intake i{ background:#4FA3FF; box-shadow:0 0 8px #4FA3FF; }
@@ -4165,6 +4166,7 @@ document.getElementById("collView").addEventListener("click", ev => {
     const rl = ev.target.closest("[data-cprf]"); if (rl) { haptic(10); const id = rl.dataset.cprf; rfUni = rfUniOf(THREATS.find(o => o.id === id)); openColl("raft", true); collShow(id); return; }
   }
   if (ev.target.closest(".pg-qx")) { haptic(8); rfQ = ""; renderColl(); return; }
+  const rc = ev.target.closest("[data-rfcp]"); if (rc) { haptic(10); const id = rc.dataset.rfcp; cpUni = rfUniOf(ALLIES.find(o => o.id === id)); openColl("cp", true); collShow(id); return; }   // a villain's hero file, the way back from the Compound's link
   const rt = ev.target.closest("[data-rft]"); if (rt) { haptic(10); rfTeamF = rt.dataset.rft; rfTeamFrom = collRec; rfOppF = ""; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
   const ro = ev.target.closest("[data-rfo]"); if (ro) { haptic(10); rfOppF = ro.dataset.rfo; rfTeamF = ""; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
   if (ev.target.closest("[data-tfx]")) { haptic(8); rfOppF = ""; rfTeamF = ""; renderColl(); return; }
@@ -4282,7 +4284,8 @@ const rfOpps = o => { let L;
 let rfOppF = "";
 // a villain's factions: the organizations they serve (tm, staged by title like a hero's team; October 2026), shown on their file, as a roster
 // with the group's own file, and as a way to group the registry. A brainwashed or forced servant isn't a member
-const rfTeams = o => Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [o.tm || "Independent"];
+// the factions served so far; "Independent" only for someone who has served none
+const rfTeams = o => { const L = (Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [o.tm || "Independent"]).filter(t => t !== "Independent"); return L.length ? L : ["Independent"]; };
 let rfTeamF = "", rfTeamFrom = "";
 function rfGroupFile(team, from) {   // the group file carrying that name in this universe, the one whose id is closest to the file you came from
   const L = THREATS.filter(o => o.grp && rfUniOf(o) === rfUni && rfSteps(o).length && rfTeams(o).includes(team)); if (L.length < 2) return L[0] || null;
@@ -4302,6 +4305,7 @@ function renderRaft() {
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div class="wide"><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div></div>
       <div class="co-h">Factions</div><div class="cp-teams">${rfTeams(o).map(t => `<button type="button" data-rft="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
