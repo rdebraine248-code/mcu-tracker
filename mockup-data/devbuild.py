@@ -288,7 +288,13 @@ def _remap(v):
 for L in (threats,allies,collx): L[:]=[_remap(o) for o in L]
 print('moved to the MCU tab',len(_moved),'merged',sorted((a,b) for a,b in _moved.items() if b!=a[3:]))
 # the audit's own moves carry saved marks back where a file returns (never to an id that moves on again, or marks would flip every load)
-if '/*IDMOVE*/' in s: put('IDMOVE',{**_moved,**{k:v for k,v in _au.get('idmove',{}).items() if v not in _moved}})
+_im={**_moved,**{k:v for k,v in _au.get('idmove',{}).items() if v not in _moved}}
+for k in list(_im):   # a file that moved and was later merged into another sends its marks straight to the last one
+    v=_im[k]; n=0
+    while v in _im and n<5: v=_im[v]; n+=1
+    if v==k: _im.pop(k)
+    else: _im[k]=v
+if '/*IDMOVE*/' in s: put('IDMOVE',_im)
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats)
