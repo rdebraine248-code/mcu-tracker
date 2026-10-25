@@ -1,6 +1,7 @@
 # fills the mockup placeholders in the working index.html with whatever data is ready, writes dev.html for screenshots
 import json,os,sys
 D=os.path.dirname(os.path.abspath(__file__))+'/'
+OPPD=D+'opp/' if os.path.isdir(D+'opp') else D+'../opp/'   # the opponents and organizations folder: beside the data in the repo, one level up in the old layout
 s=open(os.environ.get('SRC','/home/user/mcu-tracker/index.html'),encoding='utf8').read()
 def load(n,default):
     p=D+n; return json.load(open(p,encoding='utf8')) if os.path.exists(p) else default
@@ -161,7 +162,7 @@ def _restage(o):
         v=o.get(fld)
         if isinstance(v,list) and v and isinstance(v[0],list) and v[0][1]!=T[0] and v[0][1] in T and T.index(v[0][1])>0: v[0]=[v[0][0],T[0]]
 _byT={o['id']:o for o in threats}; _byA={o['id']:o for o in allies}
-for f in sorted(f for f in _g2.glob(D+'../opp/org_*.json') if not f.endswith('.bak.json')):
+for f in sorted(f for f in _g2.glob(OPPD+'org_*.json') if not f.endswith('.bak.json')):
     if '/org_threats_' in f or '/org_allies_' in f: continue   # the inputs the organizations were written from
     z=json.load(open(f,encoding='utf8'))
     for o in z.get('raft',[]):
@@ -194,7 +195,7 @@ for o in threats+allies+collx: _one(o)
 # who has stood against each villain: lists of the Compound's own files and teams (../opp/opp_*.json, keyed by the final ids). Until a villain
 # has one, its old single "op" stands, cleaned of names that split one person in two
 _ally_ids={o['id'] for o in allies}
-for f in sorted(f for f in _g2.glob(D+'../opp/opp_*.json') if not f.endswith('.bak.json')):
+for f in sorted(f for f in _g2.glob(OPPD+'opp_*.json') if not f.endswith('.bak.json')):
     for k,v in json.load(open(f,encoding='utf8')).items():
         o=next((x for x in threats if x['id']==k),None)
         if o is None: print('opp: no threat',k); continue

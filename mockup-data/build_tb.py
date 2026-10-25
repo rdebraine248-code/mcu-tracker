@@ -1,13 +1,13 @@
 # the test build for this round of mockups: dev.html (the working app with the drafted data filled in) made playable, starting with everything
 # watched, plus a "Start from" picker so the briefing, Up next and the Raft can be tried partway through the story
-import json, subprocess, sys
-SP='/tmp/claude-0/-home-user-mcu-tracker/e04629fe-1d85-5cbd-a7d3-e43b10375bb1/scratchpad/'
-subprocess.run(['python3', SP+'next/devbuild.py', SP+'next/dev.html'], check=True)
-src=open(SP+'t/buildtb.py').read().replace("open('/home/user/mcu-tracker/index.html',encoding='utf8').read()","open(SP+'next/dev.html',encoding='utf8').read()")
+import json, os, subprocess, sys
+R=os.path.dirname(os.path.abspath(__file__))+'/'; OUT=R+'out/'; os.makedirs(OUT,exist_ok=True)   # everything it writes goes to out/ (not committed)
+subprocess.run(['python3', R+'devbuild.py', OUT+'dev.html'], check=True)
+src=open(R+'tests/buildtb.py').read().replace("open('/home/user/mcu-tracker/index.html',encoding='utf8').read()","open(OUT+'dev.html',encoding='utf8').read()")
 MSG=sys.argv[1] if len(sys.argv)>1 else ""
 sys.argv=['buildtb.py','full','next1',MSG]
 exec(compile(src,'buildtb','exec'))
-s=open(SP+'datapad-test.html',encoding='utf8').read()
+s=open(OUT+'datapad-test.html',encoding='utf8').read()
 tool=r'''
 <div id="tbProg" style="position:fixed;left:12px;bottom:calc(var(--dockh) + 44px);z-index:199">
   <button type="button" id="tbProgBtn" style="padding:6px 10px;border:1px solid #3A78C9;border-radius:999px;background:#0D1320;color:#9FC3FF;font:10.5px/1 'Share Tech Mono','Courier New',monospace;letter-spacing:2px;text-transform:uppercase">Test · start from</button>
@@ -41,4 +41,4 @@ tool=r'''
 </script>
 '''
 s=s.rstrip()+'\n'+tool
-open(SP+'datapad-test.html','w',encoding='utf8').write(s); print('test build bytes', len(s.encode()))
+open(OUT+'datapad-test.html','w',encoding='utf8').write(s); print('test build bytes', len(s.encode()))

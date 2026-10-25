@@ -1,0 +1,17 @@
+const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+(async () => { const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
+  const ctx = await b.newContext({ viewport: { width: 412, height: 900 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+  await ctx.route('**/*', r => { const u = r.request().url(); if (u.startsWith('http://t/')) return r.fulfill({ body: '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"></head><body>' + require('fs').readFileSync(process.argv[2] || __dirname + '/../out/datapad-test.html', 'utf8') + '</body></html>', contentType: 'text/html' }); return r.continue(); });
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));
+  await p.goto('http://t/'); await sleep(3000); await p.evaluate(() => document.getElementById('tbOk')?.click()); await sleep(400);
+  await p.evaluate(() => { openAtlas(); openColl(); }); await sleep(600);
+  const r = await p.evaluate(() => ({ spec: COLLX.filter(o => o.c === 'specimens').length, sec: !!document.querySelector('[data-cxf="specimens"]') }));
+  await p.evaluate(() => { const s = document.querySelector('[data-cxf="specimens"]').closest('section'); s.scrollIntoView(); }); await sleep(300);
+  await p.screenshot({ path: __dirname + '/sh/spec-list.png' });
+  await p.evaluate(() => collShow('spec-skrull')); await sleep(400);
+  await p.screenshot({ path: __dirname + '/sh/spec-rec.png' });
+  await p.evaluate(() => { collGrid(true); document.querySelector('[data-cxg="holder"]').click(); }); await sleep(300);
+  const hold = await p.evaluate(() => [...document.querySelectorAll('.rf-sec .rf-sh span')].map(s => s.textContent).slice(-3));
+  const msgs = await p.evaluate(() => ({ dp2: COMMS.some(m => m.id === 'dp2'), sm: COMMS.some(m => m.id === 'x-sm2002-1'), atsv: COMMS.some(m => m.id === 'x-atsv-1'), dofp: COMMS.some(m => m.id === 'x-dofp-1'), aos: COMMS.some(m => m.id === 'x-aos-1') }));
+  console.log(JSON.stringify({ r, hold, msgs }), 'errors', errs); await b.close(); })();
