@@ -10,6 +10,8 @@ A Marvel watch tracker, built as a single-file PWA (a "S.H.I.E.L.D. datapad"). T
 - **Working branch `ccr-9703a988-d86jbb`** (it carries on from `ccr-260b58ec-boqbta`): the source. It holds `index.html` with its data placeholders still empty, `mockup-data/` (all
   the data, the build scripts and the tests) and this file. **Check this branch out**, not main. After every push to main it's synced
   with `git merge -s ours origin/main`, which keeps the source and records main's history.
+- Helper scripts written during a session (agent briefs, change appliers) live in that session's scratchpad and are gone afterwards.
+  Everything they produced is in the repo: `audit_fix.json`, `index.html` and the audit records.
 
 ## Build and push
 
@@ -24,15 +26,15 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
 
 - `devbuild.py` reads `/home/user/mcu-tracker/index.html`, or `SRC=...` if set, and fills in the placeholders: `/*THREATS*/`,
   `/*ALLIES*/`, `/*COLLX*/`, `/*EPS*/`, `/*EPN*/`, `/*EPO*/`, `/*NEWSX*/`, `/*COMMSX*/`, `/*SRCX*/` and `/*IDMOVE*/`.
-- The repo-only build was checked to reproduce main byte for byte (main at `0cdbf85`, before the lore audit's fixes).
-- **Pushing main:**
-  1. Make a worktree of `origin/main`.
-  2. Copy `out/main.html` over its `index.html`, commit and push to `main`.
+- **Pushing main** (only with the owner's go-ahead):
+  1. `git worktree add --detach <dir> origin/main`.
+  2. Copy `out/main.html` over its `index.html`, commit and `git push origin HEAD:main`. Remove the worktree.
   3. Back on the working branch, run `git merge -s ours origin/main` and push the branch.
+  4. Check: `cmp <(git show origin/main:index.html) mockup-data/out/main.html` prints nothing.
 - **The mockup switch:** `const MOCK = true;` near the top of the script, with `body.mock` for CSS. `mainprep.py` flips it to false for
   main and asserts that it's there. Mockups hang off this switch. None are pending right now.
-- **The published test build** is an artifact at https://claude.ai/artifact/FpzxqjpMT8r7jSvb69mNKu. It's at v36, which is behind main.
-  Only republish it when the owner asks for a mockup.
+- **The published test build** is an artifact at https://claude.ai/artifact/FpzxqjpMT8r7jSvb69mNKu. It's at v39 (the Nick Fury /
+  S.H.I.E.L.D. mockup), which is behind main. Only republish it when the owner asks for a mockup.
 
 ### Tests
 
@@ -40,10 +42,10 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 `/opt/pw-browsers/chromium-1243/chrome-linux64/chrome`; adjust those paths if the environment differs.
 
 ```sh
-mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
-export ROOT=$PWD/out/root
+rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
+export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41; do node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48; do node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -55,10 +57,18 @@ node tests/ct35.js                                                              
 | ct37b | Chapter names revealed by watching |
 | ct38 | The chapter fold and its save migration |
 | ct39 | Level milestones |
-| ct40 | The level-up pill |
+| ct40 | No level-up pill and no XP line |
 | ct41 | Ids moved from Beyond to MCU |
+| ct42 | Chapters 3 to 6 reorganized, and "Completed" once ever, with an old save |
+| ct43 | X-Men '97 and I Am Groot seasons in release order only |
+| ct44 | The episodes link follows its checkmark |
+| ct45 | A chapter's Period from what you've watched; read marks kept |
+| ct46 | Nick Fury and S.H.I.E.L.D. as two boxes, from a full old save |
+| ct47 | Seasons shown with the title, never in the sentence |
+| ct48 | Agents of S.H.I.E.L.D. S6 and S7 as two titles, from an old save |
 
-A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code.
+A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. The test pages are served as
+`text/html; charset=utf-8`, or the text comes out garbled.
 
 ## Data (mockup-data/)
 
@@ -75,120 +85,148 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   patch4, zaudit, zzfix.
 - **The Collection:** the `coll_*.json` files. `coll_spec_*` are the specimens. `coll_existing.json` is the old list, kept for reference
   only.
-- **The lore audit (October 2026):**
-  - `audit_findings.json`: every finding (F001 to F705), each with its fix, source and status: applied, corrected, reverted, open, kept, pending.
-    A second, independent pass re-checked every applied edit; `recheck` holds its counts and each changed finding has a `recheck` note.
+- **`audit_fix.json`: every later change to a Raft, Compound or Collection file.** Lists `T` (Raft), `A` (Compound), `C` (Collection) and
+  `idmove`. `devbuild.py` applies them in order, just before the ABC move, so each op is keyed to the data as the ops before it leave it.
+  - An op names its source in `f`. `id` is a file id, or a list (the MCU file first, then the show's file that merges into it).
+  - `old` is a run of steps that must match exactly and `new` replaces it (an empty `new` deletes). `set` replaces fields (null removes
+    one). `add` is a new file. `drop: true` removes a file. `idmove` sends a dropped file's saved marks to another id.
+  - A build prints `audit: no step` or `audit: no file` when an op stops matching. To change a file, append an op at the end of its
+    list rather than editing the source files under it.
+  - It holds, in order: the lore audit's findings, the owner's decisions on the medium findings, the second sweep and the owner's last
+    calls (the team-file removals and Area 55).
+- **The audit records:**
+  - `audit_findings.json`: the lore audit, F001 to F705, each with its fix, source and status. All are settled: applied, corrected,
+    kept, rejected, obsolete or reverted. `recheck` and `verify` hold the counts of the two later passes, `lead` the reviewer leads
+    (R1 to R5, decided), `extra` D1 and D2. The 8 entries in `aside` are VisionQuest's, set aside.
     The report page is https://claude.ai/artifact/3bB2MxjEMd9mwbv64yWHt4.
-  - `audit_fix.json`: the Raft, Compound and Collection fixes, applied by `devbuild.py` just before the ABC move. Each op names its finding;
-    "old" is a run of steps that must match exactly, "new" replaces it. A build prints `audit: no step` if a source edit breaks a match.
+  - `audit_sweep.json`: the second sweep (descriptions, teams and names that went stale later in their file, stages keyed to a whole
+    show, the nine leads, the out-of-story lines) and the team-file review with the owner's decision on each (`owner`).
   - The log and timeline fixes went straight into `index.html` (DATA, DOSSIERS, SAGA).
 - **Organizations:** `opp/org_*.json`. Villainous groups go to the Raft, heroic ones to the Compound. Group files carry `grp:1`.
 - **Ids:** a prefix says the universe tab: none for MCU, `st-` for street-level (also on the MCU tab), `by-` Beyond, `sv-` Spider-Verse,
   `fox-` FoX-Men, `pr-` Pruned.
 - **Steps:** `[sentence, exact title, status(, holder or home)]`, in in-universe order.
   - One step per title, unless the status or the fourth field changes inside it.
-  - Multi-season shows get one step per season, starting "In season N,".
+  - Multi-season shows get one step per season, starting "In season N," in the data. The app hides that phrase and shows the season
+    with the title. A scene from the past reads "In season 2, in 1945, ..." and sorts by its year.
   - Titles must match `alltitles.json` exactly.
+- **Staged fields:** `n`, `k`, `tm` (and a villain's `cl`) are a string or a list of `[value, title]`; the app shows the last stage whose
+  title is watched. Key a stage to a season's own title ("Agents of S.H.I.E.L.D. S3"), never the whole show. Each value must stay true
+  until the next stage takes over, and the last one to the end of the file.
 - **Statuses:**
   - Raft: Active, In custody, Captive, At large, Missing, Allied, Deceased.
   - Compound: Active, Off-world, Retired, Fugitive, Imprisoned, Missing, Deceased.
   - Collection: In use, Secured, Lost, Destroyed.
   - Specimens: Thriving, Endangered, Extinct.
 - **Order of the build's merge stages:** cameo patches, stages, allies_zz patches, st- remap, organizations, the Collection, the
-  one-step-per-title merge, opposers, name normalization, the lore audit's fixes. Then the last stage moves the ABC shows' files from `by-` to the MCU tab and
+  one-step-per-title merge, opposers, name normalization, `audit_fix.json`. Then the last stage moves the ABC shows' files from `by-` to the MCU tab and
   merges HYDRA, S.H.I.E.L.D., the SSR, the Darkhold and the Kree into one file each. `IDMOVE` carries saved "seen" marks to the new ids.
 
 ## How the app works (key ideas in index.html)
 
 - **Three paths, each with its own checklist:** Chapters, the Sacred Timeline (story order or release order) and Characters. A checkmark
   key is `ck(box, title)`; the timeline uses `tl::title`, release order `tr::title`. Episode progress is per list, under the same key.
-- **`atlSeenT(t)`:** a title counts as watched if it's checked in any list.
+- **`atlSeenT(t)`:** a title counts as watched if it's checked in any list. A season title also counts when its whole show is checked
+  on a timeline.
   - `ATL_SEAS` maps a whole show to its seasons.
   - `atlSeenStep` opens a file step written "In season N," when that season is watched.
   - `stageAt` picks a staged name or description by what you've watched.
   - The first Pick-your-path pop-up (`orderPick`) shows on a new agent's first boot.
+- **Seasons on screen:** `stepTxt` drops "In season N," from the sentence, and `stepTtl` adds the season to the title ("Agents of
+  S.H.I.E.L.D. S2"), on the steps and on the First seen and Last seen cards (`seenTtl`).
+- **The Chapters:** 11 numbered chapters (The Avengers Initiative, A Space Odyssey, Secret Empire, Avengers Disassembled, The Defenders,
+  Infinity War, Fallout, Hall of the Gods, Generations, Dark Reign, Secret Wars), then Beyond the MCU, The Spider-Verse, The FoX-Men,
+  Pruned Timelines and Incursions. The Chapters page has three missions, one per act: The Infinity Saga, The Multiverse Saga and The
+  Marvel Multiverse.
+- **A chapter's Period** (`perNow`) is built from the titles you've watched, in any order, as one range: labels first, then years
+  "lo to hi". A read Period stays read when it grows (`perInit`, `state.perV2`).
+- **Character boxes:** 33. Nick Fury and S.H.I.E.L.D. are two boxes (`FURY_BOX`, `SHIELD_BOX`; the combined box was `FURY_OLD`). Fury's
+  Captain Marvel item carries a note to skip the mid-credits scene, which comes later in his box. Item notes show in every box.
+- **Insignia:** `EMBLEMS` (the art), `EMBLEM_NAMES`, `EMB_UNLOCK` (the titles that unlock one: the character's main appearances, several
+  per insignia), `EMB_HINT`, `MET_BY` and `NAMED_BY` (first named before their own titles). A file wears one through `em`.
+- **Paths:** `mapData` builds the layout at runtime from `DATA.map.rows` (one per character box, in `DATA.chars` order) and `cols` (one per
+  title, with the rows standing at it). Changing who is at a title means changing `rows` and `cols` only.
 - **Save migrations, all run at load and on importing a save code:**
-  - `renameChecks`, using the maps `RENAMED`, `SPLIT`, `MOVED` and `FOLDED` (the AoS and Agent Carter fold).
+  - `renameChecks`, using the maps `RENAMED`, `SPLIT`, `MOVED` and `FOLDED` (the AoS and Agent Carter fold, and AoS S6–S7 into S6 and S7).
+  - `chReorg` for the chapter reorganization, `furySplit` for the Fury / S.H.I.E.L.D. boxes, `logSplit` (`LOGSPLIT`) for read log
+    entries of split titles, `perInit` for Periods, `relSplit` for the release-order splits.
   - `epSplit` and `epFold` for episodes.
   - `newsKeysV2` and the news fold for headlines.
   - The `IDMOVE` remap for the Raft, Compound and Collection "seen" marks.
   - `SAVE_KEYS` lists everything a save code carries.
-- **Clearance levels (XP):**
+- **Clearance levels:** still counted from XP (`XP_AT = [0, 100, 300, 600, 1000, 1600, 2600, 4400, 5200, 5900]`), and the Agent ID shows
+  the level. The owner removed the XP bar, the "to next level" line and the Clearance raised pill.
   - Watching: a film or a season is 10 XP and a short is 3. Each title counts once, in any list.
   - Finishing: a chapter 30, a character 15, the Sacred Timeline 150, the Multiverse 300.
   - Secrets: an easter egg 20, a mission 30, an artifact 40, a final file 100.
-  - Thresholds are `XP_AT = [0, 100, 300, 600, 1000, 1600, 2600, 4400, 5200, 5900]`. Excelsior means every file.
-  - Milestones: the main line reaches Level 5, every branch Level 6, plus Incursions Level 7, everything watched Level 8. Levels 9 and 10
-    need the secrets.
-  - XP pools from anything, in any order. A "Clearance raised" pill shows on level-up (`state.xpLv`).
 - **Pills:**
-  - Chapters and characters have completion pills.
+  - A chapter or character box says Completed once ever (`state.boxDone`, seeded at first load for boxes already done).
   - The Sacred Timeline and Multiverse pills fire only from the timeline page.
   - A chapter's name shows once it's unlocked or all its titles are watched.
 - **The Infinity Stones** light the title's line on every path. On the Sacred Timeline that line is a dimmed amber. Tapping the line
   opens the Gauntlet card.
 - **The three indexes:** the Raft (villains), the Avengers Compound (heroes) and the Collection (objects and specimens). Each is found
   through a discovery egg in the Atlas, and found ones are listed under Archives in the Agent File.
+  - In the Compound, a team tag on a file opens that team's roster, built from everyone's tags (`cpTeams`), with a Group file button
+    when the team has its own file (`cpGroupFile`). Raft files have no team tags.
 
 ## Standing rules from the owner
 
-- Accuracy and consistency come first. Verify easily checkable facts yourself (Wikipedia raw pages, web search) instead of asking, and
-  follow a fix through to every place it applies.
-- No em dashes. En dashes only inside exact titles ("S6–S7").
+- Accuracy and consistency come first. Verify easily checkable facts yourself instead of asking, and follow a fix through to every
+  place it applies. Ask, with options, when unsure.
+- **Ask before any push**, and before major changes. A reminder to push is not a go-ahead. Update this file when the owner asks.
+- No em dashes. En dashes only inside exact titles ("Agents of S.H.I.E.L.D. S6–S7" as it once was).
 - Mockups go in the test build only and need approval before main, unless the owner says push. Don't update the published test build
   unless the owner wants a mockup.
 - Don't change something that was deliberately set up without flagging it first.
 - Don't schedule anything; the owner says when. The VisionQuest audit is dropped: don't bring it up.
+- **No fourth-wall words in file text.** Never write "season", "episode", "finale", "credits", "flashback", "the film" or "the show" in a
+  sentence; "In season N," stays at the very start in the data only.
+- **Team files:** a Compound team file goes when every member's file carries the team's tag and the team file has nothing of its own.
+  Raft team files stay, since villains carry no team tags.
+- **Insignia reveal:** each unlocks on the character's main appearances, several titles, not a single one.
 - **Universes:**
   - The Earth and universe distinction matters.
   - Tab order: MCU, Beyond, Spider-Verse, FoX-Men, Pruned.
   - No Incursions in the registries.
-- **Agents of S.H.I.E.L.D. and Agent Carter** are the same universe as the films. AoS S1–S5 and Slingshot are main line (in the Chapters,
-  the timeline and the MCU tab); S6–S7 stay in Beyond. Agent Carter's story order: the One-Shot (1946), then S1 (1946), then S2 (1947). This order is contested (see Open items).
+- **Agents of S.H.I.E.L.D. and Agent Carter** are the same universe as the films. AoS seasons 1 to 5 and Slingshot are main line (in the
+  Chapters, the timeline and the MCU tab); S6 and S7 are two titles and stay in Beyond. Agent Carter's story order: S1 (1946), S2 (1947),
+  then the One-Shot as Peggy's ending.
 - **Status means real status**, not what the characters believe. On-screen confirmation includes holograms and displays (the Endgame
-  vanished display). A death revealed in a later title goes in that title's step.
+  vanished display). A death revealed in a later title goes in that title's step. A villain sealed in another realm is In custody.
 - **No visions, dreams or illusions as steps.** Real flashbacks are fine.
 - **Collection chain of custody:** the holder is who has the object at the end of the step. The first holder gets a step (Loki's scepter
   starts with Loki). See `CUSTODY_FORMAT.md`.
-- Keep real team names. Revealed names stay revealed. Empty states say "No data." Every TV show gets a season subpage.
+- Keep real team names, and a place's real name even when the story moves around it (Area 55 in Venom: The Last Dance). Revealed names
+  stay revealed. Empty states say "No data." Every TV show gets a season subpage.
+- **Sources:** Wikipedia raw pages (`https://en.wikipedia.org/w/index.php?title=<Page>&action=raw`) and the fan wikis, which answer only
+  through their API (`https://<wiki>.fandom.com/api.php?action=parse&page=<Page>&prop=wikitext&format=json`; marvelcinematicuniverse,
+  marvel, spiderman, xmen, marvelanimated). Space requests about a second apart, and never put personal information in one.
 
 ## Open items
 
-- **X-Men '97 and I Am Groot (decision pending):** split each into seasons in the release order only (season 2 came out years later,
-  with other titles between); story order and the boxes keep one title. Needs the season titles, episode counts, a `SPLIT` entry that
-  carries an old release-order tick to S1 only, and "In season N," on about 116 X-Men '97 steps. See F145 and D1 in `audit_findings.json`.
-- **The rest of the audit:** 337 findings are open (mostly medium confidence, plus the questions). Only high-confidence ones were applied.
-  F177 (Victor Timely's year) is disputed: don't apply it as written. F038 (an Incursions quote attribution) is held back.
-- **The One-Shot's place (owner call):** the series' writers set both Agent Carter seasons inside the One-Shot, before its last scene
-  (Howard tells Flynn that Peggy will co-head S.H.I.E.L.D.). Disney+ lists the One-Shot right after The First Avenger. It sits before S1
-  now; the alternative is after S2, as it was before the audit. Peggy's, Howard's and the SSR's One-Shot steps say what's on screen either way.
-- **Re-check leads R1 to R5** in `audit_findings.json`: statuses or wording the owner set before the audit (Coulson's season 5 status,
-  Donnie Gill, Dormammu against Knull, Spencer Smythe, King Thor's scepter). Not changed.
-- **Chapter restructure (proposal, not built):** one complete story per chapter. A new Age of Ultron chapter (Age of Ultron, AoS S2,
-  WHIH Newsfront Part 1, Ant-Man); Secret Empire keeps Iron Man 3, All Hail the King, The Winter Soldier and AoS S1; Disassembled gets
-  Slingshot and AoS S4; The Defenders holds all 13 Netflix seasons; Infinity War gets AoS S5. Waiting on the owner; a mockup goes in the
-  test build first.
-- **VisionQuest:** 8 findings were set aside, per the dropped VisionQuest audit.
+- Nothing is waiting on the owner. No mockups are pending.
 - Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once they're
   out and watched.
+- Decided and closed: Ant-Man and the Wasp stays out of the S.H.I.E.L.D. box; the 37 Raft team files stay.
 
-## This round: the lore audit (on the working branch; main not yet pushed)
+## This round (October 2026), all on main
 
-- A read-through of every Raft, Compound and Collection file, every log and both Sacred Timeline orders: 705 findings with sources.
-- Applied: the 366 high-confidence ones and the owner's decisions, plus three follow-throughs (L1, D2-ssr, Kora's raft link).
-  - 180 "In season N," prefixes on Agents of S.H.I.E.L.D., Agent Carter and What If...?. With them, seven season 6 and 7 files go back to
-    Beyond, and IDMOVE carries their saved marks back.
-  - The chapter logs got the AoS and Agent Carter seasons; the Beyond log no longer holds whole-show entries it could never open.
-  - The One-Shot is 1946, before Agent Carter S1. Years were filled in for recent titles, and two release-order swaps were made.
-  - Moving The Dark World before Iron Man 3, and Multiverse of Madness before Hawkeye, was undone: official sources disagree, so the
-    owner's order stands.
-  - Fact, status, custody and order fixes across the indexes and logs, broken raft links fixed, and vision steps removed.
-- The re-check: 348 applied edits were tried against sources a second time. 323 held up; 16 were corrected, 3 reverted (among them
-  Corvus Glaive's Endgame step and the SSR's One-Shot wording), and the One-Shot order went to the owner.
-- Kept by the owner: the Crossover tag on Multiverse of Madness, and the Spider-Verse join on Avengers: Doomsday.
+- **The lore audit** (`51a7b95`): 705 findings with sources over every file, log and both timeline orders. The high-confidence fixes,
+  each re-checked a second time. Chapters 3 to 6 tell one story each. The One-Shot comes after Agent Carter S2. Completed once ever.
+- **X-Men '97 and I Am Groot** (`ccb1a6c`): seasons in release order only; story order and the boxes keep one title.
+- **Episode sheet** (`1467b4e`, `70922d7`): the episodes link follows its checkmark, and the sheets no longer blink.
+- **No XP line or level-up pill** (`ec0ec2d`); S.H.I.E.L.D. agents wear the S.H.I.E.L.D. eagle.
+- **The medium findings** (`9c93021`, `9e714fe`): 337 re-verified, 265 applied, 48 owner calls (36 changed data). The timeline follows
+  Marvel's official order where it and the fan wiki agree. Three act missions. Periods from what you've watched.
+- **Second sweep** (`9411afd`): 226 changes to stale descriptions, teams and names, stages on whole shows, nine leads and 42
+  out-of-story lines. Seasons shown with the title. AoS S6 and S7 as two titles. Joaquin Torres's insignia.
+- **Nick Fury and S.H.I.E.L.D.** (`78059ce`): two character boxes, with Fury's own insignia (the eyepatch with three claw marks), quotes,
+  logs, Paths lines and save carry-over.
+- **Team files and Area 55** (`b147d16`): 36 Compound team files removed under the team-file rule, after
+  Agatha and Billy got the "Agatha's coven" tag and Matt (2003) "Nelson & Murdock". Teddy Paine's step names Area 55.
 
-## The round before, all on main
-
+## Earlier rounds, all on main
 
 - Chapter names revealed by watching. The Sacred Timeline and Multiverse pills come from the timeline only.
 - Specimens in the Collection.
