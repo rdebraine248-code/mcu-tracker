@@ -4122,8 +4122,8 @@ function openColl(mode, keep) {
   // the first time you board the Raft, everything already on file comes over in one intake, read; from then on, a file that's new to you says so
   if (!raft && !cpm && !state.collIn) { const L = COLLX.filter(o => cxSteps(o).length), R = state.collSeen = state.collSeen || {}; L.forEach(o => R[o.id] = 1); state.collIn = 1; cxIntake = L.length; persist(); }
   if (raft && !state.raftIn) { const L = THREATS.filter(o => rfSteps(o).length), R = state.raftSeen = state.raftSeen || {}; L.forEach(o => R[o.id] = 1); state.raftIn = 1; rfIntake = L.length; persist(); }
-  collRec = null; cpTeamF = ""; cxHoldF = ""; renderColl(); document.getElementById("collPanel").scrollTop = 0;
-  cp.hidden = false; collOpen = true;
+  collRec = null; cpTeamF = ""; cxHoldF = ""; collY = 0; renderColl();
+  cp.hidden = false; collOpen = true; cp.scrollTop = 0;   // once it's shown: a hidden panel ignores scrollTop and would keep the last index's place
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
   found(raft ? "raft" : cpm ? "compound" : "collector");
   document.getElementById("collBack").focus({ preventScroll: true });
