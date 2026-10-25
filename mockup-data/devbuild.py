@@ -242,11 +242,16 @@ def _sk(x):
     if y: return max([i for i,e in enumerate(_D['timeline']) if _yr(e) is not None and _yr(e)<=int(y.group(1))] or [-1])+.5
     if t in _tlo: return _tlo[t]
     m=_re.match(r'In season (\d+),',x[0]); L=[k for k in _tlo if k.startswith(t+' S')]
+    at=min([_tlo[k] for k in L] or [10**6])
     if m:
         for k in L:
             r=_re.search(r' S(\d+)(?:–S(\d+))?$',k)
-            if r and int(r.group(1))<=int(m.group(1))<=int(r.group(2) or r.group(1)): return _tlo[k]
-    return min([_tlo[k] for k in L] or [10**6])
+            if r and int(r.group(1))<=int(m.group(1))<=int(r.group(2) or r.group(1)): at=_tlo[k]; break
+    # "In season 2, in 1945, ..." (a scene from the past, as a flashback is now worded) sits by its year; a future year stays with its season
+    y=_re.match(r'In season \d+, in (\d{4}),',x[0])
+    if y and at<10**6 and _yr(_D['timeline'][at]) is not None and int(y.group(1))<_yr(_D['timeline'][at]):
+        return max([i for i,e in enumerate(_D['timeline']) if _yr(e) is not None and _yr(e)<=int(y.group(1))] or [-1])+.5
+    return at
 def _main_show(x):
     if x[1] in ('Agent Carter','Agents of S.H.I.E.L.D.: Slingshot'): return True
     if x[1]!='Agents of S.H.I.E.L.D.': return False
