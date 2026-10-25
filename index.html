@@ -6641,9 +6641,9 @@ function swapIn(host, html) {
 const CLEARANCE = ["Recruit", "Field Agent", "Specialist", "Strike Team", "Black Ops", "Classified", "Top Secret", "World Security", "Omega", "Avenger", "Excelsior"];
 // mockup: clearance by experience, not by the share of files. Watching is most of it (a film or a season 10 XP, a short 3, each title once,
 // in any list), finishing things adds a bonus (a chapter 30, a character 15, the Sacred Timeline 150, the Multiverse 300), and the secrets add
-// theirs (an easter egg 20, a mission 30, an artifact 40). The curve: the Sacred Timeline's main line alone reaches Level 6, every branch
-// about Level 7, everything watched Level 9, Level 10 takes the secrets too, and Excelsior is still every file
-const XP_AT = [0, 60, 180, 380, 700, 1150, 1750, 2500, 3400, 5200];
+// theirs (an easter egg 20, a mission 30, an artifact 40). The curve: the Sacred Timeline's main line reaches Level 5, every branch Level 6,
+// every chapter Level 7, everything watched Level 8; Levels 9 and 10 take the secrets too, and Excelsior is still every file
+const XP_AT = [0, 100, 300, 600, 1000, 1600, 2600, 4400, 5200, 5900];
 const XP_SEC = { chapters: 30, characters: 15, missions: 30, artifacts: 40, classified: 20, final: 100 }, XP_ID = { sacred: 150, multiverse: 300 };
 let XP_T = null;
 const xpTitles = () => XP_T || (XP_T = (() => { const B = [...DATA.chapters, ...DATA.chars].flatMap(c => c.items), short = new Set(B.filter(i => i.s).map(i => i.t));
