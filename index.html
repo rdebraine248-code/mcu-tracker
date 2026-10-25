@@ -3668,8 +3668,9 @@ const ATL_TLSEASONS = (() => { const m = {}, add = (pre, t, k) => { const base =
 const atlTl = t => !!state.checks["tl::" + t] || !!state.checks["tr::" + t];
 // a whole show counts once every one of its seasons is checked in a timeline view, the same as its single checkmark in a box
 const atlBase = t => { const b = t.replace(/ S\d.*$/, ""); return b !== t && ATL_BOX[b] ? b : null; };
-// one season counts as watched when its whole show is checked in a box that lists it as one title
-const atlSeenT = t => (!!atlBase(t) && ATL_BOX[atlBase(t)].some(b => !!state.checks[ck(b, atlBase(t))])) || atlTl(t) || Object.values(ATL_TLSEASONS[t] || {}).some(ks => ks.every(k => !!state.checks[k])) || (ATL_BOX[t] || []).some(b => !!state.checks[ck(b, t)])
+// one season counts as watched when its whole show is checked in a box that lists it as one title, or in a timeline that does ("X-Men '97" on the
+// Sacred Timeline opens what X-Men '97 S1 and S2 hold)
+const atlSeenT = t => (!!atlBase(t) && ATL_BOX[atlBase(t)].some(b => !!state.checks[ck(b, atlBase(t))])) || atlTl(t) || (/ S\d/.test(t) && atlTl(t.replace(/ S\d.*$/, ""))) || Object.values(ATL_TLSEASONS[t] || {}).some(ks => ks.every(k => !!state.checks[k])) || (ATL_BOX[t] || []).some(b => !!state.checks[ck(b, t)])
   || (!ATL_BOX[t] && !!ATL_SEAS[t] && ATL_SEAS[t].every(atlSeenT));   // a show no box lists whole counts once each season is watched, in any list
 // a file's step "In season N," on a whole show opens with that season, not only once the whole show is done
 const atlSeenStep = x => { const m = /^In season (\d+),/.exec(x[0] || ""), L = m && ATL_SEAS[x[1]];
