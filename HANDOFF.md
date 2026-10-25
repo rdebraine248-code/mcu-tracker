@@ -45,7 +45,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49; do node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49 ct50 ct51; do node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -67,6 +67,8 @@ node tests/ct35.js                                                              
 | ct47 | Seasons shown with the title, never in the sentence |
 | ct48 | Agents of S.H.I.E.L.D. S6 and S7 as two titles, from an old save |
 | ct49 | Factions: staging, roster and group file, grouping, current and Former, the link back |
+| ct50 | Opening an index starts at the top; backing out of a file keeps the list's place |
+| ct51 | The Sort switch: First seen or A to Z, one setting for the three indexes |
 
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. The test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled.
@@ -106,6 +108,7 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
     marked. `raft_teams.json` (id to staged `tm`) is built from it and read by `devbuild.py` after the ABC move, so it uses final ids.
   - `factions_sweep.json`: the completeness sweep, every faction and team anyone served, with sources, the name map that reconciles
     names across slices, and what was set by hand. Its villain memberships are in `raft_teams.json`, its hero teams in `audit_fix.json`.
+    `recheck` holds the independent pass that tried to disprove all 1,042 claims, and what changed.
     The builder that turns memberships into staged tags lived in a session scratchpad; to change a villain's factions now, edit its
     entry in `raft_teams.json` (keep stages in story order, each keyed to the title that shows it, the last one where they stand at the end).
   - The log and timeline fixes went straight into `index.html` (DATA, DOSSIERS, SAGA).
@@ -199,6 +202,11 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   a complete repository: anything about anyone. Undercover service counts too (Simmons inside HYDRA, Natasha as Natalie Rushman), and
   Gamora and Nebula served the Black Order. Any organization counts: agencies, armies, companies, crews. A person's hero and villain
   files list the same groups (a villain file may cover only the villain years). A file shows the current one lit, the rest Former.
+  A group's name is the one said on screen: the Children of Thanos (never "the Black Order"), the Queen of the Dead's Army. A tag must
+  name the organization that actually commanded the person, never one inferred from a place or a person (X2's brainwashing was Stryker's
+  own operation, not Weapon X).
+- **Index lists:** files in a group are ordered by the Sort switch, First seen (story order of first appearance, ties A to Z) or A to Z
+  (`ixCmp`, `state.ixAZ`, saved). Opening an index starts at the top.
 - **Insignia reveal:** each unlocks on the character's main appearances, several titles, not a single one.
 - **Universes:**
   - The Earth and universe distinction matters.
@@ -248,6 +256,9 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   sides; every organization anyone served, from 8 sourced slices (509 of 703 villain files and 634 of 878 hero files carry one);
   24 organizations' own files became group files; the current faction or team is lit and past ones say Former. Nick Fury's box
   has its own look (black leather, a steel band cut by his three claw marks).
+- **Re-check, Sort, scroll, Captain America** (working branch, waiting for a push): the faction re-check's corrections, the Sort
+  switch, indexes opening at the top, Captain America's box without Agent Carter (pushed earlier as `ed73d74`), Weapon X only where it is
+  on screen (`550e553`).
 
 ## Earlier rounds, all on main
 

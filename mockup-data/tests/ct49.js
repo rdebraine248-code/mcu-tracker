@@ -12,7 +12,7 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
     const p = await ctx.newPage(); p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500);
     const r = await fn(p); await ctx.close(); return r; };
   const tags = (p, id) => p.evaluate(id => { openColl('raft'); collShow(id); return [...document.querySelectorAll('[data-rft]')].map(x => x.dataset.rft); }, id);
-  // only The Avengers: Thanos commands the Chitauri, and the Black Order isn't named yet
+  // only The Avengers: Thanos commands the Chitauri, and his Children aren't named yet
   const early = await run(['The Avengers'], p => tags(p, 'thanos'));
   ok(JSON.stringify(early) === '["The Chitauri"]', 'Thanos before Infinity War ' + JSON.stringify(early));
   const r = await run(['The Avengers', 'Captain America: The Winter Soldier', 'Agents of S.H.I.E.L.D. S1', 'Avengers: Infinity War'], async p => {
@@ -26,11 +26,11 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
     out.grp = await p.evaluate(() => { openColl('raft'); collRec = null; rfTeamF = ''; rfGrp = 'tm'; renderColl(); return { label: [...document.querySelectorAll('[data-rfg]')].map(x => x.textContent),
       secs: [...document.querySelectorAll('.rf-sh span')].map(x => x.textContent) }; });
     return out; });
-  ok(JSON.stringify(r.thanos) === '["The Chitauri","The Black Order"]', 'Thanos after Infinity War ' + JSON.stringify(r.thanos));
+  ok(JSON.stringify(r.thanos) === '["The Chitauri","The Children of Thanos"]', 'Thanos after Infinity War ' + JSON.stringify(r.thanos));
   ok(['HYDRA', 'Project Centipede', 'S.H.I.E.L.D.'].every(t => r.ward.includes(t)), 'Ward in season 1 ' + JSON.stringify(r.ward));
   ok(r.bucky.includes('HYDRA') && r.bucky[r.bucky.length - 1] === 'Independent', 'the Winter Soldier served HYDRA ' + JSON.stringify(r.bucky));
   ok(/Independent$/.test(r.now.head) && r.now.cur.join() === 'Independent' && r.now.past.includes('HYDRA') && r.now.past.includes('U.S. Army'), 'HYDRA and his war years are former, Independent current ' + JSON.stringify(r.now));
-  ok(r.order.head === 'The Black Order' && r.order.gf === null && r.order.rows === 5, 'Black Order roster, its team file gone ' + JSON.stringify(r.order));
+  ok(r.order.head === 'The Children of Thanos' && r.order.gf === null && r.order.rows === 5, 'Children of Thanos roster, its team file gone ' + JSON.stringify(r.order));
   ok(r.hydra.head === 'HYDRA' && r.hydra.gf === 'hydra', 'HYDRA roster keeps its group file ' + JSON.stringify(r.hydra));
   ok(JSON.stringify(r.back) === '["bucky-barnes"]' && r.hero.join() === 'cp,bucky-barnes', 'the Winter Soldier links back to Bucky ' + JSON.stringify([r.back, r.hero]));
   ok(r.grp.label.includes('Faction') && r.grp.secs.includes('HYDRA') && r.grp.secs[r.grp.secs.length - 1] === 'Independent', 'grouped by faction ' + JSON.stringify(r.grp));

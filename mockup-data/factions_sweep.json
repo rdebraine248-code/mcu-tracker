@@ -10385,5 +10385,1453 @@
    ]
   }
  ],
- "hand_villain": "Set by hand in the faction builder: Carl Creel (HYDRA, Talbot's bodyguard, HYDRA again), Trevor Slattery, Captain Carter's Hydra Stomper, zombie Thor, Namor and Captain America (the Red Queen's army), the Winter Soldier (his war years end in 1945); Shaw's Nazi years and Yashida's war years end where their files begin; Talos posing as Keller and Nebula in the Black Order; the animated Inner Circle keeps its file's name. Stryker's file ends in the U.S. Army at X2, and Lady Deathstrike, Ajax, Angel Dust and the Recruiter carry no Weapon X (owner)."
+ "hand_villain": "Set by hand in the faction builder: Carl Creel (HYDRA, Talbot's bodyguard, HYDRA again), Trevor Slattery, Captain Carter's Hydra Stomper, zombie Thor, Namor and Captain America (the Red Queen's army), the Winter Soldier (his war years end in 1945); Shaw's Nazi years and Yashida's war years end where their files begin; Talos posing as Keller and Nebula in the Black Order; the animated Inner Circle keeps its file's name. Stryker's file ends in the U.S. Army at X2, and Lady Deathstrike, Ajax, Angel Dust and the Recruiter carry no Weapon X (owner).",
+ "recheck": {
+  "date": "2026-10-25",
+  "checked": 1042,
+  "keep": 945,
+  "fix": 75,
+  "wrong": 22,
+  "note": "An independent pass tried to disprove every faction and team the sweeps added: named on screen, real service, the right organization (not inferred from a place or a person), the right first title, the right version of the person. Applied: 20 removals (Kang, Victor Timely, Lucian, the main Mordo, Raina, Dottie's Red Room, Vin-Tak, three Oscorp tags, Graydon Creed, Drake, Cable's Genosha, Father Delgado, Trevor's Ten Rings, Talos's S.A.B.E.R., Daisy's HYDRA under Hive); renames to the on-screen names (the Children of Thanos, never called the Black Order; the Queen of the Dead's Army; the New York City Council; the Manfredi Crime Family; the Mutant Control Agency; Cable's Resistance; the U.S. Army for Noir Ben Reilly); start and end fixes (Pierce, Rumlow and Sitwell from Endgame's 2012; Cross, Fisk, Turk, Wesley, Heather Glenn, Erik, animated Magneto and Sabretooth, the Runaways parents). Kept by the owner's earlier calls: Gamora and Nebula in the Children of Thanos, and hero files that note a villain past outside their own titles (the older Magneto's Brotherhood, zombie Thor). Flags on single-value tags (no title) were the checker's view, not data errors.",
+  "flagged": [
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:thanos",
+    "name": "Thanos",
+    "org": "The Black Order",
+    "titles": [
+     "Avengers: Infinity War"
+    ],
+    "fix": {
+     "org": "The Children of Thanos"
+    },
+    "reason": "The group is never called the Black Order on screen; Infinity War calls Thanos's lieutenants the Children of Thanos (comics name only)."
+   },
+   {
+    "slice": "va",
+    "verdict": "wrong",
+    "file": "villain:nebula",
+    "name": "Nebula",
+    "org": "The Black Order",
+    "titles": [
+     "Guardians of the Galaxy"
+    ],
+    "fix": null,
+    "reason": "In Guardians of the Galaxy Nebula serves Ronan on Thanos's orders; the Black Order (Children of Thanos) first appears in Infinity War and its members "
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:yondu",
+    "name": "Yondu Udonta",
+    "org": "The Ravagers",
+    "titles": [
+     "Guardians of the Galaxy"
+    ],
+    "fix": {
+     "titles": [
+      "The Guardians of the Galaxy Holiday Special"
+     ]
+    },
+    "reason": "The Holiday Special flashback, the file's first step, already shows Yondu leading his Ravager crew with Kraglin and young Peter; MCU wiki lists the Ra"
+   },
+   {
+    "slice": "va",
+    "verdict": "wrong",
+    "file": "villain:talos",
+    "name": "Talos",
+    "org": "S.A.B.E.R.",
+    "titles": [
+     "Spider-Man: Far From Home"
+    ],
+    "fix": null,
+    "reason": "S.A.B.E.R. is not named in Far From Home, and Talos impersonates Fury for Fury personally; MCU wiki's S.A.B.E.R. member list does not include Talos."
+   },
+   {
+    "slice": "va",
+    "verdict": "wrong",
+    "file": "villain:trevor-slattery",
+    "name": "Trevor Slattery",
+    "org": "The Ten Rings",
+    "titles": [
+     "Shang-Chi and the Legend of the Ten Rings"
+    ],
+    "fix": null,
+    "reason": "Trevor is the Ten Rings' prisoner, spared only as Wenwu's jester; a captive, not a member, and MCU wiki lists no Ten Rings affiliation for him."
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:alexander-pierce",
+    "name": "Alexander Pierce",
+    "org": "S.H.I.E.L.D.",
+    "titles": [
+     "Captain America: The Winter Soldier"
+    ],
+    "fix": {
+     "titles": [
+      "Avengers: Endgame",
+      "Captain America: The Winter Soldier"
+     ]
+    },
+    "reason": "The file's first step (Endgame, 2012) already shows Pierce as S.H.I.E.L.D.: he says the Tesseract has been 'S.H.I.E.L.D. property for over seventy yea"
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:brock-rumlow",
+    "name": "Crossbones",
+    "org": "S.H.I.E.L.D.",
+    "titles": [
+     "Captain America: The Winter Soldier"
+    ],
+    "fix": {
+     "titles": [
+      "Avengers: Endgame",
+      "Captain America: The Winter Soldier"
+     ]
+    },
+    "reason": "The file's first step (Endgame, 2012) already shows Rumlow leading the STRIKE team that takes Loki's scepter back to S.H.I.E.L.D.; the file itself cal"
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:jasper-sitwell",
+    "name": "Jasper Sitwell",
+    "org": "S.H.I.E.L.D.",
+    "titles": [
+     "Captain America: The Winter Soldier"
+    ],
+    "fix": {
+     "titles": [
+      "Avengers: Endgame",
+      "Captain America: The Winter Soldier"
+     ]
+    },
+    "reason": "The file's first step (Endgame, 2012) already shows Sitwell as a S.H.I.E.L.D. agent with Rumlow's STRIKE team, reporting to Pierce on the scepter."
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:darren-cross",
+    "name": "M.O.D.O.K.",
+    "org": "Pym Technologies",
+    "titles": [
+     "Ant-Man",
+     "Ant-Man and the Wasp: Quantumania"
+    ],
+    "fix": {
+     "note": "ends at Ant-Man"
+    },
+    "reason": "Cross ran Pym Tech only in Ant-Man; in Quantumania he is M.O.D.O.K., rebuilt by and serving Kang (the file calls him 'once CEO')."
+   },
+   {
+    "slice": "va",
+    "verdict": "wrong",
+    "file": "villain:lucian",
+    "name": "Lucian",
+    "org": "Masters of the Mystic Arts",
+    "titles": [
+     "Doctor Strange"
+    ],
+    "fix": null,
+    "reason": "The film never says Lucian trained at Kamar-Taj; MCU wiki sources his past as a Master only to the Doctor Strange Prelude comic, and Wikipedia calls h"
+   },
+   {
+    "slice": "va",
+    "verdict": "wrong",
+    "file": "villain:karl-mordo",
+    "name": "Karl Mordo",
+    "org": "The Illuminati",
+    "titles": [
+     "Doctor Strange in the Multiverse of Madness"
+    ],
+    "fix": null,
+    "reason": "The Illuminati member is the Earth-838 Mordo, a separate variant (MCU wiki's Baron Mordo/Earth-838); this file's Mordo never joins."
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:ebony-maw",
+    "name": "Ebony Maw",
+    "org": "The Black Order",
+    "titles": [
+     "Avengers: Infinity War"
+    ],
+    "fix": {
+     "org": "The Children of Thanos"
+    },
+    "reason": "Never called the Black Order on screen; the film calls them the Children of Thanos."
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:proxima-midnight",
+    "name": "Proxima Midnight",
+    "org": "The Black Order",
+    "titles": [
+     "Avengers: Infinity War"
+    ],
+    "fix": {
+     "org": "The Children of Thanos"
+    },
+    "reason": "Never called the Black Order on screen; the film calls them the Children of Thanos."
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:corvus-glaive",
+    "name": "Corvus Glaive",
+    "org": "The Black Order",
+    "titles": [
+     "Avengers: Infinity War"
+    ],
+    "fix": {
+     "org": "The Children of Thanos"
+    },
+    "reason": "Never called the Black Order on screen; the film calls them the Children of Thanos."
+   },
+   {
+    "slice": "va",
+    "verdict": "fix",
+    "file": "villain:cull-obsidian",
+    "name": "Cull Obsidian",
+    "org": "The Black Order",
+    "titles": [
+     "Avengers: Infinity War"
+    ],
+    "fix": {
+     "org": "The Children of Thanos"
+    },
+    "reason": "Never called the Black Order on screen; the film calls them the Children of Thanos."
+   },
+   {
+    "slice": "vb",
+    "verdict": "wrong",
+    "file": "villain:kang",
+    "name": "Kang the Conqueror",
+    "org": "The Council of Kangs",
+    "titles": [
+     "Ant-Man and the Wasp: Quantumania"
+    ],
+    "fix": null,
+    "reason": "This Kang never serves the Council: he only says his variants exiled him out of fear, and the MCU wiki says he refused their alliance. He is its victi"
+   },
+   {
+    "slice": "vb",
+    "verdict": "wrong",
+    "file": "villain:victor-timely",
+    "name": "Victor Timely",
+    "org": "The TVA",
+    "titles": [
+     "Loki S2"
+    ],
+    "fix": null,
+    "reason": "Victor is never a TVA member: Loki and Mobius bring him in for one job, using his aura to fix the Loom, and Wolfe later kidnaps him. That is a one-job"
+   },
+   {
+    "slice": "vb",
+    "verdict": "fix",
+    "file": "villain:st-kingpin",
+    "name": "Wilson Fisk",
+    "org": "The Tracksuit Mafia",
+    "titles": [
+     "Hawkeye",
+     "Daredevil: Born Again S2"
+    ],
+    "fix": {
+     "note": "ends at Hawkeye"
+    },
+    "reason": "Fisk runs the Tracksuit Mafia in Hawkeye, but the gang only shows up again in Echo flashbacks and never in Born Again. The Born Again S2 stage comes f"
+   },
+   {
+    "slice": "vb",
+    "verdict": "fix",
+    "file": "villain:st-james-wesley",
+    "name": "James Wesley",
+    "org": "Fisk's Empire",
+    "titles": [
+     "Daredevil S1"
+    ],
+    "fix": {
+     "titles": [
+      "Daredevil: Born Again S2",
+      "Daredevil S1"
+     ]
+    },
+    "reason": "The file's first step is the Born Again S2 flashback, where Wesley is already Fisk's fixer hiring Cashman, but that stage shows him Independent. The m"
+   },
+   {
+    "slice": "vb",
+    "verdict": "fix",
+    "file": "villain:st-turk-barrett",
+    "name": "Turk Barrett",
+    "org": "Fisk's Empire",
+    "titles": [
+     "Daredevil S1"
+    ],
+    "fix": {
+     "note": "ends at Daredevil S1"
+    },
+    "reason": "Turk works for Fisk's organization in Daredevil S1 and is arrested when it falls, but the file tags every later step (Daredevil S2 through The Punishe"
+   },
+   {
+    "slice": "vb",
+    "verdict": "fix",
+    "file": "villain:st-mariah-dillard",
+    "name": "Black Mariah",
+    "org": "New York City",
+    "titles": [
+     "Luke Cage S1"
+    ],
+    "fix": {
+     "org": "New York City Council"
+    },
+    "reason": "The membership is real, but she serves on the New York City Council, not 'New York City' itself."
+   },
+   {
+    "slice": "vc",
+    "verdict": "wrong",
+    "file": "villain:st-raina",
+    "name": "Raina",
+    "org": "Afterlife",
+    "titles": [
+     "Agents of S.H.I.E.L.D. S2"
+    ],
+    "fix": null,
+    "reason": "Raina is only taken in at Afterlife as a new Inhuman and lives there briefly before Jiaying kills her; she never serves Jiaying's group (only at its p"
+   },
+   {
+    "slice": "vc",
+    "verdict": "wrong",
+    "file": "villain:st-dottie-underwood",
+    "name": "Dottie Underwood",
+    "org": "The Red Room",
+    "titles": [
+     "Agent Carter S1",
+     "Agent Carter S1"
+    ],
+    "fix": null,
+    "reason": "Agent Carter never names the Red Room: the show calls it a Soviet (Leviathan) training complex, and the Red Room label comes from showrunner and Marve"
+   },
+   {
+    "slice": "vc",
+    "verdict": "fix",
+    "file": "villain:st-joseph-manfredi",
+    "name": "Joseph Manfredi",
+    "org": "The Maggia",
+    "titles": [
+     "Agent Carter"
+    ],
+    "fix": {
+     "org": "The Manfredi Crime Family"
+    },
+    "reason": "Manfredi leads his own crime family on screen; his Maggia link comes only from a Variety casting announcement, and Agent Carter never names the Maggia"
+   },
+   {
+    "slice": "vc",
+    "verdict": "wrong",
+    "file": "villain:st-vin-tak",
+    "name": "Vin-Tak",
+    "org": "The Kree Empire",
+    "titles": [
+     "Agents of S.H.I.E.L.D."
+    ],
+    "fix": null,
+    "reason": "Vin-Tak comes on his own to wipe out the Diviners so the Kree Empire will not learn of the experiments; he is never shown serving the Empire (no affil"
+   },
+   {
+    "slice": "vc",
+    "verdict": "fix",
+    "file": "villain:st-heather-glenn",
+    "name": "Heather Glenn",
+    "org": "Fisk's administration",
+    "titles": [
+     "Daredevil: Born Again S2"
+    ],
+    "fix": {
+     "titles": [
+      "Daredevil: Born Again S1"
+     ]
+    },
+    "reason": "Fisk names Heather his Commissioner of Mental Health and she accepts in the S1 finale (Straight to Hell), so the membership is first shown in S1."
+   },
+   {
+    "slice": "ha",
+    "verdict": "wrong",
+    "file": "hero:st-daisy-johnson",
+    "name": "Daisy Johnson",
+    "org": "HYDRA",
+    "titles": [
+     "Agents of S.H.I.E.L.D. S3"
+    ],
+    "fix": null,
+    "reason": "Under Hive's control Daisy serves Hive personally, who uses HYDRA's inner circle as test subjects; MCU wiki gives her no HYDRA affiliation (only the F"
+   },
+   {
+    "slice": "ha",
+    "verdict": "fix",
+    "file": "hero:st-angie-martinelli",
+    "name": "Angie Martinelli",
+    "org": "L&L Automat",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Agent Carter S1"
+     ]
+    },
+    "reason": "Angie works as a waitress at the L&L Automat in Agent Carter season 1; the title is empty."
+   },
+   {
+    "slice": "ha",
+    "verdict": "fix",
+    "file": "hero:betty-ross",
+    "name": "Betty Ross",
+    "org": "Culver University",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "The Incredible Hulk"
+     ]
+    },
+    "reason": "Betty is a Culver University scientist in The Incredible Hulk; the title is empty."
+   },
+   {
+    "slice": "ha",
+    "verdict": "fix",
+    "file": "hero:leonard-samson",
+    "name": "Leonard Samson",
+    "org": "Culver University",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "The Incredible Hulk"
+     ]
+    },
+    "reason": "Samson is a psychiatrist at Culver University in The Incredible Hulk; the title is empty."
+   },
+   {
+    "slice": "ha",
+    "verdict": "fix",
+    "file": "hero:helen-cho",
+    "name": "Dr. Helen Cho",
+    "org": "U-GIN",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Avengers: Age of Ultron"
+     ]
+    },
+    "reason": "Helen Cho runs the U-GIN lab in Seoul in Age of Ultron; the title is empty."
+   },
+   {
+    "slice": "ha",
+    "verdict": "wrong",
+    "file": "hero:gamora",
+    "name": "Gamora",
+    "org": "The Black Order",
+    "titles": [
+     "Guardians of the Galaxy",
+     "Avengers: Endgame"
+    ],
+    "fix": null,
+    "reason": "The MCU never calls Thanos's lieutenants the Black Order (on screen they are the Children of Thanos), and the wiki's group is only Maw, Cull, Proxima "
+   },
+   {
+    "slice": "ha",
+    "verdict": "wrong",
+    "file": "hero:nebula",
+    "name": "Nebula",
+    "org": "The Black Order",
+    "titles": [
+     "Guardians of the Galaxy"
+    ],
+    "fix": null,
+    "reason": "Black Order is a comics and marketing name never used on screen in the MCU, and Nebula is not one of its four members; in Guardians of the Galaxy she "
+   },
+   {
+    "slice": "ha",
+    "verdict": "fix",
+    "file": "hero:jim-paxton",
+    "name": "Jim Paxton",
+    "org": "SFPD",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Ant-Man"
+     ]
+    },
+    "reason": "Paxton is an SFPD officer who arrests Scott in Ant-Man; the title is empty."
+   },
+   {
+    "slice": "sv",
+    "verdict": "wrong",
+    "file": "villain:sv-doc-ock-2004",
+    "name": "Doctor Octopus",
+    "org": "Oscorp",
+    "titles": [
+     "Spider-Man 2"
+    ],
+    "fix": null,
+    "reason": "Oscorp (via Harry) only funds Otto's own fusion project and he works in his own lab; his later tritium-for-Spider-Man deal is a one-off trade, so he n"
+   },
+   {
+    "slice": "sv",
+    "verdict": "wrong",
+    "file": "villain:sv-gentleman-asm",
+    "name": "The Gentleman",
+    "org": "Oscorp",
+    "titles": [
+     "The Amazing Spider-Man 2"
+    ],
+    "fix": null,
+    "reason": "Fiers is shown only as Harry's associate after Harry is ousted from Oscorp and locked in Ravencroft; no Oscorp employment is stated, so the tag is inf"
+   },
+   {
+    "slice": "sv",
+    "verdict": "wrong",
+    "file": "villain:sv-spencer-smythe-1994",
+    "name": "Spencer Smythe",
+    "org": "Oscorp",
+    "titles": [
+     "Spider-Man (1994)"
+    ],
+    "fix": null,
+    "reason": "Spencer is hired by Norman for one job (a Spider-Slayer in exchange for a hoverchair for Alistair), not employed by Oscorp; 'hired for one job' fails."
+   },
+   {
+    "slice": "sv",
+    "verdict": "fix",
+    "file": "hero:sv-ben-reilly-noir",
+    "name": "Ben Reilly",
+    "org": "U.S. Military",
+    "titles": [
+     "Spider-Noir"
+    ],
+    "fix": {
+     "org": "U.S. Army"
+    },
+    "reason": "Ben served as a U.S. Army sergeant in World War I (Meuse-Argonne), and this continuity's other files use 'U.S. Army'."
+   },
+   {
+    "slice": "fx",
+    "verdict": "fix",
+    "file": "villain:fox-magneto-erik",
+    "name": "Magneto",
+    "org": "Erik's Mutants",
+    "titles": [
+     "X-Men: First Class",
+     "X-Men: First Class",
+     "X-Men: Apocalypse"
+    ],
+    "fix": {
+     "titles": [
+      "X-Men: First Class",
+      "X-Men: First Class",
+      "Dark Phoenix"
+     ]
+    },
+    "reason": "Erik leads no group of mutants in X-Men: Apocalypse (he lives alone in Poland, then serves Apocalypse); his next faction is the Genoshan one in Dark P"
+   },
+   {
+    "slice": "fx",
+    "verdict": "fix",
+    "file": "villain:fox-anim-magneto",
+    "name": "Magneto",
+    "org": "Genosha",
+    "titles": [
+     "X-Men '97 S1"
+    ],
+    "fix": {
+     "titles": [
+      "X-Men: The Animated Series",
+      "X-Men '97 S1"
+     ]
+    },
+    "reason": "Magneto already rules Genosha with a mutant army in the original series finale (Graduation Day), before the '97 council offer"
+   },
+   {
+    "slice": "fx",
+    "verdict": "fix",
+    "file": "villain:fox-anim-sabretooth",
+    "name": "Sabretooth",
+    "org": "Team X",
+    "titles": [
+     "X-Men '97 S2"
+    ],
+    "fix": {
+     "titles": [
+      "X-Men: The Animated Series",
+      "X-Men '97 S2"
+     ]
+    },
+    "reason": "Sabretooth's Team X past with Wolverine, Maverick and Silver Fox is already shown in the original series (Red Dawn; Weapon X, Lies and Videotape)"
+   },
+   {
+    "slice": "fx",
+    "verdict": "wrong",
+    "file": "villain:fox-anim-graydon-creed",
+    "name": "Graydon Creed",
+    "org": "The White House",
+    "titles": [
+     "X-Men '97 S2"
+    ],
+    "fix": null,
+    "reason": "Creed only campaigns and is elected in the season 2 mid-credits scene; he is never shown serving in the White House"
+   },
+   {
+    "slice": "fx",
+    "verdict": "fix",
+    "file": "villain:fox-anim-gyrich",
+    "name": "Henry Peter Gyrich",
+    "org": "The White House",
+    "titles": [
+     "X-Men: The Animated Series"
+    ],
+    "fix": {
+     "org": "Mutant Control Agency"
+    },
+    "reason": "Gyrich's agency is the Mutant Control Agency that feeds his Sentinel program; he only meets the President at the White House"
+   },
+   {
+    "slice": "fx",
+    "verdict": "wrong",
+    "file": "hero:fox-magneto",
+    "name": "Magneto",
+    "org": "The Brotherhood",
+    "titles": [
+     "X-Men (2000)"
+    ],
+    "fix": null,
+    "reason": "This file covers the aging Magneto allied with Xavier (The Wolverine, DOFP); the Brotherhood disbanded after The Last Stand and is never shown in this"
+   },
+   {
+    "slice": "fx",
+    "verdict": "fix",
+    "file": "hero:fox-weasel",
+    "name": "Weasel",
+    "org": "Sister Margaret's",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Deadpool"
+     ]
+    },
+    "reason": "Weasel tends bar at Sister Margaret's in Deadpool; the title is empty"
+   },
+   {
+    "slice": "fx",
+    "verdict": "wrong",
+    "file": "hero:fox-anim-cable",
+    "name": "Cable",
+    "org": "Genosha",
+    "titles": [
+     "X-Men: The Animated Series"
+    ],
+    "fix": null,
+    "reason": "Cable tracks the Leader to Genosha and helps Gambit free its slaves; he fights the regime and never serves it"
+   },
+   {
+    "slice": "fx",
+    "verdict": "fix",
+    "file": "hero:fox-anim-cable",
+    "name": "Cable",
+    "org": "Clan Chosen",
+    "titles": [
+     "X-Men: The Animated Series"
+    ],
+    "fix": {
+     "org": "Cable's Resistance"
+    },
+    "reason": "Cable's future rebels are real but unnamed in the series; Clan Chosen is the comics name"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-st-izel",
+    "name": "Izel",
+    "org": "Izel's Crew",
+    "titles": [
+     "Agents of S.H.I.E.L.D."
+    ],
+    "fix": {
+     "titles": [
+      "Agents of S.H.I.E.L.D. S6"
+     ]
+    },
+    "reason": "Izel's Crew is real (Toldja, Collision Course), but it is a season 6 group, so use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-st-sibyl",
+    "name": "Sibyl",
+    "org": "The Chronicom Hunters",
+    "titles": [
+     "Agents of S.H.I.E.L.D."
+    ],
+    "fix": {
+     "titles": [
+      "Agents of S.H.I.E.L.D. S7"
+     ]
+    },
+    "reason": "Sibyl leads the Chronicom Hunters only in season 7 (first appears 7x03), so use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "wrong",
+    "file": "villain:pr-drake",
+    "name": "Drake",
+    "org": "The House of Talos",
+    "titles": [
+     "Blade: Trinity"
+    ],
+    "fix": null,
+    "reason": "Drake is the ancient vampire the Talos group revives; he sees vampires and humans as inferior and serves no group; not listed as a member"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-arnim-zola",
+    "name": "Arnim Zola",
+    "org": "HYDRA",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Ultron-world Zola is a former Hydra scientist, but this file is season 1 only"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-loki-conqueror",
+    "name": "Loki",
+    "org": "Asgard",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Loki, Crown Prince of Asgard, leads Asgard's army in S1 E3; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-red-skull",
+    "name": "Red Skull",
+    "org": "HYDRA",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Red Skull leads Hydra in S1 E1; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-avengers",
+    "name": "The Zombie Avengers",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "org": "The Queen of the Dead's Army"
+    },
+    "reason": "'Red Queen' is a marketing name (the wiki cites the Marvel Zombies media kit); on screen she is the Queen of the Dead, so use a plain descriptive name"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-queen-of-the-dead",
+    "name": "The Queen of the Dead",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "org": "The Queen of the Dead's Army"
+    },
+    "reason": "'Red Queen' is a marketing name (the wiki cites the Marvel Zombies media kit); on screen she is the Queen of the Dead, so use a plain descriptive name"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-thanos",
+    "name": "Thanos",
+    "org": "The Black Order",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Zombie-world Thanos's Black Order (Ebony Maw, Cull Obsidian) comes to Earth in S1 E5; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-namor",
+    "name": "Namor",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "org": "The Queen of the Dead's Army"
+    },
+    "reason": "Wanda enthralls zombie Namor (wiki lists him in her army); 'Red Queen' is a marketing name (the wiki cites the Marvel Zombies media kit); on screen sh"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-thor",
+    "name": "Thor",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "org": "The Queen of the Dead's Army"
+    },
+    "reason": "Zombified, Thor fights for Wanda against the Hulk; 'Red Queen' is a marketing name (the wiki cites the Marvel Zombies media kit); on screen she is the"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-yon-rogg",
+    "name": "Yon-Rogg",
+    "org": "Starforce",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "This file is season 2; Starforce shows only as the logo on his uniform in S2 E1 (name unverified on screen)"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-melina",
+    "name": "Melina Vostokoff",
+    "org": "The Red Room",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Melina leads the Red Room in S2 E5; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-hydra-stomper",
+    "name": "The Hydra Stomper",
+    "org": "U.S. Army",
+    "titles": [
+     "What If...? S2"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Real (wiki: U.S. Army, formerly) but first shown in S1 E1, not S2, where he is the Red Room's weapon; his hero file by-steve-rogers-stomper already ca"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-hydra-stomper",
+    "name": "The Hydra Stomper",
+    "org": "SSR",
+    "titles": [
+     "What If...? S2"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Real (wiki: SSR, formerly) but first shown in S1 E1, not S2, where he is the Red Room's weapon; note his hero file lacks this tag"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-hydra-stomper",
+    "name": "The Hydra Stomper",
+    "org": "Howling Commandos",
+    "titles": [
+     "What If...? S2"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Real (wiki: Howling Commandos, formerly) but first shown in S1 E1, not S2; his hero file by-steve-rogers-stomper already carries it"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-rodrigo-gonzolo",
+    "name": "Rodrigo Gonzolo",
+    "org": "The Conquistadors",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Gonzolo leads the Spanish conquistadors in S2 E6; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-king-thor",
+    "name": "King Thor",
+    "org": "Asgard",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "King Thor belongs to the Asgardian Royal Family ruling 1602 England (S2 E8); use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-hood-1872",
+    "name": "The Hood",
+    "org": "The Hood's Crew",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S3"
+     ]
+    },
+    "reason": "Xialing as the Hood leads her crew, enforcer Sonny Burch included, in S3 E6; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-the-eminence",
+    "name": "The Eminence",
+    "org": "The Watchers",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S3"
+     ]
+    },
+    "reason": "The Eminence is one of the Watchers in S3 E7 and E8; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-heinz-kruger",
+    "name": "Heinz Kruger",
+    "org": "HYDRA",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Kruger is the Hydra spy in S1 E1; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-odin-ten-rings",
+    "name": "Odin",
+    "org": "Asgard",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Odin rules Asgard in S2 E7; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-stane-rook",
+    "name": "Obadiah Stane",
+    "org": "Stark Industries",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S3"
+     ]
+    },
+    "reason": "The Rook (Stane) is a Stark Industries man in S3 E3; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-kaecilius-knowhere",
+    "name": "Kaecilius",
+    "org": "The Zealots",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S3"
+     ]
+    },
+    "reason": "Kaecilius leads his zealots on Knowhere in S3 E4 ('we present to you an offering'); use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-yondu-egg",
+    "name": "Yondu Udonta",
+    "org": "The Ravagers",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S3"
+     ]
+    },
+    "reason": "Yondu leads the Ravagers in S3 E4; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-topaz",
+    "name": "Topaz",
+    "org": "Sakaar",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Topaz is the Grandmaster's chief enforcer on Sakaar in S2 E4; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-abomination",
+    "name": "Abomination",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "org": "The Queen of the Dead's Army"
+    },
+    "reason": "Zombie Blonsky storms the North Institute in Okoye's horde for Wanda; 'Red Queen' is a marketing name (the wiki cites the Marvel Zombies media kit); o"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-ghost",
+    "name": "Ghost",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "org": "The Queen of the Dead's Army"
+    },
+    "reason": "Zombie Ava Starr storms the North Institute in Okoye's horde for Wanda; 'Red Queen' is a marketing name (the wiki cites the Marvel Zombies media kit);"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-captain-america",
+    "name": "Captain America",
+    "org": "The Avengers",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Real (he leads the Avengers to San Francisco before infection), but that is shown in S1 E5, not Marvel Zombies"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-zombie-captain-america",
+    "name": "Captain America",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": {
+     "org": "The Queen of the Dead's Army"
+    },
+    "reason": "Zombie Steve storms the North Institute in Okoye's horde for Wanda; 'Red Queen' is a marketing name (the wiki cites the Marvel Zombies media kit); on "
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "villain:by-sonny-burch-1872",
+    "name": "Sonny Burch",
+    "org": "The Hood's Crew",
+    "titles": [
+     "What If...?"
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S3"
+     ]
+    },
+    "reason": "Burch is the Hood's enforcer in S3 E6; use the season title"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:by-christine-palmer",
+    "name": "Christine Palmer",
+    "org": "Metro-General Hospital",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S1"
+     ]
+    },
+    "reason": "Christine works at Metro-General Hospital, but the title is blank; she is first shown in S1 E4"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:by-howard-casino",
+    "name": "Howard the Duck",
+    "org": "Howard's Casino",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Howard runs Howard's Casino, but the title is blank; he is first shown in S2 E1"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:by-wahta",
+    "name": "Wáhta",
+    "org": "Mohawk",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Wáhta is Mohawk, but the title is blank; she is first shown in S2 E6"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:by-tony-1602",
+    "name": "Tony Stark",
+    "org": "The Avengers",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Title is blank; the 1602 team is S2 E8 (wiki lists Tony in the 1602 Avengers; the name is from the episode title, on-screen use unverified)"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:by-rogers-hood",
+    "name": "Rogers Hood",
+    "org": "The Avengers",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S2"
+     ]
+    },
+    "reason": "Title is blank; the 1602 team is S2 E8 (wiki lists Rogers Hood as its leader; on-screen name unverified, his band is the Merry Men)"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:by-bill-foster-1991",
+    "name": "Bill Foster",
+    "org": "S.H.I.E.L.D.",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "What If...? S3"
+     ]
+    },
+    "reason": "The 1991 Foster says he heads a S.H.I.E.L.D. unit, but the title is blank; this is S3 E3"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-daredevil",
+    "name": "Matt Murdock",
+    "org": "Nelson & Murdock",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Daredevil (2003)"
+     ]
+    },
+    "reason": "Matt practices law with Foggy Nelson, but the title is blank; this is Daredevil (2003)"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-tibor",
+    "name": "Tibor",
+    "org": "The Genetic Council",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Inhumans"
+     ]
+    },
+    "reason": "Tibor is a member of the Genetic Council, but the title is blank; this is Inhumans"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-yorkes",
+    "name": "Dale and Stacey Yorkes",
+    "org": "Synnergy",
+    "titles": [
+     "Runaways S3"
+    ],
+    "fix": {
+     "titles": [
+      "Runaways S1–S2"
+     ]
+    },
+    "reason": "The Yorkes run Synnergy from S1 (e.g. Destiny, 1x03), before this hero file's S3 stage"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-tina-minoru",
+    "name": "Tina Minoru",
+    "org": "Wizard",
+    "titles": [
+     "Runaways S3"
+    ],
+    "fix": {
+     "titles": [
+      "Runaways S1–S2"
+     ]
+    },
+    "reason": "Tina is Wizard's CEO from S1, before this hero file's S3 stage"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-robert-minoru",
+    "name": "Robert Minoru",
+    "org": "Wizard",
+    "titles": [
+     "Runaways S3"
+    ],
+    "fix": {
+     "titles": [
+      "Runaways S1–S2"
+     ]
+    },
+    "reason": "Robert co-founded Wizard and is shown there from S1, before this hero file's S3 stage"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-geoffrey-wilder",
+    "name": "Geoffrey Wilder",
+    "org": "Geoffrey Wilder Construction",
+    "titles": [
+     "Runaways S3"
+    ],
+    "fix": {
+     "titles": [
+      "Runaways S1–S2"
+     ]
+    },
+    "reason": "Geoffrey's company is shown from S1 (1x02), before this hero file's S3 stage"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-victor-stein",
+    "name": "Victor Stein",
+    "org": "Nemo",
+    "titles": [
+     "Runaways S3"
+    ],
+    "fix": {
+     "titles": [
+      "Runaways S1–S2"
+     ]
+    },
+    "reason": "Victor is Nemo's CEO from S1 (1x01), before this hero file's S3 stage"
+   },
+   {
+    "slice": "pb",
+    "verdict": "wrong",
+    "file": "hero:pr-st-father-delgado",
+    "name": "Father Delgado",
+    "org": "St. Theresa's Church",
+    "titles": [
+     "Cloak & Dagger"
+    ],
+    "fix": null,
+    "reason": "St. Theresa's is an abandoned church building, Tandy and Tyrone's hideout; Delgado only starts rebuilding it in the S2 finale, and no parish or group "
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-evita-fusilier",
+    "name": "Evita Fusilier",
+    "org": "Damballah Voodoo Tours & Shop",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Cloak & Dagger"
+     ]
+    },
+    "reason": "Evita works at her family's Damballah Voodoo Tours & Shop, but the title is blank"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-chantelle",
+    "name": "Auntie Chantelle",
+    "org": "Damballah Voodoo Tours & Shop",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Cloak & Dagger"
+     ]
+    },
+    "reason": "Chantelle runs Damballah Voodoo Tours & Shop, but the title is blank"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-adina-johnson",
+    "name": "Adina Johnson",
+    "org": "Roxxon",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Cloak & Dagger"
+     ]
+    },
+    "reason": "Adina is a Roxxon community-relations consultant (1x03, 1x08), but the title is blank"
+   },
+   {
+    "slice": "pb",
+    "verdict": "fix",
+    "file": "hero:pr-st-otis-johnson",
+    "name": "Otis Johnson",
+    "org": "The Wild Red Hawks",
+    "titles": [
+     ""
+    ],
+    "fix": {
+     "titles": [
+      "Cloak & Dagger"
+     ]
+    },
+    "reason": "Otis is a Wild Red Hawks member (Spy Boy, 1x04), but the title is blank"
+   },
+   {
+    "slice": "pb",
+    "verdict": "wrong",
+    "file": "hero:by-zombie-thor",
+    "name": "Thor",
+    "org": "Red Queen's Army",
+    "titles": [
+     "Marvel Zombies"
+    ],
+    "fix": null,
+    "reason": "The living hero Thor never serves Wanda; she zombifies him as he dies, and the zombie is on his villain file (by-zombie-thor), which already carries t"
+   }
+  ]
+ }
 }

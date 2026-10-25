@@ -4148,6 +4148,7 @@ document.getElementById("collView").addEventListener("keydown", ev => { if ((ev.
 document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
 document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest("[data-co-back]")) { haptic(8); collGrid(); return; }
+  const xs = ev.target.closest("[data-ixs]"); if (xs) { const az = xs.dataset.ixs === "az"; if (az !== !!state.ixAZ) { haptic(8); state.ixAZ = az ? 1 : 0; persist(); renderColl(); } return; }
   if (collMode === "coll") {
     if (ev.target.closest(".pg-qx")) { haptic(8); cxQ = ""; renderColl(); return; }
     const xh = ev.target.closest("[data-cxh]"); if (xh) { haptic(10); cxHoldF = xh.dataset.cxh; cxUni = rfUniOf(COLLX.find(o => o.id === collRec)); cxQ = ""; collY = 0; collGrid(); return; }
@@ -4199,6 +4200,11 @@ const cxSteps = o => o.st.filter(atlSeenStep);
 const cxSpec = o => o.c === "specimens";
 const cxStatus = S => S.length ? S[S.length - 1][2] || "In use" : "In use", cxHolder = S => S.length ? S[S.length - 1][3] || "Unknown" : "Unknown";
 const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", atlSeenT)[0];
+// the order of a group's files in the three indexes: first seen in the story (ties A to Z), or A to Z, ignoring a leading "The". One setting
+// for all three, kept with the save (October 2026)
+const ixName = n => String(n).replace(/^The /, "");
+const ixCmp = (name, steps) => (a, b) => (state.ixAZ ? 0 : (ATL_ORDER[rfFirst(steps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(steps(b))] ?? 1e9)) || ixName(name(a)).localeCompare(ixName(name(b)));
+const ixSortBar = () => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg"><button type="button" data-ixs="first" aria-pressed="${!state.ixAZ}">First seen</button><button type="button" data-ixs="az" aria-pressed="${!!state.ixAZ}">A–Z</button></div></div>`;
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
 const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
 let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0, cxHoldF = "";
@@ -4232,7 +4238,7 @@ function cxBody() {
   const card = (o, meta) => { const S = cxSteps(o), st = cxStatus(S), n = cxName(o);
     return `<button type="button" class="cx-case s-${CX_ST[st]}" data-co="${o.id}"><span class="cx-stage"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><i class="rf-lamp" aria-hidden="true"></i></span>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="cx-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}</b><small>${esc(cxKind(o))}</small><em>${esc(meta(o, S, st))}</em></span></button>`; };
   if (cxHoldF && q.length < 2) {   // everything one holder has had, as far as you've watched
-    const L = COLLX.filter(o => rfUniOf(o) === cxUni && !cxSpec(o) && cxSteps(o).some(x => x[3] === cxHoldF)).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
+    const L = COLLX.filter(o => rfUniOf(o) === cxUni && !cxSpec(o) && cxSteps(o).some(x => x[3] === cxHoldF)).sort(ixCmp(cxName, cxSteps));
     return `<div class="tf-bar"><span><small>Held by</small><b>${esc(cxHoldF)}</b></span><button type="button" data-tfx aria-label="Show every object">All objects<i aria-hidden="true">&#10005;</i></button></div>
       <div class="rf-sh rf-found"><span>In their hands</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxHolder(S) === cxHoldF ? st : "Now held by " + cxHolder(S))).join("")}</div>`;
   }
@@ -4240,7 +4246,7 @@ function cxBody() {
     const L = COLLX.filter(o => cxSteps(o).length && [cxName(o), cxKind(o)].some(t => qNorm(t).includes(q))).sort((a, b) => qNorm(cxName(b)).includes(q) - qNorm(cxName(a)).includes(q) || cxName(a).localeCompare(cxName(b)));
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => st + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))))).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
-  const known = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(cxSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cxSteps(b))] ?? 1e9));
+  const known = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).sort(ixCmp(cxName, cxSteps));
   // grouped by holder, it's an index of every hand an object has passed through, the same names as on its card
   const SPEC = "Living specimens";
   const keyz = o => cxGrp === "holder" ? (cxSpec(o) ? [SPEC] : [...new Set(cxSteps(o).map(x => x[3]).filter(Boolean))]) : [cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c];
@@ -4248,7 +4254,7 @@ function cxBody() {
   const label = k => cxGrp === "type" ? cxTyName(k) : k;
   cxFold[cxGrp] = cxFold[cxGrp] || {};
   const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
-  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CX_GRP.map(([k, l]) => `<button type="button" data-cxg="${k}" aria-pressed="${k === cxGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
+  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CX_GRP.map(([k, l]) => `<button type="button" data-cxg="${k}" aria-pressed="${k === cxGrp}">${l}</button>`).join("")}</div></div>${ixSortBar()}` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = cxShut(k), fresh = L.some(o => !seen[o.id]), cls = cxGrp === "status" ? " s-" + CX_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cxf="${esc(k)}" aria-expanded="${!shut}">${cxGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : cxGrp === "type" ? cxGlyph(k) : ""}<span>${esc(label(k))}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
         ${shut ? "" : `<div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxSpec(o) ? (cxGrp === "status" ? "" : st + " · ") + "Home: " + cxHolder(S) : cxGrp !== "holder" ? "Held by " + cxHolder(S) : cxHolder(S) === k ? st : "Now held by " + cxHolder(S))).join("")}</div>`}</section>`; }).join("")}`;
@@ -4335,12 +4341,12 @@ function rfBody() {
   const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
   const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
   if (rfOppF && q.length < 2) {   // everyone one hero or team has stood against, as far as you've watched
-    const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfOpps(o).includes(rfOppF)).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+    const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfOpps(o).includes(rfOppF)).sort(ixCmp(rfName, rfSteps));
     return `<div class="tf-bar"><span><small>Opposed by</small><b>${esc(rfOppF)}</b></span><button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
       <section class="rf-sec"><div class="rf-sh rf-found"><span>Threats</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
   }
   if (rfTeamF && q.length < 2) {   // everyone on file who has served one faction, as far as you've watched
-    const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfTeams(o).includes(rfTeamF)).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+    const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfTeams(o).includes(rfTeamF)).sort(ixCmp(rfName, rfSteps));
     const gf = rfGroupFile(rfTeamF, rfTeamFrom);
     return `<div class="tf-bar"><span><small>Faction</small><b>${esc(rfTeamF)}</b></span>${gf ? `<button type="button" data-co="${esc(gf.id)}" aria-label="Open the group's own file">Group file</button>` : ""}<button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
       <section class="rf-sec"><div class="rf-sh rf-found"><span>On file</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
@@ -4350,13 +4356,13 @@ function rfBody() {
       .sort((a, b) => qNorm(rfName(b)).includes(q) - qNorm(rfName(a)).includes(q) || rfName(a).localeCompare(rfName(b)));
     return L.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em><br>${rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o)))}`)).join("")}</div></section>` : `<p class="sr-empty">No data.</p>`;
   }
-  const known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+  const known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort(ixCmp(rfName, rfSteps));
   // grouped by who opposed them, it's an index of heroes and teams: a threat is under everyone who has stood against them, the same names as on its file
   const NONE = rfGrp === "tm" ? "Independent" : "No hero on file", keyz = o => rfGrp === "class" ? [rfClass(o) || "Unknown"] : rfGrp === "op" ? (L => L.length ? L : [NONE])(rfOpps(o)) : rfGrp === "tm" ? rfTeams(o) : [stOf(o)];
   const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" || rfGrp === "tm" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === NONE) - (b === NONE) || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
   rfFold[rfGrp] = rfFold[rfGrp] || {};
   const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
-  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
+  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>${ixSortBar()}` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = rfShut(k), fresh = L.some(o => !seen[o.id]), cls = rfGrp === "status" ? " s-" + RF_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-rff="${esc(k)}" aria-expanded="${!shut}">${rfGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
         ${shut ? "" : `<div class="rf-list">${L.map(o => row(o, (o, st) => rfGrp === "status" ? esc(rfClass(o) || "") : `<em>${esc(st)}</em>`)).join("")}</div>`}</section>`; }).join("")}`;
@@ -4418,7 +4424,7 @@ function cpBody() {
   const card = o => { const S = cpSteps(o), st = cpStatus(S), n = cpName(o);
     return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(cpKind(o))}</small><em>${q.length > 1 ? esc(st) + " · " + rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))) : cpGrp === "status" && !cpTeamF ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
   if (cpTeamF && q.length < 2) {
-    const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && cpTeams(o).includes(cpTeamF)).sort((a, b) => (ATL_ORDER[rfFirst(cpSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cpSteps(b))] ?? 1e9));
+    const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && cpTeams(o).includes(cpTeamF)).sort(ixCmp(cpName, cpSteps));
     const gf = cpGroupFile(cpTeamF, cpTeamFrom);
     return `<div class="tf-bar"><span><small>Team roster</small><b>${esc(cpTeamF)}</b></span>${gf ? `<button type="button" data-co="${esc(gf.id)}" aria-label="Open the group's own file">Group file</button>` : ""}<button type="button" data-tfx aria-label="Show every file">All files<i aria-hidden="true">&#10005;</i></button></div>
       <div class="rf-sh rf-found"><span>Served</span><em>${L.length}</em></div><div class="cp-grid">${L.map(o => card(o)).join("")}</div>`;
@@ -4427,13 +4433,13 @@ function cpBody() {
     const L = ALLIES.filter(o => cpSteps(o).length && [cpName(o), cpKind(o)].some(t => qNorm(t).includes(q))).sort((a, b) => qNorm(cpName(b)).includes(q) - qNorm(cpName(a)).includes(q) || cpName(a).localeCompare(cpName(b)));
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cp-grid">${L.map(card).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
-  const known = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(cpSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(cpSteps(b))] ?? 1e9));
+  const known = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length).sort(ixCmp(cpName, cpSteps));
   // grouped by team, it's an index of every team: each person is under every team on their file, so the tags and the list always agree
   const keyz = o => cpGrp === "team" ? [...new Set(cpTeams(o))] : [cpStatus(cpSteps(o))];
   const keys = cpGrp === "team" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === "Independent") - (b === "Independent") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(CP_ST);
   cpFold[cpGrp] = cpFold[cpGrp] || {};
   const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
-  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CP_GRP.map(([k, l]) => `<button type="button" data-cpg="${k}" aria-pressed="${k === cpGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
+  return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CP_GRP.map(([k, l]) => `<button type="button" data-cpg="${k}" aria-pressed="${k === cpGrp}">${l}</button>`).join("")}</div></div>${ixSortBar()}` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = cpShut(k), fresh = L.some(o => !seen[o.id]), cls = cpGrp === "status" ? " s-" + CP_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cpf="${esc(k)}" aria-expanded="${!shut}">${cpGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
         ${shut ? "" : `<div class="cp-grid">${L.map(card).join("")}</div>`}</section>`; }).join("")}`;
@@ -6947,7 +6953,7 @@ try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc)
 try { atlReadInit(); if (state.hfSeen == null) { state.hfSeen = achList().filter(a => earned(a.id)).length; persist(); } } catch (e) {}   // note what's already earned, quietly, so only new ones announce themselves
 
 /* ---------- save code: the whole save in one line of text, so progress can move to a new file, browser or phone ---------- */
-const SAVE_KEYS = ["furySplit", "perV2", "achAny", "chReorg", "boxDone", "embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "orderPicked", "mode", "tlMode", "newsK", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen", "collIn", "collSeen", "xpLv"];
+const SAVE_KEYS = ["ixAZ", "furySplit", "perV2", "achAny", "chReorg", "boxDone", "embAck", "atlMap", "achChars", "mvEver", "incEver", "avatar", "embOpen", "embSeen", "atlasN", "atlEv", "cmRead", "tlOpen", "trOpen", "codename", "since", "msgs", "news", "atlas", "pathT", "pathSeenOnce", "checks", "unlocked", "seen", "dusted", "stones", "eggs", "xp", "xpN", "xpAt", "sv", "svN", "f4", "f4N", "dSeen", "achSeen", "atlRead", "hfSeen", "rate", "watchedOn", "portalsSeen", "onLeftSeen", "thanosSaid", "lastChar", "entered", "charOpen", "coll", "cmSeen", "sagaShut", "orderPicked", "mode", "tlMode", "newsK", "eps", "named", "booted", "incConv", "raftIn", "raftSeen", "cpIn", "cpSeen", "collIn", "collSeen", "xpLv"];
 const b64u = u8 => { let b = ""; for (let i = 0; i < u8.length; i += 8192) b += String.fromCharCode.apply(null, u8.subarray(i, i + 8192)); return btoa(b).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
 const unb64u = t => { const b = atob(t.replace(/-/g, "+").replace(/_/g, "/")); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 async function pipe(u8, stream) { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(stream)).arrayBuffer()); }
