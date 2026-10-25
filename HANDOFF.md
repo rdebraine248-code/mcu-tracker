@@ -256,7 +256,7 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   sides; every organization anyone served, from 8 sourced slices (509 of 703 villain files and 634 of 878 hero files carry one);
   24 organizations' own files became group files; the current faction or team is lit and past ones say Former. Nick Fury's box
   has its own look (black leather, a steel band cut by his three claw marks).
-- **Re-check, Sort, scroll, Captain America** (working branch, waiting for a push): the faction re-check's corrections, the Sort
+- **Re-check, Sort, scroll, Captain America** (`310650e`): the faction re-check's corrections, the Sort
   switch, indexes opening at the top, Captain America's box without Agent Carter (pushed earlier as `ed73d74`), Weapon X only where it is
   on screen (`550e553`).
 
