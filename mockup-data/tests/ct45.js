@@ -18,7 +18,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     o.cases = {
       ch1: run('ch-1', 'all'), ch1in: run('ch-1', ['Captain America: The First Avenger', 'Agent Carter S1', 'Agent Carter S2', 'Agent Carter (One-Shot)', 'Iron Man']),
       ch2: run('ch-2', 'all'), ch2cm: run('ch-2', ['Captain Marvel']), ch7: run('ch-7', 'all'), ch7wv: run('ch-7', ['WandaVision']),
-      ch8: run('ch-8', ['Moon Knight']), ch9: run('ch-9', 'all'), ch11: run('ch-11', ['Ant-Man and the Wasp: Quantumania', 'Loki S2']), ch11all: run('ch-11', 'all'),
+      ch8: run('ch-8', ['Moon Knight']), ch6: run('ch-6', 'all'), ch9: run('ch-9', 'all'), ch11: run('ch-11', ['Ant-Man and the Wasp: Quantumania', 'Loki S2']), ch11all: run('ch-11', 'all'),
       by: run('ch-beyond-the-mcu', 'all'), fox: run('ch-the-fox-men', 'all'), foxA: run('ch-the-fox-men', ['X-Men: The Animated Series']),
       foxB: run('ch-the-fox-men', ['X-Men (2000)', 'X2']), foxC: run('ch-the-fox-men', ['X-Men (2000)', 'X-Men Origins: Wolverine']),
       sv: run('ch-the-spider-verse', ['Spider-Man: Into the Spider-Verse']), sv2: run('ch-the-spider-verse', ['Venom']),
@@ -31,7 +31,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(r.v2 === 1 && !r.seen['r0.5'] && r.seen['r0.' + r.only[1]] && r.seen.d, 'old read mark carried to the new Period (' + JSON.stringify(r.seen) + ')');
   ok(r.key, 'everything watched: the plain last-stage key');
   const want = { ch1: '1942 to 2012', ch1in: '1942 to 2008', ch2: '1995 to 2014', ch2cm: '1995', ch7: 'Outside of time, and 2023 to 2024', ch7wv: '2023',
-    ch8: '2025', ch9: "Across Wakanda's history, and 2025 to 2026", ch11: 'The Quantum Realm, and outside of time', ch11all: 'Across the multiverse',
+    ch8: '2025', ch6: '2016 to 2024', ch9: "Across Wakanda's history, and 2025 to 2026", ch11: 'The Quantum Realm, and outside of time', ch11all: 'Across the multiverse',
     by: 'Other realities, and 1931 onward', fox: '1845 to 2029, and another world', foxA: 'Another world', foxB: '2000s', foxC: '1845 to the 2000s',
     sv: 'Countless worlds', sv2: 'One world', inc: 'Three worlds, lost' };
   Object.entries(want).forEach(([k, w]) => ok(r.cases[k] === w, k + ': want ' + w + ', got ' + r.cases[k]));
