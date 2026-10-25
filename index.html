@@ -1121,7 +1121,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .co-rec .cp-id h3{ color:#0B1424; }
 .cp-id h3{ margin:4px 0 2px; font:400 28px/1.02 'Anton','Impact',sans-serif; letter-spacing:.6px; text-transform:uppercase; } .cp-id p{ margin:0; font-size:14px; color:#3E4C63; }
 .cp-stb{ align-self:flex-start; flex:none; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1424; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
-.cp-teams{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px; } .cp-teams button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cp-teams button:active, .cx-hands button:active{ transform:scale(.96); } .cp-teams button{ padding:5px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font-size:13px; }
+.cp-teams{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px; } .cp-teams button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cp-teams button:active, .cx-hands button:active{ transform:scale(.96); } .cp-teams button.cur{ border-color:#7FB2FF; background:#1A3460; color:#FFFFFF; box-shadow:0 0 0 1px rgba(127,178,255,.25); } .cp-teams button.past{ opacity:.62; } .cp-teams button small{ margin-left:6px; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FA8CC; } .cp-teams button{ padding:5px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font-size:13px; }
 .cp-rf{ display:flex; align-items:center; gap:12px; width:100%; margin:0 0 14px; padding:10px 14px; border:1px solid #6A2A26; border-radius:12px; background:rgba(224,74,58,.08); color:#FFD2CB; text-align:left; cursor:pointer; }
 .cp-rf.to-cp{ border-color:#2A4A6A; background:rgba(127,166,216,.08); color:#D6E6FA; } .cp-rf.to-cp small{ color:#7FA6D8; }
 .cp-rf span{ flex:1; } .cp-rf small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#E9897E; } .cp-rf b{ display:block; margin-top:2px; font-size:15px; } .cp-rf em{ font-style:normal; font-size:18px; }
@@ -4287,6 +4287,15 @@ let rfOppF = "";
 // the factions served so far; "Independent" only for someone who has served none
 const rfTeams = o => { const L = (Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [o.tm || "Independent"]).filter(t => t !== "Independent"); return L.length ? L : ["Independent"]; };
 let rfTeamF = "", rfTeamFrom = "";
+// where someone stands now: the last group whose title you've watched
+const tmNow = tm => { if (!Array.isArray(tm)) return tm || "Independent"; const S = tm.filter(t => atlSeenT(t[1])); return S.length ? S[S.length - 1][0] : "Independent"; };
+// a person's groups as tags on their file (factions on the Raft, teams in the Compound): every one served so far in story order, the current
+// one lit and the rest marked Former; "Independent" only when it's where they stand now
+function tmChips(tm, attr) {
+  const cur = tmNow(tm), L = (Array.isArray(tm) ? [...new Set(tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [tm || "Independent"]).filter(t => t !== "Independent");
+  return L.concat(cur === "Independent" ? ["Independent"] : []).map(t => t === cur ? `<button type="button" class="cur" ${attr}="${esc(t)}">${esc(t)}</button>`
+    : `<button type="button" class="past" ${attr}="${esc(t)}">${esc(t)}<small>Former</small></button>`).join("");
+}
 function rfGroupFile(team, from) {   // the group file carrying that name in this universe, the one whose id is closest to the file you came from
   const L = THREATS.filter(o => o.grp && rfUniOf(o) === rfUni && rfSteps(o).length && rfTeams(o).includes(team)); if (L.length < 2) return L[0] || null;
   const near = o => { let n = 0; const a = o.id.split("-"), b = (from || "").split("-"); while (n < a.length && a[n] === b[n]) n++; return n; };
@@ -4301,10 +4310,10 @@ function renderRaft() {
     const o = THREATS.find(x => x.id === collRec), S = rfSteps(o), st = rfStatus(S), up = new Map(Array.isArray(o.cl) ? o.cl.slice(1).map(c => [c[1], c[0]]) : []);
     let prev = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
-      <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
+      <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat · ${esc(tmNow(o.tm))}</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div class="wide"><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div></div>
-      <div class="co-h">Factions</div><div class="cp-teams">${rfTeams(o).map(t => `<button type="button" data-rft="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+      <div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
       ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
@@ -4387,13 +4396,12 @@ function renderCp() {
   const v = document.getElementById("collView");
   if (collRec) {
     const o = ALLIES.find(x => x.id === collRec), S = cpSteps(o), st = cpStatus(S);
-    const teams = Array.isArray(o.tm) ? o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]).filter((t, i, a) => a.indexOf(t) === i) : [o.tm || "Independent"];
     const rf = o.rf && state.raftIn && THREATS.find(x => x.id === o.rf && rfSteps(x).length);
     let prev = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Personnel files</button>
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p></div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div></div>
-      <div class="co-h">Teams</div><div class="cp-teams">${teams.map(t => `<button type="button" data-cpt="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+      <div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
       ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
