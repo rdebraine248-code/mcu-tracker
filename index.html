@@ -232,6 +232,7 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .row .rnote::before{ content:"⏭ "; font-style:normal; }
 .row .box{ transition:transform .12s ease, background .2s ease; }
 .row:active .box{ transform:scale(.88); }
+.row.epdown .box{ transform:none; }   /* pressing the episodes link isn't pressing the box: nothing springs back under the list's dim layer as it opens */
 .row.just .box{ animation:boxpop .34s cubic-bezier(.3,1.6,.5,1); }
 .row.just{ animation:rowflash .5s ease-out; }
 @keyframes boxpop{ 0%{ transform:scale(.88); } 45%{ transform:scale(1.25); } 75%{ transform:scale(.95); } 100%{ transform:scale(1); } }
@@ -2344,7 +2345,7 @@ function panelRows(e) {
 function updatePanel(e) {
   panelRows(e); requestAnimationFrame(rcPlace);
   const [n, t] = count(e), box = e.box || e.fg || "#111", tick = lum(box) > 0.6 ? "#111111" : "#FFFFFF";
-  panel.querySelectorAll(".row").forEach(r => r.setAttribute("aria-pressed", !!state.checks[ck(e, r.dataset.t)]));
+  panel.querySelectorAll(".row").forEach(r => { const k = ck(e, r.dataset.t), on = !!state.checks[k]; r.setAttribute("aria-pressed", on); epChipSync(r.querySelector(".tw"), k, on); });
   panel.querySelectorAll(".earthh[data-earth]").forEach(hd => { hd.querySelector("em").textContent = earthStatus(e, hd.dataset.earth); });
   const c = document.getElementById("pCount"), b = document.getElementById("pBar"), d = document.getElementById("pDone");
   if (c) c.textContent = `${n} of ${t} watched`;
@@ -2562,7 +2563,7 @@ document.getElementById("view").addEventListener("click", ev => {
         if (fb) { const by = fb.getBoundingClientRect().bottom + grew, lim = innerHeight - (dk ? dk.offsetHeight : 0) - 110; if (by > lim) window.scrollBy({ top: by - lim, behavior: REDUCED ? "auto" : "smooth" }); }
         if (navigator.vibrate) { try { navigator.vibrate(on ? 20 : 12); } catch (e) {} }
         return; }
-      r.setAttribute("aria-pressed", on); r.classList.remove("just"); void r.offsetWidth; r.classList.add("just"); }
+      r.setAttribute("aria-pressed", on); epChipSync(r.querySelector(".tl-text"), k, on); r.classList.remove("just"); void r.offsetWidth; r.classList.add("just"); }
     if (navigator.vibrate) { try { navigator.vibrate(on ? 20 : 12); } catch (e) {} }
     return;
   }
@@ -6552,6 +6553,11 @@ function epFinish(k) {   // the finale: the season is checked off in the list yo
   state.checks[k] = true;
   if (!was) firstWatch(t); persist(); renderAll(); if (openEntry) updatePanel(openEntry);
 }
+// the episodes link under a title follows its check: it shows while the title is unchecked (or a season is partway through) and goes once
+// it's checked off, straight away, not only the next time the box or the timeline is drawn
+function epChipSync(host, k, on) { if (!host) return; const cur = host.querySelector(":scope > .epl");
+  if (!epShow(k, on)) { if (cur) cur.remove(); return; }
+  if (!cur) host.insertAdjacentHTML("beforeend", epChipHTML(k, epAt(k), epTotal(epT(k)))); }
 function epRefresh(k) { const n = epTotal(epT(k)), a = epAt(k); document.querySelectorAll(`[data-ep="${CSS.escape(k)}"]`).forEach(c => { c.classList.toggle("on", !!a); c.innerHTML = epInner(a, n); }); }
 function epSheet(k) {
   const t = epT(k);
@@ -6595,6 +6601,8 @@ function epSheet(k) {
   el.addEventListener("contextmenu", ev => { if (ev.target.closest("[data-eps]")) ev.preventDefault(); });
 }
 let epBlock = 0;
+document.addEventListener("pointerdown", ev => { document.querySelectorAll(".row.epdown").forEach(r => r.classList.remove("epdown"));
+  const c = ev.target.closest && ev.target.closest("[data-ep]"), r = c && c.closest(".row"); if (r) r.classList.add("epdown"); }, true);
 window.addEventListener("click", ev => { if (Date.now() < epBlock) { ev.stopPropagation(); ev.preventDefault(); } }, true);
 document.addEventListener("click", ev => { const c = ev.target.closest("[data-ep]"); if (!c) return; ev.stopPropagation(); ev.preventDefault(); epSheet(c.dataset.ep); }, true);
 function rateSheet(t) {   // it opens on its own; the keyboard only comes up once you tap into the note
