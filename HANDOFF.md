@@ -66,7 +66,7 @@ node tests/ct35.js                                                              
 | ct46 | Nick Fury and S.H.I.E.L.D. as two boxes, from a full old save |
 | ct47 | Seasons shown with the title, never in the sentence |
 | ct48 | Agents of S.H.I.E.L.D. S6 and S7 as two titles, from an old save |
-| ct49 | Raft factions: staging, roster and group file, grouping |
+| ct49 | Factions: staging, roster and group file, grouping, current and Former, the link back |
 
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. The test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled.
@@ -104,6 +104,10 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
     show, the nine leads, the out-of-story lines) and the team-file review with the owner's decision on each (`owner`).
   - `raft_teams_src.json`: who belongs to each of the Raft's 54 factions, one entry per membership with its source; dropped ones are
     marked. `raft_teams.json` (id to staged `tm`) is built from it and read by `devbuild.py` after the ABC move, so it uses final ids.
+  - `factions_sweep.json`: the completeness sweep, every faction and team anyone served, with sources, the name map that reconciles
+    names across slices, and what was set by hand. Its villain memberships are in `raft_teams.json`, its hero teams in `audit_fix.json`.
+    The builder that turns memberships into staged tags lived in a session scratchpad; to change a villain's factions now, edit its
+    entry in `raft_teams.json` (keep stages in story order, each keyed to the title that shows it, the last one where they stand at the end).
   - The log and timeline fixes went straight into `index.html` (DATA, DOSSIERS, SAGA).
 - **Organizations:** `opp/org_*.json`. Villainous groups go to the Raft, heroic ones to the Compound. Group files carry `grp:1`.
 - **Ids:** a prefix says the universe tab: none for MCU, `st-` for street-level (also on the MCU tab), `by-` Beyond, `sv-` Spider-Verse,
@@ -192,7 +196,9 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   The same rule removed 37 Raft team files once villains carried factions; 17 Raft team files with steps of their own stay.
 - **Factions:** a faction records everyone who served it, willingly or not; the steps say how. The Winter Soldier, the Widows and other
   brainwashed or forced servants count, on villain and hero files alike ("these need to be completed logs"). The indexes are meant to be
-  a complete repository: anything about anyone.
+  a complete repository: anything about anyone. Undercover service counts too (Simmons inside HYDRA, Natasha as Natalie Rushman), and
+  Gamora and Nebula served the Black Order. Any organization counts: agencies, armies, companies, crews. A person's hero and villain
+  files list the same groups (a villain file may cover only the villain years). A file shows the current one lit, the rest Former.
 - **Insignia reveal:** each unlocks on the character's main appearances, several titles, not a single one.
 - **Universes:**
   - The Earth and universe distinction matters.
@@ -237,8 +243,11 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 - **Raft factions** (`58a12e4`): 217 villains carry the factions they serve, staged by title, with a tap-to-roster row and a Group by
   Faction option. Brainwashed or forced servants and Kingpin's enforcers (as Alchemax) were left out.
 - **Raft team files and hero links** (`2f9a9ce`): 37 Raft team files removed under the team-file rule;
-  villain files link back to the hero's file; hero files note the villain factions their person served. Then (waiting for a push)
-  the brainwashed and forced servants were counted again, on both sides.
+  villain files link back to the hero's file; hero files note the villain factions their person served.
+- **Factions completeness sweep** (working branch, waiting for a push): brainwashed, forced and undercover service counted on both
+  sides; every organization anyone served, from 8 sourced slices (509 of 703 villain files and 634 of 878 hero files carry one);
+  24 organizations' own files became group files; the current faction or team is lit and past ones say Former. Nick Fury's box
+  has its own look (black leather, a steel band cut by his three claw marks).
 
 ## Earlier rounds, all on main
 
