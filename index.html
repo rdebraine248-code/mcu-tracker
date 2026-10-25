@@ -6523,6 +6523,18 @@ const EPS = /*EPS*/{}, EPN = /*EPN*/{}, EPO = /*EPO*/{};   // EPO: the season a 
 const epList = t => { const v = EPS[t]; return v == null ? null : Array.isArray(v) ? v : [v]; };
 const epTotal = t => (epList(t) || []).reduce((a, b) => a + (b || 0), 0);
 const epT = k => k.slice(k.indexOf("::") + 2);   // a count's key is its checkmark's: "ch-4::Daredevil S1", "tl::Loki S1"
+// a show the release order splits into seasons that came out years apart (X-Men '97, I Am Groot): an old release-order tick meant season 1,
+// the only one out then. Its episodes go to their seasons, and a later season counts as watched once every one of its episodes is in
+const RELSPLIT = { "X-Men '97": ["X-Men '97 S1", "X-Men '97 S2"], "I Am Groot": ["I Am Groot S1", "I Am Groot S2"] };
+function relSplit() {
+  const C = state.checks || {}, E = state.eps || {};
+  Object.keys(RELSPLIT).forEach(b => { const k = "tr::" + b; if (!(k in C) && !(k in E)) return;
+    const tick = !!C[k], v = Array.isArray(E[k]) ? E[k] : []; delete C[k]; delete E[k]; let off = 0;
+    RELSPLIT[b].forEach((t, i) => { const nk = "tr::" + t, n = epTotal(t), w = v.filter(x => x > off && x <= off + n).map(x => x - off); off += n;
+      if (w.length && !E[nk]) E[nk] = w; if ((tick && i === 0) || (n > 0 && w.length === n)) C[nk] = true; }); });
+  ["rate", "watchedOn"].forEach(st => { const R = state[st]; if (R) Object.keys(RELSPLIT).forEach(b => { const t = RELSPLIT[b][0]; if (R[b] != null && R[t] == null) R[t] = R[b]; }); });
+}
+relSplit();
 epFold();
 const epSet = k => { const v = (state.eps || {})[k]; return new Set(Array.isArray(v) ? v : []); };
 const epAt = k => [...epSet(k)].filter(n => n <= epTotal(epT(k))).length;
@@ -6881,7 +6893,7 @@ document.getElementById("fileView").addEventListener("click", async ev => {
     try {
       SAVE_KEYS.forEach(k => { delete state[k]; });
       Object.assign(state, { checks: {}, unlocked: {}, seen: {}, dusted: {}, stones: {} }, o);
-      renameChecks(state.checks); chReorg(); splitPruned(); epSplit(); epFold(); newsKeysV2(); boxDoneInit(); state.entered = true; if (!state.since) state.since = new Date().toISOString();
+      renameChecks(state.checks); chReorg(); splitPruned(); epSplit(); relSplit(); epFold(); newsKeysV2(); boxDoneInit(); state.entered = true; if (!state.since) state.since = new Date().toISOString();
       endgameN = null; persist(); renderAll(); renderFile(true);
     } catch (e) {   // something in the code this version can't use: everything goes back as it was
       Object.keys(state).forEach(k => { delete state[k]; }); Object.assign(state, JSON.parse(was)); try { localStorage.setItem(KEY, was); } catch (e2) {}
