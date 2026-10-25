@@ -299,6 +299,14 @@ for k in list(_im):   # a file that moved and was later merged into another send
     while v in _im and n<5: v=_im[v]; n+=1
     if v==k: _im.pop(k)
     else: _im[k]=v
+# MOCKUP (test build only): villains carry the organizations they serve, staged by title like a hero's team (raft_teams.json, keyed to the
+# final ids). Main's source has the mockup switch off, so main gets none of it
+_rt=load('raft_teams.json',None) if 'const MOCK = true;' in s else None
+if _rt:
+    _byt={o['id']:o for o in threats}
+    for k,v in _rt.items():
+        if k in _byt: _byt[k]['tm']=v
+        else: print('raft teams: no file',k)
 if '/*IDMOVE*/' in s: put('IDMOVE',_im)
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)

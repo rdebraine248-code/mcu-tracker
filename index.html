@@ -4114,7 +4114,7 @@ function renderColl0() {
 }
 function openColl(mode, keep) {
   collMode = mode === "raft" || mode === "cp" ? mode : "coll";
-  if (!keep) { rfUni = "mcu"; rfGrp = "status"; rfFold = {}; rfQ = ""; rfOppF = ""; cpUni = "mcu"; cpGrp = "status"; cpFold = {}; cpQ = ""; cpTeamF = ""; cxUni = "mcu"; cxGrp = "type"; cxFold = {}; cxQ = ""; cxHoldF = ""; } const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp";
+  if (!keep) { rfUni = "mcu"; rfGrp = "status"; rfFold = {}; rfQ = ""; rfOppF = ""; rfTeamF = ""; cpUni = "mcu"; cpGrp = "status"; cpFold = {}; cpQ = ""; cpTeamF = ""; cxUni = "mcu"; cxGrp = "type"; cxFold = {}; cxQ = ""; cxHoldF = ""; } const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp";
   cp.classList.toggle("raft", raft); cp.classList.toggle("cpx", cpm); cp.setAttribute("aria-label", raft ? "Threat registry" : cpm ? "Personnel files" : "The Collection");
   const h2 = cp.querySelector(".maptop h2"); h2.textContent = raft ? "The Raft" : cpm ? cpHome()[0] : "The Collection"; h2.dataset.glow = h2.textContent;
   if (cpm && !state.cpIn) { const L = ALLIES.filter(o => cpSteps(o).length), R = state.cpSeen = state.cpSeen || {}; L.forEach(o => R[o.id] = 1); state.cpIn = 1; cpIntake = L.length; persist(); }
@@ -4129,7 +4129,7 @@ function openColl(mode, keep) {
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; cxIntake = 0; cxQ = ""; cxHoldF = "";
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; rfTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = "";
 }
 function collShow(id) {
   const v = document.getElementById("collPanel"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
@@ -4141,7 +4141,7 @@ document.getElementById("collView").addEventListener("input", ev => { if (ev.tar
   v.querySelector(".pg-qx").hidden = !cxQ; v.querySelector(".cx-body").innerHTML = cxBody(); v.querySelectorAll("[data-cxu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cxu === cxUni && !cxQ)); });
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cpQ") return; cpQ = ev.target.value; cpTeamF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !cpQ; v.querySelector(".cp-body").innerHTML = cpBody(); v.querySelectorAll("[data-cpu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cpu === cpUni && !cpQ)); });
-document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "rfQ") return; rfQ = ev.target.value; rfOppF = ""; const v = document.getElementById("collView");
+document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "rfQ") return; rfQ = ev.target.value; rfOppF = ""; rfTeamF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !rfQ; v.querySelector(".rf-body").innerHTML = rfBody(); v.querySelectorAll("[data-rfu]").forEach(b => b.setAttribute("aria-selected", b.dataset.rfu === rfUni && !rfQ)); });
 document.getElementById("collView").addEventListener("keydown", ev => { if ((ev.target.id === "rfQ" || ev.target.id === "cpQ" || ev.target.id === "cxQ") && ev.key === "Enter") ev.target.blur(); });
 document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
@@ -4165,9 +4165,10 @@ document.getElementById("collView").addEventListener("click", ev => {
     const rl = ev.target.closest("[data-cprf]"); if (rl) { haptic(10); const id = rl.dataset.cprf; rfUni = rfUniOf(THREATS.find(o => o.id === id)); openColl("raft", true); collShow(id); return; }
   }
   if (ev.target.closest(".pg-qx")) { haptic(8); rfQ = ""; renderColl(); return; }
-  const ro = ev.target.closest("[data-rfo]"); if (ro) { haptic(10); rfOppF = ro.dataset.rfo; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
-  if (ev.target.closest("[data-tfx]")) { haptic(8); rfOppF = ""; renderColl(); return; }
-  const ru = ev.target.closest("[data-rfu]"); if (ru) { if (ru.dataset.rfu !== rfUni || rfQ || rfOppF) { haptic(8); rfUni = ru.dataset.rfu; rfQ = ""; rfOppF = ""; renderColl(); } return; }
+  const rt = ev.target.closest("[data-rft]"); if (rt) { haptic(10); rfTeamF = rt.dataset.rft; rfTeamFrom = collRec; rfOppF = ""; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
+  const ro = ev.target.closest("[data-rfo]"); if (ro) { haptic(10); rfOppF = ro.dataset.rfo; rfTeamF = ""; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
+  if (ev.target.closest("[data-tfx]")) { haptic(8); rfOppF = ""; rfTeamF = ""; renderColl(); return; }
+  const ru = ev.target.closest("[data-rfu]"); if (ru) { if (ru.dataset.rfu !== rfUni || rfQ || rfOppF || rfTeamF) { haptic(8); rfUni = ru.dataset.rfu; rfQ = ""; rfOppF = ""; rfTeamF = ""; renderColl(); } return; }
   const rg = ev.target.closest("[data-rfg]"); if (rg) { if (rg.dataset.rfg !== rfGrp) { haptic(8); rfGrp = rg.dataset.rfg; renderColl(); } return; }
   const rf = ev.target.closest("[data-rff]"); if (rf) { haptic(8); const k = rf.dataset.rff; rfFold[rfGrp][k] = !rfShut(k); renderColl(); return; }
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
@@ -4259,7 +4260,7 @@ const RF_CL = ["Street", "City", "Global", "Cosmic", "Multiversal"];
 const rfUniName = ([u, l]) => u === "mcu" || state.unlocked[RF_CH[u]] ? l : "[ Classified ]";   // named once its Extras chapter is unlocked, like everywhere else
 let rfGrp = "status", rfFold = {}, rfIntake = 0;
 // grouped by who opposed them, the list opens as an index of heroes, each folded until you tap it; the other groupings open unfolded
-const rfShut = k => { const v = (rfFold[rfGrp] || {})[k]; return v == null ? rfGrp === "op" : v; };
+const rfShut = k => { const v = (rfFold[rfGrp] || {})[k]; return v == null ? rfGrp === "op" || rfGrp === "tm" : v; };
 const RF_GRP = [["status", "Status"], ["class", "Class"], ["op", "Opposed by"]];
 // grouped by status, in this order: still a danger, then held, then loose, then gone over to the heroes' side ("Allied": they changed), then dead
 const RF_ST = { "Active": "active", "In custody": "custody", "Captive": "captive", "At large": "large", "Missing": "missing", "Allied": "reformed", "Deceased": "dead" };
@@ -4279,6 +4280,16 @@ const rfOpps = o => { let L;
   else L = Array.isArray(o.op) ? o.op.filter(x => atlSeenT(x[1])).map(x => x[0]) : [o.op || ""];
   return [...new Set(L.filter(Boolean))]; };
 let rfOppF = "";
+// MOCKUP, waiting for the owner (test build only): villains carry the organizations they serve (tm, staged by title like a hero's team), shown
+// on their file, as a roster with the group's own file, and as a way to group the registry. With MOCK off (main), none of it shows
+const rfTeams = o => Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [o.tm || "Independent"];
+let rfTeamF = "", rfTeamFrom = "";
+function rfGroupFile(team, from) {   // the group file carrying that name in this universe, the one whose id is closest to the file you came from
+  const L = THREATS.filter(o => o.grp && rfUniOf(o) === rfUni && rfSteps(o).length && rfTeams(o).includes(team)); if (L.length < 2) return L[0] || null;
+  const near = o => { let n = 0; const a = o.id.split("-"), b = (from || "").split("-"); while (n < a.length && a[n] === b[n]) n++; return n; };
+  return L.slice().sort((a, b) => near(b) - near(a))[0];
+}
+if (MOCK) RF_GRP.push(["tm", "Organization"]);
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
 function renderRaft() {
@@ -4290,6 +4301,7 @@ function renderRaft() {
       <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div class="wide"><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div></div>
+      ${MOCK ? `<div class="co-h">Organizations</div><div class="cp-teams">${rfTeams(o).map(t => `<button type="button" data-rft="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
@@ -4314,6 +4326,12 @@ function rfBody() {
     return `<div class="tf-bar"><span><small>Opposed by</small><b>${esc(rfOppF)}</b></span><button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
       <section class="rf-sec"><div class="rf-sh rf-found"><span>Threats</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
   }
+  if (rfTeamF && q.length < 2) {   // mockup: everyone on file who has served one organization, as far as you've watched
+    const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfTeams(o).includes(rfTeamF)).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
+    const gf = rfGroupFile(rfTeamF, rfTeamFrom);
+    return `<div class="tf-bar"><span><small>Organization</small><b>${esc(rfTeamF)}</b></span>${gf ? `<button type="button" data-co="${esc(gf.id)}" aria-label="Open the group's own file">Group file</button>` : ""}<button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
+      <section class="rf-sec"><div class="rf-sh rf-found"><span>On file</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
+  }
   if (q.length > 1) {
     const L = THREATS.filter(o => { const S = rfSteps(o); return S.length && [rfName(o), rfKind(o)].some(t => qNorm(t).includes(q)); })
       .sort((a, b) => qNorm(rfName(b)).includes(q) - qNorm(rfName(a)).includes(q) || rfName(a).localeCompare(rfName(b)));
@@ -4321,8 +4339,8 @@ function rfBody() {
   }
   const known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort((a, b) => (ATL_ORDER[rfFirst(rfSteps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(rfSteps(b))] ?? 1e9));
   // grouped by who opposed them, it's an index of heroes and teams: a threat is under everyone who has stood against them, the same names as on its file
-  const NONE = "No hero on file", keyz = o => rfGrp === "class" ? [rfClass(o) || "Unknown"] : rfGrp === "op" ? (L => L.length ? L : [NONE])(rfOpps(o)) : [stOf(o)];
-  const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === NONE) - (b === NONE) || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
+  const NONE = rfGrp === "tm" ? "Independent" : "No hero on file", keyz = o => rfGrp === "class" ? [rfClass(o) || "Unknown"] : rfGrp === "op" ? (L => L.length ? L : [NONE])(rfOpps(o)) : rfGrp === "tm" ? rfTeams(o) : [stOf(o)];
+  const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" || rfGrp === "tm" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === NONE) - (b === NONE) || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
   rfFold[rfGrp] = rfFold[rfGrp] || {};
   const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>` : `<p class="sr-empty">No data.</p>`}
