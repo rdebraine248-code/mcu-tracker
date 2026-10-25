@@ -53,7 +53,7 @@ _l=[x for x in s.split('\n') if x.startswith('const DATA')][0]; _D=json.loads(_l
 _ch={}
 for c in _D['chapters']:
     for i in c['items']: _ch.setdefault(i['t'],c['id'])
-# the ABC shows moved into the Chapters, but their files stay on the registries' Beyond tab (their ids, and everything saved against them, with them)
+# the ABC shows' files keep their Beyond ids through the build (the move to the MCU tab comes last, with a map for saved progress)
 for t in ('Agents of S.H.I.E.L.D.','Agents of S.H.I.E.L.D.: Slingshot','Agent Carter'): _ch[t]='ch-beyond-the-mcu'
 for o in threats:
     if o['id'].startswith('st-'):
@@ -204,6 +204,65 @@ for f in sorted(f for f in _g2.glob(D+'../opp/opp_*.json') if not f.endswith('.b
 _OPN={'Young Wilson Fisk':'Wilson Fisk'}
 for o in threats:
     if isinstance(o.get('op'),str): o['op']=_OPN.get(o['op'],o['op'])
+# Agents of S.H.I.E.L.D. (seasons 1 to 5 and Slingshot) and Agent Carter are main-line titles now, in every watch order, so their files leave
+# the Beyond tab for the MCU's: "by-" comes off the id. A file only in seasons 6 and 7 stays in Beyond, as those seasons do on the timeline. Where
+# the MCU tab already has the same file (HYDRA, S.H.I.E.L.D., the SSR, the Darkhold, the Kree), the show's steps join it, in story order.
+import re as _re
+_tlo={e['t']:i for i,e in enumerate(_D['timeline'])}
+def _yr(e):
+    m=_re.findall(r'\d{4}',e.get('era','')); return int(m[-1]) if m else None
+def _sk(x):
+    t=x[1]
+    y=_re.match(r'In (\d{4}),',x[0]) or _re.search(r'\ba (\d{4}) flashback',x[0])   # a scene dated in the past sits by its year
+    if y: return max([i for i,e in enumerate(_D['timeline']) if _yr(e) is not None and _yr(e)<=int(y.group(1))] or [-1])+.5
+    if t in _tlo: return _tlo[t]
+    m=_re.match(r'In season (\d+),',x[0]); L=[k for k in _tlo if k.startswith(t+' S')]
+    if m:
+        for k in L:
+            r=_re.search(r' S(\d+)(?:–S(\d+))?$',k)
+            if r and int(r.group(1))<=int(m.group(1))<=int(r.group(2) or r.group(1)): return _tlo[k]
+    return min([_tlo[k] for k in L] or [10**6])
+def _main_show(x):
+    if x[1] in ('Agent Carter','Agents of S.H.I.E.L.D.: Slingshot'): return True
+    if x[1]!='Agents of S.H.I.E.L.D.': return False
+    m=_re.match(r'In season (\d+),',x[0]); return not (m and int(m.group(1))>=6)
+def _nm(o): v=o.get('n'); return v[-1][0] if isinstance(v,list) else v
+_moved={}
+for L in (threats,allies,collx):
+    ids={o['id'] for o in L}
+    stay={_nm(o):o for o in L if not o['id'].startswith(('by-','sv-','fox-','pr-'))}
+    out=[]
+    for o in L:
+        if not (o['id'].startswith('by-') and any(_main_show(x) for x in o.get('st',[]))): out.append(o); continue
+        tw=stay.get(_nm(o))
+        if tw is not None and tw.get('c')==o.get('c') and bool(tw.get('grp'))==bool(o.get('grp')):
+            st=list(tw['st'])
+            pi=None
+            for x in o['st']:   # each of the show's steps goes in just after the last step that comes earlier in the story;
+                # a step that carries on the season before it (no "In season N,") stays right behind it
+                if pi is not None and not _re.match(r'In (season )?\d+,',x[0]) and x[1]==st[pi][1]: i=pi+1
+                else: k=_sk(x); i=max([j+1 for j,y in enumerate(st) if _sk(y)<=k] or [0])
+                st.insert(i,x); pi=i
+            # S.H.I.E.L.D.'s first season starts before The Winter Soldier brings the agency down
+            if tw['id']=='shield-org':
+                a_=next((j for j,y in enumerate(st) if y[0].startswith('In season 1, Coulson')),None); b_=next((j for j,y in enumerate(st) if y[1]=='Captain America: The Winter Soldier'),None)
+                if a_ is not None and b_ is not None and a_>b_: st.insert(b_,st.pop(a_))
+            tw['st']=st
+            if isinstance(tw.get('opp'),list) and isinstance(o.get('opp'),list):
+                seen={r[0] for r in tw['opp']}; tw['opp']=sorted(tw['opp']+[r for r in o['opp'] if r[0] not in seen],key=lambda r:_sk(['',r[1]]))
+            _moved[o['id']]=tw['id']; continue
+        nid=o['id'][3:]
+        if nid in ids: print('move: id taken',o['id'],nid); out.append(o); continue
+        _moved[o['id']]=nid; o['id']=nid; out.append(o)
+    L[:]=out
+def _remap(v):
+    if isinstance(v,str): return _moved.get(v,v)
+    if isinstance(v,list): return [_remap(x) for x in v]
+    if isinstance(v,dict): return {k:(x if k in ('n','k','st') else _remap(x)) for k,x in v.items()}
+    return v
+for L in (threats,allies,collx): L[:]=[_remap(o) for o in L]
+print('moved to the MCU tab',len(_moved),'merged',sorted((a,b) for a,b in _moved.items() if b!=a[3:]))
+if '/*IDMOVE*/' in s: put('IDMOVE',_moved)
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats)

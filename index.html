@@ -277,9 +277,8 @@ body[data-mode="timeline"]::before{ background-color:#120D09;
                    radial-gradient(900px 600px at 100% 100%, rgba(200,110,30,0.10), transparent 60%);
   background-size:auto, 22px 22px, auto, auto, auto; }
 body[data-mode="timeline"] .mast h1{ color:#FFB347; text-shadow:0 3px 0 rgba(0,0,0,.35); }
-body[data-mode="timeline"] .mast h1::after{ background:linear-gradient(90deg,#FFB347,#C8661E); }
-/* mockup: the Sacred Timeline keeps its amber line, dimmed like the grey one until the stones light it, colour by colour, the same as the other paths */
-body.mock[data-mode="timeline"] .mast h1::after{ background:linear-gradient(90deg,rgba(255,179,71,.34),rgba(200,102,30,.34)); box-shadow:0 0 8px rgba(255,150,50,.22); }
+/* the Sacred Timeline keeps its amber line, dimmed like the grey one until the stones light it, colour by colour, the same as the other paths */
+body[data-mode="timeline"] .mast h1::after{ background:linear-gradient(90deg,rgba(255,179,71,.34),rgba(200,102,30,.34)); box-shadow:0 0 8px rgba(255,150,50,.22); }
 body[data-mode="timeline"] .meter .bar span{ background:linear-gradient(90deg,#FFB347,#C8661E); }
 body[data-mode="timeline"] .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
 body{ transition:background-color .4s ease; }
@@ -364,8 +363,6 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .stonebar i{ position:absolute; top:6px; height:4px; opacity:0; transition:opacity 1.2s ease; background-repeat:no-repeat;
   background-image:linear-gradient(90deg,#B98CFF 0%,#B98CFF 13%,#7FB2FF 20%,#7FB2FF 30%,#FF8A8A 37%,#FF8A8A 47%,#FFC07A 54%,#FFC07A 63%,#7FE3A0 70%,#7FE3A0 80%,#FFE27A 87%,#FFE27A 100%); }
 .stonebar i.on{ opacity:1; animation:stoneBreath 3.6s ease-in-out infinite; }
-body:not(.mock)[data-mode="timeline"] .stonebar i{ display:none; }
-body:not(.mock)[data-mode="timeline"] .stonebar{ pointer-events:none; }
 @keyframes stoneBreath{ 0%,100%{ box-shadow:0 0 3px 0 var(--g), 0 0 7px 0 var(--g); } 50%{ box-shadow:0 0 4px 1px var(--g), 0 0 12px 1px var(--g); } }
 .gem{ --g:#888; --gl:#ddd; --gd:#333; width:30px; height:40px; border-radius:50%;
   background:radial-gradient(ellipse 38% 26% at 38% 28%, rgba(255,255,255,.9), rgba(255,255,255,0) 72%), conic-gradient(from 30deg at 50% 56%, var(--gl), var(--g) 22%, var(--gd) 42%, var(--g) 62%, var(--gl) 82%, var(--g));
@@ -4259,6 +4256,9 @@ function rfBody() {
    sealed until you've watched its title. A file is an ID badge, with their insignia once you've unlocked it. Someone who has also been a threat says so,
    once you've boarded the Raft */
 const ALLIES = /*ALLIES*/[];
+// files that changed id (the ABC shows' files left the Beyond tab for the MCU's, some joining a file already there): what you'd seen comes along
+const IDMOVE = /*IDMOVE*/{};
+["raftSeen", "cpSeen", "collSeen"].forEach(k => { const R = state[k]; if (!R) return; Object.keys(R).forEach(id => { const n = IDMOVE[id]; if (n) { R[n] = R[n] || R[id]; delete R[id]; } }); });
 const CP_ST = { "Active": "act", "Off-world": "off", "Retired": "ret", "Fugitive": "fug", "Imprisoned": "imp", "Missing": "mis", "Deceased": "dec" };
 const cpSteps = o => o.st.filter(atlSeenStep);
 const cpStatus = S => { let st = "Active"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
@@ -9869,7 +9869,7 @@ function reveal(cv, tile, id, done) {
 document.getElementById("upNext").addEventListener("click", goUpNext);
 
 document.getElementById("mainTitle").addEventListener("click", ev => {
-  if (ev.target.closest("#stoneBar")) { if (state.mode !== "timeline" || MOCK) openGauntlet(); return; }
+  if (ev.target.closest("#stoneBar")) { openGauntlet(); return; }
 });
 // hold the title: the lights go down while you hold, and the show starts once they're down
 { const mt = document.getElementById("mainTitle"); let dim = null, dimT = null, dimAt = null;
