@@ -1,0 +1,6474 @@
+{
+ "about": "Second sweep, October 2026: descriptions, teams and names that went stale later in their file; stages keyed to a whole multi-season show; nine reviewer leads; 42 out-of-story lines. Applied through audit_fix.json. Team group files: proposals only, nothing removed without the owner.",
+ "applied": [
+  {
+   "n": "cp_by-1",
+   "id": "fox-anim-cable",
+   "note": "Re-key the X-Men '97 stages to S1 (Nathan's parentage) and S2 (X-Force) so they open per season.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "field": "k",
+     "value": [
+      [
+       "A soldier from the future",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Nathan Summers, son of Scott and Madelyne",
+       "X-Men '97 S1"
+      ]
+     ],
+     "index": "Compound",
+     "id": "fox-anim-cable"
+    },
+    {
+     "kind": "set",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "X-Force",
+       "X-Men '97 S2"
+      ]
+     ],
+     "index": "Compound",
+     "id": "fox-anim-cable"
+    }
+   ]
+  },
+  {
+   "n": "cp_by-2",
+   "id": "fox-anim-magneto",
+   "note": "Re-key the X-Men '97 team stage to S1, where Xavier's will names him leader.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-magneto",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "The X-Men",
+       "X-Men '97 S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-3",
+   "id": "fox-anim-nightcrawler",
+   "note": "Re-key the X-Men '97 team stage to S1, where Kurt joins after Genosha.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-nightcrawler",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "The X-Men",
+       "X-Men '97 S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-4",
+   "id": "fox-anim-colossus",
+   "note": "Re-key both X-Men '97 team stages to S2, the only season he appears in.",
+   "source": "https://marvelanimated.fandom.com/wiki/Colossus",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-colossus",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "The Acolytes",
+       "X-Men '97 S2"
+      ],
+      [
+       "The X-Men",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-5",
+   "id": "fox-anim-forge",
+   "note": "Re-key the X-Men '97 team stages to S1 (helping Storm) and S2 (going to 3960 A.D. for the X-Men).",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-forge",
+     "field": "tm",
+     "value": [
+      [
+       "X-Factor",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Independent",
+       "X-Men '97 S1"
+      ],
+      [
+       "The X-Men",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-6",
+   "id": "fox-anim-sunspot",
+   "note": "Re-key the X-Men '97 team stages to S1 and S2 so each opens with its own season.",
+   "source": "https://marvelanimated.fandom.com/wiki/Sunspot",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-sunspot",
+     "field": "tm",
+     "value": [
+      [
+       "The X-Men",
+       "X-Men '97 S1"
+      ],
+      [
+       "X-Force",
+       "X-Men '97 S2"
+      ],
+      [
+       "The X-Men",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-7",
+   "id": "fox-anim-psylocke",
+   "note": "Re-key the X-Force stage to X-Men '97 S2, where she joins Cable's team.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-psylocke",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "X-Force",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-8",
+   "id": "fox-anim-archangel",
+   "note": "Re-key the X-Force stage to X-Men '97 S2, where he joins Cable's team.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-archangel",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "X-Force",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-9",
+   "id": "fox-anim-polaris",
+   "note": "Re-key the X-Men stage to X-Men '97 S2, where she leaves X-Factor for Xavier's school.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-polaris",
+     "field": "tm",
+     "value": [
+      [
+       "X-Factor",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "The X-Men",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-10",
+   "id": "fox-anim-moira-mactaggert",
+   "note": "Re-key the Genosha stage to X-Men '97 S1, where she sits on its council.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-moira-mactaggert",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Genosha",
+       "X-Men '97 S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-11",
+   "id": "fox-anim-banshee",
+   "note": "Re-key the Genosha stage to X-Men '97 S1, where he sits on its council.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-banshee",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Genosha",
+       "X-Men '97 S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-12",
+   "id": "fox-anim-captain-america",
+   "note": "Re-key the X-Men '97 team stage to S1, his first appearance in it.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-captain-america",
+     "field": "tm",
+     "value": [
+      [
+       "U.S. Army",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Independent",
+       "X-Men '97 S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-13",
+   "id": "by-gamora-sakaar",
+   "note": "Stale: she is only sent to kill Tony until she leaves with him to stop Thanos (S2), and has killed Thanos by S1; staged so either season shows the turn.",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "by-gamora-sakaar",
+     "field": "k",
+     "value": [
+      [
+       "Thanos's daughter, sent to kill Tony Stark",
+       "What If...? S2"
+      ],
+      [
+       "Thanos's daughter, who turned against him",
+       "What If...? S1"
+      ],
+      [
+       "Thanos's daughter, who turned against him",
+       "What If...? S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-14",
+   "id": "fox-charles-xavier",
+   "note": "Stale team: by 2029 the X-Men are gone, several killed in one of his seizures.",
+   "source": "https://en.wikipedia.org/wiki/Logan_(film)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-charles-xavier",
+     "field": "tm",
+     "value": [
+      [
+       "The X-Men",
+       "X-Men Origins: Wolverine"
+      ],
+      [
+       "Independent",
+       "Logan"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-15",
+   "id": "fox-beast",
+   "note": "Stale: he quits as Secretary of Mutant Affairs and ends the film as ambassador to the UN.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_The_Last_Stand",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-beast",
+     "field": "k",
+     "value": [
+      [
+       "A mutant expert in government",
+       "X2"
+      ],
+      [
+       "Beast, a blue-furred mutant statesman",
+       "X-Men: The Last Stand"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-16",
+   "id": "fox-kitty-pryde",
+   "note": "Stale: in 2023 Kitty is a grown X-Man among the last survivors, not a student.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_Days_of_Future_Past",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-kitty-pryde",
+     "field": "k",
+     "value": [
+      [
+       "A student who can phase through solid matter",
+       "X2"
+      ],
+      [
+       "An X-Man who can phase through solid matter",
+       "X-Men: Days of Future Past"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-17",
+   "id": "fox-colossus",
+   "note": "Stale: in 2023 Colossus is one of the surviving X-Men, not a student.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_Days_of_Future_Past",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-colossus",
+     "field": "k",
+     "value": [
+      [
+       "Piotr Rasputin, a student who can turn to steel",
+       "X2"
+      ],
+      [
+       "Piotr Rasputin, an X-Man who can turn to steel",
+       "X-Men: Days of Future Past"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-18",
+   "id": "fox-quicksilver",
+   "note": "Stale: the teen of 1973 is a grown man by 1983, when he joins the X-Men (and through Dark Phoenix and Deadpool 2).",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_Apocalypse",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-quicksilver",
+     "field": "k",
+     "value": [
+      [
+       "A teen speedster from the suburbs",
+       "X-Men: Days of Future Past"
+      ],
+      [
+       "Quicksilver, a speedster of the X-Men",
+       "X-Men: Apocalypse"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-19",
+   "id": "fox-vanessa",
+   "note": "Stale: six years on, Wade has broken up with Vanessa.",
+   "source": "https://en.wikipedia.org/wiki/Deadpool_%26_Wolverine",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-vanessa",
+     "field": "k",
+     "value": [
+      [
+       "Wade Wilson's girlfriend",
+       "Deadpool"
+      ],
+      [
+       "Wade Wilson's ex-girlfriend",
+       "Deadpool & Wolverine"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-20",
+   "id": "fox-negasonic",
+   "note": "Stale: she is a full X-Man in Deadpool 2, no longer a trainee.",
+   "source": "https://en.wikipedia.org/wiki/Deadpool_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-negasonic",
+     "field": "k",
+     "value": [
+      [
+       "A moody teen X-Men trainee with explosive power",
+       "Deadpool"
+      ],
+      [
+       "A moody X-Man with explosive power",
+       "Deadpool 2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-21",
+   "id": "sv-gwen-stacy-earth65",
+   "note": "Stale: by the end she reconciles with her father, who resigns, and Miguel exiles her from the Spider-Society.",
+   "source": "https://en.wikipedia.org/wiki/Spider-Man:_Across_the_Spider-Verse",
+   "change": [
+    {
+     "kind": "set",
+     "field": "k",
+     "value": [
+      [
+       "A Spider-Woman from another world",
+       "Spider-Man: Into the Spider-Verse"
+      ],
+      [
+       "Spider-Woman of Earth-65",
+       "Spider-Man: Across the Spider-Verse"
+      ]
+     ],
+     "index": "Compound",
+     "id": "sv-gwen-stacy-earth65"
+    },
+    {
+     "kind": "set",
+     "field": "tm",
+     "value": "Independent",
+     "index": "Compound",
+     "id": "sv-gwen-stacy-earth65"
+    }
+   ]
+  },
+  {
+   "n": "cp_by-22",
+   "id": "sv-peter-parker-raimi",
+   "note": "Stale: years after Spider-Man 3 he is no longer a Columbia student; he and MJ have made it work.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Friendly_Neighborhood_Spider-Man",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "sv-peter-parker-raimi",
+     "field": "k",
+     "value": [
+      [
+       "A shy Queens teen with spider powers",
+       "Spider-Man (2002)"
+      ],
+      [
+       "A Columbia student and the Bugle's photographer",
+       "Spider-Man 2"
+      ],
+      [
+       "A veteran Spider-Man, settled with Mary Jane",
+       "Spider-Man: No Way Home"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-23",
+   "id": "sv-peter-parker-asm",
+   "note": "Stale: by No Way Home he has years as Spider-Man behind him, no longer a new graduate.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Amazing_Spider-Man",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "sv-peter-parker-asm",
+     "field": "k",
+     "value": [
+      [
+       "A Midtown Science High student with spider powers",
+       "The Amazing Spider-Man"
+      ],
+      [
+       "A new graduate, Spider-Man of New York",
+       "The Amazing Spider-Man 2"
+      ],
+      [
+       "A veteran Spider-Man of New York",
+       "Spider-Man: No Way Home"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-24",
+   "id": "sv-eddie-brock-sony",
+   "note": "Stale: Venom dies destroying the Codex, so Eddie is no longer bonded to him.",
+   "source": "https://en.wikipedia.org/wiki/Venom:_The_Last_Dance",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "sv-eddie-brock-sony",
+     "field": "k",
+     "value": [
+      [
+       "An investigative reporter",
+       "Venom"
+      ],
+      [
+       "A reporter bonded to the symbiote Venom",
+       "Venom"
+      ],
+      [
+       "A reporter, once host to the symbiote Venom",
+       "Venom: The Last Dance"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-25",
+   "id": "pr-st-runaways",
+   "note": "Stale: \"on the run\" ends in S3, where they reconcile and ally with PRIDE against Morgan le Fay.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Runaways",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "pr-st-runaways",
+     "field": "k",
+     "value": [
+      [
+       "Six teens on the run from their parents",
+       "Runaways S1–S2"
+      ],
+      [
+       "Six teens who stood up to their parents' group, PRIDE",
+       "Runaways S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_by-26",
+   "id": "pr-st-janet-stein",
+   "note": "Wrong end status: her body vanishes but her mind survives in the Healing Algorithm and she helps defeat Morgan, so she ends Active, not Missing.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Janet_Stein",
+   "change": [
+    {
+     "kind": "steps",
+     "old": [
+      [
+       "Trapped in Jonah's prison, Janet stays behind so Chase and Karolina can escape. Janet knocks out Morgan's phone service in Los Angeles.",
+       "Runaways S3",
+       "Missing"
+      ]
+     ],
+     "new": [
+      [
+       "Trapped in Jonah's prison, Janet stays behind so Chase and Karolina can escape, and her body vanishes.",
+       "Runaways S3",
+       "Missing"
+      ],
+      [
+       "Her mind lives on in the algorithm, and Janet knocks out Morgan's phone service in Los Angeles.",
+       "Runaways S3",
+       "Active"
+      ]
+     ],
+     "index": "Compound",
+     "id": "pr-st-janet-stein"
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-1",
+   "id": "st-daisy-johnson",
+   "note": "k staged by season: 'A hacker called Skye' goes stale once she is Daisy Johnson, an Inhuman (S2) and the public hero Quake (S4).",
+   "source": "https://en.wikipedia.org/wiki/Daisy_Johnson_(Marvel_Cinematic_Universe)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-daisy-johnson",
+     "field": "k",
+     "value": [
+      [
+       "A hacker called Skye who joins Coulson's team",
+       "Agents of S.H.I.E.L.D. S1"
+      ],
+      [
+       "An Inhuman with earthquake powers",
+       "Agents of S.H.I.E.L.D. S2"
+      ],
+      [
+       "Quake, an Inhuman S.H.I.E.L.D. agent",
+       "Agents of S.H.I.E.L.D. S4"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-2",
+   "id": "st-mack",
+   "note": "k 'A S.H.I.E.L.D. mechanic' goes stale once Mack becomes Director in S5 and leads S.H.I.E.L.D. to the end.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Alphonso_Mackenzie",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-mack",
+     "field": "k",
+     "value": [
+      [
+       "A S.H.I.E.L.D. mechanic with a cautious streak",
+       "Agents of S.H.I.E.L.D. S2"
+      ],
+      [
+       "Director of S.H.I.E.L.D.",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-3",
+   "id": "st-deke-shaw",
+   "note": "tm 'Independent' goes stale: Mack makes Deke a S.H.I.E.L.D. agent in S6 and he ends as Director of the new timeline's S.H.I.E.L.D.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Deke_Shaw",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-deke-shaw",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "Agents of S.H.I.E.L.D. S5"
+      ],
+      [
+       "S.H.I.E.L.D.",
+       "Agents of S.H.I.E.L.D. S6"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-4",
+   "id": "felix-blake",
+   "note": "k and tm said S.H.I.E.L.D. while in S3 Blake leads the anti-Inhuman Watchdogs against S.H.I.E.L.D.; staged both at S3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Felix_Blake",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "felix-blake",
+     "field": "k",
+     "value": [
+      [
+       "A S.H.I.E.L.D. agent",
+       "Item 47"
+      ],
+      [
+       "A former S.H.I.E.L.D. agent who leads the Watchdogs",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    },
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "felix-blake",
+     "field": "tm",
+     "value": [
+      [
+       "S.H.I.E.L.D.",
+       "Item 47"
+      ],
+      [
+       "Watchdogs",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-5",
+   "id": "st-daniel-sousa",
+   "note": "tm stages were keyed to whole shows ('Agent Carter', 'Agents of S.H.I.E.L.D.'); re-keyed to Agent Carter S1 and Agents of S.H.I.E.L.D. S6–S7, where he joins.",
+   "source": "https://en.wikipedia.org/wiki/Daniel_Sousa_(Marvel_Cinematic_Universe)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-daniel-sousa",
+     "field": "tm",
+     "value": [
+      [
+       "SSR",
+       "Agent Carter S1"
+      ],
+      [
+       "S.H.I.E.L.D.",
+       "Agents of S.H.I.E.L.D. S7"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-6",
+   "id": "loki",
+   "note": "k 'working with the TVA' and tm 'The TVA' go stale when Loki takes He Who Remains's place to oversee the branches alone at the End of Time.",
+   "source": "https://en.wikipedia.org/wiki/Loki_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "loki",
+     "field": "k",
+     "value": [
+      [
+       "Thor's brother, an ally in a crisis",
+       "Thor: The Dark World"
+      ],
+      [
+       "A Loki variant working with the TVA",
+       "Loki S1"
+      ],
+      [
+       "A Loki variant who holds the timelines together",
+       "Loki S2"
+      ]
+     ]
+    },
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "loki",
+     "field": "tm",
+     "value": [
+      [
+       "Asgard",
+       "Thor: The Dark World"
+      ],
+      [
+       "The TVA",
+       "Loki S1"
+      ],
+      [
+       "Independent",
+       "Loki S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-7",
+   "id": "sylvie",
+   "note": "k 'on the run from the TVA' goes stale: by Loki S2 she lives openly in 1982 Oklahoma and ends free, watching Don's family with Mobius.",
+   "source": "https://en.wikipedia.org/wiki/Loki_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "sylvie",
+     "field": "k",
+     "value": [
+      [
+       "A Loki variant on the run from the TVA",
+       "Loki S1"
+      ],
+      [
+       "A Loki variant who broke free of the TVA",
+       "Loki S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-8",
+   "id": "korg",
+   "note": "k 'a gladiator on Sakaar' goes stale once Korg lives in New Asgard (Endgame, Love and Thunder); staged at Endgame like Valkyrie's file.",
+   "source": "https://en.wikipedia.org/wiki/Thor:_Love_and_Thunder",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "korg",
+     "field": "k",
+     "value": [
+      [
+       "A Kronan gladiator on Sakaar",
+       "Thor: Ragnarok"
+      ],
+      [
+       "A Kronan ex-gladiator and Thor's friend",
+       "Avengers: Endgame"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-9",
+   "id": "peter-quill",
+   "note": "k 'Leader of the Guardians' goes stale: in Vol. 3 Quill leaves the team, names Rocket captain and goes home to his grandfather.",
+   "source": "https://en.wikipedia.org/wiki/Guardians_of_the_Galaxy_Vol._3",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "peter-quill",
+     "field": "k",
+     "value": [
+      [
+       "A Ravager who calls himself Star-Lord",
+       "Guardians of the Galaxy"
+      ],
+      [
+       "Leader of the Guardians of the Galaxy",
+       "Guardians of the Galaxy Vol. 2"
+      ],
+      [
+       "A former Guardian back home on Earth",
+       "Guardians of the Galaxy Vol. 3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-10",
+   "id": "drax",
+   "note": "k 'seeking revenge on Ronan and Thanos' went stale after Ronan dies in the first film and Drax leaves the team in Vol. 3 to raise the rescued children.",
+   "source": "https://en.wikipedia.org/wiki/Guardians_of_the_Galaxy_Vol._3",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "drax",
+     "field": "k",
+     "value": [
+      [
+       "A warrior seeking revenge on Ronan and Thanos",
+       "Guardians of the Galaxy"
+      ],
+      [
+       "A Guardian of the Galaxy",
+       "Guardians of the Galaxy Vol. 2"
+      ],
+      [
+       "A former Guardian raising children on Knowhere",
+       "Guardians of the Galaxy Vol. 3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-11",
+   "id": "rocket",
+   "note": "k 'bounty hunter' goes stale: Quill names Rocket the new captain of the Guardians in Vol. 3.",
+   "source": "https://en.wikipedia.org/wiki/Guardians_of_the_Galaxy_Vol._3",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "rocket",
+     "field": "k",
+     "value": [
+      [
+       "A genetically altered raccoon and bounty hunter",
+       "Guardians of the Galaxy"
+      ],
+      [
+       "Captain of the Guardians of the Galaxy",
+       "Guardians of the Galaxy Vol. 3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-12",
+   "id": "monica-rambeau",
+   "note": "k 'A S.W.O.R.D. agent' goes stale: in The Marvels she is a S.A.B.E.R. astronaut (tm already says S.A.B.E.R.).",
+   "source": "https://en.wikipedia.org/wiki/The_Marvels",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "monica-rambeau",
+     "field": "k",
+     "value": [
+      [
+       "Maria Rambeau's young daughter",
+       "Captain Marvel"
+      ],
+      [
+       "A S.W.O.R.D. agent",
+       "WandaVision"
+      ],
+      [
+       "A S.A.B.E.R. astronaut",
+       "The Marvels"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-13",
+   "id": "sharon-carter",
+   "note": "k 'hiding in Madripoor' and tm 'Independent' go stale: she is pardoned and rejoins the CIA at the end of FATWS while secretly the Power Broker.",
+   "source": "https://en.wikipedia.org/wiki/The_Falcon_and_the_Winter_Soldier",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "sharon-carter",
+     "field": "k",
+     "value": [
+      [
+       "A S.H.I.E.L.D. agent posing as Steve's neighbor",
+       "Captain America: The Winter Soldier"
+      ],
+      [
+       "A CIA agent, Peggy Carter's niece",
+       "Captain America: Civil War"
+      ],
+      [
+       "A pardoned CIA agent, secretly the Power Broker",
+       "The Falcon and the Winter Soldier"
+      ]
+     ]
+    },
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "sharon-carter",
+     "field": "tm",
+     "value": [
+      [
+       "S.H.I.E.L.D.",
+       "Captain America: The Winter Soldier"
+      ],
+      [
+       "CIA",
+       "Captain America: Civil War"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-14",
+   "id": "janet-van-dyne",
+   "note": "k 'lost in the Quantum Realm' goes stale when Hank brings her home in Ant-Man and the Wasp.",
+   "source": "https://en.wikipedia.org/wiki/Ant-Man_and_the_Wasp",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "janet-van-dyne",
+     "field": "k",
+     "value": [
+      [
+       "The first Wasp, lost in the Quantum Realm",
+       "Ant-Man"
+      ],
+      [
+       "The first Wasp, back from the Quantum Realm",
+       "Ant-Man and the Wasp"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-15",
+   "id": "trevor-slattery",
+   "note": "k 'A Damage Control informant' goes stale: Trevor confesses the deal, takes the blame for Simon, is jailed by DODC and broken out by Simon.",
+   "source": "https://en.wikipedia.org/wiki/Wonder_Man_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "trevor-slattery",
+     "field": "k",
+     "value": [
+      [
+       "An actor hired to play the Mandarin",
+       "Iron Man 3"
+      ],
+      [
+       "Shang-Chi's unlikely friend",
+       "Shang-Chi and the Legend of the Ten Rings"
+      ],
+      [
+       "Simon Williams's friend and fellow actor",
+       "Wonder Man"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-16",
+   "id": "jack-duquesne",
+   "note": "k 'secretly fighting crime as the Swordsman' goes stale: in Born Again S2 a tribunal finds him guilty of vigilante violence as the Swordsman.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Swordsman",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "jack-duquesne",
+     "field": "k",
+     "value": [
+      [
+       "Eleanor Bishop's fiance, a sword enthusiast",
+       "Hawkeye"
+      ],
+      [
+       "A socialite secretly fighting crime as the Swordsman",
+       "Daredevil: Born Again S1"
+      ],
+      [
+       "A socialite unmasked as the vigilante Swordsman",
+       "Daredevil: Born Again S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-17",
+   "id": "st-matt-murdock",
+   "note": "k 'leading the fight against Mayor Fisk' goes stale: Fisk goes into exile and Matt, who revealed he is Daredevil at Karen's trial, is jailed.",
+   "source": "https://en.wikipedia.org/wiki/Daredevil:_Born_Again_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-matt-murdock",
+     "field": "k",
+     "value": [
+      [
+       "A blind lawyer and masked vigilante in Hell's Kitchen",
+       "Daredevil S1"
+      ],
+      [
+       "Daredevil, the blind lawyer guarding Hell's Kitchen",
+       "Daredevil S2"
+      ],
+      [
+       "A lawyer leading the fight against Mayor Fisk",
+       "Daredevil: Born Again S1"
+      ],
+      [
+       "A blind lawyer who revealed he is Daredevil",
+       "Daredevil: Born Again S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-18",
+   "id": "st-heather-glenn",
+   "note": "tm 'Fisk's administration' goes stale: Fisk leaves New York at the end of Born Again S2 and Heather puts on Muse's mask.",
+   "source": "https://en.wikipedia.org/wiki/Daredevil:_Born_Again_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-heather-glenn",
+     "field": "tm",
+     "value": [
+      [
+       "Fisk's administration",
+       "Daredevil: Born Again S1"
+      ],
+      [
+       "Independent",
+       "Daredevil: Born Again S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-19",
+   "id": "bruce-banner",
+   "note": "k 'Smart Hulk' goes stale in Brand New Day, where Jean Grey's attack ends his Smart Hulk form; tm 'The Avengers' goes stale after the team splits up post-Endgame.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Hulk",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "bruce-banner",
+     "field": "k",
+     "value": [
+      [
+       "A scientist who turns into the Hulk",
+       "The Incredible Hulk"
+      ],
+      [
+       "Smart Hulk",
+       "Avengers: Endgame"
+      ],
+      [
+       "A scientist who once again turns into the Hulk",
+       "Spider-Man: Brand New Day"
+      ]
+     ]
+    },
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "bruce-banner",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "The Incredible Hulk"
+      ],
+      [
+       "The Avengers",
+       "The Avengers"
+      ],
+      [
+       "Independent",
+       "Shang-Chi and the Legend of the Ten Rings"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-20",
+   "id": "james-rhodes",
+   "note": "tm 'The Avengers' goes stale after the team goes its own ways post-Endgame; Rhodes is again an Air Force colonel (Avengers listed as former).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/War_Machine",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "james-rhodes",
+     "field": "tm",
+     "value": [
+      [
+       "U.S. Air Force",
+       "Iron Man"
+      ],
+      [
+       "The Avengers",
+       "Avengers: Age of Ultron"
+      ],
+      [
+       "U.S. Air Force",
+       "The Falcon and the Winter Soldier"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-21",
+   "id": "scott-lang",
+   "note": "tm 'The Avengers' goes stale after the team goes its own ways post-Endgame; in Quantumania Scott is on his own (Avengers listed as former).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ant-Man",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "scott-lang",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "Ant-Man"
+      ],
+      [
+       "The Avengers",
+       "Avengers: Endgame"
+      ],
+      [
+       "Independent",
+       "Ant-Man and the Wasp: Quantumania"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-22",
+   "id": "shuri",
+   "note": "Plain error: Shuri is never crowned queen; she becomes Black Panther and leaves the throne to M'Baku's challenge.",
+   "source": "https://en.wikipedia.org/wiki/Black_Panther:_Wakanda_Forever",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "shuri",
+     "field": "k",
+     "value": [
+      [
+       "T'Challa's sister, Wakanda's top inventor",
+       "Black Panther"
+      ],
+      [
+       "T'Challa's successor as Black Panther",
+       "Black Panther: Wakanda Forever"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-23",
+   "id": "st-joy-meachum",
+   "note": "k 'a Rand executive' goes stale: in Iron Fist S2 Joy has Danny and Ward buy her out of the company (tm already Independent).",
+   "source": "https://en.wikipedia.org/wiki/Iron_Fist_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-joy-meachum",
+     "field": "k",
+     "value": [
+      [
+       "Ward's sister and a Rand executive",
+       "Iron Fist S1"
+      ],
+      [
+       "Ward's sister, a former Rand executive",
+       "Iron Fist S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-24",
+   "id": "st-danny-rand",
+   "note": "k 'The Immortal Iron Fist' and tm 'The Defenders' go stale: Colleen takes the Iron Fist and Danny leaves New York with Ward to find Orson Randall.",
+   "source": "https://en.wikipedia.org/wiki/Iron_Fist_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-danny-rand",
+     "field": "k",
+     "value": [
+      [
+       "The heir to Rand Enterprises, back from the dead",
+       "Iron Fist S1"
+      ],
+      [
+       "The Immortal Iron Fist",
+       "The Defenders"
+      ],
+      [
+       "A K'un-Lun warrior who passed the Iron Fist to Colleen",
+       "Iron Fist S2"
+      ]
+     ]
+    },
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "st-danny-rand",
+     "field": "tm",
+     "value": [
+      [
+       "Rand Enterprises",
+       "Iron Fist S1"
+      ],
+      [
+       "The Defenders",
+       "The Defenders"
+      ],
+      [
+       "Independent",
+       "Iron Fist S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cp_mcu-25",
+   "id": "giah",
+   "note": "k 'secretly spying on Gravik' goes stale: G'iah takes the Harvest's powers and kills Gravik at the end of Secret Invasion.",
+   "source": "https://en.wikipedia.org/wiki/Secret_Invasion_(miniseries)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "giah",
+     "field": "k",
+     "value": [
+      [
+       "A young Skrull refugee, Talos's daughter",
+       "Captain Marvel"
+      ],
+      [
+       "A Super-Skrull who turned on Gravik's rebels",
+       "Secret Invasion"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-1",
+   "id": "the-bus",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "the-bus",
+     "field": "k",
+     "value": [
+      [
+       "Coulson's flying mobile command plane",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-2",
+   "id": "lola",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "lola",
+     "field": "k",
+     "value": [
+      [
+       "Coulson's red 1962 Corvette",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-3",
+   "id": "night-night-gun",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "night-night-gun",
+     "field": "k",
+     "value": [
+      [
+       "A non-lethal stun gun made by Fitz and Simmons",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-4",
+   "id": "0-8-4",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "0-8-4",
+     "field": "k",
+     "value": [
+      [
+       "A Tesseract-powered HYDRA weapon found in Peru",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-5",
+   "id": "chitauri-helmet",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "chitauri-helmet",
+     "field": "k",
+     "value": [
+      [
+       "A salvaged helmet carrying an alien virus",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-6",
+   "id": "berserker-staff",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "berserker-staff",
+     "field": "k",
+     "value": [
+      [
+       "An Asgardian staff that fills its holder with rage",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-7",
+   "id": "lorelei-collar",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "lorelei-collar",
+     "field": "k",
+     "value": [
+      [
+       "An Asgardian collar that silences Lorelei",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-8",
+   "id": "gravitonium",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "gravitonium",
+     "field": "k",
+     "value": [
+      [
+       "A rare element that controls gravity",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-9",
+   "id": "gh-325",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "gh-325",
+     "field": "k",
+     "value": [
+      [
+       "The drug that brought Coulson back to life",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-10",
+   "id": "centipede-serum",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "centipede-serum",
+     "field": "k",
+     "value": [
+      [
+       "A super soldier serum built on Extremis",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-11",
+   "id": "furys-toolbox",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S1",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "furys-toolbox",
+     "field": "k",
+     "value": [
+      [
+       "A box of S.H.I.E.L.D. secrets left by Fury",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-12",
+   "id": "diviner",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S2",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "diviner",
+     "field": "k",
+     "value": [
+      [
+       "A Kree key that HYDRA calls the Obelisk",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-13",
+   "id": "terrigen",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S2",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "terrigen",
+     "field": "k",
+     "value": [
+      [
+       "Kree crystals whose mist awakens Inhumans",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-14",
+   "id": "monolith",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S2",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "monolith",
+     "field": "k",
+     "value": [
+      [
+       "A Kree stone that swallows people whole",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-15",
+   "id": "agent-33-mask",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S2",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "agent-33-mask",
+     "field": "k",
+     "value": [
+      [
+       "A HYDRA mask that copies another person's face",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-16",
+   "id": "memory-machine",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S2",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "memory-machine",
+     "field": "k",
+     "value": [
+      [
+       "A HYDRA machine that digs into memories",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-17",
+   "id": "iliad",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S2",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "iliad",
+     "field": "k",
+     "value": [
+      [
+       "Gonzales's S.H.I.E.L.D. aircraft carrier",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-18",
+   "id": "zephyr-one",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S3",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "zephyr-one",
+     "field": "k",
+     "value": [
+      [
+       "S.H.I.E.L.D.'s airborne mobile command",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-19",
+   "id": "jiaying-ledger",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S3",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "jiaying-ledger",
+     "field": "k",
+     "value": [
+      [
+       "A record of Inhumans kept by Daisy's mother",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-20",
+   "id": "coulson-hand",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S3",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "coulson-hand",
+     "field": "k",
+     "value": [
+      [
+       "The artificial hand that replaces Coulson's own",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-21",
+   "id": "kree-beacon",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S3",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "kree-beacon",
+     "field": "k",
+     "value": [
+      [
+       "An ancient device that summons the Kree",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-22",
+   "id": "hive-warhead",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S3",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "hive-warhead",
+     "field": "k",
+     "value": [
+      [
+       "A stolen warhead loaded with a pathogen",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-23",
+   "id": "robbie-charger",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S4",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "robbie-charger",
+     "field": "k",
+     "value": [
+      [
+       "A muscle car that burns with hellfire",
+       "Agents of S.H.I.E.L.D. S4"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-24",
+   "id": "mace-serum",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S4",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "mace-serum",
+     "field": "k",
+     "value": [
+      [
+       "A secret serum behind Director Mace's strength",
+       "Agents of S.H.I.E.L.D. S4"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-25",
+   "id": "framework",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S4",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "framework",
+     "field": "k",
+     "value": [
+      [
+       "A virtual world built by Radcliffe and Aida",
+       "Agents of S.H.I.E.L.D. S4"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-26",
+   "id": "fitz-cryo-pod",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S5",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "fitz-cryo-pod",
+     "field": "k",
+     "value": [
+      [
+       "A cryogenic pod that carries Fitz into the future",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-27",
+   "id": "odium",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S5",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "odium",
+     "field": "k",
+     "value": [
+      [
+       "A Kree drug that drives people to violence",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-28",
+   "id": "principia",
+   "note": "k \"A missing Cybertek ship\" goes stale when the team finds it in S5; rewritten to hold after, and re-keyed from the whole show to AoS S5",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Principia",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "principia",
+     "field": "k",
+     "value": [
+      [
+       "A Cybertek ship that vanished with gravitonium aboard",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-29",
+   "id": "infusion-chamber",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S5",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "infusion-chamber",
+     "field": "k",
+     "value": [
+      [
+       "A HYDRA machine that fuses a person with gravitonium",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-30",
+   "id": "by-sarge-knives",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S6–S7",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-sarge-knives",
+     "field": "k",
+     "value": [
+      [
+       "Crystal blades that kill the Shrike",
+       "Agents of S.H.I.E.L.D. S6"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-31",
+   "id": "by-zephyr-time-drive",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S6–S7",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-zephyr-time-drive",
+     "field": "k",
+     "value": [
+      [
+       "The drive that lets the Zephyr jump through time",
+       "Agents of S.H.I.E.L.D. S6"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-32",
+   "id": "by-project-helius",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S6–S7",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-project-helius",
+     "field": "k",
+     "value": [
+      [
+       "A 1955 S.H.I.E.L.D. ion fusion reactor",
+       "Agents of S.H.I.E.L.D. S7"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-33",
+   "id": "by-insight-1976",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S6–S7",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-insight-1976",
+     "field": "k",
+     "value": [
+      [
+       "Project Insight, launched decades too early",
+       "Agents of S.H.I.E.L.D. S7"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-34",
+   "id": "by-sibyl-time-stream",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S6–S7",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-sibyl-time-stream",
+     "field": "k",
+     "value": [
+      [
+       "The Chronicoms' window onto the future",
+       "Agents of S.H.I.E.L.D. S7"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-35",
+   "id": "nitramene",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S1",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "nitramene",
+     "field": "k",
+     "value": [
+      [
+       "Howard Stark's molecular implosion formula",
+       "Agent Carter S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-36",
+   "id": "stark-inventions",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S1",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "stark-inventions",
+     "field": "k",
+     "value": [
+      [
+       "Dangerous weapons stolen from Howard's vault",
+       "Agent Carter S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-37",
+   "id": "leviathan-typewriter",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S1",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "leviathan-typewriter",
+     "field": "k",
+     "value": [
+      [
+       "A typewriter that receives Leviathan's coded orders",
+       "Agent Carter S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-38",
+   "id": "steve-blood",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S1",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "steve-blood",
+     "field": "k",
+     "value": [
+      [
+       "The last vial of Captain America's blood",
+       "Agent Carter S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-39",
+   "id": "midnight-oil",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S1",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "midnight-oil",
+     "field": "k",
+     "value": [
+      [
+       "Howard's gas that drives people to kill",
+       "Agent Carter S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-40",
+   "id": "stark-vest",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S1",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "stark-vest",
+     "field": "k",
+     "value": [
+      [
+       "One of Howard's inventions, rigged to explode",
+       "Agent Carter S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-41",
+   "id": "zero-matter",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S2",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "zero-matter",
+     "field": "k",
+     "value": [
+      [
+       "A dark substance found by Isodyne Energy",
+       "Agent Carter S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-42",
+   "id": "gamma-cannon",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S2",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "gamma-cannon",
+     "field": "k",
+     "value": [
+      [
+       "Howard's cannon for closing Zero Matter rifts",
+       "Agent Carter S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-43",
+   "id": "council-key",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S2",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "council-key",
+     "field": "k",
+     "value": [
+      [
+       "A secret key of the Council of Nine",
+       "Agent Carter S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-44",
+   "id": "carter-file",
+   "note": "k stage keyed to the whole show \"Agent Carter\" re-keyed to Agent Carter S2",
+   "source": "https://en.wikipedia.org/wiki/Agent_Carter_(TV_series)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "carter-file",
+     "field": "k",
+     "value": [
+      [
+       "A file meant to incriminate Peggy Carter",
+       "Agent Carter S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-45",
+   "id": "by-hydra-stomper",
+   "note": "k stage keyed to the whole show \"What If...?\" re-keyed to What If...? S1",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-hydra-stomper",
+     "field": "k",
+     "value": [
+      [
+       "A Tesseract-powered battle suit for Steve Rogers",
+       "What If...? S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-46",
+   "id": "by-quantum-virus",
+   "note": "k stage keyed to the whole show \"What If...?\" re-keyed to What If...? S1",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-quantum-virus",
+     "field": "k",
+     "value": [
+      [
+       "A virus from the Quantum Realm that makes zombies",
+       "What If...? S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-47",
+   "id": "by-zombie-infinity-stones",
+   "note": "k stage keyed to the whole show \"What If...?\" re-keyed to What If...? S1",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-zombie-infinity-stones",
+     "field": "k",
+     "value": [
+      [
+       "The six Infinity Stones of the zombie world",
+       "What If...? S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-48",
+   "id": "by-ultron-infinity-stones",
+   "note": "k stage keyed to the whole show \"What If...?\" re-keyed to What If...? S1; custody: the stones jumped from Strange Supreme to Killmonger; in S2 Carter frees Strange's captives, Killmonger among them",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-ultron-infinity-stones",
+     "field": "k",
+     "value": [
+      [
+       "The six stones Ultron uses to end all life",
+       "What If...? S1"
+      ]
+     ]
+    },
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "by-ultron-infinity-stones",
+     "old": [
+      [
+       "In season 2, Killmonger fights in armor powered by the stones.",
+       "What If...?",
+       "In use",
+       "Killmonger"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, Captain Carter frees Strange Supreme's captives, and Killmonger fights in armor powered by the stones.",
+       "What If...?",
+       "In use",
+       "Killmonger"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-49",
+   "id": "fox-anim-claws",
+   "note": "k said the adamantium is in his bones after Magneto rips it out in X-Men '97 S1; new stage there, and S2 restores it (Weapon X episode)",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "fox-anim-claws",
+     "field": "k",
+     "value": [
+      [
+       "Adamantium laced through Wolverine's bones",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Adamantium torn from Wolverine's bones",
+       "X-Men '97 S1"
+      ],
+      [
+       "Adamantium laced through Wolverine's bones",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-50",
+   "id": "fox-anim-ship",
+   "note": "n stage keyed to the whole show \"X-Men '97\" re-keyed to X-Men '97 S2",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "fox-anim-ship",
+     "field": "n",
+     "value": [
+      [
+       "Apocalypse's ship",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Ship",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-51",
+   "id": "pr-jonah-ship",
+   "note": "k \"buried under Los Angeles\" no longer fits once the old ship is blown up and the family builds a new one in S3; new stage on Runaways S3",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Magistrate",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "pr-jonah-ship",
+     "field": "k",
+     "value": [
+      [
+       "The alien ship buried under Los Angeles",
+       "Runaways S1–S2"
+      ],
+      [
+       "A new ship Jonah's family builds to leave Earth",
+       "Runaways S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-52",
+   "id": "tesseract",
+   "note": "k \"holds the Space Stone\" goes stale when Thanos crushes the cube in Infinity War; \"held\" there, and \"holds\" again from Endgame, whose last step is the 2012 cube Loki takes",
+   "source": "https://en.wikipedia.org/wiki/Avengers:_Infinity_War",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "tesseract",
+     "field": "k",
+     "value": [
+      [
+       "A cube of unknown power",
+       "Captain America: The First Avenger"
+      ],
+      [
+       "The cube that held the Space Stone",
+       "Avengers: Infinity War"
+      ],
+      [
+       "The cube that holds the Space Stone",
+       "Avengers: Endgame"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-53",
+   "id": "scepter",
+   "note": "k \"holding the Mind Stone\" goes stale in Age of Ultron, where the gem goes into Vision; now \"held\"",
+   "source": "https://en.wikipedia.org/wiki/Avengers:_Age_of_Ultron",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "scepter",
+     "field": "k",
+     "value": [
+      [
+       "Loki's glowing scepter",
+       "The Avengers"
+      ],
+      [
+       "The scepter that held the Mind Stone",
+       "Avengers: Age of Ultron"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-54",
+   "id": "aether",
+   "note": "k \"The Reality Stone, in liquid form\" goes stale when Thanos sets it in the gauntlet as a solid stone in Infinity War; replaced with a description that stays true",
+   "source": "https://en.wikipedia.org/wiki/Infinity_Stones",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "aether",
+     "field": "k",
+     "value": [
+      [
+       "An ancient dark force, and an Infinity Stone",
+       "Thor: The Dark World"
+      ],
+      [
+       "The Infinity Stone that can bend reality",
+       "Avengers: Infinity War"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-55",
+   "id": "agamotto",
+   "note": "k \"Holds the Time Stone\" goes stale in Infinity War, where Strange gives the stone to Thanos; the existing \"once held\" value moves from No Way Home to Infinity War",
+   "source": "https://en.wikipedia.org/wiki/Avengers:_Infinity_War",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "agamotto",
+     "field": "k",
+     "value": [
+      [
+       "An ancient relic that can bend time",
+       "Doctor Strange"
+      ],
+      [
+       "A relic that once held the Time Stone",
+       "Avengers: Infinity War"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-56",
+   "id": "carol-suit",
+   "note": "k \"A Kree Starforce uniform\" goes stale inside Captain Marvel, where she recolors it red, blue and gold; one value true from that title on (the Endgame stage said the same)",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Starforce_Uniform",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "carol-suit",
+     "field": "k",
+     "value": [
+      [
+       "A Starforce uniform Carol turns red, blue and gold",
+       "Captain Marvel"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-57",
+   "id": "arc",
+   "note": "k \"keeps Tony alive\" goes stale in Iron Man 3, where surgery removes the shrapnel and he throws the reactor into the sea; new stage there",
+   "source": "https://en.wikipedia.org/wiki/Iron_Man_3",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "arc",
+     "field": "k",
+     "value": [
+      [
+       "The power source that keeps Tony alive",
+       "Iron Man"
+      ],
+      [
+       "The power source that once kept Tony alive",
+       "Iron Man 3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-58",
+   "id": "mix",
+   "note": "custody: the Zune jumped from Peter to Rocket with no step; Vol. 3 shows Rocket taking it and Peter giving it to him at the end",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Star-Lord%27s_Zune",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "mix",
+     "old": [
+      [
+       "Rocket listens to the Zune on Knowhere.",
+       "Guardians of the Galaxy Vol. 3",
+       "In use",
+       "Rocket"
+      ]
+     ],
+     "new": [
+      [
+       "Rocket keeps borrowing Peter's Zune, and Peter, who nearly dies going back for it, gives it to him.",
+       "Guardians of the Galaxy Vol. 3",
+       "In use",
+       "Rocket"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-59",
+   "id": "darkhold",
+   "note": "custody: Ghost Rider took the AoS book through a portal, then Agatha had it with no step; hers is another copy",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Darkhold",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "darkhold",
+     "old": [
+      [
+       "Agatha Harkness keeps the Darkhold in her basement lair and learns from it that Wanda is the Scarlet Witch.",
+       "WandaVision",
+       "Secured",
+       "Agatha Harkness"
+      ]
+     ],
+     "new": [
+      [
+       "Agatha Harkness keeps her own copy of the Darkhold in her basement lair and learns from it that Wanda is the Scarlet Witch.",
+       "WandaVision",
+       "Secured",
+       "Agatha Harkness"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-60",
+   "id": "walker-uniform",
+   "note": "k \"The new Captain America's own uniform\" goes stale when Walker loses the title and Valentina makes him U.S. Agent in the same title; the file then follows that suit",
+   "source": "https://en.wikipedia.org/wiki/The_Falcon_and_the_Winter_Soldier",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "walker-uniform",
+     "field": "k",
+     "value": [
+      [
+       "Walker's Captain America uniform, then his U.S. Agent suit",
+       "The Falcon and the Winter Soldier"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-61",
+   "id": "spec-inhuman",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S2",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "spec-inhuman",
+     "field": "k",
+     "value": [
+      [
+       "Humans altered long ago by Kree experiments",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-62",
+   "id": "spec-chronicom",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S5",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "spec-chronicom",
+     "field": "k",
+     "value": [
+      [
+       "Synthetic aliens who can pass for humans",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-63",
+   "id": "by-spec-shrike",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S6–S7",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-spec-shrike",
+     "field": "k",
+     "value": [
+      [
+       "Alien parasites that infect hosts and destroy worlds",
+       "Agents of S.H.I.E.L.D. S6"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-64",
+   "id": "spec-remorath",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S5",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "spec-remorath",
+     "field": "k",
+     "value": [
+      [
+       "Alien warriors of the Confederacy",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-65",
+   "id": "spec-vrellnexian",
+   "note": "k stage keyed to the whole show \"Agents of S.H.I.E.L.D.\" re-keyed to Agents of S.H.I.E.L.D. S5",
+   "source": "https://en.wikipedia.org/wiki/List_of_Agents_of_S.H.I.E.L.D._episodes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "spec-vrellnexian",
+     "field": "k",
+     "value": [
+      [
+       "Insect-like predators of 2091",
+       "Agents of S.H.I.E.L.D. S5"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-66",
+   "id": "by-spec-frost-giant-party",
+   "note": "k stage keyed to the whole show \"What If...?\" re-keyed to What If...? S1",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-spec-frost-giant-party",
+     "field": "k",
+     "value": [
+      [
+       "Giants of the frozen realm Jotunheim",
+       "What If...? S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-67",
+   "id": "by-spec-zombie",
+   "note": "k stage keyed to the whole show \"What If...?\" re-keyed to What If...? S1",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-spec-zombie",
+     "field": "k",
+     "value": [
+      [
+       "The infected, hungry for the living",
+       "What If...? S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-68",
+   "id": "spec-kree",
+   "note": "k \"A dying empire on a barren Hala\" goes stale within The Marvels: Dar-Benn brings air and water to Hala and Carol restores its sun",
+   "source": "https://en.wikipedia.org/wiki/The_Marvels",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "spec-kree",
+     "field": "k",
+     "value": [
+      [
+       "A warrior empire ruled by an AI",
+       "Captain Marvel"
+      ],
+      [
+       "A war-torn empire that lost its AI ruler",
+       "The Marvels"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-69",
+   "id": "sv-raimi-goblin-armor",
+   "note": "k \"Norman's hidden Goblin gear\" no longer fits in No Way Home, where Norman wears the armor in another universe; new stage there",
+   "source": "https://en.wikipedia.org/wiki/Spider-Man:_No_Way_Home",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "sv-raimi-goblin-armor",
+     "field": "k",
+     "value": [
+      [
+       "Oscorp's armored flight suit and mask",
+       "Spider-Man (2002)"
+      ],
+      [
+       "Norman's hidden Goblin gear",
+       "Spider-Man 2"
+      ],
+      [
+       "Norman's Goblin armor, worn in another universe",
+       "Spider-Man: No Way Home"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-70",
+   "id": "sv-raimi-spider-man-suit",
+   "note": "k \"Turned black by the symbiote\" goes stale inside Spider-Man 3, where Peter tears the symbiote off in the bell tower",
+   "source": "https://en.wikipedia.org/wiki/Spider-Man_3",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "sv-raimi-spider-man-suit",
+     "field": "k",
+     "value": [
+      [
+       "Peter's homemade red and blue suit",
+       "Spider-Man (2002)"
+      ],
+      [
+       "Jameson's trophy, then Peter's again",
+       "Spider-Man 2"
+      ],
+      [
+       "Peter's suit, briefly turned black by the symbiote",
+       "Spider-Man 3"
+      ],
+      [
+       "Peter's suit, worn in another universe",
+       "Spider-Man: No Way Home"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-71",
+   "id": "st-rabbit-painting",
+   "note": "custody: the painting jumped from Fisk to Esther Falb; S3 has the FBI seize his possessions and return it to her",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Rabbit_in_a_Snowstorm",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "st-rabbit-painting",
+     "old": [
+      [
+       "Fisk finds it with its rightful owner, Esther Falb, and lets her keep it.",
+       "Daredevil S3",
+       "Secured",
+       "Esther Falb"
+      ]
+     ],
+     "new": [
+      [
+       "Seized with Fisk's assets, it is back with its rightful owner, Esther Falb, and Fisk lets her keep it.",
+       "Daredevil S3",
+       "Secured",
+       "Esther Falb"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-72",
+   "id": "st-amulet",
+   "note": "custody: the amulet went from Matt to Kirsten with no link; Murdock & McDuffie kept it at their office",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Amulet_of_Power",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "st-amulet",
+     "old": [
+      [
+       "Angela gets her late uncle's amulet back from Kirsten McDuffie and wears it to raid Red Hook.",
+       "Daredevil: Born Again S2",
+       "In use",
+       "Angela del Toro"
+      ]
+     ],
+     "new": [
+      [
+       "Angela gets her late uncle's amulet back from Matt's law partner, Kirsten McDuffie, and wears it to raid Red Hook.",
+       "Daredevil: Born Again S2",
+       "In use",
+       "Angela del Toro"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "cx-73",
+   "id": "by-hydra-stomper-mark-ii",
+   "note": "k stage keyed to the whole show \"What If...?\" re-keyed to What If...? S1",
+   "source": "https://en.wikipedia.org/wiki/What_If...%3F_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Collection",
+     "id": "by-hydra-stomper-mark-ii",
+     "field": "k",
+     "value": [
+      [
+       "A Hydra Stomper armor found with someone sealed inside",
+       "What If...? S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-1",
+   "id": "valentina",
+   "note": "No change: every Valentina file checked (Raft valentina, and mel, bob, bob-sentry, new-avengers, john-walker, yelena-belova, ghost, taskmaster, everett-ross, walker-uniform, sentry-kill-switch); her name and recruiting open at FatWS where she introduces herself, 'The director of the CIA' and the Ross arrest open at Wakanda Forever where that is first shown, and O.X.E., Mel, Bob and the New Avengers only appear on Thunderbolts* steps; op/opp stages are all filtered by their own titles.",
+   "source": "https://en.wikipedia.org/wiki/Characters_of_the_Marvel_Cinematic_Universe:_A%E2%80%93L#Valentina_Allegra_de_Fontaine",
+   "change": []
+  },
+  {
+   "n": "lead-2",
+   "id": "star-lord-mask",
+   "note": "Added the Vol. 2 step where Ego breaks the helmet in two (Destroyed, Nobody); the Infinity War step now says it is a new mask, so the chain of custody holds.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Star-Lord%27s_Helmet",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "star-lord-mask",
+     "old": [
+      [
+       "In space, he gives it to Gamora so she can survive until the Ravagers pick them up, and he wears it again over Xandar.",
+       "Guardians of the Galaxy",
+       "In use",
+       "Peter Quill"
+      ],
+      [
+       "Peter masks up to fight Thanos on Titan, and the mask turns to dust with him in the Snap.",
+       "Avengers: Infinity War",
+       "Lost",
+       "Nobody"
+      ]
+     ],
+     "new": [
+      [
+       "In space, he gives it to Gamora so she can survive until the Ravagers pick them up, and he wears it again over Xandar.",
+       "Guardians of the Galaxy",
+       "In use",
+       "Peter Quill"
+      ],
+      [
+       "Peter wears it against the Abilisk and again against Ego, until Ego throws him back and the mask cracks in two.",
+       "Guardians of the Galaxy Vol. 2",
+       "Destroyed",
+       "Nobody"
+      ],
+      [
+       "In a new mask, Peter fights Thanos on Titan, and the mask turns to dust with him in the Snap.",
+       "Avengers: Infinity War",
+       "Lost",
+       "Nobody"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-3",
+   "id": "beast",
+   "note": "The Fox films (fox-beast, fox-beast-young) and the animated Beast (fox-anim-beast, TAS and X-Men '97) all have files; only the Hank McCoy of The Marvels mid-credits scene lacks one. New cameo file shaped like its neighbour binary (no prefix, cam 1). No other step names him yet, so drop this if a file needs a mention elsewhere.",
+   "source": "https://en.wikipedia.org/wiki/The_Marvels; https://marvelcinematicuniverse.fandom.com/wiki/Beast",
+   "change": [
+    {
+     "kind": "newfile",
+     "index": "Compound",
+     "file": {
+      "id": "beast",
+      "n": "Beast",
+      "k": "Another universe's Hank McCoy, a mutant scientist",
+      "tm": "The X-Men",
+      "em": "xmen",
+      "cam": 1,
+      "st": [
+       [
+        "In another universe, Beast tells the stranded Monica Rambeau she fell through a tear in space-time, then goes to update Charles Xavier.",
+        "The Marvels",
+        "Active"
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "n": "lead-4",
+   "id": "fox-anim-master-mold",
+   "note": "The Blackbird blast in 'The Final Decision' leaves Master Mold's head (status Lost, not Destroyed); it returns in season 4's 'Courage' and Morph spikes it; X-Men '97 opens with the X-Men destroying a Master Mold supercomputer at Trask's Sahara junkyard before the upgraded one at Genosha.",
+   "source": "https://marvelanimated.fandom.com/wiki/Master_Mold; https://en.wikipedia.org/wiki/Master_Mold; https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "fox-anim-master-mold",
+     "old": [
+      [
+       "In season 1, Master Mold turns on its makers; Xavier flies the Blackbird into it and it explodes.",
+       "X-Men: The Animated Series",
+       "Destroyed",
+       "Nobody"
+      ],
+      [
+       "In season 1, an upgraded Master Mold leads the attack on Genosha, and Gambit dies destroying it.",
+       "X-Men '97",
+       "Destroyed",
+       "Nobody"
+      ]
+     ],
+     "new": [
+      [
+       "In season 1, Master Mold turns on its makers; Xavier flies the Blackbird into it, and only its head survives the blast.",
+       "X-Men: The Animated Series",
+       "Lost",
+       "Nobody"
+      ],
+      [
+       "In season 4, Master Mold's head has Trask and Gyrich kidnapped to build it a new body, until Morph drives a spike through it.",
+       "X-Men: The Animated Series",
+       "Destroyed",
+       "Nobody"
+      ],
+      [
+       "In season 1, the X-Men find Trask at a Sahara junkyard and destroy a Master Mold supercomputer there.",
+       "X-Men '97",
+       "Destroyed",
+       "Nobody"
+      ],
+      [
+       "In season 1, an upgraded Master Mold leads the attack on Genosha, and Gambit dies destroying it.",
+       "X-Men '97",
+       "Destroyed",
+       "Nobody"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-5",
+   "id": "fox-anim-madelyne-pryor",
+   "note": "Madelyne's personnel file now starts where the series does, with the clone living as Jean and giving birth to Nathan (episodes 1-2), all inside season 1 where the swap is revealed; tm stages re-keyed from the whole show to X-Men '97 S1. fox-anim-jean-grey already has the real status (Imprisoned by Sinister, then escapes) in its season 1 steps, and Phoenix needs nothing.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-anim-madelyne-pryor",
+     "field": "tm",
+     "value": [
+      [
+       "The X-Men",
+       "X-Men '97 S1"
+      ],
+      [
+       "Independent",
+       "X-Men '97 S1"
+      ]
+     ]
+    },
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "fox-anim-madelyne-pryor",
+     "old": [
+      [
+       "In season 1, freed from Sinister by Jean, Madelyne helps save baby Nathan and gives him to Bishop.",
+       "X-Men '97",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In season 1, believing she is Jean Grey, Sinister's clone lives as Scott's wife with the X-Men and gives birth to their son, Nathan.",
+       "X-Men '97",
+       "Active"
+      ],
+      [
+       "In season 1, freed from Sinister by Jean, Madelyne helps save baby Nathan and gives him to Bishop.",
+       "X-Men '97",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-5",
+   "id": "fox-anim-madelyne-pryor",
+   "note": "Raft kind 'Cyclops's wife, who believes she is Jean Grey' went stale in her first step (she learns she is the clone, leaves Scott and the team); the new kind holds to her death.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_1",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-anim-madelyne-pryor",
+     "field": "k",
+     "value": "Sinister's clone of Jean Grey and mother of Scott's son, Nathan"
+    }
+   ]
+  },
+  {
+   "n": "lead-6",
+   "id": "fox-anim-storm",
+   "note": "Merged the two season 2 steps; status stays Active through both.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "fox-anim-storm",
+     "old": [
+      [
+       "In season 2, found by Forge in 3960 A.D., Storm returns home to the 1990s.",
+       "X-Men '97",
+       "Active"
+      ],
+      [
+       "In season 2, Xavier names Storm headmistress of his school.",
+       "X-Men '97",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, found by Forge in 3960 A.D., Storm returns home to the 1990s, where Xavier names her headmistress of his school.",
+       "X-Men '97",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-6",
+   "id": "fox-anim-rogue",
+   "note": "Merged the two season 2 steps; both ended Active, so no status change is lost.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "fox-anim-rogue",
+     "old": [
+      [
+       "In season 2, stranded in ancient Egypt, she watches En Sabah Nur become Apocalypse and returns home.",
+       "X-Men '97",
+       "Active"
+      ],
+      [
+       "In season 2, kidnapped by a possessed Gambit, she gains a Celestial's power, frees him, and traps Apocalypse.",
+       "X-Men '97",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, stranded in ancient Egypt, she watches En Sabah Nur become Apocalypse and returns home; kidnapped by a possessed Gambit, she gains a Celestial's power, frees him, and traps Apocalypse.",
+       "X-Men '97",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-7",
+   "id": "pr-st-awol",
+   "note": "AWOL appears in Runaways S3 (3x05, 3x08) in the Dark Dimension where Nico sent him: he holds Alex prisoner and hunts the Runaways.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/AWOL",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "pr-st-awol",
+     "old": [
+      [
+       "In season 2, trapped at the Runaways' hostel, he and his men vanish when Nico unleashes a new power.",
+       "Runaways S1–S2",
+       "Missing"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, trapped at the Runaways' hostel, he and his men vanish when Nico unleashes a new power.",
+       "Runaways S1–S2",
+       "Missing"
+      ],
+      [
+       "In the Dark Dimension, AWOL ties up the trapped Alex, then leads a squad hunting the Runaways, until Quinton the Great saves them.",
+       "Runaways S3",
+       "At large"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-8",
+   "id": "st-turk-barrett",
+   "note": "Added his two missing Netflix appearances, one step per title, in timeline order: Jessica Jones 2x12 (gun for Jeri) and Iron Fist 2x09 (guns for Walker and Ward). Every other appearance already has a step.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Turk_Barrett",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "st-turk-barrett",
+     "old": [
+      [
+       "Frank holds Turk at gunpoint and learns that a big gun shipment went to a single buyer.",
+       "The Punisher S1",
+       "At large"
+      ],
+      [
+       "Turk is still hustling in Harlem as Luke hunts Bushmaster.",
+       "Luke Cage S2",
+       "At large"
+      ],
+      [
+       "Frank forces Turk to set up a meeting with the Russians, who make him set an ambush for Frank instead.",
+       "The Punisher S2",
+       "At large"
+      ]
+     ],
+     "new": [
+      [
+       "Frank holds Turk at gunpoint and learns that a big gun shipment went to a single buyer.",
+       "The Punisher S1",
+       "At large"
+      ],
+      [
+       "Turk sells Jeri Hogarth an untraceable gun and takes a trade instead of cash.",
+       "Jessica Jones S2",
+       "At large"
+      ],
+      [
+       "Turk is still hustling in Harlem as Luke hunts Bushmaster.",
+       "Luke Cage S2",
+       "At large"
+      ],
+      [
+       "Turk sells guns from his truck to Mary Walker and Ward Meachum for their hunt for Davos.",
+       "Iron Fist S2",
+       "At large"
+      ],
+      [
+       "Frank forces Turk to set up a meeting with the Russians, who make him set an ambush for Frank instead.",
+       "The Punisher S2",
+       "At large"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-9",
+   "id": "st-jiaying",
+   "note": "Season 7 step to match st-afterlife: in the changed 1980s Malick takes Afterlife, and kills Jiaying after telling her Daisy is her daughter.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_7",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "st-jiaying",
+     "old": [
+      [
+       "In season 2, Jiaying starts a war with S.H.I.E.L.D. and is killed by Cal.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, Jiaying starts a war with S.H.I.E.L.D. and is killed by Cal.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ],
+      [
+       "In season 7, in a changed past, Jiaying flees Afterlife when Nathaniel Malick seizes it, and at the Lighthouse he tells her Daisy is her daughter, then kills her.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "lead-9",
+   "id": "st-gordon",
+   "note": "Season 7 step to match st-afterlife. The anchor step 2 also carries the w-23 wording fix ('in the finale' dropped), so w-23 has no change of its own and the two never collide.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_7",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "st-gordon",
+     "old": [
+      [
+       "In season 2, in the finale, Gordon teleports behind Fitz and is impaled on the pipe in Fitz's hands.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, Gordon teleports behind Fitz and is impaled on the pipe in Fitz's hands.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ],
+      [
+       "In season 7, in a changed past, a young Gordon flees Afterlife with Jiaying, then teleports back in with Coulson and is captured by Nathaniel Malick, who kills him by giving his powers to John Garrett.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-1",
+   "id": "samuel-sterns",
+   "note": "He is not helping Banner by Brave New World: Ross held him captive and he ends in the Raft as the Leader; new stage on that film.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Samuel_Sterns",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "samuel-sterns",
+     "field": "k",
+     "value": [
+      [
+       "A cell biologist helping Bruce Banner",
+       "The Incredible Hulk"
+      ],
+      [
+       "A cell biologist turned gamma-powered genius",
+       "Captain America: Brave New World"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-2",
+   "id": "nebula",
+   "note": "She flees Ronan's battle and Ronan dies in her first film, so 'Ronan's lieutenant' is stale from its end; stage on the same title.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Nebula",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "nebula",
+     "field": "k",
+     "value": [
+      [
+       "Thanos's daughter and Ronan's lieutenant",
+       "Guardians of the Galaxy"
+      ],
+      [
+       "Thanos's adopted daughter and Gamora's sister",
+       "Guardians of the Galaxy"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-3",
+   "id": "winter-soldier",
+   "note": "'A ghost assassin' lasted past Ant-Man's scene where Steve and Sam hide him (Allied) up to his time as a congressman; stage on Ant-Man.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Bucky_Barnes",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "winter-soldier",
+     "field": "k",
+     "value": [
+      [
+       "A ghost assassin with a metal arm",
+       "Captain America: The Winter Soldier"
+      ],
+      [
+       "A former HYDRA assassin with a metal arm",
+       "Ant-Man"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-4",
+   "id": "brock-rumlow",
+   "note": "S.H.I.E.L.D. falls and he is exposed as HYDRA in The Winter Soldier, then turns mercenary; the plain strike team leader line went stale there.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Crossbones",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "brock-rumlow",
+     "field": "k",
+     "value": [
+      [
+       "A S.H.I.E.L.D. strike team leader",
+       "Avengers: Endgame"
+      ],
+      [
+       "A S.H.I.E.L.D. strike team leader exposed as HYDRA",
+       "Captain America: The Winter Soldier"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-5",
+   "id": "pietro-maximoff",
+   "note": "He leaves Strucker's lab when the Avengers raid it and joins Ultron, then the Avengers; 'test subject in Strucker's lab' is stale by his death.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Pietro_Maximoff",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "pietro-maximoff",
+     "field": "k",
+     "value": [
+      [
+       "A Sokovian test subject in Strucker's lab",
+       "Captain America: The Winter Soldier"
+      ],
+      [
+       "A Sokovian who volunteered for Strucker's experiments",
+       "Avengers: Age of Ultron"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-6",
+   "id": "wanda-maximoff",
+   "note": "'A test subject in Strucker's lab' lasted through her Avengers years and the Scarlet Witch; stage on Age of Ultron, where she leaves the lab.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Wanda_Maximoff",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "wanda-maximoff",
+     "field": "k",
+     "value": [
+      [
+       "A Sokovian test subject in Strucker's lab",
+       "Captain America: The Winter Soldier"
+      ],
+      [
+       "A Sokovian who volunteered for Strucker's experiments",
+       "Avengers: Age of Ultron"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-7",
+   "id": "darren-cross",
+   "note": "Rebuilt by Kang as M.O.D.O.K. in Quantumania, he is no longer 'now CEO of Pym Tech'; stage on that film.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Darren_Cross",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "darren-cross",
+     "field": "k",
+     "value": [
+      [
+       "Hank Pym's former protege, now CEO of Pym Tech",
+       "Ant-Man"
+      ],
+      [
+       "Hank Pym's former protege, once CEO of Pym Tech",
+       "Ant-Man and the Wasp: Quantumania"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-8",
+   "id": "karl-mordo",
+   "note": "He quits Kamar-Taj at the end of his first film, so 'at Kamar-Taj' is stale from there; stage on the same title.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Karl_Mordo",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "karl-mordo",
+     "field": "k",
+     "value": [
+      [
+       "A master of the mystic arts at Kamar-Taj",
+       "Doctor Strange"
+      ],
+      [
+       "A master of the mystic arts who left Kamar-Taj",
+       "Doctor Strange"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-9",
+   "id": "ravonna-renslayer",
+   "note": "She leaves the TVA to search for free will at the end of Loki S1; stage on the same season.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ravonna_Renslayer",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "ravonna-renslayer",
+     "field": "k",
+     "value": [
+      [
+       "A judge of the Time Variance Authority",
+       "Loki S1"
+      ],
+      [
+       "A former judge of the Time Variance Authority",
+       "Loki S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-10",
+   "id": "sylvie",
+   "note": "In Loki S2 she lives quietly in 1982 Broxton and then works with Loki's friends at the TVA; 'hunting the TVA' is stale there.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Sylvie_Laufeydottir",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "sylvie",
+     "field": "k",
+     "value": [
+      [
+       "A Loki variant hunting the TVA",
+       "Loki S1"
+      ],
+      [
+       "A Loki variant who once hunted the TVA",
+       "Loki S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-11",
+   "id": "agatha-harkness",
+   "note": "Freed from the Agnes spell in Agatha All Along, she is no longer the Westview neighbor Agnes; stage on that show.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Agatha_Harkness",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "agatha-harkness",
+     "field": "k",
+     "value": [
+      [
+       "A nosy Westview neighbor called Agnes",
+       "WandaVision"
+      ],
+      [
+       "A centuries-old witch from Salem",
+       "Agatha All Along"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-12",
+   "id": "john-walker",
+   "note": "He is stripped of the Captain America title within the show and becomes U.S. Agent; stage on the same title.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/John_Walker",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "john-walker",
+     "field": "k",
+     "value": [
+      [
+       "The government's new Captain America",
+       "The Falcon and the Winter Soldier"
+      ],
+      [
+       "A disgraced Captain America turned U.S. Agent",
+       "The Falcon and the Winter Soldier"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-13",
+   "id": "maya-lopez",
+   "note": "By Echo she has turned on Fisk and left the Tracksuit Mafia (formerly, per the wiki); stage on Echo.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Maya_Lopez",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "maya-lopez",
+     "field": "k",
+     "value": [
+      [
+       "Leader of the Tracksuit Mafia",
+       "Hawkeye"
+      ],
+      [
+       "A Choctaw fighter who broke free of Fisk",
+       "Echo"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-14",
+   "id": "the-widows",
+   "note": "Yelena frees the Widows with the antidote in Black Widow, so 'mind-controlled' is stale from its end; stage on the same title.",
+   "source": "https://en.wikipedia.org/wiki/Black_Widow_(2021_film)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "the-widows",
+     "field": "k",
+     "value": [
+      [
+       "Dreykov's mind-controlled assassins",
+       "Black Widow"
+      ],
+      [
+       "Red Room assassins freed from Dreykov's control",
+       "Black Widow"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-15",
+   "id": "st-nobu",
+   "note": "Fisk's alliance fell in Daredevil S1; back in S2 Nobu leads the Hand in Hell's Kitchen.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Nobu_Yoshioka",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-nobu",
+     "field": "k",
+     "value": [
+      [
+       "A Japanese crime boss in Fisk's alliance",
+       "Daredevil S1"
+      ],
+      [
+       "A Japanese crime boss high in the Hand",
+       "Daredevil S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-16",
+   "id": "st-bakuto",
+   "note": "Colleen turns on him once he is revealed as Hand in Iron Fist S1, and she later kills him; 'Colleen's sensei' is stale from S1's end.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Bakuto",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-bakuto",
+     "field": "k",
+     "value": [
+      [
+       "Colleen's sensei",
+       "Iron Fist S1"
+      ],
+      [
+       "Colleen's former sensei, a leader of the Hand",
+       "Iron Fist S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-17",
+   "id": "st-davos",
+   "note": "Davos turns against Danny in Iron Fist S1 and steals the Iron Fist in S2; stage on S1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Davos",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-davos",
+     "field": "k",
+     "value": [
+      [
+       "Danny's brother in arms from K'un-Lun",
+       "Iron Fist S1"
+      ],
+      [
+       "Danny's former brother in arms from K'un-Lun",
+       "Iron Fist S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-18",
+   "id": "st-billy-russo",
+   "note": "Revealed as part of the plot against Frank's family in S1 and no longer running Anvil after it; stage on S1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Billy_Russo",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-billy-russo",
+     "field": "k",
+     "value": [
+      [
+       "Frank's Marine friend, now a private army boss",
+       "The Punisher S1"
+      ],
+      [
+       "Frank's old Marine friend turned enemy",
+       "The Punisher S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-19",
+   "id": "st-grant-ward",
+   "note": "Exposed as HYDRA in AoS S1, he is no longer a S.H.I.E.L.D. specialist for S2 and S3; season-keyed stages.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Grant_Ward",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-grant-ward",
+     "field": "k",
+     "value": [
+      [
+       "A S.H.I.E.L.D. specialist",
+       "Agents of S.H.I.E.L.D. S1"
+      ],
+      [
+       "A S.H.I.E.L.D. specialist exposed as a HYDRA mole",
+       "Agents of S.H.I.E.L.D. S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-20",
+   "id": "st-dottie-underwood",
+   "note": "Revealed as a Leviathan assassin in Agent Carter S1, so 'friendly neighbor' is stale from its end; season-keyed stages.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Dottie_Underwood",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-dottie-underwood",
+     "field": "k",
+     "value": [
+      [
+       "Peggy's friendly neighbor",
+       "Agent Carter S1"
+      ],
+      [
+       "A Soviet assassin who posed as Peggy's neighbor",
+       "Agent Carter S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-21",
+   "id": "st-donnie-gill",
+   "note": "In AoS S2 he is HYDRA's brainwashed weapon, not an Academy student (S.H.I.E.L.D. and HYDRA both 'formerly' per the wiki).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Donnie_Gill",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-donnie-gill",
+     "field": "k",
+     "value": [
+      [
+       "A gifted student at the S.H.I.E.L.D. Academy",
+       "Agents of S.H.I.E.L.D. S1"
+      ],
+      [
+       "A former S.H.I.E.L.D. Academy student with ice powers",
+       "Agents of S.H.I.E.L.D. S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-22",
+   "id": "st-gideon-malick",
+   "note": "Re-key the whole-show Agents of S.H.I.E.L.D. stages in n and k to AoS S3, his season.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Gideon_Malick",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-gideon-malick",
+     "field": "n",
+     "value": [
+      [
+       "World Security Council member",
+       "The Avengers"
+      ],
+      [
+       "Gideon Malick",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    },
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "st-gideon-malick",
+     "field": "k",
+     "value": [
+      [
+       "A member of the council that oversees S.H.I.E.L.D.",
+       "The Avengers"
+      ],
+      [
+       "A powerful businessman and HYDRA leader",
+       "Agents of S.H.I.E.L.D. S3"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-23",
+   "id": "hydra",
+   "note": "Exposed as S.H.I.E.L.D. falls in The Winter Soldier, HYDRA is no longer inside S.H.I.E.L.D. for its later AoS factions; reword that stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Hydra",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "hydra",
+     "field": "k",
+     "value": [
+      [
+       "The Nazis' deep science division",
+       "Captain America: The First Avenger"
+      ],
+      [
+       "A secret order that grew inside S.H.I.E.L.D.",
+       "Captain America: The Winter Soldier"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-24",
+   "id": "ten-rings",
+   "note": "Wenwu dies and Xialing takes command at the end of Shang-Chi, so 'Wenwu's secret army' is stale; reword that stage.",
+   "source": "https://en.wikipedia.org/wiki/Shang-Chi_and_the_Legend_of_the_Ten_Rings",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "ten-rings",
+     "field": "k",
+     "value": [
+      [
+       "A terrorist group in Afghanistan",
+       "Iron Man"
+      ],
+      [
+       "A secret army founded by Wenwu a thousand years ago",
+       "Shang-Chi and the Legend of the Ten Rings"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-25",
+   "id": "kree-empire",
+   "note": "The Supreme Intelligence is destroyed and Dar-Benn leads a Kree torn by civil war in The Marvels; stage on that film.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Kree_Empire",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "kree-empire",
+     "field": "k",
+     "value": [
+      [
+       "A warrior empire ruled by the Supreme Intelligence",
+       "Captain Marvel"
+      ],
+      [
+       "A warrior empire once ruled by the Supreme Intelligence",
+       "The Marvels"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-26",
+   "id": "sv-carnage-sony",
+   "note": "He escapes his execution as Carnage and dies at the cathedral, so 'on death row' is stale by the film's end; reword that stage.",
+   "source": "https://en.wikipedia.org/wiki/Venom:_Let_There_Be_Carnage",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "sv-carnage-sony",
+     "field": "k",
+     "value": [
+      [
+       "An imprisoned serial killer",
+       "Venom"
+      ],
+      [
+       "A serial killer bonded to a symbiote spawn",
+       "Venom: Let There Be Carnage"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-27",
+   "id": "fox-mystique",
+   "note": "Magneto abandons her in The Last Stand and she gives him up to the government; stage on that film.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_The_Last_Stand",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-mystique",
+     "field": "k",
+     "value": [
+      [
+       "A shape-shifting mutant who serves Magneto",
+       "X-Men (2000)"
+      ],
+      [
+       "A shape-shifting mutant who once served Magneto",
+       "X-Men: The Last Stand"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-28",
+   "id": "fox-sabretooth",
+   "note": "In the Void he is one of Cassandra Nova's henchmen, not in Magneto's Brotherhood; stage on Deadpool & Wolverine.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Cassandra_Nova's_Henchmen",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-sabretooth",
+     "field": "k",
+     "value": [
+      [
+       "A feral mutant enforcer in Magneto's Brotherhood",
+       "X-Men (2000)"
+      ],
+      [
+       "A feral mutant serving Cassandra Nova",
+       "Deadpool & Wolverine"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-29",
+   "id": "fox-toad",
+   "note": "In the Void he is one of Cassandra Nova's henchmen, not in the Brotherhood; stage on Deadpool & Wolverine.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Cassandra_Nova's_Henchmen",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-toad",
+     "field": "k",
+     "value": [
+      [
+       "A leaping, long-tongued mutant in the Brotherhood",
+       "X-Men (2000)"
+      ],
+      [
+       "A leaping, long-tongued mutant serving Cassandra Nova",
+       "Deadpool & Wolverine"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-30",
+   "id": "fox-lady-deathstrike",
+   "note": "Stryker dies in X2; the Void's Yuriko is one of Cassandra Nova's henchmen, not his mind-controlled bodyguard; stage on Deadpool & Wolverine.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Cassandra_Nova's_Henchmen",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-lady-deathstrike",
+     "field": "k",
+     "value": [
+      [
+       "Yuriko, Stryker's mind-controlled mutant bodyguard",
+       "X2"
+      ],
+      [
+       "Yuriko, a clawed mutant serving Cassandra Nova",
+       "Deadpool & Wolverine"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-31",
+   "id": "fox-azazel",
+   "note": "The Void's Azazel is one of Cassandra Nova's henchmen, not in the Hellfire Club; stage on Deadpool & Wolverine.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Cassandra_Nova's_Henchmen",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-azazel",
+     "field": "k",
+     "value": [
+      [
+       "A red-skinned teleporter in the Hellfire Club",
+       "X-Men: First Class"
+      ],
+      [
+       "A red-skinned teleporter serving Cassandra Nova",
+       "Deadpool & Wolverine"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-32",
+   "id": "fox-pyro",
+   "note": "He leaves Xavier's school with Magneto at the end of X2, so 'a student' is stale from there; stage on the same title.",
+   "source": "https://en.wikipedia.org/wiki/X2_(film)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-pyro",
+     "field": "k",
+     "value": [
+      [
+       "John Allerdyce, a hot-headed student who controls fire",
+       "X2"
+      ],
+      [
+       "John Allerdyce, a hot-headed mutant who controls fire",
+       "X2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-33",
+   "id": "fox-magneto-erik",
+   "note": "His Nazi hunt ends when he kills Shaw in First Class and takes the name Magneto; stage on the same title, as his Compound file does.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_First_Class",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-magneto-erik",
+     "field": "k",
+     "value": [
+      [
+       "Erik Lehnsherr, a Holocaust survivor hunting Nazis",
+       "X-Men: First Class"
+      ],
+      [
+       "Erik Lehnsherr, a mutant master of magnetism",
+       "X-Men: First Class"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-34",
+   "id": "fox-sentinels",
+   "note": "The Sentinel program is shut down and the dark future erased at the end of Days of Future Past; stage on the same title.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_Days_of_Future_Past",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-sentinels",
+     "field": "k",
+     "value": [
+      [
+       "Mutant-hunting robots that rule a dark future",
+       "X-Men: Days of Future Past"
+      ],
+      [
+       "Mutant-hunting robots built by Bolivar Trask",
+       "X-Men: Days of Future Past"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-35",
+   "id": "fox-stryker-young",
+   "note": "By Apocalypse he is Colonel Stryker with his own Weapon X experiment, and Trask's program is long shut down; stage on that film.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_Apocalypse",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-stryker-young",
+     "field": "k",
+     "value": [
+      [
+       "A young Army major working with Bolivar Trask",
+       "X-Men: Days of Future Past"
+      ],
+      [
+       "A U.S. Army colonel running the Weapon X program",
+       "X-Men: Apocalypse"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-36",
+   "id": "fox-anim-fabian-cortez",
+   "note": "He betrays Magneto in his very first step, so 'a follower of Magneto' is stale from there; stage on the same title.",
+   "source": "https://marvelanimated.fandom.com/wiki/Fabian_Cortez",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-anim-fabian-cortez",
+     "field": "k",
+     "value": [
+      [
+       "A mutant follower of Magneto on Asteroid M",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "A mutant who betrayed Magneto on Asteroid M",
+       "X-Men: The Animated Series"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-37",
+   "id": "fox-anim-graydon-creed",
+   "note": "In X-Men '97 S2 he runs for and wins the presidency, no longer leading the Friends of Humanity he founded; stage on S2.",
+   "source": "https://marvelanimated.fandom.com/wiki/Graydon_Creed,_Jr.",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-anim-graydon-creed",
+     "field": "k",
+     "value": [
+      [
+       "Leader of the anti-mutant Friends of Humanity",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Founder of the anti-mutant Friends of Humanity",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-38",
+   "id": "fox-anim-emma-frost",
+   "note": "Re-key the whole-show X-Men '97 stage to S2, the season of her X-Factor step.",
+   "source": "https://marvelanimated.fandom.com/wiki/Emma_Frost",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-anim-emma-frost",
+     "field": "k",
+     "value": [
+      [
+       "The White Queen of the Hellfire Club's Inner Circle",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "A telepath working with the government's X-Factor",
+       "X-Men '97 S2"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-39",
+   "id": "fox-anim-deathbird",
+   "note": "Re-key the whole-show X-Men '97 stage to S1, the season of her step.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_'97",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "fox-anim-deathbird",
+     "field": "k",
+     "value": [
+      [
+       "A winged warrior allied with Apocalypse",
+       "X-Men: The Animated Series"
+      ],
+      [
+       "Lilandra's sister, a winged Shi'ar warrior",
+       "X-Men '97 S1"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "rf-40",
+   "id": "by-queen-of-the-dead",
+   "note": "Re-key the whole-show What If...? stage to S1, the season of her first step.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/What_If..._Zombies%3F!",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Raft",
+     "id": "by-queen-of-the-dead",
+     "field": "n",
+     "value": [
+      [
+       "Wanda Maximoff",
+       "What If...? S1"
+      ],
+      [
+       "The Queen of the Dead",
+       "Marvel Zombies"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-1",
+   "id": "fox-charles-xavier",
+   "note": "Credits phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_The_Last_Stand",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "fox-charles-xavier",
+     "old": [
+      [
+       "The Phoenix disintegrates Xavier; after the credits, his voice comes from a comatose man in Moira's care.",
+       "X-Men: The Last Stand",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "The Phoenix disintegrates Xavier; later, his voice comes from a comatose man in Moira's care.",
+       "X-Men: The Last Stand",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-2",
+   "id": "dum-dum-dugan",
+   "note": "1945 from the source.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "dum-dum-dugan",
+     "old": [
+      [
+       "In season 2, a 1945 flashback shows Dugan raiding a HYDRA base in Austria with Peggy Carter and the SSR.",
+       "Agents of S.H.I.E.L.D.",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, in 1945, Dugan raids a HYDRA base in Austria with Peggy Carter and the SSR.",
+       "Agents of S.H.I.E.L.D.",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-3",
+   "id": "jim-morita",
+   "note": "1945 from the source.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "jim-morita",
+     "old": [
+      [
+       "In season 2, a 1945 flashback shows Morita raiding a HYDRA base in Austria with Peggy Carter and Dum Dum Dugan.",
+       "Agents of S.H.I.E.L.D.",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, in 1945, Morita raids a HYDRA base in Austria with Peggy Carter and Dum Dum Dugan.",
+       "Agents of S.H.I.E.L.D.",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-4",
+   "id": "sv-peter-parker-1994",
+   "note": "No year given; the origin is years before the series.",
+   "source": "https://en.wikipedia.org/wiki/Spider-Man:_The_Animated_Series",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "sv-peter-parker-1994",
+     "old": [
+      [
+       "In season 3, a flashback shows how Peter, bitten by an irradiated spider, let a thief go who then killed his Uncle Ben.",
+       "Spider-Man (1994)",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In season 3, years earlier, Peter, bitten by an irradiated spider, lets a thief go who then kills his Uncle Ben.",
+       "Spider-Man (1994)",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-5",
+   "id": "sv-ruby-williams",
+   "note": "The source dates Ben's days as the Spider and Ruby's death to the 1920s.",
+   "source": "https://en.wikipedia.org/wiki/Spider-Noir",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "sv-ruby-williams",
+     "old": [
+      [
+       "In flashbacks, Ruby is killed by a criminal Ben caught, which drives him to retire.",
+       "Spider-Noir",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "In the 1920s, Ruby is killed by a criminal Ben caught, which drives him to retire.",
+       "Spider-Noir",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-6",
+   "id": "st-matt-murdock",
+   "note": "The fight is dated 2021.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Daredevil%27s_Suit",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-matt-murdock",
+     "old": [
+      [
+       "In a flashback, Daredevil fights Maya Lopez to a draw during a job she carries out for Fisk.",
+       "Echo",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In 2021, Daredevil fights Maya Lopez to a draw during a job she carries out for Fisk.",
+       "Echo",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-7",
+   "id": "st-foggy-nelson",
+   "note": "No year given; the source calls it an early law case.",
+   "source": "https://en.wikipedia.org/wiki/Daredevil:_Born_Again_season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-foggy-nelson",
+     "old": [
+      [
+       "In a flashback, Foggy and Matt win an early case for his old neighbor Ray McCoy and give him their savings.",
+       "Daredevil: Born Again S2",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "Early in their careers, Foggy and Matt win a case for his old neighbor Ray McCoy and give him their savings.",
+       "Daredevil: Born Again S2",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-8",
+   "id": "st-jack-murdock",
+   "note": "Matt's boyhood, years before the series.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Jack_Murdock",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-jack-murdock",
+     "old": [
+      [
+       "In flashbacks, boxer Jack Murdock raises Matt alone and is killed for winning a fight he was told to throw.",
+       "Daredevil S1",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "Years earlier, boxer Jack Murdock raises Matt alone and is killed for winning a fight he was told to throw.",
+       "Daredevil S1",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-9",
+   "id": "st-dorothy-walker",
+   "note": "Jessica's teens and Trish's childhood, years before the series.",
+   "source": "https://en.wikipedia.org/wiki/Jessica_Jones_season_1",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-dorothy-walker",
+     "old": [
+      [
+       "Flashbacks show Dorothy taking in Jessica to boost Trish's fame and pushing Trish hard as a child star.",
+       "Jessica Jones S1",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "Years earlier, Dorothy takes in Jessica to boost Trish's fame and pushes Trish hard as a child star.",
+       "Jessica Jones S1",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-10",
+   "id": "st-reva-connors",
+   "note": "Luke's Seagate years, before the series.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Reva_Connors",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-reva-connors",
+     "old": [
+      [
+       "Flashbacks show psychologist Reva at Seagate Prison, where she helped put Luke through Burstein's procedure.",
+       "Luke Cage S1",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "Years earlier, psychologist Reva works at Seagate Prison, where she helps put Luke through Burstein's procedure.",
+       "Luke Cage S1",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-11",
+   "id": "st-reva-connors",
+   "note": "Placed in Jessica's time under Kilgrave.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Reva_Connors",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-reva-connors",
+     "old": [
+      [
+       "Flashbacks show Kilgrave forcing Jessica to kill Reva, Luke's wife.",
+       "Jessica Jones S1",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "While Jessica is under his control, Kilgrave forces her to kill Reva, Luke's wife.",
+       "Jessica Jones S1",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-12",
+   "id": "st-wendell-rand",
+   "note": "Late 2001, 15 years before Danny's return.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Wendell_Rand",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-wendell-rand",
+     "old": [
+      [
+       "In flashbacks, Wendell Rand dies with his wife when their plane crashes on the way to Anzhou.",
+       "Iron Fist S1",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "In 2001, Wendell Rand dies with his wife when their plane crashes on the way to Anzhou.",
+       "Iron Fist S1",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-13",
+   "id": "st-lei-kung",
+   "note": "The duel is years before the season.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Lei_Kung",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-lei-kung",
+     "old": [
+      [
+       "In flashbacks, Lei Kung names Danny the winner of his duel with Davos, Lei Kung's own son.",
+       "Iron Fist S2",
+       "Off-world"
+      ]
+     ],
+     "new": [
+      [
+       "Years earlier in K'un-Lun, Lei Kung names Danny the winner of his duel with Davos, Lei Kung's own son.",
+       "Iron Fist S2",
+       "Off-world"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-14",
+   "id": "st-taloa",
+   "note": "Maya's childhood; the crash year stays.",
+   "source": "https://en.wikipedia.org/wiki/Echo_(miniseries)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-taloa",
+     "old": [
+      [
+       "In flashbacks, Taloa heals a woodpecker young Maya hurt, then dies in a 2007 car crash after criminals cut the brakes.",
+       "Echo",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "Years earlier, Taloa heals a woodpecker young Maya hurt, then dies in a 2007 car crash after criminals cut the brakes.",
+       "Echo",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-15",
+   "id": "st-chafa",
+   "note": "The Choctaw origin story, no year.",
+   "source": "https://en.wikipedia.org/wiki/Echo_(miniseries)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-chafa",
+     "old": [
+      [
+       "In a flashback, Chafa emerges into the world at Nanih Waiya.",
+       "Echo",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "Long ago, Chafa emerges into the world at Nanih Waiya.",
+       "Echo",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-16",
+   "id": "st-lowak",
+   "note": "The source sets it in 1200 AD.",
+   "source": "https://en.wikipedia.org/wiki/Echo_(miniseries)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-lowak",
+     "old": [
+      [
+       "In a flashback, Lowak's hands glow as she wins a stickball game for her people.",
+       "Echo",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In 1200, Lowak's hands glow as she wins a stickball game for her people.",
+       "Echo",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-17",
+   "id": "st-tuklo",
+   "note": "The source sets it in the late 1800s.",
+   "source": "https://en.wikipedia.org/wiki/Echo_(miniseries)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "st-tuklo",
+     "old": [
+      [
+       "In a flashback, Tuklo's power awakens and she saves her Lighthorseman father from an ambush.",
+       "Echo",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In the late 1800s, Tuklo's power awakens and she saves her Lighthorseman father from an ambush.",
+       "Echo",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-18",
+   "id": "ssr",
+   "note": "1945 from the source.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "ssr",
+     "old": [
+      [
+       "In season 2, a 1945 flashback shows Peggy Carter's SSR raiding HYDRA's last base and seizing its relics.",
+       "Agents of S.H.I.E.L.D.",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, in 1945, Peggy Carter's SSR raids HYDRA's last base and seizes its relics.",
+       "Agents of S.H.I.E.L.D.",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-19",
+   "id": "by-zombie-thor",
+   "note": "The Wakanda fight is years before the series' present (next step: 'Years later').",
+   "source": "https://en.wikipedia.org/wiki/Marvel_Zombies_(TV_series)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Compound",
+     "id": "by-zombie-thor",
+     "old": [
+      [
+       "In a flashback, Thor fights the zombie Thanos in Wakanda, who kills Rocket and Groot and badly burns him.",
+       "Marvel Zombies",
+       "Active"
+      ]
+     ],
+     "new": [
+      [
+       "Years earlier, Thor fights the zombie Thanos in Wakanda, who kills Rocket and Groot and badly burns him.",
+       "Marvel Zombies",
+       "Active"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-20",
+   "id": "supreme-intelligence",
+   "note": "No year given; it is years before the film.",
+   "source": "https://en.wikipedia.org/wiki/The_Marvels",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "supreme-intelligence",
+     "old": [
+      [
+       "Flashbacks show Carol destroying the Supreme Intelligence, and Hala falls into civil war.",
+       "The Marvels",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "Years earlier, Carol destroys the Supreme Intelligence, and Hala falls into civil war.",
+       "The Marvels",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-21",
+   "id": "st-ian-quinn",
+   "note": "Spring 2014, soon after they leave HYDRA.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ian_Quinn",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "st-ian-quinn",
+     "old": [
+      [
+       "In season 5, a flashback shows Raina tricking Quinn, and the gravitonium swallows him.",
+       "Agents of S.H.I.E.L.D.",
+       "Missing"
+      ]
+     ],
+     "new": [
+      [
+       "In season 5, in 2014, Raina tricks Quinn, and the gravitonium swallows him.",
+       "Agents of S.H.I.E.L.D.",
+       "Missing"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-22",
+   "id": "st-daniel-whitehall",
+   "note": "Year moved to the front.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "st-daniel-whitehall",
+     "old": [
+      [
+       "In season 2, flashbacks show Peggy Carter's SSR seizing Werner Reinhardt's HYDRA base in 1945 and jailing him for life.",
+       "Agents of S.H.I.E.L.D.",
+       "In custody"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, in 1945, Peggy Carter's SSR seizes Werner Reinhardt's HYDRA base and jails him for life.",
+       "Agents of S.H.I.E.L.D.",
+       "In custody"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-23",
+   "id": "st-gordon",
+   "note": "Rewritten as: \"In season 2, Gordon teleports behind Fitz and is impaled on the pipe in Fitz's hands.\" The change is carried by lead-9's st-gordon change, which replaces this same step (with the season 7 step after it), so applying both files in any order never collides.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_2",
+   "change": []
+  },
+  {
+   "n": "w-24",
+   "id": "pr-st-andre-deschaine",
+   "note": "Finale phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/Cloak_%26_Dagger_(TV_series)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "pr-st-andre-deschaine",
+     "old": [
+      [
+       "Tandy and Tyrone defeat Andre in the finale.",
+       "Cloak & Dagger",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "Tandy and Tyrone defeat Andre.",
+       "Cloak & Dagger",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-25",
+   "id": "fox-magneto",
+   "note": "Credits phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/The_Wolverine_(film)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "fox-magneto",
+     "old": [
+      [
+       "In a mid-credits scene, Magneto, his powers restored, meets Logan at an airport to warn him of a new threat to mutants.",
+       "The Wolverine",
+       "At large"
+      ]
+     ],
+     "new": [
+      [
+       "Later, Magneto, his powers restored, meets Logan at an airport to warn him of a new threat to mutants.",
+       "The Wolverine",
+       "At large"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-26",
+   "id": "fox-weapon-xi",
+   "note": "Credits phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_Origins:_Wolverine",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "fox-weapon-xi",
+     "old": [
+      [
+       "After the credits, his severed head opens its eyes.",
+       "X-Men Origins: Wolverine",
+       "Missing"
+      ]
+     ],
+     "new": [
+      [
+       "Later, his severed head opens its eyes.",
+       "X-Men Origins: Wolverine",
+       "Missing"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-27",
+   "id": "fox-weapon-xi",
+   "note": "Credits phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/Deadpool_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "fox-weapon-xi",
+     "old": [
+      [
+       "In a mid-credits scene, Deadpool travels back in time and shoots Weapon XI dead.",
+       "Deadpool 2",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "Deadpool travels back in time and shoots Weapon XI dead.",
+       "Deadpool 2",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-28",
+   "id": "fox-anim-mystique",
+   "note": "Credits phrase dropped; she shoots Cooper and assumes her identity.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "fox-anim-mystique",
+     "old": [
+      [
+       "In season 2, in a mid-credits scene, Mystique is shown to have killed Valerie Cooper and taken her place.",
+       "X-Men '97",
+       "At large"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, Mystique kills Valerie Cooper and takes her place.",
+       "X-Men '97",
+       "At large"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-29",
+   "id": "fox-anim-valerie-cooper",
+   "note": "Credits phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/X-Men_%2797_season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "fox-anim-valerie-cooper",
+     "old": [
+      [
+       "In season 2, a mid-credits scene reveals that Mystique has killed the real Valerie Cooper.",
+       "X-Men '97",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, Mystique kills the real Valerie Cooper and takes her place.",
+       "X-Men '97",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-30",
+   "id": "st-katya-belyakova",
+   "note": "The Bahrain rescue is dated 2008.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Rescue_in_Bahrain",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "st-katya-belyakova",
+     "old": [
+      [
+       "In season 2, a Bahrain flashback shows young Katya making everyone around her kill, until May shoots her dead.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, in 2008, young Katya makes everyone around her in Bahrain kill, until May shoots her dead.",
+       "Agents of S.H.I.E.L.D.",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-31",
+   "id": "st-bill-fisk",
+   "note": "The murder is dated to the 1970s.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Murder_of_Bill_Fisk",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Raft",
+     "id": "st-bill-fisk",
+     "old": [
+      [
+       "In flashbacks, Bill Fisk beats his wife, and young Wilson kills him with a hammer.",
+       "Daredevil S1",
+       "Deceased"
+      ]
+     ],
+     "new": [
+      [
+       "In the 1970s, Bill Fisk beats his wife, and young Wilson kills him with a hammer.",
+       "Daredevil S1",
+       "Deceased"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-32",
+   "id": "gravitonium",
+   "note": "Spring 2014, soon after the Cybertek battle.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ian_Quinn",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "gravitonium",
+     "old": [
+      [
+       "In season 5, a flashback shows Raina tricking Quinn into the gravitonium, and Cybertek's ship Principia later vanishes with it.",
+       "Agents of S.H.I.E.L.D.",
+       "Lost",
+       "Nobody"
+      ]
+     ],
+     "new": [
+      [
+       "In season 5, in 2014, Raina tricks Quinn into the gravitonium, and Cybertek's ship Principia later vanishes with it.",
+       "Agents of S.H.I.E.L.D.",
+       "Lost",
+       "Nobody"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-33",
+   "id": "monolith",
+   "note": "Season's-end phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_2",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "monolith",
+     "old": [
+      [
+       "In season 2, the Monolith sits in the Iliad's cargo hold, and at season's end it swallows Simmons.",
+       "Agents of S.H.I.E.L.D.",
+       "Secured",
+       "S.H.I.E.L.D."
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, the Monolith sits in the Iliad's cargo hold, and later it swallows Simmons.",
+       "Agents of S.H.I.E.L.D.",
+       "Secured",
+       "S.H.I.E.L.D."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-34",
+   "id": "by-zombie-infinity-stones",
+   "note": "Placed at Peter, Scott and T'Challa's arrival in Wakanda, right after the previous step.",
+   "source": "https://en.wikipedia.org/wiki/Marvel_Zombies_(TV_series)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "by-zombie-infinity-stones",
+     "old": [
+      [
+       "In a flashback, the zombie Thanos rules Wakanda and tries to snap the Infinity Gauntlet.",
+       "Marvel Zombies",
+       "In use",
+       "Thanos"
+      ]
+     ],
+     "new": [
+      [
+       "When Peter's group reaches Wakanda, the zombie Thanos rules it and tries to snap the Infinity Gauntlet.",
+       "Marvel Zombies",
+       "In use",
+       "Thanos"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-35",
+   "id": "by-zombie-ten-rings",
+   "note": "No year given; it is before the series' present.",
+   "source": "https://en.wikipedia.org/wiki/Marvel_Zombies_(TV_series)",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "by-zombie-ten-rings",
+     "old": [
+      [
+       "In a flashback, Wenwu's Ten Rings organization saves Shang-Chi's group from a zombie horde.",
+       "Marvel Zombies",
+       "In use",
+       "Wenwu"
+      ]
+     ],
+     "new": [
+      [
+       "Earlier in the outbreak, Wenwu's Ten Rings organization saves Shang-Chi's group from a zombie horde.",
+       "Marvel Zombies",
+       "In use",
+       "Wenwu"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-36",
+   "id": "fox-weapon-x-blood",
+   "note": "Credits phrase dropped.",
+   "source": "https://en.wikipedia.org/wiki/X-Men:_Apocalypse",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "fox-weapon-x-blood",
+     "old": [
+      [
+       "After the credits, vials of Weapon X's blood are packed into an Essex Corporation briefcase.",
+       "X-Men: Apocalypse",
+       "Secured",
+       "Essex Corporation"
+      ]
+     ],
+     "new": [
+      [
+       "Vials of Weapon X's blood are packed into an Essex Corporation briefcase.",
+       "X-Men: Apocalypse",
+       "Secured",
+       "Essex Corporation"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-37",
+   "id": "fox-anim-claws",
+   "note": "Weapon X is years before the series.",
+   "source": "https://en.wikipedia.org/wiki/List_of_X-Men:_The_Animated_Series_episodes",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "fox-anim-claws",
+     "old": [
+      [
+       "In season 2, a flashback shows Cornelius lacing Wolverine's bones with adamantium; Alpha Flight later plans to extract it.",
+       "X-Men: The Animated Series",
+       "In use",
+       "Wolverine"
+      ]
+     ],
+     "new": [
+      [
+       "In season 2, years earlier, Cornelius laces Wolverine's bones with adamantium; Alpha Flight later plans to extract it.",
+       "X-Men: The Animated Series",
+       "In use",
+       "Wolverine"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-38",
+   "id": "spec-chitauri",
+   "note": "The raid on Gamora's homeworld is years before the film.",
+   "source": "https://en.wikipedia.org/wiki/Avengers:_Infinity_War",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "spec-chitauri",
+     "old": [
+      [
+       "Chitauri troops serve as Thanos's soldiers, and a flashback shows them raiding Gamora's homeworld.",
+       "Avengers: Infinity War",
+       "Thriving",
+       "Sanctuary"
+      ]
+     ],
+     "new": [
+      [
+       "Years after raiding Gamora's homeworld, Chitauri troops serve as Thanos's soldiers.",
+       "Avengers: Infinity War",
+       "Thriving",
+       "Sanctuary"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-39",
+   "id": "st-billyclub",
+   "note": "The fight is dated 2021.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Daredevil%27s_Billy_Club",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "st-billyclub",
+     "old": [
+      [
+       "In a flashback, Daredevil parries Maya Lopez's strikes with a fresh pair of billy clubs.",
+       "Echo",
+       "In use",
+       "Daredevil"
+      ]
+     ],
+     "new": [
+      [
+       "In 2021, Daredevil parries Maya Lopez's strikes with a fresh pair of billy clubs.",
+       "Echo",
+       "In use",
+       "Daredevil"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-40",
+   "id": "st-dd-suit",
+   "note": "The fight is dated 2021.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Daredevil%27s_Suit",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "st-dd-suit",
+     "old": [
+      [
+       "In a flashback, Daredevil fights Maya Lopez to a draw while she carries out a job for Fisk.",
+       "Echo",
+       "In use",
+       "Daredevil"
+      ]
+     ],
+     "new": [
+      [
+       "In 2021, Daredevil fights Maya Lopez to a draw while she carries out a job for Fisk.",
+       "Echo",
+       "In use",
+       "Daredevil"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-41",
+   "id": "st-reva-drive",
+   "note": "Placed in Jessica's time under Kilgrave.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Reva_Connors",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "st-reva-drive",
+     "old": [
+      [
+       "In a flashback, Kilgrave has Jessica dig up a box Reva Connors hid, with the drive inside.",
+       "Jessica Jones S1",
+       "Secured",
+       "Kilgrave"
+      ]
+     ],
+     "new": [
+      [
+       "While Jessica is under his control, Kilgrave has her dig up a box Reva Connors hid, with the drive inside.",
+       "Jessica Jones S1",
+       "Secured",
+       "Kilgrave"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "w-42",
+   "id": "st-jewel-costume",
+   "note": "No year given; it is before the season's present.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Hellcat",
+   "change": [
+    {
+     "kind": "steps",
+     "index": "Collection",
+     "id": "st-jewel-costume",
+     "old": [
+      [
+       "In a flashback, Trish shows Jessica a costume for a hero called Jewel, and Jessica turns it down.",
+       "Jessica Jones S1",
+       "Secured",
+       "Trish Walker"
+      ]
+     ],
+     "new": [
+      [
+       "Earlier, Trish shows Jessica a costume for a hero called Jewel, and Jessica turns it down.",
+       "Jessica Jones S1",
+       "Secured",
+       "Trish Walker"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "group_review": [
+  {
+   "id": "st-afterlife",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Its season 7 step, where Malick seizes Afterlife in a changed past, is in no member file, and the haven holds Inhumans who have no files.",
+   "refs": [
+    "IDMOVE:by-st-afterlife"
+   ]
+  },
+  {
+   "id": "st-atcu",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Only Rosalind Price has a file, and the task force going on under Talbot to dismantle HYDRA after her death is told by no individual file.",
+   "refs": [
+    "IDMOVE:by-st-atcu"
+   ]
+  },
+  {
+   "id": "st-isodyne",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Only Jason Wilkes has a file, and the Council of Nine shutting down Isodyne's Zero Matter program appears nowhere else.",
+   "refs": [
+    "IDMOVE:by-st-isodyne"
+   ]
+  },
+  {
+   "id": "by-guardians-multiverse",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the team forming, being sent home, re-forming with a new lineup under Captain Carter and ending, and no member file records the disbanding.",
+   "refs": []
+  },
+  {
+   "id": "by-the-survivors",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "All 22 Survivors have their own files, and those files already tell the trek to Camp Lehigh and Wakanda, the five years after and the last battle.",
+   "refs": []
+  },
+  {
+   "id": "by-ravagers-tchalla",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one season, and the Embers of Genesis heist is already in the files of T'Challa, Yondu, Nebula, Thanos and Carina.",
+   "refs": []
+  },
+  {
+   "id": "by-nova-corps-nebula",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one season, already told by Nebula's file and Nova Prime's Raft file.",
+   "refs": []
+  },
+  {
+   "id": "by-ten-rings-hela",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one season, already told by Wenwu's and Hela's files.",
+   "refs": []
+  },
+  {
+   "id": "shield-org",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the agency over many titles: its founding, its fall to HYDRA, its secret rebuilding and its directors, which no single member carries.",
+   "refs": [
+    "IDMOVE:by-st-shield"
+   ]
+  },
+  {
+   "id": "ssr",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the SSR from Project Rebirth through both Agent Carter seasons to the founding of S.H.I.E.L.D., across many titles and members.",
+   "refs": [
+    "IDMOVE:by-st-ssr"
+   ]
+  },
+  {
+   "id": "avengers",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It records the team forming, splitting over the Accords, retiring after Endgame and being rebuilt, which no member file carries on its own.",
+   "refs": []
+  },
+  {
+   "id": "new-avengers",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One title, and every member file (Yelena, Bucky, Walker, Ghost, Alexei, Bob) already tells the team forming as the Thunderbolts and being renamed the New Avengers.",
+   "refs": []
+  },
+  {
+   "id": "tva",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the agency across Loki S1, Quantumania, Loki S2 and Deadpool & Wolverine as its leadership changes, more than any one agent's file.",
+   "refs": []
+  },
+  {
+   "id": "ravagers",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It spans five titles, and its Guardians of the Galaxy and Endgame steps (the hunt for the Orb, the final battle) are in no member file.",
+   "refs": []
+  },
+  {
+   "id": "nova-corps",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "The fall of Xandar and the Nova Corps in Infinity War is in no member file.",
+   "refs": []
+  },
+  {
+   "id": "masters-of-the-mystic-arts",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the order over eight titles as its leaders change, from the Ancient One to Wong as Sorcerer Supreme.",
+   "refs": []
+  },
+  {
+   "id": "guardians-of-the-galaxy",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the team over seven titles, from forming through the Snap to breaking up under Rocket, which no single member carries.",
+   "refs": []
+  },
+  {
+   "id": "eternals",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "All ten Eternals have their own files (eight in the Compound, Ikaris and Sprite in the Raft), and its two steps from Eternals only repeat them.",
+   "refs": []
+  },
+  {
+   "id": "fantastic-four",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Two steps from one film, both already told by Reed's file and the other members' files.",
+   "refs": []
+  },
+  {
+   "id": "st-defenders",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one title, and Matt, Jessica, Luke and Danny's files already tell the fight with the Hand and Midland Circle.",
+   "refs": []
+  },
+  {
+   "id": "sword",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from WandaVision, already told by Hayward's Raft file and by Monica's and Darcy's files.",
+   "refs": []
+  },
+  {
+   "id": "saber",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps repeat Nick Fury's own Secret Invasion and The Marvels steps almost word for word.",
+   "refs": []
+  },
+  {
+   "id": "dora-milaje",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the royal guard over seven titles, its members' files name Wakanda as their team, and most of the guard have no files.",
+   "refs": []
+  },
+  {
+   "id": "jabari",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Only M'Baku has a file, and Wakanda's people sheltering in the Jabari mountains in Wakanda Forever is in no other file.",
+   "refs": []
+  },
+  {
+   "id": "hatut-zaraze",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "The War Dogs' part in Black Panther is in no member file, since all its filed members come from Eyes of Wakanda.",
+   "refs": []
+  },
+  {
+   "id": "grc",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "No individual file covers the Council itself, so this is the only file for it.",
+   "refs": []
+  },
+  {
+   "id": "agathas-coven",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One title, and every witch (Sharon, Lilia, Jen, Alice), Billy and Agatha has a file that already tells the Road and how each one ends.",
+   "refs": []
+  },
+  {
+   "id": "red-daggers",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from Ms. Marvel, already told by Waleed's, Kareem's and Kamran's files.",
+   "refs": []
+  },
+  {
+   "id": "quantum-realm-rebels",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one film, already told by Jentorra's file and the other rebels' files.",
+   "refs": []
+  },
+  {
+   "id": "skrulls",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the refugees over five titles, and steps such as the WandaVision contact and the Tarnax colony are in no member file.",
+   "refs": []
+  },
+  {
+   "id": "sv-oscorp-raimi",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Its 2002 step repeats Norman Osborn's Raft file, and its Spider-Man 2 step repeats Harry's and Otto's files.",
+   "refs": []
+  },
+  {
+   "id": "sv-oscorp-yfnsm",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Peter's and Norman's files and the gateway's Collection file.",
+   "refs": []
+  },
+  {
+   "id": "sv-worldwide-engineering-brigade",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Harry Osborn's own file, which founds the Brigade.",
+   "refs": []
+  },
+  {
+   "id": "sv-avengers-yfnsm",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Peter's file (the Accords split) and Iron Man's file (Otto's arrest).",
+   "refs": []
+  },
+  {
+   "id": "sv-daily-bugle-raimi",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "All three steps repeat J. Jonah Jameson's Raimi file, which has the same three titles.",
+   "refs": []
+  },
+  {
+   "id": "sv-daily-bugle-1967",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Peter's and Jameson's 1967 files.",
+   "refs": []
+  },
+  {
+   "id": "sv-daily-bugle-1994",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Peter's, Jameson's and Robbie Robertson's 1994 files.",
+   "refs": []
+  },
+  {
+   "id": "sv-daily-bugle-ssm",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by the Jameson, Robbie Robertson, Betty Brant and Ned Lee files.",
+   "refs": []
+  },
+  {
+   "id": "sv-shield-1994",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps repeat Nick Fury's 1994 file.",
+   "refs": []
+  },
+  {
+   "id": "sv-fantastic-four-1994",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by the four 1994 Fantastic Four files.",
+   "refs": []
+  },
+  {
+   "id": "sv-rebellion-smu",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by John Jameson's file, which leads the rebels, and the other rebels' files.",
+   "refs": []
+  },
+  {
+   "id": "sv-imperium",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One title, already told by Strickland's Raft file, Teddy Paine's and Sadie Christmas's files.",
+   "refs": []
+  },
+  {
+   "id": "sv-spider-society",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one film, and Miguel's and Miles's files plus 14 other members' files already tell it.",
+   "refs": []
+  },
+  {
+   "id": "fox-x-men",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the team over eleven films, through several lineups and timelines, to its end in Logan.",
+   "refs": []
+  },
+  {
+   "id": "fox-cia",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already in Moira MacTaggert's file, with Charles's and Hank's First Class steps.",
+   "refs": []
+  },
+  {
+   "id": "fox-genosha",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Magneto's, Selene's and Ariki's files; its only tm members are animated-series files that belong to the other Genosha.",
+   "refs": []
+  },
+  {
+   "id": "fox-new-mutants",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one film, and all five teens have files that already tell it.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-x-men",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the team over five seasons and X-Men '97, including vanishing after Asteroid M and rebasing on Genosha.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-x-factor",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already in Forge's, Lorna's, Havok's and Valerie Cooper's files, and Havok's file spans both series.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-x-force",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps from one season are already in Cable's, Psylocke's, Archangel's, Jubilee's and Sunspot's files.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-starjammers",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Only Corsair has a file, and the pirates' theft of the M'Kraan Crystal and their part in the fight inside it are in no other file.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-shiar-empire",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "An empire with only Lilandra on file, and steps such as the Dark Phoenix trial and the war with the Kree are not in her file.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-genosha",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the island over two series, from slave state to UN member to massacre to X-Corp's base.",
+   "refs": []
+  },
+  {
+   "id": "pr-fantastic-four",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both films' steps are already told by the four members' files.",
+   "refs": []
+  },
+  {
+   "id": "pr-nightstalkers",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step from one film, and all seven members have files that already tell it.",
+   "refs": []
+  },
+  {
+   "id": "pr-the-chaste",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Stick's file, which revives Elektra and sends the Chaste.",
+   "refs": []
+  },
+  {
+   "id": "pr-nelson-murdock",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Foggy's file and Matt's Daredevil (2003) file.",
+   "refs": []
+  },
+  {
+   "id": "pr-st-royal-family",
+   "index": "Compound",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One title, and all seven members have files; Black Bolt's alone covers the coup, the reunion and the exodus to Earth.",
+   "refs": []
+  },
+  {
+   "id": "pr-st-runaways",
+   "index": "Compound",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the team from forming and going on the run through being split up to reuniting, across three seasons.",
+   "refs": []
+  },
+  {
+   "id": "st-centipede",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Its two steps are already told by Garrett's, Raina's, Po's, Scorch's and Deathlok's files and the Centipede serum's Collection file.",
+   "refs": [
+    "IDMOVE:by-st-centipede"
+   ]
+  },
+  {
+   "id": "st-cybertek",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "None of its people have files, and its season 5 step (forced labor for HYDRA, the lost Principia) appears in no individual file.",
+   "refs": [
+    "IDMOVE:by-st-cybertek"
+   ]
+  },
+  {
+   "id": "st-framework-hydra",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by AIDA's (Madame Hydra), the Doctor's and Radcliffe's files.",
+   "refs": [
+    "IDMOVE:by-st-framework-hydra"
+   ]
+  },
+  {
+   "id": "st-council-of-nine",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Most of the Council have no files, and Whitney Frost killing half of it and taking over the rest is in no individual file.",
+   "refs": [
+    "IDMOVE:by-st-council-of-nine"
+   ]
+  },
+  {
+   "id": "st-roxxon",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "None of its people have files, and it is the only file that follows the company across both Agent Carter seasons.",
+   "refs": [
+    "IDMOVE:by-st-roxxon"
+   ]
+  },
+  {
+   "id": "by-hydra-carter",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Red Skull's file in Captain Carter's world.",
+   "refs": []
+  },
+  {
+   "id": "by-red-room-carter",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Melina's and the Hydra Stomper's files.",
+   "refs": []
+  },
+  {
+   "id": "by-iron-federation",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps repeat Quentin Beck's file almost word for word.",
+   "refs": []
+  },
+  {
+   "id": "hydra",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the organization across many titles as it is beaten, hides inside S.H.I.E.L.D., rises and falls again, more than any one member's file.",
+   "refs": [
+    "IDMOVE:by-st-hydra"
+   ]
+  },
+  {
+   "id": "ten-rings",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It is the only file that links the Afghan cell, the Mandarin hoax and Wenwu's thousand-year army across three titles.",
+   "refs": []
+  },
+  {
+   "id": "red-room",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Dreykov's, Melina's and the Widows' files.",
+   "refs": []
+  },
+  {
+   "id": "kree-empire",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the empire over six titles and two shows, from Starforce to Kasius to Dar-Benn, which no individual file carries.",
+   "refs": [
+    "IDMOVE:by-st-kree",
+    "IDMOVE:st-kree"
+   ]
+  },
+  {
+   "id": "black-order",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "All four members (Ebony Maw, Proxima Midnight, Corvus Glaive, Cull Obsidian) have files with the same Infinity War and Endgame steps.",
+   "refs": []
+  },
+  {
+   "id": "chitauri",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "No Chitauri has a file of their own, so this is the army's only file.",
+   "refs": []
+  },
+  {
+   "id": "sovereign",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Ayesha's file, with Adam Warlock's for Vol. 3.",
+   "refs": []
+  },
+  {
+   "id": "aim",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Killian's, Savin's, Maya Hansen's and Vice President Rodriguez's files.",
+   "refs": []
+  },
+  {
+   "id": "zealots",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps repeat Kaecilius's file almost word for word.",
+   "refs": []
+  },
+  {
+   "id": "damage-control",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows the department over six titles, more than Agent Cleary's file covers.",
+   "refs": []
+  },
+  {
+   "id": "talokan",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps repeat Namor's file, with Attuma's and Namora's for the raids.",
+   "refs": []
+  },
+  {
+   "id": "deviants",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Only Kro has a file, and the Deviants' origin and thousands of years of war with the Eternals are in no individual file.",
+   "refs": []
+  },
+  {
+   "id": "skrull-rebels",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Gravik's, Pagon's, Raava's and G'iah's files.",
+   "refs": []
+  },
+  {
+   "id": "clandestines",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Najma's file, with Aisha's and Kamran's.",
+   "refs": []
+  },
+  {
+   "id": "serpent",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Sidewinder's file.",
+   "refs": []
+  },
+  {
+   "id": "st-fisk-empire",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows Fisk's network over seven titles, with details such as the Black Knife Cartel and the Red Hook weapons that Fisk's own file does not have.",
+   "refs": []
+  },
+  {
+   "id": "sv-oscorp-asm",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Every step is already told by the Lizard's, Ratha's, Electro's, Menken's and Rhino's files.",
+   "refs": []
+  },
+  {
+   "id": "sv-life-foundation",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Carlton Drake's, Riot's and Venom's files.",
+   "refs": []
+  },
+  {
+   "id": "sv-alchemax",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Its steps are already told by Kingpin's and Doctor Octopus's Into the Spider-Verse files and the Spot's file.",
+   "refs": []
+  },
+  {
+   "id": "sv-insidious-six-1994",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "The team's season 2 defeat and its season 5 re-forming with the Vulture in Mysterio's place are in no member file.",
+   "refs": []
+  },
+  {
+   "id": "sv-wild-pack-1994",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Silver Sable's Raft and Compound files.",
+   "refs": []
+  },
+  {
+   "id": "sv-sinister-six-ssm",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both line-ups are already told by the members' own files (Doctor Octopus, Vulture, Electro, Sandman, Rhino, Shocker, Mysterio, Kraven).",
+   "refs": []
+  },
+  {
+   "id": "sv-knights-of-wundagore-smu",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by the High Evolutionary's, Lord Tyger's and Sir Ram's files.",
+   "refs": []
+  },
+  {
+   "id": "sv-110th-street-gang",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Big Donovan's and Lonnie Lincoln's files.",
+   "refs": []
+  },
+  {
+   "id": "sv-scorpions-yfnsm",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Mac Gargan's file.",
+   "refs": []
+  },
+  {
+   "id": "sv-silvermane-mob-noir",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Silvermane's, Flint Marko's and Megawatt's files.",
+   "refs": []
+  },
+  {
+   "id": "fox-hellfire-club",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Shaw's, Emma Frost's, Azazel's and Riptide's files.",
+   "refs": []
+  },
+  {
+   "id": "fox-brotherhood",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "It follows Magneto's band across four films and several line-ups, from Erik's mutants to the army on Alcatraz.",
+   "refs": []
+  },
+  {
+   "id": "fox-weapon-x",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Every step is already told by Stryker's two files and Logan's file.",
+   "refs": []
+  },
+  {
+   "id": "fox-yashida-corporation",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Ichiro Yashida's, Shingen's and Mariko's files.",
+   "refs": []
+  },
+  {
+   "id": "fox-trask-industries",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Its 1973 steps repeat Bolivar Trask's file, and its only other detail is a Trask advertisement at the airport where Magneto finds Logan.",
+   "refs": []
+  },
+  {
+   "id": "fox-horsemen-apocalypse",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "The ancient Horsemen who die defending En Sabah Nur have no files, and their part is not in Apocalypse's file.",
+   "refs": []
+  },
+  {
+   "id": "fox-dbari",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Vuk's file and the young Jean Grey's file.",
+   "refs": []
+  },
+  {
+   "id": "fox-transigen",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Rice's, Pierce's, X-24's and Laura's files.",
+   "refs": []
+  },
+  {
+   "id": "fox-essex-corporation",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "No one from the company has a file, and it is the only file that links its traces across three films.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-friends-of-humanity",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Wolverine exposing Graydon Creed as Sabretooth's son is in no individual file, and most of the group's members have no files.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-morlocks",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "Its season 3 and 4 steps (the Reavers' raid, Leech and the leadership handed back) and most Morlocks are in no individual file.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-acolytes",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Its steps are already told by Fabian Cortez's file for the animated series and Exodus's and Colossus's files for X-Men '97.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-horsemen",
+   "index": "Raft",
+   "verdict": "keep",
+   "into": null,
+   "reason": "The original animated Horsemen besides Archangel have no files, and the Stonehenge defeat is in no individual file.",
+   "refs": []
+  },
+  {
+   "id": "fox-anim-ozt",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Bastion's file.",
+   "refs": []
+  },
+  {
+   "id": "pr-vampire-elders",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Deacon Frost's and Dragonetti's files.",
+   "refs": []
+  },
+  {
+   "id": "pr-vampire-nation",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Damaskinos's, Nomak's and Nyssa's files.",
+   "refs": []
+  },
+  {
+   "id": "pr-house-of-chthon",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Marcus Van Sciver's and Krista Starr's files.",
+   "refs": []
+  },
+  {
+   "id": "pr-saint-organization",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Howard Saint's, Livia's, Glass's and John Saint's files.",
+   "refs": []
+  },
+  {
+   "id": "pr-st-roxxon",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "Both steps are already told by Peter Scarborough's, Tandy's and Mina Hess's files.",
+   "refs": []
+  },
+  {
+   "id": "intelligencia",
+   "index": "Raft",
+   "verdict": "remove",
+   "into": null,
+   "reason": "One step, already told by Todd Phelps's file, with Jen's, Nikki's and Pug's files.",
+   "refs": []
+  }
+ ]
+}
