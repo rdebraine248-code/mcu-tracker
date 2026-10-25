@@ -205,6 +205,30 @@ for f in sorted(f for f in _g2.glob(OPPD+'opp_*.json') if not f.endswith('.bak.j
 _OPN={'Young Wilson Fisk':'Wilson Fisk'}
 for o in threats:
     if isinstance(o.get('op'),str): o['op']=_OPN.get(o['op'],o['op'])
+# the lore audit (October 2026): fixes keyed to the files as they stand here, just before the ABC move, so a season prefix it adds also decides
+# which tab a file lands on. Each op names its finding: "old" is a run of steps that must match exactly and "new" takes its place (an anchor
+# step kept in "new" makes an insert, an empty "new" a delete); "set" replaces fields, "add" is a new file, "drop" removes one
+_au=load('audit_fix.json',{})
+for L,tag in ((threats,'T'),(allies,'A'),(collx,'C')):
+    _bya={o['id']:o for o in L}
+    for z in _au.get(tag,[]):
+        if 'add' in z:
+            if z['add']['id'] in _bya: print('audit: dup',z['f'],z['add']['id']); continue
+            L.append(z['add']); _bya[z['add']['id']]=z['add']; continue
+        ids=z['id'] if isinstance(z['id'],list) else [z['id']]
+        o=next((_bya[i] for i in ids if i in _bya),None)
+        if o is None: print('audit: no file',z['f'],z['id']); continue
+        if z.get('drop'): L.remove(o); _bya.pop(o['id']); continue
+        for k,v in z.get('set',{}).items():   # null drops the field
+            if v is None: o.pop(k,None)
+            else: o[k]=v
+        if 'old' in z:
+            n=len(z['old']); hit=None
+            for o2 in [_bya[i] for i in ids if i in _bya]:   # a merged group file looks in each of its sources
+                i=next((i for i in range(len(o2['st'])-n+1) if [list(x) for x in o2['st'][i:i+n]]==z['old']),None)
+                if i is not None: hit=(o2,i); break
+            if hit is None: print('audit: no step',z['f'],z['id'],z['old'][0][0][:60]); continue
+            hit[0]['st'][hit[1]:hit[1]+n]=z['new']
 # Agents of S.H.I.E.L.D. (seasons 1 to 5 and Slingshot) and Agent Carter are main-line titles now, in every watch order, so their files leave
 # the Beyond tab for the MCU's: "by-" comes off the id. A file only in seasons 6 and 7 stays in Beyond, as those seasons do on the timeline. Where
 # the MCU tab already has the same file (HYDRA, S.H.I.E.L.D., the SSR, the Darkhold, the Kree), the show's steps join it, in story order.
@@ -263,7 +287,8 @@ def _remap(v):
     return v
 for L in (threats,allies,collx): L[:]=[_remap(o) for o in L]
 print('moved to the MCU tab',len(_moved),'merged',sorted((a,b) for a,b in _moved.items() if b!=a[3:]))
-if '/*IDMOVE*/' in s: put('IDMOVE',_moved)
+# the audit's own moves carry saved marks back where a file returns (never to an id that moves on again, or marks would flip every load)
+if '/*IDMOVE*/' in s: put('IDMOVE',{**_moved,**{k:v for k,v in _au.get('idmove',{}).items() if v not in _moved}})
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats)

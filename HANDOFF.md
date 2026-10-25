@@ -7,7 +7,7 @@ A Marvel watch tracker, built as a single-file PWA (a "S.H.I.E.L.D. datapad"). T
 - **Repo:** `rdebraine248-code/mcu-tracker`.
 - **`main`:** the built app that people use: `index.html` (every placeholder filled), `sw.js`, `manifest.webmanifest` and the icons. Nothing
   else goes on main.
-- **Working branch `ccr-260b58ec-boqbta`:** the source. It holds `index.html` with its data placeholders still empty, `mockup-data/` (all
+- **Working branch `ccr-9703a988-d86jbb`** (it carries on from `ccr-260b58ec-boqbta`): the source. It holds `index.html` with its data placeholders still empty, `mockup-data/` (all
   the data, the build scripts and the tests) and this file. **Check this branch out**, not main. After every push to main it's synced
   with `git merge -s ours origin/main`, which keeps the source and records main's history.
 
@@ -24,7 +24,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
 
 - `devbuild.py` reads `/home/user/mcu-tracker/index.html`, or `SRC=...` if set, and fills in the placeholders: `/*THREATS*/`,
   `/*ALLIES*/`, `/*COLLX*/`, `/*EPS*/`, `/*EPN*/`, `/*EPO*/`, `/*NEWSX*/`, `/*COMMSX*/`, `/*SRCX*/` and `/*IDMOVE*/`.
-- The repo-only build was checked to reproduce main byte for byte (main at `2da54a5`).
+- The repo-only build was checked to reproduce main byte for byte (main at `0cdbf85`, before the lore audit's fixes).
 - **Pushing main:**
   1. Make a worktree of `origin/main`.
   2. Copy `out/main.html` over its `index.html`, commit and push to `main`.
@@ -75,6 +75,12 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   patch4, zaudit, zzfix.
 - **The Collection:** the `coll_*.json` files. `coll_spec_*` are the specimens. `coll_existing.json` is the old list, kept for reference
   only.
+- **The lore audit (October 2026):**
+  - `audit_findings.json`: every finding (F001 to F705), each with its fix, source and status: applied, open, kept, pending.
+    The report page is https://claude.ai/artifact/3bB2MxjEMd9mwbv64yWHt4.
+  - `audit_fix.json`: the Raft, Compound and Collection fixes, applied by `devbuild.py` just before the ABC move. Each op names its finding;
+    "old" is a run of steps that must match exactly, "new" replaces it. A build prints `audit: no step` if a source edit breaks a match.
+  - The log and timeline fixes went straight into `index.html` (DATA, DOSSIERS, SAGA).
 - **Organizations:** `opp/org_*.json`. Villainous groups go to the Raft, heroic ones to the Compound. Group files carry `grp:1`.
 - **Ids:** a prefix says the universe tab: none for MCU, `st-` for street-level (also on the MCU tab), `by-` Beyond, `sv-` Spider-Verse,
   `fox-` FoX-Men, `pr-` Pruned.
@@ -88,7 +94,7 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   - Collection: In use, Secured, Lost, Destroyed.
   - Specimens: Thriving, Endangered, Extinct.
 - **Order of the build's merge stages:** cameo patches, stages, allies_zz patches, st- remap, organizations, the Collection, the
-  one-step-per-title merge, opposers, name normalization. Then the last stage moves the ABC shows' files from `by-` to the MCU tab and
+  one-step-per-title merge, opposers, name normalization, the lore audit's fixes. Then the last stage moves the ABC shows' files from `by-` to the MCU tab and
   merges HYDRA, S.H.I.E.L.D., the SSR, the Darkhold and the Kree into one file each. `IDMOVE` carries saved "seen" marks to the new ids.
 
 ## How the app works (key ideas in index.html)
@@ -137,7 +143,7 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
   - Tab order: MCU, Beyond, Spider-Verse, FoX-Men, Pruned.
   - No Incursions in the registries.
 - **Agents of S.H.I.E.L.D. and Agent Carter** are the same universe as the films. AoS S1–S5 and Slingshot are main line (in the Chapters,
-  the timeline and the MCU tab); S6–S7 stay in Beyond. Agent Carter's story order: S1 (1946), S2 (1947), then the One-Shot (1949).
+  the timeline and the MCU tab); S6–S7 stay in Beyond. Agent Carter's story order: the One-Shot (1946), then S1 (1946), then S2 (1947).
 - **Status means real status**, not what the characters believe. On-screen confirmation includes holograms and displays (the Endgame
   vanished display). A death revealed in a later title goes in that title's step.
 - **No visions, dreams or illusions as steps.** Real flashbacks are fine.
@@ -147,10 +153,29 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 
 ## Open items
 
-None. Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once
-they're out and watched.
+- **X-Men '97 and I Am Groot (decision pending):** split each into seasons in the release order only (season 2 came out years later,
+  with other titles between); story order and the boxes keep one title. Needs the season titles, episode counts, a `SPLIT` entry that
+  carries an old release-order tick to S1 only, and "In season N," on about 116 X-Men '97 steps. See F145 and D1 in `audit_findings.json`.
+- **The rest of the audit:** 337 findings are open (mostly medium confidence, plus the questions). Only high-confidence ones were applied.
+  F177 (Victor Timely's year) is disputed: don't apply it as written. F038 (an Incursions quote attribution) is held back.
+- **VisionQuest:** 8 findings were set aside, per the dropped VisionQuest audit.
+- Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once they're
+  out and watched.
 
-## This round, all on main
+## This round: the lore audit (on the working branch; main not yet pushed)
+
+- A read-through of every Raft, Compound and Collection file, every log and both Sacred Timeline orders: 705 findings with sources.
+- Applied: the 366 high-confidence ones and the owner's decisions, plus three follow-throughs (L1, D2-ssr, Kora's raft link).
+  - 180 "In season N," prefixes on Agents of S.H.I.E.L.D., Agent Carter and What If...?. With them, seven season 6 and 7 files go back to
+    Beyond, and IDMOVE carries their saved marks back.
+  - The chapter logs got the AoS and Agent Carter seasons; the Beyond log no longer holds whole-show entries it could never open.
+  - The One-Shot is 1946, before Agent Carter S1. The Dark World comes before Iron Man 3, and Multiverse of Madness before Hawkeye.
+    Years were filled in for recent titles, and two release-order swaps were made.
+  - Fact, status, custody and order fixes across the indexes and logs, broken raft links fixed, and vision steps removed.
+- Kept by the owner: the Crossover tag on Multiverse of Madness, and the Spider-Verse join on Avengers: Doomsday.
+
+## The round before, all on main
+
 
 - Chapter names revealed by watching. The Sacred Timeline and Multiverse pills come from the timeline only.
 - Specimens in the Collection.
