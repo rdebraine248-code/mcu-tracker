@@ -150,10 +150,6 @@ A failing test must stop a push. Don't pipe test output through `tail`, which hi
 1. **Unreleased films on the main line.** Avengers: Doomsday and Avengers: Secret Wars end the Sacred Timeline's main line, so nobody
    can honestly finish it yet, or get its pill and its Level 5 moment from the timeline. One option is to count only released titles
    until each film comes out. The owner hasn't decided.
-2. **Custody judgment calls, left as they are** (fine unless the owner says otherwise):
-   - Frank's paper rose ends "Secured, Lisa Castle" (it's on her grave).
-   - Objects whose holder dies and that are never seen again keep that holder (Harrow's scarab, Beck's Mysterio suit, Gravik's machine).
-   - Lola has two same-status steps in a row (seasons 1 and 7), and nothing on screen explains how it was restored between them.
 
 ## This round, all on main
 
