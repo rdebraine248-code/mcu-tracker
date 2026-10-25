@@ -702,8 +702,6 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .emb{ position:relative; display:block; width:64px; height:64px; isolation:isolate; } .emb i{ position:absolute; inset:0; display:block; }
 .hf-head .hf-tag, .hf-head .hf-name{ padding-right:68px; }
 .hf-idtag{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:2px 10px; } .hf-lvl{ letter-spacing:1px; }
-.hf-xp{ margin:6px 62px 0 0; }   /* clear of the profile picture */ .hf-xp span{ display:block; height:4px; border-radius:2px; background:#1C2536; overflow:hidden; } .hf-xp i{ display:block; height:100%; border-radius:2px; background:linear-gradient(90deg,#4F8BFF,#8FC1FF); }
-.hf-xp small{ display:block; margin-top:4px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; }
 .hf-rows{ display:grid; gap:4px; margin:10px 0 12px; padding-right:68px; } .hf-rows div{ display:flex; gap:10px; } .hf-rows dt{ min-width:78px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; } .hf-rows dd{ margin:0; font:13px/1.6 'Share Tech Mono','Courier New',monospace; color:#E9C46A; }
 .hf-code{ display:block; width:100%; padding:0 68px 0 0; border:0; background:none; color:inherit; text-align:left; cursor:pointer; } .hf-code span{ color:#7D8BA6; font-size:22px; }
 .hf-codein{ display:block; width:calc(100% - 68px); box-sizing:border-box; padding:2px 6px; border:1px solid #3A4A6E; border-radius:6px; background:#0B1019; color:#EEF1F6; }
@@ -2245,7 +2243,7 @@ function orderPick(then) {
   el.innerHTML = `<div class="op-in"><small>Your watch order</small><h3>Pick your path</h3>
     <p>There's no one right way through it. Each path keeps its own checklist, so follow one, or more than one at once. You can switch paths at any time.</p>
     ${card("chapters", "#8FC1FF", "Chapters", "The whole story, chapter by chapter.")}
-    ${card("timeline", "#FFB347", "Sacred Timeline", "Every title in story order, or flip it to release order.")}
+    ${card("timeline", "#FFB347", "Sacred Timeline", "Every title in chronological order, or flip it to release order.")}
     ${card("chars", "#E9C46A", "Characters", "Follow just the heroes you want.")}</div>`;
   document.body.appendChild(el); haptic(10);
   el.addEventListener("click", ev => { const b = ev.target.closest("[data-op]"); if (!b) return; haptic(12); state.orderPicked = 1;
@@ -6422,8 +6420,6 @@ function checkAch() {
   const fresh = [];
   for (let pass = 0; pass < 2; pass++) A.forEach(a => { if (!state.achSeen[a.id] && a.ok()) { state.achSeen[a.id] = 1; fresh.push(a); } });
   const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount();
-  { const L = xpLevel(xpOf(A), A); if (state.xpLv == null || L < state.xpLv) state.xpLv = L;   // (unchecking can lower it; it's said again when you climb back)
-    else if (L > state.xpLv) { state.xpLv = L; if (L <= 10) setTimeout(() => say(`Level ${L} · ${CLEARANCE[L - 1]}`, null, "Clearance raised", undefined, true), 900); } }
   if (!fresh.length) return;
   achPending.push(...fresh); clearTimeout(achFlushT); achFlushT = setTimeout(flushAch, 450);
   if (fileOpen && fileTab === "file") renderFile();
@@ -6707,9 +6703,7 @@ function archSec() {
   return `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${L.map(([m, , t, k, n, w]) => `<button type="button" class="ar-${m}" data-arch="${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em><i aria-hidden="true">&#8250;</i></button>`).join("")}</div></section>`;
 }
 function renderFile(fresh) {
-  const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), xp = xpOf(A), level = xpLevel(xp, A);
-  const xpBar = level > 10 ? `<div class="hf-xp"><span><i style="width:100%"></i></span><small>${xp.toLocaleString("en-US")} XP</small></div>` : level === 10 ? `<div class="hf-xp"><span><i style="width:100%"></i></span><small>${xp.toLocaleString("en-US")} XP · every file for Excelsior</small></div>`
-    : `<div class="hf-xp"><span><i style="width:${((xp - XP_AT[level - 1]) / (XP_AT[level] - XP_AT[level - 1]) * 100).toFixed(1)}%"></i></span><small>${xp.toLocaleString("en-US")} XP · ${(XP_AT[level] - xp).toLocaleString("en-US")} to Level ${level + 1}</small></div>`;
+  const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = xpLevel(xpOf(A), A);
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
@@ -6733,7 +6727,7 @@ function renderFile(fresh) {
     return `<section class="hf-sec" data-hfsec="chapters"><h3><span>${hfChPg === 2 ? "Characters" : "Chapters"}</span><span class="hf-pager"><button type="button" data-hfcpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfChPg}/2</span><button type="button" data-hfcpg="1" aria-label="Next page">›</button><span class="hf-pgt">${L.filter(a => earned(a.id)).length}/${L.length}</span></span></h3><div class="hf-grid mini hf-pg">${L.map(card).join("")}</div></section>`; };
   const fv = document.getElementById("fileView"); fv.className = "fileview"; if (fresh) fv.replaceChildren();
   swapIn(fv, `
-    <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button>${embNew().length ? '<i class="hf-avdot" aria-hidden="true"></i>' : ""}<div class="hf-tag hf-idtag"><span>Agent ID</span><span class="hf-lvl">${level > 10 ? "" : "Level " + level + " · "}${CLEARANCE[level - 1]}</span></div>${xpBar}
+    <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button>${embNew().length ? '<i class="hf-avdot" aria-hidden="true"></i>' : ""}<div class="hf-tag hf-idtag"><span>Agent ID</span><span class="hf-lvl">${level > 10 ? "" : "Level " + level + " · "}${CLEARANCE[level - 1]}</span></div>
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
       <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
