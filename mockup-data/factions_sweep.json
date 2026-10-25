@@ -2909,7 +2909,8 @@
    "to": null,
    "note": "He runs the Workshop, Weapon X's lab that turns the dying into mutant slaves.",
    "source": "https://xmenmovies.fandom.com/wiki/The_Workshop",
-   "slice": "rd"
+   "slice": "rd",
+   "dropped": "owner: the Deadpool films never name the Workshop as Weapon X"
   },
   {
    "id": "fox-angel-dust",
@@ -2918,7 +2919,8 @@
    "to": null,
    "note": "She is Ajax's assistant in the Workshop, a Weapon X program.",
    "source": "https://xmenmovies.fandom.com/wiki/The_Workshop",
-   "slice": "rd"
+   "slice": "rd",
+   "dropped": "owner: the Deadpool films never name the Workshop as Weapon X"
   },
   {
    "id": "fox-recruiter",
@@ -2927,7 +2929,8 @@
    "to": null,
    "note": "He recruits the dying for Weapon X's Workshop.",
    "source": "https://xmenmovies.fandom.com/wiki/The_Recruiter",
-   "slice": "rd"
+   "slice": "rd",
+   "dropped": "owner: the Deadpool films never name the Workshop as Weapon X"
   },
   {
    "id": "fox-cable",
@@ -7742,7 +7745,8 @@
    ],
    "note": "Added Weapon X: Stryker brainwashes Scott at his Weapon X facility at Alkali Lake and sets him on the X-Men until Jean breaks the hold (Lady Deathstrike, brainwashed the same way, is already filed under Weapon X).",
    "source": "https://xmenmovies.fandom.com/wiki/Cyclops",
-   "slice": "hd"
+   "slice": "hd",
+   "dropped_stage": "owner: X2's mind control is Stryker's own operation, not Weapon X"
   },
   {
    "id": "fox-nightcrawler",
@@ -7762,7 +7766,8 @@
    ],
    "note": "Added Weapon X: under Jason Stryker's mind control Kurt attacks the President for Stryker, who holds him at the Weapon X facility at Alkali Lake; freed, he joins the X-Men.",
    "source": "https://en.wikipedia.org/wiki/X2_(film)",
-   "slice": "hd"
+   "slice": "hd",
+   "dropped_stage": "owner: X2's mind control is Stryker's own operation, not Weapon X"
   },
   {
    "id": "fox-beast",
@@ -9864,6 +9869,29 @@
    ]
   },
   {
+   "n": "F-team-fox-cyclops",
+   "note": "Completeness sweep (owner, October 2026: every organization served, willingly or not): Added Weapon X: Stryker brainwashes Scott at his Weapon X facility at Alkali Lake and sets him on the X-Men until Jean breaks the hold (Lady Deathstrike, brainwashed the same way, is already filed under Weapon X). Not Weapon X: in X2 Stryker brainwashes Scott for his own operation at Alkali Lake (owner).",
+   "source": "https://xmenmovies.fandom.com/wiki/Cyclops",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-cyclops",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X-Men Origins: Wolverine"
+      ],
+      [
+       "The X-Men",
+       "X-Men (2000)"
+      ]
+     ]
+    }
+   ]
+  },
+  {
    "n": "F-team-fox-magneto",
    "note": "Completeness sweep (owner, October 2026: every organization served, willingly or not): Magneto leads the Brotherhood from X-Men (2000), as his villain file says.",
    "source": "https://en.wikipedia.org/wiki/X-Men_(film)",
@@ -9928,6 +9956,29 @@
       [
        "Genosha",
        "Dark Phoenix"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "n": "F-team-fox-nightcrawler",
+   "note": "Completeness sweep (owner, October 2026: every organization served, willingly or not): Added Weapon X: under Jason Stryker's mind control Kurt attacks the President for Stryker, who holds him at the Weapon X facility at Alkali Lake; freed, he joins the X-Men. Not Weapon X: in X2 Kurt is under Stryker's mind control for his own operation (owner).",
+   "source": "https://en.wikipedia.org/wiki/X2_(film)",
+   "change": [
+    {
+     "kind": "set",
+     "index": "Compound",
+     "id": "fox-nightcrawler",
+     "field": "tm",
+     "value": [
+      [
+       "Independent",
+       "X2"
+      ],
+      [
+       "The X-Men",
+       "X2"
       ]
      ]
     }
@@ -10334,5 +10385,5 @@
    ]
   }
  ],
- "hand_villain": "Set by hand in the faction builder: Carl Creel (HYDRA, Talbot's bodyguard, HYDRA again), Trevor Slattery, Captain Carter's Hydra Stomper, zombie Thor, Namor and Captain America (the Red Queen's army), the Winter Soldier (his war years end in 1945); Shaw's Nazi years and Yashida's war years end where their files begin; Talos posing as Keller and Nebula in the Black Order; the animated Inner Circle keeps its file's name."
+ "hand_villain": "Set by hand in the faction builder: Carl Creel (HYDRA, Talbot's bodyguard, HYDRA again), Trevor Slattery, Captain Carter's Hydra Stomper, zombie Thor, Namor and Captain America (the Red Queen's army), the Winter Soldier (his war years end in 1945); Shaw's Nazi years and Yashida's war years end where their files begin; Talos posing as Keller and Nebula in the Black Order; the animated Inner Circle keeps its file's name. Stryker's file ends in the U.S. Army at X2, and Lady Deathstrike, Ajax, Angel Dust and the Recruiter carry no Weapon X (owner)."
 }
