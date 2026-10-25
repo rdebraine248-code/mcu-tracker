@@ -15,7 +15,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     state.checks = { 'ch-3::Agents of S.H.I.E.L.D. S1': true };
     o.withS1 = coul.reduce((a, x) => a + x.st.filter(atlSeenStep).filter(s => s[1] === 'Agents of S.H.I.E.L.D.').length, 0);
     o.wholeS1 = atlSeenT('Agents of S.H.I.E.L.D.');
-    ['ch-3::Agents of S.H.I.E.L.D. S2','ch-4::Agents of S.H.I.E.L.D. S3','ch-4::Agents of S.H.I.E.L.D. S4','ch-6::Agents of S.H.I.E.L.D. S5','ch-beyond-the-mcu::Agents of S.H.I.E.L.D. S6–S7'].forEach(k => state.checks[k] = true);
+    ['ch-3::Agents of S.H.I.E.L.D. S2','ch-4::Agents of S.H.I.E.L.D. S3','ch-4::Agents of S.H.I.E.L.D. S4','ch-6::Agents of S.H.I.E.L.D. S5','ch-beyond-the-mcu::Agents of S.H.I.E.L.D. S6','ch-beyond-the-mcu::Agents of S.H.I.E.L.D. S7'].forEach(k => state.checks[k] = true);
     o.wholeAll = atlSeenT('Agents of S.H.I.E.L.D.');
     o.allSteps = coul.reduce((a, x) => a + x.st.filter(s => s[1] === 'Agents of S.H.I.E.L.D.').length, 0);
     o.openAll = coul.reduce((a, x) => a + x.st.filter(atlSeenStep).filter(s => s[1] === 'Agents of S.H.I.E.L.D.').length, 0);

@@ -4,11 +4,11 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const { browser, page, errs } = await open({ touch: true, state: { entered: 1 } });
   await full(page); await sleep(2500);
   const r = {};
-  r.eps = await page.evaluate(() => ({ titles: [...new Set([...DATA.chapters, ...DATA.chars].flatMap(c => c.items.map(i => i.t)))].filter(t => epTotal(t)).length, aos67: epList('Agents of S.H.I.E.L.D. S6–S7'), carter2: epTotal('Agent Carter S2') }));
-  await page.evaluate(() => { state.eps = {}; epSheet('tl::Agents of S.H.I.E.L.D. S6–S7'); }); await sleep(500);
+  r.eps = await page.evaluate(() => ({ titles: [...new Set([...DATA.chapters, ...DATA.chars].flatMap(c => c.items.map(i => i.t)))].filter(t => epTotal(t)).length, aos6: epList('Agents of S.H.I.E.L.D. S6'), aos7: epList('Agents of S.H.I.E.L.D. S7'), aos6at: EPO['Agents of S.H.I.E.L.D. S6'], aos7at: EPO['Agents of S.H.I.E.L.D. S7'], carter2: epTotal('Agent Carter S2') }));
+  await page.evaluate(() => { state.eps = {}; epSheet('tl::Agents of S.H.I.E.L.D. S7'); }); await sleep(500);
   r.seasons = await page.evaluate(() => [...document.querySelectorAll('#rateSheet [data-eps]')].map(b => b.textContent));
   await page.evaluate(() => document.querySelector('#rateSheet [data-epn]').click()); await sleep(300);
-  r.epSaved = await page.evaluate(() => ({ list: state.eps['tl::Agents of S.H.I.E.L.D. S6–S7'], shared: state.eps['Agents of S.H.I.E.L.D. S6–S7'] }));
+  r.epSaved = await page.evaluate(() => ({ list: state.eps['tl::Agents of S.H.I.E.L.D. S7'], shared: state.eps['Agents of S.H.I.E.L.D. S7'] }));
   await page.evaluate(() => document.querySelector('#rateSheet .rs-done').click()); await sleep(500);
   // the Raft, first visit
   await page.evaluate(() => { document.querySelector('#dock [data-dock="atlas"]').click(); }); await sleep(1200);

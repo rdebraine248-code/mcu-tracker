@@ -18,9 +18,9 @@ const FILE = process.argv[2] || __dirname + '/../out/datapad-test.html', SHOTS =
       first: F.items[0].t, cmNote: F.items[0].note, ff: n(F), ss: n(S), logF: DOSSIERS[F.id].story.map(x => x[0]).join('|') === F.items.map(i => i.t).join('|'),
       logS: DOSSIERS[S.id].story.map(x => x[0]).join('|') === S.items.map(i => i.t).join('|'), emb: [charEmb(F), charEmb(S)], fury: !!EMBLEMS.fury,
       skin: [LSKIN[F.id] && LSKIN[F.id].tag, LSKIN[S.id] && LSKIN[S.id].tag], eggs: [FURY_BOX, !!SIDE['cx-nick-fury|Goose']], furyFile: ALLIES.find(o => o.id === 'nick-fury').em }; });
-  ok(!r.old, 'combined box and log gone'); ok(r.nf === 14 && r.ns === 21, 'box sizes ' + r.nf + '/' + r.ns); ok(r.order, 'the two boxes sit where the combined one was');
+  ok(!r.old, 'combined box and log gone'); ok(r.nf === 15 && r.ns === 24, 'box sizes ' + r.nf + '/' + r.ns); ok(r.order, 'the two boxes sit where the combined one was');
   ok(r.first === 'Captain Marvel' && /mid-credits/.test(r.cmNote || ''), 'Fury opens with Captain Marvel and its note');
-  ok(r.ff === 14 && r.ss === 21, 'everything watched carries over, both boxes full (' + r.ff + ', ' + r.ss + ')');
+  ok(r.ff === 15 && r.ss === 24, 'everything watched carries over, both boxes full (' + r.ff + ', ' + r.ss + ')');
   ok(r.logF && r.logS, 'each log follows its box'); ok(r.emb[0] === 'fury' && r.emb[1] === 'eagle' && r.fury, 'insignia: ' + r.emb);
   ok(r.skin[0] === 'Nick Fury' && r.skin[1] === 'S.H.I.E.L.D.', 'log skins'); ok(r.eggs[0] === 'cx-nick-fury' && r.eggs[1], 'eggs follow Fury'); ok(r.furyFile === 'fury', "Fury's Compound file wears his insignia");
   if (SHOTS) {
