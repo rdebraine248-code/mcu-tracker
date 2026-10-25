@@ -6396,7 +6396,7 @@ function checkAch() {
   const fresh = [];
   for (let pass = 0; pass < 2; pass++) A.forEach(a => { if (!state.achSeen[a.id] && a.ok()) { state.achSeen[a.id] = 1; fresh.push(a); } });
   const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount();
-  if (MOCK) { const L = xpLevel(xpOf(A), A); if (state.xpLv == null || L < state.xpLv) state.xpLv = L;   // (unchecking can lower it; it's said again when you climb back)
+  { const L = xpLevel(xpOf(A), A); if (state.xpLv == null || L < state.xpLv) state.xpLv = L;   // (unchecking can lower it; it's said again when you climb back)
     else if (L > state.xpLv) { state.xpLv = L; if (L <= 10) setTimeout(() => say(`Level ${L} · ${CLEARANCE[L - 1]}`, null, "Clearance raised", undefined, true), 900); } }
   if (!fresh.length) return;
   achPending.push(...fresh); clearTimeout(achFlushT); achFlushT = setTimeout(flushAch, 450);
@@ -6636,10 +6636,9 @@ function swapIn(host, html) {
   if (old.length !== neu.length) { host.replaceChildren(...neu); return; }
   neu.forEach((n, i) => { if (old[i].outerHTML !== n.outerHTML) old[i].replaceWith(n); });
 }
-// your clearance rises a level for every tenth of the Agent File you complete
-// and everything in it, complete, takes you past the levels altogether: Excelsior, with no number
+// everything in the Agent File, complete, takes you past the levels altogether: Excelsior, with no number
 const CLEARANCE = ["Recruit", "Field Agent", "Specialist", "Strike Team", "Black Ops", "Classified", "Top Secret", "World Security", "Omega", "Avenger", "Excelsior"];
-// mockup: clearance by experience, not by the share of files. Watching is most of it (a film or a season 10 XP, a short 3, each title once,
+// clearance by experience, not by the share of files. Watching is most of it (a film or a season 10 XP, a short 3, each title once,
 // in any list), finishing things adds a bonus (a chapter 30, a character 15, the Sacred Timeline 150, the Multiverse 300), and the secrets add
 // theirs (an easter egg 20, a mission 30, an artifact 40). The curve: the Sacred Timeline's main line reaches Level 5, every branch Level 6,
 // every chapter Level 7, everything watched Level 8; Levels 9 and 10 take the secrets too, and Excelsior is still every file
@@ -6663,8 +6662,8 @@ function archSec() {
   return `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${L.map(([m, , t, k, n, w]) => `<button type="button" class="ar-${m}" data-arch="${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em><i aria-hidden="true">&#8250;</i></button>`).join("")}</div></section>`;
 }
 function renderFile(fresh) {
-  const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), xp = MOCK ? xpOf(A) : 0, level = MOCK ? xpLevel(xp, A) : done === A.length ? 11 : Math.min(10, 1 + Math.floor(done / A.length * 10));
-  const xpBar = !MOCK ? "" : level > 10 ? `<div class="hf-xp"><span><i style="width:100%"></i></span><small>${xp.toLocaleString("en-US")} XP</small></div>` : level === 10 ? `<div class="hf-xp"><span><i style="width:100%"></i></span><small>${xp.toLocaleString("en-US")} XP · every file for Excelsior</small></div>`
+  const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), xp = xpOf(A), level = xpLevel(xp, A);
+  const xpBar = level > 10 ? `<div class="hf-xp"><span><i style="width:100%"></i></span><small>${xp.toLocaleString("en-US")} XP</small></div>` : level === 10 ? `<div class="hf-xp"><span><i style="width:100%"></i></span><small>${xp.toLocaleString("en-US")} XP · every file for Excelsior</small></div>`
     : `<div class="hf-xp"><span><i style="width:${((xp - XP_AT[level - 1]) / (XP_AT[level] - XP_AT[level - 1]) * 100).toFixed(1)}%"></i></span><small>${xp.toLocaleString("en-US")} XP · ${(XP_AT[level] - xp).toLocaleString("en-US")} to Level ${level + 1}</small></div>`;
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
