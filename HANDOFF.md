@@ -286,7 +286,7 @@ These happened in earlier chats. Each cost the owner time.
   24 organizations' own files made group files. Nick Fury's box got its own look.
 - **Weapon X only where it is on screen** (`550e553`); **Captain America's box without Agent Carter** (`ed73d74`).
 - **Re-check, Sort, scroll** (`310650e`): the independent re-check's corrections, the Sort switch, indexes opening at the top.
-- **Last consistency fixes** (the latest push): Raimi's Otto never worked for Oscorp, Vision's hero file notes S.W.O.R.D., Heather Glenn
+- **Last consistency fixes** (`6bfecfc`): Raimi's Otto never worked for Oscorp, Vision's hero file notes S.W.O.R.D., Heather Glenn
   leaves Fisk's administration when Fisk falls.
 
 ## Earlier rounds, all on main
