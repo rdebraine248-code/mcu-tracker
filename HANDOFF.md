@@ -64,7 +64,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49 ct50 ct51; do node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49 ct50 ct51 ct52; do node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -88,6 +88,7 @@ node tests/ct35.js                                                              
 | ct49 | Factions: staging, roster and group file, grouping, current and Former, the link back |
 | ct50 | Opening an index starts at the top; backing out of a file keeps the list's place |
 | ct51 | The Sort switch: First seen or A to Z, one setting for the three indexes |
+| ct52 | Universe tabs named by the Sacred Timeline's rule; holding the Incursions line marks them all; the Doom egg stays on Doomsday's title |
 
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. Test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled. Screenshots after marking many titles watched: wait about 9 seconds, or the
@@ -180,11 +181,15 @@ insignia celebration covers the page.
   lists everything a save code carries.
 - **Clearance levels:** counted from XP (`XP_AT`), shown on the Agent ID. The owner removed the XP bar, the "to next level" line and the
   Clearance raised pill.
+- **Holds:** holding a chapter or character box, or a timeline's key, marks it all watched. Holding the Incursions line under Avengers:
+  Doomsday (shown once Doomsday is checked) marks every Incursion watched; the Doom egg (holding Doomsday's row) skips that line.
 - **Pills:** a chapter or character box says Completed once ever (`state.boxDone`). The Sacred Timeline and Multiverse pills fire only
   from the timeline page.
 - **The three indexes:** the Raft (villains), the Avengers Compound (heroes) and the Collection (objects and specimens), found through
   discovery eggs in the Atlas. They share one scrolling panel (`collPanel`): opening one starts at the top; backing out of a file returns
   to the list's place (`collY`).
+  - **Universe tabs:** Sacred Timeline, Beyond, Spider-Verse, FoX-Men, Pruned (`RF_UNI`, shared by all three). An Extra's tab reads
+    "[ Classified ]" until its chapter box is opened or every title in it is watched (`slNamed`, the Sacred Timeline page's own rule).
   - **Sort switch** under Group by: First seen (`ATL_ORDER` of the first title, ties A to Z) or A to Z, ignoring a leading "The"
     (`ixCmp`, `state.ixAZ`, one setting for all three, in `SAVE_KEYS`). Groups by Status, Class or Type follow a fixed list; groups by
     Faction, Team, Holder or Opposed by are A to Z. Search results are A to Z.

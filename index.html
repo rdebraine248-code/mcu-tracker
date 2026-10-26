@@ -2553,7 +2553,7 @@ document.getElementById("view").addEventListener("click", ev => {
     return;
   }
   const im = ev.target.closest("[data-incm]");
-  if (im) { openIncList(im); return; }
+  if (im) { if (incFired) { incFired = false; return; } openIncList(im); return; }
   const r = ev.target.closest(".tl-row");
   if (r && laneFired) { laneFired = false; return; }
   if (r && hex && r.dataset.tl === "WandaVision" && ev.target.closest(".tl-text")) { hexNext(ev.clientX, ev.clientY); return; }
@@ -4265,7 +4265,7 @@ function cxBody() {
 const THREATS = /*THREATS*/[];
 const RF_UNI = [["mcu", "Sacred Timeline"], ["by", "Beyond"], ["sv", "Spider-Verse"], ["fox", "FoX-Men"], ["pr", "Pruned"]], RF_CH = { sv: "ch-the-spider-verse", fox: "ch-the-fox-men", pr: "ch-pruned-timelines", by: "ch-beyond-the-mcu" };
 const RF_CL = ["Street", "City", "Global", "Cosmic", "Multiversal"];
-const rfUniName = ([u, l]) => u === "mcu" || state.unlocked[RF_CH[u]] ? l : "[ Classified ]";   // named once its Extras chapter is unlocked, like everywhere else
+const rfUniName = ([u, l]) => u === "mcu" || slNamed(DATA.chapters.find(c => c.id === RF_CH[u])) ? l : "[ Classified ]";   // named once its Extras chapter is unlocked or all of it is watched, as on the Sacred Timeline
 let rfGrp = "status", rfFold = {}, rfIntake = 0;
 // grouped by who opposed them, the list opens as an index of heroes, each folded until you tap it; the other groupings open unfolded
 const rfShut = k => { const v = (rfFold[rfGrp] || {})[k]; return v == null ? rfGrp === "op" || rfGrp === "tm" : v; };
@@ -6133,7 +6133,7 @@ let doomPress = null, doomTimer = null, doomBlockUntil = 0, doomOn = false;
 const DOOM_SEL = '.row[data-t="Avengers: Doomsday"], .tl-row[data-tl="Avengers: Doomsday"]';
 window.addEventListener("pointerdown", ev => {
   if (doomPress) { clearTimeout(doomTimer); doomPress = null; return; }   // a second finger: that's a pinch or a scroll, not a hold
-  if (!ev.target.closest || !ev.target.closest(DOOM_SEL)) return;
+  if (!ev.target.closest || !ev.target.closest(DOOM_SEL) || ev.target.closest("[data-incm]")) return;   // the Incursions line in Doomsday's row has its own hold
   const x = ev.clientX, y = ev.clientY; doomPress = { id: ev.pointerId, x, y };
   doomTimer = setTimeout(() => { doomBlockUntil = Date.now() + 900; doom([x - 60, y], [x + 60, y]); doomPress = null; }, 900);
 }, true);
@@ -8429,6 +8429,27 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
   }, 650);
 });
 ["pointerup", "pointercancel", "pointerleave"].forEach(n => document.getElementById("view").addEventListener(n, () => clearTimeout(keyTimer)));
+// holding the Incursions line (under Avengers: Doomsday) marks every Incursion watched, the same as holding a timeline's key; a tap still opens the list
+let incTimer = null, incFired = false, incAt = null;
+document.getElementById("view").addEventListener("pointerdown", ev => {
+  const m = ev.target.closest("[data-incm]"); incFired = false; clearTimeout(incTimer); incAt = null;
+  if (!m) return;
+  const inc = DATA.chapters.find(c => c.id === INC_ID);
+  if (inc.items.every(i => state.checks[tk(i.t)])) return;   // nothing left to mark
+  incAt = [ev.clientX, ev.clientY];
+  incTimer = setTimeout(() => {
+    incFired = true; incAt = null; haptic(25);
+    ask("Mark every Incursion as watched?", "Mark all watched").then(ok => {
+      if (!ok) return;
+      inc.items.forEach(i => { state.checks[tk(i.t)] = true; });
+      persist(); renderMeter(); haptic(HAPTIC.success);
+    });
+  }, 650);
+});
+document.getElementById("view").addEventListener("pointermove", ev => {   // moving the finger means scrolling, not holding
+  if (incAt && Math.hypot(ev.clientX - incAt[0], ev.clientY - incAt[1]) > 10) { clearTimeout(incTimer); incAt = null; }
+}, { passive: true });
+["pointerup", "pointercancel", "pointerleave"].forEach(n => document.getElementById("view").addEventListener(n, () => { clearTimeout(incTimer); incAt = null; }));
 let pressTimer = null, pressFired = false;
 document.getElementById("view").addEventListener("pointerdown", ev => {
   const t = ev.target.closest(".tile"); pressFired = false; clearTimeout(pressTimer);
@@ -8462,7 +8483,7 @@ document.getElementById("view").addEventListener("pointerdown", ev => {
 document.getElementById("view").addEventListener("pointermove", ev => {   // moving the finger means scrolling, not holding
   if (pressAt && Math.hypot(ev.clientX - pressAt[0], ev.clientY - pressAt[1]) > 10) { clearTimeout(pressTimer); clearTimeout(pressShow); pressAt = null; document.querySelectorAll(".tile.pressing").forEach(x => x.classList.remove("pressing")); }
 }, { passive: true });
-document.getElementById("view").addEventListener("contextmenu", ev => { if (ev.target.closest(".tile") || ev.target.closest("[data-focus-lane]") || ev.target.closest(".tl-row")) ev.preventDefault(); });
+document.getElementById("view").addEventListener("contextmenu", ev => { if (ev.target.closest(".tile") || ev.target.closest("[data-focus-lane]") || ev.target.closest(".tl-row") || ev.target.closest("[data-incm]")) ev.preventDefault(); });
 document.getElementById("view").addEventListener("keydown", ev => {
   const t = ev.target.closest(".tile");
   if (t && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); activate(t); }
