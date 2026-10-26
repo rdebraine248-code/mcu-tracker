@@ -218,7 +218,7 @@ insignia celebration covers the page.
 - **Team files:** a team's own file goes when every member's file carries the team's tag and the team file has nothing of its own. This
   removed 36 Compound and 37 Raft team files; 17 Raft team files with steps of their own stay.
 - **Insignia reveal:** each unlocks on the character's main appearances, several titles, not a single one.
-- **Universes:** the Earth and universe distinction matters. Tab order: MCU, Beyond, Spider-Verse, FoX-Men, Pruned. No Incursions in the
+- **Universes:** the Earth and universe distinction matters. Tab order: Sacred Timeline (the MCU tab, renamed by the owner in all three indexes), Beyond, Spider-Verse, FoX-Men, Pruned. No Incursions in the
   registries. Tag a group only within its own continuity.
 - **Agents of S.H.I.E.L.D. and Agent Carter** are the same universe as the films. AoS seasons 1 to 5 and Slingshot are main line; S6 and
   S7 are two titles and stay in Beyond. Agent Carter's story order: S1 (1946), S2 (1947), then the One-Shot as Peggy's ending.
