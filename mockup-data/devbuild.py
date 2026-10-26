@@ -299,6 +299,32 @@ for k in list(_im):   # a file that moved and was later merged into another send
     while v in _im and n<5: v=_im[v]; n+=1
     if v==k: _im.pop(k)
     else: _im[k]=v
+# the appearance sweep (October 2026): every title a file's subject is on screen in, keyed to the final ids. Per file: "ins" puts steps right
+# after an anchor step (null puts them first), "fix" swaps one step for others, "set" replaces fields (null drops one); anchors and old steps
+# are matched exactly against the file as it stands here
+_ap=load('appear_fix.json',{})
+for L,tag in ((threats,'T'),(allies,'A'),(collx,'C')):
+    _bya={o['id']:o for o in L}
+    for i,z in _ap.get(tag,{}).items():
+        o=_bya.get(i)
+        if o is None: print('appear: no file',tag,i); continue
+        st=[list(x) for x in o['st']]
+        fx={}
+        for old,new in z.get('fix',[]):
+            j=next((j for j,x in enumerate(st) if x==old),None)
+            if j is None: print('appear: no step',i,old[0][:60]); continue
+            fx[j]=new
+        ins={}
+        for anc,new in z.get('ins',[]):
+            j=-1 if anc is None else next((j for j,x in enumerate(st) if x[:2]==anc),None)
+            if j is None: print('appear: no anchor',i,anc[0][:60]); continue
+            ins.setdefault(j,[]).extend(new)
+        out=list(ins.get(-1,[]))
+        for j,x in enumerate(st): out+=fx.get(j,[x])+ins.get(j,[])
+        o['st']=out
+        for k,v in z.get('set',{}).items():
+            if v is None: o.pop(k,None)
+            else: o[k]=v
 # villains carry the factions they serve, staged by title like a hero's team (raft_teams.json, keyed to the final ids; the memberships and
 # their sources are in raft_teams_src.json)
 _rt=load('raft_teams.json',None)
