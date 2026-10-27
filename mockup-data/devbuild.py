@@ -321,6 +321,19 @@ for L,tag in ((threats,'T'),(allies,'A'),(collx,'C')):
             ins.setdefault(j,[]).extend(new)
         out=list(ins.get(-1,[]))
         for j,x in enumerate(st): out+=fx.get(j,[x])+ins.get(j,[])
+        for anc,before in z.get('move',[]):   # a step that the splits left out of story order goes right before another
+            j=next((j for j,x in enumerate(out) if x[:2]==anc),None); k=next((k for k,x in enumerate(out) if x[:2]==before),None)
+            if j is None or k is None: print('appear: no move anchor',i,(anc if j is None else before)[0][:60]); continue
+            x=out.pop(j); out.insert(k-(j<k),x)
+        for p in z.get('post',[]):   # the flagged-step pass, keyed to the steps as the sweep leaves them: swap one step, or put steps after one
+            if 'old' in p:
+                j=next((j for j,x in enumerate(out) if x==p['old']),None)
+                if j is None: print('appear: no post step',i,p['old'][0][:60]); continue
+                out[j:j+1]=p['new']
+            else:
+                j=-1 if p['after'] is None else next((j for j,x in enumerate(out) if x[:2]==p['after']),None)
+                if j is None: print('appear: no post anchor',i,p['after'][0][:60]); continue
+                out[j+1:j+1]=p['new']
         o['st']=out
         for k,v in z.get('set',{}).items():
             if v is None: o.pop(k,None)
