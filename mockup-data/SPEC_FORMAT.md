@@ -21,7 +21,7 @@ Output: a JSON array written to the file named in your task. One object per spec
   "Extinct" (wiped out, as far as the story shows; a later title can change it).
   home: their home world, realm or base as known at that point ("Hala", "Jotunheim", "Talokan", "Skrullos", "Nowhere" if they have none).
   One step per title unless the status or home changes inside it; multi-season shows one step per season at most, starting "In season N,".
-  1 to 6 steps.
+  EVERY title the subject is on screen in gets a step (one per title, one per season of a show that runs several), with no cap on how many: the owner wants each file complete (appearance sweep, October 2026).
 
 Who counts: every non-human species or people with a role on screen: aliens (Kree, Skrulls, Chitauri, Flora colossus, Sovereign, Kronans,
 Xandarians, Zehoberei, Luphomoids, Celestials, Eternals and Deviants...), other realms' peoples (Frost Giants, Dark Elves, Asgardians, Fire

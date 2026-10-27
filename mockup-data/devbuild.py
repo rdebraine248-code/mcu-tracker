@@ -338,6 +338,26 @@ for L,tag in ((threats,'T'),(allies,'A'),(collx,'C')):
         for k,v in z.get('set',{}).items():
             if v is None: o.pop(k,None)
             else: o[k]=v
+# one person filed on two tabs becomes one file, on the tab where they're a main character (owner, October 2026): the steps of both in the
+# given story order, the other file's opposers joined in, its id sent on to the kept one for saved marks and every reference
+for z in _ap.get('merge',[]):
+    L={'T':threats,'A':allies,'C':collx}[z['tag']]
+    a=next((o for o in L if o['id']==z['from']),None); b=next((o for o in L if o['id']==z['into']),None)
+    if a is None or b is None: print('appear: no merge file',z['from'],z['into']); continue
+    pool=[list(x) for x in b['st']+a['st']]; st=[]
+    for anc in z['order']:
+        j=next((j for j,x in enumerate(pool) if x[:2]==anc),None)
+        if j is None: print('appear: merge step missing',z['into'],anc[0][:60]); continue
+        st.append(pool.pop(j))
+    if pool: print('appear: merge left steps out',z['into'],[x[0][:40] for x in pool])
+    b['st']=st+pool
+    for k,v in z.get('set',{}).items(): b[k]=v
+    L.remove(a); _im[z['from']]=z['into']
+    for L2 in (threats,allies,collx):
+        for o in L2:
+            if isinstance(o.get('opp'),list):
+                seen=set(); o['opp']=[r for r in ([z['into'] if r[0]==z['from'] else r[0]]+list(r[1:]) for r in o['opp']) if not (r[0] in seen or seen.add(r[0]))]
+            if o.get('rf')==z['from']: o['rf']=z['into']
 # villains carry the factions they serve, staged by title like a hero's team (raft_teams.json, keyed to the final ids; the memberships and
 # their sources are in raft_teams_src.json)
 _rt=load('raft_teams.json',None)

@@ -34,7 +34,7 @@ Output: a JSON array written to the file named in your task. One object per obje
   is out, never a hidden identity), or a group ("S.H.I.E.L.D.", "HYDRA", "The TVA"), or "Nobody".
   ONE STEP PER TITLE: a title gets a second step only when the status or the holder changes inside it. A title that runs several seasons
   (Agents of S.H.I.E.L.D., What If...?, Agent Carter...) may have one step per season, each sentence starting "In season N,".
-  2 to 8 steps for major objects, 1 to 3 for minor ones.
+  EVERY title the subject is on screen in gets a step (one per title, one per season of a show that runs several), with no cap on how many: the owner wants each file complete (appearance sweep, October 2026).
 
 Who counts: every named or clearly identifiable object with a role in a title: the Infinity Stones and gauntlets; signature weapons (Mjolnir,
 Hawkeye's bow, Black Widow's batons, the Ten Rings, Killmonger's...); suits and armor (one file per character's line of suits, e.g. "Iron Man's

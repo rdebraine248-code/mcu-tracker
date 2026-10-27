@@ -29,8 +29,8 @@ Output: a JSON array written to the file named in your task. One object per pers
   Search every fc_*_out2.json, pass3_patch.json and cameo_*.json for it.
 - cam: 1 if every appearance of this person is a cameo (on screen briefly, outside their own story); omit otherwise.
 - st: the service record. Each step: [one sentence, exact title, status]. Titles must be exact strings from alltitles.json. Order by the character's
-  own story (in-universe). One sentence each, max ~130 characters, only facts from that title. 2 to 8 steps for major heroes (merge minor appearances),
-  1 to 3 for minor ones. The status is where they stand at the END of what that step describes:
+  own story (in-universe). One sentence each, max ~130 characters, only facts from that title. EVERY title the subject is on screen in gets a step (one per title, one per season of a show that runs several), with no cap on how many: the owner wants each file complete (appearance sweep, October 2026).
+  The status is where they stand at the END of what that step describes:
   "Active" (in the field, working, on the team), "Off-world" (in space or another realm, alive), "Retired" (stepped away, at peace),
   "Fugitive" (wanted by the authorities, e.g. Cap's team after Civil War), "Imprisoned" (held: the Raft, a cell, a captive), "Missing" (vanished, e.g.
   dusted in the Blip until Endgame, lost in the Quantum Realm, presumed dead), "Deceased".
