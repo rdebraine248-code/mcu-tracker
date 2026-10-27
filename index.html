@@ -6108,7 +6108,7 @@ function fury(h) {
   setTimeout(() => { box.remove(); found("fury"); }, last + 100);   // the Agent File news rides on the line   // the line waits until the last card has left
 }
 
-/* ---------- S.H.I.E.L.D.: Level 7. Swipe the stripes, swipe your Agent ID through the reader, and after Agents of S.H.I.E.L.D. S1 the blast doors part on the Level 7 files */
+/* ---------- S.H.I.E.L.D.: Level 7. Swipe the stripes, swipe your Agent ID through the reader, and once any of the three files is on your watch the blast doors part on the Level 7 files */
 let kc = null;
 panel.addEventListener("pointerdown", ev => { kc = null; if (!openEntry || openEntry.id !== SHIELD_BOX) return; const st = panel.firstElementChild; if (!st) return;
   const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 20 || ev.clientY > r.bottom + 40) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
@@ -6121,12 +6121,13 @@ panel.addEventListener("pointerup", ev => { kcRead(ev); kc = null; }, true);
 panel.addEventListener("pointercancel", () => { kc = null; }, true);
 
 // what's filed at Level 7: each file opens once you've watched the title that puts it on record, and its lines follow their own titles
+const kOpen = k => atlSeenT(k.t);   // each file is tied to one title: Pegasus to Captain Marvel, the Initiative to The Avengers, T.A.H.I.T.I. to Agents of S.H.I.E.L.D. S1
 const KFILES = [
   { id: "pegasus", n: "Project Pegasus", t: "Captain Marvel", rows: [["Subject", "The Tesseract"], ["Held by", "Project Pegasus, then S.H.I.E.L.D."], ["Status", "Facility destroyed"]],
     p: [["In 1995, at Project Pegasus, Dr. Wendy Lawson uses the Tesseract to build a light-speed engine, and hides both in a lab in orbit.", "Captain Marvel"],
       ["After Carol Danvers comes home, the Tesseract passes to Nick Fury and S.H.I.E.L.D.", "Captain Marvel"],
       ["Years later, Dr. Erik Selvig studies it for S.H.I.E.L.D. until Loki comes through it, and the facility collapses.", "The Avengers"]] },
-  { id: "initiative", n: "The Avengers Initiative", t: "Captain Marvel", rows: [["Subject", "A team of remarkable people"], ["Proposed by", "Nick Fury"], ["Status", "Active"]],
+  { id: "initiative", n: "The Avengers Initiative", t: "The Avengers", rows: [["Subject", "A team of remarkable people"], ["Proposed by", "Nick Fury"], ["Status", "Active"]],
     p: [["In 1995, Fury drafts a plan to find more heroes like Carol Danvers, and names it after her call sign: Avenger.", "Captain Marvel"],
       ["Fury visits Tony Stark at his home to talk to him about the Avengers Initiative.", "Iron Man"],
       ["A S.H.I.E.L.D. assessment recommends Iron Man for the Initiative but not Tony Stark, who is offered a role as a consultant.", "Iron Man 2"],
@@ -6135,7 +6136,7 @@ const KFILES = [
     p: [["After his death aboard the Helicarrier, Director Fury orders Agent Coulson brought back.", "Agents of S.H.I.E.L.D. S1"],
       ["The procedure works. His memories of it are replaced with a few weeks of rest on a beach.", "Agents of S.H.I.E.L.D. S1"]], q: "Tahiti. It's a magical place." }];
 function kidx(f) {
-  f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => k.p.some(([, t]) => atlSeenT(t))
+  f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => kOpen(k)
       ? `<button type="button" class="kx-r" data-kf="${k.id}"><b>${esc(k.n)}</b><em>${esc(k.rows[0][1])}</em><i aria-hidden="true">&#8250;</i></button>`
       : `<div class="kx-r lk"><b><span class="sl-cl">[ Classified ]</span></b><em>Not on your watch yet</em></div>`).join("")}</div><span class="cl">Tap outside to close</span>`;
   f.onclick = ev => { const b = ev.target.closest("[data-kf]"); if (b) { haptic(10); kfile(f, KFILES.find(k => k.id === b.dataset.kf)); } };
@@ -6194,7 +6195,7 @@ function keycard() {
     later(type, 380);
   }
   function verdict() {
-    const cleared = atlSeenT("Agents of S.H.I.E.L.D. S1");   // Level 7 is Coulson's clearance, on record from Agents of S.H.I.E.L.D. S1
+    const cleared = KFILES.some(kOpen);   // cleared once any one of the files is yours to read
     if (!cleared) {   // before that, the reader turns you away and hands the card back
       led.className = "kr-led red"; kr.classList.add("no"); scr.classList.add("no"); haptic(40);
       scr.innerHTML = `NOT CLEARED FOR LEVEL 7<span class="big">ACCESS DENIED</span>CARD RETURNED`;
@@ -6665,7 +6666,7 @@ const EGGS = [
   ["herbie", "H.E.R.B.I.E.", "The family's helper.", "In The Fantastic Four's profile, tap H.E.R.B.I.E.", 2],
   ["battle", "The Battle of New York", "Something is coming through the sky over Midtown.", "In the Atlas, open New York and hold Midtown.", 1],
   ["fury", "They were in his jacket", "Fury knows how to rally a team.", "Swipe down with two fingers in the Nick Fury box (on a computer, hold the name).", 1],
-  ["level7", "Level 7", "Swipe your clearance.", "After Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1],
+  ["level7", "Level 7", "Swipe your clearance.", "Once you've watched Captain Marvel, The Avengers or Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1],
   ["hydra", "Hail Hydra", "Not everyone in S.H.I.E.L.D. is S.H.I.E.L.D.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
   ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
   ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
