@@ -329,7 +329,11 @@ for L,tag in ((threats,'T'),(allies,'A'),(collx,'C')):
             if 'old' in p:
                 j=next((j for j,x in enumerate(out) if x==p['old']),None)
                 if j is None: print('appear: no post step',i,p['old'][0][:60]); continue
-                out[j:j+1]=p['new']
+                if 'before' in p:   # a step moved, unchanged, right before another
+                    x=out.pop(j); k=next((k for k,y in enumerate(out) if y==p['before']),None)
+                    if k is None: out.insert(j,x); print('appear: no post anchor',i,p['before'][0][:60]); continue
+                    out.insert(k,x)
+                else: out[j:j+1]=p['new']
             else:
                 j=-1 if p['after'] is None else next((j for j,x in enumerate(out) if x[:2]==p['after']),None)
                 if j is None: print('appear: no post anchor',i,p['after'][0][:60]); continue
