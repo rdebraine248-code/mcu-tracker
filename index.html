@@ -1283,6 +1283,8 @@ body{ padding-bottom:var(--dockh); }
 .cm-quiet{ margin:30px 0; font:13px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#6F84A6; }
 
 .list li.rin{ animation:rowin .55s cubic-bezier(.2,.7,.2,1) .12s both; }
+/* a character box opened for the first time: its list waits while the line plays, then comes in under the quote */
+.pin.lhold .list, .pin.lhold #pDone{ visibility:hidden; }
 @keyframes rowin{ from{ opacity:0; transform:translateY(-8px); clip-path:inset(0 0 100% 0); } to{ opacity:1; transform:none; clip-path:inset(0 0 0 0); } }
 .lnext{ opacity:.75; }
 /* the dock's pages share one header: the page's name in the title's style, its tabs as pills under it, and nothing else. The dock is the way out, so
@@ -1651,7 +1653,16 @@ function blPage() {
     if (bl !== b) return; blStop();
     const q = b.settle && openEntry && openEntry.id === e.id && panel.querySelector(".pquote");
     if (q) { q.style.transition = "opacity .6s ease-out"; q.classList.remove("pending"); }
+    listLet(e);
   }, ms));
+}
+// the list held back on a box's first open comes in once the quote has taken its place under the name, row by row, as a new row always does
+function listLet(e) {
+  if (listHold !== e.id) return; listHold = null;
+  const pin = openEntry && openEntry.id === e.id && panel.querySelector(".pin.lhold"); if (!pin) return;
+  pin.classList.remove("lhold"); if (REDUCED) return;
+  [...pin.querySelectorAll(".list > li, #pDone > *")].forEach((el, i) => el.animate([{ opacity: 0, transform: "translateY(-8px)", clipPath: "inset(0 0 100% 0)" }, { opacity: 1, transform: "none", clipPath: "inset(0 0 0 0)" }],
+    { duration: 550, delay: 400 + Math.min(i, 8) * 70, easing: "cubic-bezier(.2,.7,.2,1)", fill: "backwards" }));
 }
 // opening a box while its line plays on the tile: the card goes, the clock keeps running, and when it's up the line fades into its place under the name
 function blCarry(e) {
@@ -2285,7 +2296,7 @@ function renderAll() { renderMeter(); renderView(); if (openEntry) renderPanel(o
 
 /* ---------- full-screen list ---------- */
 const panel = document.getElementById("panel");
-let openEntry = null, openFrom = null, openKind = null, closeTimer = null, closeDone = null, pqHoldUntil = 0;
+let openEntry = null, openFrom = null, openKind = null, closeTimer = null, closeDone = null, pqHoldUntil = 0, listHold = null;
 const CHECK = c => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="square"/></svg>`;
 function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
@@ -2333,7 +2344,7 @@ function renderPanel(e, fresh) {
   // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap, Fury's swipe): the page itself mustn't zoom under the fingers
   panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders", FURY_BOX].includes(e.id) ? "pan-y" : "";
   panel.innerHTML = `${panelDecor(e)}${openKind === "char" ? wmHTML(e) : ""}
-    <div class="pin">
+    <div class="pin${listHold === e.id ? " lhold" : ""}">
       <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}${(openKind === "char" || openKind === "chapter") && DOSSIERS[e.id] ? `<button type="button" class="dbtn" id="btnDossier" style="color:${fg}">${openKind === "char" ? "Profile" : "Log"}</button>` : ""}</div>
       <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
@@ -2415,7 +2426,7 @@ function openPanel(e, kind, fromEl) {
   }));
 }
 function closePanel() {
-  if (!openEntry) return; blStop(); rcClear();
+  if (!openEntry) return; blStop(); rcClear(); listHold = null;
   if (charging) charging.release(); if (soulPending) { soulPending.stop(); soulPending = null; }
   if (gest) { const g = gest; gest = null; if (g.k === "loki") lokiSlip(g); else if (g.k === "doodle") { g.len = 0; doodleEnd(g); } else if (g.k === "tb" && !g.done) tbClear(g, 0); }
   const from = document.querySelector(`.tile[data-id="${CSS.escape(openEntry.id)}"]`) || openFrom;
@@ -2511,7 +2522,7 @@ function activate(el) {
     return;
   }
   const firstOpen = kind === "char" && CHAR_QUOTES[e.title] && !(state.seen || {})[e.id];
-  if (firstOpen) pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + BL_MS + 500;
+  if (firstOpen) { pqHoldUntil = Date.now() + (REDUCED ? 0 : 380) + BL_MS + 500; listHold = e.id; setTimeout(() => listLet(e), (REDUCED ? 0 : 380) + BL_MS + 900); }   // the list waits for the line (and comes anyway if the line is cut short)
   openPanel(e, kind, el);
   if (firstOpen) {
     if (!charNamed(e)) charMeeting.add(e.id); state.seen = state.seen || {}; state.seen[e.id] = true; persist();
