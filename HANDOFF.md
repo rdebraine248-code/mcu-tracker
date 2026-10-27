@@ -120,6 +120,17 @@ insignia celebration covers the page.
 - **`raft_teams.json`: every villain's factions**, id to staged `tm`, read by `devbuild.py` after the ABC move (final ids). Group files
   carry their own name. To change a villain's factions, edit its entry: stages in story order, each keyed to the title that shows it,
   the last one where they stand at the end of the file.
+- **`appear_fix.json`: the appearance sweep's changes** (October 2026), keyed to the final ids and applied after the ABC move, before
+  `raft_teams.json`. Per file under `T`, `A` or `C`:
+  - `ins`: `[anchor, [steps]]` puts steps right after an anchor step (`[sentence, title]`; null puts them first).
+  - `fix`: `[old, [new steps]]` swaps one step for others.
+  - `move`: `[step, before]` puts a step right before another.
+  - `post`: `{old, new}`, `{old, before}` or `{after, new}`, matched against the file as the sweep leaves it.
+  - `set`: replaces fields.
+  - The top-level `merge` list turns one person's two files into one: the other file's steps join in the given story order, its
+    opposers and links follow, and its id goes to `IDMOVE`.
+  - To change a file again, add to its entry here (or to `audit_fix.json`), never to the source files under it. The scripts that wrote
+    it lived in the session's scratchpad and are gone; `appear_sweep.json` holds what they produced.
 - **The audit records:**
   - `audit_findings.json`: the lore audit, F001 to F705, each with its fix, source and status, all settled. `recheck` and `verify` hold
     the two later passes, `lead` the reviewer leads (R1 to R5, decided), `extra` D1 and D2. The 8 entries in `aside` are VisionQuest's.
@@ -129,6 +140,12 @@ insignia celebration covers the page.
     ones are marked with why.
   - `factions_sweep.json`: the completeness sweep (every organization anyone served, with sources), the name map, the hand fixes,
     and `recheck`: the independent pass over all 1,042 claims, with every flag and what changed.
+  - `appear_sweep.json`: the appearance sweep.
+    - `sweep`: each of the 32 chunks' finds (adds, season fixes, stages, flags, unsure, complete).
+    - `recheck`: the independent verdicts on every claim.
+    - `flags`: the verdicts on the flagged steps and leftover gaps.
+    - `overrides`, `flags_override` and `manual`: my rulings and hand fixes.
+    - `owner_calls`: the owner's decisions and the open questions.
   - Log and timeline fixes went straight into `index.html` (DATA, DOSSIERS, SAGA).
 - **Organizations:** `opp/org_*.json`. Villainous groups go to the Raft, heroic ones to the Compound. Group files carry `grp:1`.
 - **Ids:** a prefix says the universe tab: none for MCU, `st-` for street-level (also on the MCU tab), `by-` Beyond, `sv-` Spider-Verse,
@@ -148,7 +165,8 @@ insignia celebration covers the page.
   - Specimens: Thriving, Endangered, Extinct.
 - **Order of the build's merge stages:** cameo patches, stages, allies_zz patches, st- remap, organizations, the Collection, the
   one-step-per-title merge, opposers, name normalization, `audit_fix.json`. Then the last stage moves the ABC shows' files from `by-` to
-  the MCU tab and merges HYDRA, S.H.I.E.L.D., the SSR, the Darkhold and the Kree into one file each, then reads `raft_teams.json`.
+  the MCU tab and merges HYDRA, S.H.I.E.L.D., the SSR, the Darkhold and the Kree into one file each, applies `appear_fix.json`, then
+  reads `raft_teams.json`.
   `IDMOVE` carries saved "seen" marks to the new ids.
 
 ## How the app works (key ideas in index.html)
@@ -230,6 +248,21 @@ insignia celebration covers the page.
 - **Status means real status**, not what the characters believe. A death revealed in a later title goes in that title's step. A villain
   sealed in another realm is In custody.
 - **No visions, dreams or illusions as steps.** Real flashbacks are fine.
+- **Every file is complete:** every title its subject is on screen in gets a step (one per season of a show that runs several), with no
+  cap on how many. The rest of this rule was settled in the appearance sweep, October 2026.
+  - **Counts:**
+    - a brief cameo when they're clearly identifiable;
+    - a cameo tied to the character only outside the screen, by later statements or actors' and writers' posts (owner's call);
+    - someone posing as them, a shapeshifter or a Life Model Decoy, with the step saying who, while their own status stays real;
+    - a new recording filmed for that title (Howard's reels, Steve's school videos).
+  - **Doesn't count:** a mention, a photo or replayed footage from another title. The exception is a mention that changes where they stand
+    (a death revealed), and the step says how.
+  - **Avengers Endgame: Encore**'s new footage stays out for now (owner's call).
+  - **Agents of S.H.I.E.L.D. seasons 6 and 7** go on the Sacred Timeline tab's files whose subject carries on there.
+  - **One person filed on two tabs** becomes one file, on the tab of the show where they're a main character. The 1990s Captain America
+    and Red Skull are on the Spider-Verse tab with their X-Men cartoon steps.
+  - **A person with a hero and a villain file:** neither file starts earlier than it does now, and each covers every title from its start
+    on.
 - **Collection chain of custody:** the holder is who has the object at the end of the step. See `CUSTODY_FORMAT.md`.
 - Keep real team names, and a place's real name even when the story moves around it (Area 55 in Venom: The Last Dance). Revealed names
   stay revealed. Empty states say "No data." Every TV show gets a season subpage.
@@ -264,10 +297,24 @@ These happened in earlier chats. Each cost the owner time.
 10. **Treating stop-hook messages as permission.** They are not; pushes wait for the owner.
 11. **Restarting agents after a usage limit.** When parallel agents stop on a limit, resume them with SendMessage after the reset; their
     work is kept.
+12. **Capping steps, and only checking what's there.** The original briefs said "2 to 8 steps, merge minor appearances", so Maria Hill had
+    no Agents of S.H.I.E.L.D. steps and Jasper Sitwell 2 of his 8 titles. Every audit since had only checked existing steps. Never cap a
+    file. A completeness check compares each file with its subject's real appearances.
+13. **Letting rulings drift between agents.** Re-checkers ruled differently on Agents of S.H.I.E.L.D. seasons 6 and 7 and on Life Model
+    Decoys. When a convention comes up, write it into every brief at once and override the stray verdicts.
 
 ## Open items
 
-- Nothing is waiting on the owner. No mockups are pending.
+- **Owner calls still open from the appearance sweep** (also in `appear_sweep.json`, `owner_calls`):
+  - Deadpool & Wolverine's Void variants played by new actors (Azazel, Toad, Callisto, Lady Deathstrike, the Omegas) sit inside the
+    original characters' files, while the Void's Juggernaut and Blob have their own. Split them out?
+  - Mostly footage with a new line (Jameson in Venom: Let There Be Carnage).
+  - Memory or real past scene: Muse in Daredevil: Born Again S2, and the Spectacular Uncle Ben in "Intervention".
+  - Simmons posing as Peggy in Agents of S.H.I.E.L.D. S7's diverged timeline.
+  - The X-Men '97 showrunner's post that the animated Jean of seasons 4 and 5 was Madelyne. The files keep Jean.
+- **A small gap:** She-Hulk episode 8 reveals the Sokovia Accords were repealed (the Accords' file has no step for it). Revisit Encore
+  once Doomsday is out.
+- No mockups are pending.
 - Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once they're
   out and watched.
 - Decided and closed: Ant-Man and the Wasp stays out of the S.H.I.E.L.D. box; Bucky's hero file keeps HYDRA; Gamora and Nebula keep the
@@ -293,6 +340,15 @@ These happened in earlier chats. Each cost the owner time.
 - **Re-check, Sort, scroll** (`310650e`): the independent re-check's corrections, the Sort switch, indexes opening at the top.
 - **Last consistency fixes** (`6bfecfc`): Raimi's Otto never worked for Oscorp, Vision's hero file notes S.W.O.R.D., Heather Glenn
   leaves Fisk's administration when Fisk falls.
+- **Maria Hill** (`b1f7739`): her Agents of S.H.I.E.L.D. seasons and Soren posing as her in Far From Home.
+- **The Sacred Timeline tab** (`5c1ca98`), and **tab names and the Incursions hold** (`e74de76`): the indexes' first tab renamed; Extra
+  tabs named like the timeline's; holding the Incursions line marks them all.
+- **The appearance sweep** (awaiting the owner's go-ahead for main):
+  - All 2,132 files were checked against their subjects' on-screen appearances, in 32 chunks, each re-checked by a separate agent.
+  - Steps went from 4,782 to 5,421 across 490 files, and 297 steps were given their seasons.
+  - 66 flagged existing steps were settled against sources.
+  - Captain America and the Red Skull (1990s cartoons) were merged into one file each.
+  - The step caps came out of the format briefs.
 
 ## Earlier rounds, all on main
 
