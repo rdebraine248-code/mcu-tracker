@@ -370,6 +370,18 @@ if _rt:
     for k,v in _rt.items():
         if k in _byt: _byt[k]['tm']=v
         else: print('raft factions: no file',k)
+# names and aliases (owner's rule, October 2026): a person's file is titled by their real name, the same on their hero and villain file, and
+# carries every other name said on screen, each staged to the title that first says it (names_fix.json, keyed to the final ids; the sweep
+# and its re-check are in names_sweep.json)
+_nf=load('names_fix.json',{})
+for L,tag in ((threats,'T'),(allies,'A')):
+    _byn={o['id']:o for o in L}
+    for i,z in _nf.get(tag,{}).items():
+        o=_byn.get(i)
+        if o is None: print('names: no file',tag,i); continue
+        for k,v in z.items():
+            if v is None: o.pop(k,None)
+            else: o[k]=v
 if '/*IDMOVE*/' in s: put('IDMOVE',_im)
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
