@@ -10944,9 +10944,16 @@ document.getElementById("fileView").addEventListener("click", ev => {
 EGGS.push(["level7", "Level 7", "Swipe your clearance.", "In the S.H.I.E.L.D. box, swipe across the hazard stripes at the top, like a keycard.", 1]);
 let kc = null;
 panel.addEventListener("pointerdown", ev => { kc = null; if (!openEntry || openEntry.id !== SHIELD_BOX) return; const st = panel.firstElementChild; if (!st) return;
-  const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 14 || ev.clientY > r.bottom + 30) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
-panel.addEventListener("pointerup", ev => { const k = kc; kc = null; if (!k || !openEntry || openEntry.id !== SHIELD_BOX) return;
-  if (Math.abs(ev.clientX - k.x) < k.w * .5 || Math.abs(ev.clientY - k.y) > 45) return; keycard(); }, true);
+  const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 20 || ev.clientY > r.bottom + 40) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
+// a phone hands a sideways drag to the browser as a pan and cancels it, so the S.H.I.E.L.D. box only scrolls up and down (like the boxes with
+// two-finger eggs), and the card reads the moment the swipe has crossed half the stripe, without waiting for the finger to lift
+const kcRead = ev => { const k = kc; if (!k || !openEntry || openEntry.id !== SHIELD_BOX) return;
+  if (Math.abs(ev.clientY - k.y) > 60) { kc = null; return; } if (Math.abs(ev.clientX - k.x) >= Math.min(k.w * .45, 170)) { kc = null; keycard(); } };
+panel.addEventListener("pointermove", kcRead, true);
+panel.addEventListener("pointerup", ev => { kcRead(ev); kc = null; }, true);
+panel.addEventListener("pointercancel", () => { kc = null; }, true);
+const _renderPanel = renderPanel;
+renderPanel = function (e, fresh) { _renderPanel(e, fresh); if (e && e.id === SHIELD_BOX) panel.style.touchAction = "pan-y"; };
 function keycard() {
   const st = panel.firstElementChild; if (st) { st.classList.remove("kc-flash"); void st.offsetWidth; st.classList.add("kc-flash"); }
   haptic(HAPTIC && HAPTIC.success || 20); found("level7");
