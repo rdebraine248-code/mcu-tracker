@@ -3970,8 +3970,8 @@ function atlSheet(p, fresh) {   // fresh: the entries that turned up since you l
   return `<div class="atl-sh"><div><h3>${esc(p.n)}</h3><small>${esc(p.r)}</small></div><button type="button" class="atl-x" aria-label="Close">×</button></div>
     ${p.id === "raft" ? `<button type="button" class="atl-raft"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM5.5 2v12M8 2v12M10.5 2v12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></i><span><b>Threat registry</b><small>Every threat on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${p.id === "compound" && ALLIES.length ? `<button type="button" class="atl-raft atl-cpb"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="6.2" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.8 12c.6-1.7 1.8-2.6 3.2-2.6s2.6.9 3.2 2.6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></i><span><b>Personnel files</b><small>Every hero and ally on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
-    ${atlView === "city" && atlCity === "ny" && p.id === "Midtown" && atlSeenT(DC_OPEN) ? `<button type="button" class="atl-dc"><i aria-hidden="true">DC</i><span><b>Damage Control</b><small>Incident reports</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
-    ${p.id === "knowhere" && collKnown() ? `<button type="button" class="atl-coll"><i aria-hidden="true">&#9670;</i><span><b>Visit the Collector</b><small>Taneleer Tivan's archive</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+    ${atlView === "city" && atlCity === "ny" && p.id === "Midtown" ? `<button type="button" class="atl-dc"><i aria-hidden="true">DC</i><span><b>Damage Control</b><small>Incident reports</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+    ${p.id === "knowhere" ? `<button type="button" class="atl-coll"><i aria-hidden="true">&#9670;</i><span><b>Visit the Collector</b><small>Taneleer Tivan's archive</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${spots.length > 2 ? `<div class="atl-chips"><button type="button" class="on" data-chip="">All</button>${spots.map(s => `<button type="button" data-chip="${esc(s)}">${esc(s)}</button>`).join("")}</div>` : ""}
     ${groups.map(([s, L]) => `<div class="atl-grp" data-g="${esc(atlSpot(s))}">${s ? `<div class="atl-sub">${esc(s)}</div>` : ""}${L.map(e => `<div class="atl-ev${fresh.has(p.e.indexOf(e)) ? " nw" : ""}"><b>${e[3] ? esc(e[3]) : tnh(e[0])}${city && e[1] !== atlSpot(e[1]) ? " · " + esc(e[1].slice(atlSpot(e[1]).length + 2)) : ""}</b><p>${esc(e[2])}</p></div>`).join("")}</div>`).join("")}
 `;
@@ -4215,7 +4215,6 @@ document.addEventListener("click", ev => { const b = ev.target.closest("[data-at
 window.addEventListener("resize", () => { const map = document.getElementById("atlMap"); if (atlOpen && map && atlT) { atlT = atlClamp(map, { ...atlT }); atlTs[atlKey()] = atlT; atlQueue(); } });
 
 /* ---------- the Collector: tap Knowhere in the Atlas Cosmos, then visit Taneleer Tivan's archive (the objects themselves are with the Raft's code below) */
-const collKnown = () => ["Thor: The Dark World", "Guardians of the Galaxy", "Avengers: Infinity War"].some(atlSeenT);   // his door shows once you've met him
 let collOpen = false, collRec = null, collY = 0, collMode = "coll", rfUni = "mcu";
 function renderColl() {
   const tb = document.querySelector("#collView .rf-tabs"), sx = tb ? tb.scrollLeft : 0;
@@ -6109,7 +6108,7 @@ function fury(h) {
   setTimeout(() => { box.remove(); found("fury"); }, last + 100);   // the Agent File news rides on the line   // the line waits until the last card has left
 }
 
-/* ---------- S.H.I.E.L.D.: Level 7. Swipe the stripes, swipe your Agent ID through the reader, and after Agents of S.H.I.E.L.D. S1 the blast doors part on the Level 7 files */
+/* ---------- S.H.I.E.L.D.: Level 7. Swipe the stripes, swipe your Agent ID through the reader, and once any of the three files is on your watch the blast doors part on the Level 7 files */
 let kc = null;
 panel.addEventListener("pointerdown", ev => { kc = null; if (!openEntry || openEntry.id !== SHIELD_BOX) return; const st = panel.firstElementChild; if (!st) return;
   const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 20 || ev.clientY > r.bottom + 40) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
@@ -6122,12 +6121,13 @@ panel.addEventListener("pointerup", ev => { kcRead(ev); kc = null; }, true);
 panel.addEventListener("pointercancel", () => { kc = null; }, true);
 
 // what's filed at Level 7: each file opens once you've watched the title that puts it on record, and its lines follow their own titles
+const kOpen = k => atlSeenT(k.t);   // each file is tied to one title: Pegasus to Captain Marvel, the Initiative to The Avengers, T.A.H.I.T.I. to Agents of S.H.I.E.L.D. S1
 const KFILES = [
   { id: "pegasus", n: "Project Pegasus", t: "Captain Marvel", rows: [["Subject", "The Tesseract"], ["Held by", "Project Pegasus, then S.H.I.E.L.D."], ["Status", "Facility destroyed"]],
     p: [["In 1995, at Project Pegasus, Dr. Wendy Lawson uses the Tesseract to build a light-speed engine, and hides both in a lab in orbit.", "Captain Marvel"],
       ["After Carol Danvers comes home, the Tesseract passes to Nick Fury and S.H.I.E.L.D.", "Captain Marvel"],
       ["Years later, Dr. Erik Selvig studies it for S.H.I.E.L.D. until Loki comes through it, and the facility collapses.", "The Avengers"]] },
-  { id: "initiative", n: "The Avengers Initiative", t: "Captain Marvel", rows: [["Subject", "A team of remarkable people"], ["Proposed by", "Nick Fury"], ["Status", "Active"]],
+  { id: "initiative", n: "The Avengers Initiative", t: "The Avengers", rows: [["Subject", "A team of remarkable people"], ["Proposed by", "Nick Fury"], ["Status", "Active"]],
     p: [["In 1995, Fury drafts a plan to find more heroes like Carol Danvers, and names it after her call sign: Avenger.", "Captain Marvel"],
       ["Fury visits Tony Stark at his home to talk to him about the Avengers Initiative.", "Iron Man"],
       ["A S.H.I.E.L.D. assessment recommends Iron Man for the Initiative but not Tony Stark, who is offered a role as a consultant.", "Iron Man 2"],
@@ -6136,7 +6136,7 @@ const KFILES = [
     p: [["After his death aboard the Helicarrier, Director Fury orders Agent Coulson brought back.", "Agents of S.H.I.E.L.D. S1"],
       ["The procedure works. His memories of it are replaced with a few weeks of rest on a beach.", "Agents of S.H.I.E.L.D. S1"]], q: "Tahiti. It's a magical place." }];
 function kidx(f) {
-  f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => k.p.some(([, t]) => atlSeenT(t))
+  f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => kOpen(k)
       ? `<button type="button" class="kx-r" data-kf="${k.id}"><b>${esc(k.n)}</b><em>${esc(k.rows[0][1])}</em><i aria-hidden="true">&#8250;</i></button>`
       : `<div class="kx-r lk"><b><span class="sl-cl">[ Classified ]</span></b><em>Not on your watch yet</em></div>`).join("")}</div><span class="cl">Tap outside to close</span>`;
   f.onclick = ev => { const b = ev.target.closest("[data-kf]"); if (b) { haptic(10); kfile(f, KFILES.find(k => k.id === b.dataset.kf)); } };
@@ -6195,7 +6195,7 @@ function keycard() {
     later(type, 380);
   }
   function verdict() {
-    const cleared = atlSeenT("Agents of S.H.I.E.L.D. S1");   // Level 7 is Coulson's clearance, on record from Agents of S.H.I.E.L.D. S1
+    const cleared = KFILES.some(kOpen);   // cleared once any one of the files is yours to read
     if (!cleared) {   // before that, the reader turns you away and hands the card back
       led.className = "kr-led red"; kr.classList.add("no"); scr.classList.add("no"); haptic(40);
       scr.innerHTML = `NOT CLEARED FOR LEVEL 7<span class="big">ACCESS DENIED</span>CARD RETURNED`;
@@ -6653,9 +6653,9 @@ const EGGS = [
   ["sokovia", "Sokovia", "A city in the sky.", "In the Atlas, hold Sokovia.", 1],
   ["titanmoon", "All that for a drop of blood", "Thanos has a moon to throw.", "In the Atlas Cosmos, hold Titan.", 1],
   ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas Cosmos, tap Knowhere and visit the Collector.", 1],
-  ["compound", "The Avengers Compound", "Upstate, the team keeps a file on everyone.", "After Age of Ultron, in the Atlas, tap the Avengers Compound and open its personnel files.", 1],
-  ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "After Civil War, in the Atlas, tap the Raft and open its threat registry.", 1],
-  ["damagecontrol", "Damage Control", "Someone has to clean up after the heroes.", "After Spider-Man: Homecoming, in the Atlas, open New York, tap Midtown and open the incident reports.", 1],
+  ["compound", "The Avengers Compound", "Upstate, the team keeps a file on everyone.", "In the Atlas, tap the Avengers Compound and open its personnel files.", 1],
+  ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "In the Atlas, tap the Raft and open its threat registry.", 1],
+  ["damagecontrol", "Damage Control", "Someone has to clean up after the heroes.", "In the Atlas, open New York, tap Midtown and open the incident reports.", 1],
   ["jumppoint", "Jump point", "Space is big. Take a shortcut.", "In the Atlas Cosmos, hold an empty patch of space.", 1],
   ["goose", "Not a cat", "Fury's favorite.", "In Captain Marvel's profile, tap Goose.", 1],
   ["decrypt", "Decrypted", "The Kree left something out.", "In Comms, hold the blacked-out words in the Kree intercept.", 1],
@@ -6666,7 +6666,7 @@ const EGGS = [
   ["herbie", "H.E.R.B.I.E.", "The family's helper.", "In The Fantastic Four's profile, tap H.E.R.B.I.E.", 2],
   ["battle", "The Battle of New York", "Something is coming through the sky over Midtown.", "In the Atlas, open New York and hold Midtown.", 1],
   ["fury", "They were in his jacket", "Fury knows how to rally a team.", "Swipe down with two fingers in the Nick Fury box (on a computer, hold the name).", 1],
-  ["level7", "Level 7", "Swipe your clearance.", "After Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1],
+  ["level7", "Level 7", "Swipe your clearance.", "Once you've watched Captain Marvel, The Avengers or Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1],
   ["hydra", "Hail Hydra", "Not everyone in S.H.I.E.L.D. is S.H.I.E.L.D.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
   ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
   ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
@@ -10882,9 +10882,8 @@ document.addEventListener("click", ev => {
 }, true);
 renderAll();
 ["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
-// ---------- Damage Control's incident reports. Found in the Atlas, in New York's Midtown, where Damage Control began (cleaning up after the
-// Battle of New York); a report shows once its title is watched, and each line of fallout once its own title is
-const DC_OPEN = "Spider-Man: Homecoming";
+// ---------- Damage Control's incident reports. Found in the Atlas, in New York's Midtown (where Damage Control began, cleaning up after the
+// Battle of New York) as soon as Midtown is on the map, the way every index opens with its place; a report shows once its title is watched, and each line of fallout once its own title is
 const DC = [
   { id: "dc-lion", no: "DC-1260BC-001", u: "mcu", n: "The Fall of the Lion's Kingdom", yr: -1260, where: "The Lion's Kingdom, a pirate fleet raiding Crete", t: "Eyes of Wakanda", cls: "Rogue agent", cause: "Nkati, the Lion, a former Wakandan agent armed with stolen Wakandan tech, rules a kingdom of pirates like a god and raids the villages of Crete for slaves. Akeya of the Dora Milaje sends Noni to end him.", out: "Noni lets herself be taken in a raid, fights her way through the Lion's pride and beats him in a duel. Swearing he will never go back into a cage, he sets off a blast that destroys his stronghold, and Noni escapes into the sea.", loss: [["Nkati, the Lion, killed in his own blast.", "Eyes of Wakanda"], ["The Lion's stronghold, destroyed.", "Eyes of Wakanda"]], fall: [["Noni turns down a place back in the Dora Milaje and joins the Hatut Zaraze, to hunt down what was taken from Wakanda.", "Eyes of Wakanda"]], who: [["the-lion", "T"], ["noni", "A"], ["akeya", "A"]], tm: [["dora-milaje", "A"]], obj: [] },
   { id: "dc-troy", no: "DC-1200BC-001", u: "mcu", n: "The Fall of Troy", yr: -1200, where: "Troy", t: "Eyes of Wakanda", cls: "Siege", cause: "B'Kai, a Wakandan agent, fights among the Greeks as Memnon to recover Helen's necklace, which hides a piece of Wakanda's vibranium. After their assault on the walls fails, the Greeks slip into the city inside a wooden horse.", out: "The Greeks pour out of the horse and overrun Troy. B'Kai lets Helen and Paris flee in return for the necklace, and when his friend Achilles tries to stop him, B'Kai is forced to kill him.", loss: [["Achilles, killed by B'Kai.", "Eyes of Wakanda"], ["Troy, taken by the Greeks.", "Eyes of Wakanda"]], fall: [["B'Kai brings the necklace home to Wakanda, and an older Noni counsels him over what it cost him.", "Eyes of Wakanda"]], who: [["b-kai", "A"]], tm: [["hatut-zaraze", "A"]], obj: ["helen-necklace", "wakandan-vibranium"] },
