@@ -8,6 +8,7 @@ def cut(a,b):   # from the line holding a through the line holding b
 on='const MOCK = true;'
 assert s.count(on)==1, 'mock switch'
 s=s.replace(on,'const MOCK = false;')
+while 'MOCKUP BEGIN' in s: cut('MOCKUP BEGIN','MOCKUP END')   # the test build's mockup blocks (CSS and script) never reach main
 for bad in ['rfIntakePlay','rfIntakeStop','RF_INTAKE','rfiRun','rfi-','rfd-','rfs-','rfl-','PATHS_MOCK','ARCH_MOCK']:
     assert bad not in s, bad
 open(sys.argv[1],'w',encoding='utf8').write(s); print('ok')

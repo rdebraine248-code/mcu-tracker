@@ -1327,6 +1327,118 @@ body{ padding-bottom:var(--dockh); }
 @keyframes bgcrawl{ to{ transform:translateX(-100%); } }
 .fx-bugle::after{ content:""; position:absolute; inset:0; box-shadow:inset 0 0 0 0 rgba(255,30,50,0); animation:bgsiren 1s ease-in-out infinite; }
 @keyframes bgsiren{ 50%{ box-shadow:inset 0 0 60px 10px rgba(255,30,50,.45); } }
+/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams, the S.H.I.E.L.D. keycard (test build only; mainprep cuts it) */
+/* Damage Control's incident reports: a government form, hazard yellow on slate, every report stamped with its number */
+.collpanel.dcx .maptop h2{ color:#F2C94C; } .collpanel.dcx .maptop h2::before{ color:rgba(242,201,76,.45); }
+.dcx .co-h{ color:#F2C94C; }
+.dc-yr{ display:flex; align-items:center; gap:10px; margin:18px 0 8px; font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#9AA6BA; }
+.dc-yr::after{ content:""; flex:1; height:1px; background:#2A3140; }
+.dc-row{ display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:12px; width:100%; margin:0 0 8px; padding:12px 14px; border:1px solid #2A3140; border-left:4px solid #F2C94C; border-radius:10px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
+.dc-row:active{ transform:scale(.99); }
+.dc-row .no{ font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#F2C94C; }
+.dc-row b{ display:block; font:400 19px/1.1 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
+.dc-row small{ display:block; margin-top:3px; font-size:13px; color:#9AA6BA; }
+.dc-row em{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#C9B27A; text-align:right; max-width:110px; }
+.dc-head{ position:relative; margin:0 0 14px; padding:14px 16px 16px; border:1px solid #3A3420; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(242,201,76,.06) 0 12px,transparent 12px 24px),#11161F; }
+.dc-head small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#F2C94C; }
+.dc-head h3{ margin:6px 0 4px; font:400 30px/1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#FFFFFF; }
+.dc-head p{ margin:0; color:#C7CFDC; }
+.dc-stamp{ position:absolute; right:12px; top:10px; padding:3px 8px; border:2px solid #E5484D; border-radius:4px; color:#E5484D; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; transform:rotate(-6deg); opacity:.85; }
+.dc-p{ margin:0 0 16px; font-size:16px; line-height:1.45; color:#E2E7EF; }
+.dc-list{ margin:0 0 16px; padding:0; list-style:none; }
+.dc-list li{ position:relative; margin:0 0 10px; padding-left:16px; font-size:16px; line-height:1.4; color:#E2E7EF; }
+.dc-list li::before{ content:""; position:absolute; left:0; top:.55em; width:7px; height:7px; background:#F2C94C; transform:rotate(45deg); }
+.dc-list small{ display:block; margin-top:2px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#7F8BA0; }
+.dc-chips{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 16px; }
+.dc-chips button{ padding:7px 12px; border:1px solid #33405A; border-radius:999px; background:#121A2B; color:#DDE6F3; font:15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
+.dc-chips button.v{ border-color:#5B3A3A; background:#1E1416; color:#F1D6D6; } .dc-chips button.o{ border-color:#5A4A22; background:#1C180E; color:#F2E2B3; }
+.dc-chips button:active{ transform:scale(.96); }
+.atl-dc{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #C9A43A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(242,201,76,.10) 0 10px,rgba(242,201,76,.03) 10px 20px); color:#F2D27A; text-align:left; cursor:pointer; }
+.atl-dc i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(242,201,76,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#F2C94C; }
+.atl-dc span{ flex:1; } .atl-dc b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
+.atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#C9B27A; } .atl-dc em{ font-style:normal; font-size:18px; color:#F2C94C; }
+.hf-arch .ar-dc{ --ac:#8C7A3A; --ab:linear-gradient(180deg,rgba(242,201,76,.10),rgba(242,201,76,.03)); --ak:#F2C94C; }
+
+/* the skins: the datapad's own chrome changes, the boxes keep their designs, and the Sacred Timeline stays the TVA's record */
+.mk-skins{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.mk-skin{ position:relative; display:flex; flex-direction:column; gap:6px; padding:10px; border:1px solid #232D42; border-radius:12px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
+.mk-skin.on{ border-color:#8FE0FF; box-shadow:0 0 0 1px rgba(143,224,255,.3); }
+.mk-skin .sw{ height:46px; border-radius:8px; border:1px solid rgba(255,255,255,.08); }
+.mk-skin b{ font:400 16px/1.05 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
+.mk-skin small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
+.mk-skin.lk{ cursor:default; } .mk-skin.lk .sw{ background:repeating-linear-gradient(135deg,#1A2030 0 8px,#141A28 8px 16px) !important; }
+.mk-note{ margin:10px 0 0; font-size:14px; color:#9AA3B2; }
+
+body.th-tva{ --padimg:repeating-linear-gradient(0deg, rgba(255,179,71,.035) 0 1px, transparent 1px 3px), radial-gradient(rgba(255,179,71,.055) 1px, transparent 1.4px), radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.45)), radial-gradient(1100px 600px at 12% -8%, rgba(255,150,40,.16), transparent 62%), radial-gradient(900px 600px at 100% 100%, rgba(200,110,30,.10), transparent 60%); }
+body.th-tva:not([data-mode="timeline"]){ --shell:#120D09; --ink:#F3E6D2; --muted:#C9B79C; --line:#3A2A18; --chip:#1E160F; --chip-ink:#F3E6D2; background-color:#120D09; }
+body.th-tva::before, body.th-tva .filepanel, body.th-tva .mappanel{ background-color:#120D09; }
+body.th-tva .mast h1, body.th-tva .dockpg .maptop h2, body.th-tva .pgtitle{ font-family:'Righteous','Anton',sans-serif; color:#FFB347; letter-spacing:.5px; }
+body.th-tva .mast h1{ font-size:clamp(17px, calc((100vw - 60px) / 15.6), 44px); }
+body.th-tva .mast h1::before, body.th-tva .dockpg .maptop h2::before, body.th-tva .pgtitle::before{ color:rgba(255,150,40,.55); }
+body.th-tva .mast h1::after{ background:linear-gradient(90deg,rgba(255,179,71,.34),rgba(200,102,30,.34)); }
+body.th-tva .saga h3{ font-family:'Righteous','Anton',sans-serif; color:#FFD9A0; letter-spacing:1.5px; }
+body.th-tva .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
+body.th-tva .dock{ background:rgba(22,15,9,.96); border-top-color:#3A2A18; } body.th-tva .dock button{ color:#9C8466; } body.th-tva .dock button[aria-current="page"]{ color:#FFD9A0; }
+body.th-tva .toast.hud{ --hc:#D9822B; } body.th-tva .toast.hud .hclip{ background-color:rgba(23,18,12,.97); } body.th-tva .toast.hud b{ color:#F6E7D4; }
+body.th-tva .hf-head{ border-color:#4A3420; background:linear-gradient(180deg,#22180F,#170F09); } body.th-tva .hf-tag, body.th-tva .hf-sec h3{ color:#E0A35C; }
+body.th-tva .hf-bar{ background:#2A1E12; } body.th-tva .hf-bar span{ background:linear-gradient(90deg,#C8661E,#FFB347); }
+body.th-tva .ach, body.th-tva .rc, body.th-tva .mk-exam, body.th-tva .mk-skin{ background:#1A120B; border-color:#3A2A18; } body.th-tva .mk-skin.on{ border-color:#FFB347; box-shadow:0 0 0 1px rgba(255,179,71,.3); }
+body.th-tva .atl-views button[aria-selected="true"]{ background:#FFB347 !important; color:#120D09 !important; border-color:#FFB347 !important; }
+
+body.th-wak{ --padimg:repeating-linear-gradient(60deg, rgba(166,107,255,.045) 0 1px, transparent 1px 26px), repeating-linear-gradient(-60deg, rgba(166,107,255,.045) 0 1px, transparent 1px 26px), repeating-linear-gradient(0deg, rgba(166,107,255,.03) 0 1px, transparent 1px 22.5px), radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.5)), radial-gradient(1100px 600px at 12% -8%, rgba(150,90,255,.18), transparent 62%), radial-gradient(900px 600px at 100% 100%, rgba(90,60,200,.12), transparent 60%);
+  --padsize:auto, auto, auto, auto, auto, auto; }
+body.th-wak:not([data-mode="timeline"]){ --shell:#0D0A14; --ink:#EEE8F7; --muted:#A99BBF; --line:#2E2442; --chip:#181226; --chip-ink:#EEE8F7; background-color:#0D0A14; }
+body.th-wak::before, body.th-wak .filepanel, body.th-wak .mappanel{ background-color:#0D0A14; }
+body.th-wak:not([data-mode="timeline"])::before{ background-size:var(--padsize); }
+body.th-wak .mast h1, body.th-wak .dockpg .maptop h2, body.th-wak .pgtitle{ font-family:'Rajdhani','Anton',sans-serif; font-weight:700; color:#D9C6FF; letter-spacing:2px; }
+body.th-wak .mast h1{ font-size:clamp(17px, calc((100vw - 60px) / 15.4), 46px); letter-spacing:1.5px; }
+body.th-wak .mast h1::before, body.th-wak .dockpg .maptop h2::before, body.th-wak .pgtitle::before{ color:rgba(166,107,255,.6); }
+body.th-wak .mast h1::after{ background:linear-gradient(90deg,#3B1E78,#A66BFF 50%,#3B1E78); box-shadow:0 0 10px rgba(166,107,255,.35); }
+body.th-wak .saga h3{ font-family:'Rajdhani','Anton',sans-serif; font-weight:700; letter-spacing:4px; color:#E6DAFF; }
+body.th-wak .modes button{ border-radius:4px; clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%); padding-left:22px; padding-right:22px; }
+body.th-wak .modes button[aria-pressed="true"]{ background:#A66BFF; color:#0D0A14; border-color:#A66BFF; }
+body.th-wak .dock{ background:rgba(14,10,22,.96); border-top-color:#2E2442; box-shadow:0 -1px 0 rgba(166,107,255,.25); } body.th-wak .dock button{ color:#8A7AA6; } body.th-wak .dock button[aria-current="page"]{ color:#E6DAFF; }
+body.th-wak .toast.hud{ --hc:#A66BFF; } body.th-wak .toast.hud .hclip{ background-color:rgba(16,11,26,.97); }
+body.th-wak .hf-head{ border-color:#3A2B57; background:linear-gradient(180deg,#1A1229,#110B1C); } body.th-wak .hf-tag, body.th-wak .hf-sec h3{ color:#B79CFF; }
+body.th-wak .hf-bar{ background:#1E1730; } body.th-wak .hf-bar span{ background:linear-gradient(90deg,#5B2DB8,#C9A7FF); }
+body.th-wak .ach, body.th-wak .rc, body.th-wak .mk-exam, body.th-wak .mk-skin{ background:#140F20; border-color:#2E2442; } body.th-wak .mk-skin.on{ border-color:#A66BFF; box-shadow:0 0 0 1px rgba(166,107,255,.35); }
+body.th-wak .atl-views button[aria-selected="true"]{ background:#A66BFF !important; color:#0D0A14 !important; border-color:#A66BFF !important; }
+
+/* clearance exams: in the Agent File, one per chapter once it's complete; five questions from what you've watched in it */
+.mk-exams{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; }
+.mk-exam{ position:relative; display:flex; flex-direction:column; gap:4px; min-height:74px; padding:10px 11px; border:1px solid #232D42; border-radius:10px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
+.mk-exam small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
+.mk-exam b{ font:500 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.mk-exam em{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#8FE0FF; }
+.mk-exam.ok em{ color:#5BD18B; } .mk-exam.lk{ opacity:.55; cursor:default; } .mk-exam.lk em{ color:#6F7A90; }
+#mkExam{ position:fixed; inset:0; z-index:95; display:flex; flex-direction:column; background-color:#0B1019; background-image:var(--padimg); background-size:var(--padsize); color:#EEF1F6; overflow-y:auto; overscroll-behavior:contain; }
+#mkExam[hidden]{ display:none; }
+.mx-in{ width:100%; max-width:620px; margin:0 auto; padding:calc(22px + env(safe-area-inset-top,0px)) 20px 40px; }
+.mx-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.mx-top small{ font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6D8; }
+.mx-x{ border:1px solid #2A3140; border-radius:999px; background:#121A2A; color:#C9D3E3; padding:6px 12px; font:12px 'Share Tech Mono',monospace; letter-spacing:1.5px; cursor:pointer; }
+.mx-in h2{ margin:10px 0 4px; font:400 30px/1.05 'Anton','Impact',sans-serif; text-transform:uppercase; letter-spacing:.5px; }
+.mx-dots{ display:flex; gap:6px; margin:12px 0 22px; } .mx-dots i{ flex:1; height:4px; border-radius:2px; background:#1E2638; } .mx-dots i.on{ background:#8FE0FF; } .mx-dots i.ok{ background:#5BD18B; } .mx-dots i.no{ background:#E5484D; }
+.mx-q{ margin:0 0 16px; font-size:21px; line-height:1.35; }
+.mx-opts{ display:grid; gap:8px; }
+.mx-opts button{ padding:14px 16px; border:1px solid #2A3550; border-radius:12px; background:#101828; color:#EEF1F6; font:17px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; text-align:left; cursor:pointer; touch-action:manipulation; }
+.mx-opts button.ok{ border-color:#5BD18B; background:#0F2A1C; } .mx-opts button.no{ border-color:#E5484D; background:#2A1215; } .mx-opts button:disabled{ cursor:default; }
+.mx-next{ display:block; width:100%; margin-top:16px; padding:13px; border:0; border-radius:999px; background:#EEF1F6; color:#0B1019; font:600 16px 'IBM Plex Sans Condensed',sans-serif; cursor:pointer; }
+.mx-res{ text-align:center; padding-top:30px; } .mx-res .sc{ font:400 64px/1 'Anton','Impact',sans-serif; } .mx-res p{ color:#9AA3B2; font-size:16px; }
+.mx-stamp{ display:inline-block; margin:18px 0 6px; padding:6px 14px; border:3px solid #5BD18B; border-radius:6px; color:#5BD18B; font:20px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:4px; transform:rotate(-5deg); }
+.mx-stamp.no{ border-color:#E5484D; color:#E5484D; }
+
+/* the S.H.I.E.L.D. keycard: swipe the hazard stripes and the box reads it like a card reader */
+.kc-flash{ animation:kcFlash 1.1s ease-out; } @keyframes kcFlash{ 0%{ filter:none; } 20%{ filter:brightness(1.6) hue-rotate(80deg) saturate(3); } 100%{ filter:none; } }
+#mkKey{ position:fixed; inset:0; z-index:96; display:grid; place-items:center; background:rgba(5,8,12,.72); }
+#mkKey[hidden]{ display:none; }
+.kc-card{ width:min(88vw,380px); padding:18px 18px 16px; border:2px solid #0B0F13; border-radius:6px; background:#D9DEE3; color:#0B0F13; box-shadow:0 18px 40px rgba(0,0,0,.6); font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.kc-card .st{ height:8px; margin:-18px -18px 14px; background:repeating-linear-gradient(135deg,#0B0F13 0 10px,#8E99A4 10px 20px); }
+.kc-card small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; }
+.kc-card .ok{ color:#11804A; } .kc-card h4{ margin:6px 0 10px; font:700 24px/1.05 'Chakra Petch',sans-serif; text-transform:uppercase; letter-spacing:1px; }
+.kc-card p{ margin:0 0 8px; font-size:15px; line-height:1.4; } .kc-card .rd{ display:inline-block; height:.9em; vertical-align:-1px; background:#0B0F13; border-radius:1px; }
+.kc-card q{ display:block; margin-top:10px; font-style:italic; font-size:18px; }
+/* MOCKUP END */
 </style>
 </head>
 <body>
@@ -10652,6 +10764,201 @@ document.addEventListener("click", ev => {
 }, true);
 renderAll();
 ["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
+/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams, the S.H.I.E.L.D. keycard (test build only; mainprep cuts it) */
+if (MOCK) {
+// ---------- Damage Control's incident reports. Found in the Atlas, in New York's Midtown, where Damage Control began (cleaning up after the
+// Battle of New York); a report shows once its title is watched, and each line of fallout once its own title is
+const DC_OPEN = "Spider-Man: Homecoming";
+const DC = [
+  { id: "dc-bny", no: "DC-2012-001", n: "The Battle of New York", yr: 2012, where: "Midtown Manhattan, New York", t: "The Avengers", cls: "Extraterrestrial invasion",
+    cause: "Loki uses the Tesseract to open a portal above Stark Tower and leads a Chitauri army through it.",
+    out: "The Avengers hold Midtown. Tony Stark flies the World Security Council's nuclear missile through the portal into the Chitauri mothership, the army collapses, and Natasha Romanoff closes the portal with Loki's scepter. Loki is taken into custody.",
+    loss: [["Phil Coulson, killed by Loki aboard the Helicarrier before the battle.", "The Avengers"], ["Coulson's death is later undone by Project T.A.H.I.T.I.", "Agents of S.H.I.E.L.D. S1"], ["Civilian casualties: not on record.", "The Avengers"]],
+    fall: [["Damage Control takes over the cleanup and shuts out Adrian Toomes's salvage crew. Toomes keeps the Chitauri tech he has already taken.", "Spider-Man: Homecoming"],
+      ["Tony Stark suffers anxiety attacks over what he saw through the portal.", "Iron Man 3"],
+      ["In 2023, a team of Avengers travels back to the battle for the scepter and the Tesseract. They take the scepter, and the 2012 Loki escapes with the Tesseract.", "Avengers: Endgame"]],
+    who: [["loki", "T"], ["chitauri", "T"], ["steve-rogers", "A"], ["tony-stark", "A"], ["thor", "A"], ["bruce-banner", "A"], ["natasha-romanoff", "A"], ["clint-barton", "A"], ["nick-fury", "A"], ["phil-coulson", "A"]],
+    obj: ["tesseract", "scepter", "chitauri-tech", "helicarrier"] },
+  { id: "dc-dc", no: "DC-2014-001", n: "The Fall of S.H.I.E.L.D.", yr: 2014, where: "The Triskelion, Washington, D.C.", t: "Captain America: The Winter Soldier", cls: "Insurrection",
+    cause: "HYDRA, hidden inside S.H.I.E.L.D. since its founding, moves to launch Project Insight: three Helicarriers that will kill millions of people it has flagged as threats.",
+    out: "Steve Rogers, Sam Wilson and Maria Hill swap the Helicarriers' targeting blades, and the carriers fire on each other and fall into the Potomac and the Triskelion. Nick Fury kills Alexander Pierce, and Natasha Romanoff releases S.H.I.E.L.D.'s and HYDRA's secrets to the world.",
+    loss: [["Alexander Pierce, killed by Nick Fury.", "Captain America: The Winter Soldier"], ["Jasper Sitwell, killed by the Winter Soldier on the highway.", "Captain America: The Winter Soldier"], ["The Triskelion, wrecked by a falling Helicarrier.", "Captain America: The Winter Soldier"]],
+    fall: [["Steve and Sam set out to find Bucky Barnes.", "Captain America: The Winter Soldier"],
+      ["S.H.I.E.L.D. falls apart, and Fury makes Phil Coulson director to rebuild it in secret.", "Agents of S.H.I.E.L.D. S1"]],
+    who: [["alexander-pierce", "T"], ["winter-soldier", "T"], ["brock-rumlow", "T"], ["jasper-sitwell", "T"], ["hydra", "T"], ["steve-rogers", "A"], ["natasha-romanoff", "A"], ["sam-wilson", "A"], ["nick-fury", "A"], ["maria-hill", "A"], ["sharon-carter", "A"]],
+    obj: ["insight-helicarriers"] },
+  { id: "dc-sok", no: "DC-2015-001", n: "The Battle of Sokovia", yr: 2015, where: "Novi Grad, Sokovia", t: "Avengers: Age of Ultron", cls: "Rogue artificial intelligence",
+    cause: "Ultron uses a vibranium core to lift Novi Grad into the sky, meaning to drop it on the Earth like a meteor and wipe out humanity.",
+    out: "The Avengers hold off Ultron's sentries while Nick Fury's Helicarrier and its lifeboats take the people off. Thor and Tony Stark overload the core, and the city is blown apart in the air.",
+    loss: [["Pietro Maximoff, killed shielding Clint Barton and a child.", "Avengers: Age of Ultron"], ["Novi Grad, destroyed.", "Avengers: Age of Ultron"]],
+    fall: [["Charles Spencer, a young American volunteer, is among the dead, and his mother blames Tony Stark.", "Captain America: Civil War"],
+      ["The Sokovia Accords are drafted to put the Avengers under the United Nations.", "Captain America: Civil War"],
+      ["Helmut Zemo, whose family died in the battle, sets out to tear the Avengers apart.", "Captain America: Civil War"]],
+    who: [["ultron", "T"], ["steve-rogers", "A"], ["tony-stark", "A"], ["thor", "A"], ["bruce-banner", "A"], ["natasha-romanoff", "A"], ["clint-barton", "A"], ["wanda-maximoff", "A"], ["pietro-maximoff", "A"], ["vision", "A"], ["nick-fury", "A"], ["james-rhodes", "A"]],
+    obj: ["vibranium", "helicarrier"] },
+  { id: "dc-lag", no: "DC-2016-001", n: "The Lagos Incident", yr: 2016, where: "Lagos, Nigeria", t: "Captain America: Civil War", cls: "Terrorist attack",
+    cause: "Brock Rumlow's mercenaries raid the Institute for Infectious Diseases to steal a biological weapon. Cornered by Steve Rogers, Rumlow sets off his suicide vest.",
+    out: "Wanda Maximoff carries the blast up and away from the street, but it explodes beside an office building.",
+    loss: [["Brock Rumlow, killed in his own blast.", "Captain America: Civil War"], ["People inside the building, among them Wakandan relief workers.", "Captain America: Civil War"]],
+    fall: [["The deaths turn the world against the Avengers, and the Sokovia Accords follow.", "Captain America: Civil War"], ["Wanda is kept at the Avengers Compound, watched over by Vision.", "Captain America: Civil War"]],
+    who: [["brock-rumlow", "T"], ["steve-rogers", "A"], ["natasha-romanoff", "A"], ["sam-wilson", "A"], ["wanda-maximoff", "A"]],
+    obj: ["sokovia-accords"] },
+  { id: "dc-vie", no: "DC-2016-002", n: "The Vienna Bombing", yr: 2016, where: "The Vienna International Centre, Vienna", t: "Captain America: Civil War", cls: "Terrorist attack",
+    cause: "A bomb goes off at the United Nations conference where the Sokovia Accords are being ratified.",
+    out: "Security footage points to Bucky Barnes, and T'Challa vows to kill him. The bombing is Helmut Zemo's work: he framed Bucky to draw him out.",
+    loss: [["King T'Chaka of Wakanda, among others.", "Captain America: Civil War"]],
+    fall: [["Bucky is hunted across Europe, and the Avengers split over the Accords.", "Captain America: Civil War"], ["T'Challa takes the throne of Wakanda.", "Black Panther"]],
+    who: [["helmut-zemo", "T"], ["bucky-barnes", "A"], ["tchalla", "A"], ["tchaka", "A"], ["natasha-romanoff", "A"]],
+    obj: ["sokovia-accords"] },
+  { id: "dc-snap", no: "DC-2018-001", n: "The Snap", yr: 2018, where: "Worldwide", t: "Avengers: Infinity War", cls: "Cosmic event",
+    cause: "Thanos completes the Infinity Gauntlet and snaps his fingers in Wakanda.",
+    out: "Half of all living things in the universe turn to dust.",
+    loss: [["Half of all life in the universe.", "Avengers: Infinity War"]],
+    fall: [["Five years later, Bruce Banner reverses the Snap with the Nano Gauntlet, and everyone returns.", "Avengers: Endgame"],
+      ["Tony Stark dies after using the stones to wipe out Thanos and his army.", "Avengers: Endgame"],
+      ["The returned are called the Blip, and the Global Repatriation Council struggles to resettle the world.", "The Falcon and the Winter Soldier"]],
+    who: [["thanos", "T"], ["tony-stark", "A"], ["steve-rogers", "A"], ["thor", "A"], ["bruce-banner", "A"], ["natasha-romanoff", "A"], ["tchalla", "A"], ["wanda-maximoff", "A"], ["vision", "A"]],
+    obj: ["gauntlet", "nano-gauntlet"] }
+];
+const dcSeen = d => atlSeenT(d.t), dcLines = L => L.filter(([, t]) => atlSeenT(t));
+const dcWho = d => d.who.map(([id, tg]) => { const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id); if (!o || !(tg === "A" ? cpSteps(o) : rfSteps(o)).length) return "";
+  return `<button type="button" class="${tg === "T" ? "v" : ""}" data-dcp="${tg}:${esc(id)}">${esc(tg === "A" ? cpName(o) : rfName(o))}</button>`; }).join("");
+const dcObj = d => d.obj.map(id => { const o = COLLX.find(x => x.id === id); return o && cxSteps(o).length ? `<button type="button" class="o" data-dcx="${esc(id)}">${esc(cxName(o))}</button>` : ""; }).join("");
+function renderDc() {
+  const v = document.getElementById("collView"), L = DC.filter(dcSeen);
+  if (collRec) {
+    const d = DC.find(x => x.id === collRec); if (!d) { collRec = null; renderDc(); return; }
+    const W = dcWho(d), O = dcObj(d), loss = dcLines(d.loss), fall = dcLines(d.fall);
+    v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Incident reports</button>
+      <div class="dc-head"><small>Incident report · ${d.no}</small><h3>${esc(d.n)}</h3><p>${esc(d.cls)}</p><span class="dc-stamp" aria-hidden="true">CLOSED</span></div>
+      <div class="co-tiles"><div><small>Date</small><b>${d.yr}</b></div><div><small>Reported in</small><b>${tnh(d.t)}</b></div><div class="wide"><small>Location</small><b>${esc(d.where)}</b></div><div class="wide"><small>Universe</small><b>Sacred Timeline</b></div></div>
+      <div class="co-h">Inciting incident</div><p class="dc-p">${esc(d.cause)}</p>
+      <div class="co-h">Response</div><p class="dc-p">${esc(d.out)}</p>
+      ${W ? `<div class="co-h">Involved</div><div class="dc-chips">${W}</div>` : ""}
+      ${loss.length ? `<div class="co-h">Losses</div><ul class="dc-list">${loss.map(([x]) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+      ${fall.length ? `<div class="co-h">Fallout</div><ul class="dc-list">${fall.map(([x, t]) => `<li>${esc(x)}<small>${tnh(t)}</small></li>`).join("")}</ul>` : ""}
+      ${O ? `<div class="co-h">Recovered and recorded</div><div class="dc-chips">${O}</div>` : ""}</div>`;
+    return;
+  }
+  const yrs = [...new Set(L.map(d => d.yr))];
+  v.innerHTML = `<div class="co"><div class="co-top"><small>Incident reports · Department of Damage Control</small><p class="co-sub">${L.length} incident${L.length === 1 ? "" : "s"} on file</p></div>
+    ${yrs.map(y => `<div class="dc-yr">${y}</div>${L.filter(d => d.yr === y).map(d => `<button type="button" class="dc-row" data-dc="${d.id}"><span class="no">No.<br>${d.no.slice(-3)}</span><span><b>${esc(d.n)}</b><small>${esc(d.where)}</small></span><em>${esc(d.cls)}</em></button>`).join("")}`).join("") || '<p class="sr-empty">No data.</p>'}</div>`;
+}
+const _openColl = openColl, _renderColl0 = renderColl0;
+openColl = function (mode, keep) {
+  const cp = document.getElementById("collPanel");
+  if (mode !== "dc") { cp.classList.remove("dcx"); return _openColl(mode, keep); }
+  collMode = "dc"; cp.classList.remove("raft", "cpx"); cp.classList.add("dcx"); cp.setAttribute("aria-label", "Incident reports");
+  const h2 = cp.querySelector(".maptop h2"); h2.textContent = "Damage Control"; h2.dataset.glow = h2.textContent;
+  collRec = null; collY = 0; renderColl(); cp.hidden = false; collOpen = true; bodyLock(); cp.scrollTop = 0;
+  try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}
+  found("damagecontrol"); document.getElementById("collBack").focus({ preventScroll: true });
+};
+renderColl0 = function () { if (collMode === "dc") renderDc(); else _renderColl0(); };
+document.getElementById("collView").addEventListener("click", ev => {
+  if (collMode !== "dc") return;
+  const r = ev.target.closest("[data-dc]"); if (r) { ev.stopImmediatePropagation(); haptic(10); collShow(r.dataset.dc); return; }
+  const p = ev.target.closest("[data-dcp]"); if (p) { ev.stopImmediatePropagation(); haptic(10); const [tg, id] = p.dataset.dcp.split(":"); openColl(tg === "A" ? "cp" : "raft", true); collShow(id); return; }
+  const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); openColl(undefined, true); collShow(x.dataset.dcx); return; }
+}, true);
+const _atlSheet = atlSheet;
+atlSheet = function (p, fresh) { let h = _atlSheet(p, fresh);
+  if (atlView === "city" && atlCity === "ny" && p.id === "Midtown" && atlSeenT(DC_OPEN)) h = h.replace('aria-label="Close">×</button></div>', `aria-label="Close">×</button></div><button type="button" class="atl-dc"><i aria-hidden="true">DC</i><span><b>Damage Control</b><small>Incident reports</small></span><em aria-hidden="true">&#8250;</em></button>`);
+  return h; };
+document.addEventListener("click", ev => { if (ev.target.closest(".atl-dc")) { haptic(12); openColl("dc"); } });
+const _archSec = archSec;
+archSec = function () { const h = _archSec(); if (!(state.eggs || {}).damagecontrol) return h;
+  const b = `<button type="button" class="ar-dc" data-arch="dc"><small>Incident reports</small><b>Damage Control</b><em>${DC.filter(dcSeen).length} on file</em><i aria-hidden="true">&#8250;</i></button>`;
+  return h ? h.replace('</div></section>', b + '</div></section>') : `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${b}</div></section>`; };
+
+// ---------- skins: the datapad's look, chosen in the Agent File. Each unlocks from its own titles, like the insignia
+const SKINS = [["shield", "S.H.I.E.L.D.", "Stark tech", "linear-gradient(135deg,#0B1019 30%,#2F6FC0 30% 55%,#8FE0FF 55% 62%,#0B1019 62%)", null],
+  ["tva", "TVA", "Time Variance Authority", "linear-gradient(135deg,#120D09 30%,#C8661E 30% 55%,#FFB347 55% 62%,#120D09 62%)", "Loki S1"],
+  ["wakanda", "Wakanda", "Vibranium tech", "linear-gradient(135deg,#0D0A14 30%,#5B2DB8 30% 55%,#C9A7FF 55% 62%,#0D0A14 62%)", "Black Panther"]];
+const skinApply = () => { const s = state.skin || "shield"; document.body.classList.toggle("th-tva", s === "tva"); document.body.classList.toggle("th-wak", s === "wakanda"); };
+skinApply();
+const skinSec = () => `<section class="hf-sec"><h3><span>Datapad skin</span></h3><div class="mk-skins">${SKINS.map(([k, n, sub, sw, by]) => { const open = !by || atlSeenT(by), on = (state.skin || "shield") === k;
+    return `<button type="button" class="mk-skin${on ? " on" : ""}${open ? "" : " lk"}" data-skin="${open ? k : ""}"><span class="sw" style="background:${sw}"></span><b>${open ? n : '<span class="sl-cl">[ Classified ]</span>'}</b><small>${open ? (on ? "In use" : sub) : "Unlocks after " + esc(by)}</small></button>`; }).join("")}</div>
+  <p class="mk-note">A skin changes the datapad itself: Story, the dock, the pills, the Agent File, the Atlas and Comms. The boxes keep their own designs, and the Sacred Timeline stays the TVA's record.</p></section>`;
+
+// ---------- clearance exams: one per chapter, ready once the chapter is complete. Five questions, built only from the titles in it you've
+// watched (who holds an object at the end of a title, who appears in a title, where a threat stands at the end of one). Four right clears it
+state.exams = state.exams || {};
+const exReady = c => slAll(c);
+const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+function examQs(c) {
+  const T = c.items.map(i => i.t).filter(atlSeenT), Q = [], watched = [...new Set(DATA.chapters.filter(x => x.num).flatMap(x => x.items.map(i => i.t)))].filter(atlSeenT);   // distractors from the main line only
+  const mcu = o => !/^(by|sv|fox|pr)-/.test(o.id);
+  const holders = [...new Set(COLLX.filter(mcu).flatMap(o => o.st.filter(x => atlSeenT(x[1])).map(x => x[3]).filter(h => h && h !== "Nobody")))];
+  COLLX.filter(o => mcu(o) && !cxSpec(o)).forEach(o => T.forEach(t => { const L = o.st.filter(x => x[1] === t); if (!L.length) return; const h = L[L.length - 1][3]; if (!h || h === "Nobody") return;
+    Q.push({ q: `At the end of ${t}, who has ${cxName(o)}?`, a: h, opts: [h, ...shuf(holders.filter(x => x !== h)).slice(0, 3)] }); }));
+  ALLIES.filter(o => mcu(o) && !o.grp).forEach(o => { const ts = new Set(o.st.map(x => x[1])), hit = T.filter(t => ts.has(t)); if (!hit.length || !cpSteps(o).length) return;
+    const t = hit[Math.floor(Math.random() * hit.length)], no = shuf(watched.filter(x => !ts.has(x))).slice(0, 3); if (no.length < 3) return;
+    Q.push({ q: `${cpName(o)} is on screen in which of these?`, a: t, opts: [t, ...no] }); });
+  const ST = Object.keys(RF_ST);
+  THREATS.filter(o => mcu(o) && !o.grp).forEach(o => T.forEach(t => { const L = o.st.filter(x => x[1] === t && x[2]); if (!L.length) return; const s = L[L.length - 1][2];
+    Q.push({ q: `At the end of ${t}, where does ${rfName(o)} stand?`, a: s, opts: [s, ...shuf(ST.filter(x => x !== s)).slice(0, 3)] }); }));
+  return shuf(Q.filter(q => new Set(q.opts).size === 4)).slice(0, 5).map(q => ({ ...q, opts: shuf(q.opts) }));
+}
+const examSec = () => `<section class="hf-sec"><h3><span>Clearance exams</span><span>${DATA.chapters.filter(c => c.num && state.exams[c.id] >= 4).length}/${DATA.chapters.filter(c => c.num).length}</span></h3><div class="mk-exams">${DATA.chapters.filter(c => c.num).map(c => { const ok = state.exams[c.id] >= 4, ready = exReady(c);
+    return `<button type="button" class="mk-exam${ok ? " ok" : ""}${ready ? "" : " lk"}" data-exam="${ready ? c.id : ""}"><small>Ch. ${c.num}</small><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b><em>${ok ? "Cleared · " + state.exams[c.id] + "/5" : ready ? "Ready" : "Finish the chapter"}</em></button>`; }).join("")}</div></section>`;
+let mx = null;
+function examOpen(id) {
+  const c = DATA.chapters.find(x => x.id === id), qs = examQs(c); if (qs.length < 5) { toast("Not enough on file for an exam yet."); return; }
+  mx = { c, qs, i: 0, right: 0, done: [] };
+  let el = document.getElementById("mkExam"); if (!el) { el = document.createElement("div"); el.id = "mkExam"; document.body.appendChild(el); }
+  el.hidden = false; bodyLock(); examDraw();
+}
+function examDraw() {
+  const el = document.getElementById("mkExam"), { c, qs, i } = mx;
+  const dots = qs.map((q, k) => `<i class="${mx.done[k] === true ? "ok" : mx.done[k] === false ? "no" : k === i ? "on" : ""}"></i>`).join("");
+  const top = `<div class="mx-top"><small>Clearance exam · Ch. ${c.num}</small><button type="button" class="mx-x" data-mx="close">Leave</button></div><h2>${esc(c.title)}</h2><div class="mx-dots">${dots}</div>`;
+  if (i >= qs.length) { const pass = mx.right >= 4; if (pass) { state.exams[c.id] = Math.max(state.exams[c.id] || 0, mx.right); persist(); }
+    el.innerHTML = `<div class="mx-in">${top}<div class="mx-res"><div class="sc">${mx.right}/5</div><div class="mx-stamp${pass ? "" : " no"}">${pass ? "CLEARED" : "NOT CLEARED"}</div><p>${pass ? "Your clearance for this chapter is on your Agent ID." : "Four right clears it. The questions change every time."}</p><button type="button" class="mx-next" data-mx="close">Back to the Agent File</button></div></div>`; return; }
+  const q = qs[i];
+  el.innerHTML = `<div class="mx-in">${top}<p class="mx-q">${esc(q.q)}</p><div class="mx-opts">${q.opts.map(o => `<button type="button" data-mxa="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`;
+}
+document.addEventListener("click", ev => {
+  const el = document.getElementById("mkExam"); if (!el || el.hidden || !el.contains(ev.target)) return;
+  const a = ev.target.closest("[data-mxa]");
+  if (a && !a.disabled) { const q = mx.qs[mx.i], ok = a.dataset.mxa === q.a; mx.done[mx.i] = ok; if (ok) mx.right++; haptic(ok ? 12 : 30);
+    el.querySelectorAll("[data-mxa]").forEach(b => { b.disabled = true; if (b.dataset.mxa === q.a) b.classList.add("ok"); else if (b === a) b.classList.add("no"); });
+    el.querySelectorAll(".mx-dots i")[mx.i].className = ok ? "ok" : "no";
+    const n = document.createElement("button"); n.type = "button"; n.className = "mx-next"; n.dataset.mx = "next"; n.textContent = mx.i === mx.qs.length - 1 ? "See the result" : "Next question"; el.querySelector(".mx-in").appendChild(n); return; }
+  const m = ev.target.closest("[data-mx]"); if (!m) return;
+  if (m.dataset.mx === "next") { mx.i++; examDraw(); el.scrollTop = 0; return; }
+  el.hidden = true; mx = null; bodyFree(); if (fileOpen) renderFile();
+});
+const _bodyFree = bodyFree;
+bodyFree = function () { const el = document.getElementById("mkExam"); if (el && !el.hidden) return; _bodyFree(); };
+
+// the Agent File gets both: the skins and the exams sit above the save code
+const _renderFile = renderFile;
+renderFile = function (fresh) { _renderFile(fresh); const sv = document.getElementById("hfSave"), sec = sv && sv.closest(".hf-sec"); if (sec) sec.insertAdjacentHTML("beforebegin", examSec() + skinSec()); };
+document.getElementById("fileView").addEventListener("click", ev => {
+  const s = ev.target.closest("[data-skin]"); if (s) { ev.stopImmediatePropagation(); if (!s.dataset.skin) { haptic(30); return; } haptic(12); state.skin = s.dataset.skin; persist(); skinApply(); renderFile(); return; }
+  const x = ev.target.closest("[data-exam]"); if (x) { ev.stopImmediatePropagation(); if (!x.dataset.exam) { haptic(30); return; } haptic(12); examOpen(x.dataset.exam); }
+}, true);
+
+// ---------- the S.H.I.E.L.D. keycard: swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, like a card through a reader
+EGGS.push(["level7", "Level 7", "Swipe your clearance.", "In the S.H.I.E.L.D. box, swipe across the hazard stripes at the top, like a keycard.", 1]);
+let kc = null;
+panel.addEventListener("pointerdown", ev => { kc = null; if (!openEntry || openEntry.id !== SHIELD_BOX) return; const st = panel.firstElementChild; if (!st) return;
+  const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 14 || ev.clientY > r.bottom + 30) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
+panel.addEventListener("pointerup", ev => { const k = kc; kc = null; if (!k || !openEntry || openEntry.id !== SHIELD_BOX) return;
+  if (Math.abs(ev.clientX - k.x) < k.w * .5 || Math.abs(ev.clientY - k.y) > 45) return; keycard(); }, true);
+function keycard() {
+  const st = panel.firstElementChild; if (st) { st.classList.remove("kc-flash"); void st.offsetWidth; st.classList.add("kc-flash"); }
+  haptic(HAPTIC && HAPTIC.success || 20); found("level7");
+  const tahiti = atlSeenT("Agents of S.H.I.E.L.D. S1");
+  let el = document.getElementById("mkKey"); if (!el) { el = document.createElement("div"); el.id = "mkKey"; document.body.appendChild(el); el.addEventListener("click", () => { el.hidden = true; }); }
+  el.innerHTML = `<div class="kc-card" role="dialog" aria-label="Level 7 file"><div class="st"></div><small class="ok">Access granted · Level 7</small>${tahiti
+    ? `<h4>Project T.A.H.I.T.I.</h4><p>Director's eyes only. Subject: Agent Phil Coulson. Procedure: <span class="rd" style="width:9em"></span>. Source of the compound: <span class="rd" style="width:7em"></span>.</p><p>Memories of the procedure replaced. Status: active.</p><q>Tahiti. It's a magical place.</q>`
+    : `<h4>No files at this level</h4><p>Your card reads clean. Whatever is filed at Level 7, it hasn't come up on your watch yet.</p>`}<small style="margin-top:12px;color:#5A6470">Tap to close</small></div>`;
+  el.hidden = false;
+}
+}
+/* MOCKUP END */
 </script>
 </body>
 </html>
