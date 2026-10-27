@@ -1,6 +1,7 @@
 // Damage Control's incident reports (October 2026): found in the Atlas in Midtown after Spider-Man: Homecoming; every report on file, by year
 // (BC first, the TVA's last), with a search, grouping and sorting; names link into the indexes you've found, plain before; back steps
 // through every file you opened; the egg and the Agent File's archive
+// every universe has its tab, the same as the Raft's (October 2026)
 // was: back always returns to where you were (October 2026): a Compound file that opens its Raft file is one step, so back from the Raft file
 // returns to the Compound file, then to the Compound's list, then out to the Atlas; the same the other way round
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
@@ -18,8 +19,11 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   const back = async () => { await p.goBack().catch(() => {}); await sleep(700); };
   await p.evaluate(() => openAtlas()); await sleep(800);
   await p.evaluate(() => openColl('dc')); await sleep(500);
-  const n = await p.evaluate(() => document.querySelectorAll('.dc-row').length); ok(n === await p.evaluate(() => DC.filter(dcSeen).length) && n > 100, 'every report is listed: ' + n);
+  const n = await p.evaluate(() => document.querySelectorAll('.dc-row').length); ok(n === await p.evaluate(() => DC.filter(d => dcU(d) === 'mcu' && dcSeen(d)).length) && n > 100, 'every report is listed: ' + n);
   const yrs = await p.evaluate(() => [...document.querySelectorAll('[data-dcf]')].map(x => x.dataset.dcf)); ok(yrs[0] === '1260 BC' && yrs[yrs.length - 1] === 'Outside time', 'years: ' + yrs.slice(0, 3) + ' ... ' + yrs.slice(-2));
+  for (const [u, min] of [['by', 15], ['sv', 25], ['fox', 25], ['pr', 18]]) { await p.evaluate(u => document.querySelector('[data-dcu="' + u + '"]').click(), u); await sleep(300);
+    const c = await p.evaluate(u => [document.querySelectorAll('.dc-row').length, DC.filter(d => dcU(d) === u && dcSeen(d)).length], u); ok(c[0] === c[1] && c[0] >= min, 'the ' + u + ' tab lists its reports: ' + c); }
+  await p.evaluate(() => document.querySelector('[data-dcu="mcu"]').click()); await sleep(300);
   await p.evaluate(() => collShow('dc-bny')); await sleep(500);
   const ch = await p.evaluate(() => ({ btnA: document.querySelectorAll('.dc-chips button[data-dcp^="A:"]').length, spanT: document.querySelectorAll('.dc-chips span.v').length, btnT: document.querySelectorAll('.dc-chips button.v').length, spanO: document.querySelectorAll('.dc-chips span.o').length, btnO: document.querySelectorAll('.dc-chips button.o').length }));
   ok(ch.btnA > 0 && ch.spanT > 0 && !ch.btnT && ch.spanO > 0 && !ch.btnO, 'Compound found: hero links; Raft and Collection not found: plain names: ' + JSON.stringify(ch));
