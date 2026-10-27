@@ -2417,7 +2417,7 @@ function openPanel(e, kind, fromEl) {
   renderPanel(e, true);
   panel.hidden = false; blCarry(e);
   panel.scrollTop = 0;
-  document.body.style.overflow = "hidden";
+  bodyLock();
   requestAnimationFrame(() => requestAnimationFrame(() => {
     panel.classList.add("open");
     panel.style.clipPath = "inset(0px 0px 0px 0px round 0px)";
@@ -2444,7 +2444,7 @@ function closePanel() {
     if (justFinished) { boxNews(closing, "Complete", undefined, true); haptic(HAPTIC.success); }   // the box first; anything it earned follows, each on its own
     if (d.length) { achPending.push(...d); setTimeout(flushAch, 300); }
   };
-  openEntry = null;
+  openEntry = null; bodyFree();   // a closing box frees the page at once, so whatever moves it next (to a tile, to another box) moves it
   panel.classList.remove("open");
   if (REDUCED || !from) return done();
   panel.style.clipPath = rectClip(from);
@@ -3089,7 +3089,7 @@ function openDossier(id, go) {
     el.className = "dossier"; el.removeAttribute("style");
     slPlace(go && go.open);
     el.innerHTML = `<div class="dscroll"><div class="dview">${slHTML()}</div></div>`;
-    el.hidden = false; dossierOpen = id; document.body.style.overflow = "hidden";
+    el.hidden = false; dossierOpen = id; bodyLock();
     const sc = el.querySelector(".dscroll"); sc.scrollTop = 0;
     const at = go && go.open && el.querySelector(`[data-sls="${CSS.escape(go.open)}"]`);
     if (at) { sc.scrollTop = Math.max(0, at.offsetTop - 12); at.classList.add("hl"); }
@@ -3111,7 +3111,7 @@ function openDossier(id, go) {
     </div>`;
   }
   persist();
-  el.hidden = false; dossierOpen = id; document.body.style.overflow = "hidden";   // the page behind stays put, like under Atlas or Comms
+  el.hidden = false; dossierOpen = id; bodyLock();   // the page behind stays put, like under Atlas or Comms
   if (!SG) try { history.pushState({ mcu: "dossier" }, ""); } catch (e) {}
   const sc = SG ? el.querySelector(".dscroll") : el; sc.scrollTop = 0;
   if (!SG) el.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: "ease-out" });
@@ -4099,7 +4099,7 @@ function atlForget() {
 function openAtlas() {
   atlForget();
   atlView = "earth"; atlCity = null; atlUni = null; atlBig = false; atlBigBack = false; atlHist = []; atlPend = null; atlPrevT = null;   // the Atlas always opens on Earth, at its usual size
-  document.getElementById("atlasPanel").hidden = false; atlOpen = true; document.body.style.overflow = "hidden"; renderAtlas();
+  document.getElementById("atlasPanel").hidden = false; atlOpen = true; bodyLock(); renderAtlas();
   pushNav("atlas"); document.getElementById("atlBack").focus({ preventScroll: true });
 }
 function closeAtlas(fromHistory) {
@@ -4137,14 +4137,14 @@ function openColl(mode, keep) {
   if (!raft && !cpm && !state.collIn) { const L = COLLX.filter(o => cxSteps(o).length), R = state.collSeen = state.collSeen || {}; L.forEach(o => R[o.id] = 1); state.collIn = 1; cxIntake = L.length; persist(); }
   if (raft && !state.raftIn) { const L = THREATS.filter(o => rfSteps(o).length), R = state.raftSeen = state.raftSeen || {}; L.forEach(o => R[o.id] = 1); state.raftIn = 1; rfIntake = L.length; persist(); }
   collRec = null; cpTeamF = ""; cxHoldF = ""; collY = 0; renderColl();
-  cp.hidden = false; collOpen = true; cp.scrollTop = 0;   // once it's shown: a hidden panel ignores scrollTop and would keep the last index's place
+  cp.hidden = false; collOpen = true; bodyLock(); cp.scrollTop = 0;   // once it's shown: a hidden panel ignores scrollTop and would keep the last index's place
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
   found(raft ? "raft" : cpm ? "compound" : "collector");
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; rfTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = "";
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; rfTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = ""; bodyFree();
 }
 function collShow(id) {
   const v = document.getElementById("collPanel"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
@@ -4234,7 +4234,7 @@ function renderCx() {
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>The Collection</button>
       <div class="cx-big s-${CX_ST[st]}"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><b class="cx-stb">${esc(st)}</b></div>
       <small class="cx-lot">${cxNo(o)} · ${esc(cxTyName(o.c))}</small><h3>${esc(cxName(o))}</h3><p class="co-kind">${esc(cxKind(o))}</p>
-      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>${cxSpec(o) ? "Home world" : "Held by"}</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div></div>
+      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>${cxSpec(o) ? "Home world" : "Held by"}</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div>${uniTile(o, "wide")}</div>
       ${hands.length && !cxSpec(o) ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}</div>` : ""}
       <div class="co-h">${cxSpec(o) ? "Field notes" : "Chain of custody"}</div>
       <ol class="co-chain cx-chain">${S.map(x => { const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
@@ -4328,6 +4328,8 @@ function rfGroupFile(team, from) {   // the group file carrying that name in thi
 RF_GRP.push(["tm", "Faction"]);
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
+// every file in the three indexes says which universe it belongs to, by the same name its tab goes by
+const uniTile = (o, cls) => `<div${cls ? ` class="${cls}"` : ""}><small>Universe</small><b>${rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o)))}</b></div>`;
 function renderRaft() {
   const v = document.getElementById("collView"), seen = state.raftSeen = state.raftSeen || {};
   if (collRec) {
@@ -4336,7 +4338,7 @@ function renderRaft() {
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
       <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat · ${esc(tmNow(o.tm))}</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
-      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div class="wide"><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div></div>
+      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div>${uniTile(o, "")}</div>
       <div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
       ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
@@ -4424,7 +4426,7 @@ function renderCp() {
     let prev = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Personnel files</button>
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p></div><b class="cp-stb">${esc(st)}</b></div>
-      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div></div>
+      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div>${uniTile(o, "wide")}</div>
       <div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
       ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       <div class="co-h">Service record</div>
@@ -4478,8 +4480,19 @@ function closeDossier(fromHistory) {
   dReadRest(el);
   el.hidden = true; dossierOpen = null; dRun++; bodyFree();
 }
-// the page behind is freed only once nothing is over it any more: a box closing (it finishes a moment later) can't free it under the page that replaced it
-function bodyFree() { if (panel.hidden && !dossierOpen && !fileOpen && !atlOpen && !mapOpen && !commsOpen) document.body.style.overflow = ""; }
+// the page behind is freed only once nothing is over it any more: a box closing frees it as it starts to close, but not under a page that replaced it
+// anything laid over the page (a box, a log, the Atlas, an index, the Agent File, Comms, Paths) pins the page behind where it is: overflow alone
+// doesn't hold on a phone, where a short panel with nothing left to scroll hands the swipe to the page underneath
+let lockY = null;
+function bodyLock() {
+  document.body.style.overflow = "hidden"; if (lockY !== null) return; lockY = window.scrollY;
+  Object.assign(document.body.style, { position: "fixed", top: -lockY + "px", left: "0", right: "0" });
+}
+function bodyFree() {
+  if ((!panel.hidden && openEntry) || dossierOpen || fileOpen || atlOpen || mapOpen || commsOpen || collOpen) return;
+  document.body.style.overflow = ""; if (lockY === null) return; const y = lockY; lockY = null;
+  Object.assign(document.body.style, { position: "", top: "", left: "", right: "" }); window.scrollTo(0, y);
+}
 
 /* Ant-Man & the Wasp: pinch the box and it shrinks under your fingers, then all the way into the Quantum Realm */
 panel.addEventListener("touchstart", ev => {
@@ -6934,7 +6947,7 @@ function caseFile(film) {
 const hfPickNav = () => { if (!navAt("hfpick")) try { history.pushState({ mcu: "hfpick" }, ""); } catch (e) {} };
 const hfPickClose = () => { if (navAt("hfpick")) navBack(); else { const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); } };
 let fileTab = "file";
-function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; embAck(); persist(); renderFile(true); document.getElementById("filePanel").hidden = false; document.getElementById("fileView").scrollTop = 0; document.getElementById("filePanel").scrollTop = 0; /* always from the top: a reset while it was hidden doesn't hold */ fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
+function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; embAck(); persist(); renderFile(true); document.getElementById("filePanel").hidden = false; document.getElementById("fileView").scrollTop = 0; document.getElementById("filePanel").scrollTop = 0; /* always from the top: a reset while it was hidden doesn't hold */ fileOpen = true; bodyLock(); pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
 function closeFile(fromHistory) {
   if (!fromHistory && navAt("file")) { navBack(); return; }
   document.getElementById("filePanel").hidden = true; fileOpen = false; bodyFree(); embAck(); persist();   // anything that came in while you were here has been seen too
@@ -9991,7 +10004,7 @@ function renderComms() {
 }
 let commsTab = "news";
 function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true); cmFresh = new Set(); { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
-  renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
+  renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; bodyLock(); pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
   document.getElementById("commsPanel").hidden = true; commsOpen = false; bodyFree();
@@ -10262,7 +10275,7 @@ function openMap() {
   // a multiverse character's line shows once their box is revealed, or once you've watched any of their titles from their Extras chapter
   const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("") + "|" + DATA.chars.map(c => mapAnon(c.title) ? 1 : boxName(c) !== c.title ? 2 : 0).join("");   // and redrawn when someone's name turns up
   if (!mapBuilt || sig !== mapSig) { MAP = mapData(hide); mapSig = sig; mapFocusI = null; buildMap(); }
-  document.getElementById("mapPanel").hidden = false; mapOpen = true; document.body.style.overflow = "hidden";
+  document.getElementById("mapPanel").hidden = false; mapOpen = true; bodyLock();
   pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true }); mapGrow();
 }
 // lines draw on from where they stopped the last time you looked; new stops and titles fade in as the lines reach them.
