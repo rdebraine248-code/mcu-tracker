@@ -10979,7 +10979,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
 }, true);
 
 // ---------- the S.H.I.E.L.D. keycard: swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, like a card through a reader
-EGGS.push(["level7", "Level 7", "Swipe your clearance. Level 7 only.", "With Level 7 clearance, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1]);
+EGGS.push(["level7", "Level 7", "Swipe your clearance.", "After Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1]);
 let kc = null;
 panel.addEventListener("pointerdown", ev => { kc = null; if (!openEntry || openEntry.id !== SHIELD_BOX) return; const st = panel.firstElementChild; if (!st) return;
   const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 20 || ev.clientY > r.bottom + 40) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
@@ -11055,7 +11055,7 @@ function keycard() {
     card.style.transform = `translate(${dir * innerWidth}px, -30px)`; card.style.opacity = "0";
     const beam = el.querySelector("#krBeam"); anim(beam, [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], { duration: 500 });
     led.className = "kr-led amber"; haptic(10);
-    const lines = ["READING CARD", code.toUpperCase(), no, "CLEARANCE · LEVEL " + (lv > 10 ? "MAX" : lv) + " · " + lvName.toUpperCase()];
+    const lines = ["READING CARD", code.toUpperCase(), no, "REQUEST · LEVEL 7 FILES"];
     let k = 0; scr.innerHTML = "";
     const type = () => { if (k < lines.length) { scr.innerHTML += (k ? "<br>" : "") + esc(lines[k++]); later(type, 260); return; }
       scr.innerHTML += `<br>VERIFYING<span class="bar"><b id="krBar"></b></span>`;
@@ -11064,14 +11064,15 @@ function keycard() {
     later(type, 380);
   }
   function verdict() {
-    if (lv < 7) {   // the file is filed at Level 7: below it, the reader turns you away and hands the card back
+    const cleared = atlSeenT("Agents of S.H.I.E.L.D. S1");   // Level 7 is Coulson's clearance, on record from Agents of S.H.I.E.L.D. S1
+    if (!cleared) {   // before that, the reader turns you away and hands the card back
       led.className = "kr-led red"; kr.classList.add("no"); scr.classList.add("no"); haptic(40);
-      scr.innerHTML = `LEVEL 7 REQUIRED<span class="big">ACCESS DENIED</span>YOUR CLEARANCE · LEVEL ${lv} · ${esc(lvName.toUpperCase())}`;
+      scr.innerHTML = `NOT CLEARED FOR LEVEL 7<span class="big">ACCESS DENIED</span>CARD RETURNED`;
       anim(kr, [{ transform: "translateX(0)" }, { transform: "translateX(-10px)" }, { transform: "translateX(9px)" }, { transform: "translateX(-6px)" }, { transform: "translateX(0)" }], { duration: 420 });
       card.style.transition = "none"; card.style.transform = ""; card.style.opacity = "1"; anim(card, [{ transform: "translateY(120%)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 420, easing: "ease-out" });
-      hint.textContent = "Come back with Level 7 clearance · tap to close"; return; }
+      hint.textContent = "Not cleared yet · tap to close"; return; }
     led.className = "kr-led green"; kr.classList.add("ok"); haptic(HAPTIC && HAPTIC.success || 20);
-    scr.innerHTML = `CLEARANCE CONFIRMED<span class="big">ACCESS GRANTED</span>LEVEL 7`;
+    scr.innerHTML = `CLEARED FOR LEVEL 7<span class="big">ACCESS GRANTED</span>OPENING FILES`;
     hint.textContent = "";
     later(doors, 900);
   }
