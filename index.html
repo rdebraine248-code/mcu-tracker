@@ -4203,7 +4203,7 @@ const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", 
 // the order of a group's files in the three indexes: first seen in the story (ties A to Z), or A to Z, ignoring a leading "The". One setting
 // for all three, kept with the save (October 2026)
 const ixName = n => String(n).replace(/^The /, "");
-const ixCmp = (name, steps) => (a, b) => (state.ixAZ ? 0 : (ATL_ORDER[rfFirst(steps(a))] ?? 1e9) - (ATL_ORDER[rfFirst(steps(b))] ?? 1e9)) || ixName(name(a)).localeCompare(ixName(name(b)));
+const ixCmp = (name, steps) => (a, b) => (state.ixAZ ? 0 : seenRk(rfFirstStep(steps(a))) - seenRk(rfFirstStep(steps(b)))) || ixName(name(a)).localeCompare(ixName(name(b)));
 const ixSortBar = () => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg"><button type="button" data-ixs="first" aria-pressed="${!state.ixAZ}">First seen</button><button type="button" data-ixs="az" aria-pressed="${!!state.ixAZ}">A–Z</button></div></div>`;
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
 const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
@@ -4275,9 +4275,13 @@ const RF_ST = { "Active": "active", "In custody": "custody", "Captive": "captive
 const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^pr-/.test(o.id) ? "pr" : /^by-/.test(o.id) ? "by" : "mcu";
 const rfSteps = o => o.st.filter(atlSeenStep);
 const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
-const rfFirst = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? 1e9) < (ATL_ORDER[a] ?? 1e9) ? x[1] : a, S[0][1]);
-const rfLast = S => S.reduce((a, x) => (ATL_ORDER[x[1]] ?? -1) > (ATL_ORDER[a] ?? -1) ? x[1] : a, S[0][1]);
-const seenTtl = (S, last) => { const t = last ? rfLast(S) : rfFirst(S), L = S.filter(x => x[1] === t); return stepTtl(last ? L[L.length - 1] : L[0]); };   // with its season, as the steps show it
+// First seen and Last seen go by release order, season by season (owner, October 2026): a step "In season N," of a show ranks as its season
+// title where the release list has one; a title the list doesn't carry (the Incursions) falls back to the Chapters path, after the rest
+const REL_IX = (() => { const o = {}; DATA.timelineRelease.forEach((e, i) => { if (!(e.t in o)) o[e.t] = i; }); return o; })();
+const seenRk = x => { const m = /^In season (\d+),/.exec(x[0]), r = m ? REL_IX[x[1] + " S" + m[1]] : undefined; return r ?? REL_IX[x[1]] ?? 1000 + (ATL_ORDER[x[1]] ?? 1e6); };
+const rfFirstStep = S => S.reduce((a, x) => seenRk(x) < seenRk(a) ? x : a, S[0]);
+const rfLastStep = S => S.reduce((a, x) => seenRk(x) >= seenRk(a) ? x : a, S[0]);
+const seenTtl = (S, last) => stepTtl(last ? rfLastStep(S) : rfFirstStep(S));   // with its season, as the steps show it
 const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
 // a threat's class and who stands against them move with the story: Wanda is a Global threat until Multiverse of Madness makes her Multiversal
 const rfClass = o => stageAt(o.cl || "", atlSeenT)[0];

@@ -64,7 +64,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49 ct50 ct51 ct52; do node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49 ct50 ct51 ct52 ct53; do node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -89,6 +89,7 @@ node tests/ct35.js                                                              
 | ct50 | Opening an index starts at the top; backing out of a file keeps the list's place |
 | ct51 | The Sort switch: First seen or A to Z, one setting for the three indexes |
 | ct52 | Universe tabs named by the Sacred Timeline's rule; holding the Incursions line marks them all; the Doom egg stays on Doomsday's title |
+| ct53 | First seen and Last seen by release order, season by season; the Void's Juggernaut merged into the Last Stand's file |
 
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. Test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled. Screenshots after marking many titles watched: wait about 9 seconds, or the
@@ -208,7 +209,9 @@ insignia celebration covers the page.
   to the list's place (`collY`).
   - **Universe tabs:** Sacred Timeline, Beyond, Spider-Verse, FoX-Men, Pruned (`RF_UNI`, shared by all three). An Extra's tab reads
     "[ Classified ]" until its chapter box is opened or every title in it is watched (`slNamed`, the Sacred Timeline page's own rule).
-  - **Sort switch** under Group by: First seen (`ATL_ORDER` of the first title, ties A to Z) or A to Z, ignoring a leading "The"
+  - **First seen and Last seen** go by release order, season by season (`seenRk`: the season's title in `DATA.timelineRelease`, else the
+    title, else the Chapters path after the rest). Owner's call, October 2026: the Chapters path ignored seasons and crossovers.
+  - **Sort switch** under Group by: First seen (the same release-order rank of the first title, ties A to Z) or A to Z, ignoring a leading "The"
     (`ixCmp`, `state.ixAZ`, one setting for all three, in `SAVE_KEYS`). Groups by Status, Class or Type follow a fixed list; groups by
     Faction, Team, Holder or Opposed by are A to Z. Search results are A to Z.
   - **Factions and teams:** a villain's Factions row (`rfTeams`, `tmChips`) and a hero's Teams row list every group served so far, the
@@ -261,6 +264,10 @@ insignia celebration covers the page.
   - **Agents of S.H.I.E.L.D. seasons 6 and 7** go on the Sacred Timeline tab's files whose subject carries on there.
   - **One person filed on two tabs** becomes one file, on the tab of the show where they're a main character. The 1990s Captain America
     and Red Skull are on the Spider-Verse tab with their X-Men cartoon steps.
+  - **Deadpool & Wolverine's Void characters** go in the files of the originals they evoke, even with new actors: we only care about
+    them because we want to believe they're the originals (owner). Azazel, Toad, Callisto, Lady Deathstrike and the Omegas sit in their
+    Fox files; the Void's Juggernaut is merged into the X-Men: The Last Stand file. The Void's Blob keeps its own file (owner's call:
+    the Fox films have two Blobs).
   - **A person with a hero and a villain file:** neither file starts earlier than it does now, and each covers every title from its start
     on.
 - **Collection chain of custody:** the holder is who has the object at the end of the step. See `CUSTODY_FORMAT.md`.
@@ -306,8 +313,6 @@ These happened in earlier chats. Each cost the owner time.
 ## Open items
 
 - **Owner calls still open from the appearance sweep** (also in `appear_sweep.json`, `owner_calls`):
-  - Deadpool & Wolverine's Void variants played by new actors (Azazel, Toad, Callisto, Lady Deathstrike, the Omegas) sit inside the
-    original characters' files, while the Void's Juggernaut and Blob have their own. Split them out?
   - Mostly footage with a new line (Jameson in Venom: Let There Be Carnage).
   - Memory or real past scene: Muse in Daredevil: Born Again S2, and the Spectacular Uncle Ben in "Intervention".
   - Simmons posing as Peggy in Agents of S.H.I.E.L.D. S7's diverged timeline.
