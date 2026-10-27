@@ -1365,7 +1365,7 @@ body{ padding-bottom:var(--dockh); }
 .kfile p{ margin:0 0 8px; font-size:16px; line-height:1.45; min-height:1.45em; } .kfile q{ display:block; margin-top:10px; font-style:italic; font-size:19px; }
 .kfile .stamp{ position:absolute; right:14px; top:24px; padding:3px 8px; border:2px solid #C2262B; border-radius:4px; color:#C2262B; font:11px/1.2 'Share Tech Mono',monospace; letter-spacing:2px; transform:rotate(-7deg); }
 .kfile .cl{ display:block; margin-top:12px; font:10px/1.4 'Share Tech Mono',monospace; letter-spacing:2px; color:#5A6470; text-transform:uppercase; }
-/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams (test build only; mainprep cuts it) */
+/* MOCKUP BEGIN: Damage Control incident reports (test build only; mainprep cuts it) */
 /* Damage Control's incident reports: a government form, hazard yellow on slate, every report stamped with its number */
 .collpanel.dcx .maptop h2{ color:#F2C94C; } .collpanel.dcx .maptop h2::before{ color:rgba(242,201,76,.45); }
 .dcx .co-h{ color:#F2C94C; }
@@ -1396,75 +1396,6 @@ body{ padding-bottom:var(--dockh); }
 .atl-dc span{ flex:1; } .atl-dc b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
 .atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#C9B27A; } .atl-dc em{ font-style:normal; font-size:18px; color:#F2C94C; }
 .hf-arch .ar-dc{ --ac:#8C7A3A; --ab:linear-gradient(180deg,rgba(242,201,76,.10),rgba(242,201,76,.03)); --ak:#F2C94C; }
-
-/* the skins: the datapad's own chrome changes, the boxes keep their designs, and the Sacred Timeline stays the TVA's record */
-.mk-skins{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
-.mk-skin{ position:relative; display:flex; flex-direction:column; gap:6px; padding:10px; border:1px solid #232D42; border-radius:12px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
-.mk-skin.on{ border-color:#8FE0FF; box-shadow:0 0 0 1px rgba(143,224,255,.3); }
-.mk-skin .sw{ height:46px; border-radius:8px; border:1px solid rgba(255,255,255,.08); }
-.mk-skin b{ font:400 16px/1.05 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
-.mk-skin small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
-.mk-skin.lk{ cursor:default; } .mk-skin.lk .sw{ background:repeating-linear-gradient(135deg,#1A2030 0 8px,#141A28 8px 16px) !important; }
-.mk-note{ margin:10px 0 0; font-size:14px; color:#9AA3B2; }
-
-body.th-tva{ --padimg:repeating-linear-gradient(0deg, rgba(255,179,71,.035) 0 1px, transparent 1px 3px), radial-gradient(rgba(255,179,71,.055) 1px, transparent 1.4px), radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.45)), radial-gradient(1100px 600px at 12% -8%, rgba(255,150,40,.16), transparent 62%), radial-gradient(900px 600px at 100% 100%, rgba(200,110,30,.10), transparent 60%); }
-body.th-tva:not([data-mode="timeline"]){ --shell:#120D09; --ink:#F3E6D2; --muted:#C9B79C; --line:#3A2A18; --chip:#1E160F; --chip-ink:#F3E6D2; background-color:#120D09; }
-body.th-tva::before, body.th-tva .filepanel, body.th-tva .mappanel{ background-color:#120D09; }
-body.th-tva .mast h1, body.th-tva .dockpg .maptop h2, body.th-tva .pgtitle{ font-family:'Righteous','Anton',sans-serif; color:#FFB347; letter-spacing:.5px; }
-body.th-tva .mast h1{ font-size:clamp(17px, calc((100vw - 60px) / 15.6), 44px); }
-body.th-tva .mast h1::before, body.th-tva .dockpg .maptop h2::before, body.th-tva .pgtitle::before{ color:rgba(255,150,40,.55); }
-body.th-tva .mast h1::after{ background:linear-gradient(90deg,rgba(255,179,71,.34),rgba(200,102,30,.34)); }
-body.th-tva .saga h3{ font-family:'Righteous','Anton',sans-serif; color:#FFD9A0; letter-spacing:1.5px; }
-body.th-tva .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
-body.th-tva .dock{ background:rgba(22,15,9,.96); border-top-color:#3A2A18; } body.th-tva .dock button{ color:#9C8466; } body.th-tva .dock button[aria-current="page"]{ color:#FFD9A0; }
-body.th-tva .toast.hud{ --hc:#D9822B; } body.th-tva .toast.hud .hclip{ background-color:rgba(23,18,12,.97); } body.th-tva .toast.hud b{ color:#F6E7D4; }
-body.th-tva .hf-head{ border-color:#4A3420; background:linear-gradient(180deg,#22180F,#170F09); } body.th-tva .hf-tag, body.th-tva .hf-sec h3{ color:#E0A35C; }
-body.th-tva .hf-bar{ background:#2A1E12; } body.th-tva .hf-bar span{ background:linear-gradient(90deg,#C8661E,#FFB347); }
-body.th-tva .ach, body.th-tva .rc, body.th-tva .mk-exam, body.th-tva .mk-skin{ background:#1A120B; border-color:#3A2A18; } body.th-tva .mk-skin.on{ border-color:#FFB347; box-shadow:0 0 0 1px rgba(255,179,71,.3); }
-body.th-tva .atl-views button[aria-selected="true"]{ background:#FFB347 !important; color:#120D09 !important; border-color:#FFB347 !important; }
-
-body.th-wak{ --padimg:repeating-linear-gradient(60deg, rgba(166,107,255,.045) 0 1px, transparent 1px 26px), repeating-linear-gradient(-60deg, rgba(166,107,255,.045) 0 1px, transparent 1px 26px), repeating-linear-gradient(0deg, rgba(166,107,255,.03) 0 1px, transparent 1px 22.5px), radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.5)), radial-gradient(1100px 600px at 12% -8%, rgba(150,90,255,.18), transparent 62%), radial-gradient(900px 600px at 100% 100%, rgba(90,60,200,.12), transparent 60%);
-  --padsize:auto, auto, auto, auto, auto, auto; }
-body.th-wak:not([data-mode="timeline"]){ --shell:#0D0A14; --ink:#EEE8F7; --muted:#A99BBF; --line:#2E2442; --chip:#181226; --chip-ink:#EEE8F7; background-color:#0D0A14; }
-body.th-wak::before, body.th-wak .filepanel, body.th-wak .mappanel{ background-color:#0D0A14; }
-body.th-wak:not([data-mode="timeline"])::before{ background-size:var(--padsize); }
-body.th-wak .mast h1, body.th-wak .dockpg .maptop h2, body.th-wak .pgtitle{ font-family:'Rajdhani','Anton',sans-serif; font-weight:700; color:#D9C6FF; letter-spacing:2px; }
-body.th-wak .mast h1{ font-size:clamp(17px, calc((100vw - 60px) / 15.4), 46px); letter-spacing:1.5px; }
-body.th-wak .mast h1::before, body.th-wak .dockpg .maptop h2::before, body.th-wak .pgtitle::before{ color:rgba(166,107,255,.6); }
-body.th-wak .mast h1::after{ background:linear-gradient(90deg,#3B1E78,#A66BFF 50%,#3B1E78); box-shadow:0 0 10px rgba(166,107,255,.35); }
-body.th-wak .saga h3{ font-family:'Rajdhani','Anton',sans-serif; font-weight:700; letter-spacing:4px; color:#E6DAFF; }
-body.th-wak .modes button{ border-radius:4px; clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%); padding-left:22px; padding-right:22px; }
-body.th-wak .modes button[aria-pressed="true"]{ background:#A66BFF; color:#0D0A14; border-color:#A66BFF; }
-body.th-wak .dock{ background:rgba(14,10,22,.96); border-top-color:#2E2442; box-shadow:0 -1px 0 rgba(166,107,255,.25); } body.th-wak .dock button{ color:#8A7AA6; } body.th-wak .dock button[aria-current="page"]{ color:#E6DAFF; }
-body.th-wak .toast.hud{ --hc:#A66BFF; } body.th-wak .toast.hud .hclip{ background-color:rgba(16,11,26,.97); }
-body.th-wak .hf-head{ border-color:#3A2B57; background:linear-gradient(180deg,#1A1229,#110B1C); } body.th-wak .hf-tag, body.th-wak .hf-sec h3{ color:#B79CFF; }
-body.th-wak .hf-bar{ background:#1E1730; } body.th-wak .hf-bar span{ background:linear-gradient(90deg,#5B2DB8,#C9A7FF); }
-body.th-wak .ach, body.th-wak .rc, body.th-wak .mk-exam, body.th-wak .mk-skin{ background:#140F20; border-color:#2E2442; } body.th-wak .mk-skin.on{ border-color:#A66BFF; box-shadow:0 0 0 1px rgba(166,107,255,.35); }
-body.th-wak .atl-views button[aria-selected="true"]{ background:#A66BFF !important; color:#0D0A14 !important; border-color:#A66BFF !important; }
-
-/* clearance exams: in the Agent File, one per chapter once it's complete; five questions from what you've watched in it */
-.mk-exams{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; }
-.mk-exam{ position:relative; display:flex; flex-direction:column; gap:4px; min-height:74px; padding:10px 11px; border:1px solid #232D42; border-radius:10px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
-.mk-exam small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
-.mk-exam b{ font:500 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
-.mk-exam em{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#8FE0FF; }
-.mk-exam.ok em{ color:#5BD18B; } .mk-exam.lk{ opacity:.55; cursor:default; } .mk-exam.lk em{ color:#6F7A90; }
-#mkExam{ position:fixed; inset:0; z-index:95; display:flex; flex-direction:column; background-color:#0B1019; background-image:var(--padimg); background-size:var(--padsize); color:#EEF1F6; overflow-y:auto; overscroll-behavior:contain; }
-#mkExam[hidden]{ display:none; }
-.mx-in{ width:100%; max-width:620px; margin:0 auto; padding:calc(22px + env(safe-area-inset-top,0px)) 20px 40px; }
-.mx-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
-.mx-top small{ font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6D8; }
-.mx-x{ border:1px solid #2A3140; border-radius:999px; background:#121A2A; color:#C9D3E3; padding:6px 12px; font:12px 'Share Tech Mono',monospace; letter-spacing:1.5px; cursor:pointer; }
-.mx-in h2{ margin:10px 0 4px; font:400 30px/1.05 'Anton','Impact',sans-serif; text-transform:uppercase; letter-spacing:.5px; }
-.mx-dots{ display:flex; gap:6px; margin:12px 0 22px; } .mx-dots i{ flex:1; height:4px; border-radius:2px; background:#1E2638; } .mx-dots i.on{ background:#8FE0FF; } .mx-dots i.ok{ background:#5BD18B; } .mx-dots i.no{ background:#E5484D; }
-.mx-q{ margin:0 0 16px; font-size:21px; line-height:1.35; }
-.mx-opts{ display:grid; gap:8px; }
-.mx-opts button{ padding:14px 16px; border:1px solid #2A3550; border-radius:12px; background:#101828; color:#EEF1F6; font:17px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; text-align:left; cursor:pointer; touch-action:manipulation; }
-.mx-opts button.ok{ border-color:#5BD18B; background:#0F2A1C; } .mx-opts button.no{ border-color:#E5484D; background:#2A1215; } .mx-opts button:disabled{ cursor:default; }
-.mx-next{ display:block; width:100%; margin-top:16px; padding:13px; border:0; border-radius:999px; background:#EEF1F6; color:#0B1019; font:600 16px 'IBM Plex Sans Condensed',sans-serif; cursor:pointer; }
-.mx-res{ text-align:center; padding-top:30px; } .mx-res .sc{ font:400 64px/1 'Anton','Impact',sans-serif; } .mx-res p{ color:#9AA3B2; font-size:16px; }
-.mx-stamp{ display:inline-block; margin:18px 0 6px; padding:6px 14px; border:3px solid #5BD18B; border-radius:6px; color:#5BD18B; font:20px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:4px; transform:rotate(-5deg); }
-.mx-stamp.no{ border-color:#E5484D; color:#E5484D; }
 
 /* MOCKUP END */
 </style>
@@ -10936,7 +10867,7 @@ document.addEventListener("click", ev => {
 }, true);
 renderAll();
 ["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
-/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams (test build only; mainprep cuts it) */
+/* MOCKUP BEGIN: Damage Control incident reports (test build only; mainprep cuts it) */
 if (MOCK) {
 // ---------- Damage Control's incident reports. Found in the Atlas, in New York's Midtown, where Damage Control began (cleaning up after the
 // Battle of New York); a report shows once its title is watched, and each line of fallout once its own title is
@@ -11042,75 +10973,6 @@ const _archSec = archSec;
 archSec = function () { const h = _archSec(); if (!(state.eggs || {}).damagecontrol) return h;
   const b = `<button type="button" class="ar-dc" data-arch="dc"><small>Incident reports</small><b>Damage Control</b><em>${DC.filter(dcSeen).length} on file</em><i aria-hidden="true">&#8250;</i></button>`;
   return h ? h.replace('</div></section>', b + '</div></section>') : `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${b}</div></section>`; };
-
-// ---------- skins: the datapad's look, chosen in the Agent File. Each unlocks from its own titles, like the insignia
-const SKINS = [["shield", "S.H.I.E.L.D.", "Stark tech", "linear-gradient(135deg,#0B1019 30%,#2F6FC0 30% 55%,#8FE0FF 55% 62%,#0B1019 62%)", null],
-  ["tva", "TVA", "Time Variance Authority", "linear-gradient(135deg,#120D09 30%,#C8661E 30% 55%,#FFB347 55% 62%,#120D09 62%)", "Loki S1"],
-  ["wakanda", "Wakanda", "Vibranium tech", "linear-gradient(135deg,#0D0A14 30%,#5B2DB8 30% 55%,#C9A7FF 55% 62%,#0D0A14 62%)", "Black Panther"]];
-const skinApply = () => { const s = state.skin || "shield"; document.body.classList.toggle("th-tva", s === "tva"); document.body.classList.toggle("th-wak", s === "wakanda"); };
-skinApply();
-const skinSec = () => `<section class="hf-sec"><h3><span>Datapad skin</span></h3><div class="mk-skins">${SKINS.map(([k, n, sub, sw, by]) => { const open = !by || atlSeenT(by), on = (state.skin || "shield") === k;
-    return `<button type="button" class="mk-skin${on ? " on" : ""}${open ? "" : " lk"}" data-skin="${open ? k : ""}"><span class="sw" style="background:${sw}"></span><b>${open ? n : '<span class="sl-cl">[ Classified ]</span>'}</b><small>${open ? (on ? "In use" : sub) : "Unlocks after " + esc(by)}</small></button>`; }).join("")}</div>
-  <p class="mk-note">A skin changes the datapad itself: Story, the dock, the pills, the Agent File, the Atlas and Comms. The boxes keep their own designs, and the Sacred Timeline stays the TVA's record.</p></section>`;
-
-// ---------- clearance exams: one per chapter, ready once the chapter is complete. Five questions, built only from the titles in it you've
-// watched (who holds an object at the end of a title, who appears in a title, where a threat stands at the end of one). Four right clears it
-state.exams = state.exams || {};
-const exReady = c => slAll(c);
-const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-function examQs(c) {
-  const T = c.items.map(i => i.t).filter(atlSeenT), Q = [], watched = [...new Set(DATA.chapters.filter(x => x.num).flatMap(x => x.items.map(i => i.t)))].filter(atlSeenT);   // distractors from the main line only
-  const mcu = o => !/^(by|sv|fox|pr)-/.test(o.id);
-  const holders = [...new Set(COLLX.filter(mcu).flatMap(o => o.st.filter(x => atlSeenT(x[1])).map(x => x[3]).filter(h => h && h !== "Nobody")))];
-  COLLX.filter(o => mcu(o) && !cxSpec(o)).forEach(o => T.forEach(t => { const L = o.st.filter(x => x[1] === t); if (!L.length) return; const h = L[L.length - 1][3]; if (!h || h === "Nobody") return;
-    Q.push({ q: `At the end of ${t}, who has ${cxName(o)}?`, a: h, opts: [h, ...shuf(holders.filter(x => x !== h)).slice(0, 3)] }); }));
-  ALLIES.filter(o => mcu(o) && !o.grp).forEach(o => { const ts = new Set(o.st.map(x => x[1])), hit = T.filter(t => ts.has(t)); if (!hit.length || !cpSteps(o).length) return;
-    const t = hit[Math.floor(Math.random() * hit.length)], no = shuf(watched.filter(x => !ts.has(x))).slice(0, 3); if (no.length < 3) return;
-    Q.push({ q: `${cpName(o)} is on screen in which of these?`, a: t, opts: [t, ...no] }); });
-  const ST = Object.keys(RF_ST);
-  THREATS.filter(o => mcu(o) && !o.grp).forEach(o => T.forEach(t => { const L = o.st.filter(x => x[1] === t && x[2]); if (!L.length) return; const s = L[L.length - 1][2];
-    Q.push({ q: `At the end of ${t}, where does ${rfName(o)} stand?`, a: s, opts: [s, ...shuf(ST.filter(x => x !== s)).slice(0, 3)] }); }));
-  return shuf(Q.filter(q => new Set(q.opts).size === 4)).slice(0, 5).map(q => ({ ...q, opts: shuf(q.opts) }));
-}
-const examSec = () => `<section class="hf-sec"><h3><span>Clearance exams</span><span>${DATA.chapters.filter(c => c.num && state.exams[c.id] >= 4).length}/${DATA.chapters.filter(c => c.num).length}</span></h3><div class="mk-exams">${DATA.chapters.filter(c => c.num).map(c => { const ok = state.exams[c.id] >= 4, ready = exReady(c);
-    return `<button type="button" class="mk-exam${ok ? " ok" : ""}${ready ? "" : " lk"}" data-exam="${ready ? c.id : ""}"><small>Ch. ${c.num}</small><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b><em>${ok ? "Cleared · " + state.exams[c.id] + "/5" : ready ? "Ready" : "Finish the chapter"}</em></button>`; }).join("")}</div></section>`;
-let mx = null;
-function examOpen(id) {
-  const c = DATA.chapters.find(x => x.id === id), qs = examQs(c); if (qs.length < 5) { toast("Not enough on file for an exam yet."); return; }
-  mx = { c, qs, i: 0, right: 0, done: [] };
-  let el = document.getElementById("mkExam"); if (!el) { el = document.createElement("div"); el.id = "mkExam"; document.body.appendChild(el); }
-  el.hidden = false; bodyLock(); examDraw();
-}
-function examDraw() {
-  const el = document.getElementById("mkExam"), { c, qs, i } = mx;
-  const dots = qs.map((q, k) => `<i class="${mx.done[k] === true ? "ok" : mx.done[k] === false ? "no" : k === i ? "on" : ""}"></i>`).join("");
-  const top = `<div class="mx-top"><small>Clearance exam · Ch. ${c.num}</small><button type="button" class="mx-x" data-mx="close">Leave</button></div><h2>${esc(c.title)}</h2><div class="mx-dots">${dots}</div>`;
-  if (i >= qs.length) { const pass = mx.right >= 4; if (pass) { state.exams[c.id] = Math.max(state.exams[c.id] || 0, mx.right); persist(); }
-    el.innerHTML = `<div class="mx-in">${top}<div class="mx-res"><div class="sc">${mx.right}/5</div><div class="mx-stamp${pass ? "" : " no"}">${pass ? "CLEARED" : "NOT CLEARED"}</div><p>${pass ? "Your clearance for this chapter is on your Agent ID." : "Four right clears it. The questions change every time."}</p><button type="button" class="mx-next" data-mx="close">Back to the Agent File</button></div></div>`; return; }
-  const q = qs[i];
-  el.innerHTML = `<div class="mx-in">${top}<p class="mx-q">${esc(q.q)}</p><div class="mx-opts">${q.opts.map(o => `<button type="button" data-mxa="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`;
-}
-document.addEventListener("click", ev => {
-  const el = document.getElementById("mkExam"); if (!el || el.hidden || !el.contains(ev.target)) return;
-  const a = ev.target.closest("[data-mxa]");
-  if (a && !a.disabled) { const q = mx.qs[mx.i], ok = a.dataset.mxa === q.a; mx.done[mx.i] = ok; if (ok) mx.right++; haptic(ok ? 12 : 30);
-    el.querySelectorAll("[data-mxa]").forEach(b => { b.disabled = true; if (b.dataset.mxa === q.a) b.classList.add("ok"); else if (b === a) b.classList.add("no"); });
-    el.querySelectorAll(".mx-dots i")[mx.i].className = ok ? "ok" : "no";
-    const n = document.createElement("button"); n.type = "button"; n.className = "mx-next"; n.dataset.mx = "next"; n.textContent = mx.i === mx.qs.length - 1 ? "See the result" : "Next question"; el.querySelector(".mx-in").appendChild(n); return; }
-  const m = ev.target.closest("[data-mx]"); if (!m) return;
-  if (m.dataset.mx === "next") { mx.i++; examDraw(); el.scrollTop = 0; return; }
-  el.hidden = true; mx = null; bodyFree(); if (fileOpen) renderFile();
-});
-const _bodyFree = bodyFree;
-bodyFree = function () { const el = document.getElementById("mkExam"); if (el && !el.hidden) return; _bodyFree(); };
-
-// the Agent File gets both: the skins and the exams sit above the save code
-const _renderFile = renderFile;
-renderFile = function (fresh) { _renderFile(fresh); const sv = document.getElementById("hfSave"), sec = sv && sv.closest(".hf-sec"); if (sec) sec.insertAdjacentHTML("beforebegin", examSec() + skinSec()); };
-document.getElementById("fileView").addEventListener("click", ev => {
-  const s = ev.target.closest("[data-skin]"); if (s) { ev.stopImmediatePropagation(); if (!s.dataset.skin) { haptic(30); return; } haptic(12); state.skin = s.dataset.skin; persist(); skinApply(); renderFile(); return; }
-  const x = ev.target.closest("[data-exam]"); if (x) { ev.stopImmediatePropagation(); if (!x.dataset.exam) { haptic(30); return; } haptic(12); examOpen(x.dataset.exam); }
-}, true);
 
 }
 /* MOCKUP END */
