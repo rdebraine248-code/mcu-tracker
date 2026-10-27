@@ -1449,6 +1449,11 @@ body.th-wak .atl-views button[aria-selected="true"]{ background:#A66BFF !importa
 .kcard{ position:relative; z-index:2; width:min(86vw,350px); margin-top:-6px; border-radius:14px; box-shadow:0 14px 30px rgba(0,0,0,.55); cursor:grab; touch-action:none; }
 .kcard .kc-id{ margin:0; pointer-events:none; }   /* your Agent ID itself, as it is in the Agent File */
 .kcard .hf-ava{ cursor:inherit; } .kcard .hf-code{ cursor:inherit; }
+.kx{ display:grid; gap:8px; margin:4px 0 6px; }
+.kx-r{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:2px 10px; width:100%; padding:11px 12px; border:1px solid #0B0F13; border-radius:6px; background:#ECEFF2; color:#0B0F13; text-align:left; cursor:pointer; font:inherit; }
+.kx-r b{ font:700 17px/1.1 'Chakra Petch',sans-serif; text-transform:uppercase; letter-spacing:.5px; } .kx-r em{ grid-column:1; font:11px/1.3 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#5A6470; }
+.kx-r i{ grid-row:1 / span 2; grid-column:2; font-style:normal; font-size:22px; } .kx-r.lk{ cursor:default; background:#CBD1D7; border-style:dashed; } .kx-r:not(.lk):active{ transform:scale(.99); }
+.kx-back{ display:inline-block; margin:2px 0 4px; padding:4px 10px 4px 8px; border:1px solid #0B0F13; border-radius:999px; background:#ECEFF2; color:#0B0F13; font:11px 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
 .kdoor{ position:absolute; top:0; bottom:0; z-index:5; width:50.5%; background:repeating-linear-gradient(135deg,#0B0F13 0 26px,#2A3038 26px 52px); box-shadow:0 0 30px rgba(0,0,0,.8); }
 .kdoor.l{ left:0; border-right:3px solid #8E99A4; } .kdoor.r{ right:0; border-left:3px solid #8E99A4; }
 .kdoor span{ position:absolute; top:50%; transform:translateY(-50%); font:700 22px/1 'Chakra Petch',sans-serif; letter-spacing:3px; color:#D9DEE3; }
@@ -1459,8 +1464,18 @@ body.th-wak .atl-views button[aria-selected="true"]{ background:#A66BFF !importa
 .kfile h4{ margin:6px 0 10px; font:700 26px/1.05 'Chakra Petch',sans-serif; text-transform:uppercase; letter-spacing:1px; }
 .kfile dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; } .kfile dt{ color:#5A6470; } .kfile dd{ margin:0; }
 .kfile p{ margin:0 0 8px; font-size:16px; line-height:1.45; min-height:1.45em; } .kfile q{ display:block; margin-top:10px; font-style:italic; font-size:19px; }
-.kfile .stamp{ position:absolute; right:14px; bottom:12px; padding:3px 8px; border:2px solid #C2262B; border-radius:4px; color:#C2262B; font:11px/1.2 'Share Tech Mono',monospace; letter-spacing:2px; transform:rotate(-7deg); }
+.kfile .stamp{ position:absolute; right:14px; top:24px; padding:3px 8px; border:2px solid #C2262B; border-radius:4px; color:#C2262B; font:11px/1.2 'Share Tech Mono',monospace; letter-spacing:2px; transform:rotate(-7deg); }
 .kfile .cl{ display:block; margin-top:12px; font:10px/1.4 'Share Tech Mono',monospace; letter-spacing:2px; color:#5A6470; text-transform:uppercase; }
+/* Eyes only (Fury, replacing the cards): three claw marks rake the screen, an eyepatch closes over half of it, and his line comes up on the
+   side he can still see; the patch lifts and the page is back */
+.fx-eye{ position:fixed; inset:0; z-index:97; pointer-events:none; overflow:hidden; }
+.fx-eye svg{ position:absolute; inset:0; width:100%; height:100%; }
+.fx-eye .gash{ fill:none; stroke:#2A0204; stroke-width:16; stroke-linecap:round; } .fx-eye .cut{ fill:none; stroke:#C3141C; stroke-width:6; stroke-linecap:round; filter:drop-shadow(0 0 6px rgba(195,20,28,.6)); }
+.ey-patch{ position:absolute; inset:0; background:linear-gradient(90deg,#000 0 40%,rgba(0,0,0,.9) 47%,rgba(0,0,0,0) 58%); }
+.ey-patch::before{ content:""; position:absolute; left:6%; top:28%; width:46%; height:30%; border-radius:46% 54% 50% 50% / 42% 42% 58% 58%; background:radial-gradient(ellipse at 40% 35%,#1C1C1C,#060606 70%); box-shadow:inset 0 0 18px rgba(255,255,255,.04); }
+.ey-patch .strap{ position:absolute; left:-20%; width:140%; top:31%; height:12px; background:#0A0A0A; transform:rotate(-14deg); box-shadow:0 2px 0 rgba(255,255,255,.04); }
+.ey-line{ position:absolute; left:50%; right:14px; top:34%; margin:0; font:italic 500 20px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#F4F6F8; text-shadow:0 2px 8px rgba(0,0,0,.8); }
+.ey-who{ position:absolute; left:50%; right:14px; top:calc(34% + 92px); font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#E9A23B; opacity:0; }
 /* MOCKUP END */
 </style>
 </head>
@@ -10977,6 +10992,36 @@ panel.addEventListener("pointerup", ev => { kcRead(ev); kc = null; }, true);
 panel.addEventListener("pointercancel", () => { kc = null; }, true);
 const _renderPanel = renderPanel;
 renderPanel = function (e, fresh) { _renderPanel(e, fresh); if (e && e.id === SHIELD_BOX) panel.style.touchAction = "pan-y"; };
+// what's filed at Level 7: each file opens once you've watched the title that puts it on record, and its lines follow their own titles
+const KFILES = [
+  { id: "pegasus", n: "Project Pegasus", t: "Captain Marvel", rows: [["Subject", "The Tesseract"], ["Held by", "Project Pegasus, then S.H.I.E.L.D."], ["Status", "Facility destroyed"]],
+    p: [["In 1995, at Project Pegasus, Dr. Wendy Lawson uses the Tesseract to build a light-speed engine, and hides both in a lab in orbit.", "Captain Marvel"],
+      ["After Carol Danvers comes home, the Tesseract passes to Nick Fury and S.H.I.E.L.D.", "Captain Marvel"],
+      ["Years later, Dr. Erik Selvig studies it for S.H.I.E.L.D. until Loki comes through it, and the facility collapses.", "The Avengers"]] },
+  { id: "phase2", n: "Phase 2", t: "The Avengers", rows: [["Subject", "Tesseract weapons"], ["Run by", "S.H.I.E.L.D."], ["Status", "Exposed"]],
+    p: [["After Thor's arrival shows how outgunned Earth is, S.H.I.E.L.D. uses the Tesseract to build weapons.", "The Avengers"],
+      ["Steve Rogers finds them in the Helicarrier's hold.", "The Avengers"]] },
+  { id: "tahiti", n: "Project T.A.H.I.T.I.", t: "Agents of S.H.I.E.L.D. S1", rows: [["Subject", "Agent Phil Coulson"], ["Authorized by", "Director Nick Fury"], ["Status", "Active"]],
+    p: [["After his death aboard the Helicarrier, Director Fury orders Agent Coulson brought back.", "Agents of S.H.I.E.L.D. S1"],
+      ["The procedure works. His memories of it are replaced with a few weeks of rest on a beach.", "Agents of S.H.I.E.L.D. S1"]], q: "Tahiti. It's a magical place." }];
+function kidx(f) {
+  f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => atlSeenT(k.t)
+      ? `<button type="button" class="kx-r" data-kf="${k.id}"><b>${esc(k.n)}</b><em>${esc(k.rows[0][1])}</em><i aria-hidden="true">&#8250;</i></button>`
+      : `<div class="kx-r lk"><b><span class="sl-cl">[ Classified ]</span></b><em>Not on your watch yet</em></div>`).join("")}</div><span class="cl">Tap outside to close</span>`;
+  f.onclick = ev => { const b = ev.target.closest("[data-kf]"); if (b) { haptic(10); kfile(f, KFILES.find(k => k.id === b.dataset.kf)); } };
+  if (!REDUCED) f.querySelectorAll(".kx-r").forEach((r, n) => r.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 300, delay: 700 + n * 110, fill: "backwards" }));
+}
+function kfile(f, k) {
+  const paras = k.p.filter(([, t]) => atlSeenT(t)).map(([x]) => x);
+  f.innerHTML = `<div class="hz"></div><span class="stamp">Director's eyes only</span><button type="button" class="kx-back" data-kb>&#8249; Level 7 files</button><h4>${esc(k.n)}</h4>
+    <dl>${k.rows.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl>${paras.map(() => "<p></p>").join("")}${k.q ? `<q style="opacity:0">${esc(k.q)}</q>` : ""}<span class="cl">Tap outside to close</span>`;
+  f.onclick = ev => { if (ev.target.closest("[data-kb]")) { haptic(8); kidx(f); } };
+  const P = [...f.querySelectorAll("p")], q = f.querySelector("q"); let pi = 0, ci = 0;
+  if (REDUCED) { P.forEach((p, n) => p.textContent = paras[n]); if (q) q.style.opacity = ""; return; }
+  const tick = () => { if (!f.isConnected || !f.querySelector("[data-kb]")) return; if (pi >= P.length) { if (q) q.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, fill: "forwards" }); return; }
+    const t = paras[pi]; P[pi].textContent = t.slice(0, ++ci); if (ci >= t.length) { pi++; ci = 0; setTimeout(tick, 220); } else setTimeout(tick, 14); };
+  tick();
+}
 function keycard() {
   const st = panel.firstElementChild; if (st) { st.classList.remove("kc-flash"); void st.offsetWidth; st.classList.add("kc-flash"); }
   let el = document.getElementById("mkKey"); if (!el) { el = document.createElement("div"); el.id = "mkKey"; document.body.appendChild(el); }
@@ -11040,19 +11085,37 @@ function keycard() {
     later(() => {   // shut: the reader goes, the file is laid out behind the doors, and they slide apart on it
       anim(el, [{ transform: "translate(0,0)" }, { transform: "translate(-3px,2px)" }, { transform: "translate(2px,-2px)" }, { transform: "translate(0,0)" }], { duration: 180 });
       kr.remove(); card.remove(); hint.remove(); el.style.justifyContent = "center"; el.style.paddingTop = "24px";
-      const tahiti = atlSeenT("Agents of S.H.I.E.L.D. S1"), f = document.createElement("div"); f.className = "kfile";
-      const paras = tahiti ? ["After his death aboard the Helicarrier, Director Fury orders Agent Coulson brought back.", "The procedure works. His memories of it are replaced with a few weeks of rest on a beach."] : ["Nothing filed at Level 7 has come up on your watch yet."];
-      f.innerHTML = `<div class="hz"></div><span class="stamp">Director's eyes only</span><small>Access granted · Level 7</small><h4>${tahiti ? "Project T.A.H.I.T.I." : "No files"}</h4>
-        ${tahiti ? `<dl><dt>Subject</dt><dd>Agent Phil Coulson</dd><dt>Authorized by</dt><dd>Director Nick Fury</dd><dt>Status</dt><dd>Active</dd></dl>` : ""}${paras.map(() => "<p></p>").join("")}${tahiti ? '<q style="opacity:0">Tahiti. It\'s a magical place.</q>' : ""}<span class="cl">Tap to close</span>`;
-      el.appendChild(f); el.onclick = () => { el.hidden = true; };
+      const f = document.createElement("div"); f.className = "kfile"; el.appendChild(f); el.onclick = ev => { if (ev.target === el) el.hidden = true; };   // only a tap on the dark around the file closes it
+      kidx(f);
       close(true); closeR(true);
-      later(() => { L.remove(); R.remove(); const P = [...f.querySelectorAll("p")]; let pi = 0, ci = 0;
-        const tick = () => { if (pi >= P.length) { const q = f.querySelector("q"); if (q) anim(q, [{ opacity: 0 }, { opacity: 1 }], { duration: 600, fill: "forwards" }), q.style.opacity = ""; return; }
-          const t = paras[pi]; P[pi].textContent = t.slice(0, ++ci); if (ci >= t.length) { pi++; ci = 0; later(tick, 220); } else later(tick, 14); };
-        if (REDUCED) { P.forEach((p, i) => p.textContent = paras[i]); const q = f.querySelector("q"); if (q) q.style.opacity = ""; } else tick(); }, 720);
+      later(() => { L.remove(); R.remove(); }, 720);
     }, 520);
   }
 }
+// ---------- Eyes only (mockup in place of the falling cards): the Fury box's own claw marks, then the eye they cost him
+{ const fe = EGGS.find(e => e[0] === "fury"); if (fe) { fe[1] = "Eyes only"; fe[2] = "The last time he trusted someone…"; } }
+fury = function (h) {
+  if (REDUCED) { found("fury"); return; }
+  const W = innerWidth, H = innerHeight, fx = document.createElement("div"); fx.className = "fx-eye"; document.body.appendChild(fx);
+  const marks = [0, 1, 2].map(k => { const x0 = W * (.30 + k * .085), y0 = H * (.16 + k * .02), x1 = W * (.10 + k * .085), y1 = H * (.66 + k * .02); return `M${x0} ${y0} Q ${x0 - W * .05} ${(y0 + y1) / 2} ${x1} ${y1}`; });
+  fx.innerHTML = `<svg viewBox="0 0 ${W} ${H}">${marks.map(d => `<path class="gash" d="${d}"/>`).join("")}${marks.map(d => `<path class="cut" d="${d}"/>`).join("")}</svg><div class="ey-patch"><i class="strap"></i></div><p class="ey-line"></p><small class="ey-who"></small>`;
+  const paths = [...fx.querySelectorAll("path")], patch = fx.querySelector(".ey-patch"), line = fx.querySelector(".ey-line"), who = fx.querySelector(".ey-who");
+  patch.style.opacity = 0;
+  paths.forEach((p, k) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 170, delay: (k % 3) * 70, easing: "cubic-bezier(.6,0,.9,.6)", fill: "forwards" }); });
+  haptic([18, 50, 18, 50, 18]);
+  setTimeout(() => {   // the patch swings in over the eye
+    patch.style.opacity = ""; patch.animate([{ transform: "translateX(-70%) rotate(-6deg)" }, { transform: "none" }], { duration: 520, easing: "cubic-bezier(.2,.8,.2,1)" });
+    paths.forEach(p => p.animate([{ opacity: 1 }, { opacity: .35 }], { duration: 600, fill: "forwards" })); haptic(30);
+  }, 420);
+  const said = atlSeenT("Captain America: The Winter Soldier") ? "Last time I trusted someone, I lost an eye." : "Eyes only.";
+  let i = 0; const type = () => { line.textContent = said.slice(0, ++i); if (i < said.length) setTimeout(type, 34); else if (atlSeenT("Captain Marvel")) { who.textContent = "Goose · 1995"; who.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, delay: 500, fill: "forwards" }); } };
+  setTimeout(type, 1000);
+  const end = 1000 + said.length * 34 + 2300;
+  setTimeout(() => { patch.animate([{ transform: "none", opacity: 1 }, { transform: "translateY(-110%)", opacity: 1 }], { duration: 600, easing: "cubic-bezier(.6,0,.4,1)", fill: "forwards" });
+    [line, who].forEach(x => x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" })); paths.forEach(p => p.animate([{ opacity: .35 }, { opacity: 0 }], { duration: 700, fill: "forwards" })); }, end);
+  setTimeout(() => { fx.remove(); found("fury"); }, end + 750);
+};
+
 }
 /* MOCKUP END */
 </script>
