@@ -1365,7 +1365,6 @@ body{ padding-bottom:var(--dockh); }
 .kfile p{ margin:0 0 8px; font-size:16px; line-height:1.45; min-height:1.45em; } .kfile q{ display:block; margin-top:10px; font-style:italic; font-size:19px; }
 .kfile .stamp{ position:absolute; right:14px; top:24px; padding:3px 8px; border:2px solid #C2262B; border-radius:4px; color:#C2262B; font:11px/1.2 'Share Tech Mono',monospace; letter-spacing:2px; transform:rotate(-7deg); }
 .kfile .cl{ display:block; margin-top:12px; font:10px/1.4 'Share Tech Mono',monospace; letter-spacing:2px; color:#5A6470; text-transform:uppercase; }
-/* MOCKUP BEGIN: Damage Control incident reports (test build only; mainprep cuts it) */
 /* Damage Control's incident reports: a government form, hazard yellow on slate, every report stamped with its number */
 .collpanel.dcx .maptop h2{ color:#F2C94C; } .collpanel.dcx .maptop h2::before{ color:rgba(242,201,76,.45); }
 .dcx .co-h{ color:#F2C94C; }
@@ -1400,7 +1399,6 @@ body{ padding-bottom:var(--dockh); }
 .atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#C9B27A; } .atl-dc em{ font-style:normal; font-size:18px; color:#F2C94C; }
 .hf-arch .ar-dc{ --ac:#8C7A3A; --ab:linear-gradient(180deg,rgba(242,201,76,.10),rgba(242,201,76,.03)); --ak:#F2C94C; }
 
-/* MOCKUP END */
 </style>
 </head>
 <body>
@@ -3971,6 +3969,7 @@ function atlSheet(p, fresh) {   // fresh: the entries that turned up since you l
   return `<div class="atl-sh"><div><h3>${esc(p.n)}</h3><small>${esc(p.r)}</small></div><button type="button" class="atl-x" aria-label="Close">×</button></div>
     ${p.id === "raft" ? `<button type="button" class="atl-raft"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM5.5 2v12M8 2v12M10.5 2v12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></i><span><b>Threat registry</b><small>Every threat on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${p.id === "compound" && ALLIES.length ? `<button type="button" class="atl-raft atl-cpb"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="6.2" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.8 12c.6-1.7 1.8-2.6 3.2-2.6s2.6.9 3.2 2.6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></i><span><b>Personnel files</b><small>Every hero and ally on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+    ${atlView === "city" && atlCity === "ny" && p.id === "Midtown" && atlSeenT(DC_OPEN) ? `<button type="button" class="atl-dc"><i aria-hidden="true">DC</i><span><b>Damage Control</b><small>Incident reports</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${p.id === "knowhere" && collKnown() ? `<button type="button" class="atl-coll"><i aria-hidden="true">&#9670;</i><span><b>Visit the Collector</b><small>Taneleer Tivan's archive</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${spots.length > 2 ? `<div class="atl-chips"><button type="button" class="on" data-chip="">All</button>${spots.map(s => `<button type="button" data-chip="${esc(s)}">${esc(s)}</button>`).join("")}</div>` : ""}
     ${groups.map(([s, L]) => `<div class="atl-grp" data-g="${esc(atlSpot(s))}">${s ? `<div class="atl-sub">${esc(s)}</div>` : ""}${L.map(e => `<div class="atl-ev${fresh.has(p.e.indexOf(e)) ? " nw" : ""}"><b>${e[3] ? esc(e[3]) : tnh(e[0])}${city && e[1] !== atlSpot(e[1]) ? " · " + esc(e[1].slice(atlSpot(e[1]).length + 2)) : ""}</b><p>${esc(e[2])}</p></div>`).join("")}</div>`).join("")}
@@ -4129,6 +4128,7 @@ function renderAtlas() {
     if (ev.target.closest(".atl-x")) { haptic(8); atlClose(map); return; }
     if (ev.target.closest(".atl-coll")) { haptic(12); openColl(); return; }
     if (ev.target.closest(".atl-cpb")) { haptic(12); openColl("cp"); return; }
+    if (ev.target.closest(".atl-dc")) { haptic(12); openColl("dc"); return; }
     if (ev.target.closest(".atl-raft")) { haptic(12); openColl("raft"); return; }
     const go = ev.target.closest("[data-city]"); if (go) { haptic(10); atlSub("city", go.dataset.city); return; }
     const ch = ev.target.closest("[data-chip]");
@@ -4227,21 +4227,22 @@ function renderColl() {
 function renderColl0() {
   if (collMode === "raft") { renderRaft(); return; }
   if (collMode === "cp") { renderCp(); return; }
+  if (collMode === "dc") { renderDc(); return; }
   renderCx();
 }
 function openColl(mode, keep, step) {   // step: going back to an index (or jumping to one from a file) adds no step of its own
-  collMode = mode === "raft" || mode === "cp" ? mode : "coll";
-  if (!keep) { rfUni = "mcu"; rfGrp = "status"; rfFold = {}; rfQ = ""; rfOppF = ""; rfTeamF = ""; cpUni = "mcu"; cpGrp = "status"; cpFold = {}; cpQ = ""; cpTeamF = ""; cxUni = "mcu"; cxGrp = "type"; cxFold = {}; cxQ = ""; cxHoldF = ""; } const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp";
-  cp.classList.toggle("raft", raft); cp.classList.toggle("cpx", cpm); cp.setAttribute("aria-label", raft ? "Threat registry" : cpm ? "Personnel files" : "The Collection");
-  const h2 = cp.querySelector(".maptop h2"); h2.textContent = raft ? "The Raft" : cpm ? cpHome()[0] : "The Collection"; h2.dataset.glow = h2.textContent;
+  collMode = mode === "raft" || mode === "cp" || mode === "dc" ? mode : "coll";
+  if (!keep) { rfUni = "mcu"; rfGrp = "status"; rfFold = {}; rfQ = ""; rfOppF = ""; rfTeamF = ""; cpUni = "mcu"; cpGrp = "status"; cpFold = {}; cpQ = ""; cpTeamF = ""; cxUni = "mcu"; cxGrp = "type"; cxFold = {}; cxQ = ""; cxHoldF = ""; dcQ = ""; dcGrp = "yr"; } const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp", dcm = collMode === "dc";
+  cp.classList.toggle("raft", raft); cp.classList.toggle("cpx", cpm); cp.classList.toggle("dcx", dcm); cp.setAttribute("aria-label", raft ? "Threat registry" : cpm ? "Personnel files" : dcm ? "Incident reports" : "The Collection");
+  const h2 = cp.querySelector(".maptop h2"); h2.textContent = raft ? "The Raft" : cpm ? cpHome()[0] : dcm ? "Damage Control" : "The Collection"; h2.dataset.glow = h2.textContent;
   if (cpm && !state.cpIn) { const L = ALLIES.filter(o => cpSteps(o).length), R = state.cpSeen = state.cpSeen || {}; L.forEach(o => R[o.id] = 1); state.cpIn = 1; cpIntake = L.length; persist(); }
   // the first time you board the Raft, everything already on file comes over in one intake, read; from then on, a file that's new to you says so
-  if (!raft && !cpm && !state.collIn) { const L = COLLX.filter(o => cxSteps(o).length), R = state.collSeen = state.collSeen || {}; L.forEach(o => R[o.id] = 1); state.collIn = 1; cxIntake = L.length; persist(); }
+  if (!raft && !cpm && !dcm && !state.collIn) { const L = COLLX.filter(o => cxSteps(o).length), R = state.collSeen = state.collSeen || {}; L.forEach(o => R[o.id] = 1); state.collIn = 1; cxIntake = L.length; persist(); }
   if (raft && !state.raftIn) { const L = THREATS.filter(o => rfSteps(o).length), R = state.raftSeen = state.raftSeen || {}; L.forEach(o => R[o.id] = 1); state.raftIn = 1; rfIntake = L.length; persist(); }
   collRec = null; cpTeamF = ""; cxHoldF = ""; collY = 0; renderColl();
   cp.hidden = false; collOpen = true; bodyLock(); cp.scrollTop = 0;   // once it's shown: a hidden panel ignores scrollTop and would keep the last index's place
   if (!step) try { history.pushState({ mcu: "coll", cm: collMode }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
-  found(raft ? "raft" : cpm ? "compound" : "collector");
+  found(raft ? "raft" : cpm ? "compound" : dcm ? "damagecontrol" : "collector");
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
@@ -6653,6 +6654,7 @@ const EGGS = [
   ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas Cosmos, tap Knowhere and visit the Collector.", 1],
   ["compound", "The Avengers Compound", "Upstate, the team keeps a file on everyone.", "After Age of Ultron, in the Atlas, tap the Avengers Compound and open its personnel files.", 1],
   ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "After Civil War, in the Atlas, tap the Raft and open its threat registry.", 1],
+  ["damagecontrol", "Damage Control", "Someone has to clean up after the heroes.", "After Spider-Man: Homecoming, in the Atlas, open New York, tap Midtown and open the incident reports.", 1],
   ["jumppoint", "Jump point", "Space is big. Take a shortcut.", "In the Atlas Cosmos, hold an empty patch of space.", 1],
   ["goose", "Not a cat", "Fury's favorite.", "In Captain Marvel's profile, tap Goose.", 1],
   ["decrypt", "Decrypted", "The Kree left something out.", "In Comms, hold the blacked-out words in the Kree intercept.", 1],
@@ -7058,12 +7060,13 @@ const xpTitles = () => XP_T || (XP_T = (() => { const B = [...DATA.chapters, ...
 const xpOf = A => xpTitles().reduce((n, [t, w]) => n + (atlSeenT(t) ? w : 0), 0) + A.filter(a => earned(a.id)).reduce((n, a) => n + (XP_ID[a.id] ?? XP_SEC[a.sec] ?? 20), 0);
 const xpLevel = (x, A) => A.every(a => earned(a.id)) ? 11 : XP_AT.filter(v => x >= v).length;
 /* the archives you've found, a tap away. Each index is found in the Atlas first (the Compound upstate, the Raft at sea, the Collector on
-   Knowhere); once it is, it's listed here under your Agent ID, and nothing shows before the first one is found */
+   Knowhere, Damage Control in Midtown); once it is, it's listed here under your Agent ID, and nothing shows before the first one is found */
 function archSec() {
   const ex = state.eggs || {};
   const L = [["cp", "compound", "The Avengers Compound", "Personnel files", () => ALLIES.filter(o => cpSteps(o).length).length, "on file"],
     ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
-    ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
+    ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"],
+    ["dc", "damagecontrol", "Damage Control", "Incident reports", () => DC.filter(dcSeen).length, "on file"]].filter(a => ex[a[1]]);
   if (!L.length) return "";
   return `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${L.map(([m, , t, k, n, w]) => `<button type="button" class="ar-${m}" data-arch="${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em><i aria-hidden="true">&#8250;</i></button>`).join("")}</div></section>`;
 }
@@ -10878,8 +10881,6 @@ document.addEventListener("click", ev => {
 }, true);
 renderAll();
 ["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
-/* MOCKUP BEGIN: Damage Control incident reports (test build only; mainprep cuts it) */
-if (MOCK) {
 // ---------- Damage Control's incident reports. Found in the Atlas, in New York's Midtown, where Damage Control began (cleaning up after the
 // Battle of New York); a report shows once its title is watched, and each line of fallout once its own title is
 const DC_OPEN = "Spider-Man: Homecoming";
@@ -11027,7 +11028,6 @@ const dcNames = (d, grp) => (grp ? dcGrpOf(d) : d.who.filter(([id, tg]) => !((tg
   return o && (tg === "A" ? cpSteps(o) : rfSteps(o)).length ? (tg === "A" ? cpName(o) : rfName(o)) : null; }).filter(Boolean);
 const dcAka = d => d.who.concat(d.tm).flatMap(([id, tg]) => { const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id); return o && (tg === "A" ? cpSteps(o) : rfSteps(o)).length ? alNow(o) : []; });
 let dcQ = "", dcGrp = "yr"; const dcFold = {};
-window.mkDc = { DC, dcGrpOf, dcNames };   // for the test build's checks
 const DC_GRP = [["yr", "Year"], ["t", "Title"], ["who", "Involved"], ["tm", "Team"]];
 const dcShut = k => { const v = (dcFold[dcGrp] || {})[k]; return v == null ? dcGrp === "who" || dcGrp === "tm" : v; };
 function renderDc() {
@@ -11071,18 +11071,6 @@ function dcBody() {
       return `<section class="rf-sec${shut ? " shut" : ""}"><button type="button" class="rf-sh" data-dcf="${esc(k)}" aria-expanded="${!shut}"><span>${esc(k)}</span><em>${A.length}</em></button>${shut ? "" : `<div class="dc-list2">${sorted(A).map(row).join("")}</div>`}</section>`; }).join("")}`;
 
 }
-const _openColl = openColl, _renderColl0 = renderColl0;
-openColl = function (mode, keep, step) {
-  const cp = document.getElementById("collPanel");
-  if (mode !== "dc") { cp.classList.remove("dcx"); return _openColl(mode, keep, step); }
-  collMode = "dc"; cp.classList.remove("raft", "cpx"); cp.classList.add("dcx"); cp.setAttribute("aria-label", "Incident reports");
-  const h2 = cp.querySelector(".maptop h2"); h2.textContent = "Damage Control"; h2.dataset.glow = h2.textContent;
-  if (!keep) { dcQ = ""; dcGrp = "yr"; }
-  collRec = null; collY = 0; renderColl(); cp.hidden = false; collOpen = true; bodyLock(); cp.scrollTop = 0;
-  if (!step) try { history.pushState({ mcu: "coll", cm: "dc" }, ""); } catch (e) {}
-  found("damagecontrol"); document.getElementById("collBack").focus({ preventScroll: true });
-};
-renderColl0 = function () { if (collMode === "dc") renderDc(); else _renderColl0(); };
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "dcQ") return; dcQ = ev.target.value; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !dcQ; v.querySelector(".dc-body").innerHTML = dcBody(); });
 document.getElementById("collView").addEventListener("keydown", ev => { if (ev.target.id === "dcQ" && ev.key === "Enter") ev.target.blur(); });
@@ -11095,18 +11083,7 @@ document.getElementById("collView").addEventListener("click", ev => {
   const p = ev.target.closest("[data-dcp]"); if (p) { ev.stopImmediatePropagation(); haptic(10); const [tg, id] = p.dataset.dcp.split(":"); if (tg === "A") cpUni = "mcu"; else rfUni = "mcu"; collJump(tg === "A" ? "cp" : "raft", id); return; }
   const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = "mcu"; collJump("coll", x.dataset.dcx); return; }
 }, true);
-const _atlSheet = atlSheet;
-atlSheet = function (p, fresh) { let h = _atlSheet(p, fresh);
-  if (atlView === "city" && atlCity === "ny" && p.id === "Midtown" && atlSeenT(DC_OPEN)) h = h.replace('aria-label="Close">×</button></div>', `aria-label="Close">×</button></div><button type="button" class="atl-dc"><i aria-hidden="true">DC</i><span><b>Damage Control</b><small>Incident reports</small></span><em aria-hidden="true">&#8250;</em></button>`);
-  return h; };
-document.addEventListener("click", ev => { if (ev.target.closest(".atl-dc")) { haptic(12); openColl("dc"); } });
-const _archSec = archSec;
-archSec = function () { const h = _archSec(); if (!(state.eggs || {}).damagecontrol) return h;
-  const b = `<button type="button" class="ar-dc" data-arch="dc"><small>Incident reports</small><b>Damage Control</b><em>${DC.filter(dcSeen).length} on file</em><i aria-hidden="true">&#8250;</i></button>`;
-  return h ? h.replace('</div></section>', b + '</div></section>') : `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${b}</div></section>`; };
 
-}
-/* MOCKUP END */
 </script>
 </body>
 </html>
