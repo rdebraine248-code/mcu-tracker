@@ -7065,8 +7065,8 @@ function archSec() {
   const ex = state.eggs || {};
   const L = [["cp", "compound", "The Avengers Compound", "Personnel files", () => ALLIES.filter(o => cpSteps(o).length).length, "on file"],
     ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
-    ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"],
-    ["dc", "damagecontrol", "Damage Control", "Incident reports", () => DC.filter(dcSeen).length, "on file"]].filter(a => ex[a[1]]);
+    ["dc", "damagecontrol", "Damage Control", "Incident reports", () => DC.filter(dcSeen).length, "on file"],
+    ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
   if (!L.length) return "";
   return `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${L.map(([m, , t, k, n, w]) => `<button type="button" class="ar-${m}" data-arch="${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em><i aria-hidden="true">&#8250;</i></button>`).join("")}</div></section>`;
 }
