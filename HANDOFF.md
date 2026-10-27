@@ -348,7 +348,7 @@ These happened in earlier chats. Each cost the owner time.
 - **Maria Hill** (`b1f7739`): her Agents of S.H.I.E.L.D. seasons and Soren posing as her in Far From Home.
 - **The Sacred Timeline tab** (`5c1ca98`), and **tab names and the Incursions hold** (`e74de76`): the indexes' first tab renamed; Extra
   tabs named like the timeline's; holding the Incursions line marks them all.
-- **The appearance sweep** (awaiting the owner's go-ahead for main):
+- **The appearance sweep** (`ed4dec1`), with First and Last seen by release order and the Void's Juggernaut merged:
   - All 2,132 files were checked against their subjects' on-screen appearances, in 32 chunks, each re-checked by a separate agent.
   - Steps went from 4,782 to 5,421 across 490 files, and 297 steps were given their seasons.
   - 66 flagged existing steps were settled against sources.
