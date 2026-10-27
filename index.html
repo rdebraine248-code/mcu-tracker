@@ -3863,7 +3863,34 @@ function atlDraw() {
     g.setLineDash([]);
     if (atlView !== "cosmos") { g.strokeStyle = `rgba(${col},.1)`; g.beginPath(); for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; g.moveTo(c[0] + Math.cos(a) * 60, c[1] + Math.sin(a) * 60); g.lineTo(c[0] + Math.cos(a) * 700, c[1] + Math.sin(a) * 700); } g.stroke(); }
   }
-  atlPlace(map, W, H);
+  atlSectors(map, g, W, H, dpr); atlPlace(map, W, H);
+}
+// the Atlas's sectors: a faint, tiny code you only see once you've zoomed right in. The Earth runs A1 (top left) to J24 (bottom right),
+// letters down and numbers across; a city reads like a street atlas, numbers down and letters across under its code (NYC C7); the Cosmos
+// goes by ring and compass bearing (2-NE), the Beyond by plane and spoke in Roman numerals (III-7), the Multiverse by Greek ring and spoke (β-07)
+const ATL_CODE = { ny: "NYC", london: "LDN", la: "LA" };
+function atlSectors(map, g, W, H, dpr) {
+  const T = atlT, geo = atlGeo(), [x0, y0, x1, y1] = atlBounds(), { max } = atlKs(map), S = (x, y) => [(x - T.x) * T.k, (y - T.y) * T.k];
+  const ramp = (v, a, b) => Math.max(0, Math.min(1, (v - a) / (b - a)));
+  let f, col = "125,198,255"; const out = [];
+  if (geo[0] !== "sky") {   // a grid square: fade the codes in as one square comes to fill most of the map
+    const step = geo[0] === "earth" ? 15 : 50; f = ramp(step * T.k / Math.min(W, H), .5, .72); if (!f) return;
+    const city = geo[0] === "city" && (ATL_CODE[geo[1]] || ATL_CITY[geo[1]].n.slice(0, 3).toUpperCase());
+    for (let r = 0; y0 + r * step < y1 - .01; r++) for (let c = 0; x0 + c * step < x1 - .01; c++) {
+      const code = city ? `${city} ${String.fromCharCode(65 + c)}${r + 1}` : `${String.fromCharCode(65 + r)}${c + 1}`;
+      out.push([...S(x0 + c * step, y0 + r * step), code]); }
+  } else {   // open sky: a ring and a slice of it
+    f = ramp(T.k / max, .55, .85); if (!f) return;
+    const c = atlView === "cosmos" ? [500, 540] : atlView === "multi" ? [500, 500] : [500, 470], rings = [0, 130, 260, 390, 520];
+    col = atlView === "cosmos" ? "120,165,230" : atlView === "multi" ? "235,185,105" : "175,150,255";
+    const n = atlView === "cosmos" ? 8 : 16, CMP = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"], ROM = ["I", "II", "III", "IV", "V"], GRK = ["α", "β", "γ", "δ", "ε"];
+    rings.forEach((r0, ri) => { for (let k = 0; k < n; k++) {
+      const a = (k + (atlView === "cosmos" ? 0 : .5)) / n * Math.PI * 2, rr = ri ? r0 + 16 : 70;   // just inside the ring: on its bearing in the Cosmos, halfway along the slice elsewhere
+      const code = atlView === "cosmos" ? `${ri + 1}-${CMP[k]}` : atlView === "multi" ? `${GRK[ri]}-${String(k + 1).padStart(2, "0")}` : `${ROM[ri]}-${k + 1}`;
+      out.push([...S(c[0] + Math.cos(a) * rr, c[1] + Math.sin(a) * rr), code, 1]); } });
+  }
+  g.setTransform(dpr, 0, 0, dpr, 0, 0); g.font = "8px 'Share Tech Mono','Courier New',monospace"; g.fillStyle = `rgba(${col},${(.42 * f).toFixed(3)})`;
+  out.forEach(([x, y, t, mid]) => { if (x < -40 || y < -20 || x > W || y > H) return; g.textAlign = mid ? "center" : "left"; g.textBaseline = mid ? "middle" : "top"; g.fillText(t, mid ? x : x + 3, mid ? y : y + 3); });
 }
 function atlPlace(map, W, H) {   // move the pins, then show as many names as fit without overlapping
   const T = atlT, pins = map._pins || [], used = [[W - 58, 0, W, 156, null]];   // keep names out from under the zoom buttons
