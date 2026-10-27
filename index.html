@@ -1092,6 +1092,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .co-tiles{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px; }
 .co-tiles .wide{ grid-column:1 / -1; } .co-tiles div{ padding:9px 12px; border:1px solid #232D42; border-radius:10px; background:#0F1626; } .co-tiles small{ display:block; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; } .co-tiles b{ display:block; margin-top:2px; font-size:14px; font-weight:600; color:#EEF1F6; }
 .co-h{ color:#E9C46A; margin-bottom:8px; }
+.co-aka{ margin:0 0 16px; font-size:16px; line-height:1.4; }
 .co-chain{ list-style:none; margin:0; padding:0 0 0 22px; border-left:2px solid #26314A; margin-left:7px; }
 .co-chain li{ position:relative; padding:0 0 16px; } .co-chain li::before{ content:""; position:absolute; left:-31px; top:3px; width:12px; height:12px; border:2px solid #5FA8FF; border-radius:50%; background:#0B1019; }
 .co-chain li:last-child::before{ background:#5FA8FF; box-shadow:0 0 8px #5FA8FF; }
@@ -2417,7 +2418,7 @@ function openPanel(e, kind, fromEl) {
   renderPanel(e, true);
   panel.hidden = false; blCarry(e);
   panel.scrollTop = 0;
-  document.body.style.overflow = "hidden";
+  bodyLock();
   requestAnimationFrame(() => requestAnimationFrame(() => {
     panel.classList.add("open");
     panel.style.clipPath = "inset(0px 0px 0px 0px round 0px)";
@@ -2444,7 +2445,7 @@ function closePanel() {
     if (justFinished) { boxNews(closing, "Complete", undefined, true); haptic(HAPTIC.success); }   // the box first; anything it earned follows, each on its own
     if (d.length) { achPending.push(...d); setTimeout(flushAch, 300); }
   };
-  openEntry = null;
+  openEntry = null; bodyFree();   // a closing box frees the page at once, so whatever moves it next (to a tile, to another box) moves it
   panel.classList.remove("open");
   if (REDUCED || !from) return done();
   panel.style.clipPath = rectClip(from);
@@ -3089,7 +3090,7 @@ function openDossier(id, go) {
     el.className = "dossier"; el.removeAttribute("style");
     slPlace(go && go.open);
     el.innerHTML = `<div class="dscroll"><div class="dview">${slHTML()}</div></div>`;
-    el.hidden = false; dossierOpen = id; document.body.style.overflow = "hidden";
+    el.hidden = false; dossierOpen = id; bodyLock();
     const sc = el.querySelector(".dscroll"); sc.scrollTop = 0;
     const at = go && go.open && el.querySelector(`[data-sls="${CSS.escape(go.open)}"]`);
     if (at) { sc.scrollTop = Math.max(0, at.offsetTop - 12); at.classList.add("hl"); }
@@ -3111,7 +3112,7 @@ function openDossier(id, go) {
     </div>`;
   }
   persist();
-  el.hidden = false; dossierOpen = id; document.body.style.overflow = "hidden";   // the page behind stays put, like under Atlas or Comms
+  el.hidden = false; dossierOpen = id; bodyLock();   // the page behind stays put, like under Atlas or Comms
   if (!SG) try { history.pushState({ mcu: "dossier" }, ""); } catch (e) {}
   const sc = SG ? el.querySelector(".dscroll") : el; sc.scrollTop = 0;
   if (!SG) el.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: "ease-out" });
@@ -4099,7 +4100,7 @@ function atlForget() {
 function openAtlas() {
   atlForget();
   atlView = "earth"; atlCity = null; atlUni = null; atlBig = false; atlBigBack = false; atlHist = []; atlPend = null; atlPrevT = null;   // the Atlas always opens on Earth, at its usual size
-  document.getElementById("atlasPanel").hidden = false; atlOpen = true; document.body.style.overflow = "hidden"; renderAtlas();
+  document.getElementById("atlasPanel").hidden = false; atlOpen = true; bodyLock(); renderAtlas();
   pushNav("atlas"); document.getElementById("atlBack").focus({ preventScroll: true });
 }
 function closeAtlas(fromHistory) {
@@ -4137,14 +4138,14 @@ function openColl(mode, keep) {
   if (!raft && !cpm && !state.collIn) { const L = COLLX.filter(o => cxSteps(o).length), R = state.collSeen = state.collSeen || {}; L.forEach(o => R[o.id] = 1); state.collIn = 1; cxIntake = L.length; persist(); }
   if (raft && !state.raftIn) { const L = THREATS.filter(o => rfSteps(o).length), R = state.raftSeen = state.raftSeen || {}; L.forEach(o => R[o.id] = 1); state.raftIn = 1; rfIntake = L.length; persist(); }
   collRec = null; cpTeamF = ""; cxHoldF = ""; collY = 0; renderColl();
-  cp.hidden = false; collOpen = true; cp.scrollTop = 0;   // once it's shown: a hidden panel ignores scrollTop and would keep the last index's place
+  cp.hidden = false; collOpen = true; bodyLock(); cp.scrollTop = 0;   // once it's shown: a hidden panel ignores scrollTop and would keep the last index's place
   try { history.pushState({ mcu: "coll" }, ""); } catch (e) {}   // stacked on the Atlas, so back returns to Knowhere
   found(raft ? "raft" : cpm ? "compound" : "collector");
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
   if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
-  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; rfTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = "";
+  document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; rfTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = ""; bodyFree();
 }
 function collShow(id) {
   const v = document.getElementById("collPanel"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
@@ -4234,7 +4235,7 @@ function renderCx() {
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>The Collection</button>
       <div class="cx-big s-${CX_ST[st]}"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><b class="cx-stb">${esc(st)}</b></div>
       <small class="cx-lot">${cxNo(o)} · ${esc(cxTyName(o.c))}</small><h3>${esc(cxName(o))}</h3><p class="co-kind">${esc(cxKind(o))}</p>
-      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>${cxSpec(o) ? "Home world" : "Held by"}</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div></div>
+      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>${cxSpec(o) ? "Home world" : "Held by"}</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div>${uniTile(o, "wide")}</div>
       ${hands.length && !cxSpec(o) ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}</div>` : ""}
       <div class="co-h">${cxSpec(o) ? "Field notes" : "Chain of custody"}</div>
       <ol class="co-chain cx-chain">${S.map(x => { const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
@@ -4297,6 +4298,12 @@ const rfFirstStep = S => S.reduce((a, x) => seenRk(x) < seenRk(a) ? x : a, S[0])
 const rfLastStep = S => S.reduce((a, x) => seenRk(x) >= seenRk(a) ? x : a, S[0]);
 const seenTtl = (S, last) => stepTtl(last ? rfLastStep(S) : rfFirstStep(S));   // with its season, as the steps show it
 const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
+// the other names a person has gone by on screen (a hero or villain name, a cover), each known from the title that first says it. The search
+// finds them too, and a file found only by one of them says so under its name
+const alNow = o => (o.al || []).filter(a => atlSeenT(a[1])).map(a => a[0]);
+const alRow = o => { const L = alNow(o); return L.length ? `<div class="co-h">Aliases</div><p class="co-aka">${L.map(esc).join(" · ")}</p>` : ""; };
+const qHit = (o, q, nm, kd) => [nm(o), kd(o), ...alNow(o)].some(t => qNorm(t).includes(q));
+const akaSm = (o, q, nm, kd) => { const a = q.length > 1 && !qNorm(nm(o)).includes(q) && !qNorm(kd(o)).includes(q) && alNow(o).find(t => qNorm(t).includes(q)); return a ? "Also known as " + qMark(a, q) : esc(kd(o)); };
 // a threat's class and who stands against them move with the story: Wanda is a Global threat until Multiverse of Madness makes her Multiversal
 const rfClass = o => stageAt(o.cl || "", atlSeenT)[0];
 // everyone who has stood against them so far: the Compound's own files (named as you know them) and its teams, from the title they first did.
@@ -4328,6 +4335,8 @@ function rfGroupFile(team, from) {   // the group file carrying that name in thi
 RF_GRP.push(["tm", "Faction"]);
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
+// every file in the three indexes says which universe it belongs to, by the same name its tab goes by
+const uniTile = (o, cls) => `<div${cls ? ` class="${cls}"` : ""}><small>Universe</small><b>${rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o)))}</b></div>`;
 function renderRaft() {
   const v = document.getElementById("collView"), seen = state.raftSeen = state.raftSeen || {};
   if (collRec) {
@@ -4336,8 +4345,8 @@ function renderRaft() {
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
       <div class="rf-head"><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat · ${esc(tmNow(o.tm))}</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p></div>
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
-      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div class="wide"><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div></div>
-      <div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
+      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div>${uniTile(o, "")}</div>
+      ${alRow(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
       ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
@@ -4357,7 +4366,7 @@ function renderRaft() {
 let rfQ = "";
 function rfBody() {
   const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
-  const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(rfKind(o))}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
+  const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${akaSm(o, q, rfName, rfKind)}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
   if (rfOppF && q.length < 2) {   // everyone one hero or team has stood against, as far as you've watched
     const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfOpps(o).includes(rfOppF)).sort(ixCmp(rfName, rfSteps));
     return `<div class="tf-bar"><span><small>Opposed by</small><b>${esc(rfOppF)}</b></span><button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
@@ -4370,7 +4379,7 @@ function rfBody() {
       <section class="rf-sec"><div class="rf-sh rf-found"><span>On file</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>`;
   }
   if (q.length > 1) {
-    const L = THREATS.filter(o => { const S = rfSteps(o); return rfUniOf(o) === rfUni && S.length && [rfName(o), rfKind(o)].some(t => qNorm(t).includes(q)); })
+    const L = THREATS.filter(o => { const S = rfSteps(o); return rfUniOf(o) === rfUni && S.length && qHit(o, q, rfName, rfKind); })
       .sort((a, b) => qNorm(rfName(b)).includes(q) - qNorm(rfName(a)).includes(q) || rfName(a).localeCompare(rfName(b)));
     return L.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>` : `<p class="sr-empty">No data.</p>`;
   }
@@ -4424,8 +4433,8 @@ function renderCp() {
     let prev = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Personnel files</button>
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p></div><b class="cp-stb">${esc(st)}</b></div>
-      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div></div>
-      <div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
+      <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div>${uniTile(o, "wide")}</div>
+      ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
       ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
@@ -4440,7 +4449,7 @@ function renderCp() {
 function cpBody() {
   const seen = state.cpSeen = state.cpSeen || {}, q = qNorm(cpQ.trim());
   const card = o => { const S = cpSteps(o), st = cpStatus(S), n = cpName(o);
-    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${esc(cpKind(o))}</small><em>${q.length > 1 ? esc(st) : cpGrp === "status" && !cpTeamF ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
+    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${akaSm(o, q, cpName, cpKind)}</small><em>${q.length > 1 ? esc(st) : cpGrp === "status" && !cpTeamF ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
   if (cpTeamF && q.length < 2) {
     const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && cpTeams(o).includes(cpTeamF)).sort(ixCmp(cpName, cpSteps));
     const gf = cpGroupFile(cpTeamF, cpTeamFrom);
@@ -4448,7 +4457,7 @@ function cpBody() {
       <div class="rf-sh rf-found"><span>Served</span><em>${L.length}</em></div><div class="cp-grid">${L.map(o => card(o)).join("")}</div>`;
   }
   if (q.length > 1) {
-    const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && [cpName(o), cpKind(o)].some(t => qNorm(t).includes(q))).sort((a, b) => qNorm(cpName(b)).includes(q) - qNorm(cpName(a)).includes(q) || cpName(a).localeCompare(cpName(b)));
+    const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && qHit(o, q, cpName, cpKind)).sort((a, b) => qNorm(cpName(b)).includes(q) - qNorm(cpName(a)).includes(q) || cpName(a).localeCompare(cpName(b)));
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cp-grid">${L.map(card).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length).sort(ixCmp(cpName, cpSteps));
@@ -4478,8 +4487,19 @@ function closeDossier(fromHistory) {
   dReadRest(el);
   el.hidden = true; dossierOpen = null; dRun++; bodyFree();
 }
-// the page behind is freed only once nothing is over it any more: a box closing (it finishes a moment later) can't free it under the page that replaced it
-function bodyFree() { if (panel.hidden && !dossierOpen && !fileOpen && !atlOpen && !mapOpen && !commsOpen) document.body.style.overflow = ""; }
+// the page behind is freed only once nothing is over it any more: a box closing frees it as it starts to close, but not under a page that replaced it
+// anything laid over the page (a box, a log, the Atlas, an index, the Agent File, Comms, Paths) pins the page behind where it is: overflow alone
+// doesn't hold on a phone, where a short panel with nothing left to scroll hands the swipe to the page underneath
+let lockY = null;
+function bodyLock() {
+  document.body.style.overflow = "hidden"; if (lockY !== null) return; lockY = window.scrollY;
+  Object.assign(document.body.style, { position: "fixed", top: -lockY + "px", left: "0", right: "0" });
+}
+function bodyFree() {
+  if ((!panel.hidden && openEntry) || dossierOpen || fileOpen || atlOpen || mapOpen || commsOpen || collOpen) return;
+  document.body.style.overflow = ""; if (lockY === null) return; const y = lockY; lockY = null;
+  Object.assign(document.body.style, { position: "", top: "", left: "", right: "" }); window.scrollTo(0, y);
+}
 
 /* Ant-Man & the Wasp: pinch the box and it shrinks under your fingers, then all the way into the Quantum Realm */
 panel.addEventListener("touchstart", ev => {
@@ -6934,7 +6954,7 @@ function caseFile(film) {
 const hfPickNav = () => { if (!navAt("hfpick")) try { history.pushState({ mcu: "hfpick" }, ""); } catch (e) {} };
 const hfPickClose = () => { if (navAt("hfpick")) navBack(); else { const pk = document.querySelector("#filePanel .hf-pick"); if (pk) pk.remove(); } };
 let fileTab = "file";
-function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; embAck(); persist(); renderFile(true); document.getElementById("filePanel").hidden = false; document.getElementById("fileView").scrollTop = 0; document.getElementById("filePanel").scrollTop = 0; /* always from the top: a reset while it was hidden doesn't hold */ fileOpen = true; document.body.style.overflow = "hidden"; pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
+function openFile() { fileTab = "file"; state.hfSeen = achList().filter(a => earned(a.id)).length; embAck(); persist(); renderFile(true); document.getElementById("filePanel").hidden = false; document.getElementById("fileView").scrollTop = 0; document.getElementById("filePanel").scrollTop = 0; /* always from the top: a reset while it was hidden doesn't hold */ fileOpen = true; bodyLock(); pushNav("file"); document.getElementById("fileBack").focus({ preventScroll: true }); }
 function closeFile(fromHistory) {
   if (!fromHistory && navAt("file")) { navBack(); return; }
   document.getElementById("filePanel").hidden = true; fileOpen = false; bodyFree(); embAck(); persist();   // anything that came in while you were here has been seen too
@@ -9991,7 +10011,7 @@ function renderComms() {
 }
 let commsTab = "news";
 function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true); cmFresh = new Set(); { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
-  renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; document.body.style.overflow = "hidden"; pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
+  renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; bodyLock(); pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
   document.getElementById("commsPanel").hidden = true; commsOpen = false; bodyFree();
@@ -10262,7 +10282,7 @@ function openMap() {
   // a multiverse character's line shows once their box is revealed, or once you've watched any of their titles from their Extras chapter
   const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("") + "|" + DATA.chars.map(c => mapAnon(c.title) ? 1 : boxName(c) !== c.title ? 2 : 0).join("");   // and redrawn when someone's name turns up
   if (!mapBuilt || sig !== mapSig) { MAP = mapData(hide); mapSig = sig; mapFocusI = null; buildMap(); }
-  document.getElementById("mapPanel").hidden = false; mapOpen = true; document.body.style.overflow = "hidden";
+  document.getElementById("mapPanel").hidden = false; mapOpen = true; bodyLock();
   pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true }); mapGrow();
 }
 // lines draw on from where they stopped the last time you looked; new stops and titles fade in as the lines reach them.
