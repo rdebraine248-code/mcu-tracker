@@ -382,6 +382,15 @@ for L,tag in ((threats,'T'),(allies,'A')):
         for k,v in z.items():
             if v is None: o.pop(k,None)
             else: o[k]=v
+# and a Collection object's holder goes by the same name as the person's file (names_fix.json "hold": object id, then old name to new)
+_byc={o['id']:o for o in collx}
+for i,mp in _nf.get('hold',{}).items():
+    o=_byc.get(i)
+    if o is None: print('names: no object',i); continue
+    hit=0
+    for x in o['st']:
+        if len(x)>3 and x[3] in mp: x[3]=mp[x[3]]; hit=1
+    if not hit: print('names: no holder to rename',i)
 if '/*IDMOVE*/' in s: put('IDMOVE',_im)
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
