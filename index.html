@@ -1327,7 +1327,45 @@ body{ padding-bottom:var(--dockh); }
 @keyframes bgcrawl{ to{ transform:translateX(-100%); } }
 .fx-bugle::after{ content:""; position:absolute; inset:0; box-shadow:inset 0 0 0 0 rgba(255,30,50,0); animation:bgsiren 1s ease-in-out infinite; }
 @keyframes bgsiren{ 50%{ box-shadow:inset 0 0 60px 10px rgba(255,30,50,.45); } }
-/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams, the S.H.I.E.L.D. keycard (test build only; mainprep cuts it) */
+/* the S.H.I.E.L.D. keycard: swipe the stripes, a reader drops down with your own Agent ID card; swipe the card through it, the reader
+   verifies your clearance, and at Level 7 the blast doors part on a file */
+.kc-flash{ animation:kcFlash 1.1s ease-out; } @keyframes kcFlash{ 0%{ filter:none; } 20%{ filter:brightness(1.6) saturate(2); } 100%{ filter:none; } }
+#kcReader{ position:fixed; inset:0; z-index:96; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:calc(70px + env(safe-area-inset-top,0px)) 16px 24px; background:rgba(4,6,9,.88); overflow:hidden; touch-action:none; -webkit-user-select:none; user-select:none; }
+#kcReader[hidden]{ display:none; }
+.kr{ position:relative; z-index:3; width:min(88vw,360px); padding:14px 16px 14px; border:2px solid #0B0F13; border-radius:14px; background:linear-gradient(180deg,#2A3038,#1A1F26); box-shadow:0 18px 40px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08); transition:box-shadow .3s ease; }
+.kr.ok{ box-shadow:0 0 0 2px #2FD27A, 0 0 34px rgba(47,210,122,.45), 0 18px 40px rgba(0,0,0,.6); } .kr.no{ box-shadow:0 0 0 2px #E5484D, 0 0 34px rgba(229,72,77,.45), 0 18px 40px rgba(0,0,0,.6); }
+.kr-top{ display:flex; justify-content:space-between; align-items:center; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#8E99A4; }
+.kr-led{ width:10px; height:10px; border-radius:50%; background:#5A1A1C; box-shadow:inset 0 0 2px rgba(0,0,0,.6); }
+.kr-led.amber{ background:#FFB020; box-shadow:0 0 10px #FFB020; animation:krBlink .35s steps(2) infinite; } .kr-led.green{ background:#2FD27A; box-shadow:0 0 12px #2FD27A; } .kr-led.red{ background:#E5484D; box-shadow:0 0 12px #E5484D; }
+@keyframes krBlink{ 50%{ opacity:.25; } }
+.kr-slot{ position:relative; height:16px; margin:12px -16px 0; background:#07090C; border-top:1px solid #000; border-bottom:1px solid #3A424D; box-shadow:inset 0 3px 6px rgba(0,0,0,.8); }
+.kr-slot i{ position:absolute; top:7px; left:0; width:100%; height:1px; background:linear-gradient(90deg,transparent,#2FD27A,transparent); opacity:0; }
+.kr-scr{ margin-top:12px; min-height:112px; padding:10px 12px; border-radius:6px; background:#050A07; border:1px solid #11231A; font:13px/1.55 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#6BE59A; text-shadow:0 0 6px rgba(47,210,122,.45); }
+.kr-scr .bar{ display:block; height:6px; margin-top:6px; border:1px solid #1E4A31; } .kr-scr .bar b{ display:block; height:100%; width:0; background:#2FD27A; }
+.kr-scr .big{ display:block; margin-top:4px; font-size:22px; letter-spacing:4px; } .kr-scr.no{ color:#FF7A7E; text-shadow:0 0 6px rgba(229,72,77,.5); }
+.kr-hint{ margin-top:14px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#C9D3E3; animation:krPulse 1.6s ease-in-out infinite; }
+@keyframes krPulse{ 50%{ opacity:.35; } }
+.kcard{ position:relative; z-index:2; width:min(86vw,350px); margin-top:-6px; border-radius:14px; box-shadow:0 14px 30px rgba(0,0,0,.55); cursor:grab; touch-action:none; }
+.kcard .kc-id{ margin:0; pointer-events:none; }   /* your Agent ID itself, as it is in the Agent File */
+.kcard .hf-ava{ cursor:inherit; } .kcard .hf-code{ cursor:inherit; }
+.kx{ display:grid; gap:8px; margin:4px 0 6px; }
+.kx-r{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:2px 10px; width:100%; padding:11px 12px; border:1px solid #0B0F13; border-radius:6px; background:#ECEFF2; color:#0B0F13; text-align:left; cursor:pointer; font:inherit; }
+.kx-r b{ font:700 17px/1.1 'Chakra Petch',sans-serif; text-transform:uppercase; letter-spacing:.5px; } .kx-r em{ grid-column:1; font:11px/1.3 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#5A6470; }
+.kx-r i{ grid-row:1 / span 2; grid-column:2; font-style:normal; font-size:22px; } .kx-r.lk{ cursor:default; background:#CBD1D7; border-style:dashed; } .kx-r:not(.lk):active{ transform:scale(.99); }
+.kx-back{ display:inline-block; margin:2px 0 4px; padding:4px 10px 4px 8px; border:1px solid #0B0F13; border-radius:999px; background:#ECEFF2; color:#0B0F13; font:11px 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+.kdoor{ position:absolute; top:0; bottom:0; z-index:5; width:50.5%; background:repeating-linear-gradient(135deg,#0B0F13 0 26px,#2A3038 26px 52px); box-shadow:0 0 30px rgba(0,0,0,.8); }
+.kdoor.l{ left:0; border-right:3px solid #8E99A4; } .kdoor.r{ right:0; border-left:3px solid #8E99A4; }
+.kdoor span{ position:absolute; top:50%; transform:translateY(-50%); font:700 22px/1 'Chakra Petch',sans-serif; letter-spacing:3px; color:#D9DEE3; }
+.kdoor.l span{ right:14px; } .kdoor.r span{ left:14px; }
+.kfile{ position:relative; z-index:4; width:min(90vw,400px); margin-top:4px; padding:0 18px 16px; border:2px solid #0B0F13; border-radius:6px; background:#D9DEE3; color:#0B0F13; box-shadow:0 18px 40px rgba(0,0,0,.6); }
+.kfile .hz{ height:8px; margin:0 -18px 14px; background:repeating-linear-gradient(135deg,#0B0F13 0 10px,#8E99A4 10px 20px); }
+.kfile small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#11804A; }
+.kfile h4{ margin:6px 0 10px; font:700 26px/1.05 'Chakra Petch',sans-serif; text-transform:uppercase; letter-spacing:1px; }
+.kfile dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; } .kfile dt{ color:#5A6470; } .kfile dd{ margin:0; }
+.kfile p{ margin:0 0 8px; font-size:16px; line-height:1.45; min-height:1.45em; } .kfile q{ display:block; margin-top:10px; font-style:italic; font-size:19px; }
+.kfile .stamp{ position:absolute; right:14px; top:24px; padding:3px 8px; border:2px solid #C2262B; border-radius:4px; color:#C2262B; font:11px/1.2 'Share Tech Mono',monospace; letter-spacing:2px; transform:rotate(-7deg); }
+.kfile .cl{ display:block; margin-top:12px; font:10px/1.4 'Share Tech Mono',monospace; letter-spacing:2px; color:#5A6470; text-transform:uppercase; }
+/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams (test build only; mainprep cuts it) */
 /* Damage Control's incident reports: a government form, hazard yellow on slate, every report stamped with its number */
 .collpanel.dcx .maptop h2{ color:#F2C94C; } .collpanel.dcx .maptop h2::before{ color:rgba(242,201,76,.45); }
 .dcx .co-h{ color:#F2C94C; }
@@ -1428,54 +1466,6 @@ body.th-wak .atl-views button[aria-selected="true"]{ background:#A66BFF !importa
 .mx-stamp{ display:inline-block; margin:18px 0 6px; padding:6px 14px; border:3px solid #5BD18B; border-radius:6px; color:#5BD18B; font:20px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:4px; transform:rotate(-5deg); }
 .mx-stamp.no{ border-color:#E5484D; color:#E5484D; }
 
-/* the S.H.I.E.L.D. keycard: swipe the stripes, a reader drops down with your own Agent ID card; swipe the card through it, the reader
-   verifies your clearance, and at Level 7 the blast doors part on a file */
-.kc-flash{ animation:kcFlash 1.1s ease-out; } @keyframes kcFlash{ 0%{ filter:none; } 20%{ filter:brightness(1.6) saturate(2); } 100%{ filter:none; } }
-#mkKey{ position:fixed; inset:0; z-index:96; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:calc(70px + env(safe-area-inset-top,0px)) 16px 24px; background:rgba(4,6,9,.88); overflow:hidden; touch-action:none; -webkit-user-select:none; user-select:none; }
-#mkKey[hidden]{ display:none; }
-.kr{ position:relative; z-index:3; width:min(88vw,360px); padding:14px 16px 14px; border:2px solid #0B0F13; border-radius:14px; background:linear-gradient(180deg,#2A3038,#1A1F26); box-shadow:0 18px 40px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08); transition:box-shadow .3s ease; }
-.kr.ok{ box-shadow:0 0 0 2px #2FD27A, 0 0 34px rgba(47,210,122,.45), 0 18px 40px rgba(0,0,0,.6); } .kr.no{ box-shadow:0 0 0 2px #E5484D, 0 0 34px rgba(229,72,77,.45), 0 18px 40px rgba(0,0,0,.6); }
-.kr-top{ display:flex; justify-content:space-between; align-items:center; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#8E99A4; }
-.kr-led{ width:10px; height:10px; border-radius:50%; background:#5A1A1C; box-shadow:inset 0 0 2px rgba(0,0,0,.6); }
-.kr-led.amber{ background:#FFB020; box-shadow:0 0 10px #FFB020; animation:krBlink .35s steps(2) infinite; } .kr-led.green{ background:#2FD27A; box-shadow:0 0 12px #2FD27A; } .kr-led.red{ background:#E5484D; box-shadow:0 0 12px #E5484D; }
-@keyframes krBlink{ 50%{ opacity:.25; } }
-.kr-slot{ position:relative; height:16px; margin:12px -16px 0; background:#07090C; border-top:1px solid #000; border-bottom:1px solid #3A424D; box-shadow:inset 0 3px 6px rgba(0,0,0,.8); }
-.kr-slot i{ position:absolute; top:7px; left:0; width:100%; height:1px; background:linear-gradient(90deg,transparent,#2FD27A,transparent); opacity:0; }
-.kr-scr{ margin-top:12px; min-height:112px; padding:10px 12px; border-radius:6px; background:#050A07; border:1px solid #11231A; font:13px/1.55 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#6BE59A; text-shadow:0 0 6px rgba(47,210,122,.45); }
-.kr-scr .bar{ display:block; height:6px; margin-top:6px; border:1px solid #1E4A31; } .kr-scr .bar b{ display:block; height:100%; width:0; background:#2FD27A; }
-.kr-scr .big{ display:block; margin-top:4px; font-size:22px; letter-spacing:4px; } .kr-scr.no{ color:#FF7A7E; text-shadow:0 0 6px rgba(229,72,77,.5); }
-.kr-hint{ margin-top:14px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#C9D3E3; animation:krPulse 1.6s ease-in-out infinite; }
-@keyframes krPulse{ 50%{ opacity:.35; } }
-.kcard{ position:relative; z-index:2; width:min(86vw,350px); margin-top:-6px; border-radius:14px; box-shadow:0 14px 30px rgba(0,0,0,.55); cursor:grab; touch-action:none; }
-.kcard .kc-id{ margin:0; pointer-events:none; }   /* your Agent ID itself, as it is in the Agent File */
-.kcard .hf-ava{ cursor:inherit; } .kcard .hf-code{ cursor:inherit; }
-.kx{ display:grid; gap:8px; margin:4px 0 6px; }
-.kx-r{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:2px 10px; width:100%; padding:11px 12px; border:1px solid #0B0F13; border-radius:6px; background:#ECEFF2; color:#0B0F13; text-align:left; cursor:pointer; font:inherit; }
-.kx-r b{ font:700 17px/1.1 'Chakra Petch',sans-serif; text-transform:uppercase; letter-spacing:.5px; } .kx-r em{ grid-column:1; font:11px/1.3 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#5A6470; }
-.kx-r i{ grid-row:1 / span 2; grid-column:2; font-style:normal; font-size:22px; } .kx-r.lk{ cursor:default; background:#CBD1D7; border-style:dashed; } .kx-r:not(.lk):active{ transform:scale(.99); }
-.kx-back{ display:inline-block; margin:2px 0 4px; padding:4px 10px 4px 8px; border:1px solid #0B0F13; border-radius:999px; background:#ECEFF2; color:#0B0F13; font:11px 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
-.kdoor{ position:absolute; top:0; bottom:0; z-index:5; width:50.5%; background:repeating-linear-gradient(135deg,#0B0F13 0 26px,#2A3038 26px 52px); box-shadow:0 0 30px rgba(0,0,0,.8); }
-.kdoor.l{ left:0; border-right:3px solid #8E99A4; } .kdoor.r{ right:0; border-left:3px solid #8E99A4; }
-.kdoor span{ position:absolute; top:50%; transform:translateY(-50%); font:700 22px/1 'Chakra Petch',sans-serif; letter-spacing:3px; color:#D9DEE3; }
-.kdoor.l span{ right:14px; } .kdoor.r span{ left:14px; }
-.kfile{ position:relative; z-index:4; width:min(90vw,400px); margin-top:4px; padding:0 18px 16px; border:2px solid #0B0F13; border-radius:6px; background:#D9DEE3; color:#0B0F13; box-shadow:0 18px 40px rgba(0,0,0,.6); }
-.kfile .hz{ height:8px; margin:0 -18px 14px; background:repeating-linear-gradient(135deg,#0B0F13 0 10px,#8E99A4 10px 20px); }
-.kfile small{ display:block; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#11804A; }
-.kfile h4{ margin:6px 0 10px; font:700 26px/1.05 'Chakra Petch',sans-serif; text-transform:uppercase; letter-spacing:1px; }
-.kfile dl{ display:grid; grid-template-columns:auto 1fr; gap:3px 12px; margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; } .kfile dt{ color:#5A6470; } .kfile dd{ margin:0; }
-.kfile p{ margin:0 0 8px; font-size:16px; line-height:1.45; min-height:1.45em; } .kfile q{ display:block; margin-top:10px; font-style:italic; font-size:19px; }
-.kfile .stamp{ position:absolute; right:14px; top:24px; padding:3px 8px; border:2px solid #C2262B; border-radius:4px; color:#C2262B; font:11px/1.2 'Share Tech Mono',monospace; letter-spacing:2px; transform:rotate(-7deg); }
-.kfile .cl{ display:block; margin-top:12px; font:10px/1.4 'Share Tech Mono',monospace; letter-spacing:2px; color:#5A6470; text-transform:uppercase; }
-/* Eyes only (Fury, replacing the cards): three claw marks rake the screen, an eyepatch closes over half of it, and his line comes up on the
-   side he can still see; the patch lifts and the page is back */
-.fx-eye{ position:fixed; inset:0; z-index:97; pointer-events:none; overflow:hidden; }
-.fx-eye svg{ position:absolute; inset:0; width:100%; height:100%; }
-.fx-eye .gash{ fill:none; stroke:#2A0204; stroke-width:16; stroke-linecap:round; } .fx-eye .cut{ fill:none; stroke:#C3141C; stroke-width:6; stroke-linecap:round; filter:drop-shadow(0 0 6px rgba(195,20,28,.6)); }
-.ey-patch{ position:absolute; inset:0; background:linear-gradient(90deg,#000 0 40%,rgba(0,0,0,.9) 47%,rgba(0,0,0,0) 58%); }
-.ey-patch::before{ content:""; position:absolute; left:6%; top:28%; width:46%; height:30%; border-radius:46% 54% 50% 50% / 42% 42% 58% 58%; background:radial-gradient(ellipse at 40% 35%,#1C1C1C,#060606 70%); box-shadow:inset 0 0 18px rgba(255,255,255,.04); }
-.ey-patch .strap{ position:absolute; left:-20%; width:140%; top:31%; height:12px; background:#0A0A0A; transform:rotate(-14deg); box-shadow:0 2px 0 rgba(255,255,255,.04); }
-.ey-line{ position:absolute; left:50%; right:14px; top:34%; margin:0; font:italic 500 20px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#F4F6F8; text-shadow:0 2px 8px rgba(0,0,0,.8); }
-.ey-who{ position:absolute; left:50%; right:14px; top:calc(34% + 92px); font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#E9A23B; opacity:0; }
 /* MOCKUP END */
 </style>
 </head>
@@ -2492,8 +2482,8 @@ function renderPanel(e, fresh) {
   const pqLet = () => { const left = pqHoldUntil - Date.now(); if (left > 30) { setTimeout(pqLet, left); return; } if (bl && bl.settle && bl.e.id === e.id) return;
     const q = openEntry && openEntry.id === e.id && panel.querySelector(".pquote"); if (q) q.classList.remove("pending"); };
   if (pqWait > 0) setTimeout(pqLet, pqWait);
-  // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap, Fury's swipe): the page itself mustn't zoom under the fingers
-  panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders", FURY_BOX].includes(e.id) ? "pan-y" : "";
+  // boxes with two-finger eggs (Ant-Man's pinch, Wanda's hold, the Defenders' tap, Fury's swipe) and the S.H.I.E.L.D. keycard's sideways swipe: the page itself mustn't zoom or pan under the fingers
+  panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders", FURY_BOX, SHIELD_BOX].includes(e.id) ? "pan-y" : "";
   panel.innerHTML = `${panelDecor(e)}${openKind === "char" ? wmHTML(e) : ""}
     <div class="pin${listHold === e.id ? " lhold" : ""}">
       <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}${(openKind === "char" || openKind === "chapter") && DOSSIERS[e.id] ? `<button type="button" class="dbtn" id="btnDossier" style="color:${fg}">${openKind === "char" ? "Profile" : "Log"}</button>` : ""}</div>
@@ -6147,6 +6137,122 @@ function fury(h) {
   haptic([8, 120, 8, 120, 8, 120, 8]);
   setTimeout(() => { box.remove(); found("fury"); }, last + 100);   // the Agent File news rides on the line   // the line waits until the last card has left
 }
+
+/* ---------- S.H.I.E.L.D.: Level 7. Swipe the stripes, swipe your Agent ID through the reader, and after Agents of S.H.I.E.L.D. S1 the blast doors part on the Level 7 files */
+let kc = null;
+panel.addEventListener("pointerdown", ev => { kc = null; if (!openEntry || openEntry.id !== SHIELD_BOX) return; const st = panel.firstElementChild; if (!st) return;
+  const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 20 || ev.clientY > r.bottom + 40) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
+// a phone hands a sideways drag to the browser as a pan and cancels it, so the S.H.I.E.L.D. box only scrolls up and down (like the boxes with
+// two-finger eggs, set in renderPanel), and the card reads the moment the swipe has crossed half the stripe, without waiting for the finger to lift
+const kcRead = ev => { const k = kc; if (!k || !openEntry || openEntry.id !== SHIELD_BOX) return;
+  if (Math.abs(ev.clientY - k.y) > 60) { kc = null; return; } if (Math.abs(ev.clientX - k.x) >= Math.min(k.w * .45, 170)) { kc = null; keycard(); } };
+panel.addEventListener("pointermove", kcRead, true);
+panel.addEventListener("pointerup", ev => { kcRead(ev); kc = null; }, true);
+panel.addEventListener("pointercancel", () => { kc = null; }, true);
+
+// what's filed at Level 7: each file opens once you've watched the title that puts it on record, and its lines follow their own titles
+const KFILES = [
+  { id: "pegasus", n: "Project Pegasus", t: "Captain Marvel", rows: [["Subject", "The Tesseract"], ["Held by", "Project Pegasus, then S.H.I.E.L.D."], ["Status", "Facility destroyed"]],
+    p: [["In 1995, at Project Pegasus, Dr. Wendy Lawson uses the Tesseract to build a light-speed engine, and hides both in a lab in orbit.", "Captain Marvel"],
+      ["After Carol Danvers comes home, the Tesseract passes to Nick Fury and S.H.I.E.L.D.", "Captain Marvel"],
+      ["Years later, Dr. Erik Selvig studies it for S.H.I.E.L.D. until Loki comes through it, and the facility collapses.", "The Avengers"]] },
+  { id: "initiative", n: "The Avengers Initiative", t: "Captain Marvel", rows: [["Subject", "A team of remarkable people"], ["Proposed by", "Nick Fury"], ["Status", "Active"]],
+    p: [["In 1995, Fury drafts a plan to find more heroes like Carol Danvers, and names it after her call sign: Avenger.", "Captain Marvel"],
+      ["Fury visits Tony Stark at his home to talk to him about the Avengers Initiative.", "Iron Man"],
+      ["A S.H.I.E.L.D. assessment recommends Iron Man for the Initiative but not Tony Stark, who is offered a role as a consultant.", "Iron Man 2"],
+      ["After Loki takes the Tesseract, Fury brings the team together.", "The Avengers"]] },
+  { id: "tahiti", n: "Project T.A.H.I.T.I.", t: "Agents of S.H.I.E.L.D. S1", rows: [["Subject", "Agent Phil Coulson"], ["Authorized by", "Director Nick Fury"], ["Status", "Active"]],
+    p: [["After his death aboard the Helicarrier, Director Fury orders Agent Coulson brought back.", "Agents of S.H.I.E.L.D. S1"],
+      ["The procedure works. His memories of it are replaced with a few weeks of rest on a beach.", "Agents of S.H.I.E.L.D. S1"]], q: "Tahiti. It's a magical place." }];
+function kidx(f) {
+  f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => k.p.some(([, t]) => atlSeenT(t))
+      ? `<button type="button" class="kx-r" data-kf="${k.id}"><b>${esc(k.n)}</b><em>${esc(k.rows[0][1])}</em><i aria-hidden="true">&#8250;</i></button>`
+      : `<div class="kx-r lk"><b><span class="sl-cl">[ Classified ]</span></b><em>Not on your watch yet</em></div>`).join("")}</div><span class="cl">Tap outside to close</span>`;
+  f.onclick = ev => { const b = ev.target.closest("[data-kf]"); if (b) { haptic(10); kfile(f, KFILES.find(k => k.id === b.dataset.kf)); } };
+  if (!REDUCED) f.querySelectorAll(".kx-r").forEach((r, n) => r.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 300, delay: 700 + n * 110, fill: "backwards" }));
+}
+function kfile(f, k) {
+  const paras = k.p.filter(([, t]) => atlSeenT(t)).map(([x]) => x);
+  f.innerHTML = `<div class="hz"></div><span class="stamp">Director's eyes only</span><button type="button" class="kx-back" data-kb>&#8249; Level 7 files</button><h4>${esc(k.n)}</h4>
+    <dl>${k.rows.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl>${paras.map(() => "<p></p>").join("")}${k.q ? `<q style="opacity:0">${esc(k.q)}</q>` : ""}<span class="cl">Tap outside to close</span>`;
+  f.onclick = ev => { if (ev.target.closest("[data-kb]")) { haptic(8); kidx(f); } };
+  const P = [...f.querySelectorAll("p")], q = f.querySelector("q"); let pi = 0, ci = 0;
+  if (REDUCED) { P.forEach((p, n) => p.textContent = paras[n]); if (q) q.style.opacity = ""; return; }
+  const tick = () => { if (!f.isConnected || !f.querySelector("[data-kb]")) return; if (pi >= P.length) { if (q) q.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, fill: "forwards" }); return; }
+    const t = paras[pi]; P[pi].textContent = t.slice(0, ++ci); if (ci >= t.length) { pi++; ci = 0; setTimeout(tick, 220); } else setTimeout(tick, 14); };
+  tick();
+}
+function keycard() {
+  const st = panel.firstElementChild; if (st) { st.classList.remove("kc-flash"); void st.offsetWidth; st.classList.add("kc-flash"); }
+  let el = document.getElementById("kcReader"); if (!el) { el = document.createElement("div"); el.id = "kcReader"; document.body.appendChild(el); }
+  const A = achList(), lv = xpLevel(xpOf(A), A), lvName = CLEARANCE[lv - 1], code = state.codename ? asAgent(state.codename) : "Agent (no codename)", no = agentNo();
+  el.innerHTML = `<div class="kr" id="kr"><div class="kr-top"><span>S.H.I.E.L.D. · Card reader</span><i class="kr-led" id="krLed"></i></div><div class="kr-slot"><i id="krBeam"></i></div>
+      <div class="kr-scr" id="krScr">READY<br>SWIPE CARD</div></div>
+    <div class="kcard" id="kcard"><div class="hf-head hf-id kc-id"><span class="hf-ava">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</span>
+      <div class="hf-tag hf-idtag"><span>Agent ID</span><span class="hf-lvl">${lv > 10 ? "" : "Level " + lv + " · "}${esc(lvName)}</span></div>
+      <div class="hf-name hf-code">${state.codename ? esc(state.codename) : `<span>No codename</span>`}</div>
+      <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div></dl>
+      <div class="hf-bar"><span style="width:${Math.round(A.filter(a => earned(a.id)).length / A.length * 100)}%"></span></div><div class="hf-strip"><i></i><span>${esc(no)}</span></div></div></div>
+    <div class="kr-hint" id="krHint">Swipe your card through the reader</div>`;
+  el.hidden = false; haptic(12);
+  const kr = el.querySelector("#kr"), card = el.querySelector("#kcard"), led = el.querySelector("#krLed"), scr = el.querySelector("#krScr"), hint = el.querySelector("#krHint");
+  const anim = (n, k, o) => REDUCED ? { finished: Promise.resolve(), onfinish: null } : n.animate(k, o);
+  anim(kr, [{ transform: "translateY(-140%)" }, { transform: "none" }], { duration: 520, easing: "cubic-bezier(.2,.8,.2,1)" });
+  anim(card, [{ transform: "translateY(120%)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 520, delay: 260, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
+  const later = (f, ms) => setTimeout(() => { if (!el.hidden) f(); }, REDUCED ? 0 : ms);
+  // the card follows your finger along the slot; through far enough and it reads, otherwise it slides back to try again
+  let drag = null, done = false;
+  card.addEventListener("pointerdown", ev => { if (done) return; drag = { x: ev.clientX, dx: 0 }; card.setPointerCapture(ev.pointerId); card.style.transition = "none"; });
+  card.addEventListener("pointermove", ev => { if (!drag) return; drag.dx = ev.clientX - drag.x; card.style.transform = `translate(${drag.dx}px, ${-Math.min(28, Math.abs(drag.dx) * .25)}px) rotate(${drag.dx * .01}deg)`; });
+  const up = () => { if (!drag) return; const d = drag; drag = null;
+    if (Math.abs(d.dx) < Math.min(card.offsetWidth * .55, 170)) { card.style.transition = "transform .3s ease"; card.style.transform = ""; hint.textContent = "Swipe it all the way through"; return; }
+    done = true; read(Math.sign(d.dx)); };
+  card.addEventListener("pointerup", up); card.addEventListener("pointercancel", up);
+  el.onclick = ev => { if (ev.target === el && !drag) { el.hidden = true; } };
+  function read(dir) {
+    hint.style.animation = "none"; hint.textContent = "Reading";
+    card.style.transition = REDUCED ? "none" : "transform .35s cubic-bezier(.5,0,.75,0), opacity .35s";
+    card.style.transform = `translate(${dir * innerWidth}px, -30px)`; card.style.opacity = "0";
+    const beam = el.querySelector("#krBeam"); anim(beam, [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], { duration: 500 });
+    led.className = "kr-led amber"; haptic(10);
+    const lines = ["READING CARD", code.toUpperCase(), no, "REQUEST · LEVEL 7 FILES"];
+    let k = 0; scr.innerHTML = "";
+    const type = () => { if (k < lines.length) { scr.innerHTML += (k ? "<br>" : "") + esc(lines[k++]); later(type, 260); return; }
+      scr.innerHTML += `<br>VERIFYING<span class="bar"><b id="krBar"></b></span>`;
+      const bar = el.querySelector("#krBar"); anim(bar, [{ width: "0%" }, { width: "100%" }], { duration: 1100, easing: "ease-in-out", fill: "forwards" }); if (REDUCED) bar.style.width = "100%";
+      later(verdict, 1200); };
+    later(type, 380);
+  }
+  function verdict() {
+    const cleared = atlSeenT("Agents of S.H.I.E.L.D. S1");   // Level 7 is Coulson's clearance, on record from Agents of S.H.I.E.L.D. S1
+    if (!cleared) {   // before that, the reader turns you away and hands the card back
+      led.className = "kr-led red"; kr.classList.add("no"); scr.classList.add("no"); haptic(40);
+      scr.innerHTML = `NOT CLEARED FOR LEVEL 7<span class="big">ACCESS DENIED</span>CARD RETURNED`;
+      anim(kr, [{ transform: "translateX(0)" }, { transform: "translateX(-10px)" }, { transform: "translateX(9px)" }, { transform: "translateX(-6px)" }, { transform: "translateX(0)" }], { duration: 420 });
+      card.style.transition = "none"; card.style.transform = ""; card.style.opacity = "1"; anim(card, [{ transform: "translateY(120%)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 420, easing: "ease-out" });
+      hint.textContent = "Not cleared yet · tap to close"; return; }
+    led.className = "kr-led green"; kr.classList.add("ok"); haptic(HAPTIC && HAPTIC.success || 20);
+    scr.innerHTML = `CLEARED FOR LEVEL 7<span class="big">ACCESS GRANTED</span>OPENING FILES`;
+    hint.textContent = "";
+    later(doors, 900);
+  }
+  function doors() {
+    found("level7");
+    const L = document.createElement("div"), R = document.createElement("div");
+    L.className = "kdoor l"; R.className = "kdoor r"; L.innerHTML = "<span>S.H.I.E.</span>"; R.innerHTML = "<span>L.D.</span>"; el.append(L, R);
+    const close = o => anim(L, [{ transform: o ? "translateX(0)" : "translateX(-100%)" }, { transform: o ? "translateX(-100%)" : "translateX(0)" }], { duration: o ? 700 : 280, easing: o ? "cubic-bezier(.6,0,.2,1)" : "cubic-bezier(.5,0,.9,.4)", fill: "forwards" }),
+      closeR = o => anim(R, [{ transform: o ? "translateX(0)" : "translateX(100%)" }, { transform: o ? "translateX(100%)" : "translateX(0)" }], { duration: o ? 700 : 280, easing: o ? "cubic-bezier(.6,0,.2,1)" : "cubic-bezier(.5,0,.9,.4)", fill: "forwards" });
+    close(false); closeR(false); haptic(30);
+    later(() => {   // shut: the reader goes, the file is laid out behind the doors, and they slide apart on it
+      anim(el, [{ transform: "translate(0,0)" }, { transform: "translate(-3px,2px)" }, { transform: "translate(2px,-2px)" }, { transform: "translate(0,0)" }], { duration: 180 });
+      kr.remove(); card.remove(); hint.remove(); el.style.justifyContent = "center"; el.style.paddingTop = "24px";
+      const f = document.createElement("div"); f.className = "kfile"; el.appendChild(f); el.onclick = ev => { if (ev.target === el) el.hidden = true; };   // only a tap on the dark around the file closes it
+      kidx(f);
+      close(true); closeR(true);
+      later(() => { L.remove(); R.remove(); }, 720);
+    }, 520);
+  }
+}
 /* ---------- Winter Soldier: tap the red star at the top of the Falcon & Winter Soldier box 3 times. Soviet red, the trigger words, "Ready to comply." ---------- */
 let starN = 0, starLast = 0, wsOn = false;
 function starTap(ev) {
@@ -6588,6 +6694,7 @@ const EGGS = [
   ["herbie", "H.E.R.B.I.E.", "The family's helper.", "In The Fantastic Four's profile, tap H.E.R.B.I.E.", 2],
   ["battle", "The Battle of New York", "Something is coming through the sky over Midtown.", "In the Atlas, open New York and hold Midtown.", 1],
   ["fury", "They were in his jacket", "Fury knows how to rally a team.", "Swipe down with two fingers in the Nick Fury box (on a computer, hold the name).", 1],
+  ["level7", "Level 7", "Swipe your clearance.", "After Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1],
   ["hydra", "Hail Hydra", "Not everyone in S.H.I.E.L.D. is S.H.I.E.L.D.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
   ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
   ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
@@ -10802,7 +10909,7 @@ document.addEventListener("click", ev => {
 }, true);
 renderAll();
 ["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
-/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams, the S.H.I.E.L.D. keycard (test build only; mainprep cuts it) */
+/* MOCKUP BEGIN: incident reports, the TVA and Wakanda skins, clearance exams (test build only; mainprep cuts it) */
 if (MOCK) {
 // ---------- Damage Control's incident reports. Found in the Atlas, in New York's Midtown, where Damage Control began (cleaning up after the
 // Battle of New York); a report shows once its title is watched, and each line of fallout once its own title is
@@ -10977,145 +11084,6 @@ document.getElementById("fileView").addEventListener("click", ev => {
   const s = ev.target.closest("[data-skin]"); if (s) { ev.stopImmediatePropagation(); if (!s.dataset.skin) { haptic(30); return; } haptic(12); state.skin = s.dataset.skin; persist(); skinApply(); renderFile(); return; }
   const x = ev.target.closest("[data-exam]"); if (x) { ev.stopImmediatePropagation(); if (!x.dataset.exam) { haptic(30); return; } haptic(12); examOpen(x.dataset.exam); }
 }, true);
-
-// ---------- the S.H.I.E.L.D. keycard: swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, like a card through a reader
-EGGS.push(["level7", "Level 7", "Swipe your clearance.", "After Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1]);
-let kc = null;
-panel.addEventListener("pointerdown", ev => { kc = null; if (!openEntry || openEntry.id !== SHIELD_BOX) return; const st = panel.firstElementChild; if (!st) return;
-  const r = st.getBoundingClientRect(); if (ev.clientY < r.top - 20 || ev.clientY > r.bottom + 40) return; kc = { x: ev.clientX, y: ev.clientY, w: r.width }; }, true);
-// a phone hands a sideways drag to the browser as a pan and cancels it, so the S.H.I.E.L.D. box only scrolls up and down (like the boxes with
-// two-finger eggs), and the card reads the moment the swipe has crossed half the stripe, without waiting for the finger to lift
-const kcRead = ev => { const k = kc; if (!k || !openEntry || openEntry.id !== SHIELD_BOX) return;
-  if (Math.abs(ev.clientY - k.y) > 60) { kc = null; return; } if (Math.abs(ev.clientX - k.x) >= Math.min(k.w * .45, 170)) { kc = null; keycard(); } };
-panel.addEventListener("pointermove", kcRead, true);
-panel.addEventListener("pointerup", ev => { kcRead(ev); kc = null; }, true);
-panel.addEventListener("pointercancel", () => { kc = null; }, true);
-const _renderPanel = renderPanel;
-renderPanel = function (e, fresh) { _renderPanel(e, fresh); if (e && e.id === SHIELD_BOX) panel.style.touchAction = "pan-y"; };
-// what's filed at Level 7: each file opens once you've watched the title that puts it on record, and its lines follow their own titles
-const KFILES = [
-  { id: "pegasus", n: "Project Pegasus", t: "Captain Marvel", rows: [["Subject", "The Tesseract"], ["Held by", "Project Pegasus, then S.H.I.E.L.D."], ["Status", "Facility destroyed"]],
-    p: [["In 1995, at Project Pegasus, Dr. Wendy Lawson uses the Tesseract to build a light-speed engine, and hides both in a lab in orbit.", "Captain Marvel"],
-      ["After Carol Danvers comes home, the Tesseract passes to Nick Fury and S.H.I.E.L.D.", "Captain Marvel"],
-      ["Years later, Dr. Erik Selvig studies it for S.H.I.E.L.D. until Loki comes through it, and the facility collapses.", "The Avengers"]] },
-  { id: "phase2", n: "Phase 2", t: "The Avengers", rows: [["Subject", "Tesseract weapons"], ["Run by", "S.H.I.E.L.D."], ["Status", "Exposed"]],
-    p: [["After Thor's arrival shows how outgunned Earth is, S.H.I.E.L.D. uses the Tesseract to build weapons.", "The Avengers"],
-      ["Steve Rogers finds them in the Helicarrier's hold.", "The Avengers"]] },
-  { id: "tahiti", n: "Project T.A.H.I.T.I.", t: "Agents of S.H.I.E.L.D. S1", rows: [["Subject", "Agent Phil Coulson"], ["Authorized by", "Director Nick Fury"], ["Status", "Active"]],
-    p: [["After his death aboard the Helicarrier, Director Fury orders Agent Coulson brought back.", "Agents of S.H.I.E.L.D. S1"],
-      ["The procedure works. His memories of it are replaced with a few weeks of rest on a beach.", "Agents of S.H.I.E.L.D. S1"]], q: "Tahiti. It's a magical place." }];
-function kidx(f) {
-  f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => atlSeenT(k.t)
-      ? `<button type="button" class="kx-r" data-kf="${k.id}"><b>${esc(k.n)}</b><em>${esc(k.rows[0][1])}</em><i aria-hidden="true">&#8250;</i></button>`
-      : `<div class="kx-r lk"><b><span class="sl-cl">[ Classified ]</span></b><em>Not on your watch yet</em></div>`).join("")}</div><span class="cl">Tap outside to close</span>`;
-  f.onclick = ev => { const b = ev.target.closest("[data-kf]"); if (b) { haptic(10); kfile(f, KFILES.find(k => k.id === b.dataset.kf)); } };
-  if (!REDUCED) f.querySelectorAll(".kx-r").forEach((r, n) => r.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 300, delay: 700 + n * 110, fill: "backwards" }));
-}
-function kfile(f, k) {
-  const paras = k.p.filter(([, t]) => atlSeenT(t)).map(([x]) => x);
-  f.innerHTML = `<div class="hz"></div><span class="stamp">Director's eyes only</span><button type="button" class="kx-back" data-kb>&#8249; Level 7 files</button><h4>${esc(k.n)}</h4>
-    <dl>${k.rows.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl>${paras.map(() => "<p></p>").join("")}${k.q ? `<q style="opacity:0">${esc(k.q)}</q>` : ""}<span class="cl">Tap outside to close</span>`;
-  f.onclick = ev => { if (ev.target.closest("[data-kb]")) { haptic(8); kidx(f); } };
-  const P = [...f.querySelectorAll("p")], q = f.querySelector("q"); let pi = 0, ci = 0;
-  if (REDUCED) { P.forEach((p, n) => p.textContent = paras[n]); if (q) q.style.opacity = ""; return; }
-  const tick = () => { if (!f.isConnected || !f.querySelector("[data-kb]")) return; if (pi >= P.length) { if (q) q.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, fill: "forwards" }); return; }
-    const t = paras[pi]; P[pi].textContent = t.slice(0, ++ci); if (ci >= t.length) { pi++; ci = 0; setTimeout(tick, 220); } else setTimeout(tick, 14); };
-  tick();
-}
-function keycard() {
-  const st = panel.firstElementChild; if (st) { st.classList.remove("kc-flash"); void st.offsetWidth; st.classList.add("kc-flash"); }
-  let el = document.getElementById("mkKey"); if (!el) { el = document.createElement("div"); el.id = "mkKey"; document.body.appendChild(el); }
-  const A = achList(), lv = xpLevel(xpOf(A), A), lvName = CLEARANCE[lv - 1], code = state.codename ? asAgent(state.codename) : "Agent (no codename)", no = agentNo();
-  el.innerHTML = `<div class="kr" id="kr"><div class="kr-top"><span>S.H.I.E.L.D. · Card reader</span><i class="kr-led" id="krLed"></i></div><div class="kr-slot"><i id="krBeam"></i></div>
-      <div class="kr-scr" id="krScr">READY<br>SWIPE CARD</div></div>
-    <div class="kcard" id="kcard"><div class="hf-head hf-id kc-id"><span class="hf-ava">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</span>
-      <div class="hf-tag hf-idtag"><span>Agent ID</span><span class="hf-lvl">${lv > 10 ? "" : "Level " + lv + " · "}${esc(lvName)}</span></div>
-      <div class="hf-name hf-code">${state.codename ? esc(state.codename) : `<span>No codename</span>`}</div>
-      <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div></dl>
-      <div class="hf-bar"><span style="width:${Math.round(A.filter(a => earned(a.id)).length / A.length * 100)}%"></span></div><div class="hf-strip"><i></i><span>${esc(no)}</span></div></div></div>
-    <div class="kr-hint" id="krHint">Swipe your card through the reader</div>`;
-  el.hidden = false; haptic(12);
-  const kr = el.querySelector("#kr"), card = el.querySelector("#kcard"), led = el.querySelector("#krLed"), scr = el.querySelector("#krScr"), hint = el.querySelector("#krHint");
-  const anim = (n, k, o) => REDUCED ? { finished: Promise.resolve(), onfinish: null } : n.animate(k, o);
-  anim(kr, [{ transform: "translateY(-140%)" }, { transform: "none" }], { duration: 520, easing: "cubic-bezier(.2,.8,.2,1)" });
-  anim(card, [{ transform: "translateY(120%)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 520, delay: 260, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" });
-  const later = (f, ms) => setTimeout(() => { if (!el.hidden) f(); }, REDUCED ? 0 : ms);
-  // the card follows your finger along the slot; through far enough and it reads, otherwise it slides back to try again
-  let drag = null, done = false;
-  card.addEventListener("pointerdown", ev => { if (done) return; drag = { x: ev.clientX, dx: 0 }; card.setPointerCapture(ev.pointerId); card.style.transition = "none"; });
-  card.addEventListener("pointermove", ev => { if (!drag) return; drag.dx = ev.clientX - drag.x; card.style.transform = `translate(${drag.dx}px, ${-Math.min(28, Math.abs(drag.dx) * .25)}px) rotate(${drag.dx * .01}deg)`; });
-  const up = () => { if (!drag) return; const d = drag; drag = null;
-    if (Math.abs(d.dx) < Math.min(card.offsetWidth * .55, 170)) { card.style.transition = "transform .3s ease"; card.style.transform = ""; hint.textContent = "Swipe it all the way through"; return; }
-    done = true; read(Math.sign(d.dx)); };
-  card.addEventListener("pointerup", up); card.addEventListener("pointercancel", up);
-  el.onclick = ev => { if (ev.target === el && !drag) { el.hidden = true; } };
-  function read(dir) {
-    hint.style.animation = "none"; hint.textContent = "Reading";
-    card.style.transition = REDUCED ? "none" : "transform .35s cubic-bezier(.5,0,.75,0), opacity .35s";
-    card.style.transform = `translate(${dir * innerWidth}px, -30px)`; card.style.opacity = "0";
-    const beam = el.querySelector("#krBeam"); anim(beam, [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], { duration: 500 });
-    led.className = "kr-led amber"; haptic(10);
-    const lines = ["READING CARD", code.toUpperCase(), no, "REQUEST · LEVEL 7 FILES"];
-    let k = 0; scr.innerHTML = "";
-    const type = () => { if (k < lines.length) { scr.innerHTML += (k ? "<br>" : "") + esc(lines[k++]); later(type, 260); return; }
-      scr.innerHTML += `<br>VERIFYING<span class="bar"><b id="krBar"></b></span>`;
-      const bar = el.querySelector("#krBar"); anim(bar, [{ width: "0%" }, { width: "100%" }], { duration: 1100, easing: "ease-in-out", fill: "forwards" }); if (REDUCED) bar.style.width = "100%";
-      later(verdict, 1200); };
-    later(type, 380);
-  }
-  function verdict() {
-    const cleared = atlSeenT("Agents of S.H.I.E.L.D. S1");   // Level 7 is Coulson's clearance, on record from Agents of S.H.I.E.L.D. S1
-    if (!cleared) {   // before that, the reader turns you away and hands the card back
-      led.className = "kr-led red"; kr.classList.add("no"); scr.classList.add("no"); haptic(40);
-      scr.innerHTML = `NOT CLEARED FOR LEVEL 7<span class="big">ACCESS DENIED</span>CARD RETURNED`;
-      anim(kr, [{ transform: "translateX(0)" }, { transform: "translateX(-10px)" }, { transform: "translateX(9px)" }, { transform: "translateX(-6px)" }, { transform: "translateX(0)" }], { duration: 420 });
-      card.style.transition = "none"; card.style.transform = ""; card.style.opacity = "1"; anim(card, [{ transform: "translateY(120%)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 420, easing: "ease-out" });
-      hint.textContent = "Not cleared yet · tap to close"; return; }
-    led.className = "kr-led green"; kr.classList.add("ok"); haptic(HAPTIC && HAPTIC.success || 20);
-    scr.innerHTML = `CLEARED FOR LEVEL 7<span class="big">ACCESS GRANTED</span>OPENING FILES`;
-    hint.textContent = "";
-    later(doors, 900);
-  }
-  function doors() {
-    found("level7");
-    const L = document.createElement("div"), R = document.createElement("div");
-    L.className = "kdoor l"; R.className = "kdoor r"; L.innerHTML = "<span>S.H.I.E.</span>"; R.innerHTML = "<span>L.D.</span>"; el.append(L, R);
-    const close = o => anim(L, [{ transform: o ? "translateX(0)" : "translateX(-100%)" }, { transform: o ? "translateX(-100%)" : "translateX(0)" }], { duration: o ? 700 : 280, easing: o ? "cubic-bezier(.6,0,.2,1)" : "cubic-bezier(.5,0,.9,.4)", fill: "forwards" }),
-      closeR = o => anim(R, [{ transform: o ? "translateX(0)" : "translateX(100%)" }, { transform: o ? "translateX(100%)" : "translateX(0)" }], { duration: o ? 700 : 280, easing: o ? "cubic-bezier(.6,0,.2,1)" : "cubic-bezier(.5,0,.9,.4)", fill: "forwards" });
-    close(false); closeR(false); haptic(30);
-    later(() => {   // shut: the reader goes, the file is laid out behind the doors, and they slide apart on it
-      anim(el, [{ transform: "translate(0,0)" }, { transform: "translate(-3px,2px)" }, { transform: "translate(2px,-2px)" }, { transform: "translate(0,0)" }], { duration: 180 });
-      kr.remove(); card.remove(); hint.remove(); el.style.justifyContent = "center"; el.style.paddingTop = "24px";
-      const f = document.createElement("div"); f.className = "kfile"; el.appendChild(f); el.onclick = ev => { if (ev.target === el) el.hidden = true; };   // only a tap on the dark around the file closes it
-      kidx(f);
-      close(true); closeR(true);
-      later(() => { L.remove(); R.remove(); }, 720);
-    }, 520);
-  }
-}
-// ---------- Eyes only (mockup in place of the falling cards): the Fury box's own claw marks, then the eye they cost him
-{ const fe = EGGS.find(e => e[0] === "fury"); if (fe) { fe[1] = "Eyes only"; fe[2] = "The last time he trusted someone…"; } }
-fury = function (h) {
-  if (REDUCED) { found("fury"); return; }
-  const W = innerWidth, H = innerHeight, fx = document.createElement("div"); fx.className = "fx-eye"; document.body.appendChild(fx);
-  const marks = [0, 1, 2].map(k => { const x0 = W * (.30 + k * .085), y0 = H * (.16 + k * .02), x1 = W * (.10 + k * .085), y1 = H * (.66 + k * .02); return `M${x0} ${y0} Q ${x0 - W * .05} ${(y0 + y1) / 2} ${x1} ${y1}`; });
-  fx.innerHTML = `<svg viewBox="0 0 ${W} ${H}">${marks.map(d => `<path class="gash" d="${d}"/>`).join("")}${marks.map(d => `<path class="cut" d="${d}"/>`).join("")}</svg><div class="ey-patch"><i class="strap"></i></div><p class="ey-line"></p><small class="ey-who"></small>`;
-  const paths = [...fx.querySelectorAll("path")], patch = fx.querySelector(".ey-patch"), line = fx.querySelector(".ey-line"), who = fx.querySelector(".ey-who");
-  patch.style.opacity = 0;
-  paths.forEach((p, k) => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 170, delay: (k % 3) * 70, easing: "cubic-bezier(.6,0,.9,.6)", fill: "forwards" }); });
-  haptic([18, 50, 18, 50, 18]);
-  setTimeout(() => {   // the patch swings in over the eye
-    patch.style.opacity = ""; patch.animate([{ transform: "translateX(-70%) rotate(-6deg)" }, { transform: "none" }], { duration: 520, easing: "cubic-bezier(.2,.8,.2,1)" });
-    paths.forEach(p => p.animate([{ opacity: 1 }, { opacity: .35 }], { duration: 600, fill: "forwards" })); haptic(30);
-  }, 420);
-  const said = atlSeenT("Captain America: The Winter Soldier") ? "Last time I trusted someone, I lost an eye." : "Eyes only.";
-  let i = 0; const type = () => { line.textContent = said.slice(0, ++i); if (i < said.length) setTimeout(type, 34); else if (atlSeenT("Captain Marvel")) { who.textContent = "Goose · 1995"; who.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, delay: 500, fill: "forwards" }); } };
-  setTimeout(type, 1000);
-  const end = 1000 + said.length * 34 + 2300;
-  setTimeout(() => { patch.animate([{ transform: "none", opacity: 1 }, { transform: "translateY(-110%)", opacity: 1 }], { duration: 600, easing: "cubic-bezier(.6,0,.4,1)", fill: "forwards" });
-    [line, who].forEach(x => x.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" })); paths.forEach(p => p.animate([{ opacity: .35 }, { opacity: 0 }], { duration: 700, fill: "forwards" })); }, end);
-  setTimeout(() => { fx.remove(); found("fury"); }, end + 750);
-};
 
 }
 /* MOCKUP END */
