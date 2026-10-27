@@ -4232,7 +4232,7 @@ function renderColl0() {
 }
 function openColl(mode, keep, step) {   // step: going back to an index (or jumping to one from a file) adds no step of its own
   collMode = mode === "raft" || mode === "cp" || mode === "dc" ? mode : "coll";
-  if (!keep) { rfUni = "mcu"; rfGrp = "status"; rfFold = {}; rfQ = ""; rfOppF = ""; rfTeamF = ""; cpUni = "mcu"; cpGrp = "status"; cpFold = {}; cpQ = ""; cpTeamF = ""; cxUni = "mcu"; cxGrp = "type"; cxFold = {}; cxQ = ""; cxHoldF = ""; dcQ = ""; dcGrp = "yr"; } const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp", dcm = collMode === "dc";
+  if (!keep) { rfUni = "mcu"; rfGrp = "status"; rfFold = {}; rfQ = ""; rfOppF = ""; rfTeamF = ""; cpUni = "mcu"; cpGrp = "status"; cpFold = {}; cpQ = ""; cpTeamF = ""; cxUni = "mcu"; cxGrp = "type"; cxFold = {}; cxQ = ""; cxHoldF = ""; dcQ = ""; dcGrp = "yr"; dcUni = "mcu"; } const cp = document.getElementById("collPanel"), raft = collMode === "raft", cpm = collMode === "cp", dcm = collMode === "dc";
   cp.classList.toggle("raft", raft); cp.classList.toggle("cpx", cpm); cp.classList.toggle("dcx", dcm); cp.setAttribute("aria-label", raft ? "Threat registry" : cpm ? "Personnel files" : dcm ? "Incident reports" : "The Collection");
   const h2 = cp.querySelector(".maptop h2"); h2.textContent = raft ? "The Raft" : cpm ? cpHome()[0] : dcm ? "Damage Control" : "The Collection"; h2.dataset.glow = h2.textContent;
   if (cpm && !state.cpIn) { const L = ALLIES.filter(o => cpSteps(o).length), R = state.cpSeen = state.cpSeen || {}; L.forEach(o => R[o.id] = 1); state.cpIn = 1; cpIntake = L.length; persist(); }
@@ -11014,6 +11014,7 @@ const DC = [
   { id: "dc-loom", no: "DC-TVA-001", n: "The Failure of the Temporal Loom", yr: null, where: "The Temporal Loom, the TVA", t: "Loki S2", cls: "Temporal catastrophe", cause: "With He Who Remains dead, the timelines branch without end and overload the Temporal Loom, which weaves them into reality. Ouroboros and Victor Timely race to fix it with a Throughput Multiplier.", out: "Timely is torn apart before he can launch it, and the Loom explodes, unraveling the TVA and the branches. Loki, slipping back through time and trying again and again, learns it cannot be saved, so he destroys the Loom himself and takes He Who Remains's place at the end of time, holding the timelines together as a living tree.", loss: [["Victor Timely, torn apart by the Loom's radiation, until Loki's time slips undo his death.", "Loki S2"], ["The Temporal Loom, destroyed by Loki.", "Loki S2"]], fall: [["Hunter B-15 helps lead a new TVA, which watches the free branches for variants of He Who Remains.", "Loki S2"]], who: [["victor-timely", "T"], ["he-who-remains", "T"], ["loki", "A"], ["mobius-m-mobius", "A"], ["sylvie", "A"], ["hunter-b-15", "A"], ["ouroboros", "A"], ["casey", "A"]], tm: [["tva", "A"]], obj: ["temporal-loom", "throughput-multiplier", "temporal-aura-extractor", "tempad"] }
 ];
 const dcYr = y => y == null ? "Outside time" : y < 0 ? -y + " BC" : String(y);   // the TVA keeps no year
+const dcU = d => d.u || "mcu";   // the universe tab a report is filed under, the same as the people in it
 const dcSeen = d => atlSeenT(d.t), dcLines = L => L.filter(([, t]) => atlSeenT(t));
 const dcChip = ([id, tg]) => { const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id); if (!o || !(tg === "A" ? cpSteps(o) : rfSteps(o)).length) return "";
   const nm = esc(tg === "A" ? cpName(o) : rfName(o)), cls = tg === "T" ? "v" : "";   // a name links to its file once you've found the index that keeps it
@@ -11027,7 +11028,7 @@ const dcObj = d => d.obj.map(id => { const o = COLLX.find(x => x.id === id); if 
 const dcNames = (d, grp) => (grp ? dcGrpOf(d) : d.who.filter(([id, tg]) => !((tg === "A" ? ALLIES : THREATS).find(x => x.id === id) || {}).grp)).map(([id, tg]) => { const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id);
   return o && (tg === "A" ? cpSteps(o) : rfSteps(o)).length ? (tg === "A" ? cpName(o) : rfName(o)) : null; }).filter(Boolean);
 const dcAka = d => d.who.concat(d.tm).flatMap(([id, tg]) => { const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id); return o && (tg === "A" ? cpSteps(o) : rfSteps(o)).length ? alNow(o) : []; });
-let dcQ = "", dcGrp = "yr"; const dcFold = {};
+let dcQ = "", dcGrp = "yr", dcUni = "mcu"; const dcFold = {};
 const DC_GRP = [["yr", "Year"], ["t", "Title"], ["who", "Involved"], ["tm", "Team"]];
 const dcShut = k => { const v = (dcFold[dcGrp] || {})[k]; return v == null ? dcGrp === "who" || dcGrp === "tm" : v; };
 function renderDc() {
@@ -11037,7 +11038,7 @@ function renderDc() {
     const W = dcWho(d), O = dcObj(d), loss = dcLines(d.loss), fall = dcLines(d.fall);
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Incident reports</button>
       <div class="dc-head"><small>Incident report · ${d.no}</small><h3>${esc(d.n)}</h3><p>${esc(d.cls)}</p><span class="dc-stamp" aria-hidden="true">CLOSED</span></div>
-      <div class="co-tiles"><div><small>Date</small><b>${dcYr(d.yr)}</b></div><div><small>Reported in</small><b>${tnh(d.t)}</b></div><div class="wide"><small>Location</small><b>${esc(d.where)}</b></div><div class="wide"><small>Universe</small><b>Sacred Timeline</b></div></div>
+      <div class="co-tiles"><div><small>Date</small><b>${dcYr(d.yr)}</b></div><div><small>Reported in</small><b>${tnh(d.t)}</b></div><div class="wide"><small>Location</small><b>${esc(d.where)}</b></div><div class="wide"><small>Universe</small><b>${rfUniName(RF_UNI.find(u => u[0] === dcU(d)))}</b></div></div>
       <div class="co-h">Inciting incident</div><p class="dc-p">${esc(d.cause)}</p>
       <div class="co-h">Response</div><p class="dc-p">${esc(d.out)}</p>
       ${(T => T ? `<div class="co-h">Teams</div><div class="dc-chips">${T}</div>` : "")(dcTm(d))}
@@ -11048,12 +11049,13 @@ function renderDc() {
     return;
   }
   v.innerHTML = `<div class="co"><div class="co-top"><small>Incident reports · Department of Damage Control</small><p class="co-sub">${L.length} incident${L.length === 1 ? "" : "s"} on file</p></div>
+    <div class="rf-tabs" role="tablist">${RF_UNI.map(x => `<button type="button" role="tab" aria-selected="${x[0] === dcUni}" data-dcu="${x[0]}">${rfUniName(x)}</button>`).join("")}</div>
     ${L.length ? pgQ("dcQ", "Search incidents", dcQ) : ""}<div class="dc-body">${dcBody()}</div></div>`;
 }
 // the list: grouped by year, by the title it's reported in, by who was involved or by team, each group folding away; the search looks
 // through names, places, kinds, titles, years and everyone on the reports
 function dcBody() {
-  const q = qNorm(dcQ.trim()), L = DC.filter(dcSeen);
+  const q = qNorm(dcQ.trim()), L = DC.filter(d => dcU(d) === dcUni && dcSeen(d));
   const byYr = dcGrp === "yr" && q.length < 2;   // grouped by year, a report goes by its number; anywhere else, by its year and number
   const row = d => `<button type="button" class="dc-row" data-dc="${d.id}"><span class="no">${byYr ? "No." : d.yr == null ? "TVA" : d.yr < 0 ? -d.yr + "BC" : d.yr}<br>${d.no.slice(-3)}</span><span><b>${q.length > 1 ? qMark(d.n, q) : esc(d.n)}</b><small>${q.length > 1 ? qMark(d.where, q) : esc(d.where)}</small></span><em>${esc(d.cls)}</em></button>`;
   const sorted = A => state.ixAZ ? A.slice().sort((a, b) => ixName(a.n).localeCompare(ixName(b.n))) : A;
@@ -11076,12 +11078,13 @@ document.getElementById("collView").addEventListener("input", ev => { if (ev.tar
 document.getElementById("collView").addEventListener("keydown", ev => { if (ev.target.id === "dcQ" && ev.key === "Enter") ev.target.blur(); });
 document.getElementById("collView").addEventListener("click", ev => {
   if (collMode !== "dc") return;
+  const u = ev.target.closest("[data-dcu]"); if (u) { ev.stopImmediatePropagation(); if (u.dataset.dcu !== dcUni) { haptic(8); dcUni = u.dataset.dcu; renderColl(); } return; }   // a search carries over to the tab you pick
   const g = ev.target.closest("[data-dcg]"); if (g) { ev.stopImmediatePropagation(); if (g.dataset.dcg !== dcGrp) { haptic(8); dcGrp = g.dataset.dcg; renderColl(); } return; }
   const f = ev.target.closest("[data-dcf]"); if (f) { ev.stopImmediatePropagation(); haptic(8); const k = f.dataset.dcf; dcFold[dcGrp][k] = !dcShut(k); renderColl(); return; }
   if (ev.target.closest(".pg-qx")) { ev.stopImmediatePropagation(); haptic(8); dcQ = ""; renderColl(); return; }
   const r = ev.target.closest("[data-dc]"); if (r) { ev.stopImmediatePropagation(); haptic(10); collShow(r.dataset.dc); return; }
-  const p = ev.target.closest("[data-dcp]"); if (p) { ev.stopImmediatePropagation(); haptic(10); const [tg, id] = p.dataset.dcp.split(":"); if (tg === "A") cpUni = "mcu"; else rfUni = "mcu"; collJump(tg === "A" ? "cp" : "raft", id); return; }
-  const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = "mcu"; collJump("coll", x.dataset.dcx); return; }
+  const p = ev.target.closest("[data-dcp]"); if (p) { ev.stopImmediatePropagation(); haptic(10); const [tg, id] = p.dataset.dcp.split(":"); const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id); if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); collJump(tg === "A" ? "cp" : "raft", id); return; }
+  const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = rfUniOf(COLLX.find(o => o.id === x.dataset.dcx)); collJump("coll", x.dataset.dcx); return; }
 }, true);
 
 </script>
