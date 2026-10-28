@@ -5214,12 +5214,12 @@ function ffThing() {   // the Thing: two rock fists come in from left and right 
 }
 /* ---------- the Infinity Stones: six of the easter eggs each hold one; with all six, the Gauntlet card offers the snap ---------- */
 const STONES = [   // in the order of the colours in the title bar
-  { id: "power", n: "Power", g: "#8E3BE0", gl: "#D7B0FF", gd: "#4A1580", a: 0, b: 16.5, hint: "Wakanda's king stores it up." },
+  { id: "power", n: "Power", g: "#8E3BE0", gl: "#D7B0FF", gd: "#4A1580", a: 0, b: 16.5, hint: "Let T'Challa's suit store it up, then let it go." },
   { id: "space", n: "Space", g: "#2F7BFF", gl: "#A9CBFF", gd: "#123E9A", a: 16.5, b: 33.5, hint: "The Collector keeps the cube in a case." },
-  { id: "reality", n: "Reality", g: "#E2263A", gl: "#FF9AA5", gd: "#7A0F1B", a: 33.5, b: 50.5, hint: "Somewhere in Westview." },
-  { id: "soul", n: "Soul", g: "#FF8A1F", gl: "#FFD3A1", gd: "#9A4A06", a: 50.5, b: 66.5, hint: "A soul for a soul. Hold on to her." },
-  { id: "time", n: "Time", g: "#2DBE5A", gl: "#A6F0BE", gd: "#0F6A2C", a: 66.5, b: 83.5, hint: "The TVA keeps it in order." },
-  { id: "mind", n: "Mind", g: "#FFD23F", gl: "#FFF2B0", gd: "#A27C05", a: 83.5, b: 100, hint: "Hold on while an AI is born." }
+  { id: "reality", n: "Reality", g: "#E2263A", gl: "#FF9AA5", gd: "#7A0F1B", a: 33.5, b: 50.5, hint: "Cast a Hex over Westview, then bring it down." },
+  { id: "soul", n: "Soul", g: "#FF8A1F", gl: "#FFD3A1", gd: "#9A4A06", a: 50.5, b: 66.5, hint: "A soul for a soul. Hold on to Natasha, then let go." },
+  { id: "time", n: "Time", g: "#2DBE5A", gl: "#A6F0BE", gd: "#0F6A2C", a: 66.5, b: 83.5, hint: "Prune a branch, then bring it back." },
+  { id: "mind", n: "Mind", g: "#FFD23F", gl: "#FFF2B0", gd: "#A27C05", a: 83.5, b: 100, hint: "Hold on while a new mind is born." }
 ];
 const gemVars = st => `--g:${st.g};--gl:${st.gl};--gd:${st.gd}`;
 function paintStones() {
@@ -6700,66 +6700,66 @@ const anyChecked = t => Object.keys(state.checks).some(k => state.checks[k] && k
 const allTL = (list, pre, lane) => list.filter(e => !lane || e.lane === lane).every(e => state.checks[pre + e.t]);
 // Classified, split evenly in two: page 1 the Infinity Saga heroes (plus the two about the movies themselves), page 2 the Multiverse Saga, each in release order
 const EGGS = [
-  ["ironhud", "Heads-up", "Suit up.", "In Iron Man's box, swipe down on his name.", 1],
-  ["puny", "Puny god", "The other guy's temper.", "Tap the Hulk's name in his box five times.", 1],
-  ["worthy", "Worthy", "Whosoever holds this hammer…", "Complete Thor's box, then hold his name.", 1],
-  ["shield", "The shield", "It usually comes back.", "Hold anywhere in the Captain America box.", 1],
-  ["arrow", "Never misses", "Patience, archer.", "Hold anywhere in Hawkeye's box.", 1],
-  ["avengers", "Assemble", "Earth's mightiest, all at once.", "Hold the name in The Avengers box.", 1],
-  ["bifrost", "Bifrost", "Heimdall is watching.", "In the Atlas, hold New Mexico.", 1],
-  ["sokovia", "Sokovia", "A city in the sky.", "In the Atlas, hold Sokovia.", 1],
-  ["titanmoon", "All that for a drop of blood", "Thanos has a moon to throw.", "In the Atlas Cosmos, hold Titan.", 1],
+  ["ironhud", "Heads-up", "Bring Tony's faceplate down.", "In the Iron Man box, press his name and drag it down, like his faceplate.", 1],
+  ["puny", "Puny god", "Keep poking the other guy.", "In the Hulk box, tap his name five times in a row.", 1],
+  ["worthy", "Worthy", "See Thor's story through, then try to lift his name.", "Check off every title in the Thor box, then hold his name.", 1],
+  ["shield", "The shield", "Hold on in Cap's box. The shield always comes back.", "Hold anywhere in the Captain America box.", 1],
+  ["arrow", "Never misses", "In Hawkeye's box, hold still and let him take aim.", "Hold anywhere in the Hawkeye box for a second.", 1],
+  ["avengers", "Assemble", "Hold on to the team's name and they all show up.", "Hold the name in The Avengers box.", 1],
+  ["bifrost", "Bifrost", "Heimdall is watching New Mexico.", "In the Atlas, hold New Mexico.", 1],
+  ["sokovia", "Sokovia", "Somewhere on the map, a city is lifting into the sky.", "In the Atlas, hold Sokovia.", 1],
+  ["titanmoon", "All that for a drop of blood", "On Titan, Thanos has a moon to throw.", "In the Atlas Cosmos, hold Titan.", 1],
   ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas Cosmos, tap Knowhere and visit the Collector.", 1],
-  ["artifacts", "Handle with care", `A few of the Collector's pieces answer to a touch. There are ${CX_SET.length}.`, "In the Collection: carry off the Tesseract, hold the Darkhold until its spell is cast, sign or refuse the Sokovia Accords, trace a circle on the sling rings, hold the arc reactor until it's charged, and draw out the Aether.", 1],
+  ["artifacts", "Handle with care", `A few of the Collector's pieces answer to a touch. There are ${CX_SET.length}.`, "In the Collection: carry the Tesseract off and let go, hold the Darkhold until its spell is cast, sign or refuse the Sokovia Accords, draw a circle starting on the sling rings, hold the arc reactor until it's charged, and drag the Aether well out of its case.", 1],
   ["compound", "The Avengers Compound", "Upstate, the team keeps a file on everyone.", "In the Atlas, tap the Avengers Compound and open its personnel files.", 1],
   ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "In the Atlas, tap the Raft and open its threat registry.", 1],
-  ["damagecontrol", "Damage Control", "Someone has to clean up after the heroes.", "In the Atlas, open New York, tap Midtown and open the incident reports.", 1],
+  ["damagecontrol", "Damage Control", "Someone in Midtown cleans up after the heroes.", "In the Atlas, open New York, tap Midtown and open the incident reports.", 1],
   ["jumppoint", "Jump point", "Space is big. Take a shortcut.", "In the Atlas Cosmos, hold an empty patch of space.", 1],
-  ["goose", "Not a cat", "Fury's favorite.", "In Captain Marvel's profile, tap Goose.", 1],
-  ["decrypt", "Decrypted", "The Kree left something out.", "In Comms, hold the blacked-out words in the Kree intercept.", 1],
+  ["goose", "Not a cat", "Fury's favorite is in Carol's profile. It isn't a cat.", "Once Captain Marvel is checked off in her box, tap Goose in her profile. Nick Fury's profile works too.", 1],
+  ["decrypt", "Decrypted", "The Kree left something out of an intercept.", "After Captain Marvel, in Comms, hold the blacked-out words in the Kree intercept.", 1],
   ["tiamut", "Emergence", "Something is waking in the Indian Ocean.", "After Eternals, in the Atlas, hold Celestial Island.", 2],
-  ["incursion", "Incursion", "Two worlds, one place.", "After Multiverse of Madness, in the Atlas Multiverse, hold an Earth until it lifts, then drop it on another.", 2],
-  ["minutes", "Miss Minutes", "The TVA's mascot.", "In Loki's profile, tap Miss Minutes.", 2],
-  ["lucky", "Pizza dog", "One-eyed and loyal.", "In Hawkeye's profile, tap Lucky.", 2],
-  ["herbie", "H.E.R.B.I.E.", "The family's helper.", "In The Fantastic Four's profile, tap H.E.R.B.I.E.", 2],
+  ["incursion", "Incursion", "Two Earths can't share one place. Make them.", "After Multiverse of Madness, in the Atlas Multiverse, hold an Earth until it lifts, then drop it on another.", 2],
+  ["minutes", "Miss Minutes", "The TVA's mascot is in Loki's profile.", "Once Loki S1 is checked off in the Loki & The TVA box, tap Miss Minutes in Loki's profile.", 2],
+  ["lucky", "Pizza dog", "A one-eyed dog is in Hawkeye's profile.", "Once Hawkeye (the series) is checked off in his box, tap Lucky in Hawkeye's profile.", 2],
+  ["herbie", "H.E.R.B.I.E.", "The family's robot is in their profile.", "Once The Fantastic Four: First Steps is checked off in their box, tap H.E.R.B.I.E. in The Fantastic Four's profile.", 2],
   ["battle", "The Battle of New York", "Something is coming through the sky over Midtown.", "In the Atlas, open New York and hold Midtown.", 1],
-  ["fury", "They were in his jacket", "Fury knows how to rally a team.", "Swipe down with two fingers in the Nick Fury box (on a computer, hold the name).", 1],
-  ["level7", "Level 7", "Swipe your clearance.", "Once you've watched Captain Marvel, The Avengers or Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, then swipe your card through the reader.", 1],
-  ["hydra", "Hail Hydra", "Not everyone in S.H.I.E.L.D. is S.H.I.E.L.D.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
-  ["wsoldier", "Ready to comply", "There's a red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
-  ["onyourleft", "On your left.", "He keeps passing you.", "Tap the left edge of the Falcon & Winter Soldier box, three laps.", 1],
-  ["groot", "Awesome Mix", "Peter's mom made him a tape.", "Hold the name in the Guardians of the Galaxy box.", 1],
-  ["dance", "Whistle", "He's got a fin on his head now.", "Hold Guardians of the Galaxy Vol. 2, then drag your finger.", 1],
-  ["quantum", "Quantum Realm", "Think small.", "Pinch the Ant-Man & the Wasp box smaller.", 1],
-  ["radar", "World on fire", "He can hear your heartbeat.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
+  ["fury", "They were in his jacket", "Fury rallies the team with the cards from Coulson's jacket.", "Swipe down with two fingers in the Nick Fury box (on a computer, hold the name).", 1],
+  ["level7", "Level 7", "S.H.I.E.L.D. keeps its files behind the stripes. Swipe your clearance.", "Once you've watched Captain Marvel, The Avengers or Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, swipe your card through the reader, then tap outside the files to close them.", 1],
+  ["hydra", "Hail Hydra", "Look closely at the barcode on your Agent ID.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
+  ["wsoldier", "Ready to comply", "Wake the soldier with the red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
+  ["onyourleft", "On your left.", "On the morning run, someone keeps passing on the left.", "In the Falcon & Winter Soldier box, tap the left edge of the screen, three laps in a row.", 1],
+  ["groot", "Awesome Mix", "Peter's mom made him a tape. Press play on the Guardians.", "Hold the name in the Guardians of the Galaxy box.", 1],
+  ["dance", "Whistle", "Whistle up Yondu's arrow in Vol. 2.", "Hold Guardians of the Galaxy Vol. 2 in any list, and drag your finger to lead the arrow.", 1],
+  ["quantum", "Quantum Realm", "In Scott and Hope's box, think small.", "Pinch the Ant-Man & the Wasp box smaller (on a computer, hold Ctrl and scroll down).", 1],
+  ["radar", "World on fire", "Matt can hear your heartbeat. Tap one out.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
   ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
-  ["bargain", "I've come to bargain", "Again. And again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
-  ["webs", "Thwip", "Your friendly neighborhood…", "Double-tap an empty spot in Spider-Man's box.", 1],
-  ["jameson", "Menace", "The Bugle has a scoop.", "In Comms, hold the Daily Bugle's name.", 1],
-  ["defenders", "Four colors", "Red, yellow, blue, green. The city at night.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
-  ["penny", "Penny and dime", "Count it out.", "In The Punisher box, tap his quote four times.", 1],
-  ["onlyfeel", "I just feel you", "You could never hurt me.", "In the Wanda & Vision box, hold two fingers on the screen until the stone breaks (on a computer, hold the quote).", 1],
-  ["photon", "Higher, further, faster", "She only goes one way: up.", "Flick Captain Marvel's name upward.", 1],
-  ["studio", "Marvel Studios", "Every movie starts the same way.", "Hold the main title until the lights go down.", 1],
-  ["tenrings", "Ten rings", "They're already on his box.", "In the Shang-Chi & The Ten Rings box, tap one of the rings at the top.", 2],
-  ["eternals", "The Uni-Mind", "Their power, joined as one.", "Hold anywhere in the Eternals box.", 2],
-  ["moon", "Fractured", "Who's in control?", "Hold the name in the Moon Knight box.", 2],
-  ["scales", "Weighing the heart", "Taweret keeps the scales.", "After Moon Knight, in the Atlas Beyond, hold the Duat.", 2],
-  ["doodles", "Doodles", "Kamala draws what she dreams.", "Draw on the name in The Champions box.", 2],
-  ["shatter", "New realities", "Your guide through them.", "Hold anywhere in The Watcher's box or the Beyond the MCU chapter.", 2],
-  ["werewolf", "Bloodstone", "Something red sets it off.", "Hold the Bloodstone watermark in the Werewolf by Night box.", 2],
-  ["sinister", "Hello, Peter.", "Five old enemies.", "Hold anywhere in The Sony Spider-Men box until you've seen all five villains.", 2],
+  ["bargain", "I've come to bargain", "In the Dark Dimension, come to bargain. Again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
+  ["webs", "Thwip", "Your friendly neighborhood web-slinger needs a spot to land.", "Double-tap an empty spot in Spider-Man's box.", 1],
+  ["jameson", "Menace", "The Bugle has a scoop, and Jameson wants to shout it.", "Once the Daily Bugle has a headline in Comms, hold its name above the headline.", 1],
+  ["defenders", "Four colors", "Four heroes, four colors, all at once.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
+  ["penny", "Penny and dime", "One batch, two batch, penny and dime. Count it out on Frank.", "In The Punisher box, tap his quote four times.", 1],
+  ["onlyfeel", "I just feel you", "Two hands, held still, until the stone gives.", "In the Wanda & Vision box, hold two fingers on the screen until the stone breaks (on a computer, hold the quote).", 1],
+  ["photon", "Higher, further, faster", "Carol only goes one way: up.", "Flick Captain Marvel's name upward.", 1],
+  ["studio", "Marvel Studios", "Every movie starts the same way. Wait for the lights.", "Hold the main title until the lights go down.", 1],
+  ["tenrings", "Ten rings", "The Ten Rings are already on Shang-Chi's box. Wake one.", "In the Shang-Chi & The Ten Rings box, tap one of the rings at the top.", 2],
+  ["eternals", "The Uni-Mind", "Hold the Eternals together, as one mind.", "Hold anywhere in the Eternals box.", 2],
+  ["moon", "Fractured", "Hold on to Moon Knight. Who's in control?", "Hold the name in the Moon Knight box.", 2],
+  ["scales", "Weighing the heart", "In the Duat, Taweret weighs the heart.", "After Moon Knight, in the Atlas Beyond, hold the Duat.", 2],
+  ["doodles", "Doodles", "Kamala doodles on everything. So can you.", "Draw a long line starting on the name in The Champions box.", 2],
+  ["shatter", "New realities", "The Watcher guides you through new realities.", "Hold anywhere in The Watcher's box or the Beyond the MCU chapter.", 2],
+  ["werewolf", "Bloodstone", "The Bloodstone glows red in Werewolf by Night.", "Hold the name or the Bloodstone watermark in the Werewolf by Night box.", 2],
+  ["sinister", "Hello, Peter.", "Five old enemies, one at a time.", "Hold anywhere in The Sony Spider-Men box, one villain per hold, until you've seen all five.", 2],
   ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box.", 2],
-  ["glorious", "Glorious purpose", "Hold on to them, then pull them together.", "In the Loki & The TVA box, hold your finger still for a moment, then pull up to the name.", 2],
-  ["skrull", "Not who it says it is", "Shapeshifters among us.", "Hold Secret Invasion, then tap the title that doesn't belong.", 2],
-  ["prune", "Pruned", "The TVA's way.", "On a timeline page, hold a branch line.", 2],
-  ["variant", "Variant", "Look at the map.", "Hold a character's name in the Character Map.", 2],
-  ["xmen8", "Mutant powers", "Children of the atom. There are ten.", "Hold a FoX-Men box's name until you've seen all ten powers.", 2],
+  ["glorious", "Glorious purpose", "In Loki's box, hold still, then gather the threads.", "In the Loki & The TVA box, hold your finger still for a moment, then pull up to the name.", 2],
+  ["skrull", "Not who it says it is", "In Secret Invasion, one title isn't what it says it is.", "Hold Secret Invasion, then tap the title that doesn't belong.", 2],
+  ["prune", "Pruned", "The TVA prunes a branch that strays.", "After Loki S1, on a timeline page, hold a branch line.", 2],
+  ["variant", "Variant", "Every face on the Character Map has a variant.", "Hold a character's name in the Character Map.", 2],
+  ["xmen8", "Mutant powers", "Ten powers among the children of the atom, one at a time.", "Hold the name of a FoX-Men box, one power per hold, until you've seen all ten.", 2],
   ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box or the Pruned Timelines chapter.", 2],
   ["witchroad", "The Witches' Road", "Down, down, down the road.", "After Agatha All Along, in the Atlas Beyond, hold the Witches' Road.", 2],
-  ["fantastic", "Fantastic", "Four taps, four powers.", "Tap the name in The Fantastic Four box four times, until you've seen all four powers.", 2],
+  ["fantastic", "Fantastic", "Four of them, four powers, one burst of taps each.", "Tap the name in The Fantastic Four box four times quickly. Each run of four shows one power; see all four.", 2],
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
-  ["doom", "Doom", "Hold on to the end of the world.", "Hold any Avengers: Doomsday title.", 2],
+  ["doom", "Doom", "Hold on to Doomsday.", "Hold any Avengers: Doomsday title.", 2],
   ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse, then scroll to the very end of the page and wait.", 2]
 ];
 // each Avengers film is a mission, named for what the team had to do (Doomsday and Secret Wars keep their titles until they are out)
@@ -6826,12 +6826,12 @@ function achList() {
   EG.forEach(([id, t, h, x], i) => A.push({ id: "egg-" + id, sec: "classified", pg: Math.floor(i / per) + 1, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id], prog: EGG_PROG[id] }));
   const pagesDone = () => DATA.chapters.every(isDone) && DATA.chars.every(isDone) && allTL(DATA.timeline, "tl::") && allTL(DATA.timelineRelease, "tr::") && everyRecord();
   const eggsDone = () => allStones() && EGGS.every(([id]) => ex[id]);
-  A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish the whole app.", x: "Complete every chapter, every character box and both timeline views, then see it all recorded: every log entry, every map of the Atlas looked over, with every city and other universe opened and read, every headline and message in Comms, and every path drawn.", ok: pagesDone });
+  A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish everything, and read it all.", x: "Complete every chapter, every character box and both timeline views, then see it all recorded: every log entry, every map of the Atlas looked over, with every city and other universe opened and read, every headline and message in Comms, and every path drawn.", ok: pagesDone });
   A.push({ id: "secrets", sec: "final", secret: true, t: "Every secret", d: "Every stone and easter egg found.", h: "Find everything hidden.", x: "Find all six stones and every Classified file.", ok: eggsDone });
   A.push({ id: "excelsior", sec: "final", secret: true, t: "Excelsior!", lead: true, d: "Everything. 'Nuff said.", h: "Earn every other file.", x: "Complete every other achievement in this Agent File.", final: true, ok: () => A.every(a => a.id === "excelsior" || earned(a.id)) });
   return A;
 }
-const STONE_HOW = { power: "In the Black Panther & Wakanda box, hold anywhere, then let go.", space: "In the Collection, hold the Tesseract, then drag it somewhere and let go.", reality: "Hold WandaVision, then drop the Hex.", soul: "In the Black Widow box, hold her name, then let go.", time: "Prune a timeline, then bring it back.", mind: "Hold Avengers: Age of Ultron until the web turns gold." };
+const STONE_HOW = { power: "In the Black Panther & Wakanda box, hold anywhere, then let go.", space: "In the Collection, hold the Tesseract, then drag it somewhere and let go.", reality: "Hold WandaVision to cast the Hex. Then drop it: hold WandaVision again, or tap it through all five decades.", soul: "In the Black Widow box, hold her name, then let go.", time: "After Loki S1, on a timeline page, hold a branch line to prune it, then bring it back: hold its name in the timeline's key, or hold Loki S2.", mind: "Hold Avengers: Age of Ultron and keep holding until the web turns gold." };
 const earned = id => !!(state.achSeen || {})[id];
 // Agent File sections appear once their first file is earned (Chapters always shows); the totals count only the files in sections you can see
 function fileSecs(A) { const o = { chapters: true, characters: true }; A.forEach(a => { if (earned(a.id)) o[a.sec] = true; }); return o; }
@@ -11354,8 +11354,19 @@ function cxDark(b, ev) {
 /* ---------- a sling ring: trace a circle with your finger and a portal opens there. It holds for a moment, throwing sparks, with another
    case in the archive showing through it; then it rushes toward you, you go through, and you're there ---------- */
 const SL_OPEN = 450, SL_HOLD = 2000, SL_ZOOM = 750;
+// was the trace a circle? roughly round, and it went most of the way around. Its middle and size, or nothing
+function slingCircle(pts) {
+  const n = pts.length; if (n < 12) return null;
+  const cx = pts.reduce((s, p) => s + p[0], 0) / n, cy = pts.reduce((s, p) => s + p[1], 0) / n, ds = pts.map(p => Math.hypot(p[0] - cx, p[1] - cy)), R = ds.reduce((s, d) => s + d, 0) / n;
+  const sd = Math.sqrt(ds.reduce((s, d) => s + (d - R) ** 2, 0) / n) / R;
+  let sweep = 0; for (let k = 1; k < n; k++) { let d = Math.atan2(pts[k][1] - cy, pts[k][0] - cx) - Math.atan2(pts[k - 1][1] - cy, pts[k - 1][0] - cx); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; sweep += d; }
+  return R > 26 && sd < .32 && Math.abs(sweep) > Math.PI * 1.6 ? { x: cx, y: cy, r: R } : null;
+}
 function cxSling(b, ev) {
-  if (REDUCED) return;
+  if (REDUCED) {   // with reduced motion, a circle takes you straight to the next case
+    const P = [[ev.clientX, ev.clientY]]; cxTrack(ev, e => P.push([e.clientX, e.clientY]), () => { if (!slingCircle(P)) return;
+      const here = COLLX.find(x => x.id === collRec), u = here ? rfUniOf(here) : cxUni, L = COLLX.filter(o => o.id !== collRec && rfUniOf(o) === u && cxSteps(o).length);
+      if (L.length) { collShow(L[Math.random() * L.length | 0].id); cxHandled("sling-ring"); } }); return; }
   let { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, pts = [[ev.clientX, ev.clientY, performance.now()]], LIFE = 1300, OR = "255,150,40";
   let up = 0, last = 0, portal = null, prev = performance.now();
   const sp = [];
@@ -11406,12 +11417,8 @@ function cxSling(b, ev) {
     if (Date.now() - last > 30) { last = Date.now(); sparkC(e.clientX, e.clientY, (Math.random() - .5) * 40, (Math.random() - .5) * 40 + 10, 0, 500, ORANGE_C); }
   }, () => {
     up = performance.now();
-    // was it a circle? roughly round, and it went most of the way around
-    const n = pts.length; if (n < 12) return;
-    const cx = pts.reduce((s, p) => s + p[0], 0) / n, cy = pts.reduce((s, p) => s + p[1], 0) / n, ds = pts.map(p => Math.hypot(p[0] - cx, p[1] - cy)), R = ds.reduce((s, d) => s + d, 0) / n;
-    const sd = Math.sqrt(ds.reduce((s, d) => s + (d - R) ** 2, 0) / n) / R;
-    let sweep = 0; for (let k = 1; k < n; k++) { let d = Math.atan2(pts[k][1] - cy, pts[k][0] - cx) - Math.atan2(pts[k - 1][1] - cy, pts[k - 1][0] - cx); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; sweep += d; }
-    if (R > 26 && sd < .32 && Math.abs(sweep) > Math.PI * 1.6) {
+    const c = slingCircle(pts); if (c) {
+      const { x: cx, y: cy, r: R } = c;
       const p = { x: cx, y: cy, r: Math.max(R, 46), t: performance.now() };
       p.max = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy)) + 30; p.view = slingView(p);
       portal = p; haptic([20, 30, 20, 30, 60]); setTimeout(() => haptic([30, 20, 60]), SL_HOLD + SL_ZOOM * .6);
@@ -11443,7 +11450,8 @@ function slingView(p) {
 
 /* ---------- the arc reactor: hold it and it powers up, lighting the file around it; let go and it powers down ---------- */
 function cxArc(b, ev) {
-  if (REDUCED || b._arc) return;
+  if (REDUCED) { cxHold(ev, 1400, () => cxHandled("arc")); return; }   // with reduced motion, a held charge still counts, without the light
+  if (b._arc) return;
   const rec = b.closest(".co-rec"), obj = b.querySelector(".cx-obj"), glow = document.createElement("div");
   glow.className = "fxl"; glow.style.cssText = "z-index:96;mix-blend-mode:screen"; document.body.appendChild(glow); rec.classList.add("arcon"); b._arc = 1;
   let c = 0, up = false, last = performance.now(), hum = 0, full = false;
@@ -11464,7 +11472,8 @@ function cxArc(b, ev) {
 
 /* ---------- the Aether: touch it and it pours out after your finger, a dark red liquid that won't stay still; let go and it drains back in ---------- */
 function cxAether(b, ev) {
-  if (REDUCED || b._ae) return; b._ae = 1;
+  if (REDUCED) { const [hx, hy] = cxCenter(b.querySelector(".cx-obj")); let far = 0; cxTrack(ev, e => { far = Math.max(far, Math.hypot(e.clientX - hx, e.clientY - hy)); }, () => { if (far > 140) cxHandled("aether"); }); return; }   // drawn out, without the liquid
+  if (b._ae) return; b._ae = 1;
   // the drops are drawn hard-edged and the goo filter melts them together, so they run like one liquid
   if (!document.getElementById("cxGoo")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="cxGoo"><feGaussianBlur stdDeviation="7"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/></filter></svg>`);
   const obj = b.querySelector(".cx-obj"), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = [];
