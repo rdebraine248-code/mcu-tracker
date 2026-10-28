@@ -1164,7 +1164,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
-/* MOCKUP BEGIN: J.A.R.V.I.S., one search across the whole app (test build only; mainprep cuts it); and the Sound switch */
+/* MOCKUP BEGIN: J.A.R.V.I.S., one search across the whole app (test build only; mainprep cuts it) */
 .subrow .jv-btn{ display:inline-flex; align-items:center; gap:8px; padding:4px 11px 4px 5px; border:1px solid rgba(79,216,240,.45); border-radius:999px; background:rgba(79,216,240,.07); color:#BFF4FC; font:10.5px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; vertical-align:middle; }
 .jv-btn i{ position:relative; display:grid; place-items:center; width:18px; height:18px; border:1px dashed rgba(127,230,247,.6); border-radius:50%; animation:jvSpin 9s linear infinite; }
 .jv-btn i::after{ content:""; width:6px; height:6px; border-radius:50%; background:#BFF4FC; box-shadow:0 0 8px #4FD8F0; }
@@ -1187,11 +1187,6 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .jv-cross{ margin:0 0 16px; padding:12px; border:1px solid #1F4652; border-radius:12px; background:linear-gradient(180deg,rgba(79,216,240,.08),rgba(79,216,240,.02)); }
 .jv-cross h4{ margin:0 0 2px; font:400 20px/1.15 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#E6F9FC; }
 .jv-cross p{ margin:0 0 10px; color:#8FB2BA; font-size:13px; }
-.snd-row{ display:flex; align-items:center; gap:14px; } .snd-row p{ flex:1; margin:0 !important; }
-.hf-save .snd-sw{ flex:none; display:inline-flex; align-items:center; gap:10px; padding:6px 12px 6px 6px; }
-.snd-sw i{ position:relative; width:36px; height:20px; border-radius:999px; background:#2A3550; transition:background .2s; }
-.snd-sw i::after{ content:""; position:absolute; left:3px; top:3px; width:14px; height:14px; border-radius:50%; background:#D8E0EE; transition:transform .2s; }
-.snd-sw.on i{ background:#C9A43A; } .snd-sw.on i::after{ transform:translateX(16px); } .hf-save .snd-sw.on{ border-color:#C9A43A; color:#F4D27A; }
 /* MOCKUP END */
 .cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; } .cx-big .cx-obj{ transition:opacity .18s ease; }   /* a case you can handle: the page doesn't scroll out from under your hand */
 /* the cases in the Collection you can handle: the Darkhold's script, the arc reactor's light, the Sokovia Accords themselves */
@@ -11671,119 +11666,6 @@ document.getElementById("collView").addEventListener("click", ev => {
 // back to J.A.R.V.I.S. from a file: the question is still there
 const collRestore2 = collRestore;
 collRestore = function () { const h = history.state || {}; if (h.cm === "jv" && h.q != null) jvQ = h.q; return collRestore2(); };
-/* MOCKUP END */
-/* MOCKUP BEGIN: Sound (test build only; mainprep cuts it). Every sound is made in the browser as it plays (no recordings, nothing from the
-   films), off until you switch it on in the Agent File. The whole app gets a voice through the presses it already makes (every haptic is also
-   a sound), check-offs chime, files and pages open with a breath of air, the Atlas hums while it's open, and the Collection's cases and the snap
-   each get their own */
-const SFX = (() => {
-  let ctx = null, out = null, wet = null, noiseBuf = null, lastTick = 0, lastThud = 0;
-  const init = () => {
-    if (ctx) return ctx; const C = window.AudioContext || window.webkitAudioContext; if (!C) return null;
-    ctx = new C(); const comp = ctx.createDynamicsCompressor(); out = ctx.createGain(); out.gain.value = .6; out.connect(comp); comp.connect(ctx.destination);
-    // a small dark room for the tails, made from decaying noise
-    const len = ctx.sampleRate * 1.8 | 0, ir = ctx.createBuffer(2, len, ctx.sampleRate);
-    for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.2); }
-    const cv = ctx.createConvolver(); cv.buffer = ir; wet = ctx.createGain(); wet.gain.value = .9; wet.connect(cv); const wg = ctx.createGain(); wg.gain.value = .32; cv.connect(wg); wg.connect(out);
-    noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); const nd = noiseBuf.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
-    return ctx;
-  };
-  const live = () => { if (!state.sound) return false; if (!init()) return false; if (ctx.state !== "running") ctx.resume(); return true; };
-  const env = (g, t, a, peak, rel) => { g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(.0001, t + a + rel); };
-  const send = (node, w) => { node.connect(out); if (w) { const s = ctx.createGain(); s.gain.value = w; node.connect(s); s.connect(wet); } };
-  function tone(f, dur, o = {}) {   // one voice: a waveform with an envelope, sliding to another pitch if asked
-    const t = ctx.currentTime + (o.at || 0), osc = ctx.createOscillator(), g = ctx.createGain(); osc.type = o.type || "sine";
-    osc.frequency.setValueAtTime(f, t); if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t + dur);
-    env(g, t, o.a || .004, o.g || .1, dur); osc.connect(g); send(g, o.w); osc.start(t); osc.stop(t + dur + .05);
-  }
-  function hiss(dur, o = {}) {   // a breath of filtered noise, swept if asked
-    const t = ctx.currentTime + (o.at || 0), src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); src.buffer = noiseBuf; src.loop = true;
-    f.type = o.ft || "bandpass"; f.Q.value = o.q || 1.2; f.frequency.setValueAtTime(o.f || 1200, t); if (o.to) f.frequency.exponentialRampToValueAtTime(o.to, t + dur);
-    env(g, t, o.a || .01, o.g || .1, dur); src.connect(f); f.connect(g); send(g, o.w); src.start(t, Math.random()); src.stop(t + dur + .05);
-  }
-  // something that goes on until it's told to stop: a few voices under one fader
-  function bed(build, fadeIn = .4) {
-    if (!live()) return { stop() {}, set() {} };
-    const g = ctx.createGain(), t = ctx.currentTime; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(1, t + fadeIn); g.connect(out);
-    const parts = build(g) || {};
-    return { ...parts, stop(rel = .35) { const n = ctx.currentTime; g.gain.cancelScheduledValues(n); g.gain.setValueAtTime(g.gain.value, n); g.gain.linearRampToValueAtTime(0, n + rel); setTimeout(() => { (parts.nodes || []).forEach(x => { try { x.stop(); } catch (e) {} }); g.disconnect(); clearInterval(parts.iv); }, rel * 1000 + 80); } };
-  }
-  const osc = (g, type, f, gain) => { const o = ctx.createOscillator(), v = ctx.createGain(); o.type = type; o.frequency.value = f; v.gain.value = gain; o.connect(v); v.connect(g); o.start(); return o; };
-  const noiseInto = (g, ft, f, q, gain) => { const s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), v = ctx.createGain(); s.buffer = noiseBuf; s.loop = true; fl.type = ft; fl.frequency.value = f; fl.Q.value = q; v.gain.value = gain; s.connect(fl); fl.connect(v); v.connect(g); s.start(); return [s, fl, v]; };
-  return {
-    live,
-    tick() { if (!live() || performance.now() - lastTick < 45) return; lastTick = performance.now(); tone(2600, .035, { type: "triangle", g: .035 }); tone(5200, .02, { g: .012 }); },
-    thud(k = 1) { if (!live() || performance.now() - lastThud < 140) return; lastThud = performance.now(); tone(110, .28, { to: 42, g: .2 * k }); hiss(.08, { ft: "lowpass", f: 900, g: .05 * k }); },
-    check(on) { if (!live()) return; on ? (tone(880, .35, { g: .06, w: .4 }), tone(1318.5, .5, { at: .07, g: .06, w: .5 })) : tone(660, .25, { to: 520, g: .04 }); },
-    chime() { if (!live()) return; [1046.5, 1568, 2093].forEach((f, i) => tone(f, .9, { at: i * .085, g: .045, w: .7 })); },
-    open() { if (!live()) return; hiss(.3, { f: 500, to: 2600, g: .07, q: .8 }); tone(196, .25, { to: 294, g: .035 }); },
-    close() { if (!live()) return; hiss(.26, { f: 2400, to: 450, g: .06, q: .8 }); tone(294, .22, { to: 196, g: .03 }); },
-    power() { if (!live()) return; tone(70, 1.1, { to: 880, g: .08, a: .05, w: .3 }); hiss(1, { f: 300, to: 5000, g: .05 }); [523.3, 784, 1046.5].forEach((f, i) => tone(f, 1, { at: .9 + i * .1, g: .05, w: .8 })); },
-    zap() { if (!live()) return; tone(260, .3, { to: 2800, g: .09, type: "sawtooth" }); tone(1200, .45, { at: .05, to: 180, g: .06, w: .8 }); hiss(.3, { f: 4000, g: .06 }); },
-    ping() { if (!live()) return; tone(2637, .8, { g: .05, w: 1 }); tone(1318.5, .9, { g: .04, w: 1 }); },
-    stamp() { if (!live()) return; tone(130, .18, { to: 60, g: .25 }); hiss(.07, { ft: "lowpass", f: 1400, g: .18 }); },
-    burst() { if (!live()) return; hiss(1.6, { ft: "lowpass", f: 4200, to: 160, g: .35, q: .5, w: .8 }); tone(80, 1.8, { to: 28, g: .3 }); tone(311, 1.2, { to: 155, g: .05, type: "sawtooth", w: .8 }); },
-    portal() { if (!live()) return; hiss(.75, { f: 260, to: 4200, g: .22, q: .7, w: .5 }); tone(98, .9, { to: 392, g: .08, w: .5 }); },
-    land() { if (!live()) return; tone(90, .5, { to: 50, g: .16, w: .6 }); hiss(.5, { f: 3000, to: 300, g: .06 }); },
-    snap() { if (!live()) return; hiss(.025, { ft: "highpass", f: 2400, g: .6, a: .001, w: 1.2 }); tone(55, 2.4, { at: .12, to: 30, g: .3, a: .3 }); hiss(2.6, { at: .15, ft: "lowpass", f: 600, to: 120, g: .08, a: .6, w: .6 }); },
-    unsnap() { if (!live()) return; hiss(1.4, { ft: "lowpass", f: 150, to: 2600, g: .12, a: 1.1 }); [392, 523.3, 784].forEach((f, i) => tone(f, 1.2, { at: 1.1 + i * .08, g: .05, w: .8 })); },
-    // the beds
-    atlas: () => bed(g => { const a = osc(g, "sine", 55, .05), b = osc(g, "sine", 82.4, .025), c = osc(g, "triangle", 110.5, .012); return { nodes: [a, b, c] }; }, 1.2),
-    hum: () => bed(g => { const a = osc(g, "sawtooth", 58, .025), b = osc(g, "sine", 116, .04), lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 400; a.disconnect(); const av = ctx.createGain(); av.gain.value = .03; a.connect(lp); lp.connect(av); av.connect(g); return { nodes: [a, b] }; }, .25),
-    charge: () => bed(g => { const a = osc(g, "sine", 180, .045), b = osc(g, "triangle", 360, .015), t = ctx.currentTime; a.frequency.exponentialRampToValueAtTime(720, t + 1.4); b.frequency.exponentialRampToValueAtTime(1440, t + 1.4); return { nodes: [a, b] }; }, .15),
-    drone: () => bed(g => { const a = osc(g, "sine", 58, .07), b = osc(g, "sine", 61.3, .07), [n, fl] = noiseInto(g, "lowpass", 260, .8, .07), t = ctx.currentTime;
-      fl.frequency.exponentialRampToValueAtTime(1600, t + 5.5); const c = osc(g, "sawtooth", 116, .0); c.frequency.value = 116; return { nodes: [a, b, n, c] }; }, .6),
-    goo: () => bed(g => { const [n, fl] = noiseInto(g, "lowpass", 320, 6, .12), a = osc(g, "sine", 70, .05);
-      const iv = setInterval(() => { if (ctx) fl.frequency.setTargetAtTime(180 + Math.random() * 420, ctx.currentTime, .06); }, 90); return { nodes: [n, a], iv }; }, .2),
-    crackle: (rate = 40) => bed(g => { const iv = setInterval(() => { for (let k = Math.random() * 3 | 0; k >= 0; k--) { const t = ctx.currentTime + Math.random() * .03, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), v = ctx.createGain();
-        s.buffer = noiseBuf; f.type = "bandpass"; f.frequency.value = 2500 + Math.random() * 4500; f.Q.value = 2; env(v, t, .001, .08 + Math.random() * .12, .02 + Math.random() * .04); s.connect(f); f.connect(v); v.connect(g); s.start(t, Math.random()); s.stop(t + .08); } }, 1000 / rate);
-      return { iv }; }, .05)
-  };
-})();
-// the switch, in the Agent File above the save code
-const renderFile3 = renderFile;
-renderFile = function (...a) {
-  renderFile3(...a); const sv = document.getElementById("hfSave"); if (!sv || document.getElementById("hfSound")) return;
-  sv.closest(".hf-sec").insertAdjacentHTML("beforebegin", `<section class="hf-sec" id="hfSound"><h3><span>Sound</span></h3><div class="hf-save snd-row"><p>Made by the datapad itself as it plays: presses, check-offs, files opening, the Atlas, the Collection and the snap.</p><button type="button" class="snd-sw${state.sound ? " on" : ""}" role="switch" aria-checked="${!!state.sound}"><i></i><span>${state.sound ? "On" : "Off"}</span></button></div></section>`);
-};
-document.addEventListener("click", ev => { const b = ev.target.closest(".snd-sw"); if (!b) return; state.sound = !state.sound; persist(); b.classList.toggle("on", state.sound); b.setAttribute("aria-checked", state.sound); b.querySelector("span").textContent = state.sound ? "On" : "Off"; if (state.sound) SFX.power(); });
-// every press already has a feel; now it has a sound too
-const haptic3 = haptic;
-haptic = function (p) { haptic3(p); if (!state.sound) return; if (Array.isArray(p)) SFX.thud(Math.min(1.4, p.reduce((a, b) => a + b, 0) / 160)); else if (p >= 6) SFX.tick(); };
-// check-offs chime (and an unchecked title sighs)
-document.addEventListener("click", ev => { if (!state.sound) return; const r = ev.target.closest("#panel .row, .tl-row"); if (!r || ev.target.closest(".box, button:not(.row)")) return;
-  const k = r.dataset.tl ? tk(r.dataset.tl) : openEntry && r.dataset.t ? ck(openEntry, r.dataset.t) : null; if (!k) return; const was = !!state.checks[k];
-  setTimeout(() => { const now = !!state.checks[k]; if (now !== was) SFX.check(now); }, 0); }, true);
-// a pop-up rings once
-const say3 = say; say = function (...a) { if (state.sound) SFX.chime(); return say3(...a); };
-// pages and files open with a breath of air; the Atlas hums while it's open
-["openPanel", "openComms", "openFile", "openMap", "openDossier", "openColl"].forEach(n => { const f = window[n]; window[n] = function (...a) { if (state.sound) SFX.open(); return f.apply(this, a); }; });
-["closePanel", "closeComms", "closeFile", "closeMap", "closeDossier", "closeColl"].forEach(n => { const f = window[n]; window[n] = function (...a) { if (state.sound) SFX.close(); return f.apply(this, a); }; });
-let sndAtlas = null;
-{ const o = window.openAtlas, c = window.closeAtlas;
-  window.openAtlas = function (...a) { if (state.sound) { SFX.open(); if (!sndAtlas) sndAtlas = SFX.atlas(); } return o.apply(this, a); };
-  window.closeAtlas = function (...a) { if (sndAtlas) { sndAtlas.stop(.8); sndAtlas = null; } if (state.sound) SFX.close(); return c.apply(this, a); }; }
-// the first boot's Enter powers the datapad up
-document.addEventListener("click", ev => { if (ev.target.closest("#gateEnter") && state.sound) SFX.power(); }, true);
-// the Collection's cases, each with its own voice
-const untilUp = (ev, fn) => { const f = e => { if (e.pointerId !== ev.pointerId) return; window.removeEventListener("pointerup", f, true); window.removeEventListener("pointercancel", f, true); fn(); }; window.addEventListener("pointerup", f, true); window.addEventListener("pointercancel", f, true); };
-CX_LIVE.tesseract = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; let hum = null; const tm = setTimeout(() => { if (cxTessOn) hum = SFX.hum(); }, 470);
-  untilUp(ev, () => { clearTimeout(tm); if (hum) { hum.stop(.15); setTimeout(() => { if (document.querySelector(".fx-tess")) SFX.zap(); }, 60); } }); })(CX_LIVE.tesseract);
-CX_LIVE.arc = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; const ch = SFX.charge(); untilUp(ev, () => ch.stop(.45)); })(CX_LIVE.arc);
-CX_LIVE.aether = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; const g = SFX.goo(); untilUp(ev, () => g.stop(1.2)); })(CX_LIVE.aether);
-CX_LIVE.darkhold = ((f0) => (b, ev) => { const was = cxDarkOn; f0(b, ev); if (!state.sound || was) return; const d = SFX.drone(); const iv = setInterval(() => { if (!cxDarkOn) { clearInterval(iv); d.stop(.5); } }, 100);
-  window.__sndDark = d; })(CX_LIVE.darkhold);
-CX_LIVE["sling-ring"] = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; const c = SFX.crackle(18); untilUp(ev, () => c.stop(.3)); })(CX_LIVE["sling-ring"]);
-const slingView3 = slingView;
-slingView = function (p) { const v = slingView3(p); if (state.sound) { const c = SFX.crackle(55); SFX.portal(); setTimeout(() => SFX.portal(), SL_HOLD); setTimeout(() => { c.stop(.2); SFX.land(); }, SL_HOLD + SL_ZOOM); } return v; };
-const cxHandled3 = cxHandled;
-cxHandled = function (id, ms) { if (state.sound) { if (id === "darkhold") { if (window.__sndDark) window.__sndDark.stop(.2); SFX.burst(); } else if (id === "arc") SFX.ping(); } return cxHandled3(id, ms); };
-// the Accords' stamp lands with a thud, the moment it hits the page
-new MutationObserver(M => { if (!state.sound) return; M.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1 && n.classList.contains("acc-stamp") && n.closest(".acc-ov") && !n.closest(".acc-ov")._snd) { n.closest(".acc-ov")._snd = 1; SFX.stamp(); } })); }).observe(document.body, { childList: true, subtree: true });
-// the snap, and the way back
-const snap3 = snap, unsnap3 = unsnap;
-snap = function (...a) { if (state.sound) SFX.snap(); return snap3(...a); };
-unsnap = function (...a) { if (state.sound) SFX.unsnap(); return unsnap3(...a); };
 /* MOCKUP END */
 </script>
 </body>

@@ -1,0 +1,165 @@
+<title>Datapad Sound Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Sans+Condensed:wght@400;600&family=Anton&display=swap">
+<style>
+:root{ --bg:#0B1019; --panel:#0F1626; --line:#232D42; --fg:#EEF1F6; --dim:#8E9AB3; --acc:#5FA8FF; --gold:#E9C46A; --ok:#6EEBA0; color-scheme:dark; }
+body{ background:var(--bg); color:var(--fg); font:15px/1.5 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px)); padding-block:24px 64px; }
+.wrap{ max-width:760px; margin:0 auto; }
+h1{ margin:0; font:400 34px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; text-wrap:balance; }
+.kick{ font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:var(--acc); margin-bottom:6px; }
+.lede{ color:var(--dim); max-width:62ch; margin:10px 0 18px; }
+.rules{ display:grid; gap:6px; margin:0 0 22px; padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:var(--panel); font-size:14px; color:#C9D3E3; }
+.rules b{ color:var(--fg); font-weight:600; }
+.vol{ display:flex; align-items:center; gap:10px; margin:0 0 24px; font:11px 'Share Tech Mono',monospace; letter-spacing:2px; text-transform:uppercase; color:var(--dim); }
+.vol input{ flex:1; max-width:240px; accent-color:var(--acc); }
+section{ margin:0 0 26px; }
+h2{ margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:10px; }
+h2 button{ margin-left:auto; padding:5px 10px; border:1px solid #4A3F22; border-radius:999px; background:none; color:var(--gold); font:10px 'Share Tech Mono',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; }
+.list{ display:grid; gap:6px; }
+.s{ display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--panel); }
+.s button{ width:44px; height:44px; border:1px solid #3A4A6A; border-radius:50%; background:#0B1222; color:var(--acc); cursor:pointer; display:grid; place-items:center; }
+.s button.on{ border-color:var(--acc); box-shadow:0 0 0 3px rgba(95,168,255,.18); }
+.s b{ display:block; font-weight:600; } .s small{ display:block; color:var(--dim); font-size:13px; line-height:1.4; }
+.s .tag{ font:10px 'Share Tech Mono',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#6F86A8; }
+.boot{ margin:8px 0 0; padding:10px 12px; min-height:7.5em; border:1px solid var(--line); border-radius:10px; background:#05080F; font:12px/1.55 'Share Tech Mono','Courier New',monospace; color:#C8D7EB; white-space:pre-wrap; }
+.boot .ok{ color:var(--ok); } .boot .no{ color:#FF6B6B; }
+</style>
+<div class="wrap">
+  <div class="kick">S.H.I.E.L.D. datapad · audio proposal 2</div>
+  <h1>Datapad Sound Board</h1>
+  <p class="lede">Every sound the datapad would make, in one place, before any of it goes into the app. Tap to hear each one. Each row says which animation it belongs to. Tell me by name which ones work, which don't, and why, and I'll tune the set before wiring it in.</p>
+  <div class="rules"><div><b>One language:</b> a S.H.I.E.L.D. terminal. Short, clean digital tones, quantized pitch steps instead of smooth slides, tight data chatter, scanning sweeps, servos and seals for the hardware. No air, no music, no reverb washes.</div><div><b>Quiet by default:</b> taps sit far under everything else; only events and sequences reach full level.</div><div><b>Every animation covered:</b> the first boot, every page and path change, the timeline drawing, the map, Comms and the indexes, not just the eggs. The eggs come after this set is right.</div></div>
+  <div class="vol">Level <input type="range" id="vol" min="0" max="1" step="0.05" value="0.7" aria-label="Level"></div>
+  <div id="board"></div>
+</div>
+<script>
+let ctx = null, master = null, noiseBuf = null;
+function boot() {
+  if (ctx) { if (ctx.state !== "running") ctx.resume(); return; }
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = +document.getElementById("vol").value; master.connect(comp); comp.connect(ctx.destination);
+  noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+}
+document.getElementById("vol").addEventListener("input", e => { if (master) master.gain.value = +e.target.value; });
+const T = () => ctx.currentTime;
+// a blip: one short digital tone. steps: a staircase of pitches (quantized, like a terminal), not a smooth slide
+function blip(at, f, dur, o = {}) {
+  const t = T() + at, osc = ctx.createOscillator(), g = ctx.createGain(), bp = ctx.createBiquadFilter();
+  osc.type = o.type || "square"; bp.type = "lowpass"; bp.frequency.value = o.lp || 6000;
+  if (o.steps) o.steps.forEach((s, i) => osc.frequency.setValueAtTime(s, t + i * (dur / o.steps.length))); else osc.frequency.setValueAtTime(f, t);
+  const peak = o.g || .06, a = o.a || .002; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a);
+  if (o.hold) g.gain.setValueAtTime(peak, t + a + o.hold); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  osc.connect(bp); bp.connect(g); g.connect(master); osc.start(t); osc.stop(t + dur + .02);
+}
+function sine(at, f, dur, o = {}) { blip(at, f, dur, { ...o, type: "sine", lp: 12000 }); }
+function tri(at, f, dur, o = {}) { blip(at, f, dur, { ...o, type: "triangle", lp: 9000 }); }
+// filtered noise: seals, magnetic reads, static
+function nz(at, dur, o = {}) {
+  const t = T() + at, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = noiseBuf;
+  f.type = o.ft || "bandpass"; f.Q.value = o.q || 2; f.frequency.setValueAtTime(o.f || 3000, t); if (o.to) f.frequency.linearRampToValueAtTime(o.to, t + dur);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(o.g || .05, t + (o.a || .003)); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  s.connect(f); f.connect(g); g.connect(master); s.start(t, Math.random()); s.stop(t + dur + .02);
+}
+// a sweep with a fast flutter on it: the scan of a reader or a sensor
+function scan(at, f0, f1, dur, o = {}) {
+  const t = T() + at, osc = ctx.createOscillator(), am = ctx.createOscillator(), amg = ctx.createGain(), g = ctx.createGain();
+  osc.type = "sine"; osc.frequency.setValueAtTime(f0, t); osc.frequency.linearRampToValueAtTime(f1, t + dur);
+  am.frequency.value = o.rate || 34; amg.gain.value = (o.g || .04) * .5; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(o.g || .04, t + .02); g.gain.setValueAtTime(o.g || .04, t + dur - .04); g.gain.linearRampToValueAtTime(0, t + dur);
+  am.connect(amg); amg.connect(g.gain); osc.connect(g); g.connect(master); osc.start(t); am.start(t); osc.stop(t + dur + .02); am.stop(t + dur + .02);
+}
+// data chatter: a run of tiny blips at random pitches from one set, the sound of text and data moving
+const DATA_F = [1760, 1976, 2349, 2637, 2960, 3520];
+function chatter(at, dur, o = {}) { const n = Math.floor(dur / (o.every || .035)); for (let i = 0; i < n; i++) if (Math.random() < (o.density || .8)) blip(at + i * (o.every || .035), DATA_F[Math.random() * DATA_F.length | 0] * (o.oct || 1), .018, { g: o.g || .018, type: o.type || "square", lp: 5000 }); }
+// a servo: a motor's whine with a little grit, gliding in steps
+function servo(at, f0, f1, dur, o = {}) {
+  const t = T() + at, osc = ctx.createOscillator(), lp = ctx.createBiquadFilter(), g = ctx.createGain(); osc.type = "sawtooth"; lp.type = "lowpass"; lp.frequency.value = o.lp || 1100; lp.Q.value = 3;
+  const n = 10; for (let i = 0; i <= n; i++) osc.frequency.setValueAtTime(f0 + (f1 - f0) * i / n, t + dur * i / n);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(o.g || .05, t + .03); g.gain.setValueAtTime(o.g || .05, t + dur - .05); g.gain.linearRampToValueAtTime(0, t + dur);
+  osc.connect(lp); lp.connect(g); g.connect(master); osc.start(t); osc.stop(t + dur + .02); nz(at, dur, { ft: "bandpass", f: 900, q: .8, g: (o.g || .05) * .35 });
+}
+const thump = (at, g = .22) => { sine(at, 90, .18, { steps: [90, 70, 55, 46], g }); };
+const click = (at, g = .05) => { nz(at, .012, { ft: "highpass", f: 3500, g }); };
+
+const BOARD = [
+ ["Interface", [
+  ["Tap", "Every button and tile: a tick so short it's almost felt rather than heard.", "Everywhere", () => { blip(0, 3400, .022, { g: .022, type: "sine", lp: 12000 }); }],
+  ["Select", "A tab, a chip, a filter, a page of the Agent File.", "Tabs, chips, pagers", () => { blip(0, 2349, .03, { g: .035 }); blip(.035, 3136, .035, { g: .03 }); }],
+  ["Back", "The crumb back, the back gesture, closing a sheet.", "Back", () => { blip(0, 2637, .03, { g: .03 }); blip(.035, 1976, .04, { g: .028 }); }],
+  ["Check off", "A title logged: the row confirms and locks in.", "Check-off in any list", () => { blip(0, 1760, .03, { g: .04 }); blip(.04, 2349, .03, { g: .04 }); blip(.08, 3520, .07, { g: .045, hold: .02 }); click(.1, .04); }],
+  ["Uncheck", "A title taken off the log.", "Uncheck", () => { blip(0, 2349, .035, { g: .03 }); blip(.045, 1568, .06, { g: .028 }); }],
+  ["Rating", "A star set: one per star, rising with the count.", "Rating stars", () => { [0, 1, 2, 3].forEach(i => blip(i * .06, [1760, 2093, 2637, 3136][i], .045, { g: .03, type: "triangle" })); }],
+  ["Saved", "A note written to your log.", "Personal log", () => { chatter(0, .12, { g: .012 }); blip(.14, 2960, .05, { g: .03, type: "sine", lp: 12000 }); }],
+  ["Denied", "A sealed box: Classified. Clearance required.", "Sealed boxes, locked files", () => { blip(0, 180, .09, { g: .06, lp: 900, hold: .05 }); blip(.12, 150, .14, { g: .06, lp: 900, hold: .08 }); }]
+ ]],
+ ["Navigation", [
+  ["Open a box", "The box slides up over the page: a short rising staircase and a latch.", "Chapter and character boxes", () => { blip(0, 0, .14, { steps: [700, 900, 1200, 1600, 2100, 2800], g: .028, lp: 4000 }); click(.15, .035); }],
+  ["Close a box", "The same, down, and the latch lets go.", "Closing a box", () => { click(0, .03); blip(.02, 0, .13, { steps: [2400, 1800, 1300, 950, 700], g: .025, lp: 4000 }); }],
+  ["Dock page", "Story, Log, Atlas, Paths, Comms, File: the page hands over.", "The dock", () => { scan(0, 900, 1500, .12, { g: .025, rate: 60 }); blip(.12, 2637, .03, { g: .03 }); }],
+  ["Change watch path", "Chapters, Sacred Timeline, Characters: the datapad re-sorts itself.", "Pick your path, the path switch", () => { chatter(0, .3, { every: .022, g: .015 }); blip(.32, 0, .16, { steps: [1320, 1760, 2349], g: .035 }); }],
+  ["Timeline drawing in", "Reveal: the tip of the Sacred Timeline traces down, a soft pulse for each title it passes.", "Sacred Timeline reveal", () => { scan(0, 600, 640, 1.6, { g: .018, rate: 12 }); for (let i = 0; i < 8; i++) blip(.1 + i * .19, 2637, .025, { g: .022, type: "sine", lp: 12000 }); }],
+  ["Timeline drawing back", "Hide: the tip runs back up into its button.", "Sacred Timeline hide", () => { scan(0, 640, 520, .8, { g: .016, rate: 18 }); for (let i = 0; i < 5; i++) blip(.06 + i * .14, 2093, .022, { g: .018, type: "sine", lp: 12000 }); click(.82, .03); }],
+  ["Paths map", "The Character Map projects its lines in.", "Paths", () => { scan(0, 300, 1100, .55, { g: .03, rate: 40 }); chatter(.2, .45, { every: .03, g: .012, oct: 1 }); }],
+  ["Pick your path", "A new agent chooses how to watch: the three paths light in turn.", "Pick your path", () => { [0, .18, .36].forEach((a, i) => { blip(a, [1568, 1976, 2349][i], .06, { g: .035, hold: .02 }); click(a + .01, .02); }); }]
+ ]],
+ ["Datapad events", [
+  ["Agent File updated", "A file earned: the pill comes in with three rising tones and a lock.", "Agent File pills", () => { [0, .07, .14].forEach((a, i) => blip(a, [1976, 2637, 3520][i], .07, { g: .04, hold: .02 })); click(.22, .03); }],
+  ["Box complete", "A chapter or a character finished.", "Box complete", () => { chatter(0, .18, { g: .014 }); [0, .08, .16, .24].forEach((a, i) => blip(.2 + a, [1760, 2349, 2960, 3520][i], .07, { g: .045, hold: .02 })); thump(.2, .12); }],
+  ["Clearance level up", "Your level goes up: the reader approves you.", "Clearance", () => { scan(0, 500, 2400, .45, { g: .03 }); [0, .1, .2].forEach((a, i) => blip(.5 + a, [2093, 2637, 3136][i], .09, { g: .05, hold: .04 })); thump(.5, .16); }],
+  ["Incoming message", "Comms: a transmission arrives.", "Comms messages", () => { [0, .1, .2, .3].forEach((a, i) => blip(a, i % 2 ? 1568 : 2349, .07, { g: .035, type: "sine", lp: 12000 })); }],
+  ["News on the wire", "A WHIH headline types onto the ticker.", "WHIH news", () => { blip(0, 1320, .05, { g: .03 }); chatter(.07, .55, { every: .04, density: .65, g: .012, type: "triangle" }); }],
+  ["Hacked broadcast", "The HACKED banner cuts into the ticker.", "Hacked news", () => { nz(0, .25, { f: 2200, q: .6, g: .06 }); blip(.05, 220, .2, { g: .05, lp: 1400, steps: [220, 330, 196, 440, 165] }); nz(.27, .08, { f: 4000, g: .04 }); }],
+  ["Index intake", "Intake complete: everything already on file comes over at once.", "The Compound, the Raft, the Collection, Damage Control", () => { chatter(0, .7, { every: .018, density: .9, g: .013 }); blip(.74, 2960, .1, { g: .04, hold: .04 }); click(.76, .03); }],
+  ["New record", "A file that's new to you is opened for the first time.", "NEW records", () => { blip(0, 3136, .04, { g: .03 }); blip(.06, 3136, .04, { g: .03 }); }]
+ ]],
+ ["Security and hardware", [
+  ["Card swipe, read", "Level 7: the card passes the reader and it reads.", "The keycard", () => { nz(0, .28, { f: 1800, to: 4200, q: 3, g: .05 }); blip(.3, 2637, .07, { g: .04, hold: .03, type: "sine", lp: 12000 }); }],
+  ["Card swipe, rejected", "Not cleared yet.", "The keycard", () => { nz(0, .28, { f: 1800, to: 4200, q: 3, g: .05 }); blip(.3, 196, .12, { g: .06, lp: 900, hold: .06 }); blip(.45, 196, .12, { g: .06, lp: 900, hold: .06 }); }],
+  ["Blast doors", "The files' doors part: seals release, then the servos haul them open.", "Level 7", () => { nz(0, .35, { ft: "highpass", f: 2500, g: .07 }); thump(.05, .2); servo(.25, 70, 120, 1.1, { g: .05 }); thump(1.35, .18); }],
+  ["Barcode scan", "Your Agent ID is scanned.", "The Agent ID", () => { scan(0, 1200, 1300, .6, { g: .03, rate: 70 }); blip(.62, 2960, .06, { g: .04 }); }]
+ ]],
+ ["Atlas and maps", [
+  ["Atlas powers on", "The map projects: a low field comes up and the grid locks in.", "Opening the Atlas", () => { sine(0, 55, .9, { g: .08, a: .2 }); scan(.05, 300, 900, .5, { g: .02, rate: 50 }); chatter(.4, .35, { every: .03, g: .012 }); blip(.8, 2349, .05, { g: .03 }); }],
+  ["Pin selected", "A place locks on.", "Tapping a place", () => { blip(0, 2637, .025, { g: .03 }); blip(.04, 3520, .05, { g: .035, type: "sine", lp: 12000 }); }],
+  ["Into a city", "The map dives into New York or another city.", "Cities and universes", () => { blip(0, 0, .3, { steps: [600, 800, 1000, 1300, 1700, 2200], g: .025, lp: 3500 }); scan(.05, 400, 1600, .3, { g: .02 }); }],
+  ["Zoom", "Pinch or scroll the map: soft ticks as it passes each level.", "Zooming", () => { [0, .07, .14].forEach(a => blip(a, 3136, .015, { g: .018, type: "sine", lp: 12000 })); }]
+ ]],
+ ["The first boot", [
+  ["Initiation, the whole sequence", "Played in step with the animation: power line, status typing, the eagle tracing and lighting, the wait, your tap, the boot log, access granted.", "The first boot", () => bootSeq()],
+  ["Every launch after", "The datapad switching back on: the emblem comes forward, the terminal knows you.", "Every launch", () => { sine(0, 60, .5, { g: .07, a: .05 }); scan(.1, 600, 1400, .35, { g: .025 }); [0, .09].forEach((a, i) => blip(.5 + a, [2349, 3136][i], .06, { g: .035, hold: .02 })); }]
+ ]]
+];
+function bootSeq() {
+  const out = document.getElementById("bootlog"); out.innerHTML = ""; const say = (ms, html) => setTimeout(() => { out.innerHTML += html + "\n"; }, ms);
+  // 0 to 400: the power line across the middle, then the picture opens out from it
+  sine(0, 50, .5, { g: .09, a: .25 }); nz(.05, .35, { ft: "highpass", f: 6000, g: .02 }); say(0, "power line");
+  thump(.4, .2); scan(.4, 200, 700, .3, { g: .025, rate: 80 }); say(400, "picture opens");
+  // 700 to 1600: S.H.I.E.L.D. // SECURE TERMINAL types out, then ENCRYPTED and the time
+  chatter(.7, .85, { every: .045, density: .95, g: .016 }); say(700, "S.H.I.E.L.D. // SECURE TERMINAL");
+  chatter(1.3, .3, { every: .045, g: .012 }); say(1300, "ENCRYPTED 09:41");
+  // 1500 to 2150: the eagle is traced in, a pen of light; then it lights
+  scan(1.45, 900, 1400, .7, { g: .02, rate: 22 }); say(1450, "eagle tracing");
+  [0, .08, .16].forEach((a, i) => blip(2.15 + a, [1760, 2349, 2960][i], .08, { g: .04, hold: .03 })); thump(2.15, .14); say(2150, "eagle lit");
+  // waiting: TAP TO INITIALIZE breathes; one soft tone with it
+  sine(3.3, 1175, .9, { g: .012, a: .4 }); say(3300, "TAP TO INITIALIZE");
+  // your tap, then the boot log: a line every 190 ms, each with its result
+  const tap = 4.4;   // in the app this waits for you; here it taps after a second blip(tap, 3400, .025, { g: .03, type: "sine", lp: 12000 }); say(4400, "(you tap)");
+  const L = [["SECURE BOOT · S.H.I.E.L.D. OS 8.2", "OK"], ["SATELLITE UPLINK", "OK"], ["INDEXING MCU ARCHIVE", "184 TITLES"], ["FIELD PROGRESS", "37%"], ["AGENT FILE", "LOADED"], ["TVA RECORDS", "ACCESS DENIED"]];   // the app's own boot log
+  L.forEach(([a, b], i) => { const t0 = tap + .45 + i * .19; chatter(t0, .14, { every: .025, g: .012 });
+    if (b !== "ACCESS DENIED") blip(t0 + .16, 2637, .03, { g: .03 }); else { blip(t0 + .16, 196, .06, { g: .045, lp: 900 }); blip(t0 + .24, 196, .06, { g: .045, lp: 900 }); }
+    say(Math.round((t0 + .16) * 1000), `&gt; ${a} ...... <span class="${b === "ACCESS DENIED" ? "no" : "ok"}">${b}</span>`); });
+  // the bar fills (INITIALIZING), then ACCESS GRANTED, and the terminal clears to the home page
+  scan(tap + .45, 500, 1800, 1.4, { g: .015, rate: 30 });
+  [0, .09, .18].forEach((a, i) => blip(tap + 1.9 + a, [2093, 2637, 3520][i], .1, { g: .05, hold: .05 })); thump(tap + 1.9, .2); say(Math.round((tap + 1.9) * 1000), '<span class="ok">ACCESS GRANTED</span>');   // the bar ends at 1850 ms, ACCESS GRANTED, and the page opens at 2050
+  servo(tap + 2.15, 160, 90, .35, { g: .03, lp: 1500 }); say(Math.round((tap + 2.15) * 1000), "terminal clears");
+  // the home page initializing piece by piece: a tick per piece
+  for (let i = 0; i < 6; i++) blip(tap + 2.55 + i * .11, [1760, 2093, 2349, 2637, 2960, 3136][i], .025, { g: .022 }); say(Math.round((tap + 2.55) * 1000), "home page initializes");
+}
+const board = document.getElementById("board");
+board.innerHTML = BOARD.map(([sec, L], si) => `<section><h2>${sec}<button type="button" data-all="${si}">Play all</button></h2><div class="list">${L.map(([n, d, where], i) => `<div class="s"><button type="button" data-p="${si}:${i}" aria-label="Play ${n}"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></button><div><b>${n}</b><small>${d}</small><span class="tag">${where}</span>${sec === "The first boot" && i === 0 ? '<div class="boot" id="bootlog"></div>' : ""}</div></div>`).join("")}</div></section>`).join("");
+board.addEventListener("click", e => {
+  const p = e.target.closest("[data-p]"), all = e.target.closest("[data-all]"); if (!p && !all) return; boot();
+  if (p) { const [si, i] = p.dataset.p.split(":").map(Number); BOARD[si][1][i][3](); p.classList.add("on"); setTimeout(() => p.classList.remove("on"), 400); }
+  if (all) { const L = BOARD[+all.dataset.all][1]; L.forEach((x, i) => setTimeout(() => { if (!/whole sequence/.test(x[0])) x[3](); }, i * 1100)); }
+});
+</script>
