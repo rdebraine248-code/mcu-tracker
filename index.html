@@ -1166,13 +1166,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .co-rec .cx-lot + h3{ margin-top:2px; }
 .cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; } .cx-big .cx-obj{ transition:opacity .18s ease; }   /* a case you can handle: the page doesn't scroll out from under your hand */
 /* MOCKUP BEGIN: cases in the Collection you can handle (test build only; mainprep cuts it) */
-.cx-big.breathe .cx-obj{ animation:cxBreathe 3.2s ease-in-out infinite; }
-@keyframes cxBreathe{ 50%{ filter:drop-shadow(0 0 14px color-mix(in srgb,var(--sc) 80%,transparent)); } }
 .cx-big canvas.cx-fx{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-.cx-eyet{ position:absolute; left:12px; top:12px; max-width:calc(100% - 130px); font:10px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FF0B0; text-shadow:0 0 8px rgba(45,190,90,.8); opacity:0; transition:opacity .25s ease; }
-.cx-eyet.on{ opacity:1; }
-.cx-chain li.fut{ opacity:.16; filter:grayscale(1); transition:opacity .25s ease; } .cx-chain li{ transition:opacity .25s ease; }
-.cx-chain li.now::before{ background:#2DBE5A; border-color:#2DBE5A; box-shadow:0 0 10px #2DBE5A; }
 .cx-rune{ color:#E0354A; text-shadow:0 0 6px rgba(200,20,40,.9); }
 .co-rec.arcon h3, .co-rec.arcon .co-tiles b, .co-rec.arcon .cx-chain p{ text-shadow:0 0 calc(var(--arc) * 12px) rgba(150,215,255,calc(var(--arc) * .85)); }
 .co-rec.arcon .co-tiles div{ border-color:color-mix(in srgb,#9FD6FF calc(var(--arc) * 70%),#232D42); }
@@ -11259,16 +11253,21 @@ document.getElementById("collView").addEventListener("click", ev => {
   const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = rfUniOf(COLLX.find(o => o.id === x.dataset.dcx)); collJump("coll", x.dataset.dcx); return; }
 }, true);
 
-/* MOCKUP BEGIN: more cases in the Collection you can handle (test build only; mainprep cuts it). The Darkhold and the Sokovia Accords are new eggs; the Eye of Agamotto, sling rings, the arc reactor and
-   the Aether just respond to your hand */
-EGGS.splice(EGGS.findIndex(e => e[0] === "hydra") + 1, 0, ["accords", "Signatory", "117 countries want a signature.", "In the Collection, open the Sokovia Accords and sign them, or refuse.", 1]);
-EGGS.splice(EGGS.findIndex(e => e[0] === "witchroad") + 1, 0, ["darkhold", "The Book of the Damned", "Read it, but not for too long.", "In the Collection, hold the Darkhold, then let go before it takes the page.", 2]);
-Object.assign(CX_LIVE, { darkhold: cxDark, agamotto: cxEye, "sling-ring": cxSling, arc: cxArc, aether: cxAether, "sokovia-accords": () => {} });   // the Accords open on a tap
-const CX_SHOW = { agamotto: 1, "sling-ring": 1, arc: 1, aether: 1 };   // the ones that aren't eggs breathe a little, to say they can be handled
+/* MOCKUP BEGIN: more cases in the Collection you can handle (test build only; mainprep cuts it). Handling every one of them, the Tesseract
+   included, is one egg; each case on its own earns nothing until the set is complete, like the five villains or the ten powers */
+const CX_SET = ["tesseract", "darkhold", "sokovia-accords", "sling-ring", "arc", "aether"];
+EGGS.splice(EGGS.findIndex(e => e[0] === "collector") + 1, 0, ["artifacts", "Handle with care", `A few of the Collector's pieces answer to a touch. There are ${CX_SET.length}.`, "In the Collection: carry off the Tesseract, hold the Darkhold until its spell is cast, sign or refuse the Sokovia Accords, trace a circle on the sling rings, hold the arc reactor until it's charged, and draw out the Aether.", 1]);
+Object.assign(CX_LIVE, { darkhold: cxDark, "sling-ring": cxSling, arc: cxArc, aether: cxAether, "sokovia-accords": () => {} });   // the Accords open on a tap
+function cxHandled(id, ms) {   // a case handled for the first time; the last of the set earns the egg
+  const H = state.cxHand = state.cxHand || {}; if (!H[id]) { H[id] = 1; persist(); }
+  if (CX_SET.every(k => H[k])) found("artifacts", ms);
+}
+// the Tesseract's own moment is in main; handling it counts toward the set once the stone has risen
+const awardStone0 = awardStone;
+awardStone = function (id, ...a) { awardStone0(id, ...a); if (id === "space" && collOpen && collRec === "tesseract") cxHandled("tesseract", 2400); };
 const cxRender0 = renderCx;
 renderCx = function () {
   cxRender0(); const b = document.querySelector("#collView .co-rec .cx-big[data-live]"); if (!b) return;
-  if (CX_SHOW[collRec]) b.classList.add("breathe");
   if (collRec === "sokovia-accords" && state.accords) b.insertAdjacentHTML("beforeend", `<span class="cx-acc">${state.accords.v === "signed" ? "Your signature is on file" : "You refused to sign"}</span>`);
 };
 function cxCanvas(parent) {   // a canvas over the whole screen, or over one stage
@@ -11279,94 +11278,84 @@ function cxCanvas(parent) {   // a canvas over the whole screen, or over one sta
 }
 document.getElementById("collView").addEventListener("click", ev => { if (ev.target.closest('.cx-big[data-live="sokovia-accords"]')) { haptic(10); cxAccords(); } });
 
-/* ---------- the Darkhold: hold it and its script eats the file from the top down while the dark closes in. Let go once it has you reading,
-   before it takes the whole page ---------- */
+/* ---------- the Darkhold: hold it and its script eats the file from the top down while the dark closes in. Hold on until it has the
+   whole page and its spell is cast: runes circle the book, red chaos gathers into it and bursts outward, and the page comes back. Let go
+   sooner and the script and the dark simply recede ---------- */
 let cxDarkOn = false;
 const RUNES = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ";
 function cxDark(b, ev) {
   if (cxDarkOn) return;
-  if (REDUCED) { cxHold(ev, 2000, () => found("darkhold")); return; }
+  if (REDUCED) { cxHold(ev, 2000, () => cxHandled("darkhold")); return; }
   cxDarkOn = true;
-  const rec = b.closest(".co-rec"), obj = b.querySelector(".cx-obj"), top = b.getBoundingClientRect().bottom, H = innerHeight, T = 7000, MIN = 1500;
+  const rec = b.closest(".co-rec"), obj = b.querySelector(".cx-obj"), top = b.getBoundingClientRect().bottom, H = innerHeight, T = 5500, BURST = 1300, S = 2700;
   const nodes = [], tw = document.createTreeWalker(rec, NodeFilter.SHOW_TEXT);
   for (let n = tw.nextNode(); n; n = tw.nextNode()) { if (!n.data.trim() || b.contains(n) || n.parentElement.closest(".co-crumb")) continue;
     const r = n.parentElement.getBoundingClientRect(), d = clamp01((r.top - top) / H);
     nodes.push({ n, p: n.parentElement, o: n.data, d, th: [...n.data].map(() => Math.random()), ru: [...n.data].map(() => RUNES[Math.random() * RUNES.length | 0]) }); }
   const dark = document.createElement("div"); dark.className = "fxl"; dark.style.zIndex = 96; document.body.appendChild(dark);
+  // the dark is always the same picture at a given depth, on the way in and on the way out, so nothing ever jumps
   const paint = L => {
     nodes.forEach(q => { const lv = clamp01((L * 1.5 - q.d * .6) / .5); q.n.data = lv ? [...q.o].map((ch, k) => ch.trim() && q.th[k] < lv ? q.ru[k] : ch).join("") : q.o;
       q.p.classList.toggle("cx-rune", lv > .35); });
     const [cx, cy] = cxCenter(obj), R = (1 - L) * Math.max(innerWidth, H) * 1.1;
     dark.style.background = `radial-gradient(circle at ${cx}px ${cy}px, rgba(30,0,6,0) ${R}px, rgba(12,0,3,.94) ${R + 260}px)`;
-    obj.style.color = "#E0354A"; obj.style.filter = `drop-shadow(0 0 ${6 + 20 * L}px rgba(220,30,50,.95))`;
-    obj.style.transform = L > .7 ? `translate(calc(-50% + ${(Math.random() - .5) * 4 * L}px), calc(-50% + ${(Math.random() - .5) * 4 * L}px))` : "";
+    dark.style.opacity = L > 0 ? 1 : 0;
+    obj.style.color = L > 0 ? "#E0354A" : ""; obj.style.filter = L > 0 ? `drop-shadow(0 0 ${6 + 20 * L}px rgba(220,30,50,.95))` : "";
   };
+  const shake = k => { obj.style.transform = k ? `translate(calc(-50% + ${(Math.random() - .5) * 5 * k}px), calc(-50% + ${(Math.random() - .5) * 5 * k}px))` : ""; };
   const clean = () => { nodes.forEach(q => { q.n.data = q.o; q.p.classList.remove("cx-rune"); }); dark.remove(); obj.style.color = obj.style.filter = obj.style.transform = ""; cxDarkOn = false; };
-  let phase = "hold", t0 = performance.now(), tUp = 0, Lup = 0, hum = 0, lost = false;
+  // the spell: two rings of runes turning against each other, and wisps of red chaos that spiral in, then burst out
+  let spell = null;
+  const cast = () => {
+    const { cv, g } = cxCanvas(), W = innerWidth;
+    const wisps = Array.from({ length: 34 }, () => ({ a: Math.random() * Math.PI * 2, r: 160 + Math.random() * 160, va: (.9 + Math.random() * .8) * (Math.random() < .5 ? 1 : -1), w: 1 + Math.random() * 2.2, hist: [] }));
+    const ring = (cx, cy, r, n, rot, a, size) => { g.save(); g.font = `${size}px serif`; g.textAlign = "center"; g.textBaseline = "middle"; g.fillStyle = `rgba(255,70,90,${a})`; g.shadowColor = "rgba(230,20,50,.95)"; g.shadowBlur = 10;
+      for (let k = 0; k < n; k++) { const q = rot + k / n * Math.PI * 2; g.save(); g.translate(cx + Math.cos(q) * r, cy + Math.sin(q) * r); g.rotate(q + Math.PI / 2); g.fillText(RUNES[(k * 7) % RUNES.length], 0, 0); g.restore(); }
+      g.strokeStyle = `rgba(255,60,80,${a * .55})`; g.lineWidth = 1; g.beginPath(); g.arc(cx, cy, r - size * .8, 0, Math.PI * 2); g.stroke(); g.beginPath(); g.arc(cx, cy, r + size * .8, 0, Math.PI * 2); g.stroke(); g.restore(); };
+    return { cv, g, wisps, ring, W };
+  };
+  let phase = "hold", t0 = performance.now(), tUp = 0, Lup = 0, hum = 0, burst = false;
   haptic(20);
   const frame = now => {
     const t = now - t0;
     if (phase === "hold") {
-      const L = clamp01((t - 200) / (T - 200)); paint(L);
-      if (now - hum > 400 + 600 * (1 - L)) { hum = now; haptic(10 + 30 * L); }
-      if (t >= T) {   // it takes everything: the page goes black under its script, then lets you go
-        phase = "taken"; tUp = now; haptic([60, 40, 120, 40, 200]);
-        dark.style.transition = "background .4s"; dark.style.background = "rgba(8,0,2,.97)";
-      }
-    } else if (phase === "out") {
-      const f = clamp01((now - tUp) / 600), L = Lup * (1 - f); paint(L);
-      if (f >= 1) { clean(); if (!lost && tUp - t0 >= MIN) { haptic([20, 30, 20]); found("darkhold"); } return; }
-    } else if (phase === "taken") {
-      const f = (now - tUp) / 1800; if (f >= 1) { phase = "out"; tUp = now; Lup = 1; lost = true; dark.style.transition = ""; requestAnimationFrame(frame); return; }
-      paint(1);
-      return requestAnimationFrame(frame);
+      const L = clamp01((t - 200) / (T - 200)); paint(L); shake(L > .7 ? (L - .7) / .3 : 0);
+      if (now - hum > 380 + 560 * (1 - L)) { hum = now; haptic(10 + 30 * L); }
+      if (L >= 1) { phase = "spell"; tUp = now; spell = cast(); haptic([30, 30, 40, 30, 60]); }
+    } else if (phase === "out") {   // let go early: it all recedes, nothing cast
+      const f = clamp01((now - tUp) / 700), L = Lup * (1 - easeIO(f)); paint(L); shake(0);
+      if (f >= 1) { clean(); return; }
+    } else if (phase === "spell") {
+      const f = now - tUp, { g, wisps, ring } = spell, [cx, cy] = cxCenter(obj);
+      g.clearRect(0, 0, innerWidth, innerHeight);
+      const gather = clamp01(f / BURST), out = clamp01((f - BURST) / (S - BURST)), e = easeIO(gather);
+      // the page comes back after the burst, from the book outward
+      paint(f < BURST ? 1 : 1 - easeIO(clamp01((f - BURST - 150) / 1000))); shake(f < BURST ? .4 + .6 * gather : 0);
+      if (f >= BURST && !burst) { burst = true; haptic([80, 30, 140]); fxRing(cx, cy, 220, "#FF3048", 900, 0, 3); cxHandled("darkhold", 1500);
+        wisps.forEach(w => { w.vr = 260 + Math.random() * 420; }); }
+      // the glow at the heart of it
+      const gr = g.createRadialGradient(cx, cy, 0, cx, cy, 90 + 60 * e); const ga = f < BURST ? .25 + .45 * e : .7 * (1 - out);
+      gr.addColorStop(0, `rgba(255,120,130,${ga})`); gr.addColorStop(.35, `rgba(200,10,40,${ga * .7})`); gr.addColorStop(1, "rgba(120,0,20,0)"); g.fillStyle = gr; g.fillRect(cx - 160, cy - 160, 320, 320);
+      // the rings: they tighten and spin up as it gathers, then fly apart
+      const ra = f < BURST ? Math.min(1, gather * 3) : 1 - out, spread = f < BURST ? 1 : 1 + out * 2.4;
+      ring(cx, cy, (66 - 12 * e) * spread, 18, f / 900 * (1 + 2 * e), ra, 13);
+      ring(cx, cy, (104 - 18 * e) * spread, 28, -f / 1300 * (1 + 2 * e), ra * .85, 11);
+      // the chaos: wisps spiral in toward the book, then are flung out
+      g.lineCap = "round"; g.shadowColor = "rgba(230,20,50,.9)"; g.shadowBlur = 12;
+      wisps.forEach(w => {
+        if (f < BURST) { w.r = Math.max(14, w.r - (w.r - 14) * .045); w.a += w.va * .045 * (1 + 2 * e); }
+        else { w.r += w.vr * .016; w.a += w.va * .02; }
+        w.hist.push([cx + Math.cos(w.a) * w.r, cy + Math.sin(w.a) * w.r]); if (w.hist.length > 9) w.hist.shift();
+        const a = f < BURST ? Math.min(1, gather * 2.5) : 1 - out;
+        g.strokeStyle = `rgba(255,${50 + (w.w * 20 | 0)},${70 + (w.w * 10 | 0)},${.85 * a})`; g.lineWidth = w.w; g.beginPath(); w.hist.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke();
+      });
+      g.shadowBlur = 0;
+      if (f >= S) { spell.cv.remove(); clean(); return; }
     }
     requestAnimationFrame(frame);
   };
   cxTrack(ev, () => {}, () => { if (phase !== "hold") return; const now = performance.now(); phase = "out"; Lup = clamp01((now - t0 - 200) / (T - 200)); tUp = now; });
   requestAnimationFrame(frame);
-}
-
-/* ---------- the Eye of Agamotto: turn it around its middle. Each quarter turn back takes the case one step back through its own history,
-   forward brings it home; the file shows where it was and who had it ---------- */
-function cxEye(b, ev) {
-  const o = COLLX.find(x => x.id === collRec), S = cxSteps(o), rec = b.closest(".co-rec"), lis = [...rec.querySelectorAll(".cx-chain li")];
-  const tiles = [...rec.querySelectorAll(".co-tiles > div")], stb = b.querySelector(".cx-stb"), obj = b.querySelector(".cx-obj");
-  let lab = b.querySelector(".cx-eyet"); if (!lab) { lab = document.createElement("span"); lab.className = "cx-eyet"; b.appendChild(lab); }
-  const [cx, cy] = cxCenter(obj), br = b.getBoundingClientRect(), ox = cx - br.left, oy = cy - br.top, STEP = Math.PI / 2;
-  let at = b._eyeAt ?? S.length - 1, acc = 0, rot = b._eyeRot || 0, prev = Math.atan2(ev.clientY - cy, ev.clientX - cx), up = false, a = 0;
-  const apply = () => {
-    lis.forEach((li, k) => { li.classList.toggle("fut", k > at); li.classList.toggle("now", k === at && at < S.length - 1); });
-    const s = S.slice(0, at + 1), st = cxStatus(s);
-    if (tiles[2] && !cxSpec(o)) tiles[2].querySelector("b").textContent = cxHolder(s);
-    if (tiles[3]) tiles[3].querySelector("b").textContent = st;
-    stb.textContent = st; b.className = b.className.replace(/\bs-\w+/, "s-" + CX_ST[st]);
-    lab.textContent = at < S.length - 1 ? `${S[at][1]} · ${at + 1} of ${S.length}` : ""; lab.classList.toggle("on", at < S.length - 1);
-    b._eyeAt = at; haptic(at === S.length - 1 ? [10, 20, 10] : 8);
-  };
-  const { cv, g } = cxCanvas(b), W = br.width, H = br.height, GR = "45,190,90", GL = "160,255,190";
-  const draw = () => {
-    g.clearRect(0, 0, W, H); if (a <= 0) return;
-    g.save(); g.translate(ox, oy); g.globalCompositeOperation = "lighter"; g.shadowColor = `rgb(${GR})`; g.shadowBlur = 10; g.lineWidth = 1.4;
-    // two rings of the mandala, turning against each other as you turn the Eye
-    [[56, rot, 24], [70, -rot * .6, 36], [42, rot * 1.4, 8]].forEach(([r, w, n], i) => {
-      g.strokeStyle = `rgba(${i ? GR : GL},${.75 * a})`; g.beginPath(); g.arc(0, 0, r, 0, Math.PI * 2); g.stroke();
-      for (let k = 0; k < n; k++) { const q = w + k / n * Math.PI * 2, l = k % 3 ? 4 : 9; g.beginPath(); g.moveTo(Math.cos(q) * r, Math.sin(q) * r); g.lineTo(Math.cos(q) * (r + l), Math.sin(q) * (r + l)); g.stroke(); }
-    });
-    g.strokeStyle = `rgba(${GL},${.6 * a})`; g.beginPath();   // the square laid across them
-    for (let k = 0; k < 4; k++) { const q = rot * .5 + k * Math.PI / 2 + Math.PI / 4; k ? g.lineTo(Math.cos(q) * 70, Math.sin(q) * 70) : g.moveTo(Math.cos(q) * 70, Math.sin(q) * 70); }
-    g.closePath(); g.stroke(); g.restore();
-  };
-  const loop = () => { a = up ? Math.max(0, a - .06) : Math.min(1, a + .12); draw(); if (up && a <= 0) { cv.remove(); return; } requestAnimationFrame(loop); };
-  requestAnimationFrame(loop);
-  obj.style.color = `rgb(${GL})`;
-  cxTrack(ev, e => {
-    const q = Math.atan2(e.clientY - cy, e.clientX - cx); let d = q - prev; if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; prev = q;
-    rot += d; acc += d;
-    while (acc >= STEP && at < S.length - 1) { at++; acc -= STEP; apply(); }
-    while (acc <= -STEP && at > 0) { at--; acc += STEP; apply(); }
-    if ((at === S.length - 1 && acc > 0) || (at === 0 && acc < 0)) acc = 0;
-  }, () => { up = true; b._eyeRot = rot; obj.style.color = ""; });
 }
 
 /* ---------- a sling ring: trace a circle with your finger and a portal opens there, onto another case in the archive ---------- */
@@ -11392,7 +11381,7 @@ function cxSling(b, ev) {
       for (let k = 0; k < 30; k++) { const q = now / 160 + k / 30 * Math.PI * 2 + Math.random() * .2, r = R + (Math.random() - .5) * 7;
         g.strokeStyle = `rgba(${k % 3 ? OR : "255,230,160"},.95)`; g.lineWidth = 1.4 + Math.random() * 1.6; g.beginPath(); g.arc(portal.x, portal.y, Math.max(1, r), q, q + .18 + Math.random() * .2); g.stroke(); }
       if (Math.random() < .7) { const q = Math.random() * Math.PI * 2; sparkC(portal.x + Math.cos(q) * R, portal.y + Math.sin(q) * R, -Math.sin(q) * 60, Math.cos(q) * 60, 0, 600, ORANGE_C); }
-      if (f > .28 && !done) { done = true; slingJump(portal); }
+      if (f > .28 && !done) { done = true; slingJump(portal); cxHandled("sling-ring", 900); }
     } else if (up && now - up > LIFE) { cv.remove(); return; }
     requestAnimationFrame(frame);
   };
@@ -11430,7 +11419,7 @@ function cxArc(b, ev) {
     glow.style.background = `radial-gradient(circle at ${cx}px ${cy}px, rgba(235,250,255,${.5 * cc}) 0, rgba(140,210,255,${.3 * cc}) ${30 + 80 * cc}px, rgba(80,160,255,${.1 * cc}) ${90 + 260 * cc}px, rgba(80,160,255,0) ${160 + 560 * cc}px)`;
     rec.style.setProperty("--arc", cc.toFixed(3));
     obj.style.color = `rgb(${Math.round(190 + 65 * cc)},${Math.round(225 + 30 * cc)},255)`; obj.style.filter = `drop-shadow(0 0 ${6 + 22 * cc}px rgba(160,220,255,${.5 + .5 * cc})) brightness(${1 + .8 * cc})`;
-    if (!up && !full && c >= 1) { full = true; fxRing(cx, cy, 130, "#BFE6FF", 700, 0, 3); haptic([20, 30, 40]); }
+    if (!up && !full && c >= 1) { full = true; fxRing(cx, cy, 130, "#BFE6FF", 700, 0, 3); haptic([20, 30, 40]); cxHandled("arc", 900); }
     if (!up && !full && now - hum > 150) { hum = now; haptic(6); }
     if (up && c <= 0) { glow.remove(); rec.classList.remove("arcon"); rec.style.removeProperty("--arc"); obj.style.color = obj.style.filter = ""; b._arc = 0; return; }
     requestAnimationFrame(frame);
@@ -11466,7 +11455,8 @@ function cxAether(b, ev) {
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
-  cxTrack(ev, e => { px = e.clientX; py = e.clientY; }, () => { up = performance.now(); });
+  let far = 0;   // it counts once you've drawn it well out of its case
+  cxTrack(ev, e => { px = e.clientX; py = e.clientY; const [hx, hy] = cxCenter(obj); far = Math.max(far, Math.hypot(px - hx, py - hy)); }, () => { up = performance.now(); if (far > 140) cxHandled("aether", 1600); });
 }
 
 /* ---------- the Sokovia Accords: the document itself. Sign it with your finger, or refuse; either way it's on your file ---------- */
@@ -11488,7 +11478,7 @@ function cxAccords() {
   const esc1 = e => { if (e.key === "Escape") close(); }; document.addEventListener("keydown", esc1);
   const stamp = (ok) => { const s = document.createElement("span"); s.className = "acc-stamp " + (ok ? "ok" : "no"); s.textContent = ok ? "Signatory" : "Refused"; doc.appendChild(s);
     s.animate([{ transform: "rotate(-12deg) scale(2.2)", opacity: 0 }, { transform: "rotate(-12deg) scale(1)", opacity: .85 }], { duration: 260, easing: "cubic-bezier(.3,0,.4,1)" }); haptic([40, 30, 80]);
-    ov.querySelector(".acc-btns").style.visibility = "hidden"; setTimeout(() => { close(); renderColl(); found("accords"); }, 1500); };
+    ov.querySelector(".acc-btns").style.visibility = "hidden"; setTimeout(() => { close(); renderColl(); cxHandled("sokovia-accords", 300); }, 1500); };
   ov.addEventListener("click", e => { if (e.target === ov || e.target.closest('[data-acc="x"]')) { close(); return; }
     if (e.target.closest('[data-acc="no"]') && !state.accords) { state.accords = { v: "refused" }; persist(); stamp(false); } });
   if (A) return;
