@@ -1143,7 +1143,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .tf-bar button{ display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font:10.5px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; } .tf-bar button i{ font-style:normal; }
 .collpanel:not(.cpx):not(.raft) .tf-bar{ border-color:#4A3F22; background:rgba(233,196,106,.07); } .collpanel:not(.cpx):not(.raft) .tf-bar small{ color:#E9C46A; } .collpanel:not(.cpx):not(.raft) .tf-bar button{ border-color:#4A3F22; background:#17140C; color:#F1E2B8; }
 /* the Collector's archive: every object in its own lit glass case, marked with its kind */
-.s-use{ --sc:#E9C46A; } .s-sec{ --sc:#5FA8FF; } .s-lost{ --sc:#B9A3E8; } .s-des{ --sc:#7F8796; } .s-thr{ --sc:#4FCB8A; } .s-end{ --sc:#E9A13A; } .s-ext{ --sc:#8592A6; }
+.s-past{ --sc:#8FA3BF; } .s-use{ --sc:#E9C46A; } .s-sec{ --sc:#5FA8FF; } .s-lost{ --sc:#B9A3E8; } .s-des{ --sc:#7F8796; } .s-thr{ --sc:#4FCB8A; } .s-end{ --sc:#E9A13A; } .s-ext{ --sc:#8592A6; }
 .cx-gl{ display:block; width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
 .cx-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin-top:10px; }
 .cx-case{ position:relative; display:flex; flex-direction:column; min-width:0; padding:0; border:1px solid rgba(170,200,240,.2); border-radius:12px; overflow:hidden; background:linear-gradient(180deg,rgba(150,190,255,.07),rgba(0,0,0,.3)),#0D131E; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
@@ -1170,18 +1170,25 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .tr-head span{ font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; } .tr-head small{ margin-left:auto; color:#86A879; font-size:13px; }
 .tr-head i{ display:grid; color:#7FD95A; transition:transform .2s; } .tr.open .tr-head i{ transform:rotate(180deg); }
 .tr-body{ padding:0 12px 12px; }
-.tr-map{ border:1px solid #24401E; border-radius:10px; overflow:hidden; background:radial-gradient(ellipse at 50% 40%,#0F1A0F,#070B07 75%); }
-.tr-map svg{ display:block; width:100%; height:auto; }
-.tr-lab{ font:7px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; fill:rgba(170,230,140,.5); text-transform:uppercase; } .tr-lab.cur{ font-size:8px; fill:#E6FFDA; }
-.tr-n{ font:700 8px 'Share Tech Mono','Courier New',monospace; text-anchor:middle; dominant-baseline:central; }
+.tr-map{ position:relative; border:1px solid #24401E; border-radius:10px; overflow:hidden; background:radial-gradient(ellipse at 50% 40%,#0F1A0F,#070B07 75%); }
+.tr-map svg{ display:block; width:100%; height:auto; touch-action:manipulation; }
+.tr-scan{ position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(180deg,rgba(127,217,90,.04) 0 1px,transparent 1px 3px); }
+.tr-lab{ font:7px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; fill:rgba(170,230,140,.55); text-transform:uppercase; }
+.tr-u{ cursor:pointer; } .tr-u text{ font:700 6.4px 'Share Tech Mono','Courier New',monospace; text-anchor:middle; dominant-baseline:central; pointer-events:none; }
+.tr-who[hidden]{ display:none; }
+.tr-who{ position:absolute; left:8px; bottom:8px; display:flex; gap:8px; align-items:center; padding:5px 6px 5px 10px; border:1px solid #2F5A26; border-radius:999px; background:rgba(7,11,7,.92); color:#EEF1F6; font-size:13px; }
+.tr-who button{ padding:3px 9px; border:1px solid #4E9E3A; border-radius:999px; background:none; color:#BFF0A6; font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
 .tr-ctl{ display:flex; align-items:center; gap:8px; margin:10px 0 4px; }
 .tr-ctl button{ flex:none; display:grid; place-items:center; width:38px; height:38px; border:1px solid #2F5A26; border-radius:50%; background:#0C140C; color:#BFF0A6; }
 .tr-ctl button.pp{ width:44px; height:44px; border-color:#4E9E3A; color:#7FD95A; } .tr-ctl input{ flex:1; min-width:0; accent-color:#7FD95A; }
-.tr-cap{ min-height:62px; margin:8px 0 0; padding:10px 12px; border-left:3px solid #7FD95A; background:rgba(127,217,90,.06); border-radius:0 10px 10px 0; color:#EEF1F6; font-size:15px; line-height:1.45; }
+.tr-cap{ min-height:84px; margin:8px 0 0; padding:10px 12px; border-left:3px solid #7FD95A; background:rgba(127,217,90,.06); border-radius:0 10px 10px 0; color:#EEF1F6; font-size:15px; line-height:1.45; }
 .tr-cap small{ display:block; margin-bottom:3px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FD95A; }
-.tr-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin:10px 0 4px; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#A6C996; }
+.tr-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin:10px 0 8px; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#A6C996; }
 .tr-legend i{ display:inline-block; width:9px; height:9px; margin-right:6px; border-radius:50%; vertical-align:-1px; }
-.tr-note{ margin:4px 0 0; color:#86A879; font-size:12.5px; }
+.tr-key{ display:flex; flex-wrap:wrap; gap:6px; }
+.tr-key button{ display:flex; align-items:center; gap:6px; padding:4px 10px 4px 5px; border:1px solid color-mix(in srgb,var(--c) 45%,transparent); border-radius:999px; background:none; color:#D5DCE8; font-size:12.5px; }
+.tr-key button b{ display:grid; place-items:center; min-width:22px; height:22px; padding:0 3px; border:1.4px solid var(--c); border-radius:999px; color:var(--c); font:700 9.5px 'Share Tech Mono','Courier New',monospace; }
+.tr-key button.on{ border-color:#FFFFFF; color:#FFFFFF; }
 /* MOCKUP END */
 /* MOCKUP BEGIN: Sound, proposal 2 (test build only; mainprep cuts it) */
 .snd-row{ display:flex; align-items:center; gap:14px; } .snd-row p{ flex:1; margin:0 !important; }
@@ -4412,7 +4419,10 @@ const CX_GLYPH = {
 const cxGlyph = c => `<svg class="cx-gl" viewBox="0 0 24 24" aria-hidden="true">${CX_GLYPH[c] || CX_GLYPH.keepsakes}</svg>`;
 const cxSteps = o => o.st.filter(atlSeenStep);
 const cxSpec = o => o.c === "specimens";
-const cxStatus = S => S.length ? S[S.length - 1][2] || "In use" : "In use", cxHolder = S => S.length ? S[S.length - 1][3] || "Unknown" : "Unknown";
+// where an object stands now: its last step in this timeline. A step about another time's copy of it (the stones borrowed in the Time Heist,
+// then put back) stays in its chain of custody but never sets where it stands now
+const cxNow = S => { const L = S.filter(x => !x[4]); return L[L.length - 1]; };
+const cxStatus = S => (cxNow(S) || [])[2] || "In use", cxHolder = S => (cxNow(S) || [])[3] || "Unknown";
 const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", atlSeenT)[0];
 // the order of a group's files in the three indexes: first seen in the story (ties A to Z), or A to Z, ignoring a leading "The". One setting
 // for all three, kept with the save (October 2026)
@@ -4437,7 +4447,8 @@ function renderCx() {
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>${cxSpec(o) ? "Home world" : "Held by"}</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div>${uniTile(o, "wide")}</div>
       ${hands.length && !cxSpec(o) ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}</div>` : ""}
       <div class="co-h">${cxSpec(o) ? "Field notes" : "Chain of custody"}</div>
-      <ol class="co-chain cx-chain">${S.map(x => { const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
+      <ol class="co-chain cx-chain">${S.map(x => { if (x[4]) return `<li class="s-past"><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${x[3] && x[3] !== "Nobody" ? `<span class="cx-hd">${esc(x[3])}</span>` : ""}<span class="rf-chg s-past">${esc(x[4])}</span></small></li>`;
+        const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
         pst = x[2] || pst; ph = x[3] || ph; return `<li class="s-${CX_ST[x[2]] || "use"}"><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${hd}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
@@ -7152,7 +7163,7 @@ function rateSec() {
     <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
     <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
 }
-let fileOpen = false, hfPage = 1, hfChPg = 1, hfArtPg = 1; const achTaps = {}, HF_PAGES = 4;
+let fileOpen = false, hfPage = 1, hfChPg = 1; const achTaps = {}, HF_PAGES = 4;
 // put new markup in place, swapping only the top-level blocks that changed, so everything else on screen stays exactly as it was
 function swapIn(host, html) {
   const tmp = document.createElement("div"); tmp.innerHTML = html;
@@ -7208,9 +7219,6 @@ function renderFile(fresh) {
   // each count on the agent ID takes you down to its section
   const stat = (key, label) => open[key] ? `<button type="button" data-hfgo="${key}"><b>${got(key)}/${tot(key)}</b><small>${label} complete</small></button>` : "";
   const sect = (key, title, mini) => open[key] ? part(key, title, mini) : "";
-  // the Artifacts in two pages, the Infinity Stones and then the Collection's cases, paged the way Classified is
-  const artPart = () => { if (!open.artifacts) return ""; const L = A.filter(a => a.sec === "artifacts"), P = L.filter(a => (a.pg || 1) === hfArtPg);
-    return `<section class="hf-sec" data-hfsec="artifacts"><h3><span>Artifacts</span><span class="hf-pager"><button type="button" data-hfapg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfArtPg}/2</span><button type="button" data-hfapg="1" aria-label="Next page">›</button><span class="hf-pgt">${L.filter(a => earned(a.id)).length}/${L.length}</span></span></h3><div class="hf-grid">${P.map(card).join("")}</div></section>`; };
   const chPart = () => { const key = hfChPg === 2 ? "characters" : "chapters", L = A.filter(a => a.sec === key);
     return `<section class="hf-sec" data-hfsec="chapters"><h3><span>${hfChPg === 2 ? "Characters" : "Chapters"}</span><span class="hf-pager"><button type="button" data-hfcpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfChPg}/2</span><button type="button" data-hfcpg="1" aria-label="Next page">›</button><span class="hf-pgt">${L.filter(a => earned(a.id)).length}/${L.length}</span></span></h3><div class="hf-grid mini hf-pg">${L.map(card).join("")}</div></section>`; };
   const fv = document.getElementById("fileView"); fv.className = "fileview"; if (fresh) fv.replaceChildren();
@@ -7220,7 +7228,7 @@ function renderFile(fresh) {
       <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
-    ${archSec()}${rateSec()}${chPart()}${sect("missions", "Missions")}${MOCK ? artPart() : sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
+    ${archSec()}${rateSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${MOCK ? sect("collection", "Collection") : ""}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><h3><span>Save code</span></h3><div class="hf-save" id="hfSave">
       <p>Your progress is saved in this browser. A save code holds all of it in one line of text. Keep it in your notes, and paste it here to restore your progress.</p>
       <div class="row"><button type="button" class="go" data-save="copy">Copy save code</button><button type="button" data-save="open">Restore code</button></div>
@@ -11139,7 +11147,7 @@ const DC = [
   { id: "dc-branches", no: "DC-TVA-002", u: "mcu", n: "The Bombing of the Branches", yr: null, yl: "Outside time", where: "The branched timelines, struck from the TVA", t: "Loki S2", cls: "Timeline purge", cause: "General Dox secretly arms her loyal hunters with reset charges to wipe out all the new branched timelines at once.", out: "Enchanted by Sylvie, Brad Wolfe reveals the plan, and Loki, Mobius and Sylvie capture Dox. Her plan has largely worked, though, and most of the branches are destroyed while some of her loyalists escape.", loss: [["Most of the new branched timelines, and everyone in them.", "Loki S2"]], fall: [["Locked up, Dox refuses to join Renslayer, and Miss Minutes crushes her and her loyalists.", "Loki S2"], ["The surviving branches keep flooding the Temporal Loom until it explodes, and Loki destroys it and holds the timelines together at the end of time.", "Loki S2"]], who: [["general-dox", "T"], ["hunter-x-5", "T"], ["loki", "A"], ["mobius-m-mobius", "A"], ["sylvie", "A"]], tm: [], obj: ["reset-charges", "temporal-loom", "tempad"] },
   { id: "dc-novalair", no: "DC-TVA-003", u: "mcu", n: "The Raid on Cassandra Nova's Lair", yr: null, yl: "Outside time", where: "Cassandra Nova's lair inside the fallen Ant-Man, the Void", t: "Deadpool & Wolverine", cls: "Resistance assault", cause: "Dumped in the Void by Mr. Paradox, Wade Wilson and Logan join the resistance of Laura, Elektra, Blade and Gambit and go after Cassandra Nova, who can open a way out of the Void.", out: "The resistance fights through Cassandra's henchmen while Wade and Logan force Juggernaut's helmet onto her to block her powers. Pyro betrays her on Paradox's behalf and she nearly dies, until Logan persuades Wade to take the helmet off, and once healed she opens a portal to Earth-10005 for them with a sling ring.", loss: [["Juggernaut, killed by Laura for his helmet.", "Deadpool & Wolverine"], ["Toad, Blob, Azazel, Callisto and the Omegas, killed by the resistance.", "Deadpool & Wolverine"], ["Johnny Storm, killed by Cassandra before the raid.", "Deadpool & Wolverine"]], fall: [["Cassandra learns of the Time Ripper from Pyro, kills him and follows Wade and Logan to Earth-10005.", "Deadpool & Wolverine"], ["Hunter B-15 later has Laura rescued from the Void, and she joins Wade's friends.", "Deadpool & Wolverine"]], who: [["cassandra-nova", "T"], ["fox-pyro", "T"], ["fox-juggernaut", "T"], ["fox-toad", "T"], ["fox-blob-void", "T"], ["fox-azazel", "T"], ["fox-callisto", "T"], ["fox-lady-deathstrike", "T"], ["fox-sabretooth", "T"], ["fox-deadpool", "A"], ["wolverine", "A"], ["fox-x-23", "A"], ["pr-blade", "A"], ["pr-elektra", "A"], ["fox-gambit-void", "A"]], tm: [["fox-omegas", "T"]], obj: ["fox-juggernaut-helmet", "sling-ring", "pr-glaive", "fox-dp-katanas"] },
   { id: "dc-by-1602", no: "DC-BY-1602-001", u: "by", n: "The 1602 Incursion", yr: 1602, where: "London, in the reality where Steve Rogers was lost in 1602", t: "What If...?", cls: "Incursion", cause: "Steve Rogers, thrown back in time in a fight with Thanos, lives in 1602 as the outlaw Rogers Hood, and his presence makes two centuries collide and tear rifts across the realm. Wanda Merlin summons Captain Carter from another world to stop it.", out: "After Queen Hela is lost to a rift, King Thor hunts Carter as a failure. Carter, Rogers's outlaws, Wanda Merlin and Sir Nicholas Fury steal the Time Stone from Thor's scepter to power Tony Stark's device, which reveals Rogers as the Forerunner, and Carter sends him home and the rifts stop.", loss: [["Queen Hela, pulled into a rift.", "What If...?"], ["Places across the realm, swallowed by the rifts.", "What If...?"]], fall: [["Strange Supreme comes for Carter and takes her to his Sanctum Infinitum, where she learns of the Forge.", "What If...?"]], who: [["by-king-thor", "T"], ["by-captain-carter", "A"], ["by-wanda-merlin", "A"], ["by-sir-nicholas-fury", "A"], ["by-tony-1602", "A"], ["by-rogers-hood", "A"], ["by-the-watcher", "A"]], tm: [], obj: ["by-time-stone-1602", "by-carter-shield"] },
-  { id: "dc-by-castle-krake", no: "DC-BY-1945-001", u: "by", n: "The Battle at Castle de Krake", yr: 1945, where: "Castle de Krake, the Black Forest, Germany, in the reality where Peggy Carter took the serum", t: "What If...?", cls: "Interdimensional summoning", cause: "With the Tesseract taken from Steve Rogers's captured Hydra Stomper, the Red Skull opens a portal at Castle de Krake and summons a monster from another world that he calls HYDRA's champion.", out: "The creature kills the Red Skull as it comes through. Captain Carter holds it off as the portal closes, then goes through after it to force it back, and vanishes with it.", loss: [["Johann Schmidt, killed by the creature he summoned.", "What If...?"], ["Peggy Carter, lost through the closing portal.", "What If...?"]], fall: [["Almost seventy years later, the Tesseract opens another portal, and Carter steps out to meet Nick Fury and Clint Barton.", "What If...?"], ["Carter's team later stops the same universe-eater from attacking Nebula's Xandar.", "What If...?"]], who: [["by-red-skull", "T"], ["by-captain-carter", "A"], ["by-steve-rogers-stomper", "A"]], tm: [], obj: ["by-tesseract-carter", "by-hydra-stomper", "by-carter-shield"] },
+  { id: "dc-by-castle-krake", no: "DC-BY-1945-001", u: "by", n: "The Battle at Castle de Krake", yr: 1945, where: "Castle de Krake, the Black Forest, Germany, in the reality where Peggy Carter took the serum", t: "What If...?", cls: "Interdimensional summoning", cause: "With the Tesseract taken from Steve Rogers's captured Hydra Stomper, the Red Skull opens a portal at Castle de Krake and summons a monster from another world that he calls HYDRA's champion.", out: "The creature kills the Red Skull as it comes through. Captain Carter holds it off as the portal closes, then goes through after it to force it back, and vanishes with it.", loss: [["Red Skull, killed by the creature he summoned.", "What If...?"], ["Peggy Carter, lost through the closing portal.", "What If...?"]], fall: [["Almost seventy years later, the Tesseract opens another portal, and Carter steps out to meet Nick Fury and Clint Barton.", "What If...?"], ["Carter's team later stops the same universe-eater from attacking Nebula's Xandar.", "What If...?"]], who: [["by-red-skull", "T"], ["by-captain-carter", "A"], ["by-steve-rogers-stomper", "A"]], tm: [], obj: ["by-tesseract-carter", "by-hydra-stomper", "by-carter-shield"] },
   { id: "dc-by-arishem", no: "DC-BY-1947-001", u: "by", n: "The Judgment of Arishem", yr: 1947, where: "Hollywood, Los Angeles, in the reality where Agatha Harkness went to Hollywood", t: "What If...?", cls: "Celestial judgment", cause: "Agatha Harkness has drained the powers of every Eternal but Kingo for a ritual to take the power of Tiamut, the Celestial buried in Earth's core. When Kingo sides with her, Arishem comes to destroy the Earth.", out: "With Howard Stark and Edwin Jarvis's help, Agatha takes Kingo's and Tiamut's power, becomes a Celestial and defeats Arishem. Kingo talks her out of keeping the power, and she frees the Eternals and makes movies with him instead.", loss: [["Arishem, destroyed by Agatha.", "What If...?"]], fall: [["At the premiere of Cosmic Queen, Kingo warns that Arishem's defeat has drawn the other Celestials' attention.", "What If...?"]], who: [["by-agatha-hollywood", "T"], ["by-kingo-hollywood", "A"]], tm: [], obj: [] },
   { id: "dc-by-shield-bases", no: "DC-BY-1983-001", u: "by", n: "The Destruction of S.H.I.E.L.D.'s Bases", yr: 1983, where: "S.H.I.E.L.D.'s facilities around the world, in the timeline changed by the Chronicoms", t: "Agents of S.H.I.E.L.D. S7", cls: "Orbital strike", cause: "Kora shuts down the Lighthouse's power, letting Sibyl hack its mainframe and take the location of every S.H.I.E.L.D. base, as a Chronicom fleet arrives to meet Nathaniel Malick aboard the stolen Zephyr.", out: "On Malick's order the fleet fires on S.H.I.E.L.D.'s facilities and destroys them across the world. Only the Lighthouse, built to withstand such an attack, still stands, and Coulson, Yo-Yo and May stop John Garrett from blowing it up.", loss: [["S.H.I.E.L.D.'s bases around the world, and the agents inside them.", "Agents of S.H.I.E.L.D. S7"]], fall: [["The surviving agents gather at an old safehouse, where Agent Hand shoots Garrett dead as he teleports in.", "Agents of S.H.I.E.L.D. S7"], ["Deke stays behind in this timeline to lead its S.H.I.E.L.D.", "Agents of S.H.I.E.L.D. S7"]], who: [["by-st-nathaniel-malick", "T"], ["by-st-sibyl", "T"], ["by-st-kora", "T"], ["st-john-garrett", "T"], ["phil-coulson", "A"], ["st-melinda-may", "A"], ["st-elena-rodriguez", "A"], ["st-mack", "A"], ["st-daisy-johnson", "A"], ["st-daniel-sousa", "A"], ["st-jemma-simmons", "A"], ["st-deke-shaw", "A"], ["st-victoria-hand", "A"]], tm: [["by-st-chronicom-hunters", "T"], ["shield-org", "A"]], obj: ["by-sibyl-time-stream", "zephyr-one"] },
   { id: "dc-by-mojave", no: "DC-BY-1988-001", u: "by", n: "The Battle of the Mojave Desert", yr: 1988, where: "The Mojave Desert, in the reality where Yondu delivered Peter Quill to Ego", t: "What If...?", cls: "Celestial attack", cause: "Ego, given his son by the Ravagers, trains young Peter Quill to ravage worlds and sends him to Earth, then comes himself to claim the seed he planted there and begin his expansion.", out: "Peggy Carter and Howard Stark's team captures Peter at Coney Island, but Hope van Dyne frees him. While T'Chaka, Bill Foster and Thor hold Ego back, Hank Pym persuades Peter to turn on his father, and Peter reaches the seed first and uses it to destroy Ego's body.", loss: [["Ego's physical body, destroyed by Peter with the seed.", "What If...?"]], fall: [["The team celebrates, then sets out to confront Ego himself.", "What If...?"]], who: [["by-ego-1988", "T"], ["by-peter-quill-1988", "T"], ["by-peggy-1988", "A"], ["by-hank-pym-1988", "A"], ["by-bill-foster-1988", "A"], ["by-tchaka-1988", "A"], ["by-wendy-lawson-1988", "A"], ["by-hope-1988", "A"]], tm: [], obj: ["by-ego-seed-1988"] },
@@ -11881,172 +11889,352 @@ document.addEventListener("click", ev => { if (ev.target.closest(".snd-sw, #sndP
   const k = ev.target.closest("[data-sndbox]"); if (k) { state.sndBox = k.dataset.sndbox; persist(); document.querySelectorAll("[data-sndbox]").forEach(b => b.setAttribute("aria-pressed", b.dataset.sndbox === state.sndBox)); DPSND.play("open" + state.sndBox); setTimeout(() => DPSND.play("close" + state.sndBox), 600); } }, true);
 document.body.insertAdjacentHTML("beforeend", `<button type="button" id="sndPill" class="snd-pill">Sound ${sndOn() ? "on" : "off"}</button>`);
 /* MOCKUP END */
-/* MOCKUP BEGIN: tactical replays in Damage Control (test build only; mainprep cuts it). A battle's report can replay it beat by beat: the beats
-   carry the story, and a plain map of the ground marks where each one happens, at named places only. Nobody's path is drawn: no source
-   records where every person stood, so the replay never claims to */
-const TR_COL = { A: "#5FA8FF", B: "#F4C542", T: "#FF5A4E", N: "#7FD95A" };
+/* MOCKUP BEGIN: tactical replays in Damage Control (test build only; mainprep cuts it). A battle's report can play it back on a map of the
+   ground: everyone who turns it moves from beat to beat, the armies as swarms, with each beat in words underneath. Tap anyone to see who it is */
+const TR_COL = { A: "#5FA8FF", B: "#F4C542", T: "#FF5A4E", C: "#D9E2EC" };
 const trL = (x, y, t, a) => `<text class="tr-lab" x="${x}" y="${y}"${a ? ` text-anchor="${a}"` : ""}>${t}</text>`;
 const TR_LN = 'stroke="rgba(127,217,90,.28)" fill="none"', TR_BD = 'fill="rgba(127,217,90,.07)" stroke="rgba(127,217,90,.32)"';
-const trGrid = () => { let g = ""; for (let x = 0; x <= 400; x += 20) g += `<path d="M${x} 0V240" stroke="rgba(127,217,90,.05)"/>`; for (let y = 0; y <= 240; y += 20) g += `<path d="M0 ${y}H400" stroke="rgba(127,217,90,.05)"/>`; return g; };
-// each battle: its ground, the places on it, and the beats; a beat is [side that drives it, place, what happens]
+const trGrid = () => { let g = ""; for (let x = 0; x <= 400; x += 20) g += `<path d="M${x} 0V300" stroke="rgba(127,217,90,.05)"/>`; for (let y = 0; y <= 300; y += 20) g += `<path d="M0 ${y}H400" stroke="rgba(127,217,90,.05)"/>`; return g; };
+// each battle: its ground, the effects that mark what happens, the armies, everyone on the field and where they are at each beat, and the beats.
+// A position key is [beat, x, y]; a key with no place takes them off the field
 const TR = {
   "dc-bny": { sides: { A: "The Avengers", T: "Loki and the Chitauri" },
-    map: () => trGrid() + [60, 130, 200, 270, 340].map(x => `<path d="M${x} 0V240" ${TR_LN} stroke-width="${x === 200 ? 5 : 2.5}"/>`).join("") + [35, 70, 105, 140, 175, 210].map(y => `<path d="M0 ${y}H400" ${TR_LN} stroke-width="${y === 175 ? 3.4 : 1.5}"/>`).join("")
-      + `<rect x="178" y="128" width="44" height="38" ${TR_BD}/><rect x="192" y="102" width="16" height="16" fill="rgba(127,217,90,.2)" stroke="rgba(160,240,120,.6)"/>` + trL(64, 10, "5th Ave") + trL(204, 10, "Park Ave") + trL(344, 10, "3rd Ave") + trL(6, 171, "E 42nd St"),
-    at: { tower: [200, 110, "Stark Tower"], sky: [200, 62, "The portal, overhead"], street: [148, 186, "Midtown streets"], park: [200, 150, "Park Avenue"], gc: [228, 196, "Grand Central"], roof: [268, 124, "A rooftop"], council: [360, 222, "The Helicarrier"] },
-    beats: [["T", "tower", "Tony Stark tries to shut down Selvig's device on top of Stark Tower, then confronts Loki in the penthouse. Loki throws him out of the window, and his new armor catches him."],
-      ["T", "sky", "The device opens a portal above the tower, and the Chitauri army pours through into Midtown."],
-      ["A", "tower", "Thor lands on the tower to stop his brother. They fight, and Loki takes to the air on a Chitauri chariot."],
-      ["T", "street", "Steve, Natasha and Clint fly in on the Quinjet. Loki shoots it down, and it crash-lands in the streets of Midtown."],
-      ["T", "park", "A Leviathan comes through the portal, and Tony leads it down Park Avenue toward the team."],
-      ["A", "gc", "Bruce Banner arrives and turns into the Hulk, who stops the Leviathan with one punch. The team assembles."],
-      ["A", "roof", "Steve gives the orders: Clint takes a rooftop to call out positions, Tony holds the perimeter, Thor bottlenecks the portal with lightning, and the Hulk smashes."],
-      ["A", "tower", "Natasha rides a chariot up to the tower, where Selvig tells her Loki's scepter can close the portal. Inside, the Hulk smashes Loki into the floor."],
-      ["T", "council", "The World Security Council fires a nuclear missile at Manhattan. Tony catches it and carries it toward the tower."],
-      ["A", "sky", "Tony flies the missile up through the portal into the Chitauri mothership. It explodes, and the army on Earth collapses."],
-      ["A", "tower", "Natasha closes the portal with the scepter as Tony falls back through, and the Hulk catches him."]] },
+    map: () => trGrid() + [60, 130, 200, 270, 340].map(x => `<path d="M${x} 0V300" ${TR_LN} stroke-width="${x === 200 ? 5 : 3}"/>`).join("") + [40, 80, 120, 160, 240, 280].map(y => `<path d="M0 ${y}H400" ${TR_LN} stroke-width="1.6"/>`).join("") + `<path d="M0 200H400" ${TR_LN} stroke-width="3.4"/>`
+      + `<rect x="175" y="148" width="50" height="44" ${TR_BD}/><path d="M170 145V197H230V145" stroke="rgba(127,217,90,.35)" stroke-dasharray="3 3" fill="none"/><rect x="191" y="121" width="18" height="18" fill="rgba(127,217,90,.18)" stroke="rgba(160,240,120,.6)"/>`
+      + trL(64, 12, "5th Ave") + trL(134, 12, "Madison") + trL(204, 12, "Park Ave") + trL(274, 12, "Lexington") + trL(344, 12, "3rd Ave") + trL(6, 196, "E 42nd St") + trL(228, 172, "Grand Central") + trL(214, 118, "Stark Tower") + trL(204, 234, "Pershing Sq"),
+    fx: [{ k: "ring", x: 200, y: 130, r: 34, from: .9, to: 10.25, lab: "Portal, overhead" }, { k: "mark", x: 150, y: 205, from: 3.72, to: 11, lab: "Quinjet down" }, { k: "bolt", x: 200, y: 130, r: 34, from: 6.3, to: 8.4 }, { k: "blast", x: 200, y: 210, at: 5.08, r: 26 }, { k: "blast", x: 200, y: 130, at: 9.5, r: 80 }],
+    swarms: [{ s: "T", n: 64, keys: [[1, 200, 130, 10, .3], [1.7, 200, 150, 80, 1], [3, 200, 160, 120, 1], [9.5, 200, 165, 135, 1], [9.95, 200, 165, 135, 0]] }],
+    units: [
+      { c: "IM", n: "Iron Man", s: "A", f: "A:tony-stark", p: [[0, 200, 131], [.55, 200, 131], [.7, 214, 152], [.85, 240, 120], [1, 236, 104], [2, 170, 100], [3, 250, 92], [3.8, 200, 60], [4.9, 200, 202], [5, 200, 212], [6, 207, 212], [6.4, 300, 110], [6.8, 110, 100], [7.2, 290, 230], [7.6, 120, 240], [8, 320, 180], [8.55, 345, 258], [8.8, 320, 232], [9.05, 240, 170], [9.3, 200, 131], [9.45, null], [9.75, 200, 131], [10.2, 200, 192], [10.4, 200, 208]] },
+      { c: "LO", n: "Loki", s: "T", f: "T:loki", down: 7.6, p: [[0, 205, 134], [2.5, 205, 134], [2.8, 232, 110], [3.2, 172, 148], [3.5, 150, 186], [4, 230, 92], [5, 262, 70], [6, 240, 110], [6.8, 206, 133], [7, 205, 134]] },
+      { c: "TH", n: "Thor", s: "A", f: "A:thor", p: [[2, 200, 60], [2.2, 197, 128], [4.6, 197, 128], [4.9, 196, 206], [5, 194, 215], [6, 192, 215], [6.3, 194, 122]] },
+      { c: "QJ", n: "The Quinjet", s: "A", p: [[3, -10, 30], [3.4, 120, 92], [3.55, 160, 150], [3.7, 150, 205], [3.72, null]] },
+      { c: "CA", n: "Captain America", s: "A", f: "A:steve-rogers", p: [[3.72, 150, 205], [4.2, 188, 216], [5, 192, 220], [6, 196, 222], [6.5, 176, 236], [7, 196, 222], [8, 216, 228], [10, 204, 222]] },
+      { c: "BW", n: "Black Widow", s: "A", f: "A:natasha-romanoff", p: [[3.72, 150, 205], [4.2, 196, 224], [5, 208, 222], [6.6, 210, 222], [7, 205, 150], [7.2, 208, 128], [10, 208, 128]] },
+      { c: "HE", n: "Hawkeye", s: "A", f: "A:clint-barton", p: [[3.72, 150, 205], [4.2, 204, 228], [5, 214, 214], [6.2, 214, 214], [6.6, 266, 166], [10, 266, 166]] },
+      { c: "HU", n: "The Hulk", s: "A", f: "A:bruce-banner", p: [[4.6, 200, 305], [5, 202, 224], [5.6, 212, 218], [6.4, 232, 160], [7, 200, 138], [7.6, 200, 136], [8, 212, 172], [9.8, 200, 208], [10.4, 202, 212]] },
+      { c: "LV", n: "A Leviathan", s: "T", big: 1.6, p: [[4, 200, 131], [4.95, 200, 204], [5.1, 200, 208], [5.15, null]] },
+      { c: "NK", n: "The Council's missile", s: "T", p: [[8, 405, 305], [8.55, 345, 262], [8.8, 322, 234], [9.05, 242, 172], [9.3, 202, 133], [9.45, null]] }
+    ],
+    beats: [
+      "Tony Stark tries to shut down Selvig's device on top of Stark Tower, then confronts Loki in the penthouse. Loki throws him out of the window, and his new armor catches him.",
+      "The device opens a portal above the tower, and the Chitauri army pours through into Midtown.",
+      "Thor lands on the tower to stop his brother. They fight, and Loki takes to the air on a Chitauri chariot.",
+      "Steve, Natasha and Clint fly in on the Quinjet. Loki shoots it down, and it crash-lands in the streets of Midtown.",
+      "A Leviathan comes through the portal, and Tony leads it down Park Avenue toward the team.",
+      "Bruce Banner arrives and turns into the Hulk, who stops the Leviathan with one punch. The team assembles.",
+      "Steve gives the orders: Clint takes a rooftop to call out positions, Tony holds the perimeter, Thor bottlenecks the portal with lightning, and the Hulk smashes.",
+      "Natasha rides a chariot up to the tower, where Selvig tells her Loki's scepter can close the portal. Inside, the Hulk smashes Loki into the floor.",
+      "The World Security Council fires a nuclear missile at Manhattan. Tony catches it and carries it toward the tower.",
+      "Tony flies the missile up through the portal into the Chitauri mothership. It explodes, and the army on Earth collapses.",
+      "Natasha closes the portal with the scepter as Tony falls back through, and the Hulk catches him."
+    ] },
   "dc-lhz": { sides: { A: "Steve's side", B: "Tony's side" },
-    map: () => trGrid() + `<rect x="20" y="16" width="150" height="44" ${TR_BD}/><rect x="300" y="86" width="86" height="70" ${TR_BD}/><circle cx="252" cy="44" r="9" ${TR_BD}/><rect x="0" y="206" width="400" height="30" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.28)"/><path d="M10 221H390" stroke="rgba(160,240,120,.35)" stroke-dasharray="10 8"/>`
-      + trL(26, 40, "Terminal") + trL(304, 82, "Hangar") + trL(266, 48, "Tower") + trL(12, 202, "Runway"),
-    at: { apron: [220, 128, "The tarmac"], terminal: [96, 72, "The terminal"], hangar: [343, 121, "The hangar"], air: [330, 64, "Above the airport"], runway: [262, 196, "The runway"] },
-    beats: [["B", "apron", "Steve Rogers and Bucky Barnes reach the airport to take a Quinjet. Tony Stark and James Rhodes land on the tarmac to stop them, with Natasha Romanoff, T'Challa and Vision close behind."],
-      ["B", "apron", "Tony calls in Peter Parker, who webs up Steve's hands and takes his shield."],
-      ["A", "terminal", "Steve's side strikes back: Sam Wilson, Wanda Maximoff and Clint Barton join the fight, and so does Scott Lang."],
-      ["N", "apron", "The two sides charge each other across the tarmac."],
-      ["A", "hangar", "Steve and Bucky break for the Quinjet in the hangar, while the others keep Tony's side busy."],
-      ["A", "runway", "Scott grows to giant size, tearing through the airport to cover their run."],
-      ["B", "runway", "Peter ties Scott's legs with his webbing, and Tony and Rhodes bring him down."],
-      ["A", "hangar", "T'Challa chases Steve and Bucky to the hangar. Natasha stuns him, and the Quinjet takes off."],
-      ["B", "air", "Rhodes and Tony chase the jet, and Sam turns to stop them. Vision fires at Sam, but the beam hits Rhodes."],
-      ["B", "air", "Rhodes falls from the sky. Tony and Sam dive after him, but neither reaches him in time."],
-      ["B", "apron", "Sam, Wanda, Clint and Scott are arrested and taken to the Raft."]] },
+    map: () => trGrid() + `<rect x="20" y="20" width="150" height="50" ${TR_BD}/><rect x="300" y="100" width="88" height="76" ${TR_BD}/><circle cx="255" cy="52" r="9" ${TR_BD}/><rect x="0" y="246" width="400" height="34" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.28)"/>`
+      + `<path d="M10 263H390" stroke="rgba(160,240,120,.35)" stroke-dasharray="10 8"/><path d="M95 70V246M170 120H300M240 70V246" ${TR_LN} stroke-dasharray="2 4"/><path d="M80 150l18-5 4-14 4 14 18 5-18 4-4 10-4-10z" fill="rgba(127,217,90,.16)"/><path d="M150 205l18-5 4-14 4 14 18 5-18 4-4 10-4-10z" fill="rgba(127,217,90,.16)"/><path d="M336 140l14-4 4-10 4 10 14 4-14 4-4 8-4-8z" fill="rgba(160,240,120,.25)"/>`
+      + trL(26, 48, "Terminal") + trL(304, 96, "Hangar") + trL(268, 56, "Tower") + trL(12, 242, "Runway") + trL(60, 176, "Airliner") + trL(130, 232, "Airliner"),
+    fx: [{ k: "beam", x1: 252, y1: 112, x2: 338, y2: 80, from: 8.55, to: 8.75 }, { k: "blast", x: 340, y: 78, at: 8.7, r: 18 }, { k: "mark", x: 334, y: 238, from: 9.85, to: 11, lab: "Rhodes down" }],
+    swarms: [],
+    units: [
+      { c: "CA", n: "Captain America", s: "A", f: "A:steve-rogers", p: [[0, 100, 86], [.8, 160, 130], [1.3, 170, 128], [3, 196, 146], [4, 205, 150], [4.9, 300, 140], [6.8, 340, 140], [7.7, 350, 140], [7.75, null]] },
+      { c: "WS", n: "The Winter Soldier", s: "A", f: "A:bucky-barnes", p: [[0, 92, 92], [.8, 152, 134], [3, 190, 152], [4, 200, 156], [4.9, 300, 146], [6.8, 346, 146], [7.7, 352, 142], [7.75, null]] },
+      { c: "FA", n: "Falcon", s: "A", f: "A:sam-wilson", down: 10, p: [[2, 40, 30], [2.5, 196, 104], [3, 214, 140], [7, 230, 130], [8, 330, 90], [8.4, 362, 84], [9, 350, 120], [9.8, 336, 226]] },
+      { c: "SW", n: "Scarlet Witch", s: "A", f: "A:wanda-maximoff", down: 10, p: [[2, 120, 72], [2.8, 178, 150], [3, 186, 160], [7, 220, 196], [10, 220, 196]] },
+      { c: "HE", n: "Hawkeye", s: "A", f: "A:clint-barton", down: 10, p: [[2, 130, 72], [2.8, 170, 166], [3, 176, 170], [7, 196, 212], [10, 196, 212]] },
+      { c: "AM", n: "Ant-Man", s: "A", f: "A:scott-lang", down: 10, grow: [5, 6.8], p: [[2.3, 226, 142], [3, 206, 160], [4.9, 236, 176], [5, 250, 190], [6.8, 262, 200], [7, 262, 202]] },
+      { c: "IM", n: "Iron Man", s: "B", f: "A:tony-stark", p: [[0, 262, 30], [.6, 232, 140], [3, 214, 150], [5, 240, 165], [6, 260, 150], [6.6, 262, 176], [7, 250, 150], [8, 300, 98], [8.6, 336, 84], [9.8, 334, 230]] },
+      { c: "WM", n: "War Machine", s: "B", f: "A:james-rhodes", down: 9.85, p: [[0, 282, 30], [.6, 252, 150], [3, 222, 160], [5, 246, 214], [6.4, 270, 190], [7, 252, 152], [8, 312, 86], [8.6, 340, 78], [9.85, 334, 236]] },
+      { c: "BW", n: "Black Widow", s: "B", f: "A:natasha-romanoff", p: [[.4, 330, 200], [.9, 272, 160], [3, 222, 140], [6, 280, 160], [7, 304, 146], [10, 304, 146]] },
+      { c: "BP", n: "Black Panther", s: "B", f: "A:tchalla", down: 7.5, p: [[.4, 340, 186], [.9, 266, 136], [3, 210, 136], [6, 270, 150], [7, 300, 140], [7.5, 306, 140]] },
+      { c: "VI", n: "Vision", s: "B", f: "A:vision", p: [[.5, 330, 30], [1, 272, 100], [3, 220, 120], [7, 236, 112], [8.5, 252, 112], [10, 252, 112]] },
+      { c: "SM", n: "Spider-Man", s: "B", f: "A:peter-parker", p: [[1, 330, 40], [1.4, 178, 124], [1.8, 230, 120], [3, 204, 140], [5.5, 240, 210], [6, 270, 214], [6.4, 250, 186], [7, 240, 170], [10, 240, 170]] },
+      { c: "QJ", n: "The Quinjet", s: "A", p: [[7.75, 352, 140], [8.1, 395, 120], [8.5, 440, 100]] }
+    ],
+    beats: [
+      "Steve Rogers and Bucky Barnes reach the airport to take a Quinjet. Tony Stark and James Rhodes land on the tarmac to stop them, with Natasha Romanoff, T'Challa and Vision close behind.",
+      "Tony calls in Peter Parker, who webs up Steve's hands and takes his shield.",
+      "Steve's side strikes back: Sam Wilson, Wanda Maximoff and Clint Barton join the fight, and so does Scott Lang.",
+      "The two sides charge each other across the tarmac.",
+      "Steve and Bucky break for the Quinjet in the hangar, while the others keep Tony's side busy.",
+      "Scott grows to giant size, tearing through the airport to cover their run.",
+      "Peter ties Scott's legs with his webbing, and Tony and Rhodes bring him down.",
+      "T'Challa chases Steve and Bucky to the hangar. Natasha stuns him, and the Quinjet takes off.",
+      "Rhodes and Tony chase the jet, and Sam turns to stop them. Vision fires at Sam, but the beam hits Rhodes.",
+      "Rhodes falls from the sky. Tony and Sam dive after him, but neither reaches him in time.",
+      "Sam, Wanda, Clint and Scott are arrested and taken to the Raft."
+    ] },
   "dc-earth": { sides: { A: "The Avengers and their allies", T: "Thanos and his army" },
-    map: () => trGrid() + `<path d="M0 40C40 60 50 110 30 150S40 230 0 240Z" fill="rgba(90,140,255,.07)" stroke="rgba(140,180,255,.25)"/><ellipse cx="210" cy="132" rx="96" ry="54" fill="rgba(127,217,90,.06)" stroke="rgba(127,217,90,.32)" stroke-dasharray="4 3"/>` + trL(8, 96, "Lake") + trL(210, 196, "The Compound, in ruins", "middle"),
-    at: { ruins: [210, 132, "The ruins"], sky: [210, 24, "Thanos's warship, overhead"], field: [140, 200, "The field"], rim: [330, 96, "The edge of the field"], tunnel: [300, 176, "Scott's van"] },
-    beats: [["T", "sky", "Thanos's warship opens fire on the Avengers Compound and flattens it. James Rhodes, Rocket, Scott Lang and the Hulk are trapped under the ruins, and Clint Barton is lost in the tunnels below with the Nano Gauntlet."],
-      ["T", "ruins", "Thor, Steve and Tony face Thanos in the ruins, and Thanos overpowers Thor and Tony."],
-      ["A", "ruins", "Steve lifts Mjolnir and fights Thanos on his own, until Thanos breaks his shield."],
-      ["T", "field", "Thanos's army comes down from the warship and lines up against Steve alone."],
-      ["A", "rim", "Doctor Strange, Wong and the sorcerers open portals around the field. Wakanda's army, the Asgardians, the Ravagers and every returned hero come through."],
-      ["A", "ruins", "Scott rises out of the ruins at giant size with Rhodes, Rocket and the Hulk in his hand. Hope van Dyne arrives as the Wasp, Pepper Potts lands beside Tony in her own armor, and Steve calls the Avengers to assemble."],
-      ["A", "ruins", "Clint carries the gauntlet out of the tunnels and hands it to T'Challa, and it reaches Peter Parker."],
-      ["A", "tunnel", "The plan is to get the gauntlet into the quantum tunnel in the back of Scott's van, out of Thanos's reach. Scott needs about ten minutes to get it working."],
-      ["A", "field", "Wanda attacks Thanos and nearly tears him apart, until he orders his warship to fire on the battlefield."],
-      ["A", "sky", "Carol Danvers arrives and destroys the warship."],
-      ["A", "field", "Carol takes the gauntlet from Peter, and Wanda, Okoye, Valkyrie and the others clear her a path to the van."],
-      ["T", "tunnel", "Thanos throws his sword into the van and destroys the quantum tunnel. Carol fights him for the gauntlet, until he knocks her away with the Power Stone."],
-      ["A", "field", "Tony looks to Doctor Strange, who is holding back a flood of water, and Strange holds up one finger: the one future of 14,000,605 where they win."],
-      ["T", "field", "Thanos throws Tony aside and snaps, but nothing happens. Tony has taken the stones into his own armor."],
-      ["A", "field", "Tony snaps. Thanos and his army turn to dust, and Tony dies of the stones' power, with Pepper beside him."]] },
+    map: () => trGrid() + `<path d="M0 60C40 80 50 140 30 190S40 280 0 300Z" fill="rgba(90,140,255,.07)" stroke="rgba(140,180,255,.25)"/><ellipse cx="200" cy="165" rx="92" ry="56" fill="rgba(127,217,90,.06)" stroke="rgba(127,217,90,.32)" stroke-dasharray="4 3"/><ellipse cx="200" cy="165" rx="50" ry="28" fill="rgba(127,217,90,.08)" stroke="rgba(127,217,90,.2)"/>`
+      + trL(8, 120, "Lake") + trL(200, 232, "The Compound, in ruins", "middle"),
+    fx: [{ k: "ship", x: 200, y: 40, w: 120, from: 0, to: 9.62, lab: "Warship, overhead" }, { k: "barrage", from: 0, to: .9 }, { k: "barrage", from: 8.5, to: 9.45 },
+      ...[[52, 244], [110, 284], [330, 282], [372, 222], [40, 170], [364, 150]].map(([x, y], i) => ({ k: "ring", x, y, r: 16, from: 4 + i * .08, to: 4.9 + i * .08, c: "#FFB347" })),
+      { k: "bolt", x: 230, y: 148, r: 22, from: 8.1, to: 8.85, c: "#FF4D6A" }, { k: "blast", x: 200, y: 40, at: 9.6, r: 70 },
+      { k: "site", x: 340, y: 252, from: 7, to: 11.35, lab: "Scott's van" }, { k: "beam", x1: 262, y1: 198, x2: 340, y2: 252, from: 11.2, to: 11.36 }, { k: "blast", x: 340, y: 252, at: 11.35, r: 26 },
+      { k: "mark", x: 340, y: 252, from: 11.35, to: 15, lab: "Van destroyed" }, { k: "blast", x: 272, y: 196, at: 11.7, r: 34, c: "#B07CFF" },
+      { k: "flood", x: 64, y: 206, from: 12, to: 15 }, { k: "blast", x: 268, y: 212, at: 14.05, r: 150, c: "#FFE9A8" }],
+    swarms: [{ s: "T", n: 80, dust: 14.1, keys: [[3, 200, 60, 20, .3], [3.5, 200, 95, 120, 1], [4, 200, 105, 150, 1], [14, 215, 115, 150, 1], [14.6, 215, 115, 150, 0]] }, { s: "A", n: 60, keys: [[4, 200, 250, 40, 0], [4.4, 200, 240, 170, 1]] }],
+    units: [
+      { c: "TN", n: "Thanos", s: "T", f: "T:thanos", down: 14.4, p: [[.8, 200, 150], [1.5, 196, 152], [2.5, 205, 140], [3, 212, 118], [8, 216, 120], [8.4, 230, 148], [9.8, 240, 160], [10.8, 256, 190], [11.2, 262, 198], [12.5, 252, 192], [13, 250, 190]] },
+      { c: "TH", n: "Thor", s: "A", f: "A:thor", p: [[.5, 120, 232], [1, 182, 160], [1.6, 168, 176], [2, 150, 178], [4, 170, 220]] },
+      { c: "IM", n: "Iron Man", s: "A", f: "A:tony-stark", down: 14.6, p: [[.5, 300, 232], [1, 216, 162], [1.6, 240, 184], [2, 262, 200], [4, 240, 214], [12.6, 240, 206], [13, 250, 196], [13.3, 276, 220], [14, 268, 212]] },
+      { c: "CA", n: "Captain America", s: "A", f: "A:steve-rogers", p: [[.5, 200, 242], [1, 202, 172], [2, 204, 160], [2.6, 200, 176], [3, 200, 205], [4, 200, 210]] },
+      { c: "DS", n: "Doctor Strange", s: "A", f: "A:stephen-strange", p: [[4, 64, 206]] },
+      { c: "WO", n: "Wong", s: "A", f: "A:wong", p: [[4, 82, 252]] },
+      { c: "AM", n: "Ant-Man", s: "A", f: "A:scott-lang", grow: [5, 6.8], p: [[5, 200, 168], [6.8, 214, 182], [7, 240, 220], [7.6, 330, 258], [11.3, 330, 258], [11.5, 316, 274]] },
+      { c: "WM", n: "War Machine", s: "A", f: "A:james-rhodes", p: [[5, 192, 160], [6.8, 204, 174], [7.5, 150, 120]] },
+      { c: "RK", n: "Rocket", s: "A", f: "A:rocket", p: [[5, 208, 160], [6.8, 220, 174], [7.5, 130, 200]] },
+      { c: "HU", n: "The Hulk", s: "A", f: "A:bruce-banner", p: [[5, 198, 176], [6.8, 210, 186], [7.5, 176, 256]] },
+      { c: "WA", n: "The Wasp", s: "A", f: "A:hope-van-dyne", p: [[5, 260, 110], [5.6, 226, 160], [7, 246, 218], [7.6, 350, 240], [11.3, 350, 240], [11.5, 360, 270]] },
+      { c: "PP", n: "Pepper Potts, in her armor", s: "A", f: "A:pepper-potts", p: [[5, 340, 40], [5.6, 252, 214], [10, 254, 222], [10.5, 300, 238], [13.8, 300, 238], [14.5, 274, 214]] },
+      { c: "HE", n: "Hawkeye", s: "A", f: "A:clint-barton", p: [[6, 202, 172], [6.3, 180, 210], [6.55, 152, 232], [7, 170, 246]] },
+      { c: "BP", n: "Black Panther", s: "A", f: "A:tchalla", p: [[4.1, 52, 244], [5, 140, 242], [6.55, 150, 238], [6.85, 248, 262], [7.2, 240, 256]] },
+      { c: "SM", n: "Spider-Man", s: "A", f: "A:peter-parker", p: [[4.2, 110, 284], [5, 180, 272], [6.85, 256, 266], [7, 264, 264], [10, 264, 264], [10.4, 262, 248], [11, 250, 240]] },
+      { c: "SW", n: "Scarlet Witch", s: "A", f: "A:wanda-maximoff", p: [[4.3, 372, 222], [7, 310, 200], [8, 244, 142], [8.8, 236, 140], [9.2, 300, 226], [10.5, 296, 232]] },
+      { c: "CM", n: "Captain Marvel", s: "A", f: "A:carol-danvers", p: [[9, 200, -20], [9.5, 200, 40], [10, 268, 250], [10.3, 268, 252], [10.9, 322, 242], [11.2, 318, 240], [11.4, 272, 196], [11.8, 330, 286]] },
+      { c: "G", n: "The Nano Gauntlet", s: "B", small: 1, p: [[6, 202, 172], [6.3, 180, 210], [6.55, 152, 234], [6.85, 250, 264], [7, 264, 264], [10, 264, 264], [10.3, 268, 252], [10.9, 322, 242], [11.2, 318, 240], [11.4, 272, 196], [11.8, 262, 196], [12.5, 254, 190], [13.6, 252, 190], [14.4, null]] }
+    ],
+    beats: ["Thanos's warship opens fire on the Avengers Compound and flattens it. James Rhodes, Rocket, Scott Lang and the Hulk are trapped under the ruins, and Clint Barton is lost in the tunnels below with the Nano Gauntlet.",
+      "Thor, Steve and Tony face Thanos in the ruins, and Thanos overpowers Thor and Tony.",
+      "Steve lifts Mjolnir and fights Thanos on his own, until Thanos breaks his shield.",
+      "Thanos's army comes down from the warship and lines up against Steve alone.",
+      "Doctor Strange, Wong and the sorcerers open portals around the field. Wakanda's army, the Asgardians, the Ravagers and every returned hero come through.",
+      "Scott rises out of the ruins at giant size with Rhodes, Rocket and the Hulk in his hand. Hope van Dyne arrives as the Wasp, Pepper Potts lands beside Tony in her own armor, and Steve calls the Avengers to assemble.",
+      "Clint carries the gauntlet out of the tunnels and hands it to T'Challa, and it reaches Peter Parker.",
+      "The plan is to get the gauntlet into the quantum tunnel in the back of Scott's van, out of Thanos's reach. Scott needs about ten minutes to get it working.",
+      "Wanda attacks Thanos and nearly tears him apart, until he orders his warship to fire on the battlefield.",
+      "Carol Danvers arrives and destroys the warship.",
+      "Carol takes the gauntlet from Peter, and Wanda, Okoye, Valkyrie and the others clear her a path to the van.",
+      "Thanos throws his sword into the van and destroys the quantum tunnel. Carol fights him for the gauntlet, until he knocks her away with the Power Stone.",
+      "Tony looks to Doctor Strange, who is holding back a flood of water, and Strange holds up one finger: the one future of 14,000,605 where they win.",
+      "Thanos throws Tony aside and snaps, but nothing happens. Tony has taken the stones into his own armor.",
+      "Tony snaps. Thanos and his army turn to dust, and Tony dies of the stones' power, with Pepper beside him."] },
   "dc-wak": { sides: { A: "Wakanda and the Avengers", T: "Thanos and the Black Order" },
-    map: () => trGrid() + `<path d="M0 70Q200 20 400 70" stroke="rgba(160,240,255,.55)" stroke-width="2" fill="none" stroke-dasharray="6 4"/><rect x="40" y="0" width="120" height="42" ${TR_BD}/><path d="M0 70Q200 20 400 70V240H0Z" fill="rgba(127,217,90,.03)"/>`
-      + trL(46, 14, "The Golden City") + trL(394, 62, "The shield", "end") + trL(200, 230, "The fields outside the shield", "middle"),
-    at: { lab: [100, 26, "Shuri's lab"], wall: [200, 50, "The shield"], gap: [258, 66, "The opening in the shield"], plain: [200, 150, "The fields"], east: [320, 112, "The east of the battlefield"], forest: [92, 118, "The forest"], hill: [52, 170, "The edge of the forest"] },
-    beats: [["A", "lab", "To keep the Mind Stone from Thanos, Steve's team brings Vision to Wakanda, where Shuri starts taking the stone out of his head."],
-      ["T", "wall", "The Black Order brings an army of Outriders down outside the shield, and Proxima Midnight refuses to turn back."],
-      ["A", "gap", "The Outriders tear themselves apart on the shield. T'Challa has a section opened to draw them in, and Wakanda's army charges with Steve, Natasha, Bucky Barnes, Okoye and M'Baku's Jabari, while Sam Wilson and James Rhodes fight from the air."],
-      ["A", "plain", "Thor arrives with Rocket, Groot and his new axe, Stormbreaker, and cuts through the Outriders."],
-      ["A", "east", "Wanda leaves the lab to join the fight, stops the Outriders' threshers and throws Proxima Midnight into one, as Proxima fights Natasha and Okoye."],
-      ["A", "forest", "Corvus Glaive gets into the lab and goes after Vision, who kills him with Steve's help. Bruce Banner, in the Hulkbuster, drives Cull Obsidian into the shield."],
-      ["T", "plain", "Thanos arrives through a portal and swats the heroes aside one by one."],
-      ["T", "hill", "Wanda destroys the Mind Stone as Vision dies, but Thanos turns back time with the Time Stone and tears it from his head."],
-      ["T", "hill", "Thor drives Stormbreaker into Thanos's chest, but not his head, and Thanos snaps."],
-      ["T", "forest", "Thanos escapes through a portal. Bucky, T'Challa, Groot, Wanda and Sam turn to dust."]] },
-  "dc-sok": { sides: { A: "The Avengers", T: "Ultron" },
-    map: () => trGrid() + `<ellipse cx="200" cy="120" rx="150" ry="88" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.35)"/><path d="M60 120H340M200 34V206" ${TR_LN} stroke-width="2"/><rect x="186" y="104" width="28" height="30" fill="rgba(127,217,90,.16)" stroke="rgba(160,240,120,.6)"/>`
-      + trL(200, 228, "Novi Grad, lifted into the sky", "middle") + trL(220, 100, "The church"),
-    at: { city: [120, 80, "Novi Grad"], church: [200, 119, "The church, over the core"], edge: [330, 146, "The edge of the city"], sky: [368, 34, "The Helicarrier"], bridge: [70, 120, "A bridge to the lifeboats"], street: [262, 176, "A city street"], below: [200, 204, "Under the city"] },
-    beats: [["A", "city", "Steve, Tony, Thor, Natasha, Clint, Bruce Banner, Vision and the Maximoff twins reach Novi Grad and start getting its people out as Ultron's sentries attack."],
-      ["T", "church", "Ultron sets off his vibranium core, and the whole city tears free of the ground and rises into the sky."],
-      ["T", "edge", "Ultron means to drop it like a meteor and wipe out humanity. His army swarms the streets."],
-      ["A", "sky", "Nick Fury arrives with a Helicarrier and its lifeboats, and James Rhodes joins the fight in War Machine."],
-      ["A", "bridge", "The people are led across the city to the lifeboats while the team holds the sentries off."],
-      ["A", "church", "The team gathers in the church to guard the core against Ultron and all of his army."],
-      ["T", "street", "Pietro Maximoff is killed shielding Clint Barton and a child from Ultron's fire."],
-      ["A", "church", "Wanda tears out Ultron's core as the last of the people get away."],
-      ["A", "below", "Thor and Tony overload the core, and the city is blown apart in the air."],
-      ["A", "edge", "Vision finds the last Ultron alone in a forest and destroys him."]] },
+    map: () => trGrid() + `<rect x="30" y="0" width="160" height="44" ${TR_BD}/><rect x="88" y="16" width="20" height="14" fill="rgba(127,217,90,.18)" stroke="rgba(160,240,120,.6)"/><path d="M0 96Q200 20 400 96" stroke="rgba(160,240,255,.55)" stroke-width="2" fill="none" stroke-dasharray="6 4"/><path d="M0 96Q200 20 400 96V300H0Z" fill="rgba(127,217,90,.03)"/>`
+      + [[20, 160], [44, 176], [24, 200], [60, 210], [36, 232], [70, 246], [18, 262], [52, 274], [90, 270], [96, 226], [110, 250], [14, 290], [76, 292], [120, 286]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="rgba(127,217,90,.07)" stroke="rgba(127,217,90,.22)"/>`).join("")
+      + trL(36, 12, "The Golden City") + trL(112, 27, "Lab") + trL(394, 88, "The shield", "end") + trL(12, 150, "Forest") + trL(260, 292, "The fields outside the shield", "middle"),
+    fx: [{ k: "barrage", from: 1.4, to: 2.2, box: [20, 40, 360, 56] }, { k: "site", x: 262, y: 62, from: 2, to: 10, lab: "Opening" },
+      { k: "beam", x1: 200, y1: -10, x2: 200, y2: 200, from: 3, to: 3.3, c: "#BFE6FF", sw: 6 }, { k: "blast", x: 200, y: 200, at: 3.2, r: 40, c: "#BFE6FF" },
+      { k: "ring", x: 140, y: 226, r: 18, from: 5.8, to: 6.4, c: "#FFB347" }, { k: "blast", x: 62, y: 210, at: 7.15, r: 30, c: "#FFE27A" }, { k: "ring", x: 70, y: 210, r: 22, from: 7.3, to: 7.7, c: "#7FD95A" },
+      { k: "blast", x: 80, y: 208, at: 8.25, r: 24, c: "#BFE6FF" }, { k: "blast", x: 80, y: 208, at: 8.7, r: 160, c: "#FFE9A8" }, { k: "ring", x: 80, y: 208, r: 18, from: 8.95, to: 9.3, c: "#FFB347" }],
+    swarms: [{ s: "T", n: 80, keys: [[1, 200, 250, 40, .3], [1.5, 200, 190, 150, 1], [2.2, 210, 170, 160, 1], [2.6, 210, 165, 150, 1]] }, { s: "A", n: 50, keys: [[2.2, 230, 80, 40, 0], [2.5, 230, 110, 110, 1], [2.8, 220, 135, 140, 1]] }],
+    units: [
+      { c: "VI", n: "Vision", s: "A", f: "A:vision", down: 7.6, p: [[0, 100, 26], [5, 100, 26], [5.5, 80, 150], [6, 60, 206]] },
+      { c: "SU", n: "Shuri", s: "A", f: "A:shuri", p: [[0, 90, 22]] },
+      { c: "SW", n: "Scarlet Witch", s: "A", f: "A:wanda-maximoff", p: [[0, 110, 30], [3.9, 110, 30], [4.4, 320, 170], [5, 300, 176], [6, 80, 216], [7, 72, 216], [9.4, null]] },
+      { c: "CA", n: "Captain America", s: "A", f: "A:steve-rogers", p: [[0, 124, 40], [2.2, 250, 72], [2.6, 210, 130], [5, 170, 160], [5.6, 90, 180], [6.4, 100, 200]] },
+      { c: "BW", n: "Black Widow", s: "A", f: "A:natasha-romanoff", p: [[0, 134, 42], [2.2, 256, 74], [2.6, 230, 140], [3.8, 300, 180], [4.6, 306, 186]] },
+      { c: "OK", n: "Okoye", s: "A", f: "A:okoye", p: [[0, 144, 40], [2.2, 262, 74], [2.6, 244, 146], [3.8, 316, 192], [4.6, 320, 194]] },
+      { c: "BB", n: "Bucky Barnes", s: "A", f: "A:bucky-barnes", p: [[0, 154, 42], [2.2, 268, 76], [2.6, 256, 156], [6, 236, 180], [9.4, null]] },
+      { c: "MB", n: "M'Baku", s: "A", f: "A:m-baku", p: [[1.8, 40, 60], [2.2, 240, 74], [2.6, 190, 146], [6, 190, 176]] },
+      { c: "BP", n: "Black Panther", s: "A", f: "A:tchalla", p: [[0, 164, 40], [2.2, 258, 70], [2.6, 214, 128], [6, 150, 190], [6.5, 120, 206], [9.4, null]] },
+      { c: "FA", n: "Falcon", s: "A", f: "A:sam-wilson", p: [[0, 172, 30], [2.2, 262, 56], [3, 300, 110], [6, 150, 130], [9.4, null]] },
+      { c: "WM", n: "War Machine", s: "A", f: "A:james-rhodes", p: [[0, 182, 30], [2.2, 266, 58], [3, 280, 100], [6, 170, 120]] },
+      { c: "HB", n: "Bruce Banner, in the Hulkbuster", s: "A", f: "A:bruce-banner", p: [[0, 184, 40], [2.2, 270, 80], [3, 250, 150], [4.6, 262, 132], [5.5, 330, 76]] },
+      { c: "TH", n: "Thor", s: "A", f: "A:thor", p: [[3.2, 200, 200], [4, 220, 180], [6, 200, 190], [7.8, 200, 190], [8.2, 92, 208]] },
+      { c: "RK", n: "Rocket", s: "A", f: "A:rocket", p: [[3.2, 208, 206], [4, 176, 200]] },
+      { c: "GR", n: "Groot", s: "A", f: "A:groot", p: [[3.2, 192, 206], [4, 160, 182], [9.4, null]] },
+      { c: "PM", n: "Proxima Midnight", s: "T", f: "T:proxima-midnight", down: 4.7, p: [[1, 190, 250], [2.6, 300, 190], [3.8, 310, 188], [4.7, 344, 204]] },
+      { c: "CG", n: "Corvus Glaive", s: "T", f: "T:corvus-glaive", down: 5.9, p: [[1, 230, 250], [2.6, 200, 150], [4.6, 110, 36], [5, 102, 30], [5.5, 82, 150], [5.8, 66, 192]] },
+      { c: "CO", n: "Cull Obsidian", s: "T", f: "T:cull-obsidian", down: 5.5, p: [[1, 270, 250], [2.6, 264, 160], [4.6, 262, 136], [5.5, 328, 80]] },
+      { c: "TN", n: "Thanos", s: "T", f: "T:thanos", p: [[6, 140, 226], [6.5, 120, 214], [7, 80, 208], [9, 80, 208], [9.25, null]] }
+    ],
+    beats: ["To keep the Mind Stone from Thanos, Steve's team brings Vision to Wakanda, where Shuri starts taking the stone out of his head.",
+      "The Black Order brings an army of Outriders down outside the shield, and Proxima Midnight refuses to turn back.",
+      "The Outriders tear themselves apart on the shield. T'Challa has a section opened to draw them in, and Wakanda's army charges with Steve, Natasha, Bucky Barnes, Okoye and M'Baku's Jabari, while Sam Wilson and James Rhodes fight from the air.",
+      "Thor arrives with Rocket, Groot and his new axe, Stormbreaker, and cuts through the Outriders.",
+      "Wanda leaves the lab to join the fight, stops the Outriders' threshers and throws Proxima Midnight into one, as Proxima fights Natasha and Okoye.",
+      "Corvus Glaive gets into the lab and goes after Vision, who kills him with Steve's help. Bruce Banner, in the Hulkbuster, drives Cull Obsidian into the shield.",
+      "Thanos arrives through a portal and swats the heroes aside one by one.",
+      "Wanda destroys the Mind Stone as Vision dies, but Thanos turns back time with the Time Stone and tears it from his head.",
+      "Thor drives Stormbreaker into Thanos's chest, but not his head, and Thanos snaps.",
+      "Thanos escapes through a portal. Bucky, T'Challa, Groot, Wanda and Sam turn to dust."] },
+  "dc-sok": { sides: { A: "The Avengers", T: "Ultron", C: "The people of Novi Grad" },
+    map: () => trGrid() + `<ellipse cx="200" cy="150" rx="160" ry="112" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.35)"/><path d="M44 150H356M200 40V262M90 80L310 220M90 220L310 80" ${TR_LN} stroke-width="1.6"/><rect x="186" y="134" width="28" height="32" fill="rgba(127,217,90,.16)" stroke="rgba(160,240,120,.6)"/>`
+      + [[22, 262], [44, 278], [16, 290], [62, 292]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="rgba(127,217,90,.07)" stroke="rgba(127,217,90,.22)"/>`).join("")
+      + trL(200, 278, "Novi Grad, lifted into the sky", "middle") + trL(218, 130, "The church") + trL(8, 252, "Forest"),
+    fx: [{ k: "blast", x: 200, y: 150, at: 1, r: 40, c: "#BFE6FF" }, { k: "ring", x: 200, y: 150, r: 150, from: 1, to: 1.9, c: "#BFE6FF" },
+      { k: "ship", x: 330, y: 30, w: 56, from: 3, to: 10, lab: "Helicarrier" }, { k: "site", x: 350, y: 212, from: 3.3, to: 8.2, lab: "Lifeboats" },
+      { k: "blast", x: 240, y: 190, at: 7.05, r: 22, c: "#FF5A4E" }, { k: "blast", x: 200, y: 150, at: 8.5, r: 190, c: "#FFD27A" },
+      { k: "beam", x1: 64, y1: 268, x2: 34, y2: 284, from: 9.3, to: 9.55, c: "#FFE27A" }],
+    swarms: [{ s: "T", n: 70, keys: [[0, 200, 150, 60, .4], [1, 200, 150, 120, .8], [2, 200, 150, 150, 1], [5, 200, 150, 120, 1], [7, 200, 150, 70, .6], [8, 200, 150, 60, 0]] },
+      { s: "C", n: 50, keys: [[0, 160, 150, 90, 1], [3, 200, 170, 80, 1], [4, 280, 190, 50, 1], [5, 330, 202, 26, 1], [7.5, 340, 208, 18, .5], [8, 340, 208, 18, 0]] }],
+    units: [
+      { c: "CA", n: "Captain America", s: "A", f: "A:steve-rogers", p: [[0, 100, 150], [4, 170, 180], [5, 196, 146], [7, 200, 150], [7.6, 330, 206]] },
+      { c: "IM", n: "Iron Man", s: "A", f: "A:tony-stark", p: [[0, 260, 100], [5, 214, 156], [7.6, 206, 170], [8, 204, 216], [8.6, 204, 216], [9, 300, 40]] },
+      { c: "TH", n: "Thor", s: "A", f: "A:thor", p: [[0, 230, 90], [5, 188, 144], [7.6, 194, 170], [8, 194, 216], [8.6, 194, 216], [9, 280, 30]] },
+      { c: "BW", n: "Black Widow", s: "A", f: "A:natasha-romanoff", p: [[0, 110, 170], [5, 204, 156], [7, 204, 152], [7.8, 340, 196]] },
+      { c: "HE", n: "Hawkeye", s: "A", f: "A:clint-barton", p: [[0, 120, 160], [5, 194, 158], [5.8, 286, 198], [6.6, 330, 206]] },
+      { c: "HU", n: "The Hulk", s: "A", f: "A:bruce-banner", p: [[0, 150, 190], [5, 186, 160], [7, 200, 164], [7.8, 336, 186]] },
+      { c: "VI", n: "Vision", s: "A", f: "A:vision", p: [[0, 180, 100], [5, 212, 148], [8, 212, 150], [8.6, 140, 250], [9, 64, 268]] },
+      { c: "SW", n: "Scarlet Witch", s: "A", f: "A:wanda-maximoff", p: [[0, 150, 110], [5, 200, 160], [6.6, 200, 158], [7, 236, 186], [7.6, 330, 196]] },
+      { c: "QS", n: "Quicksilver", s: "A", f: "A:pietro-maximoff", down: 6.4, p: [[0, 140, 120], [4, 250, 170], [5, 206, 144], [5.8, 280, 192]] },
+      { c: "WM", n: "War Machine", s: "A", f: "A:james-rhodes", p: [[3, 420, 40], [3.5, 300, 80], [5, 220, 120], [7.6, 320, 90]] },
+      { c: "UL", n: "Ultron", s: "T", f: "T:ultron", down: 7.1, p: [[.5, 200, 150], [2, 236, 110], [5, 206, 126], [5.9, 262, 188], [6.6, 244, 188], [7, 240, 190]] },
+      { c: "UL", n: "The last Ultron", s: "T", f: "T:ultron", down: 9.6, p: [[8.8, 34, 284]] }
+    ],
+    beats: ["Steve, Tony, Thor, Natasha, Clint, Bruce Banner, Vision and the Maximoff twins reach Novi Grad and start getting its people out as Ultron's sentries attack.",
+      "Ultron sets off his vibranium core, and the whole city tears free of the ground and rises into the sky.",
+      "Ultron means to drop it like a meteor and wipe out humanity. His army swarms the streets.",
+      "Nick Fury arrives with a Helicarrier and its lifeboats, and James Rhodes joins the fight in War Machine.",
+      "The people are led across the city to the lifeboats while the team holds the sentries off.",
+      "The team gathers in the church to guard the core against Ultron and all of his army.",
+      "Pietro Maximoff is killed shielding Clint Barton and a child from Ultron's fire.",
+      "Wanda tears out Ultron's core as the last of the people get away.",
+      "Thor and Tony overload the core, and the city is blown apart in the air.",
+      "Vision finds the last Ultron alone in a forest and destroys him."] },
   "dc-dc": { sides: { A: "Steve, Natasha, Sam, Fury and Hill", T: "HYDRA" },
-    map: () => trGrid() + `<path d="M0 150C120 130 220 170 400 140V240H0Z" fill="rgba(90,140,255,.08)" stroke="rgba(140,180,255,.28)"/><path d="M170 96l30-20 30 20-30 20z" ${TR_BD}/>` + trL(200, 132, "The Triskelion", "middle") + trL(8, 230, "The Potomac"),
-    at: { bay: [118, 120, "The launch bay"], tower: [200, 96, "Inside the Triskelion"], council: [214, 74, "The council room"], c1: [90, 40, "First Helicarrier"], c2: [200, 30, "Second Helicarrier"], c3: [310, 44, "Third Helicarrier"], river: [250, 196, "The Potomac"] },
-    beats: [["T", "bay", "HYDRA launches Project Insight: three Helicarriers rise from under the Triskelion to kill millions of people it has flagged as threats."],
-      ["A", "tower", "Steve tells every S.H.I.E.L.D. agent in the building the truth about HYDRA, and many of them turn against it."],
-      ["A", "council", "Natasha, disguised as a member of the World Security Council, confronts Alexander Pierce, and Nick Fury walks in."],
-      ["A", "c1", "Steve and Sam fly to the Helicarriers to swap their targeting blades, while Maria Hill guides them from inside the Triskelion."],
-      ["A", "c2", "They swap the blades on the first two carriers."],
-      ["T", "c3", "The Winter Soldier tears off Sam's wings and fights Steve on the third carrier."],
-      ["A", "council", "Natasha releases S.H.I.E.L.D.'s and HYDRA's secrets to the world, and Fury kills Pierce."],
-      ["A", "c3", "Steve swaps the last blade, and Hill fires. The Helicarriers shoot each other down, and one falls into the Triskelion."],
-      ["A", "river", "Steve refuses to fight Bucky and falls into the Potomac. Bucky pulls him out of the water."]] },
+    map: () => trGrid() + `<path d="M0 200C120 176 220 226 400 186V300H0Z" fill="rgba(90,140,255,.08)" stroke="rgba(140,180,255,.28)"/><path d="M160 130l40-28 40 28-40 28z" ${TR_BD}/><path d="M200 102V158M160 130H240" ${TR_LN}/>` + trL(200, 172, "The Triskelion", "middle") + trL(8, 290, "The Potomac"),
+    fx: [{ k: "site", x: 200, y: 158, from: 0, to: .6, lab: "Launch bays" },
+      { k: "beam", x1: 90, y1: 60, x2: 200, y2: 44, from: 7.2, to: 7.5, c: "#FF8A7E" }, { k: "beam", x1: 200, y1: 44, x2: 310, y2: 60, from: 7.25, to: 7.5, c: "#FF8A7E" }, { k: "beam", x1: 310, y1: 60, x2: 90, y2: 60, from: 7.3, to: 7.5, c: "#FF8A7E" },
+      { k: "blast", x: 90, y: 60, at: 7.45, r: 30 }, { k: "blast", x: 200, y: 44, at: 7.45, r: 30 }, { k: "blast", x: 310, y: 60, at: 7.45, r: 30 }, { k: "blast", x: 214, y: 128, at: 8, r: 70 }],
+    swarms: [{ s: "T", n: 24, keys: [[1, 214, 136, 26, .7], [7.8, 214, 136, 26, .7], [8, 214, 136, 26, 0]] }, { s: "A", n: 24, keys: [[1, 186, 136, 26, 0], [1.4, 186, 136, 26, .8], [7.8, 186, 136, 26, .8], [8, 186, 136, 26, 0]] }],
+    units: [
+      { c: "H1", n: "First Helicarrier", s: "T", big: 1.8, down: 7.5, p: [[0, 160, 150], [1, 90, 60]] },
+      { c: "H2", n: "Second Helicarrier", s: "T", big: 1.8, down: 7.5, p: [[0, 200, 150], [1, 200, 44]] },
+      { c: "H3", n: "Third Helicarrier", s: "T", big: 1.8, down: 8, p: [[0, 240, 150], [1, 310, 60], [7.5, 310, 60], [8, 220, 128]] },
+      { c: "AP", n: "Alexander Pierce", s: "T", f: "T:alexander-pierce", down: 6.6, p: [[0, 220, 116]] },
+      { c: "CA", n: "Captain America", s: "A", f: "A:steve-rogers", p: [[1, 190, 134], [2, 190, 134], [3, 140, 100], [3.5, 100, 70], [4, 100, 70], [4.3, 200, 54], [4.6, 200, 54], [5, 306, 70], [7.4, 306, 70], [8, 296, 110], [8.5, 262, 250], [8.9, 292, 228]] },
+      { c: "FA", n: "Falcon", s: "A", f: "A:sam-wilson", p: [[.5, 150, 160], [3, 130, 100], [3.5, 86, 56], [4, 86, 56], [4.3, 206, 38], [4.6, 206, 38], [5, 318, 54], [5.3, 300, 90], [6, 232, 142]] },
+      { c: "WS", n: "The Winter Soldier", s: "T", f: "T:winter-soldier", p: [[4.6, 340, 96], [5, 314, 68], [7.4, 314, 68], [8, 300, 104], [8.5, 268, 244], [8.9, 298, 222]] },
+      { c: "BW", n: "Black Widow", s: "A", f: "A:natasha-romanoff", p: [[2, 206, 118]] },
+      { c: "NF", n: "Nick Fury", s: "A", f: "A:nick-fury", p: [[2.4, 252, 124], [2.8, 228, 120]] },
+      { c: "MH", n: "Maria Hill", s: "A", f: "A:maria-hill", p: [[3, 184, 142]] }
+    ],
+    beats: ["HYDRA launches Project Insight: three Helicarriers rise from under the Triskelion to kill millions of people it has flagged as threats.",
+      "Steve tells every S.H.I.E.L.D. agent in the building the truth about HYDRA, and many of them turn against it.",
+      "Natasha, disguised as a member of the World Security Council, confronts Alexander Pierce, and Nick Fury walks in.",
+      "Steve and Sam fly to the Helicarriers to swap their targeting blades, while Maria Hill guides them from inside the Triskelion.",
+      "They swap the blades on the first two carriers.",
+      "The Winter Soldier tears off Sam's wings and fights Steve on the third carrier.",
+      "Natasha releases S.H.I.E.L.D.'s and HYDRA's secrets to the world, and Fury kills Pierce.",
+      "Steve swaps the last blade, and Hill fires. The Helicarriers shoot each other down, and one falls into the Triskelion.",
+      "Steve refuses to fight Bucky and falls into the Potomac. Bucky pulls him out of the water."] },
   "dc-titan": { sides: { A: "Tony, Peter, Strange, the Guardians and Nebula", T: "Thanos" },
-    map: () => trGrid() + `<path d="M20 200C80 150 140 190 200 160S320 120 390 170" ${TR_LN} stroke-width="2"/><path d="M40 60l30-14 10 30-28 12zM300 40l40 6-6 34-30-8zM230 190l36-6 6 26-34 8z" ${TR_BD}/><circle cx="350" cy="22" r="16" fill="rgba(160,170,190,.12)" stroke="rgba(190,200,220,.4)"/>`
-      + trL(200, 232, "Titan, in ruins", "middle") + trL(328, 18, "Moon", "end"),
-    at: { crash: [70, 80, "Maw's ship, crashed"], ruins: [200, 120, "The ruins"], ring: [160, 150, "The ambush ground"], ship: [304, 70, "Nebula's ship"], moon: [350, 22, "Titan's moon"], fall: [250, 180, "Where the moon falls"] },
-    beats: [["A", "crash", "Ebony Maw's ship comes down on Titan with Tony Stark, Peter Parker and Doctor Strange aboard."],
-      ["A", "ruins", "Peter Quill, Drax and Mantis are already there. The two groups fight, then agree to work together."],
-      ["T", "ruins", "Thanos arrives expecting Maw and finds Strange, and with the Reality Stone shows him Titan as it once was."],
-      ["A", "ring", "They spring the ambush, each taking a turn at Thanos."],
-      ["A", "ship", "Nebula crashes down and joins the fight."],
-      ["A", "ring", "Mantis puts Thanos under, and the others nearly pull the gauntlet off his hand."],
-      ["T", "ring", "Quill learns from Nebula that Thanos killed Gamora, strikes him and wakes him."],
-      ["T", "moon", "Thanos pulls Titan's moon apart and brings it down on them."],
-      ["T", "fall", "Thanos stabs Tony. Strange gives up the Time Stone to spare Tony's life, and Thanos leaves for Earth."],
-      ["T", "ring", "After the Snap, Quill, Drax, Mantis, Strange and Peter turn to dust. Tony and Nebula are left."]] }
+    map: () => trGrid() + `<path d="M20 250C80 190 140 236 200 200S320 150 390 212" ${TR_LN} stroke-width="2"/><path d="M40 75l30-18 10 38-28 15zM300 50l40 8-6 42-30-10zM230 238l36-8 6 32-34 10zM120 120l26-6 6 24-28 6z" ${TR_BD}/>` + trL(200, 292, "Titan, in ruins", "middle"),
+    fx: [{ k: "moon", x: 350, y: 30, r: 16, to: 7.05 }, { k: "blast", x: 70, y: 100, at: .3, r: 30 }, { k: "site", x: 70, y: 100, from: .4, to: 10, lab: "Maw's ship" },
+      { k: "ring", x: 200, y: 150, r: 18, from: 2, to: 2.5, c: "#FFB347" }, { k: "ring", x: 200, y: 150, r: 70, from: 2.4, to: 2.95, c: "#FF3048" },
+      { k: "blast", x: 304, y: 90, at: 4, r: 22 }, { k: "site", x: 304, y: 90, from: 4, to: 10, lab: "Nebula's ship" },
+      { k: "barrage", from: 7.05, to: 7.8, box: [160, 150, 200, 130], c: "#C9C2B8" }, { k: "blast", x: 240, y: 210, at: 7.6, r: 110, c: "#C9C2B8" }, { k: "ring", x: 250, y: 226, r: 18, from: 8.7, to: 9, c: "#FFB347" }],
+    swarms: [],
+    units: [
+      { c: "TN", n: "Thanos", s: "T", f: "T:thanos", p: [[2.1, 200, 150], [2.9, 200, 150], [3, 176, 186], [6.2, 176, 186], [6.8, 190, 172], [7.8, 240, 220], [8, 250, 226], [8.7, 250, 226], [8.95, null]] },
+      { c: "IM", n: "Iron Man", s: "A", f: "A:tony-stark", down: 8.2, p: [[0, 70, 100], [1, 180, 140], [2, 196, 124], [3, 150, 180], [6.5, 150, 176], [7, 220, 206], [7.8, 256, 232]] },
+      { c: "SM", n: "Spider-Man", s: "A", f: "A:peter-parker", p: [[0, 78, 106], [1, 170, 152], [2, 232, 120], [3, 160, 204], [5, 186, 198], [7, 230, 252], [9.75, null]] },
+      { c: "DS", n: "Doctor Strange", s: "A", f: "A:stephen-strange", p: [[0, 64, 98], [1, 190, 156], [2, 204, 162], [3, 198, 206], [7.5, 240, 240], [9.5, null]] },
+      { c: "SL", n: "Star-Lord", s: "A", f: "A:peter-quill", p: [[.8, 270, 146], [1, 214, 148], [2, 232, 172], [3, 150, 196], [6, 164, 180], [6.3, 172, 186], [7, 130, 226], [9.4, null]] },
+      { c: "DX", n: "Drax", s: "A", f: "A:drax", p: [[.8, 280, 156], [1, 222, 158], [2, 244, 184], [3, 188, 172], [7, 150, 236], [9.3, null]] },
+      { c: "MN", n: "Mantis", s: "A", f: "A:mantis", p: [[.8, 260, 132], [1, 226, 150], [2, 238, 164], [4.8, 236, 164], [5, 178, 176], [6.4, 186, 168], [7, 172, 244], [9.2, null]] },
+      { c: "NB", n: "Nebula", s: "A", f: "A:nebula", p: [[4, 304, 90], [4.4, 200, 186], [5, 186, 184], [7, 120, 206]] }
+    ],
+    beats: ["Ebony Maw's ship comes down on Titan with Tony Stark, Peter Parker and Doctor Strange aboard.",
+      "Peter Quill, Drax and Mantis are already there. The two groups fight, then agree to work together.",
+      "Thanos arrives expecting Maw and finds Strange, and with the Reality Stone shows him Titan as it once was.",
+      "They spring the ambush, each taking a turn at Thanos.",
+      "Nebula crashes down and joins the fight.",
+      "Mantis puts Thanos under, and the others nearly pull the gauntlet off his hand.",
+      "Quill learns from Nebula that Thanos killed Gamora, strikes him and wakes him.",
+      "Thanos pulls Titan's moon apart and brings it down on them.",
+      "Thanos stabs Tony. Strange gives up the Time Stone to spare Tony's life, and Thanos leaves for Earth.",
+      "After the Snap, Quill, Drax, Mantis, Strange and Peter turn to dust. Tony and Nebula are left."] }
 };
-let trB = 0, trPlay = false, trRaf = 0, trOpen = {};
-function trHTML(id) {
-  const B = TR[id], N = B.beats.length, open = !!trOpen[id];
-  return `<section class="tr${open ? " open" : ""}" data-tr="${id}"><button type="button" class="tr-head" data-tropen aria-expanded="${open}"><span>Tactical replay</span><small>${N} beats</small><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></i></button>
-    ${open ? `<div class="tr-body"><div class="tr-map"><svg viewBox="0 0 400 240" aria-label="Map of the ground">${B.map()}<g class="tr-pins"></g></svg></div>
-      <div class="tr-ctl"><button type="button" data-trc="prev" aria-label="Previous beat"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="pp" data-trc="pp" aria-label="Play">${TR_P}</button><button type="button" data-trc="next" aria-label="Next beat"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><input type="range" min="0" max="${N - 1}" step="1" value="0" aria-label="Beat"></div>
-      <div class="tr-cap" aria-live="polite"></div>
-      <div class="tr-legend">${Object.keys(B.sides).map(k => `<span><i style="background:${TR_COL[k]}"></i>${esc(B.sides[k])}</span>`).join("")}<span><i style="background:${TR_COL.N}"></i>Both sides</span></div>
-      <p class="tr-note">Marks where each beat happens, not where everyone stood.</p></div>` : ""}</section>`;
-}
+let trB = 0, trPlay = false, trRaf = 0, trOpen = {}, trPick = null;
 const TR_P = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>', TR_PA = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
+function trHTML(id) {
+  const B = TR[id], N = B.beats.length, open = !!trOpen[id], sides = Object.keys(B.sides);
+  return `<section class="tr${open ? " open" : ""}" data-tr="${id}"><button type="button" class="tr-head" data-tropen aria-expanded="${open}"><span>Tactical replay</span><small>${N} beats</small><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></i></button>
+    ${open ? `<div class="tr-body"><div class="tr-map"><svg viewBox="0 0 400 300" aria-label="Map of the battle">${B.map()}<g class="tr-sws"></g><g class="tr-fx"></g><g class="tr-us"></g></svg><i class="tr-scan"></i><div class="tr-who" hidden><span></span><button type="button" data-trf hidden>Open file</button></div></div>
+      <div class="tr-ctl"><button type="button" data-trc="prev" aria-label="Previous beat"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="pp" data-trc="pp" aria-label="Play">${TR_P}</button><button type="button" data-trc="next" aria-label="Next beat"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><input type="range" min="0" max="${N - .001}" step=".01" value="0" aria-label="Scrub through the battle"></div>
+      <div class="tr-cap" aria-live="polite"></div>
+      <div class="tr-legend">${sides.map(k => `<span><i style="background:${TR_COL[k]}"></i>${esc(B.sides[k])}</span>`).join("")}</div>
+      <div class="tr-key">${B.units.map((u, i) => u.small ? "" : `<button type="button" data-tru="${i}" style="--c:${TR_COL[u.s]}"><b>${u.c}</b>${esc(u.n)}</button>`).join("")}</div></div>` : ""}</section>`;
+}
+const trEase = f => f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+function trPos(u, b) {   // where someone is at beat b: eased between their keys; a key with no place takes them off until the next
+  const P = u.p; if (b < P[0][0]) return null;
+  let i = 0; while (i < P.length - 1 && P[i + 1][0] <= b) i++;
+  const a = P[i]; if (a[1] == null) return null; const c = P[i + 1];
+  if (!c || c[1] == null) return [a[1], a[2]];
+  const f = trEase((b - a[0]) / (c[0] - a[0])); return [a[1] + (c[1] - a[1]) * f, a[2] + (c[2] - a[2]) * f];
+}
+const trKey = (K, b) => { if (b < K[0][0]) return null; let i = 0; while (i < K.length - 1 && K[i + 1][0] <= b) i++; const a = K[i], c = K[i + 1]; if (!c) return a.slice(1); const f = (b - a[0]) / (c[0] - a[0]); return a.slice(1).map((v, k) => v + (c[k + 1] - v) * f); };
 function trDraw(id) {
   const B = TR[id], sec = document.querySelector(`.tr[data-tr="${id}"]`); if (!sec || !sec.classList.contains("open")) return;
-  const b = Math.max(0, Math.min(B.beats.length - 1, trB)), now = performance.now(), places = {};
-  // every place a beat has reached so far: a numbered mark, dim once passed, the current one lit and pulsing
-  B.beats.forEach(([sd, at], i) => { if (i > b) return; (places[at] = places[at] || []).push([i, sd]); });
-  sec.querySelector(".tr-pins").innerHTML = Object.entries(places).map(([at, L]) => { const [x, y, name] = B.at[at], cur = L.some(([i]) => i === b), [li, sd] = L[L.length - 1], c = TR_COL[sd], pulse = cur ? 1 + .18 * Math.sin(now / 220) : 1;
-    return `<g transform="translate(${x} ${y})" opacity="${cur ? 1 : .55}">${cur ? `<circle r="${22 * pulse}" fill="${c}" fill-opacity=".12" stroke="${c}" stroke-opacity=".5"/>` : ""}<circle r="9" fill="#0B1019" stroke="${c}" stroke-width="1.8"/><text class="tr-n" fill="${c}">${li + 1}</text>${cur ? `<text class="tr-lab cur" y="-27" text-anchor="middle">${esc(name)}</text>` : ""}</g>`; }).join("");
-  const cap = sec.querySelector(".tr-cap"); if (cap.dataset.b !== String(b)) { cap.dataset.b = b; cap.innerHTML = `<small>Beat ${b + 1} of ${B.beats.length} · ${esc(B.at[B.beats[b][1]][2])}</small>${esc(B.beats[b][2])}`; sec.querySelector(".tr-ctl input").value = b; }
+  const svg = sec.querySelector(".tr-map svg"), N = B.beats.length, b = Math.max(0, Math.min(N - .001, trB)), beat = Math.floor(b), now = performance.now();
+  // the armies: a swarm of small arrowheads around a moving center, turning to grey dust when the snap takes them
+  svg.querySelector(".tr-sws").innerHTML = B.swarms.map((s, si) => { const k = trKey(s.keys, b); if (!k || k[3] <= 0) return ""; const [cx, cy, r, dens] = k; let d = "";
+    const dust = s.dust != null && b > s.dust ? Math.min(1, (b - s.dust) * 2) : 0;
+    for (let i = 0; i < s.n; i++) { if (i / s.n > dens) continue; const q = i * 2.399 + si, rr = r * Math.sqrt((i + .5) / s.n), x = cx + Math.cos(q + b * .3) * rr + Math.sin(now / 700 + i) * 3, y = cy + Math.sin(q + b * .3) * rr * .7 + Math.cos(now / 650 + i) * 2, a = q + b;
+      d += `M${(x + Math.cos(a) * 2.6).toFixed(1)} ${(y + Math.sin(a) * 2.6).toFixed(1)}L${(x + Math.cos(a + 2.4) * 2).toFixed(1)} ${(y + Math.sin(a + 2.4) * 2).toFixed(1)}L${(x + Math.cos(a - 2.4) * 2).toFixed(1)} ${(y + Math.sin(a - 2.4) * 2).toFixed(1)}Z`; }
+    return `<path d="${d}" fill="${dust ? `rgba(150,140,135,${.8 * (1 - dust)})` : TR_COL[s.s]}" opacity="${(Math.min(1, k[3]) * .75).toFixed(2)}"/>`; }).join("");
+  // what happens: portals, ships, fire from above, beams, blasts, a flood held back
+  let fx = "";
+  B.fx.forEach(e => { const c = e.c || "#FFD27A";
+    if (e.k === "ring" && b >= e.from && b <= e.to) { const o = Math.min(1, (b - e.from) * 4, (e.to - b) * 4), cc = e.c || "#7FD3FF", r = e.r * (.4 + .6 * o);
+      fx += `<circle cx="${e.x}" cy="${e.y}" r="${r.toFixed(1)}" fill="none" stroke="${cc}" stroke-width="1.6" stroke-dasharray="5 3" opacity="${o.toFixed(2)}" transform="rotate(${(now / 40 % 360).toFixed(1)} ${e.x} ${e.y})"/><circle cx="${e.x}" cy="${e.y}" r="${(r + 4).toFixed(1)}" fill="none" stroke="${cc}" stroke-opacity=".3" opacity="${o.toFixed(2)}"/>`
+        + (e.lab ? `<text class="tr-lab" x="${e.x - e.r - 6}" y="${e.y - e.r + 4}" text-anchor="end" opacity="${o.toFixed(2)}">${e.lab}</text>` : ""); }
+    if (e.k === "mark" && b >= e.from && b <= e.to) fx += `<path d="M${e.x - 5} ${e.y - 5}l10 10M${e.x + 5} ${e.y - 5}l-10 10" stroke="#FF8A7E" stroke-width="1.6"/><text class="tr-lab" x="${e.x - 9}" y="${e.y + 3}" text-anchor="end">${e.lab}</text>`;
+    if (e.k === "site" && b >= e.from && b < e.to) fx += `<rect x="${e.x - 6}" y="${e.y - 4}" width="12" height="8" rx="1.5" fill="rgba(127,217,90,.2)" stroke="rgba(190,250,160,.7)"/><text class="tr-lab" x="${e.x - 10}" y="${e.y + 3}" text-anchor="end">${e.lab}</text>`;
+    if (e.k === "bolt" && b >= e.from && b <= e.to) for (let k = 0; k < 3; k++) { const a = now / 300 + k * 2.1; let p = `M${e.x} ${e.y}`; for (let j = 1; j <= 5; j++) { const f = j / 5; p += `L${(e.x + Math.cos(a) * e.r * f + (Math.random() - .5) * 6).toFixed(1)} ${(e.y + Math.sin(a) * e.r * f + (Math.random() - .5) * 6).toFixed(1)}`; } fx += `<path d="${p}" stroke="${e.c || "#CFE6FF"}" stroke-width="1.2" fill="none" opacity=".9"/>`; }
+    if (e.k === "beam" && b >= e.from && b <= e.to) fx += `<path d="M${e.x1} ${e.y1}L${e.x2} ${e.y2}" stroke="${c}" stroke-width="${e.sw || 2.4}" stroke-linecap="round" opacity=".95"/>`;
+    if (e.k === "blast" && b >= e.at && b < e.at + .6) { const f = (b - e.at) / .6; fx += `<circle cx="${e.x}" cy="${e.y}" r="${(e.r * f).toFixed(1)}" fill="${c}" fill-opacity="${(.35 * (1 - f)).toFixed(2)}" stroke="${c}" stroke-opacity="${(1 - f).toFixed(2)}" stroke-width="2"/>`; }
+    if (e.k === "ship" && b >= e.from && b <= e.to) { const o = Math.min(1, (b - e.from) * 4, (e.to - b) * 5), w = e.w, h = w * .22; fx += `<path d="M${e.x - w} ${e.y}C${e.x - w / 2} ${e.y - h} ${e.x + w / 2} ${e.y - h} ${e.x + w} ${e.y}C${e.x + w / 2} ${e.y + h * .7} ${e.x - w / 2} ${e.y + h * .7} ${e.x - w} ${e.y}Z" fill="rgba(127,217,90,.08)" stroke="rgba(190,250,160,.7)" stroke-width="1.2" opacity="${o.toFixed(2)}"/><text class="tr-lab" x="${e.x}" y="${e.y + 3}" text-anchor="middle" opacity="${o.toFixed(2)}">${e.lab}</text>`; }
+    if (e.k === "barrage" && b >= e.from && b <= e.to) { const [x0, y0, bw, bh] = e.box || [40, 90, 320, 190], cc = e.c || "#FFB347"; for (let k = 0; k < 6; k++) { const s = Math.floor(now / 140) + k * 7, x = x0 + (s * 73 % bw), y = y0 + (s * 41 % bh), f = (now % 140) / 140; fx += `<circle cx="${x}" cy="${y}" r="${(4 + 10 * f).toFixed(1)}" fill="${cc}" fill-opacity="${(.4 * (1 - f)).toFixed(2)}" stroke="${cc}" stroke-opacity="${(1 - f).toFixed(2)}"/>`; } }
+    if (e.k === "moon" && b < e.to) fx += `<circle cx="${e.x}" cy="${e.y}" r="${e.r}" fill="rgba(200,195,185,.1)" stroke="rgba(220,215,205,.45)"/><text class="tr-lab" x="${e.x - e.r - 4}" y="${e.y + 3}" text-anchor="end">Titan's moon</text>`;
+    if (e.k === "flood" && b >= e.from && b <= e.to) { const o = Math.min(1, (b - e.from) * 3); fx += `<g opacity="${o.toFixed(2)}"><path d="M0 110C${70 + Math.sin(now / 400) * 4} 130 ${80 + Math.cos(now / 500) * 4} 180 ${e.x + 4} 210S80 270 0 292Z" fill="rgba(90,150,255,.28)" stroke="#7FB8FF"/><circle cx="${e.x + 10}" cy="${e.y}" r="16" fill="none" stroke="#FFB347" stroke-width="1.4" stroke-dasharray="4 3" transform="rotate(${(now / 30 % 360).toFixed(1)} ${e.x + 10} ${e.y})"/><text class="tr-lab" x="${e.x + 30}" y="${e.y - 22}">Flood, held back</text></g>`; }
+  });
+  svg.querySelector(".tr-fx").innerHTML = fx;
+  // everyone on the field, a lettered marker in their side's color; who falls goes grey
+  svg.querySelector(".tr-us").innerHTML = B.units.map((u, i) => { const p = trPos(u, b); if (!p) return "";
+    const down = u.down != null && b >= u.down, big = u.grow && b >= u.grow[0] && b < u.grow[1] + .3 ? 2.4 : u.big || 1, r = (u.small ? 4.6 : 8.6) * big, col = down ? "#7C7470" : TR_COL[u.s], pick = trPick === i;
+    return `<g class="tr-u" data-tru="${i}" transform="translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})"${down ? ' opacity=".75"' : ""}>${pick ? `<circle r="${r + 5}" fill="none" stroke="#FFFFFF" stroke-width="1.2" stroke-dasharray="2 2"/>` : ""}<circle r="${r}" fill="#081008" stroke="${col}" stroke-width="1.6"/>${u.small ? `<circle r="2" fill="${col}"/>` : `<text fill="${col}" font-size="${(7.4 * Math.min(big, 1.8)).toFixed(1)}">${u.c}</text>`}${down ? `<path d="M${-r} ${-r}L${r} ${r}" stroke="${col}" stroke-width="1"/>` : ""}</g>`; }).join("");
+  const cap = sec.querySelector(".tr-cap"); if (cap.dataset.b !== String(beat)) { cap.dataset.b = beat; cap.innerHTML = `<small>Beat ${beat + 1} of ${N}</small>${esc(B.beats[beat])}`; }
+  const rg = sec.querySelector(".tr-ctl input"); if (document.activeElement !== rg) rg.value = b;
 }
 function trLoop(id) {
-  cancelAnimationFrame(trRaf); let next = performance.now() + 3400;
+  cancelAnimationFrame(trRaf); let last = performance.now();
   const step = now => { const sec = document.querySelector(`.tr[data-tr="${id}"]`); if (!sec || !sec.classList.contains("open") || collMode !== "dc" || collRec !== id) { trPlay = false; return; }
-    if (trPlay && now >= next) { if (trB >= TR[id].beats.length - 1) { trPlay = false; sec.querySelector('[data-trc="pp"]').innerHTML = TR_P; } else { trB++; next = now + 3400; } }
-    trDraw(id); trRaf = requestAnimationFrame(step); };
+    if (trPlay) { trB += (now - last) / 4000; if (trB >= TR[id].beats.length - .001) { trB = TR[id].beats.length - .001; trPlay = false; sec.querySelector('[data-trc="pp"]').innerHTML = TR_P; } }
+    last = now; trDraw(id); trRaf = requestAnimationFrame(step); };
   trRaf = requestAnimationFrame(step);
+}
+function trWho(id) {   // the name of whoever's picked, over the map, with their file
+  const sec = document.querySelector(`.tr[data-tr="${id}"]`); if (!sec) return; const w = sec.querySelector(".tr-who"), u = trPick != null && TR[id].units[trPick];
+  sec.querySelectorAll(".tr-key button").forEach(k => k.classList.toggle("on", +k.dataset.tru === trPick));
+  if (!u) { w.hidden = true; return; } w.hidden = false; w.firstChild.textContent = u.n;
+  const [tg, pid] = (u.f || ":").split(":"), has = !!pid && (tg === "A" ? ALLIES : THREATS).some(o => o.id === pid), fb = w.querySelector("[data-trf]"); fb.hidden = !has; fb.dataset.trf = u.f || "";
 }
 // the replay sits in the report, under its heading, folded until opened
 const renderDcTr = renderDc;
 renderDc = function () { renderDcTr(); if (!collRec || !TR[collRec]) return; const d = DC.find(x => x.id === collRec); if (!d || !dcSeen(d)) return;
-  const hd = document.querySelector("#collView .dc-head"); if (!hd) return; hd.insertAdjacentHTML("afterend", trHTML(collRec)); if (trOpen[collRec]) { trB = Math.min(trB, TR[collRec].beats.length - 1); trLoop(collRec); } };
+  const hd = document.querySelector("#collView .dc-head"); if (!hd) return; hd.insertAdjacentHTML("afterend", trHTML(collRec)); if (trOpen[collRec]) { trB = Math.min(trB, TR[collRec].beats.length - .001); trLoop(collRec); trWho(collRec); } };
 document.getElementById("collView").addEventListener("click", ev => {
-  if (collMode !== "dc" || !collRec || !TR[collRec]) return; const id = collRec;
-  if (ev.target.closest("[data-tropen]")) { ev.stopImmediatePropagation(); trOpen[id] = !trOpen[id]; trB = 0; trPlay = false; const s = document.querySelector(`.tr[data-tr="${id}"]`); s.outerHTML = trHTML(id); if (trOpen[id]) trLoop(id); return; }
-  const c = ev.target.closest("[data-trc]"); if (!c) return; ev.stopImmediatePropagation(); const N = TR[id].beats.length, pp = document.querySelector(`.tr[data-tr="${id}"] [data-trc="pp"]`);
-  if (c.dataset.trc === "pp") { if (trB >= N - 1) trB = 0; trPlay = !trPlay; } else { trPlay = false; trB = Math.max(0, Math.min(N - 1, trB + (c.dataset.trc === "next" ? 1 : -1))); }
-  pp.innerHTML = trPlay ? TR_PA : TR_P; trLoop(id);
+  if (collMode !== "dc" || !collRec || !TR[collRec]) return; const id = collRec, sec = () => document.querySelector(`.tr[data-tr="${id}"]`);
+  if (ev.target.closest("[data-tropen]")) { ev.stopImmediatePropagation(); trOpen[id] = !trOpen[id]; trB = 0; trPlay = false; trPick = null; sec().outerHTML = trHTML(id); if (trOpen[id]) trLoop(id); return; }
+  const fb = ev.target.closest("[data-trf]"); if (fb) { ev.stopImmediatePropagation(); haptic(10); const [tg, pid] = fb.dataset.trf.split(":"), o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === pid); if (!o) return; if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); trPlay = false; collJump(tg === "A" ? "cp" : "raft", pid); return; }
+  const u = ev.target.closest("[data-tru]"); if (u) { ev.stopImmediatePropagation(); haptic(8); trPick = +u.dataset.tru === trPick ? null : +u.dataset.tru; trWho(id); trDraw(id); return; }
+  const c = ev.target.closest("[data-trc]"); if (c) { ev.stopImmediatePropagation(); haptic(8); const N = TR[id].beats.length;
+    if (c.dataset.trc === "pp") { if (trB >= N - .01) trB = 0; trPlay = !trPlay; }
+    else { trPlay = false; const cur = Math.floor(trB + 1e-6); trB = c.dataset.trc === "next" ? Math.min(N - .001, cur + 1) : trB - cur > .15 ? cur : Math.max(0, cur - 1); }
+    const pp = sec().querySelector('[data-trc="pp"]'); pp.innerHTML = trPlay ? TR_PA : TR_P; pp.setAttribute("aria-label", trPlay ? "Pause" : "Play"); trLoop(id); return; }
+  if (ev.target.closest(".tr-map") && trPick != null) { trPick = null; trWho(id); trDraw(id); }
 }, true);
 document.getElementById("collView").addEventListener("input", ev => { if (collMode !== "dc" || !ev.target.closest(".tr-ctl")) return; trPlay = false; trB = +ev.target.value; const pp = document.querySelector(`.tr [data-trc="pp"]`); if (pp) pp.innerHTML = TR_P; trLoop(collRec); });
 /* MOCKUP END */
-/* MOCKUP BEGIN: the Collection's artifacts, each its own file (test build only; mainprep cuts it). Every case that answers to a touch is a file
-   of its own on the second page of the Agent File's Artifacts, read like every other file: [ Classified ] until it's handled, then its name, with
-   its own pill. The Tesseract's file is the Space Stone it gives up, so it isn't filed twice. Handle with care, the one file that counted them, is gone */
+/* MOCKUP BEGIN: the Collection's cases, each its own file (test build only; mainprep cuts it). Every case that answers to a touch is a file of
+   its own in the Agent File's Collection section, kept apart from the Infinity Stones (which turn up all over the app), and read like every other
+   file: [ Classified ] until it's handled, then its name, with its own pill. The section shows once the first is handled, as every section does.
+   The Tesseract's file is the Space Stone it gives up, so it isn't filed twice. Handle with care, the one file that counted them, is gone */
 const CX_FILES = [["darkhold", "The Darkhold", "A book of dark magic waits for a reader who won't let go.", "In the Collection, hold the Darkhold until its spell is cast."],
   ["sling-ring", "Sling rings", "A sorcerer's ring opens a door. Draw one.", "In the Collection, draw a circle starting on the sling rings."],
   ["arc", "The arc reactor", "Tony's heart runs on it. Give it a charge.", "In the Collection, hold the arc reactor until it's charged."],
   ["aether", "The Aether", "The Aether doesn't like being kept in a case.", "In the Collection, drag the Aether well out of its case."],
   ["sokovia-accords", "The Sokovia Accords", "The Avengers were asked to sign. Now it's your turn.", "In the Collection, open the Sokovia Accords and sign or refuse them."]];
 EGGS.splice(EGGS.findIndex(e => e[0] === "artifacts"), 1);
-CX_FILES.forEach(([id]) => XP_ID["cx-" + id] = 20);   // a case is worth what an easter egg is
+XP_SEC.collection = 20;   // a case is worth what an easter egg is
 const achListCx = achList;
 achList = function () {
   const A = achListCx(), at = A.findIndex(a => a.id === "snap") + 1, cx = id => !!(state.cxHand || {})[id];
-  A.splice(at, 0, ...CX_FILES.map(([id, t, h, x]) => ({ id: "cx-" + id, sec: "artifacts", pg: 2, t, d: "Handled.", h, x, ok: () => cx(id) })));
+  A.splice(at, 0, ...CX_FILES.map(([id, t, h, x]) => ({ id: "cx-" + id, sec: "collection", t, d: "Handled.", h, x, ok: () => cx(id) })));
   const sc = A.find(a => a.id === "secrets"), ok0 = sc.ok; sc.x = "Find all six stones, every artifact and every Classified file."; sc.d = "Every stone, artifact and easter egg found."; sc.ok = () => ok0() && CX_FILES.every(([id]) => cx(id));
   return A;
 };
@@ -12054,8 +12242,6 @@ achList = function () {
 cxHandled = function (id, ms) { const H = state.cxHand = state.cxHand || {}; if (H[id]) return; const go = () => { if (H[id]) return; H[id] = 1; persist(); }; if (ms) setTimeout(go, ms); else go(); };
 // cases already handled before they were filed are filed quietly, the way boxes finished before characters were filed are
 if (state.achSeen && !state.achCx) { CX_FILES.forEach(([id]) => { if ((state.cxHand || {})[id]) state.achSeen["cx-" + id] = 1; }); state.achCx = 1; persist(); }
-document.addEventListener("click", ev => { const p = ev.target.closest("[data-hfapg]"); if (!p) return; ev.stopPropagation(); haptic(8);
-  const fv = document.getElementById("fileView"), y = fv.scrollTop; hfArtPg = hfArtPg === 1 ? 2 : 1; renderFile(); fv.scrollTop = y; }, true);
 /* MOCKUP END */
 </script>
 </body>
