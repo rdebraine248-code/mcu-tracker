@@ -653,7 +653,7 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .fx-card .fr i{ position:absolute; left:50%; top:40%; width:13px; height:13px; margin:-6.5px 0 0 -6.5px; font-size:0; background:#FFFFFF; clip-path:polygon(50% 0%, 61.2% 34.5%, 97.6% 34.5%, 68.2% 55.9%, 79.4% 90.5%, 50% 69.1%, 20.6% 90.5%, 31.8% 55.9%, 2.4% 34.5%, 38.8% 34.5%); }
 .fx-card .fr b{ position:absolute; left:0; right:0; bottom:5px; text-align:center; font:700 6.5px/1 'Oswald','Arial Narrow',sans-serif; letter-spacing:.5px; color:#B3261E; }
 .fx-card .bk{ transform:rotateY(180deg); background:repeating-linear-gradient(45deg,#1F3E7A 0 4px,#26498E 4px 8px); }
-/* MOCKUP BEGIN: Coulson's blood on Fury's cards (test build only; mainprep cuts it) */
+/* after The Avengers, Coulson's blood on the cards */
 .fx-card .fr{ overflow:hidden; }
 .fx-card .bl{ position:absolute; border-radius:50% 45% 55% 48% / 52% 50% 46% 54%; background:#760D0D; }   /* one flat color, so a splash's lobes run together into one shape */
 .fx-card .bl.d{ border-radius:50%; background:#7A0E0E; }   /* droplets thrown off it */
@@ -661,7 +661,6 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .fx-card .bl.sk{ inset:0; border-radius:0; background:radial-gradient(circle at var(--sx) var(--sy), rgba(110,12,12,.6), rgba(110,12,12,.25) 22%, rgba(110,12,12,0) 38%); box-shadow:none; }   /* a corner soaked through */
 .fx-card .bl.sm{ border-radius:40% 60% 50% 50%; background:radial-gradient(ellipse at 50% 50%, rgba(110,40,20,.45), rgba(110,40,20,0) 70%); box-shadow:none; }   /* an older smear, dried brown */
 .fx-card .bk .bl{ opacity:.85; }
-/* MOCKUP END */
 .fx-armstar{ font-size:26px; line-height:1; padding:6px 4px; color:#B3261E; opacity:.55; cursor:pointer; text-shadow:0 0 6px rgba(179,38,30,.5); -webkit-user-select:none; user-select:none; }
 .fx-shield{ position:fixed; left:0; top:0; z-index:98; width:76px; height:76px; margin:-38px 0 0 -38px; border-radius:50%; pointer-events:none;
   background:linear-gradient(135deg, rgba(255,255,255,.38), rgba(255,255,255,0) 45%, rgba(0,0,0,.2)), radial-gradient(circle, #1F4E9E 0 12px, #C8202E 12.5px 20px, #F4EFE2 20.5px 28px, #C8202E 28.5px 38px);
@@ -6099,6 +6098,25 @@ function moonKnight(h) {
   }, 3300);
 }
 
+/* after The Avengers, the cards Fury throws on the table are the ones from Coulson's jacket, stained with his blood: a splash or two on each,
+   built from overlapping lobes, with droplets flung out one way and a tail behind them, an older dried smear, and on some a soaked corner,
+   never in the same place twice */
+function furyBlood(c) {
+  const r = (a, b) => a + Math.random() * (b - a);
+  const blot = (face, x, y, w, hgt, rot, cls) => { const b = document.createElement("span"); b.className = "bl" + (cls ? " " + cls : "");
+    Object.assign(b.style, { left: (x - w / 2) + "px", top: (y - hgt / 2) + "px", width: w + "px", height: hgt + "px", transform: `rotate(${rot}rad)` }); face.appendChild(b); };
+  const splash = (face, x, y, w) => { const ang = r(0, Math.PI * 2);
+    blot(face, x, y, w, w * r(.8, 1.1), r(0, 6));
+    for (let k = 0; k < 2 + Math.floor(r(0, 3)); k++) { const a = r(0, Math.PI * 2), d = w * r(.2, .38), s = w * r(.4, .7); blot(face, x + Math.cos(a) * d, y + Math.sin(a) * d, s, s * r(.7, 1.1), r(0, 6)); }   // the lobes
+    blot(face, x + Math.cos(ang) * w * .7, y + Math.sin(ang) * w * .7, w * r(.9, 1.4), w * r(.18, .28), ang, "t");   // the tail it leaves as it hits
+    for (let k = 0; k < 4 + Math.floor(r(0, 5)); k++) { const a = ang + r(-.5, .5), d = w * r(.9, 2.2), s = r(1.4, 3.2);   // droplets flung out the same way, longer the farther they fly
+      blot(face, x + Math.cos(a) * d, y + Math.sin(a) * d, s * r(1.4, 2.6), s, a, "d"); } };
+  const fr = c.querySelector(".fr"), bk = c.querySelector(".bk");
+  blot(fr, r(6, 52), r(8, 76), r(20, 34), r(12, 22), r(0, 6), "sm");   // the dried smear underneath
+  for (let n = Math.random() < .55 ? 1 : 2; n > 0; n--) splash(fr, r(10, 48), r(12, 72), r(8, 15));
+  if (Math.random() < .4) { const sk = document.createElement("span"); sk.className = "bl sk"; sk.style.setProperty("--sx", Math.random() < .5 ? "0%" : "100%"); sk.style.setProperty("--sy", Math.random() < .5 ? "0%" : "100%"); fr.appendChild(sk); }   // a corner soaked through
+  if (Math.random() < .5) splash(bk, r(12, 46), r(14, 70), r(6, 11));   // some soaked through to the back
+}
 /* ---------- Nick Fury: hold the name. Coulson's vintage Captain America cards tumble down the screen ---------- */
 function fury(h) {
   if (REDUCED) { found("fury"); return; }
@@ -6106,7 +6124,7 @@ function fury(h) {
   let last = 0;
   for (let k = 0; k < 7; k++) {
     const c = document.createElement("div"); c.className = "fx-card";
-    c.innerHTML = `<div class="fr"><i>★</i><b>CAPTAIN AMERICA</b></div><div class="bk"></div>`; box.appendChild(c);
+    c.innerHTML = `<div class="fr"><i>★</i><b>CAPTAIN AMERICA</b></div><div class="bk"></div>`; box.appendChild(c); if (atlSeenT("The Avengers")) furyBlood(c);
     const x0 = 30 + Math.random() * (W - 60), sway = 25 + Math.random() * 45, ph = Math.random() * 6, spins = 1 + Math.floor(Math.random() * 3), rz0 = (Math.random() - .5) * 60, rz = (Math.random() - .5) * 180;
     const dur = 2600 + Math.random() * 1400, delay = k * 200 + Math.random() * 200, kf = [];
     for (let j = 0; j <= 10; j++) { const f = j / 10; kf.push({ transform: `translate(${x0 + Math.sin(f * Math.PI * 3 + ph) * sway}px,${-100 + (H + 200) * f}px) rotateZ(${rz0 + f * rz}deg) rotateY(${f * 360 * spins}deg) rotateX(${Math.sin(f * Math.PI * 3) * 25}deg)` }); }
@@ -11206,35 +11224,6 @@ document.getElementById("collView").addEventListener("click", ev => {
   const p = ev.target.closest("[data-dcp]"); if (p) { ev.stopImmediatePropagation(); haptic(10); const [tg, id] = p.dataset.dcp.split(":"); const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id); if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); collJump(tg === "A" ? "cp" : "raft", id); return; }
   const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = rfUniOf(COLLX.find(o => o.id === x.dataset.dcx)); collJump("coll", x.dataset.dcx); return; }
 }, true);
-
-/* MOCKUP BEGIN: Coulson's blood on Fury's cards (test build only; mainprep cuts it) */
-if (MOCK) {
-// after The Avengers, the cards Fury throws on the table are the ones from Coulson's jacket, stained with his blood: a splash or two on each,
-// built from overlapping lobes, with droplets flung out one way and a tail behind them, an older dried smear, and on some a soaked corner,
-// never in the same place twice
-const _fury = fury;
-fury = function (h) {
-  _fury(h); if (REDUCED || !atlSeenT("The Avengers")) return;
-  const box = [...document.querySelectorAll(".fx-cards")].pop(); if (!box) return;
-  const r = (a, b) => a + Math.random() * (b - a);
-  const blot = (face, x, y, w, hgt, rot, cls) => { const b = document.createElement("span"); b.className = "bl" + (cls ? " " + cls : "");
-    Object.assign(b.style, { left: (x - w / 2) + "px", top: (y - hgt / 2) + "px", width: w + "px", height: hgt + "px", transform: `rotate(${rot}rad)` }); face.appendChild(b); };
-  const splash = (face, x, y, w) => { const ang = r(0, Math.PI * 2);
-    blot(face, x, y, w, w * r(.8, 1.1), r(0, 6));
-    for (let k = 0; k < 2 + Math.floor(r(0, 3)); k++) { const a = r(0, Math.PI * 2), d = w * r(.2, .38), s = w * r(.4, .7); blot(face, x + Math.cos(a) * d, y + Math.sin(a) * d, s, s * r(.7, 1.1), r(0, 6)); }   // the lobes
-    blot(face, x + Math.cos(ang) * w * .7, y + Math.sin(ang) * w * .7, w * r(.9, 1.4), w * r(.18, .28), ang, "t");   // the tail it leaves as it hits
-    for (let k = 0; k < 4 + Math.floor(r(0, 5)); k++) { const a = ang + r(-.5, .5), d = w * r(.9, 2.2), s = r(1.4, 3.2);   // droplets flung out the same way, longer the farther they fly
-      blot(face, x + Math.cos(a) * d, y + Math.sin(a) * d, s * r(1.4, 2.6), s, a, "d"); } };
-  box.querySelectorAll(".fx-card").forEach(c => {
-    const fr = c.querySelector(".fr"), bk = c.querySelector(".bk");
-    blot(fr, r(6, 52), r(8, 76), r(20, 34), r(12, 22), r(0, 6), "sm");   // the dried smear underneath
-    for (let n = Math.random() < .55 ? 1 : 2; n > 0; n--) splash(fr, r(10, 48), r(12, 72), r(8, 15));
-    if (Math.random() < .4) { const sk = document.createElement("span"); sk.className = "bl sk"; sk.style.setProperty("--sx", Math.random() < .5 ? "0%" : "100%"); sk.style.setProperty("--sy", Math.random() < .5 ? "0%" : "100%"); fr.appendChild(sk); }   // a corner soaked through
-    if (Math.random() < .5) splash(bk, r(12, 46), r(14, 70), r(6, 11));   // some soaked through to the back
-  });
-};
-}
-/* MOCKUP END */
 
 </script>
 </body>
