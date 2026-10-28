@@ -1164,6 +1164,35 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
+/* MOCKUP BEGIN: J.A.R.V.I.S., one search across the whole app (test build only; mainprep cuts it); and the Sound switch */
+.subrow .jv-btn{ display:inline-flex; align-items:center; gap:8px; padding:4px 11px 4px 5px; border:1px solid rgba(79,216,240,.45); border-radius:999px; background:rgba(79,216,240,.07); color:#BFF4FC; font:10.5px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; vertical-align:middle; }
+.jv-btn i{ position:relative; display:grid; place-items:center; width:18px; height:18px; border:1px dashed rgba(127,230,247,.6); border-radius:50%; animation:jvSpin 9s linear infinite; }
+.jv-btn i::after{ content:""; width:6px; height:6px; border-radius:50%; background:#BFF4FC; box-shadow:0 0 8px #4FD8F0; }
+@keyframes jvSpin{ to{ transform:rotate(360deg); } }
+.collpanel.jvx{ background-color:#081218; }
+.jvx .co-top small, .jvx .co-h{ color:#7FE6F7; } .jvx .co-crumb{ border-color:#1F4652; color:#BFF4FC; }
+.jv-hello{ display:flex; align-items:center; gap:14px; margin:4px 0 14px; }
+.jv-core{ position:relative; flex:none; width:54px; height:54px; border-radius:50%; background:radial-gradient(circle,#E8FCFF 0,#7FE6F7 18%,rgba(79,216,240,.25) 42%,transparent 70%); }
+.jv-core::before, .jv-core::after{ content:""; position:absolute; inset:2px; border:1.5px solid rgba(127,230,247,.7); border-radius:50%; border-top-color:transparent; border-bottom-color:transparent; animation:jvSpin 4s linear infinite; }
+.jv-core::after{ inset:9px; border-color:rgba(191,244,252,.6); border-left-color:transparent; border-right-color:transparent; animation-duration:2.6s; animation-direction:reverse; }
+.jv-hello p{ margin:0; color:#D6F6FB; font-size:15px; line-height:1.4; } .jv-hello small{ display:block; margin-bottom:2px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FE6F7; }
+.jvx .pg-q{ border-color:#1F4652; } .jvx .pg-q input::placeholder{ color:#5E8A95; }
+.jv-sug{ display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 18px; }
+.jv-sug button{ padding:6px 12px; border:1px solid #1F4652; border-radius:999px; background:rgba(79,216,240,.06); color:#BFF4FC; font-size:13px; }
+.jv-sec{ margin:0 0 18px; }
+.jv-row{ display:block; width:100%; margin:0 0 6px; padding:10px 12px; border:1px solid #173640; border-radius:10px; background:#0B1A21; color:#E6F4F7; text-align:left; cursor:pointer; }
+.jv-row b{ display:block; font-size:15px; font-weight:600; } .jv-row small{ display:block; margin-top:2px; color:#8FB2BA; font-size:13px; line-height:1.4; }
+.jv-row em{ float:right; margin-left:8px; font:10px/1.8 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#7FE6F7; }
+.jv-row mark{ background:rgba(79,216,240,.28); color:#FFFFFF; border-radius:2px; padding:0 1px; }
+.jv-cross{ margin:0 0 16px; padding:12px; border:1px solid #1F4652; border-radius:12px; background:linear-gradient(180deg,rgba(79,216,240,.08),rgba(79,216,240,.02)); }
+.jv-cross h4{ margin:0 0 2px; font:400 20px/1.15 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#E6F9FC; }
+.jv-cross p{ margin:0 0 10px; color:#8FB2BA; font-size:13px; }
+.snd-row{ display:flex; align-items:center; gap:14px; } .snd-row p{ flex:1; margin:0 !important; }
+.hf-save .snd-sw{ flex:none; display:inline-flex; align-items:center; gap:10px; padding:6px 12px 6px 6px; }
+.snd-sw i{ position:relative; width:36px; height:20px; border-radius:999px; background:#2A3550; transition:background .2s; }
+.snd-sw i::after{ content:""; position:absolute; left:3px; top:3px; width:14px; height:14px; border-radius:50%; background:#D8E0EE; transition:transform .2s; }
+.snd-sw.on i{ background:#C9A43A; } .snd-sw.on i::after{ transform:translateX(16px); } .hf-save .snd-sw.on{ border-color:#C9A43A; color:#F4D27A; }
+/* MOCKUP END */
 .cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; } .cx-big .cx-obj{ transition:opacity .18s ease; }   /* a case you can handle: the page doesn't scroll out from under your hand */
 /* the cases in the Collection you can handle: the Darkhold's script, the arc reactor's light, the Sokovia Accords themselves */
 .cx-rune{ color:#E0354A; text-shadow:0 0 6px rgba(200,20,40,.9); }
@@ -11532,6 +11561,230 @@ function cxAccords() {
       () => { if (ink > 220) idle = setTimeout(() => { if (state.accords) return; state.accords = { v: "signed", sig: cv.toDataURL("image/png") }; persist(); stamp(true); }, 800); });
   });
 }
+/* MOCKUP BEGIN: J.A.R.V.I.S. (test build only; mainprep cuts it). One search over everything the app knows, only as far as you've watched:
+   people in the Compound and the Raft, the Collection's objects, the Atlas's places, Damage Control's incidents, the titles you've watched and
+   your own notes on them. Two things joined with "and" (or "&", "+", "with") are looked up together: the titles they share, the incidents they
+   were both part of, and, for a person and an object, when it was in their hands. It's one more mode of the index panel, so every result
+   opens its file and back comes back here */
+let jvQ = "", jvT = 0;
+(() => { const sr = document.querySelector(".mast .subrow"); if (sr) sr.insertAdjacentHTML("beforeend", `<button type="button" class="jv-btn" id="jvBtn" aria-label="Ask J.A.R.V.I.S."><i aria-hidden="true"></i>J.A.R.V.I.S.</button>`); })();
+document.addEventListener("click", ev => { if (ev.target.closest("#jvBtn")) { ev.stopPropagation(); openColl("jv"); } }, true);
+const openColl2 = openColl;
+openColl = function (mode, keep, step) {
+  const cp = document.getElementById("collPanel");
+  if (mode !== "jv") { cp.classList.remove("jvx"); return openColl2(mode, keep, step); }
+  collMode = "jv"; cp.classList.remove("raft", "cpx", "dcx", "warx"); cp.classList.add("jvx"); cp.setAttribute("aria-label", "J.A.R.V.I.S.");
+  const h2 = cp.querySelector(".maptop h2"); h2.textContent = "J.A.R.V.I.S."; h2.dataset.glow = h2.textContent;
+  if (!keep) jvQ = "";
+  collRec = null; renderColl(); cp.hidden = false; collOpen = true; bodyLock(); cp.scrollTop = 0;
+  if (!step) try { history.pushState({ mcu: "coll", cm: "jv" }, ""); } catch (e) {}
+  if (!keep) setTimeout(() => { const i = document.getElementById("jvQ"); if (i) i.focus({ preventScroll: true }); }, 250);
+};
+const renderColl2 = renderColl0;
+renderColl0 = function () { if (collMode === "jv") renderJv(); else renderColl2(); };
+// what there is to search: each thing with its name, what it is, where it opens, and the titles it's part of
+const jvPeople = () => [...ALLIES.map(o => [o, "A"]), ...THREATS.map(o => [o, "T"])].filter(([o]) => !o.grp && (o.st || []).some(atlSeenStep)).map(([o, tg]) => {
+  const S = (tg === "A" ? cpSteps : rfSteps)(o), n = tg === "A" ? cpName(o) : rfName(o);
+  return { k: "p", o, tg, n, kind: tg === "A" ? cpKind(o) : rfKind(o), where: tg === "A" ? "Compound" : "Raft", S, titles: new Set(S.map(x => x[1])) }; });
+const jvObjects = () => COLLX.filter(o => cxSteps(o).length).map(o => { const S = cxSteps(o); return { k: "o", o, n: cxName(o), kind: cxKind(o), where: "Collection", S, titles: new Set(S.map(x => x[1])) }; });
+const jvIncidents = () => DC.filter(dcSeen).map(d => ({ k: "i", o: d, n: d.n, kind: d.where, where: "Damage Control", titles: new Set([d.t]) }));
+const jvPlaces = q => atlFind(q).map(r => ({ k: "pl", r, o: r.p, n: r.p.n, kind: r.where === r.p.r ? r.where : r.where + " · " + r.p.r, where: "Atlas", titles: new Set((r.p.e || []).filter(atlEvSeen).map(e => e[0])) }));
+const jvTitles = () => [...new Set([...DATA.chapters, ...DATA.chars].flatMap(c => c.items.map(i => i.t)))].filter(atlSeenT);
+const jvSnip = (txt, q) => { const n = qNorm(txt), i = n.indexOf(q); if (i < 0) return ""; const a = Math.max(0, i - 50), b = Math.min(txt.length, i + q.length + 60);
+  return (a ? "…" : "") + esc(txt.slice(a, i)) + "<mark>" + esc(txt.slice(i, i + q.length)) + "</mark>" + esc(txt.slice(i + q.length, b)) + (b < txt.length ? "…" : ""); };
+// the best single match for a name, for the questions that join two
+function jvPick(q) {
+  const L = [...jvPeople(), ...jvObjects(), ...jvIncidents(), ...(q.length > 1 ? jvPlaces(q) : [])], nq = q.replace(/^the /, "");
+  const score = x => { const n = qNorm(x.n).replace(/^the /, ""); return n === nq ? 4 : n.startsWith(nq) ? 3 : new RegExp("\\b" + nq.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(n) ? 2 : n.includes(nq) ? 1 : 0; };
+  const uni = x => x.k === "p" || x.k === "o" ? rfUniOf(x.o) : x.k === "i" ? dcU(x.o) : "mcu";
+  let best = null, bs = 0; L.forEach(x => { const s0 = score(x); if (!s0) return; const s = s0 + (uni(x) === "mcu" ? .5 : 0) + (x.k === "p" && x.tg === "A" ? .1 : 0) + Math.min(.3, (x.S ? x.S.length : 1) / 100); if (s > bs) { bs = s; best = x; } });
+  return best ? Object.assign(best, { score: bs }) : null;
+}
+const jvRow = (x, sub, tag) => `<button type="button" class="jv-row" data-jv="${x.k}:${x.k === "p" ? x.tg + ":" : ""}${esc(x.k === "pl" ? x.r.v + "|" + (x.r.sub || "") + "|" + x.o.id : x.o.id)}"><em>${esc(tag || x.where)}</em><b>${esc(x.n)}</b>${sub ? `<small>${sub}</small>` : ""}</button>`;
+const jvTitleRow = (t, sub) => `<button type="button" class="jv-row" data-jvt="${esc(t)}"><em>Title</em><b>${esc(tn(t))}</b>${sub ? `<small>${sub}</small>` : ""}</button>`;
+function jvCross(qa, qb) {
+  const A = jvPick(qa), B = jvPick(qb);
+  if (!A || !B) return `<p class="sr-empty">I can't find ${esc(!A ? qa : qb)} in what you've watched.</p>`;
+  const both = [...A.titles].filter(t => B.titles.has(t)), order = t => jvTitles().indexOf(t);
+  const inInc = (x, d) => x.k === "p" ? d.who.some(([id, tg]) => id === x.o.id && tg === x.tg) || d.tm.some(([id]) => id === x.o.id) : x.k === "o" ? d.obj.includes(x.o.id) : x.k === "pl" ? qNorm(d.where + " " + d.n).includes(qNorm(x.n)) : d === x.o;
+  const inc = DC.filter(dcSeen).filter(d => inInc(A, d) && inInc(B, d));
+  // a person and an object: every time it was in their hands
+  const [P, O] = A.k === "p" && B.k === "o" ? [A, B] : B.k === "p" && A.k === "o" ? [B, A] : [null, null];
+  const held = P ? O.S.filter(x => x[3] && qNorm(x[3]).includes(qNorm(P.n).replace(/^the /, ""))) : [];
+  const stepOf = (x, t) => x.S ? (x.S.find(s => s[1] === t) || [])[0] : "";
+  return `<div class="jv-cross"><h4>${esc(A.n)} + ${esc(B.n)}</h4><p>${both.length ? `Together in ${both.length} title${both.length === 1 ? "" : "s"}` : "Never in the same title, as far as you've watched"}${inc.length ? ` · ${inc.length} incident${inc.length === 1 ? "" : "s"} on file` : ""}</p></div>
+    ${held.length ? `<div class="jv-sec"><div class="co-h">In ${esc(P.n)}'s hands</div>${held.map(x => jvTitleRow(x[1], esc(stepTxt(x)))).join("")}</div>` : ""}
+    ${inc.length ? `<div class="jv-sec"><div class="co-h">Incidents with both</div>${inc.map(d => jvRow({ k: "i", o: d, n: d.n, where: d.no }, esc(d.where))).join("")}</div>` : ""}
+    ${both.length ? `<div class="jv-sec"><div class="co-h">Titles with both</div>${both.sort((a, b) => order(a) - order(b)).map(t => jvTitleRow(t, esc(stepOf(A, t) || stepOf(B, t) || ""))).join("")}</div>` : ""}
+    <div class="jv-sec"><div class="co-h">Their files</div>${jvRow(A, esc(A.kind || ""))}${jvRow(B, esc(B.kind || ""))}</div>`;
+}
+function jvResults(raw) {
+  const q = qNorm(raw.trim()); if (q.length < 2) return "";
+  const two = q.split(/\s+(?:and|with|&|\+)\s+|\s*[&+]\s*/).filter(Boolean); if (two.length === 2) return jvCross(two[0], two[1]);
+  const named = x => qNorm(x.n).includes(q) || qNorm(x.kind || "").includes(q);
+  const mention = x => x.S && x.S.find(s => qNorm(s[0]).includes(q));
+  const sec = (title, rows, more) => rows.length ? `<div class="jv-sec"><div class="co-h">${title} · ${rows.length}</div>${rows.slice(0, 8).join("")}${rows.length > 8 ? `<p class="sr-empty">And ${rows.length - 8} more. Narrow it down.</p>` : ""}</div>` : "";
+  const main = (a, b) => (rfUniOf(a.o) !== "mcu") - (rfUniOf(b.o) !== "mcu");
+  const people = jvPeople(), byName = people.filter(named).sort(main), byMention = people.filter(x => !named(x) && mention(x)).sort(main);
+  const objs = jvObjects(), oName = objs.filter(named).sort(main), oMention = objs.filter(x => !named(x) && mention(x)).sort(main);
+  const top = jvPick(q), best = top && top.score >= 2.5 ? top : null;   // a name that matches outright goes first
+  const inc = jvIncidents().filter(x => qNorm([x.n, x.o.where, x.o.cause, x.o.out, x.o.cls].join(" ")).includes(q));
+  const places = jvPlaces(q), T = jvTitles();
+  const titles = T.filter(t => qNorm(tn(t)).includes(q)), notes = T.filter(t => qNorm(rateOf(t).note || "").includes(q));
+  const html = [
+    best ? `<div class="jv-sec"><div class="co-h">Best match</div>${best.k === "pl" ? jvRow(best, esc(best.kind)) : jvRow(best, esc(best.kind || ""))}</div>` : "",
+    sec("People", [...byName.map(x => jvRow(x, esc(x.kind))), ...byMention.map(x => jvRow(x, jvSnip(stepTxt(mention(x)), q)))]),
+    sec("Objects", [...oName.map(x => jvRow(x, esc(x.kind))), ...oMention.map(x => jvRow(x, jvSnip(stepTxt(mention(x)), q)))]),
+    sec("Places", places.map(x => jvRow(x, esc(x.kind)))),
+    sec("Incidents", inc.map(x => jvRow(x, qNorm(x.n).includes(q) ? esc(x.kind) : jvSnip([x.o.cause, x.o.out].find(s => qNorm(s).includes(q)) || x.kind, q)))),
+    sec("Titles you've watched", titles.map(t => jvTitleRow(t, rateOf(t).r ? "★".repeat(rateOf(t).r) : ""))),
+    sec("Your notes", notes.map(t => jvTitleRow(t, jvSnip(rateOf(t).note, q))))].join("");
+  return html || `<p class="sr-empty">Nothing on file for that, as far as you've watched.</p>`;
+}
+function jvSuggest() {   // a few questions it can answer right now, from what you've watched
+  const C = [["the Tesseract", "Tesseract"], ["Loki and the Tesseract"], ["Leipzig"], ["Sokovia"], ["Tony and Steve"], ["Thanos and the Gauntlet", "Thanos and Thanos's gauntlet"], ["Wakanda"], ["Hell's Kitchen"], ["Vibranium"], ["Kree"]];
+  return C.map(([label, q]) => [label, q || label]).filter(([, q]) => { const r = jvResults(q); return r && !/sr-empty/.test(r.slice(0, 40)) && !/Never in the same title/.test(r); }).slice(0, 5);
+}
+function renderJv() {
+  const v = document.getElementById("collView"), S = jvQ ? [] : jvSuggest();
+  v.innerHTML = `<div class="co"><div class="jv-hello"><i class="jv-core" aria-hidden="true"></i><p><small>J.A.R.V.I.S. · online</small>${jvQ ? "Here's what I have." : "What do you need? Ask about anyone, anything or anywhere you've seen, or two things together."}</p></div>
+    ${pgQ("jvQ", "Search everything, or try “Loki and the Tesseract”", jvQ)}
+    ${S.length ? `<div class="jv-sug">${S.map(([l, q]) => `<button type="button" data-jvs="${esc(q)}">${esc(l)}</button>`).join("")}</div>` : ""}
+    <div class="jv-res">${jvResults(jvQ)}</div></div>`;
+}
+document.getElementById("collView").addEventListener("input", ev => { if (collMode !== "jv" || ev.target.id !== "jvQ") return; jvQ = ev.target.value; clearTimeout(jvT);
+  jvT = setTimeout(() => { const v = document.getElementById("collView"); v.querySelector(".jv-res").innerHTML = jvResults(jvQ); const s = v.querySelector(".jv-sug"); if (s) s.style.display = jvQ ? "none" : ""; const x = v.querySelector(".pg-qx"); if (x) x.hidden = !jvQ;
+    try { history.replaceState({ ...history.state, q: jvQ }, ""); } catch (e) {} }, 140); });
+document.getElementById("collView").addEventListener("click", ev => {
+  if (collMode !== "jv") return;
+  const s = ev.target.closest("[data-jvs]"); if (s) { ev.stopImmediatePropagation(); jvQ = s.dataset.jvs; renderJv(); return; }
+  if (ev.target.closest(".pg-qx")) { ev.stopImmediatePropagation(); jvQ = ""; renderJv(); return; }
+  const t = ev.target.closest("[data-jvt]"); if (t) { ev.stopImmediatePropagation(); rateSheet(t.dataset.jvt); return; }   // a title opens your log for it
+  const r = ev.target.closest("[data-jv]"); if (!r) return; ev.stopImmediatePropagation(); haptic(10);
+  const [k, a, b] = r.dataset.jv.split(":");
+  if (k === "p") { const o = (a === "A" ? ALLIES : THREATS).find(x => x.id === b); if (a === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); collJump(a === "A" ? "cp" : "raft", b); return; }
+  if (k === "o") { cxUni = rfUniOf(COLLX.find(x => x.id === a)); collJump("coll", a); return; }
+  if (k === "i") { dcUni = dcU(DC.find(x => x.id === a)); collJump("dc", a); return; }
+  if (k === "pl") { const [v, sub, id] = a.split("|"), hit = atlFind(qNorm(jvQ.length > 1 ? jvQ : id)).find(x => x.p.id === id) || { v, sub: sub || null, p: { id } };
+    closeColl(); setTimeout(() => { openAtlas(); setTimeout(() => atlGo(hit), 450); }, 350); }
+}, true);
+// back to J.A.R.V.I.S. from a file: the question is still there
+const collRestore2 = collRestore;
+collRestore = function () { const h = history.state || {}; if (h.cm === "jv" && h.q != null) jvQ = h.q; return collRestore2(); };
+/* MOCKUP END */
+/* MOCKUP BEGIN: Sound (test build only; mainprep cuts it). Every sound is made in the browser as it plays (no recordings, nothing from the
+   films), off until you switch it on in the Agent File. The whole app gets a voice through the presses it already makes (every haptic is also
+   a sound), check-offs chime, files and pages open with a breath of air, the Atlas hums while it's open, and the Collection's cases and the snap
+   each get their own */
+const SFX = (() => {
+  let ctx = null, out = null, wet = null, noiseBuf = null, lastTick = 0, lastThud = 0;
+  const init = () => {
+    if (ctx) return ctx; const C = window.AudioContext || window.webkitAudioContext; if (!C) return null;
+    ctx = new C(); const comp = ctx.createDynamicsCompressor(); out = ctx.createGain(); out.gain.value = .6; out.connect(comp); comp.connect(ctx.destination);
+    // a small dark room for the tails, made from decaying noise
+    const len = ctx.sampleRate * 1.8 | 0, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.2); }
+    const cv = ctx.createConvolver(); cv.buffer = ir; wet = ctx.createGain(); wet.gain.value = .9; wet.connect(cv); const wg = ctx.createGain(); wg.gain.value = .32; cv.connect(wg); wg.connect(out);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); const nd = noiseBuf.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+    return ctx;
+  };
+  const live = () => { if (!state.sound) return false; if (!init()) return false; if (ctx.state !== "running") ctx.resume(); return true; };
+  const env = (g, t, a, peak, rel) => { g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(.0001, t + a + rel); };
+  const send = (node, w) => { node.connect(out); if (w) { const s = ctx.createGain(); s.gain.value = w; node.connect(s); s.connect(wet); } };
+  function tone(f, dur, o = {}) {   // one voice: a waveform with an envelope, sliding to another pitch if asked
+    const t = ctx.currentTime + (o.at || 0), osc = ctx.createOscillator(), g = ctx.createGain(); osc.type = o.type || "sine";
+    osc.frequency.setValueAtTime(f, t); if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t + dur);
+    env(g, t, o.a || .004, o.g || .1, dur); osc.connect(g); send(g, o.w); osc.start(t); osc.stop(t + dur + .05);
+  }
+  function hiss(dur, o = {}) {   // a breath of filtered noise, swept if asked
+    const t = ctx.currentTime + (o.at || 0), src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); src.buffer = noiseBuf; src.loop = true;
+    f.type = o.ft || "bandpass"; f.Q.value = o.q || 1.2; f.frequency.setValueAtTime(o.f || 1200, t); if (o.to) f.frequency.exponentialRampToValueAtTime(o.to, t + dur);
+    env(g, t, o.a || .01, o.g || .1, dur); src.connect(f); f.connect(g); send(g, o.w); src.start(t, Math.random()); src.stop(t + dur + .05);
+  }
+  // something that goes on until it's told to stop: a few voices under one fader
+  function bed(build, fadeIn = .4) {
+    if (!live()) return { stop() {}, set() {} };
+    const g = ctx.createGain(), t = ctx.currentTime; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(1, t + fadeIn); g.connect(out);
+    const parts = build(g) || {};
+    return { ...parts, stop(rel = .35) { const n = ctx.currentTime; g.gain.cancelScheduledValues(n); g.gain.setValueAtTime(g.gain.value, n); g.gain.linearRampToValueAtTime(0, n + rel); setTimeout(() => { (parts.nodes || []).forEach(x => { try { x.stop(); } catch (e) {} }); g.disconnect(); clearInterval(parts.iv); }, rel * 1000 + 80); } };
+  }
+  const osc = (g, type, f, gain) => { const o = ctx.createOscillator(), v = ctx.createGain(); o.type = type; o.frequency.value = f; v.gain.value = gain; o.connect(v); v.connect(g); o.start(); return o; };
+  const noiseInto = (g, ft, f, q, gain) => { const s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), v = ctx.createGain(); s.buffer = noiseBuf; s.loop = true; fl.type = ft; fl.frequency.value = f; fl.Q.value = q; v.gain.value = gain; s.connect(fl); fl.connect(v); v.connect(g); s.start(); return [s, fl, v]; };
+  return {
+    live,
+    tick() { if (!live() || performance.now() - lastTick < 45) return; lastTick = performance.now(); tone(2600, .035, { type: "triangle", g: .035 }); tone(5200, .02, { g: .012 }); },
+    thud(k = 1) { if (!live() || performance.now() - lastThud < 140) return; lastThud = performance.now(); tone(110, .28, { to: 42, g: .2 * k }); hiss(.08, { ft: "lowpass", f: 900, g: .05 * k }); },
+    check(on) { if (!live()) return; on ? (tone(880, .35, { g: .06, w: .4 }), tone(1318.5, .5, { at: .07, g: .06, w: .5 })) : tone(660, .25, { to: 520, g: .04 }); },
+    chime() { if (!live()) return; [1046.5, 1568, 2093].forEach((f, i) => tone(f, .9, { at: i * .085, g: .045, w: .7 })); },
+    open() { if (!live()) return; hiss(.3, { f: 500, to: 2600, g: .07, q: .8 }); tone(196, .25, { to: 294, g: .035 }); },
+    close() { if (!live()) return; hiss(.26, { f: 2400, to: 450, g: .06, q: .8 }); tone(294, .22, { to: 196, g: .03 }); },
+    power() { if (!live()) return; tone(70, 1.1, { to: 880, g: .08, a: .05, w: .3 }); hiss(1, { f: 300, to: 5000, g: .05 }); [523.3, 784, 1046.5].forEach((f, i) => tone(f, 1, { at: .9 + i * .1, g: .05, w: .8 })); },
+    zap() { if (!live()) return; tone(260, .3, { to: 2800, g: .09, type: "sawtooth" }); tone(1200, .45, { at: .05, to: 180, g: .06, w: .8 }); hiss(.3, { f: 4000, g: .06 }); },
+    ping() { if (!live()) return; tone(2637, .8, { g: .05, w: 1 }); tone(1318.5, .9, { g: .04, w: 1 }); },
+    stamp() { if (!live()) return; tone(130, .18, { to: 60, g: .25 }); hiss(.07, { ft: "lowpass", f: 1400, g: .18 }); },
+    burst() { if (!live()) return; hiss(1.6, { ft: "lowpass", f: 4200, to: 160, g: .35, q: .5, w: .8 }); tone(80, 1.8, { to: 28, g: .3 }); tone(311, 1.2, { to: 155, g: .05, type: "sawtooth", w: .8 }); },
+    portal() { if (!live()) return; hiss(.75, { f: 260, to: 4200, g: .22, q: .7, w: .5 }); tone(98, .9, { to: 392, g: .08, w: .5 }); },
+    land() { if (!live()) return; tone(90, .5, { to: 50, g: .16, w: .6 }); hiss(.5, { f: 3000, to: 300, g: .06 }); },
+    snap() { if (!live()) return; hiss(.025, { ft: "highpass", f: 2400, g: .6, a: .001, w: 1.2 }); tone(55, 2.4, { at: .12, to: 30, g: .3, a: .3 }); hiss(2.6, { at: .15, ft: "lowpass", f: 600, to: 120, g: .08, a: .6, w: .6 }); },
+    unsnap() { if (!live()) return; hiss(1.4, { ft: "lowpass", f: 150, to: 2600, g: .12, a: 1.1 }); [392, 523.3, 784].forEach((f, i) => tone(f, 1.2, { at: 1.1 + i * .08, g: .05, w: .8 })); },
+    // the beds
+    atlas: () => bed(g => { const a = osc(g, "sine", 55, .05), b = osc(g, "sine", 82.4, .025), c = osc(g, "triangle", 110.5, .012); return { nodes: [a, b, c] }; }, 1.2),
+    hum: () => bed(g => { const a = osc(g, "sawtooth", 58, .025), b = osc(g, "sine", 116, .04), lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 400; a.disconnect(); const av = ctx.createGain(); av.gain.value = .03; a.connect(lp); lp.connect(av); av.connect(g); return { nodes: [a, b] }; }, .25),
+    charge: () => bed(g => { const a = osc(g, "sine", 180, .045), b = osc(g, "triangle", 360, .015), t = ctx.currentTime; a.frequency.exponentialRampToValueAtTime(720, t + 1.4); b.frequency.exponentialRampToValueAtTime(1440, t + 1.4); return { nodes: [a, b] }; }, .15),
+    drone: () => bed(g => { const a = osc(g, "sine", 58, .07), b = osc(g, "sine", 61.3, .07), [n, fl] = noiseInto(g, "lowpass", 260, .8, .07), t = ctx.currentTime;
+      fl.frequency.exponentialRampToValueAtTime(1600, t + 5.5); const c = osc(g, "sawtooth", 116, .0); c.frequency.value = 116; return { nodes: [a, b, n, c] }; }, .6),
+    goo: () => bed(g => { const [n, fl] = noiseInto(g, "lowpass", 320, 6, .12), a = osc(g, "sine", 70, .05);
+      const iv = setInterval(() => { if (ctx) fl.frequency.setTargetAtTime(180 + Math.random() * 420, ctx.currentTime, .06); }, 90); return { nodes: [n, a], iv }; }, .2),
+    crackle: (rate = 40) => bed(g => { const iv = setInterval(() => { for (let k = Math.random() * 3 | 0; k >= 0; k--) { const t = ctx.currentTime + Math.random() * .03, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), v = ctx.createGain();
+        s.buffer = noiseBuf; f.type = "bandpass"; f.frequency.value = 2500 + Math.random() * 4500; f.Q.value = 2; env(v, t, .001, .08 + Math.random() * .12, .02 + Math.random() * .04); s.connect(f); f.connect(v); v.connect(g); s.start(t, Math.random()); s.stop(t + .08); } }, 1000 / rate);
+      return { iv }; }, .05)
+  };
+})();
+// the switch, in the Agent File above the save code
+const renderFile3 = renderFile;
+renderFile = function (...a) {
+  renderFile3(...a); const sv = document.getElementById("hfSave"); if (!sv || document.getElementById("hfSound")) return;
+  sv.closest(".hf-sec").insertAdjacentHTML("beforebegin", `<section class="hf-sec" id="hfSound"><h3><span>Sound</span></h3><div class="hf-save snd-row"><p>Made by the datapad itself as it plays: presses, check-offs, files opening, the Atlas, the Collection and the snap.</p><button type="button" class="snd-sw${state.sound ? " on" : ""}" role="switch" aria-checked="${!!state.sound}"><i></i><span>${state.sound ? "On" : "Off"}</span></button></div></section>`);
+};
+document.addEventListener("click", ev => { const b = ev.target.closest(".snd-sw"); if (!b) return; state.sound = !state.sound; persist(); b.classList.toggle("on", state.sound); b.setAttribute("aria-checked", state.sound); b.querySelector("span").textContent = state.sound ? "On" : "Off"; if (state.sound) SFX.power(); });
+// every press already has a feel; now it has a sound too
+const haptic3 = haptic;
+haptic = function (p) { haptic3(p); if (!state.sound) return; if (Array.isArray(p)) SFX.thud(Math.min(1.4, p.reduce((a, b) => a + b, 0) / 160)); else if (p >= 6) SFX.tick(); };
+// check-offs chime (and an unchecked title sighs)
+document.addEventListener("click", ev => { if (!state.sound) return; const r = ev.target.closest("#panel .row, .tl-row"); if (!r || ev.target.closest(".box, button:not(.row)")) return;
+  const k = r.dataset.tl ? tk(r.dataset.tl) : openEntry && r.dataset.t ? ck(openEntry, r.dataset.t) : null; if (!k) return; const was = !!state.checks[k];
+  setTimeout(() => { const now = !!state.checks[k]; if (now !== was) SFX.check(now); }, 0); }, true);
+// a pop-up rings once
+const say3 = say; say = function (...a) { if (state.sound) SFX.chime(); return say3(...a); };
+// pages and files open with a breath of air; the Atlas hums while it's open
+["openPanel", "openComms", "openFile", "openMap", "openDossier", "openColl"].forEach(n => { const f = window[n]; window[n] = function (...a) { if (state.sound) SFX.open(); return f.apply(this, a); }; });
+["closePanel", "closeComms", "closeFile", "closeMap", "closeDossier", "closeColl"].forEach(n => { const f = window[n]; window[n] = function (...a) { if (state.sound) SFX.close(); return f.apply(this, a); }; });
+let sndAtlas = null;
+{ const o = window.openAtlas, c = window.closeAtlas;
+  window.openAtlas = function (...a) { if (state.sound) { SFX.open(); if (!sndAtlas) sndAtlas = SFX.atlas(); } return o.apply(this, a); };
+  window.closeAtlas = function (...a) { if (sndAtlas) { sndAtlas.stop(.8); sndAtlas = null; } if (state.sound) SFX.close(); return c.apply(this, a); }; }
+// the first boot's Enter powers the datapad up
+document.addEventListener("click", ev => { if (ev.target.closest("#gateEnter") && state.sound) SFX.power(); }, true);
+// the Collection's cases, each with its own voice
+const untilUp = (ev, fn) => { const f = e => { if (e.pointerId !== ev.pointerId) return; window.removeEventListener("pointerup", f, true); window.removeEventListener("pointercancel", f, true); fn(); }; window.addEventListener("pointerup", f, true); window.addEventListener("pointercancel", f, true); };
+CX_LIVE.tesseract = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; let hum = null; const tm = setTimeout(() => { if (cxTessOn) hum = SFX.hum(); }, 470);
+  untilUp(ev, () => { clearTimeout(tm); if (hum) { hum.stop(.15); setTimeout(() => { if (document.querySelector(".fx-tess")) SFX.zap(); }, 60); } }); })(CX_LIVE.tesseract);
+CX_LIVE.arc = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; const ch = SFX.charge(); untilUp(ev, () => ch.stop(.45)); })(CX_LIVE.arc);
+CX_LIVE.aether = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; const g = SFX.goo(); untilUp(ev, () => g.stop(1.2)); })(CX_LIVE.aether);
+CX_LIVE.darkhold = ((f0) => (b, ev) => { const was = cxDarkOn; f0(b, ev); if (!state.sound || was) return; const d = SFX.drone(); const iv = setInterval(() => { if (!cxDarkOn) { clearInterval(iv); d.stop(.5); } }, 100);
+  window.__sndDark = d; })(CX_LIVE.darkhold);
+CX_LIVE["sling-ring"] = ((f0) => (b, ev) => { f0(b, ev); if (!state.sound) return; const c = SFX.crackle(18); untilUp(ev, () => c.stop(.3)); })(CX_LIVE["sling-ring"]);
+const slingView3 = slingView;
+slingView = function (p) { const v = slingView3(p); if (state.sound) { const c = SFX.crackle(55); SFX.portal(); setTimeout(() => SFX.portal(), SL_HOLD); setTimeout(() => { c.stop(.2); SFX.land(); }, SL_HOLD + SL_ZOOM); } return v; };
+const cxHandled3 = cxHandled;
+cxHandled = function (id, ms) { if (state.sound) { if (id === "darkhold") { if (window.__sndDark) window.__sndDark.stop(.2); SFX.burst(); } else if (id === "arc") SFX.ping(); } return cxHandled3(id, ms); };
+// the Accords' stamp lands with a thud, the moment it hits the page
+new MutationObserver(M => { if (!state.sound) return; M.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1 && n.classList.contains("acc-stamp") && n.closest(".acc-ov") && !n.closest(".acc-ov")._snd) { n.closest(".acc-ov")._snd = 1; SFX.stamp(); } })); }).observe(document.body, { childList: true, subtree: true });
+// the snap, and the way back
+const snap3 = snap, unsnap3 = unsnap;
+snap = function (...a) { if (state.sound) SFX.snap(); return snap3(...a); };
+unsnap = function (...a) { if (state.sound) SFX.unsnap(); return unsnap3(...a); };
+/* MOCKUP END */
 </script>
 </body>
 </html>
