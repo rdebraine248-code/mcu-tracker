@@ -11358,15 +11358,18 @@ function cxDark(b, ev) {
   requestAnimationFrame(frame);
 }
 
-/* ---------- a sling ring: trace a circle with your finger and a portal opens there, onto another case in the archive ---------- */
+/* ---------- a sling ring: trace a circle with your finger and a portal opens there. It holds for a moment, throwing sparks, with another
+   case in the archive showing through it; then it rushes toward you, you go through, and you're there ---------- */
+const SL_OPEN = 450, SL_HOLD = 2000, SL_ZOOM = 750;
 function cxSling(b, ev) {
   if (REDUCED) return;
   let { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, pts = [[ev.clientX, ev.clientY, performance.now()]], LIFE = 1300, OR = "255,150,40";
-  let up = 0, last = 0, portal = null, done = false;
+  let up = 0, last = 0, portal = null, prev = performance.now();
+  const sp = [];
   const frame = now => {
+    const dt = Math.min(.05, (now - prev) / 1000); prev = now;
     g.clearRect(0, 0, W, H); g.lineCap = "round"; g.shadowColor = `rgb(${OR})`; g.shadowBlur = 12;
-    // the trace: sparks that burn where your finger went, then die away
-    // drawn in five bands by age, one stroke each, so a long trace stays cheap
+    // the trace: sparks that burn where your finger went, then die away; drawn in five bands by age, one stroke each, so a long trace stays cheap
     for (let band = 0; band < 5; band++) { const a = 1 - (band + .5) / 5, j = () => (Math.random() - .5) * 2.4; let any = false;
       const glow = new Path2D(), core = new Path2D();
       for (let k = 1; k < pts.length; k++) { const f = (now - pts[k][2]) / LIFE; if (f < band / 5 || f >= (band + 1) / 5) continue; any = true;
@@ -11374,14 +11377,23 @@ function cxSling(b, ev) {
       if (!any) continue;
       g.shadowBlur = 12; g.strokeStyle = `rgba(${OR},${.9 * a})`; g.lineWidth = 3; g.stroke(glow);
       g.shadowBlur = 0; g.strokeStyle = `rgba(255,236,190,${a})`; g.lineWidth = 1.1; g.stroke(core); }
-    g.shadowBlur = 12;
-    if (portal) {   // the portal: a ring of sparks spinning open
-      const f = (now - portal.t) / 1600, R = portal.r * easeIO(clamp01(f / .25)) * (f > .8 ? 1 - (f - .8) / .2 : 1);
-      if (f >= 1) { cv.remove(); return; }
-      for (let k = 0; k < 30; k++) { const q = now / 160 + k / 30 * Math.PI * 2 + Math.random() * .2, r = R + (Math.random() - .5) * 7;
-        g.strokeStyle = `rgba(${k % 3 ? OR : "255,230,160"},.95)`; g.lineWidth = 1.4 + Math.random() * 1.6; g.beginPath(); g.arc(portal.x, portal.y, Math.max(1, r), q, q + .18 + Math.random() * .2); g.stroke(); }
-      if (Math.random() < .7) { const q = Math.random() * Math.PI * 2; sparkC(portal.x + Math.cos(q) * R, portal.y + Math.sin(q) * R, -Math.sin(q) * 60, Math.cos(q) * 60, 0, 600, ORANGE_C); }
-      if (f > .28 && !done) { done = true; slingJump(portal); cxHandled("sling-ring", 900); }
+    if (portal) {
+      const f = now - portal.t, open = easeIO(clamp01(f / SL_OPEN)), z = clamp01((f - SL_HOLD) / SL_ZOOM), ze = z * z * z;
+      const R = portal.r * open + (portal.max - portal.r) * ze, fade = 1 - clamp01((z - .75) / .25);
+      // the ring: arcs of sparks spinning around its edge, heavier as it rushes in
+      g.shadowBlur = 12;
+      for (let k = 0; k < 40; k++) { const q = now / 150 + k / 40 * Math.PI * 2 + Math.random() * .2, r = R + (Math.random() - .5) * (7 + 20 * ze);
+        g.strokeStyle = `rgba(${k % 3 ? OR : "255,230,160"},${.95 * fade})`; g.lineWidth = (1.4 + Math.random() * 1.8) * (1 + 3 * ze); g.beginPath(); g.arc(portal.x, portal.y, Math.max(1, r), q, q + .16 + Math.random() * .22); g.stroke(); }
+      // sparks thrown off the edge, flung along the spin and falling away
+      if (z < .4 && f > 120) for (let n = 0; n < 6; n++) { const q = Math.random() * Math.PI * 2, v = 90 + Math.random() * 170;
+        sp.push({ x: portal.x + Math.cos(q) * R, y: portal.y + Math.sin(q) * R, vx: -Math.sin(q) * v + Math.cos(q) * Math.random() * 50, vy: Math.cos(q) * v + Math.sin(q) * Math.random() * 50, t: 0, life: .35 + Math.random() * .45 }); }
+      g.shadowBlur = 6;
+      for (let i = sp.length - 1; i >= 0; i--) { const s = sp[i]; s.t += dt; if (s.t > s.life) { sp.splice(i, 1); continue; }
+        s.vy += 320 * dt; s.x += s.vx * dt; s.y += s.vy * dt; const a = 1 - s.t / s.life;
+        g.strokeStyle = `rgba(255,${200 + (55 * a | 0)},${120 + (100 * a | 0)},${a})`; g.lineWidth = 1.3; g.beginPath(); g.moveTo(s.x, s.y); g.lineTo(s.x - s.vx * .035, s.y - s.vy * .035); g.stroke(); }
+      if (portal.view) portal.view.at(open, z, R);
+      if (f >= SL_HOLD + SL_ZOOM && !portal.done) { portal.done = true; if (portal.view) portal.view.land(); }
+      if (f >= SL_HOLD + SL_ZOOM + 300) { cv.remove(); return; }
     } else if (up && now - up > LIFE) { cv.remove(); return; }
     requestAnimationFrame(frame);
   };
@@ -11396,15 +11408,34 @@ function cxSling(b, ev) {
     const cx = pts.reduce((s, p) => s + p[0], 0) / n, cy = pts.reduce((s, p) => s + p[1], 0) / n, ds = pts.map(p => Math.hypot(p[0] - cx, p[1] - cy)), R = ds.reduce((s, d) => s + d, 0) / n;
     const sd = Math.sqrt(ds.reduce((s, d) => s + (d - R) ** 2, 0) / n) / R;
     let sweep = 0; for (let k = 1; k < n; k++) { let d = Math.atan2(pts[k][1] - cy, pts[k][0] - cx) - Math.atan2(pts[k - 1][1] - cy, pts[k - 1][0] - cx); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; sweep += d; }
-    if (R > 26 && sd < .32 && Math.abs(sweep) > Math.PI * 1.6) { portal = { x: cx, y: cy, r: Math.max(R, 40), t: performance.now() }; haptic([20, 30, 20, 30, 60]); }
+    if (R > 26 && sd < .32 && Math.abs(sweep) > Math.PI * 1.6) {
+      const p = { x: cx, y: cy, r: Math.max(R, 46), t: performance.now() };
+      p.max = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy)) + 30; p.view = slingView(p);
+      portal = p; haptic([20, 30, 20, 30, 60]); setTimeout(() => haptic([30, 20, 60]), SL_HOLD + SL_ZOOM * .6);
+    }
   });
 }
-function slingJump(p) {
+// what you see through the portal: the case it opens onto, drawn small and far off inside the ring, growing to fill the screen as you go
+// through; at the end the real panel opens that case and the view steps aside, so there's no jump
+function slingView(p) {
   const here = COLLX.find(x => x.id === collRec), u = here ? rfUniOf(here) : cxUni;
-  const L = COLLX.filter(o => o.id !== collRec && rfUniOf(o) === u && cxSteps(o).length); if (!L.length) return;
-  const to = L[Math.random() * L.length | 0]; collShow(to.id);
-  const v = document.getElementById("collView"), r = v.getBoundingClientRect(), x = p.x - r.left, y = p.y - r.top;
-  v.animate([{ clipPath: `circle(0px at ${x}px ${y}px)` }, { clipPath: `circle(${Math.hypot(innerWidth, innerHeight) * 1.2}px at ${x}px ${y}px)` }], { duration: 650, easing: "cubic-bezier(.5,0,.3,1)" });
+  const L = COLLX.filter(o => o.id !== collRec && rfUniOf(o) === u && cxSteps(o).length); if (!L.length) return null;
+  const to = L[Math.random() * L.length | 0], panel = document.getElementById("collPanel"), v = document.getElementById("collView"), y0 = panel.scrollTop, keep = collRec;
+  collRec = to.id; renderCx(); const html = v.innerHTML; collRec = keep; renderCx(); panel.scrollTop = y0;
+  const ov = panel.cloneNode(true), ovv = ov.querySelector("#collView"); ov.removeAttribute("id"); ov.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
+  ovv.innerHTML = html; ov.style.cssText = `display:block;overflow:hidden;z-index:90;pointer-events:none;opacity:0;transform-origin:${p.x}px ${p.y}px`;
+  document.body.appendChild(ov); ov.scrollTop = 0;
+  const dmin = Math.max(1, Math.min(p.x, innerWidth - p.x, p.y, innerHeight - p.y));
+  return {
+    at(open, z, R) {
+      if (!collOpen) { ov.remove(); return; }
+      // small and far off at first; it grows as you go in, and always fills the ring, so its edges never show
+      const s = Math.max(.5 + .5 * z * z, Math.min(1, R * .92 / dmin)), r = Math.max(0, R * .92) / s;
+      ov.style.opacity = open; ov.style.transform = `scale(${s})`; ov.style.clipPath = `circle(${r}px at ${p.x}px ${p.y}px)`;
+      ov.style.filter = z < 1 ? `brightness(${.75 + .25 * z}) saturate(${.8 + .2 * z})` : "";
+    },
+    land() { if (collOpen) { collShow(to.id); cxHandled("sling-ring", 900); } requestAnimationFrame(() => ov.remove()); }
+  };
 }
 
 /* ---------- the arc reactor: hold it and it powers up, lighting the file around it; let go and it powers down ---------- */
