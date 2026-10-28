@@ -11792,9 +11792,9 @@ const DPSND = (() => {
 const sndOn = () => !!state.sound;
 const sndPlay = (n, a) => { if (sndOn()) DPSND.play(n, a); };
 // a press's own sound wins over the plain tap
-let sndClaimAt = 0; const sndClaim = (n, a) => { sndClaimAt = performance.now(); sndPlay(n, a); };
+let sndClaimAt = 0, sndSeq = 0; const sndClaim = (n, a) => { sndClaimAt = performance.now(); sndSeq++; sndPlay(n, a); };
 document.addEventListener("click", ev => { if (!sndOn() || !ev.isTrusted) return; const b = ev.target.closest('button, [role="button"], .tile, a'); if (!b) return;   // only your own presses, not clicks the app makes
-  setTimeout(() => { if (performance.now() - sndClaimAt > 60) sndPlay("tap"); }, 0); }, true);
+  const seq = sndSeq; setTimeout(() => { if (sndSeq === seq) sndPlay("tap"); }, 0); }, true);   // silent if anything else claimed this press
 // tabs, chips, segments and pagers
 document.addEventListener("click", ev => { if (!sndOn()) return;
   if (ev.target.closest('[role="tab"], .rf-seg button, .rf-tabs button, [data-hfpg], .atl-views button, .atl-chips button, .jv-sug button, .cm-chips button, .ftabs button')) sndClaim("select");
@@ -11807,7 +11807,7 @@ window.addEventListener("popstate", () => { if (sndOn() && performance.now() - s
 // check-offs
 document.addEventListener("click", ev => { if (!sndOn()) return; const r = ev.target.closest("#panel .row, .tl-row"); if (!r || ev.target.closest("button:not(.row), .ep-chip")) return;
   const k = r.dataset.tl ? tk(r.dataset.tl) : openEntry && r.dataset.t ? ck(openEntry, r.dataset.t) : null; if (!k) return; const was = !!state.checks[k];
-  sndClaimAt = performance.now(); setTimeout(() => { const now = !!state.checks[k]; if (now !== was) DPSND.play(now ? "check" : "uncheck"); }, 0); }, true);
+  sndClaimAt = performance.now(); sndSeq++; setTimeout(() => { const now = !!state.checks[k]; if (now !== was) DPSND.play(now ? "check" : "uncheck"); }, 0); }, true);
 // a note written to your log
 document.addEventListener("change", ev => { if (ev.target.closest("#rateSheet textarea")) sndPlay("saved"); }, true);
 // the wrappers: each function that runs an animation plays its sound
