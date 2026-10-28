@@ -1164,6 +1164,33 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
+/* MOCKUP BEGIN: Handle with care in the Collection (test build only; mainprep cuts it) */
+.hwc{ margin-bottom:14px; } .hwc .rf-sh span{ color:#F4D27A; }
+.hwc-list{ display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:6px; }
+.hwc-row{ display:grid; grid-template-columns:28px 1fr; grid-template-rows:auto auto; column-gap:8px; align-items:center; padding:8px 10px; border:1px solid #3A3220; border-radius:10px; background:#141108; color:#EEF1F6; text-align:left; cursor:pointer; }
+.hwc-row .cx-stage{ grid-row:1 / 3; width:28px; height:28px; color:#C9A43A; } .hwc-row .cx-stage svg{ width:100%; height:100%; }
+.hwc-row b{ font-size:13px; font-weight:600; line-height:1.2; } .hwc-row em{ font:9.5px 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#8E8460; }
+.hwc-row.done{ border-color:#C9A43A; } .hwc-row.done em{ color:#F4D27A; } .hwc-row.lock{ opacity:.45; cursor:default; }
+/* MOCKUP END */
+/* MOCKUP BEGIN: tactical replays in Damage Control (test build only; mainprep cuts it) */
+.tr{ margin:0 0 16px; border:1px solid #2F5A26; border-radius:12px; background:rgba(127,217,90,.04); }
+.tr-head{ display:flex; align-items:center; gap:10px; width:100%; padding:11px 14px; border:0; background:none; color:#BFF0A6; text-align:left; cursor:pointer; }
+.tr-head span{ font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; } .tr-head small{ margin-left:auto; color:#86A879; font-size:13px; }
+.tr-head i{ display:grid; color:#7FD95A; transition:transform .2s; } .tr.open .tr-head i{ transform:rotate(180deg); }
+.tr-body{ padding:0 12px 12px; }
+.tr-map{ border:1px solid #24401E; border-radius:10px; overflow:hidden; background:radial-gradient(ellipse at 50% 40%,#0F1A0F,#070B07 75%); }
+.tr-map svg{ display:block; width:100%; height:auto; }
+.tr-lab{ font:7px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; fill:rgba(170,230,140,.5); text-transform:uppercase; } .tr-lab.cur{ font-size:8px; fill:#E6FFDA; }
+.tr-n{ font:700 8px 'Share Tech Mono','Courier New',monospace; text-anchor:middle; dominant-baseline:central; }
+.tr-ctl{ display:flex; align-items:center; gap:8px; margin:10px 0 4px; }
+.tr-ctl button{ flex:none; display:grid; place-items:center; width:38px; height:38px; border:1px solid #2F5A26; border-radius:50%; background:#0C140C; color:#BFF0A6; }
+.tr-ctl button.pp{ width:44px; height:44px; border-color:#4E9E3A; color:#7FD95A; } .tr-ctl input{ flex:1; min-width:0; accent-color:#7FD95A; }
+.tr-cap{ min-height:62px; margin:8px 0 0; padding:10px 12px; border-left:3px solid #7FD95A; background:rgba(127,217,90,.06); border-radius:0 10px 10px 0; color:#EEF1F6; font-size:15px; line-height:1.45; }
+.tr-cap small{ display:block; margin-bottom:3px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FD95A; }
+.tr-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin:10px 0 4px; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#A6C996; }
+.tr-legend i{ display:inline-block; width:9px; height:9px; margin-right:6px; border-radius:50%; vertical-align:-1px; }
+.tr-note{ margin:4px 0 0; color:#86A879; font-size:12.5px; }
+/* MOCKUP END */
 /* MOCKUP BEGIN: Sound, proposal 2 (test build only; mainprep cuts it) */
 .snd-row{ display:flex; align-items:center; gap:14px; } .snd-row p{ flex:1; margin:0 !important; }
 .hf-save .snd-sw{ flex:none; display:inline-flex; align-items:center; gap:10px; padding:6px 12px 6px 6px; }
@@ -7173,14 +7200,14 @@ function renderFile(fresh) {
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
     const pr = !ok && a.prog ? a.prog() : null, cnt = pr && pr[0] > 0 ? `${pr[0]} of ${pr[1]}` : "";   // a file found in parts counts them under [ Classified ], its name kept until it's found
-    const hid = !ok && (a.sec === "chapters" ? !slNamed(DATA.chapters.find(c => c.id === a.cid)) : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
+    const hid = !ok && !(MOCK && cnt) && (a.sec === "chapters" ? !slNamed(DATA.chapters.find(c => c.id === a.cid)) : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
     // a chapter's number is never secret (its cover on Story shows it), so a chapter card keeps it, as the Personal log and the Log do: Ch. 3 over [ Classified ]
     const pub = a.sec === "chapters" ? (DATA.chapters.find(c => c.id === a.cid) || {}).num : null;
     // a chapter card reads like its row in the Log and its cell in the Personal log: its number on top, its name (or [ Classified ]), then where you are
     if (a.sec === "chapters") { const ch = DATA.chapters.find(c => c.id === a.cid) || {};
       return `<button type="button" class="ach chc${ok ? " done" : ""}${hid ? " cl" : ""}" data-ach="${esc(a.id)}"><span class="st">${pub ? "Ch. " + pub : "Extras"}</span><b>${hid ? '<span class="sl-cl">[ Classified ]</span>' : esc(ch.title || a.t)}</b>${hid ? (tip ? `<small>${esc(tip)}</small>` : "") : `<small>${ok ? "Complete" : esc(tip || "In progress")}</small>`}</button>`; }
     if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b><span class="sl-cl">[ Classified ]</span></b>${tip || cnt ? `<small>${esc(tip || cnt)}</small>` : ""}</button>`;
-    const nm = a.sec === "characters" ? boxName(a.ch) : a.t, note = ok ? a.d : tip || "In progress";
+    const nm = a.sec === "characters" ? boxName(a.ch) : a.t, note = ok ? a.d : tip || (MOCK && cnt ? cnt + " handled" : "In progress");
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}">${ok ? `<span class="st">Complete</span>` : ""}<b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
     return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg">${L.map(card).join("")}</div></section>`; };
@@ -11062,6 +11089,7 @@ const DC = [
   { id: "dc-gv", no: "DC-2018-008", u: "mcu", n: "The Attack on Greenwich Village", yr: 2018, where: "Bleecker Street, Greenwich Village, New York", t: "Avengers: Infinity War", cls: "Extraterrestrial attack", cause: "Ebony Maw and Cull Obsidian land in New York to take the Time Stone from Stephen Strange, just after Bruce Banner has warned him and Tony Stark that Thanos is coming.", out: "Tony, Strange, Wong and Peter Parker fight them through the streets, and Wong sends Cull Obsidian away through a portal, but Maw captures Strange and his ship leaves Earth with Tony and Peter aboard.", loss: [], fall: [["Tony and Peter blow Maw out of his ship into space and rescue Strange, and the ship carries them to Titan.", "Avengers: Infinity War"], ["Wong goes back to guard the New York Sanctum.", "Avengers: Infinity War"], ["Bruce calls Steve Rogers on the phone Steve left with Tony.", "Avengers: Infinity War"]], who: [["ebony-maw", "T"], ["cull-obsidian", "T"], ["tony-stark", "A"], ["stephen-strange", "A"], ["wong", "A"], ["bruce-banner", "A"], ["peter-parker", "A"]], tm: [["avengers", "A"], ["masters-of-the-mystic-arts", "A"]], obj: ["agamotto", "iron-man-armor", "iron-spider", "cloak", "sling-ring"] },
   { id: "dc-wak", no: "DC-2018-009", u: "mcu", n: "The Battle of Wakanda", yr: 2018, where: "The fields outside the Wakandan shield, Wakanda", t: "Avengers: Infinity War", cls: "Extraterrestrial invasion", cause: "To keep the Mind Stone from Thanos, Steve Rogers's team brings Vision to Wakanda, where Shuri works to take the stone out of his head, and Thanos's Black Order brings an army of Outriders down outside the city's shield.", out: "Wakanda's army and the Avengers hold the line, Thor arrives with Rocket, Groot and his new axe Stormbreaker, and the Black Order falls. Then Thanos arrives, undoes Wanda Maximoff's destruction of the stone with the Time Stone, and tears it from Vision's head.", loss: [["Vision, killed when Thanos tears out the Mind Stone.", "Avengers: Infinity War"], ["Proxima Midnight, thrown into the threshers by Wanda.", "Avengers: Infinity War"], ["Corvus Glaive, killed by Vision.", "Avengers: Infinity War"], ["Cull Obsidian, driven into the shield by Bruce Banner.", "Avengers: Infinity War"]], fall: [["Thor's axe fails to stop Thanos, who snaps his fingers and wipes out half of all life.", "Avengers: Infinity War"], ["Three weeks later, the survivors find Thanos on the Garden, and Thor cuts off his head.", "Avengers: Endgame"]], who: [["thanos", "T"], ["proxima-midnight", "T"], ["corvus-glaive", "T"], ["cull-obsidian", "T"], ["steve-rogers", "A"], ["natasha-romanoff", "A"], ["thor", "A"], ["bruce-banner", "A"], ["wanda-maximoff", "A"], ["vision", "A"], ["tchalla", "A"], ["okoye", "A"], ["shuri", "A"], ["m-baku", "A"], ["bucky-barnes", "A"], ["sam-wilson", "A"], ["james-rhodes", "A"], ["rocket", "A"], ["groot", "A"]], tm: [["avengers", "A"], ["dora-milaje", "A"], ["jabari", "A"]], obj: ["scepter", "stormbreaker", "gauntlet", "hulkbuster"] },
   { id: "dc-garden", no: "DC-2018-010", u: "mcu", n: "The Ambush on Thanos", yr: 2018, where: "Thanos's farm, the Garden", t: "Avengers: Endgame", cls: "Retaliatory strike", cause: "Three weeks after the Snap, Nebula leads the surviving Avengers and Carol Danvers to the Garden, the planet where Thanos has gone to rest, hoping to take the stones and undo what he did.", out: "They find that Thanos has used the stones to destroy the stones, which nearly killed him, so nothing can be undone. Thor cuts off his head.", loss: [["Thanos, killed by Thor.", "Avengers: Endgame"], ["The six Infinity Stones, destroyed by Thanos.", "Avengers: Endgame"]], fall: [["Thor gives up and drinks away the next five years in New Asgard.", "Avengers: Endgame"], ["Five years later, Scott Lang comes back from the Quantum Realm, and the Avengers use it to go back in time for the stones.", "Avengers: Endgame"]], who: [["thanos", "T"], ["nebula", "A"], ["carol-danvers", "A"], ["steve-rogers", "A"], ["natasha-romanoff", "A"], ["thor", "A"], ["bruce-banner", "A"], ["james-rhodes", "A"], ["rocket", "A"]], tm: [["avengers", "A"]], obj: ["gauntlet", "stormbreaker"] },
+  { id: "dc-titan", no: "DC-2018-011", u: "mcu", n: "The Battle of Titan", yr: 2018, where: "Titan, Thanos's ruined homeworld", t: "Avengers: Infinity War", cls: "Extraterrestrial attack", cause: "Thanos comes to Titan, his dead homeworld, for the Time Stone. Tony Stark, Peter Parker and Doctor Strange, who rode Ebony Maw's ship there, join Peter Quill, Drax and Mantis to ambush him and pull the Gauntlet off his hand.", out: "Mantis puts Thanos under and the gauntlet is nearly off, until Quill learns that Thanos killed Gamora, strikes him and wakes him. Thanos fights them all off, brings a moon down on them and stabs Tony, and Strange gives up the Time Stone to spare Tony's life before Thanos leaves for Earth.", loss: [["Peter Quill, Drax, Mantis, Doctor Strange and Peter Parker, turned to dust on Titan in the Snap.", "Avengers: Infinity War"]], fall: [["Tony and Nebula, the only ones left, set out for Earth in the Benatar and drift in space until Carol Danvers brings them home.", "Avengers: Endgame"]], who: [["thanos", "T"], ["tony-stark", "A"], ["peter-parker", "A"], ["stephen-strange", "A"], ["peter-quill", "A"], ["drax", "A"], ["mantis", "A"], ["nebula", "A"]], tm: [["guardians-of-the-galaxy", "A"]], obj: ["gauntlet", "agamotto", "iron-man-armor", "iron-spider", "benatar"] },
   { id: "dc-earth", no: "DC-2023-001", u: "mcu", n: "The Battle of Earth", yr: 2023, where: "The Avengers Compound, Upstate New York", t: "Avengers: Endgame", cls: "Extraterrestrial invasion", cause: "Five years after the Snap, Bruce Banner brings back everyone it took with the Nano Gauntlet, and the Thanos of 2014, brought forward by his Nebula through the Avengers' quantum tunnel, levels the Avengers Compound from his warship.", out: "Steve Rogers, Tony Stark and Thor hold Thanos off until every returned hero and army comes through the sorcerers' portals, and Carol Danvers destroys the warship. When Thanos seizes the stones, Tony takes them into his own armor and snaps, turning Thanos and his army to dust.", loss: [["Tony Stark, killed by the power of the stones.", "Avengers: Endgame"], ["The Avengers Compound, flattened by Thanos's warship.", "Avengers: Endgame"], ["The Nebula of 2014, shot by her future self.", "Avengers: Endgame"]], fall: [["Tony's family and friends gather at the lake house for his funeral.", "Avengers: Endgame"], ["Steve returns the stones, stays in the past with Peggy Carter, and as an old man hands his shield to Sam Wilson.", "Avengers: Endgame"], ["Peter Parker grieves for Tony on a school trip to Europe, where Tony's glasses, E.D.I.T.H., pass to him.", "Spider-Man: Far From Home"], ["The Gamora of 2014 slips away after the battle and joins the Ravagers.", "Guardians of the Galaxy Vol. 3"]], who: [["thanos", "T"], ["ebony-maw", "T"], ["proxima-midnight", "T"], ["corvus-glaive", "T"], ["cull-obsidian", "T"], ["tony-stark", "A"], ["steve-rogers", "A"], ["thor", "A"], ["bruce-banner", "A"], ["carol-danvers", "A"], ["wanda-maximoff", "A"], ["peter-parker", "A"], ["tchalla", "A"], ["pepper-potts", "A"], ["scott-lang", "A"], ["nebula", "A"], ["gamora", "A"], ["stephen-strange", "A"], ["sam-wilson", "A"], ["valkyrie", "A"], ["okoye", "A"], ["rocket", "A"]], tm: [["chitauri", "T"], ["avengers", "A"], ["dora-milaje", "A"], ["guardians-of-the-galaxy", "A"], ["ravagers", "A"], ["masters-of-the-mystic-arts", "A"]], obj: ["nano-gauntlet", "iron-man-armor", "mjolnir", "shield", "thanos-sword", "sanctuary-ii", "quantum-tunnel"] },
   { id: "dc-westview", no: "DC-2023-002", u: "mcu", n: "The Westview Anomaly", yr: 2023, where: "Westview, New Jersey", t: "WandaVision", cls: "Mystic anomaly", cause: "Grieving Vision, Wanda Maximoff traps the town of Westview inside a hex of red energy and turns it into a sitcom world, with a Vision of her own and twin sons, Billy and Tommy, while the townspeople are bound to play their parts.", out: "S.W.O.R.D.'s Tyler Hayward rebuilds the real Vision's body as a weapon, and the neighbor Agnes turns out to be the witch Agatha Harkness, who wants Wanda's power. Wanda beats Agatha, binds her in Westview as Agnes and brings the hex down, losing her Vision and her sons, while White Vision regains his memories and flies away.", loss: [["The Vision Wanda made, and their sons Billy and Tommy, gone when the hex comes down.", "WandaVision"]], fall: [["Monica Rambeau exposes Hayward, and he is arrested.", "WandaVision"], ["Wanda studies the Darkhold in a remote cabin and hears her sons cry for help.", "WandaVision"], ["Now the Scarlet Witch, Wanda attacks Kamar-Taj to take America Chavez's power and reach her sons in another universe.", "Doctor Strange in the Multiverse of Madness"], ["Agatha shakes off Wanda's spell and leads a new coven down the Witches' Road, joined by a teenager who turns out to be Billy.", "Agatha All Along"]], who: [["agatha-harkness", "T"], ["tyler-hayward", "T"], ["white-vision", "T"], ["wanda-maximoff", "T"], ["pietro-maximoff", "T"], ["vision", "A"], ["billy-maximoff", "A"], ["tommy-maximoff", "A"], ["monica-rambeau", "A"], ["jimmy-woo", "A"], ["darcy-lewis", "A"]], tm: [], obj: ["darkhold"] },
   { id: "dc-talo", no: "DC-2024-001", u: "mcu", n: "The Battle of Ta Lo", yr: 2024, where: "The village of Ta Lo, a hidden realm", t: "Shang-Chi and the Legend of the Ten Rings", cls: "Mystic breach", cause: "Wenwu believes he hears his dead wife Ying Li calling to him from behind Ta Lo's Dark Gate, and he leads the Ten Rings against the village to break the gate down. The voice belongs to the Dweller-in-Darkness, sealed behind the gate with its soul eaters.", out: "Ta Lo's defenders meet the Ten Rings at the village, until Wenwu's attack on the gate frees the soul eaters and the two armies join forces against them. The Dweller breaks loose, and Wenwu dies saving his son, passing him the Ten Rings; Shang-Chi, with the Great Protector and an arrow from Katy Chen, kills the Dweller.", loss: [["Wenwu, whose soul the Dweller-in-Darkness takes after he gives Shang-Chi the Ten Rings.", "Shang-Chi and the Legend of the Ten Rings"], ["Death Dealer, killed by a soul eater.", "Shang-Chi and the Legend of the Ten Rings"], ["Guang Bo, killed by a soul eater.", "Shang-Chi and the Legend of the Ten Rings"]], fall: [["Wong brings Shang-Chi and Katy to Kamar-Taj, where the Ten Rings are found sending out a beacon.", "Shang-Chi and the Legend of the Ten Rings"], ["Xialing takes command of the Ten Rings.", "Shang-Chi and the Legend of the Ten Rings"]], who: [["wenwu", "T"], ["dweller-in-darkness", "T"], ["death-dealer", "T"], ["razor-fist", "T"], ["shang-chi", "A"], ["xialing", "A"], ["katy-chen", "A"], ["ying-nan", "A"], ["guang-bo", "A"], ["trevor-slattery", "A"], ["morris", "A"]], tm: [["ten-rings", "T"]], obj: ["rings", "li-pendants", "dragon-scale-gear", "spec-soul-eater"] },
@@ -11857,6 +11885,172 @@ const sndToggle = () => { state.sound = !state.sound; persist(); document.queryS
 document.addEventListener("click", ev => { if (ev.target.closest(".snd-sw, #sndPill")) { ev.stopPropagation(); sndToggle(); return; }
   const k = ev.target.closest("[data-sndbox]"); if (k) { state.sndBox = k.dataset.sndbox; persist(); document.querySelectorAll("[data-sndbox]").forEach(b => b.setAttribute("aria-pressed", b.dataset.sndbox === state.sndBox)); DPSND.play("open" + state.sndBox); setTimeout(() => DPSND.play("close" + state.sndBox), 600); } }, true);
 document.body.insertAdjacentHTML("beforeend", `<button type="button" id="sndPill" class="snd-pill">Sound ${sndOn() ? "on" : "off"}</button>`);
+/* MOCKUP END */
+/* MOCKUP BEGIN: tactical replays in Damage Control (test build only; mainprep cuts it). A battle's report can replay it beat by beat: the beats
+   carry the story, and a plain map of the ground marks where each one happens, at named places only. Nobody's path is drawn: no source
+   records where every person stood, so the replay never claims to */
+const TR_COL = { A: "#5FA8FF", B: "#F4C542", T: "#FF5A4E", N: "#7FD95A" };
+const trL = (x, y, t, a) => `<text class="tr-lab" x="${x}" y="${y}"${a ? ` text-anchor="${a}"` : ""}>${t}</text>`;
+const TR_LN = 'stroke="rgba(127,217,90,.28)" fill="none"', TR_BD = 'fill="rgba(127,217,90,.07)" stroke="rgba(127,217,90,.32)"';
+const trGrid = () => { let g = ""; for (let x = 0; x <= 400; x += 20) g += `<path d="M${x} 0V240" stroke="rgba(127,217,90,.05)"/>`; for (let y = 0; y <= 240; y += 20) g += `<path d="M0 ${y}H400" stroke="rgba(127,217,90,.05)"/>`; return g; };
+// each battle: its ground, the places on it, and the beats; a beat is [side that drives it, place, what happens]
+const TR = {
+  "dc-bny": { sides: { A: "The Avengers", T: "Loki and the Chitauri" },
+    map: () => trGrid() + [60, 130, 200, 270, 340].map(x => `<path d="M${x} 0V240" ${TR_LN} stroke-width="${x === 200 ? 5 : 2.5}"/>`).join("") + [35, 70, 105, 140, 175, 210].map(y => `<path d="M0 ${y}H400" ${TR_LN} stroke-width="${y === 175 ? 3.4 : 1.5}"/>`).join("")
+      + `<rect x="178" y="128" width="44" height="38" ${TR_BD}/><rect x="192" y="102" width="16" height="16" fill="rgba(127,217,90,.2)" stroke="rgba(160,240,120,.6)"/>` + trL(64, 10, "5th Ave") + trL(204, 10, "Park Ave") + trL(344, 10, "3rd Ave") + trL(6, 171, "E 42nd St"),
+    at: { tower: [200, 110, "Stark Tower"], sky: [200, 62, "The portal, overhead"], street: [148, 186, "Midtown streets"], park: [200, 150, "Park Avenue"], gc: [228, 196, "Grand Central"], roof: [268, 124, "A rooftop"], council: [360, 222, "The Helicarrier"] },
+    beats: [["T", "tower", "Tony Stark tries to shut down Selvig's device on top of Stark Tower, then confronts Loki in the penthouse. Loki throws him out of the window, and his new armor catches him."],
+      ["T", "sky", "The device opens a portal above the tower, and the Chitauri army pours through into Midtown."],
+      ["A", "tower", "Thor lands on the tower to stop his brother. They fight, and Loki takes to the air on a Chitauri chariot."],
+      ["T", "street", "Steve, Natasha and Clint fly in on the Quinjet. Loki shoots it down, and it crash-lands in the streets of Midtown."],
+      ["T", "park", "A Leviathan comes through the portal, and Tony leads it down Park Avenue toward the team."],
+      ["A", "gc", "Bruce Banner arrives and turns into the Hulk, who stops the Leviathan with one punch. The team assembles."],
+      ["A", "roof", "Steve gives the orders: Clint takes a rooftop to call out positions, Tony holds the perimeter, Thor bottlenecks the portal with lightning, and the Hulk smashes."],
+      ["A", "tower", "Natasha rides a chariot up to the tower, where Selvig tells her Loki's scepter can close the portal. Inside, the Hulk smashes Loki into the floor."],
+      ["T", "council", "The World Security Council fires a nuclear missile at Manhattan. Tony catches it and carries it toward the tower."],
+      ["A", "sky", "Tony flies the missile up through the portal into the Chitauri mothership. It explodes, and the army on Earth collapses."],
+      ["A", "tower", "Natasha closes the portal with the scepter as Tony falls back through, and the Hulk catches him."]] },
+  "dc-lhz": { sides: { A: "Steve's side", B: "Tony's side" },
+    map: () => trGrid() + `<rect x="20" y="16" width="150" height="44" ${TR_BD}/><rect x="300" y="86" width="86" height="70" ${TR_BD}/><circle cx="252" cy="44" r="9" ${TR_BD}/><rect x="0" y="206" width="400" height="30" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.28)"/><path d="M10 221H390" stroke="rgba(160,240,120,.35)" stroke-dasharray="10 8"/>`
+      + trL(26, 40, "Terminal") + trL(304, 82, "Hangar") + trL(266, 48, "Tower") + trL(12, 202, "Runway"),
+    at: { apron: [220, 128, "The tarmac"], terminal: [96, 72, "The terminal"], hangar: [343, 121, "The hangar"], air: [330, 64, "Above the airport"], runway: [262, 196, "The runway"] },
+    beats: [["B", "apron", "Steve Rogers and Bucky Barnes reach the airport to take a Quinjet. Tony Stark and James Rhodes land on the tarmac to stop them, with Natasha Romanoff, T'Challa and Vision close behind."],
+      ["B", "apron", "Tony calls in Peter Parker, who webs up Steve's hands and takes his shield."],
+      ["A", "terminal", "Steve's side strikes back: Sam Wilson, Wanda Maximoff and Clint Barton join the fight, and so does Scott Lang."],
+      ["N", "apron", "The two sides charge each other across the tarmac."],
+      ["A", "hangar", "Steve and Bucky break for the Quinjet in the hangar, while the others keep Tony's side busy."],
+      ["A", "runway", "Scott grows to giant size, tearing through the airport to cover their run."],
+      ["B", "runway", "Peter ties Scott's legs with his webbing, and Tony and Rhodes bring him down."],
+      ["A", "hangar", "T'Challa chases Steve and Bucky to the hangar. Natasha stuns him, and the Quinjet takes off."],
+      ["B", "air", "Rhodes and Tony chase the jet, and Sam turns to stop them. Vision fires at Sam, but the beam hits Rhodes."],
+      ["B", "air", "Rhodes falls from the sky. Tony and Sam dive after him, but neither reaches him in time."],
+      ["B", "apron", "Sam, Wanda, Clint and Scott are arrested and taken to the Raft."]] },
+  "dc-earth": { sides: { A: "The Avengers and their allies", T: "Thanos and his army" },
+    map: () => trGrid() + `<path d="M0 40C40 60 50 110 30 150S40 230 0 240Z" fill="rgba(90,140,255,.07)" stroke="rgba(140,180,255,.25)"/><ellipse cx="210" cy="132" rx="96" ry="54" fill="rgba(127,217,90,.06)" stroke="rgba(127,217,90,.32)" stroke-dasharray="4 3"/>` + trL(8, 96, "Lake") + trL(210, 196, "The Compound, in ruins", "middle"),
+    at: { ruins: [210, 132, "The ruins"], sky: [210, 24, "Thanos's warship, overhead"], field: [140, 200, "The field"], rim: [330, 96, "The edge of the field"], tunnel: [300, 176, "The quantum tunnel"] },
+    beats: [["T", "sky", "Thanos's warship opens fire on the Avengers Compound and flattens it."],
+      ["T", "ruins", "Thor, Steve and Tony face Thanos in the ruins, and Thanos overpowers Thor and Tony."],
+      ["A", "ruins", "Steve lifts Mjolnir and fights Thanos on his own, until Thanos breaks his shield."],
+      ["T", "field", "Thanos's army comes down from the warship and lines up against Steve alone."],
+      ["A", "rim", "Portals open around the field. Wakanda's army, the Asgardians, the Ravagers, the sorcerers and every returned hero come through, and Steve calls the Avengers to assemble."],
+      ["A", "ruins", "Clint carries the Nano Gauntlet out of the ruins and hands it to T'Challa, and it reaches Peter Parker."],
+      ["A", "field", "Wanda attacks Thanos and nearly tears him apart, until he orders his warship to fire on the battlefield."],
+      ["A", "sky", "Carol Danvers arrives and destroys the warship."],
+      ["T", "tunnel", "Carol takes the gauntlet from Peter and fights Thanos for it, until he knocks her away with the Power Stone."],
+      ["T", "field", "Thanos snaps, but nothing happens. Tony has taken the stones into his own armor."],
+      ["A", "field", "Tony snaps. Thanos and his army turn to dust, and Tony dies of the stones' power."]] },
+  "dc-wak": { sides: { A: "Wakanda and the Avengers", T: "Thanos and the Black Order" },
+    map: () => trGrid() + `<path d="M0 70Q200 20 400 70" stroke="rgba(160,240,255,.55)" stroke-width="2" fill="none" stroke-dasharray="6 4"/><rect x="40" y="0" width="120" height="42" ${TR_BD}/><path d="M0 70Q200 20 400 70V240H0Z" fill="rgba(127,217,90,.03)"/>`
+      + trL(46, 14, "The Golden City") + trL(394, 62, "The shield", "end") + trL(200, 230, "The fields outside the shield", "middle"),
+    at: { lab: [100, 26, "Shuri's lab"], wall: [200, 50, "The shield"], gap: [258, 66, "The opening in the shield"], plain: [200, 150, "The fields"], east: [320, 112, "The east of the battlefield"], forest: [92, 118, "The forest"], hill: [52, 170, "The edge of the forest"] },
+    beats: [["A", "lab", "To keep the Mind Stone from Thanos, Steve's team brings Vision to Wakanda, where Shuri starts taking the stone out of his head."],
+      ["T", "wall", "The Black Order brings an army of Outriders down outside the shield, and Proxima Midnight refuses to turn back."],
+      ["A", "gap", "The Outriders tear themselves apart on the shield. T'Challa has a section opened to draw them in, and Wakanda's army charges."],
+      ["A", "plain", "Thor arrives with Rocket, Groot and his new axe, Stormbreaker, and cuts through the Outriders."],
+      ["A", "east", "Wanda leaves the lab to join the fight, stops the Outriders' threshers and throws Proxima Midnight into one."],
+      ["A", "forest", "Corvus Glaive gets into the lab and goes after Vision, who kills him with Steve's help. Bruce Banner, in the Hulkbuster, drives Cull Obsidian into the shield."],
+      ["T", "plain", "Thanos arrives through a portal and swats the heroes aside one by one."],
+      ["T", "hill", "Wanda destroys the Mind Stone as Vision dies, but Thanos turns back time with the Time Stone and tears it from his head."],
+      ["T", "hill", "Thor drives Stormbreaker into Thanos's chest, but not his head, and Thanos snaps."]] },
+  "dc-sok": { sides: { A: "The Avengers", T: "Ultron" },
+    map: () => trGrid() + `<ellipse cx="200" cy="120" rx="150" ry="88" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.35)"/><path d="M60 120H340M200 34V206" ${TR_LN} stroke-width="2"/><rect x="186" y="104" width="28" height="30" fill="rgba(127,217,90,.16)" stroke="rgba(160,240,120,.6)"/>`
+      + trL(200, 228, "Novi Grad, lifted into the sky", "middle") + trL(220, 100, "The church"),
+    at: { city: [120, 80, "Novi Grad"], church: [200, 119, "The church, over the core"], edge: [330, 146, "The edge of the city"], sky: [368, 34, "The Helicarrier"], bridge: [70, 120, "A bridge to the lifeboats"], street: [262, 176, "A city street"], below: [200, 204, "Under the city"] },
+    beats: [["A", "city", "The Avengers reach Novi Grad and start getting its people out as Ultron's sentries attack."],
+      ["T", "church", "Ultron sets off his vibranium core, and the whole city tears free of the ground and rises into the sky."],
+      ["T", "edge", "Ultron means to drop it like a meteor and wipe out humanity. His army swarms the streets."],
+      ["A", "sky", "Nick Fury arrives with a Helicarrier and its lifeboats, and James Rhodes joins the fight in War Machine."],
+      ["A", "bridge", "The people are led across the city to the lifeboats while the team holds the sentries off."],
+      ["A", "church", "The team gathers in the church to guard the core against Ultron and all of his army."],
+      ["T", "street", "Pietro Maximoff is killed shielding Clint Barton and a child from Ultron's fire."],
+      ["A", "church", "Wanda tears out Ultron's core as the last of the people get away."],
+      ["A", "below", "Thor and Tony overload the core, and the city is blown apart in the air."],
+      ["A", "edge", "Vision finds the last Ultron alone in a forest and destroys him."]] },
+  "dc-dc": { sides: { A: "Steve, Natasha, Sam, Fury and Hill", T: "HYDRA" },
+    map: () => trGrid() + `<path d="M0 150C120 130 220 170 400 140V240H0Z" fill="rgba(90,140,255,.08)" stroke="rgba(140,180,255,.28)"/><path d="M170 96l30-20 30 20-30 20z" ${TR_BD}/>` + trL(200, 132, "The Triskelion", "middle") + trL(8, 230, "The Potomac"),
+    at: { bay: [118, 120, "The launch bay"], tower: [200, 96, "Inside the Triskelion"], council: [214, 74, "The council room"], c1: [90, 40, "First Helicarrier"], c2: [200, 30, "Second Helicarrier"], c3: [310, 44, "Third Helicarrier"], river: [250, 196, "The Potomac"] },
+    beats: [["T", "bay", "HYDRA launches Project Insight: three Helicarriers rise from under the Triskelion to kill millions of people it has flagged as threats."],
+      ["A", "tower", "Steve tells every S.H.I.E.L.D. agent in the building the truth about HYDRA, and many of them turn against it."],
+      ["A", "council", "Natasha, disguised as a member of the World Security Council, confronts Alexander Pierce, and Nick Fury walks in."],
+      ["A", "c1", "Steve and Sam fly to the Helicarriers to swap their targeting blades, while Maria Hill guides them from inside the Triskelion."],
+      ["A", "c2", "They swap the blades on the first two carriers."],
+      ["T", "c3", "The Winter Soldier tears off Sam's wings and fights Steve on the third carrier."],
+      ["A", "council", "Natasha releases S.H.I.E.L.D.'s and HYDRA's secrets to the world, and Fury kills Pierce."],
+      ["A", "c3", "Steve swaps the last blade, and Hill fires. The Helicarriers shoot each other down, and one falls into the Triskelion."],
+      ["A", "river", "Steve refuses to fight Bucky and falls into the Potomac. Bucky pulls him out of the water."]] },
+  "dc-titan": { sides: { A: "Tony, Peter, Strange, the Guardians and Nebula", T: "Thanos" },
+    map: () => trGrid() + `<path d="M20 200C80 150 140 190 200 160S320 120 390 170" ${TR_LN} stroke-width="2"/><path d="M40 60l30-14 10 30-28 12zM300 40l40 6-6 34-30-8zM230 190l36-6 6 26-34 8z" ${TR_BD}/><circle cx="350" cy="22" r="16" fill="rgba(160,170,190,.12)" stroke="rgba(190,200,220,.4)"/>`
+      + trL(200, 232, "Titan, in ruins", "middle") + trL(328, 18, "Moon", "end"),
+    at: { crash: [70, 80, "Maw's ship, crashed"], ruins: [200, 120, "The ruins"], ring: [160, 150, "The ambush ground"], ship: [304, 70, "Nebula's ship"], moon: [350, 22, "Titan's moon"], fall: [250, 180, "Where the moon falls"] },
+    beats: [["A", "crash", "Ebony Maw's ship comes down on Titan with Tony Stark, Peter Parker and Doctor Strange aboard."],
+      ["A", "ruins", "Peter Quill, Drax and Mantis are already there. The two groups fight, then agree to work together."],
+      ["T", "ruins", "Thanos arrives expecting Maw and finds Strange, and with the Reality Stone shows him Titan as it once was."],
+      ["A", "ring", "They spring the ambush, each taking a turn at Thanos."],
+      ["A", "ship", "Nebula crashes down and joins the fight."],
+      ["A", "ring", "Mantis puts Thanos under, and the others nearly pull the gauntlet off his hand."],
+      ["T", "ring", "Quill learns from Nebula that Thanos killed Gamora, strikes him and wakes him."],
+      ["T", "moon", "Thanos pulls Titan's moon apart and brings it down on them."],
+      ["T", "fall", "Thanos stabs Tony. Strange gives up the Time Stone to spare Tony's life, and Thanos leaves for Earth."],
+      ["T", "ring", "After the Snap, Quill, Drax, Mantis, Strange and Peter turn to dust. Tony and Nebula are left."]] }
+};
+let trB = 0, trPlay = false, trRaf = 0, trOpen = {};
+function trHTML(id) {
+  const B = TR[id], N = B.beats.length, open = !!trOpen[id];
+  return `<section class="tr${open ? " open" : ""}" data-tr="${id}"><button type="button" class="tr-head" data-tropen aria-expanded="${open}"><span>Tactical replay</span><small>${N} beats</small><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></i></button>
+    ${open ? `<div class="tr-body"><div class="tr-map"><svg viewBox="0 0 400 240" aria-label="Map of the ground">${B.map()}<g class="tr-pins"></g></svg></div>
+      <div class="tr-ctl"><button type="button" data-trc="prev" aria-label="Previous beat"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button type="button" class="pp" data-trc="pp" aria-label="Play">${TR_P}</button><button type="button" data-trc="next" aria-label="Next beat"><svg width="14" height="14" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><input type="range" min="0" max="${N - 1}" step="1" value="0" aria-label="Beat"></div>
+      <div class="tr-cap" aria-live="polite"></div>
+      <div class="tr-legend">${Object.keys(B.sides).map(k => `<span><i style="background:${TR_COL[k]}"></i>${esc(B.sides[k])}</span>`).join("")}<span><i style="background:${TR_COL.N}"></i>Both sides</span></div>
+      <p class="tr-note">Marks where each beat happens, not where everyone stood.</p></div>` : ""}</section>`;
+}
+const TR_P = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>', TR_PA = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
+function trDraw(id) {
+  const B = TR[id], sec = document.querySelector(`.tr[data-tr="${id}"]`); if (!sec || !sec.classList.contains("open")) return;
+  const b = Math.max(0, Math.min(B.beats.length - 1, trB)), now = performance.now(), places = {};
+  // every place a beat has reached so far: a numbered mark, dim once passed, the current one lit and pulsing
+  B.beats.forEach(([sd, at], i) => { if (i > b) return; (places[at] = places[at] || []).push([i, sd]); });
+  sec.querySelector(".tr-pins").innerHTML = Object.entries(places).map(([at, L]) => { const [x, y, name] = B.at[at], cur = L.some(([i]) => i === b), [li, sd] = L[L.length - 1], c = TR_COL[sd], pulse = cur ? 1 + .18 * Math.sin(now / 220) : 1;
+    return `<g transform="translate(${x} ${y})" opacity="${cur ? 1 : .55}">${cur ? `<circle r="${22 * pulse}" fill="${c}" fill-opacity=".12" stroke="${c}" stroke-opacity=".5"/>` : ""}<circle r="9" fill="#0B1019" stroke="${c}" stroke-width="1.8"/><text class="tr-n" fill="${c}">${li + 1}</text>${cur ? `<text class="tr-lab cur" y="-27" text-anchor="middle">${esc(name)}</text>` : ""}</g>`; }).join("");
+  const cap = sec.querySelector(".tr-cap"); if (cap.dataset.b !== String(b)) { cap.dataset.b = b; cap.innerHTML = `<small>Beat ${b + 1} of ${B.beats.length} · ${esc(B.at[B.beats[b][1]][2])}</small>${esc(B.beats[b][2])}`; sec.querySelector(".tr-ctl input").value = b; }
+}
+function trLoop(id) {
+  cancelAnimationFrame(trRaf); let next = performance.now() + 3400;
+  const step = now => { const sec = document.querySelector(`.tr[data-tr="${id}"]`); if (!sec || !sec.classList.contains("open") || collMode !== "dc" || collRec !== id) { trPlay = false; return; }
+    if (trPlay && now >= next) { if (trB >= TR[id].beats.length - 1) { trPlay = false; sec.querySelector('[data-trc="pp"]').innerHTML = TR_P; } else { trB++; next = now + 3400; } }
+    trDraw(id); trRaf = requestAnimationFrame(step); };
+  trRaf = requestAnimationFrame(step);
+}
+// the replay sits in the report, under its heading, folded until opened
+const renderDcTr = renderDc;
+renderDc = function () { renderDcTr(); if (!collRec || !TR[collRec]) return; const d = DC.find(x => x.id === collRec); if (!d || !dcSeen(d)) return;
+  const hd = document.querySelector("#collView .dc-head"); if (!hd) return; hd.insertAdjacentHTML("afterend", trHTML(collRec)); if (trOpen[collRec]) { trB = Math.min(trB, TR[collRec].beats.length - 1); trLoop(collRec); } };
+document.getElementById("collView").addEventListener("click", ev => {
+  if (collMode !== "dc" || !collRec || !TR[collRec]) return; const id = collRec;
+  if (ev.target.closest("[data-tropen]")) { ev.stopImmediatePropagation(); trOpen[id] = !trOpen[id]; trB = 0; trPlay = false; const s = document.querySelector(`.tr[data-tr="${id}"]`); s.outerHTML = trHTML(id); if (trOpen[id]) trLoop(id); return; }
+  const c = ev.target.closest("[data-trc]"); if (!c) return; ev.stopImmediatePropagation(); const N = TR[id].beats.length, pp = document.querySelector(`.tr[data-tr="${id}"] [data-trc="pp"]`);
+  if (c.dataset.trc === "pp") { if (trB >= N - 1) trB = 0; trPlay = !trPlay; } else { trPlay = false; trB = Math.max(0, Math.min(N - 1, trB + (c.dataset.trc === "next" ? 1 : -1))); }
+  pp.innerHTML = trPlay ? TR_PA : TR_P; trLoop(id);
+}, true);
+document.getElementById("collView").addEventListener("input", ev => { if (collMode !== "dc" || !ev.target.closest(".tr-ctl")) return; trPlay = false; trB = +ev.target.value; const pp = document.querySelector(`.tr [data-trc="pp"]`); if (pp) pp.innerHTML = TR_P; trLoop(collRec); });
+/* MOCKUP END */
+/* MOCKUP BEGIN: Handle with care, played as you go (test build only; mainprep cuts it). The first case you handle unlocks the file with its
+   pill and its count; every new one after brings a pill with the count; the last completes it. Once it's unlocked, the Collection keeps a list
+   of every case that answers to a touch, so finding them is play, not tapping every case to see */
+cxHandled = function (id, ms) {
+  const H = state.cxHand = state.cxHand || {}, fresh = !H[id]; if (fresh) { H[id] = 1; persist(); }
+  const n = CX_SET.filter(k => H[k]).length, N = CX_SET.length; if (!fresh) return;
+  if (n === N) { found("artifacts", ms); return; }   // the last one: the file is complete, with its own pill
+  setTimeout(() => { say("Handle with care", null, "Agent File · " + n + " of " + N, null, true); if (collOpen && collMode === "coll" && !collRec) renderColl(); }, ms || 300);
+};
+const cxBodyHwc = cxBody;
+cxBody = function () {
+  const html = cxBodyHwc(), H = state.cxHand || {}, n = CX_SET.filter(k => H[k]).length; if (!n || qNorm(cxQ.trim()).length > 1 || cxHoldF) return html;
+  const shut = !!state.hwcShut, rows = CX_SET.map(id => { const o = COLLX.find(x => x.id === id), seen = o && cxSteps(o).length;
+    return seen ? `<button type="button" class="hwc-row${H[id] ? " done" : ""}" data-co="${id}"><span class="cx-stage">${cxGlyph(o.c)}</span><b>${esc(cxName(o))}</b><em>${H[id] ? "Handled" : "Not yet"}</em></button>`
+      : `<div class="hwc-row lock"><span class="cx-stage"></span><b>[ Not yet catalogued ]</b><em>Later</em></div>`; }).join("");
+  return `<section class="rf-sec hwc${shut ? " shut" : ""}"><button type="button" class="rf-sh" data-hwc aria-expanded="${!shut}"><span>Handle with care</span><em>${n} of ${CX_SET.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>${shut ? "" : `<div class="hwc-list">${rows}</div>`}</section>` + html;
+};
+document.getElementById("collView").addEventListener("click", ev => { if (collMode === "coll" && ev.target.closest("[data-hwc]")) { ev.stopImmediatePropagation(); state.hwcShut = !state.hwcShut; persist(); renderColl(); } }, true);
 /* MOCKUP END */
 </script>
 </body>
