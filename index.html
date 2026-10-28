@@ -428,7 +428,7 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .fx-stain{ position:fixed; z-index:97; pointer-events:none; border-radius:40%; background:radial-gradient(ellipse at 50% 50%, rgba(0,0,0,.95) 0, rgba(5,3,10,.85) 45%, rgba(5,3,10,0) 72%); filter:blur(3px); }
 #embers i.dark{ box-shadow:0 0 6px rgba(0,0,0,.9) !important; }
 .tl-row, .tl-row *{ -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
-.fx-tele{ position:fixed; z-index:99; pointer-events:none; transform:translate(-50%,-150%); white-space:nowrap; padding:2px 8px; color:#E6F2FF; text-shadow:0 0 8px #2F7BFF, 0 0 20px rgba(47,123,255,.85); }
+.fx-cxg{ position:fixed; z-index:99; width:64px; height:64px; pointer-events:none; transform:translate(-50%,-130%); color:#E6F2FF; filter:drop-shadow(0 0 8px #2F7BFF) drop-shadow(0 0 20px rgba(47,123,255,.85)); }
 .fx-tess{ position:fixed; left:50%; top:50%; width:120px; height:120px; margin:-60px 0 0 -60px; z-index:97; pointer-events:none; perspective:600px; }
 .fx-tess .cube3{ position:absolute; inset:0; transform-style:preserve-3d; }
 .fx-tess .f{ position:absolute; inset:0; border:2px solid #BFDAFF; background:rgba(47,123,255,.16); box-shadow:inset 0 0 22px rgba(120,180,255,.75), 0 0 16px rgba(47,123,255,.8); }
@@ -1164,12 +1164,10 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
+.cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; } .cx-big .cx-obj{ transition:opacity .18s ease; }   /* a case you can handle: the page doesn't scroll out from under your hand */
 /* MOCKUP BEGIN: cases in the Collection you can handle (test build only; mainprep cuts it) */
-.cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; }
-.cx-big .cx-obj{ transition:opacity .18s ease; }
 .cx-big.breathe .cx-obj{ animation:cxBreathe 3.2s ease-in-out infinite; }
 @keyframes cxBreathe{ 50%{ filter:drop-shadow(0 0 14px color-mix(in srgb,var(--sc) 80%,transparent)); } }
-.fx-cxg{ position:fixed; z-index:99; width:64px; height:64px; pointer-events:none; transform:translate(-50%,-130%); color:#E6F2FF; filter:drop-shadow(0 0 8px #2F7BFF) drop-shadow(0 0 20px rgba(47,123,255,.85)); }
 .cx-big canvas.cx-fx{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 .cx-eyet{ position:absolute; left:12px; top:12px; max-width:calc(100% - 130px); font:10px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FF0B0; text-shadow:0 0 8px rgba(45,190,90,.8); opacity:0; transition:opacity .25s ease; }
 .cx-eyet.on{ opacity:1; }
@@ -2046,7 +2044,6 @@ function renderTimeline(v) {
         <line x1="50" y1="0" x2="50" y2="14" stroke="#FFB347" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>
         <i style="top:34%;opacity:.85"></i><i style="top:56%;opacity:.55"></i><i style="top:78%;opacity:.28"></i></span></li>`}
 </ol></section>`;
-  guardTele(v);
 }
 const isDone = e => { const [n, t] = count(e); return t > 0 && n === t; };
 function lum(hex) {
@@ -2464,7 +2461,7 @@ function renderPanel(e, fresh) {
 
       <div id="pDone">${t && n === t ? `<button type="button" class="complete" id="btnComplete" style="background:${box};color:${tick};border-color:${box}">${CHECK(tick)}Complete</button>` : ""}</div>
     </div>`;
-  guardTele(panel); newDots(); rcPlace();
+  newDots(); rcPlace();
   if (!fresh) panel.scrollTop = scrollY;
 }
 // a character box is a run of its own: it shows what you've checked there, plus the one title that's up next.
@@ -2493,7 +2490,7 @@ function panelRows(e) {
   const ul = panel.querySelector(".list"); if (!ul || (openKind !== "char" && openKind !== "chapter")) return;
   const want = panelItems(e).map(i => i.t), have = [...ul.querySelectorAll(".row")].map(r => r.dataset.t);
   if (want.join("\n") === have.join("\n")) return;
-  ul.innerHTML = panelList(e, panelItems(e), i => have.includes(i.t) || REDUCED ? "" : "rin"); guardTele(panel);
+  ul.innerHTML = panelList(e, panelItems(e), i => have.includes(i.t) || REDUCED ? "" : "rin");
 }
 function updatePanel(e) {
   panelRows(e); requestAnimationFrame(rcPlace);
@@ -4339,6 +4336,13 @@ document.getElementById("collView").addEventListener("click", ev => {
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
 });
 
+// cases you can handle in the Collection: what a press on the case does
+const CX_LIVE = { tesseract: (b, ev) => { const x = ev.clientX, y = ev.clientY; cxHold(ev, 450, () => cxTess(x, y, b)); } };
+document.getElementById("collView").addEventListener("pointerdown", ev => {
+  const b = ev.target.closest(".cx-big[data-live]"); if (!b || ev.button > 0) return;
+  CX_LIVE[b.dataset.live](b, ev);
+});
+
 /* ---------- the Collector's archive, every object: the third index, beside the Raft's villains and the Compound's heroes. Every object gets
    a case the first time it's seen, and its card follows it title by title: who holds it, and whether it's in use, locked away, lost or destroyed.
    No drawings: each case shows the mark of its kind */
@@ -4380,7 +4384,7 @@ function renderCx() {
     const hands = S.map(x => x[3]).filter((h, i, a) => h && h !== "Nobody" && a.indexOf(h) === i);
     let pst = null, ph = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>The Collection</button>
-      <div class="cx-big s-${CX_ST[st]}"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><b class="cx-stb">${esc(st)}</b></div>
+      <div class="cx-big s-${CX_ST[st]}"${CX_LIVE[o.id] ? ` data-live="${o.id}"` : ""}><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><b class="cx-stb">${esc(st)}</b></div>
       <small class="cx-lot">${cxNo(o)} · ${esc(cxTyName(o.c))}</small><h3>${esc(cxName(o))}</h3><p class="co-kind">${esc(cxKind(o))}</p>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>${cxSpec(o) ? "Home world" : "Held by"}</small><b>${esc(cxHolder(S))}</b></div><div><small>Status</small><b>${esc(st)}</b></div>${uniTile(o, "wide")}</div>
       ${hands.length && !cxSpec(o) ? `<div class="co-h">Hands it has passed through</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}</div>` : ""}
@@ -5217,7 +5221,7 @@ function ffThing() {   // the Thing: two rock fists come in from left and right 
 /* ---------- the Infinity Stones: six of the easter eggs each hold one; with all six, the Gauntlet card offers the snap ---------- */
 const STONES = [   // in the order of the colours in the title bar
   { id: "power", n: "Power", g: "#8E3BE0", gl: "#D7B0FF", gd: "#4A1580", a: 0, b: 16.5, hint: "Wakanda's king stores it up." },
-  { id: "space", n: "Space", g: "#2F7BFF", gl: "#A9CBFF", gd: "#123E9A", a: 16.5, b: 33.5, hint: "When the Tesseract meets the First Avenger." },
+  { id: "space", n: "Space", g: "#2F7BFF", gl: "#A9CBFF", gd: "#123E9A", a: 16.5, b: 33.5, hint: "The Collector keeps the cube in a case." },
   { id: "reality", n: "Reality", g: "#E2263A", gl: "#FF9AA5", gd: "#7A0F1B", a: 33.5, b: 50.5, hint: "Somewhere in Westview." },
   { id: "soul", n: "Soul", g: "#FF8A1F", gl: "#FFD3A1", gd: "#9A4A06", a: 50.5, b: 66.5, hint: "A soul for a soul. Hold on to her." },
   { id: "time", n: "Time", g: "#2DBE5A", gl: "#A6F0BE", gd: "#0F6A2C", a: 66.5, b: 83.5, hint: "The TVA keeps it in order." },
@@ -5314,49 +5318,51 @@ const fxScope = () => openEntry ? panel.querySelector(".pin") || panel : documen
 // rows on screen to lock onto: list rows in an open box, timeline titles, or the tiles of the current page
 const BLUE_C = ["#A9CBFF", "#2F7BFF", "#E6F2FF"], GOLD_C = ["#FFD23F", "#FFF2B0", "#FFB347"], PURPLE_C = ["#B57BFF", "#8E3BE0", "#E9D6FF"], ORANGE_C = ["#FFB347", "#FF8A1F", "#FFE2BF"], SILVER_C = ["#E9F0FA", "#9DB7E8", "#6F93D8"], RED_C = ["#FF3B3B", "#C8141F", "#FF9A9A"];
 
-/* ---------- Space Stone: the Tesseract. Hold Captain America: The First Avenger: the row teleports and comes back ---------- */
-let teleDrag = false;
-function tesseract(x, y, el) {
+/* ---------- Space Stone: the Tesseract, in the Collection ---------- */
+// follow one finger until it lifts
+function cxTrack(ev, move, up) {
+  const id = ev.pointerId, mv = e => { if (e.pointerId === id) move(e); };
+  const fin = e => { if (e.pointerId !== id) return; window.removeEventListener("pointermove", mv, true); window.removeEventListener("pointerup", fin, true); window.removeEventListener("pointercancel", fin, true); up(e); };
+  window.addEventListener("pointermove", mv, true); window.addEventListener("pointerup", fin, true); window.addEventListener("pointercancel", fin, true);
+}
+function cxHold(ev, ms, fire) {
+  const x = ev.clientX, y = ev.clientY; let t = setTimeout(() => { t = null; fire(); }, ms);
+  cxTrack(ev, e => { if (t && Math.hypot(e.clientX - x, e.clientY - y) > 10) { clearTimeout(t); t = null; } }, () => { if (t) { clearTimeout(t); t = null; } });
+}
+const cxCenter = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+
+/* ---------- the Tesseract: hold the cube's mark and it lifts out of the case; carry it off and let go, and the Tesseract takes it
+   and sends it home, and the Space Stone with it ---------- */
+let cxTessOn = false;
+function cxTess(x, y, b) {
+  const obj = b.querySelector(".cx-obj");
   if (REDUCED) { awardStone("space", x, y); return; }
-  if (teleDrag) return;
-  teleDrag = true;
-  const t = el.querySelector(".t, .tt") || el, cs = getComputedStyle(t);
-  const ghost = document.createElement("div"); ghost.className = "fx-tele"; ghost.textContent = t.textContent;
-  ghost.style.cssText = `left:${x}px;top:${y}px;font-style:${cs.fontStyle};font-weight:${cs.fontWeight};font-size:${cs.fontSize};font-family:${cs.fontFamily}`;
-  document.body.appendChild(ghost);
-  const dim = t.animate([{ opacity: 1 }, { opacity: .2 }], { duration: 200, fill: "forwards" });
-  glowC(x, y, 0, "blue", 1); haptic([20, 40, 20]);
-  let px = x, py = y, lastSpark = 0;
-  const move = ev => {
-    px = ev.clientX; py = ev.clientY; ghost.style.left = px + "px"; ghost.style.top = py + "px";
-    if (Date.now() - lastSpark > 45) { lastSpark = Date.now(); sparkC(px, py - 20, (Math.random() - .5) * 30, (Math.random() - .5) * 30, 0, 500, BLUE_C); }
-  };
+  if (cxTessOn) return; cxTessOn = true;
+  const ghost = document.createElement("div"); ghost.className = "fx-cxg"; ghost.innerHTML = obj.innerHTML; ghost.style.left = x + "px"; ghost.style.top = y + "px"; document.body.appendChild(ghost);
+  obj.style.opacity = "0"; glowC(x, y, 0, "blue", 1); haptic([20, 40, 20]);
+  let px = x, py = y, last = 0;
+  const move = ev => { px = ev.clientX; py = ev.clientY; ghost.style.left = px + "px"; ghost.style.top = py + "px";
+    if (Date.now() - last > 45) { last = Date.now(); sparkC(px, py - 51, (Math.random() - .5) * 30, (Math.random() - .5) * 30, 0, 500, BLUE_C); } };
   const up = () => {
     window.removeEventListener("pointermove", move, true); window.removeEventListener("pointerup", up, true); window.removeEventListener("pointercancel", up, true);
-    setTimeout(() => { pnlFired = false; laneFired = false; }, 60);
-    const home = t.getBoundingClientRect(), hx = home.left + home.width / 2, hy = home.top + home.height / 2;
-    const back = () => { dim.cancel(); t.animate([{ filter: "drop-shadow(0 0 10px #2F7BFF) brightness(1.6)" }, { filter: "none" }], { duration: 700 }); teleDrag = false; };
-    if (Math.hypot(px - x, py - y) < 60) {   // not carried far enough: it just drifts home
-      ghost.animate([{ left: px + "px", top: py + "px", opacity: 1 }, { left: hx + "px", top: hy + "px", opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => { ghost.remove(); back(); };
+    const [hx, hy] = cxCenter(obj), cy = py - 51;   // the mark rides just above your finger
+    const back = () => { obj.style.opacity = ""; obj.animate([{ filter: "drop-shadow(0 0 14px #2F7BFF) brightness(1.8)" }, { filter: "none" }], { duration: 700 }); cxTessOn = false; };
+    if (Math.hypot(px - x, py - y) < 60) {   // not carried far enough: it settles back into the case
+      ghost.animate([{ left: px + "px", top: py + "px", transform: "translate(-50%,-130%)", opacity: 1 }, { left: hx + "px", top: hy + "px", transform: "translate(-50%,-50%)", opacity: .2 }], { duration: 300, fill: "forwards" }).onfinish = () => { ghost.remove(); back(); };
       return;
     }
-    // the Tesseract takes it: a flash of the cube where you let go, then it reappears at home
-    ghost.animate([{ transform: "translate(-50%,-150%) scale(1)", opacity: 1 }, { transform: "translate(-50%,-150%) scale(.2)", opacity: 0 }], { duration: 260, fill: "forwards" }).onfinish = () => ghost.remove();
-    const cube = document.createElement("div"); cube.className = "fx-tess"; cube.style.left = px + "px"; cube.style.top = py + "px";
+    ghost.animate([{ transform: "translate(-50%,-130%) scale(1)", opacity: 1 }, { transform: "translate(-50%,-130%) scale(.2)", opacity: 0 }], { duration: 260, fill: "forwards" }).onfinish = () => ghost.remove();
+    const cube = document.createElement("div"); cube.className = "fx-tess"; cube.style.left = px + "px"; cube.style.top = cy + "px";
     cube.innerHTML = `<div class="cube3">${["rotateY(0deg)", "rotateY(90deg)", "rotateY(180deg)", "rotateY(-90deg)", "rotateX(90deg)", "rotateX(-90deg)"].map(f => `<div class="f" style="transform:${f} translateZ(60px)"></div>`).join("")}<div class="core"></div></div>`;
     document.body.appendChild(cube);
     cube.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(.55)", opacity: 1, offset: .15 }, { transform: "scale(.6)", opacity: 1, offset: .5 }, { transform: "scale(.55)", opacity: 1, offset: .85 }, { transform: "scale(0)", opacity: 0 }], { duration: 2400, easing: "ease-in-out", fill: "both" }).onfinish = () => cube.remove();
     cube.firstChild.animate([{ transform: "rotateX(-20deg) rotateY(0deg)" }, { transform: "rotateX(340deg) rotateY(720deg)" }], { duration: 2400 });
-    glowC(px, py, 0, "blue", 1.8); burst(px, py, 30, BLUE_C, 70); haptic([30, 40, 90]);
-    setTimeout(() => { fxRing(hx, hy, 60, "#7FB2FF", 600, 0, 3); burst(hx, hy, 16, BLUE_C, 40); back(); }, 1900);
-    setTimeout(() => awardStone("space", px, py), 2200);
+    glowC(px, cy, 0, "blue", 1.8); burst(px, cy, 30, BLUE_C, 70); haptic([30, 40, 90]);
+    setTimeout(() => { const [hx2, hy2] = cxCenter(obj); fxRing(hx2, hy2, 60, "#7FB2FF", 600, 0, 3); burst(hx2, hy2, 16, BLUE_C, 40); back(); }, 1900);
+    setTimeout(() => awardStone("space", px, cy), 2200);
   };
   window.addEventListener("pointermove", move, true); window.addEventListener("pointerup", up, true); window.addEventListener("pointercancel", up, true);
 }
-// while you carry the title, the page must not scroll. The browser only lets a page stop scrolling if it was already listening
-// where the touch began, and a listener on the whole page makes every scroll wait on the app (jittery), so only The First Avenger's rows listen
-const TELE_SEL = '.row[data-t="Captain America: The First Avenger"], .tl-row[data-tl="Captain America: The First Avenger"]';
-function guardTele(root) { root.querySelectorAll(TELE_SEL).forEach(el => el.addEventListener("touchmove", ev => { if (teleDrag && ev.cancelable) ev.preventDefault(); }, { passive: false })); }
 
 /* ---------- Mind Stone: hold Avengers: Age of Ultron ---------- */
 let mindHold = null;
@@ -6827,7 +6833,7 @@ function achList() {
   A.push({ id: "excelsior", sec: "final", secret: true, t: "Excelsior!", lead: true, d: "Everything. 'Nuff said.", h: "Earn every other file.", x: "Complete every other achievement in this Agent File.", final: true, ok: () => A.every(a => a.id === "excelsior" || earned(a.id)) });
   return A;
 }
-const STONE_HOW = { power: "In the Black Panther & Wakanda box, hold anywhere, then let go.", space: "Hold Captain America: The First Avenger, then drag it somewhere and let go.", reality: "Hold WandaVision, then drop the Hex.", soul: "In the Black Widow box, hold her name, then let go.", time: "Prune a timeline, then bring it back.", mind: "Hold Avengers: Age of Ultron until the web turns gold." };
+const STONE_HOW = { power: "In the Black Panther & Wakanda box, hold anywhere, then let go.", space: "In the Collection, hold the Tesseract, then drag it somewhere and let go.", reality: "Hold WandaVision, then drop the Hex.", soul: "In the Black Widow box, hold her name, then let go.", time: "Prune a timeline, then bring it back.", mind: "Hold Avengers: Age of Ultron until the web turns gold." };
 const earned = id => !!(state.achSeen || {})[id];
 // Agent File sections appear once their first file is earned (Chapters always shows); the totals count only the files in sections you can see
 function fileSecs(A) { const o = { chapters: true, characters: true }; A.forEach(a => { if (earned(a.id)) o[a.sec] = true; }); return o; }
@@ -8682,7 +8688,6 @@ function atlBattle(map) {
 }
 /* ---------- which held row, quote or name does what ---------- */
 const ROW_EGGS = {
-  "Captain America: The First Avenger": (x, y, el) => tesseract(x, y, el),
   "Avengers: Age of Ultron": (x, y) => mindStone(x, y),
   "WandaVision": (x, y) => hex ? hexDrop(x, y) : hexCast(x, y),
   "Guardians of the Galaxy Vol. 2": (x, y) => yondu(x, y),
@@ -11254,83 +11259,25 @@ document.getElementById("collView").addEventListener("click", ev => {
   const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = rfUniOf(COLLX.find(o => o.id === x.dataset.dcx)); collJump("coll", x.dataset.dcx); return; }
 }, true);
 
-/* MOCKUP BEGIN: cases in the Collection you can handle (test build only; mainprep cuts it). The Space Stone leaves The First Avenger's row
-   for the Tesseract's own case; the Darkhold and the Sokovia Accords are new eggs; the Eye of Agamotto, sling rings, the arc reactor and
+/* MOCKUP BEGIN: more cases in the Collection you can handle (test build only; mainprep cuts it). The Darkhold and the Sokovia Accords are new eggs; the Eye of Agamotto, sling rings, the arc reactor and
    the Aether just respond to your hand */
-delete ROW_EGGS["Captain America: The First Avenger"];
-STONES.find(z => z.id === "space").hint = "The Collector keeps the cube in a case.";
-STONE_HOW.space = "In the Collection, hold the Tesseract, then drag it somewhere and let go.";
 EGGS.splice(EGGS.findIndex(e => e[0] === "hydra") + 1, 0, ["accords", "Signatory", "117 countries want a signature.", "In the Collection, open the Sokovia Accords and sign them, or refuse.", 1]);
 EGGS.splice(EGGS.findIndex(e => e[0] === "witchroad") + 1, 0, ["darkhold", "The Book of the Damned", "Read it, but not for too long.", "In the Collection, hold the Darkhold, then let go before it takes the page.", 2]);
-const CX_LIVE = { tesseract: 1, darkhold: 1, "sokovia-accords": 1, agamotto: 1, "sling-ring": 1, arc: 1, aether: 1 };
+Object.assign(CX_LIVE, { darkhold: cxDark, agamotto: cxEye, "sling-ring": cxSling, arc: cxArc, aether: cxAether, "sokovia-accords": () => {} });   // the Accords open on a tap
 const CX_SHOW = { agamotto: 1, "sling-ring": 1, arc: 1, aether: 1 };   // the ones that aren't eggs breathe a little, to say they can be handled
 const cxRender0 = renderCx;
 renderCx = function () {
-  cxRender0(); const b = document.querySelector("#collView .co-rec .cx-big"); if (!b || !CX_LIVE[collRec]) return;
-  b.dataset.live = collRec; if (CX_SHOW[collRec]) b.classList.add("breathe");
+  cxRender0(); const b = document.querySelector("#collView .co-rec .cx-big[data-live]"); if (!b) return;
+  if (CX_SHOW[collRec]) b.classList.add("breathe");
   if (collRec === "sokovia-accords" && state.accords) b.insertAdjacentHTML("beforeend", `<span class="cx-acc">${state.accords.v === "signed" ? "Your signature is on file" : "You refused to sign"}</span>`);
 };
-// follow one finger until it lifts
-function cxTrack(ev, move, up) {
-  const id = ev.pointerId, mv = e => { if (e.pointerId === id) move(e); };
-  const fin = e => { if (e.pointerId !== id) return; window.removeEventListener("pointermove", mv, true); window.removeEventListener("pointerup", fin, true); window.removeEventListener("pointercancel", fin, true); up(e); };
-  window.addEventListener("pointermove", mv, true); window.addEventListener("pointerup", fin, true); window.addEventListener("pointercancel", fin, true);
-}
-function cxHold(ev, ms, fire) {
-  const x = ev.clientX, y = ev.clientY; let t = setTimeout(() => { t = null; fire(); }, ms);
-  cxTrack(ev, e => { if (t && Math.hypot(e.clientX - x, e.clientY - y) > 10) { clearTimeout(t); t = null; } }, () => { if (t) { clearTimeout(t); t = null; } });
-}
-const cxCenter = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
 function cxCanvas(parent) {   // a canvas over the whole screen, or over one stage
   const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1);
   if (parent) { const r = parent.getBoundingClientRect(); cv.className = "cx-fx"; cv.width = r.width * dpr; cv.height = r.height * dpr; parent.appendChild(cv); }
   else { cv.className = "fx-canvas"; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px"; document.body.appendChild(cv); }
   const g = cv.getContext("2d"); g.scale(dpr, dpr); return { cv, g };
 }
-document.getElementById("collView").addEventListener("pointerdown", ev => {
-  const b = ev.target.closest(".cx-big[data-live]"); if (!b || ev.button > 0) return;
-  const id = b.dataset.live, x = ev.clientX, y = ev.clientY;
-  if (id === "tesseract") cxHold(ev, 450, () => cxTess(x, y, b));
-  else if (id === "darkhold") cxDark(b, ev);
-  else if (id === "agamotto") cxEye(b, ev);
-  else if (id === "sling-ring") cxSling(b, ev);
-  else if (id === "arc") cxArc(b, ev);
-  else if (id === "aether") cxAether(b, ev);
-});
 document.getElementById("collView").addEventListener("click", ev => { if (ev.target.closest('.cx-big[data-live="sokovia-accords"]')) { haptic(10); cxAccords(); } });
-
-/* ---------- the Tesseract: hold the cube's mark and it lifts out of the case; carry it off and let go, and the Tesseract takes it
-   and sends it home, the way it did with The First Avenger's row ---------- */
-let cxTessOn = false;
-function cxTess(x, y, b) {
-  const obj = b.querySelector(".cx-obj");
-  if (REDUCED) { awardStone("space", x, y); return; }
-  if (cxTessOn) return; cxTessOn = true;
-  const ghost = document.createElement("div"); ghost.className = "fx-cxg"; ghost.innerHTML = obj.innerHTML; ghost.style.left = x + "px"; ghost.style.top = y + "px"; document.body.appendChild(ghost);
-  obj.style.opacity = "0"; glowC(x, y, 0, "blue", 1); haptic([20, 40, 20]);
-  let px = x, py = y, last = 0;
-  const move = ev => { px = ev.clientX; py = ev.clientY; ghost.style.left = px + "px"; ghost.style.top = py + "px";
-    if (Date.now() - last > 45) { last = Date.now(); sparkC(px, py - 51, (Math.random() - .5) * 30, (Math.random() - .5) * 30, 0, 500, BLUE_C); } };
-  const up = () => {
-    window.removeEventListener("pointermove", move, true); window.removeEventListener("pointerup", up, true); window.removeEventListener("pointercancel", up, true);
-    const [hx, hy] = cxCenter(obj), cy = py - 51;   // the mark rides just above your finger
-    const back = () => { obj.style.opacity = ""; obj.animate([{ filter: "drop-shadow(0 0 14px #2F7BFF) brightness(1.8)" }, { filter: "none" }], { duration: 700 }); cxTessOn = false; };
-    if (Math.hypot(px - x, py - y) < 60) {   // not carried far enough: it settles back into the case
-      ghost.animate([{ left: px + "px", top: py + "px", transform: "translate(-50%,-130%)", opacity: 1 }, { left: hx + "px", top: hy + "px", transform: "translate(-50%,-50%)", opacity: .2 }], { duration: 300, fill: "forwards" }).onfinish = () => { ghost.remove(); back(); };
-      return;
-    }
-    ghost.animate([{ transform: "translate(-50%,-130%) scale(1)", opacity: 1 }, { transform: "translate(-50%,-130%) scale(.2)", opacity: 0 }], { duration: 260, fill: "forwards" }).onfinish = () => ghost.remove();
-    const cube = document.createElement("div"); cube.className = "fx-tess"; cube.style.left = px + "px"; cube.style.top = cy + "px";
-    cube.innerHTML = `<div class="cube3">${["rotateY(0deg)", "rotateY(90deg)", "rotateY(180deg)", "rotateY(-90deg)", "rotateX(90deg)", "rotateX(-90deg)"].map(f => `<div class="f" style="transform:${f} translateZ(60px)"></div>`).join("")}<div class="core"></div></div>`;
-    document.body.appendChild(cube);
-    cube.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(.55)", opacity: 1, offset: .15 }, { transform: "scale(.6)", opacity: 1, offset: .5 }, { transform: "scale(.55)", opacity: 1, offset: .85 }, { transform: "scale(0)", opacity: 0 }], { duration: 2400, easing: "ease-in-out", fill: "both" }).onfinish = () => cube.remove();
-    cube.firstChild.animate([{ transform: "rotateX(-20deg) rotateY(0deg)" }, { transform: "rotateX(340deg) rotateY(720deg)" }], { duration: 2400 });
-    glowC(px, cy, 0, "blue", 1.8); burst(px, cy, 30, BLUE_C, 70); haptic([30, 40, 90]);
-    setTimeout(() => { const [hx2, hy2] = cxCenter(obj); fxRing(hx2, hy2, 60, "#7FB2FF", 600, 0, 3); burst(hx2, hy2, 16, BLUE_C, 40); back(); }, 1900);
-    setTimeout(() => awardStone("space", px, cy), 2200);
-  };
-  window.addEventListener("pointermove", move, true); window.addEventListener("pointerup", up, true); window.addEventListener("pointercancel", up, true);
-}
 
 /* ---------- the Darkhold: hold it and its script eats the file from the top down while the dark closes in. Let go once it has you reading,
    before it takes the whole page ---------- */
