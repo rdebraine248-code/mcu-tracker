@@ -1164,6 +1164,35 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
+/* MOCKUP BEGIN: cases in the Collection you can handle (test build only; mainprep cuts it) */
+.cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; }
+.cx-big .cx-obj{ transition:opacity .18s ease; }
+.cx-big.breathe .cx-obj{ animation:cxBreathe 3.2s ease-in-out infinite; }
+@keyframes cxBreathe{ 50%{ filter:drop-shadow(0 0 14px color-mix(in srgb,var(--sc) 80%,transparent)); } }
+.fx-cxg{ position:fixed; z-index:99; width:64px; height:64px; pointer-events:none; transform:translate(-50%,-130%); color:#E6F2FF; filter:drop-shadow(0 0 8px #2F7BFF) drop-shadow(0 0 20px rgba(47,123,255,.85)); }
+.cx-big canvas.cx-fx{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.cx-eyet{ position:absolute; left:12px; top:12px; max-width:calc(100% - 130px); font:10px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FF0B0; text-shadow:0 0 8px rgba(45,190,90,.8); opacity:0; transition:opacity .25s ease; }
+.cx-eyet.on{ opacity:1; }
+.cx-chain li.fut{ opacity:.16; filter:grayscale(1); transition:opacity .25s ease; } .cx-chain li{ transition:opacity .25s ease; }
+.cx-chain li.now::before{ background:#2DBE5A; border-color:#2DBE5A; box-shadow:0 0 10px #2DBE5A; }
+.cx-rune{ color:#E0354A; text-shadow:0 0 6px rgba(200,20,40,.9); }
+.co-rec.arcon h3, .co-rec.arcon .co-tiles b, .co-rec.arcon .cx-chain p{ text-shadow:0 0 calc(var(--arc) * 12px) rgba(150,215,255,calc(var(--arc) * .85)); }
+.co-rec.arcon .co-tiles div{ border-color:color-mix(in srgb,#9FD6FF calc(var(--arc) * 70%),#232D42); }
+.acc-ov{ position:fixed; inset:0; z-index:98; display:flex; align-items:center; justify-content:center; padding:20px max(16px, env(safe-area-inset-right,0px)) 20px max(16px, env(safe-area-inset-left,0px)); background:rgba(4,6,10,.72); }
+.acc-doc{ position:relative; width:100%; max-width:400px; padding:22px 20px 16px; border-radius:4px; background:#F2EEE3; color:#1B1E24; box-shadow:0 18px 50px rgba(0,0,0,.6); font:14px/1.5 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.acc-doc small{ display:block; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#5A6273; }
+.acc-doc h4{ margin:4px 0 10px; font:400 26px/1.05 'Anton','Impact',sans-serif; letter-spacing:1px; text-transform:uppercase; }
+.acc-doc p{ margin:0 0 10px; }
+.acc-sig{ position:relative; height:86px; margin:16px 0 6px; border-bottom:1.5px solid #1B1E24; touch-action:none; }
+.acc-sig canvas{ position:absolute; inset:0; width:100%; height:100%; }
+.acc-sig span{ position:absolute; left:0; bottom:-20px; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#5A6273; }
+.acc-btns{ display:flex; gap:8px; justify-content:flex-end; margin-top:30px; }
+.acc-btns button{ padding:8px 14px; border:1px solid #1B1E24; border-radius:999px; background:none; color:#1B1E24; font:600 13px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.acc-btns button.ref{ border-color:#9A1B22; color:#9A1B22; }
+.acc-stamp{ position:absolute; right:18px; top:58px; padding:4px 10px; border:3px solid currentColor; border-radius:4px; font:400 24px/1 'Anton','Impact',sans-serif; letter-spacing:3px; transform:rotate(-12deg); opacity:.85; mix-blend-mode:multiply; }
+.acc-stamp.ok{ color:#1F5FB0; } .acc-stamp.no{ color:#B0141E; }
+.cx-acc{ position:absolute; left:12px; bottom:12px; font:10px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#E9C46A; }
+/* MOCKUP END */
 .cx-hands{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 16px; } .cx-hands button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cx-hands button{ padding:5px 10px; border:1px solid #4A3F22; border-radius:999px; background:#17140C; color:#F1E2B8; font-size:13px; }
 .cx-hd{ display:inline-block; margin-left:6px; color:#E9D9AE; } .cx-hd::before{ content:"· "; color:#8EA2C2; }
 .cx-chain li::before{ border-color:var(--sc); } .cx-chain li:last-child::before{ background:var(--sc); box-shadow:0 0 8px var(--sc); }
@@ -11225,6 +11254,305 @@ document.getElementById("collView").addEventListener("click", ev => {
   const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = rfUniOf(COLLX.find(o => o.id === x.dataset.dcx)); collJump("coll", x.dataset.dcx); return; }
 }, true);
 
+/* MOCKUP BEGIN: cases in the Collection you can handle (test build only; mainprep cuts it). The Space Stone leaves The First Avenger's row
+   for the Tesseract's own case; the Darkhold and the Sokovia Accords are new eggs; the Eye of Agamotto, sling rings, the arc reactor and
+   the Aether just respond to your hand */
+delete ROW_EGGS["Captain America: The First Avenger"];
+STONES.find(z => z.id === "space").hint = "The Collector keeps the cube in a case.";
+STONE_HOW.space = "In the Collection, hold the Tesseract, then drag it somewhere and let go.";
+EGGS.splice(EGGS.findIndex(e => e[0] === "hydra") + 1, 0, ["accords", "Signatory", "117 countries want a signature.", "In the Collection, open the Sokovia Accords and sign them, or refuse.", 1]);
+EGGS.splice(EGGS.findIndex(e => e[0] === "witchroad") + 1, 0, ["darkhold", "The Book of the Damned", "Read it, but not for too long.", "In the Collection, hold the Darkhold, then let go before it takes the page.", 2]);
+const CX_LIVE = { tesseract: 1, darkhold: 1, "sokovia-accords": 1, agamotto: 1, "sling-ring": 1, arc: 1, aether: 1 };
+const CX_SHOW = { agamotto: 1, "sling-ring": 1, arc: 1, aether: 1 };   // the ones that aren't eggs breathe a little, to say they can be handled
+const cxRender0 = renderCx;
+renderCx = function () {
+  cxRender0(); const b = document.querySelector("#collView .co-rec .cx-big"); if (!b || !CX_LIVE[collRec]) return;
+  b.dataset.live = collRec; if (CX_SHOW[collRec]) b.classList.add("breathe");
+  if (collRec === "sokovia-accords" && state.accords) b.insertAdjacentHTML("beforeend", `<span class="cx-acc">${state.accords.v === "signed" ? "Your signature is on file" : "You refused to sign"}</span>`);
+};
+// follow one finger until it lifts
+function cxTrack(ev, move, up) {
+  const id = ev.pointerId, mv = e => { if (e.pointerId === id) move(e); };
+  const fin = e => { if (e.pointerId !== id) return; window.removeEventListener("pointermove", mv, true); window.removeEventListener("pointerup", fin, true); window.removeEventListener("pointercancel", fin, true); up(e); };
+  window.addEventListener("pointermove", mv, true); window.addEventListener("pointerup", fin, true); window.addEventListener("pointercancel", fin, true);
+}
+function cxHold(ev, ms, fire) {
+  const x = ev.clientX, y = ev.clientY; let t = setTimeout(() => { t = null; fire(); }, ms);
+  cxTrack(ev, e => { if (t && Math.hypot(e.clientX - x, e.clientY - y) > 10) { clearTimeout(t); t = null; } }, () => { if (t) { clearTimeout(t); t = null; } });
+}
+const cxCenter = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+function cxCanvas(parent) {   // a canvas over the whole screen, or over one stage
+  const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1);
+  if (parent) { const r = parent.getBoundingClientRect(); cv.className = "cx-fx"; cv.width = r.width * dpr; cv.height = r.height * dpr; parent.appendChild(cv); }
+  else { cv.className = "fx-canvas"; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px"; document.body.appendChild(cv); }
+  const g = cv.getContext("2d"); g.scale(dpr, dpr); return { cv, g };
+}
+document.getElementById("collView").addEventListener("pointerdown", ev => {
+  const b = ev.target.closest(".cx-big[data-live]"); if (!b || ev.button > 0) return;
+  const id = b.dataset.live, x = ev.clientX, y = ev.clientY;
+  if (id === "tesseract") cxHold(ev, 450, () => cxTess(x, y, b));
+  else if (id === "darkhold") cxDark(b, ev);
+  else if (id === "agamotto") cxEye(b, ev);
+  else if (id === "sling-ring") cxSling(b, ev);
+  else if (id === "arc") cxArc(b, ev);
+  else if (id === "aether") cxAether(b, ev);
+});
+document.getElementById("collView").addEventListener("click", ev => { if (ev.target.closest('.cx-big[data-live="sokovia-accords"]')) { haptic(10); cxAccords(); } });
+
+/* ---------- the Tesseract: hold the cube's mark and it lifts out of the case; carry it off and let go, and the Tesseract takes it
+   and sends it home, the way it did with The First Avenger's row ---------- */
+let cxTessOn = false;
+function cxTess(x, y, b) {
+  const obj = b.querySelector(".cx-obj");
+  if (REDUCED) { awardStone("space", x, y); return; }
+  if (cxTessOn) return; cxTessOn = true;
+  const ghost = document.createElement("div"); ghost.className = "fx-cxg"; ghost.innerHTML = obj.innerHTML; ghost.style.left = x + "px"; ghost.style.top = y + "px"; document.body.appendChild(ghost);
+  obj.style.opacity = "0"; glowC(x, y, 0, "blue", 1); haptic([20, 40, 20]);
+  let px = x, py = y, last = 0;
+  const move = ev => { px = ev.clientX; py = ev.clientY; ghost.style.left = px + "px"; ghost.style.top = py + "px";
+    if (Date.now() - last > 45) { last = Date.now(); sparkC(px, py - 51, (Math.random() - .5) * 30, (Math.random() - .5) * 30, 0, 500, BLUE_C); } };
+  const up = () => {
+    window.removeEventListener("pointermove", move, true); window.removeEventListener("pointerup", up, true); window.removeEventListener("pointercancel", up, true);
+    const [hx, hy] = cxCenter(obj), cy = py - 51;   // the mark rides just above your finger
+    const back = () => { obj.style.opacity = ""; obj.animate([{ filter: "drop-shadow(0 0 14px #2F7BFF) brightness(1.8)" }, { filter: "none" }], { duration: 700 }); cxTessOn = false; };
+    if (Math.hypot(px - x, py - y) < 60) {   // not carried far enough: it settles back into the case
+      ghost.animate([{ left: px + "px", top: py + "px", transform: "translate(-50%,-130%)", opacity: 1 }, { left: hx + "px", top: hy + "px", transform: "translate(-50%,-50%)", opacity: .2 }], { duration: 300, fill: "forwards" }).onfinish = () => { ghost.remove(); back(); };
+      return;
+    }
+    ghost.animate([{ transform: "translate(-50%,-130%) scale(1)", opacity: 1 }, { transform: "translate(-50%,-130%) scale(.2)", opacity: 0 }], { duration: 260, fill: "forwards" }).onfinish = () => ghost.remove();
+    const cube = document.createElement("div"); cube.className = "fx-tess"; cube.style.left = px + "px"; cube.style.top = cy + "px";
+    cube.innerHTML = `<div class="cube3">${["rotateY(0deg)", "rotateY(90deg)", "rotateY(180deg)", "rotateY(-90deg)", "rotateX(90deg)", "rotateX(-90deg)"].map(f => `<div class="f" style="transform:${f} translateZ(60px)"></div>`).join("")}<div class="core"></div></div>`;
+    document.body.appendChild(cube);
+    cube.animate([{ transform: "scale(0)", opacity: 0 }, { transform: "scale(.55)", opacity: 1, offset: .15 }, { transform: "scale(.6)", opacity: 1, offset: .5 }, { transform: "scale(.55)", opacity: 1, offset: .85 }, { transform: "scale(0)", opacity: 0 }], { duration: 2400, easing: "ease-in-out", fill: "both" }).onfinish = () => cube.remove();
+    cube.firstChild.animate([{ transform: "rotateX(-20deg) rotateY(0deg)" }, { transform: "rotateX(340deg) rotateY(720deg)" }], { duration: 2400 });
+    glowC(px, cy, 0, "blue", 1.8); burst(px, cy, 30, BLUE_C, 70); haptic([30, 40, 90]);
+    setTimeout(() => { const [hx2, hy2] = cxCenter(obj); fxRing(hx2, hy2, 60, "#7FB2FF", 600, 0, 3); burst(hx2, hy2, 16, BLUE_C, 40); back(); }, 1900);
+    setTimeout(() => awardStone("space", px, cy), 2200);
+  };
+  window.addEventListener("pointermove", move, true); window.addEventListener("pointerup", up, true); window.addEventListener("pointercancel", up, true);
+}
+
+/* ---------- the Darkhold: hold it and its script eats the file from the top down while the dark closes in. Let go once it has you reading,
+   before it takes the whole page ---------- */
+let cxDarkOn = false;
+const RUNES = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ";
+function cxDark(b, ev) {
+  if (cxDarkOn) return;
+  if (REDUCED) { cxHold(ev, 2000, () => found("darkhold")); return; }
+  cxDarkOn = true;
+  const rec = b.closest(".co-rec"), obj = b.querySelector(".cx-obj"), top = b.getBoundingClientRect().bottom, H = innerHeight, T = 7000, MIN = 1500;
+  const nodes = [], tw = document.createTreeWalker(rec, NodeFilter.SHOW_TEXT);
+  for (let n = tw.nextNode(); n; n = tw.nextNode()) { if (!n.data.trim() || b.contains(n) || n.parentElement.closest(".co-crumb")) continue;
+    const r = n.parentElement.getBoundingClientRect(), d = clamp01((r.top - top) / H);
+    nodes.push({ n, p: n.parentElement, o: n.data, d, th: [...n.data].map(() => Math.random()), ru: [...n.data].map(() => RUNES[Math.random() * RUNES.length | 0]) }); }
+  const dark = document.createElement("div"); dark.className = "fxl"; dark.style.zIndex = 96; document.body.appendChild(dark);
+  const paint = L => {
+    nodes.forEach(q => { const lv = clamp01((L * 1.5 - q.d * .6) / .5); q.n.data = lv ? [...q.o].map((ch, k) => ch.trim() && q.th[k] < lv ? q.ru[k] : ch).join("") : q.o;
+      q.p.classList.toggle("cx-rune", lv > .35); });
+    const [cx, cy] = cxCenter(obj), R = (1 - L) * Math.max(innerWidth, H) * 1.1;
+    dark.style.background = `radial-gradient(circle at ${cx}px ${cy}px, rgba(30,0,6,0) ${R}px, rgba(12,0,3,.94) ${R + 260}px)`;
+    obj.style.color = "#E0354A"; obj.style.filter = `drop-shadow(0 0 ${6 + 20 * L}px rgba(220,30,50,.95))`;
+    obj.style.transform = L > .7 ? `translate(calc(-50% + ${(Math.random() - .5) * 4 * L}px), calc(-50% + ${(Math.random() - .5) * 4 * L}px))` : "";
+  };
+  const clean = () => { nodes.forEach(q => { q.n.data = q.o; q.p.classList.remove("cx-rune"); }); dark.remove(); obj.style.color = obj.style.filter = obj.style.transform = ""; cxDarkOn = false; };
+  let phase = "hold", t0 = performance.now(), tUp = 0, Lup = 0, hum = 0, lost = false;
+  haptic(20);
+  const frame = now => {
+    const t = now - t0;
+    if (phase === "hold") {
+      const L = clamp01((t - 200) / (T - 200)); paint(L);
+      if (now - hum > 400 + 600 * (1 - L)) { hum = now; haptic(10 + 30 * L); }
+      if (t >= T) {   // it takes everything: the page goes black under its script, then lets you go
+        phase = "taken"; tUp = now; haptic([60, 40, 120, 40, 200]);
+        dark.style.transition = "background .4s"; dark.style.background = "rgba(8,0,2,.97)";
+      }
+    } else if (phase === "out") {
+      const f = clamp01((now - tUp) / 600), L = Lup * (1 - f); paint(L);
+      if (f >= 1) { clean(); if (!lost && tUp - t0 >= MIN) { haptic([20, 30, 20]); found("darkhold"); } return; }
+    } else if (phase === "taken") {
+      const f = (now - tUp) / 1800; if (f >= 1) { phase = "out"; tUp = now; Lup = 1; lost = true; dark.style.transition = ""; requestAnimationFrame(frame); return; }
+      paint(1);
+      return requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  };
+  cxTrack(ev, () => {}, () => { if (phase !== "hold") return; const now = performance.now(); phase = "out"; Lup = clamp01((now - t0 - 200) / (T - 200)); tUp = now; });
+  requestAnimationFrame(frame);
+}
+
+/* ---------- the Eye of Agamotto: turn it around its middle. Each quarter turn back takes the case one step back through its own history,
+   forward brings it home; the file shows where it was and who had it ---------- */
+function cxEye(b, ev) {
+  const o = COLLX.find(x => x.id === collRec), S = cxSteps(o), rec = b.closest(".co-rec"), lis = [...rec.querySelectorAll(".cx-chain li")];
+  const tiles = [...rec.querySelectorAll(".co-tiles > div")], stb = b.querySelector(".cx-stb"), obj = b.querySelector(".cx-obj");
+  let lab = b.querySelector(".cx-eyet"); if (!lab) { lab = document.createElement("span"); lab.className = "cx-eyet"; b.appendChild(lab); }
+  const [cx, cy] = cxCenter(obj), br = b.getBoundingClientRect(), ox = cx - br.left, oy = cy - br.top, STEP = Math.PI / 2;
+  let at = b._eyeAt ?? S.length - 1, acc = 0, rot = b._eyeRot || 0, prev = Math.atan2(ev.clientY - cy, ev.clientX - cx), up = false, a = 0;
+  const apply = () => {
+    lis.forEach((li, k) => { li.classList.toggle("fut", k > at); li.classList.toggle("now", k === at && at < S.length - 1); });
+    const s = S.slice(0, at + 1), st = cxStatus(s);
+    if (tiles[2] && !cxSpec(o)) tiles[2].querySelector("b").textContent = cxHolder(s);
+    if (tiles[3]) tiles[3].querySelector("b").textContent = st;
+    stb.textContent = st; b.className = b.className.replace(/\bs-\w+/, "s-" + CX_ST[st]);
+    lab.textContent = at < S.length - 1 ? `${S[at][1]} · ${at + 1} of ${S.length}` : ""; lab.classList.toggle("on", at < S.length - 1);
+    b._eyeAt = at; haptic(at === S.length - 1 ? [10, 20, 10] : 8);
+  };
+  const { cv, g } = cxCanvas(b), W = br.width, H = br.height, GR = "45,190,90", GL = "160,255,190";
+  const draw = () => {
+    g.clearRect(0, 0, W, H); if (a <= 0) return;
+    g.save(); g.translate(ox, oy); g.globalCompositeOperation = "lighter"; g.shadowColor = `rgb(${GR})`; g.shadowBlur = 10; g.lineWidth = 1.4;
+    // two rings of the mandala, turning against each other as you turn the Eye
+    [[56, rot, 24], [70, -rot * .6, 36], [42, rot * 1.4, 8]].forEach(([r, w, n], i) => {
+      g.strokeStyle = `rgba(${i ? GR : GL},${.75 * a})`; g.beginPath(); g.arc(0, 0, r, 0, Math.PI * 2); g.stroke();
+      for (let k = 0; k < n; k++) { const q = w + k / n * Math.PI * 2, l = k % 3 ? 4 : 9; g.beginPath(); g.moveTo(Math.cos(q) * r, Math.sin(q) * r); g.lineTo(Math.cos(q) * (r + l), Math.sin(q) * (r + l)); g.stroke(); }
+    });
+    g.strokeStyle = `rgba(${GL},${.6 * a})`; g.beginPath();   // the square laid across them
+    for (let k = 0; k < 4; k++) { const q = rot * .5 + k * Math.PI / 2 + Math.PI / 4; k ? g.lineTo(Math.cos(q) * 70, Math.sin(q) * 70) : g.moveTo(Math.cos(q) * 70, Math.sin(q) * 70); }
+    g.closePath(); g.stroke(); g.restore();
+  };
+  const loop = () => { a = up ? Math.max(0, a - .06) : Math.min(1, a + .12); draw(); if (up && a <= 0) { cv.remove(); return; } requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+  obj.style.color = `rgb(${GL})`;
+  cxTrack(ev, e => {
+    const q = Math.atan2(e.clientY - cy, e.clientX - cx); let d = q - prev; if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; prev = q;
+    rot += d; acc += d;
+    while (acc >= STEP && at < S.length - 1) { at++; acc -= STEP; apply(); }
+    while (acc <= -STEP && at > 0) { at--; acc += STEP; apply(); }
+    if ((at === S.length - 1 && acc > 0) || (at === 0 && acc < 0)) acc = 0;
+  }, () => { up = true; b._eyeRot = rot; obj.style.color = ""; });
+}
+
+/* ---------- a sling ring: trace a circle with your finger and a portal opens there, onto another case in the archive ---------- */
+function cxSling(b, ev) {
+  if (REDUCED) return;
+  let { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, pts = [[ev.clientX, ev.clientY, performance.now()]], LIFE = 1300, OR = "255,150,40";
+  let up = 0, last = 0, portal = null, done = false;
+  const frame = now => {
+    g.clearRect(0, 0, W, H); g.lineCap = "round"; g.shadowColor = `rgb(${OR})`; g.shadowBlur = 12;
+    // the trace: sparks that burn where your finger went, then die away
+    // drawn in five bands by age, one stroke each, so a long trace stays cheap
+    for (let band = 0; band < 5; band++) { const a = 1 - (band + .5) / 5, j = () => (Math.random() - .5) * 2.4; let any = false;
+      const glow = new Path2D(), core = new Path2D();
+      for (let k = 1; k < pts.length; k++) { const f = (now - pts[k][2]) / LIFE; if (f < band / 5 || f >= (band + 1) / 5) continue; any = true;
+        const [x0, y0] = pts[k - 1], [x1, y1] = pts[k]; glow.moveTo(x0 + j(), y0 + j()); glow.lineTo(x1 + j(), y1 + j()); core.moveTo(x0, y0); core.lineTo(x1, y1); }
+      if (!any) continue;
+      g.shadowBlur = 12; g.strokeStyle = `rgba(${OR},${.9 * a})`; g.lineWidth = 3; g.stroke(glow);
+      g.shadowBlur = 0; g.strokeStyle = `rgba(255,236,190,${a})`; g.lineWidth = 1.1; g.stroke(core); }
+    g.shadowBlur = 12;
+    if (portal) {   // the portal: a ring of sparks spinning open
+      const f = (now - portal.t) / 1600, R = portal.r * easeIO(clamp01(f / .25)) * (f > .8 ? 1 - (f - .8) / .2 : 1);
+      if (f >= 1) { cv.remove(); return; }
+      for (let k = 0; k < 30; k++) { const q = now / 160 + k / 30 * Math.PI * 2 + Math.random() * .2, r = R + (Math.random() - .5) * 7;
+        g.strokeStyle = `rgba(${k % 3 ? OR : "255,230,160"},.95)`; g.lineWidth = 1.4 + Math.random() * 1.6; g.beginPath(); g.arc(portal.x, portal.y, Math.max(1, r), q, q + .18 + Math.random() * .2); g.stroke(); }
+      if (Math.random() < .7) { const q = Math.random() * Math.PI * 2; sparkC(portal.x + Math.cos(q) * R, portal.y + Math.sin(q) * R, -Math.sin(q) * 60, Math.cos(q) * 60, 0, 600, ORANGE_C); }
+      if (f > .28 && !done) { done = true; slingJump(portal); }
+    } else if (up && now - up > LIFE) { cv.remove(); return; }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+  cxTrack(ev, e => {
+    const tn = performance.now(); pts.push([e.clientX, e.clientY, tn]);
+    if (Date.now() - last > 30) { last = Date.now(); sparkC(e.clientX, e.clientY, (Math.random() - .5) * 40, (Math.random() - .5) * 40 + 10, 0, 500, ORANGE_C); }
+  }, () => {
+    up = performance.now();
+    // was it a circle? roughly round, and it went most of the way around
+    const n = pts.length; if (n < 12) return;
+    const cx = pts.reduce((s, p) => s + p[0], 0) / n, cy = pts.reduce((s, p) => s + p[1], 0) / n, ds = pts.map(p => Math.hypot(p[0] - cx, p[1] - cy)), R = ds.reduce((s, d) => s + d, 0) / n;
+    const sd = Math.sqrt(ds.reduce((s, d) => s + (d - R) ** 2, 0) / n) / R;
+    let sweep = 0; for (let k = 1; k < n; k++) { let d = Math.atan2(pts[k][1] - cy, pts[k][0] - cx) - Math.atan2(pts[k - 1][1] - cy, pts[k - 1][0] - cx); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; sweep += d; }
+    if (R > 26 && sd < .32 && Math.abs(sweep) > Math.PI * 1.6) { portal = { x: cx, y: cy, r: Math.max(R, 40), t: performance.now() }; haptic([20, 30, 20, 30, 60]); }
+  });
+}
+function slingJump(p) {
+  const here = COLLX.find(x => x.id === collRec), u = here ? rfUniOf(here) : cxUni;
+  const L = COLLX.filter(o => o.id !== collRec && rfUniOf(o) === u && cxSteps(o).length); if (!L.length) return;
+  const to = L[Math.random() * L.length | 0]; collShow(to.id);
+  const v = document.getElementById("collView"), r = v.getBoundingClientRect(), x = p.x - r.left, y = p.y - r.top;
+  v.animate([{ clipPath: `circle(0px at ${x}px ${y}px)` }, { clipPath: `circle(${Math.hypot(innerWidth, innerHeight) * 1.2}px at ${x}px ${y}px)` }], { duration: 650, easing: "cubic-bezier(.5,0,.3,1)" });
+}
+
+/* ---------- the arc reactor: hold it and it powers up, lighting the file around it; let go and it powers down ---------- */
+function cxArc(b, ev) {
+  if (REDUCED || b._arc) return;
+  const rec = b.closest(".co-rec"), obj = b.querySelector(".cx-obj"), glow = document.createElement("div");
+  glow.className = "fxl"; glow.style.cssText = "z-index:96;mix-blend-mode:screen"; document.body.appendChild(glow); rec.classList.add("arcon"); b._arc = 1;
+  let c = 0, up = false, last = performance.now(), hum = 0, full = false;
+  const frame = now => {
+    const dt = now - last; last = now; c = up ? Math.max(0, c - dt / 450) : Math.min(1, c + dt / 1400);
+    const cc = c < .97 && !up ? c * (.9 + .1 * Math.random()) : c, [cx, cy] = cxCenter(obj);
+    glow.style.background = `radial-gradient(circle at ${cx}px ${cy}px, rgba(235,250,255,${.5 * cc}) 0, rgba(140,210,255,${.3 * cc}) ${30 + 80 * cc}px, rgba(80,160,255,${.1 * cc}) ${90 + 260 * cc}px, rgba(80,160,255,0) ${160 + 560 * cc}px)`;
+    rec.style.setProperty("--arc", cc.toFixed(3));
+    obj.style.color = `rgb(${Math.round(190 + 65 * cc)},${Math.round(225 + 30 * cc)},255)`; obj.style.filter = `drop-shadow(0 0 ${6 + 22 * cc}px rgba(160,220,255,${.5 + .5 * cc})) brightness(${1 + .8 * cc})`;
+    if (!up && !full && c >= 1) { full = true; fxRing(cx, cy, 130, "#BFE6FF", 700, 0, 3); haptic([20, 30, 40]); }
+    if (!up && !full && now - hum > 150) { hum = now; haptic(6); }
+    if (up && c <= 0) { glow.remove(); rec.classList.remove("arcon"); rec.style.removeProperty("--arc"); obj.style.color = obj.style.filter = ""; b._arc = 0; return; }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+  cxTrack(ev, () => {}, () => { up = true; });
+}
+
+/* ---------- the Aether: touch it and it pours out after your finger, a dark red liquid that won't stay still; let go and it drains back in ---------- */
+function cxAether(b, ev) {
+  if (REDUCED || b._ae) return; b._ae = 1;
+  // the drops are drawn hard-edged and the goo filter melts them together, so they run like one liquid
+  if (!document.getElementById("cxGoo")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="cxGoo"><feGaussianBlur stdDeviation="7"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/></filter></svg>`);
+  const obj = b.querySelector(".cx-obj"), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = [];
+  cv.style.filter = "url(#cxGoo) drop-shadow(0 0 10px rgba(210,20,40,.75))";
+  let px = ev.clientX, py = ev.clientY, up = 0;
+  obj.style.filter = "drop-shadow(0 0 16px rgba(220,20,40,.95))"; haptic([10, 30, 10]);
+  const frame = now => {
+    const [hx, hy] = cxCenter(obj); g.clearRect(0, 0, W, H);
+    if (!up) for (let k = 0; k < 4 && P.length < 320; k++) P.push({ x: hx + (Math.random() - .5) * 16, y: hy + (Math.random() - .5) * 16, vx: (Math.random() - .5) * 2, vy: (Math.random() - .5) * 2, r: 5 + Math.random() * 7, ph: Math.random() * 6.28 });
+    for (let i = P.length - 1; i >= 0; i--) {
+      const q = P[i], tx = up ? hx : px, ty = up ? hy : py, dx = tx - q.x, dy = ty - q.y, d = Math.hypot(dx, dy) || 1, k = up ? 1.2 : 1;
+      q.vx = q.vx * .86 + dx / d * k + Math.sin(q.y * .015 + now * .002 + q.ph) * .8;
+      q.vy = q.vy * .86 + dy / d * k + Math.cos(q.x * .015 + now * .0018 + q.ph) * .8;
+      q.x += q.vx; q.y += q.vy;
+      if (up && (d < 12 || now - up > 1800)) { P.splice(i, 1); continue; }
+      if (!up && d < 18 && Math.random() < .08) { q.x = hx + (Math.random() - .5) * 16; q.y = hy + (Math.random() - .5) * 16; q.vx = q.vy = 0; }   // a steady stream from the case to your finger
+      const sh = (Math.sin(now * .003 + q.ph) + 1) / 2;   // dark red to near black, so the liquid churns
+      g.fillStyle = `rgb(${Math.round(60 + 110 * sh)},${Math.round(4 + 8 * sh)},${Math.round(10 + 14 * sh)})`;
+      g.beginPath(); g.arc(q.x, q.y, q.r, 0, Math.PI * 2); g.fill();
+    }
+    if (up && !P.length) { cv.remove(); obj.style.filter = ""; b._ae = 0; return; }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+  cxTrack(ev, e => { px = e.clientX; py = e.clientY; }, () => { up = performance.now(); });
+}
+
+/* ---------- the Sokovia Accords: the document itself. Sign it with your finger, or refuse; either way it's on your file ---------- */
+function cxAccords() {
+  if (document.querySelector(".acc-ov")) return;
+  const A = state.accords, ov = document.createElement("div"); ov.className = "acc-ov";
+  ov.innerHTML = `<div class="acc-doc" role="dialog" aria-label="The Sokovia Accords"><small>United Nations · Vienna</small><h4>The Sokovia Accords</h4>
+    <p>Ratified by 117 countries. Enhanced individuals will no longer act on their own authority. They will operate under the supervision of a United Nations panel, only when and if that panel deems it necessary.</p>
+    <p>The undersigned agrees to abide by the Accords.</p>
+    <div class="acc-sig"><canvas></canvas><span>${A ? "Signature" : "Sign here"}</span></div>
+    ${A ? `<span class="acc-stamp ${A.v === "signed" ? "ok" : "no"}">${A.v === "signed" ? "Signatory" : "Refused"}</span>` : ""}
+    <div class="acc-btns">${A ? `<button type="button" data-acc="x">Close</button>` : `<button type="button" class="ref" data-acc="no">Refuse</button><button type="button" data-acc="x">Not now</button>`}</div></div>`;
+  document.body.appendChild(ov);
+  const doc = ov.firstChild, cv = ov.querySelector("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1), cr = cv.getBoundingClientRect();
+  cv.width = cr.width * dpr; cv.height = cr.height * dpr; const g = cv.getContext("2d"); g.scale(dpr, dpr);
+  g.strokeStyle = "#16233F"; g.lineWidth = 2.2; g.lineCap = g.lineJoin = "round";
+  if (A && A.sig) { const im = new Image(); im.onload = () => g.drawImage(im, 0, 0, cr.width, cr.height); im.src = A.sig; }
+  const close = () => { ov.remove(); document.removeEventListener("keydown", esc1); };
+  const esc1 = e => { if (e.key === "Escape") close(); }; document.addEventListener("keydown", esc1);
+  const stamp = (ok) => { const s = document.createElement("span"); s.className = "acc-stamp " + (ok ? "ok" : "no"); s.textContent = ok ? "Signatory" : "Refused"; doc.appendChild(s);
+    s.animate([{ transform: "rotate(-12deg) scale(2.2)", opacity: 0 }, { transform: "rotate(-12deg) scale(1)", opacity: .85 }], { duration: 260, easing: "cubic-bezier(.3,0,.4,1)" }); haptic([40, 30, 80]);
+    ov.querySelector(".acc-btns").style.visibility = "hidden"; setTimeout(() => { close(); renderColl(); found("accords"); }, 1500); };
+  ov.addEventListener("click", e => { if (e.target === ov || e.target.closest('[data-acc="x"]')) { close(); return; }
+    if (e.target.closest('[data-acc="no"]') && !state.accords) { state.accords = { v: "refused" }; persist(); stamp(false); } });
+  if (A) return;
+  let ink = 0, idle = null;
+  cv.addEventListener("pointerdown", e => {
+    if (state.accords) return; clearTimeout(idle); let lx = e.clientX - cr.left, ly = e.clientY - cr.top;
+    cxTrack(e, m => { const x = m.clientX - cr.left, y = m.clientY - cr.top; g.beginPath(); g.moveTo(lx, ly); g.lineTo(x, y); g.stroke(); ink += Math.hypot(x - lx, y - ly); lx = x; ly = y; },
+      () => { if (ink > 220) idle = setTimeout(() => { if (state.accords) return; state.accords = { v: "signed", sig: cv.toDataURL("image/png") }; persist(); stamp(true); }, 800); });
+  });
+}
+/* MOCKUP END */
 </script>
 </body>
 </html>
