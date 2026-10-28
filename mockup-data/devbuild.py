@@ -392,15 +392,18 @@ for i,mp in _nf.get('hold',{}).items():
         if len(x)>3 and x[3] in mp: x[3]=mp[x[3]]; hit=1
     if not hit: print('names: no holder to rename',i)
 # the Collection's writing pass (owner, October 2026): steps first written to a strict one-sentence rule, rewritten to read naturally with the
-# same facts (coll_prose.json: object id, then [old text, new text], matched on the text as built)
-_cp=load('coll_prose.json',{})
+# same facts (prose_coll.json: object id, then [old text, new text], matched on the text as built; a new text of null drops a step that only
+# repeated another)
+_cp=load('prose_coll.json',{})
 for i,pairs in _cp.items():
     o=_byc.get(i)
     if o is None: print('prose: no object',i); continue
     for old,new in pairs:
         hit=[x for x in o['st'] if x[0]==old]
         if not hit: print('prose: no step',i,old[:60]); continue
-        for x in hit: x[0]=new
+        if new is None: o['st']=[x for x in o['st'] if x[0]!=old]   # a step that only repeated another
+        else:
+            for x in hit: x[0]=new
 if '/*IDMOVE*/' in s: put('IDMOVE',_im)
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
