@@ -1164,6 +1164,17 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
+/* MOCKUP BEGIN: Sound, proposal 2 (test build only; mainprep cuts it) */
+.snd-row{ display:flex; align-items:center; gap:14px; } .snd-row p{ flex:1; margin:0 !important; }
+.hf-save .snd-sw{ flex:none; display:inline-flex; align-items:center; gap:10px; padding:6px 12px 6px 6px; }
+.snd-sw i{ position:relative; width:36px; height:20px; border-radius:999px; background:#2A3550; transition:background .2s; }
+.snd-sw i::after{ content:""; position:absolute; left:3px; top:3px; width:14px; height:14px; border-radius:50%; background:#D8E0EE; transition:transform .2s; }
+.snd-sw.on i{ background:#C9A43A; } .snd-sw.on i::after{ transform:translateX(16px); } .hf-save .snd-sw.on{ border-color:#C9A43A; color:#F4D27A; }
+.snd-take{ display:flex; align-items:center; gap:8px; margin-top:8px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#8E9AB3; }
+.snd-take span{ margin-right:auto; } .snd-take button{ width:36px; height:30px; border:1px solid #3A4A6A; border-radius:8px; background:none; color:#D8E0EE; font:12px 'Share Tech Mono',monospace; }
+.snd-take button[aria-pressed="true"]{ border-color:#C9A43A; color:#F4D27A; }
+.snd-pill{ position:fixed; left:12px; bottom:calc(var(--dockh) + 84px); z-index:199; padding:6px 10px; border:1px solid #C9A43A; border-radius:999px; background:#0D1320; color:#F4D27A; font:10.5px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
+/* MOCKUP END */
 /* MOCKUP BEGIN: J.A.R.V.I.S., one search across the whole app (test build only; mainprep cuts it) */
 .subrow .jv-btn{ display:inline-flex; align-items:center; gap:8px; padding:4px 11px 4px 5px; border:1px solid rgba(79,216,240,.45); border-radius:999px; background:rgba(79,216,240,.07); color:#BFF4FC; font:10.5px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; vertical-align:middle; }
 .jv-btn i{ position:relative; display:grid; place-items:center; width:18px; height:18px; border:1px dashed rgba(127,230,247,.6); border-radius:50%; animation:jvSpin 9s linear infinite; }
@@ -11666,6 +11677,186 @@ document.getElementById("collView").addEventListener("click", ev => {
 // back to J.A.R.V.I.S. from a file: the question is still there
 const collRestore2 = collRestore;
 collRestore = function () { const h = history.state || {}; if (h.cm === "jv" && h.q != null) jvQ = h.q; return collRestore2(); };
+/* MOCKUP END */
+/* MOCKUP BEGIN: Sound, proposal 2 (test build only; mainprep cuts it). The same library as the sound board, wired to the animations it names.
+   Off until switched on (the Agent File, or the test pill); a box's open and close can be heard in three takes, A, B and C */
+// the datapad's sounds, one library for the sound board and the app alike: every sound made in the browser as it plays, from a few voices
+// (clean tones, glassy FM, filtered noise, sweeps with a flutter, data chatter, a servo), so the two always sound the same
+const DPSND = (() => {
+  let ctx = null, master = null, noiseBuf = null, level = .7;
+  function ready() {
+    if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return false; ctx = new C();
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; master = ctx.createGain(); master.gain.value = level; master.connect(comp); comp.connect(ctx.destination);
+      noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+    if (ctx.state !== "running") ctx.resume(); return true;
+  }
+  const T = () => ctx.currentTime;
+  const envOut = (t, peak, a, dur, hold) => { const g = ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a); if (hold) g.gain.setValueAtTime(peak, t + a + hold); g.gain.exponentialRampToValueAtTime(.0001, t + dur); g.connect(master); return g; };
+  // a short digital tone; steps: a staircase of pitches, like a terminal
+  function blip(at, f, dur, o = {}) {
+    const t = T() + at, osc = ctx.createOscillator(), lp = ctx.createBiquadFilter(); osc.type = o.type || "square"; lp.type = "lowpass"; lp.frequency.value = o.lp || 6000;
+    if (o.steps) o.steps.forEach((s, i) => osc.frequency.setValueAtTime(s, t + i * (dur / o.steps.length))); else osc.frequency.setValueAtTime(f, t);
+    osc.connect(lp); lp.connect(envOut(t, o.g || .06, o.a || .002, dur, o.hold)); osc.start(t); osc.stop(t + dur + .02);
+  }
+  const sine = (at, f, dur, o = {}) => blip(at, f, dur, { ...o, type: "sine", lp: 14000 });
+  // glassy FM: a sine bent by a second one, its brightness falling away; smooth glides, nothing stepped
+  function fm(at, f, dur, o = {}) {
+    const t = T() + at, c = ctx.createOscillator(), m = ctx.createOscillator(), mg = ctx.createGain(); c.type = "sine"; m.type = "sine";
+    c.frequency.setValueAtTime(f, t); m.frequency.setValueAtTime(f * (o.ratio || 2), t);
+    if (o.to) { c.frequency.exponentialRampToValueAtTime(o.to, t + (o.glide || dur * .6)); m.frequency.exponentialRampToValueAtTime(o.to * (o.ratio || 2), t + (o.glide || dur * .6)); }
+    mg.gain.setValueAtTime(f * (o.index || 1), t); mg.gain.exponentialRampToValueAtTime(f * .01 + 1, t + dur * .7);
+    m.connect(mg); mg.connect(c.frequency); c.connect(envOut(t, o.g || .05, o.a || .004, dur)); c.start(t); m.start(t); c.stop(t + dur + .02); m.stop(t + dur + .02);
+  }
+  // filtered noise: seals, reads, static, and the glassy swipe of a panel
+  function nz(at, dur, o = {}) {
+    const t = T() + at, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(); s.buffer = noiseBuf;
+    f.type = o.ft || "bandpass"; f.Q.value = o.q || 2; f.frequency.setValueAtTime(o.f || 3000, t); if (o.to) f.frequency.exponentialRampToValueAtTime(o.to, t + dur);
+    s.connect(f); f.connect(envOut(t, o.g || .05, o.a || .003, dur)); s.start(t, Math.random()); s.stop(t + dur + .02);
+  }
+  // a sweep with a fast flutter on it: a reader's or a sensor's scan
+  function scan(at, f0, f1, dur, o = {}) {
+    const t = T() + at, osc = ctx.createOscillator(), am = ctx.createOscillator(), amg = ctx.createGain(), g = ctx.createGain(), p = o.g || .04;
+    osc.type = "sine"; osc.frequency.setValueAtTime(f0, t); osc.frequency.linearRampToValueAtTime(f1, t + dur); am.frequency.value = o.rate || 34; amg.gain.value = p * .5;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(p, t + .02); g.gain.setValueAtTime(p, t + Math.max(.03, dur - .04)); g.gain.linearRampToValueAtTime(0, t + dur);
+    am.connect(amg); amg.connect(g.gain); osc.connect(g); g.connect(master); osc.start(t); am.start(t); osc.stop(t + dur + .02); am.stop(t + dur + .02);
+  }
+  const DATA_F = [1760, 1976, 2349, 2637, 2960, 3520];
+  function chatter(at, dur, o = {}) { const every = o.every || .035, n = Math.floor(dur / every); for (let i = 0; i < n; i++) if (Math.random() < (o.density || .8)) blip(at + i * every, DATA_F[Math.random() * DATA_F.length | 0] * (o.oct || 1), .018, { g: o.g || .018, type: o.type || "square", lp: 5000 }); }
+  function servo(at, f0, f1, dur, o = {}) {
+    const t = T() + at, osc = ctx.createOscillator(), lp = ctx.createBiquadFilter(), g = ctx.createGain(), p = o.g || .05; osc.type = "sawtooth"; lp.type = "lowpass"; lp.frequency.value = o.lp || 1100; lp.Q.value = 3;
+    for (let i = 0; i <= 10; i++) osc.frequency.setValueAtTime(f0 + (f1 - f0) * i / 10, t + dur * i / 10);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(p, t + .03); g.gain.setValueAtTime(p, t + dur - .05); g.gain.linearRampToValueAtTime(0, t + dur);
+    osc.connect(lp); lp.connect(g); g.connect(master); osc.start(t); osc.stop(t + dur + .02); nz(at, dur, { f: 900, q: .8, g: p * .35 });
+  }
+  const thump = (at, g = .22) => blip(at, 90, .18, { type: "sine", lp: 14000, steps: [90, 70, 55, 46], g });
+  const click = (at, g = .05) => nz(at, .012, { ft: "highpass", f: 3500, g });
+  // the sounds, by name
+  const S = {
+    tap: () => sine(0, 3400, .022, { g: .022 }),
+    select: () => { blip(0, 2349, .03, { g: .035 }); blip(.035, 3136, .035, { g: .03 }); },
+    back: () => { blip(0, 2637, .03, { g: .03 }); blip(.035, 1976, .04, { g: .028 }); },
+    check: () => { blip(0, 1760, .03, { g: .04 }); blip(.04, 2349, .03, { g: .04 }); blip(.08, 3520, .07, { g: .045, hold: .02 }); click(.1, .04); },
+    uncheck: () => { blip(0, 2349, .035, { g: .03 }); blip(.045, 1568, .06, { g: .028 }); },
+    rating: n => { for (let i = 0; i < (n || 4); i++) blip(i * .06, [1760, 2093, 2637, 3136, 3520][i], .045, { g: .03, type: "triangle", lp: 9000 }); },
+    saved: () => { chatter(0, .12, { g: .012 }); sine(.14, 2960, .05, { g: .03 }); },
+    denied: () => { blip(0, 180, .09, { g: .06, lp: 900, hold: .05 }); blip(.12, 150, .14, { g: .06, lp: 900, hold: .08 }); },
+    // opening and closing a box: three takes, each smooth and glassy, none stepped
+    openA: () => { nz(0, .09, { f: 2400, to: 7500, q: 7, g: .035 }); fm(.015, 760, .22, { to: 1180, glide: .12, ratio: 2.01, index: 1.1, g: .045 }); sine(0, 150, .1, { g: .045 }); fm(.11, 2360, .22, { ratio: 3.5, index: .35, g: .016 }); },
+    closeA: () => { nz(0, .09, { f: 7500, to: 2400, q: 7, g: .03 }); fm(.01, 1180, .2, { to: 760, glide: .12, ratio: 2.01, index: 1.1, g: .04 }); sine(.1, 130, .1, { g: .04 }); },
+    openB: () => { const t = T(), g = ctx.createGain(), lp = ctx.createBiquadFilter(), am = ctx.createOscillator(), amg = ctx.createGain(); lp.type = "lowpass"; lp.frequency.value = 5200;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.05, t + .03); g.gain.exponentialRampToValueAtTime(.0001, t + .32); am.frequency.value = 46; amg.gain.value = .02; am.connect(amg); amg.connect(g.gain); g.connect(lp); lp.connect(master);
+      [600, 607].forEach(f => { const o = ctx.createOscillator(); o.type = "sine"; o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 2, t + .16); o.connect(g); o.start(t); o.stop(t + .34); }); am.start(t); am.stop(t + .34); sine(.17, 3400, .03, { g: .02 }); },
+    closeB: () => { const t = T(), g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 5200; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.045, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + .26); g.connect(lp); lp.connect(master);
+      [1200, 1213].forEach(f => { const o = ctx.createOscillator(); o.type = "sine"; o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f / 2, t + .15); o.connect(g); o.start(t); o.stop(t + .28); }); sine(.15, 2600, .03, { g: .016 }); },
+    openC: () => { fm(0, 320, .09, { to: 210, glide: .06, ratio: 1, index: .4, g: .06 }); sine(.01, 3520, .06, { g: .016 }); },
+    closeC: () => { fm(0, 260, .09, { to: 170, glide: .06, ratio: 1, index: .4, g: .055 }); sine(.01, 2637, .05, { g: .014 }); },
+    dock: () => { scan(0, 900, 1500, .12, { g: .025, rate: 60 }); blip(.12, 2637, .03, { g: .03 }); },
+    path: () => { chatter(0, .3, { every: .022, g: .015 }); blip(.32, 0, .16, { steps: [1320, 1760, 2349], g: .035 }); },
+    drawIn: () => { scan(0, 600, 640, 1.6, { g: .018, rate: 12 }); for (let i = 0; i < 8; i++) sine(.1 + i * .19, 2637, .025, { g: .022 }); },
+    drawBack: () => { scan(0, 640, 520, .8, { g: .016, rate: 18 }); for (let i = 0; i < 5; i++) sine(.06 + i * .14, 2093, .022, { g: .018 }); click(.82, .03); },
+    map: () => { scan(0, 300, 1100, .55, { g: .03, rate: 40 }); chatter(.2, .45, { every: .03, g: .012 }); },
+    pick: () => { [0, .18, .36].forEach((a, i) => { blip(a, [1568, 1976, 2349][i], .06, { g: .035, hold: .02 }); click(a + .01, .02); }); },
+    pill: () => { [0, .07, .14].forEach((a, i) => blip(a, [1976, 2637, 3520][i], .07, { g: .04, hold: .02 })); click(.22, .03); },
+    complete: () => { chatter(0, .18, { g: .014 }); [0, .08, .16, .24].forEach((a, i) => blip(.2 + a, [1760, 2349, 2960, 3520][i], .07, { g: .045, hold: .02 })); thump(.2, .12); },
+    levelup: () => { scan(0, 500, 2400, .45, { g: .03 }); [0, .1, .2].forEach((a, i) => blip(.5 + a, [2093, 2637, 3136][i], .09, { g: .05, hold: .04 })); thump(.5, .16); },
+    message: () => { [0, .1, .2, .3].forEach((a, i) => sine(a, i % 2 ? 1568 : 2349, .07, { g: .035 })); },
+    headline: () => { blip(0, 1320, .05, { g: .03 }); chatter(.07, .55, { every: .04, density: .65, g: .012, type: "triangle" }); },
+    hacked: () => { nz(0, .25, { f: 2200, q: .6, g: .06 }); blip(.05, 220, .2, { g: .05, lp: 1400, steps: [220, 330, 196, 440, 165] }); nz(.27, .08, { f: 4000, g: .04 }); },
+    intake: () => { chatter(0, .7, { every: .018, density: .9, g: .013 }); blip(.74, 2960, .1, { g: .04, hold: .04 }); click(.76, .03); },
+    newrec: () => { blip(0, 3136, .04, { g: .03 }); blip(.06, 3136, .04, { g: .03 }); },
+    swipe: () => nz(0, .28, { f: 1800, to: 4200, q: 3, g: .05 }),
+    readok: () => sine(0, 2637, .07, { g: .04, hold: .03 }),
+    reject: () => { blip(0, 196, .12, { g: .06, lp: 900, hold: .06 }); blip(.15, 196, .12, { g: .06, lp: 900, hold: .06 }); },
+    doors: () => { nz(0, .35, { ft: "highpass", f: 2500, g: .07 }); thump(.05, .2); servo(.25, 70, 120, 1.1, { g: .05 }); thump(1.35, .18); },
+    barcode: () => { scan(0, 1200, 1300, .6, { g: .03, rate: 70 }); blip(.62, 2960, .06, { g: .04 }); },
+    atlas: () => { sine(0, 55, .9, { g: .08, a: .2 }); scan(.05, 300, 900, .5, { g: .02, rate: 50 }); chatter(.4, .35, { every: .03, g: .012 }); blip(.8, 2349, .05, { g: .03 }); },
+    pin: () => { blip(0, 2637, .025, { g: .03 }); sine(.04, 3520, .05, { g: .035 }); },
+    city: () => { blip(0, 0, .3, { steps: [600, 800, 1000, 1300, 1700, 2200], g: .025, lp: 3500 }); scan(.05, 400, 1600, .3, { g: .02 }); },
+    zoom: () => sine(0, 3136, .015, { g: .016 }),
+    launch: () => { sine(0, 60, .5, { g: .07, a: .05 }); scan(.1, 600, 1400, .35, { g: .025 }); [0, .09].forEach((a, i) => blip(.5 + a, [2349, 3136][i], .06, { g: .035, hold: .02 })); },
+    // the first boot, beat by beat (the app plays each as its animation reaches it; the board strings them together)
+    bootPower: () => { sine(0, 50, .5, { g: .09, a: .25 }); nz(.05, .35, { ft: "highpass", f: 6000, g: .02 }); },
+    bootOpen: () => { thump(0, .2); scan(0, 200, 700, .3, { g: .025, rate: 80 }); },
+    bootType: d => chatter(0, d || .85, { every: .045, density: .95, g: .016 }),
+    bootTrace: () => scan(0, 900, 1400, .7, { g: .02, rate: 22 }),
+    bootLit: () => { [0, .08, .16].forEach((a, i) => blip(a, [1760, 2349, 2960][i], .08, { g: .04, hold: .03 })); thump(0, .14); },
+    bootWait: () => sine(0, 1175, .9, { g: .012, a: .4 }),
+    bootLine: ok => { chatter(0, .14, { every: .025, g: .012 }); if (ok) blip(.16, 2637, .03, { g: .03 }); else { blip(.16, 196, .06, { g: .045, lp: 900 }); blip(.24, 196, .06, { g: .045, lp: 900 }); } },
+    bootBar: () => scan(0, 500, 1800, 1.4, { g: .015, rate: 30 }),
+    bootGranted: () => { [0, .09, .18].forEach((a, i) => blip(a, [2093, 2637, 3520][i], .1, { g: .05, hold: .05 })); thump(0, .2); },
+    bootClear: () => servo(0, 160, 90, .35, { g: .03, lp: 1500 }),
+    bootHome: () => { for (let i = 0; i < 6; i++) blip(i * .11, [1760, 2093, 2349, 2637, 2960, 3136][i], .025, { g: .022 }); }
+  };
+  return { play(name, arg) { if (!S[name] || !ready()) return; try { S[name](arg); } catch (e) {} }, ready, setLevel(v) { level = v; if (master) master.gain.value = v; }, has: n => !!S[n] };
+})();
+const sndOn = () => !!state.sound;
+const sndPlay = (n, a) => { if (sndOn()) DPSND.play(n, a); };
+// a press's own sound wins over the plain tap
+let sndClaimAt = 0; const sndClaim = (n, a) => { sndClaimAt = performance.now(); sndPlay(n, a); };
+document.addEventListener("click", ev => { if (!sndOn() || !ev.isTrusted) return; const b = ev.target.closest('button, [role="button"], .tile, a'); if (!b) return;   // only your own presses, not clicks the app makes
+  setTimeout(() => { if (performance.now() - sndClaimAt > 60) sndPlay("tap"); }, 0); }, true);
+// tabs, chips, segments and pagers
+document.addEventListener("click", ev => { if (!sndOn()) return;
+  if (ev.target.closest('[role="tab"], .rf-seg button, .rf-tabs button, [data-hfpg], .atl-views button, .atl-chips button, .jv-sug button, .cm-chips button, .ftabs button')) sndClaim("select");
+  else if (ev.target.closest('.co-crumb, [data-co-back], #collBack, .atl-x, [data-acc="x"]')) sndClaim("back");
+  else if (ev.target.closest(".dock button")) sndClaim("dock");
+  else if (ev.target.closest("#btnChapters, #btnChars, #btnTimeline, .op-c")) sndClaim("path");
+  else { const s = ev.target.closest("[data-rss]"); if (s) sndClaim("rating", +s.dataset.rss); }
+}, true);
+window.addEventListener("popstate", () => { if (sndOn() && performance.now() - sndClaimAt > 300) sndClaim("back"); });
+// check-offs
+document.addEventListener("click", ev => { if (!sndOn()) return; const r = ev.target.closest("#panel .row, .tl-row"); if (!r || ev.target.closest("button:not(.row), .ep-chip")) return;
+  const k = r.dataset.tl ? tk(r.dataset.tl) : openEntry && r.dataset.t ? ck(openEntry, r.dataset.t) : null; if (!k) return; const was = !!state.checks[k];
+  sndClaimAt = performance.now(); setTimeout(() => { const now = !!state.checks[k]; if (now !== was) DPSND.play(now ? "check" : "uncheck"); }, 0); }, true);
+// a note written to your log
+document.addEventListener("change", ev => { if (ev.target.closest("#rateSheet textarea")) sndPlay("saved"); }, true);
+// the wrappers: each function that runs an animation plays its sound
+const sndWrap = (name, before) => { const f = window[name]; if (typeof f !== "function") return; window[name] = function (...a) { try { before.apply(this, a); } catch (e) {} return f.apply(this, a); }; };
+const sndBox = () => state.sndBox || "A";
+sndWrap("openPanel", () => sndClaim("open" + sndBox()));
+sndWrap("closePanel", () => { if (openEntry) sndClaim("close" + sndBox()); });
+sndWrap("openMap", () => sndClaim("map"));
+sndWrap("openAtlas", () => sndClaim("atlas"));
+sndWrap("atlSelect", () => sndClaim("pin"));
+sndWrap("atlSub", () => sndClaim("city"));
+{ let z = 0; sndWrap("atlZoomAt", () => { if (performance.now() - z > 120) { z = performance.now(); sndPlay("zoom"); } }); }
+sndWrap("tlDraw", open => sndPlay(open ? "drawIn" : "drawBack"));
+sndWrap("orderPick", () => { if (!state.orderPicked && !document.getElementById("ordPick")) setTimeout(() => sndPlay("pick"), 250); });
+sndWrap("hydra", () => sndPlay("barcode"));
+sndWrap("toast", msg => { if (/Classified|Clearance required|Not cleared|ACCESS DENIED/i.test(String(msg))) sndClaim("denied"); });
+sndWrap("boxNews", (e, what) => { if (/Complete/.test(String(what))) sndPlay("complete"); });
+sndWrap("say", (msg, e, foot, ms, plain, hd) => { if (/Agent File/.test(String(foot || ""))) sndPlay("pill"); else if (hd) sndPlay("message"); });
+sndWrap("newsPlay", (all, msg, src) => sndPlay(msg && src === "hack" ? "hacked" : msg ? "message" : "headline"));
+// an index's intake, and a file that's new to you
+{ const o = window.openColl; window.openColl = function (...a) { const r = o.apply(this, a); if (sndOn() && (rfIntake || cpIntake || cxIntake)) setTimeout(() => sndPlay("intake"), 200); return r; }; }
+{ const o = window.collShow; window.collShow = function (id, ...a) { const seen = collMode === "raft" ? (state.raftSeen || {})[id] : collMode === "cp" ? (state.cpSeen || {})[id] : collMode === "coll" ? (state.collSeen || {})[id] : 1; const r = o.call(this, id, ...a); if (!seen) sndPlay("newrec"); return r; }; }
+// clearance: a level gained rings out
+{ let lv = null; const o = window.checkAch; window.checkAch = function (...a) { const r = o.apply(this, a); try { if (sndOn()) { const A = achList(), n = xpLevel(xpOf(A), A); if (lv != null && n > lv) setTimeout(() => sndPlay("levelup"), 400); lv = n; } } catch (e) {} return r; }; }
+// Level 7: the card read, the verdict, the doors
+new MutationObserver(M => { if (!sndOn()) return; M.forEach(m => {
+  if (m.type === "characterData" || m.type === "childList") { const h = document.getElementById("krHint"); if (h && m.target === h || (m.target.parentNode && m.target.parentNode.id === "krHint")) { const t = h.textContent; if (t === "Reading") sndPlay("swipe"); else if (/Not cleared/.test(t)) sndPlay("reject"); } }
+  m.addedNodes && m.addedNodes.forEach(n => { if (n.nodeType === 1 && n.classList.contains("kdoor") && n.classList.contains("l")) { sndPlay("readok"); setTimeout(() => sndPlay("doors"), 150); } }); }); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+// the first boot, beat by beat, timed off the gate's own clock (the same beats as its animation)
+(() => { let run = -1, fired = {};
+  const at = (k, cond, fn) => { if (cond && !fired[k]) { fired[k] = 1; fn(); } };
+  const loop = () => { requestAnimationFrame(loop); const g = document.getElementById("gate"); if (!sndOn() || !g || g.hidden || GATE.boot) return;
+    if (GATE.run !== run) { run = GATE.run; fired = {}; }
+    const t = performance.now() - GATE.t0 + (GATE.skip || 0), tp = GATE.tap, bt = tp == null ? -1 : t - tp;   // the gate's own clock, skips included
+    at("power", t >= 0, () => DPSND.play("bootPower")); at("open", t > 400, () => DPSND.play("bootOpen"));
+    at("type", t > 700, () => DPSND.play("bootType", .85)); at("enc", t > 1300, () => DPSND.play("bootType", .3));
+    at("trace", t > 1450, () => DPSND.play("bootTrace")); at("lit", t > 2150, () => DPSND.play("bootLit")); at("wait", tp == null && t > 3300, () => DPSND.play("bootWait"));
+    if (tp != null) { const L = gateLog(); L.forEach(([, b], i) => at("log" + i, bt > 450 + i * 190, () => DPSND.play("bootLine", b !== "ACCESS DENIED")));
+      at("bar", bt > 450, () => DPSND.play("bootBar")); at("granted", bt > 1850, () => DPSND.play("bootGranted")); at("clear", bt > 2050, () => DPSND.play("bootClear")); at("home", bt > 2400, () => DPSND.play("bootHome")); } };
+  requestAnimationFrame(loop); })();
+// the switches: in the Agent File (and a pill in the test build, beside "start from")
+const renderFile4 = renderFile;
+renderFile = function (...a) { renderFile4(...a); const sv = document.getElementById("hfSave"); if (!sv || document.getElementById("hfSound")) return;
+  sv.closest(".hf-sec").insertAdjacentHTML("beforebegin", `<section class="hf-sec" id="hfSound"><h3><span>Sound</span></h3><div class="hf-save snd-row"><p>The datapad's own sounds: presses, check-offs, boxes, pages, the timeline, the Atlas, Comms, Level 7 and the first boot.</p><button type="button" class="snd-sw${sndOn() ? " on" : ""}" role="switch" aria-checked="${sndOn()}"><i></i><span>${sndOn() ? "On" : "Off"}</span></button></div>
+    <div class="snd-take"><span>Box open and close</span>${["A", "B", "C"].map(k => `<button type="button" data-sndbox="${k}" aria-pressed="${sndBox() === k}">${k}</button>`).join("")}</div></section>`); };
+const sndToggle = () => { state.sound = !state.sound; persist(); document.querySelectorAll(".snd-sw").forEach(b => { b.classList.toggle("on", sndOn()); b.setAttribute("aria-checked", sndOn()); b.querySelector("span").textContent = sndOn() ? "On" : "Off"; }); const p = document.getElementById("sndPill"); if (p) p.textContent = "Sound " + (sndOn() ? "on" : "off"); if (sndOn()) DPSND.play("launch"); };
+document.addEventListener("click", ev => { if (ev.target.closest(".snd-sw, #sndPill")) { ev.stopPropagation(); sndToggle(); return; }
+  const k = ev.target.closest("[data-sndbox]"); if (k) { state.sndBox = k.dataset.sndbox; persist(); document.querySelectorAll("[data-sndbox]").forEach(b => b.setAttribute("aria-pressed", b.dataset.sndbox === state.sndBox)); DPSND.play("open" + state.sndBox); setTimeout(() => DPSND.play("close" + state.sndBox), 600); } }, true);
+document.body.insertAdjacentHTML("beforeend", `<button type="button" id="sndPill" class="snd-pill">Sound ${sndOn() ? "on" : "off"}</button>`);
 /* MOCKUP END */
 </script>
 </body>
