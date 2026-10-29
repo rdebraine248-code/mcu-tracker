@@ -142,9 +142,6 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 
 /* tiles */
 .tile{ position:relative; overflow:hidden !important; contain:paint; isolation:isolate; min-height:150px; padding:14px 16px 13px 16px; display:flex; flex-direction:column; cursor:pointer; text-align:left; outline:none; transition:transform .18s ease; }
-.tile.dusted{ filter:grayscale(1) brightness(.55); opacity:.38; }
-.tile.dusted::after{ content:""; position:absolute; inset:0; z-index:4; background-image:radial-gradient(rgba(220,214,205,.18) 1px, transparent 1.5px); background-size:7px 6px; }
-.tile.dusted:hover{ transform:none; }
 .snapflash{ position:fixed; inset:0; z-index:95; background:#fff; opacity:0; pointer-events:none; }
 .dustfx{ position:fixed; inset:0; z-index:94; pointer-events:none; overflow:hidden; }
 .dustfx i{ position:absolute; border-radius:50%; background:#9a8f84; opacity:0; }
@@ -2143,12 +2140,11 @@ function tile(e, kind) {
       <span class="ctap${available(e) ? "" : " ccl"}" style="color:${e.cover.ink}">${available(e) ? "Tap to unlock" : "[ Classified ]"}</span></div>` : "";
   const sealedC = kind === "char" && charHidden(e), shut = sealedC && !charGate(e);
   const name = locked ? e.label + ", locked. Tap to unlock." : sealedC ? (shut ? "Classified box. Tap to open anyway." : "Classified box. Tap to reveal.") : e.title + (kind === "chapter" ? ", " + e.label : "");
-  const dust = kind === "char" && (state.dusted || {})[e.id];
   // a sealed multiverse character box wears the same cover as its Extras chapter
   const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover, known = sealedC && charNamed(e);   // a name you already know reads on the cover; the box still waits for its reveal
   const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}" style="color:${cc.ink}">${shut ? "[ Classified ]" : "Tap to reveal"}</span>`}</div>`
     : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}">${shut ? "[ Classified ]" : "Tap to reveal"}</span>`}</div>`;
-  return `<div class="${esc(cls)}${dust ? " dusted" : ""}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
+  return `<div class="${esc(cls)}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
       <div ${locked || sealedC ? 'aria-hidden="true"' : ""} style="display:contents">${tileInner(e)}</div>${cover}${ccover}</div>`;
 }
 function sagaHeads() {
@@ -2281,9 +2277,11 @@ function renderView() {
     v.innerHTML = H.map((h, i) => `<section class="saga${shut[i] ? " shut" : ""}" data-saga="${i}"><h3 role="button" tabindex="0" aria-expanded="${!shut[i]}">${h.title}</h3>${h.note}<div class="grid">${DATA.chapters.filter(filters[i]).map(c => tile(c, "chapter")).join("")}</div></section>`).join("");
     revealHeads();
   } else {
-    // the multiverse boxes sit apart, under their own Extras heading, the way the Chapters page keeps its Extras apart
-    v.innerHTML = `<section class="saga"><h3>Characters and teams</h3><div class="grid">${DATA.chars.filter(c => !MV_BOXES[c.id]).map(c => tile(c, "char")).join("")}</div></section>`
-      + `<section class="saga"><h3>Extras</h3><div class="grid">${DATA.chars.filter(c => MV_BOXES[c.id]).map(c => tile(c, "char")).join("")}</div></section>`;
+    // the multiverse boxes sit apart, under their own Extras heading, the way the Chapters page keeps its Extras apart. Those lost in the
+    // Snap aren't there at all until it's undone (and a heading with nobody left under it goes too)
+    const sec = (h, L) => L.length ? `<section class="saga"><h3>${h}</h3><div class="grid">${L.map(c => tile(c, "char")).join("")}</div></section>` : "";
+    const here = DATA.chars.filter(c => !(state.dusted || {})[c.id]);
+    v.innerHTML = sec("Characters and teams", here.filter(c => !MV_BOXES[c.id])) + sec("Extras", here.filter(c => MV_BOXES[c.id]));
   }
 }
 let pcTimer = null, pcObs = null;
@@ -6207,21 +6205,23 @@ function fury(h) {
    the pager drops to the street, hard, as the last of him goes; it lies there still sending without him, the view closing in, until her
    star comes up; then the box gathers back together ---------- */
 const furyJolt = n => document.getElementById("app").animate([{ transform: "none" }, { transform: `translate(${-n}px,${n * .6}px)` }, { transform: `translate(${n * .8}px,${-n * .4}px)` }, { transform: "none" }], { duration: 220 + n * 20 });
+let snapN = 0;
 // the Snap on a whole box: noise eats it away in flakes while the flakes are pushed off, run forward (k 0 to 1) or back
 function snapBox(el, ms, back, done, ash = true) {
-  if (!document.getElementById("snapDust")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="snapDust" x="-10%" y="-10%" width="140%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/><feOffset in="d" dx="0" dy="0" result="o"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 1" result="m"/><feComposite in="o" in2="m" operator="in"/></filter></svg>`);
-  const f = document.getElementById("snapDust"), dm = f.querySelector("feDisplacementMap"), off = f.querySelector("feOffset"), cm = f.querySelector("feColorMatrix"), t0 = performance.now();
-  el.style.filter = "url(#snapDust)";
+  const run = el._snapRun = (el._snapRun || 0) + 1, id = "snapDust" + (++snapN);   // each run its own filter, so boxes can go one after another
+  document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="${id}" x="-10%" y="-10%" width="140%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/><feOffset in="d" dx="0" dy="0" result="o"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 1" result="m"/><feComposite in="o" in2="m" operator="in"/></filter></svg>`);
+  const f = document.getElementById(id), dm = f.querySelector("feDisplacementMap"), off = f.querySelector("feOffset"), cm = f.querySelector("feColorMatrix"), t0 = performance.now();
+  el.style.filter = `url(#${id})`;
   const r = el.getBoundingClientRect(), { cv, g } = cxCanvas(), P = [], W = innerWidth, H = innerHeight;
   const step = now => { const f0 = Math.min(1, (now - t0) / ms), k = back ? 1 - f0 : f0, e = k * k;
     if (el._snapRun === run) { dm.setAttribute("scale", (90 * e).toFixed(1)); off.setAttribute("dx", (60 * e).toFixed(1)); off.setAttribute("dy", (-40 * e).toFixed(1));
-      cm.setAttribute("values", `0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${(1 - 10 * k).toFixed(2)}`); }   // a newer run on the same box takes the filter over
+      cm.setAttribute("values", `0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${(1 - 10 * k).toFixed(2)}`); }   // a newer run on the same box takes it over
     // the ash: flakes come off the edge that's going, and drift up and away (or, coming back, fly in)
     if (!back && ash && f0 < .9) for (let i = 0; i < 14; i++) P.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: 1 + Math.random() * 3, vy: -.5 - Math.random() * 2.2, s: 1.5 + Math.random() * 3.2, l: 1, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
     g.clearRect(0, 0, W, H); P.forEach(q => { q.x += q.vx; q.y += q.vy; q.vy -= .02; q.l -= .012; if (q.l > 0) { g.fillStyle = `rgba(${q.c},${q.l})`; g.fillRect(q.x, q.y, q.s, q.s); } });
-    if (f0 < 1 || P.some(q => q.l > 0)) requestAnimationFrame(step); else cv.remove();
-    if (f0 >= 1 && !fin && el._snapRun === run) { fin = 1; if (back) el.style.filter = ""; else el.style.visibility = "hidden"; done && done(); } };
-  const run = el._snapRun = (el._snapRun || 0) + 1; let fin = 0; if (back) el.style.visibility = ""; requestAnimationFrame(step);
+    if (f0 < 1 || P.some(q => q.l > 0)) requestAnimationFrame(step); else { cv.remove(); f.parentNode.remove(); }
+    if (f0 >= 1 && !fin && el._snapRun === run) { fin = 1; if (!back) el.style.visibility = "hidden"; el.style.filter = ""; done && done(); } };
+  let fin = 0; if (back) el.style.visibility = ""; requestAnimationFrame(step);
 }
 const furyPage = function () {
   if (REDUCED) { found("page"); return; }
@@ -10446,22 +10446,15 @@ function flash(peak) {
   if (f.animate) f.animate([{ opacity: 0 }, { opacity: peak, offset: .25 }, { opacity: 0 }], { duration: 650, easing: "ease-out" });
   setTimeout(() => f.remove(), 700);
 }
-// a box crumbles into dust that blows away (or, in reverse, gathers back into it)
-function tileDust(t, delay, reverse) {
-  const r = t.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
-  const fx = document.createElement("div"); fx.className = "dustfx"; document.body.appendChild(fx);
-  const n = Math.min(160, Math.round(r.width * r.height / 300));
-  for (let i = 0; i < n; i++) {
-    const p = document.createElement("i"), x = r.left + Math.random() * r.width, y = r.top + Math.random() * r.height, s = 1.5 + Math.random() * 3, dx = 50 + Math.random() * 140, dy = -30 - Math.random() * 110;
-    p.style.cssText = `left:${x}px;top:${y}px;width:${s}px;height:${s}px`; fx.appendChild(p);
-    const k = [{ opacity: 0, transform: "translate(0,0)" }, { opacity: .9, offset: .15 }, { opacity: 0, transform: `translate(${dx}px,${dy}px)` }];
-    p.animate(reverse ? k.slice().reverse().map((f, j) => ({ ...f, offset: j === 1 ? .85 : undefined })) : k, { duration: 1200 + Math.random() * 600, delay: delay + ((x - r.left) / r.width) * 500 + Math.random() * 200, easing: reverse ? "ease-in" : "ease-out", fill: "both" });
-  }
-  t.animate(reverse ? [{ filter: "grayscale(1) brightness(.55)", opacity: .38 }, { filter: "grayscale(1) brightness(.55)", opacity: .38, offset: .55 }, { filter: "none", opacity: 1 }]
-                    : [{ filter: "none", opacity: 1 }, { filter: "grayscale(.6) brightness(.8)", opacity: .7, offset: .3 }, { filter: "grayscale(1) brightness(.55)", opacity: .38 }],
-    { duration: 1800, delay, easing: "ease-in-out", fill: "both" });
-  setTimeout(() => fx.remove(), delay + 2600);
+// the Characters page redrawn with the boxes moving from where they stood to where they stand now: the list closing up behind the
+// lost, or opening to let them back in
+function gridFlip(change) {
+  const was = new Map([...document.querySelectorAll("#view .tile")].map(t => [t.dataset.id, t.getBoundingClientRect()]));
+  change();
+  document.querySelectorAll("#view .tile").forEach(t => { const r0 = was.get(t.dataset.id); if (!r0) return; const r = t.getBoundingClientRect(), dx = r0.left - r.left, dy = r0.top - r.top;
+    if (dx || dy) t.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: "none" }], { duration: 700, easing: "cubic-bezier(.3,0,.2,1)" }); });
 }
+const tileInView = t => { const r = t.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
 function toCharacters(then) {
   if (openEntry) closePanel();
   if (state.mode !== "chars") { state.mode = "chars"; renderAll(); }
@@ -10470,27 +10463,32 @@ function toCharacters(then) {
   if (t) { const top = t.getBoundingClientRect().top + window.scrollY - Math.max(0, (innerHeight - t.offsetHeight) / 2); window.scrollTo({ top: Math.max(0, top), behavior: REDUCED ? "auto" : "smooth" }); }
   setTimeout(then, REDUCED ? 0 : 650);
 }
+// half of them turn to dust the way Fury does, one after another, and then they're gone: the list closes up behind them
 function snap() {
   const ids = DATA.chars.map(c => c.id).sort(() => Math.random() - .5).slice(0, Math.floor(DATA.chars.length / 2));
   const again = !!(state.eggs || {}).snap;   // the first time it's filed in your Agent File; after that the datapad just reports it
-  const settle = () => { state.dusted = {}; ids.forEach(id => state.dusted[id] = true); (state.eggs = state.eggs || {}).snap = 1; persist(); renderView(); if (again) say("Half of all life erased", null, undefined, undefined, true, undefined, undefined, true); };
-  if (REDUCED) { settle(); return; }
+  const settle = () => { state.dusted = {}; ids.forEach(id => state.dusted[id] = true); (state.eggs = state.eggs || {}).snap = 1; persist(); if (again) say("Half of all life erased", null, undefined, undefined, true, undefined, undefined, true); };
+  if (REDUCED) { settle(); renderView(); return; }
   toCharacters(() => {
     flash(.9);
     setTimeout(() => dustSweep(1700), 700);
-    ids.map(id => document.querySelector(`.tile[data-id="${id}"]`)).filter(Boolean).forEach((t, k) => tileDust(t, 900 + k * 90 + Math.random() * 200, false));
-    setTimeout(settle, 4400);
+    const T = 1800, seen = ids.map(id => document.querySelector(`.tile[data-id="${id}"]`)).filter(t => t && tileInView(t));
+    let end = 900; seen.forEach((t, k) => { const at = 900 + k * 260 + Math.random() * 120; end = Math.max(end, at + T); setTimeout(() => snapBox(t, T, false, null, true), at); });
+    setTimeout(() => { gridFlip(() => { settle(); renderView(); }); }, end + 250);
   });
 }
-
+// the list opens up, and each of them gathers back out of the dust into their place
 function unsnap() {
   const ids = Object.keys(state.dusted || {});
-  const settle = () => { state.dusted = {}; (state.eggs = state.eggs || {}).unsnap = 1; persist(); renderView(); say("All life restored", null, undefined, undefined, true, undefined, undefined, true); };
-  if (REDUCED) { settle(); return; }
+  const settle = () => { state.dusted = {}; (state.eggs = state.eggs || {}).unsnap = 1; persist(); say("All life restored", null, undefined, undefined, true, undefined, undefined, true); };
+  if (REDUCED) { settle(); renderView(); return; }
   toCharacters(() => {
     flash(.75);
-    ids.map(id => document.querySelector(`.tile[data-id="${id}"]`)).filter(Boolean).forEach((t, k) => tileDust(t, 400 + k * 70, true));
-    setTimeout(settle, 3400);
+    gridFlip(() => { state.dusted = {}; renderView(); ids.forEach(id => { const t = document.querySelector(`.tile[data-id="${id}"]`); if (t) t.style.visibility = "hidden"; }); });   // their places open, still empty
+    const T = 1400, back = ids.map(id => document.querySelector(`.tile[data-id="${id}"]`)).filter(Boolean);
+    back.filter(t => !tileInView(t)).forEach(t => { t.style.visibility = ""; });
+    let end = 700; back.filter(tileInView).forEach((t, k) => { const at = 750 + k * 200; end = Math.max(end, at + T); setTimeout(() => snapBox(t, T, true), at); });
+    setTimeout(settle, end + 100);
   });
 }
 
