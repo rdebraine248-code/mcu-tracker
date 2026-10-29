@@ -265,6 +265,9 @@ insignia celebration covers the page.
   named (Extras cover and tile) with his insignia, after What If...? or Loki S1, the same moment the multiverse opens.
 - **The Nick Fury box:** two fingers down throw Coulson's cards (blood on them after The Avengers); two fingers up (or dragging his name
   up with a mouse) play his last page: the pager flicked up, the box turned to dust, her star on the screen, the box gathered back.
+- **The Snap** (all six stones, tap the colored line): half the character boxes crumble with Fury's dust (`snapBox`, a filter of its
+  own per run), one after another, then they're gone from the Characters page and the list closes up (`gridFlip`); undoing it opens
+  their places and they gather back. A heading with nobody left under it is hidden.
 - **Hero and villain files of the same person link both ways** ("Also on file": `rf` on the hero file), each shown only once that
     index is discovered and its file has a watched title.
 
