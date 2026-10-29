@@ -7469,7 +7469,7 @@ function shatter(x, y) {
   const boxes = DATA.chapters.filter(c => state.unlocked[c.id] && c.id !== here).map(c => ["chapters", c.id])
     .concat(DATA.chars.filter(c => c.id !== here && !(state.dusted || {})[c.id] && !charSealed(c)).map(c => ["chars", c.id]));
   const profiles = DATA.chars.filter(c => c.id !== here && DOSSIERS[c.id] && charNamed(c) && !charSealed(c) && !(state.dusted || {})[c.id]).map(c => ["profile", c.id]);
-  const kinds = [boxes, [["timeline"]], [["atlas"]], [["log"]], [["map"]], [["comms"]], [["file"]], profiles].filter(L => L.length);
+  const kinds = [boxes, [["timeline"]], ...(MOCK ? [] : [[["atlas"]]]), [["log"]], [["map"]], [["comms"]], [["file"]], profiles].filter(L => L.length);   // in the test build the Atlas is the sling ring's
   const dest = one(one(kinds));
   const page = t => document.querySelector(`#dock [data-dock="${t}"]`).click();
   const toBox = (mode, id, then) => { if (state.mode !== mode) { state.mode = mode; renderAll(); }
@@ -12447,26 +12447,30 @@ Object.assign(CX_LIVE, {
   "surfer-board": (b, ev) => cxDrag(ev, r => { if (Math.abs(r.dx) > 110 && r.ms < 450 && cxOnce(b, "sb", 1300)) REDUCED ? cxHandled("surfer-board") : cxBoard(b, Math.sign(r.dx)); })
 });
 delete CX_LIVE["sling-ring"];   // the sling ring works anywhere now, not only in its case
-EGGS.push(["sling", "Sling ring", "A sorcerer can open a door to anywhere on Earth. Keep circling.", "After Doctor Strange, draw three circles in one stroke anywhere in the app.", 1]);
+EGGS.push(["sling", "Sling ring", "A sorcerer can open a door to anywhere, even another world. Keep circling.", "After Doctor Strange, draw three circles in one stroke anywhere in the app.", 1]);
 /* the sling ring, anywhere: after Doctor Strange, draw circles in one stroke on any page or in any box. The sparks catch once you've gone
    round once; at the third the portal opens where you drew, holds with its sparks riding the ring and the place it opens onto showing
-   inside, then rushes in and lands you there. A sling ring opens a door to a real place, so it takes you to one: a place on Earth you've
-   seen, opened in the Atlas. (The Watcher is the one who can drop you anywhere in the datapad) */
+   inside, then rushes in and lands you there. A sling ring opens a door to a real place, so it takes you to one, opened in the Atlas.
+   The Watcher moves you through the datapad itself and never lands in the Atlas, so the two never overlap */
 const SLING_N = 3;
+// where a sling ring can open onto: a place you've seen on Earth, in the Cosmos, Beyond, or in another universe of the Multiverse (never
+// the Incursions). A realm first, then a place in it, so the smaller maps come up as often as Earth does
 function slingDest() {
-  const L = ATLAS.earth.filter(p => !p.home && !p.uni && atlLit(p)); if (!L.length) return null;
-  const p = L[Math.floor(Math.random() * L.length)]; return [p, p.n, p.r];
+  const one = L => L[Math.floor(Math.random() * L.length)], lit = p => !p.home && !p.uni && atlLit(p);
+  const realms = ["earth", "cosmos", "beyond"].filter(atlOpenV).map(v => ATLAS[v].filter(lit).map(p => ({ p, v, sub: null, where: p.r || "" })));
+  if (atlOpenV("multi")) realms.push(ATLAS.multi.filter(m => m.uni && atlLit(m)).flatMap(m => ATLAS_UNI[m.uni].places.filter(lit).map(p => ({ p, v: "uni", sub: m.uni, where: ATLAS_UNI[m.uni].n }))));
+  const R = realms.filter(L => L.length); return R.length ? one(one(R)) : null;
 }
-function slingLand([p]) {
+function slingLand(d) {
   if (collOpen) closeColl(); if (openEntry) closePanel();
   const b = document.querySelector('#dock [data-dock="atlas"]'); if (b && !document.querySelector('#dock [data-dock="atlas"][aria-current="page"]')) b.click();
-  setTimeout(() => atlGo({ p, v: "earth", sub: null }), 140);
+  setTimeout(() => atlGo({ p: d.p, v: d.v, sub: d.sub }), 140);
 }
 // the portal, the same one the Collection's case opened: its ring of spinning sparks, the sparks that ride it and fly off, and inside it
 // the place it opens onto, far off, coming closer as it rushes in
 function slingPortal(x, y, r, dest) {
   const { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, OR = "255,150,40", sp = [], t0 = performance.now(), max = Math.hypot(Math.max(x, W - x), Math.max(y, H - y)) + 30;
-  const view = document.createElement("div"); view.className = "fx-slingview"; view.innerHTML = `<div><small>${esc(dest[2] || "")}</small><b>${esc(dest[1])}</b></div>`;
+  const view = document.createElement("div"); view.className = "fx-slingview"; view.innerHTML = `<div><small>${esc(dest.where)}</small><b>${esc(dest.p.n)}</b></div>`;
   view.style.setProperty("--x", x + "px"); view.style.setProperty("--y", y + "px"); document.body.appendChild(view);
   let prev = t0, landed = false;
   haptic([20, 30, 20, 30, 60]); setTimeout(() => haptic([30, 20, 60]), SL_HOLD + SL_ZOOM * .6);
