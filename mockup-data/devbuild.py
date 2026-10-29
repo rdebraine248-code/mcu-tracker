@@ -382,6 +382,48 @@ for L,tag in ((threats,'T'),(allies,'A')):
         for k,v in z.items():
             if v is None: o.pop(k,None)
             else: o[k]=v
+# the name most commonly used (owner, October 2026): where a story mostly calls someone by an alias, the alias is the file's name and their real name
+# moves to a line of its own (rn: [name, the title that first says it]). An alias said later than the file opens takes over from that title on, and
+# the real name line shows from then too, so nothing reads twice (names_common.json, keyed to the final ids)
+_nc=load('names_common.json',{}); _ren={}; _renf=[]
+def _ftl(x):   # a step's title, by season where its text says one
+    m=re.match(r'In season (\d+),',x[0]); return x[1]+' S'+m.group(1) if m and (x[1]+' S'+m.group(1)) in _tl else x[1]
+_last=lambda v: v if isinstance(v,str) else v[-1][0]
+for L,tag in ((threats,'T'),(allies,'A')):
+    _byn={o['id']:o for o in L}
+    for i,alias in _nc.get(tag,{}).items():
+        o=_byn.get(i)
+        if o is None: print('common name: no file',tag,i); continue
+        old=o['n']; real=_last(old); first=_ftl(o['st'][0]) if o.get('st') else None
+        if real==alias: print('common name: already',tag,i); continue
+        al=o.get('al') or []; hit=[a for a in al if a[0]==alias]
+        if not hit: print('common name: alias not on file',tag,i,alias); continue
+        ta=hit[0][1]; rs=first if isinstance(old,str) else old[-1][1]
+        later=first and ta!=first and _ord(ta) is not None and _ord(first) is not None and _ord(ta)>_ord(first) and not (not isinstance(old,str) and any(x[0]==alias for x in old))
+        if later: o['n']=([[real,first]] if isinstance(old,str) else old)+[[alias,ta]]
+        else: o['n']=alias
+        o['al']=[a for a in al if a[0]!=alias] or None
+        if o['al'] is None: o.pop('al')
+        sh=ta if later and (_ord(rs) or 0)<_ord(ta) else rs
+        o['rn']=[real,sh]; _ren.setdefault(real,set()).add(alias)
+# a Collection holder still under a renamed person's real name follows that person's file: the file of that name in the same title, or, where the
+# title doesn't say, every file of that name renamed the same way
+_byreal={}
+for o in threats+allies:
+    r=o['rn'][0] if o.get('rn') else _last(o['n'])
+    _byreal.setdefault(r,[]).append(({_ftl(x) for x in o.get('st',[])}|{x[1] for x in o.get('st',[])},_last(o['n'])))
+_keep={_last(o['n']) for o in threats+allies}
+_hold_new={r:list(a)[0] for r,a in _ren.items() if len(a)==1 and r not in _keep}
+for o in collx:
+    for x in o['st']:
+        if len(x)>3 and x[3] in _ren:
+            c={nm for T,nm in _byreal.get(x[3],[]) if x[1] in T or _ftl(x) in T}
+            if len(c)==1: x[3]=c.pop()
+            elif x[3] in _hold_new: x[3]=_hold_new[x[3]]
+for i,mp in _nf.get('hold',{}).items():
+    for k in list(mp):
+        if mp[k] in _ren and k in _ren[mp[k]]: del mp[k]   # the holder already goes by the file's new name
+        elif mp[k] in _hold_new: mp[k]=_hold_new[mp[k]]
 # and a Collection object's holder goes by the same name as the person's file (names_fix.json "hold": object id, then old name to new)
 _byc={o['id']:o for o in collx}
 for i,mp in _nf.get('hold',{}).items():
@@ -390,7 +432,7 @@ for i,mp in _nf.get('hold',{}).items():
     hit=0
     for x in o['st']:
         if len(x)>3 and x[3] in mp: x[3]=mp[x[3]]; hit=1
-    if not hit: print('names: no holder to rename',i)
+    if not hit and mp: print('names: no holder to rename',i)
 # the writing pass (owner, October 2026): steps first written to a strict one-sentence rule, rewritten to read naturally with the same facts,
 # for the Collection, the Raft and the Compound (prose_*.json: file id, then [old text, new text], matched on the text as built; a new text of
 # null drops a step that only repeated another)
