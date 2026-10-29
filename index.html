@@ -11304,15 +11304,15 @@ function cxCanvas() {   // a canvas over the whole screen
    sooner and the script and the dark simply recede ---------- */
 let cxDarkOn = false;
 const RUNES = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ";
-// it can also run from anywhere (o): the page to eat (scope), the book that glows (obj), where the dark starts (top) and when the finger lifts (release)
-function cxDark(b, ev, o = {}) {
+// held on its title (o): the page to eat (scope), the book that glows (obj), where the dark starts (top) and when the finger lifts (release)
+function cxDark(o) {
   if (cxDarkOn) { if (o.end) o.end(); return; }
-  if (REDUCED) { if (o.release) { cxHandled("darkhold"); if (o.end) o.end(); } else cxHold(ev, 2000, () => cxHandled("darkhold")); return; }
+  if (REDUCED) { cxHandled("darkhold"); if (o.end) o.end(); return; }
   cxDarkOn = true;
-  const rec = o.scope || b.closest(".co-rec"), obj = o.obj || b.querySelector(".cx-obj"), top = o.top ?? b.getBoundingClientRect().bottom, H = innerHeight, T = 5500, BURST = 1300, S = 2700;
+  const rec = o.scope, obj = o.obj, top = o.top, H = innerHeight, T = 5500, BURST = 1300, S = 2700;
   const nodes = [], tw = document.createTreeWalker(rec, NodeFilter.SHOW_TEXT);
-  for (let n = tw.nextNode(); n; n = tw.nextNode()) { if (!n.data.trim() || (b && b.contains(n)) || obj.contains(n) || n.parentElement.closest(".co-crumb")) continue;
-    const r = n.parentElement.getBoundingClientRect(), d = clamp01((o.scope ? Math.abs(r.top - top) : r.top - top) / H);   // from a title, it spreads out from your finger
+  for (let n = tw.nextNode(); n; n = tw.nextNode()) { if (!n.data.trim() || obj.contains(n) || n.parentElement.closest(".co-crumb")) continue;
+    const r = n.parentElement.getBoundingClientRect(), d = clamp01(Math.abs(r.top - top) / H);   // it spreads out from your finger
     nodes.push({ n, p: n.parentElement, o: n.data, d, th: [...n.data].map(() => Math.random()), ru: [...n.data].map(() => RUNES[Math.random() * RUNES.length | 0]) }); }
   const dark = document.createElement("div"); dark.className = "fxl"; dark.style.zIndex = 96; document.body.appendChild(dark);
   // the dark is always the same picture at a given depth, on the way in and on the way out, so nothing ever jumps
@@ -11377,7 +11377,7 @@ function cxDark(b, ev, o = {}) {
     requestAnimationFrame(frame);
   };
   const letGo = () => { if (phase !== "hold") return; const now = performance.now(); phase = "out"; Lup = clamp01((now - t0 - 200) / (T - 200)); tUp = now; };
-  if (o.release) o.release(letGo); else cxTrack(ev, () => {}, letGo);
+  o.release(letGo);
   requestAnimationFrame(frame);
 }
 
@@ -11757,7 +11757,7 @@ const heldObj = (x, y, c) => { const o = document.createElement("div"); o.classN
 const heldGone = o => () => o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250 }).onfinish = () => o.remove();
 Object.assign(ROW_EGGS, {
   "Doctor Strange in the Multiverse of Madness": (x, y, row) => { if (cxDarkOn) return; const o = heldObj(x, y, "mystic"), scope = (row.closest && (row.closest(".pin") || row.closest("#view"))) || document.getElementById("view");
-    cxDark(null, null, { scope, obj: o.firstChild, top: y, release: fn => heldTrack(() => {}, fn), end: heldGone(o) }); },
+    cxDark({ scope, obj: o.firstChild, top: y, release: fn => heldTrack(() => {}, fn), end: heldGone(o) }); },
   "Captain America: Civil War": () => cxAccords()
 });
 /* the sling ring, anywhere: after Doctor Strange, draw circles in one stroke on any page or in any box. The sparks catch once you've gone

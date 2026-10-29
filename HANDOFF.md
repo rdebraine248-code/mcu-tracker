@@ -389,8 +389,8 @@ These happened in earlier chats. Each cost the owner time.
 
 - **The appearance sweep's open calls are settled** (`appear_sweep.json`, `owner_calls`): Muse gets a Born Again S2 step (Heather's
   memories of his attack, not her hallucinations), Peggy an Agents of S.H.I.E.L.D. S7 step (Simmons posing as her in 1955). No step for
-  Jameson in Venom: Let There Be Carnage (promotional footage) or Uncle Ben in "Intervention" (a vision in Peter's mind); Jean keeps
-  X-Men: The Animated Series seasons 4 and 5.
+  Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
+  the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
 - Revisit Encore once Doomsday is out.
 - No mockups are pending.
 - `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
