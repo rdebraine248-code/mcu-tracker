@@ -1164,31 +1164,14 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
-/* MOCKUP BEGIN: the Collection's new cases and Fury's pager (test build only; mainprep cuts it) */
+/* MOCKUP BEGIN: the objects on their titles and the sling ring anywhere (test build only; mainprep cuts it) */
 .fx-slingview{ position:fixed; inset:0; z-index:96; pointer-events:none; background:radial-gradient(circle at var(--x) var(--y),#1A2433 0,#0B1019 60%); }
 .fx-slingview > div{ position:absolute; left:var(--x); top:var(--y); display:grid; gap:4px; justify-items:center; text-align:center; width:min(80vw,320px); }
 .fx-slingview small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#FFB347; }
 .fx-slingview b{ font:400 26px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF1F6; text-shadow:0 0 18px rgba(255,160,60,.45); }
-.fx-club{ position:fixed; left:0; top:0; z-index:97; width:80px; height:12px; border-radius:6px; background:linear-gradient(90deg,#7A0E12,#D3262B 45%,#7A0E12 55%,#D3262B); box-shadow:0 0 10px rgba(255,60,60,.6); pointer-events:none; }
-.fx-cocoon{ position:fixed; inset:0; z-index:96; pointer-events:none; background:radial-gradient(ellipse at 50% 45%,rgba(60,56,52,.0) 0,rgba(86,80,74,.92) 38%,rgba(52,48,45,.98) 70%), repeating-radial-gradient(circle at 30% 40%,rgba(255,255,255,.04) 0 6px,rgba(0,0,0,.08) 6px 14px); }
-.fx-cocoon.crack{ background-image:linear-gradient(118deg,transparent 48%,rgba(200,235,255,.9) 49%,transparent 50%),linear-gradient(64deg,transparent 47%,rgba(200,235,255,.8) 48%,transparent 49%),linear-gradient(160deg,transparent 52%,rgba(200,235,255,.7) 53%,transparent 54%),radial-gradient(ellipse at 50% 45%,rgba(60,56,52,0) 0,rgba(86,80,74,.92) 38%,rgba(52,48,45,.98) 70%); }
-.fx-mask{ position:fixed; inset:0; z-index:97; pointer-events:none; overflow:hidden; }
-.fx-mask i{ position:absolute; top:0; bottom:0; width:51%; background:linear-gradient(180deg,#3A3F48,#1E2228 40%,#2B3038); }
-.fx-mask i.l{ left:0; border-right:2px solid #555D68; box-shadow:inset -30px 0 40px rgba(0,0,0,.5); } .fx-mask i.r{ right:0; border-left:2px solid #555D68; box-shadow:inset 30px 0 40px rgba(0,0,0,.5); }
-.fx-mask b{ position:absolute; top:34%; width:30%; height:15%; border-radius:50% 50% 45% 45% / 60% 60% 40% 40%; background:radial-gradient(ellipse at 50% 40%,#FF8A7A,#E3171B 55%,#7A0508); box-shadow:0 0 30px #FF2A2A; }
-.fx-mask b.el{ left:13%; transform:rotate(-8deg); } .fx-mask b.er{ right:13%; transform:rotate(8deg); }
-.fx-drone{ position:fixed; left:-9px; top:-6px; z-index:97; width:18px; height:12px; pointer-events:none; background:#2A3D33; border:1px solid #7CFFB0; border-radius:3px; box-shadow:0 0 8px #7CFFB0; }
-.fx-count{ position:fixed; z-index:97; transform:translate(-50%,-50%); pointer-events:none; color:#FFB04A; font:700 54px/1 'Share Tech Mono','Courier New',monospace; text-shadow:0 0 18px #FF8A1F; }
-.fx-watch{ position:fixed; inset:0; z-index:97; display:grid; place-items:center; pointer-events:none; background:rgba(5,8,14,.55); perspective:900px; }
-.fx-w{ position:relative; width:min(62vw,250px); aspect-ratio:1; transform-style:preserve-3d; }
-.fx-w > div{ position:absolute; inset:0; border-radius:50%; backface-visibility:hidden; display:grid; place-items:center; }
-.fx-w .fr{ background:radial-gradient(circle,#1C2A3A 0 58%,#C9CED6 59% 66%,#8A9099 67% 70%,#D9DDE3 71%); }
-.fx-w .fr b{ position:absolute; top:28%; color:#E9C46A; font:600 13px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:3px; }
-.fx-w .fr i{ position:absolute; left:50%; bottom:50%; width:3px; background:#EEF1F6; transform-origin:50% 100%; border-radius:2px; } .fx-w .h1{ height:24%; transform:translateX(-50%) rotate(-50deg); } .fx-w .h2{ height:32%; transform:translateX(-50%) rotate(64deg); }
-.fx-w .bk{ transform:rotateY(180deg); background:radial-gradient(circle,#2C3139 0 60%,#3E444D 61% 67%,#8A919B 68% 70%,#4A505A 71%); }
-.fx-w .bk svg{ width:85.5%; filter:drop-shadow(0 1px 1px rgba(0,0,0,.6)); } .fx-w .bk text{ fill:#C9D0DA; font:700 4.2px 'Share Tech Mono','Courier New',monospace; }
-.fx-gcard{ position:fixed; left:0; top:0; z-index:97; width:28px; height:40px; border-radius:3px; pointer-events:none; background:linear-gradient(135deg,#FFE0F7,#FF7BE0); border:1px solid #fff; box-shadow:0 0 14px #FF4FD8, 0 0 30px rgba(255,79,216,.6); }
-.fx-pop{ position:fixed; z-index:97; width:120px; height:120px; border-radius:50%; pointer-events:none; background:radial-gradient(circle,rgba(255,240,252,.95),rgba(255,79,216,.6) 40%,rgba(255,79,216,0) 70%); }
+.fx-obj{ position:fixed; z-index:97; width:62px; height:62px; transform:translate(-50%,-50%); pointer-events:none; display:grid; place-items:center; border-radius:50%; background:radial-gradient(circle,rgba(20,26,38,.92),rgba(11,16,25,.7) 70%,transparent 72%); }
+.fx-obj .cx-obj{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px; color:#E9C46A; }
+.fx-obj .cx-gl{ width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.4; stroke-linejoin:round; stroke-linecap:round; }
 /* MOCKUP END */
 /* ---------- Nick Fury: his last page ---------- */
 .fx-pager{ position:fixed; inset:0; z-index:97; display:grid; place-items:end center; padding-bottom:12vh; pointer-events:none; }
@@ -11394,14 +11377,15 @@ document.getElementById("collView").addEventListener("click", ev => { if (ev.tar
    sooner and the script and the dark simply recede ---------- */
 let cxDarkOn = false;
 const RUNES = "ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ";
-function cxDark(b, ev) {
-  if (cxDarkOn) return;
-  if (REDUCED) { cxHold(ev, 2000, () => cxHandled("darkhold")); return; }
+// it can also run from anywhere (o): the page to eat (scope), the book that glows (obj), where the dark starts (top) and when the finger lifts (release)
+function cxDark(b, ev, o = {}) {
+  if (cxDarkOn) { if (o.end) o.end(); return; }
+  if (REDUCED) { if (o.release) { cxHandled("darkhold"); if (o.end) o.end(); } else cxHold(ev, 2000, () => cxHandled("darkhold")); return; }
   cxDarkOn = true;
-  const rec = b.closest(".co-rec"), obj = b.querySelector(".cx-obj"), top = b.getBoundingClientRect().bottom, H = innerHeight, T = 5500, BURST = 1300, S = 2700;
+  const rec = o.scope || b.closest(".co-rec"), obj = o.obj || b.querySelector(".cx-obj"), top = o.top ?? b.getBoundingClientRect().bottom, H = innerHeight, T = 5500, BURST = 1300, S = 2700;
   const nodes = [], tw = document.createTreeWalker(rec, NodeFilter.SHOW_TEXT);
-  for (let n = tw.nextNode(); n; n = tw.nextNode()) { if (!n.data.trim() || b.contains(n) || n.parentElement.closest(".co-crumb")) continue;
-    const r = n.parentElement.getBoundingClientRect(), d = clamp01((r.top - top) / H);
+  for (let n = tw.nextNode(); n; n = tw.nextNode()) { if (!n.data.trim() || (b && b.contains(n)) || obj.contains(n) || n.parentElement.closest(".co-crumb")) continue;
+    const r = n.parentElement.getBoundingClientRect(), d = clamp01((o.scope ? Math.abs(r.top - top) : r.top - top) / H);   // from a title, it spreads out from your finger
     nodes.push({ n, p: n.parentElement, o: n.data, d, th: [...n.data].map(() => Math.random()), ru: [...n.data].map(() => RUNES[Math.random() * RUNES.length | 0]) }); }
   const dark = document.createElement("div"); dark.className = "fxl"; dark.style.zIndex = 96; document.body.appendChild(dark);
   // the dark is always the same picture at a given depth, on the way in and on the way out, so nothing ever jumps
@@ -11414,7 +11398,7 @@ function cxDark(b, ev) {
     obj.style.color = L > 0 ? "#E0354A" : ""; obj.style.filter = L > 0 ? `drop-shadow(0 0 ${6 + 20 * L}px rgba(220,30,50,.95))` : "";
   };
   const shake = k => { obj.style.transform = k ? `translate(calc(-50% + ${(Math.random() - .5) * 5 * k}px), calc(-50% + ${(Math.random() - .5) * 5 * k}px))` : ""; };
-  const clean = () => { nodes.forEach(q => { q.n.data = q.o; q.p.classList.remove("cx-rune"); }); dark.remove(); obj.style.color = obj.style.filter = obj.style.transform = ""; cxDarkOn = false; };
+  const clean = () => { nodes.forEach(q => { q.n.data = q.o; q.p.classList.remove("cx-rune"); }); dark.remove(); obj.style.color = obj.style.filter = obj.style.transform = ""; cxDarkOn = false; if (o.end) o.end(); };
   // the spell: two rings of runes turning against each other, and wisps of red chaos that spiral in, then burst out
   let spell = null;
   const cast = () => {
@@ -11465,7 +11449,8 @@ function cxDark(b, ev) {
     }
     requestAnimationFrame(frame);
   };
-  cxTrack(ev, () => {}, () => { if (phase !== "hold") return; const now = performance.now(); phase = "out"; Lup = clamp01((now - t0 - 200) / (T - 200)); tUp = now; });
+  const letGo = () => { if (phase !== "hold") return; const now = performance.now(); phase = "out"; Lup = clamp01((now - t0 - 200) / (T - 200)); tUp = now; };
+  if (o.release) o.release(letGo); else cxTrack(ev, () => {}, letGo);
   requestAnimationFrame(frame);
 }
 
@@ -11589,14 +11574,16 @@ function cxArc(b, ev) {
 }
 
 /* ---------- the Aether: touch it and it pours out after your finger, a dark red liquid that won't stay still; let go and it drains back in ---------- */
-function cxAether(b, ev) {
-  if (REDUCED) { const [hx, hy] = cxCenter(b.querySelector(".cx-obj")); let far = 0; cxTrack(ev, e => { far = Math.max(far, Math.hypot(e.clientX - hx, e.clientY - hy)); }, () => { if (far > 140) cxHandled("aether"); }); return; }   // drawn out, without the liquid
-  if (b._ae) return; b._ae = 1;
+// it can also run from anywhere (o): the stone it pours from (obj), where the finger is (x, y) and how to follow it (track)
+function cxAether(b, ev, o = {}) {
+  const host = b || o.obj, trk = o.track || ((mv, up) => cxTrack(ev, e => mv(e.clientX, e.clientY), up));
+  if (REDUCED) { const [hx, hy] = cxCenter(o.obj || b.querySelector(".cx-obj")); let far = 0; trk((x, y) => { far = Math.max(far, Math.hypot(x - hx, y - hy)); }, () => { if (far > 140) cxHandled("aether"); if (o.end) o.end(); }); return; }   // drawn out, without the liquid
+  if (host._ae) return; host._ae = 1;
   // the drops are drawn hard-edged and the goo filter melts them together, so they run like one liquid
   if (!document.getElementById("cxGoo")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="cxGoo"><feGaussianBlur stdDeviation="7"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/></filter></svg>`);
-  const obj = b.querySelector(".cx-obj"), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = [];
+  const obj = o.obj || b.querySelector(".cx-obj"), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = [];
   cv.style.filter = "url(#cxGoo) drop-shadow(0 0 10px rgba(210,20,40,.75))";
-  let px = ev.clientX, py = ev.clientY, up = 0;
+  let px = ev ? ev.clientX : o.x, py = ev ? ev.clientY : o.y, up = 0;
   obj.style.filter = "drop-shadow(0 0 16px rgba(220,20,40,.95))"; haptic([10, 30, 10]);
   const frame = now => {
     const [hx, hy] = cxCenter(obj); g.clearRect(0, 0, W, H);
@@ -11612,12 +11599,12 @@ function cxAether(b, ev) {
       g.fillStyle = `rgb(${Math.round(60 + 110 * sh)},${Math.round(4 + 8 * sh)},${Math.round(10 + 14 * sh)})`;
       g.beginPath(); g.arc(q.x, q.y, q.r, 0, Math.PI * 2); g.fill();
     }
-    if (up && !P.length) { cv.remove(); obj.style.filter = ""; b._ae = 0; return; }
+    if (up && !P.length) { cv.remove(); obj.style.filter = ""; host._ae = 0; if (o.end) o.end(); return; }
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
   let far = 0;   // it counts once you've drawn it well out of its case
-  cxTrack(ev, e => { px = e.clientX; py = e.clientY; const [hx, hy] = cxCenter(obj); far = Math.max(far, Math.hypot(px - hx, py - hy)); }, () => { up = performance.now(); if (far > 140) cxHandled("aether", 1600); });
+  trk((x, y) => { px = x; py = y; const [hx, hy] = cxCenter(obj); far = Math.max(far, Math.hypot(px - hx, py - hy)); }, () => { up = performance.now(); if (far > 140) cxHandled("aether", 1600); });
 }
 
 /* ---------- the Sokovia Accords: the document itself. Sign it with your finger, or refuse; either way it's on your file ---------- */
@@ -11639,7 +11626,7 @@ function cxAccords() {
   const esc1 = e => { if (e.key === "Escape") close(); }; document.addEventListener("keydown", esc1);
   const stamp = (ok) => { const s = document.createElement("span"); s.className = "acc-stamp " + (ok ? "ok" : "no"); s.textContent = ok ? "Signatory" : "Refused"; doc.appendChild(s);
     s.animate([{ transform: "rotate(-12deg) scale(2.2)", opacity: 0 }, { transform: "rotate(-12deg) scale(1)", opacity: .85 }], { duration: 260, easing: "cubic-bezier(.3,0,.4,1)" }); haptic([40, 30, 80]);
-    ov.querySelector(".acc-btns").style.visibility = "hidden"; setTimeout(() => { close(); renderColl(); cxHandled("sokovia-accords", 300); }, 1500); };
+    ov.querySelector(".acc-btns").style.visibility = "hidden"; setTimeout(() => { close(); if (collOpen) renderColl(); cxHandled("sokovia-accords", 300); }, 1500); };
   ov.addEventListener("click", e => { if (e.target === ov || e.target.closest('[data-acc="x"]')) { close(); return; }
     if (e.target.closest('[data-acc="no"]') && !state.accords) { state.accords = { v: "refused" }; persist(); stamp(false); } });
   if (A) return;
@@ -11980,205 +11967,37 @@ document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest(".tr-map") && trPick != null) { trPick = null; trWho(id); trDraw(id); }
 }, true);
 document.getElementById("collView").addEventListener("input", ev => { if (collMode !== "dc" || !ev.target.closest(".tr-ctl")) return; trPlay = false; trB = +ev.target.value; const pp = document.querySelector(`.tr [data-trc="pp"]`); if (pp) pp.innerHTML = TR_P; trLoop(collRec); });
-/* MOCKUP BEGIN: the Collection's cases as Classified files, eleven more that answer to a touch, and Fury's pager (test build only; mainprep cuts
-   it). Every case you can handle is an easter egg of its own in Classified, found the first time you handle it, with its own pill. The Tesseract's
-   is the Space Stone it gives up, so it isn't filed twice. Handle with care is gone. Fury's box sends his last page, and Coulson's cards move to
-   the Collection */
-const CX_EGGS = [
-  ["darkhold", "The Darkhold", "A book of dark magic waits for a reader who won't let go.", "In the Collection, hold the Darkhold until its spell is cast.", 2],
-  ["arc", "The arc reactor", "Tony's heart runs on it. Give it a charge.", "In the Collection, hold the arc reactor until it's charged.", 1],
-  ["aether", "The Aether", "The Aether doesn't like being kept in a case.", "In the Collection, drag the Aether well out of its case.", 1],
-  ["sokovia-accords", "The Sokovia Accords", "The Avengers were asked to sign. Now it's your turn.", "In the Collection, open the Sokovia Accords and sign or refuse them.", 1],
-  ["widows-bite", "The Widow's Bite", "Natasha's bracelets bite twice.", "In the Collection, double-tap the Widow's Bite.", 1],
-  ["st-billyclub", "Billy clubs", "Matt's clubs never stay thrown.", "In the Collection, drag from Daredevil's billy clubs and let go.", 1],
-  ["terrigen", "Terrigen", "The crystals have to break before anything changes.", "In the Collection, tap the Terrigen crystals three times.", 1],
-  ["star-lord-mask", "Star-Lord's mask", "Peter's mask goes on with one move.", "In the Collection, swipe up on Star-Lord's mask.", 1],
-  ["mysterio-drones", "Mysterio's drones", "Nothing Beck shows you is real. Hold on and see.", "In the Collection, hold Mysterio's drones, then let go.", 1],
-  ["reset-charges", "Reset charges", "The TVA has a way of dealing with branches. Arm one.", "In the Collection, tap the reset charges and let the countdown run.", 2],
-  ["rolex", "The Rolex", "Laura's watch has something on the back.", "In the Collection, swipe sideways on the Rolex to turn it over.", 2],
-  ["fox-anim-gambit-cards", "Gambit's cards", "Shuffle the deck. Gambit charges the rest.", "In the Collection, drag back and forth across Gambit's playing cards.", 2],
-  ["coven-brooms", "The broomsticks", "The coven flew off the Road. Take one for a ride.", "In the Collection, draw a path out from the makeshift broomsticks.", 2],
-  ["surfer-board", "The board", "The Surfer rides fast. Send her board across.", "In the Collection, swipe fast across the Silver Surfer's board.", 2]];
+/* MOCKUP BEGIN: the Collection's objects move to their titles, and the sling ring works anywhere (test build only; mainprep cuts it).
+   With some 400 cases and only a few that answered to a touch, the live ones were all but impossible to find. So the Collection is a catalogue
+   again (the Tesseract stays: its Space Stone belongs to the stone hunt, hidden all over the app), and each object lives on the title it comes
+   from instead, held in any list the way WandaVision casts the Hex: each its own Classified file. Handle with care is gone. And the Watcher's
+   box shows you another reality instead of sending you somewhere */
+["darkhold", "sling-ring", "arc", "aether", "sokovia-accords"].forEach(k => delete CX_LIVE[k]);
 EGGS.splice(EGGS.findIndex(e => e[0] === "artifacts"), 1);
-CX_EGGS.forEach(([id, t, h, x, pg]) => EGGS.push(["cx-" + id, t, h, x, pg]));
-cxHandled = function (id, ms) { if (CX_EGGS.some(e => e[0] === id)) found("cx-" + id, ms); };
-// cases handled before they were filed are filed quietly
-if (state.achSeen && !state.achCx2) { const H = state.cxHand || {}; state.eggs = state.eggs || {}; CX_EGGS.forEach(([id]) => { if (H[id]) { state.eggs["cx-" + id] = 1; state.achSeen["egg-cx-" + id] = 1; } }); state.achCx2 = 1; persist(); }
-
-// the gestures: taps counted on the case, and a drag read when the finger lifts
-const cxTaps = (b, n, fire) => { const t = performance.now(), L = (b._taps || []).filter(x => t - x < 380 * n); L.push(t); b._taps = L; if (L.length >= n) { b._taps = []; fire(); } };
-const cxDrag = (ev, done) => { const x0 = ev.clientX, y0 = ev.clientY, t0 = performance.now(), path = [[x0, y0]]; let x = x0, y = y0, flips = 0, dir = 0, len = 0;
-  cxTrack(ev, e => { const dx = e.clientX - x; if (Math.abs(dx) > 8) { const d = Math.sign(dx); if (dir && d !== dir) flips++; dir = d; } len += Math.hypot(e.clientX - x, e.clientY - y); x = e.clientX; y = e.clientY; path.push([x, y]); },
-    () => done({ dx: x - x0, dy: y - y0, ms: performance.now() - t0, path, flips, len, x, y, x0, y0 })); };
-const cxJolt = n => document.getElementById("app").animate([{ transform: "none" }, { transform: `translate(${-n}px,${n * .6}px)` }, { transform: `translate(${n * .8}px,${-n * .4}px)` }, { transform: "none" }], { duration: 220 + n * 20 });
-const cxObj = b => cxCenter(b.querySelector(".cx-obj"));
-const cxOnce = (b, k, ms) => { if (b["_" + k]) return false; b["_" + k] = 1; setTimeout(() => b["_" + k] = 0, ms); return true; };
-
-/* Coulson's cards: drag down and they tumble across the screen, the way Fury threw them on the table (bloodied, once The Avengers is watched) */
-function cxCards(done) {
-  const W = innerWidth, H = innerHeight, box = document.createElement("div"); box.className = "fx-cards"; document.body.appendChild(box); let last = 0;
-  for (let k = 0; k < 7; k++) {
-    const c = document.createElement("div"); c.className = "fx-card"; c.innerHTML = `<div class="fr"><i>★</i><b>CAPTAIN AMERICA</b></div><div class="bk"></div>`; box.appendChild(c); if (atlSeenT("The Avengers")) furyBlood(c);
-    const x0 = 30 + Math.random() * (W - 60), sway = 25 + Math.random() * 45, ph = Math.random() * 6, spins = 1 + Math.floor(Math.random() * 3), rz0 = (Math.random() - .5) * 60, rz = (Math.random() - .5) * 180, dur = 2600 + Math.random() * 1400, delay = k * 200 + Math.random() * 200, kf = [];
-    for (let j = 0; j <= 10; j++) { const f = j / 10; kf.push({ transform: `translate(${x0 + Math.sin(f * Math.PI * 3 + ph) * sway}px,${-100 + (H + 200) * f}px) rotateZ(${rz0 + f * rz}deg) rotateY(${f * 360 * spins}deg) rotateX(${Math.sin(f * Math.PI * 3) * 25}deg)` }); }
-    c.animate(kf, { duration: dur, delay, easing: "linear", fill: "both" }); last = Math.max(last, dur + delay); }
-  haptic([8, 120, 8, 120, 8, 120, 8]); setTimeout(() => { box.remove(); done(); }, last + 100);
-}
-/* the Widow's Bite: two taps and it bites, blue current crackling out of the case along the screen */
-function cxBite(b) {
-  const [x, y] = cxObj(b), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, t0 = performance.now(); let last = 0;
-  const zig = (x0, y0, x1, y1, n, j) => { g.beginPath(); g.moveTo(x0, y0); for (let k = 1; k < n; k++) { const f = k / n; g.lineTo(x0 + (x1 - x0) * f + (Math.random() - .5) * j, y0 + (y1 - y0) * f + (Math.random() - .5) * j); } g.lineTo(x1, y1); g.stroke(); };
-  const frame = now => { const t = now - t0;
-    if (t - last > 50) { last = t; g.clearRect(0, 0, W, H); g.globalAlpha = t < 900 ? 1 : Math.max(0, (1300 - t) / 400);
-      g.strokeStyle = "#E8F6FF"; g.shadowColor = "#5FB8FF"; g.shadowBlur = 16; g.lineWidth = 2;
-      const reach = Math.min(1, t / 380) * Math.max(W, H) * .75;
-      for (let k = 0; k < 7; k++) { const a = Math.random() * Math.PI * 2, r = reach * (.4 + Math.random() * .6); zig(x, y, x + Math.cos(a) * r, y + Math.sin(a) * r, 9, 34); }
-      g.lineWidth = 1; for (let k = 0; k < 10; k++) { const a = Math.random() * Math.PI * 2, r = 20 + Math.random() * 46; zig(x, y, x + Math.cos(a) * r, y + Math.sin(a) * r, 4, 12); } }
-    if (t < 1300) requestAnimationFrame(frame); else cv.remove(); };
-  requestAnimationFrame(frame); haptic([30, 20, 30, 20, 60]); cxJolt(5);
-  veil("fxl", "z-index:96;background:rgba(120,190,255,.2)", [{ opacity: 0 }, { opacity: 1 }, { opacity: .1 }, { opacity: .8 }, { opacity: 0 }], 700);
-  cxHandled("widows-bite", 1300);
-}
-/* Daredevil's billy clubs: fling one off the case and it ricochets off the edges of the screen, then comes back to the case */
-function cxClub(b, r) {
-  const [hx, hy] = cxObj(b), c = document.createElement("div"); c.className = "fx-club"; document.body.appendChild(c);
-  const sp = Math.min(26, Math.max(14, Math.hypot(r.dx, r.dy) / Math.max(60, r.ms) * 16)); let vx = r.dx / (Math.hypot(r.dx, r.dy) || 1) * sp, vy = r.dy / (Math.hypot(r.dx, r.dy) || 1) * sp;
-  let x = hx, y = hy, rot = 0, hits = 0, back = 0; const W = innerWidth, H = innerHeight;
-  const frame = () => {
-    if (hits < 3) { x += vx; y += vy;
-      if (x < 16 || x > W - 16) { vx = -vx; x = Math.max(16, Math.min(W - 16, x)); hits++; fxRing(x, y, 26, "#FF3B3B", 380, 0, 2); haptic(18); }
-      if (y < 16 || y > H - 16) { vy = -vy; y = Math.max(16, Math.min(H - 16, y)); hits++; fxRing(x, y, 26, "#FF3B3B", 380, 0, 2); haptic(18); } }
-    else { const dx = hx - x, dy = hy - y, d = Math.hypot(dx, dy); if (d < 16) { c.remove(); haptic([10, 40, 20]); cxHandled("st-billyclub", 200); return; } x += dx / d * Math.min(d, 18); y += dy / d * Math.min(d, 18); }
-    rot += 31; c.style.transform = `translate(${x - 40}px,${y - 6}px) rotate(${rot}deg)`; requestAnimationFrame(frame); };
-  requestAnimationFrame(frame); haptic(12);
-}
-/* Terrigen: three taps break the crystal. The mist pours out and rises, a stone cocoon closes over everything, then cracks and falls away */
-function cxTerrigen(b) {
-  const [x, y] = cxObj(b), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = [], t0 = performance.now();
-  fxRing(x, y, 60, "#CFE8FF", 500, 0, 2); haptic([40, 30, 40]);
-  const co = document.createElement("div"); co.className = "fx-cocoon"; document.body.appendChild(co);
-  const frame = now => { const t = now - t0; g.clearRect(0, 0, W, H);
-    if (t < 2200) for (let k = 0; k < 4; k++) P.push({ x: x + (Math.random() - .5) * 60, y: y + (Math.random() - .5) * 30, vx: (Math.random() - .5) * 3.2, vy: -1.4 - Math.random() * 2.6, r: 20 + Math.random() * 30, a: .5 });
-    P.forEach(q => { q.x += q.vx; q.y += q.vy; q.r += .9; q.a *= .992; const gr = g.createRadialGradient(q.x, q.y, 0, q.x, q.y, q.r); gr.addColorStop(0, `rgba(225,238,255,${q.a * .14})`); gr.addColorStop(1, "rgba(225,238,255,0)"); g.fillStyle = gr; g.beginPath(); g.arc(q.x, q.y, q.r, 0, Math.PI * 2); g.fill(); });
-    if (t < 4600) requestAnimationFrame(frame); else cv.remove(); };
-  requestAnimationFrame(frame);
-  co.animate([{ opacity: 0 }, { opacity: 0, offset: .3, easing: "ease-in-out" }, { opacity: 1, offset: .55 }, { opacity: 1, offset: .75, easing: "ease-in-out" }, { opacity: 0 }], { duration: 4200, fill: "both" }).onfinish = () => co.remove();
-  setTimeout(() => { co.classList.add("crack"); haptic([20, 20, 60]); cxJolt(4); }, 3100);
-  cxHandled("terrigen", 4300);
-}
-/* Star-Lord's mask: swipe up and it closes over the screen from both sides, red eyes lit, then opens again */
-function cxMask() {
-  const m = document.createElement("div"); m.className = "fx-mask"; m.innerHTML = `<i class="l"></i><i class="r"></i><b class="el"></b><b class="er"></b>`; document.body.appendChild(m);
-  const e = { duration: 2600, fill: "both" }, E = "cubic-bezier(.5,0,.3,1)";
-  m.querySelector(".l").animate([{ transform: "translateX(-102%)", easing: E }, { transform: "translateX(0)", offset: .2 }, { transform: "translateX(0)", offset: .78, easing: E }, { transform: "translateX(-102%)" }], e);
-  m.querySelector(".r").animate([{ transform: "translateX(102%)", easing: E }, { transform: "translateX(0)", offset: .2 }, { transform: "translateX(0)", offset: .78, easing: E }, { transform: "translateX(102%)" }], e);
-  m.querySelectorAll("b").forEach(x => x.animate([{ opacity: 0 }, { opacity: 0, offset: .2 }, { opacity: 1, offset: .26 }, { opacity: .85, offset: .5 }, { opacity: 1, offset: .74 }, { opacity: 0, offset: .78 }, { opacity: 0 }], e));
-  setTimeout(() => haptic([30, 40, 30]), 520); setTimeout(() => m.remove(), 2700); cxHandled("star-lord-mask", 2700);
-}
-/* Mysterio's drones: hold on and the illusion takes over, green smoke and copies of the case drifting through it; let go and it breaks,
-   and the drones that were throwing it scatter */
-function cxIllusion(b, ev) {
-  if (b._il) return; b._il = 1;
-  const [x, y] = cxObj(b), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, t0 = performance.now(), view = document.getElementById("collView");
-  const fakes = [...Array(7)].map((_, i) => ({ a: i / 7 * Math.PI * 2, r: 60 + Math.random() * 120, s: .7 + Math.random() * .8 })), smoke = [];
-  let up = 0, held = 0;
-  const glyph = new Path2D("M7 7h10v10H7z M10 10h4v4h-4z M10 3v4 M14 3v4 M10 17v4 M14 17v4 M3 10h4 M3 14h4 M17 10h4 M17 14h4");
-  const frame = now => { const t = now - t0, k = up ? Math.max(0, 1 - (now - up) / 500) : Math.min(1, t / 600); g.clearRect(0, 0, W, H);
-    if (!up && smoke.length < 160) for (let i = 0; i < 3; i++) smoke.push({ x: x + (Math.random() - .5) * 40, y: y + (Math.random() - .5) * 40, vx: (Math.random() - .5) * 3, vy: (Math.random() - .5) * 3, r: 30 + Math.random() * 40 });
-    smoke.forEach(s => { s.x += s.vx + Math.sin(now / 600 + s.r) * .6; s.y += s.vy; s.r += .4; const gr = g.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r); gr.addColorStop(0, `rgba(80,255,150,${.13 * k})`); gr.addColorStop(1, "rgba(80,255,150,0)"); g.fillStyle = gr; g.beginPath(); g.arc(s.x, s.y, s.r, 0, Math.PI * 2); g.fill(); });
-    fakes.forEach((f, i) => { const a = f.a + t / 1400, fx = x + Math.cos(a) * f.r * (1 + .3 * Math.sin(t / 500 + i)), fy = y + Math.sin(a) * f.r * .8; g.save(); g.translate(fx - 24 * f.s, fy - 24 * f.s); g.scale(2 * f.s, 2 * f.s); g.globalAlpha = .55 * k; g.strokeStyle = i % 2 ? "#7CFFB0" : "#B58CFF"; g.lineWidth = 1.2; g.stroke(glyph); g.restore(); });
-    view.style.filter = k ? `hue-rotate(${Math.sin(t / 400) * 50 * k}deg) blur(${(.6 + .6 * Math.sin(t / 300)) * k}px)` : "";
-    if (up && k <= 0) { cv.remove(); view.style.filter = ""; b._il = 0; return; }
-    requestAnimationFrame(frame); };
-  requestAnimationFrame(frame); haptic(10);
-  cxTrack(ev, () => {}, () => { up = performance.now(); held = up - t0;
-    if (held > 1500) { haptic([20, 30, 20]); for (let i = 0; i < 6; i++) { const d = document.createElement("div"); d.className = "fx-drone"; document.body.appendChild(d); const a = Math.random() * Math.PI * 2, R = Math.max(W, H);
-        d.animate([{ transform: `translate(${x}px,${y}px) scale(.6)`, opacity: 1 }, { transform: `translate(${x + Math.cos(a) * R}px,${y + Math.sin(a) * R}px) scale(1)`, opacity: 1 }], { duration: 1100 + Math.random() * 500, easing: "cubic-bezier(.4,0,.8,.6)", fill: "both" }).onfinish = () => d.remove(); }
-      fxRing(x, y, 120, "#7CFFB0", 500, 0, 2); cxHandled("mysterio-drones", 1300); } });
-}
-/* reset charges: tap to arm one. Branches spread out of the case while it counts down, then it goes off and the wave wipes every branch away */
-function cxReset(b) {
-  if (!cxOnce(b, "rs", 4200)) return;
-  const [x, y] = cxObj(b), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, t0 = performance.now(), R = Math.hypot(W, H);
-  const br = [...Array(9)].map((_, i) => { const a = -Math.PI / 2 + (i - 4) * .32 + (Math.random() - .5) * .2, p = [[x, y]]; let px = x, py = y, aa = a; for (let k = 0; k < 14; k++) { aa += (Math.random() - .5) * .35; px += Math.cos(aa) * 26; py += Math.sin(aa) * 26; p.push([px, py]); } return p; });
-  const n = document.createElement("div"); n.className = "fx-count"; n.style.left = x + "px"; n.style.top = y + "px"; document.body.appendChild(n);
-  const frame = now => { const t = now - t0; g.clearRect(0, 0, W, H);
-    const cd = 3 - Math.floor(t / 600); n.textContent = t < 1800 ? cd : ""; if (t < 1800 && n.dataset.c !== String(cd)) { n.dataset.c = cd; haptic(15); }
-    const grow = Math.min(1, t / 1800), wave = t > 1800 ? (t - 1800) / 900 * R : 0;
-    g.lineWidth = 2; g.strokeStyle = "#7FD6C8"; g.shadowColor = "#7FD6C8"; g.shadowBlur = 8;
-    br.forEach(p => { g.beginPath(); const m = Math.max(1, Math.floor(p.length * grow)); for (let k = 0; k < m; k++) { const [px, py] = p[k]; if (wave && Math.hypot(px - x, py - y) < wave) { g.stroke(); g.beginPath(); continue; } k ? g.lineTo(px, py) : g.moveTo(px, py); } g.stroke(); });
-    if (wave) { g.shadowBlur = 0; g.strokeStyle = "rgba(255,170,60,.95)"; g.lineWidth = 10; g.beginPath(); g.arc(x, y, wave, 0, Math.PI * 2); g.stroke(); g.fillStyle = `rgba(255,150,40,${Math.max(0, .25 - wave / R * .25)})`; g.fill(); }
-    if (t < 2800) requestAnimationFrame(frame); else { cv.remove(); n.remove(); } };
-  requestAnimationFrame(frame);
-  setTimeout(() => { haptic([60, 30, 80]); cxJolt(6); veil("fxl", "z-index:96;background:rgba(255,160,50,.28)", [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], 600); }, 1800);
-  cxHandled("reset-charges", 2800);
-}
-/* the Rolex: swipe and the watch turns over. Engraved on the back: the S.H.I.E.L.D. eagle, with 19 below it on the outer ring */
-function cxRolex() {
-  const w = document.createElement("div"); w.className = "fx-watch";
-  w.innerHTML = `<div class="fx-w"><div class="fr"><i class="h1"></i><i class="h2"></i><b>ROLEX</b></div><div class="bk"><svg viewBox="-6 -6 76 76" aria-hidden="true"><defs><linearGradient id="rxSteel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6EAF0"/><stop offset=".45" stop-color="#AEB6C2"/><stop offset=".75" stop-color="#7C8592"/><stop offset="1" stop-color="#C9D0DA"/></linearGradient></defs><circle cx="32" cy="32" r="27.8" fill="#1B1F26" stroke="#5E6672" stroke-width=".8"/><path d="${EMBLEMS.eagle.l[1].d}" fill="url(#rxSteel)"/><text x="32" y="65.4" text-anchor="middle">19</text></svg></div></div>`;
-  document.body.appendChild(w); const f = w.firstChild;
-  w.animate([{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 1, offset: .88 }, { opacity: 0 }], { duration: 3600, fill: "both" });
-  const E = "cubic-bezier(.45,0,.3,1)";
-  f.animate([{ transform: "scale(.6) rotateY(0deg)", easing: E }, { transform: "scale(1) rotateY(0deg)", offset: .15 }, { transform: "scale(1) rotateY(0deg)", offset: .3, easing: E }, { transform: "scale(1) rotateY(180deg)", offset: .5 }, { transform: "scale(1) rotateY(180deg)", offset: .9, easing: E }, { transform: "scale(.9) rotateY(180deg)" }], { duration: 3600, fill: "both" });
-  setTimeout(() => haptic([10, 30, 10]), 1500); setTimeout(() => w.remove(), 3650); cxHandled("rolex", 3600);
-}
-/* Gambit's cards: shuffle back and forth and a fan of charged cards flies out, glowing, and goes off one after another */
-function cxGambit(b) {
-  const [x, y] = cxObj(b), W = innerWidth, H = innerHeight; let last = 0;
-  for (let k = 0; k < 5; k++) { const c = document.createElement("div"); c.className = "fx-gcard"; document.body.appendChild(c);
-    const a = -Math.PI / 2 + (k - 2) * .45, d = Math.min(W, H) * (.32 + Math.random() * .12), tx = x + Math.cos(a) * d, ty = Math.max(60, y + Math.sin(a) * d), dl = k * 110, dur = 520;
-    c.animate([{ transform: `translate(${x - 14}px,${y - 20}px) rotate(0deg) scale(.6)` }, { transform: `translate(${tx - 14}px,${ty - 20}px) rotate(${(k - 2) * 25 + 540}deg) scale(1)` }], { duration: dur, delay: dl, easing: "cubic-bezier(.2,.7,.3,1)", fill: "both" }).onfinish = () => {
-      c.remove(); haptic(25); fxRing(tx, ty, 46, "#FF4FD8", 520, 0, 3); fxRing(tx, ty, 22, "#FFD0F4", 380, 60, 2);
-      const v = document.createElement("div"); v.className = "fx-pop"; v.style.left = tx + "px"; v.style.top = ty + "px"; document.body.appendChild(v); v.animate([{ transform: "translate(-50%,-50%) scale(.2)", opacity: 1 }, { transform: "translate(-50%,-50%) scale(1.4)", opacity: 0 }], { duration: 480, easing: "ease-out" }).onfinish = () => v.remove(); };
-    last = Math.max(last, dl + dur); }
-  haptic([8, 30, 8]); setTimeout(() => cxJolt(3), last); cxHandled("fox-anim-gambit-cards", last + 500);
-}
-/* the makeshift broomsticks: draw a path out of the case and a broom flies it, sparks trailing, and keeps going off the screen */
-function cxBroom(path) {
-  const { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = path.filter((p, i) => i % 2 === 0), S = [], t0 = performance.now();
-  const [ax, ay] = P[P.length - 2] || P[0], [bx, by] = P[P.length - 1], ex = bx - ax, ey = by - ay, el = Math.hypot(ex, ey) || 1;
-  for (let k = 1; k <= 20; k++) P.push([bx + ex / el * k * 40, by + ey / el * k * 40]);
-  const N = P.length, dur = N * 26;
-  const frame = now => { const t = now - t0, f = Math.min(1, t / dur), i = Math.min(N - 2, Math.floor(f * (N - 1))), [px, py] = P[i], [qx, qy] = P[i + 1], a = Math.atan2(qy - py, qx - px);
-    g.clearRect(0, 0, W, H);
-    if (f < 1) for (let k = 0; k < 4; k++) S.push({ x: px - Math.cos(a) * 26, y: py - Math.sin(a) * 26, vx: (Math.random() - .5) * 2, vy: (Math.random() - .5) * 2, l: 1, c: Math.random() < .5 ? "#B57BFF" : "#7CFFB0" });
-    S.forEach(s => { s.x += s.vx; s.y += s.vy; s.l -= .025; if (s.l > 0) { g.globalAlpha = s.l; g.fillStyle = s.c; g.fillRect(s.x, s.y, 2.4, 2.4); } }); g.globalAlpha = 1;
-    if (f < 1) { g.save(); g.translate(px, py); g.rotate(a); g.strokeStyle = "#C9A36A"; g.lineWidth = 3; g.beginPath(); g.moveTo(-6, 0); g.lineTo(34, 0); g.stroke();
-      g.strokeStyle = "#8E6A3A"; g.lineWidth = 1.4; for (let k = -5; k <= 5; k++) { g.beginPath(); g.moveTo(-6, 0); g.lineTo(-30, k * 2.6); g.stroke(); } g.restore(); }
-    if (f < 1 || S.some(s => s.l > 0)) requestAnimationFrame(frame); else cv.remove(); };
-  requestAnimationFrame(frame); haptic([8, 20, 8]); cxHandled("coven-brooms", dur + 400);
-}
-/* the Silver Surfer's board: swipe fast and it streaks across the screen the way you sent it, leaving a silver wake of stars */
-function cxBoard(b, dir) {
-  const [, y] = cxObj(b), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, S = [], t0 = performance.now(), dur = 900;
-  const frame = now => { const t = now - t0, f = Math.min(1, t / dur), e = f * f * (3 - 2 * f), x = dir > 0 ? -80 + (W + 160) * e : W + 80 - (W + 160) * e, by = y - 30 * Math.sin(f * Math.PI);
-    g.clearRect(0, 0, W, H);
-    if (f < 1) for (let k = 0; k < 6; k++) S.push({ x: x - dir * 30, y: by + (Math.random() - .5) * 10, vx: -dir * (1 + Math.random() * 3), vy: (Math.random() - .5) * 1.6, l: 1 });
-    S.forEach(s => { s.x += s.vx; s.y += s.vy; s.l -= .018; if (s.l > 0) { g.globalAlpha = s.l; g.fillStyle = "#E9F0FA"; g.beginPath(); g.arc(s.x, s.y, 1.6, 0, Math.PI * 2); g.fill(); } }); g.globalAlpha = 1;
-    if (f < 1) { const gr = g.createLinearGradient(x - dir * 260, 0, x, 0); gr.addColorStop(0, "rgba(220,232,250,0)"); gr.addColorStop(1, "rgba(220,232,250,.55)"); g.fillStyle = gr; g.fillRect(Math.min(x, x - dir * 260), by - 3, 260, 6);
-      g.save(); g.translate(x, by); g.fillStyle = "#DDE6F3"; g.shadowColor = "#BFD3FF"; g.shadowBlur = 18; g.beginPath(); g.ellipse(0, 0, 44, 9, 0, 0, Math.PI * 2); g.fill(); g.restore(); }
-    if (f < 1 || S.some(s => s.l > 0)) requestAnimationFrame(frame); else cv.remove(); };
-  requestAnimationFrame(frame); haptic([5, 20, 5, 20, 5]); cxHandled("surfer-board", dur + 300);
-}
-Object.assign(CX_LIVE, {
-  "widows-bite": (b, ev) => cxTaps(b, 2, () => REDUCED ? cxHandled("widows-bite") : cxOnce(b, "wb", 1400) && cxBite(b)),
-  "st-billyclub": (b, ev) => cxDrag(ev, r => { if (Math.hypot(r.dx, r.dy) > 50 && cxOnce(b, "bc", 3000)) REDUCED ? cxHandled("st-billyclub") : cxClub(b, r); }),
-  "terrigen": (b, ev) => cxTaps(b, 3, () => REDUCED ? cxHandled("terrigen") : cxOnce(b, "tg", 4800) && cxTerrigen(b)),
-  "star-lord-mask": (b, ev) => cxDrag(ev, r => { if (r.dy < -60 && Math.abs(r.dx) < -r.dy && cxOnce(b, "sl", 2800)) REDUCED ? cxHandled("star-lord-mask") : cxMask(); }),
-  "mysterio-drones": (b, ev) => REDUCED ? cxHold(ev, 1500, () => cxHandled("mysterio-drones")) : cxIllusion(b, ev),
-  "reset-charges": b => REDUCED ? cxHandled("reset-charges") : cxReset(b),
-  rolex: (b, ev) => cxDrag(ev, r => { if (Math.abs(r.dx) > 50 && Math.abs(r.dy) < Math.abs(r.dx) && cxOnce(b, "rx", 3700)) REDUCED ? cxHandled("rolex") : cxRolex(); }),
-  "fox-anim-gambit-cards": (b, ev) => cxDrag(ev, r => { if (r.flips >= 3 && cxOnce(b, "gc", 1800)) REDUCED ? cxHandled("fox-anim-gambit-cards") : cxGambit(b); }),
-  "coven-brooms": (b, ev) => cxDrag(ev, r => { if (r.len > 220 && cxOnce(b, "br", 2000)) REDUCED ? cxHandled("coven-brooms") : cxBroom(r.path); }),
-  "surfer-board": (b, ev) => cxDrag(ev, r => { if (Math.abs(r.dx) > 110 && r.ms < 450 && cxOnce(b, "sb", 1300)) REDUCED ? cxHandled("surfer-board") : cxBoard(b, Math.sign(r.dx)); })
+EGGS.push(["darkhold", "The Darkhold", "The Book of the Damned waits in the Multiverse of Madness. Hold on to it.", "Hold Doctor Strange in the Multiverse of Madness in any list until the spell is cast.", 2],
+  ["accords", "The Sokovia Accords", "Civil War starts with a signature. Yours, or your refusal.", "Hold Captain America: Civil War in any list, then sign or refuse the Accords.", 1],
+  ["aether", "The Aether", "In The Dark World, the Aether won't stay where it's put.", "Hold Thor: The Dark World in any list, then drag the Aether well away.", 1]);
+cxHandled = function (id, ms) { const k = { darkhold: "darkhold", "sokovia-accords": "accords", aether: "aether" }[id]; if (k) found(k, ms); };
+// a held title keeps your finger: where it goes, and when it lifts (touch included, without the page scrolling under it)
+const heldTrack = (move, up) => {
+  const mv = ev => { const p = ev.touches ? ev.touches[0] : ev; if (!p) return; if (ev.cancelable && ev.touches) ev.preventDefault(); move(p.clientX, p.clientY); };
+  const ends = ["touchend", "touchcancel", "pointerup", "pointercancel"], fin = () => { window.removeEventListener("touchmove", mv); window.removeEventListener("pointermove", mv); ends.forEach(n => window.removeEventListener(n, fin)); up(); };
+  window.addEventListener("touchmove", mv, { passive: false }); window.addEventListener("pointermove", mv); ends.forEach(n => window.addEventListener(n, fin)); };
+// the object comes up under your finger: the book, or the stone
+const heldObj = (x, y, c) => { const o = document.createElement("div"); o.className = "fx-obj"; o.style.left = x + "px"; o.style.top = y + "px"; o.innerHTML = `<span class="cx-obj">${cxGlyph(c)}</span>`; document.body.appendChild(o);
+  o.animate([{ opacity: 0, scale: .6 }, { opacity: 1, scale: 1 }], { duration: 280, easing: "ease-out" }); return o; };
+const heldGone = o => () => o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250 }).onfinish = () => o.remove();
+Object.assign(ROW_EGGS, {
+  "Doctor Strange in the Multiverse of Madness": (x, y, row) => { if (cxDarkOn) return; const o = heldObj(x, y, "mystic"), scope = (row.closest && (row.closest(".pin") || row.closest("#view"))) || document.getElementById("view");
+    cxDark(null, null, { scope, obj: o.firstChild, top: y, release: fn => heldTrack(() => {}, fn), end: heldGone(o) }); },
+  "Thor: The Dark World": (x, y) => { const o = heldObj(x, y, "stones"); cxAether(null, null, { obj: o.firstChild, x, y, track: heldTrack, end: heldGone(o) }); },
+  "Captain America: Civil War": () => cxAccords()
 });
-delete CX_LIVE["sling-ring"];   // the sling ring works anywhere now, not only in its case
 EGGS.push(["sling", "Sling ring", "A sorcerer can open a door to anywhere, even another world. Keep circling.", "After Doctor Strange, draw three circles in one stroke anywhere in the app.", 1]);
 /* the sling ring, anywhere: after Doctor Strange, draw circles in one stroke on any page or in any box. The sparks catch once you've gone
    round once; at the third the portal opens where you drew, holds with its sparks riding the ring and the place it opens onto showing
    inside, then rushes in and lands you there. A sling ring opens a door to a real place, so it takes you to one, opened in the Atlas.
-   The Watcher moves you through the datapad itself and never lands in the Atlas, so the two never overlap */
+   Nothing else moves you anywhere (the Watcher only shows you another reality, and brings you back), so the two never overlap */
 const SLING_N = 3;
 // where a sling ring can open onto: a place you've seen on Earth, in the Cosmos, Beyond, or in another universe of the Multiverse (never
 // the Incursions). A realm first, then a place in it, so the smaller maps come up as often as Earth does
@@ -12257,6 +12076,70 @@ function slingTrace() {
   requestAnimationFrame(frame);
   return { add(x, y) { P.push([x, y, performance.now()]); if (Date.now() - last > 40) { last = Date.now(); sparkC(x, y, (Math.random() - .5) * 40, (Math.random() - .5) * 40 + 10, 0, 500, ORANGE_C); } }, end() { done = performance.now(); } };
 }
+/* the Watcher, reworked: hold in his box and it cracks and falls away, but behind it is another reality's box: a hero as they are somewhere
+   else in the multiverse, drawn as their box would be. It's only a glimpse (nothing in it can be pressed); a few seconds later that reality
+   cracks too and shatters back to the Watcher. A different reality each time. No quote line yet: each has to be a real line, checked first */
+const ALT_BOXES = [
+  { title: "Captain Carter", rows: ["What If...? S1", "What If...? S2", "What If...? S3"], fg: "#F2F4F8", box: "#FFFFFF",
+    style: "background-image: radial-gradient(rgba(255,255,255,0.16) 0.9px, transparent 1.3px); background-size: 26px 26px; background-position: 13px 13px; position: relative; background-color: #0B1F4A; border: 2px solid #C8102E",
+    decor: '<div aria-hidden="true" style="height: 8px; margin: -14px -16px 10px -16px; background: repeating-linear-gradient(90deg,#C8102E 0 14px,#FFFFFF 14px 28px,#012169 28px 42px)"></div>',
+    h2: "margin: 0; font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-weight: 400; font-size: 30px; line-height: 1.1; color: #FFFFFF; letter-spacing: 1.5px",
+    emb: '<span class="emb"><svg viewBox="0 0 64 64" width="64" height="64"><defs><clipPath id="altUJ"><circle cx="32" cy="32" r="26"/></clipPath></defs><g clip-path="url(#altUJ)"><rect width="64" height="64" fill="#012169"/><path d="M0 0L64 64M64 0L0 64" stroke="#FFFFFF" stroke-width="10"/><path d="M0 0L64 64M64 0L0 64" stroke="#C8102E" stroke-width="4"/><path d="M32 0V64M0 32H64" stroke="#FFFFFF" stroke-width="14"/><path d="M32 0V64M0 32H64" stroke="#C8102E" stroke-width="8"/></g><circle cx="32" cy="32" r="26" fill="none" stroke="#C9D0DA" stroke-width="2.5"/></svg></span>' },
+  { title: "Strange Supreme", rows: ["What If...? S1", "What If...? S2", "What If...? S3"], fg: "#EBDCD9", box: "#E8584C", cls: "mandala",
+    style: "position: relative; background-color: #140A0E; border: 2px solid #8E1B2E",
+    decor: '<div aria-hidden="true" style="height: 8px; margin: -14px -16px 10px -16px; background: linear-gradient(90deg,#4A0D16,#C0392B 50%,#4A0D16)"></div>',
+    h2: "margin: 0; font-family: 'Fraunces', Georgia, serif; font-size: 25px; line-height: 1.1; color: #E8584C; font-style: italic; font-weight: 700",
+    emb: () => embHTML("agamotto"), embFilter: "hue-rotate(-125deg) saturate(1.8) brightness(1.1)" }
+];
+// another reality's box, drawn from the box that's open: its own colors, band, insignia, name and titles
+function altBox(a) {
+  const c = panel.cloneNode(true); c.removeAttribute("id"); c.querySelectorAll("[id]").forEach(x => x.removeAttribute("id"));
+  c.className = "panel open fx-altbox" + (a.cls ? " " + a.cls : "");
+  c.setAttribute("style", `${a.style};padding:14px 16px 13px 16px;display:block;color:${a.fg};--boxc:${a.box};--sfg:${a.fg};--pb:2px;--rowline:color-mix(in srgb, ${a.fg} 18%, transparent);position:fixed;inset:0;z-index:97;overflow:hidden;clip-path:none;pointer-events:none`);
+  c.firstElementChild.outerHTML = a.decor;
+  const wm = c.querySelector(".pwm"); if (wm) { wm.innerHTML = typeof a.emb === "function" ? a.emb() : a.emb; wm.classList.remove("anon"); wm.style.filter = a.embFilter || ""; }
+  const h = c.querySelector("h2"); h.setAttribute("style", a.h2); h.className = "big"; h.textContent = a.title;
+  const hr = c.querySelector(".hrow"); while (hr.nextElementSibling && !hr.nextElementSibling.classList.contains("pbar")) hr.nextElementSibling.remove();   // no accent, no quote
+  const seen = anyChecked("What If...?"), tick = lum(a.box) > 0.6 ? "#111111" : "#FFFFFF", ul = c.querySelector(".list"), tpl = ul.querySelector("li");
+  if (tpl) ul.innerHTML = a.rows.map(t => { const li = tpl.cloneNode(true), b = li.querySelector(".row"); b.dataset.t = t; b.style.color = a.fg; b.setAttribute("aria-pressed", seen);
+    li.querySelector(".t").textContent = t; const sv = li.querySelector(".box svg"); if (sv) { if (seen) sv.querySelector("path").setAttribute("stroke", tick); else sv.remove(); } return li.outerHTML; }).join("");
+  const bar = c.querySelector(".pbar span"); if (bar) { bar.style.width = seen ? "100%" : "0%"; bar.style.background = a.box; }
+  const pin = c.querySelector(".pin"); if (pin && pin.lastElementChild) pin.lastElementChild.innerHTML = "";   // no Complete button
+  return c;
+}
+shatter = function (x, y) {
+  if (shattering || !openEntry) return;
+  if (REDUCED) { found("shatter"); return; }
+  shattering = true; haptic([60, 40, 20, 300, 80]);
+  state.altIx = ((state.altIx ?? -1) + 1) % ALT_BOXES.length; persist(); const spec = ALT_BOXES[state.altIx], alt = altBox(spec);
+  const W = innerWidth, H = innerHeight, R = Math.hypot(W, H), cracks = [];
+  const line = (x0, y0, len, a, delay) => { const c = document.createElement("div"); c.className = "fx-crack"; c.style.cssText = `left:${x0}px;top:${y0}px;width:${len}px;transform:rotate(${a}rad) scaleX(0)`; document.body.appendChild(c); c.animate([{ transform: `rotate(${a}rad) scaleX(0)` }, { transform: `rotate(${a}rad) scaleX(1)` }], { duration: 380, delay, easing: "ease-out", fill: "both" }); cracks.push(c); };
+  const crackAt = (cx, cy, t0) => { const angs = []; for (let k = 0; k < 10; k++) angs.push(k / 10 * Math.PI * 2 + (Math.random() - .5) * .5); angs.forEach((a, k) => { const len = R * (.5 + Math.random() * .5); line(cx, cy, len, a, t0 + k * 35); const m = .3 + Math.random() * .3; line(cx + Math.cos(a) * len * m, cy + Math.sin(a) * len * m, len * .35, a + (Math.random() - .5) * 1.4, t0 + 200 + k * 35); }); return angs.sort((a, b) => a - b); };
+  const breakAway = (cx, cy, angs, fill) => angs.map((a, k) => {
+    const b = k + 1 < angs.length ? angs[k + 1] : angs[0] + Math.PI * 2, mid = (a + b) / 2, sh = document.createElement("div"); sh.className = "fx-shard";
+    sh.style.clipPath = `polygon(${cx}px ${cy}px, ${cx + Math.cos(a) * R}px ${cy + Math.sin(a) * R}px, ${cx + Math.cos(mid) * R * 1.4}px ${cy + Math.sin(mid) * R * 1.4}px, ${cx + Math.cos(b) * R}px ${cy + Math.sin(b) * R}px)`;
+    fill(sh); document.body.appendChild(sh);
+    const d = R * (1.1 + Math.random() * .4), dx = Math.cos(mid) * d, dy = Math.sin(mid) * d + R * .25, rot = (Math.random() - .5) * 70;
+    sh.animate([{ transform: "none" }, { transform: `translate(${dx * .06}px,${dy * .06}px) rotate(${rot * .04}deg)`, offset: .2 }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)` }], { duration: 1700, easing: "cubic-bezier(.5,0,.6,1)", fill: "forwards" }).onfinish = () => sh.remove();
+    return sh; });
+  const clearCracks = () => { cracks.splice(0).forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => c.remove()); };
+  // 1. the Watcher's box cracks and falls away, and the other reality is right behind it
+  const angs1 = crackAt(x, y, 0);
+  setTimeout(() => {
+    document.body.appendChild(alt);
+    breakAway(x, y, angs1, sh => { panelBg(sh); sh.appendChild(pinCopy()); });
+    clearCracks(); haptic([80, 40, 120]);
+    // 2. a few seconds there; then it cracks too, and shatters back to the Watcher
+    setTimeout(() => {
+      const cx = W * (.3 + Math.random() * .4), cy = H * (.35 + Math.random() * .3), angs2 = crackAt(cx, cy, 0);
+      setTimeout(() => {
+        breakAway(cx, cy, angs2, sh => sh.appendChild(altBox(spec)));
+        alt.remove(); clearCracks(); haptic([80, 40, 120]);
+        setTimeout(() => { shattering = false; found("shatter"); }, 1800);
+      }, 600);
+    }, 3800);
+  }, 650);
+};
 /* MOCKUP END */
 </script>
 </body>
