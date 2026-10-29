@@ -12090,13 +12090,17 @@ function slingTrace() {
    lead or turn up in there, so there's nothing in it you could have watched: no ticks, no bar. No quote line yet */
 const ALT_BOXES = [
   { title: "Captain Carter", fg: "#F2F4F8", box: "#FFFFFF",
-    rows: ["Captain Carter: The First Avenger", "The Avengers", "Captain Carter: The Winter Soldier", "Avengers: Age of Ultron", "Captain Carter: Civil War", "Avengers: Infinity War", "Guardians of the Multiverse", "Doctor Strange in the Multiverse of Madness", "Captain Carter: Brave New World"],
+    // her own films, and the ones she turns up in: Steve inside HYDRA's armor, the Red Room, Kahhori's world, 1602, Strange's Forge, the
+    // incursions, Ultron's last act, and her last stand
+    rows: ["Captain Carter: The First Avenger", "The Hydra Stomper", "Captain Carter: The Red Room", "Kahhori", "Avengers: 1602", "Strange Supreme", "Guardians of the Multiverse", "Avengers: The Incursion Wars", "Ultron: Atoned", "Captain Carter: Endgame"],
     style: "background-image: radial-gradient(rgba(255,255,255,0.16) 0.9px, transparent 1.3px); background-size: 26px 26px; background-position: 13px 13px; position: relative; background-color: #0B1F4A; border: 2px solid #C8102E",
     decor: '<div aria-hidden="true" style="height: 8px; margin: -14px -16px 10px -16px; background: repeating-linear-gradient(90deg,#C8102E 0 14px,#FFFFFF 14px 28px,#012169 28px 42px)"></div>',
     h2: "margin: 0; font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-weight: 400; font-size: 30px; line-height: 1.1; color: #FFFFFF; letter-spacing: 1.5px",
     emb: '<span class="emb"><svg viewBox="0 0 64 64" width="64" height="64"><defs><clipPath id="altUJ"><circle cx="32" cy="32" r="26"/></clipPath></defs><g clip-path="url(#altUJ)"><rect width="64" height="64" fill="#012169"/><path d="M0 0L64 64M64 0L0 64" stroke="#FFFFFF" stroke-width="10"/><path d="M0 0L64 64M64 0L0 64" stroke="#C8102E" stroke-width="4"/><path d="M32 0V64M0 32H64" stroke="#FFFFFF" stroke-width="14"/><path d="M32 0V64M0 32H64" stroke="#C8102E" stroke-width="8"/></g><circle cx="32" cy="32" r="26" fill="none" stroke="#C9D0DA" stroke-width="2.5"/></svg></span>' },
   { title: "Strange Supreme", fg: "#EBDCD9", box: "#E8584C", cls: "mandala",
-    rows: ["Doctor Strange", "Doctor Strange: Time Runs Out", "Avengers: Absorbed", "Strange Supreme", "Doctor Strange in the Multiverse of One", "Guardians of the Multiverse", "Strange Supreme: The Forge", "Doctor Strange: Requiem"],
+    // his own films and the ones he darkens: Christine lost again and again, a world absorbed, the Watcher's oath broken, other heroes'
+    // worlds fed to his Forge, Carter's fight against it, and the Watchers he strips
+    rows: ["Doctor Strange: Time Runs Out", "Avengers: Absorbed", "Strange Supreme", "The Watcher: Oath Broken", "Guardians of the Multiverse", "Spider-Man: No Universe Left", "Captain Carter: The Forge", "Strange Supreme: The Forge", "Strange Supreme vs. The Eminence", "Doctor Strange: Requiem"],
     style: "position: relative; background-color: #140A0E; border: 2px solid #8E1B2E",
     decor: '<div aria-hidden="true" style="height: 8px; margin: -14px -16px 10px -16px; background: linear-gradient(90deg,#4A0D16,#C0392B 50%,#4A0D16)"></div>',
     h2: "margin: 0; font-family: 'Fraunces', Georgia, serif; font-size: 25px; line-height: 1.1; color: #E8584C; font-style: italic; font-weight: 700",
