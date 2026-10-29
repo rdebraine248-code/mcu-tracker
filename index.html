@@ -1189,12 +1189,13 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .fx-w .bk svg{ width:85.5%; filter:drop-shadow(0 1px 1px rgba(0,0,0,.6)); } .fx-w .bk text{ fill:#C9D0DA; font:700 4.2px 'Share Tech Mono','Courier New',monospace; }
 .fx-gcard{ position:fixed; left:0; top:0; z-index:97; width:28px; height:40px; border-radius:3px; pointer-events:none; background:linear-gradient(135deg,#FFE0F7,#FF7BE0); border:1px solid #fff; box-shadow:0 0 14px #FF4FD8, 0 0 30px rgba(255,79,216,.6); }
 .fx-pop{ position:fixed; z-index:97; width:120px; height:120px; border-radius:50%; pointer-events:none; background:radial-gradient(circle,rgba(255,240,252,.95),rgba(255,79,216,.6) 40%,rgba(255,79,216,0) 70%); }
+/* MOCKUP END */
+/* ---------- Nick Fury: his last page ---------- */
 .fx-pager{ position:fixed; inset:0; z-index:97; display:grid; place-items:end center; padding-bottom:12vh; pointer-events:none; }
 .fx-pager .pg{ width:min(62vw,250px); height:auto; filter:drop-shadow(0 16px 26px rgba(0,0,0,.65)); }
 .fx-pager.sent .pg{ filter:drop-shadow(0 16px 26px rgba(0,0,0,.65)) drop-shadow(0 0 18px rgba(244,197,66,.45)); }
 .fx-pager .snd{ fill:#22301C; font:700 13px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; transition:opacity .12s; }
-/* MOCKUP END */
-/* MOCKUP BEGIN: tactical replays in Damage Control (test build only; mainprep cuts it) */
+/* ---------- Damage Control: a battle's tactical replay ---------- */
 .tr{ margin:0 0 16px; border:1px solid #2F5A26; border-radius:12px; background:rgba(127,217,90,.04); }
 .tr-head{ display:flex; align-items:center; gap:10px; width:100%; padding:11px 14px; border:0; background:none; color:#BFF0A6; text-align:left; cursor:pointer; }
 .tr-head span{ font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; } .tr-head small{ margin-left:auto; color:#86A879; font-size:13px; }
@@ -1219,42 +1220,6 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .tr-key button{ display:flex; align-items:center; gap:6px; padding:4px 10px 4px 5px; border:1px solid color-mix(in srgb,var(--c) 45%,transparent); border-radius:999px; background:none; color:#D5DCE8; font-size:12.5px; }
 .tr-key button b{ display:grid; place-items:center; min-width:22px; height:22px; padding:0 3px; border:1.4px solid var(--c); border-radius:999px; color:var(--c); font:700 9.5px 'Share Tech Mono','Courier New',monospace; }
 .tr-key button.on{ border-color:#FFFFFF; color:#FFFFFF; }
-/* MOCKUP END */
-/* MOCKUP BEGIN: Sound, proposal 2 (test build only; mainprep cuts it) */
-.snd-row{ display:flex; align-items:center; gap:14px; } .snd-row p{ flex:1; margin:0 !important; }
-.hf-save .snd-sw{ flex:none; display:inline-flex; align-items:center; gap:10px; padding:6px 12px 6px 6px; }
-.snd-sw i{ position:relative; width:36px; height:20px; border-radius:999px; background:#2A3550; transition:background .2s; }
-.snd-sw i::after{ content:""; position:absolute; left:3px; top:3px; width:14px; height:14px; border-radius:50%; background:#D8E0EE; transition:transform .2s; }
-.snd-sw.on i{ background:#C9A43A; } .snd-sw.on i::after{ transform:translateX(16px); } .hf-save .snd-sw.on{ border-color:#C9A43A; color:#F4D27A; }
-.snd-take{ display:flex; align-items:center; gap:8px; margin-top:8px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#8E9AB3; }
-.snd-take span{ margin-right:auto; } .snd-take button{ width:36px; height:30px; border:1px solid #3A4A6A; border-radius:8px; background:none; color:#D8E0EE; font:12px 'Share Tech Mono',monospace; }
-.snd-take button[aria-pressed="true"]{ border-color:#C9A43A; color:#F4D27A; }
-.snd-pill{ position:fixed; left:12px; bottom:calc(var(--dockh) + 84px); z-index:199; padding:6px 10px; border:1px solid #C9A43A; border-radius:999px; background:#0D1320; color:#F4D27A; font:10.5px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; }
-/* MOCKUP END */
-/* MOCKUP BEGIN: J.A.R.V.I.S., one search across the whole app (test build only; mainprep cuts it) */
-.subrow .jv-btn{ display:inline-flex; align-items:center; gap:8px; padding:4px 11px 4px 5px; border:1px solid rgba(79,216,240,.45); border-radius:999px; background:rgba(79,216,240,.07); color:#BFF4FC; font:10.5px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; vertical-align:middle; }
-.jv-btn i{ position:relative; display:grid; place-items:center; width:18px; height:18px; border:1px dashed rgba(127,230,247,.6); border-radius:50%; animation:jvSpin 9s linear infinite; }
-.jv-btn i::after{ content:""; width:6px; height:6px; border-radius:50%; background:#BFF4FC; box-shadow:0 0 8px #4FD8F0; }
-@keyframes jvSpin{ to{ transform:rotate(360deg); } }
-.collpanel.jvx{ background-color:#081218; }
-.jvx .co-top small, .jvx .co-h{ color:#7FE6F7; } .jvx .co-crumb{ border-color:#1F4652; color:#BFF4FC; }
-.jv-hello{ display:flex; align-items:center; gap:14px; margin:4px 0 14px; }
-.jv-core{ position:relative; flex:none; width:54px; height:54px; border-radius:50%; background:radial-gradient(circle,#E8FCFF 0,#7FE6F7 18%,rgba(79,216,240,.25) 42%,transparent 70%); }
-.jv-core::before, .jv-core::after{ content:""; position:absolute; inset:2px; border:1.5px solid rgba(127,230,247,.7); border-radius:50%; border-top-color:transparent; border-bottom-color:transparent; animation:jvSpin 4s linear infinite; }
-.jv-core::after{ inset:9px; border-color:rgba(191,244,252,.6); border-left-color:transparent; border-right-color:transparent; animation-duration:2.6s; animation-direction:reverse; }
-.jv-hello p{ margin:0; color:#D6F6FB; font-size:15px; line-height:1.4; } .jv-hello small{ display:block; margin-bottom:2px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FE6F7; }
-.jvx .pg-q{ border-color:#1F4652; } .jvx .pg-q input::placeholder{ color:#5E8A95; }
-.jv-sug{ display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 18px; }
-.jv-sug button{ padding:6px 12px; border:1px solid #1F4652; border-radius:999px; background:rgba(79,216,240,.06); color:#BFF4FC; font-size:13px; }
-.jv-sec{ margin:0 0 18px; }
-.jv-row{ display:block; width:100%; margin:0 0 6px; padding:10px 12px; border:1px solid #173640; border-radius:10px; background:#0B1A21; color:#E6F4F7; text-align:left; cursor:pointer; }
-.jv-row b{ display:block; font-size:15px; font-weight:600; } .jv-row small{ display:block; margin-top:2px; color:#8FB2BA; font-size:13px; line-height:1.4; }
-.jv-row em{ float:right; margin-left:8px; font:10px/1.8 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#7FE6F7; }
-.jv-row mark{ background:rgba(79,216,240,.28); color:#FFFFFF; border-radius:2px; padding:0 1px; }
-.jv-cross{ margin:0 0 16px; padding:12px; border:1px solid #1F4652; border-radius:12px; background:linear-gradient(180deg,rgba(79,216,240,.08),rgba(79,216,240,.02)); }
-.jv-cross h4{ margin:0 0 2px; font:400 20px/1.15 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#E6F9FC; }
-.jv-cross p{ margin:0 0 10px; color:#8FB2BA; font-size:13px; }
-/* MOCKUP END */
 .cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; } .cx-big .cx-obj{ transition:opacity .18s ease; }   /* a case you can handle: the page doesn't scroll out from under your hand */
 /* the cases in the Collection you can handle: the Darkhold's script, the arc reactor's light, the Sokovia Accords themselves */
 .cx-rune{ color:#E0354A; text-shadow:0 0 6px rgba(200,20,40,.9); }
@@ -6260,6 +6225,60 @@ function fury(h) {
   haptic([8, 120, 8, 120, 8, 120, 8]);
   setTimeout(() => { box.remove(); found("fury"); }, last + 100);   // the Agent File news rides on the line   // the line waits until the last card has left
 }
+/* ---------- Nick Fury: swipe up with two fingers and it plays his last page. He brings the pager up and sends it as the Snap takes him: the box breaks apart into
+   ash that blows away, the pager drops to the street, hard, SENDING blinks, the view closes in on it and her star comes up; then the box
+   gathers back together ---------- */
+const furyJolt = n => document.getElementById("app").animate([{ transform: "none" }, { transform: `translate(${-n}px,${n * .6}px)` }, { transform: `translate(${n * .8}px,${-n * .4}px)` }, { transform: "none" }], { duration: 220 + n * 20 });
+// the Snap on a whole box: noise eats it away in flakes while the flakes are pushed off, run forward (k 0 to 1) or back
+function snapBox(el, ms, back, done, ash = true) {
+  if (!document.getElementById("snapDust")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="snapDust" x="-10%" y="-10%" width="140%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/><feOffset in="d" dx="0" dy="0" result="o"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 1" result="m"/><feComposite in="o" in2="m" operator="in"/></filter></svg>`);
+  const f = document.getElementById("snapDust"), dm = f.querySelector("feDisplacementMap"), off = f.querySelector("feOffset"), cm = f.querySelector("feColorMatrix"), t0 = performance.now();
+  el.style.filter = "url(#snapDust)";
+  const r = el.getBoundingClientRect(), { cv, g } = cxCanvas(), P = [], W = innerWidth, H = innerHeight;
+  const step = now => { const f0 = Math.min(1, (now - t0) / ms), k = back ? 1 - f0 : f0, e = k * k;
+    if (el._snapRun === run) { dm.setAttribute("scale", (90 * e).toFixed(1)); off.setAttribute("dx", (60 * e).toFixed(1)); off.setAttribute("dy", (-40 * e).toFixed(1));
+      cm.setAttribute("values", `0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${(1 - 10 * k).toFixed(2)}`); }   // a newer run on the same box takes the filter over
+    // the ash: flakes come off the edge that's going, and drift up and away (or, coming back, fly in)
+    if (!back && ash && f0 < .9) for (let i = 0; i < 14; i++) P.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: 1 + Math.random() * 3, vy: -.5 - Math.random() * 2.2, s: 1.5 + Math.random() * 3.2, l: 1, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
+    g.clearRect(0, 0, W, H); P.forEach(q => { q.x += q.vx; q.y += q.vy; q.vy -= .02; q.l -= .012; if (q.l > 0) { g.fillStyle = `rgba(${q.c},${q.l})`; g.fillRect(q.x, q.y, q.s, q.s); } });
+    if (f0 < 1 || P.some(q => q.l > 0)) requestAnimationFrame(step); else cv.remove();
+    if (f0 >= 1 && !fin && el._snapRun === run) { fin = 1; if (back) el.style.filter = ""; else el.style.visibility = "hidden"; done && done(); } };
+  const run = el._snapRun = (el._snapRun || 0) + 1; let fin = 0; if (back) el.style.visibility = ""; requestAnimationFrame(step);
+}
+const furyPage = function () {
+  if (REDUCED) { found("page"); return; }
+  if (document.querySelector(".fx-pager")) return;
+  // everything in the box goes: its contents, the insignia behind them and the band across the top
+  const parts = (typeof panel !== "undefined" && panel && openEntry) ? [...panel.children].filter(e => e.matches(".pin, .pwm, svg")) : [];
+  const p = document.createElement("div"); p.className = "fx-pager"; p.innerHTML = `<svg class="pg" viewBox="0 0 200 196" aria-hidden="true"><defs><linearGradient id="pgBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A3D43"/><stop offset=".4" stop-color="#1A1C20"/><stop offset="1" stop-color="#0E0F12"/></linearGradient><clipPath id="pgScr"><rect x="34" y="56" width="132" height="40" rx="3"/></clipPath></defs><path d="M74 8h52l6 6v22H68V14z" fill="url(#pgBody)" stroke="#4A4E56"/><rect x="84" y="16" width="32" height="12" rx="2" fill="#0C0D10" stroke="#3A3D43"/><path d="M4 54l10-4v62l-10-4z" fill="url(#pgBody)" stroke="#4A4E56"/><path d="M22 36h156q12 0 12 12v96l-16 18H128v24l-6 6H66l-6-6v-24H36l-14-14H18q-4 0-4-4V48q0-12 8-12z" fill="url(#pgBody)" stroke="#4A4E56" stroke-width="1.2"/><path d="M26 46h148q6 0 6 6v4" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.4"/><rect x="30" y="52" width="140" height="48" rx="6" fill="#0A0B0D" stroke="#2C2F35"/><g clip-path="url(#pgScr)"><rect class="lcd" x="34" y="56" width="132" height="40" fill="#7E9470"/><text class="snd" x="100" y="80.5" text-anchor="middle">SENDING</text><g class="logo" opacity="0"><rect x="34" y="56" width="132" height="40" fill="#C8262A"/><path d="M34 56h132v13H122l-22 12-22-12H34z" fill="#4E82C8"/><path d="M34 69.5h44l22 12 22-12h44M34 72.5h43l23 12.6 23-12.6h43M34 75.5h42l24 13 24-13h42" fill="none" stroke="#E8ECF2" stroke-width="1.1"/><path d="M100.0 71.0L101.3 76.9L104.2 75.8L103.1 78.7L109.0 80.0L103.1 81.3L104.2 84.2L101.3 83.1L100.0 89.0L98.7 83.1L95.8 84.2L96.9 81.3L91.0 80.0L96.9 78.7L95.8 75.8L98.7 76.9Z" fill="#FFFFFF" stroke="#C9D0DA" stroke-width=".5"/></g></g><path d="M78 106l-8 5 8 5z" fill="none" stroke="#5A5F68" stroke-width="1.4"/><path d="M118 106l8 5-8 5z" fill="none" stroke="#5A5F68" stroke-width="1.4"/><path d="M60 104h80v14H60z" fill="none" stroke="#2C2F35"/><rect x="138" y="122" width="34" height="28" rx="6" fill="#121316" stroke="#2C2F35"/><g><rect x="66" y="150" width="56" height="34" rx="3" fill="#121316" stroke="#2C2F35"/><circle cx="83" cy="168" r="7" fill="#1A1C20" stroke="#4A4E56"/><circle cx="105" cy="168" r="7" fill="#1A1C20" stroke="#4A4E56"/><path d="M72 154v26M94 154v26M116 154v26" stroke="#B8231B" stroke-width="1.6"/></g></svg>`;
+  document.body.appendChild(p); const pg = p.firstChild, snd = p.querySelector(".snd"), logo = p.querySelector(".logo"), T = 9600;
+  // flicked up into his hand; held there while he sends; he goes, and only then does it drop, like the solid thing it is, hit and
+  // barely bounce; then the view closes in on it
+  pg.animate([
+    { transform: "translateY(60vh) scale(.72) rotate(-22deg)", easing: "cubic-bezier(.12,.75,.3,1)" },           // flicked up from below
+    { transform: "translateY(-50vh) scale(.72) rotate(-4deg)", offset: 520 / T, easing: "cubic-bezier(.4,0,.3,1)" },    // past where it stops
+    { transform: "translateY(-46vh) scale(.72) rotate(-8deg)", offset: 1100 / T, easing: "ease-in-out" },             // and back into his hand
+    { transform: "translateY(-45vh) scale(.72) rotate(-6deg)", offset: 4600 / T, easing: "cubic-bezier(.55,0,1,.45)" },
+    { transform: "translateY(0) scale(.78) rotate(9deg)", offset: 5020 / T, easing: "cubic-bezier(.2,.8,.4,1)" },
+    { transform: "translateY(-1.4vh) scale(.78) rotate(6deg)", offset: 5120 / T, easing: "cubic-bezier(.6,0,1,.5)" },
+    { transform: "translateY(0) scale(.78) rotate(5deg)", offset: 5220 / T, easing: "ease-in-out" },
+    { transform: "translateY(-6vh) scale(1.08) rotate(5deg)", offset: 8600 / T, opacity: 1, easing: "ease-in" },
+    { transform: "translateY(-6vh) scale(1.1) rotate(5deg)", opacity: 0 }], { duration: T, fill: "both" });
+  setTimeout(() => parts.forEach(e => snapBox(e, 2400, false, null, e.matches(".pin"))), 2600);
+  setTimeout(() => { haptic([80, 30, 40]); furyJolt(7); }, 5020);   // the hit
+  let d = 0; const blink = setInterval(() => { d++; snd.style.opacity = d % 2 ? .2 : 1; }, 360);
+  setTimeout(() => { clearInterval(blink); snd.style.opacity = 0; logo.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: "forwards" }); p.classList.add("sent"); haptic([30, 60, 30, 60, 30]); }, 7000);
+  setTimeout(() => parts.forEach(e => snapBox(e, 1200, true)), 8300);
+  setTimeout(() => { p.remove(); found("page"); }, T + 100);
+};
+// two fingers up in his box (a drag of his name up, with a mouse) flicks the pager up onto the screen; two fingers down are still Coulson's cards
+{ let up = null;
+  panel.addEventListener("touchstart", ev => { up = openEntry && openEntry.id === FURY_BOX && ev.touches.length === 2 ? { y: (ev.touches[0].clientY + ev.touches[1].clientY) / 2, x: (ev.touches[0].clientX + ev.touches[1].clientX) / 2, done: false } : ev.touches.length > 2 ? null : up; }, { passive: true });
+  panel.addEventListener("touchmove", ev => { if (!up || up.done || ev.touches.length < 2) return; const dy = (ev.touches[0].clientY + ev.touches[1].clientY) / 2 - up.y, dx = (ev.touches[0].clientX + ev.touches[1].clientX) / 2 - up.x;
+    if (dy < -70 && Math.abs(dx) < -dy * .7) { up.done = true; gestBlock = Date.now() + 700; furyPage(); } }, { passive: true });
+  ["touchend", "touchcancel"].forEach(n => panel.addEventListener(n, ev => { if (ev.touches.length < 2) up = null; }));
+  panel.addEventListener("pointerdown", ev => { if (ev.pointerType !== "mouse" || !openEntry || openEntry.id !== FURY_BOX || !ev.target.closest("#panelTitle, .hrow")) return; const y0 = ev.clientY;
+    cxTrack(ev, e => { if (y0 - e.clientY > 60 && !up) { up = { done: true }; furyPage(); } }, () => { up = null; }); }); }
 
 /* ---------- S.H.I.E.L.D.: Level 7. Swipe the stripes, swipe your Agent ID through the reader, and once any of the three files is on your watch the blast doors part on the Level 7 files */
 let kc = null;
@@ -6821,6 +6840,7 @@ const EGGS = [
   ["herbie", "H.E.R.B.I.E.", "The family's robot is in their profile.", "Once The Fantastic Four: First Steps is checked off in their box, tap H.E.R.B.I.E. in The Fantastic Four's profile.", 2],
   ["battle", "The Battle of New York", "Something is coming through the sky over Midtown.", "In the Atlas, open New York and hold Midtown.", 1],
   ["fury", "They were in his jacket", "Fury rallies the team with the cards from Coulson's jacket.", "Swipe down with two fingers in the Nick Fury box (on a computer, hold the name).", 1],
+  ["page", "One last page", "Before the Snap took him, Fury got one message out.", "Swipe up with two fingers in the Nick Fury box (on a computer, drag his name up).", 1],
   ["level7", "Level 7", "S.H.I.E.L.D. keeps its files behind the stripes. Swipe your clearance.", "Once you've watched Captain Marvel, The Avengers or Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, swipe your card through the reader, then tap outside the files to close them.", 1],
   ["hydra", "Hail Hydra", "Look closely at the barcode on your Agent ID.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
   ["wsoldier", "Ready to comply", "Wake the soldier with the red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
@@ -11630,298 +11650,7 @@ function cxAccords() {
       () => { if (ink > 220) idle = setTimeout(() => { if (state.accords) return; state.accords = { v: "signed", sig: cv.toDataURL("image/png") }; persist(); stamp(true); }, 800); });
   });
 }
-/* MOCKUP BEGIN: J.A.R.V.I.S. (test build only; mainprep cuts it). One search over everything the app knows, only as far as you've watched:
-   people in the Compound and the Raft, the Collection's objects, the Atlas's places, Damage Control's incidents, the titles you've watched and
-   your own notes on them. Two things joined with "and" (or "&", "+", "with") are looked up together: the titles they share, the incidents they
-   were both part of, and, for a person and an object, when it was in their hands. It's one more mode of the index panel, so every result
-   opens its file and back comes back here */
-let jvQ = "", jvT = 0;
-(() => { const sr = document.querySelector(".mast .subrow"); if (sr) sr.insertAdjacentHTML("beforeend", `<button type="button" class="jv-btn" id="jvBtn" aria-label="Ask J.A.R.V.I.S."><i aria-hidden="true"></i>J.A.R.V.I.S.</button>`); })();
-document.addEventListener("click", ev => { if (ev.target.closest("#jvBtn")) { ev.stopPropagation(); openColl("jv"); } }, true);
-const openColl2 = openColl;
-openColl = function (mode, keep, step) {
-  const cp = document.getElementById("collPanel");
-  if (mode !== "jv") { cp.classList.remove("jvx"); return openColl2(mode, keep, step); }
-  collMode = "jv"; cp.classList.remove("raft", "cpx", "dcx", "warx"); cp.classList.add("jvx"); cp.setAttribute("aria-label", "J.A.R.V.I.S.");
-  const h2 = cp.querySelector(".maptop h2"); h2.textContent = "J.A.R.V.I.S."; h2.dataset.glow = h2.textContent;
-  if (!keep) jvQ = "";
-  collRec = null; renderColl(); cp.hidden = false; collOpen = true; bodyLock(); cp.scrollTop = 0;
-  if (!step) try { history.pushState({ mcu: "coll", cm: "jv" }, ""); } catch (e) {}
-  if (!keep) setTimeout(() => { const i = document.getElementById("jvQ"); if (i) i.focus({ preventScroll: true }); }, 250);
-};
-const renderColl2 = renderColl0;
-renderColl0 = function () { if (collMode === "jv") renderJv(); else renderColl2(); };
-// what there is to search: each thing with its name, what it is, where it opens, and the titles it's part of
-const jvPeople = () => [...ALLIES.map(o => [o, "A"]), ...THREATS.map(o => [o, "T"])].filter(([o]) => !o.grp && (o.st || []).some(atlSeenStep)).map(([o, tg]) => {
-  const S = (tg === "A" ? cpSteps : rfSteps)(o), n = tg === "A" ? cpName(o) : rfName(o);
-  return { k: "p", o, tg, n, kind: tg === "A" ? cpKind(o) : rfKind(o), where: tg === "A" ? "Compound" : "Raft", S, titles: new Set(S.map(x => x[1])) }; });
-const jvObjects = () => COLLX.filter(o => cxSteps(o).length).map(o => { const S = cxSteps(o); return { k: "o", o, n: cxName(o), kind: cxKind(o), where: "Collection", S, titles: new Set(S.map(x => x[1])) }; });
-const jvIncidents = () => DC.filter(dcSeen).map(d => ({ k: "i", o: d, n: d.n, kind: d.where, where: "Damage Control", titles: new Set([d.t]) }));
-const jvPlaces = q => atlFind(q).map(r => ({ k: "pl", r, o: r.p, n: r.p.n, kind: r.where === r.p.r ? r.where : r.where + " · " + r.p.r, where: "Atlas", titles: new Set((r.p.e || []).filter(atlEvSeen).map(e => e[0])) }));
-const jvTitles = () => [...new Set([...DATA.chapters, ...DATA.chars].flatMap(c => c.items.map(i => i.t)))].filter(atlSeenT);
-const jvSnip = (txt, q) => { const n = qNorm(txt), i = n.indexOf(q); if (i < 0) return ""; const a = Math.max(0, i - 50), b = Math.min(txt.length, i + q.length + 60);
-  return (a ? "…" : "") + esc(txt.slice(a, i)) + "<mark>" + esc(txt.slice(i, i + q.length)) + "</mark>" + esc(txt.slice(i + q.length, b)) + (b < txt.length ? "…" : ""); };
-// the best single match for a name, for the questions that join two
-function jvPick(q) {
-  const L = [...jvPeople(), ...jvObjects(), ...jvIncidents(), ...(q.length > 1 ? jvPlaces(q) : [])], nq = q.replace(/^the /, "");
-  const score = x => { const n = qNorm(x.n).replace(/^the /, ""); return n === nq ? 4 : n.startsWith(nq) ? 3 : new RegExp("\\b" + nq.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(n) ? 2 : n.includes(nq) ? 1 : 0; };
-  const uni = x => x.k === "p" || x.k === "o" ? rfUniOf(x.o) : x.k === "i" ? dcU(x.o) : "mcu";
-  let best = null, bs = 0; L.forEach(x => { const s0 = score(x); if (!s0) return; const s = s0 + (uni(x) === "mcu" ? .5 : 0) + (x.k === "p" && x.tg === "A" ? .1 : 0) + Math.min(.3, (x.S ? x.S.length : 1) / 100); if (s > bs) { bs = s; best = x; } });
-  return best ? Object.assign(best, { score: bs }) : null;
-}
-const jvRow = (x, sub, tag) => `<button type="button" class="jv-row" data-jv="${x.k}:${x.k === "p" ? x.tg + ":" : ""}${esc(x.k === "pl" ? x.r.v + "|" + (x.r.sub || "") + "|" + x.o.id : x.o.id)}"><em>${esc(tag || x.where)}</em><b>${esc(x.n)}</b>${sub ? `<small>${sub}</small>` : ""}</button>`;
-const jvTitleRow = (t, sub) => `<button type="button" class="jv-row" data-jvt="${esc(t)}"><em>Title</em><b>${esc(tn(t))}</b>${sub ? `<small>${sub}</small>` : ""}</button>`;
-function jvCross(qa, qb) {
-  const A = jvPick(qa), B = jvPick(qb);
-  if (!A || !B) return `<p class="sr-empty">I can't find ${esc(!A ? qa : qb)} in what you've watched.</p>`;
-  const both = [...A.titles].filter(t => B.titles.has(t)), order = t => jvTitles().indexOf(t);
-  const inInc = (x, d) => x.k === "p" ? d.who.some(([id, tg]) => id === x.o.id && tg === x.tg) || d.tm.some(([id]) => id === x.o.id) : x.k === "o" ? d.obj.includes(x.o.id) : x.k === "pl" ? qNorm(d.where + " " + d.n).includes(qNorm(x.n)) : d === x.o;
-  const inc = DC.filter(dcSeen).filter(d => inInc(A, d) && inInc(B, d));
-  // a person and an object: every time it was in their hands
-  const [P, O] = A.k === "p" && B.k === "o" ? [A, B] : B.k === "p" && A.k === "o" ? [B, A] : [null, null];
-  const held = P ? O.S.filter(x => x[3] && qNorm(x[3]).includes(qNorm(P.n).replace(/^the /, ""))) : [];
-  const stepOf = (x, t) => x.S ? (x.S.find(s => s[1] === t) || [])[0] : "";
-  return `<div class="jv-cross"><h4>${esc(A.n)} + ${esc(B.n)}</h4><p>${both.length ? `Together in ${both.length} title${both.length === 1 ? "" : "s"}` : "Never in the same title, as far as you've watched"}${inc.length ? ` · ${inc.length} incident${inc.length === 1 ? "" : "s"} on file` : ""}</p></div>
-    ${held.length ? `<div class="jv-sec"><div class="co-h">In ${esc(P.n)}'s hands</div>${held.map(x => jvTitleRow(x[1], esc(stepTxt(x)))).join("")}</div>` : ""}
-    ${inc.length ? `<div class="jv-sec"><div class="co-h">Incidents with both</div>${inc.map(d => jvRow({ k: "i", o: d, n: d.n, where: d.no }, esc(d.where))).join("")}</div>` : ""}
-    ${both.length ? `<div class="jv-sec"><div class="co-h">Titles with both</div>${both.sort((a, b) => order(a) - order(b)).map(t => jvTitleRow(t, esc(stepOf(A, t) || stepOf(B, t) || ""))).join("")}</div>` : ""}
-    <div class="jv-sec"><div class="co-h">Their files</div>${jvRow(A, esc(A.kind || ""))}${jvRow(B, esc(B.kind || ""))}</div>`;
-}
-function jvResults(raw) {
-  const q = qNorm(raw.trim()); if (q.length < 2) return "";
-  const two = q.split(/\s+(?:and|with|&|\+)\s+|\s*[&+]\s*/).filter(Boolean); if (two.length === 2) return jvCross(two[0], two[1]);
-  const named = x => qNorm(x.n).includes(q) || qNorm(x.kind || "").includes(q);
-  const mention = x => x.S && x.S.find(s => qNorm(s[0]).includes(q));
-  const sec = (title, rows, more) => rows.length ? `<div class="jv-sec"><div class="co-h">${title} · ${rows.length}</div>${rows.slice(0, 8).join("")}${rows.length > 8 ? `<p class="sr-empty">And ${rows.length - 8} more. Narrow it down.</p>` : ""}</div>` : "";
-  const main = (a, b) => (rfUniOf(a.o) !== "mcu") - (rfUniOf(b.o) !== "mcu");
-  const people = jvPeople(), byName = people.filter(named).sort(main), byMention = people.filter(x => !named(x) && mention(x)).sort(main);
-  const objs = jvObjects(), oName = objs.filter(named).sort(main), oMention = objs.filter(x => !named(x) && mention(x)).sort(main);
-  const top = jvPick(q), best = top && top.score >= 2.5 ? top : null;   // a name that matches outright goes first
-  const inc = jvIncidents().filter(x => qNorm([x.n, x.o.where, x.o.cause, x.o.out, x.o.cls].join(" ")).includes(q));
-  const places = jvPlaces(q), T = jvTitles();
-  const titles = T.filter(t => qNorm(tn(t)).includes(q)), notes = T.filter(t => qNorm(rateOf(t).note || "").includes(q));
-  const html = [
-    best ? `<div class="jv-sec"><div class="co-h">Best match</div>${best.k === "pl" ? jvRow(best, esc(best.kind)) : jvRow(best, esc(best.kind || ""))}</div>` : "",
-    sec("People", [...byName.map(x => jvRow(x, esc(x.kind))), ...byMention.map(x => jvRow(x, jvSnip(stepTxt(mention(x)), q)))]),
-    sec("Objects", [...oName.map(x => jvRow(x, esc(x.kind))), ...oMention.map(x => jvRow(x, jvSnip(stepTxt(mention(x)), q)))]),
-    sec("Places", places.map(x => jvRow(x, esc(x.kind)))),
-    sec("Incidents", inc.map(x => jvRow(x, qNorm(x.n).includes(q) ? esc(x.kind) : jvSnip([x.o.cause, x.o.out].find(s => qNorm(s).includes(q)) || x.kind, q)))),
-    sec("Titles you've watched", titles.map(t => jvTitleRow(t, rateOf(t).r ? "★".repeat(rateOf(t).r) : ""))),
-    sec("Your notes", notes.map(t => jvTitleRow(t, jvSnip(rateOf(t).note, q))))].join("");
-  return html || `<p class="sr-empty">Nothing on file for that, as far as you've watched.</p>`;
-}
-function jvSuggest() {   // a few questions it can answer right now, from what you've watched
-  const C = [["the Tesseract", "Tesseract"], ["Loki and the Tesseract"], ["Leipzig"], ["Sokovia"], ["Tony and Steve"], ["Thanos and the Gauntlet", "Thanos and Thanos's gauntlet"], ["Wakanda"], ["Hell's Kitchen"], ["Vibranium"], ["Kree"]];
-  return C.map(([label, q]) => [label, q || label]).filter(([, q]) => { const r = jvResults(q); return r && !/sr-empty/.test(r.slice(0, 40)) && !/Never in the same title/.test(r); }).slice(0, 5);
-}
-function renderJv() {
-  const v = document.getElementById("collView"), S = jvQ ? [] : jvSuggest();
-  v.innerHTML = `<div class="co"><div class="jv-hello"><i class="jv-core" aria-hidden="true"></i><p><small>J.A.R.V.I.S. · online</small>${jvQ ? "Here's what I have." : "What do you need? Ask about anyone, anything or anywhere you've seen, or two things together."}</p></div>
-    ${pgQ("jvQ", "Search everything, or try “Loki and the Tesseract”", jvQ)}
-    ${S.length ? `<div class="jv-sug">${S.map(([l, q]) => `<button type="button" data-jvs="${esc(q)}">${esc(l)}</button>`).join("")}</div>` : ""}
-    <div class="jv-res">${jvResults(jvQ)}</div></div>`;
-}
-document.getElementById("collView").addEventListener("input", ev => { if (collMode !== "jv" || ev.target.id !== "jvQ") return; jvQ = ev.target.value; clearTimeout(jvT);
-  jvT = setTimeout(() => { const v = document.getElementById("collView"); v.querySelector(".jv-res").innerHTML = jvResults(jvQ); const s = v.querySelector(".jv-sug"); if (s) s.style.display = jvQ ? "none" : ""; const x = v.querySelector(".pg-qx"); if (x) x.hidden = !jvQ;
-    try { history.replaceState({ ...history.state, q: jvQ }, ""); } catch (e) {} }, 140); });
-document.getElementById("collView").addEventListener("click", ev => {
-  if (collMode !== "jv") return;
-  const s = ev.target.closest("[data-jvs]"); if (s) { ev.stopImmediatePropagation(); jvQ = s.dataset.jvs; renderJv(); return; }
-  if (ev.target.closest(".pg-qx")) { ev.stopImmediatePropagation(); jvQ = ""; renderJv(); return; }
-  const t = ev.target.closest("[data-jvt]"); if (t) { ev.stopImmediatePropagation(); rateSheet(t.dataset.jvt); return; }   // a title opens your log for it
-  const r = ev.target.closest("[data-jv]"); if (!r) return; ev.stopImmediatePropagation(); haptic(10);
-  const [k, a, b] = r.dataset.jv.split(":");
-  if (k === "p") { const o = (a === "A" ? ALLIES : THREATS).find(x => x.id === b); if (a === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); collJump(a === "A" ? "cp" : "raft", b); return; }
-  if (k === "o") { cxUni = rfUniOf(COLLX.find(x => x.id === a)); collJump("coll", a); return; }
-  if (k === "i") { dcUni = dcU(DC.find(x => x.id === a)); collJump("dc", a); return; }
-  if (k === "pl") { const [v, sub, id] = a.split("|"), hit = atlFind(qNorm(jvQ.length > 1 ? jvQ : id)).find(x => x.p.id === id) || { v, sub: sub || null, p: { id } };
-    closeColl(); setTimeout(() => { openAtlas(); setTimeout(() => atlGo(hit), 450); }, 350); }
-}, true);
-// back to J.A.R.V.I.S. from a file: the question is still there
-const collRestore2 = collRestore;
-collRestore = function () { const h = history.state || {}; if (h.cm === "jv" && h.q != null) jvQ = h.q; return collRestore2(); };
-/* MOCKUP END */
-/* MOCKUP BEGIN: Sound, proposal 2 (test build only; mainprep cuts it). The same library as the sound board, wired to the animations it names.
-   Off until switched on (the Agent File, or the test pill); a box's open and close can be heard in three takes, A, B and C */
-// the datapad's sounds, one library for the sound board and the app alike: every sound made in the browser as it plays, from a few voices
-// (clean tones, glassy FM, filtered noise, sweeps with a flutter, data chatter, a servo), so the two always sound the same
-const DPSND = (() => {
-  let ctx = null, master = null, noiseBuf = null, level = .7;
-  function ready() {
-    if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return false; ctx = new C();
-      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; master = ctx.createGain(); master.gain.value = level; master.connect(comp); comp.connect(ctx.destination);
-      noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
-    if (ctx.state !== "running") ctx.resume(); return true;
-  }
-  const T = () => ctx.currentTime;
-  const envOut = (t, peak, a, dur, hold) => { const g = ctx.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a); if (hold) g.gain.setValueAtTime(peak, t + a + hold); g.gain.exponentialRampToValueAtTime(.0001, t + dur); g.connect(master); return g; };
-  // a short digital tone; steps: a staircase of pitches, like a terminal
-  function blip(at, f, dur, o = {}) {
-    const t = T() + at, osc = ctx.createOscillator(), lp = ctx.createBiquadFilter(); osc.type = o.type || "square"; lp.type = "lowpass"; lp.frequency.value = o.lp || 6000;
-    if (o.steps) o.steps.forEach((s, i) => osc.frequency.setValueAtTime(s, t + i * (dur / o.steps.length))); else osc.frequency.setValueAtTime(f, t);
-    osc.connect(lp); lp.connect(envOut(t, o.g || .06, o.a || .002, dur, o.hold)); osc.start(t); osc.stop(t + dur + .02);
-  }
-  const sine = (at, f, dur, o = {}) => blip(at, f, dur, { ...o, type: "sine", lp: 14000 });
-  // glassy FM: a sine bent by a second one, its brightness falling away; smooth glides, nothing stepped
-  function fm(at, f, dur, o = {}) {
-    const t = T() + at, c = ctx.createOscillator(), m = ctx.createOscillator(), mg = ctx.createGain(); c.type = "sine"; m.type = "sine";
-    c.frequency.setValueAtTime(f, t); m.frequency.setValueAtTime(f * (o.ratio || 2), t);
-    if (o.to) { c.frequency.exponentialRampToValueAtTime(o.to, t + (o.glide || dur * .6)); m.frequency.exponentialRampToValueAtTime(o.to * (o.ratio || 2), t + (o.glide || dur * .6)); }
-    mg.gain.setValueAtTime(f * (o.index || 1), t); mg.gain.exponentialRampToValueAtTime(f * .01 + 1, t + dur * .7);
-    m.connect(mg); mg.connect(c.frequency); c.connect(envOut(t, o.g || .05, o.a || .004, dur)); c.start(t); m.start(t); c.stop(t + dur + .02); m.stop(t + dur + .02);
-  }
-  // filtered noise: seals, reads, static, and the glassy swipe of a panel
-  function nz(at, dur, o = {}) {
-    const t = T() + at, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(); s.buffer = noiseBuf;
-    f.type = o.ft || "bandpass"; f.Q.value = o.q || 2; f.frequency.setValueAtTime(o.f || 3000, t); if (o.to) f.frequency.exponentialRampToValueAtTime(o.to, t + dur);
-    s.connect(f); f.connect(envOut(t, o.g || .05, o.a || .003, dur)); s.start(t, Math.random()); s.stop(t + dur + .02);
-  }
-  // a sweep with a fast flutter on it: a reader's or a sensor's scan
-  function scan(at, f0, f1, dur, o = {}) {
-    const t = T() + at, osc = ctx.createOscillator(), am = ctx.createOscillator(), amg = ctx.createGain(), g = ctx.createGain(), p = o.g || .04;
-    osc.type = "sine"; osc.frequency.setValueAtTime(f0, t); osc.frequency.linearRampToValueAtTime(f1, t + dur); am.frequency.value = o.rate || 34; amg.gain.value = p * .5;
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(p, t + .02); g.gain.setValueAtTime(p, t + Math.max(.03, dur - .04)); g.gain.linearRampToValueAtTime(0, t + dur);
-    am.connect(amg); amg.connect(g.gain); osc.connect(g); g.connect(master); osc.start(t); am.start(t); osc.stop(t + dur + .02); am.stop(t + dur + .02);
-  }
-  const DATA_F = [1760, 1976, 2349, 2637, 2960, 3520];
-  function chatter(at, dur, o = {}) { const every = o.every || .035, n = Math.floor(dur / every); for (let i = 0; i < n; i++) if (Math.random() < (o.density || .8)) blip(at + i * every, DATA_F[Math.random() * DATA_F.length | 0] * (o.oct || 1), .018, { g: o.g || .018, type: o.type || "square", lp: 5000 }); }
-  function servo(at, f0, f1, dur, o = {}) {
-    const t = T() + at, osc = ctx.createOscillator(), lp = ctx.createBiquadFilter(), g = ctx.createGain(), p = o.g || .05; osc.type = "sawtooth"; lp.type = "lowpass"; lp.frequency.value = o.lp || 1100; lp.Q.value = 3;
-    for (let i = 0; i <= 10; i++) osc.frequency.setValueAtTime(f0 + (f1 - f0) * i / 10, t + dur * i / 10);
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(p, t + .03); g.gain.setValueAtTime(p, t + dur - .05); g.gain.linearRampToValueAtTime(0, t + dur);
-    osc.connect(lp); lp.connect(g); g.connect(master); osc.start(t); osc.stop(t + dur + .02); nz(at, dur, { f: 900, q: .8, g: p * .35 });
-  }
-  const thump = (at, g = .22) => blip(at, 90, .18, { type: "sine", lp: 14000, steps: [90, 70, 55, 46], g });
-  const click = (at, g = .05) => nz(at, .012, { ft: "highpass", f: 3500, g });
-  // the sounds, by name
-  const S = {
-    tap: () => sine(0, 3400, .022, { g: .022 }),
-    select: () => { blip(0, 2349, .03, { g: .035 }); blip(.035, 3136, .035, { g: .03 }); },
-    back: () => { blip(0, 2637, .03, { g: .03 }); blip(.035, 1976, .04, { g: .028 }); },
-    check: () => { blip(0, 1760, .03, { g: .04 }); blip(.04, 2349, .03, { g: .04 }); blip(.08, 3520, .07, { g: .045, hold: .02 }); click(.1, .04); },
-    uncheck: () => { blip(0, 2349, .035, { g: .03 }); blip(.045, 1568, .06, { g: .028 }); },
-    rating: n => { for (let i = 0; i < (n || 4); i++) blip(i * .06, [1760, 2093, 2637, 3136, 3520][i], .045, { g: .03, type: "triangle", lp: 9000 }); },
-    saved: () => { chatter(0, .12, { g: .012 }); sine(.14, 2960, .05, { g: .03 }); },
-    denied: () => { blip(0, 180, .09, { g: .06, lp: 900, hold: .05 }); blip(.12, 150, .14, { g: .06, lp: 900, hold: .08 }); },
-    // opening and closing a box: three takes, each smooth and glassy, none stepped
-    openA: () => { nz(0, .09, { f: 2400, to: 7500, q: 7, g: .035 }); fm(.015, 760, .22, { to: 1180, glide: .12, ratio: 2.01, index: 1.1, g: .045 }); sine(0, 150, .1, { g: .045 }); fm(.11, 2360, .22, { ratio: 3.5, index: .35, g: .016 }); },
-    closeA: () => { nz(0, .09, { f: 7500, to: 2400, q: 7, g: .03 }); fm(.01, 1180, .2, { to: 760, glide: .12, ratio: 2.01, index: 1.1, g: .04 }); sine(.1, 130, .1, { g: .04 }); },
-    openB: () => { const t = T(), g = ctx.createGain(), lp = ctx.createBiquadFilter(), am = ctx.createOscillator(), amg = ctx.createGain(); lp.type = "lowpass"; lp.frequency.value = 5200;
-      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.05, t + .03); g.gain.exponentialRampToValueAtTime(.0001, t + .32); am.frequency.value = 46; amg.gain.value = .02; am.connect(amg); amg.connect(g.gain); g.connect(lp); lp.connect(master);
-      [600, 607].forEach(f => { const o = ctx.createOscillator(); o.type = "sine"; o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 2, t + .16); o.connect(g); o.start(t); o.stop(t + .34); }); am.start(t); am.stop(t + .34); sine(.17, 3400, .03, { g: .02 }); },
-    closeB: () => { const t = T(), g = ctx.createGain(), lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 5200; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.045, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + .26); g.connect(lp); lp.connect(master);
-      [1200, 1213].forEach(f => { const o = ctx.createOscillator(); o.type = "sine"; o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f / 2, t + .15); o.connect(g); o.start(t); o.stop(t + .28); }); sine(.15, 2600, .03, { g: .016 }); },
-    openC: () => { fm(0, 320, .09, { to: 210, glide: .06, ratio: 1, index: .4, g: .06 }); sine(.01, 3520, .06, { g: .016 }); },
-    closeC: () => { fm(0, 260, .09, { to: 170, glide: .06, ratio: 1, index: .4, g: .055 }); sine(.01, 2637, .05, { g: .014 }); },
-    dock: () => { scan(0, 900, 1500, .12, { g: .025, rate: 60 }); blip(.12, 2637, .03, { g: .03 }); },
-    path: () => { chatter(0, .3, { every: .022, g: .015 }); blip(.32, 0, .16, { steps: [1320, 1760, 2349], g: .035 }); },
-    drawIn: () => { scan(0, 600, 640, 1.6, { g: .018, rate: 12 }); for (let i = 0; i < 8; i++) sine(.1 + i * .19, 2637, .025, { g: .022 }); },
-    drawBack: () => { scan(0, 640, 520, .8, { g: .016, rate: 18 }); for (let i = 0; i < 5; i++) sine(.06 + i * .14, 2093, .022, { g: .018 }); click(.82, .03); },
-    map: () => { scan(0, 300, 1100, .55, { g: .03, rate: 40 }); chatter(.2, .45, { every: .03, g: .012 }); },
-    pick: () => { [0, .18, .36].forEach((a, i) => { blip(a, [1568, 1976, 2349][i], .06, { g: .035, hold: .02 }); click(a + .01, .02); }); },
-    pill: () => { [0, .07, .14].forEach((a, i) => blip(a, [1976, 2637, 3520][i], .07, { g: .04, hold: .02 })); click(.22, .03); },
-    complete: () => { chatter(0, .18, { g: .014 }); [0, .08, .16, .24].forEach((a, i) => blip(.2 + a, [1760, 2349, 2960, 3520][i], .07, { g: .045, hold: .02 })); thump(.2, .12); },
-    levelup: () => { scan(0, 500, 2400, .45, { g: .03 }); [0, .1, .2].forEach((a, i) => blip(.5 + a, [2093, 2637, 3136][i], .09, { g: .05, hold: .04 })); thump(.5, .16); },
-    message: () => { [0, .1, .2, .3].forEach((a, i) => sine(a, i % 2 ? 1568 : 2349, .07, { g: .035 })); },
-    headline: () => { blip(0, 1320, .05, { g: .03 }); chatter(.07, .55, { every: .04, density: .65, g: .012, type: "triangle" }); },
-    hacked: () => { nz(0, .25, { f: 2200, q: .6, g: .06 }); blip(.05, 220, .2, { g: .05, lp: 1400, steps: [220, 330, 196, 440, 165] }); nz(.27, .08, { f: 4000, g: .04 }); },
-    intake: () => { chatter(0, .7, { every: .018, density: .9, g: .013 }); blip(.74, 2960, .1, { g: .04, hold: .04 }); click(.76, .03); },
-    newrec: () => { blip(0, 3136, .04, { g: .03 }); blip(.06, 3136, .04, { g: .03 }); },
-    swipe: () => nz(0, .28, { f: 1800, to: 4200, q: 3, g: .05 }),
-    readok: () => sine(0, 2637, .07, { g: .04, hold: .03 }),
-    reject: () => { blip(0, 196, .12, { g: .06, lp: 900, hold: .06 }); blip(.15, 196, .12, { g: .06, lp: 900, hold: .06 }); },
-    doors: () => { nz(0, .35, { ft: "highpass", f: 2500, g: .07 }); thump(.05, .2); servo(.25, 70, 120, 1.1, { g: .05 }); thump(1.35, .18); },
-    barcode: () => { scan(0, 1200, 1300, .6, { g: .03, rate: 70 }); blip(.62, 2960, .06, { g: .04 }); },
-    atlas: () => { sine(0, 55, .9, { g: .08, a: .2 }); scan(.05, 300, 900, .5, { g: .02, rate: 50 }); chatter(.4, .35, { every: .03, g: .012 }); blip(.8, 2349, .05, { g: .03 }); },
-    pin: () => { blip(0, 2637, .025, { g: .03 }); sine(.04, 3520, .05, { g: .035 }); },
-    city: () => { blip(0, 0, .3, { steps: [600, 800, 1000, 1300, 1700, 2200], g: .025, lp: 3500 }); scan(.05, 400, 1600, .3, { g: .02 }); },
-    zoom: () => sine(0, 3136, .015, { g: .016 }),
-    launch: () => { sine(0, 60, .5, { g: .07, a: .05 }); scan(.1, 600, 1400, .35, { g: .025 }); [0, .09].forEach((a, i) => blip(.5 + a, [2349, 3136][i], .06, { g: .035, hold: .02 })); },
-    // the first boot, beat by beat (the app plays each as its animation reaches it; the board strings them together)
-    bootPower: () => { sine(0, 50, .5, { g: .09, a: .25 }); nz(.05, .35, { ft: "highpass", f: 6000, g: .02 }); },
-    bootOpen: () => { thump(0, .2); scan(0, 200, 700, .3, { g: .025, rate: 80 }); },
-    bootType: d => chatter(0, d || .85, { every: .045, density: .95, g: .016 }),
-    bootTrace: () => scan(0, 900, 1400, .7, { g: .02, rate: 22 }),
-    bootLit: () => { [0, .08, .16].forEach((a, i) => blip(a, [1760, 2349, 2960][i], .08, { g: .04, hold: .03 })); thump(0, .14); },
-    bootWait: () => sine(0, 1175, .9, { g: .012, a: .4 }),
-    bootLine: ok => { chatter(0, .14, { every: .025, g: .012 }); if (ok) blip(.16, 2637, .03, { g: .03 }); else { blip(.16, 196, .06, { g: .045, lp: 900 }); blip(.24, 196, .06, { g: .045, lp: 900 }); } },
-    bootBar: () => scan(0, 500, 1800, 1.4, { g: .015, rate: 30 }),
-    bootGranted: () => { [0, .09, .18].forEach((a, i) => blip(a, [2093, 2637, 3520][i], .1, { g: .05, hold: .05 })); thump(0, .2); },
-    bootClear: () => servo(0, 160, 90, .35, { g: .03, lp: 1500 }),
-    bootHome: () => { for (let i = 0; i < 6; i++) blip(i * .11, [1760, 2093, 2349, 2637, 2960, 3136][i], .025, { g: .022 }); }
-  };
-  return { play(name, arg) { if (!S[name] || !ready()) return; try { S[name](arg); } catch (e) {} }, ready, setLevel(v) { level = v; if (master) master.gain.value = v; }, has: n => !!S[n] };
-})();
-const sndOn = () => !!state.sound;
-const sndPlay = (n, a) => { if (sndOn()) DPSND.play(n, a); };
-// a press's own sound wins over the plain tap
-let sndClaimAt = 0, sndSeq = 0; const sndClaim = (n, a) => { sndClaimAt = performance.now(); sndSeq++; sndPlay(n, a); };
-document.addEventListener("click", ev => { if (!sndOn() || !ev.isTrusted) return; const b = ev.target.closest('button, [role="button"], .tile, a'); if (!b) return;   // only your own presses, not clicks the app makes
-  const seq = sndSeq; setTimeout(() => { if (sndSeq === seq) sndPlay("tap"); }, 0); }, true);   // silent if anything else claimed this press
-// tabs, chips, segments and pagers
-document.addEventListener("click", ev => { if (!sndOn()) return;
-  if (ev.target.closest('[role="tab"], .rf-seg button, .rf-tabs button, [data-hfpg], .atl-views button, .atl-chips button, .jv-sug button, .cm-chips button, .ftabs button')) sndClaim("select");
-  else if (ev.target.closest('.co-crumb, [data-co-back], #collBack, .atl-x, [data-acc="x"]')) sndClaim("back");
-  else if (ev.target.closest(".dock button")) sndClaim("dock");
-  else if (ev.target.closest("#btnChapters, #btnChars, #btnTimeline, .op-c")) sndClaim("path");
-  else { const s = ev.target.closest("[data-rss]"); if (s) sndClaim("rating", +s.dataset.rss); }
-}, true);
-window.addEventListener("popstate", () => { if (sndOn() && performance.now() - sndClaimAt > 300) sndClaim("back"); });
-// check-offs
-document.addEventListener("click", ev => { if (!sndOn()) return; const r = ev.target.closest("#panel .row, .tl-row"); if (!r || ev.target.closest("button:not(.row), .ep-chip")) return;
-  const k = r.dataset.tl ? tk(r.dataset.tl) : openEntry && r.dataset.t ? ck(openEntry, r.dataset.t) : null; if (!k) return; const was = !!state.checks[k];
-  sndClaimAt = performance.now(); sndSeq++; setTimeout(() => { const now = !!state.checks[k]; if (now !== was) DPSND.play(now ? "check" : "uncheck"); }, 0); }, true);
-// a note written to your log
-document.addEventListener("change", ev => { if (ev.target.closest("#rateSheet textarea")) sndPlay("saved"); }, true);
-// the wrappers: each function that runs an animation plays its sound
-const sndWrap = (name, before) => { const f = window[name]; if (typeof f !== "function") return; window[name] = function (...a) { try { before.apply(this, a); } catch (e) {} return f.apply(this, a); }; };
-const sndBox = () => state.sndBox || "A";
-sndWrap("openPanel", () => sndClaim("open" + sndBox()));
-sndWrap("closePanel", () => { if (openEntry) sndClaim("close" + sndBox()); });
-sndWrap("openMap", () => sndClaim("map"));
-sndWrap("openAtlas", () => sndClaim("atlas"));
-sndWrap("atlSelect", () => sndClaim("pin"));
-sndWrap("atlSub", () => sndClaim("city"));
-{ let z = 0; sndWrap("atlZoomAt", () => { if (performance.now() - z > 120) { z = performance.now(); sndPlay("zoom"); } }); }
-sndWrap("tlDraw", open => sndPlay(open ? "drawIn" : "drawBack"));
-sndWrap("orderPick", () => { if (!state.orderPicked && !document.getElementById("ordPick")) setTimeout(() => sndPlay("pick"), 250); });
-sndWrap("hydra", () => sndPlay("barcode"));
-sndWrap("toast", msg => { if (/Classified|Clearance required|Not cleared|ACCESS DENIED/i.test(String(msg))) sndClaim("denied"); });
-sndWrap("boxNews", (e, what) => { if (/Complete/.test(String(what))) sndPlay("complete"); });
-sndWrap("say", (msg, e, foot, ms, plain, hd) => { if (/Agent File/.test(String(foot || ""))) sndPlay("pill"); else if (hd) sndPlay("message"); });
-sndWrap("newsPlay", (all, msg, src) => sndPlay(msg && src === "hack" ? "hacked" : msg ? "message" : "headline"));
-// an index's intake, and a file that's new to you
-{ const o = window.openColl; window.openColl = function (...a) { const r = o.apply(this, a); if (sndOn() && (rfIntake || cpIntake || cxIntake)) setTimeout(() => sndPlay("intake"), 200); return r; }; }
-{ const o = window.collShow; window.collShow = function (id, ...a) { const seen = collMode === "raft" ? (state.raftSeen || {})[id] : collMode === "cp" ? (state.cpSeen || {})[id] : collMode === "coll" ? (state.collSeen || {})[id] : 1; const r = o.call(this, id, ...a); if (!seen) sndPlay("newrec"); return r; }; }
-// clearance: a level gained rings out
-{ let lv = null; const o = window.checkAch; window.checkAch = function (...a) { const r = o.apply(this, a); try { if (sndOn()) { const A = achList(), n = xpLevel(xpOf(A), A); if (lv != null && n > lv) setTimeout(() => sndPlay("levelup"), 400); lv = n; } } catch (e) {} return r; }; }
-// Level 7: the card read, the verdict, the doors
-new MutationObserver(M => { if (!sndOn()) return; M.forEach(m => {
-  if (m.type === "characterData" || m.type === "childList") { const h = document.getElementById("krHint"); if (h && m.target === h || (m.target.parentNode && m.target.parentNode.id === "krHint")) { const t = h.textContent; if (t === "Reading") sndPlay("swipe"); else if (/Not cleared/.test(t)) sndPlay("reject"); } }
-  m.addedNodes && m.addedNodes.forEach(n => { if (n.nodeType === 1 && n.classList.contains("kdoor") && n.classList.contains("l")) { sndPlay("readok"); setTimeout(() => sndPlay("doors"), 150); } }); }); }).observe(document.body, { childList: true, subtree: true, characterData: true });
-// the first boot, beat by beat, timed off the gate's own clock (the same beats as its animation)
-(() => { let run = -1, fired = {};
-  const at = (k, cond, fn) => { if (cond && !fired[k]) { fired[k] = 1; fn(); } };
-  const loop = () => { requestAnimationFrame(loop); const g = document.getElementById("gate"); if (!sndOn() || !g || g.hidden || GATE.boot) return;
-    if (GATE.run !== run) { run = GATE.run; fired = {}; }
-    const t = performance.now() - GATE.t0 + (GATE.skip || 0), tp = GATE.tap, bt = tp == null ? -1 : t - tp;   // the gate's own clock, skips included
-    at("power", t >= 0, () => DPSND.play("bootPower")); at("open", t > 400, () => DPSND.play("bootOpen"));
-    at("type", t > 700, () => DPSND.play("bootType", .85)); at("enc", t > 1300, () => DPSND.play("bootType", .3));
-    at("trace", t > 1450, () => DPSND.play("bootTrace")); at("lit", t > 2150, () => DPSND.play("bootLit")); at("wait", tp == null && t > 3300, () => DPSND.play("bootWait"));
-    if (tp != null) { const L = gateLog(); L.forEach(([, b], i) => at("log" + i, bt > 450 + i * 190, () => DPSND.play("bootLine", b !== "ACCESS DENIED")));
-      at("bar", bt > 450, () => DPSND.play("bootBar")); at("granted", bt > 1850, () => DPSND.play("bootGranted")); at("clear", bt > 2050, () => DPSND.play("bootClear")); at("home", bt > 2400, () => DPSND.play("bootHome")); } };
-  requestAnimationFrame(loop); })();
-// the switches: in the Agent File (and a pill in the test build, beside "start from")
-const renderFile4 = renderFile;
-renderFile = function (...a) { renderFile4(...a); const sv = document.getElementById("hfSave"); if (!sv || document.getElementById("hfSound")) return;
-  sv.closest(".hf-sec").insertAdjacentHTML("beforebegin", `<section class="hf-sec" id="hfSound"><h3><span>Sound</span></h3><div class="hf-save snd-row"><p>The datapad's own sounds: presses, check-offs, boxes, pages, the timeline, the Atlas, Comms, Level 7 and the first boot.</p><button type="button" class="snd-sw${sndOn() ? " on" : ""}" role="switch" aria-checked="${sndOn()}"><i></i><span>${sndOn() ? "On" : "Off"}</span></button></div>
-    <div class="snd-take"><span>Box open and close</span>${["A", "B", "C"].map(k => `<button type="button" data-sndbox="${k}" aria-pressed="${sndBox() === k}">${k}</button>`).join("")}</div></section>`); };
-const sndToggle = () => { state.sound = !state.sound; persist(); document.querySelectorAll(".snd-sw").forEach(b => { b.classList.toggle("on", sndOn()); b.setAttribute("aria-checked", sndOn()); b.querySelector("span").textContent = sndOn() ? "On" : "Off"; }); const p = document.getElementById("sndPill"); if (p) p.textContent = "Sound " + (sndOn() ? "on" : "off"); if (sndOn()) DPSND.play("launch"); };
-document.addEventListener("click", ev => { if (ev.target.closest(".snd-sw, #sndPill")) { ev.stopPropagation(); sndToggle(); return; }
-  const k = ev.target.closest("[data-sndbox]"); if (k) { state.sndBox = k.dataset.sndbox; persist(); document.querySelectorAll("[data-sndbox]").forEach(b => b.setAttribute("aria-pressed", b.dataset.sndbox === state.sndBox)); DPSND.play("open" + state.sndBox); setTimeout(() => DPSND.play("close" + state.sndBox), 600); } }, true);
-document.body.insertAdjacentHTML("beforeend", `<button type="button" id="sndPill" class="snd-pill">Sound ${sndOn() ? "on" : "off"}</button>`);
-/* MOCKUP END */
-/* MOCKUP BEGIN: tactical replays in Damage Control (test build only; mainprep cuts it). A battle's report can play it back on a map of the
+/* ---------- Damage Control: tactical replays. A battle's report can play it back on a map of the
    ground: everyone who turns it moves from beat to beat, the armies as swarms, with each beat in words underneath. Tap anyone to see who it is */
 const TR_COL = { A: "#5FA8FF", B: "#F4C542", T: "#FF5A4E", C: "#D9E2EC" };
 const trL = (x, y, t, a) => `<text class="tr-lab" x="${x}" y="${y}"${a ? ` text-anchor="${a}"` : ""}>${t}</text>`;
@@ -12251,7 +11980,6 @@ document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest(".tr-map") && trPick != null) { trPick = null; trWho(id); trDraw(id); }
 }, true);
 document.getElementById("collView").addEventListener("input", ev => { if (collMode !== "dc" || !ev.target.closest(".tr-ctl")) return; trPlay = false; trB = +ev.target.value; const pp = document.querySelector(`.tr [data-trc="pp"]`); if (pp) pp.innerHTML = TR_P; trLoop(collRec); });
-/* MOCKUP END */
 /* MOCKUP BEGIN: the Collection's cases as Classified files, eleven more that answer to a touch, and Fury's pager (test build only; mainprep cuts
    it). Every case you can handle is an easter egg of its own in Classified, found the first time you handle it, with its own pill. The Tesseract's
    is the Space Stone it gives up, so it isn't filed twice. Handle with care is gone. Fury's box sends his last page, and Coulson's cards move to
@@ -12273,7 +12001,6 @@ const CX_EGGS = [
   ["surfer-board", "The board", "The Surfer rides fast. Send her board across.", "In the Collection, swipe fast across the Silver Surfer's board.", 2]];
 EGGS.splice(EGGS.findIndex(e => e[0] === "artifacts"), 1);
 CX_EGGS.forEach(([id, t, h, x, pg]) => EGGS.push(["cx-" + id, t, h, x, pg]));
-EGGS.splice(EGGS.findIndex(e => e[0] === "fury") + 1, 0, ["page", "One last page", "Before the Snap took him, Fury got one message out.", "After Avengers: Infinity War, swipe up with two fingers in the Nick Fury box (on a computer, drag his name up).", 1]);
 cxHandled = function (id, ms) { if (CX_EGGS.some(e => e[0] === id)) found("cx-" + id, ms); };
 // cases handled before they were filed are filed quietly
 if (state.achSeen && !state.achCx2) { const H = state.cxHand || {}; state.eggs = state.eggs || {}; CX_EGGS.forEach(([id]) => { if (H[id]) { state.eggs["cx-" + id] = 1; state.achSeen["egg-cx-" + id] = 1; } }); state.achCx2 = 1; persist(); }
@@ -12530,60 +12257,6 @@ function slingTrace() {
   requestAnimationFrame(frame);
   return { add(x, y) { P.push([x, y, performance.now()]); if (Date.now() - last > 40) { last = Date.now(); sparkC(x, y, (Math.random() - .5) * 40, (Math.random() - .5) * 40 + 10, 0, 500, ORANGE_C); } }, end() { done = performance.now(); } };
 }
-/* Nick Fury's box, after Infinity War: swipe up with two fingers and it plays his last page. He brings the pager up and sends it as the Snap takes him: the box breaks apart into
-   ash that blows away, the pager drops to the street, hard, SENDING blinks, the view closes in on it and her star comes up; then the box
-   gathers back together. Before Infinity War the move does nothing yet */
-// the Snap on a whole box: noise eats it away in flakes while the flakes are pushed off, run forward (k 0 to 1) or back
-function snapBox(el, ms, back, done, ash = true) {
-  if (!document.getElementById("snapDust")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="snapDust" x="-10%" y="-10%" width="140%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/><feOffset in="d" dx="0" dy="0" result="o"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 1" result="m"/><feComposite in="o" in2="m" operator="in"/></filter></svg>`);
-  const f = document.getElementById("snapDust"), dm = f.querySelector("feDisplacementMap"), off = f.querySelector("feOffset"), cm = f.querySelector("feColorMatrix"), t0 = performance.now();
-  el.style.filter = "url(#snapDust)";
-  const r = el.getBoundingClientRect(), { cv, g } = cxCanvas(), P = [], W = innerWidth, H = innerHeight;
-  const step = now => { const f0 = Math.min(1, (now - t0) / ms), k = back ? 1 - f0 : f0, e = k * k;
-    if (el._snapRun === run) { dm.setAttribute("scale", (90 * e).toFixed(1)); off.setAttribute("dx", (60 * e).toFixed(1)); off.setAttribute("dy", (-40 * e).toFixed(1));
-      cm.setAttribute("values", `0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${(1 - 10 * k).toFixed(2)}`); }   // a newer run on the same box takes the filter over
-    // the ash: flakes come off the edge that's going, and drift up and away (or, coming back, fly in)
-    if (!back && ash && f0 < .9) for (let i = 0; i < 14; i++) P.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: 1 + Math.random() * 3, vy: -.5 - Math.random() * 2.2, s: 1.5 + Math.random() * 3.2, l: 1, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
-    g.clearRect(0, 0, W, H); P.forEach(q => { q.x += q.vx; q.y += q.vy; q.vy -= .02; q.l -= .012; if (q.l > 0) { g.fillStyle = `rgba(${q.c},${q.l})`; g.fillRect(q.x, q.y, q.s, q.s); } });
-    if (f0 < 1 || P.some(q => q.l > 0)) requestAnimationFrame(step); else cv.remove();
-    if (f0 >= 1 && !fin && el._snapRun === run) { fin = 1; if (back) el.style.filter = ""; else el.style.visibility = "hidden"; done && done(); } };
-  const run = el._snapRun = (el._snapRun || 0) + 1; let fin = 0; if (back) el.style.visibility = ""; requestAnimationFrame(step);
-}
-const furyPage = function () {
-  if (!atlSeenT("Avengers: Infinity War")) return;
-  if (REDUCED) { found("page"); return; }
-  if (document.querySelector(".fx-pager")) return;
-  // everything in the box goes: its contents, the insignia behind them and the band across the top
-  const parts = (typeof panel !== "undefined" && panel && openEntry) ? [...panel.children].filter(e => e.matches(".pin, .pwm, svg")) : [];
-  const p = document.createElement("div"); p.className = "fx-pager"; p.innerHTML = `<svg class="pg" viewBox="0 0 200 196" aria-hidden="true"><defs><linearGradient id="pgBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A3D43"/><stop offset=".4" stop-color="#1A1C20"/><stop offset="1" stop-color="#0E0F12"/></linearGradient><clipPath id="pgScr"><rect x="34" y="56" width="132" height="40" rx="3"/></clipPath></defs><path d="M74 8h52l6 6v22H68V14z" fill="url(#pgBody)" stroke="#4A4E56"/><rect x="84" y="16" width="32" height="12" rx="2" fill="#0C0D10" stroke="#3A3D43"/><path d="M4 54l10-4v62l-10-4z" fill="url(#pgBody)" stroke="#4A4E56"/><path d="M22 36h156q12 0 12 12v96l-16 18H128v24l-6 6H66l-6-6v-24H36l-14-14H18q-4 0-4-4V48q0-12 8-12z" fill="url(#pgBody)" stroke="#4A4E56" stroke-width="1.2"/><path d="M26 46h148q6 0 6 6v4" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.4"/><rect x="30" y="52" width="140" height="48" rx="6" fill="#0A0B0D" stroke="#2C2F35"/><g clip-path="url(#pgScr)"><rect class="lcd" x="34" y="56" width="132" height="40" fill="#7E9470"/><text class="snd" x="100" y="80.5" text-anchor="middle">SENDING</text><g class="logo" opacity="0"><rect x="34" y="56" width="132" height="40" fill="#C8262A"/><path d="M34 56h132v13H122l-22 12-22-12H34z" fill="#4E82C8"/><path d="M34 69.5h44l22 12 22-12h44M34 72.5h43l23 12.6 23-12.6h43M34 75.5h42l24 13 24-13h42" fill="none" stroke="#E8ECF2" stroke-width="1.1"/><path d="M100.0 71.0L101.3 76.9L104.2 75.8L103.1 78.7L109.0 80.0L103.1 81.3L104.2 84.2L101.3 83.1L100.0 89.0L98.7 83.1L95.8 84.2L96.9 81.3L91.0 80.0L96.9 78.7L95.8 75.8L98.7 76.9Z" fill="#FFFFFF" stroke="#C9D0DA" stroke-width=".5"/></g></g><path d="M78 106l-8 5 8 5z" fill="none" stroke="#5A5F68" stroke-width="1.4"/><path d="M118 106l8 5-8 5z" fill="none" stroke="#5A5F68" stroke-width="1.4"/><path d="M60 104h80v14H60z" fill="none" stroke="#2C2F35"/><rect x="138" y="122" width="34" height="28" rx="6" fill="#121316" stroke="#2C2F35"/><g><rect x="66" y="150" width="56" height="34" rx="3" fill="#121316" stroke="#2C2F35"/><circle cx="83" cy="168" r="7" fill="#1A1C20" stroke="#4A4E56"/><circle cx="105" cy="168" r="7" fill="#1A1C20" stroke="#4A4E56"/><path d="M72 154v26M94 154v26M116 154v26" stroke="#B8231B" stroke-width="1.6"/></g></svg>`;
-  document.body.appendChild(p); const pg = p.firstChild, snd = p.querySelector(".snd"), logo = p.querySelector(".logo"), T = 9600;
-  // flicked up into his hand; held there while he sends; he goes, and only then does it drop, like the solid thing it is, hit and
-  // barely bounce; then the view closes in on it
-  pg.animate([
-    { transform: "translateY(60vh) scale(.72) rotate(-22deg)", easing: "cubic-bezier(.12,.75,.3,1)" },           // flicked up from below
-    { transform: "translateY(-50vh) scale(.72) rotate(-4deg)", offset: 520 / T, easing: "cubic-bezier(.4,0,.3,1)" },    // past where it stops
-    { transform: "translateY(-46vh) scale(.72) rotate(-8deg)", offset: 1100 / T, easing: "ease-in-out" },             // and back into his hand
-    { transform: "translateY(-45vh) scale(.72) rotate(-6deg)", offset: 4600 / T, easing: "cubic-bezier(.55,0,1,.45)" },
-    { transform: "translateY(0) scale(.78) rotate(9deg)", offset: 5020 / T, easing: "cubic-bezier(.2,.8,.4,1)" },
-    { transform: "translateY(-1.4vh) scale(.78) rotate(6deg)", offset: 5120 / T, easing: "cubic-bezier(.6,0,1,.5)" },
-    { transform: "translateY(0) scale(.78) rotate(5deg)", offset: 5220 / T, easing: "ease-in-out" },
-    { transform: "translateY(-6vh) scale(1.08) rotate(5deg)", offset: 8600 / T, opacity: 1, easing: "ease-in" },
-    { transform: "translateY(-6vh) scale(1.1) rotate(5deg)", opacity: 0 }], { duration: T, fill: "both" });
-  setTimeout(() => parts.forEach(e => snapBox(e, 2400, false, null, e.matches(".pin"))), 2600);
-  setTimeout(() => { haptic([80, 30, 40]); cxJolt(7); }, 5020);   // the hit
-  let d = 0; const blink = setInterval(() => { d++; snd.style.opacity = d % 2 ? .2 : 1; }, 360);
-  setTimeout(() => { clearInterval(blink); snd.style.opacity = 0; logo.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: "forwards" }); p.classList.add("sent"); haptic([30, 60, 30, 60, 30]); }, 7000);
-  setTimeout(() => parts.forEach(e => snapBox(e, 1200, true)), 8300);
-  setTimeout(() => { p.remove(); found("page"); }, T + 100);
-};
-// two fingers up in his box (a drag of his name up, with a mouse) flicks the pager up onto the screen; two fingers down are still Coulson's cards
-{ let up = null;
-  panel.addEventListener("touchstart", ev => { up = openEntry && openEntry.id === FURY_BOX && ev.touches.length === 2 ? { y: (ev.touches[0].clientY + ev.touches[1].clientY) / 2, x: (ev.touches[0].clientX + ev.touches[1].clientX) / 2, done: false } : ev.touches.length > 2 ? null : up; }, { passive: true });
-  panel.addEventListener("touchmove", ev => { if (!up || up.done || ev.touches.length < 2) return; const dy = (ev.touches[0].clientY + ev.touches[1].clientY) / 2 - up.y, dx = (ev.touches[0].clientX + ev.touches[1].clientX) / 2 - up.x;
-    if (dy < -70 && Math.abs(dx) < -dy * .7) { up.done = true; gestBlock = Date.now() + 700; furyPage(); } }, { passive: true });
-  ["touchend", "touchcancel"].forEach(n => panel.addEventListener(n, ev => { if (ev.touches.length < 2) up = null; }));
-  panel.addEventListener("pointerdown", ev => { if (ev.pointerType !== "mouse" || !openEntry || openEntry.id !== FURY_BOX || !ev.target.closest("#panelTitle")) return; const y0 = ev.clientY;
-    cxTrack(ev, e => { if (y0 - e.clientY > 60 && !up) { up = { done: true }; furyPage(); } }, () => { up = null; }); }); }
 /* MOCKUP END */
 </script>
 </body>
