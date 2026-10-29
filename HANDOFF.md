@@ -260,7 +260,9 @@ insignia celebration covers the page.
   Infinity Ultron, the Queen of the Dead, Zombie Captain America, Spider-Man, Survivor, Party Thor, Nebula of the Nova Corps, Hela of the
   Ten Rings, Kahhori, Storm, Blade Knight), in turn, each a twist on its hero's box with made-up titles (their own and other heroes'
   they turn up in, the same name in every box that shares it), nothing to tick. A few seconds later it shatters back. Its pieces are cut
-  while it shows, stacked over it, so the break never blinks.
+  while it shows (once the first break's pieces are gone), stacked over it, so the break never blinks. Every piece has `will-change:
+  transform` so its contents fall with it on phones. An invisible `.fx-lock` takes taps and scrolls for the whole egg. The Watcher is
+  named (Extras cover and tile) with his insignia, after What If...? or Loki S1, the same moment the multiverse opens.
 - **The Nick Fury box:** two fingers down throw Coulson's cards (blood on them after The Avengers); two fingers up (or dragging his name
   up with a mouse) play his last page: the pager flicked up, the box turned to dust, her star on the screen, the box gathered back.
 - **Hero and villain files of the same person link both ways** ("Also on file": `rf` on the hero file), each shown only once that
@@ -367,7 +369,14 @@ These happened in earlier chats. Each cost the owner time.
 15. **Answering with a count.** The owner asked what was on main and got "six". Give the list.
 16. **Building a feature twice.** The sling ring and the Watcher both teleported. Check what already does the job first.
 17. **Building copies at the moment of a swap.** The Watcher's return built ten full-screen copies in the same frame it removed the
-    original, so the phone blinked. Build the copies early, stacked over the original, and only start them moving at the swap.
+    original, so the phone blinked. Build the copies early, stacked over the original, and only start them moving at the swap. But not
+    so early that two sets of full-screen pieces exist at once: twenty layers were too many for the owner's phone.
+20. **Trusting desktop and emulation for phone rendering.** The Watcher's pieces fell whole in headless Chrome, emulation included, but
+    on the owner's Samsung phone their contents stayed behind (fixed-position children not moving with a transformed parent). Make a
+    moving element its children's frame explicitly (`will-change: transform`, children absolute), and ask the owner to check on the
+    phone before main.
+21. **An effect you only watch must not pass taps through.** The Watcher egg's layers ignored taps, so rows under it got ticked. Cover
+    such an effect with a layer that takes them.
 18. **Copies that miss the box's variables.** `pinCopy` dropped the box's colour variables, so the ticks' boxes went blank on every
     effect that copies a box. A copy carries the box's custom properties.
 19. **Testing with a mouse only where a finger is the real input, and the reverse.** A circle drawn with a mouse clicked the box under
