@@ -257,7 +257,7 @@ insignia celebration covers the page.
   once the stroke is a circle, and a mouse stroke doesn't click or select what it's drawn over.
 - **The Watcher's other realities** (`shatter`, `ALT_BOXES`, `altBox`): holding in the Watcher's box or Beyond the MCU cracks the box
   away onto one of fifteen other realities' boxes (Captain Carter, Strange Supreme, Star-Lord T'Challa, Killmonger, the Hydra Stomper,
-  Infinity Ultron, the Queen of the Dead, Zombie Captain America, Zombie Spider-Man, Party Thor, Nebula of the Nova Corps, Hela of the
+  Infinity Ultron, the Queen of the Dead, Zombie Captain America, Spider-Man, Survivor, Party Thor, Nebula of the Nova Corps, Hela of the
   Ten Rings, Kahhori, Storm, Blade Knight), in turn, each a twist on its hero's box with made-up titles (their own and other heroes'
   they turn up in, the same name in every box that shares it), nothing to tick. A few seconds later it shatters back. Its pieces are cut
   while it shows, stacked over it, so the break never blinks.
@@ -383,8 +383,6 @@ These happened in earlier chats. Each cost the owner time.
 - **A small gap:** She-Hulk episode 8 reveals the Sokovia Accords were repealed (the Accords' file has no step for it). Revisit Encore
   once Doomsday is out.
 - No mockups are pending.
-- **Zombie Spider-Man** (a Watcher reality, the owner's approved name): in What If...? S1 Peter is a survivor, and the app's own Marvel
-  Zombies data has him killed by the horde without saying he turns. The owner was told and kept the name; revisit if they ask.
 - `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
 - **Cut in October 2026 (don't bring back unasked):** J.A.R.V.I.S. search, Sound and the sound board, the War Room, the TVA and Wakanda
   skins, the clearance exams, Eyes Only, the Eye of Agamotto, the arc reactor, the Aether, the Rolex and the other eleven touchable
