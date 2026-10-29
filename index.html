@@ -1181,8 +1181,8 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .fx-w .fr{ background:radial-gradient(circle,#1C2A3A 0 58%,#C9CED6 59% 66%,#8A9099 67% 70%,#D9DDE3 71%); }
 .fx-w .fr b{ position:absolute; top:28%; color:#E9C46A; font:600 13px/1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:3px; }
 .fx-w .fr i{ position:absolute; left:50%; bottom:50%; width:3px; background:#EEF1F6; transform-origin:50% 100%; border-radius:2px; } .fx-w .h1{ height:24%; transform:translateX(-50%) rotate(-50deg); } .fx-w .h2{ height:32%; transform:translateX(-50%) rotate(64deg); }
-.fx-w .bk{ transform:rotateY(180deg); background:radial-gradient(circle,#B9BFC8 0 55%,#9EA5AF 56% 64%,#C9CED6 65%); color:#4A525E; align-content:center; gap:4px; }
-.fx-w .bk .ring{ position:absolute; inset:16%; border:1.5px solid currentColor; border-radius:50%; opacity:.5; } .fx-w .bk small{ font:600 11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; } .fx-w .bk em{ font:700 26px/1 'Share Tech Mono','Courier New',monospace; font-style:normal; }
+.fx-w .bk{ transform:rotateY(180deg); background:radial-gradient(circle,#2C3139 0 60%,#3E444D 61% 67%,#8A919B 68% 70%,#4A505A 71%); }
+.fx-w .bk svg{ width:72%; filter:drop-shadow(0 1px 1px rgba(0,0,0,.6)); } .fx-w .bk text{ fill:#D4DBE4; font:700 4.4px 'Share Tech Mono','Courier New',monospace; }
 .fx-gcard{ position:fixed; left:0; top:0; z-index:97; width:28px; height:40px; border-radius:3px; pointer-events:none; background:linear-gradient(135deg,#FFE0F7,#FF7BE0); border:1px solid #fff; box-shadow:0 0 14px #FF4FD8, 0 0 30px rgba(255,79,216,.6); }
 .fx-pop{ position:fixed; z-index:97; width:120px; height:120px; border-radius:50%; pointer-events:none; background:radial-gradient(circle,rgba(255,240,252,.95),rgba(255,79,216,.6) 40%,rgba(255,79,216,0) 70%); }
 .fx-pager{ position:fixed; inset:0; z-index:97; display:grid; place-items:end center; padding-bottom:16vh; pointer-events:none; }
@@ -12387,10 +12387,10 @@ function cxReset(b) {
   setTimeout(() => { haptic([60, 30, 80]); cxJolt(6); veil("fxl", "z-index:96;background:rgba(255,160,50,.28)", [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], 600); }, 1800);
   cxHandled("reset-charges", 2800);
 }
-/* the Rolex: swipe and the watch turns over. Engraved on the back: S.H.I.E.L.D., and a number, 19 */
+/* the Rolex: swipe and the watch turns over. Engraved on the back: the S.H.I.E.L.D. eagle, with 19 at the bottom */
 function cxRolex() {
   const w = document.createElement("div"); w.className = "fx-watch";
-  w.innerHTML = `<div class="fx-w"><div class="fr"><i class="h1"></i><i class="h2"></i><b>ROLEX</b></div><div class="bk"><i class="ring"></i><small>S.H.I.E.L.D.</small><em>19</em></div></div>`;
+  w.innerHTML = `<div class="fx-w"><div class="fr"><i class="h1"></i><i class="h2"></i><b>ROLEX</b></div><div class="bk"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="rxSteel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6EAF0"/><stop offset=".45" stop-color="#AEB6C2"/><stop offset=".75" stop-color="#7C8592"/><stop offset="1" stop-color="#C9D0DA"/></linearGradient></defs><circle cx="32" cy="32" r="27.8" fill="#1B1F26" stroke="#5E6672" stroke-width=".8"/><path d="${EMBLEMS.eagle.l[1].d}" fill="url(#rxSteel)" transform="translate(32 30) scale(.84) translate(-32 -32)"/><text x="32" y="58.2" text-anchor="middle">19</text></svg></div></div>`;
   document.body.appendChild(w); const f = w.firstChild;
   w.animate([{ opacity: 0 }, { opacity: 1, offset: .1 }, { opacity: 1, offset: .88 }, { opacity: 0 }], { duration: 3600, fill: "both" });
   f.animate([{ transform: "scale(.6) rotateY(0deg)" }, { transform: "scale(1) rotateY(0deg)", offset: .15 }, { transform: "scale(1) rotateY(0deg)", offset: .3 }, { transform: "scale(1) rotateY(180deg)", offset: .5 }, { transform: "scale(1) rotateY(180deg)", offset: .9 }, { transform: "scale(.9) rotateY(180deg)" }], { duration: 3600, easing: "cubic-bezier(.45,0,.3,1)", fill: "both" });
