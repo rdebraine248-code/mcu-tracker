@@ -12449,7 +12449,7 @@ Object.assign(CX_LIVE, {
    ash that blows away, the pager drops to the street, hard, SENDING blinks, the view closes in on it and her star comes up; then the box
    gathers back together. Before Infinity War the move does nothing yet */
 // the Snap on a whole box: noise eats it away in flakes while the flakes are pushed off, run forward (k 0 to 1) or back
-function snapBox(el, ms, back, done) {
+function snapBox(el, ms, back, done, ash = true) {
   if (!document.getElementById("snapDust")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="snapDust" x="-10%" y="-10%" width="140%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/><feOffset in="d" dx="0" dy="0" result="o"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 1" result="m"/><feComposite in="o" in2="m" operator="in"/></filter></svg>`);
   const f = document.getElementById("snapDust"), dm = f.querySelector("feDisplacementMap"), off = f.querySelector("feOffset"), cm = f.querySelector("feColorMatrix"), t0 = performance.now();
   el.style.filter = "url(#snapDust)";
@@ -12458,7 +12458,7 @@ function snapBox(el, ms, back, done) {
     if (el._snapRun === run) { dm.setAttribute("scale", (90 * e).toFixed(1)); off.setAttribute("dx", (60 * e).toFixed(1)); off.setAttribute("dy", (-40 * e).toFixed(1));
       cm.setAttribute("values", `0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${(1 - 10 * k).toFixed(2)}`); }   // a newer run on the same box takes the filter over
     // the ash: flakes come off the edge that's going, and drift up and away (or, coming back, fly in)
-    if (!back && f0 < .9) for (let i = 0; i < 14; i++) P.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: 1 + Math.random() * 3, vy: -.5 - Math.random() * 2.2, s: 1.5 + Math.random() * 3.2, l: 1, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
+    if (!back && ash && f0 < .9) for (let i = 0; i < 14; i++) P.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: 1 + Math.random() * 3, vy: -.5 - Math.random() * 2.2, s: 1.5 + Math.random() * 3.2, l: 1, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
     g.clearRect(0, 0, W, H); P.forEach(q => { q.x += q.vx; q.y += q.vy; q.vy -= .02; q.l -= .012; if (q.l > 0) { g.fillStyle = `rgba(${q.c},${q.l})`; g.fillRect(q.x, q.y, q.s, q.s); } });
     if (f0 < 1 || P.some(q => q.l > 0)) requestAnimationFrame(step); else cv.remove();
     if (f0 >= 1 && !fin && el._snapRun === run) { fin = 1; if (back) el.style.filter = ""; else el.style.visibility = "hidden"; done && done(); } };
@@ -12468,7 +12468,8 @@ fury = function () {
   if (!atlSeenT("Avengers: Infinity War")) return;
   if (REDUCED) { found("fury"); return; }
   if (document.querySelector(".fx-pager")) return;
-  const box = (typeof panel !== "undefined" && panel && openEntry) ? (panel.querySelector(".pin") || panel) : null;
+  // everything in the box goes: its contents, the insignia behind them and the band across the top
+  const parts = (typeof panel !== "undefined" && panel && openEntry) ? [...panel.children].filter(e => e.matches(".pin, .pwm, svg")) : [];
   const p = document.createElement("div"); p.className = "fx-pager"; p.innerHTML = `<svg class="pg" viewBox="0 0 200 196" aria-hidden="true"><defs><linearGradient id="pgBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A3D43"/><stop offset=".4" stop-color="#1A1C20"/><stop offset="1" stop-color="#0E0F12"/></linearGradient><clipPath id="pgScr"><rect x="34" y="56" width="132" height="40" rx="3"/></clipPath></defs><path d="M74 8h52l6 6v22H68V14z" fill="url(#pgBody)" stroke="#4A4E56"/><rect x="84" y="16" width="32" height="12" rx="2" fill="#0C0D10" stroke="#3A3D43"/><path d="M4 54l10-4v62l-10-4z" fill="url(#pgBody)" stroke="#4A4E56"/><path d="M22 36h156q12 0 12 12v96l-16 18H128v24l-6 6H66l-6-6v-24H36l-14-14H18q-4 0-4-4V48q0-12 8-12z" fill="url(#pgBody)" stroke="#4A4E56" stroke-width="1.2"/><path d="M26 46h148q6 0 6 6v4" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.4"/><rect x="30" y="52" width="140" height="48" rx="6" fill="#0A0B0D" stroke="#2C2F35"/><g clip-path="url(#pgScr)"><rect class="lcd" x="34" y="56" width="132" height="40" fill="#7E9470"/><text class="snd" x="100" y="80.5" text-anchor="middle">SENDING</text><g class="logo" opacity="0"><rect x="34" y="56" width="132" height="40" fill="#C8262A"/><path d="M34 56h132v13H122l-22 12-22-12H34z" fill="#4E82C8"/><path d="M34 69.5h44l22 12 22-12h44M34 72.5h43l23 12.6 23-12.6h43M34 75.5h42l24 13 24-13h42" fill="none" stroke="#E8ECF2" stroke-width="1.1"/><path d="M100.0 71.0L101.3 76.9L104.2 75.8L103.1 78.7L109.0 80.0L103.1 81.3L104.2 84.2L101.3 83.1L100.0 89.0L98.7 83.1L95.8 84.2L96.9 81.3L91.0 80.0L96.9 78.7L95.8 75.8L98.7 76.9Z" fill="#FFFFFF" stroke="#C9D0DA" stroke-width=".5"/></g></g><path d="M78 106l-8 5 8 5z" fill="none" stroke="#5A5F68" stroke-width="1.4"/><path d="M118 106l8 5-8 5z" fill="none" stroke="#5A5F68" stroke-width="1.4"/><path d="M60 104h80v14H60z" fill="none" stroke="#2C2F35"/><rect x="138" y="122" width="34" height="28" rx="6" fill="#121316" stroke="#2C2F35"/><g><rect x="66" y="150" width="56" height="34" rx="3" fill="#121316" stroke="#2C2F35"/><circle cx="83" cy="168" r="7" fill="#1A1C20" stroke="#4A4E56"/><circle cx="105" cy="168" r="7" fill="#1A1C20" stroke="#4A4E56"/><path d="M72 154v26M94 154v26M116 154v26" stroke="#B8231B" stroke-width="1.6"/></g></svg>`;
   document.body.appendChild(p); const pg = p.firstChild, snd = p.querySelector(".snd"), logo = p.querySelector(".logo"), T = 7000;
   // up into view in his hand; held while he sends; then it drops like the solid thing it is, hits, barely bounces, and the view closes in
@@ -12481,11 +12482,11 @@ fury = function () {
     { transform: "translateY(0) scale(.78) rotate(5deg)", offset: 2720 / T, easing: "ease-in-out" },
     { transform: "translateY(-6vh) scale(1.08) rotate(5deg)", offset: 6000 / T, opacity: 1, easing: "ease-in" },
     { transform: "translateY(-6vh) scale(1.1) rotate(5deg)", opacity: 0 }], { duration: T, fill: "both" });
-  if (box) setTimeout(() => snapBox(box, 1500, false), 600);
+  setTimeout(() => parts.forEach(e => snapBox(e, 1500, false, null, e.matches(".pin"))), 600);
   setTimeout(() => { haptic([80, 30, 40]); cxJolt(7); }, 2520);   // the hit
   let d = 0; const blink = setInterval(() => { d++; snd.style.opacity = d % 2 ? .2 : 1; }, 330);
   setTimeout(() => { clearInterval(blink); snd.style.opacity = 0; logo.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, fill: "forwards" }); p.classList.add("sent"); haptic([30, 60, 30, 60, 30]); }, 4300);
-  setTimeout(() => { if (box) snapBox(box, 1100, true); }, 5600);
+  setTimeout(() => parts.forEach(e => snapBox(e, 1100, true)), 5600);
   setTimeout(() => { p.remove(); found("fury"); }, T + 100);
 };
 /* MOCKUP END */
