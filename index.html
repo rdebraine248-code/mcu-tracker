@@ -413,9 +413,6 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .fx-claw{ position:fixed; z-index:97; pointer-events:none; height:5px; border-radius:5px; transform-origin:0 50%;
   background:linear-gradient(90deg, rgba(220,225,235,0), #F4F7FB 22%, #B9C3D3 65%, rgba(185,195,211,0)); box-shadow:0 0 0 1px rgba(20,25,35,.35), 0 0 10px rgba(230,236,245,.85); }
 .fx-crack{ position:fixed; z-index:99; pointer-events:none; height:1.6px; transform-origin:0 50%; background:linear-gradient(90deg, rgba(255,255,255,.95), rgba(210,225,255,.55)); box-shadow:0 0 4px rgba(200,220,255,.9); }
-.fx-stars{ position:fixed; inset:0; z-index:97; pointer-events:none; background-color:#05040C;
-  background-image:radial-gradient(ellipse 60% 45% at 30% 40%, rgba(110,70,200,.35), rgba(110,70,200,0) 70%), radial-gradient(ellipse 50% 40% at 75% 70%, rgba(40,110,200,.3), rgba(40,110,200,0) 70%), radial-gradient(circle, rgba(255,255,255,.9) 0 1px, rgba(255,255,255,0) 1.6px), radial-gradient(circle, rgba(200,210,255,.7) 0 .8px, rgba(200,210,255,0) 1.4px);
-  background-size:100% 100%, 100% 100%, 97px 89px, 53px 61px; background-position:0 0, 0 0, 0 0, 30px 20px; }
 .fx-shard{ position:fixed; inset:0; z-index:98; pointer-events:none; overflow:hidden; }
 .fx-band{ position:fixed; left:0; right:0; z-index:98; pointer-events:none; overflow:hidden; }
 .fx-clone{ position:absolute; margin:0 !important; pointer-events:none; }
@@ -1164,7 +1161,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cx-stb{ position:absolute; top:12px; right:12px; padding:3px 8px; border-radius:4px; background:var(--sc); color:#0B1019; font:700 10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; }
 .cx-lot{ display:block; margin-top:14px; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#C9A85A; }
 .co-rec .cx-lot + h3{ margin-top:2px; }
-/* MOCKUP BEGIN: the objects on their titles and the sling ring anywhere (test build only; mainprep cuts it) */
+/* the sling ring's portal, and an object come up under your finger on a held title */
 .fx-slingview{ position:fixed; inset:0; z-index:96; pointer-events:none; background:radial-gradient(circle at var(--x) var(--y),#1A2433 0,#0B1019 60%); }
 .fx-slingview > div{ position:absolute; left:var(--x); top:var(--y); display:grid; gap:4px; justify-items:center; text-align:center; width:min(80vw,320px); }
 .fx-slingview small{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#FFB347; }
@@ -1172,7 +1169,6 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .fx-obj{ position:fixed; z-index:97; width:62px; height:62px; transform:translate(-50%,-50%); pointer-events:none; display:grid; place-items:center; border-radius:50%; background:radial-gradient(circle,rgba(20,26,38,.92),rgba(11,16,25,.7) 70%,transparent 72%); }
 .fx-obj .cx-obj{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:40px; height:40px; color:#E9C46A; }
 .fx-obj .cx-gl{ width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.4; stroke-linejoin:round; stroke-linecap:round; }
-/* MOCKUP END */
 /* ---------- Nick Fury: his last page ---------- */
 .fx-pager{ position:fixed; inset:0; z-index:97; display:grid; place-items:end center; padding-bottom:12vh; pointer-events:none; }
 .fx-pager .pg{ width:min(62vw,250px); height:auto; filter:drop-shadow(0 16px 26px rgba(0,0,0,.65)); }
@@ -1204,10 +1200,8 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .tr-key button b{ display:grid; place-items:center; min-width:22px; height:22px; padding:0 3px; border:1.4px solid var(--c); border-radius:999px; color:var(--c); font:700 9.5px 'Share Tech Mono','Courier New',monospace; }
 .tr-key button.on{ border-color:#FFFFFF; color:#FFFFFF; }
 .cx-big[data-live]{ touch-action:none; -webkit-user-select:none; user-select:none; cursor:grab; } .cx-big .cx-obj{ transition:opacity .18s ease; }   /* a case you can handle: the page doesn't scroll out from under your hand */
-/* the cases in the Collection you can handle: the Darkhold's script, the arc reactor's light, the Sokovia Accords themselves */
+/* the held objects: the Darkhold's script, and the Sokovia Accords themselves */
 .cx-rune{ color:#E0354A; text-shadow:0 0 6px rgba(200,20,40,.9); }
-.co-rec.arcon h3, .co-rec.arcon .co-tiles b, .co-rec.arcon .cx-chain p{ text-shadow:0 0 calc(var(--arc) * 12px) rgba(150,215,255,calc(var(--arc) * .85)); }
-.co-rec.arcon .co-tiles div{ border-color:color-mix(in srgb,#9FD6FF calc(var(--arc) * 70%),#232D42); }
 .acc-ov{ position:fixed; inset:0; z-index:98; display:flex; align-items:center; justify-content:center; padding:20px max(16px, env(safe-area-inset-right,0px)) 20px max(16px, env(safe-area-inset-left,0px)); background:rgba(4,6,10,.72); }
 .acc-doc{ position:relative; width:100%; max-width:400px; padding:22px 20px 16px; border-radius:4px; background:#F2EEE3; color:#1B1E24; box-shadow:0 18px 50px rgba(0,0,0,.6); font:14px/1.5 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
 .acc-doc small{ display:block; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#5A6273; }
@@ -4367,10 +4361,8 @@ document.getElementById("collView").addEventListener("click", ev => {
   const b = ev.target.closest("[data-co]"); if (b) { haptic(10); collShow(b.dataset.co); }
 });
 
-// cases you can handle in the Collection: what a press on the case does
-const CX_LIVE = { tesseract: (b, ev) => { const x = ev.clientX, y = ev.clientY; cxHold(ev, 450, () => cxTess(x, y, b)); },
-  darkhold: (b, ev) => cxDark(b, ev), "sling-ring": (b, ev) => cxSling(b, ev), arc: (b, ev) => cxArc(b, ev), "sokovia-accords": () => {} };   // the Accords open on a tap
-const CX_SET = Object.keys(CX_LIVE);   // handle them all for the Classified file
+// the case you can handle in the Collection: what a press on it does. Only the Tesseract: its Space Stone belongs to the stone hunt
+const CX_LIVE = { tesseract: (b, ev) => { const x = ev.clientX, y = ev.clientY; cxHold(ev, 450, () => cxTess(x, y, b)); } };
 document.getElementById("collView").addEventListener("pointerdown", ev => {
   const b = ev.target.closest(".cx-big[data-live]"); if (!b || ev.button > 0) return;
   CX_LIVE[b.dataset.live](b, ev);
@@ -5375,7 +5367,7 @@ const cxCenter = el => { const r = el.getBoundingClientRect(); return [r.left + 
 let cxTessOn = false;
 function cxTess(x, y, b) {
   const obj = b.querySelector(".cx-obj");
-  if (REDUCED) { awardStone("space", x, y); cxHandled("tesseract"); return; }
+  if (REDUCED) { awardStone("space", x, y); return; }
   if (cxTessOn) return; cxTessOn = true;
   const ghost = document.createElement("div"); ghost.className = "fx-cxg"; ghost.innerHTML = obj.innerHTML; ghost.style.left = x + "px"; ghost.style.top = y + "px"; document.body.appendChild(ghost);
   obj.style.opacity = "0"; glowC(x, y, 0, "blue", 1); haptic([20, 40, 20]);
@@ -5398,7 +5390,7 @@ function cxTess(x, y, b) {
     cube.firstChild.animate([{ transform: "rotateX(-20deg) rotateY(0deg)" }, { transform: "rotateX(340deg) rotateY(720deg)" }], { duration: 2400 });
     glowC(px, cy, 0, "blue", 1.8); burst(px, cy, 30, BLUE_C, 70); haptic([30, 40, 90]);
     setTimeout(() => { const [hx2, hy2] = cxCenter(obj); fxRing(hx2, hy2, 60, "#7FB2FF", 600, 0, 3); burst(hx2, hy2, 16, BLUE_C, 40); back(); }, 1900);
-    setTimeout(() => { awardStone("space", px, cy); cxHandled("tesseract", 2400); }, 2200);
+    setTimeout(() => { awardStone("space", px, cy); }, 2200);
   };
   window.addEventListener("pointermove", move, true); window.addEventListener("pointerup", up, true); window.addEventListener("pointercancel", up, true);
 }
@@ -6810,7 +6802,9 @@ const EGGS = [
   ["sokovia", "Sokovia", "Somewhere on the map, a city is lifting into the sky.", "In the Atlas, hold Sokovia.", 1],
   ["titanmoon", "All that for a drop of blood", "On Titan, Thanos has a moon to throw.", "In the Atlas Cosmos, hold Titan.", 1],
   ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas Cosmos, tap Knowhere and visit the Collector.", 1],
-  ["artifacts", "Handle with care", `A few of the Collector's pieces answer to a touch. There are ${CX_SET.length}.`, "In the Collection: carry the Tesseract off and let go, hold the Darkhold until its spell is cast, sign or refuse the Sokovia Accords, draw a circle starting on the sling rings, and hold the arc reactor until it's charged.", 1],
+  ["darkhold", "The Darkhold", "The Book of the Damned waits in the Multiverse of Madness. Hold on to it.", "Hold Doctor Strange in the Multiverse of Madness in any list until the spell is cast.", 2],
+  ["accords", "The Sokovia Accords", "Civil War starts with a signature. Yours, or your refusal.", "Hold Captain America: Civil War in any list, then sign or refuse the Accords.", 1],
+  ["sling", "Sling ring", "A sorcerer can open a door to anywhere, even another world. Keep circling.", "After Doctor Strange, draw three circles in one stroke anywhere in the app.", 1],
   ["compound", "The Avengers Compound", "Upstate, the team keeps a file on everyone.", "In the Atlas, tap the Avengers Compound and open its personnel files.", 1],
   ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "In the Atlas, tap the Raft and open its threat registry.", 1],
   ["damagecontrol", "Damage Control", "Someone in Midtown cleans up after the heroes.", "In the Atlas, open New York, tap Midtown and open the incident reports.", 1],
@@ -6899,9 +6893,6 @@ function everyRecord() {
       && DATA.map.cols.every(c => (state.pathT || {})[c.t]);
   } catch (e) { return false; }   // Comms loads further down the page; until it has, nothing counts yet
 }
-// a Classified file found in parts: how many so far, and of how many. From the first part, its card counts them under [ Classified ];
-// its name stays hidden until the file is found
-const EGG_PROG = { artifacts: () => [CX_SET.filter(k => (state.cxHand || {})[k]).length, CX_SET.length] };
 function achList() {
   const A = [], ex = state.eggs || {}, st = state.stones || {};
   DATA.chapters.forEach(c => A.push({ id: "ch-" + c.id, sec: "chapters", done: true, t: c.num ? "Ch. " + c.num : c.title.replace(/^The /, ""), d: "Complete.", extra: !c.num, cid: c.id,
@@ -6924,7 +6915,7 @@ function achList() {
   STONES.forEach(z => A.push({ id: "stone-" + z.id, sec: "artifacts", t: z.n + " Stone", lead: true, d: "Found.", h: z.hint, x: STONE_HOW[z.id], ok: () => !!st[z.id] }));
   A.push({ id: "snap", sec: "artifacts", t: "Perfectly balanced", foot: "Half of all life erased", d: "You snapped.", h: "With all six…", x: "With all six stones, tap the colored line under the title and press Snap?", ok: () => !!ex.snap });
   const EG = EGGS.map((e, i) => [e, i]).sort((a, b) => a[0][4] - b[0][4] || a[1] - b[1]).map(x => x[0]), per = Math.ceil(EG.length / HF_PAGES);
-  EG.forEach(([id, t, h, x], i) => A.push({ id: "egg-" + id, sec: "classified", pg: Math.floor(i / per) + 1, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id], prog: EGG_PROG[id] }));
+  EG.forEach(([id, t, h, x], i) => A.push({ id: "egg-" + id, sec: "classified", pg: Math.floor(i / per) + 1, t, d: "Found.", h, x, secret: true, ok: () => !!ex[id] }));
   const pagesDone = () => DATA.chapters.every(isDone) && DATA.chars.every(isDone) && allTL(DATA.timeline, "tl::") && allTL(DATA.timelineRelease, "tr::") && everyRecord();
   const eggsDone = () => allStones() && EGGS.every(([id]) => ex[id]);
   A.push({ id: "pages", sec: "final", done: true, secret: true, t: "Every page", d: "Every chapter, hero and timeline, complete.", h: "Finish everything, and read it all.", x: "Complete every chapter, every character box and both timeline views, then see it all recorded: every log entry, every map of the Atlas looked over, with every city and other universe opened and read, every headline and message in Comms, and every path drawn.", ok: pagesDone });
@@ -7238,15 +7229,14 @@ function renderFile(fresh) {
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
     const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
-    const pr = !ok && a.prog ? a.prog() : null, cnt = pr && pr[0] > 0 ? `${pr[0]} of ${pr[1]}` : "";   // a file found in parts counts them under [ Classified ], its name kept until it's found
-    const hid = !ok && !(MOCK && cnt) && (a.sec === "chapters" ? !slNamed(DATA.chapters.find(c => c.id === a.cid)) : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
+    const hid = !ok && (a.sec === "chapters" ? !slNamed(DATA.chapters.find(c => c.id === a.cid)) : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
     // a chapter's number is never secret (its cover on Story shows it), so a chapter card keeps it, as the Personal log and the Log do: Ch. 3 over [ Classified ]
     const pub = a.sec === "chapters" ? (DATA.chapters.find(c => c.id === a.cid) || {}).num : null;
     // a chapter card reads like its row in the Log and its cell in the Personal log: its number on top, its name (or [ Classified ]), then where you are
     if (a.sec === "chapters") { const ch = DATA.chapters.find(c => c.id === a.cid) || {};
       return `<button type="button" class="ach chc${ok ? " done" : ""}${hid ? " cl" : ""}" data-ach="${esc(a.id)}"><span class="st">${pub ? "Ch. " + pub : "Extras"}</span><b>${hid ? '<span class="sl-cl">[ Classified ]</span>' : esc(ch.title || a.t)}</b>${hid ? (tip ? `<small>${esc(tip)}</small>` : "") : `<small>${ok ? "Complete" : esc(tip || "In progress")}</small>`}</button>`; }
-    if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b><span class="sl-cl">[ Classified ]</span></b>${tip || cnt ? `<small>${esc(tip || cnt)}</small>` : ""}</button>`;
-    const nm = a.sec === "characters" ? boxName(a.ch) : a.t, note = ok ? a.d : tip || (MOCK && cnt ? cnt + " handled" : "In progress");
+    if (hid) return `<button type="button" class="ach cl" data-ach="${esc(a.id)}"><b><span class="sl-cl">[ Classified ]</span></b>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`;
+    const nm = a.sec === "characters" ? boxName(a.ch) : a.t, note = ok ? a.d : tip || "In progress";
     return `<button type="button" class="ach${ok ? " done" : ""}${a.final ? " final" : ""}" data-ach="${esc(a.id)}">${ok ? `<span class="st">Complete</span>` : ""}<b>${esc(nm)}</b><small>${esc(note)}</small></button>`; };
   const classPart = () => { const L = A.filter(a => a.sec === "classified" && a.pg === hfPage);
     return `<section class="hf-sec" data-hfsec="classified"><h3><span>Classified</span><span class="hf-pager"><button type="button" data-hfpg="-1" aria-label="Previous page">‹</button><span class="hf-pgn">${hfPage}/${HF_PAGES}</span><button type="button" data-hfpg="1" aria-label="Next page">›</button><span class="hf-pgt">${A.filter(a => a.sec === "classified" && earned(a.id)).length}/${A.filter(a => a.sec === "classified").length}</span></span></h3><div class="hf-grid hf-pg">${L.map(card).join("")}</div></section>`; };
@@ -7463,68 +7453,8 @@ function webAt(x, y) {
   found("webs", T);
 }
 
-/* ---------- Beyond the MCU and the Watcher: reality cracks like glass, shatters on the multiverse, then mends ---------- */
+/* ---------- Beyond the MCU and the Watcher: reality cracks like glass, and behind it is another reality (the realities are further down) ---------- */
 let shattering = false;
-function shatter(x, y) {
-  if (shattering || !openEntry) return;
-  // somewhere else to land, anywhere in the app: another box you can open, a spot on the Sacred Timeline, a map in the Atlas, the Log,
-  // Paths, Comms, the Agent File, or someone's profile. First where, then which one
-  const here = openEntry.id, one = L => L[Math.floor(Math.random() * L.length)];
-  const boxes = DATA.chapters.filter(c => state.unlocked[c.id] && c.id !== here).map(c => ["chapters", c.id])
-    .concat(DATA.chars.filter(c => c.id !== here && !(state.dusted || {})[c.id] && !charSealed(c)).map(c => ["chars", c.id]));
-  const profiles = DATA.chars.filter(c => c.id !== here && DOSSIERS[c.id] && charNamed(c) && !charSealed(c) && !(state.dusted || {})[c.id]).map(c => ["profile", c.id]);
-  const kinds = [boxes, [["timeline"]], ...(MOCK ? [] : [[["atlas"]]]), [["log"]], [["map"]], [["comms"]], [["file"]], profiles].filter(L => L.length);   // in the test build the Atlas is the sling ring's
-  const dest = one(one(kinds));
-  const page = t => document.querySelector(`#dock [data-dock="${t}"]`).click();
-  const toBox = (mode, id, then) => { if (state.mode !== mode) { state.mode = mode; renderAll(); }
-    const t = document.querySelector(`.tile[data-id="${id}"]`); if (!t) return;
-    // the page behind moves to the new box, so going back or completing it returns you there
-    const top = t.getBoundingClientRect().top + window.scrollY - Math.max(0, (innerHeight - t.offsetHeight) / 2); window.scrollTo(0, Math.max(0, top));
-    activate(t); if (then) setTimeout(then, 450); };
-  const land = () => {
-    if (!openEntry || openEntry.id !== here) return;   // you backed out while it cracked
-    closePanel(); const k = dest[0];
-    if (k === "chapters" || k === "chars") toBox(k, dest[1]);
-    else if (k === "profile") toBox("chars", dest[1], () => { const b = document.getElementById("btnDossier"); if (b) b.click(); });
-    else if (k === "timeline") { if (state.mode !== "timeline") { state.mode = "timeline"; renderAll(); }
-      const rows = [...document.querySelectorAll("#view .tl-row")]; const r = rows.length && one(rows); if (r) window.scrollTo(0, Math.max(0, r.getBoundingClientRect().top + window.scrollY - innerHeight / 2)); }
-    else if (k === "atlas") { page("atlas"); setTimeout(() => { const vs = ATL_VIEWS.map(v => v[0]).filter(atlOpenV); if (vs.length) atlSwitch(one(vs)); }, 60); }
-    else page(k);
-  };
-  if (REDUCED) { if (dest) land(); found("shatter"); return; }
-  shattering = true; haptic([60, 40, 20, 300, 80]);
-  const W = innerWidth, H = innerHeight, R = Math.hypot(W, H), cracks = [];
-  const line = (x0, y0, len, a, delay) => { const c = document.createElement("div"); c.className = "fx-crack"; c.style.cssText = `left:${x0}px;top:${y0}px;width:${len}px;transform:rotate(${a}rad) scaleX(0)`; document.body.appendChild(c); c.animate([{ transform: `rotate(${a}rad) scaleX(0)` }, { transform: `rotate(${a}rad) scaleX(1)` }], { duration: 380, delay, easing: "ease-out", fill: "both" }); cracks.push(c); };
-  const crackAt = (cx, cy, t0) => { const angs = []; for (let k = 0; k < 10; k++) angs.push(k / 10 * Math.PI * 2 + (Math.random() - .5) * .5); angs.forEach((a, k) => { const len = R * (.5 + Math.random() * .5); line(cx, cy, len, a, t0 + k * 35); const m = .3 + Math.random() * .3; line(cx + Math.cos(a) * len * m, cy + Math.sin(a) * len * m, len * .35, a + (Math.random() - .5) * 1.4, t0 + 200 + k * 35); }); return angs.sort((a, b) => a - b); };
-  // break whatever is behind into pieces that fly away, revealing what's under them
-  const breakAway = (cx, cy, angs, fill) => angs.map((a, k) => {
-    const b = k + 1 < angs.length ? angs[k + 1] : angs[0] + Math.PI * 2, mid = (a + b) / 2, sh = document.createElement("div"); sh.className = "fx-shard";
-    sh.style.clipPath = `polygon(${cx}px ${cy}px, ${cx + Math.cos(a) * R}px ${cy + Math.sin(a) * R}px, ${cx + Math.cos(mid) * R * 1.4}px ${cy + Math.sin(mid) * R * 1.4}px, ${cx + Math.cos(b) * R}px ${cy + Math.sin(b) * R}px)`;
-    fill(sh); document.body.appendChild(sh);
-    const d = R * (1.1 + Math.random() * .4), dx = Math.cos(mid) * d, dy = Math.sin(mid) * d + R * .25, rot = (Math.random() - .5) * 70;
-    sh.animate([{ transform: "none" }, { transform: `translate(${dx * .06}px,${dy * .06}px) rotate(${rot * .04}deg)`, offset: .2 }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)` }], { duration: 1700, easing: "cubic-bezier(.5,0,.6,1)", fill: "forwards" }).onfinish = () => sh.remove();
-    return sh;
-  });
-  const clearCracks = () => { cracks.splice(0).forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => c.remove()); };
-  // 1. this page cracks and falls away into space
-  const angs1 = crackAt(x, y, 0);
-  setTimeout(() => {
-    const stars = document.createElement("div"); stars.className = "fx-stars"; document.body.appendChild(stars);
-    breakAway(x, y, angs1, sh => { panelBg(sh); sh.appendChild(pinCopy()); });
-    clearCracks(); haptic([80, 40, 120]);
-    // 2. behind the stars, the app quietly moves to somewhere else
-    setTimeout(() => { if (dest) land(); }, 700);
-    // 3. space itself cracks and shatters, and the new place is underneath
-    setTimeout(() => {
-      const cx = W * (.3 + Math.random() * .4), cy = H * (.35 + Math.random() * .3), angs2 = crackAt(cx, cy, 0);
-      setTimeout(() => {
-        breakAway(cx, cy, angs2, sh => { sh.classList.add("fx-stars"); sh.style.position = "fixed"; });
-        stars.remove(); clearCracks(); haptic([80, 40, 120]);
-        setTimeout(() => { shattering = false; found("shatter"); }, 1800);
-      }, 600);
-    }, 1500);
-  }, 650);
-}
 
 /* ---------- Pruned Timelines and Pruned Characters: a reset charge prunes one title, then it comes back ---------- */
 /* ---------- Chapter 2: the dance-off. Hold Guardians of the Galaxy ---------- */
@@ -11360,18 +11290,13 @@ document.getElementById("collView").addEventListener("click", ev => {
   const x = ev.target.closest("[data-dcx]"); if (x) { ev.stopImmediatePropagation(); haptic(10); cxUni = rfUniOf(COLLX.find(o => o.id === x.dataset.dcx)); collJump("coll", x.dataset.dcx); return; }
 }, true);
 
-/* ---------- the rest of the Collection's cases you can handle. Each is its own moment; every case handled once, the Tesseract included,
-   earns one Classified file, and its card counts them from the first ---------- */
-function cxHandled(id, ms) {   // a case handled for the first time; the last of the set earns the file
-  const H = state.cxHand = state.cxHand || {}; if (!H[id]) { H[id] = 1; persist(); }
-  if (CX_SET.every(k => H[k])) found("artifacts", ms);
-}
+/* ---------- the held objects: the Darkhold and the Sokovia Accords, each its own moment and its own Classified file ---------- */
+function cxHandled(id, ms) { const k = { darkhold: "darkhold", "sokovia-accords": "accords" }[id]; if (k) found(k, ms); }   // a held object: its own file
 function cxCanvas() {   // a canvas over the whole screen
   const cv = document.createElement("canvas"), dpr = Math.min(2, window.devicePixelRatio || 1);
   cv.className = "fx-canvas"; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px"; document.body.appendChild(cv);
   const g = cv.getContext("2d"); g.scale(dpr, dpr); return { cv, g };
 }
-document.getElementById("collView").addEventListener("click", ev => { if (ev.target.closest('.cx-big[data-live="sokovia-accords"]')) { haptic(10); cxAccords(); } });
 
 /* ---------- the Darkhold: hold it and its script eats the file from the top down while the dark closes in. Hold on until it has the
    whole page and its spell is cast: runes circle the book, red chaos gathers into it and bursts outward, and the page comes back. Let go
@@ -11455,124 +11380,8 @@ function cxDark(b, ev, o = {}) {
   requestAnimationFrame(frame);
 }
 
-/* ---------- a sling ring: trace a circle with your finger and a portal opens there. It holds for a moment, throwing sparks, with another
-   case in the archive showing through it; then it rushes toward you, you go through, and you're there ---------- */
+// the sling ring's portal: how long it takes to open, how long it holds, and how fast it rushes in
 const SL_OPEN = 450, SL_HOLD = 2000, SL_ZOOM = 750;
-// was the trace a circle? roughly round, and it went most of the way around. Its middle and size, or nothing
-function slingCircle(pts) {
-  const n = pts.length; if (n < 12) return null;
-  const cx = pts.reduce((s, p) => s + p[0], 0) / n, cy = pts.reduce((s, p) => s + p[1], 0) / n, ds = pts.map(p => Math.hypot(p[0] - cx, p[1] - cy)), R = ds.reduce((s, d) => s + d, 0) / n;
-  const sd = Math.sqrt(ds.reduce((s, d) => s + (d - R) ** 2, 0) / n) / R;
-  let sweep = 0; for (let k = 1; k < n; k++) { let d = Math.atan2(pts[k][1] - cy, pts[k][0] - cx) - Math.atan2(pts[k - 1][1] - cy, pts[k - 1][0] - cx); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; sweep += d; }
-  return R > 26 && sd < .32 && Math.abs(sweep) > Math.PI * 1.6 ? { x: cx, y: cy, r: R } : null;
-}
-function cxSling(b, ev) {
-  if (REDUCED) {   // with reduced motion, a circle takes you straight to the next case
-    const P = [[ev.clientX, ev.clientY]]; cxTrack(ev, e => P.push([e.clientX, e.clientY]), () => { if (!slingCircle(P)) return;
-      const here = COLLX.find(x => x.id === collRec), u = here ? rfUniOf(here) : cxUni, L = COLLX.filter(o => o.id !== collRec && rfUniOf(o) === u && cxSteps(o).length);
-      if (L.length) { collShow(L[Math.random() * L.length | 0].id); cxHandled("sling-ring"); } }); return; }
-  let { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, pts = [[ev.clientX, ev.clientY, performance.now()]], LIFE = 1300, OR = "255,150,40";
-  let up = 0, last = 0, portal = null, prev = performance.now();
-  const sp = [];
-  const frame = now => {
-    const dt = Math.min(.05, (now - prev) / 1000); prev = now;
-    g.clearRect(0, 0, W, H); g.lineCap = "round"; g.shadowColor = `rgb(${OR})`; g.shadowBlur = 12;
-    // the trace: sparks that burn where your finger went, then die away; drawn in five bands by age, one stroke each, so a long trace stays cheap
-    for (let band = 0; band < 5; band++) { const a = 1 - (band + .5) / 5, j = () => (Math.random() - .5) * 2.4; let any = false;
-      const glow = new Path2D(), core = new Path2D();
-      for (let k = 1; k < pts.length; k++) { const f = (now - pts[k][2]) / LIFE; if (f < band / 5 || f >= (band + 1) / 5) continue; any = true;
-        const [x0, y0] = pts[k - 1], [x1, y1] = pts[k]; glow.moveTo(x0 + j(), y0 + j()); glow.lineTo(x1 + j(), y1 + j()); core.moveTo(x0, y0); core.lineTo(x1, y1); }
-      if (!any) continue;
-      g.shadowBlur = 12; g.strokeStyle = `rgba(${OR},${.9 * a})`; g.lineWidth = 3; g.stroke(glow);
-      g.shadowBlur = 0; g.strokeStyle = `rgba(255,236,190,${a})`; g.lineWidth = 1.1; g.stroke(core); }
-    if (portal) {
-      const f = now - portal.t, open = easeIO(clamp01(f / SL_OPEN)), z = clamp01((f - SL_HOLD) / SL_ZOOM), ze = z * z * z;
-      const R = portal.r * open + (portal.max - portal.r) * ze, fade = 1 - clamp01((z - .75) / .25);
-      // the ring: arcs of sparks spinning around its edge, heavier as it rushes in
-      g.shadowBlur = 12;
-      for (let k = 0; k < 40; k++) { const q = now / 150 + k / 40 * Math.PI * 2 + Math.random() * .2, r = R + (Math.random() - .5) * (7 + 20 * ze);
-        g.strokeStyle = `rgba(${k % 3 ? OR : "255,230,160"},${.95 * fade})`; g.lineWidth = (1.4 + Math.random() * 1.8) * (1 + 3 * ze); g.beginPath(); g.arc(portal.x, portal.y, Math.max(1, r), q, q + .16 + Math.random() * .22); g.stroke(); }
-      // the sparks belong to the ring: they ride around it at its own spin, then fly off its edge along the spin, the way sparks leave a
-      // grinding wheel; the ones still riding grow with it when it rushes in
-      const SPIN = 1000 / 150;   // the ring's turn, in radians a second
-      portal.acc = (portal.acc || 0) + 420 * dt;   // so many a second, however fast the screen draws
-      if (z < .5 && f > 100) for (; portal.acc >= 1; portal.acc--) sp.push({ ride: 1, a: Math.random() * Math.PI * 2, dr: (Math.random() - .5) * 6, t: 0, hold: .12 + Math.random() * .35, life: .3 + Math.random() * .35 });
-      g.shadowBlur = 6; g.lineCap = "round";
-      for (let i = sp.length - 1; i >= 0; i--) { const s = sp[i]; s.t += dt;
-        if (s.ride) {
-          s.a += SPIN * dt; s.dr += 14 * dt; const r = R + s.dr * (1 + 3 * ze), a = Math.min(1, (s.hold - s.t) * 8 + .4) * fade;
-          g.strokeStyle = `rgba(255,${215 + (Math.random() * 40 | 0)},${150 + (Math.random() * 80 | 0)},${Math.max(0, a)})`; g.lineWidth = 1.5; g.beginPath(); g.arc(portal.x, portal.y, Math.max(1, r), s.a - .22, s.a); g.stroke();
-          if (s.t >= s.hold) {   // it lets go of the ring, flying off along the spin
-            const x = portal.x + Math.cos(s.a) * r, y = portal.y + Math.sin(s.a) * r, v = SPIN * r * (.55 + Math.random() * .3);
-            Object.assign(s, { ride: 0, x, y, vx: -Math.sin(s.a) * v + Math.cos(s.a) * 40, vy: Math.cos(s.a) * v + Math.sin(s.a) * 40, t: 0 }); }
-          continue; }
-        if (s.t > s.life) { sp.splice(i, 1); continue; }
-        s.vx *= 1 - 1.6 * dt; s.vy = s.vy * (1 - 1.6 * dt) + 260 * dt; s.x += s.vx * dt; s.y += s.vy * dt; const a = (1 - s.t / s.life) * fade;
-        g.strokeStyle = `rgba(255,${200 + (55 * a | 0)},${120 + (100 * a | 0)},${a})`; g.lineWidth = 1.3; g.beginPath(); g.moveTo(s.x, s.y); g.lineTo(s.x - s.vx * .045, s.y - s.vy * .045); g.stroke(); }
-      if (portal.view) portal.view.at(open, z, R);
-      if (f >= SL_HOLD + SL_ZOOM && !portal.done) { portal.done = true; if (portal.view) portal.view.land(); }
-      if (f >= SL_HOLD + SL_ZOOM + 300) { cv.remove(); return; }
-    } else if (up && now - up > LIFE) { cv.remove(); return; }
-    requestAnimationFrame(frame);
-  };
-  requestAnimationFrame(frame);
-  cxTrack(ev, e => {
-    const tn = performance.now(); pts.push([e.clientX, e.clientY, tn]);
-    if (Date.now() - last > 30) { last = Date.now(); sparkC(e.clientX, e.clientY, (Math.random() - .5) * 40, (Math.random() - .5) * 40 + 10, 0, 500, ORANGE_C); }
-  }, () => {
-    up = performance.now();
-    const c = slingCircle(pts); if (c) {
-      const { x: cx, y: cy, r: R } = c;
-      const p = { x: cx, y: cy, r: Math.max(R, 46), t: performance.now() };
-      p.max = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy)) + 30; p.view = slingView(p);
-      portal = p; haptic([20, 30, 20, 30, 60]); setTimeout(() => haptic([30, 20, 60]), SL_HOLD + SL_ZOOM * .6);
-    }
-  });
-}
-// what you see through the portal: the case it opens onto, drawn small and far off inside the ring, growing to fill the screen as you go
-// through; at the end the real panel opens that case and the view steps aside, so there's no jump
-function slingView(p) {
-  const here = COLLX.find(x => x.id === collRec), u = here ? rfUniOf(here) : cxUni;
-  const L = COLLX.filter(o => o.id !== collRec && rfUniOf(o) === u && cxSteps(o).length); if (!L.length) return null;
-  const to = L[Math.random() * L.length | 0], panel = document.getElementById("collPanel"), v = document.getElementById("collView"), y0 = panel.scrollTop, keep = collRec;
-  collRec = to.id; renderCx(); const html = v.innerHTML; collRec = keep; renderCx(); panel.scrollTop = y0;
-  const ov = panel.cloneNode(true), ovv = ov.querySelector("#collView"); ov.removeAttribute("id"); ov.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
-  ovv.innerHTML = html; ov.style.cssText = `display:block;overflow:hidden;z-index:90;pointer-events:none;opacity:0;transform-origin:${p.x}px ${p.y}px`;
-  document.body.appendChild(ov); ov.scrollTop = 0;
-  const dmin = Math.max(1, Math.min(p.x, innerWidth - p.x, p.y, innerHeight - p.y));
-  return {
-    at(open, z, R) {
-      if (!collOpen) { ov.remove(); return; }
-      // small and far off at first; it grows as you go in, and always fills the ring, so its edges never show
-      const s = Math.max(.5 + .5 * z * z, Math.min(1, R * .92 / dmin)), r = Math.max(0, R * .92) / s;
-      ov.style.opacity = open; ov.style.transform = `scale(${s})`; ov.style.clipPath = `circle(${r}px at ${p.x}px ${p.y}px)`;
-      ov.style.filter = z < 1 ? `brightness(${.75 + .25 * z}) saturate(${.8 + .2 * z})` : "";
-    },
-    land() { if (collOpen) { collShow(to.id); cxHandled("sling-ring", 900); } requestAnimationFrame(() => ov.remove()); }
-  };
-}
-
-/* ---------- the arc reactor: hold it and it powers up, lighting the file around it; let go and it powers down ---------- */
-function cxArc(b, ev) {
-  if (REDUCED) { cxHold(ev, 1400, () => cxHandled("arc")); return; }   // with reduced motion, a held charge still counts, without the light
-  if (b._arc) return;
-  const rec = b.closest(".co-rec"), obj = b.querySelector(".cx-obj"), glow = document.createElement("div");
-  glow.className = "fxl"; glow.style.cssText = "z-index:96;mix-blend-mode:screen"; document.body.appendChild(glow); rec.classList.add("arcon"); b._arc = 1;
-  let c = 0, up = false, last = performance.now(), hum = 0, full = false;
-  const frame = now => {
-    const dt = now - last; last = now; c = up ? Math.max(0, c - dt / 450) : Math.min(1, c + dt / 1400);
-    const cc = c < .97 && !up ? c * (.9 + .1 * Math.random()) : c, [cx, cy] = cxCenter(obj);
-    glow.style.background = `radial-gradient(circle at ${cx}px ${cy}px, rgba(235,250,255,${.5 * cc}) 0, rgba(140,210,255,${.3 * cc}) ${30 + 80 * cc}px, rgba(80,160,255,${.1 * cc}) ${90 + 260 * cc}px, rgba(80,160,255,0) ${160 + 560 * cc}px)`;
-    rec.style.setProperty("--arc", cc.toFixed(3));
-    obj.style.color = `rgb(${Math.round(190 + 65 * cc)},${Math.round(225 + 30 * cc)},255)`; obj.style.filter = `drop-shadow(0 0 ${6 + 22 * cc}px rgba(160,220,255,${.5 + .5 * cc})) brightness(${1 + .8 * cc})`;
-    if (!up && !full && c >= 1) { full = true; fxRing(cx, cy, 130, "#BFE6FF", 700, 0, 3); haptic([20, 30, 40]); cxHandled("arc", 900); }
-    if (!up && !full && now - hum > 150) { hum = now; haptic(6); }
-    if (up && c <= 0) { glow.remove(); rec.classList.remove("arcon"); rec.style.removeProperty("--arc"); obj.style.color = obj.style.filter = ""; b._arc = 0; return; }
-    requestAnimationFrame(frame);
-  };
-  requestAnimationFrame(frame);
-  cxTrack(ev, () => {}, () => { up = true; });
-}
 
 /* ---------- the Sokovia Accords: the document itself. Sign it with your finger, or refuse; either way it's on your file ---------- */
 function cxAccords() {
@@ -11934,16 +11743,8 @@ document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest(".tr-map") && trPick != null) { trPick = null; trWho(id); trDraw(id); }
 }, true);
 document.getElementById("collView").addEventListener("input", ev => { if (collMode !== "dc" || !ev.target.closest(".tr-ctl")) return; trPlay = false; trB = +ev.target.value; const pp = document.querySelector(`.tr [data-trc="pp"]`); if (pp) pp.innerHTML = TR_P; trLoop(collRec); });
-/* MOCKUP BEGIN: the Collection's objects move to their titles, and the sling ring works anywhere (test build only; mainprep cuts it).
-   With some 400 cases and only a few that answered to a touch, the live ones were all but impossible to find. So the Collection is a catalogue
-   again (the Tesseract stays: its Space Stone belongs to the stone hunt, hidden all over the app), and each object lives on the title it comes
-   from instead, held in any list the way WandaVision casts the Hex: each its own Classified file. Handle with care is gone. And the Watcher's
-   box shows you another reality instead of sending you somewhere */
-["darkhold", "sling-ring", "arc", "sokovia-accords"].forEach(k => delete CX_LIVE[k]);
-EGGS.splice(EGGS.findIndex(e => e[0] === "artifacts"), 1);
-EGGS.push(["darkhold", "The Darkhold", "The Book of the Damned waits in the Multiverse of Madness. Hold on to it.", "Hold Doctor Strange in the Multiverse of Madness in any list until the spell is cast.", 2],
-  ["accords", "The Sokovia Accords", "Civil War starts with a signature. Yours, or your refusal.", "Hold Captain America: Civil War in any list, then sign or refuse the Accords.", 1]);
-cxHandled = function (id, ms) { const k = { darkhold: "darkhold", "sokovia-accords": "accords" }[id]; if (k) found(k, ms); };
+/* ---------- the objects on their titles: the Darkhold and the Sokovia Accords live on the titles they come from, held in any list the way
+   WandaVision casts the Hex, each its own Classified file (in the Collection's 400 cases they were all but impossible to find) ---------- */
 // a held title keeps your finger: where it goes, and when it lifts (touch included, without the page scrolling under it)
 const heldTrack = (move, up) => {
   const mv = ev => { const p = ev.touches ? ev.touches[0] : ev; if (!p) return; if (ev.cancelable && ev.touches) ev.preventDefault(); move(p.clientX, p.clientY); };
@@ -11958,7 +11759,6 @@ Object.assign(ROW_EGGS, {
     cxDark(null, null, { scope, obj: o.firstChild, top: y, release: fn => heldTrack(() => {}, fn), end: heldGone(o) }); },
   "Captain America: Civil War": () => cxAccords()
 });
-EGGS.push(["sling", "Sling ring", "A sorcerer can open a door to anywhere, even another world. Keep circling.", "After Doctor Strange, draw three circles in one stroke anywhere in the app.", 1]);
 /* the sling ring, anywhere: after Doctor Strange, draw circles in one stroke on any page or in any box. The sparks catch once you've gone
    round once; at the third the portal opens where you drew, holds with its sparks riding the ring and the place it opens onto showing
    inside, then rushes in and lands you there: anywhere in the app. Nothing else moves you anywhere (the Watcher only shows you another
@@ -12003,7 +11803,7 @@ function slingLand(d) {
   // an index has to close through its own steps back first, or the way back would lead into it again
   if (collOpen) { closeColl(); setTimeout(go, 250); } else go();
 }
-// the portal, the same one the Collection's case opened: its ring of spinning sparks, the sparks that ride it and fly off, and inside it
+// the portal: its ring of spinning sparks, the sparks that ride it and fly off, and inside it
 // the place it opens onto, far off, coming closer as it rushes in
 function slingPortal(x, y, r, dest) {
   const { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, OR = "255,150,40", sp = [], t0 = performance.now(), max = Math.hypot(Math.max(x, W - x), Math.max(y, H - y)) + 30;
@@ -12068,7 +11868,7 @@ function slingPortal(x, y, r, dest) {
   document.addEventListener("touchstart", ev => { if (ev.touches.length === 1) begin(ev.touches[0].clientX, ev.touches[0].clientY, ev.target); else end(); }, { passive: true, capture: true });
   document.addEventListener("touchmove", ev => { if (ev.touches.length !== 1) return; move(ev.touches[0].clientX, ev.touches[0].clientY); if (pinned && ev.cancelable) ev.preventDefault(); }, { passive: false, capture: true });
   document.addEventListener("touchend", end, { passive: true, capture: true }); document.addEventListener("touchcancel", end, { passive: true, capture: true }); }
-// the burning trace your finger leaves once the ring is catching, the same sparks as the Collection's case
+// the burning trace your finger leaves once the ring is catching
 function slingTrace() {
   const { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = [], LIFE = 1100, OR = "255,150,40"; let done = 0, last = 0;
   const frame = now => { g.clearRect(0, 0, W, H); g.lineCap = "round"; g.shadowColor = `rgb(${OR})`;
@@ -12213,7 +12013,7 @@ function altBox(a) {
   const pin = c.querySelector(".pin"); if (pin && pin.lastElementChild) pin.lastElementChild.innerHTML = "";   // no Complete button
   return c;
 }
-shatter = function (x, y) {
+function shatter(x, y) {
   if (shattering || !openEntry) return;
   if (REDUCED) { found("shatter"); return; }
   shattering = true; haptic([60, 40, 20, 300, 80]);
@@ -12252,7 +12052,6 @@ shatter = function (x, y) {
     }, 3800);
   }, 650);
 };
-/* MOCKUP END */
 </script>
 </body>
 </html>
