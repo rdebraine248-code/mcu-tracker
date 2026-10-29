@@ -28,6 +28,7 @@ Paste this as the first message:
 - **Working branch `ccr-9703a988-d86jbb`** (it carries on from `ccr-260b58ec-boqbta`): the source. It holds `index.html` with its data
   placeholders still empty, `mockup-data/` (all the data, the build scripts and the tests) and this file. **Check this branch out**, not
   main. After every push to main it's synced with `git merge -s ours origin/main`, which keeps the source and records main's history.
+  `claude/gracious-cray-lhdt2k` is a mirror of it from the October 2026 chat: push both, so they stay identical.
 - Helper scripts written during a session (agent briefs, change appliers, the faction builder) live in that session's scratchpad and are
   gone afterwards. Everything they produced is in the repo: `audit_fix.json`, `raft_teams.json`, `index.html` and the audit records.
 
@@ -48,12 +49,17 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
 - **Pushing main** (only with the owner's explicit go-ahead, every time):
   1. `git worktree add --detach <dir> origin/main`.
   2. Copy `out/main.html` over its `index.html`, commit and `git push origin HEAD:main`. Remove the worktree.
-  3. Back on the working branch, run `git merge -s ours origin/main` and push the branch.
+  3. Back on the working branch, run `git merge -s ours origin/main` and push the branch (and its mirror).
   4. Check: `cmp <(git show origin/main:index.html) mockup-data/out/main.html` prints nothing.
 - **The mockup switch:** `const MOCK = true;` near the top of the script, with `body.mock` for CSS. `mainprep.py` flips it to false for
-  main and asserts that it's there. Mockups hang off this switch. None are pending.
-- **The published test build** is an artifact at https://claude.ai/artifact/FpzxqjpMT8r7jSvb69mNKu. It's at v40 (the Raft organization
-  mockup), which is behind main. Only republish it when the owner asks for a mockup.
+  main and asserts that it's there. Mockups go between `/* MOCKUP BEGIN ... */` and `/* MOCKUP END */` lines (CSS and script), which
+  `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. None are pending.
+- **Promoting a mockup to main:** don't just delete its markers. A mockup block often overrides main code at load (reassigns a
+  function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
+  rewrite its comments as main's, and update or replace the tests for what it removed.
+- **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
+  is retired). It's at v57 and matches main. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  and publish to that URL.
 
 ### Tests
 
@@ -64,7 +70,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b ct38 ct39 ct40 ct41 ct42 ct43 ct44 ct45 ct46 ct47 ct48 ct49 ct50 ct51 ct52 ct53; do node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 61); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -90,6 +96,14 @@ node tests/ct35.js                                                              
 | ct51 | The Sort switch: First seen or A to Z, one setting for the three indexes |
 | ct52 | Universe tabs named by the Sacred Timeline's rule; holding the Incursions line marks them all; the Doom egg stays on Doomsday's title |
 | ct53 | First seen and Last seen by release order, season by season; the Void's Juggernaut merged into the Last Stand's file |
+| ct54 | Search within the tab you're on; the Defenders in two Parts; pills take taps only while open; the Atlas reaches the pole |
+| ct55 | Overlays pin the page behind them and give it back; every index file names its universe |
+| ct56 | The S.H.I.E.L.D. keycard and the Level 7 files |
+| ct57 | Back returns to the file you came from, across indexes |
+| ct58 | Damage Control's incident reports: search, grouping, sorting, links into found indexes |
+| ct59 | Every index opens with its Atlas place (Damage Control with Midtown, the Collector with Knowhere) |
+| ct60 | The Space Stone in the Tesseract's case |
+| ct61 | The Darkhold and the Accords held on their titles; only the Tesseract live in the Collection; the sling ring lands anywhere; the Watcher's other realities, in his box and in Beyond the MCU |
 
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. Test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled. Screenshots after marking many titles watched: wait about 9 seconds, or the
@@ -148,6 +162,13 @@ insignia celebration covers the page.
     - `overrides`, `flags_override` and `manual`: my rulings and hand fixes.
     - `owner_calls`: the owner's decisions and the open questions.
   - Log and timeline fixes went straight into `index.html` (DATA, DOSSIERS, SAGA).
+- **Names:** `names_common.json` (id to the name the story mostly calls them, with the real name kept for its own row) and
+  `names_fix.json` (every other name said on screen, staged; `hold` renames Collection holders to match). The sweep and its re-check are
+  in `names_sweep.json`.
+- **Writing pass:** `prose_coll.json`, `prose_raft.json` and `prose_cp.json` (file id to `[old text, new text]`, matched on the text as
+  built; the build reports any line that no longer matches).
+- **In index.html itself:** Damage Control's reports (`DC`, 234 of them), the tactical replays (`TR`, seven battles), the Level 7 files,
+  the Watcher's other realities (`ALT_BOXES`) and the easter eggs (`EGGS`, `ROW_EGGS`, `BOX_ROW_EGGS`).
 - **Organizations:** `opp/org_*.json`. Villainous groups go to the Raft, heroic ones to the Compound. Group files carry `grp:1`.
 - **Ids:** a prefix says the universe tab: none for MCU, `st-` for street-level (also on the MCU tab), `by-` Beyond, `sv-` Spider-Verse,
   `fox-` FoX-Men, `pr-` Pruned.
@@ -218,7 +239,31 @@ insignia celebration covers the page.
     current one lit (`tmNow`) and the rest marked Former; Independent shows only when it's where they stand now. A villain's header names
     the current faction, a hero's the current team. A tag opens that group's roster, with a Group file button when the group has its own
     file (`rfGroupFile`, `cpGroupFile`). Group by Faction (Raft) or Team (Compound).
-  - **Hero and villain files of the same person link both ways** ("Also on file": `rf` on the hero file), each shown only once that
+  - **Names on files:** a file goes by the name the story mostly calls them (Red Skull, Captain Carter); where that's an alias, the real
+  name gets its own Real name row, staged to the title that first says it, and searchable (`rnNow`, `alNow`). Aliases have their own row.
+- **Damage Control** (in Midtown on the Atlas, hi-vis green): incident reports in every universe, under the Raft's tabs, with search,
+  grouping (year, title, involved, team) and links into the indexes you've found. Seven battle reports carry a tactical replay
+  (`trHTML`, `trDraw`): everyone on the field moving beat by beat, armies as swarms, the beat in words underneath.
+- **Back always returns to where you were**, across indexes (`collJump`, `collRestore`). Every overlay pins the page behind it.
+- **S.H.I.E.L.D. Level 7:** a sideways swipe on the S.H.I.E.L.D. box's stripes brings up a reader with your own Agent ID; swipe it
+  through for the Level 7 files, each tied to one title.
+- **The Atlas** has sector codes when zoomed right in (A1 to J24 on the Earth), on every map but the Incursions wall.
+- **Held objects:** holding Doctor Strange in the Multiverse of Madness in any list casts the Darkhold (`cxDark` with a scope); holding
+  Captain America: Civil War brings up the Sokovia Accords to sign or refuse (`cxAccords`). Each is its own Classified file. In the
+  Collection only the Tesseract answers to a touch (`CX_LIVE`): carry its mark off for the Space Stone.
+- **The sling ring** (`slingDest`, `slingLand`, `slingPortal`): after Doctor Strange, three circles in one stroke anywhere open a portal
+  and land you somewhere you've been. First a kind (a box, a profile, the Sacred Timeline, an Atlas place, an index file, a page, one in
+  six each), then which one (an Atlas place's realm first, an index file's index first), never where you are. The page is held still
+  once the stroke is a circle, and a mouse stroke doesn't click or select what it's drawn over.
+- **The Watcher's other realities** (`shatter`, `ALT_BOXES`, `altBox`): holding in the Watcher's box or Beyond the MCU cracks the box
+  away onto one of fifteen other realities' boxes (Captain Carter, Strange Supreme, Star-Lord T'Challa, Killmonger, the Hydra Stomper,
+  Infinity Ultron, the Queen of the Dead, Zombie Captain America, Zombie Spider-Man, Party Thor, Nebula of the Nova Corps, Hela of the
+  Ten Rings, Kahhori, Storm, Blade Knight), in turn, each a twist on its hero's box with made-up titles (their own and other heroes'
+  they turn up in, the same name in every box that shares it), nothing to tick. A few seconds later it shatters back. Its pieces are cut
+  while it shows, stacked over it, so the break never blinks.
+- **The Nick Fury box:** two fingers down throw Coulson's cards (blood on them after The Avengers); two fingers up (or dragging his name
+  up with a mouse) play his last page: the pager flicked up, the box turned to dust, her star on the screen, the box gathered back.
+- **Hero and villain files of the same person link both ways** ("Also on file": `rf` on the hero file), each shown only once that
     index is discovered and its file has a watched title.
 
 ## Standing rules from the owner
@@ -273,6 +318,14 @@ insignia celebration covers the page.
 - **Collection chain of custody:** the holder is who has the object at the end of the step. See `CUSTODY_FORMAT.md`.
 - Keep real team names, and a place's real name even when the story moves around it (Area 55 in Venom: The Last Dance). Revealed names
   stay revealed. Empty states say "No data." Every TV show gets a season subpage.
+- **A file goes by the name the story mostly calls them**, with the real name on its own row (owner, October 2026).
+- **Current context matters:** the Infinity Stones are destroyed ("I used the stones to destroy the stones"); the Time Heist's borrowed
+  copies stay in their histories but never set where a stone stands now.
+- **Animations need life, a reason and the right timing.** A sliding picture with no character is rejected. Re-enact the scene it comes
+  from (Fury's last page plays the Infinity War scene), and record it for the owner before asking for approval.
+- **Answer with specifics.** "What's on main" wants a list of what, not a count.
+- **No unapproved additions, no rehashing.** Build what was asked; offer ideas as ideas.
+- **Don't duplicate a feature.** One thing moves you somewhere (the sling ring); the Watcher only shows another reality.
 - **Sources:** Wikipedia raw pages (`https://en.wikipedia.org/w/index.php?title=<Page>&action=raw`) and the fan wikis, which answer only
   through their API (`https://<wiki>.fandom.com/api.php?action=parse&page=<Page>&prop=wikitext&format=json`; marvelcinematicuniverse,
   marvel, spiderman, xmenmovies, marvelanimated, sonys-spider-man-universe). Their `/wiki/` pages return 403. Space requests a second or
@@ -309,6 +362,16 @@ These happened in earlier chats. Each cost the owner time.
     file. A completeness check compares each file with its subject's real appearances.
 13. **Letting rulings drift between agents.** Re-checkers ruled differently on Agents of S.H.I.E.L.D. seasons 6 and 7 and on Life Model
     Decoys. When a convention comes up, write it into every brief at once and override the stray verdicts.
+14. **Easing on a whole multi-keyframe animation.** It warps every keyframe's timing (Fury's pager dropped early and vanished
+    mid-exit). Put the easing on each keyframe.
+15. **Answering with a count.** The owner asked what was on main and got "six". Give the list.
+16. **Building a feature twice.** The sling ring and the Watcher both teleported. Check what already does the job first.
+17. **Building copies at the moment of a swap.** The Watcher's return built ten full-screen copies in the same frame it removed the
+    original, so the phone blinked. Build the copies early, stacked over the original, and only start them moving at the swap.
+18. **Copies that miss the box's variables.** `pinCopy` dropped the box's colour variables, so the ticks' boxes went blank on every
+    effect that copies a box. A copy carries the box's custom properties.
+19. **Testing with a mouse only where a finger is the real input, and the reverse.** A circle drawn with a mouse clicked the box under
+    it. Check both, and remember headless can't scroll natively, so touch scrolling needs the owner's phone.
 
 ## Open items
 
@@ -320,12 +383,37 @@ These happened in earlier chats. Each cost the owner time.
 - **A small gap:** She-Hulk episode 8 reveals the Sokovia Accords were repealed (the Accords' file has no step for it). Revisit Encore
   once Doomsday is out.
 - No mockups are pending.
+- **Zombie Spider-Man** (a Watcher reality, the owner's approved name): in What If...? S1 Peter is a survivor, and the app's own Marvel
+  Zombies data has him killed by the horde without saying he turns. The owner was told and kept the name; revisit if they ask.
+- `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
+- **Cut in October 2026 (don't bring back unasked):** J.A.R.V.I.S. search, Sound and the sound board, the War Room, the TVA and Wakanda
+  skins, the clearance exams, Eyes Only, the Eye of Agamotto, the arc reactor, the Aether, the Rolex and the other eleven touchable
+  cases, Handle with care, and the Watcher's jump elsewhere.
 - Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once they're
   out and watched.
 - Decided and closed: Ant-Man and the Wasp stays out of the S.H.I.E.L.D. box; Bucky's hero file keeps HYDRA; Gamora and Nebula keep the
   Children of Thanos.
 
-## This round (October 2026), all on main
+## The second October 2026 round, all on main (newest last)
+
+- Search within the tab; the Defenders in two Parts; pills let taps through; the Atlas reaches the pole; a box's list waits for its
+  first line.
+- Insignia: The Avengers opens its heroes' own. Overlays pin the page; every index file names its universe.
+- Names and aliases for everyone in the Raft and the Compound; ranks back in titles with ranked forms as aliases; the Incursions box
+  quote.
+- The S.H.I.E.L.D. Level 7 keycard; Fury's egg renamed "They were in his jacket"; Atlas sector codes.
+- Damage Control: 234 incident reports in every universe (Morbius, Madame Web and Kraven included), hi-vis green, archives in order
+  (Compound, Raft, Damage Control, Collection); back returns to the file you came from; every index opens with its place.
+- Captain America's insignia also unlocks with The Avengers. The writing passes: 376 Collection steps and 812 Raft and Compound steps
+  rewritten to read naturally with the same facts.
+- Coulson's blood on Fury's cards after The Avengers; Level 7's pill waits for the files to close; the Space Stone in the Tesseract's
+  case; the hints pass (every egg and stone hint in one voice, checked against the code).
+- The Battle of Titan's report; the stones' cases read Destroyed; every file by the name the story mostly calls them (Real name rows);
+  Captain Carter by that name.
+- Tactical replays in seven battle reports; Fury's box gestures (cards down, last page up).
+- The Darkhold and the Sokovia Accords on their titles, the sling ring anywhere, the Watcher's fifteen realities, the Aether cut (`b846e30`).
+
+## The first October 2026 round, all on main
 
 - **The lore audit** (`51a7b95`): 705 findings with sources over every file, log and both timeline orders, each re-checked. Chapters 3
   to 6 tell one story each. The One-Shot comes after Agent Carter S2. Completed once ever.
