@@ -12043,27 +12043,35 @@ function slingPortal(x, y, r, dest) {
 }
 // following a stroke anywhere: how far it has wound round its own middle. Touches are followed through touch events, which keep coming
 // even while the page scrolls under the finger
-{ let pts = null, trace = null, fired = false, busy = false;
+{ let pts = null, trace = null, fired = false, busy = false, hold = null, pinned = false;
   const skip = t => t.closest('input, textarea, select, [contenteditable], .acc-sig, .cx-big[data-live], #gate');
-  const begin = (x, y, t) => { if (busy || !atlSeenT("Doctor Strange") || skip(t)) { pts = null; return; } pts = [[x, y, performance.now()]]; fired = false; };
+  // where the page and whatever scrolls under the finger stood when the stroke began: once it's a circle they're held there, so drawing
+  // doesn't scroll the page away (a phone won't stop a scroll already under way, so it's put back instead, every move)
+  const scroller = t => { for (let e = t; e && e !== document.body; e = e.parentElement) { const cs = getComputedStyle(e); if (/(auto|scroll)/.test(cs.overflowY) && e.scrollHeight > e.clientHeight) return e; } return null; };
+  const pin = () => { if (!hold) return; window.scrollTo(hold.wx, hold.wy); if (hold.el) hold.el.scrollTop = hold.top; };
+  const begin = (x, y, t) => { if (busy || !atlSeenT("Doctor Strange") || skip(t)) { pts = null; return; } pts = [[x, y, performance.now()]]; fired = false; pinned = false;
+    const el = scroller(t); hold = { wx: window.scrollX, wy: window.scrollY, el, top: el ? el.scrollTop : 0 }; };
   const wound = () => { const n = pts.length; if (n < 16) return { turns: 0 }; const cx = pts.reduce((s, p) => s + p[0], 0) / n, cy = pts.reduce((s, p) => s + p[1], 0) / n, ds = pts.map(p => Math.hypot(p[0] - cx, p[1] - cy)), R = ds.reduce((s, d) => s + d, 0) / n;
     const sd = Math.sqrt(ds.reduce((s, d) => s + (d - R) ** 2, 0) / n) / (R || 1); let sw = 0;
     for (let k = 1; k < n; k++) { let d = Math.atan2(pts[k][1] - cy, pts[k][0] - cx) - Math.atan2(pts[k - 1][1] - cy, pts[k - 1][0] - cx); if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2; sw += d; }
     return { turns: R > 28 && sd < .42 ? Math.abs(sw) / (Math.PI * 2) : 0, x: cx, y: cy, r: R }; };
   const move = (x, y) => { if (!pts || fired) return; pts.push([x, y, performance.now()]); if (pts.length > 420) pts.shift();
     const w = wound();
+    if (w.turns >= .6 && !pinned) { pinned = true; addEventListener("scroll", pin, true); }   // it's a circle: the page holds still from here
+    if (pinned) pin();
     if (w.turns >= 1 && !trace && !REDUCED) trace = slingTrace();   // it's catching: the sparks show from here
     if (trace) trace.add(x, y);
     if (w.turns >= SLING_N) { fired = true; busy = true; const dest = slingDest(); if (trace) { trace.end(); trace = null; }
       if (!dest) { busy = false; return; }
       if (REDUCED) { slingLand(dest); found("sling"); busy = false; return; }
-      slingPortal(w.x, w.y, w.r, dest); setTimeout(() => { busy = false; }, SL_HOLD + SL_ZOOM + 600); } };
-  const end = () => { pts = null; if (trace) { trace.end(); trace = null; } };
+      slingPortal(w.x, w.y, w.r, dest); setTimeout(() => { busy = false; }, SL_HOLD + SL_ZOOM + 600);
+      setTimeout(() => { if (pinned) { pinned = false; removeEventListener("scroll", pin, true); } }, SL_HOLD + SL_ZOOM - 100); } };   // it lets the page go before it lands you somewhere else
+  const end = () => { pts = null; if (pinned) { pinned = false; removeEventListener("scroll", pin, true); } if (trace) { trace.end(); trace = null; } };
   document.addEventListener("pointerdown", ev => { if (ev.pointerType !== "touch") begin(ev.clientX, ev.clientY, ev.target); }, true);
   document.addEventListener("pointermove", ev => { if (ev.pointerType !== "touch" && ev.buttons) move(ev.clientX, ev.clientY); }, true);
   document.addEventListener("pointerup", ev => { if (ev.pointerType !== "touch") end(); }, true);
   document.addEventListener("touchstart", ev => { if (ev.touches.length === 1) begin(ev.touches[0].clientX, ev.touches[0].clientY, ev.target); else end(); }, { passive: true, capture: true });
-  document.addEventListener("touchmove", ev => { if (ev.touches.length === 1) move(ev.touches[0].clientX, ev.touches[0].clientY); }, { passive: true, capture: true });
+  document.addEventListener("touchmove", ev => { if (ev.touches.length !== 1) return; move(ev.touches[0].clientX, ev.touches[0].clientY); if (pinned && ev.cancelable) ev.preventDefault(); }, { passive: false, capture: true });
   document.addEventListener("touchend", end, { passive: true, capture: true }); document.addEventListener("touchcancel", end, { passive: true, capture: true }); }
 // the burning trace your finger leaves once the ring is catching, the same sparks as the Collection's case
 function slingTrace() {
@@ -12078,14 +12086,17 @@ function slingTrace() {
 }
 /* the Watcher, reworked: hold in his box and it cracks and falls away, but behind it is another reality's box: a hero as they are somewhere
    else in the multiverse, drawn as their box would be. It's only a glimpse (nothing in it can be pressed); a few seconds later that reality
-   cracks too and shatters back to the Watcher. A different reality each time. No quote line yet: each has to be a real line, checked first */
+   cracks too and shatters back to the Watcher. A different reality each time. Its titles are that reality's own, the films and shows they
+   lead or turn up in there, so there's nothing in it you could have watched: no ticks, no bar. No quote line yet */
 const ALT_BOXES = [
-  { title: "Captain Carter", rows: ["What If...? S1", "What If...? S2", "What If...? S3"], fg: "#F2F4F8", box: "#FFFFFF",
+  { title: "Captain Carter", fg: "#F2F4F8", box: "#FFFFFF",
+    rows: ["Captain Carter: The First Avenger", "The Avengers", "Captain Carter: The Winter Soldier", "Avengers: Age of Ultron", "Captain Carter: Civil War", "Avengers: Infinity War", "Guardians of the Multiverse", "Doctor Strange in the Multiverse of Madness", "Captain Carter: Brave New World"],
     style: "background-image: radial-gradient(rgba(255,255,255,0.16) 0.9px, transparent 1.3px); background-size: 26px 26px; background-position: 13px 13px; position: relative; background-color: #0B1F4A; border: 2px solid #C8102E",
     decor: '<div aria-hidden="true" style="height: 8px; margin: -14px -16px 10px -16px; background: repeating-linear-gradient(90deg,#C8102E 0 14px,#FFFFFF 14px 28px,#012169 28px 42px)"></div>',
     h2: "margin: 0; font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-weight: 400; font-size: 30px; line-height: 1.1; color: #FFFFFF; letter-spacing: 1.5px",
     emb: '<span class="emb"><svg viewBox="0 0 64 64" width="64" height="64"><defs><clipPath id="altUJ"><circle cx="32" cy="32" r="26"/></clipPath></defs><g clip-path="url(#altUJ)"><rect width="64" height="64" fill="#012169"/><path d="M0 0L64 64M64 0L0 64" stroke="#FFFFFF" stroke-width="10"/><path d="M0 0L64 64M64 0L0 64" stroke="#C8102E" stroke-width="4"/><path d="M32 0V64M0 32H64" stroke="#FFFFFF" stroke-width="14"/><path d="M32 0V64M0 32H64" stroke="#C8102E" stroke-width="8"/></g><circle cx="32" cy="32" r="26" fill="none" stroke="#C9D0DA" stroke-width="2.5"/></svg></span>' },
-  { title: "Strange Supreme", rows: ["What If...? S1", "What If...? S2", "What If...? S3"], fg: "#EBDCD9", box: "#E8584C", cls: "mandala",
+  { title: "Strange Supreme", fg: "#EBDCD9", box: "#E8584C", cls: "mandala",
+    rows: ["Doctor Strange", "Doctor Strange: Time Runs Out", "Avengers: Absorbed", "Strange Supreme", "Doctor Strange in the Multiverse of One", "Guardians of the Multiverse", "Strange Supreme: The Forge", "Doctor Strange: Requiem"],
     style: "position: relative; background-color: #140A0E; border: 2px solid #8E1B2E",
     decor: '<div aria-hidden="true" style="height: 8px; margin: -14px -16px 10px -16px; background: linear-gradient(90deg,#4A0D16,#C0392B 50%,#4A0D16)"></div>',
     h2: "margin: 0; font-family: 'Fraunces', Georgia, serif; font-size: 25px; line-height: 1.1; color: #E8584C; font-style: italic; font-weight: 700",
@@ -12100,10 +12111,10 @@ function altBox(a) {
   const wm = c.querySelector(".pwm"); if (wm) { wm.innerHTML = typeof a.emb === "function" ? a.emb() : a.emb; wm.classList.remove("anon"); wm.style.filter = a.embFilter || ""; }
   const h = c.querySelector("h2"); h.setAttribute("style", a.h2); h.className = "big"; h.textContent = a.title;
   const hr = c.querySelector(".hrow"); while (hr.nextElementSibling && !hr.nextElementSibling.classList.contains("pbar")) hr.nextElementSibling.remove();   // no accent, no quote
-  const seen = anyChecked("What If...?"), tick = lum(a.box) > 0.6 ? "#111111" : "#FFFFFF", ul = c.querySelector(".list"), tpl = ul.querySelector("li");
-  if (tpl) ul.innerHTML = a.rows.map(t => { const li = tpl.cloneNode(true), b = li.querySelector(".row"); b.dataset.t = t; b.style.color = a.fg; b.setAttribute("aria-pressed", seen);
-    li.querySelector(".t").textContent = t; const sv = li.querySelector(".box svg"); if (sv) { if (seen) sv.querySelector("path").setAttribute("stroke", tick); else sv.remove(); } return li.outerHTML; }).join("");
-  const bar = c.querySelector(".pbar span"); if (bar) { bar.style.width = seen ? "100%" : "0%"; bar.style.background = a.box; }
+  const ul = c.querySelector(".list"), tpl = ul.querySelector("li");
+  if (tpl) ul.innerHTML = a.rows.map(t => { const li = tpl.cloneNode(true), b = li.querySelector(".row"); b.dataset.t = t; b.style.color = a.fg; b.setAttribute("aria-pressed", "false");
+    li.querySelector(".t").textContent = t; const sv = li.querySelector(".box svg"); if (sv) sv.remove(); return li.outerHTML; }).join("");
+  const bar = c.querySelector(".pbar"); if (bar) bar.remove();
   const pin = c.querySelector(".pin"); if (pin && pin.lastElementChild) pin.lastElementChild.innerHTML = "";   // no Complete button
   return c;
 }
