@@ -414,6 +414,7 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
   background:linear-gradient(90deg, rgba(220,225,235,0), #F4F7FB 22%, #B9C3D3 65%, rgba(185,195,211,0)); box-shadow:0 0 0 1px rgba(20,25,35,.35), 0 0 10px rgba(230,236,245,.85); }
 .fx-crack{ position:fixed; z-index:99; pointer-events:none; height:1.6px; transform-origin:0 50%; background:linear-gradient(90deg, rgba(255,255,255,.95), rgba(210,225,255,.55)); box-shadow:0 0 4px rgba(200,220,255,.9); }
 .fx-shard{ position:fixed; inset:0; z-index:98; pointer-events:none; overflow:hidden; }
+.fx-lock{ position:fixed; inset:0; z-index:100; touch-action:none; }   /* over an effect you only watch: taps and scrolls don't reach the box under it */
 .fx-band{ position:fixed; left:0; right:0; z-index:98; pointer-events:none; overflow:hidden; }
 .fx-clone{ position:absolute; margin:0 !important; pointer-events:none; }
 .fx-panelcopy{ position:absolute !important; inset:0 !important; z-index:auto !important; overflow:hidden !important; background:transparent !important; pointer-events:none; }
@@ -12018,6 +12019,7 @@ function shatter(x, y) {
   if (shattering || !openEntry) return;
   if (REDUCED) { found("shatter"); return; }
   shattering = true; haptic([60, 40, 20, 300, 80]);
+  const lock = document.createElement("div"); lock.className = "fx-lock"; document.body.appendChild(lock);   // nothing under the glimpse can be pressed, the finger that held included
   state.altIx = ((state.altIx ?? -1) + 1) % ALT_BOXES.length; persist(); const spec = ALT_BOXES[state.altIx], alt = altBox(spec);
   const fam = /font-family: *([^;]+)/.exec(spec.h2); if (fam && document.fonts) document.fonts.load(`30px ${fam[1]}`);   // its name's face, ready before it shows, so the name doesn't jump when it loads
   const W = innerWidth, H = innerHeight, R = Math.hypot(W, H), cracks = [];
@@ -12050,7 +12052,7 @@ function shatter(x, y) {
       crackAt(cx, cy, 0, sp2);
       setTimeout(() => {
         fall(shards2); alt.remove(); clearCracks(); haptic([80, 40, 120]);
-        setTimeout(() => { shattering = false; found("shatter"); }, 1800);
+        setTimeout(() => { shattering = false; lock.remove(); found("shatter"); }, 1800);
       }, 600);
     }, 3800);
   }, 650);
