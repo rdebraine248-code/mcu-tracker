@@ -4369,7 +4369,7 @@ document.getElementById("collView").addEventListener("click", ev => {
 
 // cases you can handle in the Collection: what a press on the case does
 const CX_LIVE = { tesseract: (b, ev) => { const x = ev.clientX, y = ev.clientY; cxHold(ev, 450, () => cxTess(x, y, b)); },
-  darkhold: (b, ev) => cxDark(b, ev), "sling-ring": (b, ev) => cxSling(b, ev), arc: (b, ev) => cxArc(b, ev), aether: (b, ev) => cxAether(b, ev), "sokovia-accords": () => {} };   // the Accords open on a tap
+  darkhold: (b, ev) => cxDark(b, ev), "sling-ring": (b, ev) => cxSling(b, ev), arc: (b, ev) => cxArc(b, ev), "sokovia-accords": () => {} };   // the Accords open on a tap
 const CX_SET = Object.keys(CX_LIVE);   // handle them all for the Classified file
 document.getElementById("collView").addEventListener("pointerdown", ev => {
   const b = ev.target.closest(".cx-big[data-live]"); if (!b || ev.button > 0) return;
@@ -6810,7 +6810,7 @@ const EGGS = [
   ["sokovia", "Sokovia", "Somewhere on the map, a city is lifting into the sky.", "In the Atlas, hold Sokovia.", 1],
   ["titanmoon", "All that for a drop of blood", "On Titan, Thanos has a moon to throw.", "In the Atlas Cosmos, hold Titan.", 1],
   ["collector", "The Collector", "Someone on Knowhere keeps things.", "In the Atlas Cosmos, tap Knowhere and visit the Collector.", 1],
-  ["artifacts", "Handle with care", `A few of the Collector's pieces answer to a touch. There are ${CX_SET.length}.`, "In the Collection: carry the Tesseract off and let go, hold the Darkhold until its spell is cast, sign or refuse the Sokovia Accords, draw a circle starting on the sling rings, hold the arc reactor until it's charged, and drag the Aether well out of its case.", 1],
+  ["artifacts", "Handle with care", `A few of the Collector's pieces answer to a touch. There are ${CX_SET.length}.`, "In the Collection: carry the Tesseract off and let go, hold the Darkhold until its spell is cast, sign or refuse the Sokovia Accords, draw a circle starting on the sling rings, and hold the arc reactor until it's charged.", 1],
   ["compound", "The Avengers Compound", "Upstate, the team keeps a file on everyone.", "In the Atlas, tap the Avengers Compound and open its personnel files.", 1],
   ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "In the Atlas, tap the Raft and open its threat registry.", 1],
   ["damagecontrol", "Damage Control", "Someone in Midtown cleans up after the heroes.", "In the Atlas, open New York, tap Midtown and open the incident reports.", 1],
@@ -11574,40 +11574,6 @@ function cxArc(b, ev) {
   cxTrack(ev, () => {}, () => { up = true; });
 }
 
-/* ---------- the Aether: touch it and it pours out after your finger, a dark red liquid that won't stay still; let go and it drains back in ---------- */
-// it can also run from anywhere (o): the stone it pours from (obj), where the finger is (x, y) and how to follow it (track)
-function cxAether(b, ev, o = {}) {
-  const host = b || o.obj, trk = o.track || ((mv, up) => cxTrack(ev, e => mv(e.clientX, e.clientY), up));
-  if (REDUCED) { const [hx, hy] = cxCenter(o.obj || b.querySelector(".cx-obj")); let far = 0; trk((x, y) => { far = Math.max(far, Math.hypot(x - hx, y - hy)); }, () => { if (far > 140) cxHandled("aether"); if (o.end) o.end(); }); return; }   // drawn out, without the liquid
-  if (host._ae) return; host._ae = 1;
-  // the drops are drawn hard-edged and the goo filter melts them together, so they run like one liquid
-  if (!document.getElementById("cxGoo")) document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="cxGoo"><feGaussianBlur stdDeviation="7"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/></filter></svg>`);
-  const obj = o.obj || b.querySelector(".cx-obj"), { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, P = [];
-  cv.style.filter = "url(#cxGoo) drop-shadow(0 0 10px rgba(210,20,40,.75))";
-  let px = ev ? ev.clientX : o.x, py = ev ? ev.clientY : o.y, up = 0;
-  obj.style.filter = "drop-shadow(0 0 16px rgba(220,20,40,.95))"; haptic([10, 30, 10]);
-  const frame = now => {
-    const [hx, hy] = cxCenter(obj); g.clearRect(0, 0, W, H);
-    if (!up) for (let k = 0; k < 4 && P.length < 320; k++) P.push({ x: hx + (Math.random() - .5) * 16, y: hy + (Math.random() - .5) * 16, vx: (Math.random() - .5) * 2, vy: (Math.random() - .5) * 2, r: 5 + Math.random() * 7, ph: Math.random() * 6.28 });
-    for (let i = P.length - 1; i >= 0; i--) {
-      const q = P[i], tx = up ? hx : px, ty = up ? hy : py, dx = tx - q.x, dy = ty - q.y, d = Math.hypot(dx, dy) || 1, k = up ? 1.2 : 1;
-      q.vx = q.vx * .86 + dx / d * k + Math.sin(q.y * .015 + now * .002 + q.ph) * .8;
-      q.vy = q.vy * .86 + dy / d * k + Math.cos(q.x * .015 + now * .0018 + q.ph) * .8;
-      q.x += q.vx; q.y += q.vy;
-      if (up && (d < 12 || now - up > 1800)) { P.splice(i, 1); continue; }
-      if (!up && d < 18 && Math.random() < .08) { q.x = hx + (Math.random() - .5) * 16; q.y = hy + (Math.random() - .5) * 16; q.vx = q.vy = 0; }   // a steady stream from the case to your finger
-      const sh = (Math.sin(now * .003 + q.ph) + 1) / 2;   // dark red to near black, so the liquid churns
-      g.fillStyle = `rgb(${Math.round(60 + 110 * sh)},${Math.round(4 + 8 * sh)},${Math.round(10 + 14 * sh)})`;
-      g.beginPath(); g.arc(q.x, q.y, q.r, 0, Math.PI * 2); g.fill();
-    }
-    if (up && !P.length) { cv.remove(); obj.style.filter = ""; host._ae = 0; if (o.end) o.end(); return; }
-    requestAnimationFrame(frame);
-  };
-  requestAnimationFrame(frame);
-  let far = 0;   // it counts once you've drawn it well out of its case
-  trk((x, y) => { px = x; py = y; const [hx, hy] = cxCenter(obj); far = Math.max(far, Math.hypot(px - hx, py - hy)); }, () => { up = performance.now(); if (far > 140) cxHandled("aether", 1600); });
-}
-
 /* ---------- the Sokovia Accords: the document itself. Sign it with your finger, or refuse; either way it's on your file ---------- */
 function cxAccords() {
   if (document.querySelector(".acc-ov")) return;
@@ -11973,51 +11939,75 @@ document.getElementById("collView").addEventListener("input", ev => { if (collMo
    again (the Tesseract stays: its Space Stone belongs to the stone hunt, hidden all over the app), and each object lives on the title it comes
    from instead, held in any list the way WandaVision casts the Hex: each its own Classified file. Handle with care is gone. And the Watcher's
    box shows you another reality instead of sending you somewhere */
-["darkhold", "sling-ring", "arc", "aether", "sokovia-accords"].forEach(k => delete CX_LIVE[k]);
+["darkhold", "sling-ring", "arc", "sokovia-accords"].forEach(k => delete CX_LIVE[k]);
 EGGS.splice(EGGS.findIndex(e => e[0] === "artifacts"), 1);
 EGGS.push(["darkhold", "The Darkhold", "The Book of the Damned waits in the Multiverse of Madness. Hold on to it.", "Hold Doctor Strange in the Multiverse of Madness in any list until the spell is cast.", 2],
-  ["accords", "The Sokovia Accords", "Civil War starts with a signature. Yours, or your refusal.", "Hold Captain America: Civil War in any list, then sign or refuse the Accords.", 1],
-  ["aether", "The Aether", "In The Dark World, the Aether won't stay where it's put.", "Hold Thor: The Dark World in any list, then drag the Aether well away.", 1]);
-cxHandled = function (id, ms) { const k = { darkhold: "darkhold", "sokovia-accords": "accords", aether: "aether" }[id]; if (k) found(k, ms); };
+  ["accords", "The Sokovia Accords", "Civil War starts with a signature. Yours, or your refusal.", "Hold Captain America: Civil War in any list, then sign or refuse the Accords.", 1]);
+cxHandled = function (id, ms) { const k = { darkhold: "darkhold", "sokovia-accords": "accords" }[id]; if (k) found(k, ms); };
 // a held title keeps your finger: where it goes, and when it lifts (touch included, without the page scrolling under it)
 const heldTrack = (move, up) => {
   const mv = ev => { const p = ev.touches ? ev.touches[0] : ev; if (!p) return; if (ev.cancelable && ev.touches) ev.preventDefault(); move(p.clientX, p.clientY); };
   const ends = ["touchend", "touchcancel", "pointerup", "pointercancel"], fin = () => { window.removeEventListener("touchmove", mv); window.removeEventListener("pointermove", mv); ends.forEach(n => window.removeEventListener(n, fin)); up(); };
   window.addEventListener("touchmove", mv, { passive: false }); window.addEventListener("pointermove", mv); ends.forEach(n => window.addEventListener(n, fin)); };
-// the object comes up under your finger: the book, or the stone
+// the object comes up under your finger: the book
 const heldObj = (x, y, c) => { const o = document.createElement("div"); o.className = "fx-obj"; o.style.left = x + "px"; o.style.top = y + "px"; o.innerHTML = `<span class="cx-obj">${cxGlyph(c)}</span>`; document.body.appendChild(o);
   o.animate([{ opacity: 0, scale: .6 }, { opacity: 1, scale: 1 }], { duration: 280, easing: "ease-out" }); return o; };
 const heldGone = o => () => o.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250 }).onfinish = () => o.remove();
 Object.assign(ROW_EGGS, {
   "Doctor Strange in the Multiverse of Madness": (x, y, row) => { if (cxDarkOn) return; const o = heldObj(x, y, "mystic"), scope = (row.closest && (row.closest(".pin") || row.closest("#view"))) || document.getElementById("view");
     cxDark(null, null, { scope, obj: o.firstChild, top: y, release: fn => heldTrack(() => {}, fn), end: heldGone(o) }); },
-  "Thor: The Dark World": (x, y) => { const o = heldObj(x, y, "stones"); cxAether(null, null, { obj: o.firstChild, x, y, track: heldTrack, end: heldGone(o) }); },
   "Captain America: Civil War": () => cxAccords()
 });
 EGGS.push(["sling", "Sling ring", "A sorcerer can open a door to anywhere, even another world. Keep circling.", "After Doctor Strange, draw three circles in one stroke anywhere in the app.", 1]);
 /* the sling ring, anywhere: after Doctor Strange, draw circles in one stroke on any page or in any box. The sparks catch once you've gone
    round once; at the third the portal opens where you drew, holds with its sparks riding the ring and the place it opens onto showing
-   inside, then rushes in and lands you there. A sling ring opens a door to a real place, so it takes you to one, opened in the Atlas.
-   Nothing else moves you anywhere (the Watcher only shows you another reality, and brings you back), so the two never overlap */
+   inside, then rushes in and lands you there: anywhere in the app. Nothing else moves you anywhere (the Watcher only shows you another
+   reality, and brings you back), so the two never overlap */
 const SLING_N = 3;
-// where a sling ring can open onto: a place you've seen on Earth, in the Cosmos, Beyond, or in another universe of the Multiverse (never
-// the Incursions). A realm first, then a place in it, so the smaller maps come up as often as Earth does
+// where a sling ring can open onto, anywhere you've been: a box, someone's profile, a spot on the Sacred Timeline, a place in the Atlas (on
+// Earth, in the Cosmos, Beyond or in another universe, never the Incursions), a file in an index you've opened, or a page. First what kind
+// of place, then which one (and an Atlas place's realm, or a file's index, before that), so the hundreds of places and files don't drown
+// out the few dozen boxes and the handful of pages. Never where you already are
 function slingDest() {
-  const one = L => L[Math.floor(Math.random() * L.length)], lit = p => !p.home && !p.uni && atlLit(p);
-  const realms = ["earth", "cosmos", "beyond"].filter(atlOpenV).map(v => ATLAS[v].filter(lit).map(p => ({ p, v, sub: null, where: p.r || "" })));
-  if (atlOpenV("multi")) realms.push(ATLAS.multi.filter(m => m.uni && atlLit(m)).flatMap(m => ATLAS_UNI[m.uni].places.filter(lit).map(p => ({ p, v: "uni", sub: m.uni, where: ATLAS_UNI[m.uni].n }))));
-  const R = realms.filter(L => L.length); return R.length ? one(one(R)) : null;
+  const one = L => L[Math.floor(Math.random() * L.length)], here = openEntry && openEntry.id, ex = state.eggs || {};
+  const boxes = DATA.chapters.filter(c => state.unlocked[c.id] && available(c) && c.id !== here).map(c => ({ k: "box", m: "chapters", id: c.id, where: c.label, n: c.title }))
+    .concat(DATA.chars.filter(c => c.id !== here && !charSealed(c) && !charHidden(c) && !charAnon(c) && !(state.dusted || {})[c.id]).map(c => ({ k: "box", m: "chars", id: c.id, where: "Character", n: c.title })));
+  const profiles = DATA.chars.filter(c => !(here === c.id && dossierOpen) && DOSSIERS[c.id] && charNamed(c) && !charSealed(c) && !charHidden(c) && !(state.dusted || {})[c.id]).map(c => ({ k: "profile", id: c.id, where: "Profile", n: c.title }));
+  const lit = p => !p.home && !p.uni && atlLit(p), realms = ["earth", "cosmos", "beyond"].filter(atlOpenV).map(v => ATLAS[v].filter(lit).map(p => ({ k: "atlas", p, v, sub: null, where: p.r || "", n: p.n })));
+  if (atlOpenV("multi")) realms.push(ATLAS.multi.filter(m => m.uni && atlLit(m)).flatMap(m => ATLAS_UNI[m.uni].places.filter(lit).map(p => ({ k: "atlas", p, v: "uni", sub: m.uni, where: ATLAS_UNI[m.uni].n, n: p.n }))));
+  const idx = [["coll", "collector", "The Collection", COLLX.filter(o => cxSteps(o).length), cxName], ["cp", "compound", cpHome()[0], ALLIES.filter(o => cpSteps(o).length), cpName],
+    ["raft", "raft", "The Raft", THREATS.filter(o => rfSteps(o).length), rfName], ["dc", "damagecontrol", "Damage Control", DC.filter(dcSeen), d => d.n]]
+    .filter(a => ex[a[1]]).map(([m, , t, L, nm]) => L.filter(o => !(collOpen && collMode === m && collRec === o.id)).map(o => ({ k: "file", m, id: o.id, where: t, n: nm(o) })));
+  const cur = dockCur(), pages = [["log", "The Story log"], ["map", "Paths"], ["comms", "Comms"], ["file", "The Agent File"]].filter(([t]) => t !== cur).map(([t, n]) => ({ k: "page", t, where: "", n }));
+  const tl = state.mode === "timeline" && cur === "story" && !openEntry && !collOpen ? [] : [{ k: "timeline", where: "The TVA", n: "The Sacred Timeline" }];
+  const kinds = [boxes, profiles, tl, realms.filter(L => L.length), idx.filter(L => L.length), pages].filter(L => L.length);
+  if (!kinds.length) return null; let d = one(one(kinds)); if (Array.isArray(d)) d = one(d); return d;
 }
 function slingLand(d) {
-  if (collOpen) closeColl(); if (openEntry) closePanel();
-  const b = document.querySelector('#dock [data-dock="atlas"]'); if (b && !document.querySelector('#dock [data-dock="atlas"][aria-current="page"]')) b.click();
-  setTimeout(() => atlGo({ p: d.p, v: d.v, sub: d.sub }), 140);
+  const page = t => { const b = document.querySelector(`#dock [data-dock="${t}"]`); if (b && dockCur() !== t) b.click(); };
+  if (dossierOpen && dossierOpen !== "saga") closeDossier(true); if (openEntry) closePanel();
+  const go = () => {
+    if (d.k === "box" || d.k === "profile") { page("story");
+      setTimeout(() => { const m = d.k === "box" ? d.m : "chars"; if (state.mode !== m) { state.mode = m; renderAll(); }
+        const t = document.querySelector(`.tile[data-id="${d.id}"]`); if (!t) return;
+        window.scrollTo(0, Math.max(0, t.getBoundingClientRect().top + window.scrollY - Math.max(0, (innerHeight - t.offsetHeight) / 2)));   // the page behind moves to it too, for the way back
+        activate(t); if (d.k === "profile") setTimeout(() => { const b = document.getElementById("btnDossier"); if (b) b.click(); }, 450); }, 140); }
+    else if (d.k === "timeline") { page("story");
+      setTimeout(() => { if (state.mode !== "timeline") { state.mode = "timeline"; renderAll(); }
+        const rows = [...document.querySelectorAll("#view .tl-row")], r = rows.length && rows[Math.floor(Math.random() * rows.length)];
+        if (r) window.scrollTo(0, Math.max(0, r.getBoundingClientRect().top + window.scrollY - innerHeight / 2)); }, 140); }
+    else if (d.k === "atlas") { page("atlas"); setTimeout(() => atlGo({ p: d.p, v: d.v, sub: d.sub }), 140); }
+    else if (d.k === "file") { page("atlas"); setTimeout(() => { openColl(d.m); collShow(d.id); }, 140); }
+    else page(d.t);
+  };
+  // an index has to close through its own steps back first, or the way back would lead into it again
+  if (collOpen) { closeColl(); setTimeout(go, 250); } else go();
 }
 // the portal, the same one the Collection's case opened: its ring of spinning sparks, the sparks that ride it and fly off, and inside it
 // the place it opens onto, far off, coming closer as it rushes in
 function slingPortal(x, y, r, dest) {
   const { cv, g } = cxCanvas(), W = innerWidth, H = innerHeight, OR = "255,150,40", sp = [], t0 = performance.now(), max = Math.hypot(Math.max(x, W - x), Math.max(y, H - y)) + 30;
-  const view = document.createElement("div"); view.className = "fx-slingview"; view.innerHTML = `<div><small>${esc(dest.where)}</small><b>${esc(dest.p.n)}</b></div>`;
+  const view = document.createElement("div"); view.className = "fx-slingview"; view.innerHTML = `<div><small>${esc(dest.where)}</small><b>${esc(dest.n)}</b></div>`;
   view.style.setProperty("--x", x + "px"); view.style.setProperty("--y", y + "px"); document.body.appendChild(view);
   let prev = t0, landed = false;
   haptic([20, 30, 20, 30, 60]); setTimeout(() => haptic([30, 20, 60]), SL_HOLD + SL_ZOOM * .6);
@@ -12044,13 +12034,13 @@ function slingPortal(x, y, r, dest) {
 }
 // following a stroke anywhere: how far it has wound round its own middle. Touches are followed through touch events, which keep coming
 // even while the page scrolls under the finger
-{ let pts = null, trace = null, fired = false, busy = false, hold = null, pinned = false;
+{ let pts = null, trace = null, fired = false, busy = false, hold = null, pinned = false, drew = false;
   const skip = t => t.closest('input, textarea, select, [contenteditable], .acc-sig, .cx-big[data-live], #gate');
   // where the page and whatever scrolls under the finger stood when the stroke began: once it's a circle they're held there, so drawing
   // doesn't scroll the page away (a phone won't stop a scroll already under way, so it's put back instead, every move)
   const scroller = t => { for (let e = t; e && e !== document.body; e = e.parentElement) { const cs = getComputedStyle(e); if (/(auto|scroll)/.test(cs.overflowY) && e.scrollHeight > e.clientHeight) return e; } return null; };
   const pin = () => { if (!hold) return; window.scrollTo(hold.wx, hold.wy); if (hold.el) hold.el.scrollTop = hold.top; };
-  const begin = (x, y, t) => { if (busy || !atlSeenT("Doctor Strange") || skip(t)) { pts = null; return; } pts = [[x, y, performance.now()]]; fired = false; pinned = false;
+  const begin = (x, y, t) => { if (busy || !atlSeenT("Doctor Strange") || skip(t)) { pts = null; return; } pts = [[x, y, performance.now()]]; fired = false; pinned = false; drew = false;
     const el = scroller(t); hold = { wx: window.scrollX, wy: window.scrollY, el, top: el ? el.scrollTop : 0 }; };
   const wound = () => { const n = pts.length; if (n < 16) return { turns: 0 }; const cx = pts.reduce((s, p) => s + p[0], 0) / n, cy = pts.reduce((s, p) => s + p[1], 0) / n, ds = pts.map(p => Math.hypot(p[0] - cx, p[1] - cy)), R = ds.reduce((s, d) => s + d, 0) / n;
     const sd = Math.sqrt(ds.reduce((s, d) => s + (d - R) ** 2, 0) / n) / (R || 1); let sw = 0;
@@ -12060,6 +12050,7 @@ function slingPortal(x, y, r, dest) {
     const w = wound();
     if (w.turns >= .6 && !pinned) { pinned = true; addEventListener("scroll", pin, true); }   // it's a circle: the page holds still from here
     if (pinned) pin();
+    if (w.turns >= 1) { drew = true; const sel = getSelection(); if (sel && !sel.isCollapsed) sel.removeAllRanges(); }   // nor does the text a mouse drags across
     if (w.turns >= 1 && !trace && !REDUCED) trace = slingTrace();   // it's catching: the sparks show from here
     if (trace) trace.add(x, y);
     if (w.turns >= SLING_N) { fired = true; busy = true; const dest = slingDest(); if (trace) { trace.end(); trace = null; }
@@ -12067,7 +12058,10 @@ function slingPortal(x, y, r, dest) {
       if (REDUCED) { slingLand(dest); found("sling"); busy = false; return; }
       slingPortal(w.x, w.y, w.r, dest); setTimeout(() => { busy = false; }, SL_HOLD + SL_ZOOM + 600);
       setTimeout(() => { if (pinned) { pinned = false; removeEventListener("scroll", pin, true); } }, SL_HOLD + SL_ZOOM - 100); } };   // it lets the page go before it lands you somewhere else
-  const end = () => { pts = null; if (pinned) { pinned = false; removeEventListener("scroll", pin, true); } if (trace) { trace.end(); trace = null; } };
+  // a circle drawn with a mouse ends in a click on whatever it was drawn over: once the stroke is a circle, that click doesn't count
+  const eat = ev => { ev.stopPropagation(); ev.preventDefault(); };
+  const end = () => { if (drew) { drew = false; document.addEventListener("click", eat, { capture: true, once: true }); setTimeout(() => document.removeEventListener("click", eat, true), 400); }
+    pts = null; if (pinned) { pinned = false; removeEventListener("scroll", pin, true); } if (trace) { trace.end(); trace = null; } };
   document.addEventListener("pointerdown", ev => { if (ev.pointerType !== "touch") begin(ev.clientX, ev.clientY, ev.target); }, true);
   document.addEventListener("pointermove", ev => { if (ev.pointerType !== "touch" && ev.buttons) move(ev.clientX, ev.clientY); }, true);
   document.addEventListener("pointerup", ev => { if (ev.pointerType !== "touch") end(); }, true);

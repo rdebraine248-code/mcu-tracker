@@ -1,5 +1,5 @@
-// the Collection's cases you can handle (October 2026): the Darkhold, the Sokovia Accords, the sling rings, the arc reactor and the Aether
-// join the Tesseract, and handling all six is one Classified file, Handle with care. From the first case its card counts them under
+// the Collection's cases you can handle (October 2026): the Darkhold, the Sokovia Accords, the sling rings and the arc reactor
+// join the Tesseract, and handling all five is one Classified file, Handle with care. From the first case its card counts them under
 // [ Classified ]; the name shows only once the file is found
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -11,7 +11,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); };
   await p.evaluate(() => { DATA.chapters.forEach(c => { state.unlocked[c.id] = true; c.items.forEach(i => state.checks[ck(c, i.t)] = true); }); state.stones = {}; persist(); });
   await p.reload(); await sleep(6000); await p.evaluate(() => { const g = [...document.querySelectorAll('button')].find(b => /got it/i.test(b.textContent)); if (g) g.click(); }); await sleep(300);
-  ok(await p.evaluate(() => CX_SET.join() === 'tesseract,darkhold,sling-ring,arc,aether,sokovia-accords'), 'six cases in the set');
+  ok(await p.evaluate(() => CX_SET.join() === 'tesseract,darkhold,sling-ring,arc,sokovia-accords'), 'five cases in the set');
   ok(await p.evaluate(() => EGGS.some(e => e[0] === 'artifacts') && !EGGS.some(e => e[0] === 'darkhold' || e[0] === 'accords')), 'one Classified file for them');
   const card = () => p.evaluate(() => { const a = achList().find(x => x.id === 'egg-artifacts'); hfPage = a.pg; if (!fileOpen) openFile(); renderFile(); const c = document.querySelector('[data-ach="egg-artifacts"]'); const t = c ? c.textContent : ''; closeFile(); return t; });
   ok(!/Handle with care/.test(await card()), 'the card is Classified (or not yet shown) before any case is handled');
@@ -21,10 +21,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   // the arc reactor: hold until it's charged
   await open('arc'); await sleep(300); let [x, y] = await ctr(); await p.mouse.move(x, y); await p.mouse.down(); await sleep(2200); await p.mouse.up(); await sleep(900);
   ok((await H()) === 'arc', 'the arc reactor counts once charged: ' + await H());
-  const c1 = await card(); ok(!/Handle with care/.test(c1) && /Classified/.test(c1) && /1 of 6/.test(c1), 'after one, the card stays Classified with a count under it: ' + c1);
-  // the Aether: draw it well out of its case
-  await open('aether'); await sleep(300); [x, y] = await ctr(); await p.mouse.move(x, y); await p.mouse.down(); for (let k = 1; k <= 8; k++) await p.mouse.move(x, y + 30 * k); await p.mouse.up(); await sleep(2200);
-  ok((await H()).includes('aether'), 'the Aether counts once drawn out');
+  const c1 = await card(); ok(!/Handle with care/.test(c1) && /Classified/.test(c1) && /1 of 5/.test(c1), 'after one, the card stays Classified with a count under it: ' + c1);
   // the Darkhold: let go early, nothing; hold through, the spell
   await open('darkhold'); await sleep(300); [x, y] = await ctr(); await p.mouse.move(x, y); await p.mouse.down(); await sleep(1500); await p.mouse.up(); await sleep(1200);
   ok(!(await H()).includes('darkhold') && await p.evaluate(() => !document.querySelector('.cx-rune') && !document.querySelector('.fxl')), 'letting the Darkhold go early casts nothing and leaves the page clean');
