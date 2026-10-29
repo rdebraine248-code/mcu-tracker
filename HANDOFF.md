@@ -381,6 +381,9 @@ These happened in earlier chats. Each cost the owner time.
     effect that copies a box. A copy carries the box's custom properties.
 19. **Testing with a mouse only where a finger is the real input, and the reverse.** A circle drawn with a mouse clicked the box under
     it. Check both, and remember headless can't scroll natively, so touch scrolling needs the owner's phone.
+22. **Changing source steps under the fix files.** Adding a "past" label to the Time Heist steps in `coll_mcu_a.json` made two audit
+    ops (F640, F650) stop matching, and the Eye of Agamotto's and the Soul Stone's fixes dropped off main until the build's
+    `audit: no step` lines were read. After touching any source step, build and read every line the build prints.
 
 ## Open items
 
@@ -389,8 +392,7 @@ These happened in earlier chats. Each cost the owner time.
   - Memory or real past scene: Muse in Daredevil: Born Again S2, and the Spectacular Uncle Ben in "Intervention".
   - Simmons posing as Peggy in Agents of S.H.I.E.L.D. S7's diverged timeline.
   - The X-Men '97 showrunner's post that the animated Jean of seasons 4 and 5 was Madelyne. The files keep Jean.
-- **A small gap:** She-Hulk episode 8 reveals the Sokovia Accords were repealed (the Accords' file has no step for it). Revisit Encore
-  once Doomsday is out.
+- Revisit Encore once Doomsday is out.
 - No mockups are pending.
 - `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
 - **Cut in October 2026 (don't bring back unasked):** J.A.R.V.I.S. search, Sound and the sound board, the War Room, the TVA and Wakanda
