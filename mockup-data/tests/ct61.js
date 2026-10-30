@@ -1,6 +1,6 @@
-// the objects on their titles, the sling ring anywhere and the Watcher's other realities (October 2026): the Darkhold and the Sokovia Accords
-// are held on their titles, each its own Classified file; only the Tesseract still answers in the Collection; three circles anywhere land
-// you anywhere you've been; holding in the Watcher's box (or Beyond the MCU) cracks into another reality and back
+// the objects on their titles, the sling ring into the Atlas and the Watcher's other realities (October 2026): the Darkhold and the Sokovia Accords
+// are held on their titles, each its own Classified file; only the Tesseract still answers in the Collection; three circles anywhere open
+// onto a place in the Atlas; holding in the Watcher's box (or Beyond the MCU) cracks into another reality and back
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
 (async () => { const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
@@ -35,13 +35,16 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   await p.mouse.move(x, y); await p.mouse.down(); await sleep(600); for (let k = 1; k <= 8; k++) await p.mouse.move(x - 10 * k, y + 40 * k); await p.mouse.up(); await sleep(5500);
   ok(await p.evaluate(() => !!(state.stones || {}).space), 'the Tesseract gives the Space Stone');
   await p.evaluate(() => closeColl()); await sleep(600);
-  // the sling ring: three circles drawn anywhere open a portal and land you somewhere you've been
-  await p.evaluate(() => { window._d = null; const o = slingDest; slingDest = () => { let d; do d = o(); while (d.k !== 'file'); window._d = d; return d; }; });
+  // the sling ring: three circles drawn anywhere open a portal onto a place in the Atlas: Earth (its cities too), the Cosmos, Beyond and the multiverse (inside other universes too), never the Incursions
+  const sl = await p.evaluate(() => { const D = [...Array(4000)].map(() => slingDest()); return { atlas: D.every(d => d && d.k === 'atlas'), inc: D.some(d => d.v === 'incursions'), hosts: D.some(d => d.p.city || d.p.uni || d.p.home), v: [...new Set(D.map(d => d.v))].sort().join() }; });
+  ok(sl.atlas && !sl.inc && !sl.hosts, 'the sling ring only opens onto Atlas places, never the Incursions, never a city or universe pin itself');
+  ok(sl.v === 'beyond,city,cosmos,earth,multi,uni', 'every realm, and the places inside cities and other universes: ' + sl.v);
+  await p.evaluate(() => { window._d = null; const o = slingDest; slingDest = () => { let d; do d = o(); while (d.v !== 'city'); window._d = d; return d; }; });
   const cx = 206, cy = 450, R = 70; await p.mouse.move(cx + R, cy); await p.mouse.down(); for (let k = 1; k <= 132; k++) { const a = k / 40 * Math.PI * 2; await p.mouse.move(cx + Math.cos(a) * R, cy + Math.sin(a) * R); await sleep(10); } await p.mouse.up();
   await sleep(4200);
-  ok(await p.evaluate(() => _d && collOpen && collMode === _d.m && collRec === _d.id && !openEntry && !document.querySelector('.fx-slingview')), 'three circles land you on a file, and the portal is gone');
+  ok(await p.evaluate(() => _d && atlOpen && atlView === 'city' && atlCity === _d.sub && atlSel === _d.p.id && !document.querySelector('.fx-slingview')), 'three circles land you on a spot inside a city, and the portal is gone');
   ok(await E('sling'), 'the sling ring is on file');
-  await p.evaluate(() => closeColl()); await sleep(600); await p.evaluate(() => document.querySelector('#dock [data-dock="story"]').click()); await sleep(800);
+  await p.evaluate(() => document.querySelector('#dock [data-dock="story"]').click()); await sleep(800);
   // the Watcher: another reality cracks in and shatters back, in his box and in Beyond the MCU
   for (const id of ['cx-the-watcher', 'ch-beyond-the-mcu']) {
     await p.evaluate(id => { const e = DATA.chars.find(c => c.id === id) || DATA.chapters.find(c => c.id === id); openPanel(e, id.startsWith('cx-') ? 'char' : 'chapter', document.body); }, id); await sleep(1200);

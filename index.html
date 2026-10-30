@@ -11770,45 +11770,25 @@ Object.assign(ROW_EGGS, {
 });
 /* the sling ring, anywhere: after Doctor Strange, draw circles in one stroke on any page or in any box. The sparks catch once you've gone
    round once; at the third the portal opens where you drew, holds with its sparks riding the ring and the place it opens onto showing
-   inside, then rushes in and lands you there: anywhere in the app. Nothing else moves you anywhere (the Watcher only shows you another
+   inside, then rushes in and lands you there: somewhere in the Atlas. Nothing else moves you anywhere (the Watcher only shows you another
    reality, and brings you back), so the two never overlap */
 const SLING_N = 3;
-// where a sling ring can open onto, anywhere you've been: a box, someone's profile, a spot on the Sacred Timeline, a place in the Atlas (on
-// Earth, in the Cosmos, Beyond or in another universe, never the Incursions), a file in an index you've opened, or a page. First what kind
-// of place, then which one (and an Atlas place's realm, or a file's index, before that), so the hundreds of places and files don't drown
-// out the few dozen boxes and the handful of pages. Never where you already are
+// where a sling ring can open onto: a place in the Atlas you've charted, on Earth (a city's own spots too), in the Cosmos, Beyond or in
+// the multiverse (inside another universe too), never the Incursions. First the realm, then the place, so Earth's hundred places don't
+// drown out the few in Beyond. Never the place you're looking at
 function slingDest() {
-  const one = L => L[Math.floor(Math.random() * L.length)], here = openEntry && openEntry.id, ex = state.eggs || {};
-  const boxes = DATA.chapters.filter(c => state.unlocked[c.id] && available(c) && c.id !== here).map(c => ({ k: "box", m: "chapters", id: c.id, where: c.label, n: c.title }))
-    .concat(DATA.chars.filter(c => c.id !== here && !charSealed(c) && !charHidden(c) && !charAnon(c) && !(state.dusted || {})[c.id]).map(c => ({ k: "box", m: "chars", id: c.id, where: "Character", n: c.title })));
-  const profiles = DATA.chars.filter(c => !(here === c.id && dossierOpen) && DOSSIERS[c.id] && charNamed(c) && !charSealed(c) && !charHidden(c) && !(state.dusted || {})[c.id]).map(c => ({ k: "profile", id: c.id, where: "Profile", n: c.title }));
-  const lit = p => !p.home && !p.uni && atlLit(p), realms = ["earth", "cosmos", "beyond"].filter(atlOpenV).map(v => ATLAS[v].filter(lit).map(p => ({ k: "atlas", p, v, sub: null, where: p.r || "", n: p.n })));
-  if (atlOpenV("multi")) realms.push(ATLAS.multi.filter(m => m.uni && atlLit(m)).flatMap(m => ATLAS_UNI[m.uni].places.filter(lit).map(p => ({ k: "atlas", p, v: "uni", sub: m.uni, where: ATLAS_UNI[m.uni].n, n: p.n }))));
-  const idx = [["coll", "collector", "The Collection", COLLX.filter(o => cxSteps(o).length), cxName], ["cp", "compound", cpHome()[0], ALLIES.filter(o => cpSteps(o).length), cpName],
-    ["raft", "raft", "The Raft", THREATS.filter(o => rfSteps(o).length), rfName], ["dc", "damagecontrol", "Damage Control", DC.filter(dcSeen), d => d.n]]
-    .filter(a => ex[a[1]]).map(([m, , t, L, nm]) => L.filter(o => !(collOpen && collMode === m && collRec === o.id)).map(o => ({ k: "file", m, id: o.id, where: t, n: nm(o) })));
-  const cur = dockCur(), pages = [["log", "The Story log"], ["map", "Paths"], ["comms", "Comms"], ["file", "The Agent File"]].filter(([t]) => t !== cur).map(([t, n]) => ({ k: "page", t, where: "", n }));
-  const tl = state.mode === "timeline" && cur === "story" && !openEntry && !collOpen ? [] : [{ k: "timeline", where: "The TVA", n: "The Sacred Timeline" }];
-  const kinds = [boxes, profiles, tl, realms.filter(L => L.length), idx.filter(L => L.length), pages].filter(L => L.length);
-  if (!kinds.length) return null; let d = one(one(kinds)); if (Array.isArray(d)) d = one(d); return d;
+  const one = L => L[Math.floor(Math.random() * L.length)], lit = p => !p.home && atlLit(p);
+  const here = (v, sub, p) => atlOpen && atlSel === p.id && atlView === v && (v === "city" ? atlCity : v === "uni" ? atlUni : null) === sub;
+  const at = (v, sub, where) => p => ({ k: "atlas", p, v, sub, where: where || p.r || "", n: p.n });
+  // a city or another universe is a map of its own: the places inside it, not its pin
+  const realm = v => ATLAS[v].filter(lit).flatMap(p => p.city ? atlPlaces("city", p.city).filter(lit).map(at("city", p.city))
+    : p.uni ? ATLAS_UNI[p.uni].places.filter(lit).map(at("uni", p.uni, ATLAS_UNI[p.uni].n)) : [at(v, null)(p)]).filter(d => !here(d.v, d.sub, d.p));
+  const realms = ["earth", "cosmos", "beyond", "multi"].filter(atlOpenV).map(realm).filter(L => L.length);
+  return realms.length ? one(one(realms)) : null;
 }
 function slingLand(d) {
-  const page = t => { const b = document.querySelector(`#dock [data-dock="${t}"]`); if (b && dockCur() !== t) b.click(); };
   if (dossierOpen && dossierOpen !== "saga") closeDossier(true); if (openEntry) closePanel();
-  const go = () => {
-    if (d.k === "box" || d.k === "profile") { page("story");
-      setTimeout(() => { const m = d.k === "box" ? d.m : "chars"; if (state.mode !== m) { state.mode = m; renderAll(); }
-        const t = document.querySelector(`.tile[data-id="${d.id}"]`); if (!t) return;
-        window.scrollTo(0, Math.max(0, t.getBoundingClientRect().top + window.scrollY - Math.max(0, (innerHeight - t.offsetHeight) / 2)));   // the page behind moves to it too, for the way back
-        activate(t); if (d.k === "profile") setTimeout(() => { const b = document.getElementById("btnDossier"); if (b) b.click(); }, 450); }, 140); }
-    else if (d.k === "timeline") { page("story");
-      setTimeout(() => { if (state.mode !== "timeline") { state.mode = "timeline"; renderAll(); }
-        const rows = [...document.querySelectorAll("#view .tl-row")], r = rows.length && rows[Math.floor(Math.random() * rows.length)];
-        if (r) window.scrollTo(0, Math.max(0, r.getBoundingClientRect().top + window.scrollY - innerHeight / 2)); }, 140); }
-    else if (d.k === "atlas") { page("atlas"); setTimeout(() => atlGo({ p: d.p, v: d.v, sub: d.sub }), 140); }
-    else if (d.k === "file") { page("atlas"); setTimeout(() => { openColl(d.m); collShow(d.id); }, 140); }
-    else page(d.t);
-  };
+  const go = () => { const b = document.querySelector('#dock [data-dock="atlas"]'); if (b && dockCur() !== "atlas") b.click(); setTimeout(() => atlGo({ p: d.p, v: d.v, sub: d.sub }), 140); };
   // an index has to close through its own steps back first, or the way back would lead into it again
   if (collOpen) { closeColl(); setTimeout(go, 250); } else go();
 }
