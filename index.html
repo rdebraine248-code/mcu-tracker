@@ -4315,9 +4315,13 @@ function collShow(id) {
 }
 // a file that opens a file in another index is one step: back returns to the file (or list) you came from, in its own index
 function collJump(mode, id) { openColl(mode, true, true); collShow(id); }
+// a link from one index into another (a holder's file, a replay's file) opens only an index you've found, and only a file with a title you've watched
+const ixFile = (tg, pid) => { const o = pid && (tg === "A" ? ALLIES : THREATS).find(x => x.id === pid);
+  return o && (tg === "A" ? state.cpIn && cpSteps(o).length : state.raftIn && rfSteps(o).length) ? o : null; };
 function collRestore() {   // back landed on a step from another index or another file: put that one back
   const h = history.state || {}; if (!h.cm || (h.mcu !== "coll" && h.mcu !== "collrec") || (h.cm === collMode && (h.cr || null) === collRec)) return false;
   if (h.cm !== collMode) openColl(h.cm, true, true);
+  if (h.hf) { cxHoldF = h.hf; cxHoldFrom = h.hfo || ""; }   // the holder's list you followed a file out of
   collRec = h.cr || null; renderColl(); document.getElementById("collPanel").scrollTop = h.cr ? 0 : h.y || 0; return true;
 }
 function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collPanel").scrollTop = collY; }
@@ -4334,8 +4338,11 @@ document.getElementById("collView").addEventListener("click", ev => {
   const xs = ev.target.closest("[data-ixs]"); if (xs) { const az = xs.dataset.ixs === "az"; if (az !== !!state.ixAZ) { haptic(8); state.ixAZ = az ? 1 : 0; persist(); renderColl(); } return; }
   if (collMode === "coll") {
     if (ev.target.closest(".pg-qx")) { haptic(8); cxQ = ""; renderColl(); return; }
-    const xh = ev.target.closest("[data-cxh]"); if (xh) { haptic(10); cxHoldF = xh.dataset.cxh; cxUni = rfUniOf(COLLX.find(o => o.id === collRec)); cxQ = ""; collY = 0; collGrid(); return; }
+    const xh = ev.target.closest("[data-cxh]"); if (xh) { haptic(10); cxHoldF = xh.dataset.cxh; cxHoldFrom = collRec; cxUni = rfUniOf(COLLX.find(o => o.id === collRec)); cxQ = ""; collY = 0; collGrid(); return; }
     if (ev.target.closest("[data-tfx]")) { haptic(8); cxHoldF = ""; renderColl(); return; }
+    const xo = ev.target.closest("[data-cxo]"); if (xo) { const [tg, id] = xo.dataset.cxo.split(":"), o = ixFile(tg, id); if (!o) return; haptic(10); if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o);
+      try { history.replaceState({ ...history.state, hf: cxHoldF, hfo: cxHoldFrom }, ""); } catch (e) {}   // the holder's list keeps its holder, for the way back
+      collJump(tg === "A" ? "cp" : "raft", id); return; }
     const xu = ev.target.closest("[data-cxu]"); if (xu) { if (xu.dataset.cxu !== cxUni || cxHoldF) { haptic(8); cxUni = xu.dataset.cxu; cxHoldF = ""; renderColl(); } return; }
     const xg = ev.target.closest("[data-cxg]"); if (xg) { if (xg.dataset.cxg !== cxGrp) { haptic(8); cxGrp = xg.dataset.cxg; renderColl(); } return; }
     const xf = ev.target.closest("[data-cxf]"); if (xf) { haptic(8); const k = xf.dataset.cxf; cxFold[cxGrp][k] = !cxShut(k); renderColl(); return; }
@@ -4400,7 +4407,31 @@ const ixCmp = (name, steps) => (a, b) => (state.ixAZ ? 0 : seenRk(rfFirstStep(st
 const ixSortBar = () => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg"><button type="button" data-ixs="first" aria-pressed="${!state.ixAZ}">First seen</button><button type="button" data-ixs="az" aria-pressed="${!!state.ixAZ}">A–Z</button></div></div>`;
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
 const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
-let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0, cxHoldF = "";
+let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0, cxHoldF = "", cxHoldFrom = "";
+// a holder's own file in the Compound or the Raft: the file in the object's universe that goes by that name and shares the most titles with
+// the steps the holder is named in (the same name in the Spider-Verse or the FoX-Men is often several people). Where the story names someone
+// differently from their file, CX_HOLD_AKA says who; where titles can't tell two of a name apart, CX_HOLD_PICK names the files outright
+const CX_HOLD_AKA = { "mcu|Alphonso Mackenzie": ["st-mack"], "mcu|The Kree": ["kree-empire"], "mcu|Aida": ["st-aida"], "mcu|Ronan": ["ronan"], "mcu|Yondu": ["yondu"],
+  "mcu|Bennie and Claire": ["benny-and-claire"], "mcu|Savin": ["eric-savin"], "mcu|Mobius": ["mobius-m-mobius"], "mcu|Xu Wenwu": ["wenwu"], "mcu|Katy": ["katy-chen"],
+  "mcu|Steven Grant": ["marc-spector"], "mcu|Marc and Steven": ["marc-spector"], "mcu|Dex Poindexter": ["st-bullseye"], "mcu|Elektra": ["st-elektra"],
+  "by|Wenwu": ["by-zombie-wenwu"], "fox|James Howlett": ["fox-wolverine"], "fox|Yashida": ["fox-yashida"], "sv|Kraven": ["sv-sergei-kravinoff", "sv-kraven"], "sv|Calypso": ["sv-calypso-ezili"],
+  "pr|Elektra": ["pr-elektra"], "pr|Doom": ["pr-doctor-doom"] };
+const CX_HOLD_PICK = { "by-hydra-stomper|Steve Rogers": ["A:by-steve-rogers-stomper", "T:by-hydra-stomper"], "by-hydra-stomper-mark-ii|Steve Rogers": ["A:by-steve-rogers-stomper", "T:by-hydra-stomper"],
+  "by-killmonger-drones|Tony Stark": ["A:by-tony-killmonger"], "by-tony-sakaar-armor|Tony Stark": ["A:by-tony-sakaar"], "by-time-stone-1602|Tony Stark": ["A:by-tony-1602"],
+  "fox-cerebro|Charles Xavier": ["A:fox-charles-xavier-young", "A:fox-charles-xavier"], "fox-hank-serum|Charles Xavier": ["A:fox-charles-xavier-young"],
+  "fox-magneto-helmet|Magneto": ["A:fox-magneto-erik", "A:fox-magneto", "T:fox-magneto-erik", "T:fox-magneto"], "fox-sentinels|Magneto": ["A:fox-magneto-erik", "T:fox-magneto-erik"],
+  "sv-itsv-override-key|Peter Parker": ["A:sv-peter-parker-1610"], "sv-itsv-miles-suit|Spider-Man": ["A:sv-miles-morales"], "sv-atsv-hobie-watch|George Stacy": ["A:sv-george-stacy-earth65"],
+  "sv-1994-symbiote|Spider-Man": ["A:sv-peter-parker-1994"], "sv-1994-neogenic-recombinator|Spider-Man": ["A:sv-peter-parker-1994"],
+  "pr-staff-of-one|Tina Minoru": ["A:pr-st-tina-minoru"], "pr-karolina-bracelet|Robert Minoru": ["A:pr-st-robert-minoru"] };
+const ixNames = f => [...(Array.isArray(f.n) ? f.n.map(x => x[0]) : [f.n]), ...(f.rn ? [f.rn[0]] : []), ...(f.al || []).map(a => a[0])].map(n => String(n).replace(/^The /, ""));
+function cxHoldFiles(o, h) {   // [tag, file] for each of the holder's files, A the Compound and T the Raft
+  const pick = CX_HOLD_PICK[o.id + "|" + h];
+  if (pick) return pick.map(x => { const [tg, id] = x.split(":"); return [tg, (tg === "A" ? ALLIES : THREATS).find(f => f.id === id)]; }).filter(x => x[1]);
+  const u = rfUniOf(o), aka = CX_HOLD_AKA[u + "|" + h] || [], nm = h.replace(/^The /, ""), T = new Set(o.st.filter(x => x[3] === h).map(x => x[1]));
+  return ["A", "T"].flatMap(tg => { const sc = (tg === "A" ? ALLIES : THREATS).filter(f => rfUniOf(f) === u && (aka.includes(f.id) || ixNames(f).includes(nm)))
+      .map(f => [f, new Set(f.st.map(x => x[1]).filter(t => T.has(t))).size]).filter(x => x[1]);
+    const top = Math.max(0, ...sc.map(x => x[1])), best = sc.filter(x => x[1] === top); return best.length === 1 ? [[tg, best[0][0]]] : []; });   // a tie links nothing rather than the wrong one
+}
 const CX_GRP = [["type", "Type"], ["status", "Status"], ["holder", "Held by"]];
 // grouped by who holds them, the list opens as an index of holders, each folded until you tap it; the other groupings open unfolded
 const cxShut = k => { const v = (cxFold[cxGrp] || {})[k]; return v == null ? cxGrp === "holder" : v; };
@@ -4433,7 +4464,10 @@ function cxBody() {
     return `<button type="button" class="cx-case s-${CX_ST[st]}" data-co="${o.id}"><span class="cx-stage"><i class="beam"></i><span class="cx-obj">${cxGlyph(o.c)}</span><i class="plinth"></i><i class="rf-lamp" aria-hidden="true"></i></span>${seen[o.id] ? "" : '<b class="nw">NEW</b>'}<span class="cx-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}</b><small>${esc(cxKind(o))}</small><em>${esc(meta(o, S, st))}</em></span></button>`; };
   if (cxHoldF && q.length < 2) {   // everything one holder has had, as far as you've watched
     const L = COLLX.filter(o => rfUniOf(o) === cxUni && !cxSpec(o) && cxSteps(o).some(x => x[3] === cxHoldF)).sort(ixCmp(cxName, cxSteps));
+    const from = COLLX.find(o => o.id === cxHoldFrom), F = from ? cxHoldFiles(from, cxHoldF).filter(([tg, f]) => ixFile(tg, f.id)) : [];
+    const two = tg => F.filter(x => x[0] === tg).length > 1;   // the young and the old Charles, say: each says where you first saw them
     return `<div class="tf-bar"><span><small>Held by</small><b>${esc(cxHoldF)}</b></span><button type="button" data-tfx aria-label="Show every object">All objects<i aria-hidden="true">&#10005;</i></button></div>
+      ${F.map(([tg, f]) => `<button type="button" class="cp-rf${tg === "A" ? " to-cp" : ""}" data-cxo="${tg}:${esc(f.id)}"><span><small>Also on file${two(tg) ? " · First seen " + seenTtl(tg === "A" ? cpSteps(f) : rfSteps(f)) : ""}</small><b>${tg === "A" ? "The Compound · " + esc(cpName(f)) : "The Raft · " + esc(rfName(f))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("")}
       <div class="rf-sh rf-found"><span>In their hands</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => cxHolder(S) === cxHoldF ? st : "Now held by " + cxHolder(S))).join("")}</div>`;
   }
   if (q.length > 1) {
@@ -11730,14 +11764,11 @@ function trLoop(id) {
     last = now; trDraw(id); trRaf = requestAnimationFrame(step); };
   trRaf = requestAnimationFrame(step);
 }
-// a replay's file link follows the report's names: only into an index you've found, to a file with a title you've watched
-const trFile = (tg, pid) => { const o = pid && (tg === "A" ? ALLIES : THREATS).find(x => x.id === pid);
-  return o && (tg === "A" ? state.cpIn && cpSteps(o).length : state.raftIn && rfSteps(o).length) ? o : null; };
 function trWho(id) {   // the name of whoever's picked, over the map, with their file
   const sec = document.querySelector(`.tr[data-tr="${id}"]`); if (!sec) return; const w = sec.querySelector(".tr-who"), u = trPick != null && TR[id].units[trPick];
   sec.querySelectorAll(".tr-key button").forEach(k => k.classList.toggle("on", +k.dataset.tru === trPick));
   if (!u) { w.hidden = true; return; } w.hidden = false; w.firstChild.textContent = u.n;
-  const [tg, pid] = (u.f || ":").split(":"), fb = w.querySelector("[data-trf]"); fb.hidden = !trFile(tg, pid); fb.dataset.trf = u.f || "";
+  const [tg, pid] = (u.f || ":").split(":"), fb = w.querySelector("[data-trf]"); fb.hidden = !ixFile(tg, pid); fb.dataset.trf = u.f || "";
 }
 // the replay sits in the report, under its heading, folded until opened
 const renderDcTr = renderDc;
@@ -11746,7 +11777,7 @@ renderDc = function () { renderDcTr(); if (!collRec || !TR[collRec]) return; con
 document.getElementById("collView").addEventListener("click", ev => {
   if (collMode !== "dc" || !collRec || !TR[collRec]) return; const id = collRec, sec = () => document.querySelector(`.tr[data-tr="${id}"]`);
   if (ev.target.closest("[data-tropen]")) { ev.stopImmediatePropagation(); trOpen[id] = !trOpen[id]; trB = 0; trPlay = false; trPick = null; sec().outerHTML = trHTML(id); if (trOpen[id]) trLoop(id); return; }
-  const fb = ev.target.closest("[data-trf]"); if (fb) { ev.stopImmediatePropagation(); haptic(10); const [tg, pid] = fb.dataset.trf.split(":"), o = trFile(tg, pid); if (!o) return; if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); trPlay = false; collJump(tg === "A" ? "cp" : "raft", pid); return; }
+  const fb = ev.target.closest("[data-trf]"); if (fb) { ev.stopImmediatePropagation(); haptic(10); const [tg, pid] = fb.dataset.trf.split(":"), o = ixFile(tg, pid); if (!o) return; if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); trPlay = false; collJump(tg === "A" ? "cp" : "raft", pid); return; }
   const u = ev.target.closest("[data-tru]"); if (u) { ev.stopImmediatePropagation(); haptic(8); trPick = +u.dataset.tru === trPick ? null : +u.dataset.tru; trWho(id); trDraw(id); return; }
   const c = ev.target.closest("[data-trc]"); if (c) { ev.stopImmediatePropagation(); haptic(8); const N = TR[id].beats.length;
     if (c.dataset.trc === "pp") { if (trB >= N - .01) trB = 0; trPlay = !trPlay; }
