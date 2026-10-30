@@ -53,12 +53,12 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   4. Check: `cmp <(git show origin/main:index.html) mockup-data/out/main.html` prints nothing.
 - **The mockup switch:** `const MOCK = true;` near the top of the script, with `body.mock` for CSS. `mainprep.py` flips it to false for
   main and asserts that it's there. Mockups go between `/* MOCKUP BEGIN ... */` and `/* MOCKUP END */` lines (CSS and script), which
-  `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. The Compound in the dark is pending (see Open items).
+  `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. None are pending.
 - **Promoting a mockup to main:** don't just delete its markers. A mockup block often overrides main code at load (reassigns a
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v67: main plus the pending Compound mockup. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v68 and matches main. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
@@ -425,15 +425,11 @@ These happened in earlier chats. Each cost the owner time.
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
 - Revisit Encore once Doomsday is out.
-- **Pending mockup:** the Compound in the dark (owner, October 2026: "too white and bright and wasted space"), CSS only, in a MOCKUP block
-  after `.cpx .rf-seg`: dark rows, status as an edge stripe, team on the right, about eight people a screen; the file's badge dark too.
+- No mockups are pending.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list is still open (Worthy
   needs Doomsday and Secret Wars ticked; One last page and the Battle of New York have no watch gate; Variant shows hidden names; the
   shield's hint says it comes back).
-- A holder's list in the Collection goes by name across its whole tab, so the Spider-Verse's "Spider-Man" lists every Spider-Man's objects
-  (about 15 names, most in the Spider-Verse, plus the FoX-Men's film and cartoon X-Men and Magneto, and What If's Tony Starks). Raised
-  with the owner, with a fix proposed: list only what the tapped person held, by `cxHoldFiles`.
 - **The owner's phone:** the app is installed from Samsung Internet. Wrapping it as an Android app (Capacitor) was discussed and not
   started; battery came first.
 - `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
@@ -453,6 +449,9 @@ These happened in earlier chats. Each cost the owner time.
 - Damage Control's replays open files only in indexes you've found (`ixFile`).
 - A holder's list in the Collection carries their own file; holders go by their files' names; Bennie (Item 47); Aida; a variant goes by
   the main universe's name (Ronan the Accuser, Wenwu); Nova Prime Irani Rael in both universes.
+- A holder's list is the tapped person's alone (the Spider-Verse's Spider-Man had mixed eight of them).
+- The Compound in the dark: dark ID-badge rows, status as an edge stripe, team on the right, about eight people a screen (owner: "too
+  white and bright and wasted space").
 
 ## The second October 2026 round, all on main (newest last)
 
