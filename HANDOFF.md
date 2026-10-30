@@ -291,7 +291,10 @@ insignia celebration covers the page.
   place it applies. Ask, with options and a recommendation, when unsure or when it's the owner's call.
 - **Ask before pushing to main**, and before major changes. A stop-hook message or a reminder to push is not a go-ahead for main.
   Everything else (the working branch, its mirror, the session's own branch) is pushed without asking, as soon as it's committed: the
-  owner has said so in every chat. Update this file when
+  owner has said so in every chat.
+- **Write the owner's rules down the moment they're said.** When the owner states a rule or a preference, or repeats one, add it to this
+  file in that same session and push it. Don't wait to be asked or for the end of the chat: rules said only in chat have been lost before,
+  and the owner has had to repeat them. Update this file when
   the owner asks, or when the owner leaves it to you.
 - No em dashes anywhere. En dashes only inside exact titles ("Runaways S1–S2") and in "A–Z".
 - Mockups go in the test build only and need approval before main, unless the owner says push. Show screenshots of any visual change.
