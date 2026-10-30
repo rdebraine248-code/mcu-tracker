@@ -174,7 +174,7 @@ insignia celebration covers the page.
     rule) is a decision, not a mistake.
 - **Writing pass:** `prose_coll.json`, `prose_raft.json` and `prose_cp.json` (file id to `[old text, new text]`, matched on the text as
   built; the build reports any line that no longer matches).
-- **In index.html itself:** Damage Control's reports (`DC`, 234 of them), the tactical replays (`TR`, seven battles), the Level 7 files,
+- **In index.html itself:** Damage Control's reports (`DC`, 238 of them, kept in the order they happened, universe by universe), the tactical replays (`TR`, seven battles), the Level 7 files,
   the Watcher's other realities (`ALT_BOXES`) and the easter eggs (`EGGS`, `ROW_EGGS`, `BOX_ROW_EGGS`).
 - **Organizations:** `opp/org_*.json`. Villainous groups go to the Raft, heroic ones to the Compound. Group files carry `grp:1`.
 - **Ids:** a prefix says the universe tab: none for MCU, `st-` for street-level (also on the MCU tab), `by-` Beyond, `sv-` Spider-Verse,
@@ -350,6 +350,10 @@ insignia celebration covers the page.
 - **Answer with specifics.** "What's on main" wants a list of what, not a count.
 - **No unapproved additions, no rehashing.** Build what was asked; offer ideas as ideas.
 - **Don't duplicate a feature.** One thing moves you somewhere (the sling ring); the Watcher only shows another reality.
+- **Damage Control's numbers run in one register a universe, in the order the incidents happened** (`DC_NO`, computed from the year;
+  the TVA's cases close the main register). Never one No. 001 a year. A new report goes into `DC` by its year.
+- **A to Z sorts the whole list into one list**, with no groups (Damage Control, owner, October 2026); grouping comes back with First
+  seen.
 - **No link in an index opens an index you haven't found.** That includes battle replays and anything added later: use `ixFile`.
 - **One person, one name:** a Collection holder reads as the person's file does, and a variant in another universe as the main universe's
   file, unless the screen names it differently. Spellings follow the screen and its credits (Bennie Pollack, Aida).

@@ -47,7 +47,14 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   await p.evaluate(() => [...document.querySelectorAll('[data-dcf]')].find(b => b.dataset.dcf === 'The Avengers').click()); await sleep(300);
   F = await p.evaluate(() => [...document.querySelectorAll('.dc-row b')].map(x => x.textContent)); ok(F.includes('The Battle of New York') && !F.includes('The Westview Anomaly'), 'the Avengers section opens: ' + F.length);
   await p.evaluate(() => document.querySelector('[data-ixs="az"]').click()); await sleep(300);
-  const az = await p.evaluate(() => [...document.querySelectorAll('.dc-row b')].map(x => x.textContent.replace(/^The /, ''))); ok(az.join() === az.slice().sort((a, b) => a.localeCompare(b)).join(), 'A to Z sorts');
+  const az = await p.evaluate(() => [...document.querySelectorAll('.dc-row b')].map(x => x.textContent.replace(/^The /, '')));
+  ok(az.join() === az.slice().sort((a, b) => a.localeCompare(b)).join(), 'A to Z sorts');
+  ok(az.length === await p.evaluate(() => DC.filter(d => dcU(d) === dcUni && dcSeen(d)).length) && await p.evaluate(() => document.querySelectorAll('.dc-body .rf-sec').length === 1 && !document.querySelector('.dc-body [data-dcg]')), 'A to Z is the whole tab in one list, no groups: ' + az.length);
+  // one register a universe, numbered in the order things happened: no number twice, none skipped, never back in time
+  const reg = await p.evaluate(() => RF_UNI.map(([u]) => { const L = DC.filter(d => dcU(d) === u).sort((a, b) => DC_NO[a.id].slice(-3) - DC_NO[b.id].slice(-3));
+    const nums = L.map(d => +DC_NO[d.id].slice(-3)), yrs = L.map(d => d.yr == null ? Infinity : d.yr);
+    return [u, L.length, nums.every((n, i) => n === i + 1), yrs.every((y, i) => !i || y >= yrs[i - 1]), new Set(L.map(d => DC_NO[d.id])).size === L.length]; }));
+  ok(reg.every(r => r[2] && r[3] && r[4]), 'each universe numbers its reports 001 onward in the order they happened: ' + JSON.stringify(reg));
   await p.evaluate(() => document.querySelector('[data-ixs="first"]').click()); await sleep(200);
   await p.evaluate(() => collShow('dc-bny')); await sleep(400);
   const tm = await p.evaluate(() => { const h = [...document.querySelectorAll('.co-h')].find(x => x.textContent === 'Teams'); return h ? [...h.nextElementSibling.children].map(x => x.textContent + ':' + x.tagName) : null; });
