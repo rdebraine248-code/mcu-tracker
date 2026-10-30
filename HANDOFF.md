@@ -303,7 +303,7 @@ insignia celebration covers the page.
 - **Don't fix what isn't broken.** When the owner says they missed something, check it before treating it as a bug, and don't change
   data or behavior to "fix" it (October 2026: Wanda was in Rumlow's web all along; changing the teammate rule over it was wrong).
 - **Network hub (mockup, October 2026, not in the app yet):** everyone in one room like the LEGO Star Wars hub, an Apple Watch lens,
-  crews packed close with only a small gap, the big crowds (Independent) standing looser. Zoomed out, each crew folds into one bubble;
+  a tight honeycomb where bubbles never touch (the first bubble field was too close, the next rounds too spread out), crews packed close with only a small gap, the big crowds (Independent) a little looser; toward the screen's edges people shrink and draw in, so the edges stay full. Zoomed out, each crew folds into one bubble;
   zooming in opens it into its people, and the same goes for a locked person's web (their people stand in groups by crew). Locked on
   someone, tapping one of their people shows how the two are connected. Prototype: https://claude.ai/artifact/UkdcJ6p7b9aNw2Zm4m6xsH .
   Where it lives in the app is still the owner's call.
