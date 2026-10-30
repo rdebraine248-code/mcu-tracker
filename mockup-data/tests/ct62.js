@@ -16,17 +16,17 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
     await p.evaluate(h => [...document.querySelectorAll('[data-cxh]')].find(x => x.dataset.cxh === h).click(), h); await sleep(500);
     return p.evaluate(() => ({ list: !collRec && !!document.querySelector('.tf-bar'), files: [...document.querySelectorAll('[data-cxo]')].map(x => x.dataset.cxo), labels: [...document.querySelectorAll('[data-cxo] small')].map(x => x.textContent) })); };
   // the filter is still the first thing a name does
-  let r = await holder('arrow', 'Yondu', 'mcu');
+  let r = await holder('arrow', 'Yondu Udonta', 'mcu');
   ok(r.list, 'a name still lists what they held');
   ok(r.files.join() === 'A:yondu', 'Raft not found: only the Compound file: ' + r.files);
   // into the file and back to the holder's list
   await p.evaluate(() => document.querySelector('[data-cxo]').click()); await sleep(600);
   ok(await p.evaluate(() => collMode === 'cp' && collRec === 'yondu'), 'the button opens his Compound file');
   await p.evaluate(() => history.back()); await sleep(700);
-  ok(await p.evaluate(() => collMode === 'coll' && !collRec && cxHoldF === 'Yondu' && !!document.querySelector('[data-cxo]')), 'back returns to the holder\'s list, with the button');
-  await p.evaluate(() => { state.raftIn = 1; }); r = await holder('arrow', 'Yondu', 'mcu');
+  ok(await p.evaluate(() => collMode === 'coll' && !collRec && cxHoldF === 'Yondu Udonta' && !!document.querySelector('[data-cxo]')), 'back returns to the holder\'s list, with the button');
+  await p.evaluate(() => { state.raftIn = 1; }); r = await holder('arrow', 'Yondu Udonta', 'mcu');
   ok(r.files.join() === 'A:yondu,T:yondu', 'Raft found too: both his files: ' + r.files);
-  await p.evaluate(() => { state.cpIn = 0; state.raftIn = 0; }); r = await holder('arrow', 'Yondu', 'mcu');
+  await p.evaluate(() => { state.cpIn = 0; state.raftIn = 0; }); r = await holder('arrow', 'Yondu Udonta', 'mcu');
   ok(r.list && !r.files.length, 'neither index found: no file buttons, the list still works');
   await p.evaluate(() => { state.cpIn = 1; state.raftIn = 1; });
   // the same name in a tab of many continuities finds the right person
@@ -41,5 +41,14 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
     for (const [k, L] of Object.entries(CX_HOLD_PICK)) { const [id, h] = k.split('|'), o = COLLX.find(x => x.id === id); if (!o || !o.st.some(x => x[3] === h)) out.push('no holder ' + k); if (cxHoldFiles(o, h).length !== L.length) out.push('missing file in ' + k); }
     return out; });
   ok(!bad.length, 'every hand-made link resolves: ' + bad.join(', '));
+  // holders go by their file's name (names_fix.json "hold"), and Item 47's Bennie is spelled as the film spells him
+  const nm = await p.evaluate(() => { const out = [], all = JSON.stringify([THREATS, ALLIES, COLLX]);
+    if (/Benny/.test(all)) out.push('Benny still in the data');
+    const want = { arrow: 'Yondu Udonta', rings: 'Wenwu', 'st-billyclub': 'Benjamin Poindexter', 'fox-claws': 'Logan', 'sv-kraven-calypso-serum': 'Calypso Ezili', 'pr-surfer-board': 'Victor von Doom', 'kree-implant': 'The Kree Empire', 'item-47': 'Bennie and Claire' };
+    for (const [id, h] of Object.entries(want)) { const o = COLLX.find(x => x.id === id); if (!o || !o.st.some(x => x[3] === h)) out.push('holder not renamed ' + id + ' ' + h); else if (!cxHoldFiles(o, h).length) out.push('no file for ' + id + ' ' + h); }
+    for (const [u, old] of [['mcu', 'Yondu'], ['mcu', 'Ronan'], ['mcu', 'Savin'], ['mcu', 'Mobius'], ['mcu', 'Katy'], ['mcu', 'Dex Poindexter'], ['mcu', 'Alphonso Mackenzie'], ['fox', 'James Howlett'], ['sv', 'Calypso']])   // What If's Ronan is filed as Ronan, so only these universes
+      if (COLLX.some(o => rfUniOf(o) === u && o.st.some(x => x[3] === old))) out.push('old holder name left: ' + u + ' ' + old);
+    return out; });
+  ok(!nm.length, 'holders go by their files\' names: ' + nm.join(', '));
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok', errs.length ? 'errors ' + errs.join(' | ') : '');
   await b.close(); process.exit(fails.length || errs.length ? 1 : 0); })();
