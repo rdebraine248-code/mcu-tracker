@@ -445,6 +445,11 @@ These happened in earlier chats. Each cost the owner time.
   has loaded once. Its storage is its own, and progress lives there: there is no save code to move it any more, so Android's own backup
   is on (`allowBackup`, version 1.1, versionCode 2): the phone backs the app's data up to Google with the rest of the phone. Raise
   `versionCode` for every new build, or the phone won't install it over the old one.
+  - **Updating:** site changes reach the app when the owner fully closes it (swipes it from recent apps) and reopens it online; Back only
+    sends it to the background, so a reopened app keeps the old page. The owner is happy with that: no auto-refresh (October 2026).
+  - **A new APK is only for the shell:** full screen and the system bars, the icon or name, Back with nothing left to go back to,
+    permissions (notifications, camera, widgets), the offline page, the site's address, or an Android update breaking the shell. Everything
+    else is the site.
   - **Build** (from `android-app/`; Android SDK at `/opt/android-sdk`, platform 36 and build-tools 35, with `sdk.dir` in
     `local.properties`): `gradle --no-daemon -I mirror.gradle assembleRelease -PdpStore=<key.jks> -PdpPass=<password>`. Maven Central
     answers 429 in this container, so `mirror.gradle` (an init script, kept outside the repo) puts
