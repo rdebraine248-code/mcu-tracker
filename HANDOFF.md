@@ -430,6 +430,19 @@ These happened in earlier chats. Each cost the owner time.
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list is still open (Worthy
   needs Doomsday and Secret Wars ticked; One last page and the Battle of New York have no watch gate; Variant shows hidden names; the
   shield's hint says it comes back).
+- **The Android app (`android-app/`, October 2026):** the owner's chosen way past One UI 9's grey strip. A plain Android shell, no framework:
+  one full-screen WebView onto the live site (`MainActivity.java`), so every push to main reaches it with no reinstall. The status bar is
+  hidden (a swipe down from the top shows it for a moment), the page draws around the camera (`viewport-fit=cover`, its own
+  `env(safe-area-inset-*)` padding), the navigation bar is left alone (the owner goes back with NavStar's side swipe), Back is the page's
+  own history (`webView.goBack()`, from the front page the app goes to the background), vibration allowed, an offline page until the site
+  has loaded once. Its storage is its own: a save code moves progress in.
+  - **Build** (from `android-app/`; Android SDK at `/opt/android-sdk`, platform 36 and build-tools 35, with `sdk.dir` in
+    `local.properties`): `gradle --no-daemon -I mirror.gradle assembleRelease -PdpStore=<key.jks> -PdpPass=<password>`. Maven Central
+    answers 429 in this container, so `mirror.gradle` (an init script, kept outside the repo) puts
+    `https://maven-central.storage-download.googleapis.com/maven2/` in front of the project's repositories.
+  - **The signing key** is never in this public repo. The owner holds `datapad-release.jks` and its password (sent in the October 2026
+    chat). An update to the app itself must be signed with it, or the phone refuses it and the old app has to be uninstalled, which wipes
+    its storage: ask the owner for the key before building one. Changes to the site need no new app.
 - **The owner's phone:** the app is installed from Samsung Internet. After One UI 9, SystemUI Tuner still hides the status bar, but the
   installed app kept a grey strip where it had been (Samsung Internet itself stayed fully immersive), so `manifest.webmanifest` now asks
   for `"display": "fullscreen"` (October 2026). Nothing in the code checks the display mode. A manifest change needs the app reinstalled

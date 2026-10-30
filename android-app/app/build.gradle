@@ -1,0 +1,24 @@
+// The Marvel Datapad as its own Android app: a full-screen window onto the live site, so every push to main reaches it as it reaches the
+// browser. Signing: a release key passed in by the build command (see HANDOFF.md); it's never kept in this public repository
+plugins { id "com.android.application" }
+android {
+    namespace "io.github.rdebraine248.datapad"
+    compileSdk 36
+    defaultConfig {
+        applicationId "io.github.rdebraine248.datapad"
+        minSdk 30
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+    }
+    signingConfigs {
+        release {
+            if (project.hasProperty("dpStore")) {
+                storeFile file(project.property("dpStore")); storePassword project.property("dpPass")
+                keyAlias "datapad"; keyPassword project.property("dpPass")
+            }
+        }
+    }
+    buildTypes { release { minifyEnabled false; signingConfig signingConfigs.release } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}

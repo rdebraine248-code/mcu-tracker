@@ -1,0 +1,11 @@
+<resources>
+    <!-- the datapad's own dark, from the first frame: no white flash while the site loads, nothing drawn where the status bar was -->
+    <style name="Datapad" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/pad</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+    </style>
+    <color name="pad">#0B1019</color>
+    <color name="icon_bg">#05080D</color>
+</resources>

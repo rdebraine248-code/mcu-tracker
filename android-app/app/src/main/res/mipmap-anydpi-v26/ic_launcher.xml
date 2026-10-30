@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the same S.H.I.E.L.D. eagle as the web app's icon, inset so the phone's icon shape never cuts its ring -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/icon_bg" />
+    <foreground><inset android:drawable="@drawable/datapad_icon" android:inset="12%" /></foreground>
+</adaptive-icon>
