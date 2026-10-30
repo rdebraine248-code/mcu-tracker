@@ -435,7 +435,9 @@ These happened in earlier chats. Each cost the owner time.
   hidden (a swipe down from the top shows it for a moment), the page draws around the camera (`viewport-fit=cover`, its own
   `env(safe-area-inset-*)` padding), the navigation bar is left alone (the owner goes back with NavStar's side swipe), Back is the page's
   own history (`webView.goBack()`, from the front page the app goes to the background), vibration allowed, an offline page until the site
-  has loaded once. Its storage is its own, and progress lives there: there is no save code to move it any more.
+  has loaded once. Its storage is its own, and progress lives there: there is no save code to move it any more, so Android's own backup
+  is on (`allowBackup`, version 1.1, versionCode 2): the phone backs the app's data up to Google with the rest of the phone. Raise
+  `versionCode` for every new build, or the phone won't install it over the old one.
   - **Build** (from `android-app/`; Android SDK at `/opt/android-sdk`, platform 36 and build-tools 35, with `sdk.dir` in
     `local.properties`): `gradle --no-daemon -I mirror.gradle assembleRelease -PdpStore=<key.jks> -PdpPass=<password>`. Maven Central
     answers 429 in this container, so `mirror.gradle` (an init script, kept outside the repo) puts
