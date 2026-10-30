@@ -47,7 +47,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
     if (/AIDA/.test(all + JSON.stringify(DC))) out.push('AIDA still in the data');
     // one person, one name in every universe (October 2026): a variant goes by the main universe's name
     const nm1 = (L, id) => { const f = L.find(x => x.id === id); return f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); };
-    for (const [L, id, n] of [[THREATS, 'ronan', 'Ronan the Accuser'], [THREATS, 'by-ronan-xandar', 'Ronan the Accuser'], [THREATS, 'wenwu', 'Wenwu'], [ALLIES, 'by-wenwu-ten-rings', 'Wenwu'], [ALLIES, 'by-zombie-wenwu', 'Wenwu'], [THREATS, 'st-aida', 'Aida']])
+    for (const [L, id, n] of [[THREATS, 'ronan', 'Ronan the Accuser'], [THREATS, 'by-ronan-xandar', 'Ronan the Accuser'], [THREATS, 'wenwu', 'Wenwu'], [ALLIES, 'irani-rael', 'Nova Prime Irani Rael'], [THREATS, 'by-nova-prime', 'Nova Prime Irani Rael'], [ALLIES, 'by-wenwu-ten-rings', 'Wenwu'], [ALLIES, 'by-zombie-wenwu', 'Wenwu'], [THREATS, 'st-aida', 'Aida']])
       if (nm1(L, id) !== n) out.push(id + ' is ' + nm1(L, id) + ', not ' + n);
     const want = { arrow: 'Yondu Udonta', rings: 'Wenwu', 'by-zombie-ten-rings': 'Wenwu', 'by-dark-aster-nova': 'Ronan the Accuser', framework: 'Aida', 'st-billyclub': 'Benjamin Poindexter', 'fox-claws': 'Logan', 'sv-kraven-calypso-serum': 'Calypso Ezili', 'pr-surfer-board': 'Victor von Doom', 'kree-implant': 'The Kree Empire', 'item-47': 'Bennie and Claire' };
     for (const [id, h] of Object.entries(want)) { const o = COLLX.find(x => x.id === id); if (!o || !o.st.some(x => x[3] === h)) out.push('holder not renamed ' + id + ' ' + h); else if (!cxHoldFiles(o, h).length) out.push('no file for ' + id + ' ' + h); }
