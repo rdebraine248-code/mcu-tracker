@@ -44,7 +44,12 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   // holders go by their file's name (names_fix.json "hold"), and Item 47's Bennie is spelled as the film spells him
   const nm = await p.evaluate(() => { const out = [], all = JSON.stringify([THREATS, ALLIES, COLLX]);
     if (/Benny/.test(all)) out.push('Benny still in the data');
-    const want = { arrow: 'Yondu Udonta', rings: 'Wenwu', 'st-billyclub': 'Benjamin Poindexter', 'fox-claws': 'Logan', 'sv-kraven-calypso-serum': 'Calypso Ezili', 'pr-surfer-board': 'Victor von Doom', 'kree-implant': 'The Kree Empire', 'item-47': 'Bennie and Claire' };
+    if (/AIDA/.test(all + JSON.stringify(DC))) out.push('AIDA still in the data');
+    // one person, one name in every universe (October 2026): a variant goes by the main universe's name
+    const nm1 = (L, id) => { const f = L.find(x => x.id === id); return f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); };
+    for (const [L, id, n] of [[THREATS, 'ronan', 'Ronan the Accuser'], [THREATS, 'by-ronan-xandar', 'Ronan the Accuser'], [THREATS, 'wenwu', 'Wenwu'], [ALLIES, 'by-wenwu-ten-rings', 'Wenwu'], [ALLIES, 'by-zombie-wenwu', 'Wenwu'], [THREATS, 'st-aida', 'Aida']])
+      if (nm1(L, id) !== n) out.push(id + ' is ' + nm1(L, id) + ', not ' + n);
+    const want = { arrow: 'Yondu Udonta', rings: 'Wenwu', 'by-zombie-ten-rings': 'Wenwu', 'by-dark-aster-nova': 'Ronan the Accuser', framework: 'Aida', 'st-billyclub': 'Benjamin Poindexter', 'fox-claws': 'Logan', 'sv-kraven-calypso-serum': 'Calypso Ezili', 'pr-surfer-board': 'Victor von Doom', 'kree-implant': 'The Kree Empire', 'item-47': 'Bennie and Claire' };
     for (const [id, h] of Object.entries(want)) { const o = COLLX.find(x => x.id === id); if (!o || !o.st.some(x => x[3] === h)) out.push('holder not renamed ' + id + ' ' + h); else if (!cxHoldFiles(o, h).length) out.push('no file for ' + id + ' ' + h); }
     for (const [u, old] of [['mcu', 'Yondu'], ['mcu', 'Ronan'], ['mcu', 'Savin'], ['mcu', 'Mobius'], ['mcu', 'Katy'], ['mcu', 'Dex Poindexter'], ['mcu', 'Alphonso Mackenzie'], ['fox', 'James Howlett'], ['sv', 'Calypso']])   // What If's Ronan is filed as Ronan, so only these universes
       if (COLLX.some(o => rfUniOf(o) === u && o.st.some(x => x[3] === old))) out.push('old holder name left: ' + u + ' ' + old);
