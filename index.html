@@ -3030,7 +3030,7 @@ panel.addEventListener("pointermove", ev => { if (pnlStart && Math.hypot(ev.clie
 panel.addEventListener("contextmenu", ev => ev.preventDefault());
 /* ---------- gestures with a story: Iron Man pulls his faceplate down, Ant-Man pinches the box small, Daredevil hears a heartbeat,
    Carol flicks herself up, the Ten Rings wake when you touch one, and a black marker strikes out the Thunderbolts' name ---------- */
-let gest = null, pinch = null, gestBlock = 0, quantumOn = false, ringsOn = false, ddTaps = [], antWheel = 0, antWheelT = 0, lokiPress = null, holdTimer2 = null, twoHold = null, mouseFeel = null;
+let gest = null, pinch = null, gestBlock = 0, quantumOn = false, ringsOn = false, ddTaps = [], antWheel = 0, antWheelT = 0, lokiPress = null, holdTimer2 = null, holdAt = null, twoHold = null, mouseFeel = null;
 const boxIs = id => openEntry && openKind === "char" && openEntry.id === id;
 // while one of these owns the finger, the page must not scroll (or zoom) underneath it
 panel.addEventListener("touchmove", ev => { if (gest || pinch || twoHold) ev.preventDefault(); }, { passive: false });
@@ -3048,14 +3048,14 @@ panel.addEventListener("pointerdown", ev => {
   else if (id === "cx-the-fantastic-four" && onName) ffTap(h);
   else if (id === "cx-loki-the-tva" && !ev.target.closest(".back") && !ev.target.closest(DOOM_SEL) && !lokiOn) { lokiPress = [x, y]; clearTimeout(lokiTimer); lokiTimer = setTimeout(() => { lokiPress = null; clearTimeout(pnlTimer); gest = lokiGrab(x, y); }, 500); }
   // with a mouse there's no second finger: a long press stands in for the two-finger and four-finger ones
-  if (ev.pointerType === "mouse") { clearTimeout(holdTimer2);
+  if (ev.pointerType === "mouse") { clearTimeout(holdTimer2); holdAt = [x, y];
     if (id === "cx-wanda-vision" && ev.target.closest(".pquote")) holdTimer2 = setTimeout(() => { holdTimer2 = null; gestBlock = Date.now() + 600; mouseFeel = onlyFeel([x - 90, y + 60], [x + 90, y + 60]); }, 900);
     if (id === "cx-the-defenders" && onName) holdTimer2 = setTimeout(() => { gestBlock = Date.now() + 600; defenders(); }, 1200);
     if (id === FURY_BOX && onName) holdTimer2 = setTimeout(() => { gestBlock = Date.now() + 600; fury(h); }, 1200); }
 }, true);
 panel.addEventListener("pointermove", ev => {
   if (lokiPress && Math.hypot(ev.clientX - lokiPress[0], ev.clientY - lokiPress[1]) > 10) { clearTimeout(lokiTimer); lokiPress = null; }   // it moved first: that's a scroll
-  if (holdTimer2) { clearTimeout(holdTimer2); holdTimer2 = null; }
+  if (holdTimer2 && Math.hypot(ev.clientX - holdAt[0], ev.clientY - holdAt[1]) > 10) { clearTimeout(holdTimer2); holdTimer2 = null; }   // a hand's wobble isn't a move: the same 10px as every other hold
   if (!gest) return;
   const dx = ev.clientX - gest.x, dy = ev.clientY - gest.y;
   if (gest.k === "carol") {
@@ -6835,7 +6835,7 @@ const EGGS = [
   ["ironhud", "Heads-up", "Bring Tony's faceplate down.", "In the Iron Man box, press his name and drag it down, like his faceplate.", 1],
   ["puny", "Puny god", "Keep poking the other guy.", "In the Hulk box, tap his name five times in a row.", 1],
   ["worthy", "Worthy", "See Thor's story through, then try to lift his name.", "Check off every title in the Thor box, then hold his name.", 1],
-  ["shield", "The shield", "Hold on in Cap's box. The shield always comes back.", "Hold anywhere in the Captain America box.", 1],
+  ["shield", "The shield", "Hold on in Cap's box and let the shield fly.", "Hold anywhere in the Captain America box.", 1],
   ["arrow", "Never misses", "In Hawkeye's box, hold still and let him take aim.", "Hold anywhere in the Hawkeye box for a second.", 1],
   ["avengers", "Assemble", "Hold on to the team's name and they all show up.", "Hold the name in The Avengers box.", 1],
   ["bifrost", "Bifrost", "Heimdall is watching New Mexico.", "In the Atlas, hold New Mexico.", 1],
@@ -6852,7 +6852,7 @@ const EGGS = [
   ["goose", "Not a cat", "Fury's favorite is in Carol's profile. It isn't a cat.", "Once Captain Marvel is checked off in her box, tap Goose in her profile. Nick Fury's profile works too.", 1],
   ["decrypt", "Decrypted", "The Kree left something out of an intercept.", "After Captain Marvel, in Comms, hold the blacked-out words in the Kree intercept.", 1],
   ["tiamut", "Emergence", "Something is waking in the Indian Ocean.", "After Eternals, in the Atlas, hold Celestial Island.", 2],
-  ["incursion", "Incursion", "Two Earths can't share one place. Make them.", "After Multiverse of Madness, in the Atlas Multiverse, hold an Earth until it lifts, then drop it on another.", 2],
+  ["incursion", "Incursion", "Two worlds can't share one place. Make them.", "After Multiverse of Madness, in the Atlas Multiverse, hold any world until it lifts, then drop it on another.", 2],
   ["minutes", "Miss Minutes", "The TVA's mascot is in Loki's profile.", "Once Loki S1 is checked off in the Loki & The TVA box, tap Miss Minutes in Loki's profile.", 2],
   ["lucky", "Pizza dog", "A one-eyed dog is in Hawkeye's profile.", "Once Hawkeye (the series) is checked off in his box, tap Lucky in Hawkeye's profile.", 2],
   ["herbie", "H.E.R.B.I.E.", "The family's robot is in their profile.", "Once The Fantastic Four: First Steps is checked off in their box, tap H.E.R.B.I.E. in The Fantastic Four's profile.", 2],
@@ -6861,21 +6861,21 @@ const EGGS = [
   ["page", "One last page", "Before the Snap took him, Fury got one message out.", "Swipe up with two fingers in the Nick Fury box (on a computer, drag his name up).", 1],
   ["level7", "Level 7", "S.H.I.E.L.D. keeps its files behind the stripes. Swipe your clearance.", "Once you've watched Captain Marvel, The Avengers or Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, swipe your card through the reader, then tap outside the files to close them.", 1],
   ["hydra", "Hail Hydra", "Look closely at the barcode on your Agent ID.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
-  ["wsoldier", "Ready to comply", "Wake the soldier with the red star on his arm.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
-  ["onyourleft", "On your left.", "On the morning run, someone keeps passing on the left.", "In the Falcon & Winter Soldier box, tap the left edge of the screen, three laps in a row.", 1],
+  ["wsoldier", "Ready to comply", "Wake the soldier with the red star at the top of his box.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
+  ["onyourleft", "On your left.", "On the morning run, someone keeps passing on the left.", "In the Falcon & Winter Soldier box, tap the left edge of the screen above the titles, three laps in a row.", 1],
   ["groot", "Awesome Mix", "Peter's mom made him a tape. Press play on the Guardians.", "Hold the name in the Guardians of the Galaxy box.", 1],
   ["dance", "Whistle", "Whistle up Yondu's arrow in Vol. 2.", "Hold Guardians of the Galaxy Vol. 2 in any list, and drag your finger to lead the arrow.", 1],
   ["quantum", "Quantum Realm", "In Scott and Hope's box, think small.", "Pinch the Ant-Man & the Wasp box smaller (on a computer, hold Ctrl and scroll down).", 1],
   ["radar", "World on fire", "Matt can hear your heartbeat. Tap one out.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
-  ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
+  ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the rings in the top right corner, around the Profile button.", 1],
   ["bargain", "I've come to bargain", "In the Dark Dimension, come to bargain. Again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
   ["webs", "Thwip", "Your friendly neighborhood web-slinger needs a spot to land.", "Double-tap an empty spot in Spider-Man's box.", 1],
-  ["jameson", "Menace", "The Bugle has a scoop, and Jameson wants to shout it.", "Once the Daily Bugle has a headline in Comms, hold its name above the headline.", 1],
+  ["jameson", "Menace", "The Bugle has a scoop, and Jameson wants to shout it.", "After Spider-Man (2002), Spider-Man 2, Spider-Man 3 or either Amazing Spider-Man, the Daily Bugle has a headline in Comms: hold its name above the headline.", 1],
   ["defenders", "Four colors", "Four heroes, four colors, all at once.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
   ["penny", "Penny and dime", "One batch, two batch, penny and dime. Count it out on Frank.", "In The Punisher box, tap his quote four times.", 1],
   ["onlyfeel", "I just feel you", "Two hands, held still, until the stone gives.", "In the Wanda & Vision box, hold two fingers on the screen until the stone breaks (on a computer, hold the quote).", 1],
   ["photon", "Higher, further, faster", "Carol only goes one way: up.", "Flick Captain Marvel's name upward.", 1],
-  ["studio", "Marvel Studios", "Every movie starts the same way. Wait for the lights.", "Hold the main title until the lights go down.", 1],
+  ["studio", "The Marvel Cinematic Universe", "Every movie starts the same way. Wait for the lights.", "Hold the main title until the lights go down.", 1],
   ["tenrings", "Ten rings", "The Ten Rings are already on Shang-Chi's box. Wake one.", "In the Shang-Chi & The Ten Rings box, tap one of the rings at the top.", 2],
   ["eternals", "The Uni-Mind", "Hold the Eternals together, as one mind.", "Hold anywhere in the Eternals box.", 2],
   ["moon", "Fractured", "Hold on to Moon Knight. Who's in control?", "Hold the name in the Moon Knight box.", 2],
@@ -6884,7 +6884,7 @@ const EGGS = [
   ["shatter", "New realities", "The Watcher guides you through new realities.", "Hold anywhere in The Watcher's box or the Beyond the MCU chapter.", 2],
   ["werewolf", "Bloodstone", "The Bloodstone glows red in Werewolf by Night.", "Hold the name or the Bloodstone watermark in the Werewolf by Night box.", 2],
   ["sinister", "Hello, Peter.", "Five old enemies, one at a time.", "Hold anywhere in The Sony Spider-Men box, one villain per hold, until you've seen all five.", 2],
-  ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse box.", 2],
+  ["glitch", "Glitch", "A canon event.", "Hold the name of The Spider-Verse chapter.", 2],
   ["glorious", "Glorious purpose", "In Loki's box, hold still, then gather the threads.", "In the Loki & The TVA box, hold your finger still for a moment, then pull up to the name.", 2],
   ["skrull", "Not who it says it is", "In Secret Invasion, one title isn't what it says it is.", "Hold Secret Invasion, then tap the title that doesn't belong.", 2],
   ["prune", "Pruned", "The TVA prunes a branch that strays.", "After Loki S1, on a timeline page, hold a branch line.", 2],
@@ -6895,7 +6895,7 @@ const EGGS = [
   ["fantastic", "Fantastic", "Four of them, four powers, one burst of taps each.", "Tap the name in The Fantastic Four box four times quickly. Each run of four shows one power; see all four.", 2],
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
   ["doom", "Doom", "Hold on to Doomsday.", "Hold any Avengers: Doomsday title.", 2],
-  ["postcredits", "Post-credits", "Stay until the very end.", "Complete the Multiverse, then scroll to the very end of the page and wait.", 2]
+  ["postcredits", "Post-credits", "Stay until the very end.", "When the Chapters, Sacred Timeline or Characters page reads Multiverse Completed, scroll to the very end of it and wait.", 2]
 ];
 // each Avengers film is a mission, named for what the team had to do (Doomsday and Secret Wars keep their titles until they are out)
 const MISSION_NAMES = { "The Avengers": "Save New York", "Avengers: Age of Ultron": "Stop Ultron", "Avengers: Infinity War": "Face Thanos", "Avengers: Endgame": "Assemble" };
@@ -7622,7 +7622,7 @@ function groot(q) {
   setTimeout(() => { el.remove(); grootOn = false; found("groot"); }, T);
 }
 
-/* ---------- Doctor Strange & Wong: double-tap the small circle at the top right. The background circles ripple, then rings of orange runes turn ---------- */
+/* ---------- Doctor Strange & Wong: double-tap the rings in the top right corner. The background circles ripple, then rings of orange runes turn ---------- */
 let runesOn = false; const SIGILS = Array.from({ length: 36 }, () => Array.from({ length: 3 + Math.floor(Math.random() * 3) }, () => {
   const k = Math.floor(Math.random() * 5), r = () => (Math.random() - .5) * 10;
   return k === 0 ? ["l", 0, -6, 0, 6] : k === 1 ? ["l", r(), r(), r(), r()] : k === 2 ? ["a", r() * .5, r() * .5, 2 + Math.random() * 3] : k === 3 ? ["l", -5, r() * .6, 5, r() * .6] : ["v", r() * .5, -5, r() * .5];
@@ -8840,8 +8840,10 @@ panel.addEventListener("click", ev => {
   if (openEntry) {
     const id = openEntry.id, pr = panel.getBoundingClientRect(), onName = ev.target.closest("#panelTitle");
     if (id === "cx-shang-chi-the-ten-rings" && ringHit(ev)) { tenRings(); return; }
-    if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button")) { oylLaps(); return; }
-    if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 70) { if (dblCheck(ev)) strangeRunes(); return; }
+    // the edge beside the name, the quote or empty space; never beside a title, where a finger meant the title (owner, October 2026)
+    if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button") && ![...panel.querySelectorAll(".row")].some(r => { const q = r.getBoundingClientRect(); return ev.clientY >= q.top - 6 && ev.clientY <= q.bottom + 6; })) { oylLaps(); return; }
+    // the rings around the corner, wider than the Profile button that sits in them, and never the button itself
+    if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 120 && !ev.target.closest("button")) { if (dblCheck(ev)) strangeRunes(); return; }
   }
   if (ev.target.closest("#panelTitle") && openEntry && openEntry.id === "cx-hulk") { punyTap(); return; }
   if (openEntry && openEntry.id === "cx-falcon-winter-soldier" && starTap(ev)) return;
