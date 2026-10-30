@@ -307,6 +307,11 @@ insignia celebration covers the page.
   zooming in opens it into its people, and the same goes for a locked person's web (their people stand in groups by crew). Locked on
   someone, tapping one of their people shows how the two are connected. Prototype: https://claude.ai/artifact/UkdcJ6p7b9aNw2Zm4m6xsH .
   Where it lives in the app is still the owner's call.
+  - **One person, one bubble (owner):** a hero file and a Raft file of the same person under different ids are one person in the Network
+    (Bucky / Winter Soldier, Sharon Carter / Power Broker, Bob / Sentry, Mole Man, Silver Surfer). Vision and White Vision, and Maria
+    Rambeau and the Marvels' Binary, are different people and stay apart.
+  - The mockup also has each person's path (their titles in story order, the people they share the most titles with merging in), and
+    everyone in a title (a Titles list, or from a stop on a path).
 - Don't schedule anything; the owner says when. The VisionQuest audit is dropped: don't bring it up.
 - **No fourth-wall words in file text.** Never write "season", "episode", "finale", "credits", "flashback", "the film" or "the show" in a
   sentence; "In season N," stays at the very start in the data only.
