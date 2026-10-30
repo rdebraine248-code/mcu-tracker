@@ -55,5 +55,12 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
     await p.evaluate(() => closePanel()); await sleep(600);
   }
   ok(await E('shatter'), 'New realities is on file');
+  // with a mouse, a long press stands in for fingers: a hand's small wobble doesn't cancel it, a real drag does (Four colors here)
+  const mhold = async move => { await p.evaluate(() => { if (openEntry) closePanel(); const e = DATA.chars.find(c => c.id === 'cx-the-defenders'); openPanel(e, 'char', document.body); }); await sleep(1300);
+    await p.evaluate(() => { defOn = false; (state.eggs || {}).defenders = 0; });
+    const [x, y] = await p.evaluate(() => { const r = document.getElementById('panelTitle').getBoundingClientRect(); return [r.left + 20, r.top + r.height / 2]; });
+    await p.mouse.move(x, y); await p.mouse.down(); await p.mouse.move(x + move, y + 2); await sleep(1500); const on = await p.evaluate(() => !!defOn); await p.mouse.up(); await sleep(6500); return on; };
+  ok(await mhold(5), 'a mouse hold with a 5px wobble still plays Four colors');
+  ok(!(await mhold(30)), 'a 30px drag cancels it');
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok', errs.length ? 'errors ' + errs.join(' | ') : '');
   await b.close(); process.exit(fails.length || errs.length ? 1 : 0); })();
