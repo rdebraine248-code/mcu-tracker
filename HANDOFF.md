@@ -430,7 +430,10 @@ These happened in earlier chats. Each cost the owner time.
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list is still open (Worthy
   needs Doomsday and Secret Wars ticked; One last page and the Battle of New York have no watch gate; Variant shows hidden names; the
   shield's hint says it comes back).
-- **The owner's phone:** the app is installed from Samsung Internet. Wrapping it as an Android app (Capacitor) was discussed and not
+- **The owner's phone:** the app is installed from Samsung Internet. After One UI 9, SystemUI Tuner still hides the status bar, but the
+  installed app kept a grey strip where it had been (Samsung Internet itself stayed fully immersive), so `manifest.webmanifest` now asks
+  for `"display": "fullscreen"` (October 2026). Nothing in the code checks the display mode. A manifest change needs the app reinstalled
+  from Samsung Internet. Wrapping it as an Android app (Capacitor) was discussed and not
   started; battery came first.
 - `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
 - **Cut in October 2026 (don't bring back unasked):** J.A.R.V.I.S. search, Sound and the sound board, the War Room, the TVA and Wakanda
