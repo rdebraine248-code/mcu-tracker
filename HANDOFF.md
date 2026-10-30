@@ -53,7 +53,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   4. Check: `cmp <(git show origin/main:index.html) mockup-data/out/main.html` prints nothing.
 - **The mockup switch:** `const MOCK = true;` near the top of the script, with `body.mock` for CSS. `mainprep.py` flips it to false for
   main and asserts that it's there. Mockups go between `/* MOCKUP BEGIN ... */` and `/* MOCKUP END */` lines (CSS and script), which
-  `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. None are pending.
+  `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. The Compound in the dark is pending (see Open items).
 - **Promoting a mockup to main:** don't just delete its markers. A mockup block often overrides main code at load (reassigns a
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
