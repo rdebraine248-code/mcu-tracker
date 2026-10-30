@@ -4469,6 +4469,7 @@ function cxBody() {
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => st)).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).sort(ixCmp(cxName, cxSteps));
+  if (state.ixAZ && known.length) return ixSortBar() + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${known.length}</em></div><div class="cx-grid">${known.map(o => card(o, (o, S, st) => cxSpec(o) ? st + " · Home: " + cxHolder(S) : "Held by " + cxHolder(S))).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); grouping comes back with First seen
   // grouped by holder, it's an index of every hand an object has passed through, the same names as on its card
   const SPEC = "Living specimens";
   const keyz = o => cxGrp === "holder" ? (cxSpec(o) ? [SPEC] : [...new Set(cxSteps(o).map(x => x[3]).filter(Boolean))]) : [cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c];
@@ -4593,6 +4594,7 @@ function rfBody() {
     return L.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort(ixCmp(rfName, rfSteps));
+  if (state.ixAZ && known.length) return ixSortBar() + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${known.length}</em></div><div class="rf-list">${known.map(o => row(o, o => esc(rfClass(o) || ""))).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); grouping comes back with First seen
   // grouped by who opposed them, it's an index of heroes and teams: a threat is under everyone who has stood against them, the same names as on its file
   const NONE = rfGrp === "tm" ? "Independent" : "No hero on file", keyz = o => rfGrp === "class" ? [rfClass(o) || "Unknown"] : rfGrp === "op" ? (L => L.length ? L : [NONE])(rfOpps(o)) : rfGrp === "tm" ? rfTeams(o) : [stOf(o)];
   const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" || rfGrp === "tm" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === NONE) - (b === NONE) || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
@@ -4670,6 +4672,7 @@ function cpBody() {
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cp-grid">${L.map(card).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length).sort(ixCmp(cpName, cpSteps));
+  if (state.ixAZ && known.length) return ixSortBar() + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${known.length}</em></div><div class="cp-grid">${known.map(o => card(o)).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); grouping comes back with First seen
   // grouped by team, it's an index of every team: each person is under every team on their file, so the tags and the list always agree
   const keyz = o => cpGrp === "team" ? [...new Set(cpTeams(o))] : [cpStatus(cpSteps(o))];
   const keys = cpGrp === "team" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === "Independent") - (b === "Independent") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(CP_ST);

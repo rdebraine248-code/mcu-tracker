@@ -17,7 +17,8 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
     await p.evaluate(m => { closeColl(true); openColl(m); }, mode); await sleep(300);
     ok(await p.$('[data-ixs="first"]') && await p.$('[data-ixs="az"]'), mode + ': the Sort switch shows');
     await p.click('[data-ixs="az"]'); await sleep(300);
-    const S = await secs(); ok(S.length && S.every(sorted), mode + ': A to Z inside every group ' + JSON.stringify(S.map(x => x.slice(0, 4))));
+    const S = await secs(), all = await p.evaluate(m => m === 'raft' ? THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).length : m === 'cp' ? ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length).length : COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).length, mode);
+    ok(S.length === 1 && S[0].length === all && sorted(S[0]) && !await p.$('#collView .rf-grp:not(.ix-sort)'), mode + ': A to Z is the whole tab in one list, no groups: ' + S.map(x => x.length) + ' of ' + all);
     await p.click('[data-ixs="first"]'); await sleep(300);
   }
   // First seen keeps story order: the Raft's Active group under First seen differs from A to Z when the story order isn't alphabetical

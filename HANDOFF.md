@@ -239,7 +239,8 @@ insignia celebration covers the page.
     "[ Classified ]" until its chapter box is opened or every title in it is watched (`slNamed`, the Sacred Timeline page's own rule).
   - **First seen and Last seen** go by release order, season by season (`seenRk`: the season's title in `DATA.timelineRelease`, else the
     title, else the Chapters path after the rest). Owner's call, October 2026: the Chapters path ignored seasons and crossovers.
-  - **Sort switch** under Group by: First seen (the same release-order rank of the first title, ties A to Z) or A to Z, ignoring a leading "The"
+  - **Sort switch** under Group by: First seen (the same release-order rank of the first title, ties A to Z, grouped) or A to Z (the whole tab
+    in one list, no groups), ignoring a leading "The"
     (`ixCmp`, `state.ixAZ`, one setting for all three). Groups by Status, Class or Type follow a fixed list; groups by
     Faction, Team, Holder or Opposed by are A to Z. Search results are A to Z.
   - **Factions and teams:** a villain's Factions row (`rfTeams`, `tmChips`) and a hero's Teams row list every group served so far, the
@@ -354,7 +355,7 @@ insignia celebration covers the page.
   repeated anywhere: Case No. ST-001. Numbered in release order, the order the incidents reached the screen, as First seen goes; not by
   story order, or ST-001 would wait for a recent show (owner, October 2026). A report filed under a whole show goes by its first season;
   within one title, by year. `DC_NO` computes them, so a new report needs no number; First seen lists by case number.
-- **A to Z sorts the whole list into one list**, with no groups (Damage Control, owner, October 2026); grouping comes back with First
+- **A to Z sorts the whole tab into one list**, with no groups, in all four indexes (owner, October 2026); grouping comes back with First
   seen.
 - **No link in an index opens an index you haven't found.** That includes battle replays and anything added later: use `ixFile`.
 - **One person, one name:** a Collection holder reads as the person's file does, and a variant in another universe as the main universe's
