@@ -415,6 +415,8 @@ These happened in earlier chats. Each cost the owner time.
     every hand-made link against the data.
 24. **Asking to push the working branches.** Only main needs the owner's yes. Asking for anything else (the handoff, the working branch)
     wastes the owner's time and was called out more than once. Push those yourself, and say so in a line.
+25. **Filing a found problem instead of raising it.** The Collection's holder list mixing eight Spider-Men was noticed while building the
+    holder links and only written under Open items. Tell the owner the moment you find something wrong, with what it is and a fix.
 
 ## Open items
 
@@ -428,8 +430,9 @@ These happened in earlier chats. Each cost the owner time.
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list is still open (Worthy
   needs Doomsday and Secret Wars ticked; One last page and the Battle of New York have no watch gate; Variant shows hidden names; the
   shield's hint says it comes back).
-- A holder's list in the Collection goes by name across its whole tab, so the Spider-Verse's "Spider-Man" lists every Spider-Man's objects.
-  Its file button goes to the tapped object's own person. Not raised with the owner yet.
+- A holder's list in the Collection goes by name across its whole tab, so the Spider-Verse's "Spider-Man" lists every Spider-Man's objects
+  (about 15 names, most in the Spider-Verse, plus the FoX-Men's film and cartoon X-Men and Magneto, and What If's Tony Starks). Raised
+  with the owner, with a fix proposed: list only what the tapped person held, by `cxHoldFiles`.
 - **The owner's phone:** the app is installed from Samsung Internet. Wrapping it as an Android app (Capacitor) was discussed and not
   started; battery came first.
 - `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
