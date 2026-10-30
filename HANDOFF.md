@@ -223,9 +223,9 @@ insignia celebration covers the page.
   and `NAMED_BY`. A file wears one through `em`.
 - **Paths:** `mapData` builds the layout at runtime from `DATA.map.rows` (one per character box, in `DATA.chars` order) and `cols` (one per
   title, with the rows standing at it, `o` the row that owns it). Changing who is at a title means changing `rows` and `cols` only.
-- **Save migrations, all run at load and on importing a save code:** `renameChecks` (`RENAMED`, `SPLIT`, `MOVED`, `FOLDED`), `chReorg`,
-  `furySplit`, `logSplit` (`LOGSPLIT`), `perInit`, `relSplit`, `epSplit`, `epFold`, `newsKeysV2`, and the `IDMOVE` remap. `SAVE_KEYS`
-  lists everything a save code carries.
+- **Save migrations, all run at load:** `renameChecks` (`RENAMED`, `SPLIT`, `MOVED`, `FOLDED`), `chReorg`,
+  `furySplit`, `logSplit` (`LOGSPLIT`), `perInit`, `relSplit`, `epSplit`, `epFold`, `newsKeysV2`, and the `IDMOVE` remap. There is no save code any more (owner, October 2026: progress lives in the
+  Android app); the Agent File ends with Reset datapad.
 - **Clearance levels:** counted from XP (`XP_AT`), shown on the Agent ID. The owner removed the XP bar, the "to next level" line and the
   Clearance raised pill.
 - **Holds:** holding a chapter or character box, or a timeline's key, marks it all watched. Holding the Incursions line under Avengers:
@@ -240,7 +240,7 @@ insignia celebration covers the page.
   - **First seen and Last seen** go by release order, season by season (`seenRk`: the season's title in `DATA.timelineRelease`, else the
     title, else the Chapters path after the rest). Owner's call, October 2026: the Chapters path ignored seasons and crossovers.
   - **Sort switch** under Group by: First seen (the same release-order rank of the first title, ties A to Z) or A to Z, ignoring a leading "The"
-    (`ixCmp`, `state.ixAZ`, one setting for all three, in `SAVE_KEYS`). Groups by Status, Class or Type follow a fixed list; groups by
+    (`ixCmp`, `state.ixAZ`, one setting for all three). Groups by Status, Class or Type follow a fixed list; groups by
     Faction, Team, Holder or Opposed by are A to Z. Search results are A to Z.
   - **Factions and teams:** a villain's Factions row (`rfTeams`, `tmChips`) and a hero's Teams row list every group served so far, the
     current one lit (`tmNow`) and the rest marked Former; Independent shows only when it's where they stand now. A villain's header names
@@ -435,7 +435,7 @@ These happened in earlier chats. Each cost the owner time.
   hidden (a swipe down from the top shows it for a moment), the page draws around the camera (`viewport-fit=cover`, its own
   `env(safe-area-inset-*)` padding), the navigation bar is left alone (the owner goes back with NavStar's side swipe), Back is the page's
   own history (`webView.goBack()`, from the front page the app goes to the background), vibration allowed, an offline page until the site
-  has loaded once. Its storage is its own: a save code moves progress in.
+  has loaded once. Its storage is its own, and progress lives there: there is no save code to move it any more.
   - **Build** (from `android-app/`; Android SDK at `/opt/android-sdk`, platform 36 and build-tools 35, with `sdk.dir` in
     `local.properties`): `gradle --no-daemon -I mirror.gradle assembleRelease -PdpStore=<key.jks> -PdpPass=<password>`. Maven Central
     answers 429 in this container, so `mirror.gradle` (an init script, kept outside the repo) puts
@@ -443,7 +443,8 @@ These happened in earlier chats. Each cost the owner time.
   - **The signing key** is never in this public repo. The owner holds `datapad-release.jks` and its password (sent in the October 2026
     chat). An update to the app itself must be signed with it, or the phone refuses it and the old app has to be uninstalled, which wipes
     its storage: ask the owner for the key before building one. Changes to the site need no new app.
-- **The owner's phone:** the app is installed from Samsung Internet. After One UI 9, SystemUI Tuner still hides the status bar, but the
+- **The owner's phone:** the Android app above, installed October 2026, fixed the grey strip (owner: "It's fixed"). Before it, the app was
+  installed from Samsung Internet. After One UI 9, SystemUI Tuner still hides the status bar, but the
   installed app kept a grey strip where it had been (Samsung Internet itself stayed fully immersive), so `manifest.webmanifest` now asks
   for `"display": "fullscreen"` (October 2026). Nothing in the code checks the display mode. A manifest change needs the app reinstalled
   from Samsung Internet. Wrapping it as an Android app (Capacitor) was discussed and not

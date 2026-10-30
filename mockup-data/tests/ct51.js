@@ -24,7 +24,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   await p.evaluate(() => { closeColl(true); openColl('raft'); }); await sleep(300);
   const first = await secs(); await p.click('[data-ixs="az"]'); await sleep(300); const az = await secs();
   ok(JSON.stringify(first) !== JSON.stringify(az), 'First seen and A to Z give different orders');
-  ok(await p.evaluate(() => JSON.parse(localStorage.getItem('mcu-watch-tracker-v1')).ixAZ === 1 && SAVE_KEYS.includes('ixAZ')), 'the choice is saved and carried by a save code');
+  ok(await p.evaluate(() => JSON.parse(localStorage.getItem('mcu-watch-tracker-v1')).ixAZ === 1), 'the choice is saved');
   await p.evaluate(() => { closeColl(true); openColl('cp'); }); await sleep(300);
   ok(await p.evaluate(() => document.querySelector('[data-ixs="az"]').getAttribute('aria-pressed') === 'true'), 'one setting for all three indexes');
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok', errs.length ? 'errors ' + errs.join(' | ') : '');
