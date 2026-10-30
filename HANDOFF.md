@@ -70,7 +70,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 61); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 62); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -100,10 +100,11 @@ node tests/ct35.js                                                              
 | ct55 | Overlays pin the page behind them and give it back; every index file names its universe |
 | ct56 | The S.H.I.E.L.D. keycard and the Level 7 files |
 | ct57 | Back returns to the file you came from, across indexes |
-| ct58 | Damage Control's incident reports: search, grouping, sorting, links into found indexes |
+| ct58 | Damage Control's incident reports: search, grouping, sorting, links into found indexes, the replays' file buttons only into found indexes |
 | ct59 | Every index opens with its Atlas place (Damage Control with Midtown, the Collector with Knowhere) |
 | ct60 | The Space Stone in the Tesseract's case |
-| ct61 | The Darkhold and the Accords held on their titles; only the Tesseract live in the Collection; the sling ring lands anywhere; the Watcher's other realities, in his box and in Beyond the MCU |
+| ct61 | The Darkhold and the Accords held on their titles; only the Tesseract live in the Collection; the sling ring lands only in the Atlas (every realm and submap, never the Incursions); the Watcher's other realities, in his box and in Beyond the MCU |
+| ct62 | A holder's name in the Collection: the list of what they held, their own Compound or Raft file only once found, the right person among a tab's many of a name, back to the list; holders go by their files' names; no Benny or AIDA left |
 
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. Test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled. Screenshots after marking many titles watched: wait about 9 seconds, or the
@@ -165,6 +166,12 @@ insignia celebration covers the page.
 - **Names:** `names_common.json` (id to the name the story mostly calls them, with the real name kept for its own row) and
   `names_fix.json` (every other name said on screen, staged; `hold` renames Collection holders to match). The sweep and its re-check are
   in `names_sweep.json`.
+  - A Collection holder goes by the name on the person's file ("Ronan" became Ronan the Accuser). Add to `names_fix.json` `hold`, per
+    object.
+  - A variant in another universe goes by the main universe's file name, unless the sweep set its name on purpose or the screen names it
+    differently (Kid Loki, King Thor). Rename a file with `set` in `appear_fix.json`, unless `names_fix.json` already sets its name.
+  - Before renaming, check `names_sweep.json`: a name it set on purpose (Wenwu, from the script; Nova Prime Irani Rael, the owner's rank
+    rule) is a decision, not a mistake.
 - **Writing pass:** `prose_coll.json`, `prose_raft.json` and `prose_cp.json` (file id to `[old text, new text]`, matched on the text as
   built; the build reports any line that no longer matches).
 - **In index.html itself:** Damage Control's reports (`DC`, 234 of them), the tactical replays (`TR`, seven battles), the Level 7 files,
@@ -245,6 +252,12 @@ insignia celebration covers the page.
   grouping (year, title, involved, team) and links into the indexes you've found. Seven battle reports carry a tactical replay
   (`trHTML`, `trDraw`): everyone on the field moving beat by beat, armies as swarms, the beat in words underneath.
 - **Back always returns to where you were**, across indexes (`collJump`, `collRestore`). Every overlay pins the page behind it.
+- **Links between indexes:** every link from one index into another goes through `ixFile`, which opens only an index you've found and only
+  a file with a title you've watched (report names, replays' Open file, the Collection's holders, Also on file).
+- **Holders in the Collection:** tapping a name lists everything they held. That list carries their own Compound or Raft file
+  (`cxHoldFiles`): the file in the object's universe with that name that shares the most titles with the holder's steps. A tie links
+  nothing. `CX_HOLD_AKA` covers Steven Grant, Marc's alter, and `CX_HOLD_PICK` the ties settled by hand (the young and the old Charles both
+  on Cerebro, each labelled by where you first saw them). Back from the file returns to the holder's list.
 - **S.H.I.E.L.D. Level 7:** a sideways swipe on the S.H.I.E.L.D. box's stripes brings up a reader with your own Agent ID; swipe it
   through for the Level 7 files, each tied to one title.
 - **The Atlas** has sector codes when zoomed right in (A1 to J24 on the Earth), on every map but the Incursions wall.
@@ -252,9 +265,10 @@ insignia celebration covers the page.
   Captain America: Civil War brings up the Sokovia Accords to sign or refuse (`cxAccords`). Each is its own Classified file. In the
   Collection only the Tesseract answers to a touch (`CX_LIVE`): carry its mark off for the Space Stone.
 - **The sling ring** (`slingDest`, `slingLand`, `slingPortal`): after Doctor Strange, three circles in one stroke anywhere open a portal
-  and land you somewhere you've been. First a kind (a box, a profile, the Sacred Timeline, an Atlas place, an index file, a page, one in
-  six each), then which one (an Atlas place's realm first, an index file's index first), never where you are. The page is held still
-  once the stroke is a circle, and a mouse stroke doesn't click or select what it's drawn over.
+  onto a place in the Atlas you've charted, and land you there (owner, October 2026: Atlas only again). Earth with its cities' spots, the
+  Cosmos, Beyond and the multiverse with the places inside its universes, never the Incursions. The realm first, then the place, so
+  Earth's hundred places don't drown out Beyond's few; never the place you're looking at. The page is held still once the stroke is a
+  circle, and a mouse stroke doesn't click or select what it's drawn over.
 - **The Watcher's other realities** (`shatter`, `ALT_BOXES`, `altBox`): holding in the Watcher's box or Beyond the MCU cracks the box
   away onto one of fifteen other realities' boxes (Captain Carter, Strange Supreme, Star-Lord T'Challa, Killmonger, the Hydra Stomper,
   Infinity Ultron, the Queen of the Dead, Zombie Captain America, Spider-Man, Survivor, Party Thor, Nebula of the Nova Corps, Hela of the
@@ -331,6 +345,9 @@ insignia celebration covers the page.
 - **Answer with specifics.** "What's on main" wants a list of what, not a count.
 - **No unapproved additions, no rehashing.** Build what was asked; offer ideas as ideas.
 - **Don't duplicate a feature.** One thing moves you somewhere (the sling ring); the Watcher only shows another reality.
+- **No link in an index opens an index you haven't found.** That includes battle replays and anything added later: use `ixFile`.
+- **One person, one name:** a Collection holder reads as the person's file does, and a variant in another universe as the main universe's
+  file, unless the screen names it differently. Spellings follow the screen and its credits (Bennie Pollack, Aida).
 - **Sources:** Wikipedia raw pages (`https://en.wikipedia.org/w/index.php?title=<Page>&action=raw`) and the fan wikis, which answer only
   through their API (`https://<wiki>.fandom.com/api.php?action=parse&page=<Page>&prop=wikitext&format=json`; marvelcinematicuniverse,
   marvel, spiderman, xmenmovies, marvelanimated, sonys-spider-man-universe). Their `/wiki/` pages return 403. Space requests a second or
@@ -388,6 +405,10 @@ These happened in earlier chats. Each cost the owner time.
     ops (F640, F650) stop matching, and the Eye of Agamotto's and the Soul Stone's fixes dropped off main until the build's
     `audit: no step` lines were read. After touching any source step, build and read every line the build prints.
 
+23. **Matching people by name alone.** In the Spider-Verse tab "Peter Parker" is nine files, and a name-only match linked the Raimi suit
+    to Miguel O'Hara; a hand-made lead sent What If's Helen of Troy to Helen Cho. Require a shared title, let a tie link nothing, and test
+    every hand-made link against the data.
+
 ## Open items
 
 - **The appearance sweep's open calls are settled** (`appear_sweep.json`, `owner_calls`): Muse gets a Born Again S2 step (Heather's
@@ -396,6 +417,14 @@ These happened in earlier chats. Each cost the owner time.
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
 - Revisit Encore once Doomsday is out.
 - No mockups are pending.
+- **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
+  owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list is still open (Worthy
+  needs Doomsday and Secret Wars ticked; One last page and the Battle of New York have no watch gate; Variant shows hidden names; the
+  shield's hint says it comes back).
+- A holder's list in the Collection goes by name across its whole tab, so the Spider-Verse's "Spider-Man" lists every Spider-Man's objects.
+  Its file button goes to the tapped object's own person. Not raised with the owner yet.
+- **The owner's phone:** the app is installed from Samsung Internet. Wrapping it as an Android app (Capacitor) was discussed and not
+  started; battery came first.
 - `cxDark` still takes the Collection's case as well as a title (`b`), though only titles use it now.
 - **Cut in October 2026 (don't bring back unasked):** J.A.R.V.I.S. search, Sound and the sound board, the War Room, the TVA and Wakanda
   skins, the clearance exams, Eyes Only, the Eye of Agamotto, the arc reactor, the Aether, the Rolex and the other eleven touchable
@@ -404,6 +433,15 @@ These happened in earlier chats. Each cost the owner time.
   out and watched.
 - Decided and closed: Ant-Man and the Wasp stays out of the S.H.I.E.L.D. box; Bucky's hero file keeps HYDRA; Gamora and Nebula keep the
   Children of Thanos.
+
+## The third October 2026 round, all on main (newest last)
+
+- Battery: the Watcher's eyes blink one blink at a time instead of one looping animation, and the dock drops its blur (idle redraws fell
+  from 10 to 15 a second to under 3).
+- The sling ring lands only in the Atlas again, every realm and submap, never the Incursions.
+- Damage Control's replays open files only in indexes you've found (`ixFile`).
+- A holder's list in the Collection carries their own file; holders go by their files' names; Bennie (Item 47); Aida; a variant goes by
+  the main universe's name (Ronan the Accuser, Wenwu); Nova Prime Irani Rael in both universes.
 
 ## The second October 2026 round, all on main (newest last)
 
