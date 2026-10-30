@@ -435,11 +435,11 @@ These happened in earlier chats. Each cost the owner time.
 - No mockups are pending.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
-  are #4 (the replays' back door), #8 (the mouse holds take a 10px wobble) and #11 to #17 (every wrong hint and how-to, text only; Marvel
-  Studios is now titled The Marvel Cinematic Universe, like its card). Still open: #1 Worthy needs Doomsday and Secret Wars ticked; #2
-  One last page and #3 the Battle of New York have no watch gate; #5 Variant shows hidden names; #6 Level 7 only counts on a tap
-  outside; #7 four eggs stack on a repeat hold; #9 On your left's edge strip steals row taps; #10 Sorcerer Supreme's tap spot sits
-  under the Profile button.
+  are #4 (the replays' back door), #8 (the mouse holds take a 10px wobble), #9 (On your left's edge counts only above the titles, never
+  beside one), #10 (Sorcerer Supreme's rings reach 120px round the corner, never the Profile button) and #11 to #17 (every wrong hint and
+  how-to, text only; Marvel Studios is now titled The Marvel Cinematic Universe, like its card). Still open: #1 Worthy needs Doomsday and
+  Secret Wars ticked; #2 One last page and #3 the Battle of New York have no watch gate; #5 Variant shows hidden names; #6 Level 7 only
+  counts on a tap outside; #7 four eggs stack on a repeat hold.
 - **The Android app (`android-app/`, October 2026):** the owner's chosen way past One UI 9's grey strip. A plain Android shell, no framework:
   one full-screen WebView onto the live site (`MainActivity.java`), so every push to main reaches it with no reinstall. The status bar is
   hidden (a swipe down from the top shows it for a moment), the page draws around the camera (`viewport-fit=cover`, its own

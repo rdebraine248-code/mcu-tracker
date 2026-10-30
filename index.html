@@ -6862,12 +6862,12 @@ const EGGS = [
   ["level7", "Level 7", "S.H.I.E.L.D. keeps its files behind the stripes. Swipe your clearance.", "Once you've watched Captain Marvel, The Avengers or Agents of S.H.I.E.L.D. S1, swipe across the hazard stripes at the top of the S.H.I.E.L.D. box, swipe your card through the reader, then tap outside the files to close them.", 1],
   ["hydra", "Hail Hydra", "Look closely at the barcode on your Agent ID.", "After The Winter Soldier, in the Agent File, hold the barcode on your Agent ID.", 1],
   ["wsoldier", "Ready to comply", "Wake the soldier with the red star at the top of his box.", "In the Falcon & Winter Soldier box, tap the red star at the top three times.", 1],
-  ["onyourleft", "On your left.", "On the morning run, someone keeps passing on the left.", "In the Falcon & Winter Soldier box, tap the left edge of the screen, three laps in a row.", 1],
+  ["onyourleft", "On your left.", "On the morning run, someone keeps passing on the left.", "In the Falcon & Winter Soldier box, tap the left edge of the screen above the titles, three laps in a row.", 1],
   ["groot", "Awesome Mix", "Peter's mom made him a tape. Press play on the Guardians.", "Hold the name in the Guardians of the Galaxy box.", 1],
   ["dance", "Whistle", "Whistle up Yondu's arrow in Vol. 2.", "Hold Guardians of the Galaxy Vol. 2 in any list, and drag your finger to lead the arrow.", 1],
   ["quantum", "Quantum Realm", "In Scott and Hope's box, think small.", "Pinch the Ant-Man & the Wasp box smaller (on a computer, hold Ctrl and scroll down).", 1],
   ["radar", "World on fire", "Matt can hear your heartbeat. Tap one out.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
-  ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the small circle at the top right.", 1],
+  ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the rings in the top right corner, around the Profile button.", 1],
   ["bargain", "I've come to bargain", "In the Dark Dimension, come to bargain. Again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
   ["webs", "Thwip", "Your friendly neighborhood web-slinger needs a spot to land.", "Double-tap an empty spot in Spider-Man's box.", 1],
   ["jameson", "Menace", "The Bugle has a scoop, and Jameson wants to shout it.", "After Spider-Man (2002), Spider-Man 2, Spider-Man 3 or either Amazing Spider-Man, the Daily Bugle has a headline in Comms: hold its name above the headline.", 1],
@@ -7622,7 +7622,7 @@ function groot(q) {
   setTimeout(() => { el.remove(); grootOn = false; found("groot"); }, T);
 }
 
-/* ---------- Doctor Strange & Wong: double-tap the small circle at the top right. The background circles ripple, then rings of orange runes turn ---------- */
+/* ---------- Doctor Strange & Wong: double-tap the rings in the top right corner. The background circles ripple, then rings of orange runes turn ---------- */
 let runesOn = false; const SIGILS = Array.from({ length: 36 }, () => Array.from({ length: 3 + Math.floor(Math.random() * 3) }, () => {
   const k = Math.floor(Math.random() * 5), r = () => (Math.random() - .5) * 10;
   return k === 0 ? ["l", 0, -6, 0, 6] : k === 1 ? ["l", r(), r(), r(), r()] : k === 2 ? ["a", r() * .5, r() * .5, 2 + Math.random() * 3] : k === 3 ? ["l", -5, r() * .6, 5, r() * .6] : ["v", r() * .5, -5, r() * .5];
@@ -8840,8 +8840,10 @@ panel.addEventListener("click", ev => {
   if (openEntry) {
     const id = openEntry.id, pr = panel.getBoundingClientRect(), onName = ev.target.closest("#panelTitle");
     if (id === "cx-shang-chi-the-ten-rings" && ringHit(ev)) { tenRings(); return; }
-    if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button")) { oylLaps(); return; }
-    if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 70) { if (dblCheck(ev)) strangeRunes(); return; }
+    // the edge beside the name, the quote or empty space; never beside a title, where a finger meant the title (owner, October 2026)
+    if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button") && ![...panel.querySelectorAll(".row")].some(r => { const q = r.getBoundingClientRect(); return ev.clientY >= q.top - 6 && ev.clientY <= q.bottom + 6; })) { oylLaps(); return; }
+    // the rings around the corner, wider than the Profile button that sits in them, and never the button itself
+    if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 120 && !ev.target.closest("button")) { if (dblCheck(ev)) strangeRunes(); return; }
   }
   if (ev.target.closest("#panelTitle") && openEntry && openEntry.id === "cx-hulk") { punyTap(); return; }
   if (openEntry && openEntry.id === "cx-falcon-winter-soldier" && starTap(ev)) return;
