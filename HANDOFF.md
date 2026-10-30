@@ -437,9 +437,10 @@ These happened in earlier chats. Each cost the owner time.
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
   are #4 (the replays' back door), #8 (the mouse holds take a 10px wobble), #9 (On your left's edge counts only above the titles, never
   beside one), #10 (Sorcerer Supreme's rings reach 120px round the corner, never the Profile button) and #11 to #17 (every wrong hint and
-  how-to, text only; Marvel Studios is now titled The Marvel Cinematic Universe, like its card). Still open: #1 Worthy needs Doomsday and
-  Secret Wars ticked; #2 One last page and #3 the Battle of New York have no watch gate; #5 Variant shows hidden names; #6 Level 7 only
-  counts on a tap outside; #7 four eggs stack on a repeat hold.
+  how-to, text only; Marvel Studios is now titled The Marvel Cinematic Universe, like its card). The rest are features, not bugs (owner,
+  October 2026), so leave them as they are: #1 Worthy needs the whole Thor box ticked, Doomsday and Secret Wars included; #2 One last
+  page and #3 the Battle of New York play without a watch gate; #5 Variant draws a [ Classified ] name's lines; #6 Level 7 counts when
+  you tap outside its files; #7 a repeat hold stacks Hello, Peter., Mutant powers, the Uni-Mind and Thwip. The bug list is closed.
 - **The Android app (`android-app/`, October 2026):** the owner's chosen way past One UI 9's grey strip. A plain Android shell, no framework:
   one full-screen WebView onto the live site (`MainActivity.java`), so every push to main reaches it with no reinstall. The status bar is
   hidden (a swipe down from the top shows it for a moment), the page draws around the camera (`viewport-fit=cover`, its own
