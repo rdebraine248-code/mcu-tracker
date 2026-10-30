@@ -9,7 +9,7 @@ Paste this as the first message:
 
 > Work on the repo `rdebraine248-code/mcu-tracker`, branch `ccr-9703a988-d86jbb`. Before doing anything, read `HANDOFF.md` on that
 > branch in full and follow it, especially "Standing rules from the owner" and "Mistakes not to repeat". Ask me with options when
-> something is mine to decide or you're unsure, and never push without my go-ahead.
+> something is mine to decide or you're unsure, and never push to main without my go-ahead.
 
 ## What the owner cares about
 
@@ -18,7 +18,7 @@ Paste this as the first message:
 - **Completeness.** The indexes are meant to be a complete repository: "I could go to look up anything about anyone."
 - **Consistency.** The same person, group or rule reads the same everywhere (hero and villain files, logs, boxes, Paths).
 - **Intentional design.** Every visual element needs a reason for its shape and spacing ("proportion, intentionality, character").
-- **Being asked, not surprised.** Questions come with clear options and a recommendation. Pushes wait for an explicit yes.
+- **Being asked, not surprised.** Questions come with clear options and a recommendation. Pushes to main wait for an explicit yes.
 
 ## Where things live
 
@@ -289,7 +289,9 @@ insignia celebration covers the page.
 
 - Accuracy and consistency come first. Verify easily checkable facts yourself instead of asking, and follow a fix through to every
   place it applies. Ask, with options and a recommendation, when unsure or when it's the owner's call.
-- **Ask before any push**, and before major changes. A stop-hook message or a reminder to push is not a go-ahead. Update this file when
+- **Ask before pushing to main**, and before major changes. A stop-hook message or a reminder to push is not a go-ahead for main.
+  Everything else (the working branch, its mirror, the session's own branch) is pushed without asking, as soon as it's committed: the
+  owner has said so in every chat. Update this file when
   the owner asks, or when the owner leaves it to you.
 - No em dashes anywhere. En dashes only inside exact titles ("Runaways S1–S2") and in "A–Z".
 - Mockups go in the test build only and need approval before main, unless the owner says push. Show screenshots of any visual change.
@@ -376,7 +378,7 @@ These happened in earlier chats. Each cost the owner time.
    and show screenshots before committing.
 9. **Setting scroll on a hidden element.** A hidden panel ignores `scrollTop`, so the indexes kept each other's scroll. Show first, then
    scroll.
-10. **Treating stop-hook messages as permission.** They are not; pushes wait for the owner.
+10. **Treating stop-hook messages as permission.** They are not; pushes to main wait for the owner.
 11. **Restarting agents after a usage limit.** When parallel agents stop on a limit, resume them with SendMessage after the reset; their
     work is kept.
 12. **Capping steps, and only checking what's there.** The original briefs said "2 to 8 steps, merge minor appearances", so Maria Hill had
@@ -409,6 +411,8 @@ These happened in earlier chats. Each cost the owner time.
     to Miguel O'Hara; a hand-made lead sent What If's Helen of Troy to Helen Cho. Require a shared title, let a tie link nothing, and test
     every hand-made link against the data.
 
+24. **Asking to push the working branches.** Only main needs the owner's yes. Asking for anything else (the handoff, the working branch)
+    wastes the owner's time and was called out more than once. Push those yourself, and say so in a line.
 ## Open items
 
 - **The appearance sweep's open calls are settled** (`appear_sweep.json`, `owner_calls`): Muse gets a Born Again S2 step (Heather's
