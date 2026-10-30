@@ -300,6 +300,13 @@ insignia celebration covers the page.
 - No em dashes anywhere. En dashes only inside exact titles ("Runaways S1–S2") and in "A–Z".
 - Mockups go in the test build only and need approval before main, unless the owner says push. Show screenshots of any visual change.
 - Don't change something that was deliberately set up without flagging it first.
+- **Don't fix what isn't broken.** When the owner says they missed something, check it before treating it as a bug, and don't change
+  data or behavior to "fix" it (October 2026: Wanda was in Rumlow's web all along; changing the teammate rule over it was wrong).
+- **Network hub (mockup, October 2026, not in the app yet):** everyone in one room like the LEGO Star Wars hub, an Apple Watch lens,
+  crews packed close with only a small gap, the big crowds (Independent) standing looser. Zoomed out, each crew folds into one bubble;
+  zooming in opens it into its people, and the same goes for a locked person's web (their people stand in groups by crew). Locked on
+  someone, tapping one of their people shows how the two are connected. Prototype: https://claude.ai/artifact/UkdcJ6p7b9aNw2Zm4m6xsH .
+  Where it lives in the app is still the owner's call.
 - Don't schedule anything; the owner says when. The VisionQuest audit is dropped: don't bring it up.
 - **No fourth-wall words in file text.** Never write "season", "episode", "finale", "credits", "flashback", "the film" or "the show" in a
   sentence; "In season N," stays at the very start in the data only.
