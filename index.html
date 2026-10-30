@@ -11730,11 +11730,14 @@ function trLoop(id) {
     last = now; trDraw(id); trRaf = requestAnimationFrame(step); };
   trRaf = requestAnimationFrame(step);
 }
+// a replay's file link follows the report's names: only into an index you've found, to a file with a title you've watched
+const trFile = (tg, pid) => { const o = pid && (tg === "A" ? ALLIES : THREATS).find(x => x.id === pid);
+  return o && (tg === "A" ? state.cpIn && cpSteps(o).length : state.raftIn && rfSteps(o).length) ? o : null; };
 function trWho(id) {   // the name of whoever's picked, over the map, with their file
   const sec = document.querySelector(`.tr[data-tr="${id}"]`); if (!sec) return; const w = sec.querySelector(".tr-who"), u = trPick != null && TR[id].units[trPick];
   sec.querySelectorAll(".tr-key button").forEach(k => k.classList.toggle("on", +k.dataset.tru === trPick));
   if (!u) { w.hidden = true; return; } w.hidden = false; w.firstChild.textContent = u.n;
-  const [tg, pid] = (u.f || ":").split(":"), has = !!pid && (tg === "A" ? ALLIES : THREATS).some(o => o.id === pid), fb = w.querySelector("[data-trf]"); fb.hidden = !has; fb.dataset.trf = u.f || "";
+  const [tg, pid] = (u.f || ":").split(":"), fb = w.querySelector("[data-trf]"); fb.hidden = !trFile(tg, pid); fb.dataset.trf = u.f || "";
 }
 // the replay sits in the report, under its heading, folded until opened
 const renderDcTr = renderDc;
@@ -11743,7 +11746,7 @@ renderDc = function () { renderDcTr(); if (!collRec || !TR[collRec]) return; con
 document.getElementById("collView").addEventListener("click", ev => {
   if (collMode !== "dc" || !collRec || !TR[collRec]) return; const id = collRec, sec = () => document.querySelector(`.tr[data-tr="${id}"]`);
   if (ev.target.closest("[data-tropen]")) { ev.stopImmediatePropagation(); trOpen[id] = !trOpen[id]; trB = 0; trPlay = false; trPick = null; sec().outerHTML = trHTML(id); if (trOpen[id]) trLoop(id); return; }
-  const fb = ev.target.closest("[data-trf]"); if (fb) { ev.stopImmediatePropagation(); haptic(10); const [tg, pid] = fb.dataset.trf.split(":"), o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === pid); if (!o) return; if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); trPlay = false; collJump(tg === "A" ? "cp" : "raft", pid); return; }
+  const fb = ev.target.closest("[data-trf]"); if (fb) { ev.stopImmediatePropagation(); haptic(10); const [tg, pid] = fb.dataset.trf.split(":"), o = trFile(tg, pid); if (!o) return; if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o); trPlay = false; collJump(tg === "A" ? "cp" : "raft", pid); return; }
   const u = ev.target.closest("[data-tru]"); if (u) { ev.stopImmediatePropagation(); haptic(8); trPick = +u.dataset.tru === trPick ? null : +u.dataset.tru; trWho(id); trDraw(id); return; }
   const c = ev.target.closest("[data-trc]"); if (c) { ev.stopImmediatePropagation(); haptic(8); const N = TR[id].beats.length;
     if (c.dataset.trc === "pp") { if (trB >= N - .01) trB = 0; trPlay = !trPlay; }

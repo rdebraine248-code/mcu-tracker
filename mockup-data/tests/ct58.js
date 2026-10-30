@@ -58,6 +58,17 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(await p.evaluate(() => !!document.querySelector('.atl-dc')), 'Midtown has the Damage Control button');
   await p.evaluate(() => document.querySelector('.atl-dc').click()); await sleep(600); let w2 = await where(); ok(w2.open && w2.mode === 'dc', 'and it opens the reports');
   await p.evaluate(() => { closeColl(); }); await sleep(400); await p.evaluate(() => openFile()); await sleep(900); ok(await p.evaluate(() => !!document.querySelector('.hf-arch .ar-dc')), 'the Agent File lists Damage Control under Archives');
+  // a battle replay's file button follows the same rule as the report's names: never into an index you haven't found
+  const tr = async () => p.evaluate(() => { const out = { A: [0, 0], T: [0, 0] };   // [shown, hidden] per index, over every replay's every unit with a file
+    for (const id of Object.keys(TR)) { if (!DC.some(d => d.id === id && dcSeen(d))) continue; openColl('dc', true, true); collShow(id); trOpen[id] = true;
+      const sec = document.querySelector(`.tr[data-tr="${id}"]`); if (sec) sec.outerHTML = trHTML(id); else continue;
+      TR[id].units.forEach((u, i) => { if (!u.f) return; trPick = i; trWho(id); const tg = u.f.split(':')[0], fb = document.querySelector(`.tr[data-tr="${id}"] [data-trf]`); out[tg][fb.hidden ? 1 : 0]++; }); trPick = null; }
+    return out; });
+  let t1 = await tr(); ok(t1.T[0] === 0 && t1.T[1] > 0 && t1.A[0] > 0, 'Raft not found: no replay opens a villain file; Compound found: hero files open: ' + JSON.stringify(t1));
+  await p.evaluate(() => { state.raftIn = 1; state.cpIn = 0; }); let t2 = await tr();
+  ok(t2.A[0] === 0 && t2.A[1] > 0 && t2.T[0] > 0, 'and the other way round: ' + JSON.stringify(t2));
+  await p.evaluate(() => { state.cpIn = 0; state.raftIn = 0; const fb = document.createElement('button'); fb.dataset.trf = 'T:' + THREATS.find(o => rfSteps(o).length).id; document.querySelector('.tr').appendChild(fb); fb.click(); });
+  await sleep(300); ok(await p.evaluate(() => collMode === 'dc'), 'a forced click on a hidden file button still goes nowhere');
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok', errs.length ? 'errors ' + errs.join(' | ') : '');
   await b.close(); process.exit(fails.length || errs.length ? 1 : 0); })();
 
