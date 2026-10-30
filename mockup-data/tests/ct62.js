@@ -34,6 +34,14 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   r = await holder('sv-asm-spider-man-suit', 'Spider-Man', 'sv'); ok(r.files.join() === 'A:sv-peter-parker-asm', 'the Amazing suit\'s is his own Peter: ' + r.files);
   r = await holder('fox-cerebro', 'Charles Xavier', 'fox'); ok(r.files.length === 2 && r.labels.every(l => l.includes('First seen')) && new Set(r.labels).size === 2, 'Cerebro: the young and the old Charles, each saying which: ' + JSON.stringify(r));
   r = await holder('sv-raimi-octavius-arms', 'Doctor Strange', 'sv'); ok(!r.files.length, 'the Sanctum\'s Strange isn\'t a Spider-Verse file: ' + r.files);
+  // the list is the tapped person's, not everyone of that name in the tab
+  const lst = () => p.evaluate(() => [...document.querySelectorAll('.cx-body [data-co]')].map(x => x.dataset.co));
+  await holder('sv-raimi-spider-man-suit', 'Spider-Man', 'sv'); let L1 = await lst();
+  const all = await p.evaluate(() => COLLX.filter(o => rfUniOf(o) === 'sv' && !cxSpec(o) && cxSteps(o).some(x => x[3] === 'Spider-Man')).length);
+  const raimi = await p.evaluate(L => L.every(id => cxHoldFiles(COLLX.find(o => o.id === id), 'Spider-Man').some(([, f]) => f.id === 'sv-peter-parker-raimi')), L1);
+  ok(L1.includes('sv-raimi-spider-man-suit') && raimi && L1.length < all, 'the Raimi suit\'s Spider-Man lists only the Raimi Peter\'s things: ' + L1.length + ' of ' + all + ' named Spider-Man');
+  await holder('fox-cerebro', 'Charles Xavier', 'fox'); L1 = await lst();
+  ok(L1.includes('fox-cerebro') && L1.includes('fox-hank-serum'), 'Cerebro\'s Charles is both of him, so the young one\'s serum is there too: ' + L1);
   // every hand-made link names a real file and comes out
   const bad = await p.evaluate(() => { const out = [];
     for (const [k, ids] of Object.entries(CX_HOLD_AKA)) { const [u, h] = k.split('|'); ids.forEach(id => { if (!ALLIES.some(f => f.id === id) && !THREATS.some(f => f.id === id)) out.push('no file ' + id); });
