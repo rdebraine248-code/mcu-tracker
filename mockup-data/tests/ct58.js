@@ -50,11 +50,12 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   const az = await p.evaluate(() => [...document.querySelectorAll('.dc-row b')].map(x => x.textContent.replace(/^The /, '')));
   ok(az.join() === az.slice().sort((a, b) => a.localeCompare(b)).join(), 'A to Z sorts');
   ok(az.length === await p.evaluate(() => DC.filter(d => dcU(d) === dcUni && dcSeen(d)).length) && await p.evaluate(() => document.querySelectorAll('.dc-body .rf-sec').length === 1 && !document.querySelector('.dc-body [data-dcg]')), 'A to Z is the whole tab in one list, no groups: ' + az.length);
-  // one register a universe, numbered in the order things happened: no number twice, none skipped, never back in time
-  const reg = await p.evaluate(() => RF_UNI.map(([u]) => { const L = DC.filter(d => dcU(d) === u).sort((a, b) => DC_NO[a.id].slice(-3) - DC_NO[b.id].slice(-3));
-    const nums = L.map(d => +DC_NO[d.id].slice(-3)), yrs = L.map(d => d.yr == null ? Infinity : d.yr);
-    return [u, L.length, nums.every((n, i) => n === i + 1), yrs.every((y, i) => !i || y >= yrs[i - 1]), new Set(L.map(d => DC_NO[d.id])).size === L.length]; }));
-  ok(reg.every(r => r[2] && r[3] && r[4]), 'each universe numbers its reports 001 onward in the order they happened: ' + JSON.stringify(reg));
+  // one register a tab, its own letters, numbered in release order: no case number anywhere twice, none skipped, never back in release
+  const reg = await p.evaluate(() => { const rk = d => REL_IX[d.t] ?? REL_IX[d.t + " S1"];
+    const per = RF_UNI.map(([u]) => { const L = DC.filter(d => dcU(d) === u).sort((a, b) => DC_NO[a.id].localeCompare(DC_NO[b.id])), nums = L.map(d => +DC_NO[d.id].slice(-3)), R = L.map(rk);
+      return [u, L.length, nums.every((n, i) => n === i + 1), R.every((r, i) => r != null && (!i || r >= R[i - 1])), L.every(d => DC_NO[d.id].startsWith(DC_TAB[u] + '-'))]; });
+    return { per, unique: new Set(Object.values(DC_NO)).size === DC.length }; });
+  ok(reg.unique && reg.per.every(r => r[2] && r[3] && r[4]), 'each tab numbers its cases with its own letters, 001 onward in release order, none repeated: ' + JSON.stringify(reg));
   await p.evaluate(() => document.querySelector('[data-ixs="first"]').click()); await sleep(200);
   await p.evaluate(() => collShow('dc-bny')); await sleep(400);
   const tm = await p.evaluate(() => { const h = [...document.querySelectorAll('.co-h')].find(x => x.textContent === 'Teams'); return h ? [...h.nextElementSibling.children].map(x => x.textContent + ':' + x.tagName) : null; });

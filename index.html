@@ -1424,8 +1424,8 @@ body{ padding-bottom:var(--dockh); }
 .dc-yr::after{ content:""; flex:1; height:1px; background:#2A3140; }
 .dc-row{ display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:12px; width:100%; margin:0 0 8px; padding:12px 14px; border:1px solid #2A3140; border-left:4px solid #7FD95A; border-radius:10px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
 .dc-row:active{ transform:scale(.99); }
-.dc-list2{ padding-top:8px; } .dc-row{ grid-template-columns:44px minmax(0,1fr) auto; } .collpanel.dcx .rf-sec{ margin-bottom:6px; }
-.dc-row .no{ font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#7FD95A; }
+.dc-list2{ padding-top:8px; } .dc-row{ grid-template-columns:48px minmax(0,1fr) auto; } .collpanel.dcx .rf-sec{ margin-bottom:6px; }
+.dc-row .no{ font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; white-space:nowrap; color:#7FD95A; }   /* a case number never breaks at its hyphen */
 .dc-row b{ display:block; font:400 19px/1.1 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
 .dc-row small{ display:block; margin-top:3px; font-size:13px; color:#9AA6BA; }
 .dc-row em{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#A6C996; text-align:right; max-width:110px; }
@@ -11194,10 +11194,13 @@ const DC = [
 ];
 const dcYr = (y, d) => y == null ? (d && d.yl) || "Outside time" : y < 0 ? -y + " BC" : String(y);   // the TVA keeps no year, and some realities none at all
 const dcU = d => d.u || "mcu";   // the universe tab a report is filed under, the same as the people in it
-// a report's number: each universe keeps one register, numbered in the order its incidents happened (owner, October 2026: one No. 001,
-// never one a year); the TVA's own cases, outside time, close the main register. The list is kept in that order, so a new report goes in by its year
-const DC_NO = (() => { const N = {}, c = {}; DC.map((d, i) => [d, i]).sort((a, b) => (a[0].yr == null) - (b[0].yr == null) || (a[0].yr || 0) - (b[0].yr || 0) || a[1] - b[1])
-  .forEach(([d]) => { const u = dcU(d); c[u] = (c[u] || 0) + 1; N[d.id] = "DC-" + (u === "mcu" ? (d.yr == null ? "TVA-" : "") : u.toUpperCase() + "-") + String(c[u]).padStart(3, "0"); }); return N; })();
+// a report's case number: each universe tab keeps one register with its own letters, so no number is ever repeated, numbered in the order
+// the incidents reached the screen, by release, as First seen goes (owner, October 2026: never one No. 001 a year, and not by story order,
+// or Case ST-001 would wait for a recent show). A report filed under a whole show goes by its first season; within one title, by year
+const DC_TAB = { mcu: "ST", by: "BY", sv: "SV", fox: "FX", pr: "PR" };
+const DC_NO = (() => { const N = {}, c = {}, rk = d => REL_IX[d.t] ?? REL_IX[d.t + " S1"] ?? 1e6;
+  DC.map((d, i) => [d, i]).sort((a, b) => rk(a[0]) - rk(b[0]) || (a[0].yr == null) - (b[0].yr == null) || (a[0].yr || 0) - (b[0].yr || 0) || a[1] - b[1])
+    .forEach(([d]) => { const u = dcU(d); c[u] = (c[u] || 0) + 1; N[d.id] = DC_TAB[u] + "-" + String(c[u]).padStart(3, "0"); }); return N; })();
 const dcSeen = d => atlSeenT(d.t), dcLines = L => L.filter(([, t]) => atlSeenT(t));
 const dcChip = ([id, tg]) => { const o = (tg === "A" ? ALLIES : THREATS).find(x => x.id === id); if (!o || !(tg === "A" ? cpSteps(o) : rfSteps(o)).length) return "";
   const nm = esc(tg === "A" ? cpName(o) : rfName(o)), cls = tg === "T" ? "v" : "";   // a name links to its file once you've found the index that keeps it
@@ -11220,7 +11223,7 @@ function renderDc() {
     const d = DC.find(x => x.id === collRec); if (!d) { collRec = null; renderDc(); return; }
     const W = dcWho(d), O = dcObj(d), loss = dcLines(d.loss), fall = dcLines(d.fall);
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Incident reports</button>
-      <div class="dc-head"><small>Incident report · <span class="dc-no">${DC_NO[d.id]}</span></small><h3>${esc(d.n)}</h3><p>${esc(d.cls)}</p><span class="dc-stamp" aria-hidden="true">CLOSED</span></div>
+      <div class="dc-head"><small>Incident report · Case No. <span class="dc-no">${DC_NO[d.id]}</span></small><h3>${esc(d.n)}</h3><p>${esc(d.cls)}</p><span class="dc-stamp" aria-hidden="true">CLOSED</span></div>
       <div class="co-tiles"><div><small>Date</small><b>${dcYr(d.yr, d)}</b></div><div><small>Reported in</small><b>${tnh(d.t)}</b></div><div class="wide"><small>Location</small><b>${esc(d.where)}</b></div><div class="wide"><small>Universe</small><b>${rfUniName(RF_UNI.find(u => u[0] === dcU(d)))}</b></div></div>
       <div class="co-h">Inciting incident</div><p class="dc-p">${esc(d.cause)}</p>
       <div class="co-h">Response</div><p class="dc-p">${esc(d.out)}</p>
@@ -11239,8 +11242,8 @@ function renderDc() {
 // through names, places, kinds, titles, years and everyone on the reports
 function dcBody() {
   const q = qNorm(dcQ.trim()), L = DC.filter(d => dcU(d) === dcUni && dcSeen(d));
-  const row = d => `<button type="button" class="dc-row" data-dc="${d.id}"><span class="no">No.<br>${DC_NO[d.id].slice(-3)}</span><span><b>${q.length > 1 ? qMark(d.n, q) : esc(d.n)}</b><small>${q.length > 1 ? qMark(d.where, q) : esc(d.where)}</small></span><em>${esc(d.cls)}</em></button>`;
-  const sorted = A => state.ixAZ ? A.slice().sort((a, b) => ixName(a.n).localeCompare(ixName(b.n))) : A;
+  const row = d => `<button type="button" class="dc-row" data-dc="${d.id}"><span class="no">Case<br>${DC_NO[d.id]}</span><span><b>${q.length > 1 ? qMark(d.n, q) : esc(d.n)}</b><small>${q.length > 1 ? qMark(d.where, q) : esc(d.where)}</small></span><em>${esc(d.cls)}</em></button>`;
+  const sorted = A => A.slice().sort(state.ixAZ ? (a, b) => ixName(a.n).localeCompare(ixName(b.n)) : (a, b) => DC_NO[a.id].localeCompare(DC_NO[b.id]));   // First seen is the case number
   if (!L.length) return '<p class="sr-empty">No data.</p>';
   if (q.length > 1) {
     const F = L.filter(d => [d.n, d.where, d.cls, d.t, dcYr(d.yr, d), ...dcNames(d), ...dcNames(d, 1), ...dcAka(d)].some(x => qNorm(x).includes(q)));

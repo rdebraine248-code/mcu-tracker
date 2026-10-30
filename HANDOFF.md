@@ -350,8 +350,10 @@ insignia celebration covers the page.
 - **Answer with specifics.** "What's on main" wants a list of what, not a count.
 - **No unapproved additions, no rehashing.** Build what was asked; offer ideas as ideas.
 - **Don't duplicate a feature.** One thing moves you somewhere (the sling ring); the Watcher only shows another reality.
-- **Damage Control's numbers run in one register a universe, in the order the incidents happened** (`DC_NO`, computed from the year;
-  the TVA's cases close the main register). Never one No. 001 a year. A new report goes into `DC` by its year.
+- **Damage Control's case numbers:** one register a tab, each with its own letters (ST, BY, SV, FX, PR), so no case number is ever
+  repeated anywhere: Case No. ST-001. Numbered in release order, the order the incidents reached the screen, as First seen goes; not by
+  story order, or ST-001 would wait for a recent show (owner, October 2026). A report filed under a whole show goes by its first season;
+  within one title, by year. `DC_NO` computes them, so a new report needs no number; First seen lists by case number.
 - **A to Z sorts the whole list into one list**, with no groups (Damage Control, owner, October 2026); grouping comes back with First
   seen.
 - **No link in an index opens an index you haven't found.** That includes battle replays and anything added later: use `ixFile`.
