@@ -410,9 +410,9 @@ These happened in earlier chats. Each cost the owner time.
 23. **Matching people by name alone.** In the Spider-Verse tab "Peter Parker" is nine files, and a name-only match linked the Raimi suit
     to Miguel O'Hara; a hand-made lead sent What If's Helen of Troy to Helen Cho. Require a shared title, let a tie link nothing, and test
     every hand-made link against the data.
-
 24. **Asking to push the working branches.** Only main needs the owner's yes. Asking for anything else (the handoff, the working branch)
     wastes the owner's time and was called out more than once. Push those yourself, and say so in a line.
+
 ## Open items
 
 - **The appearance sweep's open calls are settled** (`appear_sweep.json`, `owner_calls`): Muse gets a Born Again S2 step (Heather's
