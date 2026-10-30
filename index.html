@@ -1260,7 +1260,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 
 :root{ --dockh:calc(60px + env(safe-area-inset-bottom,0px)); }
 body{ padding-bottom:var(--dockh); }
-.dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+.dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; }
 @keyframes dockin{ from{ transform:translateY(100%); opacity:0; } to{ transform:none; opacity:1; } }
 .dock.rise{ animation:dockin .5s cubic-bezier(.2,.7,.2,1) .35s both; }
 .dock button{ position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:0; background:none; color:#7D8BA6; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
@@ -10744,7 +10744,9 @@ function openCosmos() {
     // once space has settled, two faint eyes open far off in it, and blink now and then
     const TR = "translate(-50%,-50%)";
     ey.animate([{ opacity: 0 }, { opacity: .55 }], { duration: 4000, delay: 6000, easing: "ease-in-out", fill: "forwards" });
-    ey.animate([{ transform: TR + " scaleY(1)" }, { transform: TR + " scaleY(1)", offset: .96 }, { transform: TR + " scaleY(.08)", offset: .98 }, { transform: TR + " scaleY(1)" }], { duration: 9000, delay: 10000, iterations: Infinity });
+    // each blink is its own short animation, every 9 seconds: one long looping animation kept the screen redrawing between blinks
+    const blink = () => { if (cosmos !== c) return; ey.animate([{ transform: TR + " scaleY(1)" }, { transform: TR + " scaleY(.08)" }, { transform: TR + " scaleY(1)" }], { duration: 360 }); setTimeout(blink, 9000); };
+    setTimeout(blink, 18640);
     skies.forEach(d => d.firstChild.animate([{ transform: "translate(0,0) scale(1)" }, { transform: "translate(-2%,-1.5%) scale(1.03)" }], { duration: 60000, easing: "linear", fill: "forwards" }));   // space drifts, very slowly
   }
 }
