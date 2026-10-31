@@ -185,7 +185,7 @@ const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-M
 let UNI = 'mcu', UNIOK = null;
 // a universe's tab shows once the app has revealed it, like the indexes; All once there's more than one
 const uniOk = u => !UNIOK ? true : u === 'all' ? UNIS.filter(([v]) => v !== 'all' && UNIOK(v)).length > 1 : UNIOK(u);
-const EARTH = DATA.earth || {}, earthOf = p => p.u === 'mcu' ? 'Earth-616' : EARTH[p.id] || null, worldOf = p => earthOf(p) || UL[p.u];
+const EARTH = DATA.earth || {}, earthOf = p => p.id in EARTH ? EARTH[p.id] : p.u === 'mcu' ? 'Earth-616' : null, worldOf = p => earthOf(p) || UL[p.u];
 const vtag = p => p.vt || (p.vt = (() => { const t = TT[[...p.A0].sort((a, b) => ORD[a] - ORD[b])[0]] || UL[p.u]; return t.length > 22 ? t.slice(0, 21) + '…' : t; })());
 const crewName = c => { const [n0, u] = String(c).split('\u2063'), n = n0.split('\u2064')[0]; return u && UNI === 'all' ? n + ' · ' + UL[u] : n; };
 const KC = { family: '#F4A261', partner: '#FF8FB1', friend: '#5FD49A', mentor: '#B79CFF', boss: '#5FD0FF', ally: '#7FB2FF', rival: '#E8C15A', enemy: '#E0574A', variant: '#D7E3F5' };

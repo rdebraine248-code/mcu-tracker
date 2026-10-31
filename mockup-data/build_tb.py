@@ -11,7 +11,7 @@ s=open(OUT+'datapad-test.html',encoding='utf8').read()
 # Earth numbers for every file outside Earth-616 (a mockup): network/rel/uni/earth/earths.json, { id: { earth, source } }
 EF=R+'network/rel/uni/earth/earths.json'
 if os.path.exists(EF) and '/*EARTHS*/{}' in s:
-    s=s.replace('/*EARTHS*/{}', json.dumps({k:v['earth'] for k,v in json.load(open(EF,encoding='utf8')).items() if v and v.get('earth')}), 1)
+    s=s.replace('/*EARTHS*/{}', json.dumps({k:(v or {}).get('earth') for k,v in json.load(open(EF,encoding='utf8')).items()}), 1)
 # the Network (a mockup): its built page goes in whole, opened by the dock's Network button. Main has no copy, so no button
 NET=R+'network/network-hub.html'
 if os.path.exists(NET) and '/*NETWORK*/null' in s:

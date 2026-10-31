@@ -4599,8 +4599,8 @@ function rfUnis() { return RF_UNI; }
 // Parker is from Earth x y z"; Earth numbers "are very in theme with this datapad"). A mockup: only the test build fills EARTHS in
 const EARTHS = /*EARTHS*/{};
 let earthTw = false;   // a villain file shares its hero file's Earth (filled in on first use, once the files exist)
-const earthOfFile = o => { if (!Object.keys(EARTHS).length) return ""; if (!earthTw) { earthTw = true; ALLIES.forEach(a => { if (a.rf && EARTHS[a.id] && !EARTHS[a.rf]) EARTHS[a.rf] = EARTHS[a.id]; }); }
-  return EARTHS[o.id] || (rfUniOf(o) === "mcu" ? "Earth-616" : ""); };
+const earthOfFile = o => { if (!Object.keys(EARTHS).length) return ""; if (!earthTw) { earthTw = true; ALLIES.forEach(a => { if (a.rf && a.id in EARTHS && !(a.rf in EARTHS)) EARTHS[a.rf] = EARTHS[a.id]; }); }
+  return o.id in EARTHS ? EARTHS[o.id] || "" : rfUniOf(o) === "mcu" ? "Earth-616" : ""; };   // null: another world with no number
 const uniTile = (o, cls) => { const n = rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))), e = n !== "[ Classified ]" && earthOfFile(o);
   return `<div${cls ? ` class="${cls}"` : ""}><small>Universe</small><b>${n}${e ? ` <span class="uni-earth">· ${esc(e)}</span>` : ""}</b></div>`; };
 function renderRaft() {
