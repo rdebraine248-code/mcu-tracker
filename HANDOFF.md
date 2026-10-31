@@ -310,6 +310,9 @@ insignia celebration covers the page.
   - **Served with means served together (owner, October 2026):** "just because Wanda was in HYDRA does not mean she's connected to
     EVERYONE in HYDRA". A file records each group at the title they join it; a group holds until their next change. Two people served
     with each other only if they were in the same group at the same time, in a title they're both in. (Wanda: 53 down to 16.)
+  - **Paths as cast stacks (October 2026):** 126 Paths-style lines were rejected ("too busy... useless"). Now each of their titles is a
+    stack of bubbles (everyone in it), theirs on top in gold, tied people next; a line only joins someone to the next of these titles
+    they're in (dashed where they skip titles or fought). Tap a bubble to pick that person out; tap a title for its full list.
   - **Paths show the whole picture, classified (owner, October 2026):** like Paths did, a person's paths show every title and everyone
     they'll ever cross, even before you've seen it, so you see how many lines are coming and where they weave in. Past what you've seen,
     titles read [ Classified ], lines turn grey, and anyone you haven't met (or a tie you haven't seen) is a nameless [ CLASSIFIED ] line.
