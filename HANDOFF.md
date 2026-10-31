@@ -310,6 +310,11 @@ insignia celebration covers the page.
   zooming in opens it into its people, and the same goes for a locked person's web (their people stand in groups by crew). Locked on
   someone, tapping one of their people shows how the two are connected. Prototype: https://claude.ai/artifact/UkdcJ6p7b9aNw2Zm4m6xsH .
   Where it lives in the app is still the owner's call.
+  - **Personal ties are the point of the Network (owner, October 2026):** "Family and personal ties aren't in Network? That's the whole
+    point of this page." Jennifer Walters must link to Bruce, her cousin. Family, partners, close friends and mentors are links of their
+    own (researched with sources, checked before use), alongside served with, fought and the off-screen ties.
+  - **No one stands alone who belongs somewhere (owner, October 2026):** "Independent is too big": Cassie Lang, Ned Leeds, Jane Foster,
+    Tommy Maximoff and the like stand with their circle (a family, a school, a town, a group named on screen), not in Independent.
   - **Search (owner, October 2026):** a Search button finds anyone you've met by name or by another name they go by (aliases and staged
     names from their files: "she hulk" finds Jennifer Walters). A name that's a reveal only matches once you've seen the title that
     reveals it ("The Power Broker" finds Sharon only after The Falcon and the Winter Soldier). Picking someone locks onto them.
