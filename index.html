@@ -283,6 +283,8 @@ body[data-mode="timeline"] .meter .bar span{ background:linear-gradient(90deg,#F
 body[data-mode="timeline"] .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
 body{ transition:background-color .4s ease; }
 .tl-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.sl-body .dlog .dt .dck{ margin-left:auto; } .sl-rate{ border:1px solid #33405C; border-radius:999px; background:transparent; color:#E9C46A; padding:2px 9px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
+.sl-rate:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; } .sl-avg{ color:#E9C46A !important; }
 .logsw{ display:inline-flex; margin:2px 0 12px; border:1px solid #2A3A56; border-radius:999px; padding:2px; background:#0D1320; }
 .logsw button{ border:0; background:transparent; color:#8EA2C2; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; padding:7px 13px; border-radius:999px; cursor:pointer; touch-action:manipulation; }
 .logsw button[aria-pressed="true"]{ background:#1E2A44; color:#EEF1F6; box-shadow:inset 0 0 0 1px #3A78C9; } .logsw button.nw::after{ content:""; display:inline-block; width:6px; height:6px; margin-left:6px; border-radius:50%; background:#5FD0FF; vertical-align:middle; }
@@ -3180,6 +3182,7 @@ function openDossier(id, go) {
     el.addEventListener("click", ev => {
       if (ev.target.closest("#dBack")) { if (dossierOpen === "saga") { if (navAt("log")) navBack(); else closeDossier(); return; } if (navAt("dossier")) navBack(); else closeDossier(); return; }
       // the Story log: fold a chapter open or shut, or jump in from a chapter's own log
+      const srt = ev.target.closest(".sl-rate[data-rt]"); if (srt) { haptic(8); rateSheet(srt.dataset.rt); return; }
       const slc = ev.target.closest("[data-slc]"); if (slc) { haptic(8); slFold(el, slc); return; }
       const slg = ev.target.closest("[data-slgo]"); if (slg) { haptic(10); const cid = slg.dataset.slgo; closeDossier(true); if (openEntry) closePanel();
         openDossier("saga", { open: cid }); try { history.replaceState({ mcu: "log" }, ""); } catch (e) {} dockSync(); return; }
@@ -3353,16 +3356,19 @@ function slHTML() {
     ${SL_ACTS.map(A => `<div class="sl-pg"><div class="act">${A[2]() ? A[1] : "Act " + A[0]}</div></div>${DATA.chapters.filter(A[3]).map(slSec).join("")}`).join("")}`;
 }
 // one chapter's section of the Story log
+// the Personal log lives in the Log (owner, October 2026): every title you've logged carries your rating, or a way to rate it, and a
+// chapter's header your average
+const slRate = t => { const r = rateOf(t).r; return `<button type="button" class="sl-rate" data-rt="${esc(t)}" aria-label="${r ? "Your rating " + r + " of 5, change it" : "Rate " + esc(t)}">${r ? starsHTML(r, 12) : "&#9734; Rate"}</button>`; };
 function slSec(c) {
   const dnew = (key, html) => `<span class="dnew" data-k="${esc(key)}">${html}<span class="dcover"></span></span>`;
   const stripe = `style="--cc:${SL_STRIPE[c.id] || "#3A78C9"}"`, n = c.num ? "Ch. " + c.num : "Extras";
   if (!slShown(c)) return `<div class="sl-ch lk"><div class="sl-h"><span class="n">${n}</span><b><span class="sl-cl">[ Classified ]</span></b><small>No entries</small></div></div>`;
   const E = slEntries(c), tot = c.items.length, w = c.items.filter(i => atlSeenT(i.t)).length;
-  const cnt = state.unlocked[c.id] || w ? `<small>${w} of ${tot}</small>` : "";   // no count until the chapter is revealed or one of its titles is watched
+  const ra = rateAvg(c.items.filter(i => atlSeenT(i.t)).map(i => i.t)), cnt = (state.unlocked[c.id] || w ? `<small>${w} of ${tot}</small>` : "") + (ra ? `<small class="sl-avg">&#9733; ${ra}</small>` : "");   // no count until the chapter is revealed or one of its titles is watched
   if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt || "<small>No entries</small>"}</div></div>`;   // a revealed chapter shows its name, even before its first entry
   const open = slOpen === c.id, L = DOSSIERS[c.id];
   const pk = slPer(c), per = !pk ? "" : `<div class="sl-per"><small>Period</small><p>${slSeenK(c, "r0." + pk[1]) ? esc(pk[0]) : dnew(c.id + "|r0." + pk[1], esc(pk[0]))}</p></div>`;
-  const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i></div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
+  const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i>${slRate(t)}</div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
     ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
   return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt}${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
 }
@@ -7219,7 +7225,11 @@ function rateSheet(t) {   // it opens on its own; the keyboard only comes up onc
   el.addEventListener("pointerup", letGo); el.addEventListener("pointercancel", letGo);
 }
 // swap in only the ratings parts of the Agent File, so nothing else on it replays while you rate
-function refreshRates() { if (!fileOpen) return; const fv = document.getElementById("fileView"), sec = fv && fv.querySelector(".hf-rate"), dl = fv && fv.querySelector(".hf-rows");
+function refreshRates() {
+  // the open Log redraws its chapters in place (as a fold does), so a new rating shows straight away and nothing moves
+  if (dossierOpen === "saga") { const el = document.getElementById("dossier"), sc = el && el.querySelector(".dscroll");
+    if (sc) { const y = sc.scrollTop; el.querySelectorAll("[data-sls]").forEach(x => { const c = DATA.chapters.find(k => k.id === x.dataset.sls); if (c) x.outerHTML = slSec(c); }); sc.scrollTop = y; dPlay(el, sc, key => dMark(null, key)); } }
+  if (!fileOpen) return; const fv = document.getElementById("fileView"), sec = fv && fv.querySelector(".hf-rate"), dl = fv && fv.querySelector(".hf-rows");
   if (sec) sec.outerHTML = rateSec();
   if (dl) { dl.querySelectorAll("[data-rr]").forEach(d => d.remove()); dl.insertAdjacentHTML("beforeend", rateRows()); } }
 // the Personal log section: a page per Act, a cell per chapter. A chapter opens once you've watched any of its titles in any list,
@@ -7310,7 +7320,7 @@ function renderFile(fresh) {
       <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
-    ${archSec()}${rateSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
+    ${archSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
     <section class="hf-sec"><button type="button" class="hf-wipe" data-wipe>Reset datapad</button></section>`);
 }
 /* ---------- your profile picture: pick a symbol for the top of your Agent File (clip-path shapes painted with CSS gradients, 64x64) ---------- */

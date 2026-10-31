@@ -13,7 +13,7 @@ const { open, full, S } = require('./h.js');
         await page.evaluate(() => { if (openEntry) closePanel(); }); await page.waitForTimeout(120);
       }
     }
-    for (const d of ['log', 'atlas', 'map', 'comms', 'file', 'story']) { await page.evaluate(d => document.querySelector(`#dock [data-dock="${d}"]`).click(), d); await page.waitForTimeout(700); }
+    for (const d of ['log', 'atlas', 'map', 'comms', 'file', 'story']) { await page.evaluate(d => { if (d === 'map' && !document.querySelector('#dock [data-dock="map"]')) { document.querySelector('#dock [data-dock="log"]').click(); document.querySelector('#dossier [data-logv="paths"]').click(); } else document.querySelector(`#dock [data-dock="${d}"]`).click(); }, d); await page.waitForTimeout(700); }
     await page.evaluate(() => { for (const v of ['earth', 'cosmos', 'beyond', 'multi', 'incursions']) try { openAtlas(); atlSwitch(v); } catch (e) { console.error('atlas ' + v + ' ' + e.message); } });
     await page.waitForTimeout(800);
     console.log(mode, errs.length ? errs : 'no errors'); await browser.close();

@@ -334,6 +334,11 @@ insignia celebration covers the page.
     the dock shows Log. A picked line in Paths shows Open profile / Open box (`#mapAct`); a character profile has "See their path"
     (`data-dpath`). The switches swap in place (`closeDossier(true)` / `closeMap(true)` and `pushNav`), never through history.back.
     Any push to main before the owner approves must leave this out (build main from main's own source, or ask).
+  - **The Personal log folds into the Log (owner: "I think personal log should be folded into logs too, not as a separate page though
+    but as part of the log", October 2026), MOCKUP, NOT APPROVED, same rule as above:** every title in the Story Log carries your stars
+    beside Recorded (or "Rate"), which opens the same rate sheet (`slRate`, `.sl-rate`); a chapter's header shows your average; a new
+    rating redraws the open Log's chapters in place (`refreshRates`). The Agent File's Personal log section (`rateSec`) is no longer
+    rendered; its Rated / Latest rows on the Agent ID stay.
   - **Connectivity between pages (owner's ideas, October 2026, for when the Network goes into the app):** the Network's "Open file"
     opens their Compound or Raft file, and a file gets a way back to the Network; a person with a character box gets a button to open it
     (and the box back to the Network); the same with Paths (their box's line lit in Paths, and back).
@@ -341,6 +346,9 @@ insignia celebration covers the page.
     foes etc." Each connection is a list of stages in story order, each with its kind, the title it begins in and its own text about that
     stretch only. The web colours a connection by the latest stage you've seen, and the link card shows only the stages you've reached,
     so a later turn (Bucky as the Winter Soldier) stays hidden until its title is seen.
+    Built: all 2,793 connections staged (rel/staged_1..5.json, which relbake.js prefers): 2,420 one stage, 321 two, 46 three, 5 four,
+    1 five (Loki and Thor). Shows are keyed to the season a stage begins in, never the whole show. Limit: stages inside one season
+    (Ward joins, then betrays, in AoS S1) both show once that season is seen, since the tracker counts seasons, not episodes.
   - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
     co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
     a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
