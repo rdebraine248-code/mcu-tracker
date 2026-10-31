@@ -435,6 +435,11 @@ insignia celebration covers the page.
   - **Earth numbers separate the multiverses (owner, October 2026):** "I like using the Earth numbers to separate the multiverses,
     because it's very in theme with this datapad." Incursions and the Atlas already do it. Anywhere the app tells two worlds apart (the
     Network's other versions and crossings, its circles, labels), use the Earth number, not a film title or a year.
+    Owner: "The Earth number separations should have also been included in the indexes and their files, right? So that we know that
+    Peter Parker is from Earth x y z, the other Peter Parker is from Earth x y z." MOCKUP: a file's Universe tile reads "Spider-Verse ·
+    Earth-96283", and Compound and Raft index rows show the Earth under the name for anyone not from Earth-616 (`EARTHS`, filled only by
+    build_tb.py from network/rel/uni/earth/earths.json; main has an empty map, so nothing shows). Numbers are only ones stated on screen
+    or Marvel's official designations (as the Atlas's), null otherwise.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.

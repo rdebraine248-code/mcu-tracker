@@ -1271,6 +1271,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 body{ padding-bottom:var(--dockh); }
 .netpanel{ position:fixed; left:0; right:0; top:0; bottom:var(--dockh); z-index:58; background:#0B1019; } .netpanel iframe{ display:block; width:100%; height:100%; border:0; }
 body.netopen #whih{ display:none !important; }
+.uni-earth{ color:#9FC3FF; font-weight:400; } .rf-earth{ font-style:normal; color:#9FC3FF; letter-spacing:.5px; margin-right:6px; }
 .dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; }
 @keyframes dockin{ from{ transform:translateY(100%); opacity:0; } to{ transform:none; opacity:1; } }
 .dock.rise{ animation:dockin .5s cubic-bezier(.2,.7,.2,1) .35s both; }
@@ -4594,7 +4595,14 @@ RF_GRP.push(["tm", "Faction"]);
 const rfNo = o => "FILE " + String(THREATS.indexOf(o) + 1).padStart(4, "0");
 function rfUnis() { return RF_UNI; }
 // every file in the three indexes says which universe it belongs to, by the same name its tab goes by
-const uniTile = (o, cls) => `<div${cls ? ` class="${cls}"` : ""}><small>Universe</small><b>${rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o)))}</b></div>`;
+// each file names its world by Earth number (owner, October 2026: "so that we know Peter Parker is from Earth x y z, the other Peter
+// Parker is from Earth x y z"; Earth numbers "are very in theme with this datapad"). A mockup: only the test build fills EARTHS in
+const EARTHS = /*EARTHS*/{};
+let earthTw = false;   // a villain file shares its hero file's Earth (filled in on first use, once the files exist)
+const earthOfFile = o => { if (!Object.keys(EARTHS).length) return ""; if (!earthTw) { earthTw = true; ALLIES.forEach(a => { if (a.rf && EARTHS[a.id] && !EARTHS[a.rf]) EARTHS[a.rf] = EARTHS[a.id]; }); }
+  return EARTHS[o.id] || (rfUniOf(o) === "mcu" ? "Earth-616" : ""); };
+const uniTile = (o, cls) => { const n = rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))), e = n !== "[ Classified ]" && earthOfFile(o);
+  return `<div${cls ? ` class="${cls}"` : ""}><small>Universe</small><b>${n}${e ? ` <span class="uni-earth">· ${esc(e)}</span>` : ""}</b></div>`; };
 function renderRaft() {
   const v = document.getElementById("collView"), seen = state.raftSeen = state.raftSeen || {};
   if (collRec) {
@@ -4624,7 +4632,7 @@ function renderRaft() {
 let rfQ = "";
 function rfBody() {
   const seen = state.raftSeen = state.raftSeen || {}, stOf = o => rfStatus(rfSteps(o)), q = qNorm(rfQ.trim());
-  const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${akaSm(o, q, rfName, rfKind)}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
+  const row = (o, meta) => { const st = stOf(o); return `<button type="button" class="rf-row s-${RF_ST[st]}" data-co="${o.id}"><i class="rf-lamp" aria-hidden="true"></i><span class="rf-tx"><b>${q.length > 1 ? qMark(rfName(o), q) : esc(rfName(o))}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${earthOfFile(o) && earthOfFile(o) !== "Earth-616" ? `<em class="rf-earth">${esc(earthOfFile(o))}</em>` : ""}${akaSm(o, q, rfName, rfKind)}</small></span><span class="rf-meta">${meta(o, st)}</span></button>`; };
   if (rfOppF && q.length < 2) {   // everyone one hero or team has stood against, as far as you've watched
     const L = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length && rfOpps(o).includes(rfOppF)).sort(ixCmp(rfName, rfSteps));
     return `<div class="tf-bar"><span><small>Opposed by</small><b>${esc(rfOppF)}</b></span><button type="button" data-tfx aria-label="Show every threat">All threats<i aria-hidden="true">&#10005;</i></button></div>
@@ -4708,7 +4716,7 @@ function renderCp() {
 function cpBody() {
   const seen = state.cpSeen = state.cpSeen || {}, q = qNorm(cpQ.trim());
   const card = o => { const S = cpSteps(o), st = cpStatus(S), n = cpName(o);
-    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${akaSm(o, q, cpName, cpKind)}</small><em>${q.length > 1 ? esc(st) : cpGrp === "status" && !cpTeamF ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
+    return `<button type="button" class="cp-card s-${CP_ST[st]}" data-co="${o.id}">${cpBadge(o)}<span class="cp-tx"><b>${q.length > 1 ? qMark(n, q) : esc(n)}${seen[o.id] ? "" : '<i class="nw">NEW</i>'}</b><small>${earthOfFile(o) && earthOfFile(o) !== "Earth-616" ? `<em class="rf-earth">${esc(earthOfFile(o))}</em>` : ""}${akaSm(o, q, cpName, cpKind)}</small><em>${q.length > 1 ? esc(st) : cpGrp === "status" && !cpTeamF ? esc(cpTeam(o)) : esc(st)}</em></span></button>`; };
   if (cpTeamF && q.length < 2) {
     const L = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length && cpTeams(o).includes(cpTeamF)).sort(ixCmp(cpName, cpSteps));
     const gf = cpGroupFile(cpTeamF, cpTeamFrom);
