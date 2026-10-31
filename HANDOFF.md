@@ -457,6 +457,12 @@ insignia celebration covers the page.
     Daredevil and Thomas Jane's Punisher are listed in Deadpool & Wolverine, the What If Peter "dies in Paris" is disputed, ten villain
     files spread one-line "fought S.H.I.E.L.D." to the whole team; (6) close calls: the Spider Wars living Uncle Ben as family to the
     1994 Peter, Apocalypse and Candra as partner, M'Baku and Killmonger / Ned and the Vulture left out as never meeting.
+  - **Owner's answers to the open questions (October 2026):** (1) "When all remaining questions are closed, everything goes to main" (the
+    whole update, with the data fixes); (2) Earth-616B for Peter B. Parker: ok; (3) the 70 off-screen ties: "let's take those one at a
+    time or let me review them"; (4) people who meet across worlds with no file: "if they deserve a file then yes add them"; (5) fix the
+    Runaways parents' titles, the Deadpool & Wolverine listings for the 2003/2004 Daredevil and Punisher, and the team-wide "fought
+    S.H.I.E.L.D." villain lines ("fix what needs to be fixed to make it accurate and consistent"); (6) close calls: "fix what needs to
+    be fixed".
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
