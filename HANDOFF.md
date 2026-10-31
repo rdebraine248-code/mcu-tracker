@@ -406,7 +406,7 @@ insignia celebration covers the page.
     It follows what you've watched title by title (`netSeen` with `atlSeenT`; the Seen up to picker is hidden), and a universe's tab
     shows once the indexes have revealed it. Open file opens their Compound file (hero or both) or Raft file over it; Back returns to
     the Network, then leaves it. The Network's source and build scripts are in mockup-data/network/src (hub-src.html, prof/*.js); the
-    relationship research (rel/staged_*.json and the wiki pages) is still only in the session scratchpad.
+    staged relationships are in mockup-data/network/rel (staged_1..5.json, STAGE_BRIEF.md).
   - **Universes stay separate (owner, October 2026: "I prefer the different multiverses being separated. I just don't know how that will
     work when connections cross"):** each universe is its own room. A crossing: someone from another universe they actually meet walks
     into the web with a dashed ring and their universe under their name; the link card says how they're connected; Lock onto takes you
