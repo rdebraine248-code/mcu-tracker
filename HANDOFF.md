@@ -414,6 +414,13 @@ insignia celebration covers the page.
   - **Network hint and empty room (owner, October 2026):** "Don't like the drag to wander thing." The hint line is gone. An empty room
     (nothing watched yet) shows No data with a small icon in the style of Paths' (a dashed, empty bubble with dotted lines reaching for
     it), not a blank screen.
+  - **One place to look (owner, October 2026):** "If the network hub is folded into the test build, why are you still updating the
+    network hub separately?" Don't publish the standalone Network artifact (UkdcJ6p7b9aNw2Zm4m6xsH) any more; build the Network into
+    the test build (build_tb.py) and publish only the test build.
+  - **Other universes have no relationship pass yet (October 2026):** only the Sacred Timeline's 2,792 connections have kinds, prose
+    and stages. The other 780 people (Spider-Verse 313, FoX-Men 191, Beyond 143, Pruned 133) have only Raft fights (shown as Enemy, no
+    text) and crews, plus three hand-written No Way Home crossings. Doing them means the same pass per universe, plus a list of every
+    pair of versions who meet on screen.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
