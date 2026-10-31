@@ -29,7 +29,7 @@ const TL = ["Eyes of Wakanda", "Captain America: The First Avenger", "Agent Cart
   ok(r.logF && r.logS, 'each log follows its box'); ok(r.emb[0] === 'fury' && r.emb[1] === 'eagle' && r.fury, 'insignia: ' + r.emb);
   ok(r.skin[0] === 'Nick Fury' && r.skin[1] === 'S.H.I.E.L.D.', 'log skins'); ok(r.eggs[0] === 'cx-nick-fury' && r.eggs[1], 'eggs follow Fury'); ok(r.furyFile === 'fury', "Fury's Compound file wears his insignia");
   ok(JSON.stringify(r.mapRows) === '["Nick Fury","S.H.I.E.L.D."]' && r.mapAligned, 'Paths: a line for each, in box order ' + JSON.stringify(r.mapRows));
-  ok(r.shieldAt.includes('Agent Carter (One-Shot)') && r.shieldAt.includes('Ant-Man') && r.shieldAt.includes('Agents of S.H.I.E.L.D.'), 'S.H.I.E.L.D. line stops ' + JSON.stringify(r.shieldAt));
+  ok(r.shieldAt.includes('Agent Carter (One-Shot)') && r.shieldAt.includes('Ant-Man') && ['Agents of S.H.I.E.L.D. S1', 'Agents of S.H.I.E.L.D. S2', 'Agents of S.H.I.E.L.D.: Slingshot', 'Agents of S.H.I.E.L.D. S7'].every(t => r.shieldAt.includes(t)) && !r.shieldAt.includes('Agents of S.H.I.E.L.D.'), 'S.H.I.E.L.D. line stops, Agents of S.H.I.E.L.D. season by season ' + JSON.stringify(r.shieldAt));
   ok(r.embOrder && r.hint && JSON.stringify(r.met) === '["Iron Man"]', 'insignia beside the eagle, with its hint; met in Iron Man');
   ok(r.done.every(Boolean), 'a finished combined box: both new boxes count as finished, no new Completed ' + JSON.stringify(r.done));
   ok(/Avengers Initiative/.test(r.quotes[0] || '') && /news they aren/.test(r.quotes[1] || '') && !/threats it isn't ready/.test(r.welcome), 'quotes, and the welcome without its old line');
