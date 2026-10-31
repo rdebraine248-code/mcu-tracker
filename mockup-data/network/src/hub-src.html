@@ -193,15 +193,16 @@ const KS = { family: 'Family', partner: 'Partner', friend: 'Friend', mentor: 'Me
 N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === 'Independent') { p.g = p.g0 = p.circ = c; } });
 // a connection is a list of stages in story order, each with its kind, the title it begins in and what happens in that stretch; you see
 // the stages up to what you've watched, and its kind is the latest of them
-const mkTie = (j, st) => ({ j, S: st.map(([k, ti, d]) => ({ k: KIND[k], t: REL.titles[ti], o: REL.ord[ti] ?? -1, d })) });
-REL.ties.forEach(([a, b, st]) => { N[a].R0.push(mkTie(b, st)); N[b].R0.push(mkTie(a, st)); });
+// each stage carries the short line for this person's card about the other (whoA on a's card, whoB on b's)
+const mkTie = (j, st, side) => ({ j, S: st.map(x => ({ k: KIND[x[0]], t: REL.titles[x[1]], o: REL.ord[x[1]] ?? -1, d: x[2], w: x[side] || '' })) });
+REL.ties.forEach(([a, b, st]) => { N[a].R0.push(mkTie(b, st, 3)); N[b].R0.push(mkTie(a, st, 4)); });
 // across universes: two versions who actually meet are connected like anyone else (a mockup set, written by hand); ones who never meet
 // are only listed, under Other versions in their card
 const XREL = [['peter-parker', 'sv-peter-parker-raimi', 'ally', 'Spider-Man: No Way Home', "Pulled into this world by the broken spell, this Peter Parker helps Peter cure the villains. He stops him from killing Norman Osborn after May dies, and fights beside him at the Statue of Liberty."],
   ['peter-parker', 'sv-peter-parker-asm', 'ally', 'Spider-Man: No Way Home', "Another Peter Parker pulled in by the broken spell. He helps cure the villains, and at the Statue of Liberty he catches MJ as she falls, the save he couldn't make for Gwen."],
   ['sv-peter-parker-raimi', 'sv-peter-parker-asm', 'ally', 'Spider-Man: No Way Home', "Two Peters from different worlds who meet in another one. They trade stories of who they lost, and he tells this Peter he's amazing."]];
 { const byId = Object.fromEntries(N.map(p => [p.id, p])), ti = t => REL.titles.indexOf(t);
-  XREL.forEach(([a, b, k, t, d]) => { const A = byId[a], B = byId[b]; if (!A || !B) return; const st = [[KIND.indexOf(k), ti(t), d]]; A.R0.push(mkTie(B.i, st)); B.R0.push(mkTie(A.i, st)); }); }
+  if (!REL.cross) XREL.forEach(([a, b, k, t, d]) => { const A = byId[a], B = byId[b]; if (!A || !B) return; const st = [[KIND.indexOf(k), ti(t), d]]; A.R0.push(mkTie(B.i, st)); B.R0.push(mkTie(A.i, st)); }); }
 const cutAt = (r, cut) => { const S = r.S.filter(x => cut === Infinity || (SEENF && x.t ? SEENF(x.t) : x.o <= cut)); return S.length ? { j: r.j, S, k: S[S.length - 1].k, o: S[0].o } : null; };
 const cutTie = r => cutAt(r, CUT);
 N.forEach(p => { p.R = p.R0.map(r => cutAt(r, Infinity)); });   // everything, until Seen up to says otherwise
@@ -378,7 +379,7 @@ const WHO = {
     'Ghost': "Another of Val's assets set up to die with her. Now on her team.", 'Bob Reynolds': "Empty like her. She walks into the Void to pull him out.",
     'Peter Parker': "Spider-Man. She feeds him what she digs up on Damage Control." } };
 const sent1 = t => (String(t).match(/^.*?[.!?](?=\s|$)/) || [t])[0];
-const whoLine = (p, q, r) => (WHO[p.n] || {})[q.n] || (r ? sent1(r.S[r.S.length - 1].d) : 'Fought on screen.');
+const whoLine = (p, q, r) => (r && r.S[r.S.length - 1].w) || (WHO[p.n] || {})[q.n] || (r ? sent1(r.S[r.S.length - 1].d) : 'Fought on screen.');
 const vtitles = q => { const T = byOrd(q.A0).map(j => TT[j]); return T.length > 2 ? T.slice(0, 2).join(', ') + ' and ' + (T.length - 2) + ' more' : T.join(' and '); };
 function moreHTML(p, L) {
   const aka = p.AK.filter(([nm, o]) => o <= CUT && nm !== p.n).map(([nm]) => nm), crews = [];
@@ -526,6 +527,9 @@ $('cutPrev').onclick = () => setCut(+cutEl.value - 1);
 $('cutNext').onclick = () => setCut(+cutEl.value + 1);
 cutEl.value = STEPS.length; applyCut(Infinity, true);
 const EMB = window.parent !== window; if (EMB) document.body.classList.add('emb');
+// from a file in the app: straight onto them (a Raft file merged into its Compound twin is found by name in the same universe)
+self.netGo = id => { let p = N.find(x => x.id === id); if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); }
+  if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (UNI !== 'all' && p.u !== UNI) setUni(p.u); lockOn(p); };
 self.netSeen = (f, uok) => { SEENF = f; UNIOK = uok; if (!uniOk(UNI)) UNI = 'mcu';
   let far = -1; TT.forEach((t, i) => { if (f(t) && ORD[i] > far) far = ORD[i]; }); uniTabs(); applyCut(far, true); };
 function setUni(u) { if (u === UNI) return; UNI = u; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); }

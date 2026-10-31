@@ -4394,9 +4394,11 @@ document.getElementById("collView").addEventListener("click", ev => {
     const cu = ev.target.closest("[data-cpu]"); if (cu) { if (cu.dataset.cpu !== cpUni || cpTeamF) { haptic(8); cpUni = cu.dataset.cpu; cpTeamF = ""; renderColl(); } return; }
     const cg = ev.target.closest("[data-cpg]"); if (cg) { if (cg.dataset.cpg !== cpGrp) { haptic(8); cpGrp = cg.dataset.cpg; renderColl(); } return; }
     const cf = ev.target.closest("[data-cpf]"); if (cf) { haptic(8); const k = cf.dataset.cpf; cpFold[cpGrp][k] = !cpShut(k); renderColl(); return; }
+    const ng = ev.target.closest("[data-netgo]"); if (ng) { haptic(10); netGoTo(ng.dataset.netgo); return; }
     const rl = ev.target.closest("[data-cprf]"); if (rl) { haptic(10); const id = rl.dataset.cprf; rfUni = rfUniOf(THREATS.find(o => o.id === id)); collJump("raft", id); return; }
   }
   if (ev.target.closest(".pg-qx")) { haptic(8); rfQ = ""; renderColl(); return; }
+  const ngr = ev.target.closest("[data-netgo]"); if (ngr) { haptic(10); netGoTo(ngr.dataset.netgo); return; }
   const rc = ev.target.closest("[data-rfcp]"); if (rc) { haptic(10); const id = rc.dataset.rfcp; cpUni = rfUniOf(ALLIES.find(o => o.id === id)); collJump("cp", id); return; }   // a villain's hero file, the way back from the Compound's link
   const rt = ev.target.closest("[data-rft]"); if (rt) { haptic(10); rfTeamF = rt.dataset.rft; rfTeamFrom = collRec; rfOppF = ""; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
   const ro = ev.target.closest("[data-rfo]"); if (ro) { haptic(10); rfOppF = ro.dataset.rfo; rfTeamF = ""; rfUni = rfUniOf(THREATS.find(o => o.id === collRec)); rfQ = ""; collY = 0; collGrid(); return; }
@@ -4603,7 +4605,7 @@ function renderRaft() {
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div>${uniTile(o, "")}</div>
       ${alRow(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
-      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}
+      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
@@ -4692,7 +4694,7 @@ function renderCp() {
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p></div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div>${uniTile(o, "wide")}</div>
       ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
-      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
@@ -10286,6 +10288,8 @@ function openNet() { if (!NET_SRC) return; const f = document.getElementById("ne
 function closeNet(fromHistory) { if (!fromHistory && navAt("net")) { navBack(); return; }
   document.getElementById("netPanel").hidden = true; netOpen = false; document.body.classList.remove("netopen"); bodyFree(); }
 // from someone in the Network to their file: the file adds its own step, so Back comes back to the Network
+function netGoTo(id) { if (collOpen) closeColl(true); openNet(); const f = document.getElementById("netFrame"), go = () => { const w = f.contentWindow; if (w && w.netGo) w.netGo(id); };
+  if (f.contentWindow && f.contentWindow.netGo) go(); else f.addEventListener("load", () => setTimeout(go, 50), { once: true }); dockSync(); }
 window.netOpenFile = (id, k) => { const A = ALLIES.find(o => o.id === id), T = THREATS.find(o => o.id === id); if (!A && !T) return; haptic(10);
   if (A) { cpUni = rfUniOf(A); collJump("cp", id); } else { rfUni = rfUniOf(T); collJump("raft", id); } };
 function closeAllOver() { if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (netOpen) closeNet(true); if (fileOpen) closeFile(true); if (history.state && history.state.mcu) navBack(); }
