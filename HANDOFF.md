@@ -405,8 +405,8 @@ insignia celebration covers the page.
     (mockup-data/network/network-hub.html, put in by build_tb.py into `NET_SRC`; main has no copy, so main has no button) in a frame.
     It follows what you've watched title by title (`netSeen` with `atlSeenT`; the Seen up to picker is hidden), and a universe's tab
     shows once the indexes have revealed it. Open file opens their Compound file (hero or both) or Raft file over it; Back returns to
-    the Network, then leaves it. Source and scripts for the Network still live in the session scratchpad (hub-src.html, prof/*.js); copy
-    them into mockup-data/network/ before the session ends.
+    the Network, then leaves it. The Network's source and build scripts are in mockup-data/network/src (hub-src.html, prof/*.js); the
+    relationship research (rel/staged_*.json and the wiki pages) is still only in the session scratchpad.
   - **Universes stay separate (owner, October 2026: "I prefer the different multiverses being separated. I just don't know how that will
     work when connections cross"):** each universe is its own room. A crossing: someone from another universe they actually meet walks
     into the web with a dashed ring and their universe under their name; the link card says how they're connected; Lock onto takes you
