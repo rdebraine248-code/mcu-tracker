@@ -432,6 +432,9 @@ insignia celebration covers the page.
     S.H.I.E.L.D. and Agent Carter villains) come from an old one-line "op" field ("fought S.H.I.E.L.D.") that the app spreads to every
     member of the team: the same "connected to everyone in HYDRA" mistake. They show nowhere new (the Network draws only written,
     checked connections), but the villain files' team-wide "op" should be replaced with real opponent lists one day.
+  - **Earth numbers separate the multiverses (owner, October 2026):** "I like using the Earth numbers to separate the multiverses,
+    because it's very in theme with this datapad." Incursions and the Atlas already do it. Anywhere the app tells two worlds apart (the
+    Network's other versions and crossings, its circles, labels), use the Earth number, not a film title or a year.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.

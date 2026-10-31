@@ -185,12 +185,13 @@ const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-M
 let UNI = 'mcu', UNIOK = null;
 // a universe's tab shows once the app has revealed it, like the indexes; All once there's more than one
 const uniOk = u => !UNIOK ? true : u === 'all' ? UNIS.filter(([v]) => v !== 'all' && UNIOK(v)).length > 1 : UNIOK(u);
+const EARTH = DATA.earth || {}, earthOf = p => p.u === 'mcu' ? 'Earth-616' : EARTH[p.id] || null, worldOf = p => earthOf(p) || UL[p.u];
 const vtag = p => p.vt || (p.vt = (() => { const t = TT[[...p.A0].sort((a, b) => ORD[a] - ORD[b])[0]] || UL[p.u]; return t.length > 22 ? t.slice(0, 21) + '…' : t; })());
-const crewName = c => { const [n, u] = String(c).split('\u2063'); return u && UNI === 'all' ? n + ' · ' + UL[u] : n; };
+const crewName = c => { const [n0, u] = String(c).split('\u2063'), n = n0.split('\u2064')[0]; return u && UNI === 'all' ? n + ' · ' + UL[u] : n; };
 const KC = { family: '#F4A261', partner: '#FF8FB1', friend: '#5FD49A', mentor: '#B79CFF', boss: '#5FD0FF', ally: '#7FB2FF', rival: '#E8C15A', enemy: '#E0574A', variant: '#D7E3F5' };
 const KL = { family: 'Family', partner: 'Partners', friend: 'Friends', mentor: 'Mentors', boss: 'Chain of command', ally: 'Allies', rival: 'Rivals', enemy: 'Enemies', variant: 'Other versions' };
 const KS = { family: 'Family', partner: 'Partner', friend: 'Friend', mentor: 'Mentor', boss: 'Chain of command', ally: 'Ally', rival: 'Rival', enemy: 'Enemy', variant: 'Another version' };
-N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === 'Independent') { p.g = p.g0 = p.circ = c; } });
+N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === UK('Independent', p.u)) { p.g = p.g0 = p.circ = UK(c, p.u); } });   // a circle is its universe's own
 // a connection is a list of stages in story order, each with its kind, the title it begins in and what happens in that stretch; you see
 // the stages up to what you've watched, and its kind is the latest of them
 // each stage carries the short line for this person's card about the other (whoA on a's card, whoB on b's)
@@ -207,7 +208,9 @@ const cutAt = (r, cut) => { const S = r.S.filter(x => cut === Infinity || (SEENF
 const cutTie = r => cutAt(r, CUT);
 N.forEach(p => { p.R = p.R0.map(r => cutAt(r, Infinity)); });   // everything, until Seen up to says otherwise
 const relOf = (a, b) => a.R.find(r => r.j === b.i);
-const conn = p => [...new Set([...p.R.map(r => r.j), ...p.F])];
+// only written, checked connections are drawn (owner: "each network connection needs to be explicit and have meaning"); a fight on file
+// shows inside a written connection's card, never as a connection of its own (the fight lists had a made-up one, Yelena and Metzger)
+const conn = p => [...new Set(p.R.map(r => r.j))];
 const kindOf = (a, b) => { const r = relOf(a, b); return r ? r.k : 'enemy'; };   // a fight on file with no other tie is an enemy
 const crews = {}; N.forEach(p => (crews[p.g] = crews[p.g] || []).push(p));
 let Z = Object.entries(crews).sort((a, b) => (b[0] === 'Independent') - (a[0] === 'Independent') || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
@@ -314,7 +317,7 @@ function frame(t) {
   for (const [p, q, r, key] of names) { const fz = Math.round(10.5 * Math.max(q.s, key ? .9 : 0) + 1), w = p.n.split(' '), L = w.length > 1 ? [w[0], w.slice(1).join(' ')] : w; g.font = `600 ${fz}px 'IBM Plex Sans Condensed', sans-serif`; g.textBaseline = 'top'; g.lineWidth = 3.5; g.lineJoin = 'round'; g.strokeStyle = '#0B1019'; g.fillStyle = key ? '#FFFFFF' : '#C9D3E2';
       L.forEach((l, k) => { g.strokeText(l, q.x, q.y + r + 2 + k * (fz + 1)); g.fillText(l, q.x, q.y + r + 2 + k * (fz + 1)); });
       // another version of someone says which one: where they're from
-      if (p.cl && sel && (p.u !== sel.u || sel.V.includes(p.i))) { const vt = p.u !== sel.u ? UL[p.u] : vtag(p), y = q.y + r + 2 + L.length * (fz + 1) + 1, f0 = g.fillStyle; g.font = `${Math.max(8, fz - 2)}px 'Share Tech Mono', monospace`; g.fillStyle = '#9FB4D6';
+      if (p.cl && sel && (p.u !== sel.u || sel.V.includes(p.i))) { const vt = earthOf(p) && earthOf(p) !== earthOf(sel) ? earthOf(p) : p.u !== sel.u ? UL[p.u] : vtag(p), y = q.y + r + 2 + L.length * (fz + 1) + 1, f0 = g.fillStyle; g.font = `${Math.max(8, fz - 2)}px 'Share Tech Mono', monospace`; g.fillStyle = '#9FB4D6';
         g.strokeText(vt, q.x, y); g.fillText(vt, q.x, y); g.fillStyle = f0; } }
   g.textBaseline = 'alphabetic';
   mapCross(); drawMap(t, pos);
@@ -356,7 +359,7 @@ function tap(x, y) {
 }
 const short = n => n.replace(/^(The|Dr\.|Doctor|Captain|Agent|King|Queen|Prince|Princess|General|Colonel|Senator|President) /, '').split(' ')[0];
 function lockOn(p, t) {
-  if (!p.vis && p.u && (UNI !== 'all' && p.u !== UNI)) { setUni(p.u); say('Crossing into ' + (p.u === 'mcu' ? 'the Sacred Timeline' : UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u]), 1800); }   // across universes, you go with them
+  if (!p.vis && p.u && (UNI !== 'all' && p.u !== UNI)) { setUni(p.u); say('Crossing into ' + (earthOf(p) || (UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u])), 1800); }   // across universes, you go with them
   const lines = mapOn; gather(p, t || performance.now());
   if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx, y1: p.hy + 70 / zoom, z0: zoom, z1: Math.max(.9, zoom) };
   fillCard(p); if (navigator.vibrate) try { navigator.vibrate(10); } catch (e) {}
@@ -393,8 +396,9 @@ function moreHTML(p, L) {
       out.push(`<button type="button" class="wrow" style="--kc:${KC[k]}" data-i="${j}"><b>${esc(q.n)}${q.u !== p.u ? ` <em>${esc(UL[q.u])} · ${esc(vtag(q))}</em>` : ''}</b><span>${esc(whoLine(p, q, relOf(p, q)))}</span></button>`); }); }
   // every other version of them, by universe; the ones they've met are above, with the rest of their people. Tap one to go to them
   if (p.V.length) { out.push(`<h4>Other versions · tap to go to them</h4>`);
-    UNIS.forEach(([u, l]) => { const V = p.V.filter(j => N[j].u === u).map(j => N[j]); if (!V.length) return;
-      out.push(`<div class="kh" style="color:${KC.variant}"><i style="background:${KC.variant}"></i>${esc(l)}</div>`);
+    const groups = new Map(); UNIS.forEach(([u]) => p.V.filter(j => N[j].u === u).forEach(j => { const w = worldOf(N[j]); groups.has(w) || groups.set(w, []); groups.get(w).push(N[j]); }));
+    groups.forEach((V, l) => {
+      out.push(`<div class="kh" style="color:${KC.variant}"><i style="background:${KC.variant}"></i>${esc(l)}${l !== UL[V[0].u] ? ` <small style="opacity:.7">· ${esc(UL[V[0].u])}</small>` : ''}</div>`);
       V.forEach(q => out.push(`<button type="button" class="wrow vrow" style="--kc:${KC.variant}" data-v="${q.i}"><b>${esc(q.n)}</b><span>${q.dk ? esc(q.dk) + '. ' : ''}<em>${esc(vtitles(q))}</em>${relOf(p, q) ? ' · They meet' : ''}</span></button>`)); }); }
   return out.join('');
 }
@@ -423,7 +427,7 @@ card.addEventListener('click', e => { if (performance.now() - dragged < 400 && !
   m.addEventListener('touchmove', e => { if (!cd || !cd.touch) return; if (!cd.on && e.touches[0].clientY < cd.y) { cd = null; return; } if (dragMove(e.touches[0].clientY)) e.preventDefault(); }, { passive: false });
   m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); }
 function fillCard(p) {
-  $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? UL[p.u] + ' · ' : '') + (c === 'Independent' ? 'No crew' : c); }
+  $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0].split('\u2064')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? worldOf(p) + ' · ' : '') + (c === 'Independent' ? 'No crew' : c); }
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d), cnt = {};
   L.forEach(([, k]) => cnt[k] = (cnt[k] || 0) + 1);
   $('cSum').innerHTML = (KIND.filter(k => cnt[k]).map(k => `<span><i style="background:${KC[k]}"></i><b>${cnt[k]}</b> ${(cnt[k] > 1 ? KL[k] : KS[k]).toLowerCase()}</span>`).join('') || '<span>No connections yet</span>')
@@ -444,7 +448,7 @@ function showLink(b) {
   if (fought(a, b) && fw.length) why.push([KC.enemy, 'Fought', 'In ' + list(fw)]);
   const both = a.A.filter(j => b.A.includes(j)).map(j => TT[j]);
   why.push(['#8EA2C2', 'On screen together', both.length ? list(both) : 'Never in a title together']);
-  $('lName').innerHTML = `${a.n}<br>&amp; ${b.n}`;
+  $('lName').innerHTML = `${a.n}<br>&amp; ${b.n}`; if (worldOf(a) !== worldOf(b)) $('lName').insertAdjacentHTML('beforeend', `<small class="lw">${esc(worldOf(a))} · ${esc(worldOf(b))}</small>`);
   $('lWhy').innerHTML = why.map(([c, k, v]) => `<li><span style="color:${c}">${k}</span><div>${v}</div></li>`).join('');
   $('lBack').textContent = '‹ Back to ' + short(a.n); $('lGo').textContent = 'Lock onto ' + short(b.n) + ' ›';
   $('vOne').hidden = true; $('vTwo').hidden = false;
@@ -492,7 +496,7 @@ const seen = t => SEENF ? SEENF(TT[t]) : ORD[t] <= CUT;
 // the crew someone is in as of what you've seen: the one they end up in once you've seen them join it, otherwise the latest one you've
 // seen them in, otherwise none
 const crewNow = p => { if (CUT === Infinity) return p.g0; const f = p.S.find(([c]) => c === p.g0); if (f && f[1] <= CUT) return p.g0;
-  const L = p.S.filter(([, o]) => o >= 0 && o <= CUT), c = L.length ? L[L.length - 1][0] : 'Independent'; return c === 'Independent' && p.circ ? p.circ : c; };
+  const L = p.S.filter(([, o]) => o >= 0 && o <= CUT), c = L.length ? L[L.length - 1][0] : UK('Independent', p.u); return String(c).split('\u2063')[0] === 'Independent' && p.circ ? p.circ : c; };
 const joined = (p, c) => p.T.some(([d, w]) => d === c && (w < 0 ? p.vis : seen(w)));
 function applyCut(v, quiet) {
   CUT = v; const t = performance.now();

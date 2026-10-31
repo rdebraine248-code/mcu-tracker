@@ -13,11 +13,14 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const TH = THREATS.filter(o => !o.grp);
     // one person, one bubble (owner, October 2026): a Raft file under another id but the same name as a Compound file is the same person
     // and merges into it; two pairs share a name but are different people, so they stay apart
-    const APART = new Set(['white-vision', 'binary']), byName = {}, as = {};
+    const APART = new Set(['white-vision', 'binary', 'sv-venom-sony']), byName = {}, as = {};
     ALLIES.filter(o => rfUniOf(o) === 'mcu' && !o.grp).forEach(o => byName[nm(o)] = o.id);
     TH.forEach(o => { if (rfUniOf(o) === 'mcu' && !P[o.id] && !APART.has(o.id) && byName[nm(o)]) as[o.id] = byName[nm(o)]; });
     // and two whose Raft files go by their villain names: Deathlok is Mike Peterson, Lash is Andrew Garner (one person, one bubble)
     Object.assign(as, { 'st-deathlok': 'st-mike-peterson', 'st-lash': 'st-andrew-garner' });
+    // in every universe, a hero file the app links to its villain file (o.rf) is the same person: one bubble (owner: "one person each").
+    // Same-name files from different worlds (Spectacular Harry, Raimi Harry) stay apart
+    ALLIES.filter(o => o.rf && !o.grp).forEach(o => { if (!as[o.rf] && o.rf !== o.id && !APART.has(o.rf)) as[o.rf] = o.id; });
     const cid = id => as[id] || id;
     TH.forEach(o => { const id = cid(o.id); if (P[id]) P[id].k = 'B'; else P[id] = mk(o, 'T'); absorb(P[id], o); });
     ALLIES.filter(o => o.rf && P[o.id]).forEach(o => P[o.id].k = 'B');
