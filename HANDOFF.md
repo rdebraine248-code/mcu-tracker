@@ -310,6 +310,9 @@ insignia celebration covers the page.
   zooming in opens it into its people, and the same goes for a locked person's web (their people stand in groups by crew). Locked on
   someone, tapping one of their people shows how the two are connected. Prototype: https://claude.ai/artifact/UkdcJ6p7b9aNw2Zm4m6xsH .
   Where it lives in the app is still the owner's call.
+  - **Search (owner, October 2026):** a Search button finds anyone you've met by name or by another name they go by (aliases and staged
+    names from their files: "she hulk" finds Jennifer Walters). A name that's a reveal only matches once you've seen the title that
+    reveals it ("The Power Broker" finds Sharon only after The Falcon and the Winter Soldier). Picking someone locks onto them.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
   - **Crews as of what you've seen (owner, October 2026):** the room isn't fixed at where everyone ends up. Each person stands with the
     crew they're in as of what you've seen: their final crew once you've seen them join it, otherwise the latest one seen, otherwise none
