@@ -371,6 +371,9 @@ insignia celebration covers the page.
     If Gilgamesh says Odin taught him a recipe, that is a connection implied by dialogue, but Agent Cleary isn't connected to Mysterio,
     he just has information." Knowing about someone (a case file, a name in the news, a story told about them, a dead man's legend) is
     not a connection. Off-screen ties count only when the dialogue shows the two really know each other.
+    Exception (owner): "If one person's knowledge or involvement in another one has huge consequences" it is a connection even if they
+    never meet: Bruce Banner and Erskine (recreating Erskine's formula made Bruce the Hulk), Valentina and Clint (she sends Yelena after
+    him). Cleary and Mysterio stay out: a case file with no consequence.
   - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
     co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
     a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
