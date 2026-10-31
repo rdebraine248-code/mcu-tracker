@@ -326,6 +326,11 @@ insignia celebration covers the page.
     into Andrew Garner (one person, one bubble). Working files in the session scratchpad: rel/through.json (the last word), prof/relbake.js. The through-line review changed 66 kinds
     (Steve and Sharon ally, May and Coulson friend, Ward and May enemy, Mordo and Strange ally, Aida and Fitz enemy since the romance is
     Framework only).
+  - **No paths inside the Network (owner, October 2026):** "See their paths" is gone; the Network is the room, the webs and the
+    connections. Paths stays its own page, likely moving into the Log (owner: "I think paths goes into Log, or is there a better place").
+  - **Connectivity between pages (owner's ideas, October 2026, for when the Network goes into the app):** the Network's "Open file"
+    opens their Compound or Raft file, and a file gets a way back to the Network; a person with a character box gets a button to open it
+    (and the box back to the Network); the same with Paths (their box's line lit in Paths, and back).
   - **Relationships evolve, in stages (owner, October 2026):** "Relationships can evolve so friends can become partners, allies can turn to
     foes etc." Each connection is a list of stages in story order, each with its kind, the title it begins in and its own text about that
     stretch only. The web colours a connection by the latest stage you've seen, and the link card shows only the stages you've reached,
