@@ -421,6 +421,11 @@ insignia celebration covers the page.
     and stages. The other 780 people (Spider-Verse 313, FoX-Men 191, Beyond 143, Pruned 133) have only Raft fights (shown as Enemy, no
     text) and crews, plus three hand-written No Way Home crossings. Doing them means the same pass per universe, plus a list of every
     pair of versions who meet on screen.
+  - **Compound and Raft files hand over, LATER (owner, October 2026, "something to ponder about later"):** a person has one active
+    file at a time. When someone changes sides, the file they leave closes and the story carries on in the other one: Wanda's Raft file
+    closes once she's an ally and is transferred to the Compound, and is no longer updated in the Raft "because she is no longer a member
+    of the Raft", "so that we don't repeat entries every time". (Today both files can carry the same titles, with "Also on file" linking
+    them.) Not started; raise it after the current update.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
