@@ -326,6 +326,10 @@ insignia celebration covers the page.
     into Andrew Garner (one person, one bubble). Working files in the session scratchpad: rel/through.json (the last word), prof/relbake.js. The through-line review changed 66 kinds
     (Steve and Sharon ally, May and Coulson friend, Ward and May enemy, Mordo and Strange ally, Aida and Fitz enemy since the romance is
     Framework only).
+  - **Relationships evolve, in stages (owner, October 2026):** "Relationships can evolve so friends can become partners, allies can turn to
+    foes etc." Each connection is a list of stages in story order, each with its kind, the title it begins in and its own text about that
+    stretch only. The web colours a connection by the latest stage you've seen, and the link card shows only the stages you've reached,
+    so a later turn (Bucky as the Winter Soldier) stays hidden until its title is seen.
   - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
     co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
     a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
