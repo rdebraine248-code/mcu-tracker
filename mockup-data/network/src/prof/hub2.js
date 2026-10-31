@@ -13,7 +13,7 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const TH = THREATS.filter(o => !o.grp);
     // one person, one bubble (owner, October 2026): a Raft file under another id but the same name as a Compound file is the same person
     // and merges into it; two pairs share a name but are different people, so they stay apart
-    const APART = new Set(['white-vision', 'binary', 'sv-venom-sony']), byName = {}, as = {};
+    const APART = new Set(['white-vision', 'binary', 'sv-venom-sony', 'karl-mordo-838']), byName = {}, as = {};
     ALLIES.filter(o => rfUniOf(o) === 'mcu' && !o.grp).forEach(o => byName[nm(o)] = o.id);
     TH.forEach(o => { if (rfUniOf(o) === 'mcu' && !P[o.id] && !APART.has(o.id) && byName[nm(o)]) as[o.id] = byName[nm(o)]; });
     // and two whose Raft files go by their villain names: Deathlok is Mike Peterson, Lash is Andrew Garner (one person, one bubble)
@@ -53,7 +53,7 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
       // other versions of the same person: the same name in another file, and two the MCU names differently
       variants: (() => { const by = {}; ids.forEach(id => (by[P[id].n] = by[P[id].n] || []).push(idx[id])); const V = [];
         Object.values(by).forEach(L => { for (let a = 0; a < L.length; a++) for (let b = a + 1; b < L.length; b++) V.push([L[a], L[b]]); });
-        const st = ids.find(id => P[id].u === 'mcu' && P[id].n === 'Stephen Strange'); ['sinister-strange', 'by-strange-supreme'].forEach(id => { if (P[id] && st) V.push([idx[st], idx[id]]); });
+        const st = ids.find(id => P[id].u === 'mcu' && P[id].n === 'Stephen Strange'); ['sinister-strange', 'by-strange-supreme', 'defender-strange'].forEach(id => { if (P[id] && st) V.push([idx[st], idx[id]]); });
         return V; })() };
   });
   require('fs').writeFileSync(__dirname + '/hub.json', JSON.stringify(d));
