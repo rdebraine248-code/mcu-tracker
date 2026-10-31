@@ -491,7 +491,9 @@ $('cFile').onclick = () => { if (EMB && sel && parent.netOpenFile) parent.netOpe
 // A fight shows once you've seen the title it happens in; served with, once you've seen both of them join the crew. The room re-packs around
 // whoever's in it. Step a title on and the new arrivals walk in with a gold ring; inside someone's story, new stops pop in and new lines
 // draw themselves down
-const STEPS = [...new Set(ORD)].sort((a, b) => a - b), cutEl = $('cut');
+const STEPS = [...new Set(ORD)].sort((a, b) => a - b), cutEl = $('cut'), cutPrev = $('cutPrev'), cutNext = $('cutNext'), cutNo = $('cutN');
+// inside the app the picker doesn't exist at all (owner: "Seen up to shouldn't even exist in main"): the app says what's been watched
+if (window.parent !== window) { const sr = document.querySelector('header .seen'); if (sr) sr.remove(); }
 const stepName = v => { const L = TT.map((x, i) => i).filter(i => ORD[i] === v), n = i => N.filter(p => p.A0.includes(i)).length; return TT[L.sort((a, b) => n(b) - n(a))[0]]; };
 cutEl.innerHTML = STEPS.map((v, k) => `<option value="${k}">${stepName(v)}</option>`).join('') + `<option value="${STEPS.length}">Everything</option>`;
 let CUT = Infinity;
@@ -527,13 +529,13 @@ function applyCut(v, quiet) {
     if (a) glide = { t0: t, x0: cam.x, y0: cam.y, x1: a.hx + (a === near ? off[0] : 0), y1: a.hy + (a === near ? off[1] : 0) }; }
   if (keep) { const wasLink = link; gather(keep, t, true); fillCard(keep); if (wasLink && wasLink.vis && gathered.includes(wasLink.i)) showLink(wasLink); }
   if (self.mapAgain) mapAgain();   // the map, below, is cut to what you've seen too
-  const k = +cutEl.value; $('cutPrev').disabled = k <= 0; $('cutNext').disabled = k >= STEPS.length;
-  $('cutN').textContent = N.filter(p => p.vis).length + ' in the room'; $('nEmpty').hidden = N.some(p => p.vis);
+  const k = +cutEl.value; cutPrev.disabled = k <= 0; cutNext.disabled = k >= STEPS.length;
+  cutNo.textContent = N.filter(p => p.vis).length + ' in the room'; $('nEmpty').hidden = N.some(p => p.vis);
 }
 const setCut = k => { k = Math.max(0, Math.min(STEPS.length, k)); cutEl.value = k; applyCut(k >= STEPS.length ? Infinity : STEPS[k]); };
 cutEl.addEventListener('change', () => setCut(+cutEl.value));
-$('cutPrev').onclick = () => setCut(+cutEl.value - 1);
-$('cutNext').onclick = () => setCut(+cutEl.value + 1);
+cutPrev.onclick = () => setCut(+cutEl.value - 1);
+cutNext.onclick = () => setCut(+cutEl.value + 1);
 cutEl.value = STEPS.length; applyCut(Infinity, true);
 const EMB = window.parent !== window; if (EMB) document.body.classList.add('emb');
 // from a file in the app: straight onto them (a Raft file merged into its Compound twin is found by name in the same universe)
