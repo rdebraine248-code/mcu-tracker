@@ -339,6 +339,8 @@ insignia celebration covers the page.
     beside Recorded (or "Rate"), which opens the same rate sheet (`slRate`, `.sl-rate`); a chapter's header shows your average; a new
     rating redraws the open Log's chapters in place (`refreshRates`). The Agent File's Personal log section (`rateSec`) is no longer
     rendered; its Rated / Latest rows on the Agent ID stay.
+  - **Episode-level reveals, LATER (owner, October 2026):** "Maybe show moments (comms, network, atlas, other related info) could be
+    episode dependent but let's do that after this update launches." Not now; after the current update reaches main.
   - **Connectivity between pages (owner's ideas, October 2026, for when the Network goes into the app):** the Network's "Open file"
     opens their Compound or Raft file, and a file gets a way back to the Network; a person with a character box gets a button to open it
     (and the box back to the Network); the same with Paths (their box's line lit in Paths, and back).
@@ -361,6 +363,12 @@ insignia celebration covers the page.
   - **Search (owner, October 2026):** a Search button finds anyone you've met by name or by another name they go by (aliases and staged
     names from their files: "she hulk" finds Jennifer Walters). A name that's a reveal only matches once you've seen the title that
     reveals it ("The Power Broker" finds Sharon only after The Falcon and the Winter Soldier). Picking someone locks onto them.
+  - **Pull-up person card (owner, October 2026), MOCKUP for two people, awaiting a verdict before the rest:** "when I click one I can
+    slide their little pop up up and it shows which projects they [were] in, a little sentence about who each of their connections are".
+    Swipe the card up (or tap its grip): Also known as, Crews (in order), every title they're in (seen only), and Who's who grouped by
+    kind, one short line each, tap for the whole story. Lines are hand-written for Jennifer Walters and Yelena Belova only (`WHO` in
+    hub-src.html); everyone else falls back to the first sentence of their latest seen stage. Doing it for everyone means a short "who"
+    line per connection per stage, so a later turn doesn't leak early (Yelena's "Alexei still acts like one" shows at Black Widow today).
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
   - **Crews as of what you've seen (owner, October 2026):** the room isn't fixed at where everyone ends up. Each person stands with the
     crew they're in as of what you've seen: their final crew once you've seen them join it, otherwise the latest one seen, otherwise none
