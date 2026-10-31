@@ -307,13 +307,16 @@ insignia celebration covers the page.
   zooming in opens it into its people, and the same goes for a locked person's web (their people stand in groups by crew). Locked on
   someone, tapping one of their people shows how the two are connected. Prototype: https://claude.ai/artifact/UkdcJ6p7b9aNw2Zm4m6xsH .
   Where it lives in the app is still the owner's call.
+  - **Served with means served together (owner, October 2026):** "just because Wanda was in HYDRA does not mean she's connected to
+    EVERYONE in HYDRA". A file records each group at the title they join it; a group holds until their next change. Two people served
+    with each other only if they were in the same group at the same time, in a title they're both in. (Wanda: 53 down to 16.)
   - **One person, one bubble (owner):** a hero file and a Raft file of the same person under different ids are one person in the Network
     (Bucky / Winter Soldier, Sharon Carter / Power Broker, Bob / Sentry, Mole Man, Silver Surfer). Vision and White Vision, and Maria
     Rambeau and the Marvels' Binary, are different people and stay apart.
   - **Where it stands (owner, October 2026):** the owner rejected a separate path screen, a two-person path and a "story" layout (messy,
     no single vision, lost Paths' big picture). The old Paths map as the widest zoom was rejected too ("so stupid": it has to be built from
-    the Network's characters). Being tried now: lock onto someone, tap a connection, and "See their paths" (a button, owner's call, not a zoom) turns
-    their web into lines through their titles (the paths have their own pinch zoom; "Their web" goes back), Paths-style (theirs through the middle; a line for everyone in their web who's in any of their titles, no cap, since "so many major crossovers are one-offs" (owner); lines also meet in titles the person isn't in); tap a
+    the Network's characters). Being tried now: tap someone, and "See their paths" on their own card (a button, not a zoom; owner: "click a, see paths",
+    not a connection's card) turns their web into lines through their titles (the paths have their own pinch zoom; "Their web" goes back), Paths-style (theirs through the middle; a line for everyone in their web who's in any of their titles, no cap, since "so many major crossovers are one-offs" (owner); lines also meet in titles the person isn't in); tap a
     title for everyone in it, tap a line for how the two connect and lock onto them to redraw. Owner: "I like the click the character
     and see their paths but I also like in paths that I saw every character involved in a particular movie". Tapping someone still shows their web, and a connection shows how the two are linked. The mockup has a "Seen up to" picker
     standing in for watched titles, with new people walking in and new lines drawing in. Not approved yet. Open: J.A.R.V.I.S. and Vision
