@@ -347,6 +347,11 @@ insignia celebration covers the page.
     rendered; its Rated / Latest rows on the Agent ID stay.
   - **Episode-level reveals, LATER (owner, October 2026):** "Maybe show moments (comms, network, atlas, other related info) could be
     episode dependent but let's do that after this update launches." Not now; after the current update reaches main.
+  - **Paths' picked line: only Open profile (owner, October 2026):** "there should only be open profile. I don't want an open box
+    button." The bar shows only when the character has a profile.
+  - **A character's profile counts a title watched anywhere (owner, October 2026):** they ticked Captain America: The First Avenger in
+    Chapter 1, opened Steve's profile from Paths, and his service history still said No record (it only counted ticks inside his own
+    box). Now a character profile reveals from any watch (`atlSeenT`), like the Log and Paths; a chapter's own log keeps its rule.
   - **Connectivity between pages (owner's ideas, October 2026, for when the Network goes into the app):** the Network's "Open file"
     opens their Compound or Raft file, and a file gets a way back to the Network; a person with a character box gets a button to open it
     (and the box back to the Network); the same with Paths (their box's line lit in Paths, and back).

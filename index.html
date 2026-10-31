@@ -3203,7 +3203,7 @@ function openDossier(id, go) {
     el.addEventListener("wheel", free, { passive: true }); }
   // every entry you've unlocked, however long ago you watched it, records in the first time the log shows it
   const seen = (state.dSeen = state.dSeen || {})[id] = state.dSeen[id] || {};
-  const lbox = SG ? null : (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id), here = t => SG ? chRel(t) : !!state.checks[ck(lbox, t)];
+  const lbox = SG ? null : (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id), here = t => SG ? chRel(t) : !!state.checks[ck(lbox, t)] || (D.kind !== "chapter" && atlSeenT(t));   // a character's profile counts a title you've watched anywhere (owner, October 2026), now that Paths opens it too
   const open = t => !t || (Array.isArray(t) ? t.every(here) : here(t)), NODATA = `<span class="dnone">No data</span>`;
   // a chapter's entries are shared with the Story log, which counts what you've watched anywhere, so a chapter's own log never takes back a read mark
   const forget = k => { if (SG || D.kind !== "chapter") delete seen[k]; };
@@ -10570,7 +10570,7 @@ function mapFocus(r) {
   mapFocusI = (r === null || r === mapFocusI) ? null : r;
   { const act = document.getElementById("mapAct"), l = mapFocusI !== null && MAP.rows[mapFocusI], box = l && DATA.chars.find(c => c.title === l.n);
     if (!box || mapAnon(l.n)) act.hidden = true;
-    else { act.innerHTML = `<b><i style="background:${l.c}"></i>${esc(mapName(l.n))}</b>${DOSSIERS[box.id] ? `<button type="button" data-mprof="${box.id}">Open profile ›</button>` : ""}<button type="button" data-mbox="${box.id}">Open box ›</button>`; act.hidden = false; } }
+    else { act.innerHTML = `<b><i style="background:${l.c}"></i>${esc(mapName(l.n))}</b>${DOSSIERS[box.id] ? `<button type="button" data-mprof="${box.id}">Open profile ›</button>` : ""}`; act.hidden = !DOSSIERS[box.id]; } }   // only the profile (owner, October 2026: "I don't want an open box button")
   const v = document.getElementById("mapView"), svg = v.querySelector("svg"); if (!svg) return;
   const M = MAP, on = mapFocusI !== null, cols = new Set(on ? M.rows[mapFocusI].nodes : []);
   if (on) svg.setAttribute("data-focus", ""); else svg.removeAttribute("data-focus");
