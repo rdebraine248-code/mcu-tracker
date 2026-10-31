@@ -103,7 +103,9 @@ header #hSearch svg{ flex:none; color:#8EA2C2; } header #hSearch:focus-visible{ 
 #mTip button{ margin-top:8px; width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
 #toast{ position:fixed; left:50%; bottom:calc(150px + env(safe-area-inset-bottom, 0px)); transform:translateX(-50%); padding:8px 14px; border:1px solid var(--line); border-radius:10px; background:rgba(8,14,26,.97); font:12px/1.3 var(--mono); letter-spacing:1px; color:#CFE6FF; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
 body.emb header .seen{ display:none; }
-#hint{ position:fixed; left:0; right:0; bottom:max(18px, env(safe-area-inset-bottom, 0px)); text-align:center; font:11px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:#5A6A86; pointer-events:none; transition:opacity .4s; }
+#nEmpty{ position:fixed; left:0; right:0; top:46%; display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
+#nEmpty[hidden]{ display:none; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
+#nEmpty b{ font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; font-weight:400; }
 </style>
 
 <canvas id="room" aria-label="Every character on the Sacred Timeline, standing in groups by crew. Drag to wander, tap someone to see their web."></canvas>
@@ -113,7 +115,7 @@ body.emb header .seen{ display:none; }
   <div class="unis" role="tablist" aria-label="Universe"></div>
   <div class="seen"><span>Seen up to</span><div class="sr"><button type="button" id="cutPrev" aria-label="One title back">‹</button><select id="cut" aria-label="Seen up to"></select><button type="button" id="cutNext" aria-label="One title on">›</button></div><output id="cutN"></output></div>
 </header>
-<div id="hint">Drag to wander · pinch out for crews · tap someone to see who they are to everyone</div>
+<div id="nEmpty" hidden aria-hidden="true"><svg viewBox="0 0 200 40"><path d="M30,20 L84,20 M116,20 L170,20" stroke="#7FA6D8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 6"/><circle cx="100" cy="20" r="11" fill="#0B1019" stroke="#7FA6D8" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>No data</b></div>
 <div id="card" role="dialog" aria-live="polite"><button type="button" id="cGrip" aria-label="Show more about them" aria-expanded="false"></button>
   <div id="vOne"><small id="cCrew"></small><h2 id="cName"></h2>
     <div class="ln kinds" id="cSum"></div><div id="cMore"></div>
@@ -324,7 +326,7 @@ let drag = null, pts = new Map(), pinch0 = null;
 const setZoom = z => { zoom = Math.max(ZMIN, Math.min(ZMAX, z)); };
 cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]); glide = null;
   if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch0 = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), z: mapOn ? mz : zoom }; drag = null; return; }
-  drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, moved: false, t: performance.now() }; vel = { x: 0, y: 0 }; hint.style.opacity = 0; });
+  drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, moved: false, t: performance.now() }; vel = { x: 0, y: 0 };  });
 cv.addEventListener('pointermove', e => { if (!pts.has(e.pointerId)) return; pts.set(e.pointerId, [e.clientX, e.clientY]);
   if (pinch0 && pts.size === 2) { const [a, b] = [...pts.values()], f = Math.hypot(a[0] - b[0], a[1] - b[1]) / pinch0.d;
     if (mapOn) setMZ(pinch0.z * f, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); else setZoom(pinch0.z * f); return; }
@@ -336,7 +338,7 @@ const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch0 = null;
 cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
 cv.addEventListener('wheel', e => { e.preventDefault(); glide = null; const f = e.deltaY < 0 ? 1.08 : .93; if (mapOn) setMZ(mz * f, e.clientX, e.clientY); else setZoom(zoom * f); }, { passive: false });
 
-const $ = id => document.getElementById(id), card = $('card'), hint = $('hint'), toast = $('toast');
+const $ = id => document.getElementById(id), card = $('card'), toast = $('toast');
 // a tap: zoomed out, a group bubble opens up, zooming in on it. Zoomed in, in the room it locks onto someone; while locked, tapping one of
 // their people shows how the two are connected, tapping that person again locks onto them instead; a tap on the open floor steps back out
 function tap(x, y) {
@@ -516,7 +518,7 @@ function applyCut(v, quiet) {
   if (keep) { const wasLink = link; gather(keep, t, true); fillCard(keep); if (wasLink && wasLink.vis && gathered.includes(wasLink.i)) showLink(wasLink); }
   if (self.mapAgain) mapAgain();   // the map, below, is cut to what you've seen too
   const k = +cutEl.value; $('cutPrev').disabled = k <= 0; $('cutNext').disabled = k >= STEPS.length;
-  $('cutN').textContent = N.filter(p => p.vis).length + ' in the room';
+  $('cutN').textContent = N.filter(p => p.vis).length + ' in the room'; $('nEmpty').hidden = N.some(p => p.vis);
 }
 const setCut = k => { k = Math.max(0, Math.min(STEPS.length, k)); cutEl.value = k; applyCut(k >= STEPS.length ? Infinity : STEPS[k]); };
 cutEl.addEventListener('change', () => setCut(+cutEl.value));

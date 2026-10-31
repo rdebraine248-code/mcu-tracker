@@ -411,6 +411,9 @@ insignia celebration covers the page.
     work when connections cross"):** each universe is its own room. A crossing: someone from another universe they actually meet walks
     into the web with a dashed ring and their universe under their name; the link card says how they're connected; Lock onto takes you
     across ("Crossing into the Spider-Verse"), where the one you left shows the same way, labelled Sacred Timeline.
+  - **Network hint and empty room (owner, October 2026):** "Don't like the drag to wander thing." The hint line is gone. An empty room
+    (nothing watched yet) shows No data with a small icon in the style of Paths' (a dashed, empty bubble with dotted lines reaching for
+    it), not a blank screen.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
