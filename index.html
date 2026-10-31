@@ -1270,7 +1270,6 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 :root{ --dockh:calc(60px + env(safe-area-inset-bottom,0px)); }
 body{ padding-bottom:var(--dockh); }
 .netpanel{ position:fixed; left:0; right:0; top:0; bottom:var(--dockh); z-index:58; background:#0B1019; } .netpanel iframe{ display:block; width:100%; height:100%; border:0; }
-body.netopen #whih{ display:none !important; }
 .uni-earth{ color:#9FC3FF; font-weight:400; } .rf-earth{ font-style:normal; color:#9FC3FF; letter-spacing:.5px; margin-right:6px; }
 .dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; }
 @keyframes dockin{ from{ transform:translateY(100%); opacity:0; } to{ transform:none; opacity:1; } }

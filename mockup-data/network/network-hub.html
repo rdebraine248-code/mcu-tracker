@@ -104,7 +104,7 @@ header #hSearch svg{ flex:none; color:#8EA2C2; } header #hSearch:focus-visible{ 
 #toast{ position:fixed; left:50%; bottom:calc(150px + env(safe-area-inset-bottom, 0px)); transform:translateX(-50%); padding:8px 14px; border:1px solid var(--line); border-radius:10px; background:rgba(8,14,26,.97); font:12px/1.3 var(--mono); letter-spacing:1px; color:#CFE6FF; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
 body.emb header .seen{ display:none; }
 #nEmpty{ position:fixed; left:0; right:0; top:46%; display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
-#nEmpty[hidden]{ display:none; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
+#nEmpty[hidden]{ display:none; } html.wait #nEmpty, html.wait #card{ display:none !important; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
 #nEmpty b{ font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; font-weight:400; }
 </style>
 
@@ -267,6 +267,9 @@ function frame(t) {
   if (glide) { const k = Math.min(1, (t - glide.t0) / 560), e = 1 - Math.pow(1 - k, 3); cam.x = glide.x0 + (glide.x1 - glide.x0) * e; cam.y = glide.y0 + (glide.y1 - glide.y0) * e;
     if (glide.z1) zoom = glide.z0 + (glide.z1 - glide.z0) * e; if (k >= 1) glide = null; }
   else if (!drag && mapK() < .5) { cam.x -= vel.x; cam.y -= vel.y; vel.x *= .92; vel.y *= .92; }
+  if (!glide && mapK() < .5) { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; const b = busy(), L = b ? gathered.map(j => N[j]).concat(sel ? [sel] : []) : N;
+    for (const p of L) { if (!(p.vis || p.guest)) continue; const x = b ? p.tx : p.hx, y = b ? p.ty : p.hy; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    if (x0 <= x1) { const mx = W * .4 / zoom, my = H * .4 / zoom; cam.x = Math.max(x0 - mx, Math.min(x1 + mx, cam.x)); cam.y = Math.max(y0 - my, Math.min(y1 + my, cam.y)); } }
   g.setTransform(DPR, 0, 0, DPR, 0, 0); g.fillStyle = '#0B1019'; g.fillRect(0, 0, W, H);
   const e = unfold(), G = groups(), gv = new Map(G.map(z => [z, gview(z, t)]));
   const lit = sel ? new Set([sel.i, ...gathered]) : tsel != null ? new Set(gathered) : null;
@@ -491,7 +494,8 @@ const STEPS = [...new Set(ORD)].sort((a, b) => a - b), cutEl = $('cut');
 const stepName = v => { const L = TT.map((x, i) => i).filter(i => ORD[i] === v), n = i => N.filter(p => p.A0.includes(i)).length; return TT[L.sort((a, b) => n(b) - n(a))[0]]; };
 cutEl.innerHTML = STEPS.map((v, k) => `<option value="${k}">${stepName(v)}</option>`).join('') + `<option value="${STEPS.length}">Everything</option>`;
 let CUT = Infinity;
-let SEENF = null;   // set by the app: is this title watched?
+let SEENF = window.parent !== window ? () => false : null;   // set by the app: is this title watched? Inside the app, nothing until it says
+if (window.parent !== window) document.documentElement.classList.add('wait');
 const seen = t => SEENF ? SEENF(TT[t]) : ORD[t] <= CUT;
 // the crew someone is in as of what you've seen: the one they end up in once you've seen them join it, otherwise the latest one you've
 // seen them in, otherwise none
@@ -534,7 +538,7 @@ const EMB = window.parent !== window; if (EMB) document.body.classList.add('emb'
 // from a file in the app: straight onto them (a Raft file merged into its Compound twin is found by name in the same universe)
 self.netGo = id => { let p = N.find(x => x.id === id); if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); }
   if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (UNI !== 'all' && p.u !== UNI) setUni(p.u); lockOn(p); };
-self.netSeen = (f, uok) => { SEENF = f; UNIOK = uok; if (!uniOk(UNI)) UNI = 'mcu';
+self.netSeen = (f, uok) => { SEENF = f; document.documentElement.classList.remove('wait'); UNIOK = uok; if (!uniOk(UNI)) UNI = 'mcu';
   let far = -1; TT.forEach((t, i) => { if (f(t) && ORD[i] > far) far = ORD[i]; }); uniTabs(); applyCut(far, true); };
 function setUni(u) { if (u === UNI) return; UNI = u; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); }
 function uniTabs() { document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
