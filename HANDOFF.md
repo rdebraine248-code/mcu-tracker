@@ -324,6 +324,9 @@ insignia celebration covers the page.
     Each has one kind, a 1 to 3 sentence meaning, the title it's shown in, and a source. Crews are no longer links. 148 crewless people
     stand in a circle (The Lang family, Midtown High, New Asgard...); 27 truly have no one. Deathlok merged into Mike Peterson and Lash
     into Andrew Garner (one person, one bubble). Working files in the session scratchpad: rel/final_*.json, prof/relbake.js.
+  - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
+    co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
+    a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
   - **Connection text reads as real prose (owner, October 2026):** coherent, never choppy or crammed; two or three short sentences
     rather than one overloaded one. Rejected: "Rumlow leads the strike team Steve commands, then turns out to be HYDRA and fights him".
     Better: "Rumlow leads the S.H.I.E.L.D. strike team that works under Steve. When S.H.I.E.L.D. falls, he reveals he has been HYDRA
