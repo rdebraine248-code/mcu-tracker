@@ -374,6 +374,9 @@ insignia celebration covers the page.
     Exception (owner): "If one person's knowledge or involvement in another one has huge consequences" it is a connection even if they
     never meet: Bruce Banner and Erskine (recreating Erskine's formula made Bruce the Hulk), Valentina and Clint (she sends Yelena after
     him). Cleary and Mysterio stay out: a case file with no consequence.
+    The 70 off-screen ties are settled (owner, October 2026: "the keep cut are good to go"): 19 were already connections; of the 51 left,
+    28 are kept (the owner's 17 keeps, plus the "know each other" and "big consequences" ones they left as proposed) and written as
+    connections (rel/offscreen_out.json); the rest are cut. Decisions are in the review page's store (PhrBXtnSbMhVsb1o4x9T41).
   - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
     co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
     a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
