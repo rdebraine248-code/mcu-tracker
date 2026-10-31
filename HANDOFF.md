@@ -307,6 +307,9 @@ insignia celebration covers the page.
   zooming in opens it into its people, and the same goes for a locked person's web (their people stand in groups by crew). Locked on
   someone, tapping one of their people shows how the two are connected. Prototype: https://claude.ai/artifact/UkdcJ6p7b9aNw2Zm4m6xsH .
   Where it lives in the app is still the owner's call.
+  - **Crews as of what you've seen (owner, October 2026):** the room isn't fixed at where everyone ends up. Each person stands with the
+    crew they're in as of what you've seen: their final crew once you've seen them join it, otherwise the latest one seen, otherwise none
+    (Tony at Stark Industries until The Avengers). The room re-packs as crews form and change.
   - **Served with means served together (owner, October 2026):** "just because Wanda was in HYDRA does not mean she's connected to
     EVERYONE in HYDRA". A file records each group at the title they join it; a group holds until their next change. Two people served
     with each other only if they were in the same group at the same time, in a title they're both in. (Wanda: 53 down to 16.)
