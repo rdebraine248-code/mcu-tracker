@@ -479,6 +479,14 @@ insignia celebration covers the page.
     cameo_zz_crossings.json. Earth-838 is said on screen; Defender Strange's "Earth-617" is only in a commentary, so none is shown. The
     Sacred Timeline Mordo no longer claims a Multiverse of Madness fight (that was Earth-838's Mordo). Data fixes the same day: the Runaways
     parents' S1–S2 records, the zombie-world Peter and Scott with an unknown fate (not dead), Shang-Chi turned and Katy's fate unknown.
+  - **ON MAIN (October 2026, commit ace4a4c, owner: "when all remaining questions are closed, everything goes to main"):** the Network in
+    the dock, Log and Paths as one page, ratings in the Log, Earth numbers on files, and the data fixes. The main build now also needs the
+    Network and Earth map put in: after `mainprep.py` + `devbuild.py out/main.html`, replace `/*EARTHS*/{}` and `/*NETWORK*/null` in
+    out/main.html the way build_tb.py does (network/network-hub.html and network/rel/uni/earth/earths.json).
+    **Left for the next session (stopped to save the owner's usage):** (1) write the 28 off-screen connections the owner kept
+    (rel/OFFSCREEN_BRIEF.md, input offscreen_keep.json; relbake reads offscreen_out.json); (2) check the 100 suspect connections against the
+    know-each-other rule (rel/KNOWAUDIT_BRIEF.md, input knowaudit_input.json; relbake applies knowaudit_out.json). Research inputs are in
+    the session scratchpad rel/; copy them into mockup-data/network/rel/ first if the session is new (rerun the scripts in network/src/prof).
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.

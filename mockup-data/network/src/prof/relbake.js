@@ -40,10 +40,16 @@ const CROSS = fs.existsSync(R + 'uni/crossings/reviewed.json') ? R + 'uni/crossi
   if (seenPair.has(key)) { const o = uniTie.get(key); if (!o) return; const flip = o[0] !== a, add = st.map(x => flip ? [x[0], x[1], x[2], x[4], x[3]] : x);
     add.forEach(x => { if (!o[2].some(y => y[1] === x[1])) o[2].push(x); });   /* a title the main file already tells stays as it tells it */ o[2].sort((x, y) => (so(T[x[1]]) < 0 ? 1e4 : so(T[x[1]])) - (so(T[y[1]]) < 0 ? 1e4 : so(T[y[1]]))); merged2++; return; }
   seenPair.add(key); const tie = [a, b, st]; uniTie.set(key, tie); out.push(tie); f === CROSS ? cross++ : uni++; }));
+// the owner's know-each-other rule, applied to every existing connection (rel/knowaudit_out.json): cuts go, corrections replace the stages
+let kaCut = 0, kaFix = 0; if (fs.existsSync(R + 'knowaudit_out.json')) { const K = JSON.parse(fs.readFileSync(R + 'knowaudit_out.json')), pk = (a, b) => [a, b].sort((x, y) => x - y).join('|');
+  const cut = new Set((K.cut || []).map(x => pk(idOf(x.a), idOf(x.b)))), fix = new Map((K.keep || []).filter(x => x.stages && x.stages.length).map(x => [pk(idOf(x.a), idOf(x.b)), x]));
+  for (let k = out.length - 1; k >= 0; k--) { const [a, b] = out[k], key = pk(a, b);
+    if (cut.has(key)) { out.splice(k, 1); kaCut++; continue; }
+    const f = fix.get(key); if (f) { const flip = idOf(f.a) !== a; out[k][2] = f.stages.map(x => { const st = [KINDS.indexOf(x.kind), tIx(x.title), x.text, x.whoA || '', x.whoB || '']; return flip ? [st[0], st[1], st[2], st[4], st[3]] : st; }); kaFix++; } } }
 const SAME_P = { 'Deathlok': 'Mike Peterson', 'Lash': 'Andrew Garner' }, places = {}; [1, 2, 3, 4].forEach(k => JSON.parse(fs.readFileSync(R + 'out' + k + '.json')).places.forEach(p => { const i = ix.get(SAME_P[p.name] || p.name); if (i != null && p.circle && p.with !== 'none') places[i] = p.circle; }));
 // circles for the other universes' crewless people, from each part's review ({ id: circle })
 let uc = 0; if (fs.existsSync(R + 'uni')) fs.readdirSync(R + 'uni').forEach(d => { const f = R + 'uni/' + d + '/circles.json'; if (!fs.existsSync(f)) return;
   Object.entries(JSON.parse(fs.readFileSync(f))).forEach(([id, c]) => { const i = idOf(id); if (i != null && c && H.nodes[i][2] === 'Independent') { const [cn, w] = String(c).split('@'); places[i] = cn + '\u2064' + d + (w || ''); uc++; }   /* "Name@world": one name, separate worlds */   /* a circle belongs to its part: two worlds' "Parker family" stay apart (the key carries it, unseen) */ }); });
 fs.writeFileSync(__dirname + '/rel.json', JSON.stringify({ kinds: KINDS, titles: T, ord: T.map(so), ties: out, places, cross: cross > 0 }));
-console.log('other-universe circles', uc, '| Sacred Timeline fights and gaps added', extraMcu); console.log('other universes', uni, 'from', UNI.length, 'files | combined', merged2, '| crossings', cross, '| skipped', uskip.length, uskip.slice(0, 8).join(', '));
+console.log('know-each-other audit: cut', kaCut, 'corrected', kaFix); console.log('other-universe circles', uc, '| Sacred Timeline fights and gaps added', extraMcu); console.log('other universes', uni, 'from', UNI.length, 'files | combined', merged2, '| crossings', cross, '| skipped', uskip.length, uskip.slice(0, 8).join(', '));
 console.log('from', src, '| ties', out.length, 'skipped', skip, '| titles', T.length, 'unplaced titles', T.filter(t => so(t) < 0), '| circles', Object.keys(places).length);
