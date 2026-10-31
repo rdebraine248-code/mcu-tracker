@@ -313,8 +313,9 @@ insignia celebration covers the page.
   - **Paths: the old Paths plus anyone's path (October 2026):** cast stacks and per-person line maps were rejected too. The owner's list
     of what Paths was for: every main character's journey; how they weave in and out of each other's stories; how many and which
     characters are in one title; across the entire timeline, extras included; at a glance, in totality; and keeping things classified
-    until revealed (the Ten Rings in Iron Man, Vision through J.A.R.V.I.S.). Now "See their paths" opens the old Paths story map, every
-    title seen or not (unseen grey, [ Classified ]; a story nameless until one of its own titles is seen), with any one person's path in
+    until revealed (the Ten Rings in Iron Man, Vision through J.A.R.V.I.S.). Now "See their paths" opens the old Paths story map, and it
+    grows as you watch like Paths did (owner: not "stagnant to where they will all inevitably end up"): only seen titles, lines closing
+    up, an open dot where each line goes next, a story nameless until one of its own titles is seen, with any one person's path in
     gold on top, minor characters too: tap a title for its whole cast, tap anyone for their path.
   - **Paths as cast stacks (October 2026, replaced):** 126 Paths-style lines were rejected ("too busy... useless"). Now each of their titles is a
     stack of bubbles (everyone in it), theirs on top in gold, tied people next; a line only joins someone to the next of these titles
