@@ -440,6 +440,10 @@ insignia celebration covers the page.
     Earth-96283", and Compound and Raft index rows show the Earth under the name for anyone not from Earth-616 (`EARTHS`, filled only by
     build_tb.py from network/rel/uni/earth/earths.json; main has an empty map, so nothing shows). Numbers are only ones stated on screen
     or Marvel's official designations (as the Atlas's), null otherwise.
+  - **Never send the owner's personal details to outside sites (October 2026):** two research scripts written by agents put the owner's
+    email in the User-Agent header of their wiki requests (fox/scripts/fetch.py, sv_new/review/fetch.py, scratchpad only; removed). Any
+    script that fetches from the web uses a plain project name ("mcu-tracker-research/1.0"), never an email, name or account. Say so in
+    every research brief.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
