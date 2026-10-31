@@ -310,6 +310,10 @@ insignia celebration covers the page.
   - **Served with means served together (owner, October 2026):** "just because Wanda was in HYDRA does not mean she's connected to
     EVERYONE in HYDRA". A file records each group at the title they join it; a group holds until their next change. Two people served
     with each other only if they were in the same group at the same time, in a title they're both in. (Wanda: 53 down to 16.)
+  - **Off-screen ties count (owner, October 2026):** a connection counts if it's explicitly stated or implied, even if the two are never
+    in a title together ("if character A says 'yea B, love that guy' but they're never in the same movie together, that still counts").
+    The files don't record these: naming someone by full name in a step turns up only 2 such ties, so they need a researched,
+    hand-checked list.
   - **One person, one bubble (owner):** a hero file and a Raft file of the same person under different ids are one person in the Network
     (Bucky / Winter Soldier, Sharon Carter / Power Broker, Bob / Sentry, Mole Man, Silver Surfer). Vision and White Vision, and Maria
     Rambeau and the Marvels' Binary, are different people and stay apart.
