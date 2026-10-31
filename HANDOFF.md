@@ -362,6 +362,11 @@ insignia celebration covers the page.
     Built: all 2,793 connections staged (rel/staged_1..5.json, which relbake.js prefers): 2,420 one stage, 321 two, 46 three, 5 four,
     1 five (Loki and Thor). Shows are keyed to the season a stage begins in, never the whole show. Limit: stages inside one season
     (Ward joins, then betrays, in AoS S1) both show once that season is seen, since the tracker counts seasons, not episodes.
+  - **Connections only grow (owner, October 2026):** "Connections and networks are fluid and change over time. As movies are watched and
+    relationships change, more are added, but none are ever removed, because even if the relationship dies, it's still a relationship."
+    A connection appears once its first stage's title is watched; later stages add on; nothing is removed as you watch more (only
+    unticking a title takes back what it revealed). A death or a falling-out is a stage, never a deletion. The card keeps every stage
+    reached; the web's colour shows where it stands now. People move between crews over time, and their connections move with them.
   - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
     co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
     a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
