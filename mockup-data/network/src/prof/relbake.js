@@ -17,7 +17,7 @@ if (allStaged) { src = hasWho ? 'staged + who lines' : 'staged'; staged.forEach(
 else if (finals.length) { src = finals.join(', '); finals.forEach(f => ties.push(...JSON.parse(fs.readFileSync(R + f)).keep)); }
 else JSON.parse(fs.readFileSync(R + 'merged.json')).forEach(m => { const c = m.cands.slice().sort((a, b) => b.detail.length - a.detail.length)[0]; ties.push({ a: c.from, b: c.from === m.a ? m.b : m.a, kind: c.kind, detail: c.detail, title: c.title }); });
 // the Sacred Timeline's checked fights and the gaps pass (real relationships the first pass missed): the "keep" lists, by name
-let extraMcu = 0; ['fights_out.json', ...[1, 2, 3, 4].map(k => 'gaps_out_' + k + '.json')].forEach(f => { if (!fs.existsSync(R + f)) return;
+let extraMcu = 0; ['fights_out.json', 'offscreen_out.json', ...[1, 2, 3, 4].map(k => 'gaps_out_' + k + '.json')].forEach(f => { if (!fs.existsSync(R + f)) return;
   (JSON.parse(fs.readFileSync(R + f)).keep || []).forEach(t => { if (t.stages && t.stages.length) { ties.push({ a: t.a, b: t.b, stages: t.stages }); extraMcu++; } }); });
 const T = [], tIx = t => { t = t.replace(/ \((Post|Mid)-Credits Scene\)$/, ''); let i = T.indexOf(t); if (i < 0) { i = T.length; T.push(t); } return i; };
 const out = []; let skip = 0;

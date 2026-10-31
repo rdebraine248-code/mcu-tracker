@@ -473,6 +473,12 @@ insignia celebration covers the page.
     Runaways parents' titles, the Deadpool & Wolverine listings for the 2003/2004 Daredevil and Punisher, and the team-wide "fought
     S.H.I.E.L.D." villain lines ("fix what needs to be fixed to make it accurate and consistent"); (6) close calls: "fix what needs to
     be fixed".
+  - **New files for people who meet across worlds (owner: "if they deserve a file then yes add them", October 2026):** Earth-838 Wanda,
+    Billy, Tommy, Christine, Strange, Mordo (Raft) and the five Illuminati; Defender Strange; Nicepool; Ladypool and a Deadpool variants
+    group (Raft); and the Runaways parents with no file, Catherine Wilder and Frank Dean (Raft). In allies_crossings.json and
+    cameo_zz_crossings.json. Earth-838 is said on screen; Defender Strange's "Earth-617" is only in a commentary, so none is shown. The
+    Sacred Timeline Mordo no longer claims a Multiverse of Madness fight (that was Earth-838's Mordo). Data fixes the same day: the Runaways
+    parents' S1–S2 records, the zombie-world Peter and Scott with an unknown fate (not dead), Shang-Chi turned and Katy's fate unknown.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.

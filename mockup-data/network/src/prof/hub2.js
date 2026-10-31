@@ -57,7 +57,7 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
         return V; })() };
   });
   require('fs').writeFileSync(__dirname + '/hub.json', JSON.stringify(d));
-  const N = d.nodes, ix = n => N.findIndex(x => x[0] === n), w = N[ix('Wanda Maximoff')], r = ix('Brock Rumlow');
-  console.log(N.length, 'people,', d.titles.length, 'titles, KB', Math.round(JSON.stringify(d).length / 1024), '| Wanda fought', w[3].length, 'served', w[4].length, '| Rumlow link', JSON.stringify(w[3].find(x => x[0] === r)), d.titles[w[3].find(x => x[0] === r)[1]]);
+  const N = d.nodes, ix = n => N.findIndex(x => x[0] === n && x[10] === 'mcu' && !/-838$/.test(x[11])), w = N[ix('Wanda Maximoff')], r = ix('Brock Rumlow');
+  console.log(N.length, 'people,', d.titles.length, 'titles, KB', Math.round(JSON.stringify(d).length / 1024), '| Wanda fought', w[3].length, 'served', w[4].length, '| Rumlow link', JSON.stringify(w[3].find(x => x[0] === r)), (w[3].find(x => x[0] === r) || [])[1] != null ? d.titles[w[3].find(x => x[0] === r)[1]] : '');   // a sample only: several Wandas now
   console.log('max served', Math.max(...N.map(n => n[4].length)), 'max fought', Math.max(...N.map(n => n[3].length)));
   await browser.close(); })();
