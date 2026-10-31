@@ -318,6 +318,12 @@ insignia celebration covers the page.
     be explicit and have meaning." So links come from a researched relationship list (family, partner, friend, mentor, boss, ally, rival,
     enemy), each with a one-sentence meaning, a title and a source. Sharing a crew is not a connection by itself; it only decides where
     people stand in the room. Fights from the Raft files stay (they're explicit, with the title).
+  - **Relationships built (October 2026):** a pass on all 686 people from each character's MCU Wiki relationships, every pair then
+    rewritten or reviewed against the wiki text: 2,793 connections kept (enemy 1,067, ally 600, friend 358, boss 316, family 237,
+    partner 111, mentor 66, rival 60), 746 dropped (same battle or organization only, the Snap only, variants, never meet, unverifiable).
+    Each has one kind, a 1 to 3 sentence meaning, the title it's shown in, and a source. Crews are no longer links. 148 crewless people
+    stand in a circle (The Lang family, Midtown High, New Asgard...); 27 truly have no one. Deathlok merged into Mike Peterson and Lash
+    into Andrew Garner (one person, one bubble). Working files in the session scratchpad: rel/final_*.json, prof/relbake.js.
   - **Connection text reads as real prose (owner, October 2026):** coherent, never choppy or crammed; two or three short sentences
     rather than one overloaded one. Rejected: "Rumlow leads the strike team Steve commands, then turns out to be HYDRA and fights him".
     Better: "Rumlow leads the S.H.I.E.L.D. strike team that works under Steve. When S.H.I.E.L.D. falls, he reveals he has been HYDRA
