@@ -334,6 +334,12 @@ insignia celebration covers the page.
     the dock shows Log. A picked line in Paths shows Open profile / Open box (`#mapAct`); a character profile has "See their path"
     (`data-dpath`). The switches swap in place (`closeDossier(true)` / `closeMap(true)` and `pushNav`), never through history.back.
     Any push to main before the owner approves must leave this out (build main from main's own source, or ask).
+    **Log and Paths are one page (owner, October 2026):** the pill switch was rejected ("moves around and isn't fixed", "not two sides
+    of the same coin"), and so was a link per chapter ("See this chapter in Paths is very very very stupid"). The owner prefers tabs,
+    just not an on/off look: "Paths and logs now feel like the same page that belongs together." Now one fixed header (`#logHead`)
+    sits over both: the title Log and underline tabs, Story and Paths, with a glowing bar that slides to the tab you pick. It never
+    moves; only the page under it swaps, in the same history slot. The Story tab comes back with the same chapter open at the same
+    spot (`logSaved`, `openDossier("saga", { open, y })`). Paths' own title and back button are hidden under it.
   - **The Personal log folds into the Log (owner: "I think personal log should be folded into logs too, not as a separate page though
     but as part of the log", October 2026), MOCKUP, NOT APPROVED, same rule as above:** every title in the Story Log carries your stars
     beside Recorded (or "Rate"), which opens the same rate sheet (`slRate`, `.sl-rate`); a chapter's header shows your average; a new

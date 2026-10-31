@@ -285,10 +285,15 @@ body{ transition:background-color .4s ease; }
 .tl-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .sl-body .dlog .dt .dck{ margin-left:auto; } .sl-rate{ border:1px solid #33405C; border-radius:999px; background:transparent; color:#E9C46A; padding:2px 9px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
 .sl-rate:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; } .sl-avg{ color:#E9C46A !important; }
-.logsw{ display:inline-flex; margin:2px 0 12px; border:1px solid #2A3A56; border-radius:999px; padding:2px; background:#0D1320; }
-.logsw button{ border:0; background:transparent; color:#8EA2C2; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; padding:7px 13px; border-radius:999px; cursor:pointer; touch-action:manipulation; }
-.logsw button[aria-pressed="true"]{ background:#1E2A44; color:#EEF1F6; box-shadow:inset 0 0 0 1px #3A78C9; } .logsw button.nw::after{ content:""; display:inline-block; width:6px; height:6px; margin-left:6px; border-radius:50%; background:#5FD0FF; vertical-align:middle; }
-.logsw button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; }
+#logHead{ position:fixed; left:0; right:0; top:0; z-index:75; padding:calc(26px + env(safe-area-inset-top,0px)) 20px 0; background:#0B1019; box-shadow:0 10px 14px -6px rgba(5,8,14,.85); pointer-events:none; }
+#logHead > *{ pointer-events:auto; } #logHead[hidden]{ display:none; }
+.logtabs{ position:relative; display:flex; margin-top:12px; border-bottom:1px solid #222C40; }
+.logtabs button{ flex:1; padding:10px 0 11px; border:0; background:none; color:#6F7C95; font:13px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; position:relative; }
+.logtabs button[aria-selected="true"]{ color:#EEF1F6; } .logtabs button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:-2px; }
+.logtabs button.nw::after{ content:""; display:inline-block; width:6px; height:6px; margin-left:7px; border-radius:50%; background:#5FD0FF; vertical-align:2px; }
+.logtabs .lt-bar{ position:absolute; left:0; bottom:-1px; height:2px; width:0; border-radius:2px; background:#5FD0FF; box-shadow:0 0 8px rgba(95,208,255,.55); }
+.loghead-sp{ height:calc(var(--lh, 116px) + 6px); }
+#mapPanel .maptop h2, #mapPanel .maptop .back{ display:none !important; } #mapPanel .maptop{ padding-top:var(--lh, 116px) !important; padding-bottom:0 !important; }
 .mapact{ position:absolute; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); z-index:3; display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; padding:10px 12px; background:#151C2C; border:1px solid #33405C; border-radius:12px; box-shadow:0 14px 34px rgba(0,0,0,.45); }
 .mapact[hidden]{ display:none; } .mapact b{ flex:1 1 100%; font:600 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#EEF1F6; } .mapact b i{ display:inline-block; width:14px; height:4px; margin-right:8px; vertical-align:middle; border-radius:2px; }
 .mapact button{ flex:1; border:1px solid #33405C; border-radius:999px; background:transparent; color:#D6E6FA; padding:8px 10px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; }
@@ -1353,7 +1358,7 @@ body{ padding-bottom:var(--dockh); }
 /* the dock's pages share one header: the page's name in the title's style, its tabs as pills under it, and nothing else. The dock is the way out, so
    there's no Back (inside an Atlas city or universe, the map's own "‹ Earth" steps up a level). The Story log's title is the same */
 .dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(26px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
-.dockpg .maptop .back{ display:none; }
+.dockpg .maptop .back{ display:none; } #mapPanel.dockpg .maptop .back{ display:revert; }   /* Paths left the dock for the Log, so it has its way back again */
 .dockpg .maptop h2, .pgtitle{ position:relative; display:block; margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 2px 0 rgba(0,0,0,.35); }
 .pgtitle{ margin:calc(12px + env(safe-area-inset-top,0px)) 0 0; }
 .dockpg .atl-views{ flex-basis:100%; display:flex; gap:8px; margin-top:12px; padding:4px 0 0; overflow-x:auto; scrollbar-width:none; border:0; border-radius:0; background:none; }
@@ -1510,7 +1515,7 @@ body{ padding-bottom:var(--dockh); }
 <div class="mappanel dockpg" id="mapPanel" hidden role="dialog" aria-modal="true" aria-label="Character Map">
   <div class="maptop">
     <button type="button" class="back" id="mapBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back to characters</button>
-    <h2 data-glow="Character Map">Character Map</h2><div class="logsw" role="group" aria-label="Story log or Paths"><button type="button" data-logv="log" aria-pressed="false">Story log</button><button type="button" data-logv="paths" aria-pressed="true">Paths</button></div>
+    <h2 data-glow="Character Map">Character Map</h2>
     <div class="mapzoom"><button type="button" id="mapIn" aria-label="Zoom in">+</button><button type="button" id="mapOut" aria-label="Zoom out">−</button><button type="button" id="mapFit" aria-label="Fit the map">Fit</button></div>
   </div>
   <div class="mapview" id="mapView"></div>
@@ -3230,7 +3235,8 @@ function openDossier(id, go) {
     el.hidden = false; dossierOpen = id; bodyLock();
     const sc = el.querySelector(".dscroll"); sc.scrollTop = 0;
     const at = go && go.open && el.querySelector(`[data-sls="${CSS.escape(go.open)}"]`);
-    if (at) { sc.scrollTop = Math.max(0, at.offsetTop - 12); at.classList.add("hl"); }
+    if (go && go.y != null) sc.scrollTop = go.y;   // back from the Paths tab: just as you left it
+    else if (at) { sc.scrollTop = Math.max(0, at.offsetTop - 12); at.classList.add("hl"); }
     persist(); dPlay(el, sc, key => dMark(null, key)); return;
   }
   {
@@ -3344,15 +3350,30 @@ function perInit() {   // the Periods were rewritten (October 2026): one you had
 const slDeb = c => { const L = DOSSIERS[c.id]; return !!(L && L.debrief) && slAll(c); };
 const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")) || (slEntries(c).length > 0 && !!slPer(c) && !slSeenK(c, "r0." + slPer(c)[1])));
 // Paths lives in the Log (owner, October 2026): the record of the saga, as chapters or as every character's line through it
-const logSwitch = on => `<div class="logsw" role="group" aria-label="Story log or Paths"><button type="button" data-logv="log" aria-pressed="${on === "log"}">Story log</button><button type="button" data-logv="paths" aria-pressed="${on === "paths"}">Paths</button></div>`;
+// Log and Paths are one page (owner, October 2026: "Paths and logs now feel like the same page that belongs together"; the old pill
+// switch "moved around", and a link per chapter was rejected). One header, fixed, sits over both: the title Log and two tabs, Story and
+// Paths, with a bar under the one you're on that slides across when you switch. Only the page under it changes
+const LOGHEAD = `<div id="logHead" hidden><h2 class="pgtitle" data-glow="Log">Log</h2><div class="logtabs" role="tablist" aria-label="Log"><button type="button" role="tab" data-logt="story" aria-selected="true">Story</button><button type="button" role="tab" data-logt="paths" aria-selected="false">Paths</button><i class="lt-bar" aria-hidden="true"></i></div></div>`;
+document.body.insertAdjacentHTML("beforeend", LOGHEAD);
+let logLast = null;
+function logHeadSync() {
+  const h = document.getElementById("logHead"), on = mapOpen ? "paths" : dossierOpen === "saga" ? "story" : null; h.hidden = !on; if (!on) { logLast = null; return; }
+  document.documentElement.style.setProperty("--lh", h.offsetHeight + "px");   // both pages start right under it
+  h.querySelectorAll("[data-logt]").forEach(b => b.setAttribute("aria-selected", b.dataset.logt === on));
+  const bar = h.querySelector(".lt-bar"), b = h.querySelector(`[data-logt="${on}"]`), x = b.offsetLeft, w = b.offsetWidth;
+  if (logLast && logLast !== on && !REDUCED) { const from = bar.style.transform; bar.animate([{ transform: from }, { transform: `translateX(${x}px)` }], { duration: 260, easing: "cubic-bezier(.3,.8,.3,1)" }); }
+  bar.style.width = w + "px"; bar.style.transform = `translateX(${x}px)`; logLast = on;
+}
+let logSaved = [null, 0];   // the Story tab comes back with the same chapter open at the same spot
+document.addEventListener("click", ev => { const b = ev.target.closest("[data-logt]"); if (!b || b.getAttribute("aria-selected") === "true") return; haptic(8);
+  if (b.dataset.logt === "paths") { const sc = document.querySelector("#dossier .dscroll"); logSaved = [slOpen, sc ? sc.scrollTop : 0]; if (dossierOpen) closeDossier(true); openMap(); }
+  else { closeMap(true); openDossier("saga", { open: logSaved[0], y: logSaved[1] }); pushNav("log"); }
+  dockSync(); });
 document.addEventListener("click", ev => { const d = ev.target.closest("[data-dpath]"); if (!d) return; haptic(8); if (dossierOpen) closeDossier(true); openMap(); dockSync();
   const ri = MAP.rows.findIndex(r => r.n === d.dataset.dpath); if (ri >= 0) { if (mapFocusI !== ri) mapFocus(ri); const v = document.getElementById("mapView"), r = MAP.rows[ri], x0 = MAP.cols[r.nodes[0]] ? MAP.cols[r.nodes[0]].x : 230; MV.ty = Math.min(6, v.clientHeight * .45 - r.y * MV.s); MV.tx = Math.min(4, 40 - (x0 - 60) * MV.s); mapApply(); } });
-document.addEventListener("click", ev => { const b = ev.target.closest("[data-logv]"); if (!b || b.getAttribute("aria-pressed") === "true") return; haptic(8);
-  // the two swap in place: the one you leave closes at once and the step back is reused, so Back still leaves the Log in one go
-  if (b.dataset.logv === "paths") { if (dossierOpen) closeDossier(true); openMap(); } else { closeMap(true); openDossier("saga"); pushNav("log"); } dockSync(); });
 function slPlace(open) { slOpen = open || null; }   // the log opens with every chapter folded, unless you've jumped in from one of them
 function slHTML() {
-  return `<h2 class="pgtitle" data-glow="Story Log">Story Log</h2>${logSwitch("log")}
+  return `<div class="loghead-sp" aria-hidden="true"></div>
     ${SL_ACTS.map(A => `<div class="sl-pg"><div class="act">${A[2]() ? A[1] : "Act " + A[0]}</div></div>${DATA.chapters.filter(A[3]).map(slSec).join("")}`).join("")}`;
 }
 // one chapter's section of the Story log
@@ -8936,12 +8957,12 @@ function newDots() {
       file: n > state.hfSeen || (embKeep(), embNew().some(k => !(state.embAck || {})[k])) };
     on.log = on.log || on.map;   // Paths lives in the Log now, so its new lines light the Log
     document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
-    document.querySelectorAll('.logsw [data-logv="paths"]').forEach(b => b.classList.toggle("nw", !!on.map));
+    document.querySelectorAll('#logHead [data-logt="paths"]').forEach(b => b.classList.toggle("nw", !!on.map));
     const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", (DOSSIERS[openEntry.id] || {}).kind === "char" && logUnread(openEntry.id));
   } catch (e) {}
 }
 const dockCur = () => dossierOpen === "saga" || mapOpen ? "log" : atlOpen ? "atlas" : commsOpen ? "comms" : fileOpen ? "file" : "story";
-function dockSync() { newDots(); rcClear(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
+function dockSync() { logHeadSync(); newDots(); rcClear(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 // hold a dock button to mark everything new on that page as read, after a yes. It counts the same as reading it all, Every page included
 const DOCK_NAMES = { story: "Story", log: "the Story log", atlas: "the Atlas", map: "Paths", comms: "Comms", file: "the Agent File" };
 function logReadAll(id) {   // a box's own log, everything in it you've opened up, as if it had all played in
@@ -10615,7 +10636,9 @@ function openMap() {
   const hide = mapHide(), sig = [...hide].join(",") + "|" + DATA.map.cols.map(c => atlSeenT(c.t) ? 1 : 0).join("") + "|" + DATA.chars.map(c => mapAnon(c.title) ? 1 : boxName(c) !== c.title ? 2 : 0).join("");   // and redrawn when someone's name turns up
   if (!mapBuilt || sig !== mapSig) { MAP = mapData(hide); mapSig = sig; mapFocusI = null; buildMap(); }
   document.getElementById("mapPanel").hidden = false; mapOpen = true; bodyLock();
-  pushNav("map"); mapFit(); document.getElementById("mapBack").focus({ preventScroll: true }); mapGrow();
+  const mb = document.getElementById("mapBack"); logHeadSync();   // the Log's header first, so the map fits the room under it
+  pushNav("map"); mapFit();
+  mb.focus({ preventScroll: true }); mapGrow();
 }
 // lines draw on from where they stopped the last time you looked; new stops and titles fade in as the lines reach them.
 // First the view moves to where the new drawing starts, so you see it happen
