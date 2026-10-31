@@ -40,7 +40,7 @@ body::before{ content:""; position:fixed; top:0; left:0; width:100%; height:100v
   background-image:var(--padimg);
   background-size:var(--padsize); }
 button{ font:inherit; color:inherit; }
-.wrap{ max-width:1180px; margin:0 auto; padding:28px 20px 64px; }
+.wrap{ max-width:1180px; margin:0 auto; padding:26px 20px 64px; }   /* every page's title sits the status bar plus 26px down (owner: one standard) */
 #app{ overflow-x:clip; }
 
 /* masthead */
@@ -294,7 +294,8 @@ body{ transition:background-color .4s ease; }
 .logtabs .lt-bar{ position:absolute; left:0; bottom:-1px; height:2px; width:0; border-radius:2px; background:#5FD0FF; box-shadow:0 0 8px rgba(95,208,255,.55); }
 .loghead-sp{ height:calc(var(--lh, 116px) + 6px); }
 #mapPanel .maptop h2, #mapPanel .maptop .back{ display:none !important; } #mapPanel .maptop{ padding-top:var(--lh, 116px) !important; padding-bottom:0 !important; }
-.mapact{ position:absolute; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); z-index:3; display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; padding:10px 12px; background:#151C2C; border:1px solid #33405C; border-radius:12px; box-shadow:0 14px 34px rgba(0,0,0,.45); }
+.mapact{ position:absolute; left:12px; right:12px; bottom:12px; z-index:3; display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; padding:10px 12px; background:#151C2C; border:1px solid #33405C; border-radius:12px; box-shadow:0 14px 34px rgba(0,0,0,.45); }
+body:has(#whih.in:not([hidden])) .mapact{ bottom:44px; }   /* the news ticker runs just above the dock: the card rises over it, never under */
 .mapact[hidden]{ display:none; } .mapact b{ flex:1 1 100%; font:600 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#EEF1F6; } .mapact b i{ display:inline-block; width:14px; height:4px; margin-right:8px; vertical-align:middle; border-radius:2px; }
 .mapact button{ flex:1; border:1px solid #33405C; border-radius:999px; background:transparent; color:#D6E6FA; padding:8px 10px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; }
 .dpath{ display:inline-block; margin-top:4px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; padding:7px 13px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; opacity:.9; }
@@ -1139,6 +1140,10 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-teams{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px; } .cp-teams button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cp-teams button:active, .cx-hands button:active{ transform:scale(.96); } .cp-teams button.cur{ border-color:#7FB2FF; background:#1A3460; color:#FFFFFF; box-shadow:0 0 0 1px rgba(127,178,255,.25); } .cp-teams button.past{ opacity:.62; } .cp-teams button small{ margin-left:6px; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FA8CC; } .cp-teams button{ padding:5px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font-size:13px; }
 .cp-rf{ display:flex; align-items:center; gap:12px; width:100%; margin:0 0 14px; padding:10px 14px; border:1px solid #6A2A26; border-radius:12px; background:rgba(224,74,58,.08); color:#FFD2CB; text-align:left; cursor:pointer; }
 .cp-rf.to-cp{ border-color:#2A4A6A; background:rgba(127,166,216,.08); color:#D6E6FA; } .cp-rf.to-cp small{ color:#7FA6D8; }
+.cp-rf.to-net{ align-items:flex-start; border-color:#2A4A6A; background:rgba(127,166,216,.06); color:#D6E6FA; } .cp-rf.to-net small{ color:#7FA6D8; } .cp-rf.to-net em{ align-self:center; }
+.np .npr{ display:block; margin:8px 0 0; padding:0 0 0 9px; border-left:2px solid var(--kc); } .np .npr b{ margin:0; font:600 14.5px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#fff; }
+.np .npr i{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:1px; font:13.5px/1.35 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#AEBBD0; } .np .npr i u{ text-decoration:none; color:var(--kc); }
+.np .npall{ display:block; margin-top:10px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; color:#9FC3F0; }
 .cp-rf span{ flex:1; } .cp-rf small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#E9897E; } .cp-rf b{ display:block; margin-top:2px; font-size:15px; } .cp-rf em{ font-style:normal; font-size:18px; }
 .cpx .rf-seg button[aria-pressed="true"]{ background:#EEF3FA; border-color:#EEF3FA; }
 .cp-intake i{ background:#4FA3FF; box-shadow:0 0 8px #4FA3FF; }
@@ -1362,7 +1367,7 @@ body{ padding-bottom:var(--dockh); }
 .dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(26px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
 .dockpg .maptop .back{ display:none; } #mapPanel.dockpg .maptop .back{ display:revert; }   /* Paths left the dock for the Log, so it has its way back again */
 .dockpg .maptop h2, .pgtitle{ position:relative; display:block; margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 2px 0 rgba(0,0,0,.35); }
-.pgtitle{ margin:calc(12px + env(safe-area-inset-top,0px)) 0 0; }
+.pgtitle{ margin:0; }   /* the Log's header already makes room for the status bar; counting it again pushed the title down */
 .dockpg .atl-views{ flex-basis:100%; display:flex; gap:8px; margin-top:12px; padding:4px 0 0; overflow-x:auto; scrollbar-width:none; border:0; border-radius:0; background:none; }
 .dockpg .atl-views::-webkit-scrollbar{ display:none; }
 .dockpg .atl-views button{ flex:0 0 auto; border:1px solid #2A3140; border-radius:999px; padding:9px 15px; background:#1A2030; color:#EEF1F6; font:500 15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:0; text-transform:none; box-shadow:none; }
@@ -4612,7 +4617,7 @@ function renderRaft() {
       <div class="rf-banner s-${RF_ST[st]}"><i></i>${esc(st)}</div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div><div><small>Threat class</small><b>${esc(rfClass(o) || "Unknown")}</b></div>${uniTile(o, "")}</div>
       ${alRow(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
-      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
@@ -4701,7 +4706,7 @@ function renderCp() {
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p></div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div>${uniTile(o, "wide")}</div>
       ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
-      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${S.map(x => { const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
@@ -8927,7 +8932,7 @@ panel.addEventListener("click", ev => {
   if (navigator.vibrate) { try { navigator.vibrate(state.checks[k] ? 20 : 12); } catch (e) {} }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && openEntry && document.getElementById("ask").hidden) uiClose(); });
-function navStep() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); if (rs._close) rs._close(); return; } } if (collOpen) { if (collRestore()) return; if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) { closeDossier(true); dockSync(); if (navAt("panel") && !openEntry) navBack(); } return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (netOpen && !collOpen && !navAt("net")) closeNet(true); else if (openEntry && !navAt("panel")) closePanel();
+function navStep() { navBusy = false; { const rs = document.getElementById("rateSheet"); if (rs && !navAt("rate")) { rs.remove(); if (rs._close) rs._close(); return; } } if (collOpen) { if (collRestore()) return; if (collRec && !navAt("collrec")) { collGrid(true); if (navAt("coll")) return; } if (!navAt("coll") && !navAt("collrec")) closeColl(true); if (atlOpen && /^atl/.test((history.state || {}).mcu || "")) return; } if (dossierOpen === "saga") { if (!navAt("log")) { closeDossier(true); dockSync(); if (navAt("panel") && !openEntry) navBack(); } return; } if (dossierOpen && !navAt("dossier")) { closeDossier(true); return; } if (commsOpen && !navAt("comms")) closeComms(true); else if (fileOpen && document.querySelector("#filePanel .hf-pick") && !navAt("hfpick")) document.querySelector("#filePanel .hf-pick").remove(); else if (fileOpen && !navAt("file")) closeFile(true); else if (atlOpen && atlOnBack()) return; else if (atlOpen && !navAt("atlas")) closeAtlas(true); else if (mapOpen && !navAt("map")) closeMap(true); else if (netOpen && !collOpen && !navAt("net") && !navAt("netcard")) closeNet(true); else if (openEntry && !navAt("panel")) closePanel();
   // a step back left over from a box that's already closed (the Agent File or another page took its place) is skipped, so one swipe is enough and the next doesn't leave the app
   if (!openEntry && !dossierOpen && !fileOpen && !atlOpen && !mapOpen && !commsOpen && !collOpen && (navAt("panel") || navAt("dossier"))) navBack(); }
 // going back never moves the page by itself: the app decides where you are (after a jump to a new box, that's where it lives)
@@ -8936,6 +8941,8 @@ try { history.scrollRestoration = "manual"; } catch (e) {}
 // a question gets its own step: back while it's up answers "no", and an answer takes that step back before it acts
 let askAfter = null;
 function onNavBack() {
+  if (netSkip) { netSkip = false; navBusy = false; return; }   // the card closed itself (a tap off it): its step is taken back quietly
+  if (netOpen && netCardUp && navAt("net") && !collOpen) { netCardUp = false; navBusy = false; const w = document.getElementById("netFrame").contentWindow; if (w && w.netBack) w.netBack(); return; }
   if (askAfter) { const f = askAfter; askAfter = null; navBusy = false; f(); return; }
   const ab = document.getElementById("ask"); if (!ab.hidden && ab._back) { navBusy = false; ab._back(); return; }
   navStep();
@@ -10288,17 +10295,38 @@ swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + $
 const NET_SRC = /*NETWORK*/null;
 let netOpen = false;
 if (NET_SRC) document.querySelector('#dock [data-dock="net"]').hidden = false;
-function netSync() { const w = document.getElementById("netFrame").contentWindow; if (w && w.netSeen) w.netSeen(t => atlSeenT(t), u => u === "mcu" || rfUniName(RF_UNI.find(x => x[0] === u)) !== "[ Classified ]"); }
-function openNet() { if (!NET_SRC) return; const f = document.getElementById("netFrame");
-  // main serves the Network as its own file ("url:network.html"), so the page the app opens at launch stays small; the test build carries it inline
-  if (!f.dataset.on) { f.dataset.on = 1; f.addEventListener("load", netSync, { once: true }); if (NET_SRC.startsWith("url:")) f.src = NET_SRC.slice(4); else f.srcdoc = NET_SRC; } else netSync();
-  document.getElementById("netPanel").hidden = false; netOpen = true; document.body.classList.add("netopen"); bodyLock(); pushNav("net"); }
-function closeNet(fromHistory) { if (!fromHistory && navAt("net")) { navBack(); return; }
-  document.getElementById("netPanel").hidden = true; netOpen = false; document.body.classList.remove("netopen"); bodyFree(); }
+let netCardUp = false, netSkip = false;
+// the status bar's height, so the Network's title sits where every other page's does
+function netSat() { const d = document.createElement("div"); d.style.cssText = "position:fixed;top:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden"; document.body.appendChild(d); const v = parseFloat(getComputedStyle(d).paddingTop) || 0; d.remove(); return v; }
+function netSync() { const w = document.getElementById("netFrame").contentWindow; if (w && w.netSeen) w.netSeen(t => atlSeenT(t), u => { if (u === "mcu") return true; const x = RF_UNI.find(x => x[0] === u); return !!x && rfUniName(x) !== "[ Classified ]"; }, netSat()); }
+// the Network loads ahead, out of sight, a few seconds after launch (main serves it as its own file, "url:network.html", so the page the
+// app opens at launch stays small): by the time you tap Network it's ready, with nothing to load or lay out while you watch
+function netLoad() { const f = document.getElementById("netFrame"); if (f.dataset.on) return; f.dataset.on = 1;
+  f.addEventListener("load", () => { netSync(); const w = f.contentWindow; if (w && w.netShow) w.netShow(netOpen); netPrevFill(); }, { once: true });
+  if (NET_SRC.startsWith("url:")) f.src = NET_SRC.slice(4); else f.srcdoc = NET_SRC; }
+if (NET_SRC) addEventListener("load", () => setTimeout(netLoad, 3500));
+function openNet() { if (!NET_SRC) return; const f = document.getElementById("netFrame"); netLoad();
+  document.getElementById("netPanel").hidden = false; netOpen = true; document.body.classList.add("netopen"); bodyLock(); pushNav("net");
+  const w = f.contentWindow; if (w && w.netSeen) { netSync(); w.netShow(true); } }
+// an open card in the Network gets its own step back: back closes the card, not the Network
+window.netCard = on => { if (!netOpen || on === netCardUp) return; netCardUp = on;
+  if (on) { if (navAt("net")) try { history.pushState({ mcu: "netcard" }, ""); } catch (e) {} } else if (navAt("netcard")) { netSkip = true; history.back(); } };
+// Open file only once you've found their file: the Compound (or the Raft) and them in it
+window.netCanOpen = id => !!(ixFile("A", id) || ixFile("T", id));
+function closeNet(fromHistory) { if (!fromHistory && (navAt("net") || navAt("netcard"))) { navBack(); return; }
+  document.getElementById("netPanel").hidden = true; netOpen = false; netCardUp = false; document.body.classList.remove("netopen"); bodyFree();
+  const w = document.getElementById("netFrame").contentWindow; if (w && w.netShow) { w.netShow(false); if (w.netHome) w.netHome(); } }
+// a file's connections, previewed: the first few of their people (as far as you've watched), from the Network loaded ahead; until it has
+// loaded, or if they've met no one yet, the plain link stays (or goes)
+function netPrevFill() { const w = document.getElementById("netFrame").contentWindow; if (!w || !w.netPreview || !document.querySelector(".np[data-np]")) return; netSync();
+  document.querySelectorAll(".np[data-np]").forEach(el => { const v = w.netPreview(el.dataset.np), b = el.closest(".to-net"); if (!v) return; if (!v.n) { b.hidden = true; return; }
+    el.innerHTML = `<small>Their connections · ${v.n}</small>` + v.L.map(r => `<span class="npr" style="--kc:${r.c}"><b>${esc(r.n)}</b><i><u>${esc(r.k)}</u> · ${esc(r.w)}</i></span>`).join("")
+      + `<span class="npall">${v.n > v.L.length ? `See all ${v.n} in the Network` : "See them in the Network"}</span>`; el.removeAttribute("data-np"); }); }
+{ let q = 0; new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; netPrevFill(); }); }).observe(document.getElementById("collPanel"), { childList: true, subtree: true }); }
 // from someone in the Network to their file: the file adds its own step, so Back comes back to the Network
 function netGoTo(id) { if (collOpen) closeColl(true); openNet(); const f = document.getElementById("netFrame"), go = () => { const w = f.contentWindow; if (w && w.netGo) w.netGo(id); };
   if (f.contentWindow && f.contentWindow.netGo) go(); else f.addEventListener("load", () => setTimeout(go, 50), { once: true }); dockSync(); }
-window.netOpenFile = (id, k) => { const A = ALLIES.find(o => o.id === id), T = THREATS.find(o => o.id === id); if (!A && !T) return; haptic(10);
+window.netOpenFile = (id, k) => { const A = ixFile("A", id), T = ixFile("T", id); if (!A && !T) return; haptic(10);
   if (A) { cpUni = rfUniOf(A); collJump("cp", id); } else { rfUni = rfUniOf(T); collJump("raft", id); } };
 function closeAllOver() { if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (netOpen) closeNet(true); if (fileOpen) closeFile(true); if (history.state && history.state.mcu) navBack(); }
 // the boxes it opened on the Story page (Chapters or Characters): scrolled smoothly into view, and each gives the little shake "Jump to" gives.

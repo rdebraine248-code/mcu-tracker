@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v68 and matches main. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v75. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
@@ -293,6 +293,25 @@ insignia celebration covers the page.
     index is discovered and its file has a watched title.
 
 ## Standing rules from the owner
+
+- **Main only after the owner has checked the test build** (October 2026: "I thought this was ready to launch but this was pushed to
+  main still with issues"). "Push when ready" means: fixes go to the test build first, the owner looks, then main on their word.
+- **One title height on every page** ("No standard. I've said time and time again at consistency"): every page's title is 28px Anton
+  at the status bar plus 26px, 20px in. Count the status bar once (`env(safe-area-inset-top)`); the Network, in its frame, can't see
+  it, so the app passes it in (`netSat()` to `netSeen`, the `--sat` variable). Check with a status bar emulated
+  (`Emulation.setSafeAreaInsetsOverride`, top 36): every title's top is 62.
+- **No tap flash anywhere**, inside frames too (`-webkit-tap-highlight-color:transparent` on `*`).
+- **Nothing sits under the news ticker**: a card at the bottom of a page rises over it while it runs.
+- **Pop-ups have no Back button**: back, or a tap off it, closes it. **The phone's back closes the top thing only**: an open card in the
+  Network has its own step back (`netcard`), so back closes the card and leaves the Network open.
+- **A pop-up slides open the way it slides closed**, and only slides up for more when there is more to show.
+- **A file opens only once it's found**: Open file in the Network shows only when `ixFile` finds them (the Compound or Raft found, and
+  them in it).
+- **The Network colours people by their group**, not hero or villain ("reductionist"): in the room each crew has its own colour (no
+  two neighbours alike), in a web each group is what they are to them.
+- **The Network stands tight**: groups and people close together, no wasted floor ("I've said this like a dozen times").
+- **Opening the Network never shows a reshuffle or a flash**: it loads ahead, out of sight, a few seconds after launch, and sets out
+  the room then; reopening with nothing new watched changes nothing.
 
 - Accuracy and consistency come first. Verify easily checkable facts yourself instead of asking, and follow a fix through to every
   place it applies. Ask, with options and a recommendation, when unsure or when it's the owner's call.
@@ -596,6 +615,12 @@ insignia celebration covers the page.
 
 ## Mistakes not to repeat
 
+- **Two Sacred Timeline people with one name** (Vision and S.W.O.R.D.'s Vision, Maria Rambeau and Binary, every Earth-838 variant):
+  connections are matched by name, so the later one took all of them; the main Karl Mordo had none. relbake's `BY_ID_ONLY` lists the
+  ones reached by id only. After any new variant, list the names shared inside the Sacred Timeline and check both sides' connections.
+- **The Network laid out while hidden walked everyone over when shown** (it only moves people while on screen). Anything set out out of
+  sight must be put straight on its spot.
+
 These happened in earlier chats. Each cost the owner time.
 
 1. **Inferring a group from a place or a person.** Cyclops and Nightcrawler were tagged Weapon X because Stryker brainwashed them at
@@ -661,6 +686,10 @@ These happened in earlier chats. Each cost the owner time.
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
 - Revisit Encore once Doomsday is out.
+- **Bruce Banner and Doom** (the know-each-other audit kept it: Doom collects Banner in 2028, a huge consequence) is held back: it's
+  from the Avengers Endgame: Encore version, a title the data doesn't have, and it had been filed under Spider-Man: Brand New Day. Add
+  it once Encore is placed (`rel/knowaudit_out.json`, its cut entry says so).
+- **The Log's tab names** ("Story" and "Paths" make no sense to the owner; the page may need a new name too): waiting on the owner.
 - No mockups are pending.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
