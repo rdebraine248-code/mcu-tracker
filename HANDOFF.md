@@ -313,7 +313,7 @@ insignia celebration covers the page.
   - **Where it stands (owner, October 2026):** the owner rejected a separate path screen, a two-person path and a "story" layout (messy,
     no single vision, lost Paths' big picture). The old Paths map as the widest zoom was rejected too ("so stupid": it has to be built from
     the Network's characters). Being tried now: lock onto someone and pinch out past their crews, and their web becomes lines through
-    their titles, Paths-style (theirs through the middle, the people in at least two of their titles above and below, up to 24); tap a
+    their titles, Paths-style (theirs through the middle; a line for everyone in their web who's in any of their titles, no cap, since "so many major crossovers are one-offs" (owner); lines also meet in titles the person isn't in); tap a
     title for everyone in it, tap a line for how the two connect and lock onto them to redraw. Owner: "I like the click the character
     and see their paths but I also like in paths that I saw every character involved in a particular movie". Tapping someone still shows their web, and a connection shows how the two are linked. The mockup has a "Seen up to" picker
     standing in for watched titles, with new people walking in and new lines drawing in. Not approved yet. Open: J.A.R.V.I.S. and Vision
