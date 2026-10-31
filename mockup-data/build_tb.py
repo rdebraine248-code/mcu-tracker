@@ -8,6 +8,10 @@ MSG=sys.argv[1] if len(sys.argv)>1 else ""
 sys.argv=['buildtb.py','full','next1',MSG]
 exec(compile(src,'buildtb','exec'))
 s=open(OUT+'datapad-test.html',encoding='utf8').read()
+# the Network (a mockup): its built page goes in whole, opened by the dock's Network button. Main has no copy, so no button
+NET=R+'network/network-hub.html'
+if os.path.exists(NET) and '/*NETWORK*/null' in s:
+    s=s.replace('/*NETWORK*/null', json.dumps(open(NET,encoding='utf8').read()).replace('</','<\\/'), 1)
 tool=r'''
 <div id="tbProg" style="position:fixed;left:12px;bottom:calc(var(--dockh) + 44px);z-index:199">
   <button type="button" id="tbProgBtn" style="padding:6px 10px;border:1px solid #3A78C9;border-radius:999px;background:#0D1320;color:#9FC3FF;font:10.5px/1 'Share Tech Mono','Courier New',monospace;letter-spacing:2px;text-transform:uppercase">Test · start from</button>

@@ -1,0 +1,653 @@
+<title>Network Hub</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* layout: one full-screen room, drawn on a canvas; the datapad's own dark, a header over the top, a card that rises when someone is picked */
+:root{
+  --bg:#0B1019; --panel:#0F1626; --line:#2A3A56; --ink:#EEF1F6; --mute:#8EA2C2;
+  --hero:#7FB2FF; --foe:#E0574A; --both:#E9C46A; --cyan:#5FD0FF;
+  --display:'Anton','Impact',sans-serif; --body:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; --mono:'Share Tech Mono','Courier New',monospace;
+  color-scheme:dark;
+}
+html,body{ height:100%; }
+body{ margin:0; overflow:hidden; background:var(--bg); color:var(--ink); font-family:var(--body); touch-action:none; -webkit-user-select:none; user-select:none; }
+#room{ position:fixed; inset:0; display:block; }
+header{ position:fixed; left:0; right:0; top:0; padding-top:max(20px, env(safe-area-inset-top, 0px)); padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-bottom:28px; pointer-events:none;
+  background:linear-gradient(180deg, rgba(11,16,25,.96) 55%, rgba(11,16,25,0)); }
+h1{ margin:0; font:400 34px/1 var(--display); letter-spacing:.8px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 18px rgba(109,189,255,.45); }
+.sub{ margin:8px 0 10px; font:11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
+.legend{ display:flex; flex-wrap:wrap; gap:4px 14px; font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
+.legend b{ font-weight:400; } .lh{ color:var(--hero); } .lf{ color:var(--foe); } .lb{ color:var(--both); }
+#card{ position:fixed; left:max(12px, env(safe-area-inset-left, 0px)); right:max(12px, env(safe-area-inset-right, 0px)); bottom:max(12px, env(safe-area-inset-bottom, 0px)); padding:12px 14px 14px; border:1px solid #2A4570; border-radius:14px; background:rgba(14,24,40,.97);
+  transform:translateY(140%); transition:transform .35s cubic-bezier(.2,.8,.3,1); }
+#card.on{ transform:none; }
+/* slide the card up for more: what they're known as, the crews they've been in, every title they're in, and who each of their people is */
+#cGrip{ display:block; flex:none !important; width:100%; height:18px; margin:-8px 0 2px; padding:0 !important; border:0 !important; background:none !important; cursor:grab; touch-action:none; position:relative; }
+#cGrip::before{ content:""; position:absolute; left:50%; top:6px; width:40px; height:4px; margin-left:-20px; border-radius:2px; background:#3A5684; }
+#card{ touch-action:none; max-height:calc(100dvh - 24px); display:flex; flex-direction:column; transition:transform .35s cubic-bezier(.2,.8,.3,1), top .35s cubic-bezier(.2,.8,.3,1); }
+#card > div{ min-height:0; } #card.big{ top:max(60px, env(safe-area-inset-top, 0px)); } #card.big #vOne:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
+#cMore{ display:none; } #card.big #cMore{ display:block; flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; margin:6px -14px 0; padding:0 14px 8px; touch-action:pan-y; }
+#card.big #sConn{ display:none; }
+#cMore h4{ margin:16px 0 7px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
+#cMore .aka{ margin:2px 0 0; color:#C9D3E2; font-size:14.5px; } #cMore .aka b{ color:#fff; font-weight:600; }
+#cMore .crews{ display:flex; flex-wrap:wrap; align-items:center; gap:4px 6px; color:#C9D3E2; font-size:14px; } #cMore .crews i{ color:var(--mute); font-style:normal; }
+#cMore ol.tl{ list-style:none; margin:0; padding:0 0 0 2px; } #cMore ol.tl li{ position:relative; padding:0 0 9px 18px; color:#DCE6F4; font-size:14.5px; line-height:1.3; }
+#cMore ol.tl li::before{ content:""; position:absolute; left:0; top:5px; width:7px; height:7px; border-radius:50%; background:var(--cyan); }
+#cMore ol.tl li::after{ content:""; position:absolute; left:3px; top:14px; bottom:-1px; width:1px; background:#2A4570; } #cMore ol.tl li:last-child::after{ display:none; }
+#cMore ol.tl small{ display:inline; margin-left:6px; font-size:10px; letter-spacing:1px; color:var(--mute); }
+#cMore .kh{ display:flex; align-items:center; gap:7px; margin:14px 0 4px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; } #cMore .kh i{ width:12px; height:3px; border-radius:2px; }
+#cMore .wrow{ display:block; width:100%; flex:none; margin:0; padding:8px 0 8px 10px !important; border:0 !important; border-left:2px solid var(--kc) !important; border-radius:0 !important; background:none !important; text-align:left; text-transform:none !important; letter-spacing:0 !important; cursor:pointer; }
+#cMore .wrow + .wrow{ margin-top:2px; } #cMore .vrow span em{ font-style:normal; color:#8193AE; } #cMore .wrow b em{ display:block; margin-top:1px; font:11px/1.3 var(--mono); font-style:normal; letter-spacing:.5px; color:#9FB4D6; } #cMore .wrow b{ display:block; color:#fff; font:600 15px/1.25 var(--body); } #cMore .wrow span{ display:block; margin-top:2px; color:#AEBBD0; font:14px/1.35 var(--body); }
+#card small{ display:block; font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
+#card h2{ margin:3px 0 6px; font:400 24px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; }
+#card .ln{ display:flex; gap:14px; font-size:14.5px; color:#C9D3E2; } #card .ln i{ display:inline-block; width:12px; height:3px; margin-right:6px; vertical-align:middle; border-radius:2px; }
+#card .row{ display:flex; gap:10px; margin-top:10px; }
+#card button{ flex:1; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+#card button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
+#card .chips{ margin-top:10px; } #card .chips b{ display:block; margin-bottom:5px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
+#card .strip{ display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; touch-action:pan-x; scrollbar-width:none; } #card .strip::-webkit-scrollbar{ display:none; }
+#card .chip{ flex:none; padding:6px 10px; border:1px solid #2A4570; border-radius:999px; background:#132036; color:#D6E6FA; font:500 13px/1.1 var(--body); white-space:nowrap; cursor:pointer; }
+#card .chip.f{ border-color:#6A2A2A; background:#2A1418; color:#F3D3CF; } #card .chip:focus-visible{ outline:2px solid var(--cyan); outline-offset:1px; }
+#card .why{ margin:6px 0 0; padding:0; list-style:none; display:grid; gap:7px; font-size:14.5px; line-height:1.35; color:#C9D3E2; }
+#card .why li{ display:grid; grid-template-columns:96px 1fr; gap:10px; } #card .why em{ display:block; margin-top:2px; font:11px/1.4 var(--mono); font-style:normal; letter-spacing:.5px; color:var(--mute); }
+#card .kinds{ flex-wrap:wrap; gap:4px 12px; font-size:14px; } #card .why span{ font:10.5px/1.6 var(--mono); letter-spacing:1.5px; text-transform:uppercase; color:var(--mute); }
+#card .why .f span{ color:var(--foe); } #card .why .s span{ color:var(--hero); }
+#card .row button{ padding:10px 6px; font-size:11px; letter-spacing:1px; }
+#pathv{ position:fixed; inset:0; background:var(--bg); } #pcv{ position:absolute; inset:0; display:block; touch-action:none; }
+.ptop{ position:absolute; left:0; right:0; top:0; display:flex; gap:12px; align-items:center; padding-top:max(14px, env(safe-area-inset-top, 0px)); padding-left:max(12px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-bottom:6px; background:var(--bg); }
+.ptop button{ flex:none; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+.ptop .pt{ min-width:0; } .ptop small{ display:block; font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
+.ptop h2{ margin:2px 0 0; font:400 22px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pleg{ position:absolute; left:0; right:0; top:calc(max(14px, env(safe-area-inset-top, 0px)) + 52px); display:flex; gap:6px; overflow-x:auto; padding:6px max(12px, env(safe-area-inset-left, 0px)) 10px; background:linear-gradient(180deg, var(--bg) 75%, rgba(11,16,25,0)); touch-action:pan-x; scrollbar-width:none; }
+.pleg::-webkit-scrollbar{ display:none; }
+.pleg button{ flex:none; display:flex; gap:6px; align-items:center; padding:5px 10px; border:1px solid #2A4570; border-radius:999px; background:#111C2E; color:#D6E6FA; font:500 12.5px/1.1 var(--body); white-space:nowrap; cursor:pointer; }
+.pleg i{ width:14px; height:4px; border-radius:2px; }
+#pTip{ position:absolute; left:max(12px, env(safe-area-inset-left, 0px)); right:max(12px, env(safe-area-inset-right, 0px)); bottom:max(12px, env(safe-area-inset-bottom, 0px)); padding:10px 14px 12px; border:1px solid #2A4570; border-radius:14px; background:rgba(14,24,40,.97); transform:translateY(140%); transition:transform .3s cubic-bezier(.2,.8,.3,1); }
+#pTip.on{ transform:none; } #pTip small{ font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
+#pTip h3{ margin:2px 0 4px; font:400 19px/1.1 var(--display); letter-spacing:.4px; text-transform:uppercase; } #pTip p{ margin:0; font-size:14px; line-height:1.4; color:#C9D3E2; }
+header #hSearch{ display:flex; align-items:center; gap:10px; width:100%; margin:12px 0 0; padding:11px 14px; border:1px solid #2A3140; border-radius:12px; background:#121826; color:#7C8AA5; font:15px/1.2 var(--body); text-align:left; cursor:text; pointer-events:auto; }
+header #hSearch svg{ flex:none; color:#8EA2C2; } header #hSearch:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
+.unis{ display:flex; gap:8px; overflow-x:auto; margin:12px -16px 2px; padding:0 16px 2px; scrollbar-width:none; pointer-events:auto; } .unis::-webkit-scrollbar{ display:none; }
+.unis button{ flex:0 0 auto; border:1px solid #2A3140; border-radius:999px; padding:8px 14px; background:#1A2030; color:#EEF1F6; font:500 14.5px var(--body); cursor:pointer; touch-action:manipulation; }
+.unis button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; border-color:#EEF1F6; } .unis button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
+#pTip button{ margin-top:10px; width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+[hidden]{ display:none !important; }
+#ssheet{ position:fixed; inset:0; display:flex; flex-direction:column; background:var(--bg); }
+.tstop{ display:flex; justify-content:space-between; align-items:flex-end; padding-top:max(16px, env(safe-area-inset-top, 0px)); padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-bottom:10px; border-bottom:1px solid var(--line); }
+.tstop small{ font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); } .tstop h2{ margin:2px 0 0; font:400 28px/1 var(--display); text-transform:uppercase; }
+.tstop button{ padding:8px 14px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+#sList{ flex:1; overflow-y:auto; touch-action:pan-y; padding-bottom:max(16px, env(safe-area-inset-bottom, 0px)); }
+#sList button{ display:flex; width:100%; justify-content:space-between; gap:12px; padding:13px max(16px, env(safe-area-inset-right, 0px)) 13px max(16px, env(safe-area-inset-left, 0px)); border:0; border-bottom:1px solid #16223A; background:transparent; color:var(--ink); font:500 15px/1.3 var(--body); text-align:left; cursor:pointer; }
+#sList button span{ flex:none; font:12px/1.6 var(--mono); color:var(--mute); }
+.seen{ pointer-events:auto; margin-top:10px; display:grid; grid-template-columns:minmax(0, 1fr); gap:4px; max-width:420px; }
+.seen span{ font:10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
+.seen .sr{ display:flex; gap:6px; } .seen select{ flex:1 1 0; width:0; min-width:0; padding:7px 10px; border:1px solid #2A4570; border-radius:10px; background:#111C2E; color:var(--ink); font:600 14px/1.2 var(--body); }
+.seen button{ flex:none; width:38px; border:1px solid #2A4570; border-radius:10px; background:#111C2E; color:#E9C46A; font:400 20px/1 var(--display); cursor:pointer; }
+.seen button:disabled{ opacity:.35; } .seen output{ font:11px/1.3 var(--mono); letter-spacing:1px; color:var(--mute); }
+.demo{ pointer-events:auto; margin-top:10px; display:grid; grid-template-columns:1fr; gap:4px; max-width:420px; }
+.demo label{ font:10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
+.demo input{ width:100%; accent-color:#E9C46A; touch-action:pan-x; } .demo output{ font:600 14px/1.25 var(--body); color:var(--ink); min-height:18px; }
+#mBack{ position:fixed; right:max(16px, env(safe-area-inset-right, 0px)); top:calc(max(20px, env(safe-area-inset-top, 0px)) + 168px); padding:8px 14px; border:1px solid #E9C46A; border-radius:999px; background:rgba(14,24,40,.95); color:#E9C46A; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+#sList button span{ flex:none; } #sList button em{ display:block; font:400 13px/1.3 var(--body); font-style:normal; color:var(--mute); }
+.sfield{ padding:12px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); border-bottom:1px solid var(--line); }
+.sfield input{ width:100%; box-sizing:border-box; padding:11px 14px; border:1px solid #2A4570; border-radius:12px; background:#111C2E; color:var(--ink); font:500 16px/1.2 var(--body); }
+.sfield input:focus-visible{ outline:2px solid var(--cyan); outline-offset:1px; } .snone{ padding:16px; color:var(--mute); font-size:15px; }
+#mWho{ position:fixed; left:max(16px, env(safe-area-inset-left, 0px)); top:calc(max(20px, env(safe-area-inset-top, 0px)) + 168px); display:flex; align-items:center; gap:8px; padding:5px 6px 5px 12px; border:1px solid #E9C46A; border-radius:999px; background:rgba(14,24,40,.95); color:#E9C46A; font:600 13px/1.2 var(--body); max-width:55vw; }
+#mWho i{ width:14px; height:4px; border-radius:2px; background:#E9C46A; flex:none; } #mWho span{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#mWho button{ flex:none; width:24px; height:24px; border:0; border-radius:50%; background:#2A2412; color:#E9C46A; font:400 16px/1 var(--body); cursor:pointer; }
+#mTip{ position:fixed; left:max(12px, env(safe-area-inset-left, 0px)); right:max(12px, env(safe-area-inset-right, 0px)); bottom:max(12px, env(safe-area-inset-bottom, 0px)); padding:10px 14px 12px; border:1px solid #2A4570; border-radius:14px; background:rgba(14,24,40,.97); transform:translateY(140%); transition:transform .3s cubic-bezier(.2,.8,.3,1); }
+#mTip.on{ transform:none; } #mTip small{ font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
+#mTip h3{ margin:2px 0 6px; font:400 20px/1.1 var(--display); letter-spacing:.4px; text-transform:uppercase; }
+#mTip ul{ margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:6px; max-height:34vh; overflow-y:auto; touch-action:pan-y; }
+#mTip li button{ padding:6px 10px; border:1px solid #2A4570; border-radius:999px; background:#132036; color:#D6E6FA; font:500 13px/1.1 var(--body); cursor:pointer; } #mTip li button.out{ border-color:#22304A; background:transparent; color:#8EA2C2; } #mTip li button.me{ border-color:#E9C46A; color:#E9C46A; } #mTip li i{ display:inline-block; width:12px; height:4px; margin-right:6px; vertical-align:middle; border-radius:2px; }
+#mTip button{ margin-top:8px; width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+#toast{ position:fixed; left:50%; bottom:calc(150px + env(safe-area-inset-bottom, 0px)); transform:translateX(-50%); padding:8px 14px; border:1px solid var(--line); border-radius:10px; background:rgba(8,14,26,.97); font:12px/1.3 var(--mono); letter-spacing:1px; color:#CFE6FF; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
+body.emb header .seen{ display:none; }
+#hint{ position:fixed; left:0; right:0; bottom:max(18px, env(safe-area-inset-bottom, 0px)); text-align:center; font:11px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:#5A6A86; pointer-events:none; transition:opacity .4s; }
+</style>
+
+<canvas id="room" aria-label="Every character on the Sacred Timeline, standing in groups by crew. Drag to wander, tap someone to see their web."></canvas>
+<header>
+  <h1>Network</h1>
+  <button type="button" id="hSearch"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Search everyone you've met</span></button>
+  <div class="unis" role="tablist" aria-label="Universe"></div>
+  <div class="seen"><span>Seen up to</span><div class="sr"><button type="button" id="cutPrev" aria-label="One title back">‹</button><select id="cut" aria-label="Seen up to"></select><button type="button" id="cutNext" aria-label="One title on">›</button></div><output id="cutN"></output></div>
+</header>
+<div id="hint">Drag to wander · pinch out for crews · tap someone to see who they are to everyone</div>
+<div id="card" role="dialog" aria-live="polite"><button type="button" id="cGrip" aria-label="Show more about them" aria-expanded="false"></button>
+  <div id="vOne"><small id="cCrew"></small><h2 id="cName"></h2>
+    <div class="ln kinds" id="cSum"></div><div id="cMore"></div>
+    <div class="chips" id="sConn"><b>Their connections · tap to see how</b><div class="strip"></div></div>
+    <div class="row"><button type="button" id="cFile">Open file ›</button><button type="button" id="cBack">Back</button></div></div>
+  <div id="vThree" hidden><small id="tWith"></small><h2 id="tName"></h2><div class="ln"><span><b id="tCount"></b> from their web</span></div>
+    <div class="chips"><b>Who was there · tap to see how</b><div class="strip" id="tStrip"></div></div>
+    <div class="row"><button type="button" id="tBack">‹ Back to their story</button></div></div>
+  <div id="vTwo" hidden><small>How they're connected</small><h2 id="lName"></h2><ul class="why" id="lWhy"></ul>
+    <div class="row"><button type="button" id="lBack"></button><button type="button" id="lGo"></button></div></div></div>
+<button type="button" id="mBack" hidden>‹ Their web</button>
+<div id="mWho" hidden><i></i><span id="mWhoN"></span><button type="button" id="mWhoX" aria-label="Hide this path">×</button></div>
+<div id="mTip"><small id="mS"></small><h3 id="mT"></h3><ul id="mL"></ul><button type="button" id="mIn" hidden>Back</button></div>
+<div id="ssheet" hidden role="dialog" aria-label="Search"><div class="tstop"><div><small>Everyone you've met</small><h2>Search</h2></div><button type="button" id="sClose">Close</button></div>
+  <div class="sfield"><label for="sQ" hidden>A name, or what they go by</label><input id="sQ" type="search" placeholder="A name, or what they go by" autocomplete="off" enterkeyhint="search"></div><div id="sList"></div></div>
+<div id="toast"></div>
+
+<script>
+const DATA = /*DATA*/null, TT = DATA.titles;
+// a crew is its universe's own: two FoX-Men and MCU groups with the same name are different rooms (the key carries the universe, unseen)
+const UK = (c, u) => u && u !== 'mcu' ? c + '\u2063' + u : c;
+const N = DATA.nodes.map(([n, k, g, F, M, d, T, A, S, AK, U, ID, DK], i) => ({ i, n, k, u: U || 'mcu', id: ID, dk: DK || '', g: UK(g, U), g0: UK(g, U), S: (S || []).map(([c, o]) => [UK(c, U), o]), AK: AK || [], F: F.map(x => x[0]), Fw: Object.fromEntries(F.map(([j, ...w]) => [j, w])), M, d, T, A }));
+const cv = document.getElementById('room'), g = cv.getContext('2d');
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W = 0, H = 0, DPR = 1;
+function size() { DPR = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W * DPR; cv.height = H * DPR; cv.style.width = W + 'px'; cv.style.height = H + 'px'; }
+size(); addEventListener('resize', size);
+
+// the room: every crew stands together on its own patch of floor, a small honeycomb with the best-connected in the middle, its name on
+// the floor above it; the big crowds stand looser (the independents most of all) with a little shuffle, so they read as people milling about.
+// Patches pack right up against each other, with just enough of a gap that you can tell where one crew ends. No one touches anyone
+const S = 60, hex = n => {   // the nearest n cells of a honeycomb, ring by ring from the middle
+  const out = []; for (let R = 0; out.length < n; R++) { out.length = 0;
+    for (let q = -R; q <= R; q++) for (let r = -R; r <= R; r++) if (Math.abs(q + r) <= R) out.push([q, r]); }
+  const hd = ([q, r]) => (Math.abs(q) + Math.abs(r) + Math.abs(q + r)) / 2, ang = ([q, r]) => Math.atan2(r * .866, q + r / 2);
+  return out.sort((a, b) => hd(a) - hd(b) || ang(a) - ang(b)).slice(0, n); };
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;   // the same shuffle every visit
+// one patch of floor: its people on a honeycomb, its name above them, and how much room the whole thing takes up
+function patch(name, L, loose, bare) { const n = L.length, sp = S * (!loose ? 1 : n >= 100 ? 1.22 : n >= 25 ? 1.08 : 1), jit = (loose ? n >= 100 ? .12 : 0 : 0) * S;
+  const z = { name: crewName(name), L, big: n >= 5 || !loose };
+  z.cells = hex(n).map(([q, r]) => [sp * (q + r / 2) + (rnd() - .5) * 2 * jit, sp * r * .866 + (rnd() - .5) * 2 * jit]);
+  const top = Math.min(...z.cells.map(c => c[1])), lw = (name.length * 2 - 1) * (z.big ? 8.4 : 6.6);
+  z.ly = top - S * .5; z.pts = z.cells.map(([x, y]) => [x, y, S * .5]);
+  if (!bare) for (let x = -lw / 2; x <= lw / 2; x += S * .4) z.pts.push([x, z.ly, S * .22]);
+  return z; }
+// packing: each patch takes the first spot, ring by ring out from the middle, where it stays clear of everything already down
+function packer(GAP) { const CELL = S * 2, grid = new Map(), k = (x, y) => Math.floor(x / CELL) * 4096 + Math.floor(y / CELL);
+  // a coarse map of spots no patch's middle can take, so most of the spots tried are turned down without measuring anything
+  const CS = S * .35, OFF = 7000, DIM = Math.ceil(2 * OFF / CS), blk = new Uint8Array(DIM * DIM), at = (x, y) => Math.floor((y + OFF) / CS) * DIM + Math.floor((x + OFF) / CS);
+  const add = (X, Y, r) => { const q = k(X, Y); (grid.get(q) || grid.set(q, []).get(q)).push([X, Y, r]);
+    const R = r + S * .5 + GAP - CS * .75 - S * .15; if (R <= 0) return;
+    for (let gy = Math.floor((Y - R + OFF) / CS); gy <= Math.floor((Y + R + OFF) / CS); gy++) for (let gx = Math.floor((X - R + OFF) / CS); gx <= Math.floor((X + R + OFF) / CS); gx++) {
+      const cx = gx * CS - OFF + CS / 2, cy = gy * CS - OFF + CS / 2; if (gx >= 0 && gy >= 0 && gx < DIM && gy < DIM && Math.hypot(cx - X, cy - Y) < R) blk[gy * DIM + gx] = 1; } };
+  const fits = (z, ox, oy) => z.pts.every(([x, y, r]) => { const X = ox + x, Y = oy + y, cx = Math.floor(X / CELL), cy = Math.floor(Y / CELL);
+    for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const [a, b, rr] of grid.get((cx + i) * 4096 + cy + j) || []) if (Math.hypot(a - X, b - Y) < r + rr + GAP) return false;
+    return true; });
+  return { add, place(z, zi, first) { let spot = [0, 0];
+    if (!first) find: for (let R = S * .35; ; R += S * .35) { const n = Math.max(8, Math.round(R * 6.2832 / (S * .35))), a0 = zi * 2.4;
+      for (let m = 0; m < n; m++) { const a = a0 + m / n * 6.2832, x = R * Math.cos(a), y = R * Math.sin(a) * .92; if (blk[at(x, y)]) continue; if (fits(z, x, y)) { spot = [x, y]; break find; } } }
+    z.x = spot[0]; z.y = spot[1]; z.pts.forEach(([x, y, r]) => add(z.x + x, z.y + y, r)); } }; }
+// relationships: every connection explicit, with its kind, what it is, and the title it's shown in; and a circle (a family, a school,
+// a town) for anyone with no crew, so they stand with their people instead of alone
+const REL = DATA.rel || { kinds: [], titles: [], ord: [], ties: [], places: {} };
+const KIND = ['family', 'partner', 'friend', 'mentor', 'boss', 'ally', 'rival', 'enemy', 'variant'];
+// the universes, as the indexes have them
+const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-Men'], ['by', 'Beyond'], ['pr', 'Pruned'], ['all', 'All universes']], UL = Object.fromEntries(UNIS);
+let UNI = 'mcu', UNIOK = null;
+// a universe's tab shows once the app has revealed it, like the indexes; All once there's more than one
+const uniOk = u => !UNIOK ? true : u === 'all' ? UNIS.filter(([v]) => v !== 'all' && UNIOK(v)).length > 1 : UNIOK(u);
+const vtag = p => p.vt || (p.vt = (() => { const t = TT[[...p.A0].sort((a, b) => ORD[a] - ORD[b])[0]] || UL[p.u]; return t.length > 22 ? t.slice(0, 21) + '…' : t; })());
+const crewName = c => { const [n, u] = String(c).split('\u2063'); return u && UNI === 'all' ? n + ' · ' + UL[u] : n; };
+const KC = { family: '#F4A261', partner: '#FF8FB1', friend: '#5FD49A', mentor: '#B79CFF', boss: '#5FD0FF', ally: '#7FB2FF', rival: '#E8C15A', enemy: '#E0574A', variant: '#D7E3F5' };
+const KL = { family: 'Family', partner: 'Partners', friend: 'Friends', mentor: 'Mentors', boss: 'Chain of command', ally: 'Allies', rival: 'Rivals', enemy: 'Enemies', variant: 'Other versions' };
+const KS = { family: 'Family', partner: 'Partner', friend: 'Friend', mentor: 'Mentor', boss: 'Chain of command', ally: 'Ally', rival: 'Rival', enemy: 'Enemy', variant: 'Another version' };
+N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === 'Independent') { p.g = p.g0 = p.circ = c; } });
+// a connection is a list of stages in story order, each with its kind, the title it begins in and what happens in that stretch; you see
+// the stages up to what you've watched, and its kind is the latest of them
+const mkTie = (j, st) => ({ j, S: st.map(([k, ti, d]) => ({ k: KIND[k], t: REL.titles[ti], o: REL.ord[ti] ?? -1, d })) });
+REL.ties.forEach(([a, b, st]) => { N[a].R0.push(mkTie(b, st)); N[b].R0.push(mkTie(a, st)); });
+// across universes: two versions who actually meet are connected like anyone else (a mockup set, written by hand); ones who never meet
+// are only listed, under Other versions in their card
+const XREL = [['peter-parker', 'sv-peter-parker-raimi', 'ally', 'Spider-Man: No Way Home', "Pulled into this world by the broken spell, this Peter Parker helps Peter cure the villains. He stops him from killing Norman Osborn after May dies, and fights beside him at the Statue of Liberty."],
+  ['peter-parker', 'sv-peter-parker-asm', 'ally', 'Spider-Man: No Way Home', "Another Peter Parker pulled in by the broken spell. He helps cure the villains, and at the Statue of Liberty he catches MJ as she falls, the save he couldn't make for Gwen."],
+  ['sv-peter-parker-raimi', 'sv-peter-parker-asm', 'ally', 'Spider-Man: No Way Home', "Two Peters from different worlds who meet in another one. They trade stories of who they lost, and he tells this Peter he's amazing."]];
+{ const byId = Object.fromEntries(N.map(p => [p.id, p])), ti = t => REL.titles.indexOf(t);
+  XREL.forEach(([a, b, k, t, d]) => { const A = byId[a], B = byId[b]; if (!A || !B) return; const st = [[KIND.indexOf(k), ti(t), d]]; A.R0.push(mkTie(B.i, st)); B.R0.push(mkTie(A.i, st)); }); }
+const cutAt = (r, cut) => { const S = r.S.filter(x => cut === Infinity || (SEENF && x.t ? SEENF(x.t) : x.o <= cut)); return S.length ? { j: r.j, S, k: S[S.length - 1].k, o: S[0].o } : null; };
+const cutTie = r => cutAt(r, CUT);
+N.forEach(p => { p.R = p.R0.map(r => cutAt(r, Infinity)); });   // everything, until Seen up to says otherwise
+const relOf = (a, b) => a.R.find(r => r.j === b.i);
+const conn = p => [...new Set([...p.R.map(r => r.j), ...p.F])];
+const kindOf = (a, b) => { const r = relOf(a, b); return r ? r.k : 'enemy'; };   // a fight on file with no other tie is an enemy
+const crews = {}; N.forEach(p => (crews[p.g] = crews[p.g] || []).push(p));
+let Z = Object.entries(crews).sort((a, b) => (b[0] === 'Independent') - (a[0] === 'Independent') || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
+// the room's packing is worked out once, when the page is built (DATA.at), so the phone doesn't redo it every visit
+if (DATA.at) Z.forEach((z, zi) => { z.x = DATA.at[zi][0]; z.y = DATA.at[zi][1]; });
+else { const P = packer(S * .12); Z.forEach((z, zi) => P.place(z, zi, !zi)); }
+Z.forEach(z => z.cells.forEach(([cx, cy], j) => { const p = z.L[j]; p.hx = p.wx = z.x + cx; p.hy = p.wy = z.y + cy; p.z = z; p.ph = rnd() * 6.28; p.tx = p.hx; p.ty = p.hy; p.go = 0; }));
+Z.forEach(z => { z.cx = z.x; z.cy = z.y; z.villains = z.L.filter(p => p.k === 'T').length; });
+// zoomed out, a crew of three or more folds into one bubble, centred on its people and just big enough to hold them, but never so big it
+// runs into the next bubble or into anyone standing on their own; the smallest crews stay as people
+function fold(G, min, at, keep) {
+  G.forEach(z => { z.fold = z.L.length >= min; const P = z.L.map(at); z.gx = P.reduce((s, q) => s + q[0], 0) / P.length; z.gy = P.reduce((s, q) => s + q[1], 0) / P.length;
+    z.gr = P.reduce((m, q) => Math.max(m, Math.hypot(q[0] - z.gx, q[1] - z.gy)), 0) + 23; });
+  const F = G.filter(z => z.fold), loose = [...keep, ...G.filter(z => !z.fold).flatMap(z => z.L.map(at))], gap = 10;
+  F.forEach(z => { for (const q of loose) z.gr = Math.min(z.gr, Math.hypot(q[0] - z.gx, q[1] - z.gy) - 18 - gap); });
+  F.forEach((a, i) => F.slice(i + 1).forEach(b => { const d = Math.hypot(a.gx - b.gx, a.gy - b.gy), over = a.gr + b.gr + gap - d;
+    if (over > 0) { const k = (d - gap) / (a.gr + b.gr); a.gr *= k; b.gr *= k; } }));
+  F.forEach(z => z.gr = Math.max(14, z.gr)); }
+Z.forEach(z => { z.L0 = z.L; z.bx = z.x; z.by = z.y; z.bcells = z.cells; z.bly = z.ly; });   // the built packing, for everything watched
+const Z0 = Z;
+N.forEach(p => { p.A0 = p.A; p.M0 = p.M; p.F0 = p.F; p.vis = true; p.V0 = []; p.V = []; });
+(DATA.variants || []).forEach(([a, b]) => { N[a].V0.push(b); N[b].V0.push(a); });
+fold(Z, 3, p => [p.hx, p.hy], []);
+
+// the camera, and the watch-face lens: whoever is near the middle of the screen is full size and named, the rest shrink toward the edges
+let cam = { x: 0, y: 0 }, zoom = 1, vel = { x: 0, y: 0 }, sel = null, link = null, glide = null;
+const start = N.find(p => p.n === 'Steve Rogers') || N[0]; cam.x = start.wx; cam.y = start.wy;
+function lens(p, t) {
+  // the watch face: toward the edges people shrink, and they draw in by as much, so the gaps between them shrink too instead of opening up
+  const sx = (p.wx - cam.x) * zoom, sy = (p.wy - cam.y) * zoom, cy0 = H * .52, d = Math.hypot(sx, sy * 1.15) || 1e-6, R = Math.min(W, H) * .8, u = d / R;
+  const U = 1.065, f = u < U ? u - .2 * u * u * u : U - .2 * U * U * U + .32 * (u - U), pull = f / u;
+  const s = Math.max(.32, 1 - .6 * u * u) * Math.min(1.15, zoom);
+  return { x: W / 2 + sx * pull, y: cy0 + sy * pull, s, u };   // everyone stands still (owner: no idle bob)
+}
+// how far out you are: zoomed in it's people, zoomed out each crew folds into one bubble, and in between the people gather into it
+const ZMIN = .25, ZMAX = 1.7, FOLD = [.56, .84];
+const unfold = () => { const a = Math.max(0, Math.min(1, (zoom - FOLD[0]) / (FOLD[1] - FOLD[0]))); return a * a * (3 - 2 * a); };
+let tsel = null;   // a title whose people are gathered, or null
+const busy = () => sel || tsel != null;
+const groups = () => (busy() ? clusters : Z).filter(z => z.fold);
+const groupOf = p => { const z = busy() ? p.cl : p.z; return z && z.fold ? z : null; };
+function gview(z, t) {   // a group's bubble on screen
+  const c = lens({ wx: z.gx, wy: z.gy, ph: 0 }, t), e = lens({ wx: z.gx + z.gr, wy: z.gy, ph: 0 }, t);
+  return { x: c.x, y: c.y, r: Math.max(5, Math.hypot(e.x - c.x, e.y - c.y) * .92) };
+}
+const initials = n => n.replace(/^(The|Dr\.|Doctor|Captain|Agent|Mister|Miss|Mr\.|Mrs\.|Ms\.) /, '').replace(/"[^"]*" /, '').split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+const COL = { A: '#7FB2FF', T: '#E0574A', B: '#7FB2FF' };
+const fought = (a, b) => a.F.includes(b.i);
+function wrap(text, w, max) { const out = []; let line = '';
+  for (const word of text.split(' ')) { const t = line ? line + ' ' + word : word; if (g.measureText(t).width > w && line) { out.push(line); line = word; } else line = t; }
+  out.push(line); if (out.length > max) { out.length = max; out[max - 1] += '…'; } return out; }
+function frame(t) {
+  for (const p of N) { if (t < p.go) continue; const k = REDUCED ? 1 : .085; p.wx += (p.tx - p.wx) * k; p.wy += (p.ty - p.wy) * k; }
+  if (glide) { const k = Math.min(1, (t - glide.t0) / 560), e = 1 - Math.pow(1 - k, 3); cam.x = glide.x0 + (glide.x1 - glide.x0) * e; cam.y = glide.y0 + (glide.y1 - glide.y0) * e;
+    if (glide.z1) zoom = glide.z0 + (glide.z1 - glide.z0) * e; if (k >= 1) glide = null; }
+  else if (!drag && mapK() < .5) { cam.x -= vel.x; cam.y -= vel.y; vel.x *= .92; vel.y *= .92; }
+  g.setTransform(DPR, 0, 0, DPR, 0, 0); g.fillStyle = '#0B1019'; g.fillRect(0, 0, W, H);
+  const e = unfold(), G = groups(), gv = new Map(G.map(z => [z, gview(z, t)]));
+  const lit = sel ? new Set([sel.i, ...gathered]) : tsel != null ? new Set(gathered) : null;
+  // each person's spot: their own while zoomed in, drawn into their group's bubble as you zoom out
+  const pos = N.map(p => { const q = lens(p, t), z = groupOf(p), c = z && gv.get(z);
+    if (c && e < 1 && p !== sel) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
+  // the floor: each crew's name written where it stands; a small crew's only once you're close
+  if (e > 0) G.forEach(z => { const c = lens({ wx: z.cx, wy: z.cy + z.ly, ph: 0 }, 0);
+    if (!z.L.length || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
+    g.globalAlpha = e * (busy() ? .55 : z.big ? .75 : .45) * Math.min(1, c.s * 1.2); g.fillStyle = sel ? KC[z.rel] || '#5FD0FF' : '#5FD0FF';
+    g.font = `${Math.round((z.big ? 11 : 8) * c.s + 3)}px 'Share Tech Mono', monospace`; g.textAlign = 'center';
+    g.fillText(z.name.toUpperCase().split('').join(' '), c.x, c.y); g.globalAlpha = 1; });
+  // the threads of whoever is locked on: blue to those they served with, red dashes to those they fought; a link picked out in gold.
+  // Zoomed out, one thread to each group, as thick as the group is big
+  if (sel) { const a = pos[sel.i];
+    const thread = (b, c, dash, w, al) => { g.strokeStyle = c; g.lineWidth = w; g.globalAlpha = al; g.setLineDash(dash); g.beginPath(); g.moveTo(a.x, a.y); g.quadraticCurveTo((a.x + b.x) / 2, (a.y + b.y) / 2 - 30, b.x, b.y); g.stroke(); };
+    gathered.forEach(j => { const k = kindOf(sel, N[j]); j !== (link && link.i) && thread(pos[j], KC[k], k === 'enemy' || k === 'rival' ? [4, 4] : [], 1.2, (link ? .12 : .6) * (groupOf(N[j]) ? e : 1)); });
+    if (e < 1) G.forEach(z => thread(gv.get(z), KC[z.rel], z.rel === 'enemy' || z.rel === 'rival' ? [6, 5] : [], 1.2 + Math.sqrt(z.L.length) * 1.1, (link ? .15 : .7) * (1 - e)));
+    if (link) thread(pos[link.i], '#E9C46A', [], 3.4, 1);
+    g.setLineDash([]); g.globalAlpha = 1; }
+  // zoomed out: the groups, each one bubble with its name and head count; its ring shows who's in it, heroes blue, villains red
+  if (e < 1) G.forEach(z => { const c = gv.get(z), n = z.L.length; if (c.x < -c.r || c.x > W + c.r || c.y < -c.r || c.y > H + c.r) return;
+    const dim = link && !z.L.includes(link) ? .45 : 1; g.globalAlpha = (1 - e) * dim;
+    g.beginPath(); g.arc(c.x, c.y, c.r, 0, 6.2832); g.fillStyle = sel ? (z.rel === 'enemy' ? '#2A1418' : '#132036') : '#111C2E'; g.fill();
+    const bad = sel ? 0 : z.villains, lw = Math.max(1.6, Math.min(4, c.r / 18));
+    g.lineWidth = lw; if (sel) { g.beginPath(); g.arc(c.x, c.y, c.r, 0, 6.2832); g.strokeStyle = KC[z.rel]; g.stroke(); } else if (n - bad) { g.beginPath(); g.arc(c.x, c.y, c.r, -1.5708, -1.5708 + 6.2832 * (n - bad) / n); g.strokeStyle = '#7FB2FF'; g.stroke(); }
+    if (!sel && bad) { g.beginPath(); g.arc(c.x, c.y, c.r, -1.5708 + 6.2832 * (n - bad) / n, 4.7124); g.strokeStyle = '#E0574A'; g.stroke(); }
+    if (c.r >= 15) { const fz = Math.max(9, Math.min(19, c.r * .27)); g.font = `400 ${fz}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+      const L = wrap(z.name.toUpperCase(), c.r * 1.6, c.r > 40 ? 3 : 2), lh = fz * 1.08, y0 = c.y - (L.length * lh) / 2 - fz * .3;
+      g.fillStyle = '#EEF1F6'; L.forEach((l, k) => g.fillText(l, c.x, y0 + lh * (k + .5)));
+      g.font = `${Math.max(8, fz * .62)}px 'Share Tech Mono', monospace`; g.fillStyle = sel ? KC[z.rel] : '#9FC3F0';
+      g.fillText(n + (n > 1 ? ' PEOPLE' : ' PERSON'), c.x, y0 + lh * L.length + fz * .45); }
+    else if (c.r >= 8) { g.fillStyle = '#9FC3F0'; g.font = `${Math.round(c.r * .9)}px 'Share Tech Mono', monospace`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(n, c.x, c.y + 1); }
+    g.textBaseline = 'alphabetic'; g.globalAlpha = 1; });
+  // everyone, smallest first so the middle of the room is drawn on top; zoomed out, only the one locked on (and a picked link) stay
+  const order = N.map((p, i) => i).sort((a, b) => pos[a].s - pos[b].s), names = [];
+  for (const i of order) { const p = N[i], q = pos[i], key = p === sel || p === link, fade = key || !groupOf(p) ? 1 : e; if (fade <= .02 || !(p.vis || p.guest)) continue;
+    const r = 21 * Math.max(q.s, key ? .7 : 0) * (key ? 1.12 : 1); if (q.x < -30 || q.x > W + 30 || q.y < -30 || q.y > H + 30) continue;
+    const dim = lit && !lit.has(i) ? .07 : atStop && !atStop.has(i) && !key ? .18 : link && !key ? .35 : 1; g.globalAlpha = dim * fade;
+    g.beginPath(); g.arc(q.x, q.y, r, 0, 6.2832); g.fillStyle = p.k === 'T' ? '#2A1418' : '#132036'; g.fill();
+    g.lineWidth = key ? 3 : 1.6; g.strokeStyle = key ? '#E9C46A' : COL[p.k]; g.stroke();
+    if (p.k === 'B' && !key) { g.beginPath(); g.arc(q.x, q.y, r, -1.5708, 1.5708); g.strokeStyle = '#E0574A'; g.lineWidth = 2.2; g.stroke(); }
+    if (sel && p.u !== sel.u && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
+    if (r > 9) { g.fillStyle = '#EEF1F6'; g.font = `400 ${Math.round(r * .78)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(initials(p.n), q.x, q.y + 1); }
+    if (p.inAt && t - p.inAt < 2600) { const k = (t - p.inAt) / 2600; g.globalAlpha = (1 - k) * fade; g.beginPath(); g.arc(q.x, q.y, r + 4 + k * 10, 0, 6.2832); g.strokeStyle = '#E9C46A'; g.lineWidth = 2.5; g.stroke(); g.globalAlpha = dim * fade; }   // just walked in
+    if ((q.s > .74 && dim === 1 && e > .9) || key) names.push([p, q, r, key]);
+    g.globalAlpha = 1; }
+  for (const [p, q, r, key] of names) { const fz = Math.round(10.5 * Math.max(q.s, key ? .9 : 0) + 1), w = p.n.split(' '), L = w.length > 1 ? [w[0], w.slice(1).join(' ')] : w; g.font = `600 ${fz}px 'IBM Plex Sans Condensed', sans-serif`; g.textBaseline = 'top'; g.lineWidth = 3.5; g.lineJoin = 'round'; g.strokeStyle = '#0B1019'; g.fillStyle = key ? '#FFFFFF' : '#C9D3E2';
+      L.forEach((l, k) => { g.strokeText(l, q.x, q.y + r + 2 + k * (fz + 1)); g.fillText(l, q.x, q.y + r + 2 + k * (fz + 1)); });
+      // another version of someone says which one: where they're from
+      if (p.cl && sel && (p.u !== sel.u || sel.V.includes(p.i))) { const vt = p.u !== sel.u ? UL[p.u] : vtag(p), y = q.y + r + 2 + L.length * (fz + 1) + 1, f0 = g.fillStyle; g.font = `${Math.max(8, fz - 2)}px 'Share Tech Mono', monospace`; g.fillStyle = '#9FB4D6';
+        g.strokeText(vt, q.x, y); g.fillText(vt, q.x, y); g.fillStyle = f0; } }
+  g.textBaseline = 'alphabetic';
+  mapCross(); drawMap(t, pos);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// wandering: drag to pan, with a little glide when you let go; two fingers (or the wheel) to zoom; a tap picks whoever is under it
+let drag = null, pts = new Map(), pinch0 = null;
+const setZoom = z => { zoom = Math.max(ZMIN, Math.min(ZMAX, z)); };
+cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]); glide = null;
+  if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch0 = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), z: mapOn ? mz : zoom }; drag = null; return; }
+  drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, moved: false, t: performance.now() }; vel = { x: 0, y: 0 }; hint.style.opacity = 0; });
+cv.addEventListener('pointermove', e => { if (!pts.has(e.pointerId)) return; pts.set(e.pointerId, [e.clientX, e.clientY]);
+  if (pinch0 && pts.size === 2) { const [a, b] = [...pts.values()], f = Math.hypot(a[0] - b[0], a[1] - b[1]) / pinch0.d;
+    if (mapOn) setMZ(pinch0.z * f, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); else setZoom(pinch0.z * f); return; }
+  if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) > 8) drag.moved = true;
+  if (mapOn && mcam) { const ms = mscale(); mcam.x -= dx / ms; mcam.y -= dy / ms; } else { cam.x -= dx / zoom; cam.y -= dy / zoom; vel = { x: dx / zoom, y: dy / zoom }; }
+  drag.x = e.clientX; drag.y = e.clientY; });
+const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch0 = null;
+  if (drag && !drag.moved) tap(e.clientX, e.clientY); drag = null; };
+cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+cv.addEventListener('wheel', e => { e.preventDefault(); glide = null; const f = e.deltaY < 0 ? 1.08 : .93; if (mapOn) setMZ(mz * f, e.clientX, e.clientY); else setZoom(zoom * f); }, { passive: false });
+
+const $ = id => document.getElementById(id), card = $('card'), hint = $('hint'), toast = $('toast');
+// a tap: zoomed out, a group bubble opens up, zooming in on it. Zoomed in, in the room it locks onto someone; while locked, tapping one of
+// their people shows how the two are connected, tapping that person again locks onto them instead; a tap on the open floor steps back out
+function tap(x, y) {
+  const t = performance.now(); if (mapOn && mcam) return mapTap(x, y);
+  if (sel) { const q = lens(sel, t); if (Math.hypot(q.x - x, q.y - y) < 21 * Math.max(q.s, .7) + 6) return link && showOne(); }
+  if (unfold() < .5) { const z = groups().find(z => { const c = gview(z, t); return Math.hypot(c.x - x, c.y - y) < c.r; });
+    if (z) { glide = { t0: t, x0: cam.x, y0: cam.y, x1: z.gx, y1: z.gy, z0: zoom, z1: Math.max(1, zoom) }; return; }
+  }
+  const out = unfold() < .5; let best = null, bd = 1e9;   // zoomed out, only the people standing on their own can be tapped
+  N.forEach(p => { if (!(p.vis || p.guest) || (busy() && !gathered.includes(p.i)) || (out && groupOf(p))) return; const q = lens(p, t), r = 21 * q.s + 6, d = Math.hypot(q.x - x, q.y - y); if (d < r && d < bd) { bd = d; best = p; } });
+  if (!best) return link ? showOne() : out && busy() ? null : home();
+  if (!sel || best === link) return lockOn(best, t);
+  showLink(best);
+}
+const short = n => n.replace(/^(The|Dr\.|Doctor|Captain|Agent|King|Queen|Prince|Princess|General|Colonel|Senator|President) /, '').split(' ')[0];
+function lockOn(p, t) {
+  if (!p.vis && p.u && (UNI !== 'all' && p.u !== UNI)) { setUni(p.u); say('Crossing into ' + (p.u === 'mcu' ? 'the Sacred Timeline' : UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u]), 1800); }   // across universes, you go with them
+  const lines = mapOn; gather(p, t || performance.now());
+  if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx, y1: p.hy + 70 / zoom, z0: zoom, z1: Math.max(.9, zoom) };
+  fillCard(p); if (navigator.vibrate) try { navigator.vibrate(10); } catch (e) {}
+}
+const WHO = {
+  'Jennifer Walters': { 'Bruce Banner': "Her cousin. His blood gave her his powers, and he trained her to use them.", 'Morris Walters': "Her dad.", 'Elaine Walters': "Her mom.",
+    'Skaar': "Bruce's son, her cousin once removed.", 'Matt Murdock': "Daredevil. They face off in court, team up, and have a brief fling.",
+    'Nikki Ramos': "Her paralegal and best friend.", 'Augustus Pugliese': "Pug, her friend at GLK&H, who goes undercover against Intelligencia.",
+    'Madisynn King': "A witness in Wong's case who drags her out partying, and a friend after.", 'Holden Holliway': "The GLK&H partner who hires her to run its superhuman law division.",
+    'Mallory Book': "A fellow attorney at GLK&H who later argues her case.", 'Emil Blonsky': "The Abomination. Her client, whose parole she wins.",
+    'Wong': "A witness at Blonsky's hearing, and later her client.", 'Luke Jacobson': "The superhero tailor who makes her suit.",
+    'Leap-Frog': "A client who kidnaps her tailor when he loses.", 'Titania': "An influencer who sues her for the name She-Hulk.",
+    'Todd Phelps': "A date who turns out to be HulkKing, leader of Intelligencia." },
+  'Yelena Belova': { 'Natasha Romanoff': "Her sister, raised with her in a fake family in Ohio.", 'Alexei Shostakov': "Red Guardian. He played her father, and still acts like one.",
+    'Melina Vostokoff': "Raised her as a daughter in Ohio, and sides with her in the end.", 'Dreykov': "Ran the Red Room and controlled her mind. She kills him.",
+    'Taskmaster': "Dreykov's hunter, sent after her.", 'The Widows': "The women she was trained with, and sets out to free.",
+    'Valentina Allegra de Fontaine': "Her handler after Natasha's death, until Val tries to have her killed.", 'Clint Barton': "The man Val blames for Natasha's death. She lets him go.",
+    'Kate Bishop': "Clint's protégé. They fight, then share mac and cheese.", 'Eleanor Bishop': "Kate's mother, who paid for the hit on Clint.",
+    'Bucky Barnes': "The congressman who gets her team out and pushes them to take Val down.", 'John Walker': "Sent to kill her. Now on her team.",
+    'Ghost': "Another of Val's assets set up to die with her. Now on her team.", 'Bob Reynolds': "Empty like her. She walks into the Void to pull him out.",
+    'Peter Parker': "Spider-Man. She feeds him what she digs up on Damage Control." } };
+const sent1 = t => (String(t).match(/^.*?[.!?](?=\s|$)/) || [t])[0];
+const whoLine = (p, q, r) => (WHO[p.n] || {})[q.n] || (r ? sent1(r.S[r.S.length - 1].d) : 'Fought on screen.');
+const vtitles = q => { const T = byOrd(q.A0).map(j => TT[j]); return T.length > 2 ? T.slice(0, 2).join(', ') + ' and ' + (T.length - 2) + ' more' : T.join(' and '); };
+function moreHTML(p, L) {
+  const aka = p.AK.filter(([nm, o]) => o <= CUT && nm !== p.n).map(([nm]) => nm), crews = [];
+  p.S.filter(([c, o]) => c !== 'Independent' && o >= 0 && o <= CUT).forEach(([c]) => { if (!crews.includes(c)) crews.push(c); });
+  const T = byOrd(p.A), out = [];
+  if (aka.length) out.push(`<h4>Also known as</h4><p class="aka">${aka.map(a => `<b>${esc(a)}</b>`).join(', ')}</p>`);
+  if (crews.length) out.push(`<h4>Crews</h4><div class="crews">${crews.map(esc).join(' <i>›</i> ')}</div>`);
+  out.push(`<h4>In ${T.length} title${T.length === 1 ? '' : 's'}</h4><ol class="tl">${T.map(j => `<li>${esc(TT[j])}</li>`).join('')}</ol>`);
+  if (L.length) { out.push(`<h4>Who's who · tap for the whole story</h4>`); let k0 = null;
+    L.forEach(([j, k]) => { const q = N[j]; if (k !== k0) { out.push(`<div class="kh" style="color:${KC[k]}"><i style="background:${KC[k]}"></i>${KL[k]}</div>`); k0 = k; }
+      out.push(`<button type="button" class="wrow" style="--kc:${KC[k]}" data-i="${j}"><b>${esc(q.n)}${q.u !== p.u ? ` <em>${esc(UL[q.u])} · ${esc(vtag(q))}</em>` : ''}</b><span>${esc(whoLine(p, q, relOf(p, q)))}</span></button>`); }); }
+  // every other version of them, by universe; the ones they've met are above, with the rest of their people. Tap one to go to them
+  if (p.V.length) { out.push(`<h4>Other versions · tap to go to them</h4>`);
+    UNIS.forEach(([u, l]) => { const V = p.V.filter(j => N[j].u === u).map(j => N[j]); if (!V.length) return;
+      out.push(`<div class="kh" style="color:${KC.variant}"><i style="background:${KC.variant}"></i>${esc(l)}</div>`);
+      V.forEach(q => out.push(`<button type="button" class="wrow vrow" style="--kc:${KC.variant}" data-v="${q.i}"><b>${esc(q.n)}</b><span>${q.dk ? esc(q.dk) + '. ' : ''}<em>${esc(vtitles(q))}</em>${relOf(p, q) ? ' · They meet' : ''}</span></button>`)); }); }
+  return out.join('');
+}
+// the card slides like the Atlas (owner, October 2026): it follows your finger up and down and stays where you let it go; near the top it
+// settles full height, back near where it started it settles small again. Tap the grip to go all the way either way. Pulling the
+// list down from its top drags the card down too
+let cardBig = false, dragged = 0, cd = null;
+const TOPMIN = 60, cardTop = () => card.getBoundingClientRect().top;
+const setBig = (v, top) => { card._k = (card._k || 0) + 1; cardBig = v; card.classList.toggle('big', v); card.style.top = v && top != null ? top + 'px' : '';
+  $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) $('cMore').scrollTop = 0; };
+const settle = top => { card.style.transition = '';
+  if (top > card._ct - 48) { if (!cardBig) return; card.style.top = card._ct + 'px'; const k = card._k = (card._k || 0) + 1; setTimeout(() => { if (card._k === k && !cd) setBig(false); }, 330); }
+  else setBig(true, top < TOPMIN + 48 ? TOPMIN : top); };
+const dragStart = y => { card._k = (card._k || 0) + 1; if (!cardBig) card._ct = cardTop(); cd = { y, t: cardTop(), on: false }; };
+const dragMove = y => { if (!cd) return false; const dy = y - cd.y; if (!cd.on && Math.abs(dy) < 6) return false; if (!cd.on) { cd.on = true; card.style.transition = 'none'; }
+  const top = Math.max(TOPMIN, Math.min(card._ct + 30, cd.t + dy)); if (!cardBig && top >= card._ct) return true;
+  cardBig = true; card.classList.add('big'); card.style.top = top + 'px'; return true; };
+const dragEnd = () => { if (!cd) return; const on = cd.on; cd = null; if (on) { dragged = performance.now(); settle(cardTop()); } };
+$('cGrip').onclick = () => { if (performance.now() - dragged < 400) return; if (cardBig) { card._ct = card._ct || cardTop(); settle(1e4); } else { card._ct = cardTop(); setBig(true, TOPMIN); } };
+card.addEventListener('pointerdown', e => { if (e.target.closest('#cMore, .strip') || e.pointerType === 'touch' && e.target.closest('#cMore')) return; dragStart(e.clientY); cd.pid = e.pointerId; });
+addEventListener('pointermove', e => { if (!cd || cd.touch) return; const was = cd.on; dragMove(e.clientY); if (cd.on && !was) try { card.setPointerCapture(cd.pid); } catch (x) {} });   // held only once it's a drag, so a tap still lands on what you tapped
+addEventListener('pointerup', () => { if (cd && !cd.touch) dragEnd(); }); addEventListener('pointercancel', () => { if (cd && !cd.touch) dragEnd(); });
+card.addEventListener('click', e => { if (performance.now() - dragged < 400 && !e.target.closest('#cGrip')) { e.stopPropagation(); e.preventDefault(); } }, true);
+{ const m = $('cMore');
+  m.addEventListener('touchstart', e => { if (m.scrollTop <= 0) { dragStart(e.touches[0].clientY); cd.touch = true; } }, { passive: true });
+  m.addEventListener('touchmove', e => { if (!cd || !cd.touch) return; if (!cd.on && e.touches[0].clientY < cd.y) { cd = null; return; } if (dragMove(e.touches[0].clientY)) e.preventDefault(); }, { passive: false });
+  m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); }
+function fillCard(p) {
+  $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? UL[p.u] + ' · ' : '') + (c === 'Independent' ? 'No crew' : c); }
+  const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d), cnt = {};
+  L.forEach(([, k]) => cnt[k] = (cnt[k] || 0) + 1);
+  $('cSum').innerHTML = (KIND.filter(k => cnt[k]).map(k => `<span><i style="background:${KC[k]}"></i><b>${cnt[k]}</b> ${(cnt[k] > 1 ? KL[k] : KS[k]).toLowerCase()}</span>`).join('') || '<span>No connections yet</span>')
+    + (p.V.length ? `<span class="vs"><i style="background:${KC.variant}"></i><b>${p.V.length}</b> other version${p.V.length > 1 ? 's' : ''}</span>` : '');
+  $('sConn').hidden = !L.length; $('sConn').querySelector('.strip').innerHTML = L.map(([j, k]) => `<button type="button" class="chip" style="border-color:${KC[k]}" data-i="${j}">${N[j].n}</button>`).join(''); $('sConn').querySelector('.strip').scrollLeft = 0;
+  const fill = (id, L, f) => { const box = $(id); box.hidden = !L.length; box.querySelector('.strip').innerHTML = L.map(j => `<button type="button" class="chip${f ? ' f' : ''}" data-i="${j}">${N[j].n}</button>`).join(''); box.querySelector('.strip').scrollLeft = 0; };
+  $('cMore').innerHTML = moreHTML(p, L); if (fillCard.last !== p) { card.style.transition = ''; setBig(false); } fillCard.last = p;
+  showOne(); card.classList.add('on');
+}
+function showOne() { link = null; stopSel = null; atStop = null; $('vOne').hidden = false; $('vTwo').hidden = true; $('vThree').hidden = true; }
+// how two people are connected: what they are to each other, in a sentence, with the title it's shown in; the fights on file; every
+// title they're both in
+function showLink(b) {
+  const a = sel; link = b; stopSel = null; atStop = null; if (navigator.vibrate) try { navigator.vibrate(8); } catch (e) {}
+  const list = L => L.length > 5 ? L.slice(0, 5).join(', ') + ' and ' + (L.length - 5) + ' more' : L.join(', ');
+  const why = [], fw = (a.Fw[b.i] || []).filter(seen).map(j => TT[j]), r = relOf(a, b);
+  if (r) r.S.forEach(x => why.push([KC[x.k], KS[x.k], esc(x.d) + (x.t ? `<em>${esc(x.t)}</em>` : '')]));   // how it has gone so far, stage by stage
+  if (fought(a, b) && fw.length) why.push([KC.enemy, 'Fought', 'In ' + list(fw)]);
+  const both = a.A.filter(j => b.A.includes(j)).map(j => TT[j]);
+  why.push(['#8EA2C2', 'On screen together', both.length ? list(both) : 'Never in a title together']);
+  $('lName').innerHTML = `${a.n}<br>&amp; ${b.n}`;
+  $('lWhy').innerHTML = why.map(([c, k, v]) => `<li><span style="color:${c}">${k}</span><div>${v}</div></li>`).join('');
+  $('lBack').textContent = '‹ Back to ' + short(a.n); $('lGo').textContent = 'Lock onto ' + short(b.n) + ' ›';
+  $('vOne').hidden = true; $('vTwo').hidden = false;
+}
+$('cBack').onclick = () => home();
+$('tBack').onclick = () => showOne();
+$('lBack').onclick = () => showOne();
+$('lGo').onclick = () => lockOn(link);
+
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+card.addEventListener('click', e => { const v = e.target.closest('.vrow'); if (v) { lockOn(N[+v.dataset.v]); return; } const c = e.target.closest('.chip, .wrow'); if (c) showLink(N[+c.dataset.i]); });
+// a lock: their people walk over and stand around them in groups, by crew, the crews they served with nearest, the ones they fought
+// beyond; the rest of the room fades. Each group is a patch like the room's, so zooming out folds it into one bubble too
+const ORD = DATA.ord, byOrd = L => [...new Set(L)].sort((a, b) => ORD[a] - ORD[b]);
+const PAL = ['#7FB2FF', '#5FD49A', '#FF8FB1', '#9B8CFF', '#5FD0FF', '#F4A261', '#7DE3D0', '#E0574A', '#C9A0FF', '#A3E36F'];
+let gathered = [], clusters = [], story = null, stopSel = null, atStop = null, webO = null;
+function gather(p, t, again) {
+  const prev = again ? new Set(gathered) : null, o0 = again && webO ? webO : [p.hx, p.hy];
+  home(true); sel = p; webO = o0; const [ox, oy] = o0; p.tx = ox; p.ty = oy;
+  const by = new Map(); conn(p).forEach(j => { const k = kindOf(p, N[j]); by.has(k) || by.set(k, []); by.get(k).push(N[j]); });   // grouped by what they are to them
+  const P = packer(S * .12); P.add(0, 0, S * .55); P.add(0, S * .62, S * .45);   // their own spot, and their name under it
+  clusters = KIND.filter(k => by.has(k)).map(k => { const L = by.get(k).sort((a, b) => b.d - a.d), z = patch(KL[k], L, false, false); z.rel = k; return z; });
+  clusters.forEach((z, zi) => { P.place(z, zi + 1, false); z.cx = ox + z.x; z.cy = oy + z.y;
+    z.L.forEach((o, j) => { o.cl = z; o.tx = ox + z.x + z.cells[j][0]; o.ty = oy + z.y + z.cells[j][1]; }); });
+  fold(clusters, 2, o => [o.tx, o.ty], [[ox, oy]]);
+  gathered = conn(p); let n = 0; gathered.forEach(j => { const o = N[j]; if (!o.vis) { o.guest = true; o.hx = o.tx + 700; o.hy = o.ty; } });
+  gathered.forEach((j, k) => { const o = N[j]; if (!prev) o.go = t + 60 + Math.min(k, 40) * 22; else if (prev.has(j)) o.go = 0; else { o.go = t + 250 + n * 70; o.inAt = o.go + 300; o.wx = o.tx + 220; o.wy = o.ty + 120; n++; } });
+}
+function home(quiet) { if (!quiet && mapOn) { mapOn = false; $('mBack').hidden = true; mapLeave(); }
+  if (!quiet) { webO = null; if (zoom < .25) glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: cam.x, y1: cam.y, z0: zoom, z1: .35 }; } N.forEach(o => { o.tx = o.hx; o.ty = o.hy; o.go = 0; o.cl = null; o.guest = false; }); gathered = []; clusters = []; sel = null; link = null; tsel = null; story = null; stopSel = null; atStop = null; if (!quiet) card.classList.remove('on'); }
+const say = (m, ms) => { toast.textContent = m; toast.style.opacity = 1; clearTimeout(say.t); say.t = setTimeout(() => toast.style.opacity = 0, ms || 2200); };
+$('cFile').onclick = () => { if (EMB && sel && parent.netOpenFile) parent.netOpenFile(sel.id, sel.k); else say('In the app, this opens their Compound or Raft file'); };
+
+
+// ---------- seen up to (a stand-in for the app's own watched titles): someone is in the room once you've seen a title they're on file in.
+// A fight shows once you've seen the title it happens in; served with, once you've seen both of them join the crew. The room re-packs around
+// whoever's in it. Step a title on and the new arrivals walk in with a gold ring; inside someone's story, new stops pop in and new lines
+// draw themselves down
+const STEPS = [...new Set(ORD)].sort((a, b) => a - b), cutEl = $('cut');
+const stepName = v => { const L = TT.map((x, i) => i).filter(i => ORD[i] === v), n = i => N.filter(p => p.A0.includes(i)).length; return TT[L.sort((a, b) => n(b) - n(a))[0]]; };
+cutEl.innerHTML = STEPS.map((v, k) => `<option value="${k}">${stepName(v)}</option>`).join('') + `<option value="${STEPS.length}">Everything</option>`;
+let CUT = Infinity;
+let SEENF = null;   // set by the app: is this title watched?
+const seen = t => SEENF ? SEENF(TT[t]) : ORD[t] <= CUT;
+// the crew someone is in as of what you've seen: the one they end up in once you've seen them join it, otherwise the latest one you've
+// seen them in, otherwise none
+const crewNow = p => { if (CUT === Infinity) return p.g0; const f = p.S.find(([c]) => c === p.g0); if (f && f[1] <= CUT) return p.g0;
+  const L = p.S.filter(([, o]) => o >= 0 && o <= CUT), c = L.length ? L[L.length - 1][0] : 'Independent'; return c === 'Independent' && p.circ ? p.circ : c; };
+const joined = (p, c) => p.T.some(([d, w]) => d === c && (w < 0 ? p.vis : seen(w)));
+function applyCut(v, quiet) {
+  CUT = v; const t = performance.now();
+  let near = null, nd = 1e9; N.forEach(p => { if (!p.vis) return; const d = Math.hypot(p.hx - cam.x, p.hy - cam.y); if (d < nd) { nd = d; near = p; } });
+  const off = near ? [cam.x - near.hx, cam.y - near.hy] : [0, 0];
+  N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = p.A.length > 0 && (UNI === 'all' || p.u === UNI); p.arrive = p.vis && !was; });
+  N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];
+    p.M = p.vis ? p.M0.filter(j => N[j].vis && p.T.some(([c]) => joined(p, c) && joined(N[j], c))) : [];
+    p.R = p.vis ? p.R0.map(cutTie).filter(r => r && (N[r.j].vis || N[r.j].u !== p.u && N[r.j].A0.some(seen))) : [];
+    p.V = p.vis ? p.V0.filter(j => N[j].A0.some(seen)) : []; });
+  const full = v === Infinity && UNI === 'all', keep = sel && sel.vis ? sel : null; if (busy() && !keep) home();
+  // everyone stands with the crew they're in as of what you've seen, so the crews form and change as the story goes
+  N.forEach(p => { p.g = crewNow(p); });
+  if (full) { Z = Z0; Z.forEach(z => { z.L = z.L0.filter(p => p.vis); z.x = z.bx; z.y = z.by; z.cells = z.bcells; z.ly = z.bly; }); }
+  else { const by = new Map(), P = packer(S * .12); N.forEach(p => { if (p.vis) { by.has(p.g) || by.set(p.g, []); by.get(p.g).push(p); } });
+    Z = [...by].sort((a, b) => (b[0] === 'Independent') - (a[0] === 'Independent') || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
+    Z.forEach((z, zi) => P.place(z, zi, !zi)); }
+  Z.forEach(z => { z.cx = z.x; z.cy = z.y; z.villains = z.L.filter(p => p.k === 'T').length;
+    z.L.forEach((p, k) => { p.z = z; p.hx = z.x + z.cells[k][0]; p.hy = z.y + z.cells[k][1]; if (!keep) { p.tx = p.hx; p.ty = p.hy; }
+      if (p.arrive && !quiet && !keep) { p.wx = p.hx + (Math.random() - .5) * 300; p.wy = p.hy + 260; p.go = t + Math.random() * 600; p.inAt = p.go + 300; } }); });
+  fold(Z, 3, p => [p.hx, p.hy], []);
+  if (!keep && !quiet) { const a = near && near.vis ? near : N.filter(p => p.vis).sort((a, b) => Math.hypot(a.hx, a.hy) - Math.hypot(b.hx, b.hy))[0];   // the camera follows whoever it was looking at
+    if (a) glide = { t0: t, x0: cam.x, y0: cam.y, x1: a.hx + (a === near ? off[0] : 0), y1: a.hy + (a === near ? off[1] : 0) }; }
+  if (keep) { const wasLink = link; gather(keep, t, true); fillCard(keep); if (wasLink && wasLink.vis && gathered.includes(wasLink.i)) showLink(wasLink); }
+  if (self.mapAgain) mapAgain();   // the map, below, is cut to what you've seen too
+  const k = +cutEl.value; $('cutPrev').disabled = k <= 0; $('cutNext').disabled = k >= STEPS.length;
+  $('cutN').textContent = N.filter(p => p.vis).length + ' in the room';
+}
+const setCut = k => { k = Math.max(0, Math.min(STEPS.length, k)); cutEl.value = k; applyCut(k >= STEPS.length ? Infinity : STEPS[k]); };
+cutEl.addEventListener('change', () => setCut(+cutEl.value));
+$('cutPrev').onclick = () => setCut(+cutEl.value - 1);
+$('cutNext').onclick = () => setCut(+cutEl.value + 1);
+cutEl.value = STEPS.length; applyCut(Infinity, true);
+const EMB = window.parent !== window; if (EMB) document.body.classList.add('emb');
+self.netSeen = (f, uok) => { SEENF = f; UNIOK = uok; if (!uniOk(UNI)) UNI = 'mcu';
+  let far = -1; TT.forEach((t, i) => { if (f(t) && ORD[i] > far) far = ORD[i]; }); uniTabs(); applyCut(far, true); };
+function setUni(u) { if (u === UNI) return; UNI = u; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); }
+function uniTabs() { document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
+document.querySelector('.unis').addEventListener('click', e => { const b = e.target.closest('[data-uni]'); if (b) setUni(b.dataset.uni); });
+uniTabs();
+
+
+// ---------- their paths: from a connection's card, "See their paths" turns the web into lines through time. Every bubble slides over and
+// stretches into that person's line, left to right through the titles in story order; theirs runs through the middle, and everyone else's
+// weaves in to meet it at every title they share, and each other at titles of their own, the way Paths does. Pinch to zoom the paths,
+// tap a title to see everyone in it, tap a line to see how the two are connected and lock onto them to redraw it around them
+// pinching zooms the paths themselves, in close where they're crowded; "Their web" brings you back, the lines folding into the bubbles
+let mapOn = false, mz = .62, mT0 = 0, mT1 = 0;
+const mapK = () => { if (!sel || !mcam) return 0; const t = performance.now(); return mapOn ? Math.min(1, (t - mT0) / 650) : Math.max(0, 1 - (t - mT1) / 450); };
+const mscale = () => mz;
+let MAP = null, mcam = null, mfocus = null, mK0 = 0;
+function setMZ(v, px, py) { const nz = Math.max(.3, Math.min(2.6, v)), cx = W / 2, cy = H * .58;
+  if (mcam && px != null) { const wx = mcam.x + (px - cx) / mz, wy = mcam.y + (py - cy) / mz; mcam.x = wx - (px - cx) / nz; mcam.y = wy - (py - cy) / nz; }   // the point under your fingers stays put
+  mz = nz; }
+// their card opens Paths: the big picture is the old Paths map, the whole timeline (extras too), every story's line weaving in and out
+// of the others at the titles they share. It grows as you watch, the way Paths did: only the titles you've seen, the lines closing up
+// around them, each line running as far as you've seen with an open dot where it goes next, and a story you haven't met keeping its name
+// back (so the Ten Rings sit in Iron Man long before you know whose line it is). On top of it, any one person's own path in gold, minor
+// characters too: theirs to start with, or anyone's from a title's cast
+const MD = DATA.map, GREY = '#3E4A62';
+let over = null;
+function openPaths() { mapOn = true; mT0 = performance.now(); mapEnter(sel); card.classList.remove('on'); $('mBack').hidden = false; }
+$('mBack').onclick = () => { mapOn = false; mT1 = performance.now(); $('mBack').hidden = true; $('mWho').hidden = true; $('mTip').classList.remove('on'); showOne(); card.classList.add('on'); };
+// one line's pieces, stop to stop, so each piece can be lit or grey on its own
+function pieces(nodes, cols, k, L) { const out = []; let px = 0, pt = L, pseen = false;
+  nodes.forEach((ci, j) => { const c = cols[ci], x = c.x, t = c.top + 6 * c.m.indexOf(k); let d;
+    if (!j) d = `M${x - 36},${L} ` + (t === L ? `L${x},${L}` : `C${x - 18},${L} ${x - 18},${t} ${x},${t}`);
+    else if (x - px < 96) { const mx = px + (x - px) / 2; d = `M${px},${pt} C${mx},${pt} ${mx},${t} ${x},${t}`; }
+    else d = `M${px},${pt} ` + (pt === L ? `L${px + 48},${L}` : `C${px + 24},${pt} ${px + 24},${L} ${px + 48},${L}`) + ` L${x - 48},${L}` + (t === L ? ` L${x},${L}` : ` C${x - 24},${L} ${x - 24},${t} ${x},${t}`);
+    out.push({ p: new Path2D(d), seen: c.seen && (!j || pseen) }); px = x; pt = t; pseen = c.seen; });
+  if (nodes.length) out.push({ p: new Path2D(`M${px},${pt} ` + (pt === L ? `L${px + 36},${L}` : `C${px + 18},${pt} ${px + 18},${L} ${px + 36},${L}`)), seen: pseen });
+  return out; }
+function mapBuild() {
+  const seenC = c => c.ord <= CUT, lit = i => MD.cols.some(c => c.m.includes(i) && seenC(c));   // a line stays off the map until its first title
+  const keep = MD.rows.map((r, i) => i).filter(i => MD.rows[i].n !== 'Incursions' && lit(i)), nx = {}; keep.forEach((i, k) => { nx[i] = k; });
+  const Y = k => MD.top + MD.dy * k, cols = [];
+  MD.cols.forEach(c => { if (!seenC(c)) return; const m = c.m.filter(i => nx[i] !== undefined).map(i => nx[i]); if (m.length) cols.push({ t: c.t, yr: c.yr, tt: c.tt, m, o: nx[c.o] !== undefined ? nx[c.o] : m[0], seen: true }); });
+  cols.forEach((c, i) => { c.x = 230 + 40 * i; c.h = 6 * (c.m.length - 1); c.top = Y(c.o) - 6 * c.m.indexOf(c.o); c.my = c.top + c.h / 2; });
+  const rows = keep.map((i, k) => { const r = MD.rows[i], L = Y(k), nodes = cols.map((c, ci) => c.m.includes(k) ? ci : -1).filter(ci => ci >= 0);
+    const all = pieces(nodes, cols, k, L), path = new Path2D(); all.forEach(q => path.addPath(q.p));
+    // where it goes next stays an open dot; a story keeps its name back until you've seen one of its own titles
+    const more = MD.cols.some(c => c.m.includes(keep[k]) && !seenC(c)), ex = nodes.length ? cols[nodes[nodes.length - 1]].x + 36 : 230;
+    return { n: r.n, c: r.c, y: L, pruned: r.pruned, nodes, all, path, more, ex, named: MD.cols.some(c => c.o === keep[k] && seenC(c)) }; });
+  const years = []; cols.forEach(c => { const y = years[years.length - 1]; if (y && y.y === c.yr) y.x1 = c.x; else years.push({ y: c.yr, x0: c.x, x1: c.x }); });
+  MAP = { rows, cols, years }; mfocus = null; setOver(over); }
+// a person's own path: through every title they're in, stop to stop, gold where you've seen it
+function setOver(o) { over = o && o.A0 && o.A0.length ? o : null; if (!MAP) return;
+  if (!over) { MAP.over = null; $('mWho').hidden = true; return; }
+  const at = MAP.cols.map((c, ci) => c.tt >= 0 && over.A0.includes(c.tt) ? ci : -1).filter(ci => ci >= 0), segs = [];
+  at.forEach((ci, j) => { if (!j) return; const a = MAP.cols[at[j - 1]], b = MAP.cols[ci], mx = (a.x + b.x) / 2, p = new Path2D(`M${a.x},${a.my} C${mx},${a.my} ${mx},${b.my} ${b.x},${b.my}`); segs.push({ p, seen: a.seen && b.seen }); });
+  MAP.over = { o: over, at, segs };
+  const met = over.vis && at.some(ci => MAP.cols[ci].seen);
+  $('mWhoN').textContent = met ? over.n : '[ Classified ]'; $('mWho').hidden = false; }
+function mapEnter(o) { mapBuild(); over = null; setOver(o); mz = .7;
+  const c0 = MAP.over && MAP.over.at.length ? MAP.cols[MAP.over.at[0]] : MAP.cols.find(c => c.t === 'Iron Man') || MAP.cols[0];
+  mcam = { x: c0.x - 40 + (W / 2 - 120) / mz, y: MD.top + (H * .58 - 330) / mz }; }   // the top story just under the titles
+function mapLeave() { mcam = null; mfocus = null; over = null; $('mTip').classList.remove('on'); $('mWho').hidden = true; }
+function mapCross() { if (mcam && !mapOn && mapK() === 0) mapLeave(); }
+const MX = x => W / 2 + (x - mcam.x) * mscale(), MY = y => H * .58 + (y - mcam.y) * mscale();
+function drawMap(t, pos) { const k = mapK(); if (k <= 0 || !mcam || !MAP) return; const M = MAP, ms = mscale(), O = M.over, F = mfocus;
+  g.globalAlpha = k; g.fillStyle = '#0B1019'; g.fillRect(0, 0, W, H);
+  M.years.forEach((y, i) => { const x0 = MX(y.x0 - 20), x1 = MX(y.x1 + 20); if (x1 < 0 || x0 > W) return;
+    if (i % 2 === 0) { g.globalAlpha = k * .045; g.fillStyle = '#FFFFFF'; g.fillRect(x0, 0, x1 - x0, H); }
+    g.globalAlpha = k * .8; g.fillStyle = '#8EA2C2'; g.font = "11px 'Share Tech Mono', monospace"; g.textAlign = 'center'; g.fillText(y.y, (x0 + x1) / 2, H - 14); });
+  const onCols = O ? new Set(O.at) : null;
+  g.save(); g.setTransform(DPR * ms, 0, 0, DPR * ms, DPR * (W / 2 - mcam.x * ms), DPR * (H * .58 - mcam.y * ms)); g.lineCap = 'round';
+  if (typeof F === 'number') { g.globalAlpha = k * .5; g.strokeStyle = '#E9C46A'; g.lineWidth = 11 / ms; g.stroke(M.rows[F].path); }
+  M.rows.forEach((r, ri) => { const dim = typeof F === 'number' && F !== ri ? .3 : O ? .6 : 1;   // a person's path leaves the picture readable
+    r.all.forEach(q => { g.globalAlpha = k * dim * (q.seen ? 1 : .55); g.strokeStyle = q.seen ? r.c : GREY; g.lineWidth = 3 / Math.min(1, ms); g.setLineDash(q.seen ? (r.pruned ? [6, 5] : []) : [4, 5]); g.stroke(q.p); }); });
+  M.rows.forEach((r, ri) => { if (!r.more) return; g.globalAlpha = k * (typeof F === 'number' && F !== ri ? .3 : O ? .6 : 1); g.strokeStyle = r.c; g.lineWidth = 2 / Math.min(1, ms); g.setLineDash([2, 5]);
+    g.beginPath(); g.moveTo(r.ex, r.y); g.lineTo(r.ex + 23, r.y); g.stroke(); g.setLineDash([3, 2.2]); g.beginPath(); g.arc(r.ex + 30, r.y, 5, 0, 6.2832); g.fillStyle = '#0B1019'; g.fill(); g.stroke(); });
+  g.setLineDash([]);
+  M.cols.forEach((c, ci) => { g.globalAlpha = k * (onCols && !onCols.has(ci) ? .35 : 1); const pk = mfocus && mfocus.ci === ci;
+    if (c.m.length > 1) { g.beginPath(); g.roundRect(c.x - 6, c.my - c.h / 2 - 6, 12, c.h + 12, 6); g.fillStyle = pk ? '#E9C46A' : '#0B1019'; g.fill(); g.lineWidth = 2.4 / Math.min(1, ms); g.strokeStyle = c.seen ? '#FFFFFF' : GREY; g.stroke(); }
+    else { const r = M.rows[c.m[0]]; g.beginPath(); g.arc(c.x, r.y, 5, 0, 6.2832); g.fillStyle = pk ? '#E9C46A' : '#0B1019'; g.fill(); g.lineWidth = 2.4 / Math.min(1, ms); g.strokeStyle = c.seen ? r.c : GREY; g.stroke(); } });
+  // one person's path in gold, on top, stop to stop
+  if (O) { O.segs.forEach(s => { g.globalAlpha = k; g.strokeStyle = '#0B1019'; g.lineWidth = 9 / ms; g.setLineDash([]); g.stroke(s.p); g.strokeStyle = s.seen ? '#E9C46A' : '#8A7A4A'; g.lineWidth = 4.5 / ms; g.setLineDash(s.seen ? [] : [5, 5]); g.stroke(s.p); });
+    g.setLineDash([]); O.at.forEach(ci => { const c = M.cols[ci]; g.beginPath(); g.arc(c.x, c.my, 7 / ms + 2, 0, 6.2832); g.fillStyle = c.seen ? '#E9C46A' : '#5A5032'; g.fill(); g.lineWidth = 2 / ms; g.strokeStyle = '#0B1019'; g.stroke(); }); }
+  g.restore();
+  // the titles slanted along the top, [ Classified ] where you haven't seen them; the stories' names pinned to the left edge
+  g.font = "600 11px 'IBM Plex Sans Condensed', sans-serif"; g.textAlign = 'left'; g.textBaseline = 'middle';
+  if (ms * 40 >= 12) M.cols.forEach((c, ci) => { const x = MX(c.x); if (x < -10 || x > W + 120) return; g.globalAlpha = k * (onCols && !onCols.has(ci) ? .3 : .95);
+    g.save(); g.translate(x + 2, 272); g.rotate(-.96); g.fillStyle = !c.seen ? '#56637E' : onCols && onCols.has(ci) ? '#E9C46A' : '#DDE5F0'; g.fillText(c.seen ? c.t : '[ Classified ]', 0, 0); g.restore(); });
+  g.font = "600 12px 'IBM Plex Sans Condensed', sans-serif"; g.textBaseline = 'bottom'; g.lineWidth = 3.5; g.strokeStyle = '#0B1019';
+  M.rows.forEach((r, ri) => { const y = MY(r.y) - 4; if (y < 292 || y > H - 30) return; g.globalAlpha = k * (typeof F === 'number' && F !== ri ? .4 : 1);
+    const nm = r.named ? r.n : '[ CLASSIFIED ]'; g.fillStyle = r.named ? r.c : '#6A7894'; g.strokeText(nm, 12, y); g.fillText(nm, 12, y); });
+  g.globalAlpha = 1; g.textBaseline = 'alphabetic'; g.textAlign = 'left'; }
+function mapTap(x, y) { const M = MAP, ms = mscale();
+  // a title (its stop, or its name up top): its whole cast; tap anyone to draw their path
+  const ci = M.cols.findIndex(c => Math.abs(MX(c.x) - x) < Math.max(10, 12 * ms) && ((y > MY(c.my - c.h / 2) - 14 && y < MY(c.my + c.h / 2) + 14) || (y > 190 && y < 285)));
+  if (ci >= 0) { const c = M.cols[ci]; mfocus = { ci }; const cast = c.tt >= 0 ? N.filter(o => o.A0.includes(c.tt)).sort((a, b) => b.d - a.d) : [];
+    if (!c.seen) { $('mS').textContent = 'A title you haven\'t seen'; $('mT').textContent = '[ Classified ]'; $('mL').innerHTML = `<li>${c.m.length} ${c.m.length > 1 ? 'stories meet' : 'story'} here${cast.length ? ', ' + cast.length + ' people' : ''}</li>`; $('mTip').classList.add('on'); return; }
+    $('mS').textContent = c.yr + (cast.length ? ' · ' + cast.length + ' on file · tap anyone for their path' : ''); $('mT').textContent = c.t;
+    $('mL').innerHTML = cast.length ? cast.map(o => `<li><button type="button" data-mo="${o.i}" class="${o === over ? 'me' : ''}">${o.n}</button></li>`).join('')
+      : c.m.map(ri => `<li><button type="button" class="out" disabled>${M.rows[ri].named ? M.rows[ri].n : '[ Classified ]'}</button></li>`).join('');
+    $('mTip').classList.add('on'); return; }
+  // a story's line
+  g.save(); g.setTransform(DPR * ms, 0, 0, DPR * ms, DPR * (W / 2 - mcam.x * ms), DPR * (H * .58 - mcam.y * ms)); g.lineWidth = 16 / ms;
+  const ri = M.rows.findIndex(r => g.isPointInStroke(r.path, x * DPR, y * DPR)); g.restore();
+  if (ri >= 0 && ri !== mfocus) { mfocus = ri; const r = M.rows[ri]; $('mS').textContent = r.nodes.filter(c => M.cols[c].seen).length + ' of its ' + r.nodes.length + ' titles seen'; $('mT').textContent = r.named ? r.n : '[ Classified ]'; $('mL').innerHTML = ''; $('mTip').classList.add('on'); return; }
+  mfocus = null; $('mTip').classList.remove('on'); }
+// a name in a title's cast draws that person's path; their name up top clears it
+$('mL').addEventListener('click', e => { const b = e.target.closest('[data-mo]'); if (!b) return; $('mTip').classList.remove('on'); mfocus = null; setOver(N[+b.dataset.mo]); });
+$('mWhoX').onclick = () => setOver(null);
+self.mapAgain = () => { if (MAP && sel) mapBuild(); };
+
+// ---------- search: everyone you've met, by name or by anything else they go by (She-Hulk finds Jennifer Walters), but only by a name
+// you've seen revealed; a pick takes you to them and locks on
+const fold1 = x => x.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, ' ').trim();
+function searchRun() { const q = fold1($('sQ').value); if (!q) { $('sList').innerHTML = '<div class="snone">Type a name, or what they go by.</div>'; return; }
+  const hits = []; N.forEach(p => { if (!p.vis) return; let how = null;
+    if (fold1(p.n).includes(q)) how = ''; else { const a = p.AK.find(([nm, o]) => o <= CUT && fold1(nm).includes(q)); if (a) how = a[0]; }
+    if (how !== null) hits.push([p, how, fold1(p.n).startsWith(q) || (how && fold1(how).startsWith(q)) ? 0 : 1]); });
+  hits.sort((a, b) => a[2] - b[2] || b[0].d - a[0].d);
+  $('sList').innerHTML = hits.length ? hits.slice(0, 60).map(([p, how]) => `<button type="button" data-sp="${p.i}"><div>${p.n}${how ? `<em>also known as ${how}</em>` : ''}</div><span>${p.g === 'Independent' ? 'No crew' : p.g}</span></button>`).join('')
+    : '<div class="snone">No one you\'ve met goes by that.</div>'; }
+$('hSearch').onclick = () => { $('ssheet').hidden = false; $('sQ').value = ''; searchRun(); setTimeout(() => $('sQ').focus(), 50); };
+$('sClose').onclick = () => { $('ssheet').hidden = true; };
+$('sQ').addEventListener('input', searchRun);
+$('sList').addEventListener('click', e => { const b = e.target.closest('[data-sp]'); if (!b) return; $('ssheet').hidden = true; if (mapOn) $('mBack').click(); lockOn(N[+b.dataset.sp]); });
+</script>

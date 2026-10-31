@@ -400,6 +400,17 @@ insignia celebration covers the page.
     each with its file's description; tapping one takes you to its universe and onto them. Variants are matched by name (597 pairs) plus
     Sinister Strange and Strange Supreme to Stephen Strange. Gaps: no Earth-838 Wanda, Defender Strange or 838 Strange files exist;
     other universes have no relationship pass yet (Raimi Peter shows only fights).
+  - **The Network is in the test build (owner, October 2026: "fold network into the test build, so I can see everything working
+    together"), MOCKUP:** a Network button in the dock after Atlas (the slot Paths left). Its page (`#netPanel`) runs the built Network
+    (mockup-data/network/network-hub.html, put in by build_tb.py into `NET_SRC`; main has no copy, so main has no button) in a frame.
+    It follows what you've watched title by title (`netSeen` with `atlSeenT`; the Seen up to picker is hidden), and a universe's tab
+    shows once the indexes have revealed it. Open file opens their Compound file (hero or both) or Raft file over it; Back returns to
+    the Network, then leaves it. Source and scripts for the Network still live in the session scratchpad (hub-src.html, prof/*.js); copy
+    them into mockup-data/network/ before the session ends.
+  - **Universes stay separate (owner, October 2026: "I prefer the different multiverses being separated. I just don't know how that will
+    work when connections cross"):** each universe is its own room. A crossing: someone from another universe they actually meet walks
+    into the web with a dashed ring and their universe under their name; the link card says how they're connected; Lock onto takes you
+    across ("Crossing into the Spider-Verse"), where the one you left shows the same way, labelled Sacred Timeline.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
