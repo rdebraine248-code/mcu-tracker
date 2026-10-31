@@ -328,6 +328,12 @@ insignia celebration covers the page.
     Framework only).
   - **No paths inside the Network (owner, October 2026):** "See their paths" is gone; the Network is the room, the webs and the
     connections. Paths stays its own page, likely moving into the Log (owner: "I think paths goes into Log, or is there a better place").
+  - **Paths in the Log (owner: "yes it should be on log", October 2026), MOCKUP, NOT APPROVED:** in `index.html` on the working branch,
+    not on main. The Story Log has a "Story log | Paths" switch (`logSwitch`, `data-logv`); Paths' header has the same switch; Paths
+    left the dock (5 sections until the Network takes the slot; its new-lines dot moved to the Log and the switch); while Paths is open
+    the dock shows Log. A picked line in Paths shows Open profile / Open box (`#mapAct`); a character profile has "See their path"
+    (`data-dpath`). The switches swap in place (`closeDossier(true)` / `closeMap(true)` and `pushNav`), never through history.back.
+    Any push to main before the owner approves must leave this out (build main from main's own source, or ask).
   - **Connectivity between pages (owner's ideas, October 2026, for when the Network goes into the app):** the Network's "Open file"
     opens their Compound or Raft file, and a file gets a way back to the Network; a person with a character box gets a button to open it
     (and the box back to the Network); the same with Paths (their box's line lit in Paths, and back).

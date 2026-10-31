@@ -283,6 +283,14 @@ body[data-mode="timeline"] .meter .bar span{ background:linear-gradient(90deg,#F
 body[data-mode="timeline"] .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
 body{ transition:background-color .4s ease; }
 .tl-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.logsw{ display:inline-flex; margin:2px 0 12px; border:1px solid #2A3A56; border-radius:999px; padding:2px; background:#0D1320; }
+.logsw button{ border:0; background:transparent; color:#8EA2C2; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; padding:7px 13px; border-radius:999px; cursor:pointer; touch-action:manipulation; }
+.logsw button[aria-pressed="true"]{ background:#1E2A44; color:#EEF1F6; box-shadow:inset 0 0 0 1px #3A78C9; } .logsw button.nw::after{ content:""; display:inline-block; width:6px; height:6px; margin-left:6px; border-radius:50%; background:#5FD0FF; vertical-align:middle; }
+.logsw button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; }
+.mapact{ position:absolute; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom, 0px)); z-index:3; display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; padding:10px 12px; background:#151C2C; border:1px solid #33405C; border-radius:12px; box-shadow:0 14px 34px rgba(0,0,0,.45); }
+.mapact[hidden]{ display:none; } .mapact b{ flex:1 1 100%; font:600 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#EEF1F6; } .mapact b i{ display:inline-block; width:14px; height:4px; margin-right:8px; vertical-align:middle; border-radius:2px; }
+.mapact button{ flex:1; border:1px solid #33405C; border-radius:999px; background:transparent; color:#D6E6FA; padding:8px 10px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; }
+.dpath{ display:inline-block; margin-top:4px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; padding:7px 13px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; opacity:.9; }
 .tl-switch{ display:inline-flex; border:1px solid #3A2A18; border-radius:999px; padding:2px; }
 .tl-switch button{ border:0; background:transparent; color:#C9B79C; font-family:'Share Tech Mono','Courier New',monospace; font-size:12px; letter-spacing:1px; padding:5px 11px; border-radius:999px; cursor:pointer; touch-action:manipulation; }
 .tl-switch button[aria-pressed="true"]{ background:rgba(255,179,71,.16); color:#FFB347; }
@@ -1500,11 +1508,12 @@ body{ padding-bottom:var(--dockh); }
 <div class="mappanel dockpg" id="mapPanel" hidden role="dialog" aria-modal="true" aria-label="Character Map">
   <div class="maptop">
     <button type="button" class="back" id="mapBack"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back to characters</button>
-    <h2 data-glow="Character Map">Character Map</h2>
+    <h2 data-glow="Character Map">Character Map</h2><div class="logsw" role="group" aria-label="Story log or Paths"><button type="button" data-logv="log" aria-pressed="false">Story log</button><button type="button" data-logv="paths" aria-pressed="true">Paths</button></div>
     <div class="mapzoom"><button type="button" id="mapIn" aria-label="Zoom in">+</button><button type="button" id="mapOut" aria-label="Zoom out">−</button><button type="button" id="mapFit" aria-label="Fit the map">Fit</button></div>
   </div>
   <div class="mapview" id="mapView"></div>
   <div class="mappop" id="mapPop" hidden></div>
+  <div class="mapact" id="mapAct" hidden></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="gauntlet" id="gauntlet" hidden role="dialog" aria-modal="true" aria-labelledby="gTitle"><div class="gcard" id="gCard"></div></div>
@@ -1513,7 +1522,7 @@ body{ padding-bottom:var(--dockh); }
 </div>
 
 <div class="whih" id="whih" hidden><b>WHIH</b><div class="whih-run"><span></span></div></div>
-<nav class="dock" id="dock" aria-label="Sections"><button type="button" data-dock="story" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg>Story</button><button type="button" data-dock="log" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Log</button><button type="button" data-dock="atlas" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>Atlas</button><button type="button" data-dock="map" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h4c4 0 5 12 10 12h4M3 18h4c4 0 5-12 10-12h4M3 12h18"/></svg>Paths</button><button type="button" data-dock="comms" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="1.6" fill="currentColor"/><path d="M8.5 6.5a5 5 0 0 0 0 7M15.5 6.5a5 5 0 0 1 0 7M5.6 3.6a9 9 0 0 0 0 12.8M18.4 3.6a9 9 0 0 1 0 12.8M12 12v9"/></svg>Comms</button><button type="button" data-dock="file" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17.5c1-2 2.4-3 4-3s3 1 4 3"/></svg>File</button></nav>
+<nav class="dock" id="dock" aria-label="Sections"><button type="button" data-dock="story" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg>Story</button><button type="button" data-dock="log" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Log</button><button type="button" data-dock="atlas" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>Atlas</button><button type="button" data-dock="comms" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="1.6" fill="currentColor"/><path d="M8.5 6.5a5 5 0 0 0 0 7M15.5 6.5a5 5 0 0 1 0 7M5.6 3.6a9 9 0 0 0 0 12.8M18.4 3.6a9 9 0 0 1 0 12.8M12 12v9"/></svg>Comms</button><button type="button" data-dock="file" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17.5c1-2 2.4-3 4-3s3 1 4 3"/></svg>File</button></nav>
 <script>
 const MOCK = true;   // the test build's mockups, waiting for approval (main ships with it off)
 if (MOCK) document.body.classList.add("mock");
@@ -3233,7 +3242,7 @@ function openDossier(id, go) {
       ${rowsDl}
       ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
       <section class="dsec"><h3><span>${K.story || (isCh ? "What happened" : "The story so far")}</span></h3><ol class="dlog">${storyHtml}</ol></section>
-      ${debrief}${links}
+      ${debrief}${links}${!isCh && DATA.map.rows.some(r => r.n === box.title) ? `<section class="dsec"><button type="button" class="dpath" data-dpath="${esc(box.title)}">See their path ›</button></section>` : ""}
     </div>`;
   }
   persist();
@@ -3331,9 +3340,16 @@ function perInit() {   // the Periods were rewritten (October 2026): one you had
 }
 const slDeb = c => { const L = DOSSIERS[c.id]; return !!(L && L.debrief) && slAll(c); };
 const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:" + t)) || (slDeb(c) && !slSeenK(c, "d")) || (slEntries(c).length > 0 && !!slPer(c) && !slSeenK(c, "r0." + slPer(c)[1])));
+// Paths lives in the Log (owner, October 2026): the record of the saga, as chapters or as every character's line through it
+const logSwitch = on => `<div class="logsw" role="group" aria-label="Story log or Paths"><button type="button" data-logv="log" aria-pressed="${on === "log"}">Story log</button><button type="button" data-logv="paths" aria-pressed="${on === "paths"}">Paths</button></div>`;
+document.addEventListener("click", ev => { const d = ev.target.closest("[data-dpath]"); if (!d) return; haptic(8); if (dossierOpen) closeDossier(true); openMap(); dockSync();
+  const ri = MAP.rows.findIndex(r => r.n === d.dataset.dpath); if (ri >= 0) { if (mapFocusI !== ri) mapFocus(ri); const v = document.getElementById("mapView"), r = MAP.rows[ri], x0 = MAP.cols[r.nodes[0]] ? MAP.cols[r.nodes[0]].x : 230; MV.ty = Math.min(6, v.clientHeight * .45 - r.y * MV.s); MV.tx = Math.min(4, 40 - (x0 - 60) * MV.s); mapApply(); } });
+document.addEventListener("click", ev => { const b = ev.target.closest("[data-logv]"); if (!b || b.getAttribute("aria-pressed") === "true") return; haptic(8);
+  // the two swap in place: the one you leave closes at once and the step back is reused, so Back still leaves the Log in one go
+  if (b.dataset.logv === "paths") { if (dossierOpen) closeDossier(true); openMap(); } else { closeMap(true); openDossier("saga"); pushNav("log"); } dockSync(); });
 function slPlace(open) { slOpen = open || null; }   // the log opens with every chapter folded, unless you've jumped in from one of them
 function slHTML() {
-  return `<h2 class="pgtitle" data-glow="Story Log">Story Log</h2>
+  return `<h2 class="pgtitle" data-glow="Story Log">Story Log</h2>${logSwitch("log")}
     ${SL_ACTS.map(A => `<div class="sl-pg"><div class="act">${A[2]() ? A[1] : "Act " + A[0]}</div></div>${DATA.chapters.filter(A[3]).map(slSec).join("")}`).join("")}`;
 }
 // one chapter's section of the Story log
@@ -8908,11 +8924,13 @@ function newDots() {
       map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
       comms: cmUnread("msg") || cmUnread("news"),
       file: n > state.hfSeen || (embKeep(), embNew().some(k => !(state.embAck || {})[k])) };
+    on.log = on.log || on.map;   // Paths lives in the Log now, so its new lines light the Log
     document.querySelectorAll("#dock [data-dock]").forEach(b => b.classList.toggle("nw", !!on[b.dataset.dock]));
+    document.querySelectorAll('.logsw [data-logv="paths"]').forEach(b => b.classList.toggle("nw", !!on.map));
     const db = document.getElementById("btnDossier"); if (db && openEntry) db.classList.toggle("nw", (DOSSIERS[openEntry.id] || {}).kind === "char" && logUnread(openEntry.id));
   } catch (e) {}
 }
-const dockCur = () => dossierOpen === "saga" ? "log" : atlOpen ? "atlas" : mapOpen ? "map" : commsOpen ? "comms" : fileOpen ? "file" : "story";
+const dockCur = () => dossierOpen === "saga" || mapOpen ? "log" : atlOpen ? "atlas" : commsOpen ? "comms" : fileOpen ? "file" : "story";
 function dockSync() { newDots(); rcClear(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 // hold a dock button to mark everything new on that page as read, after a yes. It counts the same as reading it all, Every page included
 const DOCK_NAMES = { story: "Story", log: "the Story log", atlas: "the Atlas", map: "Paths", comms: "Comms", file: "the Agent File" };
@@ -10519,6 +10537,9 @@ function mapZoomAt(f, cx, cy) {
 }
 function mapFocus(r) {
   mapFocusI = (r === null || r === mapFocusI) ? null : r;
+  { const act = document.getElementById("mapAct"), l = mapFocusI !== null && MAP.rows[mapFocusI], box = l && DATA.chars.find(c => c.title === l.n);
+    if (!box || mapAnon(l.n)) act.hidden = true;
+    else { act.innerHTML = `<b><i style="background:${l.c}"></i>${esc(mapName(l.n))}</b>${DOSSIERS[box.id] ? `<button type="button" data-mprof="${box.id}">Open profile ›</button>` : ""}<button type="button" data-mbox="${box.id}">Open box ›</button>`; act.hidden = false; } }
   const v = document.getElementById("mapView"), svg = v.querySelector("svg"); if (!svg) return;
   const M = MAP, on = mapFocusI !== null, cols = new Set(on ? M.rows[mapFocusI].nodes : []);
   if (on) svg.setAttribute("data-focus", ""); else svg.removeAttribute("data-focus");
@@ -10615,7 +10636,7 @@ function mapGrow() {
 }
 function closeMap(fromHistory) {
   if (!fromHistory && navAt("map")) { navBack(); return; }
-  document.getElementById("mapPanel").hidden = true; document.getElementById("mapPop").hidden = true; mapOpen = false; bodyFree();
+  document.getElementById("mapPanel").hidden = true; document.getElementById("mapPop").hidden = true; document.getElementById("mapAct").hidden = true; mapOpen = false; bodyFree();
   if (mapFocusI !== null) mapFocus(null);   // leaving the map clears any highlighted lane
   const b = document.getElementById("btnMap"); if (b) b.focus({ preventScroll: true });
 }
@@ -10671,6 +10692,9 @@ function closeMap(fromHistory) {
   document.getElementById("mapOut").addEventListener("click", () => mapZoomAt(1 / 1.3, ...mid()));
   document.getElementById("mapFit").addEventListener("click", () => { mapFit(); mapFocus(null); });
   document.getElementById("mapBack").addEventListener("click", () => closeMap(false));
+  document.getElementById("mapAct").addEventListener("click", ev => { const p = ev.target.closest("[data-mprof]"), b = ev.target.closest("[data-mbox]"); haptic(8);
+    if (p) { openDossier(p.dataset.mprof); return; }
+    if (b) { const box = DATA.chars.find(c => c.id === b.dataset.mbox); closeMap(true); if (dossierOpen) closeDossier(true); dockSync(); openPanel(box, "char", document.querySelector(`.tile[data-id="${box.id}"]`)); } });
   document.getElementById("mapPop").addEventListener("click", ev => { const b = ev.target.closest("[data-li]"); if (b) { mapFocus(+b.dataset.li); document.getElementById("mapPop").hidden = true; } });
   document.addEventListener("keydown", ev => { if (ev.key === "Escape" && mapOpen) closeMap(false); });
 })();
