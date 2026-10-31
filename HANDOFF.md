@@ -369,6 +369,14 @@ insignia celebration covers the page.
     kind, one short line each, tap for the whole story. Lines are hand-written for Jennifer Walters and Yelena Belova only (`WHO` in
     hub-src.html); everyone else falls back to the first sentence of their latest seen stage. Doing it for everyone means a short "who"
     line per connection per stage, so a later turn doesn't leak early (Yelena's "Alexei still acts like one" shows at Black Widow today).
+    Owner liked it ("But I like it"). It slides like the Atlas: follows your finger, stays where you let go, settles full near the top
+    and small near where it started; the grip taps all the way either way; pulling the list down from its top drags the card down.
+  - **Credits scenes aren't titles (owner, October 2026):** "Black Widow post credit isn't a separate title (it's only used in chapters
+    for narrative purposes)." The Network folds "(Post-Credits Scene)" / "(Mid-Credits Scene)" into the film (hub2.js, relbake.js).
+  - **Fact fixes from the owner's check (October 2026):** Yelena never fights or meets Bill Metzger (removed from his opponents in
+    opp/opp_mcu.json, so his Raft file changes too); she never meets Jean DeWolff (the sauna scene is with Spider-Man; the research
+    mixed up Jean DeWolff and Jean Grey; that tie is gone, 2,792 now); Jennifer and Matt are friends with a one-night stand and a brief
+    fling, not partners. Check Spider-Man: Brand New Day claims against the film's plot before trusting them.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
   - **Crews as of what you've seen (owner, October 2026):** the room isn't fixed at where everyone ends up. Each person stands with the
     crew they're in as of what you've seen: their final crew once you've seen them join it, otherwise the latest one seen, otherwise none
