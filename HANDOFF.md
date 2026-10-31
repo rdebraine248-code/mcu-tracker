@@ -383,6 +383,20 @@ insignia celebration covers the page.
     opp/opp_mcu.json, so his Raft file changes too); she never meets Jean DeWolff (the sauna scene is with Spider-Man; the research
     mixed up Jean DeWolff and Jean Grey; that tie is gone, 2,792 now); Jennifer and Matt are friends with a one-night stand and a brief
     fling, not partners. Check Spider-Man: Brand New Day claims against the film's plot before trusting them.
+  - **Network header (owner, October 2026):** "I don't like the 'sacred timeline everyone in one room, hero villains both sides' ... cut
+    that, I don't like where the search button is." Subtitle and legend gone; search is a field under the title ("Search everyone
+    you've met"); the universes sit under it as tabs like the indexes.
+  - **Universes and other versions (owner, October 2026, MOCKUP):** "a built in way to include or toggle between the other universes
+    like in the indexes", and how multiverse connections work (Peter and the other two Peters, Wanda and Earth-838, Strange). Tabs:
+    Sacred Timeline, Spider-Verse, FoX-Men, Beyond, Pruned, All universes; each is its own room (crews keyed by universe; hub2.js now
+    takes every universe, 1,466 people, the Sacred Timeline first). The rule shown: versions who actually meet get a real connection,
+    drawn in the web and labelled with where they're from (the No Way Home Peters, hand-written in `XREL` for the mockup); versions who
+    never meet aren't drawn (14 identical bubbles looked messy) but are listed under Other versions in the slide-up card, by universe,
+    each with its file's description; tapping one takes you to its universe and onto them. Variants are matched by name (597 pairs) plus
+    Sinister Strange and Strange Supreme to Stephen Strange. Gaps: no Earth-838 Wanda, Defender Strange or 838 Strange files exist;
+    other universes have no relationship pass yet (Raimi Peter shows only fights).
+  - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
+    screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
   - **Crews as of what you've seen (owner, October 2026):** the room isn't fixed at where everyone ends up. Each person stands with the
     crew they're in as of what you've seen: their final crew once you've seen them join it, otherwise the latest one seen, otherwise none
