@@ -222,8 +222,8 @@ insignia celebration covers the page.
 - **Insignia:** `EMBLEMS`, `EMBLEM_NAMES`, `EMB_UNLOCK` (the character's main appearances, several per insignia), `EMB_HINT`, `MET_BY`
   and `NAMED_BY`. A file wears one through `em`.
 - **Paths: Agents of S.H.I.E.L.D. season by season (owner, October 2026):** one stop per season (S1 to S7 and Slingshot), each placed by
-  its premiere among the other stops; S1 is where Fury's and S.H.I.E.L.D.'s lines meet, the rest are on S.H.I.E.L.D.'s line. Not on main
-  yet: the owner said push it to main "if we end up just keeping Paths", so it waits for that call.
+  its premiere among the other stops; S1 is where Fury's and S.H.I.E.L.D.'s lines meet, the rest are on S.H.I.E.L.D.'s line. On main
+  (`1b65cfc`). The owner wants Paths changes like this on main right away: the Network may not work out, and Paths may simply stay.
 - **Paths:** `mapData` builds the layout at runtime from `DATA.map.rows` (one per character box, in `DATA.chars` order) and `cols` (one per
   title, with the rows standing at it, `o` the row that owns it). Changing who is at a title means changing `rows` and `cols` only.
 - **Save migrations, all run at load:** `renameChecks` (`RENAMED`, `SPLIT`, `MOVED`, `FOLDED`), `chReorg`,
