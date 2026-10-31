@@ -449,6 +449,14 @@ insignia celebration covers the page.
     email in the User-Agent header of their wiki requests (fox/scripts/fetch.py, sv_new/review/fetch.py, scratchpad only; removed). Any
     script that fetches from the web uses a plain project name ("mcu-tracker-research/1.0"), never an email, name or account. Say so in
     every research brief.
+  - **Open questions for the owner after the complete test build (October 2026):** (1) what goes to main (Log and Paths as one page,
+    ratings in the Log, the Network in the dock, Earth numbers on files) and whether the data fixes go now (Metzger, the 17 false fights,
+    Black Tom); (2) Peter B. Parker as Earth-616B (the film shows E-616); (3) the 70 off-screen ties list (artifact TXwTtZGo8K5NkNwXmnnb3B);
+    (4) files for people who meet across worlds but have none (Earth-838 Wanda, Billy and Tommy, Mordo, Christine Palmer, the Illuminati,
+    Defender Strange; Nicepool, the Deadpool Corps); (5) app data errors found: the Runaways parents' files list only S3, Affleck's
+    Daredevil and Thomas Jane's Punisher are listed in Deadpool & Wolverine, the What If Peter "dies in Paris" is disputed, ten villain
+    files spread one-line "fought S.H.I.E.L.D." to the whole team; (6) close calls: the Spider Wars living Uncle Ben as family to the
+    1994 Peter, Apocalypse and Candra as partner, M'Baku and Killmonger / Ned and the Vulture left out as never meeting.
   - **Owner on process (October 2026):** "Can you just show me before you do all the suites running ... it takes forever." Show
     screenshots of a mockup first; run the full test suite only before pushing to main or when asked.
   - **No idle bob (owner, October 2026):** the bubbles stand still; the LEGO-hub bobbing was removed.
