@@ -10283,14 +10283,15 @@ const toastAway = () => { clearTimeout(toastTimer); const el = document.getEleme
   if (sayOwn) { clearTimeout(sayTm); sayOwn = false; sayCur = null; setTimeout(sayNext, 350); } };
 swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + ${dx}px),${dy}px)`, () => document.getElementById("toast").classList.contains("show"), toastAway,
   () => { const el = document.getElementById("toast"), hf = el._names, go = el._go; toastAway(); if (go) go(); else if (hf) fileAt(hf); });
-// the Network (a mockup in the test build only: main carries no NET_SRC, so it has no Network button). It follows what you've watched,
+// the Network: the test build carries it inline, main loads it as its own file ("url:network.html") so the launch page stays small. It follows what you've watched,
 // title by title, and shows a universe once the indexes have revealed it; Open file opens their Compound or Raft file over it
 const NET_SRC = /*NETWORK*/null;
 let netOpen = false;
 if (NET_SRC) document.querySelector('#dock [data-dock="net"]').hidden = false;
 function netSync() { const w = document.getElementById("netFrame").contentWindow; if (w && w.netSeen) w.netSeen(t => atlSeenT(t), u => u === "mcu" || rfUniName(RF_UNI.find(x => x[0] === u)) !== "[ Classified ]"); }
 function openNet() { if (!NET_SRC) return; const f = document.getElementById("netFrame");
-  if (!f.srcdoc) { f.addEventListener("load", netSync, { once: true }); f.srcdoc = NET_SRC; } else netSync();
+  // main serves the Network as its own file ("url:network.html"), so the page the app opens at launch stays small; the test build carries it inline
+  if (!f.dataset.on) { f.dataset.on = 1; f.addEventListener("load", netSync, { once: true }); if (NET_SRC.startsWith("url:")) f.src = NET_SRC.slice(4); else f.srcdoc = NET_SRC; } else netSync();
   document.getElementById("netPanel").hidden = false; netOpen = true; document.body.classList.add("netopen"); bodyLock(); pushNav("net"); }
 function closeNet(fromHistory) { if (!fromHistory && navAt("net")) { navBack(); return; }
   document.getElementById("netPanel").hidden = true; netOpen = false; document.body.classList.remove("netopen"); bodyFree(); }

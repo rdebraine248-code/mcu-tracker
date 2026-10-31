@@ -51,6 +51,9 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   2. Copy `out/main.html` over its `index.html`, commit and `git push origin HEAD:main`. Remove the worktree.
   3. Back on the working branch, run `git merge -s ours origin/main` and push the branch (and its mirror).
   4. Check: `cmp <(git show origin/main:index.html) mockup-data/out/main.html` prints nothing.
+  5. **The Network on main:** after devbuild, replace `/*EARTHS*/{}` the way build_tb.py does and `/*NETWORK*/null` with
+     `"url:network.html"`, and copy `network/network-hub.html` to the worktree as `network.html`. `sw.js` saves it for offline (CORE).
+     Never put the Network back inline on main: the launch page must stay near its old size (about 3.6 MB).
 - **The mockup switch:** `const MOCK = true;` near the top of the script, with `body.mock` for CSS. `mainprep.py` flips it to false for
   main and asserts that it's there. Mockups go between `/* MOCKUP BEGIN ... */` and `/* MOCKUP END */` lines (CSS and script), which
   `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. None are pending.
@@ -417,7 +420,9 @@ insignia celebration covers the page.
     other universes have no relationship pass yet (Raimi Peter shows only fights).
   - **The Network is in the test build (owner, October 2026: "fold network into the test build, so I can see everything working
     together"), MOCKUP:** a Network button in the dock after Atlas (the slot Paths left). Its page (`#netPanel`) runs the built Network
-    (mockup-data/network/network-hub.html, put in by build_tb.py into `NET_SRC`; main has no copy, so main has no button) in a frame.
+    (mockup-data/network/network-hub.html) in a frame. The test build carries it inline (build_tb.py puts it into `NET_SRC`); main
+    loads it as its own file, `network.html` in the repo root (`NET_SRC` is `"url:network.html"`), so it is fetched only when Network is
+    opened. Carried inline it made the launch page 5.7 MB, and the Android app then showed its no-network page on every cold start.
     It follows what you've watched title by title (`netSeen` with `atlSeenT`; the Seen up to picker is hidden), and a universe's tab
     shows once the indexes have revealed it. Open file opens their Compound file (hero or both) or Raft file over it; Back returns to
     the Network, then leaves it. The Network's source and build scripts are in mockup-data/network/src (hub-src.html, prof/*.js); the
@@ -711,6 +716,8 @@ These happened in earlier chats. Each cost the owner time.
 - A holder's list is the tapped person's alone (the Spider-Verse's Spider-Man had mixed eight of them).
 - The Compound in the dark: dark ID-badge rows, status as an edge stripe, team on the right, about eight people a screen (owner: "too
   white and bright and wasted space").
+- The Network is its own file on main (`network.html`), loaded when opened; the launch page is back to 3.65 MB from 5.7 MB, the
+  likely cause of the Android app showing its no-network page on every cold start. The 28 reviewed off-screen connections are in.
 
 ## The second October 2026 round, all on main (newest last)
 

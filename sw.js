@@ -3,7 +3,7 @@
 // the saved copy is only used when you're offline, or when the internet answers with an error.
 // The fonts never change, so once they've been fetched they come straight from the saved copy (and work offline from then on).
 const CACHE = "mcu-tracker";
-const CORE = ["./", "./manifest.webmanifest", "./icon-192.png"];
+const CORE = ["./", "./manifest.webmanifest", "./icon-192.png", "./network.html"];   // the Network is its own file, saved for offline too
 
 self.addEventListener("install", e => {
   self.skipWaiting();
