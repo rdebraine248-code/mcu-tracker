@@ -367,6 +367,10 @@ insignia celebration covers the page.
     A connection appears once its first stage's title is watched; later stages add on; nothing is removed as you watch more (only
     unticking a title takes back what it revealed). A death or a falling-out is a stage, never a deletion. The card keeps every stage
     reached; the web's colour shows where it stands now. People move between crews over time, and their connections move with them.
+  - **A connection needs two people who know each other (owner, October 2026):** "Connections are both people need to know one another.
+    If Gilgamesh says Odin taught him a recipe, that is a connection implied by dialogue, but Agent Cleary isn't connected to Mysterio,
+    he just has information." Knowing about someone (a case file, a name in the news, a story told about them, a dead man's legend) is
+    not a connection. Off-screen ties count only when the dialogue shows the two really know each other.
   - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
     co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
     a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
