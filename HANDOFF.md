@@ -323,7 +323,9 @@ insignia celebration covers the page.
     partner 111, mentor 66, rival 60), 746 dropped (same battle or organization only, the Snap only, variants, never meet, unverifiable).
     Each has one kind, a 1 to 3 sentence meaning, the title it's shown in, and a source. Crews are no longer links. 148 crewless people
     stand in a circle (The Lang family, Midtown High, New Asgard...); 27 truly have no one. Deathlok merged into Mike Peterson and Lash
-    into Andrew Garner (one person, one bubble). Working files in the session scratchpad: rel/final_*.json, prof/relbake.js.
+    into Andrew Garner (one person, one bubble). Working files in the session scratchpad: rel/through.json (the last word), prof/relbake.js. The through-line review changed 66 kinds
+    (Steve and Sharon ally, May and Coulson friend, Ward and May enemy, Mordo and Strange ally, Aida and Fitz enemy since the romance is
+    Framework only).
   - **A connection's kind is its main through-line (owner, October 2026):** "Steve and Sharon aren't really partners in that sense. More
     co-workers or allies, that's the main through line of their relationship. Apply that to the entire thing." A kiss, a brief fling,
     a one-time fight or a late twist doesn't set the kind; what they mostly are to each other does, and the text leads with it.
