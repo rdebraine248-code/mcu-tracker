@@ -318,6 +318,10 @@ insignia celebration covers the page.
     be explicit and have meaning." So links come from a researched relationship list (family, partner, friend, mentor, boss, ally, rival,
     enemy), each with a one-sentence meaning, a title and a source. Sharing a crew is not a connection by itself; it only decides where
     people stand in the room. Fights from the Raft files stay (they're explicit, with the title).
+  - **Connection text reads as real prose (owner, October 2026):** coherent, never choppy or crammed; two or three short sentences
+    rather than one overloaded one. Rejected: "Rumlow leads the strike team Steve commands, then turns out to be HYDRA and fights him".
+    Better: "Rumlow leads the S.H.I.E.L.D. strike team that works under Steve. When S.H.I.E.L.D. falls, he reveals he has been HYDRA
+    all along and turns on him."
   - **No one stands alone who belongs somewhere (owner, October 2026):** "Independent is too big": Cassie Lang, Ned Leeds, Jane Foster,
     Tommy Maximoff and the like stand with their circle (a family, a school, a town, a group named on screen), not in Independent.
   - **Search (owner, October 2026):** a Search button finds anyone you've met by name or by another name they go by (aliases and staged
