@@ -313,6 +313,11 @@ insignia celebration covers the page.
   - **Personal ties are the point of the Network (owner, October 2026):** "Family and personal ties aren't in Network? That's the whole
     point of this page." Jennifer Walters must link to Bruce, her cousin. Family, partners, close friends and mentors are links of their
     own (researched with sources, checked before use), alongside served with, fought and the off-screen ties.
+  - **Every connection is explicit and has meaning (owner, October 2026):** "Relationship (to include but not limited to family, friends,
+    personal ties etc etc) needs to have a pass done on everyone. This is the CRUX of the network page. Each network connection needs to
+    be explicit and have meaning." So links come from a researched relationship list (family, partner, friend, mentor, boss, ally, rival,
+    enemy), each with a one-sentence meaning, a title and a source. Sharing a crew is not a connection by itself; it only decides where
+    people stand in the room. Fights from the Raft files stay (they're explicit, with the title).
   - **No one stands alone who belongs somewhere (owner, October 2026):** "Independent is too big": Cassie Lang, Ned Leeds, Jane Foster,
     Tommy Maximoff and the like stand with their circle (a family, a school, a town, a group named on screen), not in Independent.
   - **Search (owner, October 2026):** a Search button finds anyone you've met by name or by another name they go by (aliases and staged
