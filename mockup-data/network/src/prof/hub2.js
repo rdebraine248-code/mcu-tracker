@@ -9,7 +9,13 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const TT = [], ti = t => { t = t.replace(/ \((Post|Mid)-Credits Scene\)$/, ''); let i = TT.indexOf(t); if (i < 0) { i = TT.length; TT.push(t); } return i; };
     const P = {}, mk = (o, k) => ({ u: rfUniOf(o), dk: Array.isArray(o.k) ? o.k[o.k.length - 1][0] : o.k || '', n: nm(o), k, g: tmNow(o), T: [], A: new Set(), L: new Map(), TM: [], AL: [] });
     const absorb = (p, o) => { (o.al || []).forEach(x => p.AL.push(Array.isArray(x) ? x : [x, ''])); if (Array.isArray(o.n)) o.n.forEach(x => p.AL.push([x[0], x[1] || ''])); tmAll(o).forEach(([t, w]) => { if (!p.T.some(x => x[0] === t)) p.T.push([t, w]); p.TM.push([t, w]); }); (o.st || []).forEach(x => x[1] && p.A.add(x[1])); };
-    ALLIES.filter(o => !o.grp).forEach(o => absorb(P[o.id] = mk(o, 'A'), o));
+    // one person played young and old (Fox's films: McAvoy's and Stewart's Charles, owner, November 2026: "a few Jean Greys and a few
+    // Charles Xaviers ... all mixed in") is one bubble: the younger file folds into the older one, titles, crews and connections together
+    const AGE = { 'fox-charles-xavier-young': 'fox-charles-xavier', 'fox-cyclops-young': 'fox-cyclops', 'fox-jean-grey-young': 'fox-jean-grey', 'fox-storm-young': 'fox-storm',
+      'fox-nightcrawler-young': 'fox-nightcrawler', 'fox-beast-young': 'fox-beast', 'fox-moira-mactaggert-young': 'fox-moira-mactaggert', 'fox-raven-darkholme': 'fox-mystique',
+      'fox-magneto-erik': 'fox-magneto', 'fox-stryker-young': 'fox-stryker' };
+    ALLIES.filter(o => !o.grp && !AGE[o.id]).forEach(o => absorb(P[o.id] = mk(o, 'A'), o));
+    ALLIES.filter(o => !o.grp && AGE[o.id]).forEach(o => { if (P[AGE[o.id]]) absorb(P[AGE[o.id]], o); else absorb(P[o.id] = mk(o, 'A'), o); });
     const TH = THREATS.filter(o => !o.grp);
     // one person, one bubble (owner, October 2026): a Raft file under another id but the same name as a Compound file is the same person
     // and merges into it; two pairs share a name but are different people, so they stay apart
@@ -21,9 +27,14 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     // in every universe, a hero file the app links to its villain file (o.rf) is the same person: one bubble (owner: "one person each").
     // Same-name files from different worlds (Spectacular Harry, Raimi Harry) stay apart
     ALLIES.filter(o => o.rf && !o.grp).forEach(o => { if (!as[o.rf] && o.rf !== o.id && !APART.has(o.rf)) as[o.rf] = o.id; });
-    const cid = id => as[id] || id;
+    Object.assign(as, AGE);   // Raft files too (young Raven's are)
+    const cid = id => { let x = id; for (let n = 0; as[x] && n < 6; n++) x = as[x]; return x; };   // a merge can chain (Phoenix into young Jean into Jean)
     TH.forEach(o => { const id = cid(o.id); if (P[id]) P[id].k = 'B'; else P[id] = mk(o, 'T'); absorb(P[id], o); });
     ALLIES.filter(o => o.rf && P[o.id]).forEach(o => P[o.id].k = 'B');
+    // a young file met before its older self existed (young Raven is a Compound file, Mystique a Raft file): fold the bubble in now
+    Object.entries(AGE).forEach(([y, o]) => { const Y = P[y], O = P[o]; if (!Y || !O) return;
+      Y.T.forEach(x => { if (!O.T.some(z => z[0] === x[0])) O.T.push(x); }); Y.A.forEach(t => O.A.add(t)); Y.TM.forEach(x => O.TM.push(x)); Y.AL.forEach(x => O.AL.push(x));
+      Y.L.forEach((w, j) => { const s = O.L.get(j) || new Set(); w.forEach(x => s.add(x)); O.L.set(j, s); }); if (Y.k !== O.k) O.k = 'B'; delete P[y]; });
     const fight = (a, b, w) => { if (a === b || !P[a] || !P[b]) return; for (const [x, y] of [[a, b], [b, a]]) { const s = P[x].L.get(y) || new Set(); if (w) s.add(w); P[x].L.set(y, s); } };
     TH.forEach(o => (o.opp || []).forEach(([h, w]) => fight(cid(o.id), cid(h), w)));
     // a file records each group at the title they join it (or change sides); a group then holds until their next change, a later title
@@ -36,7 +47,7 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const crews = id => P[id].T.map(x => x[0]).filter(t => t !== 'Independent');
     const deg0 = id => P[id].L.size + P[id].T.length;
     const deg = id => P[id].L.size + crews(id).length * 3 + P[id].A.size;
-    return { merged: as, titles: TT, nodes: ids.map(id => { const p = P[id], mine = crews(id), M = new Set();
+    return { merged: Object.fromEntries(Object.keys(as).map(k => [k, cid(k)])), titles: TT, nodes: ids.map(id => { const p = P[id], mine = crews(id), M = new Set();
       // served with: in the same group at the same time, in a title they're both in (owner, October 2026: being in HYDRA doesn't connect
       // Wanda to everyone who was ever in HYDRA)
       mine.forEach(c => byTeam[c].forEach(o => { if (o !== id && !p.L.has(o) && [...p.A].some(t => P[o].A.has(t) && active(p, c, t) && active(P[o], c, t))) M.add(o); }));

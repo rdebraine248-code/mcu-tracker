@@ -330,6 +330,12 @@ insignia celebration covers the page.
   bubbles like how every other page reveals new additions"): someone you haven't seen there lights its dock button (`netFresh`, counted
   by the frame as you watch, via `newDots`); opening it pops them in, nearest first, with a gold ring (`reveal`, `p.popAt`), and they're
   remembered (`state.netKnown`, `netKnow`). Holding the dock button marks everyone as seen (`netKnowAll`).
+- **Each Earth is its own room in the Network** (owner, November 2026: "I thought we separated them by Earths ... having Wolverine next
+  to Logan reads like a poorly designed oversight"): Earth chips under the universe tabs (`.worlds`, `WORLD`, `wk(p)` = universe and
+  Earth), shown when a universe has more than one Earth you've met; a crossing into another Earth says so. There is no All universes tab
+  (it mixed every world and was slow). Search finds everyone you've met, in any Earth, and shows their Earth.
+- **One person played young and old is one bubble** (Fox's films: Charles, Scott, Jean, Ororo, Kurt, Hank, Moira, Raven, Erik, Stryker;
+  `AGE` in the Network builder, `prof/hub2.js`). Their files stay separate in the app; the Network finds the bubble through `merged`.
 - **The Network stands tight**: groups and people close together, no wasted floor ("I've said this like a dozen times").
 - **Opening the Network never shows a reshuffle, a flash or a blank page**: it loads ahead, out of sight, a second after launch (while
   the boot screen plays); tapped sooner, its title already stands in place (`.net-ph`) while the rest arrives, and sets out

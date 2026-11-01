@@ -103,7 +103,10 @@ header #hSearch svg{ flex:none; color:#8EA2C2; } header #hSearch:focus-visible{ 
 #mTip li button{ padding:6px 10px; border:1px solid #2A4570; border-radius:999px; background:#132036; color:#D6E6FA; font:500 13px/1.1 var(--body); cursor:pointer; } #mTip li button.out{ border-color:#22304A; background:transparent; color:#8EA2C2; } #mTip li button.me{ border-color:#E9C46A; color:#E9C46A; } #mTip li i{ display:inline-block; width:12px; height:4px; margin-right:6px; vertical-align:middle; border-radius:2px; }
 #mTip button{ margin-top:8px; width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
 #toast{ position:fixed; left:50%; bottom:calc(150px + env(safe-area-inset-bottom, 0px)); transform:translateX(-50%); padding:8px 14px; border:1px solid var(--line); border-radius:10px; background:rgba(8,14,26,.97); font:12px/1.3 var(--mono); letter-spacing:1px; color:#CFE6FF; opacity:0; transition:opacity .3s; pointer-events:none; white-space:nowrap; }
-html.emb header .seen, body.emb header .seen{ display:none !important; } html.wait .unis{ visibility:hidden; }
+html.emb header .seen, body.emb header .seen{ display:none !important; } html.wait .unis, html.wait .worlds{ visibility:hidden; }
+.worlds{ display:flex; gap:6px; overflow-x:auto; margin:8px -20px 0; padding:0 20px 2px; scrollbar-width:none; pointer-events:auto; } .worlds::-webkit-scrollbar{ display:none; } .worlds[hidden]{ display:none; }
+.worlds button{ flex:0 0 auto; border:1px solid #2A3A56; border-radius:999px; padding:5px 11px; background:transparent; color:#9FC3F0; font:12px/1.2 var(--mono); letter-spacing:1px; cursor:pointer; touch-action:manipulation; }
+.worlds button[aria-selected="true"]{ border-color:#7FB2FF; background:#132036; color:#EEF5FF; } .worlds button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
 #nEmpty{ position:fixed; left:0; right:0; top:46%; display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
 #nEmpty[hidden]{ display:none; } html.wait #nEmpty, html.wait #card{ display:none !important; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
 #nEmpty b{ font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; font-weight:400; }
@@ -115,6 +118,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
   <h1>Network</h1>
   <button type="button" id="hSearch"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Search everyone you've met</span></button>
   <div class="unis" role="tablist" aria-label="Universe"></div>
+  <div class="worlds" role="tablist" aria-label="Earth" hidden></div>
   <div class="seen"><span>Seen up to</span><div class="sr"><button type="button" id="cutPrev" aria-label="One title back">‹</button><select id="cut" aria-label="Seen up to"></select><button type="button" id="cutNext" aria-label="One title on">›</button></div><output id="cutN"></output></div>
 </header>
 <div id="nEmpty" hidden aria-hidden="true"><svg viewBox="0 0 200 40"><path d="M30,20 L84,20 M116,20 L170,20" stroke="#7FA6D8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 6"/><circle cx="100" cy="20" r="11" fill="#0B1019" stroke="#7FA6D8" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>No data</b></div>
@@ -183,8 +187,13 @@ function packer(GAP) { const CELL = S * 2, grid = new Map(), k = (x, y) => Math.
 const REL = DATA.rel || { kinds: [], titles: [], ord: [], ties: [], places: {} };
 const KIND = ['family', 'partner', 'friend', 'mentor', 'boss', 'ally', 'rival', 'enemy', 'variant'];
 // the universes, as the indexes have them
-const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-Men'], ['by', 'Beyond'], ['pr', 'Pruned'], ['all', 'All universes']], UL = Object.fromEntries(UNIS);
+const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-Men'], ['by', 'Beyond'], ['pr', 'Pruned']], UL = Object.fromEntries(UNIS);   /* no All universes: it mixed every world together and was slow (owner, November 2026) */
 let UNI = 'mcu', UNIOK = null;
+// each Earth is its own room (owner, November 2026: "I thought we separated them by Earths ... having Wolverine next to Logan"): inside a
+// universe, a row of Earth chips picks the world; the films' Earth-10005 and the cartoons' Earth-92131 never stand in one room
+let WORLD = null;
+const wk = p => p.u + '|' + (earthOf(p) || '');
+const metP = p => p.A0.some(seen);
 // a universe's tab shows once the app has revealed it, like the indexes; All once there's more than one
 const uniOk = u => !UNIOK ? true : u === 'all' ? UNIS.filter(([v]) => v !== 'all' && UNIOK(v)).length > 1 : UNIOK(u);
 const EARTH = DATA.earth || {}, earthOf = p => p.id in EARTH ? EARTH[p.id] : p.u === 'mcu' ? 'Earth-616' : null, worldOf = p => earthOf(p) || UL[p.u];
@@ -326,7 +335,7 @@ function frame(t) {
     const dim = lit && !lit.has(i) ? .07 : atStop && !atStop.has(i) && !key ? .18 : link && !key ? .35 : 1; g.globalAlpha = dim * fade;
     g.beginPath(); g.arc(q.x, q.y, r, 0, 6.2832); g.fillStyle = '#132036'; g.fill();
     g.lineWidth = key ? 3 : 2; g.strokeStyle = key ? '#E9C46A' : ringOf(p); g.stroke();
-    if (sel && p.u !== sel.u && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
+    if (sel && wk(p) !== wk(sel) && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
     if (r > 9) { g.fillStyle = '#EEF1F6'; g.font = `400 ${Math.round(r * .78)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(initials(p.n), q.x, q.y + 1); }
     if (p.inAt && t - p.inAt < 2600) { const k = (t - p.inAt) / 2600; g.globalAlpha = (1 - k) * fade; g.beginPath(); g.arc(q.x, q.y, r + 4 + k * 10, 0, 6.2832); g.strokeStyle = '#E9C46A'; g.lineWidth = 2.5; g.stroke(); g.globalAlpha = dim * fade; }   // just walked in
     if (dim * fade > .3) rings.push([q.x, q.y, r, p]); if (pop >= 1 && ((q.s > .74 && dim === 1 && e > .9) || key)) names.push([p, q, r, key]);
@@ -339,7 +348,7 @@ function frame(t) {
       taken.push([x0, y0, x1, y1]); } g.textBaseline = 'top'; g.lineWidth = 3.5; g.lineJoin = 'round'; g.strokeStyle = '#0B1019'; g.fillStyle = key ? '#FFFFFF' : '#C9D3E2';
       L.forEach((l, k) => { g.strokeText(l, q.x, q.y + r + 2 + k * (fz + 1)); g.fillText(l, q.x, q.y + r + 2 + k * (fz + 1)); });
       // another version of someone says which one: where they're from
-      if (p.cl && sel && (p.u !== sel.u || sel.V.includes(p.i))) { const vt = earthOf(p) && earthOf(p) !== earthOf(sel) ? earthOf(p) : p.u !== sel.u ? UL[p.u] : vtag(p), y = q.y + r + 2 + L.length * (fz + 1) + 1, f0 = g.fillStyle; g.font = `${Math.max(8, fz - 2)}px 'Share Tech Mono', monospace`; g.fillStyle = '#9FB4D6';
+      if (p.cl && sel && (wk(p) !== wk(sel) || sel.V.includes(p.i))) { const vt = earthOf(p) && earthOf(p) !== earthOf(sel) ? earthOf(p) : p.u !== sel.u ? UL[p.u] : vtag(p), y = q.y + r + 2 + L.length * (fz + 1) + 1, f0 = g.fillStyle; g.font = `${Math.max(8, fz - 2)}px 'Share Tech Mono', monospace`; g.fillStyle = '#9FB4D6';
         g.strokeText(vt, q.x, y); g.fillText(vt, q.x, y); g.fillStyle = f0; } }
   g.textBaseline = 'alphabetic';
   mapCross(); drawMap(t, pos);
@@ -389,7 +398,7 @@ function tap(x, y) {
 }
 const short = n => n.replace(/^(The|Dr\.|Doctor|Captain|Agent|King|Queen|Prince|Princess|General|Colonel|Senator|President) /, '').split(' ')[0];
 function lockOn(p, t) {
-  if (!p.vis && p.u && (UNI !== 'all' && p.u !== UNI)) { setUni(p.u); say('Crossing into ' + (earthOf(p) || (UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u])), 1800); }   // across universes, you go with them
+  if (!p.vis && (p.u !== UNI || wk(p) !== WORLD)) { setWorld(p); say('Crossing into ' + (earthOf(p) || (UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u])), 1800); }   // across universes, you go with them
   const lines = mapOn; gather(p, t || performance.now());
   if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx, y1: p.hy + 70 / zoom, z0: zoom, z1: Math.max(.9, zoom) };
   fillCard(p); if (navigator.vibrate) try { navigator.vibrate(10); } catch (e) {}
@@ -544,12 +553,13 @@ function applyCut(v, quiet) {
   const off = near ? [cam.x - near.hx, cam.y - near.hy] : [0, 0];
   // met: in a title you've watched, or in a stage you've reached one episode at a time ("WandaVision#7")
   const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && SEENF(x.t)));
-  N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = (p.A.length > 0 || epMet(p)) && (UNI === 'all' || p.u === UNI); p.arrive = p.vis && !was; });
+  { const W = worldsOf(UNI); if (!W.some(([k]) => k === WORLD)) WORLD = W.length ? W[0][0] : null; }   // the biggest Earth you've met here, unless you picked one
+  N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = (p.A.length > 0 || epMet(p)) && p.u === UNI && (!WORLD || wk(p) === WORLD); p.arrive = p.vis && !was; });
   N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];
     p.M = p.vis ? p.M0.filter(j => N[j].vis && p.T.some(([c]) => joined(p, c) && joined(N[j], c))) : [];
-    p.R = p.vis ? p.R0.map(cutTie).filter(r => r && (N[r.j].vis || N[r.j].u !== p.u && N[r.j].A0.some(seen))) : [];
+    p.R = p.vis ? p.R0.map(cutTie).filter(r => r && (N[r.j].vis || wk(N[r.j]) !== wk(p) && N[r.j].A0.some(seen))) : [];
     p.V = p.vis ? p.V0.filter(j => N[j].A0.some(seen)) : []; });
-  const full = v === Infinity && UNI === 'all', keep = sel && sel.vis ? sel : null; if (busy() && !keep) home();
+  const full = false, keep = sel && sel.vis ? sel : null; if (busy() && !keep) home();
   // everyone stands with the crew they're in as of what you've seen, so the crews form and change as the story goes
   N.forEach(p => { p.g = crewNow(p); });
   if (full) { Z = Z0; Z.forEach(z => { z.L = z.L0.filter(p => p.vis); z.x = z.bx; z.y = z.by; z.cells = z.bcells; z.ly = z.bly; }); }
@@ -574,9 +584,9 @@ cutNext.onclick = () => setCut(+cutEl.value + 1);
 cutEl.value = STEPS.length; applyCut(Infinity, true);
 if (EMB) document.body.classList.add('emb');
 // from a file in the app: straight onto them (a Raft file merged into its Compound twin is found by name in the same universe)
-function findP(id) { let p = N.find(x => x.id === id); if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); } return p; }
+function findP(id) { let p = N.find(x => x.id === id) || N.find(x => x.id === (DATA.merged || {})[id]);   /* a merged file (young Charles) finds its bubble */ if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); } return p; }
 self.netGo = id => { const p = findP(id);
-  if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (UNI !== 'all' && p.u !== UNI) setUni(p.u); lockOn(p); };
+  if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (p.u !== UNI || wk(p) !== WORLD) setWorld(p); lockOn(p); };
 // the app says what's been watched each time the Network opens; when nothing has changed, nothing moves (no re-shuffle, no flash)
 let seenKey = null, needFit = false;
 function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = false; const L = N.filter(p => p.vis); if (!L.length) return;
@@ -597,9 +607,17 @@ function seenIn(f, uok, sat, ek) { if (sat != null) document.documentElement.sty
   // set out while out of sight: everyone is put straight on their spot, so opening the Network never shows them walking over (the first-open spaz)
   if (!sel) N.forEach(p => { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.go = 0; p.inAt = 0; });
   if (first || !sel) fitRoom(); };
-function setUni(u) { if (u === UNI) return; UNI = u; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); if (LIVE) reveal();   /* another universe's newcomers pop in when you go there */ }
-function uniTabs() { document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
+function setUni(u) { if (u === UNI) return; UNI = u; WORLD = null; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); if (LIVE) reveal();   /* another universe's newcomers pop in when you go there */ }
+// the Earths you've met in a universe, biggest first: [key, label, how many]
+function worldsOf(u) { const c = new Map(); N.forEach(p => { if (p.u === u && (metP(p) || p.vis)) { const k = wk(p); c.set(k, (c.get(k) || 0) + 1); } });
+  return [...c].sort((a, b) => b[1] - a[1]).map(([k, n]) => [k, k.split('|')[1] || 'No Earth number', n]); }
+function setWorld(p) { const k = typeof p === 'string' ? p : wk(p), u = k.split('|')[0]; if (u === UNI && k === WORLD) return; UNI = u; WORLD = k; uniTabs(); if (sel) home(); applyCut(CUT);
+  N.forEach(q => { if (q.arrive) { q.arrive = false; q.inAt = 0; q.go = 0; q.wx = q.hx; q.wy = q.hy; } }); fitRoom(); if (LIVE) reveal(); }
+function uniTabs() { const W = worldsOf(UNI), el = document.querySelector('.worlds');
+  if (!W.some(([k]) => k === WORLD)) WORLD = W.length ? W[0][0] : null;
+  el.hidden = W.length < 2; el.innerHTML = W.length < 2 ? '' : W.map(([k, l]) => `<button type="button" role="tab" data-world="${k}" aria-selected="${k === WORLD}">${l}</button>`).join(''); document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
 document.querySelector('.unis').addEventListener('click', e => { const b = e.target.closest('[data-uni]'); if (b) setUni(b.dataset.uni); });
+document.querySelector('.worlds').addEventListener('click', e => { const b = e.target.closest('[data-world]'); if (b) setWorld(b.dataset.world); });
 uniTabs();
 
 
@@ -711,11 +729,11 @@ self.mapAgain = () => { if (MAP && sel) mapBuild(); };
 // you've seen revealed; a pick takes you to them and locks on
 const fold1 = x => x.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, ' ').trim();
 function searchRun() { const q = fold1($('sQ').value); if (!q) { $('sList').innerHTML = '<div class="snone">Type a name, or what they go by.</div>'; return; }
-  const hits = []; N.forEach(p => { if (!p.vis) return; let how = null;
+  const hits = []; N.forEach(p => { if (!(metP(p) && uniOk(p.u))) return; let how = null;
     if (fold1(p.n).includes(q)) how = ''; else { const a = p.AK.find(([nm, o]) => o <= CUT && fold1(nm).includes(q)); if (a) how = a[0]; }
     if (how !== null) hits.push([p, how, fold1(p.n).startsWith(q) || (how && fold1(how).startsWith(q)) ? 0 : 1]); });
   hits.sort((a, b) => a[2] - b[2] || b[0].d - a[0].d);
-  $('sList').innerHTML = hits.length ? hits.slice(0, 60).map(([p, how]) => `<button type="button" data-sp="${p.i}"><div>${p.n}${how ? `<em>also known as ${how}</em>` : ''}</div><span>${p.g === 'Independent' ? 'No crew' : p.g}</span></button>`).join('')
+  $('sList').innerHTML = hits.length ? hits.slice(0, 60).map(([p, how]) => `<button type="button" data-sp="${p.i}"><div>${p.n}${how ? `<em>also known as ${how}</em>` : ''}</div><span>${esc(worldOf(p))}</span></button>`).join('')
     : '<div class="snone">No one you\'ve met goes by that.</div>'; }
 $('hSearch').onclick = () => { $('ssheet').hidden = false; $('sQ').value = ''; searchRun(); setTimeout(() => $('sQ').focus(), 50); tell(); };
 $('sClose').onclick = () => { $('ssheet').hidden = true; tell(); };
