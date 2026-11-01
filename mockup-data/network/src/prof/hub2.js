@@ -7,8 +7,15 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const tmAll = o => Array.isArray(o.tm) ? o.tm.map(x => [x[0], x[1]]) : o.tm ? [[o.tm, '']] : [];
     const tmNow = o => Array.isArray(o.tm) ? o.tm[o.tm.length - 1][0] : o.tm || 'Independent';
     const TT = [], ti = t => { t = t.replace(/ \((Post|Mid)-Credits Scene\)$/, ''); let i = TT.indexOf(t); if (i < 0) { i = TT.length; TT.push(t); } return i; };
+    // a step filed under a whole show ("Agents of S.H.I.E.L.D.", "Agent Carter") counts under the season its text names ("In season 5,
+    // ..."), the title the app marks watched: filed under the show, it never counted, and Deke Shaw stood in the room "in 0 titles"
+    const ITEMS = new Set(); DATA.chapters.forEach(c => c.items.forEach(i => ITEMS.add(i.t)));
+    // (the app counts "In episode N," straight through the show, so episode 44 is the season holding it)
+    const season = x => { const t = x[1]; if (ITEMS.has(t)) return t; const e = /^In episode (\d+),/.exec(x[0] || '');
+      if (e) { const n = +e[1], hit = (epSeas().down[t] || []).find(([, off, len]) => n > off && n <= off + len); if (hit && ITEMS.has(hit[0])) return hit[0]; }
+      const m = /^In season (\d+),/.exec(x[0] || ''); return m && ITEMS.has(t + ' S' + m[1]) ? t + ' S' + m[1] : t; };
     const P = {}, mk = (o, k) => ({ u: rfUniOf(o), dk: Array.isArray(o.k) ? o.k[o.k.length - 1][0] : o.k || '', n: nm(o), k, g: tmNow(o), T: [], A: new Set(), L: new Map(), TM: [], AL: [] });
-    const absorb = (p, o) => { (o.al || []).forEach(x => p.AL.push(Array.isArray(x) ? x : [x, ''])); if (Array.isArray(o.n)) o.n.forEach(x => p.AL.push([x[0], x[1] || ''])); tmAll(o).forEach(([t, w]) => { if (!p.T.some(x => x[0] === t)) p.T.push([t, w]); p.TM.push([t, w]); }); (o.st || []).forEach(x => x[1] && p.A.add(x[1])); };
+    const absorb = (p, o) => { (o.al || []).forEach(x => p.AL.push(Array.isArray(x) ? x : [x, ''])); if (Array.isArray(o.n)) o.n.forEach(x => p.AL.push([x[0], x[1] || ''])); tmAll(o).forEach(([t, w]) => { if (!p.T.some(x => x[0] === t)) p.T.push([t, w]); p.TM.push([t, w]); }); (o.st || []).forEach(x => x[1] && p.A.add(season(x))); };
     // one person played young and old (Fox's films: McAvoy's and Stewart's Charles, owner, November 2026: "a few Jean Greys and a few
     // Charles Xaviers ... all mixed in") is one bubble: the younger file folds into the older one, titles, crews and connections together
     const AGE = { 'fox-charles-xavier-young': 'fox-charles-xavier', 'fox-cyclops-young': 'fox-cyclops', 'fox-jean-grey-young': 'fox-jean-grey', 'fox-storm-young': 'fox-storm',

@@ -140,7 +140,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 <div id="toast"></div>
 
 <script>
-const DATA = /*DATA*/null, TT = DATA.titles, EMB = window.parent !== window;
+const DATA = /*DATA*/null, TT = DATA.titles, TIX = new Map(TT.map((t, i) => [t, i])), EMB = window.parent !== window;
 // a crew is its universe's own: two FoX-Men and MCU groups with the same name are different rooms (the key carries the universe, unseen)
 const UK = (c, u) => u && u !== 'mcu' ? c + '\u2063' + u : c;
 const N = DATA.nodes.map(([n, k, g, F, M, d, T, A, S, AK, U, ID, DK], i) => ({ i, n, k, u: U || 'mcu', id: ID, dk: DK || '', g: UK(g, U), g0: UK(g, U), S: (S || []).map(([c, o]) => [UK(c, U), o]), AK: AK || [], F: F.map(x => x[0]), Fw: Object.fromEntries(F.map(([j, ...w]) => [j, w])), M, d, T, A }));
@@ -195,6 +195,7 @@ let WORLD = null, DIST = [];   // DIST: the room's Earth districts, each { name,
 // where someone stands in the Network: their Earth, unless their story lives elsewhere (owner, November 2026: Sylvie "was born there
 // but that's not where she belongs"; "the Void is definitely a better bubble"). Their files keep the Earth they come from
 const HOME = { 'sylvie': 'Earth-199999', 'he-who-remains': 'Earth-199999', 'kang': 'Earth-199999', 'america-chavez': 'Earth-199999',
+  'st-deke-shaw': 'Earth-199999', 'st-flint': 'Earth-199999',   // from 2091's ruined future, but their stories carry on in the team's present (Deke from season 5, Flint in 6 and 7)
   'kid-loki': 'The Void', 'classic-loki': 'The Void', 'alligator-loki': 'The Void', 'president-loki': 'The Void', 'cassandra-nova': 'The Void',
   'ladypool': 'The Void', 'nicepool': 'The Void', 'dogpool': 'The Void', 'wolverine': 'The Void',   // Deadpool & Wolverine's Void (Logan and Dogpool end up on Deadpool's Earth-10005)
   'fox-gambit-void': 'The Void', 'fox-blob-void': 'The Void',   // Gambit is last seen still in the Void; Blob dies there
@@ -576,7 +577,9 @@ function applyCut(v, quiet) {
   let near = null, nd = 1e9; N.forEach(p => { if (!p.vis) return; const d = Math.hypot(p.hx - cam.x, p.hy - cam.y); if (d < nd) { nd = d; near = p; } });
   const off = near ? [cam.x - near.hx, cam.y - near.hy] : [0, 0];
   // met: in a title you've watched, or in a stage you've reached one episode at a time ("WandaVision#7")
-  const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && SEENF(x.t)));
+  // met in an episode you've ticked, on a season that's on their own file: a tie that only mentions them there (Thor, in Agents of
+  // S.H.I.E.L.D. season 1) doesn't bring them into the room
+  const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && p.A0.includes(TIX.get(x.t.replace(/#\d+$/, ''))) && SEENF(x.t)));
   WORLD = null;   // one room per universe, its Earths as districts in it
   N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = (p.A.length > 0 || epMet(p)) && p.u === UNI && (!WORLD || wk(p) === WORLD); p.arrive = p.vis && !was; });
   N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];

@@ -350,6 +350,11 @@ insignia celebration covers the page.
   season 6's Benson, Keller, Sarge and Izel in Earth-199999, Sibyl in Earth-19859 with Malick; Across the Spider-Verse's Vulture in Earth-65
   and Prowler in Earth-928, where their stories happen; Deadpool & Wolverine's Gambit and Blob in The Void; Uatu in **The Fifth
   Dimension** (the MCU Wiki's home for him: he watches from outside every Earth).
+- **A Network person counts the seasons on their own file**: a step filed under a whole show ("Agents of S.H.I.E.L.D.", "Agent Carter")
+  counts under its season ("In season 5," or the straight-through "In episode 44,"; `season` in `prof/hub2.js`), and an episode only
+  brings someone in when that season is on their own file (`epMet`), so a tie that just mentions them (Thor in Agents of S.H.I.E.L.D.
+  season 1) doesn't. Nobody stands in the room "in 0 titles". Deke Shaw and Flint stand in Earth-199999 (their stories carry on in the
+  present); Kasius, Sinara and Grill stay in 2091's Earth-17516.
 - **An Earth's name is written round the inside of its bubble's edge** (`arcName`), so it can't land on the Earth next door; every
   district is big enough to hold its name even with one person in it, and where the lens squeezes two bubbles together they give up
   their margins first.
