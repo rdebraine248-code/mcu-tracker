@@ -3361,7 +3361,7 @@ const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:"
 // Log and Paths are one page (owner, October 2026: "Paths and logs now feel like the same page that belongs together"; the old pill
 // switch "moved around", and a link per chapter was rejected). One header, fixed, sits over both: the title Log and two tabs, Story and
 // Paths, with a bar under the one you're on that slides across when you switch. Only the page under it changes
-const LOGHEAD = `<div id="logHead" hidden><h2 class="pgtitle" data-glow="Log">Log</h2><div class="logtabs" role="tablist" aria-label="Log"><button type="button" role="tab" data-logt="story" aria-selected="true">Story</button><button type="button" role="tab" data-logt="paths" aria-selected="false">Paths</button><i class="lt-bar" aria-hidden="true"></i></div></div>`;
+const LOGHEAD = `<div id="logHead" hidden><h2 class="pgtitle" data-glow="Log">Log</h2><div class="logtabs" role="tablist" aria-label="Log"><button type="button" role="tab" data-logt="story" aria-selected="true">Chapters</button><button type="button" role="tab" data-logt="paths" aria-selected="false">Paths</button><i class="lt-bar" aria-hidden="true"></i></div></div>`;
 document.body.insertAdjacentHTML("beforeend", LOGHEAD);
 let logLast = null;
 function logHeadSync() {
@@ -3372,7 +3372,7 @@ function logHeadSync() {
   if (logLast && logLast !== on && !REDUCED) { const from = bar.style.transform; bar.animate([{ transform: from }, { transform: `translateX(${x}px)` }], { duration: 260, easing: "cubic-bezier(.3,.8,.3,1)" }); }
   bar.style.width = w + "px"; bar.style.transform = `translateX(${x}px)`; logLast = on;
 }
-let logSaved = [null, 0];   // the Story tab comes back with the same chapter open at the same spot
+let logSaved = [null, 0];   // the Chapters tab comes back with the same chapter open at the same spot
 document.addEventListener("click", ev => { const b = ev.target.closest("[data-logt]"); if (!b || b.getAttribute("aria-selected") === "true") return; haptic(8);
   if (b.dataset.logt === "paths") { const sc = document.querySelector("#dossier .dscroll"); logSaved = [slOpen, sc ? sc.scrollTop : 0]; if (dossierOpen) closeDossier(true); openMap(); }
   else { closeMap(true); openDossier("saga", { open: logSaved[0], y: logSaved[1] }); pushNav("log"); }

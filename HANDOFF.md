@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v75. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v76. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
@@ -300,6 +300,7 @@ insignia celebration covers the page.
   at the status bar plus 26px, 20px in. Count the status bar once (`env(safe-area-inset-top)`); the Network, in its frame, can't see
   it, so the app passes it in (`netSat()` to `netSeen`, the `--sat` variable). Check with a status bar emulated
   (`Emulation.setSafeAreaInsetsOverride`, top 36): every title's top is 62.
+- **The Log keeps its name; its tabs are Chapters and Paths** (owner, November 2026: "Story" clashed with the Story page).
 - **No tap flash anywhere**, inside frames too (`-webkit-tap-highlight-color:transparent` on `*`).
 - **Nothing sits under the news ticker**: a card at the bottom of a page rises over it while it runs.
 - **Pop-ups have no Back button**: back, or a tap off it, closes it. **The phone's back closes the top thing only**: an open card in the
@@ -360,7 +361,7 @@ insignia celebration covers the page.
     of the same coin"), and so was a link per chapter ("See this chapter in Paths is very very very stupid"). The owner prefers tabs,
     just not an on/off look: "Paths and logs now feel like the same page that belongs together." Now one fixed header (`#logHead`)
     sits over both: the title Log and underline tabs, Story and Paths, with a glowing bar that slides to the tab you pick. It never
-    moves; only the page under it swaps, in the same history slot. The Story tab comes back with the same chapter open at the same
+    moves; only the page under it swaps, in the same history slot. The Chapters tab comes back with the same chapter open at the same
     spot (`logSaved`, `openDossier("saga", { open, y })`). Paths' own title and back button are hidden under it.
   - **The Personal log folds into the Log (owner: "I think personal log should be folded into logs too, not as a separate page though
     but as part of the log", October 2026), MOCKUP, NOT APPROVED, same rule as above:** every title in the Story Log carries your stars
@@ -689,7 +690,6 @@ These happened in earlier chats. Each cost the owner time.
 - **Bruce Banner and Doom** (the know-each-other audit kept it: Doom collects Banner in 2028, a huge consequence) is held back: it's
   from the Avengers Endgame: Encore version, a title the data doesn't have, and it had been filed under Spider-Man: Brand New Day. Add
   it once Encore is placed (`rel/knowaudit_out.json`, its cut entry says so).
-- **The Log's tab names** ("Story" and "Paths" make no sense to the owner; the page may need a new name too): waiting on the owner.
 - No mockups are pending.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
