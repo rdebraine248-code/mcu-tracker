@@ -10498,7 +10498,7 @@ function renderComms() {
   const nc = cv.querySelector(".cm-chips"); if (nc && cx) nc.scrollLeft = cx;   // the chip row stays where you'd scrolled it
 }
 let commsTab = "news";
-function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; newsStop(true); cmFresh = new Set(); { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
+function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; cmFresh = new Set();   // the ticker plays on over Comms (owner, November 2026); each story joins the list as it finishes { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
   renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; bodyLock(); pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
