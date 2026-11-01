@@ -167,7 +167,8 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 /* a character's Profile wears the chapter label's look on the same line (owner: "character boxes should match"), with an arrow, as it opens a page */
 .dbtn.plink{ display:inline-flex; align-items:center; gap:6px; padding:2px 0; border:0; border-radius:0; background:none; font:500 13px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; letter-spacing:2px; text-transform:uppercase; opacity:.9; }
 .dbtn.plink em{ font-style:normal; font-size:17px; line-height:0; letter-spacing:0; }   /* the box puts focus on Close as it opens: no second ring round it (owner: "don't like the double border") */
-.psub .kick{ font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:13px; font-weight:500; letter-spacing:2px; opacity:.9; }
+.psub .kick{ font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:13px; font-weight:500; letter-spacing:2px; text-transform:uppercase; opacity:.9; }
+.plog .psub{ margin-bottom:14px; }   /* a profile's label line, then its bar, the way a box's label is followed by its quote */
 .hrow.big .kick{ font-size:13px; }
 .hrow.big h2.big{ margin-top:0 !important; }
 /* one stamp for every box, chapter or character: same font, size, angle and spot, inked in the box's own color. The ink is solid, with only
@@ -597,7 +598,6 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 /* chapter and character logs wear their own page: same background, decor, title, bar and lines */
 .dossier.plog{ position:fixed !important; inset:0 !important; overscroll-behavior:contain; overflow-y:auto !important; overflow-x:hidden !important; border-radius:0 !important; -webkit-overflow-scrolling:touch; }
 .plog .pin{ opacity:1; }
-.plog .ptop .ltag{ font-size:12px; font-weight:500; letter-spacing:2px; text-transform:uppercase; opacity:.75; text-align:right; }
 .plog .lrows{ margin:0 0 6px; border-top:1px solid var(--rowline); }
 .plog .drow{ display:grid; grid-template-columns:96px 1fr; gap:12px; padding:11px 2px; border-bottom:1px solid var(--rowline); }
 .plog .drow dt{ font-size:11.5px; line-height:22px; letter-spacing:1.8px; text-transform:uppercase; opacity:.7; }
@@ -2649,9 +2649,9 @@ const CH7_BG = (() => { const G = "#D9A441", ln = (d, c, w) => `<path d="${d}" f
   return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 50%; height: 300px; margin-top: -150px; opacity: .22">`
     + `<svg width="100%" height="100%" viewBox="0 0 318 30" preserveAspectRatio="none" style="display: block">${svg}</svg>`
     + `<span style="position: absolute; left: 44.03%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: #15171D; border: 3.5px solid #F3EFE7; box-sizing: border-box"></span></div></div>`; })();
-function pinTop() { panel.style.removeProperty("--pinT"); const pin = panel.querySelector(".pin"), row = pin && pin.firstElementChild; if (!row) return;
-  const pad = parseFloat(getComputedStyle(pin).paddingTop) || 0, base = row.getBoundingClientRect().top - panel.getBoundingClientRect().top - pad;
-  panel.style.setProperty("--pinT", Math.max(0, Math.round(netSat() + 6 - base)) + "px"); }
+function pinTop(el = panel) { el.style.removeProperty("--pinT"); const pin = el.querySelector(".pin"), row = pin && pin.firstElementChild; if (!row) return;   // a box, or a profile over it
+  const pad = parseFloat(getComputedStyle(pin).paddingTop) || 0, base = row.getBoundingClientRect().top - el.getBoundingClientRect().top - pad;
+  el.style.setProperty("--pinT", Math.max(0, Math.round(netSat() + 6 - base)) + "px"); }
 function openPanel(e, kind, fromEl) {
   newsCut();
   clearTimeout(closeTimer); if (closeDone) { const d = closeDone; closeDone = null; d(); }
@@ -3348,8 +3348,8 @@ function openDossier(id, go) {
     el.className = "dossier plog" + (box.cls ? " " + box.cls : "");
     el.setAttribute("style", `${box.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${bc};--sfg:${box.sfg || fg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);--logbg:${bg};--hf:${fontOf(box.h2) || "inherit"}`);
     el.innerHTML = `${panelDecor(box)}${isCh ? "" : wmHTML(box)}<div class="pin">
-      <div class="ptop"><button type="button" class="back" id="dBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Back</button><span class="ltag">${isCh ? esc(name) + " log" : "Character profile"}</span></div>
-      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2>${box.kick ? `<span class="kick" style="color:${esc(box.kickc)}">${esc(box.kick)}</span>` : ""}</div>${box.accent ? scoped(box.accent) : ""}
+      <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2><button type="button" class="back pclose" id="dBack" style="color:${fg}">Back</button></div>
+      <div class="psub"><span class="kick" style="color:${esc(box.kickc || fg)}">${isCh ? (box.kick ? esc(box.kick) + " · " : "") + "Log" : "Character profile"}</span></div>${box.accent ? scoped(box.accent) : ""}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span style="width:${total ? done / total * 100 : 0}%;background:${bc}"></span></div>
       ${rowsDl}
       ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
@@ -3358,7 +3358,7 @@ function openDossier(id, go) {
     </div>`;
   }
   persist();
-  el.hidden = false; dossierOpen = id; bodyLock();   // the page behind stays put, like under Atlas or Comms
+  el.hidden = false; dossierOpen = id; bodyLock(); pinTop(el);   // the page behind stays put, like under Atlas or Comms; its title level with the box's
   if (!SG) try { history.pushState({ mcu: "dossier" }, ""); } catch (e) {}
   const sc = SG ? el.querySelector(".dscroll") : el; sc.scrollTop = 0;
   if (!SG) el.animate([{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: "ease-out" });

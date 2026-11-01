@@ -91,6 +91,9 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   and the chapter label (CH. 1, EXTRAS) sits under the title, before the quote; a character's **Profile** takes that line, in the label's
   look ("PROFILE ›"; owner: "character boxes should match"), never stacked under Close. **Chapter boxes have no Log button** any more ("remove the log button from each chapter"), so the
   per-chapter log pages aren't reached from the box; the Log page's Chapters tab is unchanged.
+  **A profile's head matches** (owner: the Back row was "too close to the titles and isn't cohesive"): its title with **Back** at
+  its right in the same thin pill (Back, as it returns to the box), "CHARACTER PROFILE" under the title in the label's look, its title
+  level with the box's (`pinTop(el)` measures the profile too).
 - **A box's top row sits the status bar plus 6px down** (owner, November 2026: "all the contents and headers are so low"): `pinTop()`
   measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
   timeline band leaves the top of its open box (its row is level with every other box; owner: "the point is to have chapter 7 up
