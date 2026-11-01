@@ -3872,7 +3872,18 @@ const atlSeenT0 = t => (!!atlBase(t) && ATL_BOX[atlBase(t)].some(b => !!state.ch
   || (!ATL_BOX[t] && !!ATL_SEAS[t] && ATL_SEAS[t].every(atlSeenT));   // a show no box lists whole counts once each season is watched, in any list
 // a file's step "In season N," on a whole show opens with that season, not only once the whole show is done
 function epMax(t) { const E = state.eps || {}; let m = 0; for (const k in E) if (Array.isArray(E[k]) && k.slice(k.indexOf("::") + 2) === t) for (const n of E[k]) if (n > m) m = n; return m; }
-const atlSeenT = t => epNo(t) ? atlSeenT0(epBase(t)) || epMax(epBase(t)) >= epNo(t) : atlSeenT0(t);
+// a show filed both whole and by season (Agents of S.H.I.E.L.D. and Agents of S.H.I.E.L.D. S2): season 2's episode 3 is the whole show's
+// episode 25, so a tick, or a watched season, in either counts for the other
+let EP_SEAS = null;
+function epSeas() { if (EP_SEAS) return EP_SEAS; const up = {}, down = {};
+  Object.keys(EPS).forEach(st => { const m = / S(\d+)(?:–S(\d+))?$/.exec(st); if (!m) return; const b = st.slice(0, m.index), L = epList(b); if (!L || L.length < 2) return;
+    const a = +m[1] - (EPO[b] || 0); let off = 0; for (let i = 0; i < a - 1 && i < L.length; i++) off += L[i] || 0; const n = epTotal(st);
+    up[st] = [b, off]; (down[b] = down[b] || []).push([st, off, n]); });
+  return EP_SEAS = { up, down }; }
+function epReach(t, n) { if (epMax(t) >= n) return true; const S = epSeas(), u = S.up[t];
+  if (u && (atlSeenT0(u[0]) || epMax(u[0]) >= u[1] + n)) return true;
+  return (S.down[t] || []).some(([st, off, len]) => n > off && n <= off + len && (atlSeenT0(st) || epMax(st) >= n - off)); }
+const atlSeenT = t => epNo(t) ? atlSeenT0(epBase(t)) || epReach(epBase(t), epNo(t)) : atlSeenT0(t);
 // story order for a title, an episode just after the one before it
 const atlOrd = t => { const o = ATL_ORDER[epBase(t)]; return o == null ? undefined : o + epNo(t) / 1000; };
 const atlSeenStep = x => { { const e = /^In episode (\d+),/.exec(x[0] || ""); if (e) return atlSeenT(x[1] + "#" + e[1]); } const m = /^In season (\d+),/.exec(x[0] || ""), L = m && ATL_SEAS[x[1]];
@@ -10278,21 +10289,6 @@ const EPTAGS = /*EPTAGS*/{};
   Object.entries(E.nw || {}).forEach(([t, m]) => { const L = NEWS[t]; if (!L) return; Object.entries(m).forEach(([h, e]) => { const i = L.indexOf(h); if (i < 0 || !(e > 0)) return; L.splice(i, 1);
     const nt = t + "#" + e; (NEWS[nt] = NEWS[nt] || []).push(h); if (R[t + "::" + h]) R[nt + "::" + h] = R[t + "::" + h]; }); if (!L.length) delete NEWS[t]; });
   Object.entries(E.ms || {}).forEach(([id, e]) => { const m = COMMS.find(x => msgId(x) === id || x.id === id); if (m && e > 0 && !/#\d+$/.test(m.t)) { if (!m.id) m.id = m.t; m.t += "#" + e; } }); }   // its id stays, so a read message stays read
-/* MOCKUP BEGIN: episode by episode (WandaVision) and the Compound / Raft handover (Wanda, Bucky), November 2026 */
-if (MOCK) {
-  // WandaVision, episode by episode: its news, its Westview message, its Atlas places, Wanda's file and her tie to Agatha in the Network
-  { const L = NEWS["WandaVision"] || []; if (L.length >= 2) { NEWS["WandaVision#4"] = [L[0]]; NEWS["WandaVision#9"] = [L[1]]; delete NEWS["WandaVision"]; } }
-  COMMS.forEach(m => { if (m.id === "x-wandavision-1") m.t = "WandaVision#9"; });
-  Object.values(ATLAS).forEach(L => Array.isArray(L) && L.forEach(p => { if (!p.e) return;
-    if (p.id === "westview") p.e.forEach(e => { if (e[0] === "WandaVision") e[0] = "WandaVision#1"; });
-    if (p.id === "salem") p.e.forEach(e => { if (e[0] === "WandaVision") e[0] = "WandaVision#8"; }); }));
-  { const w = ALLIES.find(o => o.id === "wanda-maximoff"); if (w) { const i = w.st.findIndex(x => x[1] === "WandaVision"); if (i >= 0) w.st.splice(i, 1,
-    ["In episode 1, Wanda and Vision settle into Westview as newlyweds in a black-and-white sitcom, hiding their powers from the neighbors.", "WandaVision", "Active"],
-    ["In episode 5, Wanda walks out of the Hex dragging a S.W.O.R.D. drone and warns Director Hayward to leave her alone.", "WandaVision", "Fugitive"],
-    ["In episode 9, Wanda takes up the Scarlet Witch's power, beats Agatha and lets Westview go, losing Vision and the boys.", "WandaVision", "Fugitive"]); } }
-  window.EP_MOCK = { net: [["wanda-maximoff", "agatha-harkness", "WandaVision", "WandaVision#7"]] };
-}
-/* MOCKUP END */
 newsKeysV2(); perInit();
 // headlines that moved to a season of their show keep their read mark
 { const N = state.news || {}; Object.keys(N).forEach(k => { const i = k.lastIndexOf("::"), t = k.slice(0, i), h = k.slice(i + 2);

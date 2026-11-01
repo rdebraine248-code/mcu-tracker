@@ -199,10 +199,7 @@ N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === UK('Inde
 // each stage carries the short line for this person's card about the other (whoA on a's card, whoB on b's)
 const mkTie = (j, st, side) => ({ j, S: st.map(x => ({ k: KIND[x[0]], t: REL.titles[x[1]], o: REL.ord[x[1]] ?? -1, d: x[2], w: x[side] || '' })) });
 REL.ties.forEach(([a, b, st]) => { N[a].R0.push(mkTie(b, st, 3)); N[b].R0.push(mkTie(a, st, 4)); });
-// a stage can begin one episode in ("WandaVision#7", the app's own way of saying it): it shows once that episode is ticked. A mockup set
-// from the app's test build for now
-{ const X = (EMB && parent.EP_MOCK && parent.EP_MOCK.net) || []; X.forEach(([a, b, t, t2]) => { const A = N.find(p => p.id === a), B = N.find(p => p.id === b);   /* by id: names repeat (Earth-838's Wanda) */ if (!A || !B) return;
-  [[A, B], [B, A]].forEach(([p, q]) => p.R0.forEach(r => { if (r.j === q.i) r.S.forEach(x => { if (x.t === t) x.t = t2; }); })); }); }
+// a stage can begin one episode in ("WandaVision#7", the app's own way of saying it): it shows once that episode is ticked
 const epShow = t => String(t).replace(/#(\d+)$/, ' · Episode $1');
 // across universes: two versions who actually meet are connected like anyone else (a mockup set, written by hand); ones who never meet
 // are only listed, under Other versions in their card
