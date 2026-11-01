@@ -431,7 +431,7 @@ insignia celebration covers the page.
   a new main character, needs adding there. Links, each only once the box is
   known (`boxShown`, `boxPath`): a Compound or Raft file's record line carries **Profile ›** and **Path ›** (`xLinks`); a profile's
   story line carries **Path ›**, and its foot an **On file** list of its people's found files (`boxFiles`; "See their path" is gone); a
-  Network card carries **Profile** and **Path** beside Open file (`netLinks`, `netProf`, `netPath`); Paths' bar opens the profile. Every
+  Network card carries **Profile** and **Path** beside Open file (`netLinks`, `netProf`, `netPath`); Paths' bar opens the character log (as a link on top, so its Path › comes back down to Paths). Every
   link opens its page **on top** of where you are (`jumpUp`, z-index 81 and up, over a profile's 80; `body.jumped` lifts the dock and the
   Log header) and back takes just that page away (`JUMPS`, `jumpBack` in `onNavBack`), leaving what was under it as it was. A link to a page that's already open underneath (Open Network on a file over a profile, when the Network is under them) goes back
   down to it instead of opening it again hidden (owner's recording, November 2026): each jump marks the history step it opened from
