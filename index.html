@@ -1149,6 +1149,11 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-rf.to-net{ align-items:flex-start; border-color:#2A4A6A; background:rgba(127,166,216,.06); color:#D6E6FA; } .cp-rf.to-net small{ color:#7FA6D8; } .cp-rf.to-net em{ align-self:center; }
 .np .npr{ display:block; margin:8px 0 0; padding:0 0 0 9px; border-left:2px solid var(--kc); } .np .npr b{ margin:0; font:600 14.5px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#fff; }
 .np .npr i{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:1px; font:13.5px/1.35 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#AEBBD0; } .np .npr i u{ text-decoration:none; color:var(--kc); }
+.np .npweb{ display:block; width:100%; height:auto; margin:6px 0 2px; overflow:visible; }
+.np .npweb .npi{ font:400 11px 'Anton','Impact',sans-serif; fill:#DCE8FA; letter-spacing:.3px; } .np .npweb .npme{ font-size:15px; fill:#fff; }
+.np .npweb .npn{ font:600 10px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; fill:#AEBBD0; }
+.np .npk{ display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:4px; } .np .npk i{ display:inline-flex; align-items:center; gap:6px; font:13px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#C9D3E4; }
+.np .npk i::before{ content:""; width:12px; height:3px; border-radius:2px; background:var(--kc); }
 .np .npall{ display:block; margin-top:10px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; color:#9FC3F0; }
 .cp-rf span{ flex:1; } .cp-rf small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#E9897E; } .cp-rf b{ display:block; margin-top:2px; font-size:15px; } .cp-rf em{ font-style:normal; font-size:18px; }
 .cpx .rf-seg button[aria-pressed="true"]{ background:#EEF3FA; border-color:#EEF3FA; }
@@ -10485,9 +10490,25 @@ function closeNet(fromHistory) { if (!fromHistory && (navAt("net") || navAt("net
   if (fromHistory && nf && navAt("collrec") && history.state.cr === nf.r) { openColl(nf.m, true, true); collRec = nf.r; renderColl(); document.getElementById("collPanel").scrollTop = nf.y; } }
 // a file's connections, previewed: the first few of their people (as far as you've watched), from the Network loaded ahead; until it has
 // loaded, or if they've met no one yet, the plain link stays (or goes)
+/* MOCKUP BEGIN connections web */
+// a file's connections as a small web, the way the Network draws them (owner, November 2026: "I like a preview of the web from network ...
+// the list isn't super great looking"): the person in the middle, a dozen of their connections round them kind by kind, each line in its
+// kind's colour (rivals and enemies dashed), their names beneath, and a count of each kind under the web
+function npWeb(v) { const Wd = 320, Hd = 270, cx = Wd / 2, cy = Hd / 2 - 8, n = v.W.length, a0 = -Math.PI / 2;
+  const at = v.W.map((r, i) => { const a = a0 + (i + .5) * 2 * Math.PI / n; return [cx + Math.cos(a) * 120, cy + Math.sin(a) * 100]; });
+  const short = s => { const w = String(s).split(/\s+/); return w[0].length > 3 || w.length < 2 ? w[0] : w.slice(0, 2).join(" "); };
+  let g = "";
+  v.W.forEach((r, i) => { const [x, y] = at[i], dash = r.k === "enemy" || r.k === "rival" ? ' stroke-dasharray="4 4"' : "";
+    g += `<path d="M${cx} ${cy} Q ${((cx + x) / 2).toFixed(1)} ${((cy + y) / 2 - 14).toFixed(1)}, ${x.toFixed(1)} ${y.toFixed(1)}" fill="none" stroke="${r.c}" stroke-width="1.4" opacity=".75"${dash}/>`; });
+  v.W.forEach((r, i) => { const [x, y] = at[i];
+    g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="14" fill="#13203A" stroke="${r.c}" stroke-width="2"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" class="npi">${esc(r.i)}</text>`
+      + `<text x="${x.toFixed(1)}" y="${(y + 27).toFixed(1)}" text-anchor="middle" class="npn">${esc(short(r.n))}</text>`; });
+  g += `<circle cx="${cx}" cy="${cy}" r="22" fill="#13203A" stroke="#E9C46A" stroke-width="2.6"/><text x="${cx}" y="${cy + 6}" text-anchor="middle" class="npi npme">${esc(v.me.i)}</text>`;
+  return `<svg class="npweb" viewBox="0 0 ${Wd} ${Hd}" aria-hidden="true">${g}</svg><span class="npk">${v.K.map(([l, c, k]) => `<i style="--kc:${c}">${k} ${esc(l.toLowerCase())}</i>`).join("")}</span>`; }
+/* MOCKUP END */
 function netPrevFill() { const w = document.getElementById("netFrame").contentWindow; if (!w || !w.netPreview || !document.querySelector(".np[data-np]")) return; netSync();
   document.querySelectorAll(".np[data-np]").forEach(el => { const v = w.netPreview(el.dataset.np), b = el.closest(".to-net"); if (!v) return; if (!v.n) { b.hidden = true; return; }
-    el.innerHTML = `<small>Their connections · ${v.n}</small>` + v.L.map(r => `<span class="npr" style="--kc:${r.c}"><b>${esc(r.n)}</b><i><u>${esc(r.k)}</u> · ${esc(r.w)}</i></span>`).join("")
+    el.innerHTML = `<small>Their connections · ${v.n}</small>` + (typeof npWeb === "function" && v.W ? npWeb(v) : v.L.map(r => `<span class="npr" style="--kc:${r.c}"><b>${esc(r.n)}</b><i><u>${esc(r.k)}</u> · ${esc(r.w)}</i></span>`).join(""))
       + `<span class="npall">${v.n > v.L.length ? `See all ${v.n} in the Network` : "See them in the Network"}</span>`; el.removeAttribute("data-np"); }); }
 { let q = 0; new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; netPrevFill(); }); }).observe(document.getElementById("collPanel"), { childList: true, subtree: true }); }
 // from someone in the Network to their file: the file adds its own step, so Back comes back to the Network

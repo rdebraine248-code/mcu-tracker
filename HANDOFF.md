@@ -67,6 +67,12 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
   again, by hand or by holding a list to mark it all, doesn't replay it. Don't reopen.
 
+- **Mockup (test build): a file's connections as a small web** (owner, November 2026: "I like a preview of the web from network ... the
+  list isn't super great looking"): `npWeb` in the app draws the person in the middle and up to a dozen connections round them (`pick12`
+  in the Network takes them a kind at a time so every kind shows), each line in its kind's colour, rivals and enemies dashed, names
+  beneath, a count of each kind under it; tapping opens the Network on them. Main keeps the three-row list. Owner may want it draggable
+  like the Network.
+
 ### Landscape (in progress, test build only)
 
 Owner, November 2026: "I want this app to work in landscape mode ... I want to be able to use this app fully in landscape". It's a
