@@ -3487,23 +3487,31 @@ function boxFiles(id) { const L = [];
   return L.length ? `<section class="dsec"><h3><span>On file</span></h3><div class="dfiles">${L.map(([tg, o, n]) => `<button type="button" class="dpath" data-xfile="${tg}:${esc(o.id)}">${esc(n)} ›</button>`).join("")}</div></section>` : ""; }
 // a link opens its page on top of where you are; back takes it away and leaves that page as it was
 const JUMPS = [], jkey = h => (h && h.mcu || "") + "|" + (h && h.cr || "");
-function jumpUp(el, close, st) { el.style.zIndex = String(81 + JUMPS.length);   /* over a profile too (80) */ JUMPS.push({ st, el, close }); document.body.classList.add("jumped"); }
+// the history step a jump opens from is marked, so going back down to a page under several (the Network under a profile and a file)
+// can step back to exactly there, however many steps the pages above added (a Network card adds its own)
+let jtN = 0, unwindTok = null;
+const jstamp = () => { const t = ++jtN; try { history.replaceState({ ...(history.state || {}), jt: t }, ""); } catch (e) {} return t; };
+function jumpUp(el, close, st, tok) { el.style.zIndex = String(81 + JUMPS.length);   /* over a profile too (80) */ JUMPS.push({ st, el, close, tok }); document.body.classList.add("jumped"); }
+function unwind(n) { if (n <= 0) return; const L = JUMPS.splice(JUMPS.length - n), tok = L[0].tok;
+  L.reverse().forEach(j => { j.close(); j.el.style.zIndex = ""; }); jumpSweep(); dockSync();
+  if (!(history.state && history.state.jt === tok)) { unwindTok = tok; history.back(); } }
+const downTo = id => { const i = JUMPS.findIndex(j => j.el.id === id); unwind(i >= 0 ? JUMPS.length - 1 - i : JUMPS.length); };   // the page under the rest, open again
 function jumpSweep() { for (let i = JUMPS.length - 1; i >= 0; i--) if (JUMPS[i].el.hidden) { JUMPS[i].el.style.zIndex = ""; JUMPS.splice(i, 1); } document.body.classList.toggle("jumped", JUMPS.length > 0); }
 function jumpBack() { const j = JUMPS[JUMPS.length - 1]; if (!j || jkey(history.state) !== j.st) return false; JUMPS.pop(); j.close(); j.el.style.zIndex = ""; jumpSweep(); dockSync(); return true; }
 const overAny = () => !!(dossierOpen || collOpen || netOpen || openEntry || fileOpen || atlOpen || commsOpen);
 function pathGo(title) {
-  if (mapOpen && JUMPS.length && JUMPS[JUMPS.length - 1].el.id === "mapPanel") { /* already there */ }
-  else if (overAny() && !mapOpen) { const st = jkey(history.state); try { history.pushState({ mcu: "jump" }, ""); } catch (e) {} openMap(); jumpUp(document.getElementById("mapPanel"), () => closeMap(true), st); }
+  if (mapOpen) downTo("mapPanel");   // Paths is already open underneath: back down to it
+  else if (overAny()) { const st = jkey(history.state), tok = jstamp(); try { history.pushState({ mcu: "jump" }, ""); } catch (e) {} openMap(); jumpUp(document.getElementById("mapPanel"), () => closeMap(true), st, tok); }
   else openMap();
   dockSync();
   const ri = MAP.rows.findIndex(r => r.n === title); if (ri >= 0) { if (mapFocusI !== ri) mapFocus(ri); const v = document.getElementById("mapView"), r = MAP.rows[ri], x0 = MAP.cols[r.nodes[0]] ? MAP.cols[r.nodes[0]].x : 230; MV.ty = Math.min(6, v.clientHeight * .45 - r.y * MV.s); MV.tx = Math.min(4, 40 - (x0 - 60) * MV.s); mapApply(); } }
-function profGo(id) { if (dossierOpen === id && JUMPS.length) { navBack(); return; }   // it's the page right under this one
-  const st = jkey(history.state), over = collOpen || netOpen || mapOpen; openDossier(id); if (over) jumpUp(document.getElementById("dossier"), () => closeDossier(true), st); dockSync(); }
-function fileGo(tg, id) { const o = ixFile(tg, id); if (!o) return; if (collOpen && collRec === id && JUMPS.length) { navBack(); return; }
-  const cp = document.getElementById("collPanel"), st = jkey(history.state), was = collOpen ? { m: collMode, r: collRec, y: cp.scrollTop } : null, over = dossierOpen || netOpen || mapOpen;
+function profGo(id) { if (dossierOpen === id) { downTo("dossier"); return; }   // it's already open underneath: back down to it
+  const st = jkey(history.state), over = collOpen || netOpen || mapOpen, tok = over ? jstamp() : 0; openDossier(id); if (over) jumpUp(document.getElementById("dossier"), () => closeDossier(true), st, tok); dockSync(); }
+function fileGo(tg, id) { const o = ixFile(tg, id); if (!o) return; if (collOpen && collRec === id) { downTo("collPanel"); return; }   // already open underneath
+  const cp = document.getElementById("collPanel"), st = jkey(history.state), was = collOpen ? { m: collMode, r: collRec, y: cp.scrollTop } : null, over = dossierOpen || netOpen || mapOpen, tok = over ? jstamp() : 0;
   if (tg === "A") cpUni = rfUniOf(o); else rfUni = rfUniOf(o);
   collJump(tg === "A" ? "cp" : "raft", id);
-  if (over) jumpUp(cp, was ? () => { openColl(was.m, true, true); collRec = was.r; renderColl(); cp.scrollTop = was.y; } : () => closeColl(true), st); dockSync(); }
+  if (over) jumpUp(cp, was ? () => { openColl(was.m, true, true); collRec = was.r; renderColl(); cp.scrollTop = was.y; } : () => closeColl(true), st, tok); dockSync(); }
 // the Network's card asks what it can link to, and opens it
 window.netLinks = id => { const o = ALLIES.find(x => x.id === id) || THREATS.find(x => x.id === id), b = boxOfFile(o); return { prof: boxShown(b) ? b : "", path: b ? boxPath(b) : "" }; };
 window.netProf = id => { const l = window.netLinks(id); if (l.prof) profGo(l.prof); };
@@ -9123,6 +9131,7 @@ try { history.scrollRestoration = "manual"; } catch (e) {}
 // a question gets its own step: back while it's up answers "no", and an answer takes that step back before it acts
 let askAfter = null;
 function onNavBack() {
+  if (unwindTok !== null) { navBusy = false; if (!(history.state && history.state.jt === unwindTok)) { history.back(); return; } unwindTok = null; return; }   // stepping back down under jumped pages: nothing to close on the way
   if (netSkip) { netSkip = false; navBusy = false; return; }   // the card closed itself (a tap off it): its step is taken back quietly
   if (netOpen && netCardUp && navAt("net") && !collOpen) { netCardUp = false; navBusy = false; const w = document.getElementById("netFrame").contentWindow; if (w && w.netBack) w.netBack(); return; }
   if (JUMPS.length && jumpBack()) { navBusy = false; return; }   // a page a link opened on top: it goes, and what was under it stays as it was
@@ -10550,12 +10559,19 @@ function netPrevFill() { const w = document.getElementById("netFrame").contentWi
 { let q = 0; new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; netPrevFill(); }); }).observe(document.getElementById("collPanel"), { childList: true, subtree: true }); }
 // from someone in the Network to their file: the file adds its own step, so Back comes back to the Network
 let netFrom = null;   // the file you went to the Network from: back from the Network opens it again (owner: tapping their connections "just backs out of the profile")
-function netGoTo(id) { netFrom = collOpen && collRec ? { m: collMode, r: collRec, y: document.getElementById("collPanel").scrollTop } : null; if (collOpen) closeColl(true);
+function netGoTo(id) { const f = document.getElementById("netFrame"), go = () => { const w = f.contentWindow; if (w && w.netGo) w.netGo(id); };
+  const show = () => { if (f.contentWindow && f.contentWindow.netGo) go(); else f.addEventListener("load", () => setTimeout(go, 50), { once: true }); dockSync(); };
+  // the Network is already open under the pages links opened over it (a profile, a file): back down to it, on this person (owner's
+  // recording, November 2026: it reopened hidden under the profile, and back seemed to do nothing)
+  if (netOpen && JUMPS.length) { downTo("netPanel"); show(); return; }
+  // a page over everything (a profile, Paths): the Network opens on top of it, and back takes it away again
+  if (dossierOpen || mapOpen) { const st = jkey(history.state), tok = jstamp(); try { history.pushState({ mcu: "jump" }, ""); } catch (e) {} openNet(); jumpUp(document.getElementById("netPanel"), () => closeNet(true), st, tok); show(); return; }
+  netFrom = collOpen && collRec ? { m: collMode, r: collRec, y: document.getElementById("collPanel").scrollTop } : null; if (collOpen) closeColl(true);
   if (netFrom) try { history.pushState({ mcu: "netjump" }, ""); } catch (e) {}   // the Network takes a step of its own on top of the file's, rather than replacing it
   document.body.classList.add("netup");   // and opens over whatever page the file was opened from (the Agent File, the Atlas), not under it
-  openNet(); const f = document.getElementById("netFrame"), go = () => { const w = f.contentWindow; if (w && w.netGo) w.netGo(id); };
-  if (f.contentWindow && f.contentWindow.netGo) go(); else f.addEventListener("load", () => setTimeout(go, 50), { once: true }); dockSync(); }
+  openNet(); show(); }
 window.netOpenFile = (id, k) => { const A = ixFile("A", id), T = ixFile("T", id); if (!A && !T) return; haptic(10);
+  if (JUMPS.length) { fileGo(A ? "A" : "T", id); return; }   // the Network is itself over a profile or Paths: the file opens on top, back takes it away
   if (A) { cpUni = rfUniOf(A); collJump("cp", id); } else { rfUni = rfUniOf(T); collJump("raft", id); } };
 function closeAllOver() { if (collOpen) closeColl(true); if (dossierOpen) closeDossier(true); if (openEntry) closePanel(); if (commsOpen) closeComms(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (netOpen) closeNet(true); if (fileOpen) closeFile(true); if (history.state && history.state.mcu) navBack(); }
 // the boxes it opened on the Story page (Chapters or Characters): scrolled smoothly into view, and each gives the little shake "Jump to" gives.
