@@ -118,8 +118,14 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   name box plain; transfers read "File transferred to the Raft" with the title small beneath, and "out of the Compound" until the Raft is
   found. Each index has its colour: Compound blue, Raft red, Damage Control muted green, Collection gold.
 - **Connections on a file:** a small web (the person in the middle, up to a dozen round them, every kind shown, a tally like "1 partner,
-  3 friends"); one finger drags it, two pinch it; "Open Network ›" at its corner opens the Network on top, and back returns to the file,
-  then to the page you came from (try it from the Agent File: Compound, Sharon, Open Network, back three times).
+  3 friends"); it stays still; "Open Network ›" at its corner opens the Network on top, and back returns to the file, then to the page
+  you came from.
+- **Linked both ways:** a file's Service record line has Profile › and Path › (for a profile's own main characters only); a profile's
+  story line has Path ›, and its foot an On file list of its people's found files; a Network card has Profile › and Path › beside Open
+  file. Each opens on top, and back returns to exactly where you were.
+- **Files:** no "Transferred" status; first and last seen are small lines in the name box.
+- **Pills:** swipe away even while still the small icon; tap the page beside a pill.
+- **No jumps:** opening a box doesn't move the page behind it; a profile reopens at its top.
 - **Boxes:** every chapter and character box's title row (the name, with Close at its right) sits just under the status bar; the
   chapter label (CH. 1, EXTRAS) under the title; a character's "PROFILE ›" on that same line, in the label's look; no Log button on chapters. Chapter 7 wears its banner
   faint behind the box: one junction, four gold strands each side of the red, ending level.
