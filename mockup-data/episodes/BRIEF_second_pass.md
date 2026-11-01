@@ -1,4 +1,4 @@
-# Episode by episode: brief
+# Episode by episode: independent second pass
 
 The app (an MCU watch tracker, "Marvel Datapad") reveals things as you watch: news headlines, messages, Atlas places, entries in
 people's files, and connections between people in its Network. Today, anything tied to a TV show only appears once the whole show (or
@@ -27,3 +27,9 @@ For **every moment**, give the episode number **by which everything the text say
 `{ "<moment key>": episode number, ... }` covering **every** key in your input (steps, net, atlas, news and msgs together; keys are
 unique). Keep your scripts and downloaded pages in the work folder you're given. When done, report how many moments you tagged, how
 many fell back to the last episode for lack of a source, and anything you were unsure of.
+
+## This is an independent second pass
+Another researcher already tagged these moments; you are not shown their answers, on purpose. Work from the sources yourself. Every
+moment in your input was placed **before** its title's last episode by that first pass, so think carefully: is everything the text
+says really on screen by the episode you pick? If a moment's text says something that never happens in its title at all, add it to a
+separate list in your report (key and one line why); still give it an episode (the last one, the safe choice).

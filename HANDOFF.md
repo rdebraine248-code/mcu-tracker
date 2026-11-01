@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v79 and matches main. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v80 and matches main. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
@@ -301,6 +301,10 @@ insignia celebration covers the page.
 
 ## Standing rules from the owner
 
+- **Review passes end** (owner, November 2026: "every time I run a check, something always pops up ... will this nonsense ever be
+  done"): a review acts only on factual errors with evidence. Rewordings and "either works" calls are dropped, never reported as fixes.
+  A pass that finds only those closes the material; no more passes on it unless new content is added. Tell the owner plainly what a
+  pass did and didn't cover.
 - **Main only after the owner has checked the test build** (October 2026: "I thought this was ready to launch but this was pushed to
   main still with issues"). "Push when ready" means: fixes go to the test build first, the owner looks, then main on their word.
 - **One title height on every page** ("No standard. I've said time and time again at consistency"): every page's title is 28px Anton
@@ -782,7 +786,21 @@ These happened in earlier chats. Each cost the owner time.
   and 6 cut through `network/rel/text_fix.json` (relbake applies it last, after the episode tags); D.W.'s Luke Cage step fixed in its
   data files; two Atlas entries that never happen in their titles removed (What If's monster fight in Peggy's world, Slingshot in
   Bogotá), their places' episode tags renumbered. 13 flagged texts checked and kept.
+- **The review pass** (the owner asked whether everything had a writing and accuracy pass; it hadn't, fully). An independent review of
+  all 124 texts written this round (the handover's rewrites and the earlier corrections) found 3 real errors (Yondu, Joy Meachum,
+  Cherry's name). Eight agents re-derived every early episode tag blind (`mockup-data/episodes/`: `BRIEF_second_pass.md`,
+  `compare.py`, `apply2.py`): 90% agreed; where the second pass was later, the later episode stands (225 tags moved, so nothing shows
+  before it happens). Their sources turned up 11 more wrong texts, each checked against the wiki before fixing (Frank tortures Wolf, not
+  the reverse; Agatha kisses Death; Polaris's dismissal; Koenig at Providence; Kazi dies in Hawkeye; Skully's pawn shop; May's
+  "strongest recruit" is season 3; Fury's Iliad order; Mack and the Chinatown Crew; Elena's powers; Trip's Quinjets). `text_fix.json`
+  now also fixes who lines, and holds `sub` (a name a title never says: Cherry is only "Cherry" in Born Again S1). Unconfirmed, left as
+  they are: Marci and Matt in The Defenders, Madisynn's night out with Jen, Black Tom and Banshee as brothers (an earlier deliberate
+  call), a Malick hostage date in AoS S7, a May and Yo-Yo line in AoS S7, how Lonnie Lincoln gets his powers.
+- **The owner's stopping rule (November 2026):** a review pass acts only on factual errors with evidence; wording preferences and
+  "either episode works" are dropped, not reported. When a pass finds only those, the material is done: no more passes unless new
+  content is added.
 
+## The third October 2026 round, all on main (newest last)
 
 - Battery: the Watcher's eyes blink one blink at a time instead of one looping animation, and the dock drops its blur (idle redraws fell
   from 10 to 15 a second to under 3).

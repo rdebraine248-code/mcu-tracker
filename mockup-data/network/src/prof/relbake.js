@@ -62,7 +62,10 @@ console.log('episode-tagged stages', epTagged);
 // title cut (a connection left with no stages goes). After the episode tags, which count stages as they were
 let tFix = 0, tCut = 0; if (fs.existsSync(R + 'text_fix.json')) { const X = JSON.parse(fs.readFileSync(R + 'text_fix.json')), cut = new Set(X.cut || []);
   for (let k = out.length - 1; k >= 0; k--) { const st = out[k][2];
-    for (let i = st.length - 1; i >= 0; i--) { if (cut.has(st[i][2])) { st.splice(i, 1); tCut++; } else if (X.fix && X.fix[st[i][2]]) { st[i][2] = X.fix[st[i][2]]; tFix++; } }
+    for (let i = st.length - 1; i >= 0; i--) { if (cut.has(st[i][2])) { st.splice(i, 1); tCut++; continue; }
+      [2, 3, 4].forEach(f => { if (X.fix && X.fix[st[i][f]]) { st[i][f] = X.fix[st[i][f]]; tFix++; } });   // the connection's text and both who lines
+      // a name a title never says, swapped for the one it does (sub: [title prefix, old, new]): Cherry is only "Cherry" in Born Again S1
+      (X.sub || []).forEach(([tp, o, n]) => { if (T[st[i][1]].startsWith(tp)) [2, 3, 4].forEach(f => { if (st[i][f] && st[i][f].includes(o)) { st[i][f] = st[i][f].split(o).join(n); tFix++; } }); }); }
     if (!st.length) out.splice(k, 1); } }
 console.log('text fixes', tFix, 'cuts', tCut);
 fs.writeFileSync(__dirname + '/rel.json', JSON.stringify({ kinds: KINDS, titles: T, ord: T.map(so), ties: out, places, cross: cross > 0 }));
