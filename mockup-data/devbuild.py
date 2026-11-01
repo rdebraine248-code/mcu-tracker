@@ -448,6 +448,8 @@ for _pf,_L in (('prose_coll.json',collx),('prose_raft.json',threats),('prose_cp.
             else:
                 for x in hit: x[0]=new
 if '/*IDMOVE*/' in s: put('IDMOVE',_im)
+if '/*EPTAGS*/' in s: put('EPTAGS',load('ep_tags.json',{}))   # each moment in a show, tied to its episode
+if '/*HANDOVER*/' in s: put('HANDOVER',load('handover.json',{}))   # each person's stretches between the Compound and the Raft
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats)

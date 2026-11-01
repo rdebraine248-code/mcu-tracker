@@ -8,7 +8,7 @@ const H = JSON.parse(fs.readFileSync(__dirname + '/hub.json')), SL = JSON.parse(
 // the others are reached by id only (Mordo's ties had all gone to Earth-838's Mordo)
 const BY_ID_ONLY = new Set(['white-vision', 'binary', 'wanda-maximoff-838', 'billy-maximoff-838', 'tommy-maximoff-838', 'christine-palmer-838', 'stephen-strange-838', 'maria-rambeau-838', 'reed-richards-838', 'karl-mordo-838']);
 const ix = new Map(H.nodes.map((n, i) => [n[0], i]).filter(([, i]) => (H.nodes[i][10] || 'mcu') === 'mcu' && !BY_ID_ONLY.has(H.nodes[i][11])));   // relationships are Sacred Timeline ones, by name
-const so = t => { let i = SL.indexOf(t); if (i < 0) i = SL.findIndex(x => x.startsWith(t + ' S') || x.startsWith(t + ':') || x.startsWith(t + ' (')); return i; };
+const so = t => { { const m = /^(.*)#(\d+)$/.exec(t); if (m) { const b = so(m[1]); return b < 0 ? b : b + m[2] / 1000; } } let i = SL.indexOf(t); if (i < 0) i = SL.findIndex(x => x.startsWith(t + ' S') || x.startsWith(t + ':') || x.startsWith(t + ' (')); return i; };
 const KINDS = ['family', 'partner', 'friend', 'mentor', 'boss', 'ally', 'rival', 'enemy'];
 let ties = [], src = 'drafts';
 // the short card lines (rel/who/who_N.json: the staged connections with whoA/whoB on every stage) replace the staged files once all five are in
@@ -52,6 +52,12 @@ const SAME_P = { 'Deathlok': 'Mike Peterson', 'Lash': 'Andrew Garner' }, places 
 // circles for the other universes' crewless people, from each part's review ({ id: circle })
 let uc = 0; if (fs.existsSync(R + 'uni')) fs.readdirSync(R + 'uni').forEach(d => { const f = R + 'uni/' + d + '/circles.json'; if (!fs.existsSync(f)) return;
   Object.entries(JSON.parse(fs.readFileSync(f))).forEach(([id, c]) => { const i = idOf(id); if (i != null && c && H.nodes[i][2] === 'Independent') { const [cn, w] = String(c).split('@'); places[i] = cn + '\u2064' + d + (w || ''); uc++; }   /* "Name@world": one name, separate worlds */   /* a circle belongs to its part: two worlds' "Parker family" stay apart (the key carries it, unseen) */ }); });
+// episode by episode (November 2026): a stage tied to the episode by which all it tells has happened (rel/ep_tags.json, { "idA|idB|title|n": episode },
+// the ids sorted, n counting that pair's stages in that title from 0): its title becomes "Title#episode", shown once that episode is ticked
+let epTagged = 0; if (fs.existsSync(R + 'ep_tags.json')) { const E = JSON.parse(fs.readFileSync(R + 'ep_tags.json'));
+  out.forEach(([a, b, st]) => { const ids = [H.nodes[a][11], H.nodes[b][11]].sort(), seenN = {};
+    st.forEach(x => { const t = T[x[1]]; if (/#\d+$/.test(t)) return; const n = seenN[t] = (seenN[t] ?? -1) + 1, e = E[ids.join('|') + '|' + t + '|' + n]; if (e > 0) { x[1] = tIx(t + '#' + e); epTagged++; } }); }); }
+console.log('episode-tagged stages', epTagged);
 fs.writeFileSync(__dirname + '/rel.json', JSON.stringify({ kinds: KINDS, titles: T, ord: T.map(so), ties: out, places, cross: cross > 0 }));
 console.log('know-each-other audit: cut', kaCut, 'corrected', kaFix); console.log('other-universe circles', uc, '| Sacred Timeline fights and gaps added', extraMcu); console.log('other universes', uni, 'from', UNI.length, 'files | combined', merged2, '| crossings', cross, '| skipped', uskip.length, uskip.slice(0, 8).join(', '));
 console.log('from', src, '| ties', out.length, 'skipped', skip, '| titles', T.length, 'unplaced titles', T.filter(t => so(t) < 0), '| circles', Object.keys(places).length);

@@ -1576,8 +1576,10 @@ const TYEAR = { "Fantastic Four (2005)": "2005", "Fantastic Four (2015)": "2015"
 // episode 7, counted through the title the way its episode list numbers them; a file step says "In episode 7," the way a season's says
 // "In season 2,". It counts as seen once that episode or a later one is ticked in any list, or the whole title is watched
 const epBase = t => { const i = String(t).indexOf("#"); return i < 0 ? t : String(t).slice(0, i); }, epNo = t => { const i = String(t).indexOf("#"); return i < 0 ? 0 : +String(t).slice(i + 1); };
-const epTag = t => epNo(t) ? " · Episode " + epNo(t) : "";
-const tn = t => epNo(t) ? tn(epBase(t)) + epTag(t) : TNAME[t] || t, tnY = t => TYEAR[epBase(t)] ? tn(t) + " (" + TYEAR[epBase(t)] + ")" : tn(t);
+// a title that runs several seasons counts its episodes straight through; it's shown as the season and that season's episode
+const epTag = t => { const n = epNo(t), b = epBase(t); if (!n) return ""; const L = epList(b) || []; if (L.length < 2) return " · Episode " + n;
+  let k = n, i = 0; while (i < L.length - 1 && k > L[i]) { k -= L[i]; i++; } return " S" + (i + 1 + (EPO[b] || 0)) + " · Episode " + k; };
+const tn = t => epNo(t) ? (TNAME[epBase(t)] || epBase(t)).replace((epList(epBase(t)) || []).length > 1 ? / S\d+(?:–S\d+)?$/ : /$^/, "") + epTag(t) : TNAME[t] || t, tnY = t => TYEAR[epBase(t)] ? tn(t) + " (" + TYEAR[epBase(t)] + ")" : tn(t);
 const tnh = t => esc(tn(t)) + (TYEAR[epBase(t)] ? ` <small class="tyr">${TYEAR[epBase(t)]}</small>` : "");
 // a file's step on a long-running show is filed "In season N," so it opens with that season; on screen the season goes with the title
 // ("Agents of S.H.I.E.L.D. S2") and the sentence starts with the story itself
@@ -4704,6 +4706,14 @@ const IDMOVE = /*IDMOVE*/{};
 const CP_ST = { "Transferred": "xfer", "Active": "act", "Off-world": "off", "Retired": "ret", "Fugitive": "fug", "Imprisoned": "imp", "Missing": "mis", "Deceased": "dec" };
 const cpSteps = o => hoKeep(o.st.filter(atlSeenStep), o, "C");
 const cpStatusOf = o => hoShut(o, "C") ? "Transferred" : cpStatus(cpSteps(o));
+// the handovers (mockup-data/handover.json, researched November 2026): each person's stretches, the two halves of a title where they
+// switch sides, and a step written for the file that owns a title only the other file told
+const HANDOVER = /*HANDOVER*/{};
+Object.entries(HANDOVER).forEach(([id, h]) => { const a = ALLIES.find(o => o.id === id), b = a && THREATS.find(o => o.id === a.rf); if (!a || !b || !h.ho) return;
+  a.ho = h.ho; const F = { C: a, R: b };
+  ["C", "R"].forEach(sd => { const o = F[sd];
+    ((h.rewrite || {})[sd] || []).forEach(r => { const x = o.st.filter(y => y[1] === r.title)[r.i || 0]; if (x) { x[0] = r.text; if (r.status) x[2] = r.status; } });
+    ((h.add || {})[sd] || []).forEach(r => { const ox = atlOrd(r.title) ?? 1e9; let k = o.st.findIndex(y => (atlOrd(y[1]) ?? 1e9) > ox); if (k < 0) k = o.st.length; o.st.splice(k, 0, [r.text, r.title, r.status || ""]); }); }); });
 const cpStatus = S => { let st = "Active"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
 const cpName = o => stageAt(o.n, atlSeenT)[0], cpKind = o => stageAt(o.k || "", atlSeenT)[0], cpTeam = o => stageAt(o.tm || "Independent", atlSeenT)[0];
 const cpNo = o => "ID " + String(ALLIES.indexOf(o) + 1).padStart(4, "0");
@@ -10247,6 +10257,20 @@ const COMMS = [
 // or (when it holds every one of its own) the whole list in story order
 const NEWS0 = Object.fromEntries(Object.entries(NEWS).map(([t, L]) => [t, L.slice()]));   // as they stood, for the read marks below
 { const NX = /*NEWSX*/{}, MX = /*COMMSX*/[], SX = /*SRCX*/{}; Object.entries(NX).forEach(([t, L]) => { const O = NEWS[t] || []; NEWS[t] = O.every(h => L.includes(h)) ? L : O.concat(L); }); MX.forEach(m => COMMS.push(m)); Object.assign(NEWS_SRC, SX); }
+// episode by episode (owner, November 2026), from mockup-data/ep_tags.json: each moment in a show is tied to the episode by which all it
+// tells has happened. st: a file step ("A:id" or "T:id", then "title|n", n counting that file's steps in that title from 0) opens
+// "In episode N," (counted through the title); at: an Atlas entry (place id, then its index); nw: a headline (title, then its words) moves
+// to "Title#N", keeping its read mark; ms: a message's title becomes "Title#N"
+const EPTAGS = /*EPTAGS*/{};
+{ const E = EPTAGS, F = { A: ALLIES, T: THREATS };
+  Object.entries(E.st || {}).forEach(([k, m]) => { const [g, id] = [k.slice(0, 1), k.slice(2)], o = (F[g] || []).find(x => x.id === id); if (!o) return; const n = {};
+    o.st.forEach(x => { const j = n[x[1]] = (n[x[1]] ?? -1) + 1, e = m[x[1] + "|" + j]; if (e > 0) x[0] = "In episode " + e + ", " + x[0].replace(/^In (?:season|episode) \d+, /, ""); }); });
+  const P = {}; Object.values(ATLAS).forEach(L => Array.isArray(L) && L.forEach(p => { P[p.id] = p; }));
+  Object.entries(E.at || {}).forEach(([id, m]) => { const p = P[id]; if (p && p.e) Object.entries(m).forEach(([i, e]) => { const x = p.e[+i]; if (x && e > 0 && !/#\d+$/.test(x[0])) x[0] += "#" + e; }); });
+  const R = state.news = state.news || {};
+  Object.entries(E.nw || {}).forEach(([t, m]) => { const L = NEWS[t]; if (!L) return; Object.entries(m).forEach(([h, e]) => { const i = L.indexOf(h); if (i < 0 || !(e > 0)) return; L.splice(i, 1);
+    const nt = t + "#" + e; (NEWS[nt] = NEWS[nt] || []).push(h); if (R[t + "::" + h]) R[nt + "::" + h] = R[t + "::" + h]; }); if (!L.length) delete NEWS[t]; });
+  Object.entries(E.ms || {}).forEach(([id, e]) => { const m = COMMS.find(x => msgId(x) === id || x.id === id); if (m && e > 0 && !/#\d+$/.test(m.t)) { if (!m.id) m.id = m.t; m.t += "#" + e; } }); }   // its id stays, so a read message stays read
 /* MOCKUP BEGIN: episode by episode (WandaVision) and the Compound / Raft handover (Wanda, Bucky), November 2026 */
 if (MOCK) {
   // WandaVision, episode by episode: its news, its Westview message, its Atlas places, Wanda's file and her tie to Agatha in the Network
@@ -10260,11 +10284,6 @@ if (MOCK) {
     ["In episode 5, Wanda walks out of the Hex dragging a S.W.O.R.D. drone and warns Director Hayward to leave her alone.", "WandaVision", "Fugitive"],
     ["In episode 9, Wanda takes up the Scarlet Witch's power, beats Agatha and lets Westview go, losing Vision and the boys.", "WandaVision", "Fugitive"]); } }
   window.EP_MOCK = { net: [["wanda-maximoff", "agatha-harkness", "WandaVision", "WandaVision#7"]] };
-  // the handover: Wanda starts in the Raft (Strucker's test subject), goes to the Compound in Age of Ultron, back to the Raft in Multiverse
-  // of Madness; Bucky starts in the Compound, is the Raft's in The Winter Soldier, and comes back to the Compound in Ant-Man
-  { const w = ALLIES.find(o => o.id === "wanda-maximoff"); if (w) w.ho = [["R", "Captain America: The Winter Soldier"], ["C", "Avengers: Age of Ultron", 1], ["R", "Doctor Strange in the Multiverse of Madness"]];
-    const wr = THREATS.find(o => o.id === "wanda-maximoff" || (w && o.id === w.rf)); if (wr) wr.st.forEach(x => { if (x[1] === "Avengers: Age of Ultron") { x[0] = "Wanda and Pietro join Ultron to get back at Stark, until she sees into his mind and learns he means to end the world."; x[2] = "At large"; } });
-    const b = ALLIES.find(o => o.id === "bucky-barnes"); if (b) b.ho = [["C", "Captain America: The First Avenger"], ["R", "Captain America: The Winter Soldier"], ["C", "Ant-Man"]]; }
 }
 /* MOCKUP END */
 newsKeysV2(); perInit();
