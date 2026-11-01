@@ -47,7 +47,8 @@ h1{ margin:0; font:400 28px/1.05 var(--display); letter-spacing:.5px; text-trans
 #card small{ display:block; font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
 #card h2{ margin:3px 0 6px; font:400 24px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; }
 #card .ln{ display:flex; gap:14px; font-size:14.5px; color:#C9D3E2; } #card .ln i{ display:inline-block; width:12px; height:3px; margin-right:6px; vertical-align:middle; border-radius:2px; }
-#card .row{ display:flex; gap:10px; margin-top:10px; }
+#card .row{ display:flex; gap:6px; margin-top:10px; }
+#card .row button{ flex:1 1 auto; white-space:nowrap; padding-left:8px; padding-right:8px; letter-spacing:1px; }   /* three across, each on one line (Character log is the long one) */
 #card .row button[hidden]{ display:none; }
 #card button{ flex:1; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
 #card button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
@@ -353,7 +354,12 @@ function frame(t) {
   // zoomed out: the groups, each one bubble with its name and head count; its ring in the crew's colour (in a web, in the colour of what they are to them)
   if (e < 1) G.forEach(z => { const c = gv.get(z), n = z.L.length; if (c.x < -c.r || c.x > W + c.r || c.y < -c.r || c.y > H + c.r) return;
     const dim = link && !z.L.includes(link) ? .45 : 1; g.globalAlpha = (1 - e) * dim;
-    g.beginPath(); g.arc(c.x, c.y, c.r, 0, 6.2832); g.fillStyle = '#111C2E'; g.fill();
+    // someone new joined the group: zoomed out you can't see them pop in, so the group does (owner, November 2026): a little swell, and the
+    // blue ring the newcomers get, once for each wave arriving
+    const nw = z.L.reduce((m, p) => p.inAt && t >= p.popAt && t - p.popAt < 2600 && (!m || p.popAt < m) ? p.popAt : m, 0), nk = nw ? (t - nw) / 2600 : 1;
+    const sw = nw && nk < .2 ? 1 + Math.sin(nk / .2 * Math.PI) * .12 : 1, cr = c.r * sw;
+    g.beginPath(); g.arc(c.x, c.y, cr, 0, 6.2832); g.fillStyle = '#111C2E'; g.fill();
+    if (nw) { const a0 = g.globalAlpha; g.globalAlpha = a0 * (1 - nk); g.beginPath(); g.arc(c.x, c.y, cr + 4 + nk * 18, 0, 6.2832); g.strokeStyle = '#5FD0FF'; g.lineWidth = 3; g.stroke(); g.globalAlpha = a0; }
     g.lineWidth = Math.max(1.6, Math.min(4, c.r / 18)); g.beginPath(); g.arc(c.x, c.y, c.r, 0, 6.2832); g.strokeStyle = sel ? KC[z.rel] : z.col || NOCREW; g.stroke();
     if (c.r >= 15) { const fz = Math.max(9, Math.min(19, c.r * .27)); g.font = `400 ${fz}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
       const L = wrap(z.name.toUpperCase(), c.r * 1.6, c.r > 40 ? 3 : 2), lh = fz * 1.08, y0 = c.y - (L.length * lh) / 2 - fz * .3;

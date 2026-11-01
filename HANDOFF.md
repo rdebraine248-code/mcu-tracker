@@ -459,8 +459,12 @@ insignia celebration covers the page.
 - **Every page wears the same screen**: the Log's header and the Network (its room is drawn over the texture, its header fades it) use
   the pads' texture (`--padimg`), not flat dark. The dock is solid, so Story never shows through it.
 - **Comms**: the filter row sits on the page (no band behind it), its picked chip light like every tab. What the ticker plays shows in the
-  open list at once and the ticker runs on, from the dock or from tapping the ticker.
+  open list at once and the ticker runs on (opened from the dock).
 - **The Log**: holding it marks both tabs read (Paths included); its entries carry no "Recorded" tag.
+- **Zoomed out, a group shows its newcomers** (owner: the Network opens on the group bubbles, so the pop-ins couldn't be seen): a group
+  that gains people swells a little and wears the same blue ring. The card's three buttons each stay on one line.
+- **Tapping the ticker** opens Comms and the ticker goes: everything it still had waiting counts as delivered (it's in the lists), so it
+  doesn't start up again. Opening Comms from the dock lets it run on.
 - **A file's Character log › and Path ›** stand at the right of its record line as outlined pills in the index's colour.
 - **Connections grow and change** (owner, November 2026: "I thought relationships grow and change"): a connection is stages in story
   order, each with its own kind, so Wanda and Bruce are enemies after Age of Ultron and allies from Infinity War, and Darcy is swept into
