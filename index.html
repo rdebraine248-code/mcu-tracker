@@ -2523,11 +2523,19 @@ const CHECK = c => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l
 // Chapter 7 open (owner, November 2026: "the branching timeline graphic a little bit more involved in the entire box and maybe a bit
 // fainter, part of the background"): the Sacred Timeline comes in from the left and breaks into branches that reach across and down the
 // whole box, faint, standing still behind the list; the band across its top is gone, so its top row sits level with every other box
-const CH7_BG = (() => {   // Chapter 7's own banner drawn across the whole box: four strands each side of the red (owner: "2 on each side that far apart is ugly"), evenly spread
-  const ln = (d, c, w) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" vector-effect="non-scaling-stroke"/>`, G = "#D9A441";
-  const svg = ln("M0 15 L140 15", G, 5) + [2, 5.25, 8.5, 11.75, 18.25, 21.5, 24.75, 28].map(y => ln(`M140 15 C 160 15, 176 ${y}, 214 ${y} L 318 ${y}`, G, 2.5)).join("") + ln("M140 15 C 160 15, 176 15, 214 15 L 318 15", "#C8102E", 3);
-  return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; opacity: .2"><svg width="100%" height="100%" viewBox="0 0 318 30" preserveAspectRatio="none" style="display: block">${svg}</svg>`
-    + `<span style="position: absolute; left: 44%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #15171D; border: 4px solid #F3EFE7; box-sizing: border-box"></span></div>`; })();
+const CH7_BG = (() => {   // Chapter 7 open: the timeline as the TVA watches it (owner, November 2026, after the TVA's monitor: "the main branches at
+  // different points and then branches from those branches, in a pleasing way"): one timeline runs down the box, branches leave it at
+  // intervals, side to side, all leaning on with time, and some put out a twig of their own, each from a point on its branch
+  let sd = 7; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647, f = v => v.toFixed(1), G = "#EBC57A";
+  const tx = y => 236 + 16 * Math.sin(y / 130), bz = (a, b, c, d, t) => { const u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d; };
+  let trunk = "", br = "", tw = ""; for (let y = -20; y <= 840; y += 10) trunk += (y < -19 ? "M" : "L") + f(tx(y)) + " " + y + " ";
+  let side = 1; for (let y = -10; y < 800; y += 22 + rnd() * 14) { side = -side; const x0 = tx(y), L = 55 + rnd() * 95, dx = side * L, dy = L * (1.15 + rnd() * .45);
+    const P = [x0, y, x0 + dx * .35, y + dy * .12, x0 + dx * .85, y + dy * .45, x0 + dx, y + dy];
+    br += `<path d="M${f(P[0])} ${f(P[1])} C ${f(P[2])} ${f(P[3])}, ${f(P[4])} ${f(P[5])}, ${f(P[6])} ${f(P[7])}" fill="none" stroke="${G}" stroke-width="1.9" stroke-linecap="round"/>`;
+    const n = L > 100 ? 2 : rnd() < .6 ? 1 : 0; for (let k = 0; k < n; k++) { const t = n === 2 ? (k ? .7 : .38) : .45 + rnd() * .2, px = bz(P[0], P[2], P[4], P[6], t), py = bz(P[1], P[3], P[5], P[7], t), l = 25 + rnd() * 35;
+      tw += `<path d="M${f(px)} ${f(py)} Q ${f(px + side * l * .35)} ${f(py + l * .25)}, ${f(px + side * l * .6)} ${f(py + l)}" fill="none" stroke="${G}" stroke-width="1.3" stroke-linecap="round"/>`; } }
+  return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; opacity: .2"><svg width="100%" height="100%" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" style="display: block">`
+    + `<path d="M86 -20 V840 M372 -20 V840" stroke="#C8102E" stroke-width="2"/>${tw}${br}<path d="${trunk}" fill="none" stroke="#F3EFE7" stroke-width="2.8"/></svg></div>`; })();
 /* MOCKUP END */
 function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and

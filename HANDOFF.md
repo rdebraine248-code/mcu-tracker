@@ -82,9 +82,10 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
 - **A box's top row sits the status bar plus 6px down** (owner, November 2026: "all the contents and headers are so low"): `pinTop()`
   measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
   timeline band is 56px tall, so its row sits just under it, as high as it can go. **Mockup (test build):** Chapter 7's band is replaced by a
-  faint copy of its own banner across the whole box (`CH7_BG`: exactly the banner's lines, the gold line in from the left to the
-  junction, then four gold strands each side of the red one, spread evenly from top to bottom (owner: "2 on each side that far apart is ugly"); owner: no added branches, "I didn't ask for those"),
-  so its row sits level with the rest. The tile on the Story page keeps its band.
+  faint timeline behind the whole box, after the TVA's monitor in Loki (`CH7_BG`; owner: "the main branches at different points
+  and then branches from those branches, in a pleasing way"): one cream timeline runs down the box, gold branches leave it every so often,
+  side to side, leaning on with time, and the longer ones put out a twig or two, each from a point on its branch; two faint red bounds.
+  Its row sits level with the rest. (Earlier tries, rejected: unconnected extra lines; even strands; the banner stretched.) The tile on the Story page keeps its band.
 
 ### Testing checklist (everything on main, 1 November 2026)
 
