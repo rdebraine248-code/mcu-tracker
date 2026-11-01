@@ -11147,7 +11147,7 @@ document.addEventListener("click", ev => {
   haptic(b.id === "gateEnter" ? HAPTIC.enter : HAPTIC.tap);
 }, true);
 renderAll();
-["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
+["openComms", "closeComms", "openFile", "closeFile", "openAtlas", "closeAtlas", "openMap", "closeMap", "openDossier", "closeDossier", "openNet", "closeNet"].forEach(n => { const f = window[n]; window[n] = function () { const r = f.apply(this, arguments); try { dockSync(); } catch (e) {} return r; }; });
 // ---------- Damage Control's incident reports. Found in the Atlas, in New York's Midtown (where Damage Control began, cleaning up after the
 // Battle of New York) as soon as Midtown is on the map, the way every index opens with its place; a report shows once its title is watched, and each line of fallout once its own title is
 const DC = [
