@@ -206,6 +206,7 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .pfix{ position:fixed; inset:var(--pb, 0px); pointer-events:none; z-index:0; overflow:hidden; }   /* inside the box's frame, so its art never paints over the border */
 /* a box's top row sits the status bar plus 6px down, like every page's title (owner, November 2026: its headers were "so low"); pinTop measures
    each box, since some wear a band across their top (Chapter 1's stars) */
+.chbranch{ height:52px; margin:18px -24px 6px; overflow:hidden; } .chbranch svg{ width:100%; height:100%; }
 .pin{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:var(--pinT, max(0px, calc(env(safe-area-inset-top,0px) - 8px))) 8px calc(90px + env(safe-area-inset-bottom,0px)); opacity:0; transition:opacity .3s ease .18s; }
 .panel.open .pin{ opacity:1; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
@@ -2520,12 +2521,11 @@ const panel = document.getElementById("panel");
 let openEntry = null, openFrom = null, openKind = null, closeTimer = null, closeDone = null, pqHoldUntil = 0, listHold = null;
 const CHECK = c => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="square"/></svg>`;
 function panelDecor(e) {
-  // full-screen tweaks: taller banners so they don't look squashed (not Chapter 7's: at its own 30px its branching line sits in the status
-  // bar's strip, like Chapter 1's stars, and its top row stands level with every other box; owner: "the point is to have chapter 7 up like the rest"),
-  // a longer gem glow, and
+  // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
   // background decorations pinned in place while the list scrolls
   let h = e.decor || "";
-  if (e.id !== "ch-7") h = h.replace('style="height: 30px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="30"',
+  if (e.id === "ch-7") return "";   // its branching line moves down into the box, where the titles branch off it (chBranch)
+  h = h.replace('style="height: 30px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="30"',
                 'style="height: clamp(56px, 12vw, 150px); margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="100%"');
   h = h.replace('style="position: relative; height: 12px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="12"',
                 'style="position: relative; height: clamp(12px, 3.6vw, 44px); margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="100%"');
@@ -2572,7 +2572,7 @@ function renderPanel(e, fresh) {
       <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span id="pBar" style="width:${t ? n / t * 100 : 0}%;background:${box}"></span></div>
-      <ul class="list">${panelList(e, panelItems(e))}</ul>
+      ${chBranch(e)}<ul class="list">${panelList(e, panelItems(e))}</ul>
 
       <div id="pDone">${t && n === t ? `<button type="button" class="complete" id="btnComplete" style="background:${box};color:${tick};border-color:${box}">${CHECK(tick)}Complete</button>` : ""}</div>
     </div>`;
@@ -2630,6 +2630,11 @@ function pushNav(kind) {
 function navBack() { if (navBusy) return; navBusy = true; history.back(); setTimeout(() => { navBusy = false; }, 800); }
 function uiClose() { if (navAt("panel")) navBack(); else closePanel(); }
 let openWasDone = false, revealChanged = false;
+// Chapter 7 is where the Sacred Timeline branches, so its open box draws its branching line between the progress bar and the titles,
+// full width, the titles carrying on from it (owner, November 2026: up top it was "so small and squished ... why is it there"); its top
+// row stands level with every other box
+function chBranch(e) { if (e.id !== "ch-7" || !e.decor) return ""; const m = /<svg[\s\S]*<\/svg>/.exec(e.decor); if (!m) return "";
+  return `<div class="chbranch" aria-hidden="true">${m[0].replace('height="30"', 'height="100%"').replace(/ style="display: block; background: #15171D"/, ' style="display:block"')}</div>`; }
 function pinTop() { panel.style.removeProperty("--pinT"); const pin = panel.querySelector(".pin"), row = pin && pin.firstElementChild; if (!row) return;
   const pad = parseFloat(getComputedStyle(pin).paddingTop) || 0, base = row.getBoundingClientRect().top - panel.getBoundingClientRect().top - pad;
   panel.style.setProperty("--pinT", Math.max(0, Math.round(netSat() + 6 - base)) + "px"); }
