@@ -465,8 +465,14 @@ insignia celebration covers the page.
   order, each with its own kind, so Wanda and Bruce are enemies after Age of Ultron and allies from Infinity War, and Darcy is swept into
   the Hex (WandaVision episode 7) before standing up for Wanda's family (episode 9). Corrections and added stages live in
   `network/rel/stage_fix.json` (`edit` a stage by its place, `add` a later one; applied in `prof/relbake.js` after the text fixes).
-  About 376 connections end as enemy or rival while their own words hint at a later turn (a keyword scan, many of them false alarms):
-  a review pass to add the real turns is the owner's call.
+  **The review pass is done** (owner: "push everything together"): the 374 connections that ended as enemy or rival while their words
+  hinted at a turn were each checked against the sources; 23 really turn (or were mislabeled in their own title), the rest are left as
+  they are. Their fixes are `network/rel/stage_fix_review_1..4.json` (each pair with its source): stages turned to ally where the two
+  sides team up in that very episode (Coulson and Victoria Hand, Coulson and Gonzales, Matt and Vladimir, Silver Surfer and Sue,
+  Ghost with Scott and Hope), later ally or family stages added (Adam Warlock and Rocket, Cal and Coulson, Manfredi with Peggy and
+  Jarvis, Joy and Ward, Auran and Black Bolt, Mayhem and Dagger), foreshadowing taken out of earlier stages, and a few wrong details
+  fixed (Crank killed BB, not Davos; Vladimir never tortures Matt; Sidewinder never ends up on Sam's side). `edit` can also move a
+  stage to its `episode`. Closed by the stopping rule: no further passes on this material unless new connections are added.
 - **Network titles are broken down by season** (owner, November 2026): a step on a show that runs several seasons counts at its own
   episode ("In episode 44," is `Show#44`; "In season 2," is the last episode of season 2, so no one shows before their season is done;
   `season` in `prof/hub2.js`), and is listed under its season ("What If...? S2", `lab` and `DATA.seas`); a season the app lists as its own

@@ -70,13 +70,16 @@ let tFix = 0, tCut = 0; if (fs.existsSync(R + 'text_fix.json')) { const X = JSON
 console.log('text fixes', tFix, 'cuts', tCut);
 // connections that change (rel/stage_fix.json, November 2026: owner, "I thought relationships grow and change"): a stage corrected, or a
 // later stage added where the relationship turns (an enemy who becomes an ally), kept in story order
-let sFix = 0; if (fs.existsSync(R + 'stage_fix.json')) JSON.parse(fs.readFileSync(R + 'stage_fix.json')).pairs.forEach(f => {
-  const a = ix.get(f.a), b = ix.get(f.b), t = out.find(o => (o[0] === a && o[1] === b) || (o[0] === b && o[1] === a)); if (!t) { console.warn('stage_fix: no connection', f.a, '|', f.b); return; }
+// a and b by id (any world) or by Sacred Timeline name; the review's files (rel/stage_fix_*.json) after the hand-written one
+const pid = k => { const i = idOf(k); return i != null ? i : ix.get(k); };
+let sFix = 0; ['stage_fix.json', ...fs.readdirSync(R).filter(f => /^stage_fix_.+\.json$/.test(f)).sort()].forEach(fn => { if (fs.existsSync(R + fn)) JSON.parse(fs.readFileSync(R + fn)).pairs.forEach(f => {
+  const a = pid(f.a), b = pid(f.b), t = out.find(o => (o[0] === a && o[1] === b) || (o[0] === b && o[1] === a)); if (!t) { console.warn('stage_fix: no connection', f.a, '|', f.b); return; }
   const flip = t[0] !== a, st = t[2];
-  (f.edit || []).forEach(e => { const x = st[e.i]; if (!x) { console.warn('stage_fix: no stage', e.i, f.a, f.b); return; } if (e.kind) x[0] = KINDS.indexOf(e.kind); if (e.text) x[2] = e.text;
+  (f.edit || []).forEach(e => { const x = st[e.i]; if (!x) { console.warn('stage_fix: no stage', e.i, f.a, f.b); return; } if (e.kind) x[0] = KINDS.indexOf(e.kind); if (e.text) x[2] = e.text; if (e.episode) x[1] = tIx(T[x[1]].replace(/#\d+$/, '') + '#' + e.episode);   // a stage moved to the episode it happens in
     if (e.whoA != null) x[flip ? 4 : 3] = e.whoA; if (e.whoB != null) x[flip ? 3 : 4] = e.whoB; sFix++; });
-  (f.add || []).forEach(e => { st.push([KINDS.indexOf(e.kind), tIx(e.title), e.text, flip ? e.whoB : e.whoA, flip ? e.whoA : e.whoB]); sFix++; });
-  st.sort((x, y) => so(T[x[1]]) - so(T[y[1]])); });
+  (f.add || []).forEach(e => { if (KINDS.indexOf(e.kind) < 0 || so(e.title) < 0) { console.warn('stage_fix: bad kind or title', e.kind, e.title, f.a, f.b); return; }
+    st.push([KINDS.indexOf(e.kind), tIx(e.title + (e.episode ? '#' + e.episode : '')), e.text, flip ? e.whoB : e.whoA, flip ? e.whoA : e.whoB]); sFix++; });
+  st.sort((x, y) => so(T[x[1]]) - so(T[y[1]])); }); });
 console.log('stage fixes', sFix);
 fs.writeFileSync(__dirname + '/rel.json', JSON.stringify({ kinds: KINDS, titles: T, ord: T.map(so), ties: out, places, cross: cross > 0 }));
 console.log('know-each-other audit: cut', kaCut, 'corrected', kaFix); console.log('other-universe circles', uc, '| Sacred Timeline fights and gaps added', extraMcu); console.log('other universes', uni, 'from', UNI.length, 'files | combined', merged2, '| crossings', cross, '| skipped', uskip.length, uskip.slice(0, 8).join(', '));
