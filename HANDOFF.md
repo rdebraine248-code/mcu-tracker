@@ -356,6 +356,10 @@ insignia celebration covers the page.
   name box as from each other. The Raft's Threat class tile and status banner are gone (its class is on the ID line). A transfer is a
   line of the record like the rest, its title small under it (`hoMark`), and names the other place only once you've found it ("File
   transferred out of the Compound" until then).
+- **Each index wears its own colour** (owner, November 2026: "the Raft red, Damage Control green, but not neon or slime green"):
+  `--ix` / `--ixt` on `.collpanel` (Compound blue #5E9BEF, Raft red #D45A4F, Damage Control green #5FAF7E, Collection gold #D9AE52)
+  tint the title's glow, the section heads, the tiles, the name box, the search box and the connections box. Damage Control's old neon
+  #7FD95A is now #6DBB8A everywhere, its replays included.
 - **Back from the Network returns to the file you came from** (`netFrom`, `netGoTo`): tapping a file's connections no longer loses
   the file.
 - **Network titles are broken down by season** (owner, November 2026): a step on a show that runs several seasons counts at its own

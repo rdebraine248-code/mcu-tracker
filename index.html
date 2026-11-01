@@ -1190,14 +1190,14 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .fx-pager.sent .pg{ filter:drop-shadow(0 16px 26px rgba(0,0,0,.65)) drop-shadow(0 0 18px rgba(244,197,66,.45)); }
 .fx-pager .snd{ fill:#22301C; font:700 13px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; transition:opacity .12s; }
 /* ---------- Damage Control: a battle's tactical replay ---------- */
-.tr{ margin:0 0 16px; border:1px solid #2F5A26; border-radius:12px; background:rgba(127,217,90,.04); }
+.tr{ margin:0 0 16px; border:1px solid #2F5A26; border-radius:12px; background:rgba(109,187,138,.04); }
 .tr-head{ display:flex; align-items:center; gap:10px; width:100%; padding:11px 14px; border:0; background:none; color:#BFF0A6; text-align:left; cursor:pointer; }
 .tr-head span{ font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; } .tr-head small{ margin-left:auto; color:#86A879; font-size:13px; }
-.tr-head i{ display:grid; color:#7FD95A; transition:transform .2s; } .tr.open .tr-head i{ transform:rotate(180deg); }
+.tr-head i{ display:grid; color:#6DBB8A; transition:transform .2s; } .tr.open .tr-head i{ transform:rotate(180deg); }
 .tr-body{ padding:0 12px 12px; }
 .tr-map{ position:relative; border:1px solid #24401E; border-radius:10px; overflow:hidden; background:radial-gradient(ellipse at 50% 40%,#0F1A0F,#070B07 75%); }
 .tr-map svg{ display:block; width:100%; height:auto; touch-action:manipulation; }
-.tr-scan{ position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(180deg,rgba(127,217,90,.04) 0 1px,transparent 1px 3px); }
+.tr-scan{ position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(180deg,rgba(109,187,138,.04) 0 1px,transparent 1px 3px); }
 .tr-lab{ font:7px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; fill:rgba(170,230,140,.55); text-transform:uppercase; }
 .tr-u{ cursor:pointer; } .tr-u text{ font:700 6.4px 'Share Tech Mono','Courier New',monospace; text-anchor:middle; dominant-baseline:central; pointer-events:none; }
 .tr-who[hidden]{ display:none; }
@@ -1205,9 +1205,9 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .tr-who button{ padding:3px 9px; border:1px solid #4E9E3A; border-radius:999px; background:none; color:#BFF0A6; font:11px 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
 .tr-ctl{ display:flex; align-items:center; gap:8px; margin:10px 0 4px; }
 .tr-ctl button{ flex:none; display:grid; place-items:center; width:38px; height:38px; border:1px solid #2F5A26; border-radius:50%; background:#0C140C; color:#BFF0A6; }
-.tr-ctl button.pp{ width:44px; height:44px; border-color:#4E9E3A; color:#7FD95A; } .tr-ctl input{ flex:1; min-width:0; accent-color:#7FD95A; }
-.tr-cap{ min-height:84px; margin:8px 0 0; padding:10px 12px; border-left:3px solid #7FD95A; background:rgba(127,217,90,.06); border-radius:0 10px 10px 0; color:#EEF1F6; font-size:15px; line-height:1.45; }
-.tr-cap small{ display:block; margin-bottom:3px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FD95A; }
+.tr-ctl button.pp{ width:44px; height:44px; border-color:#4E9E3A; color:#6DBB8A; } .tr-ctl input{ flex:1; min-width:0; accent-color:#6DBB8A; }
+.tr-cap{ min-height:84px; margin:8px 0 0; padding:10px 12px; border-left:3px solid #6DBB8A; background:rgba(109,187,138,.06); border-radius:0 10px 10px 0; color:#EEF1F6; font-size:15px; line-height:1.45; }
+.tr-cap small{ display:block; margin-bottom:3px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#6DBB8A; }
 .tr-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; margin:10px 0 8px; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#A6C996; }
 .tr-legend i{ display:inline-block; width:9px; height:9px; margin-right:6px; border-radius:50%; vertical-align:-1px; }
 .tr-key{ display:flex; flex-wrap:wrap; gap:6px; }
@@ -1449,27 +1449,27 @@ body{ padding-bottom:var(--dockh); }
 .kfile .stamp{ position:absolute; right:14px; top:24px; padding:3px 8px; border:2px solid #C2262B; border-radius:4px; color:#C2262B; font:11px/1.2 'Share Tech Mono',monospace; letter-spacing:2px; transform:rotate(-7deg); }
 .kfile .cl{ display:block; margin-top:12px; font:10px/1.4 'Share Tech Mono',monospace; letter-spacing:2px; color:#5A6470; text-transform:uppercase; }
 /* Damage Control's incident reports: a government form, hi-vis green on slate, like the cleanup crews' vests, every report stamped with its number */
-.collpanel.dcx .maptop h2{ color:#7FD95A; } .collpanel.dcx .maptop h2::before{ color:rgba(127,217,90,.45); }
-.dcx .co-h{ color:#7FD95A; }
+.collpanel.dcx .maptop h2::before{ color:rgba(109,187,138,.45); }
+.dcx .co-h{ color:#6DBB8A; }
 .dc-yr{ display:flex; align-items:center; gap:10px; margin:18px 0 8px; font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#9AA6BA; }
 .dc-yr::after{ content:""; flex:1; height:1px; background:#2A3140; }
-.dc-row{ display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:12px; width:100%; margin:0 0 8px; padding:12px 14px; border:1px solid #2A3140; border-left:4px solid #7FD95A; border-radius:10px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
+.dc-row{ display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:12px; width:100%; margin:0 0 8px; padding:12px 14px; border:1px solid #2A3140; border-left:4px solid #6DBB8A; border-radius:10px; background:#0F1626; color:#EEF1F6; text-align:left; cursor:pointer; touch-action:manipulation; }
 .dc-row:active{ transform:scale(.99); }
 .dc-list2{ padding-top:8px; } .dc-row{ grid-template-columns:48px minmax(0,1fr) auto; } .collpanel.dcx .rf-sec{ margin-bottom:6px; }
-.dc-row .no{ font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; white-space:nowrap; color:#7FD95A; }   /* a case number never breaks at its hyphen */
+.dc-row .no{ font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; white-space:nowrap; color:#6DBB8A; }   /* a case number never breaks at its hyphen */
 .dc-row b{ display:block; font:400 19px/1.1 'Anton','Impact',sans-serif; letter-spacing:.4px; text-transform:uppercase; }
 .dc-row small{ display:block; margin-top:3px; font-size:13px; color:#9AA6BA; }
 .dc-row em{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; font-style:normal; color:#A6C996; text-align:right; max-width:110px; }
-.dc-head{ position:relative; margin:0 0 14px; padding:14px 16px 16px; border:1px solid #23361E; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(127,217,90,.06) 0 12px,transparent 12px 24px),#11161F; }
+.dc-head{ position:relative; margin:0 0 14px; padding:14px 16px 16px; border:1px solid #23361E; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(109,187,138,.06) 0 12px,transparent 12px 24px),#11161F; }
 .dc-head .dc-no{ white-space:nowrap; }
-.dc-head small{ display:block; padding-right:128px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#7FD95A; }
+.dc-head small{ display:block; padding-right:128px; font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#6DBB8A; }
 .dc-head h3{ margin:6px 0 4px; font:400 30px/1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#FFFFFF; }
 .dc-head p{ margin:0; color:#C7CFDC; }
 .dc-stamp{ position:absolute; right:12px; top:10px; padding:3px 8px; border:2px solid #E5484D; border-radius:4px; color:#E5484D; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; transform:rotate(-6deg); opacity:.85; }
 .dc-p{ margin:0 0 16px; font-size:16px; line-height:1.45; color:#E2E7EF; }
 .dc-list{ margin:0 0 16px; padding:0; list-style:none; }
 .dc-list li{ position:relative; margin:0 0 10px; padding-left:16px; font-size:16px; line-height:1.4; color:#E2E7EF; }
-.dc-list li::before{ content:""; position:absolute; left:0; top:.55em; width:7px; height:7px; background:#7FD95A; transform:rotate(45deg); }
+.dc-list li::before{ content:""; position:absolute; left:0; top:.55em; width:7px; height:7px; background:#6DBB8A; transform:rotate(45deg); }
 .dc-list small{ display:block; margin-top:2px; font:11px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#7F8BA0; }
 .dc-chips{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 16px; }
 .dc-chips button{ padding:7px 12px; border:1px solid #33405A; border-radius:999px; background:#121A2B; color:#DDE6F3; font:15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; }
@@ -1477,11 +1477,26 @@ body{ padding-bottom:var(--dockh); }
 .dc-chips button:active{ transform:scale(.96); }
 .dc-chips span{ padding:7px 12px; border:1px dashed #2C3850; border-radius:999px; color:#AEB8C9; font:15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }   /* a name whose index you haven't found yet: on the report, but no way in */
 .dc-chips span.v{ border-color:#4A3236; color:#D9BFC0; } .dc-chips span.o{ border-color:#4A3E20; color:#D8CA9F; }
-.atl-dc{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #4E9E3A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(127,217,90,.10) 0 10px,rgba(127,217,90,.03) 10px 20px); color:#BFF0A6; text-align:left; cursor:pointer; }
-.atl-dc i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(127,217,90,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#7FD95A; }
+.atl-dc{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #4E9E3A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(109,187,138,.10) 0 10px,rgba(109,187,138,.03) 10px 20px); color:#BFF0A6; text-align:left; cursor:pointer; }
+.atl-dc i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(109,187,138,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#6DBB8A; }
 .atl-dc span{ flex:1; } .atl-dc b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
-.atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; } .atl-dc em{ font-style:normal; font-size:18px; color:#7FD95A; }
-.hf-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(127,217,90,.10),rgba(127,217,90,.03)); --ak:#7FD95A; }
+.atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; } .atl-dc em{ font-style:normal; font-size:18px; color:#6DBB8A; }
+.hf-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(109,187,138,.10),rgba(109,187,138,.03)); --ak:#6DBB8A; }
+/* each index wears its own colour (owner, November 2026: "the Raft red, Damage Control green, but not neon or slime green"): the title's
+   glow, the section heads and a faint tint on its boxes. The Compound is Avengers blue, the Raft red, Damage Control green, the Collection gold */
+.collpanel{ --ix:#D9AE52; --ixt:#E9C46A; } .collpanel.cpx{ --ix:#5E9BEF; --ixt:#8FC1FF; } .collpanel.raft{ --ix:#D45A4F; --ixt:#EE8C82; } .collpanel.dcx{ --ix:#5FAF7E; --ixt:#86C9A0; }
+.collpanel .maptop h2::before{ color:color-mix(in srgb, var(--ix) 55%, transparent); }
+.collpanel .co-h, .collpanel.raft .co-h, .collpanel.dcx .co-h{ color:var(--ixt); }
+.collpanel .co-top small, .collpanel.raft .co-top small, .collpanel.cpx .co-top small{ color:var(--ixt); }
+.collpanel .co-tiles div, .collpanel .pg-q, .collpanel .dc-row, .collpanel .cp-card, .collpanel .cp-rf.to-net{ border-color:color-mix(in srgb, var(--ix) 40%, #1E2638); background:color-mix(in srgb, var(--ix) 8%, #0E1524); }
+.collpanel .cp-rf.to-net small, .collpanel .np .npall{ color:var(--ixt); }
+.collpanel .co-tiles small{ color:var(--ixt); }
+.collpanel .rf-head{ border-color:color-mix(in srgb, var(--ix) 38%, #1E2638); background:linear-gradient(180deg, color-mix(in srgb, var(--ix) 12%, #141B28), color-mix(in srgb, var(--ix) 4%, #0D121B)); }
+.collpanel .co-crumb{ border-color:color-mix(in srgb, var(--ix) 35%, #232C40); color:var(--ixt); }
+.collpanel .rf-sh{ border-bottom-color:color-mix(in srgb, var(--ix) 30%, #1E2638); }
+.collpanel .rf-row{ border-bottom-color:color-mix(in srgb, var(--ix) 14%, #141C2B); }
+.collpanel .cx-case{ border-color:color-mix(in srgb, var(--ix) 30%, #1E2638); }
+.collpanel.raft .co-chain li::before{ border-color:var(--ix); } .collpanel.raft .co-chain li:last-child::before{ background:var(--ix); box-shadow:0 0 8px var(--ix); }
 
 </style>
 </head>
@@ -11614,14 +11629,14 @@ function cxAccords() {
    ground: everyone who turns it moves from beat to beat, the armies as swarms, with each beat in words underneath. Tap anyone to see who it is */
 const TR_COL = { A: "#5FA8FF", B: "#F4C542", T: "#FF5A4E", C: "#D9E2EC" };
 const trL = (x, y, t, a) => `<text class="tr-lab" x="${x}" y="${y}"${a ? ` text-anchor="${a}"` : ""}>${t}</text>`;
-const TR_LN = 'stroke="rgba(127,217,90,.28)" fill="none"', TR_BD = 'fill="rgba(127,217,90,.07)" stroke="rgba(127,217,90,.32)"';
-const trGrid = () => { let g = ""; for (let x = 0; x <= 400; x += 20) g += `<path d="M${x} 0V300" stroke="rgba(127,217,90,.05)"/>`; for (let y = 0; y <= 300; y += 20) g += `<path d="M0 ${y}H400" stroke="rgba(127,217,90,.05)"/>`; return g; };
+const TR_LN = 'stroke="rgba(109,187,138,.28)" fill="none"', TR_BD = 'fill="rgba(109,187,138,.07)" stroke="rgba(109,187,138,.32)"';
+const trGrid = () => { let g = ""; for (let x = 0; x <= 400; x += 20) g += `<path d="M${x} 0V300" stroke="rgba(109,187,138,.05)"/>`; for (let y = 0; y <= 300; y += 20) g += `<path d="M0 ${y}H400" stroke="rgba(109,187,138,.05)"/>`; return g; };
 // each battle: its ground, the effects that mark what happens, the armies, everyone on the field and where they are at each beat, and the beats.
 // A position key is [beat, x, y]; a key with no place takes them off the field
 const TR = {
   "dc-bny": { sides: { A: "The Avengers", T: "Loki and the Chitauri" },
     map: () => trGrid() + [60, 130, 200, 270, 340].map(x => `<path d="M${x} 0V300" ${TR_LN} stroke-width="${x === 200 ? 5 : 3}"/>`).join("") + [40, 80, 120, 160, 240, 280].map(y => `<path d="M0 ${y}H400" ${TR_LN} stroke-width="1.6"/>`).join("") + `<path d="M0 200H400" ${TR_LN} stroke-width="3.4"/>`
-      + `<rect x="175" y="148" width="50" height="44" ${TR_BD}/><path d="M170 145V197H230V145" stroke="rgba(127,217,90,.35)" stroke-dasharray="3 3" fill="none"/><rect x="191" y="121" width="18" height="18" fill="rgba(127,217,90,.18)" stroke="rgba(160,240,120,.6)"/>`
+      + `<rect x="175" y="148" width="50" height="44" ${TR_BD}/><path d="M170 145V197H230V145" stroke="rgba(109,187,138,.35)" stroke-dasharray="3 3" fill="none"/><rect x="191" y="121" width="18" height="18" fill="rgba(109,187,138,.18)" stroke="rgba(140,205,160,.6)"/>`
       + trL(64, 12, "5th Ave") + trL(134, 12, "Madison") + trL(204, 12, "Park Ave") + trL(274, 12, "Lexington") + trL(344, 12, "3rd Ave") + trL(6, 196, "E 42nd St") + trL(228, 172, "Grand Central") + trL(214, 118, "Stark Tower") + trL(204, 234, "Pershing Sq"),
     fx: [{ k: "ring", x: 200, y: 130, r: 34, from: .9, to: 10.25, lab: "Portal, overhead" }, { k: "mark", x: 150, y: 205, from: 3.72, to: 11, lab: "Quinjet down" }, { k: "bolt", x: 200, y: 130, r: 34, from: 6.3, to: 8.4 }, { k: "blast", x: 200, y: 210, at: 5.08, r: 26 }, { k: "blast", x: 200, y: 130, at: 9.5, r: 80 }],
     swarms: [{ s: "T", n: 64, keys: [[1, 200, 130, 10, .3], [1.7, 200, 150, 80, 1], [3, 200, 160, 120, 1], [9.5, 200, 165, 135, 1], [9.95, 200, 165, 135, 0]] }],
@@ -11651,8 +11666,8 @@ const TR = {
       "Natasha closes the portal with the scepter as Tony falls back through, and the Hulk catches him."
     ] },
   "dc-lhz": { sides: { A: "Steve's side", B: "Tony's side" },
-    map: () => trGrid() + `<rect x="20" y="20" width="150" height="50" ${TR_BD}/><rect x="300" y="100" width="88" height="76" ${TR_BD}/><circle cx="255" cy="52" r="9" ${TR_BD}/><rect x="0" y="246" width="400" height="34" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.28)"/>`
-      + `<path d="M10 263H390" stroke="rgba(160,240,120,.35)" stroke-dasharray="10 8"/><path d="M95 70V246M170 120H300M240 70V246" ${TR_LN} stroke-dasharray="2 4"/><path d="M80 150l18-5 4-14 4 14 18 5-18 4-4 10-4-10z" fill="rgba(127,217,90,.16)"/><path d="M150 205l18-5 4-14 4 14 18 5-18 4-4 10-4-10z" fill="rgba(127,217,90,.16)"/><path d="M336 140l14-4 4-10 4 10 14 4-14 4-4 8-4-8z" fill="rgba(160,240,120,.25)"/>`
+    map: () => trGrid() + `<rect x="20" y="20" width="150" height="50" ${TR_BD}/><rect x="300" y="100" width="88" height="76" ${TR_BD}/><circle cx="255" cy="52" r="9" ${TR_BD}/><rect x="0" y="246" width="400" height="34" fill="rgba(109,187,138,.05)" stroke="rgba(109,187,138,.28)"/>`
+      + `<path d="M10 263H390" stroke="rgba(140,205,160,.35)" stroke-dasharray="10 8"/><path d="M95 70V246M170 120H300M240 70V246" ${TR_LN} stroke-dasharray="2 4"/><path d="M80 150l18-5 4-14 4 14 18 5-18 4-4 10-4-10z" fill="rgba(109,187,138,.16)"/><path d="M150 205l18-5 4-14 4 14 18 5-18 4-4 10-4-10z" fill="rgba(109,187,138,.16)"/><path d="M336 140l14-4 4-10 4 10 14 4-14 4-4 8-4-8z" fill="rgba(140,205,160,.25)"/>`
       + trL(26, 48, "Terminal") + trL(304, 96, "Hangar") + trL(268, 56, "Tower") + trL(12, 242, "Runway") + trL(60, 176, "Airliner") + trL(130, 232, "Airliner"),
     fx: [{ k: "beam", x1: 252, y1: 112, x2: 338, y2: 80, from: 8.55, to: 8.75 }, { k: "blast", x: 340, y: 78, at: 8.7, r: 18 }, { k: "mark", x: 334, y: 238, from: 9.85, to: 11, lab: "Rhodes down" }],
     swarms: [],
@@ -11685,7 +11700,7 @@ const TR = {
       "Sam, Wanda, Clint and Scott are arrested and taken to the Raft."
     ] },
   "dc-earth": { sides: { A: "The Avengers and their allies", T: "Thanos and his army" },
-    map: () => trGrid() + `<path d="M0 60C40 80 50 140 30 190S40 280 0 300Z" fill="rgba(90,140,255,.07)" stroke="rgba(140,180,255,.25)"/><ellipse cx="200" cy="165" rx="92" ry="56" fill="rgba(127,217,90,.06)" stroke="rgba(127,217,90,.32)" stroke-dasharray="4 3"/><ellipse cx="200" cy="165" rx="50" ry="28" fill="rgba(127,217,90,.08)" stroke="rgba(127,217,90,.2)"/>`
+    map: () => trGrid() + `<path d="M0 60C40 80 50 140 30 190S40 280 0 300Z" fill="rgba(90,140,255,.07)" stroke="rgba(140,180,255,.25)"/><ellipse cx="200" cy="165" rx="92" ry="56" fill="rgba(109,187,138,.06)" stroke="rgba(109,187,138,.32)" stroke-dasharray="4 3"/><ellipse cx="200" cy="165" rx="50" ry="28" fill="rgba(109,187,138,.08)" stroke="rgba(109,187,138,.2)"/>`
       + trL(8, 120, "Lake") + trL(200, 232, "The Compound, in ruins", "middle"),
     fx: [{ k: "ship", x: 200, y: 40, w: 120, from: 0, to: 9.62, lab: "Warship, overhead" }, { k: "barrage", from: 0, to: .9 }, { k: "barrage", from: 8.5, to: 9.45 },
       ...[[52, 244], [110, 284], [330, 282], [372, 222], [40, 170], [364, 150]].map(([x, y], i) => ({ k: "ring", x, y, r: 16, from: 4 + i * .08, to: 4.9 + i * .08, c: "#FFB347" })),
@@ -11730,12 +11745,12 @@ const TR = {
       "Thanos throws Tony aside and snaps, but nothing happens. Tony has taken the stones into his own armor.",
       "Tony snaps. Thanos and his army turn to dust, and Tony dies of the stones' power, with Pepper beside him."] },
   "dc-wak": { sides: { A: "Wakanda and the Avengers", T: "Thanos and the Black Order" },
-    map: () => trGrid() + `<rect x="30" y="0" width="160" height="44" ${TR_BD}/><rect x="88" y="16" width="20" height="14" fill="rgba(127,217,90,.18)" stroke="rgba(160,240,120,.6)"/><path d="M0 96Q200 20 400 96" stroke="rgba(160,240,255,.55)" stroke-width="2" fill="none" stroke-dasharray="6 4"/><path d="M0 96Q200 20 400 96V300H0Z" fill="rgba(127,217,90,.03)"/>`
-      + [[20, 160], [44, 176], [24, 200], [60, 210], [36, 232], [70, 246], [18, 262], [52, 274], [90, 270], [96, 226], [110, 250], [14, 290], [76, 292], [120, 286]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="rgba(127,217,90,.07)" stroke="rgba(127,217,90,.22)"/>`).join("")
+    map: () => trGrid() + `<rect x="30" y="0" width="160" height="44" ${TR_BD}/><rect x="88" y="16" width="20" height="14" fill="rgba(109,187,138,.18)" stroke="rgba(140,205,160,.6)"/><path d="M0 96Q200 20 400 96" stroke="rgba(160,240,255,.55)" stroke-width="2" fill="none" stroke-dasharray="6 4"/><path d="M0 96Q200 20 400 96V300H0Z" fill="rgba(109,187,138,.03)"/>`
+      + [[20, 160], [44, 176], [24, 200], [60, 210], [36, 232], [70, 246], [18, 262], [52, 274], [90, 270], [96, 226], [110, 250], [14, 290], [76, 292], [120, 286]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="rgba(109,187,138,.07)" stroke="rgba(109,187,138,.22)"/>`).join("")
       + trL(36, 12, "The Golden City") + trL(112, 27, "Lab") + trL(394, 88, "The shield", "end") + trL(12, 150, "Forest") + trL(260, 292, "The fields outside the shield", "middle"),
     fx: [{ k: "barrage", from: 1.4, to: 2.2, box: [20, 40, 360, 56] }, { k: "site", x: 262, y: 62, from: 2, to: 10, lab: "Opening" },
       { k: "beam", x1: 200, y1: -10, x2: 200, y2: 200, from: 3, to: 3.3, c: "#BFE6FF", sw: 6 }, { k: "blast", x: 200, y: 200, at: 3.2, r: 40, c: "#BFE6FF" },
-      { k: "ring", x: 140, y: 226, r: 18, from: 5.8, to: 6.4, c: "#FFB347" }, { k: "blast", x: 62, y: 210, at: 7.15, r: 30, c: "#FFE27A" }, { k: "ring", x: 70, y: 210, r: 22, from: 7.3, to: 7.7, c: "#7FD95A" },
+      { k: "ring", x: 140, y: 226, r: 18, from: 5.8, to: 6.4, c: "#FFB347" }, { k: "blast", x: 62, y: 210, at: 7.15, r: 30, c: "#FFE27A" }, { k: "ring", x: 70, y: 210, r: 22, from: 7.3, to: 7.7, c: "#6DBB8A" },
       { k: "blast", x: 80, y: 208, at: 8.25, r: 24, c: "#BFE6FF" }, { k: "blast", x: 80, y: 208, at: 8.7, r: 160, c: "#FFE9A8" }, { k: "ring", x: 80, y: 208, r: 18, from: 8.95, to: 9.3, c: "#FFB347" }],
     swarms: [{ s: "T", n: 80, keys: [[1, 200, 250, 40, .3], [1.5, 200, 190, 150, 1], [2.2, 210, 170, 160, 1], [2.6, 210, 165, 150, 1]] }, { s: "A", n: 50, keys: [[2.2, 230, 80, 40, 0], [2.5, 230, 110, 110, 1], [2.8, 220, 135, 140, 1]] }],
     units: [
@@ -11770,8 +11785,8 @@ const TR = {
       "Thor drives Stormbreaker into Thanos's chest, but not his head, and Thanos snaps.",
       "Thanos escapes through a portal. Bucky, T'Challa, Groot, Wanda and Sam turn to dust."] },
   "dc-sok": { sides: { A: "The Avengers", T: "Ultron", C: "The people of Novi Grad" },
-    map: () => trGrid() + `<ellipse cx="200" cy="150" rx="160" ry="112" fill="rgba(127,217,90,.05)" stroke="rgba(127,217,90,.35)"/><path d="M44 150H356M200 40V262M90 80L310 220M90 220L310 80" ${TR_LN} stroke-width="1.6"/><rect x="186" y="134" width="28" height="32" fill="rgba(127,217,90,.16)" stroke="rgba(160,240,120,.6)"/>`
-      + [[22, 262], [44, 278], [16, 290], [62, 292]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="rgba(127,217,90,.07)" stroke="rgba(127,217,90,.22)"/>`).join("")
+    map: () => trGrid() + `<ellipse cx="200" cy="150" rx="160" ry="112" fill="rgba(109,187,138,.05)" stroke="rgba(109,187,138,.35)"/><path d="M44 150H356M200 40V262M90 80L310 220M90 220L310 80" ${TR_LN} stroke-width="1.6"/><rect x="186" y="134" width="28" height="32" fill="rgba(109,187,138,.16)" stroke="rgba(140,205,160,.6)"/>`
+      + [[22, 262], [44, 278], [16, 290], [62, 292]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="rgba(109,187,138,.07)" stroke="rgba(109,187,138,.22)"/>`).join("")
       + trL(200, 278, "Novi Grad, lifted into the sky", "middle") + trL(218, 130, "The church") + trL(8, 252, "Forest"),
     fx: [{ k: "blast", x: 200, y: 150, at: 1, r: 40, c: "#BFE6FF" }, { k: "ring", x: 200, y: 150, r: 150, from: 1, to: 1.9, c: "#BFE6FF" },
       { k: "ship", x: 330, y: 30, w: 56, from: 3, to: 10, lab: "Helicarrier" }, { k: "site", x: 350, y: 212, from: 3.3, to: 8.2, lab: "Lifeboats" },
@@ -11894,11 +11909,11 @@ function trDraw(id) {
       fx += `<circle cx="${e.x}" cy="${e.y}" r="${r.toFixed(1)}" fill="none" stroke="${cc}" stroke-width="1.6" stroke-dasharray="5 3" opacity="${o.toFixed(2)}" transform="rotate(${(now / 40 % 360).toFixed(1)} ${e.x} ${e.y})"/><circle cx="${e.x}" cy="${e.y}" r="${(r + 4).toFixed(1)}" fill="none" stroke="${cc}" stroke-opacity=".3" opacity="${o.toFixed(2)}"/>`
         + (e.lab ? `<text class="tr-lab" x="${e.x - e.r - 6}" y="${e.y - e.r + 4}" text-anchor="end" opacity="${o.toFixed(2)}">${e.lab}</text>` : ""); }
     if (e.k === "mark" && b >= e.from && b <= e.to) fx += `<path d="M${e.x - 5} ${e.y - 5}l10 10M${e.x + 5} ${e.y - 5}l-10 10" stroke="#FF8A7E" stroke-width="1.6"/><text class="tr-lab" x="${e.x - 9}" y="${e.y + 3}" text-anchor="end">${e.lab}</text>`;
-    if (e.k === "site" && b >= e.from && b < e.to) fx += `<rect x="${e.x - 6}" y="${e.y - 4}" width="12" height="8" rx="1.5" fill="rgba(127,217,90,.2)" stroke="rgba(190,250,160,.7)"/><text class="tr-lab" x="${e.x - 10}" y="${e.y + 3}" text-anchor="end">${e.lab}</text>`;
+    if (e.k === "site" && b >= e.from && b < e.to) fx += `<rect x="${e.x - 6}" y="${e.y - 4}" width="12" height="8" rx="1.5" fill="rgba(109,187,138,.2)" stroke="rgba(190,250,160,.7)"/><text class="tr-lab" x="${e.x - 10}" y="${e.y + 3}" text-anchor="end">${e.lab}</text>`;
     if (e.k === "bolt" && b >= e.from && b <= e.to) for (let k = 0; k < 3; k++) { const a = now / 300 + k * 2.1; let p = `M${e.x} ${e.y}`; for (let j = 1; j <= 5; j++) { const f = j / 5; p += `L${(e.x + Math.cos(a) * e.r * f + (Math.random() - .5) * 6).toFixed(1)} ${(e.y + Math.sin(a) * e.r * f + (Math.random() - .5) * 6).toFixed(1)}`; } fx += `<path d="${p}" stroke="${e.c || "#CFE6FF"}" stroke-width="1.2" fill="none" opacity=".9"/>`; }
     if (e.k === "beam" && b >= e.from && b <= e.to) fx += `<path d="M${e.x1} ${e.y1}L${e.x2} ${e.y2}" stroke="${c}" stroke-width="${e.sw || 2.4}" stroke-linecap="round" opacity=".95"/>`;
     if (e.k === "blast" && b >= e.at && b < e.at + .6) { const f = (b - e.at) / .6; fx += `<circle cx="${e.x}" cy="${e.y}" r="${(e.r * f).toFixed(1)}" fill="${c}" fill-opacity="${(.35 * (1 - f)).toFixed(2)}" stroke="${c}" stroke-opacity="${(1 - f).toFixed(2)}" stroke-width="2"/>`; }
-    if (e.k === "ship" && b >= e.from && b <= e.to) { const o = Math.min(1, (b - e.from) * 4, (e.to - b) * 5), w = e.w, h = w * .22; fx += `<path d="M${e.x - w} ${e.y}C${e.x - w / 2} ${e.y - h} ${e.x + w / 2} ${e.y - h} ${e.x + w} ${e.y}C${e.x + w / 2} ${e.y + h * .7} ${e.x - w / 2} ${e.y + h * .7} ${e.x - w} ${e.y}Z" fill="rgba(127,217,90,.08)" stroke="rgba(190,250,160,.7)" stroke-width="1.2" opacity="${o.toFixed(2)}"/><text class="tr-lab" x="${e.x}" y="${e.y + 3}" text-anchor="middle" opacity="${o.toFixed(2)}">${e.lab}</text>`; }
+    if (e.k === "ship" && b >= e.from && b <= e.to) { const o = Math.min(1, (b - e.from) * 4, (e.to - b) * 5), w = e.w, h = w * .22; fx += `<path d="M${e.x - w} ${e.y}C${e.x - w / 2} ${e.y - h} ${e.x + w / 2} ${e.y - h} ${e.x + w} ${e.y}C${e.x + w / 2} ${e.y + h * .7} ${e.x - w / 2} ${e.y + h * .7} ${e.x - w} ${e.y}Z" fill="rgba(109,187,138,.08)" stroke="rgba(190,250,160,.7)" stroke-width="1.2" opacity="${o.toFixed(2)}"/><text class="tr-lab" x="${e.x}" y="${e.y + 3}" text-anchor="middle" opacity="${o.toFixed(2)}">${e.lab}</text>`; }
     if (e.k === "barrage" && b >= e.from && b <= e.to) { const [x0, y0, bw, bh] = e.box || [40, 90, 320, 190], cc = e.c || "#FFB347"; for (let k = 0; k < 6; k++) { const s = Math.floor(now / 140) + k * 7, x = x0 + (s * 73 % bw), y = y0 + (s * 41 % bh), f = (now % 140) / 140; fx += `<circle cx="${x}" cy="${y}" r="${(4 + 10 * f).toFixed(1)}" fill="${cc}" fill-opacity="${(.4 * (1 - f)).toFixed(2)}" stroke="${cc}" stroke-opacity="${(1 - f).toFixed(2)}"/>`; } }
     if (e.k === "moon" && b < e.to) fx += `<circle cx="${e.x}" cy="${e.y}" r="${e.r}" fill="rgba(200,195,185,.1)" stroke="rgba(220,215,205,.45)"/><text class="tr-lab" x="${e.x - e.r - 4}" y="${e.y + 3}" text-anchor="end">Titan's moon</text>`;
     if (e.k === "flood" && b >= e.from && b <= e.to) { const o = Math.min(1, (b - e.from) * 3); fx += `<g opacity="${o.toFixed(2)}"><path d="M0 110C${70 + Math.sin(now / 400) * 4} 130 ${80 + Math.cos(now / 500) * 4} 180 ${e.x + 4} 210S80 270 0 292Z" fill="rgba(90,150,255,.28)" stroke="#7FB8FF"/><circle cx="${e.x + 10}" cy="${e.y}" r="16" fill="none" stroke="#FFB347" stroke-width="1.4" stroke-dasharray="4 3" transform="rotate(${(now / 30 % 360).toFixed(1)} ${e.x + 10} ${e.y})"/><text class="tr-lab" x="${e.x + 30}" y="${e.y - 22}">Flood, held back</text></g>`; }
