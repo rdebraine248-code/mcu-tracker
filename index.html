@@ -295,9 +295,9 @@ body[data-mode="timeline"] .meter .bar span{ background:linear-gradient(90deg,#F
 body[data-mode="timeline"] .modes button[aria-pressed="true"]{ background:#FFB347; color:#120D09; border-color:#FFB347; }
 body{ transition:background-color .4s ease; }
 .tl-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-.sl-body .dlog .dt .dck{ margin-left:auto; } .sl-rate{ border:1px solid #33405C; border-radius:999px; background:transparent; color:#E9C46A; padding:2px 9px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
+.sl-body .dlog .dt .sl-rate{ margin-left:auto; }   /* no "Recorded" tag (owner: useless): the rating sits at the right */ .sl-rate{ border:1px solid #33405C; border-radius:999px; background:transparent; color:#E9C46A; padding:2px 9px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
 .sl-rate:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; } .sl-avg{ color:#E9C46A !important; }
-#logHead{ position:fixed; left:0; right:0; top:0; z-index:75; padding:calc(6px + env(safe-area-inset-top,0px)) 20px 0; background:#0B1019; box-shadow:0 10px 14px -6px rgba(5,8,14,.85); pointer-events:none; }
+#logHead{ position:fixed; left:0; right:0; top:0; z-index:75; padding:calc(6px + env(safe-area-inset-top,0px)) 20px 0; background-color:#0B1019; background-image:var(--padimg); background-size:auto, 22px 22px, 100vw 100vh, 100vw 100vh, 100vw 100vh; background-position:0 0; box-shadow:0 10px 14px -6px rgba(5,8,14,.85); pointer-events:none; }   /* the same screen as every page's, lined up with the page under it (owner: its header read darker than the rest) */
 #logHead > *{ pointer-events:auto; } #logHead[hidden]{ display:none; }
 .logtabs{ position:relative; display:flex; margin-top:12px; border-bottom:1px solid #222C40; }
 .logtabs button{ flex:1; padding:10px 0 11px; border:0; background:none; color:#6F7C95; font:13px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; position:relative; }
@@ -310,8 +310,9 @@ body{ transition:background-color .4s ease; }
 body:has(#whih.in:not([hidden])) .mapact{ bottom:44px; }   /* the news ticker runs just above the dock: the card rises over it, never under */
 .mapact[hidden]{ display:none; } .mapact b{ flex:1 1 100%; font:600 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#EEF1F6; } .mapact b i{ display:inline-block; width:14px; height:4px; margin-right:8px; vertical-align:middle; border-radius:2px; }
 .mapact button{ flex:1; border:1px solid #33405C; border-radius:999px; background:transparent; color:#D6E6FA; padding:8px 10px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; }
-.co-hx{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
-.xgo{ display:flex; gap:16px; } .xgo button, .xgo1{ padding:2px 0; border:0; background:none; color:inherit; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+.co-h.co-hx{ display:flex; align-items:center; justify-content:space-between; gap:10px; }   /* the links at the line's right (owner: "should be on the right hand side, hard to see") */
+.xgo{ display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; } .xgo button{ padding:4px 10px; border:1px solid currentColor; border-radius:999px; background:none; color:var(--ixt, inherit); font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
+.xgo1{ padding:3px 10px; border:1px solid currentColor; border-radius:999px; background:none; color:inherit; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
 .dfiles{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; } .dfiles .dpath{ margin-top:0; }
 body.jumped .dock, body.jumped #logHead{ z-index:86 !important; }   /* over a page a link opened on top */
 .dpath{ display:inline-block; margin-top:4px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; padding:7px 13px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; opacity:.9; }
@@ -1307,7 +1308,7 @@ body{ padding-bottom:var(--dockh); }
 body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the file came from */
 .netpanel .net-ph{ position:absolute; z-index:0; left:20px; top:calc(6px + env(safe-area-inset-top,0px)); margin:0; }
 .uni-earth{ color:#9FC3FF; font-weight:400; } .rf-earth{ font-style:normal; color:#9FC3FF; letter-spacing:.5px; margin-right:6px; }
-.dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; }
+.dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:#0A0E17; border-top:1px solid #222A3A; }
 @keyframes dockin{ from{ transform:translateY(100%); opacity:0; } to{ transform:none; opacity:1; } }
 .dock.rise{ animation:dockin .5s cubic-bezier(.2,.7,.2,1) .35s both; }
 .dock button{ position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:0; background:none; color:#7D8BA6; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
@@ -1339,10 +1340,10 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .whih.msg b{ background:#2D63C8; }
 .cm-head b.msg{ background:#2D63C8; }
 .cm-sec + .cm-sec{ margin-top:34px; }
-.cm-chips{ position:sticky; top:0; z-index:2; display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin:0 -18px 14px; padding:10px 18px; background:linear-gradient(180deg,#0B1019 78%,rgba(11,16,25,0)); }
+.cm-chips{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin:0 -18px 14px; padding:10px 18px 4px; }   /* on the page itself, no band behind it (owner, November 2026) */
 .cm-chips::-webkit-scrollbar{ display:none; }
 .cm-chips button{ position:relative; flex:none; padding:7px 13px; border:1px solid #2A3550; border-radius:999px; background:#0F1626; color:#C9D3E4; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
-.cm-chips button.on{ background:#2D63C8; border-color:#2D63C8; color:#fff; }
+.cm-chips button.on{ background:#EEF1F6; border-color:#EEF1F6; color:#0B1019; }   /* picked, like every other tab */
 .cm-case .cm-casebtn{ display:flex; align-items:baseline; justify-content:space-between; width:100%; padding:0; border:0; background:transparent; color:inherit; cursor:pointer; text-align:left; }
 .cm-case .cm-casebtn b{ font-family:'Anton','Impact',sans-serif; font-weight:400; font-size:30px; line-height:1; letter-spacing:1px; text-transform:uppercase; color:#FFB347; }
 .cm-case .cm-casebtn span{ font:11px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#F0A04B; }
@@ -2551,7 +2552,7 @@ function renderPanel(e, fresh) {
   panel.innerHTML = `${panelDecor(e)}${openKind === "char" ? wmHTML(e) : ""}
     <div class="pin${listHold === e.id ? " lhold" : ""}">
       <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}<button type="button" class="back pclose" id="btnBack" style="color:${fg}">Close</button></div>
-      ${e.kick || (openKind === "char" && DOSSIERS[e.id]) ? `<div class="psub">${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}${openKind === "char" && DOSSIERS[e.id] ? `<button type="button" class="dbtn plink" id="btnDossier" style="color:${fg}">Profile<em aria-hidden="true">&#8250;</em></button>` : ""}</div>` : ""}${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
+      ${e.kick || (openKind === "char" && DOSSIERS[e.id]) ? `<div class="psub">${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}${openKind === "char" && DOSSIERS[e.id] ? `<button type="button" class="dbtn plink" id="btnDossier" style="color:${fg}">Character log<em aria-hidden="true">&#8250;</em></button>` : ""}</div>` : ""}${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span id="pBar" style="width:${t ? n / t * 100 : 0}%;background:${box}"></span></div>
       <ul class="list">${panelList(e, panelItems(e))}</ul>
@@ -3320,7 +3321,7 @@ function openDossier(id, go) {
     el.setAttribute("style", `${box.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${bc};--sfg:${box.sfg || fg};--rowline:color-mix(in srgb, ${fg} 18%, transparent);--logbg:${bg};--hf:${fontOf(box.h2) || "inherit"}`);
     el.innerHTML = `${panelDecor(box)}${isCh ? "" : wmHTML(box)}<div class="pin">
       <div class="hrow big"><h2 class="big" style="${esc(box.h2)}">${isCh ? box.titleHtml : boxNameHtml(box)}</h2><button type="button" class="back pclose" id="dBack" style="color:${fg}">Back</button></div>
-      <div class="psub"><span class="kick" style="color:${esc(box.kickc || fg)}">${isCh ? (box.kick ? esc(box.kick) + " · " : "") + "Log" : "Character profile"}</span></div>${box.accent ? scoped(box.accent) : ""}
+      <div class="psub"><span class="kick" style="color:${esc(box.kickc || fg)}">${isCh ? (box.kick ? esc(box.kick) + " · " : "") + "Log" : "Character log"}</span></div>${box.accent ? scoped(box.accent) : ""}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span style="width:${total ? done / total * 100 : 0}%;background:${bc}"></span></div>
       ${rowsDl}
       ${isCh && D.brief ? `<section class="dsec"><h3>${K.brief || "Briefing"}</h3><div class="dcard"><p>${esc(D.brief)}</p></div></section>` : ""}
@@ -3479,7 +3480,7 @@ const boxOfFile = o => { if (!o) return null; if (PBOX[o.id]) return PBOX[o.id];
 // a box's profile and path show only once the box is known; its path, once it's on the map
 const boxShown = id => { const b = id && DATA.chars.find(c => c.id === id); return !!b && !!DOSSIERS[id] && !charHidden(b) && !charAnon(b); };
 const boxPath = id => { const b = boxShown(id) && DATA.chars.find(c => c.id === id); return b && DATA.map.rows.some(r => r.n === b.title) && !mapHide().has(DATA.chars.indexOf(b)) ? b.title : ""; };
-const xLinks = id => { const pr = boxShown(id), pa = boxPath(id); return pr || pa ? `<span class="xgo">${pr ? `<button type="button" data-xprof="${id}">Profile ›</button>` : ""}${pa ? `<button type="button" data-dpath="${esc(pa)}">Path ›</button>` : ""}</span>` : ""; };
+const xLinks = id => { const pr = boxShown(id), pa = boxPath(id); return pr || pa ? `<span class="xgo">${pr ? `<button type="button" data-xprof="${id}">Character log ›</button>` : ""}${pa ? `<button type="button" data-dpath="${esc(pa)}">Path ›</button>` : ""}</span>` : ""; };
 // a profile's people, each with a file you've found: their Compound file, or their Raft file if that's the one you have
 function boxFiles(id) { const L = [];
   ALLIES.forEach(o => { if (boxOfFile(o) === id && ixFile("A", o.id)) L.push(["A", o, cpName(o)]); });
@@ -3534,7 +3535,7 @@ function slSec(c) {
   if (!E.length) return `<div class="sl-ch lk" ${stripe}><div class="sl-h"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt || "<small>No entries</small>"}</div></div>`;   // a revealed chapter shows its name, even before its first entry
   const open = slOpen === c.id, L = DOSSIERS[c.id];
   const pk = slPer(c), per = !pk ? "" : `<div class="sl-per"><small>Period</small><p>${slSeenK(c, "r0." + pk[1]) ? esc(pk[0]) : dnew(c.id + "|r0." + pk[1], esc(pk[0]))}</p></div>`;
-  const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span><i class="dck">Recorded</i>${slRate(t)}</div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
+  const body = !open ? "" : `<div class="sl-body">${per}<ol class="dlog">${E.map(([t, x]) => `<li class="on"><div class="dt"><span>${tnh(t)}</span>${slRate(t)}</div><p>${slSeenK(c, "s:" + t) ? esc(x) : dnew(c.id + "|s:" + t, esc(x))}</p></li>`).join("")}</ol>
     ${slDeb(c) ? `<div class="sl-deb"><small>Debrief</small><p>${slSeenK(c, "d") ? esc(L.debrief) : dnew(c.id + "|d", esc(L.debrief))}</p></div>` : ""}</div>`;
   return `<div class="sl-ch" data-sls="${c.id}" ${stripe}><button type="button" class="sl-h" data-slc="${c.id}" aria-expanded="${open}"><span class="n">${n}</span><b>${slNamed(c) ? esc(c.title) : '<span class="sl-cl">[ Classified ]</span>'}</b>${cnt}${slUnread(c) ? '<i aria-label="new"></i>' : ""}<span class="ch" aria-hidden="true">${open ? "&#9652;" : "&#9662;"}</span></button>${body}</div>`;
 }
@@ -7099,13 +7100,13 @@ const EGGS = [
   ["raft", "The Raft", "A prison at sea for the ones who broke the Accords.", "In the Atlas, tap the Raft and open its threat registry.", 1],
   ["damagecontrol", "Damage Control", "Someone in Midtown cleans up after the heroes.", "In the Atlas, open New York, tap Midtown and open the incident reports.", 1],
   ["jumppoint", "Jump point", "Space is big. Take a shortcut.", "In the Atlas Cosmos, hold an empty patch of space.", 1],
-  ["goose", "Not a cat", "Fury's favorite is in Carol's profile. It isn't a cat.", "Once Captain Marvel is checked off in her box, tap Goose in her profile. Nick Fury's profile works too.", 1],
+  ["goose", "Not a cat", "Fury's favorite is in Carol's character log. It isn't a cat.", "Once Captain Marvel is checked off in her box, tap Goose in her character log. Nick Fury's works too.", 1],
   ["decrypt", "Decrypted", "The Kree left something out of an intercept.", "After Captain Marvel, in Comms, hold the blacked-out words in the Kree intercept.", 1],
   ["tiamut", "Emergence", "Something is waking in the Indian Ocean.", "After Eternals, in the Atlas, hold Celestial Island.", 2],
   ["incursion", "Incursion", "Two worlds can't share one place. Make them.", "After Multiverse of Madness, in the Atlas Multiverse, hold any world until it lifts, then drop it on another.", 2],
-  ["minutes", "Miss Minutes", "The TVA's mascot is in Loki's profile.", "Once Loki S1 is checked off in the Loki & The TVA box, tap Miss Minutes in Loki's profile.", 2],
-  ["lucky", "Pizza dog", "A one-eyed dog is in Hawkeye's profile.", "Once Hawkeye (the series) is checked off in his box, tap Lucky in Hawkeye's profile.", 2],
-  ["herbie", "H.E.R.B.I.E.", "The family's robot is in their profile.", "Once The Fantastic Four: First Steps is checked off in their box, tap H.E.R.B.I.E. in The Fantastic Four's profile.", 2],
+  ["minutes", "Miss Minutes", "The TVA's mascot is in Loki's character log.", "Once Loki S1 is checked off in the Loki & The TVA box, tap Miss Minutes in Loki's character log.", 2],
+  ["lucky", "Pizza dog", "A one-eyed dog is in Hawkeye's character log.", "Once Hawkeye (the series) is checked off in his box, tap Lucky in Hawkeye's character log.", 2],
+  ["herbie", "H.E.R.B.I.E.", "The family's robot is in their character log.", "Once The Fantastic Four: First Steps is checked off in their box, tap H.E.R.B.I.E. in The Fantastic Four's character log.", 2],
   ["battle", "The Battle of New York", "Something is coming through the sky over Midtown.", "In the Atlas, open New York and hold Midtown.", 1],
   ["fury", "They were in his jacket", "Fury rallies the team with the cards from Coulson's jacket.", "Swipe down with two fingers in the Nick Fury box (on a computer, hold the name).", 1],
   ["page", "One last page", "Before the Snap took him, Fury got one message out.", "Swipe up with two fingers in the Nick Fury box (on a computer, drag his name up).", 1],
@@ -9191,7 +9192,8 @@ function logReadAll(id) {   // a box's own log, everything in it you've opened u
 function readAll(t) {
   if (t === "net") { const w = document.getElementById("netFrame").contentWindow; if (w && w.netKnowAll) w.netKnowAll(); return; }
   if (t === "story") [...DATA.chapters.filter(c => state.unlocked[c.id]), ...DATA.chars.filter(c => !charHidden(c))].forEach(c => { if (DOSSIERS[c.id] && logUnread(c.id)) logReadAll(c.id); });
-  else if (t === "log") DATA.chapters.forEach(c => { if (!slShown(c)) return; slEntries(c).forEach(([x]) => dMark(null, c.id + "|s:" + x)); if (slDeb(c)) dMark(null, c.id + "|d"); if (slPer(c)) dMark(null, c.id + "|r0." + slPer(c)[1]); });
+  else if (t === "log") { DATA.chapters.forEach(c => { if (!slShown(c)) return; slEntries(c).forEach(([x]) => dMark(null, c.id + "|s:" + x)); if (slDeb(c)) dMark(null, c.id + "|d"); if (slPer(c)) dMark(null, c.id + "|r0." + slPer(c)[1]); });
+    readAll("map"); }   // both of the Log's tabs: its Characters tab is Paths (owner: holding Log didn't clear Paths)
   else if (t === "atlas") {
     atlReadInit(); const R = state.atlRead, EV = state.atlEv = state.atlEv || {}, SN = state.atlas = state.atlas || {}, N = state.atlasN = state.atlasN || {};
     const evN = L => L.reduce((a, q) => a + atlEvN(q), 0);
@@ -9214,7 +9216,7 @@ function readAll(t) {
 let dockHeld = false, dockT = 0, dockAt = null, dosHeld = false;
 // hold a box's Profile or Log button: the same prompt as holding a page in the dock, for just that one
 function logHold(id) {
-  const D = id && DOSSIERS[id]; if (!D) return; const what = D.kind === "char" ? "profile" : "log"; haptic([12, 40, 12]);
+  const D = id && DOSSIERS[id]; if (!D) return; const what = D.kind === "char" ? "character log" : "log"; haptic([12, 40, 12]);
   if (!logUnread(id)) { toast("Nothing new in this " + what + ".", null, false, null, 1500); return; }
   ask("Mark everything in this " + what + " as read?", "Mark as read").then(ok => { if (!ok) return; logReadAll(id); persist(); haptic(12); toast("All caught up.", null, false, null, 1500); newDots(); });
 }
@@ -10462,6 +10464,7 @@ function newsPlay(all, msg, src) {
   sp.innerHTML = batch.map(b => esc(b[2])).join('<i aria-hidden="true">&#9670;</i>');
   const from = run.clientWidth, to = -sp.scrollWidth, a = sp.animate([{ transform: `translateX(${from}px)` }, { transform: `translateX(${to}px)` }], { duration: (from - to) / 75 * 1000, delay: 450, easing: "linear", fill: "both" });
   newsRun = { batch, cancel: () => a.cancel() }; a.onfinish = () => { if (newsRun && newsRun.cancel) newsStop(true); };
+  if (commsOpen) newsMark(batch);   // reading Comms: what the ticker brings shows in the list at once, and the ticker runs on (owner, November 2026)
 }
 // a box, a chapter log, a profile or a question opening: the ticker goes at once, not on its next check, so it never runs over them
 function newsCut() { if (newsRun) newsStop(false); const w = document.getElementById("whih"); if (w) { w.classList.remove("in"); w.hidden = true; } }
@@ -10604,7 +10607,7 @@ function fileAt(names) {
   const c = a && document.querySelector(`#fileView [data-ach="${CSS.escape(a.id)}"]`); if (!c) return;
   requestAnimationFrame(() => { c.scrollIntoView({ block: "center", behavior: REDUCED ? "auto" : "smooth" }); c.classList.remove("hf-glow"); void c.offsetWidth; c.classList.add("hf-glow"); });
 }
-document.getElementById("whih").addEventListener("click", () => { haptic(8); const k = document.getElementById("whih").classList.contains("msg") ? "msg" : "news"; newsStop(true);   // opens on whatever was playing, from any screen
+document.getElementById("whih").addEventListener("click", () => { haptic(8); const k = document.getElementById("whih").classList.contains("msg") ? "msg" : "news";   // opens on it, and the ticker runs on   // opens on whatever was playing, from any screen
   if (commsOpen) { commsTab = k; renderComms(); document.getElementById("commsView").scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; return; }
   if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (netOpen) closeNet(true);
   openComms(k); dockSync(); });
@@ -10666,6 +10669,7 @@ function renderComms() {
 }
 let commsTab = "news";
 function openComms(tab) { commsTab = tab === "msg" ? "msg" : "news"; cmFresh = new Set();   // the ticker plays on over Comms (owner, November 2026); each story joins the list as it finishes { const cv = document.getElementById("commsView"); delete cv.dataset.tab; cv.replaceChildren(); }   // News is the landing; only tapping an incoming message opens Messages
+  if (newsRun) newsMark(newsRun.batch);   // what's on the ticker is in the list straight away; the ticker carries on
   renderComms(); const v = document.getElementById("commsView"); v.scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; document.getElementById("commsPanel").hidden = false; commsOpen = true; bodyLock(); pushNav("comms"); document.getElementById("commsBack").focus({ preventScroll: true }); }
 function closeComms(fromHistory) {
   if (!fromHistory && navAt("comms")) { navBack(); return; }
@@ -10873,7 +10877,7 @@ function mapFocus(r) {
   mapFocusI = (r === null || r === mapFocusI) ? null : r;
   { const act = document.getElementById("mapAct"), l = mapFocusI !== null && MAP.rows[mapFocusI], box = l && DATA.chars.find(c => c.title === l.n);
     if (!box || mapAnon(l.n)) act.hidden = true;
-    else { act.innerHTML = `<b><i style="background:${l.c}"></i>${esc(mapName(l.n))}</b>${DOSSIERS[box.id] ? `<button type="button" data-mprof="${box.id}">Open profile ›</button>` : ""}`; act.hidden = !DOSSIERS[box.id]; } }   // only the profile (owner, October 2026: "I don't want an open box button")
+    else { act.innerHTML = `<b><i style="background:${l.c}"></i>${esc(mapName(l.n))}</b>${DOSSIERS[box.id] ? `<button type="button" data-mprof="${box.id}">Open character log ›</button>` : ""}`; act.hidden = !DOSSIERS[box.id]; } }   // only the profile (owner, October 2026: "I don't want an open box button")
   const v = document.getElementById("mapView"), svg = v.querySelector("svg"); if (!svg) return;
   const M = MAP, on = mapFocusI !== null, cols = new Set(on ? M.rows[mapFocusI].nodes : []);
   if (on) svg.setAttribute("data-focus", ""); else svg.removeAttribute("data-focus");
@@ -11090,6 +11094,7 @@ function closeCosmos() {
 const wake = () => { idleAt = Date.now(); idleWait = 90000 + Math.random() * 30000; if (cosmos) closeCosmos(); };
 ["pointerdown", "keydown", "wheel", "scroll", "touchstart"].forEach(n => document.addEventListener(n, wake, { capture: true, passive: true }));
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") idleAt = Date.now(); });
+window.netWake = () => wake();   // touching the Network (its own page) counts too: the Watcher never opens his eyes on someone using it
 setInterval(() => {
   if (cosmos || sayBusy || document.visibilityState !== "visible" || homeLock || !document.getElementById("gate").hidden) { if (homeLock || !document.getElementById("gate").hidden) idleAt = Date.now(); return; }   // never over the front door or while the page draws itself in
   if (Date.now() - idleAt >= idleWait) openCosmos();
