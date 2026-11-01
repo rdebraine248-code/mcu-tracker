@@ -204,7 +204,10 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
         transition:clip-path .45s cubic-bezier(.2,.75,.2,1); -webkit-overflow-scrolling:touch; }
 .panel[hidden]{ display:none !important; }
 .pfix{ position:fixed; inset:var(--pb, 0px); pointer-events:none; z-index:0; overflow:hidden; }   /* inside the box's frame, so its art never paints over the border */
-.pin{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:calc(18px + env(safe-area-inset-top,0px)) 8px calc(90px + env(safe-area-inset-bottom,0px)); opacity:0; transition:opacity .3s ease .18s; }
+/* a box's top row sits the status bar plus 6px down, like every page's title (owner, November 2026: its headers were "so low"); pinTop measures
+   each box, since some wear a band across their top (Chapter 1's stars) */
+.chbranch{ height:52px; margin:18px -24px 6px; overflow:hidden; } .chbranch svg{ width:100%; height:100%; }
+.pin{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:var(--pinT, max(0px, calc(env(safe-area-inset-top,0px) - 8px))) 8px calc(90px + env(safe-area-inset-bottom,0px)); opacity:0; transition:opacity .3s ease .18s; }
 .panel.open .pin{ opacity:1; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
 .ptop{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
@@ -2485,6 +2488,7 @@ function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
   // background decorations pinned in place while the list scrolls
   let h = e.decor || "";
+  if (e.id === "ch-7") return typeof CH7_BG !== "undefined" ? `<div class="pfix" aria-hidden="true">${CH7_BG}</div>` : "";   // its branching line moves down into the box (chBranch; the mockup, CH7_BG, draws it behind the list)
   h = h.replace('style="height: 30px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="30"',
                 'style="height: clamp(56px, 12vw, 150px); margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="100%"');
   h = h.replace('style="position: relative; height: 12px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="12"',
@@ -2532,7 +2536,7 @@ function renderPanel(e, fresh) {
       <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span id="pBar" style="width:${t ? n / t * 100 : 0}%;background:${box}"></span></div>
-      <ul class="list">${panelList(e, panelItems(e))}</ul>
+      ${chBranch(e)}<ul class="list">${panelList(e, panelItems(e))}</ul>
 
       <div id="pDone">${t && n === t ? `<button type="button" class="complete" id="btnComplete" style="background:${box};color:${tick};border-color:${box}">${CHECK(tick)}Complete</button>` : ""}</div>
     </div>`;
@@ -2590,6 +2594,14 @@ function pushNav(kind) {
 function navBack() { if (navBusy) return; navBusy = true; history.back(); setTimeout(() => { navBusy = false; }, 800); }
 function uiClose() { if (navAt("panel")) navBack(); else closePanel(); }
 let openWasDone = false, revealChanged = false;
+// Chapter 7 is where the Sacred Timeline branches, so its open box draws its branching line between the progress bar and the titles,
+// full width, the titles carrying on from it (owner, November 2026: up top it was "so small and squished ... why is it there"); its top
+// row stands level with every other box
+function chBranch(e) { if (e.id !== "ch-7" || !e.decor || typeof CH7_BG !== "undefined") return ""; const m = /<svg[\s\S]*<\/svg>/.exec(e.decor); if (!m) return "";
+  return `<div class="chbranch" aria-hidden="true">${m[0].replace('height="30"', 'height="100%"').replace(/ style="display: block; background: #15171D"/, ' style="display:block"')}</div>`; }
+function pinTop() { panel.style.removeProperty("--pinT"); const pin = panel.querySelector(".pin"), row = pin && pin.firstElementChild; if (!row) return;
+  const pad = parseFloat(getComputedStyle(pin).paddingTop) || 0, base = row.getBoundingClientRect().top - panel.getBoundingClientRect().top - pad;
+  panel.style.setProperty("--pinT", Math.max(0, Math.round(netSat() + 6 - base)) + "px"); }
 function openPanel(e, kind, fromEl) {
   newsCut();
   clearTimeout(closeTimer); if (closeDone) { const d = closeDone; closeDone = null; d(); }
@@ -2598,7 +2610,7 @@ function openPanel(e, kind, fromEl) {
   openEntry = e; openKind = kind; openFrom = fromEl;
   panel.dataset.clip = REDUCED ? "" : rectClip(fromEl);
   renderPanel(e, true);
-  panel.hidden = false; blCarry(e);
+  panel.hidden = false; blCarry(e); pinTop();
   panel.scrollTop = 0;
   bodyLock();
   requestAnimationFrame(() => requestAnimationFrame(() => {
