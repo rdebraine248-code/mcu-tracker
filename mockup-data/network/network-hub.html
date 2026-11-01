@@ -199,6 +199,11 @@ N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === UK('Inde
 // each stage carries the short line for this person's card about the other (whoA on a's card, whoB on b's)
 const mkTie = (j, st, side) => ({ j, S: st.map(x => ({ k: KIND[x[0]], t: REL.titles[x[1]], o: REL.ord[x[1]] ?? -1, d: x[2], w: x[side] || '' })) });
 REL.ties.forEach(([a, b, st]) => { N[a].R0.push(mkTie(b, st, 3)); N[b].R0.push(mkTie(a, st, 4)); });
+// a stage can begin one episode in ("WandaVision#7", the app's own way of saying it): it shows once that episode is ticked. A mockup set
+// from the app's test build for now
+{ const X = (EMB && parent.EP_MOCK && parent.EP_MOCK.net) || []; X.forEach(([a, b, t, t2]) => { const A = N.find(p => p.id === a), B = N.find(p => p.id === b);   /* by id: names repeat (Earth-838's Wanda) */ if (!A || !B) return;
+  [[A, B], [B, A]].forEach(([p, q]) => p.R0.forEach(r => { if (r.j === q.i) r.S.forEach(x => { if (x.t === t) x.t = t2; }); })); }); }
+const epShow = t => String(t).replace(/#(\d+)$/, ' · Episode $1');
 // across universes: two versions who actually meet are connected like anyone else (a mockup set, written by hand); ones who never meet
 // are only listed, under Other versions in their card
 const XREL = [['peter-parker', 'sv-peter-parker-raimi', 'ally', 'Spider-Man: No Way Home', "Pulled into this world by the broken spell, this Peter Parker helps Peter cure the villains. He stops him from killing Norman Osborn after May dies, and fights beside him at the Statue of Liberty."],
@@ -468,9 +473,10 @@ function showLink(b) {
   const a = sel; link = b; stopSel = null; atStop = null; if (navigator.vibrate) try { navigator.vibrate(8); } catch (e) {}
   const list = L => L.length > 5 ? L.slice(0, 5).join(', ') + ' and ' + (L.length - 5) + ' more' : L.join(', ');
   const why = [], fw = (a.Fw[b.i] || []).filter(seen).map(j => TT[j]), r = relOf(a, b);
-  if (r) r.S.forEach(x => why.push([KC[x.k], KS[x.k], esc(x.d) + (x.t ? `<em>${esc(x.t)}</em>` : '')]));   // how it has gone so far, stage by stage
+  if (r) r.S.forEach(x => why.push([KC[x.k], KS[x.k], esc(x.d) + (x.t ? `<em>${esc(epShow(x.t))}</em>` : '')]));   // how it has gone so far, stage by stage
   if (fought(a, b) && fw.length) why.push([KC.enemy, 'Fought', 'In ' + list(fw)]);
   const both = a.A.filter(j => b.A.includes(j)).map(j => TT[j]);
+  if (r) r.S.forEach(x => { const m = /^(.*)#(\d+)$/.exec(x.t || ''); if (m && !both.includes(m[1])) both.push(m[1] + ' (from episode ' + m[2] + ')'); });   // met partway through a title
   why.push(['#8EA2C2', 'On screen together', both.length ? list(both) : 'Never in a title together']);
   $('lName').innerHTML = `${a.n}<br>&amp; ${b.n}`; if (worldOf(a) !== worldOf(b)) $('lName').insertAdjacentHTML('beforeend', `<small class="lw">${esc(worldOf(a))} · ${esc(worldOf(b))}</small>`);
   $('lWhy').innerHTML = why.map(([c, k, v]) => `<li><span style="color:${c}">${k}</span><div>${v}</div></li>`).join('');
@@ -530,7 +536,9 @@ function applyCut(v, quiet) {
   CUT = v; const t = performance.now();
   let near = null, nd = 1e9; N.forEach(p => { if (!p.vis) return; const d = Math.hypot(p.hx - cam.x, p.hy - cam.y); if (d < nd) { nd = d; near = p; } });
   const off = near ? [cam.x - near.hx, cam.y - near.hy] : [0, 0];
-  N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = p.A.length > 0 && (UNI === 'all' || p.u === UNI); p.arrive = p.vis && !was; });
+  // met: in a title you've watched, or in a stage you've reached one episode at a time ("WandaVision#7")
+  const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && SEENF(x.t)));
+  N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = (p.A.length > 0 || epMet(p)) && (UNI === 'all' || p.u === UNI); p.arrive = p.vis && !was; });
   N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];
     p.M = p.vis ? p.M0.filter(j => N[j].vis && p.T.some(([c]) => joined(p, c) && joined(N[j], c))) : [];
     p.R = p.vis ? p.R0.map(cutTie).filter(r => r && (N[r.j].vis || N[r.j].u !== p.u && N[r.j].A0.some(seen))) : [];
@@ -574,8 +582,8 @@ function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = 
 self.netPreview = id => { const p = findP(id); if (!p || !p.vis) return null;
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d);
   return { n: L.length, L: L.slice(0, 3).map(([j, k]) => ({ n: N[j].n, k: KS[k], c: KC[k], w: whoLine(p, N[j], relOf(p, N[j])) })) }; };
-self.netSeen = (f, uok, sat) => { if (sat != null) document.documentElement.style.setProperty('--sat', sat + 'px');
-  const key = TT.map(t => f(t) ? 1 : 0).join('') + UNIS.filter(([u]) => u !== 'all').map(([u]) => uok(u) ? 1 : 0).join('');
+self.netSeen = (f, uok, sat, ek) => { if (sat != null) document.documentElement.style.setProperty('--sat', sat + 'px');
+  const key = TT.map(t => f(t) ? 1 : 0).join('') + UNIS.filter(([u]) => u !== 'all').map(([u]) => uok(u) ? 1 : 0).join('') + (ek || '');   /* and the episodes ticked */
   SEENF = f; UNIOK = uok; document.documentElement.classList.remove('wait'); if (key === seenKey) return; const first = seenKey === null; seenKey = key;
   if (!uniOk(UNI)) UNI = 'mcu';
   let far = -1; TT.forEach((t, i) => { if (f(t) && ORD[i] > far) far = ORD[i]; }); uniTabs(); applyCut(far, true);

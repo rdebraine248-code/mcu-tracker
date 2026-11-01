@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v76. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v77. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
@@ -682,14 +682,31 @@ These happened in earlier chats. Each cost the owner time.
 
 ## Open items
 
+- **Owner's calls, November 2026:** the six ideas pitched in October (the Doomsday update, a watch diary, time on the clock, a release
+  radar, a home screen widget, a share card) are cut: don't pitch them again. Dropped, don't raise again: Doomsday and Secret Wars
+  content, the Encore revisit, Banner and Doom, the sky's first-minute redraws, confirming the cold-start fix. The weakly fitting kinds
+  on the off-screen connections (Ezekiel and Tony, Walker and Steve, J.A.R.V.I.S. and Edwin Jarvis, Banner and Erskine, Valentina and
+  Ross, Ridley and Karen, Lorelei and Thor) stay as they are.
+- **In progress (November 2026), mockups in the test build (`MOCKUP BEGIN` block, waiting for the owner):**
+  - **Episode by episode** (owner: Comms, the Network, the Atlas and related info "could be episode dependent"): the engine is in main
+    code. A title-keyed moment can be `"WandaVision#7"` (news keys, a message's `t`, an Atlas entry's title, a Network stage's title); a
+    file step can open "In episode 7," like "In season 2,". `atlSeenT` counts it seen once that episode or a later one is ticked in any
+    list (`epMax`), or the whole title is watched; `tn`/`tnh` show it as "WandaVision · Episode 7"; `atlOrd` sorts it inside its title.
+    The Network gets the episodes ticked (`netSeen`'s 4th argument), counts an episode-tied stage as meeting, and shows the episode.
+    The mockup tags WandaVision only (news at episodes 4 and 9, the Hex-down message at 9, Westview at 1, Salem at 8, Wanda's file at
+    1, 5 and 9, Wanda and Agatha at 7). The full pass is about 5,700 moments in 122 TV titles: 2,142 file steps, 3,302 Network stages,
+    191 Atlas entries, 75 news, 47 messages.
+  - **The Compound and Raft handover** ("when one closes it's transferred over to the other one ... so that we don't repeat entries"):
+    the engine is in main code (`hoPair`, `hoKeep`, `hoChain`, `hoShut`). A hero file's `ho` lists its person's stretches: [side "C" or
+    "R", the title the stretch starts in, 1 when that title is told in both files, each its own half]. Each file keeps its own stretches,
+    marks "File transferred · To the Raft · title", "File opened" or "File reopened · From the Compound · title" (a link to the twin
+    once that file is found), and a closed file's status reads Transferred. The mockup sets Wanda (Raft from The Winter Soldier, the
+    Compound from Age of Ultron, both telling their half, the Raft again from Multiverse of Madness) and Bucky (the Compound, the Raft
+    in The Winter Soldier, the Compound again from Ant-Man). 77 people have both files; 236 of their 250 Raft steps repeat a title.
 - **The appearance sweep's open calls are settled** (`appear_sweep.json`, `owner_calls`): Muse gets a Born Again S2 step (Heather's
   memories of his attack, not her hallucinations), Peggy an Agents of S.H.I.E.L.D. S7 step (Simmons posing as her in 1955). No step for
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
-- Revisit Encore once Doomsday is out.
-- **Bruce Banner and Doom** (the know-each-other audit kept it: Doom collects Banner in 2028, a huge consequence) is held back: it's
-  from the Avengers Endgame: Encore version, a title the data doesn't have, and it had been filed under Spider-Man: Brand New Day. Add
-  it once Encore is placed (`rel/knowaudit_out.json`, its cut entry says so).
 - No mockups are pending.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
