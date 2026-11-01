@@ -158,7 +158,13 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .dossier .pwm, .panel .pwm{ position:absolute; top:34px; right:-58px; width:64px; height:64px; transform:scale(3.6); transform-origin:100% 0; opacity:.11; pointer-events:none; z-index:0; }
 .dossier .pwm .emb, .panel .pwm .emb{ filter:none !important; }
 .hrow .kick{ flex-shrink:0; font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:11.5px; font-weight:500; letter-spacing:2px; opacity:.9; }
-.hrow.big{ margin-top:26px; }
+.hrow.big{ margin-top:0; }
+/* a box's head (owner, November 2026: the Back row "moves everything down and it looks bad"): Close stands at the title's right, where
+   the chapter label was, and the label (CH. 1, EXTRAS) sits under the title, before the quote; a character's Profile sits on that line */
+.hrow.big:has(.pclose){ align-items:flex-start; } .pclose{ flex:none; margin-top:2px; padding:6px 14px; font-size:14px; }
+.psub{ display:flex; align-items:center; justify-content:flex-start; gap:10px; margin-top:8px; }   /* under the name, on the left: never stacked under Close */
+.back.pclose:focus-visible{ outline:none; }   /* the box puts focus on Close as it opens: no second ring round it (owner: "don't like the double border") */
+.psub .kick{ font-family:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-size:13px; font-weight:500; letter-spacing:2px; opacity:.9; }
 .hrow.big .kick{ font-size:13px; }
 .hrow.big h2.big{ margin-top:0 !important; }
 /* one stamp for every box, chapter or character: same font, size, angle and spot, inked in the box's own color. The ink is solid, with only
@@ -2559,7 +2565,6 @@ function renderPanel(e, fresh) {
   const scrollY = panel.scrollTop;
   panel.className = "panel" + (e.cls ? " " + e.cls : "") + (fresh ? "" : " open");
   panel.setAttribute("style", `${e.style};padding:14px 16px 13px 16px;display:block;color:${fg};--boxc:${box};--sfg:${sfg};--pb:${(String(e.style).match(/border:\s*([\d.]+)px/) || [0, 0])[1]}px;--rowline:color-mix(in srgb, ${fg} 18%, transparent);` + (panel.dataset.clip ? `clip-path:${panel.dataset.clip};` : (fresh ? "" : "clip-path:inset(0px 0px 0px 0px round 0px);")));
-  const back = openKind === "chapter" ? (state.mode === "timeline" ? "Back to timeline" : "Back to chapters") : "Back to characters";
   const pq = openKind === "chapter" ? (QUOTES[e.id] || [])[0] : CHAR_QUOTES[e.title];
   const pqWait = pqHoldUntil - Date.now();
   const pqHtml = cls => pq ? `<p class="pquote${cls}${pqWait > 0 ? " pending" : ""}" style="font-family:${esc(quoteFont(e))}">“${esc(pq).replace(" / ", "” “")}”</p>` : "";
@@ -2571,8 +2576,8 @@ function renderPanel(e, fresh) {
   panel.style.touchAction = ["cx-ant-man-the-wasp", "cx-wanda-vision", "cx-the-defenders", FURY_BOX, SHIELD_BOX].includes(e.id) ? "pan-y" : "";
   panel.innerHTML = `${panelDecor(e)}${openKind === "char" ? wmHTML(e) : ""}
     <div class="pin${listHold === e.id ? " lhold" : ""}">
-      <div class="ptop"><button type="button" class="back" id="btnBack" style="color:${fg}"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${back}</button>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}${(openKind === "char" || openKind === "chapter") && DOSSIERS[e.id] ? `<button type="button" class="dbtn" id="btnDossier" style="color:${fg}">${openKind === "char" ? "Profile" : "Log"}</button>` : ""}</div>
-      <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
+      <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.id === "cx-falcon-winter-soldier" ? `<span class="fx-armstar" aria-hidden="true">★</span>` : ""}<button type="button" class="back pclose" id="btnBack" style="color:${fg}">Close</button></div>
+      ${e.kick || (openKind === "char" && DOSSIERS[e.id]) ? `<div class="psub">${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}${openKind === "char" && DOSSIERS[e.id] ? `<button type="button" class="dbtn" id="btnDossier" style="color:${fg}">Profile</button>` : ""}</div>` : ""}${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span id="pBar" style="width:${t ? n / t * 100 : 0}%;background:${box}"></span></div>
       <ul class="list">${panelList(e, panelItems(e))}</ul>
@@ -12284,7 +12289,7 @@ function altBox(a) {
   c.setAttribute("style", `${a.style};padding:14px 16px 13px 16px;display:block;color:${a.fg};--boxc:${a.box};--sfg:${a.fg};--pb:2px;--rowline:color-mix(in srgb, ${a.fg} 18%, transparent);position:fixed;inset:0;z-index:97;overflow:hidden;clip-path:none;pointer-events:none`);
   c.firstElementChild.outerHTML = a.decor;
   const wm = c.querySelector(".pwm"); if (wm) { wm.innerHTML = typeof a.emb === "function" ? a.emb() : a.emb; wm.classList.remove("anon"); wm.style.filter = a.embFilter || ""; }
-  c.querySelectorAll(".ptop button, .ptop a").forEach(b => { b.style.color = a.fg; b.style.borderColor = a.fg; });   // its own colors, so they read on a light box too
+  c.querySelectorAll(".pclose, .psub button").forEach(b => { b.style.color = a.fg; b.style.borderColor = a.fg; });   // its own colors, so they read on a light box too
   const h = c.querySelector("h2"); h.setAttribute("style", a.h2); h.className = "big"; h.textContent = a.title;
   const hr = c.querySelector(".hrow"); while (hr.nextElementSibling && !hr.nextElementSibling.classList.contains("pbar")) hr.nextElementSibling.remove();   // no accent, no quote
   const ul = c.querySelector(".list"), tpl = ul.querySelector("li");
