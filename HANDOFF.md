@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v99 and matches main (pushed 1 November 2026). Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v120 and matches main (last pushed 1 November 2026) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
@@ -97,18 +97,25 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   versions of the band were tried and rejected ("very terrible, messy"): a straight copy of the TVA's monitor, unconnected extra lines,
   even strands, the banner stretched over the box, the banner split and split again.
 
-### Testing checklist (everything on main, 1 November 2026)
+### Testing checklist (everything on main, end of 1 November 2026)
 
-Close the app fully and reopen it online first.
+Close the app fully (swipe it from recent apps) and reopen it online first.
 
 - **Network:** one room per universe, each Earth a named bubble (name curved inside its edge); The Void its own group; young and old one
   bubble; no Earth tabs, no All universes; opens centred, zoomed out. Every person on an Earth or in The Void (Deke Shaw and Flint in
-  Earth-199999, Uatu in The Fifth Dimension). "In N titles" lists seasons ("Agents of S.H.I.E.L.D. S5"); no one in 0 titles. New people
-  pop in with a dock dot. Back closes only the card, then the Network, and lights the right dock button. A file's connections open the
-  Network on top, and back returns to the file. No "tap" labels.
+  Earth-199999, Uatu in The Fifth Dimension). The search reads "Search the Network". "In N titles" lists seasons ("Agents of S.H.I.E.L.D.
+  S5"), and a season counts from the first episode you've reached with them in it (tick Agent Carter S1 episode 1: Leet Brannis reads
+  "In 1 title"); no one in 0 titles. New people pop in with a dock dot. Back closes only the card, then the Network, and lights the right
+  dock button. Leaving the Network and coming back: the Sacred Timeline, centred, zoomed out, no one selected. The card reads
+  "Connections". No "tap" labels.
 - **Compound and Raft files:** one layout (universe in the name box, status in the corner, First and Last seen evenly spaced); the Raft's
   name box plain; transfers read "File transferred to the Raft" with the title small beneath, and "out of the Compound" until the Raft is
   found. Each index has its colour: Compound blue, Raft red, Damage Control muted green, Collection gold.
+- **Connections on a file:** a small web (the person in the middle, up to a dozen round them, every kind shown, a tally like "1 partner,
+  3 friends"); one finger drags it, two pinch it; "Open Network ›" at its corner opens the Network on top, and back returns to the file,
+  then to the page you came from (try it from the Agent File: Compound, Sharon, Open Network, back three times).
+- **Boxes:** every chapter and character box's top row ("Back to chapters") sits just under the status bar. Chapter 7 wears its banner
+  faint behind the box: one junction, four gold strands each side of the red, ending level.
 - **Earth-199999** for the main MCU world everywhere.
 - **No hint text:** covers read Unlock / [ Classified ] (Characters' multiverse boxes too, once Loki S1 is watched); "Override: N to
   go"; boot screen AWAITING AUTHORIZATION.
@@ -117,6 +124,8 @@ Close the app fully and reopen it online first.
   corrected texts (Yondu corners Rocket, Frank tortures Wolf, Agatha kisses Death, Crank kills BB, "Cherry"); the Log's Chapters and
   Characters tabs; page titles level at the status bar plus 6px; the Characters card above the ticker; full screen and backup; the
   Watcher's blink; Reset datapad; the sling ring only in the Atlas; Damage Control numbers and A to Z; the Collection holders.
+- **Test build only (not on main):** landscape, stage 1 (the dock as a rail down the left, Story's header in a column beside the boxes,
+  the Atlas map beside its list). Waiting on the owner's go-ahead before stage 2.
 
 ### Tests
 
