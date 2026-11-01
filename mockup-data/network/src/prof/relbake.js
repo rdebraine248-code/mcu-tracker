@@ -58,6 +58,13 @@ let epTagged = 0; if (fs.existsSync(R + 'ep_tags.json')) { const E = JSON.parse(
   out.forEach(([a, b, st]) => { const ids = [H.nodes[a][11], H.nodes[b][11]].sort(), seenN = {};
     st.forEach(x => { const t = T[x[1]]; if (/#\d+$/.test(t)) return; const n = seenN[t] = (seenN[t] ?? -1) + 1, e = E[ids.join('|') + '|' + t + '|' + n]; if (e > 0) { x[1] = tIx(t + '#' + e); epTagged++; } }); }); }
 console.log('episode-tagged stages', epTagged);
+// texts checked against the episodes (rel/text_fix.json, November 2026): a wrong detail rewritten, a stage that never happens in its
+// title cut (a connection left with no stages goes). After the episode tags, which count stages as they were
+let tFix = 0, tCut = 0; if (fs.existsSync(R + 'text_fix.json')) { const X = JSON.parse(fs.readFileSync(R + 'text_fix.json')), cut = new Set(X.cut || []);
+  for (let k = out.length - 1; k >= 0; k--) { const st = out[k][2];
+    for (let i = st.length - 1; i >= 0; i--) { if (cut.has(st[i][2])) { st.splice(i, 1); tCut++; } else if (X.fix && X.fix[st[i][2]]) { st[i][2] = X.fix[st[i][2]]; tFix++; } }
+    if (!st.length) out.splice(k, 1); } }
+console.log('text fixes', tFix, 'cuts', tCut);
 fs.writeFileSync(__dirname + '/rel.json', JSON.stringify({ kinds: KINDS, titles: T, ord: T.map(so), ties: out, places, cross: cross > 0 }));
 console.log('know-each-other audit: cut', kaCut, 'corrected', kaFix); console.log('other-universe circles', uc, '| Sacred Timeline fights and gaps added', extraMcu); console.log('other universes', uni, 'from', UNI.length, 'files | combined', merged2, '| crossings', cross, '| skipped', uskip.length, uskip.slice(0, 8).join(', '));
 console.log('from', src, '| ties', out.length, 'skipped', skip, '| titles', T.length, 'unplaced titles', T.filter(t => so(t) < 0), '| circles', Object.keys(places).length);

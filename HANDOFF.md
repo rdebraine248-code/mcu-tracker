@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v78. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v79 and matches main. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
@@ -628,6 +628,9 @@ insignia celebration covers the page.
 
 ## Mistakes not to repeat
 
+- **Gathering data with a mockup switched on.** The episode pass gathered its moments from the dev build while the WandaVision mockup
+  was in it, so Wanda's real entry took a mockup entry's tag. Gather from a build with no mockups (or the main build), and check a
+  sample end to end (`episodes/check.js`) before pushing.
 - **Two Sacred Timeline people with one name** (Vision and S.W.O.R.D.'s Vision, Maria Rambeau and Binary, every Earth-838 variant):
   connections are matched by name, so the later one took all of them; the main Karl Mordo had none. relbake's `BY_ID_ONLY` lists the
   ones reached by id only. After any new variant, list the names shared inside the Sacred Timeline and check both sides' connections.
@@ -766,7 +769,20 @@ These happened in earlier chats. Each cost the owner time.
 - Decided and closed: Ant-Man and the Wasp stays out of the S.H.I.E.L.D. box; Bucky's hero file keeps HYDRA; Gamora and Nebula keep the
   Children of Thanos.
 
-## The third October 2026 round, all on main (newest last)
+## The November 2026 round, all on main (newest last)
+
+- The Network as its own file (`network.html`), loaded ahead out of sight; the launch page back to 3.65 MB.
+- The Network: group colours, a tighter room, no jump on open, the camera framing what you've watched, no Back buttons, back closes
+  the card (`netcard` step), Open file only once found, a file previews its first connections, a reveal for newcomers (dock dot and
+  pop-in). Every page title at one height. The Paths card above the ticker. The main Karl Mordo's own connections (`BY_ID_ONLY`).
+- The Log's tabs: Chapters and Characters.
+- The Compound and Raft handover: 54 people, one history between their two files (`handover.json`).
+- Episode by episode: 5,717 moments in 115 shows (`ep_tags.json`, `network/rel/ep_tags.json`).
+- Texts the episode research flagged, checked against the wikis (`mockup-data/episodes/flag_fixes.json`): 21 Network texts rewritten
+  and 6 cut through `network/rel/text_fix.json` (relbake applies it last, after the episode tags); D.W.'s Luke Cage step fixed in its
+  data files; two Atlas entries that never happen in their titles removed (What If's monster fight in Peggy's world, Slingshot in
+  Bogotá), their places' episode tags renumbered. 13 flagged texts checked and kept.
+
 
 - Battery: the Watcher's eyes blink one blink at a time instead of one looping animation, and the dock drops its blur (idle redraws fell
   from 10 to 15 a second to under 3).
