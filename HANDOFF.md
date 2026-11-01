@@ -351,7 +351,7 @@ insignia celebration covers the page.
   and Prowler in Earth-928, where their stories happen; Deadpool & Wolverine's Gambit and Blob in The Void; Uatu in **The Fifth
   Dimension** (the MCU Wiki's home for him: he watches from outside every Earth).
 - **Compound and Raft files share one layout** (owner, November 2026: "the same info ... designed the same way but stylistically
-  different"): a name box with the badge (the Compound's round one, the Raft's square plate), the ID line, the name, who they are, the
+  different"): a name box (the Compound's with its round badge; the Raft's plain, no badge and no bars: owner, "cut the insignia thing and the prison bars"), the ID line, the name, who they are, the
   universe on its own line (`uniLine`, no Universe tile), and the status in the corner; then First seen and Last seen, as far from the
   name box as from each other. The Raft's Threat class tile and status banner are gone (its class is on the ID line). A transfer is a
   line of the record like the rest, its title small under it (`hoMark`), and names the other place only once you've found it ("File
