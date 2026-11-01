@@ -71,9 +71,8 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   list isn't super great looking"): `npWeb` in the app draws the person in the middle and up to a dozen connections round them (`pick12`
   in the Network takes them a kind at a time so every kind shows), each line in its kind's colour, rivals and enemies dashed, names
   beneath, a count of each kind under it. The box reads "Connections" (owner: cut "Their"); short names drop titles (Abraham, Chester),
-  and the tally says "1 partner", not "1 partners". It's a preview, so it's small (owner: "it's supposed to be a preview, not the whole damn file"), it drags and pinches like the
-  Network (a wheel zooms; half to three times its size), and only "Open Network ›" at its bottom right opens the Network ("See all N"
-  is gone).
+  and the tally says "1 partner", not "1 partners". It's a preview, so it's small (owner: "it's supposed to be a preview, not the whole damn file"); it doesn't drag or zoom (tried,
+  then cut: owner, November 2026), and only "Open Network ›" at its bottom right opens the Network ("See all N" is gone).
 
 ### Landscape (in progress, test build only)
 
@@ -427,6 +426,22 @@ insignia celebration covers the page.
   name box as from each other. The Raft's Threat class tile and status banner are gone (its class is on the ID line). A transfer is a
   line of the record like the rest, its title small under it (`hoMark`), and names the other place only once you've found it ("File
   transferred out of the Compound" until then).
+- **Network, Paths, the indexes and profiles link both ways** (owner, November 2026: "network, paths, indexes, profiles should all be
+  connected to and from each other", the indexes only once found). A file belongs to the character box whose subjects name them
+  (`boxOfFile`: its own world only, `BOX_UNI`; one-word names like Thor count, aliases only in full; among several boxes, the one with
+  the fewest named, then the one that stays smallest: Matt Murdock is Daredevil's, not The Defenders'). Links, each only once the box is
+  known (`boxShown`, `boxPath`): a Compound or Raft file's record line carries **Profile ›** and **Path ›** (`xLinks`); a profile's
+  story line carries **Path ›**, and its foot an **On file** list of its people's found files (`boxFiles`; "See their path" is gone); a
+  Network card carries **Profile** and **Path** beside Open file (`netLinks`, `netProf`, `netPath`); Paths' bar opens the profile. Every
+  link opens its page **on top** of where you are (`jumpUp`, z-index 81 and up, over a profile's 80; `body.jumped` lifts the dock and the
+  Log header) and back takes just that page away (`JUMPS`, `jumpBack` in `onNavBack`), leaving what was under it as it was.
+- **A page held still never jumps** (owner's recording, November 2026): `bodyLock` keeps the status bar's room (`netSat()`), so opening a
+  box no longer drops the page behind it 36px. A profile measured while scrolled no longer pads its top (`pinTop` counts `scrollTop`).
+- **Pills** (owner: "no longer swipeable away when they're in their icon form"; "touch what's underneath when the pill isn't explicitly
+  covering it"): a pill takes touches only where it's drawn (`swipeAway` hit-tests with `elementFromPoint`; while it's the small closed
+  frame its `clip-path` is that frame), and a swipe moves it with `translate`, so it works mid-animation.
+- **No "Transferred" status** in either index: a file the other index took over keeps its last status. **First and last seen** are two
+  small lines in the name box (`seenLine`; "Seen in" when they're one title), not two tiles ("a space suck").
 - **Each index wears its own colour** (owner, November 2026: "the Raft red, Damage Control green, but not neon or slime green"):
   `--ix` / `--ixt` on `.collpanel` (Compound blue #5E9BEF, Raft red #D45A4F, Damage Control green #5FAF7E, Collection gold #D9AE52)
   tint the title's glow, the section heads, the tiles, the name box, the search box and the connections box. Damage Control's old neon

@@ -43,6 +43,7 @@ h1{ margin:0; font:400 28px/1.05 var(--display); letter-spacing:.5px; text-trans
 #card h2{ margin:3px 0 6px; font:400 24px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; }
 #card .ln{ display:flex; gap:14px; font-size:14.5px; color:#C9D3E2; } #card .ln i{ display:inline-block; width:12px; height:3px; margin-right:6px; vertical-align:middle; border-radius:2px; }
 #card .row{ display:flex; gap:10px; margin-top:10px; }
+#card .row button[hidden]{ display:none; }
 #card button{ flex:1; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
 #card button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
 #card .chips{ margin-top:10px; } #card .chips b{ display:block; margin-bottom:5px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
@@ -126,7 +127,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
   <div id="vOne"><small id="cCrew"></small><h2 id="cName"></h2>
     <div class="ln kinds" id="cSum"></div><div id="cMore"></div>
     <div class="chips" id="sConn"><b>Connections</b><div class="strip"></div></div>
-    <div class="row" id="cRow"><button type="button" id="cFile">Open file ›</button></div></div>
+    <div class="row" id="cRow"><button type="button" id="cFile">Open file ›</button><button type="button" id="cProf">Profile ›</button><button type="button" id="cPath">Path ›</button></div></div>
   <div id="vThree" hidden><small id="tWith"></small><h2 id="tName"></h2><div class="ln"><span><b id="tCount"></b> from their web</span></div>
     <div class="chips"><b>Who was there</b><div class="strip" id="tStrip"></div></div>
     <div class="row"><button type="button" id="tBack">‹ Back to their story</button></div></div>
@@ -505,7 +506,8 @@ function fillCard(p) {
   const fill = (id, L, f) => { const box = $(id); box.hidden = !L.length; box.querySelector('.strip').innerHTML = L.map(j => `<button type="button" class="chip${f ? ' f' : ''}" data-i="${j}">${N[j].n}</button>`).join(''); box.querySelector('.strip').scrollLeft = 0; };
   card._L = L; card._more = null; $('cMore').innerHTML = ''; if (fillCard.last !== p) { card.style.transition = ''; setBig(false); } else if (cardBig) moreFill(); fillCard.last = p;
   // Open file only once you've found their file (the Compound or the Raft, and them in it), the app's own rule
-  $('cRow').hidden = EMB && !(parent.netCanOpen && parent.netCanOpen(p.id));
+  { const f = !EMB || !!(parent.netCanOpen && parent.netCanOpen(p.id)), L = EMB && parent.netLinks ? parent.netLinks(p.id) : { prof: '', path: '' };   // their file, profile and path, each once you can reach it
+    $('cFile').hidden = !f; $('cProf').hidden = !L.prof; $('cPath').hidden = !L.path; $('cRow').hidden = !f && !L.prof && !L.path; }
   showOne(); cardIn(); tell();
 }
 function cardIn() { if (card.classList.contains('on')) return; const k = card._in = (card._in || 0) + 1; card.style.transition = 'none'; void card.offsetHeight; card.style.transition = '';
@@ -557,6 +559,8 @@ function tell() { if (EMB && parent.netCard) parent.netCard(!!(sel || mapOn) || 
 self.netHome = () => { $('ssheet').hidden = true; if (sel || mapOn) home(); if (UNI !== 'mcu' && uniOk('mcu')) setUni('mcu'); glide = null; vel = { x: 0, y: 0 }; needFit = true; };   // centred when it's next shown, once its header can be measured
 self.netBack = () => { if (!$('ssheet').hidden) $('ssheet').hidden = true; else if (mapOn) $('mBack').click(); else if (link) showOne(); else if (sel) home(); tell(); };
 const say = (m, ms) => { toast.textContent = m; toast.style.opacity = 1; clearTimeout(say.t); say.t = setTimeout(() => toast.style.opacity = 0, ms || 2200); };
+$('cProf').onclick = () => { if (EMB && sel && parent.netProf) parent.netProf(sel.id); };
+$('cPath').onclick = () => { if (EMB && sel && parent.netPath) parent.netPath(sel.id); };
 $('cFile').onclick = () => { if (EMB && sel && parent.netOpenFile) parent.netOpenFile(sel.id, sel.k); else say('In the app, this opens their Compound or Raft file'); };
 
 
