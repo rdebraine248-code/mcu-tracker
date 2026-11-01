@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v120 and matches main (last pushed 1 November 2026) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v128 and matches main (last pushed 1 November 2026) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
@@ -108,38 +108,26 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
 
 Close the app fully (swipe it from recent apps) and reopen it online first.
 
-- **Network:** one room per universe, each Earth a named bubble (name curved inside its edge); The Void its own group; young and old one
-  bubble; no Earth tabs, no All universes; opens centred, zoomed out. Every person on an Earth or in The Void (Deke Shaw and Flint in
-  Earth-199999, Uatu in The Fifth Dimension). The search reads "Search the Network". "In N titles" lists seasons ("Agents of S.H.I.E.L.D.
-  S5"), and a season counts from the first episode you've reached with them in it (tick Agent Carter S1 episode 1: Leet Brannis reads
-  "In 1 title"); no one in 0 titles. New people pop in with a dock dot. Back closes only the card, then the Network, and lights the right
-  dock button. Leaving the Network and coming back: the Sacred Timeline, centred, zoomed out, no one selected. The card reads
-  "Connections". No "tap" labels.
-- **Compound and Raft files:** one layout (universe in the name box, status in the corner, First and Last seen evenly spaced); the Raft's
-  name box plain; transfers read "File transferred to the Raft" with the title small beneath, and "out of the Compound" until the Raft is
-  found. Each index has its colour: Compound blue, Raft red, Damage Control muted green, Collection gold.
-- **Connections on a file:** a small web (the person in the middle, up to a dozen round them, every kind shown, a tally like "1 partner,
-  3 friends"); it stays still; "Open Network ›" at its corner opens the Network on top, and back returns to the file, then to the page
-  you came from.
-- **Linked both ways:** a file's Service record line has Profile › and Path › (for a profile's own main characters only); a profile's
-  story line has Path ›, and its foot an On file list of its people's found files; a Network card has Profile › and Path › beside Open
-  file. Each opens on top, and back returns to exactly where you were.
-- **Files:** no "Transferred" status; first and last seen are small lines in the name box.
-- **Pills:** swipe away even while still the small icon; tap the page beside a pill.
-- **No jumps:** opening a box doesn't move the page behind it; a profile reopens at its top.
-- **Boxes:** every chapter and character box's title row (the name, with Close at its right) sits just under the status bar; the
-  chapter label (CH. 1, EXTRAS) under the title; a character's "PROFILE ›" on that same line, in the label's look; no Log button on chapters. Chapter 7 wears its banner
-  faint behind the box: one junction, four gold strands each side of the red, ending level.
-- **Earth-199999** for the main MCU world everywhere.
-- **No hint text:** covers read Unlock / [ Classified ] (Characters' multiverse boxes too, once Loki S1 is watched); "Override: N to
-  go"; boot screen AWAITING AUTHORIZATION.
-- **The news ticker** plays on over Comms.
-- **Earlier on main:** the handover (Wanda, Bucky, Loki, Yelena, Vision); episode-by-episode reveals (WandaVision 4, 5, 7 to 8); the
-  corrected texts (Yondu corners Rocket, Frank tortures Wolf, Agatha kisses Death, Crank kills BB, "Cherry"); the Log's Chapters and
-  Characters tabs; page titles level at the status bar plus 6px; the Characters card above the ticker; full screen and backup; the
+- **Boxes:** the title with Close beside it (thin pill); CH. 1 / EXTRAS under a chapter's title, PROFILE › under a character's; no Log
+  button on chapters; the title just under the status bar; Chapter 7's faint banner behind its box. Opening a box never moves the page.
+- **Profiles:** Back beside the title, CHARACTER PROFILE under it; Path › on the story line; an On file list of its people's found files;
+  reopened, it starts at its top.
+- **Links:** a file's record line has Profile › and Path › (each profile's own main characters only; Riri is the Champions'; FoX-Men has
+  the films' X-Men and Brotherhood); a Network card has Profile › and Path › beside Open file. Each opens on top and back returns where
+  you were; Open Network on a file over a profile, with the Network under it, goes back down to the Network on that person.
+- **Files:** one layout; no Transferred status; first and last seen as small lines in the name box; the Raft's name box plain; transfers
+  name the Raft only once found; index colours; the connections web (still) with Open Network › at its corner.
+- **Network:** Earths as named bubbles, The Void a group; Search the Network; titles by season, counted from the first episode with them;
+  no one in 0 titles; resets when left; back lights the right dock button. **Connections change:** Wanda and Bruce enemies after Age of
+  Ultron, allies from Infinity War; Darcy enemy to WandaVision episode 7, ally from 9; Coulson and Victoria Hand allies at Agents of
+  S.H.I.E.L.D. S1 episode 17.
+- **Pills:** swipe away even as the small icon; the page beside a pill can be tapped.
+- **Everywhere:** Earth-199999; covers read Unlock / [ Classified ]; no tap text; the ticker plays over Comms.
+- **Earlier on main:** the handover (Wanda, Bucky, Loki, Yelena, Vision); WandaVision's episode reveals (4, 5, 7 to 8); the corrected texts
+  (Yondu, Frank, Agatha, Crank, "Cherry"); the Log's Chapters and Characters tabs; level page titles; full screen and backup; the
   Watcher's blink; Reset datapad; the sling ring only in the Atlas; Damage Control numbers and A to Z; the Collection holders.
-- **Test build only (not on main):** landscape, stage 1 (the dock as a rail down the left, Story's header in a column beside the boxes,
-  the Atlas map beside its list). Waiting on the owner's go-ahead before stage 2.
+- **Test build only:** landscape, stage 1 (the dock as a left rail; Story's left column scrolling on its own beside the boxes; the Atlas
+  map beside its list). Atlas and the left column approved; stage 2 next.
 
 ### Tests
 
