@@ -4,6 +4,10 @@
 <style>
 /* layout: one full-screen room, drawn on a canvas; the datapad's own dark, a header over the top, a card that rises when someone is picked */
 :root{
+  --padimg:repeating-linear-gradient(0deg, rgba(120,160,220,.03) 0 1px, rgba(0,0,0,0) 1px 3px), radial-gradient(rgba(120,160,220,.07) 1px, rgba(0,0,0,0) 1.4px),
+    radial-gradient(ellipse 120% 90% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.45)), radial-gradient(1100px 600px at 12% -8%, rgba(70,130,230,.14), rgba(0,0,0,0) 62%),
+    radial-gradient(900px 600px at 100% 100%, rgba(110,80,200,.08), rgba(0,0,0,0) 60%);   /* the app's screen texture, so the Network reads like every other page */
+  --padsize:auto, 22px 22px, 100vw 100vh, 100vw 100vh, 100vw 100vh;
   --bg:#0B1019; --panel:#0F1626; --line:#2A3A56; --ink:#EEF1F6; --mute:#8EA2C2;
   --hero:#7FB2FF; --foe:#E0574A; --both:#E9C46A; --cyan:#5FD0FF;
   --display:'Anton','Impact',sans-serif; --body:'IBM Plex Sans Condensed','Arial Narrow',sans-serif; --mono:'Share Tech Mono','Courier New',monospace;
@@ -11,10 +15,11 @@
 }
 *{ -webkit-tap-highlight-color:transparent; }   /* no tap flash (the app's long-standing rule) */
 html,body{ height:100%; }
-body{ margin:0; overflow:hidden; background:var(--bg); color:var(--ink); font-family:var(--body); touch-action:none; -webkit-user-select:none; user-select:none; }
+body{ margin:0; overflow:hidden; background-color:var(--bg); background-image:var(--padimg); background-size:var(--padsize); color:var(--ink); font-family:var(--body); touch-action:none; -webkit-user-select:none; user-select:none; }
 #room{ position:fixed; inset:0; display:block; }
 header{ position:fixed; left:0; right:0; top:0; padding-top:calc(6px + var(--sat, env(safe-area-inset-top, 0px))); padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); padding-bottom:28px; pointer-events:none;
-  background:linear-gradient(180deg, rgba(11,16,25,.96) 55%, rgba(11,16,25,0)); }
+  isolation:isolate; }
+header::before{ content:""; position:absolute; inset:0; z-index:-1; background-color:var(--bg); background-image:var(--padimg); background-size:var(--padsize); background-position:0 0; -webkit-mask-image:linear-gradient(180deg, #000 55%, transparent); mask-image:linear-gradient(180deg, #000 55%, transparent); }   /* the screen's own texture, fading out over the room */
 h1{ margin:0; font:400 28px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 18px rgba(109,189,255,.45); }
 .sub{ margin:8px 0 10px; font:11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
 .legend{ display:flex; flex-wrap:wrap; gap:4px 14px; font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
@@ -127,7 +132,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
   <div id="vOne"><small id="cCrew"></small><h2 id="cName"></h2>
     <div class="ln kinds" id="cSum"></div><div id="cMore"></div>
     <div class="chips" id="sConn"><b>Connections</b><div class="strip"></div></div>
-    <div class="row" id="cRow"><button type="button" id="cFile">Open file ›</button><button type="button" id="cProf">Profile ›</button><button type="button" id="cPath">Path ›</button></div></div>
+    <div class="row" id="cRow"><button type="button" id="cFile">Open file ›</button><button type="button" id="cProf">Character log ›</button><button type="button" id="cPath">Path ›</button></div></div>
   <div id="vThree" hidden><small id="tWith"></small><h2 id="tName"></h2><div class="ln"><span><b id="tCount"></b> from their web</span></div>
     <div class="chips"><b>Who was there</b><div class="strip" id="tStrip"></div></div>
     <div class="row"><button type="button" id="tBack">‹ Back to their story</button></div></div>
@@ -311,7 +316,7 @@ function frame(t) {
   if (!glide && mapK() < .5) { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; const b = busy(), L = b ? gathered.map(j => N[j]).concat(sel ? [sel] : []) : N;
     for (const p of L) { if (!(p.vis || p.guest)) continue; const x = b ? p.tx : p.hx, y = b ? p.ty : p.hy; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
     if (x0 <= x1) { const mx = W * .4 / zoom, my = H * .4 / zoom; cam.x = Math.max(x0 - mx, Math.min(x1 + mx, cam.x)); cam.y = Math.max(y0 - my, Math.min(y1 + my, cam.y)); } }
-  g.setTransform(DPR, 0, 0, DPR, 0, 0); g.fillStyle = '#0B1019'; g.fillRect(0, 0, W, H);
+  g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H);   // the page's own screen shows through
   const e = unfold(), G = groups(), gv = new Map(G.map(z => [z, gview(z, t)]));
   const lit = sel ? new Set([sel.i, ...gathered]) : tsel != null ? new Set(gathered) : null;
   // each person's spot: their own while zoomed in, drawn into their group's bubble as you zoom out
@@ -319,7 +324,8 @@ function frame(t) {
     if (c && e < 1 && p !== sel) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
   // the Earth districts: a big faint bubble round each Earth's crews, its name round the inside of its edge (only in the room, not in someone's web)
   if (DIST.length && !busy()) { const C = []; DIST.forEach(d => { if (!d.L.length) return;   // round the spot it was laid out on, wide enough for where its people stand on screen (the lens pulls the edges in)
-    const o = lens({ wx: d.x, wy: d.y }, 0), cx = o.x, cy = o.y;
+    const o = lens({ wx: d.x, wy: d.y }, 0); let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; d.L.forEach(p => { const q = pos[p.i]; x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); });
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;   // round its people as they stand, so it moves with them (owner: it slid against its bubbles)
     let R = 0; d.L.forEach(p => { R = Math.max(R, Math.hypot(pos[p.i].x - cx, pos[p.i].y - cy) + 21 * pos[p.i].s); });
     G.forEach(z => { if (z.L[0] && d.L.includes(z.L[0]) && e < 1) { const v = gv.get(z); R = Math.max(R, Math.hypot(v.x - cx, v.y - cy) + v.r); } });
     const fs = Math.max(10, Math.min(18, R * .08)); C.push({ d, cx, cy, fs, R: Math.max(R + fs + 6, d.Rw * o.s), r0: R + 4 }); });   // room inside the edge for its name
@@ -367,7 +373,7 @@ function frame(t) {
     g.lineWidth = key ? 3 : 2; g.strokeStyle = key ? '#E9C46A' : ringOf(p); g.stroke();
     if (sel && wk(p) !== wk(sel) && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
     if (r > 9) { g.fillStyle = '#EEF1F6'; g.font = `400 ${Math.round(r * .78)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(initials(p.n), q.x, q.y + 1); }
-    if (p.inAt && t - p.inAt < 2600) { const k = (t - p.inAt) / 2600; g.globalAlpha = (1 - k) * fade; g.beginPath(); g.arc(q.x, q.y, r + 4 + k * 10, 0, 6.2832); g.strokeStyle = '#E9C46A'; g.lineWidth = 2.5; g.stroke(); g.globalAlpha = dim * fade; }   // just walked in
+    if (p.inAt && t - p.inAt < 2600) { const k = (t - p.inAt) / 2600; g.globalAlpha = (1 - k) * fade; g.beginPath(); g.arc(q.x, q.y, r + 4 + k * 10, 0, 6.2832); g.strokeStyle = '#5FD0FF'; g.lineWidth = 2.5;   /* blue, like the app's new dots (owner) */ g.stroke(); g.globalAlpha = dim * fade; }   // just walked in
     if (dim * fade > .3) rings.push([q.x, q.y, r, p]); if (pop >= 1 && ((q.s > .74 && dim === 1 && e > .9) || key)) names.push([p, q, r, key]);
     g.globalAlpha = 1; }
   // a name is written only where it lands clear of everyone else and of the names already down, the one locked on and the best-connected first
@@ -390,12 +396,15 @@ self.netShow = v => { LIVE = v; if (v) { size(); if (needFit) fitRoom(); reveal(
 let KNOWN = null;
 const fresh = () => KNOWN ? N.filter(p => p.vis && !KNOWN.has(p.id)) : [];
 function reveal() { if (!EMB || !KNOWN) return; const F = fresh(); if (!F.length) return; const t = performance.now();
-  F.sort((a, b) => Math.hypot(a.hx - cam.x, a.hy - cam.y) - Math.hypot(b.hx - cam.x, b.hy - cam.y)).forEach((p, i) => { p.popAt = t + 250 + Math.min(i, 50) * 40; p.inAt = p.popAt + 150; KNOWN.add(p.id); });
+  const step = Math.min(40, 2000 / F.length);   // each one on its own, nearest first, the whole lot within two seconds (owner: some came one by one, then the rest all at once)
+  F.sort((a, b) => Math.hypot(a.hx - cam.x, a.hy - cam.y) - Math.hypot(b.hx - cam.x, b.hy - cam.y)).forEach((p, i) => { p.popAt = t + 250 + i * step; p.inAt = p.popAt + 150; KNOWN.add(p.id); });
   if (parent.netKnow) parent.netKnow(F.map(p => p.id)); if (parent.netFresh) parent.netFresh(0); }
 self.netKnowAll = () => { const F = fresh(); F.forEach(p => KNOWN.add(p.id)); if (parent.netKnow) parent.netKnow(F.map(p => p.id)); if (parent.netFresh) parent.netFresh(0); };
 
 // wandering: drag to pan, with a little glide when you let go; two fingers (or the wheel) to zoom; a tap picks whoever is under it
-let drag = null, pts = new Map(), pinch0 = null;
+let drag = null, pts = new Map(), pinch0 = null, lastEmpty = null;
+// any touch here tells the app you're there (its idle Watcher only hears its own page)
+['pointerdown', 'wheel', 'keydown'].forEach(n => addEventListener(n, () => { if (EMB && parent.netWake) parent.netWake(); }, { passive: true, capture: true }));
 const setZoom = z => { zoom = Math.max(ZMIN, Math.min(ZMAX, z)); };
 cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]); glide = null;
   if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch0 = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), z: mapOn ? mz : zoom }; drag = null; return; }
@@ -422,7 +431,9 @@ function tap(x, y) {
   }
   const out = unfold() < .5; let best = null, bd = 1e9;   // zoomed out, only the people standing on their own can be tapped
   N.forEach(p => { if (!(p.vis || p.guest) || (busy() && !gathered.includes(p.i)) || (out && groupOf(p))) return; const q = lens(p, t), r = 21 * q.s + 6, d = Math.hypot(q.x - x, q.y - y); if (d < r && d < bd) { bd = d; best = p; } });
-  if (!best) return link ? showOne() : out && busy() ? null : home();
+  if (!best) { const dbl = lastEmpty && t - lastEmpty.t < 340 && Math.hypot(x - lastEmpty.x, y - lastEmpty.y) < 40; lastEmpty = dbl ? null : { t, x, y };
+    if (dbl && !sel) { glide = { t0: t, x0: cam.x, y0: cam.y, x1: cam.x + (x - W / 2) / zoom, y1: cam.y + (y - H * .52) / zoom, z0: zoom, z1: Math.min(ZMAX, zoom * 1.8) }; return; }   // twice on the open floor: in, there, like the Atlas
+    return link ? showOne() : out && busy() ? null : home(); }
   if (!sel || best === link) return lockOn(best, t);
   showLink(best);
 }
@@ -476,17 +487,24 @@ function moreHTML(p, L) {
 // list down from its top drags the card down too
 let cardBig = false, dragged = 0, cd = null;
 const TOPMIN = 60, cardTop = () => card.getBoundingClientRect().top;
-const moreFill = () => { if (sel && card._more !== sel) { card._more = sel; $('cMore').innerHTML = moreHTML(sel, card._L || []); } };
-const setBig = (v, top) => { if (v) moreFill(); card._k = (card._k || 0) + 1; cardBig = v; card.classList.toggle('big', v); card.style.top = v && top != null ? top + 'px' : '';
+const moreFill = () => { if (sel && card._more !== sel) { card._more = sel; $('cMore').innerHTML = moreHTML(sel, card._L || []); $('cMore').scrollTop = 0; } };   // a new card starts at its top
+const setBig = (v, top) => { if (v) moreFill();
+  if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
+  card._k = (card._k || 0) + 1; cardBig = v; card.classList.toggle('big', v); card.style.top = v && top != null ? top + 'px' : '';
   $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) $('cMore').scrollTop = 0; };
 const settle = top => { card.style.transition = '';
   if (top > card._ct - 48) { if (!cardBig) return; card.style.top = card._ct + 'px'; const k = card._k = (card._k || 0) + 1; setTimeout(() => { if (card._k === k && !cd) setBig(false); }, 330); }
   else setBig(true, top < TOPMIN + 48 ? TOPMIN : top); };
 const dragStart = y => { moreFill(); card._k = (card._k || 0) + 1; if (!cardBig) card._ct = cardTop(); cd = { y, t: cardTop(), on: false }; };
 const dragMove = y => { if (!cd) return false; const dy = y - cd.y; if (!cd.on && Math.abs(dy) < 6) return false; if (!cd.on) { cd.on = true; card.style.transition = 'none'; }
-  const top = Math.max(TOPMIN, Math.min(card._ct + 30, cd.t + dy)); if (!cardBig && top >= card._ct) return true;
-  cardBig = true; card.classList.add('big'); card.style.top = top + 'px'; return true; };
-const dragEnd = () => { if (!cd) return; const on = cd.on; cd = null; if (on) { dragged = performance.now(); settle(cardTop()); } };
+  const top = Math.max(TOPMIN, cd.t + dy);
+  if (top > card._ct) { if (cardBig) { cardBig = false; card.classList.remove('big'); card.style.top = ''; } card.style.transform = `translateY(${top - card._ct}px)`; cd.down = top - card._ct; return true; }   // below where it rests: on its way out
+  cd.down = 0; card.style.transform = '';
+  if (!card.classList.contains('big')) { card.classList.add('big'); $('cMore').scrollTop = 0; }   // every card's list starts at its top (owner)
+  cardBig = true; card.style.top = top + 'px'; return true; };
+const dragEnd = () => { if (!cd) return; const on = cd.on, down = cd.down || 0; cd = null; if (!on) return; dragged = performance.now(); card.style.transition = '';
+  if (down > 70) { card.style.transform = ''; home(); return; }   // pulled down far enough: it slides the rest of the way and closes (owner: "slide it all the way down to close it")
+  if (down > 0) { card.style.transform = ''; return; } settle(cardTop()); };
 $('cGrip').onclick = () => { if (performance.now() - dragged < 400 || card.classList.contains('two')) return; if (cardBig) { card._ct = card._ct || cardTop(); settle(1e4); } else { card._ct = cardTop(); setBig(true, TOPMIN); } };
 card.addEventListener('pointerdown', e => { if (card.classList.contains('two') || e.target.closest('#cMore, .strip') || e.pointerType === 'touch' && e.target.closest('#cMore')) return; dragStart(e.clientY); cd.pid = e.pointerId; });
 addEventListener('pointermove', e => { if (!cd || cd.touch) return; const was = cd.on; dragMove(e.clientY); if (cd.on && !was) try { card.setPointerCapture(cd.pid); } catch (x) {} });   // held only once it's a drag, so a tap still lands on what you tapped

@@ -449,6 +449,19 @@ insignia celebration covers the page.
   #7FD95A is now #6DBB8A everywhere, its replays included.
 - **A file's connections open the Network over the page the file came from** (`netGoTo`, body class `netup`: the Network's panel sits
   under the Agent File and the Atlas otherwise, so it opened out of sight), and back returns to the file (`netFrom`), then to that page.
+- **"Profile" is now "Character log"** everywhere it shows (owner, November 2026): the box's line under its name ("CHARACTER LOG ›"), the
+  page's own heading, a file's link, the Network card's button, Paths' "Open character log", and the eggs' hints that name it.
+- **The Network card** (owner, November 2026): pulled all the way down it slides away and closes; the grip slides it up from where it
+  stands, as it slides down; every card's list starts at its top. Double tap on the open floor zooms in there, like the Atlas. New people
+  pulse blue (the app's new-dot colour) and every one pops in on its own, within two seconds (it used to stop after 50 and show the rest
+  at once). An Earth's bubble is drawn round its people as they stand, so it moves with them. Touching the Network counts as activity, so
+  the Watcher's eyes don't open on someone using it (`netWake`).
+- **Every page wears the same screen**: the Log's header and the Network (its room is drawn over the texture, its header fades it) use
+  the pads' texture (`--padimg`), not flat dark. The dock is solid, so Story never shows through it.
+- **Comms**: the filter row sits on the page (no band behind it), its picked chip light like every tab. What the ticker plays shows in the
+  open list at once and the ticker runs on, from the dock or from tapping the ticker.
+- **The Log**: holding it marks both tabs read (Paths included); its entries carry no "Recorded" tag.
+- **A file's Character log › and Path ›** stand at the right of its record line as outlined pills in the index's colour.
 - **Connections grow and change** (owner, November 2026: "I thought relationships grow and change"): a connection is stages in story
   order, each with its own kind, so Wanda and Bruce are enemies after Age of Ultron and allies from Infinity War, and Darcy is swept into
   the Hex (WandaVision episode 7) before standing up for Wanda's family (episode 9). Corrections and added stages live in
