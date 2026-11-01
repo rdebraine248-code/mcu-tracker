@@ -61,8 +61,29 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v86 and matches main. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v99 and matches main (pushed 1 November 2026). Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
+
+### Testing checklist (everything on main, 1 November 2026)
+
+Close the app fully and reopen it online first.
+
+- **Network:** one room per universe, each Earth a named bubble (name curved inside its edge); The Void its own group; young and old one
+  bubble; no Earth tabs, no All universes; opens centred, zoomed out. Every person on an Earth or in The Void (Deke Shaw and Flint in
+  Earth-199999, Uatu in The Fifth Dimension). "In N titles" lists seasons ("Agents of S.H.I.E.L.D. S5"); no one in 0 titles. New people
+  pop in with a dock dot. Back closes only the card, then the Network, and lights the right dock button. A file's connections open the
+  Network on top, and back returns to the file. No "tap" labels.
+- **Compound and Raft files:** one layout (universe in the name box, status in the corner, First and Last seen evenly spaced); the Raft's
+  name box plain; transfers read "File transferred to the Raft" with the title small beneath, and "out of the Compound" until the Raft is
+  found. Each index has its colour: Compound blue, Raft red, Damage Control muted green, Collection gold.
+- **Earth-199999** for the main MCU world everywhere.
+- **No hint text:** covers read [ Locked ] / [ Classified ] (Characters' multiverse boxes too, once Loki S1 is watched); "Override: N to
+  go"; boot screen AWAITING AUTHORIZATION.
+- **The news ticker** plays on over Comms.
+- **Earlier on main:** the handover (Wanda, Bucky, Loki, Yelena, Vision); episode-by-episode reveals (WandaVision 4, 5, 7 to 8); the
+  corrected texts (Yondu corners Rocket, Frank tortures Wolf, Agatha kisses Death, Crank kills BB, "Cherry"); the Log's Chapters and
+  Characters tabs; page titles level at the status bar plus 6px; the Characters card above the ticker; full screen and backup; the
+  Watcher's blink; Reset datapad; the sling ring only in the Atlas; Damage Control numbers and A to Z; the Collection holders.
 
 ### Tests
 
