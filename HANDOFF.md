@@ -445,7 +445,9 @@ insignia celebration covers the page.
   story line carries **Path ›**, and its foot an **On file** list of its people's found files (`boxFiles`; "See their path" is gone); a
   Network card carries **Profile** and **Path** beside Open file (`netLinks`, `netProf`, `netPath`); Paths' bar opens the profile. Every
   link opens its page **on top** of where you are (`jumpUp`, z-index 81 and up, over a profile's 80; `body.jumped` lifts the dock and the
-  Log header) and back takes just that page away (`JUMPS`, `jumpBack` in `onNavBack`), leaving what was under it as it was.
+  Log header) and back takes just that page away (`JUMPS`, `jumpBack` in `onNavBack`), leaving what was under it as it was. A link to a page that's already open underneath (Open Network on a file over a profile, when the Network is under them) goes back
+  down to it instead of opening it again hidden (owner's recording, November 2026): each jump marks the history step it opened from
+  (`jstamp`, `jt`), and `unwind` / `downTo` close the pages above and step history back to exactly there (`unwindTok` in `onNavBack`).
 - **A page held still never jumps** (owner's recording, November 2026): `bodyLock` keeps the status bar's room (`netSat()`), so opening a
   box no longer drops the page behind it 36px. A profile measured while scrolled no longer pads its top (`pinTop` counts `scrollTop`).
 - **Pills** (owner: "no longer swipeable away when they're in their icon form"; "touch what's underneath when the pill isn't explicitly
