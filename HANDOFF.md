@@ -82,10 +82,10 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
 - **A box's top row sits the status bar plus 6px down** (owner, November 2026: "all the contents and headers are so low"): `pinTop()`
   measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
   timeline band leaves the top of its open box (its row is level with every other box; owner: "the point is to have chapter 7 up
-  like the rest") and sits between the progress bar and the titles, full width (`chBranch`). **Mockup (test build):** instead, the
-  splitting version, compact (`CH7_BG`, owner: "the best idea but just not so wide apart, doesn't need to take up the whole screen"): the
-  gold line in from the left to the junction, the red straight on, the gold splitting, and again, and again, four strands each side,
-  faint, behind the top of the list. Owner unsure between 4 and 3 a side. Background
+  like the rest") and sits between the progress bar and the titles, full width (`chBranch`). **Mockup (test build):** instead, its own banner in the background (`CH7_BG`): every strand leaves the one junction and
+  finishes level like the original, four each side of the red, compact (300px tall) and faint, mid-box (owner: "splitting all from one
+  point with 3 or 4 branches on either side all parallel like the original design but in the background ... not so wide apart". Not a
+  tree that splits and splits again: that was a misreading). Owner unsure between 4 and 3 a side. Background
   versions of the band were tried and rejected ("very terrible, messy"): a straight copy of the TVA's monitor, unconnected extra lines,
   even strands, the banner stretched over the box, the banner split and split again.
 
