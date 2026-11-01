@@ -4726,7 +4726,7 @@ const cpStatusOf = o => hoShut(o, "C") ? "Transferred" : cpStatus(cpSteps(o));
 const HANDOVER = /*HANDOVER*/{};
 // a group's file shared by several people (PRIDE) is never handed over: each of them keeps their own file whole. A title that runs several
 // seasons can be split by season: `drop` lists the steps (title, n) a file no longer tells because the other one does
-Object.entries(HANDOVER).forEach(([id, h]) => { const a = ALLIES.find(o => o.id === id), b = a && THREATS.find(o => o.id === a.rf); if (!a || !b || !h.ho || h.ho.length < 2 || ALLIES.filter(o => o.rf === b.id).length > 1) return;   // one side all along: both files stay whole, neither vanishes
+Object.entries(HANDOVER).forEach(([id, h]) => { const a = ALLIES.find(o => o.id === id), b = a && THREATS.find(o => o.id === a.rf); if (!a || !b || !h.ho || (h.ho.length < 2 && !h.close) || ALLIES.filter(o => o.rf === b.id).length > 1) return;   // one side all along: both files stay whole (a persona's own record), unless the other file is a pure duplicate (`close`: it leaves that index)
   a.ho = h.ho; const F = { C: a, R: b };
   ["C", "R"].forEach(sd => { const o = F[sd];
     ((h.rewrite || {})[sd] || []).forEach(r => { const x = o.st.filter(y => y[1] === r.title)[r.i || 0]; if (x) { x[0] = r.text; if (r.status) x[2] = r.status; } });
