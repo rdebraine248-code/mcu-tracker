@@ -4754,7 +4754,7 @@ function renderRaft() {
       <div class="rf-head rf-id s-${RF_ST[st]}"><div><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat · ${esc(tmNow(o.tm))}</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p>${uniLine(o)}</div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div></div>
       ${alRow(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
-      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${hoChain(o, "R", S).map(x => { if (x.ho) return hoMark(x, "R", ALLIES.find(a => a.rf === o.id)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
@@ -4855,7 +4855,7 @@ function renderCp() {
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p>${uniLine(o)}</div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div></div>
       ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
-      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Their connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${hoChain(o, "C", S).map(x => { if (x.ho) return hoMark(x, "C", o.rf && THREATS.find(t => t.id === o.rf)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
@@ -10508,7 +10508,7 @@ function npWeb(v) { const Wd = 320, Hd = 270, cx = Wd / 2, cy = Hd / 2 - 8, n = 
 /* MOCKUP END */
 function netPrevFill() { const w = document.getElementById("netFrame").contentWindow; if (!w || !w.netPreview || !document.querySelector(".np[data-np]")) return; netSync();
   document.querySelectorAll(".np[data-np]").forEach(el => { const v = w.netPreview(el.dataset.np), b = el.closest(".to-net"); if (!v) return; if (!v.n) { b.hidden = true; return; }
-    el.innerHTML = `<small>Their connections · ${v.n}</small>` + (typeof npWeb === "function" && v.W ? npWeb(v) : v.L.map(r => `<span class="npr" style="--kc:${r.c}"><b>${esc(r.n)}</b><i><u>${esc(r.k)}</u> · ${esc(r.w)}</i></span>`).join(""))
+    el.innerHTML = `<small>Connections · ${v.n}</small>` + (typeof npWeb === "function" && v.W ? npWeb(v) : v.L.map(r => `<span class="npr" style="--kc:${r.c}"><b>${esc(r.n)}</b><i><u>${esc(r.k)}</u> · ${esc(r.w)}</i></span>`).join(""))
       + `<span class="npall">${v.n > v.L.length ? `See all ${v.n} in the Network` : "See them in the Network"}</span>`; el.removeAttribute("data-np"); }); }
 { let q = 0; new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; netPrevFill(); }); }).observe(document.getElementById("collPanel"), { childList: true, subtree: true }); }
 // from someone in the Network to their file: the file adds its own step, so Back comes back to the Network
