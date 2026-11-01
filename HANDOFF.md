@@ -318,7 +318,7 @@ insignia celebration covers the page.
   finishes (`newsMark` keeps the open list up to date).
 - **Nothing sits under the news ticker**: a card at the bottom of a page rises over it while it runs.
 - **No "tap / hold / swipe to..." text anywhere** (owner, November 2026: "cut the stupid tap to whatever text everywhere, it's
-  immersion breaking"): text names what's there, never how to use it. Box covers read [ Locked ] / [ Sealed ] / [ Classified ]; a locked box
+  immersion breaking"): text names what's there, never how to use it. Box covers read [ Locked ] (can be opened) or [ Classified ] (not yet), the same on Chapters and Characters; a locked box
   tapped again counts down "Override: N to go"; the boot screen says AWAITING AUTHORIZATION. Only the eggs' own how-tos, revealed on
   purpose in the Agent File, explain a gesture.
 - **Pop-ups have no Back button**: back, or a tap off it, closes it. **The phone's back closes the top thing only**: an open card in the
@@ -339,8 +339,17 @@ insignia celebration covers the page.
   (`HOME` in hub-src): Sylvie, He Who Remains, Kang and America Chavez in Earth-616; the Void's people (the Lokis, Cassandra Nova, the
   Deadpool & Wolverine variants and that film's Logan) in **The Void**, which is their group; Defender Strange in Earth-617 (the
   director's number, used by the MCU Wiki); Sinister Strange (Earth-TRN954) and The Marvels' Binary and Beast (Earth-TRN1225) by the
-  Marvel Database's temporary numbers, which it marks unofficial. Their files keep the Earth they come from. Beyond and Pruned still have
-  unnumbered people (an unlabelled district): not yet researched. The room opens zoomed out on its centre.
+  Marvel Database's temporary numbers, which it marks unofficial. Their files keep the Earth they come from. The room opens zoomed out on
+  its centre. Every person in every tab now has an Earth or The Void (November 2026 pass, `network/rel/uni/earth/earths.json`, each
+  with its source): What If...?'s unnumbered worlds by the Marvel Database's temporary numbers (Earth-TRN908, TRN1089 to TRN1093,
+  TRN1491 to TRN1495, TRN1502, TRN1503, TRN1516 for the Eminence, where Captain Carter traps him); the Pruned tab's Runaways, Inhumans and
+  Cloak & Dagger in Earth-616 (the Marvel Database files them all in Earth-199999, its number for the main MCU); Agents of S.H.I.E.L.D.
+  season 6's Benson, Keller, Sarge and Izel in Earth-616, Sibyl in Earth-19859 with Malick; Across the Spider-Verse's Vulture in Earth-65
+  and Prowler in Earth-928, where their stories happen; Deadpool & Wolverine's Gambit and Blob in The Void; Uatu in **The Fifth
+  Dimension** (the MCU Wiki's home for him: he watches from outside every Earth).
+- **An Earth's name is written round the inside of its bubble's edge** (`arcName`), so it can't land on the Earth next door; every
+  district is big enough to hold its name even with one person in it, and where the lens squeezes two bubbles together they give up
+  their margins first.
 - **One person played young and old is one bubble** (Fox's films: Charles, Scott, Jean, Ororo, Kurt, Hank, Moira, Raven, Erik, Stryker;
   `AGE` in the Network builder, `prof/hub2.js`). Their files stay separate in the app; the Network finds the bubble through `merged`.
 - **The Network stands tight**: groups and people close together, no wasted floor ("I've said this like a dozen times").

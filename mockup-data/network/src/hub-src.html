@@ -197,6 +197,8 @@ let WORLD = null, DIST = [];   // DIST: the room's Earth districts, each { name,
 const HOME = { 'sylvie': 'Earth-616', 'he-who-remains': 'Earth-616', 'kang': 'Earth-616', 'america-chavez': 'Earth-616',
   'kid-loki': 'The Void', 'classic-loki': 'The Void', 'alligator-loki': 'The Void', 'president-loki': 'The Void', 'cassandra-nova': 'The Void',
   'ladypool': 'The Void', 'nicepool': 'The Void', 'dogpool': 'The Void', 'wolverine': 'The Void',   // Deadpool & Wolverine's Void (Logan and Dogpool end up on Deadpool's Earth-10005)
+  'fox-gambit-void': 'The Void', 'fox-blob-void': 'The Void',   // Gambit is last seen still in the Void; Blob dies there
+  'by-the-watcher': 'The Fifth Dimension',   // Uatu watches from outside every Earth (MCU Wiki: home, the Fifth Dimension)
   // researched November 2026: Defender Strange's Earth-617 is from the director's commentary (the MCU Wiki uses it); the others have only
   // the Marvel Database's temporary reality numbers, which it marks unofficial
   'defender-strange': 'Earth-617', 'sinister-strange': 'Earth-TRN954', 'binary': 'Earth-TRN1225', 'beast': 'Earth-TRN1225' };
@@ -309,15 +311,19 @@ function frame(t) {
   // each person's spot: their own while zoomed in, drawn into their group's bubble as you zoom out
   const pos = N.map(p => { const q = lens(p, t), z = groupOf(p), c = z && gv.get(z);
     if (c && e < 1 && p !== sel) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
-  // the Earth districts: a big faint bubble round each Earth's crews, its name over the top (only in the room, not in someone's web)
-  if (DIST.length && !busy()) DIST.forEach(d => { if (!d.L.length) return;   // round where its people stand on screen (the lens pulls the edges in)
-    let cx = 0, cy = 0; d.L.forEach(p => { cx += pos[p.i].x; cy += pos[p.i].y; }); cx /= d.L.length; cy /= d.L.length;
+  // the Earth districts: a big faint bubble round each Earth's crews, its name round the inside of its edge (only in the room, not in someone's web)
+  if (DIST.length && !busy()) { const C = []; DIST.forEach(d => { if (!d.L.length) return;   // round the spot it was laid out on, wide enough for where its people stand on screen (the lens pulls the edges in)
+    const o = lens({ wx: d.x, wy: d.y }, 0), cx = o.x, cy = o.y;
     let R = 0; d.L.forEach(p => { R = Math.max(R, Math.hypot(pos[p.i].x - cx, pos[p.i].y - cy) + 21 * pos[p.i].s); });
-    G.forEach(z => { if (z.L[0] && d.L.includes(z.L[0]) && e < 1) { const v = gv.get(z); R = Math.max(R, Math.hypot(v.x - cx, v.y - cy) + v.r); } }); R += 14; const c = { x: cx, y: cy };
-    if (c.x + R < 0 || c.x - R > W || c.y + R < 0 || c.y - R > H) return;
-    g.globalAlpha = 1; g.beginPath(); g.arc(c.x, c.y, R, 0, 6.2832); g.fillStyle = 'rgba(95,130,190,.05)'; g.fill(); g.lineWidth = 1.2; g.strokeStyle = 'rgba(127,166,216,.35)'; g.setLineDash([6, 6]); g.stroke(); g.setLineDash([]);
-    if (d.name) { g.font = `400 ${Math.max(11, Math.min(20, R * .09))}px 'Share Tech Mono', monospace`; g.textAlign = 'center'; g.letterSpacing = '3px'; g.fillStyle = 'rgba(159,195,240,.8)';
-      const yo = c.y - R - 8; g.fillText(d.name.toUpperCase(), c.x, yo >= 150 ? yo : Math.max(c.y - R + 22, 150)); g.letterSpacing = '0px'; } });   /* just above its bubble, clear of its groups */
+    G.forEach(z => { if (z.L[0] && d.L.includes(z.L[0]) && e < 1) { const v = gv.get(z); R = Math.max(R, Math.hypot(v.x - cx, v.y - cy) + v.r); } });
+    const fs = Math.max(10, Math.min(18, R * .08)); C.push({ d, cx, cy, fs, R: Math.max(R + fs + 6, d.Rw * o.s), r0: R + 4 }); });   // room inside the edge for its name
+    // toward the screen's edge the lens squeezes the gaps between Earths: two bubbles that would touch give up their margins until they don't
+    for (let k = 0; k < 3; k++) C.forEach((a, i) => C.forEach((b, j) => { if (j <= i) return; const over = a.R + b.R + 4 - Math.hypot(a.cx - b.cx, a.cy - b.cy); if (over <= 0) return;
+      const ta = a.R / (a.R + b.R); a.R = Math.max(a.r0, a.R - over * ta); b.R = Math.max(b.r0, b.R - over * (1 - ta)); }));
+    self.DCIRC = C;   // what's on screen, for the tests
+    C.forEach(({ d, cx, cy, fs, R, r0 }) => { if (cx + R < 0 || cx - R > W || cy + R < 0 || cy - R > H) return;
+      g.globalAlpha = 1; g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.fillStyle = 'rgba(95,130,190,.05)'; g.fill(); g.lineWidth = 1.2; g.strokeStyle = 'rgba(127,166,216,.35)'; g.setLineDash([6, 6]); g.stroke(); g.setLineDash([]);
+      if (d.name) arcName(d.name.toUpperCase(), cx, cy, R, Math.min(fs, Math.max(8, R - r0 - 2)), cy - R < 150); }); }   /* inside its own bubble, so a name never strays onto the Earth next door */
   // the floor: each crew's name written where it stands; a small crew's only once you're close
   if (e > 0) G.forEach(z => { const c = lens({ wx: z.cx, wy: z.cy + z.ly, ph: 0 }, 0);
     if (!z.L.length || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
@@ -590,14 +596,15 @@ function applyCut(v, quiet) {
       const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
     // districts as circles that never overlap: the biggest in the middle, the rest round it, each as close in as it fits
-    D.forEach(d => { d.R = Math.max(S, ...d.pts.map(([x, y, r]) => Math.hypot(x, y) + r)) + S * .6; });
+    // each with room round its edge for its name, and big enough to hold the name even with one person in it
+    D.forEach(d => { d.R = Math.max(S * 2.4, Math.max(S, ...d.pts.map(([x, y, r]) => Math.hypot(x, y) + r)) + S * 1.8); });
     const done = []; D.forEach((d, di) => { if (!di) { d.x = d.y = 0; done.push(d); return; }
-      const gap = S * .8; let best = null;
+      const gap = S * .5; let best = null;
       for (let R = done[0].R + d.R + gap; !best; R += S * .5) for (let a = 0; a < 6.2832 && !best; a += .26) { const x = R * Math.cos(a + di * 1.1), y = R * Math.sin(a + di * 1.1) * .9;
         if (done.every(o => Math.hypot(o.x - x, o.y - y) >= o.R + d.R + gap)) best = [x, y]; }
       d.x = best[0]; d.y = best[1]; done.push(d); });
     Z = []; D.forEach(d => d.ZZ.forEach(z => { z.x += d.x; z.y += d.y; Z.push(z); }));
-    DIST = D.length > 1 ? D.map(d => ({ name: d.w.split('|')[1] || '', L: d.ZZ.flatMap(z => z.L) })) : []; }
+    DIST = D.length > 1 ? D.map(d => ({ name: d.w.split('|')[1] || '', L: d.ZZ.flatMap(z => z.L), Rw: d.R - S * .3, x: d.x, y: d.y })) : []; }
   Z.forEach(z => { z.cx = z.x; z.cy = z.y; z.villains = z.L.filter(p => p.k === 'T').length;
     z.L.forEach((p, k) => { p.z = z; p.hx = z.x + z.cells[k][0]; p.hy = z.y + z.cells[k][1]; if (!keep) { p.tx = p.hx; p.ty = p.hy; }
       if (p.arrive && !quiet && !keep) { p.wx = p.hx + (Math.random() - .5) * 300; p.wy = p.hy + 260; p.go = t + Math.random() * 600; p.inAt = p.go + 300; } }); });
@@ -621,6 +628,12 @@ self.netGo = id => { const p = findP(id);
   if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (p.u !== UNI) setWorld(p); lockOn(p); };
 // the app says what's been watched each time the Network opens; when nothing has changed, nothing moves (no re-shuffle, no flash)
 let seenKey = null, needFit = false;
+// an Earth's name written round the inside of its bubble's edge: along the top, or along the bottom when the top is under the header
+function arcName(t, cx, cy, R, fs, low) { g.font = `400 ${fs}px 'Share Tech Mono', monospace`; g.textAlign = 'center'; g.letterSpacing = '0px'; g.fillStyle = 'rgba(159,195,240,.8)';
+  const sp = fs * .32, cw = [...t].map(c => g.measureText(c).width), tot = cw.reduce((a, w) => a + w + sp, -sp), r = low ? R - 4 : R - 4 - fs * .72;
+  if (tot / r > 5.5) return;   // a name longer than its bubble's edge: it shows once you zoom in
+  let a = low ? Math.PI / 2 + tot / r / 2 : -Math.PI / 2 - tot / r / 2;
+  cw.forEach((w, n) => { a += (low ? -1 : 1) * w / 2 / r; g.save(); g.translate(cx + r * Math.cos(a), cy + r * Math.sin(a)); g.rotate(low ? a - Math.PI / 2 : a + Math.PI / 2); g.fillText(t[n], 0, 0); g.restore(); a += (low ? -1 : 1) * (w / 2 + sp) / r; }); }
 function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = false; const L = N.filter(p => p.vis); if (!L.length) return;
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; L.forEach(p => { x0 = Math.min(x0, p.hx); x1 = Math.max(x1, p.hx); y0 = Math.min(y0, p.hy); y1 = Math.max(y1, p.hy); });
   const top = (document.querySelector('header') || {}).offsetHeight || 0, room = H - top, fz = Math.min(1.2, (W - 60) / (x1 - x0 + 80), (room - 60) / (y1 - y0 + 90));
