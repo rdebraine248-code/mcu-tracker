@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v77. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v78. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
@@ -307,7 +307,8 @@ insignia celebration covers the page.
   at the status bar plus 26px, 20px in. Count the status bar once (`env(safe-area-inset-top)`); the Network, in its frame, can't see
   it, so the app passes it in (`netSat()` to `netSeen`, the `--sat` variable). Check with a status bar emulated
   (`Emulation.setSafeAreaInsetsOverride`, top 36): every title's top is 62.
-- **The Log keeps its name; its tabs are Chapters and Paths** (owner, November 2026: "Story" clashed with the Story page).
+- **The Log keeps its name; its tabs are Chapters and Characters** (owner, November 2026: "Story" clashed with the Story page; then
+  "Rename paths to characters in the log tab"). In the code the second tab is still `paths` (`data-logt`, `mapPanel`); only its name changed.
 - **No tap flash anywhere**, inside frames too (`-webkit-tap-highlight-color:transparent` on `*`).
 - **Nothing sits under the news ticker**: a card at the bottom of a page rises over it while it runs.
 - **Pop-ups have no Back button**: back, or a tap off it, closes it. **The phone's back closes the top thing only**: an open card in the
