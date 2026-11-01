@@ -3448,7 +3448,8 @@ document.addEventListener("click", ev => { const d = ev.target.closest("[data-dp
 // ---------- Paths, profiles, the indexes and the Network, linked both ways (owner, November 2026: "network, paths, indexes, profiles should
 // all be connected to and from each other", the indexes only once found). Each profile links its own main characters, the people its
 // Subjects name, and nobody else ("only Wanda and Vision go to that profile ... side characters don't go to a profile"): set by hand.
-// Someone named in two (Bucky in Falcon & Winter Soldier and Thunderbolts*, Kate in Hawkeye and the Champions) goes to their own
+// Someone named in two (Bucky in Falcon & Winter Soldier and Thunderbolts*, Kate in Hawkeye and the Champions) goes to their own; Riri
+// goes to the Champions (owner)
 const PROFILE_PEOPLE = {
   "cx-iron-man": ["tony-stark"], "cx-captain-america": ["steve-rogers"], "cx-thor": ["thor"],
   "cx-black-widow": ["natasha-romanoff", "yelena-belova"], "cx-hawkeye": ["clint-barton", "kate-bishop"], "cx-hulk": ["bruce-banner", "thaddeus-ross"],
@@ -3456,18 +3457,21 @@ const PROFILE_PEOPLE = {
   "cx-s-h-i-e-l-d": ["peggy-carter", "howard-stark", "phil-coulson", "st-daisy-johnson", "st-melinda-may", "st-leo-fitz", "st-jemma-simmons", "st-mack", "st-elena-rodriguez", "shield-org"],
   "cx-captain-marvel": ["carol-danvers", "monica-rambeau", "kamala-khan"], "cx-ant-man-the-wasp": ["scott-lang", "hope-van-dyne"],
   "cx-guardians-of-the-galaxy": ["peter-quill", "gamora", "drax", "rocket", "groot", "nebula", "mantis", "yondu", "kraglin", "cosmo", "adam-warlock", "guardians-of-the-galaxy"],
-  "cx-spider-man": ["peter-parker"], "cx-black-panther-wakanda": ["tchalla", "shuri", "okoye", "nakia", "ramonda", "m-baku", "riri-williams"],
+  "cx-spider-man": ["peter-parker"], "cx-black-panther-wakanda": ["tchalla", "shuri", "okoye", "nakia", "ramonda", "m-baku"],
   "cx-doctor-strange-wong": ["stephen-strange", "wong"], "cx-wanda-vision": ["wanda-maximoff", "vision"],
   "cx-falcon-winter-soldier": ["sam-wilson", "bucky-barnes"], "cx-loki-the-tva": ["loki", "tva"],
   "cx-the-thunderbolts": ["alexei-shostakov", "ghost", "john-walker", "bob"],
   "cx-the-fantastic-four": ["reed-richards", "sue-storm", "johnny-storm", "ben-grimm"], "cx-daredevil": ["st-matt-murdock"],
   "cx-shang-chi-the-ten-rings": ["shang-chi", "xialing", "wenwu", "trevor-slattery", "ten-rings"],
-  "cx-the-champions": ["billy-maximoff", "tommy-maximoff", "america-chavez", "cassie-lang"],
+  "cx-the-champions": ["billy-maximoff", "tommy-maximoff", "america-chavez", "cassie-lang", "riri-williams"],
   "cx-the-defenders": ["st-jessica-jones", "st-luke-cage", "st-danny-rand"], "cx-the-punisher": ["st-frank-castle"],
   "cx-eternals": ["ajak", "sersi", "ikaris", "thena", "kingo", "sprite", "phastos", "makkari", "druig", "gilgamesh"],
   "cx-moon-knight": ["marc-spector"], "cx-werewolf-by-night": ["jack-russell", "elsa-bloodstone"], "cx-the-avengers": ["avengers"],
   "cx-the-watcher": ["by-the-watcher"], "cx-the-sony-spider-men": ["sv-peter-parker-raimi", "sv-peter-parker-asm", "sv-miles-morales"],
-  "cx-the-fox-men": ["fox-charles-xavier", "fox-charles-xavier-young", "fox-magneto-erik", "fox-magneto", "fox-wolverine", "fox-x-23", "fox-deadpool", "wolverine", "fox-x-men"],
+  "cx-the-fox-men": [   // the 2000s films' X-Men and Brotherhood leads, the prequels' young versions, Deadpool, Laura, and the Logan of Deadpool & Wolverine
+    "fox-charles-xavier", "fox-wolverine", "fox-cyclops", "fox-jean-grey", "fox-storm", "fox-rogue", "fox-iceman", "fox-kitty-pryde", "fox-colossus", "fox-nightcrawler",
+    "fox-beast", "fox-magneto", "fox-mystique", "fox-charles-xavier-young", "fox-magneto-erik", "fox-raven-darkholme", "fox-beast-young", "fox-cyclops-young",
+    "fox-jean-grey-young", "fox-storm-young", "fox-nightcrawler-young", "fox-x-23", "fox-deadpool", "wolverine", "fox-x-men"],
   "cx-pruned-characters": ["pr-blade", "pr-daredevil", "pr-elektra", "pr-punisher", "pr-mister-fantastic", "pr-invisible-woman", "pr-human-torch", "pr-the-thing"] };
 const PBOX = Object.fromEntries(Object.entries(PROFILE_PEOPLE).flatMap(([b, L]) => L.map(id => [id, b])));
 // a Raft file goes where its Compound file goes (Bucky's Winter Soldier file is his)
