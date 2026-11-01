@@ -699,15 +699,19 @@ These happened in earlier chats. Each cost the owner time.
   content, the Encore revisit, Banner and Doom, the sky's first-minute redraws, confirming the cold-start fix. The weakly fitting kinds
   on the off-screen connections (Ezekiel and Tony, Walker and Steve, J.A.R.V.I.S. and Edwin Jarvis, Banner and Erskine, Valentina and
   Ross, Ridley and Karen, Lorelei and Thor) stay as they are.
-- **In progress (November 2026), mockups in the test build (`MOCKUP BEGIN` block, waiting for the owner):**
-  - **Episode by episode** (owner: Comms, the Network, the Atlas and related info "could be episode dependent"): the engine is in main
-    code. A title-keyed moment can be `"WandaVision#7"` (news keys, a message's `t`, an Atlas entry's title, a Network stage's title); a
-    file step can open "In episode 7," like "In season 2,". `atlSeenT` counts it seen once that episode or a later one is ticked in any
-    list (`epMax`), or the whole title is watched; `tn`/`tnh` show it as "WandaVision · Episode 7"; `atlOrd` sorts it inside its title.
-    The Network gets the episodes ticked (`netSeen`'s 4th argument), counts an episode-tied stage as meeting, and shows the episode.
-    The mockup tags WandaVision only (news at episodes 4 and 9, the Hex-down message at 9, Westview at 1, Salem at 8, Wanda's file at
-    1, 5 and 9, Wanda and Agatha at 7). The full pass is about 5,700 moments in 122 TV titles: 2,142 file steps, 3,302 Network stages,
-    191 Atlas entries, 75 news, 47 messages.
+- **Done, on main (November 2026):**
+  - **Episode by episode** (owner: Comms, the Network, the Atlas and related info "could be episode dependent"). A title-keyed moment
+    can be `"Title#N"` (news keys, a message's `t`, an Atlas entry's title, a Network stage's title); a file step can open "In episode
+    N," like "In season N,". `atlSeenT` counts it seen once that episode or a later one is ticked in any list, or the whole title is
+    watched (`epMax`, `epReach`: a show filed whole and by season, like Agents of S.H.I.E.L.D., counts ticks in either); `tn`/`tnh` show
+    "WandaVision · Episode 7" or "Agents of S.H.I.E.L.D. S2 · Episode 3"; `atlOrd` sorts it inside its title. The Network gets the
+    episodes ticked (`netSeen`'s 4th argument), counts an episode-tied stage as meeting, and shows the episode on the connection.
+    **The data:** `mockup-data/ep_tags.json` (the app: `st` file steps, `at` Atlas, `nw` news, `ms` messages; applied at load,
+    `EPTAGS`) and `network/rel/ep_tags.json` (the Network's stages, applied by relbake). Eight agents tagged all 5,717 moments in 115
+    shows with the episode by which everything the text says has happened (never earlier); 4,437 got an earlier episode, 1,280 are
+    finale events and stay as they were. `mockup-data/episodes/`: the brief, the gatherer (`dump.js`), the checker and merger
+    (`merge.py`: every moment answered, in range, an "In season N," step inside season N), and an end-to-end check (`check.js`).
+    Rerunning: gather with the handover applied, then merge. A moment the agents couldn't place falls back to the last episode.
   - **The Compound and Raft handover: done, on main (November 2026)**, see "How the app works" below. 77 people have both files; 54
     are handed over (`mockup-data/handover.json`, researched by four agents against the wikis, validated by
     `validate.py` rules: every pair once, statuses from each side's list, no dashes or fourth-wall words, no title lost, each switch
