@@ -206,7 +206,6 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
 .pfix{ position:fixed; inset:var(--pb, 0px); pointer-events:none; z-index:0; overflow:hidden; }   /* inside the box's frame, so its art never paints over the border */
 /* a box's top row sits the status bar plus 6px down, like every page's title (owner, November 2026: its headers were "so low"); pinTop measures
    each box, since some wear a band across their top (Chapter 1's stars) */
-.chbranch{ height:52px; margin:18px -24px 6px; overflow:hidden; } .chbranch svg{ width:100%; height:100%; }
 .pin{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:var(--pinT, max(0px, calc(env(safe-area-inset-top,0px) - 8px))) 8px calc(90px + env(safe-area-inset-bottom,0px)); opacity:0; transition:opacity .3s ease .18s; }
 .panel.open .pin{ opacity:1; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
@@ -1147,8 +1146,6 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-rf{ display:flex; align-items:center; gap:12px; width:100%; margin:0 0 14px; padding:10px 14px; border:1px solid #6A2A26; border-radius:12px; background:rgba(224,74,58,.08); color:#FFD2CB; text-align:left; cursor:pointer; }
 .cp-rf.to-cp{ border-color:#2A4A6A; background:rgba(127,166,216,.08); color:#D6E6FA; } .cp-rf.to-cp small{ color:#7FA6D8; }
 .cp-rf.to-net{ align-items:flex-start; border-color:#2A4A6A; background:rgba(127,166,216,.06); color:#D6E6FA; } .cp-rf.to-net small{ color:#7FA6D8; } .cp-rf.to-net em{ align-self:center; }
-.np .npr{ display:block; margin:8px 0 0; padding:0 0 0 9px; border-left:2px solid var(--kc); } .np .npr b{ margin:0; font:600 14.5px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#fff; }
-.np .npr i{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:1px; font:13.5px/1.35 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#AEBBD0; } .np .npr i u{ text-decoration:none; color:var(--kc); }
 .np .npweb{ display:block; width:100%; height:auto; margin:6px 0 2px; overflow:visible; }
 .np .npweb .npi{ font:400 11px 'Anton','Impact',sans-serif; fill:#DCE8FA; letter-spacing:.3px; } .np .npweb .npme{ font-size:15px; fill:#fff; }
 .np .npweb .npn{ font:600 10px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; fill:#AEBBD0; }
@@ -2529,7 +2526,7 @@ function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
   // background decorations pinned in place while the list scrolls
   let h = e.decor || "";
-  if (e.id === "ch-7") return typeof CH7_BG !== "undefined" ? `<div class="pfix" aria-hidden="true">${CH7_BG}</div>` : "";   // its branching line moves down into the box (chBranch; the mockup, CH7_BG, draws it behind the list)
+  if (e.id === "ch-7") return `<div class="pfix" aria-hidden="true">${CH7_BG}</div>`;   // its banner, in the background of the whole box (CH7_BG)
   h = h.replace('style="height: 30px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="30"',
                 'style="height: clamp(56px, 12vw, 150px); margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="100%"');
   h = h.replace('style="position: relative; height: 12px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="12"',
@@ -2577,7 +2574,7 @@ function renderPanel(e, fresh) {
       <div class="hrow big"><h2 class="big${charAnon(e) ? " anon" : ""}" id="panelTitle" style="${esc(e.h2)}">${boxNameHtml(e)}</h2>${e.kick ? `<span class="kick" style="color:${esc(e.kickc)}">${esc(e.kick)}</span>` : ""}</div>${e.accent ? scoped(e.accent) : ""}${pqHtml(" cq")}
       ${openKind === "char" ? "" : `<p class="ptxt" id="pCount">${n} of ${t} watched</p>`}
       <div class="pbar" style="background:color-mix(in srgb, ${fg} 20%, transparent)"><span id="pBar" style="width:${t ? n / t * 100 : 0}%;background:${box}"></span></div>
-      ${chBranch(e)}<ul class="list">${panelList(e, panelItems(e))}</ul>
+      <ul class="list">${panelList(e, panelItems(e))}</ul>
 
       <div id="pDone">${t && n === t ? `<button type="button" class="complete" id="btnComplete" style="background:${box};color:${tick};border-color:${box}">${CHECK(tick)}Complete</button>` : ""}</div>
     </div>`;
@@ -2635,11 +2632,7 @@ function pushNav(kind) {
 function navBack() { if (navBusy) return; navBusy = true; history.back(); setTimeout(() => { navBusy = false; }, 800); }
 function uiClose() { if (navAt("panel")) navBack(); else closePanel(); }
 let openWasDone = false, revealChanged = false;
-// Chapter 7 is where the Sacred Timeline branches, so its open box draws its branching line between the progress bar and the titles,
-// full width, the titles carrying on from it (owner, November 2026: up top it was "so small and squished ... why is it there"); its top
-// row stands level with every other box
-/* MOCKUP BEGIN ch7 branching */
-// Chapter 7 open, mockup: its own banner in the background, every strand leaving the one junction and finishing level like the original,
+// Chapter 7 open: its own banner in the background, every strand leaving the one junction and finishing level like the original,
 // four each side of the red (owner, November 2026: "splitting all from one point with 3 or 4 branches on either side all parallel like the
 // original design but in the background", and "not so wide apart, doesn't need to take up the whole screen"): faint, mid-box, compact
 const CH7_BG = (() => { const G = "#D9A441", ln = (d, c, w) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" vector-effect="non-scaling-stroke"/>`;
@@ -2647,9 +2640,6 @@ const CH7_BG = (() => { const G = "#D9A441", ln = (d, c, w) => `<path d="${d}" f
   return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 50%; height: 300px; margin-top: -150px; opacity: .22">`
     + `<svg width="100%" height="100%" viewBox="0 0 318 30" preserveAspectRatio="none" style="display: block">${svg}</svg>`
     + `<span style="position: absolute; left: 44.03%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: #15171D; border: 3.5px solid #F3EFE7; box-sizing: border-box"></span></div></div>`; })();
-/* MOCKUP END */
-function chBranch(e) { if (e.id !== "ch-7" || !e.decor || typeof CH7_BG !== "undefined") return ""; const m = /<svg[\s\S]*<\/svg>/.exec(e.decor); if (!m) return "";
-  return `<div class="chbranch" aria-hidden="true">${m[0].replace('height="30"', 'height="100%"').replace(/ style="display: block; background: #15171D"/, ' style="display:block"')}</div>`; }
 function pinTop() { panel.style.removeProperty("--pinT"); const pin = panel.querySelector(".pin"), row = pin && pin.firstElementChild; if (!row) return;
   const pad = parseFloat(getComputedStyle(pin).paddingTop) || 0, base = row.getBoundingClientRect().top - panel.getBoundingClientRect().top - pad;
   panel.style.setProperty("--pinT", Math.max(0, Math.round(netSat() + 6 - base)) + "px"); }
@@ -10490,13 +10480,14 @@ function closeNet(fromHistory) { if (!fromHistory && (navAt("net") || navAt("net
   if (fromHistory && nf && navAt("collrec") && history.state.cr === nf.r) { openColl(nf.m, true, true); collRec = nf.r; renderColl(); document.getElementById("collPanel").scrollTop = nf.y; } }
 // a file's connections, previewed: the first few of their people (as far as you've watched), from the Network loaded ahead; until it has
 // loaded, or if they've met no one yet, the plain link stays (or goes)
-/* MOCKUP BEGIN connections web */
 // a file's connections as a small web, the way the Network draws them (owner, November 2026: "I like a preview of the web from network ...
 // the list isn't super great looking"): the person in the middle, a dozen of their connections round them kind by kind, each line in its
 // kind's colour (rivals and enemies dashed), their names beneath, and a count of each kind under the web
 function npWeb(v) { const Wd = 320, Hd = 270, cx = Wd / 2, cy = Hd / 2 - 8, n = v.W.length, a0 = -Math.PI / 2;
   const at = v.W.map((r, i) => { const a = a0 + (i + .5) * 2 * Math.PI / n; return [cx + Math.cos(a) * 120, cy + Math.sin(a) * 100]; });
-  const short = s => { const w = String(s).split(/\s+/); return w[0].length > 3 || w.length < 2 ? w[0] : w.slice(0, 2).join(" "); };
+  // a short name: no title in front ("Dr. Abraham Erskine" is Abraham, "The Howling Commandos" Howling), two words when the first is tiny (Sam Wilson)
+  const short = s => { const w = String(s).replace(/^((The|Dr\.|Doctor|Colonel|General|Agent|Captain|Senator|Mister|Mr\.|Mrs\.|Ms\.|King|Queen|Prince|Princess|Lord|Lady|Professor|Sergeant|Major|Director|Detective|Officer|Uncle|Aunt) )+/, "").split(/\s+/);
+    return w[0].length > 3 || w.length < 2 ? w[0] : w.slice(0, 2).join(" "); };
   let g = "";
   v.W.forEach((r, i) => { const [x, y] = at[i], dash = r.k === "enemy" || r.k === "rival" ? ' stroke-dasharray="4 4"' : "";
     g += `<path d="M${cx} ${cy} Q ${((cx + x) / 2).toFixed(1)} ${((cy + y) / 2 - 14).toFixed(1)}, ${x.toFixed(1)} ${y.toFixed(1)}" fill="none" stroke="${r.c}" stroke-width="1.4" opacity=".75"${dash}/>`; });
@@ -10505,10 +10496,9 @@ function npWeb(v) { const Wd = 320, Hd = 270, cx = Wd / 2, cy = Hd / 2 - 8, n = 
       + `<text x="${x.toFixed(1)}" y="${(y + 27).toFixed(1)}" text-anchor="middle" class="npn">${esc(short(r.n))}</text>`; });
   g += `<circle cx="${cx}" cy="${cy}" r="22" fill="#13203A" stroke="#E9C46A" stroke-width="2.6"/><text x="${cx}" y="${cy + 6}" text-anchor="middle" class="npi npme">${esc(v.me.i)}</text>`;
   return `<svg class="npweb" viewBox="0 0 ${Wd} ${Hd}" aria-hidden="true">${g}</svg><span class="npk">${v.K.map(([l, c, k]) => `<i style="--kc:${c}">${k} ${esc(l.toLowerCase())}</i>`).join("")}</span>`; }
-/* MOCKUP END */
 function netPrevFill() { const w = document.getElementById("netFrame").contentWindow; if (!w || !w.netPreview || !document.querySelector(".np[data-np]")) return; netSync();
   document.querySelectorAll(".np[data-np]").forEach(el => { const v = w.netPreview(el.dataset.np), b = el.closest(".to-net"); if (!v) return; if (!v.n) { b.hidden = true; return; }
-    el.innerHTML = `<small>Connections · ${v.n}</small>` + (typeof npWeb === "function" && v.W ? npWeb(v) : v.L.map(r => `<span class="npr" style="--kc:${r.c}"><b>${esc(r.n)}</b><i><u>${esc(r.k)}</u> · ${esc(r.w)}</i></span>`).join(""))
+    el.innerHTML = `<small>Connections · ${v.n}</small>` + npWeb(v)
       + `<span class="npall">${v.n > v.L.length ? `See all ${v.n} in the Network` : "See them in the Network"}</span>`; el.removeAttribute("data-np"); }); }
 { let q = 0; new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; netPrevFill(); }); }).observe(document.getElementById("collPanel"), { childList: true, subtree: true }); }
 // from someone in the Network to their file: the file adds its own step, so Back comes back to the Network

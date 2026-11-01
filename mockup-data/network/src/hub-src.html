@@ -655,8 +655,8 @@ const pick12 = L => { if (L.length <= 12) return L; const by = KIND.map(k => L.f
   return out.sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d); };
 self.netPreview = id => { const p = findP(id); if (!p || !p.vis) return null;
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d);
-  const ini = n => String(n).replace(/^(The|Dr\.|Doctor|Captain|Agent|Mister|Mr\.|Mrs\.|Ms\.) /, '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
-  const K = KIND.map(k => [KL[k], KC[k], L.filter(x => x[1] === k).length, k]).filter(x => x[2]);
+  const ini = n => String(n).replace(/^((The|Dr\.|Doctor|Colonel|General|Agent|Captain|Senator|Mister|Mr\.|Mrs\.|Ms\.|King|Queen|Prince|Princess|Lord|Lady|Professor|Sergeant|Major|Director|Detective|Officer|Uncle|Aunt) )+/, '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  const K = KIND.map(k => { const c = L.filter(x => x[1] === k).length; return [c === 1 ? KS[k] : KL[k], KC[k], c, k]; }).filter(x => x[2]);   // "1 partner", "3 friends"
   return { n: L.length, L: L.slice(0, 3).map(([j, k]) => ({ n: N[j].n, k: KS[k], c: KC[k], w: whoLine(p, N[j], relOf(p, N[j])) })),
     // for a file's small web: the person, up to a dozen of their connections (kind by kind), and how many of each kind
     me: { n: p.n, i: ini(p.n) }, W: pick12(L).map(([j, k]) => ({ n: N[j].n, i: ini(N[j].n), c: KC[k], k })), K }; };

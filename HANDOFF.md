@@ -67,11 +67,11 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
   again, by hand or by holding a list to mark it all, doesn't replay it. Don't reopen.
 
-- **Mockup (test build): a file's connections as a small web** (owner, November 2026: "I like a preview of the web from network ... the
+- **A file's connections are a small web** (on main since 1 November 2026, replacing the three-row list) (owner, November 2026: "I like a preview of the web from network ... the
   list isn't super great looking"): `npWeb` in the app draws the person in the middle and up to a dozen connections round them (`pick12`
   in the Network takes them a kind at a time so every kind shows), each line in its kind's colour, rivals and enemies dashed, names
-  beneath, a count of each kind under it; tapping opens the Network on them. Main keeps the three-row list. Owner may want it draggable
-  like the Network.
+  beneath, a count of each kind under it; tapping opens the Network on them. The box reads "Connections" (owner: cut "Their"); short names drop titles (Abraham, Chester),
+  and the tally says "1 partner", not "1 partners". Owner may want it draggable like the Network.
 
 ### Landscape (in progress, test build only)
 
@@ -88,10 +88,10 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
 - **A box's top row sits the status bar plus 6px down** (owner, November 2026: "all the contents and headers are so low"): `pinTop()`
   measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
   timeline band leaves the top of its open box (its row is level with every other box; owner: "the point is to have chapter 7 up
-  like the rest") and sits between the progress bar and the titles, full width (`chBranch`). **Mockup (test build):** instead, its own banner in the background (`CH7_BG`): every strand leaves the one junction and
+  like the rest") and sits between the progress bar and the titles, full width (`chBranch`). Its open box wears its own banner in the background (`CH7_BG`, on main since 1 November 2026; the band under the progress bar it replaced is gone): every strand leaves the one junction and
   finishes level like the original, four each side of the red, compact (300px tall) and faint, mid-box (owner: "splitting all from one
   point with 3 or 4 branches on either side all parallel like the original design but in the background ... not so wide apart". Not a
-  tree that splits and splits again: that was a misreading). Owner unsure between 4 and 3 a side. Background
+  tree that splits and splits again: that was a misreading). Four a side (owner's choice). Background
   versions of the band were tried and rejected ("very terrible, messy"): a straight copy of the TVA's monitor, unconnected extra lines,
   even strands, the banner stretched over the box, the banner split and split again.
 
