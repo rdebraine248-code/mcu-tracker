@@ -796,6 +796,13 @@ These happened in earlier chats. Each cost the owner time.
   now also fixes who lines, and holds `sub` (a name a title never says: Cherry is only "Cherry" in Born Again S1). Unconfirmed, left as
   they are: Marci and Matt in The Defenders, Madisynn's night out with Jen, Black Tom and Banshee as brothers (an earlier deliberate
   call), a Malick hostage date in AoS S7, a May and Yo-Yo line in AoS S7, how Lonnie Lincoln gets his powers.
+- **The handover's last calls (owner: "close out the choices"):** Vision is handed over (the Compound, the Raft for WandaVision as
+  S.W.O.R.D.'s weapon, the Compound again from VisionQuest). Five who are never on the other side lose their duplicate file
+  (`close: 1` in handover.json): Sony's Venom, Morbius and Kraven and the Bloodpack leave the Raft, The Spectacular Spider-Man's Black Cat
+  leaves the Compound. Nine whose villain side is a persona inside one show or film keep both files, the Raft file being that persona's
+  own record, linked by Also on file (Fitz as the Doctor, Lash, both Jeans' Phoenix, Gambit as Death, Madelyne as the Goblin Queen,
+  Mayhem, the Lizard, the Stomper pilot). The Runaways parents keep their own files beside the PRIDE group file (a group's record, like
+  HYDRA's). Settled: don't reopen.
 - **The owner's stopping rule (November 2026):** a review pass acts only on factual errors with evidence; wording preferences and
   "either episode works" are dropped, not reported. When a pass finds only those, the material is done: no more passes unless new
   content is added.
