@@ -124,7 +124,7 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
 - **Pills:** swipe away even as the small icon; the page beside a pill can be tapped.
 - **Everywhere:** Earth-199999; covers read Unlock / [ Classified ]; no tap text; the ticker plays over Comms.
 - **Earlier on main:** the handover (Wanda, Bucky, Loki, Yelena, Vision); WandaVision's episode reveals (4, 5, 7 to 8); the corrected texts
-  (Yondu, Frank, Agatha, Crank, "Cherry"); the Log's Chapters and Characters tabs; level page titles; full screen and backup; the
+  (Yondu, Frank, Agatha, Crank, "Cherry"); the Log's Chapters and Paths tabs; level page titles; full screen and backup; the
   Watcher's blink; Reset datapad; the sling ring only in the Atlas; Damage Control numbers and A to Z; the Collection holders.
 - **Test build only:** landscape, stage 1 (the dock as a left rail; Story's left column scrolling on its own beside the boxes; the Atlas
   map beside its list). Atlas and the left column approved; stage 2 next.
@@ -376,8 +376,8 @@ insignia celebration covers the page.
   at the status bar plus 6px, 20px in (raised from 26px in two steps, owner, November 2026: "my phone can accommodate them being higher"). Count the status bar once (`env(safe-area-inset-top)`); the Network, in its frame, can't see
   it, so the app passes it in (`netSat()` to `netSeen`, the `--sat` variable). Check with a status bar emulated
   (`Emulation.setSafeAreaInsetsOverride`, top 36): every title's top is 42.
-- **The Log keeps its name; its tabs are Chapters and Characters** (owner, November 2026: "Story" clashed with the Story page; then
-  "Rename paths to characters in the log tab"). In the code the second tab is still `paths` (`data-logt`, `mapPanel`); only its name changed.
+- **The Log keeps its name; its tabs are Chapters and Paths** (owner, November 2026: "Characters" read like the character logs, renamed back) (owner, November 2026: "Story" clashed with the Story page; then
+  "Rename paths to characters in the log tab", then back to Paths once character logs took the name). In the code the tab is `paths` (`data-logt`, `mapPanel`).
 - **No tap flash anywhere**, inside frames too (`-webkit-tap-highlight-color:transparent` on `*`).
 - **The ticker plays on over Comms** (owner, November 2026): opening Comms no longer stops it; each story joins the list as it
   finishes (`newsMark` keeps the open list up to date).
