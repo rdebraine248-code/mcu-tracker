@@ -737,6 +737,56 @@ insignia celebration covers the page.
   marvel, spiderman, xmenmovies, marvelanimated, sonys-spider-man-universe). Their `/wiki/` pages return 403. Space requests a second or
   two apart (Wikipedia answers 429 when rushed), and never put personal information in one.
 
+### Rules carried over from older handoffs (October 2026, restored November 2026)
+
+These were the owner's standing rules in earlier handoffs and were lost along the way (owner, November 2026: "some information may have
+been lost over the different handoffs that I said to remind new chats about, especially writing and consistency"). They still hold.
+
+**Talking to the owner**
+- Answer only what's asked; no unrelated commentary. When the owner says "don't edit", only explain.
+- Explain in plain words: lead with the outcome, keep it short, and spell out anything the owner has to do on the phone.
+- Show, don't describe: screenshots of any visual change, and an MP4 (never a GIF; it won't play) for anything animated.
+- Confirm which page the owner means before changing one ("the log" once meant the Agent File).
+- Don't recommend Chrome. The app lives in Samsung Internet on a Galaxy S25 Ultra.
+- A big, costly rewrite is shown as a small sample first (two characters, two chapters) before doing the rest.
+
+**Consistency**
+- A fix for one place applies to every equivalent place: every submap, pill, box, empty state and index. Search the whole app before
+  calling something done.
+- Chapter, timeline and character users get parity: whatever one view gets, the others get.
+- Empty and waiting states are just their status, with no "yet" and no instruction: "No data", "No signal.", "Awaiting data.",
+  "No headlines." (with the no tap-text rule above).
+
+**Writing**
+- MCU-accurate and spoiler-safe. A line may use only what the viewer knows by that title, in that box's order: no foreshadowing. No
+  actor names.
+- Titles from 2026 on get entries only once the owner confirms they're out; look them up first.
+- A log's entries are real recaps of their title (three to six sentences: names, places, turns), so a reader remembers what happened,
+  never "this happened, then this happened". Each log follows one theme across the whole journey, and every entry reads as a step in
+  it. Stories aren't finished, so the last entry stays open. Chapter entries are written from the chapter's angle, not copied from the
+  character logs. (The themes agreed per log are in the logs themselves: each chapter's Theme row, each character log's throughline.)
+- New titles go into Release Order and the Sacred Timeline automatically; where they go in Chapters and Characters is recommended only,
+  and waits for the owner.
+
+**Eggs and effects**
+- Every egg ties back to the MCU; no bloat. Quality bar: researched, recognizable, nothing flat or "jpeg" looking, well paced, sized for
+  the phone, premium and cinematic. Winter Soldier's egg is the benchmark for emotion and pacing.
+- Each pill gets its own moment: one after another, never stacked or cut short. An egg's Agent File pill shows after its animation
+  ends (the few that ride their spoken line keep it there: Worthy, Puny god, Eyes only, Dance-off, the Watcher).
+- Effects use `fx-` class names.
+- **Never propose again:** a build-your-own Avengers lineup, the Citadel at the end of time, a "Previously on" recap, "unlock characters
+  as you meet them". **Scrapped by the owner:** every Falcon egg, Ship of Theseus, the Scarlet Witch egg, a face doodle as a file
+  photo, the paper case-file / S.H.I.E.L.D. dossier look (replaced by the data log).
+
+**Phone gotchas**
+- A phone's hover sticks, so hover effects only apply to a real mouse (`@media (hover:hover)`).
+- Samsung's dark mode recolours light SVG art: paint light art with CSS gradients.
+- Samsung keeps the icon and name from when the app was added: a change needs the app removed and added again. Icons stay plain, not
+  maskable, or Samsung frames them in white.
+- A fade read as a blink and a sideways slide as a shake: prefer an instant swap.
+- When the owner reports something desktop can't show, ask for a screen recording, pull frames with ffmpeg and measure them (the phone
+  is 1080x2340 screen pixels, 2.5 per page pixel).
+
 ## Mistakes not to repeat
 
 - **Gathering data with a mockup switched on.** The episode pass gathered its moments from the dev build while the WandaVision mockup
