@@ -403,7 +403,10 @@ insignia celebration covers the page.
   `season` in `prof/hub2.js`), and is listed under its season ("What If...? S2", `lab` and `DATA.seas`); a season the app lists as its own
   title keeps it. "In N titles", Other versions, On screen together and Served with all go by season. Story order puts an episode at its
   season's place (`prof/ord.js`). **After hub2.js, always rerun ord.js and mapx.js before bake.js** (they index hub.json's titles).
-  An episode only brings someone in when that season is on their own file (`epMet`), so a tie that just mentions them (Thor in Agents of S.H.I.E.L.D.
+  A season counts as soon as you've reached an episode they're in (`epSeen`; owner: met in Agent Carter S1's first episode, yet "in
+  0 titles"). Leaving the Network sends it back to the start, like every other page (`netHome`): the Sacred Timeline's room, centred and
+  zoomed out, no one locked on, the search shut.
+  An episode only brings someone in when that season is on their own file, so a tie that just mentions them (Thor in Agents of S.H.I.E.L.D.
   season 1) doesn't. Nobody stands in the room "in 0 titles". Deke Shaw and Flint stand in Earth-199999 (their stories carry on in the
   present); Kasius, Sinara and Grill stay in 2091's Earth-17516.
 - **An Earth's name is written round the inside of its bubble's edge** (`arcName`), so it can't land on the Earth next door; every

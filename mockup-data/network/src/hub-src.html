@@ -552,7 +552,9 @@ function gather(p, t, again) {
 function home(quiet) { if (!quiet && mapOn) { mapOn = false; $('mBack').hidden = true; mapLeave(); }
   if (!quiet) { webO = null; if (zoom < .25) glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: cam.x, y1: cam.y, z0: zoom, z1: .35 }; } N.forEach(o => { o.tx = o.hx; o.ty = o.hy; o.go = 0; o.cl = null; o.guest = false; }); gathered = []; clusters = []; sel = null; link = null; tsel = null; story = null; stopSel = null; atStop = null; if (!quiet) { card._in = (card._in || 0) + 1; card.classList.remove('on'); tell(); } }
 function tell() { if (EMB && parent.netCard) parent.netCard(!!(sel || mapOn) || !$('ssheet').hidden); }
-self.netHome = () => { $('ssheet').hidden = true; if (sel || mapOn) home(); };   // the Network closed: it opens fresh next time
+// the Network closed: it opens fresh next time, like every other page (owner, November 2026: "needs to come back to center or starting
+// position when I leave the page"): no one locked on, the search shut, the Sacred Timeline's room, centred and zoomed out
+self.netHome = () => { $('ssheet').hidden = true; if (sel || mapOn) home(); if (UNI !== 'mcu' && uniOk('mcu')) setUni('mcu'); glide = null; vel = { x: 0, y: 0 }; needFit = true; };   // centred when it's next shown, once its header can be measured
 self.netBack = () => { if (!$('ssheet').hidden) $('ssheet').hidden = true; else if (mapOn) $('mBack').click(); else if (link) showOne(); else if (sel) home(); tell(); };
 const say = (m, ms) => { toast.textContent = m; toast.style.opacity = 1; clearTimeout(say.t); say.t = setTimeout(() => toast.style.opacity = 0, ms || 2200); };
 $('cFile').onclick = () => { if (EMB && sel && parent.netOpenFile) parent.netOpenFile(sel.id, sel.k); else say('In the app, this opens their Compound or Raft file'); };
@@ -583,9 +585,10 @@ function applyCut(v, quiet) {
   // met: in a title you've watched, or in a stage you've reached one episode at a time ("WandaVision#7")
   // met in an episode you've ticked, in a season that's on their own file: a tie that only mentions them there (Thor, in Agents of
   // S.H.I.E.L.D. season 1) doesn't bring them into the room
-  const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && (p.LS || (p.LS = new Set(labs(p.A0)))).has(lab(x.t)) && SEENF(x.t)));
+  // the seasons of theirs you've reached an episode of they're in (owner: met in Agent Carter S1's first episode, yet "in 0 titles")
+  const epSeen = p => { const S = new Set(); if (SEENF) p.R0.forEach(r => r.S.forEach(x => { if (/#\d+$/.test(x.t) && (p.LS || (p.LS = new Set(labs(p.A0)))).has(lab(x.t)) && SEENF(x.t)) S.add(lab(x.t)); })); return S; };
   WORLD = null;   // one room per universe, its Earths as districts in it
-  N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = (p.A.length > 0 || epMet(p)) && p.u === UNI && (!WORLD || wk(p) === WORLD); p.arrive = p.vis && !was; });
+  N.forEach(p => { const was = p.vis; const es = epSeen(p); p.A = p.A0.filter(j => seen(j) || es.has(LAB[j])); p.vis = p.A.length > 0 && p.u === UNI && (!WORLD || wk(p) === WORLD); p.arrive = p.vis && !was; });
   N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];
     p.M = p.vis ? p.M0.filter(j => N[j].vis && p.T.some(([c]) => joined(p, c) && joined(N[j], c))) : [];
     p.R = p.vis ? p.R0.map(cutTie).filter(r => r && (N[r.j].vis || wk(N[r.j]) !== wk(p) && N[r.j].A0.some(seen))) : [];
