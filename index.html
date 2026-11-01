@@ -4567,7 +4567,7 @@ const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^p
 // went: "Transferred to the Compound" where it moves on, "Transferred from the Raft" where it picks up again. A closed file reads Transferred
 const hoPair = o => { const a = o.ho ? o : o.rf ? null : ALLIES.find(x => x.rf === o.id && x.ho); return a ? a.ho.map(([sd, t, both]) => ({ sd, t, both, o: atlOrd(t) ?? 1e9 })) : null; };
 const hoAt = (H, x, side) => { const ox = atlOrd(x[1]) ?? 1e9; let k = 0; H.forEach((h, i) => { if (ox >= h.o) k = i; }); if (k > 0 && H[k].both && ox === H[k].o && H[k - 1].sd === side) k--; return k; };
-const hoKeep = (S, o, side) => { const H = hoPair(o); return H ? S.filter(x => H[hoAt(H, x, side)].sd === side) : S; };
+const hoKeep = (S, o, side) => { const H = hoPair(o); return H ? S.filter(x => !x.drop && H[hoAt(H, x, side)].sd === side) : S; };
 const hoShut = (o, side) => { const H = hoPair(o); if (!H) return false; let k = -1; H.forEach((h, i) => { if (atlSeenT(h.t)) k = i; }); return k >= 0 && H[k].sd !== side; };
 function hoChain(o, side, S) { const H = hoPair(o); if (!H) return S; const out = []; let had = false;
   H.forEach((h, k) => { if (h.sd !== side) return; const mine = S.filter(x => hoAt(H, x, side) === k), came = k > 0 && atlSeenT(h.t);
@@ -4709,10 +4709,13 @@ const cpStatusOf = o => hoShut(o, "C") ? "Transferred" : cpStatus(cpSteps(o));
 // the handovers (mockup-data/handover.json, researched November 2026): each person's stretches, the two halves of a title where they
 // switch sides, and a step written for the file that owns a title only the other file told
 const HANDOVER = /*HANDOVER*/{};
-Object.entries(HANDOVER).forEach(([id, h]) => { const a = ALLIES.find(o => o.id === id), b = a && THREATS.find(o => o.id === a.rf); if (!a || !b || !h.ho) return;
+// a group's file shared by several people (PRIDE) is never handed over: each of them keeps their own file whole. A title that runs several
+// seasons can be split by season: `drop` lists the steps (title, n) a file no longer tells because the other one does
+Object.entries(HANDOVER).forEach(([id, h]) => { const a = ALLIES.find(o => o.id === id), b = a && THREATS.find(o => o.id === a.rf); if (!a || !b || !h.ho || ALLIES.filter(o => o.rf === b.id).length > 1) return;
   a.ho = h.ho; const F = { C: a, R: b };
   ["C", "R"].forEach(sd => { const o = F[sd];
     ((h.rewrite || {})[sd] || []).forEach(r => { const x = o.st.filter(y => y[1] === r.title)[r.i || 0]; if (x) { x[0] = r.text; if (r.status) x[2] = r.status; } });
+    ((h.drop || {})[sd] || []).forEach(r => { const x = o.st.filter(y => y[1] === r.title)[r.i || 0]; if (x) x.drop = 1; });
     ((h.add || {})[sd] || []).forEach(r => { const ox = atlOrd(r.title) ?? 1e9; let k = o.st.findIndex(y => (atlOrd(y[1]) ?? 1e9) > ox); if (k < 0) k = o.st.length; o.st.splice(k, 0, [r.text, r.title, r.status || ""]); }); }); });
 const cpStatus = S => { let st = "Active"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
 const cpName = o => stageAt(o.n, atlSeenT)[0], cpKind = o => stageAt(o.k || "", atlSeenT)[0], cpTeam = o => stageAt(o.tm || "Independent", atlSeenT)[0];
