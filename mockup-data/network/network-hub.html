@@ -199,10 +199,7 @@ N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === UK('Inde
 // each stage carries the short line for this person's card about the other (whoA on a's card, whoB on b's)
 const mkTie = (j, st, side) => ({ j, S: st.map(x => ({ k: KIND[x[0]], t: REL.titles[x[1]], o: REL.ord[x[1]] ?? -1, d: x[2], w: x[side] || '' })) });
 REL.ties.forEach(([a, b, st]) => { N[a].R0.push(mkTie(b, st, 3)); N[b].R0.push(mkTie(a, st, 4)); });
-// a stage can begin one episode in ("WandaVision#7", the app's own way of saying it): it shows once that episode is ticked. A mockup set
-// from the app's test build for now
-{ const X = (EMB && parent.EP_MOCK && parent.EP_MOCK.net) || []; X.forEach(([a, b, t, t2]) => { const A = N.find(p => p.id === a), B = N.find(p => p.id === b);   /* by id: names repeat (Earth-838's Wanda) */ if (!A || !B) return;
-  [[A, B], [B, A]].forEach(([p, q]) => p.R0.forEach(r => { if (r.j === q.i) r.S.forEach(x => { if (x.t === t) x.t = t2; }); })); }); }
+// a stage can begin one episode in ("WandaVision#7", the app's own way of saying it): it shows once that episode is ticked
 const epShow = t => String(t).replace(/#(\d+)$/, ' · Episode $1');
 // across universes: two versions who actually meet are connected like anyone else (a mockup set, written by hand); ones who never meet
 // are only listed, under Other versions in their card
@@ -323,14 +320,16 @@ function frame(t) {
   // everyone, smallest first so the middle of the room is drawn on top; zoomed out, only the one locked on (and a picked link) stay
   const order = N.map((p, i) => i).sort((a, b) => pos[a].s - pos[b].s), names = [], rings = [];
   for (const i of order) { const p = N[i], q = pos[i], key = p === sel || p === link, fade = key || !groupOf(p) ? 1 : e; if (fade <= .02 || !(p.vis || p.guest)) continue;
-    const r = 21 * Math.max(q.s, key ? .7 : 0) * (key ? 1.12 : 1); if (q.x < -30 || q.x > W + 30 || q.y < -30 || q.y > H + 30) continue;
+    let r = 21 * Math.max(q.s, key ? .7 : 0) * (key ? 1.12 : 1); if (q.x < -30 || q.x > W + 30 || q.y < -30 || q.y > H + 30) continue;
+    // someone new since you last looked pops in, a little past full size and back, the way the app's other pages reveal what's new
+    let pop = 1; if (p.popAt) { const k = (t - p.popAt) / 420; if (k < 0) continue; if (k < 1) { const c = 1.7; pop = 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); } else p.popAt = 0; } r *= pop;
     const dim = lit && !lit.has(i) ? .07 : atStop && !atStop.has(i) && !key ? .18 : link && !key ? .35 : 1; g.globalAlpha = dim * fade;
     g.beginPath(); g.arc(q.x, q.y, r, 0, 6.2832); g.fillStyle = '#132036'; g.fill();
     g.lineWidth = key ? 3 : 2; g.strokeStyle = key ? '#E9C46A' : ringOf(p); g.stroke();
     if (sel && p.u !== sel.u && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
     if (r > 9) { g.fillStyle = '#EEF1F6'; g.font = `400 ${Math.round(r * .78)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(initials(p.n), q.x, q.y + 1); }
     if (p.inAt && t - p.inAt < 2600) { const k = (t - p.inAt) / 2600; g.globalAlpha = (1 - k) * fade; g.beginPath(); g.arc(q.x, q.y, r + 4 + k * 10, 0, 6.2832); g.strokeStyle = '#E9C46A'; g.lineWidth = 2.5; g.stroke(); g.globalAlpha = dim * fade; }   // just walked in
-    if (dim * fade > .3) rings.push([q.x, q.y, r, p]); if ((q.s > .74 && dim === 1 && e > .9) || key) names.push([p, q, r, key]);
+    if (dim * fade > .3) rings.push([q.x, q.y, r, p]); if (pop >= 1 && ((q.s > .74 && dim === 1 && e > .9) || key)) names.push([p, q, r, key]);
     g.globalAlpha = 1; }
   // a name is written only where it lands clear of everyone else and of the names already down, the one locked on and the best-connected first
   names.sort((a, b) => b[3] - a[3] || b[0].d - a[0].d); const taken = [];
@@ -347,7 +346,14 @@ function frame(t) {
   requestAnimationFrame(frame);
 }
 let LIVE = !EMB, looping = LIVE; if (LIVE) requestAnimationFrame(frame);
-self.netShow = v => { LIVE = v; if (v) { size(); if (needFit) fitRoom(); if (!looping) { looping = true; requestAnimationFrame(frame); } } };
+self.netShow = v => { LIVE = v; if (v) { size(); if (needFit) fitRoom(); reveal(); if (!looping) { looping = true; requestAnimationFrame(frame); } } };
+// who you've seen here, as the app remembers it: the ones you haven't yet light the dock and pop in, nearest first, when you open it
+let KNOWN = null;
+const fresh = () => KNOWN ? N.filter(p => p.vis && !KNOWN.has(p.id)) : [];
+function reveal() { if (!EMB || !KNOWN) return; const F = fresh(); if (!F.length) return; const t = performance.now();
+  F.sort((a, b) => Math.hypot(a.hx - cam.x, a.hy - cam.y) - Math.hypot(b.hx - cam.x, b.hy - cam.y)).forEach((p, i) => { p.popAt = t + 250 + Math.min(i, 50) * 40; p.inAt = p.popAt + 150; KNOWN.add(p.id); });
+  if (parent.netKnow) parent.netKnow(F.map(p => p.id)); if (parent.netFresh) parent.netFresh(0); }
+self.netKnowAll = () => { const F = fresh(); F.forEach(p => KNOWN.add(p.id)); if (parent.netKnow) parent.netKnow(F.map(p => p.id)); if (parent.netFresh) parent.netFresh(0); };
 
 // wandering: drag to pan, with a little glide when you let go; two fingers (or the wheel) to zoom; a tap picks whoever is under it
 let drag = null, pts = new Map(), pinch0 = null;
@@ -582,7 +588,8 @@ function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = 
 self.netPreview = id => { const p = findP(id); if (!p || !p.vis) return null;
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d);
   return { n: L.length, L: L.slice(0, 3).map(([j, k]) => ({ n: N[j].n, k: KS[k], c: KC[k], w: whoLine(p, N[j], relOf(p, N[j])) })) }; };
-self.netSeen = (f, uok, sat, ek) => { if (sat != null) document.documentElement.style.setProperty('--sat', sat + 'px');
+self.netSeen = (f, uok, sat, ek, known) => { if (known) KNOWN = new Set(known); try { return seenIn(f, uok, sat, ek); } finally { if (EMB && parent.netFresh && !LIVE) parent.netFresh(fresh().length); } };
+function seenIn(f, uok, sat, ek) { if (sat != null) document.documentElement.style.setProperty('--sat', sat + 'px');
   const key = TT.map(t => f(t) ? 1 : 0).join('') + UNIS.filter(([u]) => u !== 'all').map(([u]) => uok(u) ? 1 : 0).join('') + (ek || '');   /* and the episodes ticked */
   SEENF = f; UNIOK = uok; document.documentElement.classList.remove('wait'); if (key === seenKey) return; const first = seenKey === null; seenKey = key;
   if (!uniOk(UNI)) UNI = 'mcu';
@@ -590,7 +597,7 @@ self.netSeen = (f, uok, sat, ek) => { if (sat != null) document.documentElement.
   // set out while out of sight: everyone is put straight on their spot, so opening the Network never shows them walking over (the first-open spaz)
   if (!sel) N.forEach(p => { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.go = 0; p.inAt = 0; });
   if (first || !sel) fitRoom(); };
-function setUni(u) { if (u === UNI) return; UNI = u; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); }
+function setUni(u) { if (u === UNI) return; UNI = u; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); if (LIVE) reveal();   /* another universe's newcomers pop in when you go there */ }
 function uniTabs() { document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
 document.querySelector('.unis').addEventListener('click', e => { const b = e.target.closest('[data-uni]'); if (b) setUni(b.dataset.uni); });
 uniTabs();

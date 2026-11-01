@@ -318,6 +318,10 @@ insignia celebration covers the page.
   them in it).
 - **The Network colours people by their group**, not hero or villain ("reductionist"): in the room each crew has its own colour (no
   two neighbours alike), in a web each group is what they are to them.
+- **The Network reveals what's new like every page** (owner, November 2026: "there needs to be a reveal animation on network for new
+  bubbles like how every other page reveals new additions"): someone you haven't seen there lights its dock button (`netFresh`, counted
+  by the frame as you watch, via `newDots`); opening it pops them in, nearest first, with a gold ring (`reveal`, `p.popAt`), and they're
+  remembered (`state.netKnown`, `netKnow`). Holding the dock button marks everyone as seen (`netKnowAll`).
 - **The Network stands tight**: groups and people close together, no wasted floor ("I've said this like a dozen times").
 - **Opening the Network never shows a reshuffle or a flash**: it loads ahead, out of sight, a few seconds after launch, and sets out
   the room then; reopening with nothing new watched changes nothing.

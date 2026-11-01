@@ -9012,6 +9012,7 @@ function tdotPlace() { document.querySelectorAll("#view .grid > .tdot").forEach(
   if (!t) { d.remove(); return; } d.style.left = (t.offsetLeft + t.offsetWidth + 2) + "px"; d.style.top = (t.offsetTop - 5) + "px"; }); }
 window.addEventListener("resize", () => tdotPlace()); if (document.fonts) document.fonts.ready.then(() => tdotPlace());
 function newDots() {
+  if (!newDots.busy) { newDots.busy = 1; try { if (NET_SRC) netSync(); } catch (e) {} newDots.busy = 0; }   // the Network counts who's new as you watch (NET_SRC isn't set yet while the page first loads)
   try {
     const n = achList().filter(a => earned(a.id)).length; if (state.hfSeen == null) state.hfSeen = n;
     const hide = mapHide();
@@ -9028,6 +9029,7 @@ function newDots() {
       log: logUnread("saga"),
       atlas: Object.keys(ATLAS).some(v => atlOpenV(v) && atlNew(v)),
       map: DATA.map.cols.some(c => atlSeenT(c.t) && c.m.some(i => !hide.has(i)) && !(state.pathT || {})[c.t]),
+      net: netFreshN > 0,   // someone new in the Network since you last looked
       comms: cmUnread("msg") || cmUnread("news"),
       file: n > state.hfSeen || (embKeep(), embNew().some(k => !(state.embAck || {})[k])) };
     on.log = on.log || on.map;   // Paths lives in the Log now, so its new lines light the Log
@@ -9039,7 +9041,7 @@ function newDots() {
 const dockCur = () => collOpen && netOpen ? "net" : dossierOpen === "saga" || mapOpen ? "log" : netOpen ? "net" : atlOpen ? "atlas" : commsOpen ? "comms" : fileOpen ? "file" : "story";
 function dockSync() { logHeadSync(); newDots(); rcClear(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 // hold a dock button to mark everything new on that page as read, after a yes. It counts the same as reading it all, Every page included
-const DOCK_NAMES = { story: "Story", log: "the Log", atlas: "the Atlas", map: "Characters", comms: "Comms", file: "the Agent File" };
+const DOCK_NAMES = { story: "Story", log: "the Log", atlas: "the Atlas", net: "the Network", map: "Characters", comms: "Comms", file: "the Agent File" };
 function logReadAll(id) {   // a box's own log, everything in it you've opened up, as if it had all played in
   const D = DOSSIERS[id], box = (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id); if (!box) return;
   const here = t => !!state.checks[ck(box, t)], open = t => !t || (Array.isArray(t) ? t.every(here) : here(t)), R = D.rows || {};
@@ -9050,6 +9052,7 @@ function logReadAll(id) {   // a box's own log, everything in it you've opened u
   (D.links || []).forEach((l, i) => { if (open(l[2])) dMark(null, id + "|" + linkNow(l, i, open).key); });
 }
 function readAll(t) {
+  if (t === "net") { const w = document.getElementById("netFrame").contentWindow; if (w && w.netKnowAll) w.netKnowAll(); return; }
   if (t === "story") [...DATA.chapters.filter(c => state.unlocked[c.id]), ...DATA.chars.filter(c => !charHidden(c))].forEach(c => { if (DOSSIERS[c.id] && logUnread(c.id)) logReadAll(c.id); });
   else if (t === "log") DATA.chapters.forEach(c => { if (!slShown(c)) return; slEntries(c).forEach(([x]) => dMark(null, c.id + "|s:" + x)); if (slDeb(c)) dMark(null, c.id + "|d"); if (slPer(c)) dMark(null, c.id + "|r0." + slPer(c)[1]); });
   else if (t === "atlas") {
@@ -10365,10 +10368,13 @@ swipeAway(document.getElementById("toast"), (dx, dy) => `translate(calc(-50% + $
 const NET_SRC = /*NETWORK*/null;
 let netOpen = false;
 if (NET_SRC) document.querySelector('#dock [data-dock="net"]').hidden = false;
-let netCardUp = false, netSkip = false;
+let netCardUp = false, netSkip = false, netFreshN = 0;
+// who you've seen in the Network (state.netKnown): someone new lights its dock button, and pops in with a gold ring when you open it
+window.netKnow = ids => { const K = state.netKnown = state.netKnown || {}; ids.forEach(i => { K[i] = 1; }); persist(); };
+window.netFresh = n => { if (n === netFreshN) return; netFreshN = n; newDots(); };
 // the status bar's height, so the Network's title sits where every other page's does
 function netSat() { const d = document.createElement("div"); d.style.cssText = "position:fixed;top:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden"; document.body.appendChild(d); const v = parseFloat(getComputedStyle(d).paddingTop) || 0; d.remove(); return v; }
-function netSync() { const w = document.getElementById("netFrame").contentWindow; if (w && w.netSeen) w.netSeen(t => atlSeenT(t), u => { if (u === "mcu") return true; const x = RF_UNI.find(x => x[0] === u); return !!x && rfUniName(x) !== "[ Classified ]"; }, netSat(), JSON.stringify(state.eps || {})); }
+function netSync() { const w = document.getElementById("netFrame").contentWindow; if (w && w.netSeen) w.netSeen(t => atlSeenT(t), u => { if (u === "mcu") return true; const x = RF_UNI.find(x => x[0] === u); return !!x && rfUniName(x) !== "[ Classified ]"; }, netSat(), JSON.stringify(state.eps || {}), Object.keys(state.netKnown || {})); }
 // the Network loads ahead, out of sight, a few seconds after launch (main serves it as its own file, "url:network.html", so the page the
 // app opens at launch stays small): by the time you tap Network it's ready, with nothing to load or lay out while you watch
 function netLoad() { const f = document.getElementById("netFrame"); if (f.dataset.on) return; f.dataset.on = 1;
