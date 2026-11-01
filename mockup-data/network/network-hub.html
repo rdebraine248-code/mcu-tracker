@@ -121,10 +121,10 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 <div id="card" role="dialog" aria-live="polite"><button type="button" id="cGrip" aria-label="Show more about them" aria-expanded="false"></button>
   <div id="vOne"><small id="cCrew"></small><h2 id="cName"></h2>
     <div class="ln kinds" id="cSum"></div><div id="cMore"></div>
-    <div class="chips" id="sConn"><b>Their connections · tap to see how</b><div class="strip"></div></div>
+    <div class="chips" id="sConn"><b>Their connections</b><div class="strip"></div></div>
     <div class="row" id="cRow"><button type="button" id="cFile">Open file ›</button></div></div>
   <div id="vThree" hidden><small id="tWith"></small><h2 id="tName"></h2><div class="ln"><span><b id="tCount"></b> from their web</span></div>
-    <div class="chips"><b>Who was there · tap to see how</b><div class="strip" id="tStrip"></div></div>
+    <div class="chips"><b>Who was there</b><div class="strip" id="tStrip"></div></div>
     <div class="row"><button type="button" id="tBack">‹ Back to their story</button></div></div>
   <div id="vTwo" hidden><small>How they're connected</small><h2 id="lName"></h2><ul class="why" id="lWhy"></ul>
     <div class="row"><button type="button" id="lGo"></button></div></div></div>
@@ -421,11 +421,11 @@ function moreHTML(p, L) {
   if (aka.length) out.push(`<h4>Also known as</h4><p class="aka">${aka.map(a => `<b>${esc(a)}</b>`).join(', ')}</p>`);
   if (crews.length) out.push(`<h4>Crews</h4><div class="crews">${crews.map(esc).join(' <i>›</i> ')}</div>`);
   out.push(`<h4>In ${T.length} title${T.length === 1 ? '' : 's'}</h4><ol class="tl">${T.map(j => `<li>${esc(TT[j])}</li>`).join('')}</ol>`);
-  if (L.length) { out.push(`<h4>Who's who · tap for the whole story</h4>`); let k0 = null;
+  if (L.length) { out.push(`<h4>Who's who</h4>`); let k0 = null;
     L.forEach(([j, k]) => { const q = N[j]; if (k !== k0) { out.push(`<div class="kh" style="color:${KC[k]}"><i style="background:${KC[k]}"></i>${KL[k]}</div>`); k0 = k; }
       out.push(`<button type="button" class="wrow" style="--kc:${KC[k]}" data-i="${j}"><b>${esc(q.n)}${q.u !== p.u ? ` <em>${esc(UL[q.u])} · ${esc(vtag(q))}</em>` : ''}</b><span>${esc(whoLine(p, q, relOf(p, q)))}</span></button>`); }); }
   // every other version of them, by universe; the ones they've met are above, with the rest of their people. Tap one to go to them
-  if (p.V.length) { out.push(`<h4>Other versions · tap to go to them</h4>`);
+  if (p.V.length) { out.push(`<h4>Other versions</h4>`);
     const groups = new Map(); UNIS.forEach(([u]) => p.V.filter(j => N[j].u === u).forEach(j => { const w = worldOf(N[j]); groups.has(w) || groups.set(w, []); groups.get(w).push(N[j]); }));
     groups.forEach((V, l) => {
       out.push(`<div class="kh" style="color:${KC.variant}"><i style="background:${KC.variant}"></i>${esc(l)}${l !== UL[V[0].u] ? ` <small style="opacity:.7">· ${esc(UL[V[0].u])}</small>` : ''}</div>`);
@@ -693,7 +693,7 @@ function mapTap(x, y) { const M = MAP, ms = mscale();
   const ci = M.cols.findIndex(c => Math.abs(MX(c.x) - x) < Math.max(10, 12 * ms) && ((y > MY(c.my - c.h / 2) - 14 && y < MY(c.my + c.h / 2) + 14) || (y > 190 && y < 285)));
   if (ci >= 0) { const c = M.cols[ci]; mfocus = { ci }; const cast = c.tt >= 0 ? N.filter(o => o.A0.includes(c.tt)).sort((a, b) => b.d - a.d) : [];
     if (!c.seen) { $('mS').textContent = 'A title you haven\'t seen'; $('mT').textContent = '[ Classified ]'; $('mL').innerHTML = `<li>${c.m.length} ${c.m.length > 1 ? 'stories meet' : 'story'} here${cast.length ? ', ' + cast.length + ' people' : ''}</li>`; $('mTip').classList.add('on'); return; }
-    $('mS').textContent = c.yr + (cast.length ? ' · ' + cast.length + ' on file · tap anyone for their path' : ''); $('mT').textContent = c.t;
+    $('mS').textContent = c.yr + (cast.length ? ' · ' + cast.length + ' on file' : ''); $('mT').textContent = c.t;
     $('mL').innerHTML = cast.length ? cast.map(o => `<li><button type="button" data-mo="${o.i}" class="${o === over ? 'me' : ''}">${o.n}</button></li>`).join('')
       : c.m.map(ri => `<li><button type="button" class="out" disabled>${M.rows[ri].named ? M.rows[ri].n : '[ Classified ]'}</button></li>`).join('');
     $('mTip').classList.add('on'); return; }

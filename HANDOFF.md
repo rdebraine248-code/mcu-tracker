@@ -317,6 +317,8 @@ insignia celebration covers the page.
 - **The ticker plays on over Comms** (owner, November 2026): opening Comms no longer stops it; each story joins the list as it
   finishes (`newsMark` keeps the open list up to date).
 - **Nothing sits under the news ticker**: a card at the bottom of a page rises over it while it runs.
+- **No "tap to..." hints in labels** (owner, November 2026, the Network's "Their connections · tap to see how", "Who's who · tap for the
+  whole story"): a label names what's there, nothing more.
 - **Pop-ups have no Back button**: back, or a tap off it, closes it. **The phone's back closes the top thing only**: an open card in the
   Network has its own step back (`netcard`), so back closes the card and leaves the Network open.
 - **A pop-up slides open the way it slides closed**, and only slides up for more when there is more to show.
