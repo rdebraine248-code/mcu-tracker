@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v82 (titles raised 10px; main has them at the old height until pushed). Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v85 (titles raised 10px; main has them at the old height until pushed). Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 ### Tests
