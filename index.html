@@ -2523,12 +2523,15 @@ const CHECK = c => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l
 // Chapter 7 open (owner, November 2026: "the branching timeline graphic a little bit more involved in the entire box and maybe a bit
 // fainter, part of the background"): the Sacred Timeline comes in from the left and breaks into branches that reach across and down the
 // whole box, faint, standing still behind the list; the band across its top is gone, so its top row sits level with every other box
-const CH7_BG = (() => { const G = "#D9A441", X = 150, Y0 = 205, Y = [-30, 40, 115, 300, 410, 540, 690, 850], sub = [[300, 285, 340], [410, 290, 470], [540, 315, 600], [115, 280, 80], [690, 300, 745], [40, 290, 10]];
-  const br = Y.map((y, i) => `<path d="M${X} ${Y0} C ${X + 55} ${Y0}, ${X + 85 + i * 4} ${y}, 420 ${y}" fill="none" stroke="${G}" stroke-width="${2.6 - i * .15}"/>`).join("");
-  const sb = sub.map(([y, x, y2]) => `<path d="M${x} ${y} C ${x + 40} ${y}, ${x + 60} ${y2}, 420 ${y2}" fill="none" stroke="${G}" stroke-width="1.2"/>`).join("");
-  return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; opacity: .18"><svg width="100%" height="100%" viewBox="0 0 400 800" preserveAspectRatio="xMinYMin slice" style="display: block">`
-    + `<path d="M-20 ${Y0} H${X}" stroke="${G}" stroke-width="6"/>${br}${sb}<path d="M${X} ${Y0} C ${X + 60} ${Y0}, ${X + 100} ${Y0}, 420 ${Y0}" fill="none" stroke="#C8102E" stroke-width="3"/>`
-    + `<circle cx="${X}" cy="${Y0}" r="10" fill="#15171D" stroke="#F3EFE7" stroke-width="4"/></svg></div>`; })();
+const CH7_BG = (() => {   // the Sacred Timeline comes in from the left and, at one junction, breaks into strands that turn down and run the length of the
+  // box, evenly spaced across it; the red one carries straight on
+  const G = "#D9A441", X = 70, Y0 = 205, B = 900, N = 8, x0 = 120, step = 36;
+  let out = "";
+  for (let k = 0; k < N; k++) { const x = x0 + k * step;
+    out += `<path d="M${X} ${Y0} C ${X + 40} ${Y0}, ${x} ${Y0 + 30 + k * 6}, ${x} ${Y0 + 120 + k * 14} V${B}" fill="none" stroke="${G}" stroke-width="${k % 2 ? 1.4 : 2}"/>`; }
+  return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; opacity: .16"><svg width="100%" height="100%" viewBox="0 0 400 800" preserveAspectRatio="xMinYMin slice" style="display: block">`
+    + `<path d="M-20 ${Y0} H${X}" stroke="${G}" stroke-width="5"/>${out}<path d="M${X} ${Y0} H420" stroke="#C8102E" stroke-width="2.6"/>`
+    + `<circle cx="${X}" cy="${Y0}" r="9" fill="#15171D" stroke="#F3EFE7" stroke-width="3.5"/></svg></div>`; })();
 /* MOCKUP END */
 function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
