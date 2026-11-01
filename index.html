@@ -11033,7 +11033,7 @@ function closeMap(fromHistory) {
   document.getElementById("mapFit").addEventListener("click", () => { mapFit(); mapFocus(null); });
   document.getElementById("mapBack").addEventListener("click", () => closeMap(false));
   document.getElementById("mapAct").addEventListener("click", ev => { const p = ev.target.closest("[data-mprof]"), b = ev.target.closest("[data-mbox]"); haptic(8);
-    if (p) { openDossier(p.dataset.mprof); return; }
+    if (p) { profGo(p.dataset.mprof); return; }   // on top of Paths like any link, so its Path › comes back down to it
     if (b) { const box = DATA.chars.find(c => c.id === b.dataset.mbox); closeMap(true); if (dossierOpen) closeDossier(true); dockSync(); openPanel(box, "char", document.querySelector(`.tile[data-id="${box.id}"]`)); } });
   document.getElementById("mapPop").addEventListener("click", ev => { const b = ev.target.closest("[data-li]"); if (b) { mapFocus(+b.dataset.li); document.getElementById("mapPop").hidden = true; } });
   document.addEventListener("keydown", ev => { if (ev.key === "Escape" && mapOpen) closeMap(false); });
