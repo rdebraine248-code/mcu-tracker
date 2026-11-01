@@ -79,6 +79,10 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
 - **Stage 2 (next):** the box panels, the Log, the Network's own header and card, the indexes and their files, then dialogs, toasts,
   eggs and the boot screen.
 
+- **A box's top row sits the status bar plus 6px down** (owner, November 2026: "all the contents and headers are so low"): `pinTop()`
+  measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
+  timeline band is 56px tall, so its row sits just under it, as high as it can go.
+
 ### Testing checklist (everything on main, 1 November 2026)
 
 Close the app fully and reopen it online first.

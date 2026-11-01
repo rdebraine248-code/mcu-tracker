@@ -204,7 +204,9 @@ body[data-mode="timeline"] .mast h1::before{ color:rgba(255,150,40,.6); }
         transition:clip-path .45s cubic-bezier(.2,.75,.2,1); -webkit-overflow-scrolling:touch; }
 .panel[hidden]{ display:none !important; }
 .pfix{ position:fixed; inset:var(--pb, 0px); pointer-events:none; z-index:0; overflow:hidden; }   /* inside the box's frame, so its art never paints over the border */
-.pin{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:calc(18px + env(safe-area-inset-top,0px)) 8px calc(90px + env(safe-area-inset-bottom,0px)); opacity:0; transition:opacity .3s ease .18s; }
+/* a box's top row sits the status bar plus 6px down, like every page's title (owner, November 2026: its headers were "so low"); pinTop measures
+   each box, since some wear a band across their top (Chapter 1's stars) */
+.pin{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:var(--pinT, max(0px, calc(env(safe-area-inset-top,0px) - 8px))) 8px calc(90px + env(safe-area-inset-bottom,0px)); opacity:0; transition:opacity .3s ease .18s; }
 .panel.open .pin{ opacity:1; }
 .back{ display:inline-flex; align-items:center; gap:8px; border:1.5px solid currentColor; background:transparent; border-radius:999px; padding:8px 16px 8px 12px; font-size:15px; font-weight:500; cursor:pointer; }
 .ptop{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
@@ -2626,6 +2628,9 @@ function pushNav(kind) {
 function navBack() { if (navBusy) return; navBusy = true; history.back(); setTimeout(() => { navBusy = false; }, 800); }
 function uiClose() { if (navAt("panel")) navBack(); else closePanel(); }
 let openWasDone = false, revealChanged = false;
+function pinTop() { panel.style.removeProperty("--pinT"); const pin = panel.querySelector(".pin"), row = pin && pin.firstElementChild; if (!row) return;
+  const pad = parseFloat(getComputedStyle(pin).paddingTop) || 0, base = row.getBoundingClientRect().top - panel.getBoundingClientRect().top - pad;
+  panel.style.setProperty("--pinT", Math.max(0, Math.round(netSat() + 6 - base)) + "px"); }
 function openPanel(e, kind, fromEl) {
   newsCut();
   clearTimeout(closeTimer); if (closeDone) { const d = closeDone; closeDone = null; d(); }
@@ -2634,7 +2639,7 @@ function openPanel(e, kind, fromEl) {
   openEntry = e; openKind = kind; openFrom = fromEl;
   panel.dataset.clip = REDUCED ? "" : rectClip(fromEl);
   renderPanel(e, true);
-  panel.hidden = false; blCarry(e);
+  panel.hidden = false; blCarry(e); pinTop();
   panel.scrollTop = 0;
   bodyLock();
   requestAnimationFrame(() => requestAnimationFrame(() => {
