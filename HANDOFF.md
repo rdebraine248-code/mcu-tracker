@@ -730,6 +730,9 @@ These happened in earlier chats. Each cost the owner time.
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
 - No mockups are pending.
+- **Home screen: cut (owner, November 2026: "Cut it completely").** A datapad Home page leading the dock (an Agent ID strip, Up next,
+  readouts, every page and archive as a card, then restyled as S.H.I.E.L.D. hardware with dials and a power-up) was tried in the test
+  build and removed entirely. Story stays the front page. Don't bring it back unasked.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
   are #4 (the replays' back door), #8 (the mouse holds take a 10px wobble), #9 (On your left's edge counts only above the titles, never
