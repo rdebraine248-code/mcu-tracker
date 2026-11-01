@@ -308,9 +308,9 @@ insignia celebration covers the page.
 - **Main only after the owner has checked the test build** (October 2026: "I thought this was ready to launch but this was pushed to
   main still with issues"). "Push when ready" means: fixes go to the test build first, the owner looks, then main on their word.
 - **One title height on every page** ("No standard. I've said time and time again at consistency"): every page's title is 28px Anton
-  at the status bar plus 16px, 20px in (raised from 26px, owner, November 2026: "my phone can accommodate them being higher"). Count the status bar once (`env(safe-area-inset-top)`); the Network, in its frame, can't see
+  at the status bar plus 6px, 20px in (raised from 26px in two steps, owner, November 2026: "my phone can accommodate them being higher"). Count the status bar once (`env(safe-area-inset-top)`); the Network, in its frame, can't see
   it, so the app passes it in (`netSat()` to `netSeen`, the `--sat` variable). Check with a status bar emulated
-  (`Emulation.setSafeAreaInsetsOverride`, top 36): every title's top is 52.
+  (`Emulation.setSafeAreaInsetsOverride`, top 36): every title's top is 42.
 - **The Log keeps its name; its tabs are Chapters and Characters** (owner, November 2026: "Story" clashed with the Story page; then
   "Rename paths to characters in the log tab"). In the code the second tab is still `paths` (`data-logt`, `mapPanel`); only its name changed.
 - **No tap flash anywhere**, inside frames too (`-webkit-tap-highlight-color:transparent` on `*`).
@@ -327,7 +327,8 @@ insignia celebration covers the page.
   by the frame as you watch, via `newDots`); opening it pops them in, nearest first, with a gold ring (`reveal`, `p.popAt`), and they're
   remembered (`state.netKnown`, `netKnow`). Holding the dock button marks everyone as seen (`netKnowAll`).
 - **The Network stands tight**: groups and people close together, no wasted floor ("I've said this like a dozen times").
-- **Opening the Network never shows a reshuffle or a flash**: it loads ahead, out of sight, a few seconds after launch, and sets out
+- **Opening the Network never shows a reshuffle, a flash or a blank page**: it loads ahead, out of sight, a second after launch (while
+  the boot screen plays); tapped sooner, its title already stands in place (`.net-ph`) while the rest arrives, and sets out
   the room then; reopening with nothing new watched changes nothing.
 
 - Accuracy and consistency come first. Verify easily checkable facts yourself instead of asking, and follow a fix through to every

@@ -40,7 +40,7 @@ body::before{ content:""; position:fixed; top:0; left:0; width:100%; height:100v
   background-image:var(--padimg);
   background-size:var(--padsize); }
 button{ font:inherit; color:inherit; }
-.wrap{ max-width:1180px; margin:0 auto; padding:16px 20px 64px; }   /* every page's title sits the status bar plus 16px down (owner: one standard) */
+.wrap{ max-width:1180px; margin:0 auto; padding:6px 20px 64px; }   /* every page's title sits the status bar plus 6px down (owner: one standard) */
 #app{ overflow-x:clip; }
 
 /* masthead */
@@ -285,7 +285,7 @@ body{ transition:background-color .4s ease; }
 .tl-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .sl-body .dlog .dt .dck{ margin-left:auto; } .sl-rate{ border:1px solid #33405C; border-radius:999px; background:transparent; color:#E9C46A; padding:2px 9px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
 .sl-rate:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; } .sl-avg{ color:#E9C46A !important; }
-#logHead{ position:fixed; left:0; right:0; top:0; z-index:75; padding:calc(16px + env(safe-area-inset-top,0px)) 20px 0; background:#0B1019; box-shadow:0 10px 14px -6px rgba(5,8,14,.85); pointer-events:none; }
+#logHead{ position:fixed; left:0; right:0; top:0; z-index:75; padding:calc(6px + env(safe-area-inset-top,0px)) 20px 0; background:#0B1019; box-shadow:0 10px 14px -6px rgba(5,8,14,.85); pointer-events:none; }
 #logHead > *{ pointer-events:auto; } #logHead[hidden]{ display:none; }
 .logtabs{ position:relative; display:flex; margin-top:12px; border-bottom:1px solid #222C40; }
 .logtabs button{ flex:1; padding:10px 0 11px; border:0; background:none; color:#6F7C95; font:13px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; position:relative; }
@@ -1275,7 +1275,9 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 
 :root{ --dockh:calc(60px + env(safe-area-inset-bottom,0px)); }
 body{ padding-bottom:var(--dockh); }
-.netpanel{ position:fixed; left:0; right:0; top:0; bottom:var(--dockh); z-index:58; background:#0B1019; } .netpanel iframe{ display:block; width:100%; height:100%; border:0; }
+.netpanel{ position:fixed; left:0; right:0; top:0; bottom:var(--dockh); z-index:58; background:#0B1019; } .netpanel iframe{ position:relative; z-index:1; display:block; width:100%; height:100%; border:0; }
+/* while the Network's own page is still on its way, its title already stands where it will be (the page paints over it), never a blank screen */
+.netpanel .net-ph{ position:absolute; z-index:0; left:20px; top:calc(6px + env(safe-area-inset-top,0px)); margin:0; }
 .uni-earth{ color:#9FC3FF; font-weight:400; } .rf-earth{ font-style:normal; color:#9FC3FF; letter-spacing:.5px; margin-right:6px; }
 .dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; }
 @keyframes dockin{ from{ transform:translateY(100%); opacity:0; } to{ transform:none; opacity:1; } }
@@ -1365,7 +1367,7 @@ body{ padding-bottom:var(--dockh); }
 .lnext{ opacity:.75; }
 /* the dock's pages share one header: the page's name in the title's style, its tabs as pills under it, and nothing else. The dock is the way out, so
    there's no Back (inside an Atlas city or universe, the map's own "‹ Earth" steps up a level). The Story log's title is the same */
-.dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(16px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
+.dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(6px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
 .dockpg .maptop .back{ display:none; } #mapPanel.dockpg .maptop .back{ display:revert; }   /* Paths left the dock for the Log, so it has its way back again */
 .dockpg .maptop h2, .pgtitle{ position:relative; display:block; margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 2px 0 rgba(0,0,0,.35); }
 .pgtitle{ margin:0; }   /* the Log's header already makes room for the status bar; counting it again pushed the title down */
@@ -1537,7 +1539,7 @@ body{ padding-bottom:var(--dockh); }
 </div>
 
 <div class="whih" id="whih" hidden><b>WHIH</b><div class="whih-run"><span></span></div></div>
-<div class="netpanel" id="netPanel" hidden role="dialog" aria-label="Network"><iframe id="netFrame" title="Network"></iframe></div>
+<div class="netpanel" id="netPanel" hidden role="dialog" aria-label="Network"><h2 class="pgtitle net-ph" data-glow="Network" aria-hidden="true">Network</h2><iframe id="netFrame" title="Network"></iframe></div>
 <nav class="dock" id="dock" aria-label="Sections"><button type="button" data-dock="story" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg>Story</button><button type="button" data-dock="log" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Log</button><button type="button" data-dock="atlas" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>Atlas</button><button type="button" data-dock="net" aria-current="false" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M10 10.5 6.6 7.3M14 10.5l3.4-3.2M10 13.5l-3.4 3.2M14 13.5l3.4 3.2"/></svg><span>Network</span></button><button type="button" data-dock="comms" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="1.6" fill="currentColor"/><path d="M8.5 6.5a5 5 0 0 0 0 7M15.5 6.5a5 5 0 0 1 0 7M5.6 3.6a9 9 0 0 0 0 12.8M18.4 3.6a9 9 0 0 1 0 12.8M12 12v9"/></svg>Comms</button><button type="button" data-dock="file" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17.5c1-2 2.4-3 4-3s3 1 4 3"/></svg>File</button></nav>
 <script>
 const MOCK = true;   // the test build's mockups, waiting for approval (main ships with it off)
@@ -10380,7 +10382,7 @@ function netSync() { const w = document.getElementById("netFrame").contentWindow
 function netLoad() { const f = document.getElementById("netFrame"); if (f.dataset.on) return; f.dataset.on = 1;
   f.addEventListener("load", () => { netSync(); const w = f.contentWindow; if (w && w.netShow) w.netShow(netOpen); netPrevFill(); }, { once: true });
   if (NET_SRC.startsWith("url:")) f.src = NET_SRC.slice(4); else f.srcdoc = NET_SRC; }
-if (NET_SRC) addEventListener("load", () => setTimeout(netLoad, 3500));
+if (NET_SRC) addEventListener("load", () => setTimeout(netLoad, 1000));   /* while the boot screen still plays */
 function openNet() { if (!NET_SRC) return; const f = document.getElementById("netFrame"); netLoad();
   document.getElementById("netPanel").hidden = false; netOpen = true; document.body.classList.add("netopen"); bodyLock(); pushNav("net");
   const w = f.contentWindow; if (w && w.netSeen) { netSync(); w.netShow(true); } }
