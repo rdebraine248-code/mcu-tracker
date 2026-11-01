@@ -461,6 +461,12 @@ insignia celebration covers the page.
   #7FD95A is now #6DBB8A everywhere, its replays included.
 - **A file's connections open the Network over the page the file came from** (`netGoTo`, body class `netup`: the Network's panel sits
   under the Agent File and the Atlas otherwise, so it opened out of sight), and back returns to the file (`netFrom`), then to that page.
+- **Connections grow and change** (owner, November 2026: "I thought relationships grow and change"): a connection is stages in story
+  order, each with its own kind, so Wanda and Bruce are enemies after Age of Ultron and allies from Infinity War, and Darcy is swept into
+  the Hex (WandaVision episode 7) before standing up for Wanda's family (episode 9). Corrections and added stages live in
+  `network/rel/stage_fix.json` (`edit` a stage by its place, `add` a later one; applied in `prof/relbake.js` after the text fixes).
+  About 376 connections end as enemy or rival while their own words hint at a later turn (a keyword scan, many of them false alarms):
+  a review pass to add the real turns is the owner's call.
 - **Network titles are broken down by season** (owner, November 2026): a step on a show that runs several seasons counts at its own
   episode ("In episode 44," is `Show#44`; "In season 2," is the last episode of season 2, so no one shows before their season is done;
   `season` in `prof/hub2.js`), and is listed under its season ("What If...? S2", `lab` and `DATA.seas`); a season the app lists as its own
