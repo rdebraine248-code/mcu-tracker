@@ -436,7 +436,8 @@ insignia celebration covers the page.
   connected to and from each other", the indexes only once found). Each profile links only its own main characters, the people
   its Subjects name, set by hand in `PROFILE_PEOPLE` (owner: "only Wanda and Vision go to that profile ... side characters don't go to a
   profile"): Captain America is Steve; Falcon & Winter Soldier is Sam and Bucky; S.H.I.E.L.D. is Peggy, Howard and the agents (Coulson,
-  Daisy, May, Fitz, Simmons, Mack, Elena); someone named in two goes to their own (Bucky to Falcon & Winter Soldier, Kate to Hawkeye);
+  Daisy, May, Fitz, Simmons, Mack, Elena); someone named in two goes to their own (Bucky to Falcon & Winter Soldier, Kate to Hawkeye; Riri to the Champions, owner's call);
+  FoX-Men has the 2000s films' team and Brotherhood leads, the prequels' Charles, Erik, Raven and young team, Deadpool, Laura and D&W's Logan;
   a Raft file goes where its Compound file goes. Other-world versions (Earth-838's Strange, Wanda, Reed) link to none. A new profile, or
   a new main character, needs adding there. Links, each only once the box is
   known (`boxShown`, `boxPath`): a Compound or Raft file's record line carries **Profile ›** and **Path ›** (`xLinks`); a profile's
