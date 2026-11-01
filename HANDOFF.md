@@ -81,8 +81,10 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
 
 - **A box's top row sits the status bar plus 6px down** (owner, November 2026: "all the contents and headers are so low"): `pinTop()`
   measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
-  timeline band is 56px tall, so its row sits just under it, as high as it can go. Background versions of it were tried and rejected (owner: "very terrible, messy"): a straight copy of the TVA's
-  monitor, unconnected extra lines, even strands, the banner stretched, the banner split and split again. Chapter 7 keeps its band.
+  timeline band is drawn at its own 30px in the box, as on its tile (not stretched to 56px), so it sits in the status bar's strip
+  like Chapter 1's stars and its row is level with every other box (owner: "the point is to have chapter 7 up like the rest"). Background
+  versions of the band were tried and rejected ("very terrible, messy"): a straight copy of the TVA's monitor, unconnected extra lines,
+  even strands, the banner stretched over the box, the banner split and split again.
 
 ### Testing checklist (everything on main, 1 November 2026)
 
