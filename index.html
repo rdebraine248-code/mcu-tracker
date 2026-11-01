@@ -3428,7 +3428,7 @@ const slUnread = c => slShown(c) && (slEntries(c).some(([t]) => !slSeenK(c, "s:"
 // Log and Paths are one page (owner, October 2026: "Paths and logs now feel like the same page that belongs together"; the old pill
 // switch "moved around", and a link per chapter was rejected). One header, fixed, sits over both: the title Log and two tabs, Story and
 // Paths, with a bar under the one you're on that slides across when you switch. Only the page under it changes
-const LOGHEAD = `<div id="logHead" hidden><h2 class="pgtitle" data-glow="Log">Log</h2><div class="logtabs" role="tablist" aria-label="Log"><button type="button" role="tab" data-logt="story" aria-selected="true">Chapters</button><button type="button" role="tab" data-logt="paths" aria-selected="false">Characters</button><i class="lt-bar" aria-hidden="true"></i></div></div>`;
+const LOGHEAD = `<div id="logHead" hidden><h2 class="pgtitle" data-glow="Log">Log</h2><div class="logtabs" role="tablist" aria-label="Log"><button type="button" role="tab" data-logt="story" aria-selected="true">Chapters</button><button type="button" role="tab" data-logt="paths" aria-selected="false">Paths</button><i class="lt-bar" aria-hidden="true"></i></div></div>`;
 document.body.insertAdjacentHTML("beforeend", LOGHEAD);
 let logLast = null;
 function logHeadSync() {
@@ -9179,7 +9179,7 @@ function newDots() {
 const dockCur = () => collOpen && netOpen ? "net" : dossierOpen === "saga" || mapOpen ? "log" : netOpen ? "net" : atlOpen ? "atlas" : commsOpen ? "comms" : fileOpen ? "file" : "story";
 function dockSync() { jumpSweep(); logHeadSync(); newDots(); rcClear(); const c = dockCur(); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === c ? "page" : "false")); }
 // hold a dock button to mark everything new on that page as read, after a yes. It counts the same as reading it all, Every page included
-const DOCK_NAMES = { story: "Story", log: "the Log", atlas: "the Atlas", net: "the Network", map: "Characters", comms: "Comms", file: "the Agent File" };
+const DOCK_NAMES = { story: "Story", log: "the Log", atlas: "the Atlas", net: "the Network", map: "Paths", comms: "Comms", file: "the Agent File" };
 function logReadAll(id) {   // a box's own log, everything in it you've opened up, as if it had all played in
   const D = DOSSIERS[id], box = (D.kind === "chapter" ? DATA.chapters : DATA.chars).find(c => c.id === id); if (!box) return;
   const here = t => !!state.checks[ck(box, t)], open = t => !t || (Array.isArray(t) ? t.every(here) : here(t)), R = D.rows || {};
