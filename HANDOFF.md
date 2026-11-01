@@ -729,7 +729,15 @@ These happened in earlier chats. Each cost the owner time.
   memories of his attack, not her hallucinations), Peggy an Agents of S.H.I.E.L.D. S7 step (Simmons posing as her in 1955). No step for
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
-- No mockups are pending.
+- **Pending mockup: Home, the datapad's front screen (owner, November 2026: "build a homepage that's like a datapad, Home Screen with
+  all of the buttons and information ... I just want to see it and feel what it would be like to have a home page").** In the test build
+  only (one `MOCKUP BEGIN` CSS block, one script block at the end of the script). A Home button leads the dock (seven buttons) and the
+  datapad opens on Home: the Agent ID strip (insignia, codename, agent number, clearance and the bar to the next level; tap for the File),
+  Up next as Story has it (`upNext`; Resume runs `goUpNext`), readouts (titles watched by `xpTitles`, main chapters and character boxes
+  complete), the six stones, every dock page as a card (each carrying the dock's new dot), the archives you've found (as the File's
+  Archives), the latest headline heard, and a clock. Story becomes one page among the others. Leaving Home for a page by a card or the
+  dock remembers it, so Back from that page comes home again (`homeBack`); tapping Story drops that. Not approved: ask the owner before
+  folding it into main.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
   owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
   are #4 (the replays' back door), #8 (the mouse holds take a 10px wobble), #9 (On your left's edge counts only above the titles, never

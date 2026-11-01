@@ -1475,6 +1475,74 @@ body{ padding-bottom:var(--dockh); }
 .atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; } .atl-dc em{ font-style:normal; font-size:18px; color:#7FD95A; }
 .hf-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(127,217,90,.10),rgba(127,217,90,.03)); --ak:#7FD95A; }
 
+/* MOCKUP BEGIN: Home, the datapad's front screen (owner, November 2026: "build a homepage that's like a datapad"). Not approved */
+#homePanel .maptop{ align-items:flex-end; }
+#homePanel .hm-clock{ margin-left:auto; text-align:right; font:11px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
+#homePanel .hm-clock b{ display:block; font:400 22px/1 'Anton','Impact',sans-serif; letter-spacing:1px; color:#EEF5FF; }
+.hm-view{ padding:6px 16px calc(var(--dockh) + 70px); }
+.hm-view > * + *{ margin-top:12px; } .hm-view > .hm-lbl{ margin-top:22px; margin-bottom:-4px; }
+.hm-lbl{ display:flex; justify-content:space-between; align-items:center; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
+.hm-lbl span + span{ color:#56637C; }
+/* every card is a pane of the datapad: a thin frame with its corners marked, like a HUD's */
+.hm-card{ position:relative; display:block; width:100%; padding:14px; border:1px solid #232C3E; border-radius:12px; background:linear-gradient(180deg,rgba(26,34,52,.72),rgba(14,19,30,.72)); color:#EEF1F6; text-align:left; touch-action:manipulation; }
+button.hm-card{ cursor:pointer; } button.hm-card:active{ transform:scale(.99); }
+.hm-card::before, .hm-card::after{ content:""; position:absolute; width:10px; height:10px; border:solid #4F7FC0; pointer-events:none; }
+.hm-card::before{ top:-1px; left:-1px; border-width:2px 0 0 2px; border-radius:12px 0 0 0; }
+.hm-card::after{ bottom:-1px; right:-1px; border-width:0 2px 2px 0; border-radius:0 0 12px 0; }
+/* the agent */
+.hm-agent{ display:flex; align-items:center; gap:12px; }
+.hm-ava{ position:relative; flex:0 0 52px; width:52px; height:52px; border-radius:50%; border:1px solid #2E3A56; background:radial-gradient(circle at 50% 45%, #1A2336 0%, #0B1019 70%); overflow:hidden; }
+.hm-ava .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:scale(.7); }
+.hm-ava b{ display:block; text-align:center; font:300 22px/50px 'IBM Plex Sans',sans-serif; color:#7FA6D8; }
+.hm-agent .hm-who{ flex:1; min-width:0; }
+.hm-agent .hm-who b{ display:block; font:400 21px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hm-agent .hm-who small{ display:block; margin-top:4px; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#9AA6BA; }
+.hm-agent .hm-lv{ text-align:right; }
+.hm-agent .hm-lv b{ display:block; font:400 30px/1 'Anton','Impact',sans-serif; color:#EEF5FF; }
+.hm-agent .hm-lv small{ display:block; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
+.hm-xp{ height:3px; margin-top:12px; border-radius:2px; background:#1C2536; overflow:hidden; } .hm-xp span{ display:block; height:100%; background:linear-gradient(90deg,#3A78C9,#8FC1FF); }
+/* up next: the one thing to do now */
+.hm-next{ padding:16px; border-color:#2F4F80; background:radial-gradient(500px 200px at 0% 0%, rgba(79,163,255,.16), rgba(0,0,0,0) 70%), linear-gradient(180deg,rgba(22,32,54,.85),rgba(12,18,30,.85)); }
+.hm-next h3{ margin:8px 0 0; font:400 26px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
+.hm-next p{ margin:6px 0 0; color:#9AA3B2; font-size:15px; }
+.hm-go{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:10px 16px; border-radius:999px; background:#EEF1F6; color:#0B1019; font:600 15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.hm-go svg{ width:14px; height:14px; }
+.hm-chbar{ display:flex; align-items:center; gap:10px; margin-top:12px; font:10.5px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#9AA6BA; }
+.hm-chbar i{ flex:1; height:3px; border-radius:2px; background:#1C2536; overflow:hidden; } .hm-chbar i span{ display:block; height:100%; background:#8FC1FF; }
+/* the readouts */
+.hm-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.hm-stats .hm-card{ padding:12px 10px; }
+.hm-stats b{ display:block; font:400 26px/1 'Anton','Impact',sans-serif; color:#EEF5FF; }
+.hm-stats b small{ font:400 15px 'Anton','Impact',sans-serif; color:#56637C; }
+.hm-stats em{ display:block; margin-top:6px; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#9AA6BA; }
+.hm-stones{ display:flex; align-items:center; gap:10px; }
+.hm-stones .hm-lbl{ flex:0 0 auto; }
+.hm-stones div{ flex:1; display:flex; justify-content:space-between; }
+.hm-stones i{ width:22px; height:22px; transform:rotate(45deg); border-radius:4px; border:1px solid #2A3140; background:#121827; }
+.hm-stones i.on{ border-color:var(--gl); background:radial-gradient(circle at 35% 30%, var(--gl), var(--g) 45%, var(--gd)); box-shadow:0 0 10px var(--g); }
+/* the apps: every page of the datapad, a tap away */
+.hm-apps{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.hm-apps .hm-card{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; padding:14px 12px 12px; }
+.hm-apps svg{ width:26px; height:26px; color:#8FC1FF; }
+.hm-apps b{ font:400 17px/1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
+.hm-apps small{ margin-top:-6px; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; color:#7D8BA6; }
+.hm-apps .nw::after, .hm-arch .nw::after{ content:""; position:absolute; top:10px; right:10px; width:8px; height:8px; border-radius:50%; background:#4FA3FF; box-shadow:0 0 8px #4FA3FF; }
+/* the archives you've found, in their own colours */
+.hm-arch{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.hm-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(127,217,90,.10),rgba(127,217,90,.03)); --ak:#7FD95A; }
+.hm-arch button{ border-color:var(--ac); background:var(--ab); }
+.hm-arch button::before{ border-color:var(--ak); } .hm-arch button::after{ border-color:var(--ak); }
+.hm-arch small{ display:block; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:var(--ak); }
+.hm-arch b{ display:block; margin-top:4px; font:400 17px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
+.hm-arch em{ display:block; margin-top:6px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.2px; text-transform:uppercase; color:#9AA6BA; }
+/* the latest transmission */
+.hm-tx p{ margin:8px 0 0; font-size:16px; line-height:1.35; }
+.hm-tx small{ display:block; margin-top:8px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7D8BA6; }
+.hm-tx .hm-out{ font:400 13px 'Anton','Impact',sans-serif; letter-spacing:1px; color:#E9897E; }
+.hm-foot{ display:flex; align-items:center; gap:10px; padding-top:4px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#56637C; }
+.hm-foot i{ width:7px; height:7px; border-radius:50%; background:#7FD95A; box-shadow:0 0 6px #7FD95A; animation:hmblink 2.4s steps(1) infinite; }
+@keyframes hmblink{ 50%{ opacity:.25; } }
+/* MOCKUP END */
 </style>
 </head>
 <body>
@@ -12215,6 +12283,91 @@ function shatter(x, y) {
     }, 3800);
   }, 650);
 };
+/* MOCKUP BEGIN: Home, the datapad's front screen. A Home button leads the dock, and the datapad opens on it: your Agent ID, what's next,
+   the readouts, every page and archive a tap away, the latest transmission. Story is one of its pages now. Not approved */
+if (MOCK) (() => {
+  const dock = document.getElementById("dock");
+  dock.insertAdjacentHTML("afterbegin", `<button type="button" data-dock="home" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Home</button>`);
+  DOCK_NAMES.home = "Home";
+  document.getElementById("filePanel").insertAdjacentHTML("beforebegin", `<div class="filepanel dockpg" id="homePanel" hidden role="dialog" aria-label="Home"><div class="fileview hm-view" id="homeView"></div></div>`);
+  const hp = document.getElementById("homePanel"), hv = document.getElementById("homeView");
+  let homeOpen = false, homeBack = false, clockT = 0;
+  const ico = k => { const b = dock.querySelector(`[data-dock="${k}"] svg`); return b ? b.outerHTML : ""; };
+  const isNw = k => { const b = dock.querySelector(`[data-dock="${k}"]`); return !!b && b.classList.contains("nw"); };
+  const clock = () => { const d = new Date(), el = document.getElementById("hmClock"); if (!el) return;
+    el.innerHTML = `<b>${d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</b>${d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" })}`; };
+  function renderHome() {
+    const A = achList(), xp = xpOf(A), level = xpLevel(xp, A), lo = XP_AT[Math.min(level, XP_AT.length) - 1] || 0, hi = XP_AT[level] ?? lo, pct = level > 10 || hi <= lo ? 100 : Math.round((xp - lo) / (hi - lo) * 100);
+    const T = xpTitles(), seen = T.filter(([t]) => atlSeenT(t)).length;
+    const mainCh = DATA.chapters.filter(c => c.num), chDone = mainCh.filter(isDone).length;
+    const chars = DATA.chars.filter(c => !charHidden(c)), chrDone = chars.filter(isDone).length;
+    // up next, as the Story page has it
+    const u = upNext(); let nx;
+    if (u && u.kind === "chapter") { const [n, t] = count(u.e); nx = `<div class="hm-lbl"><span>Up next</span><span>${esc(u.e.label)}</span></div><h3>${esc(tn(u.t))}</h3><p>${esc(u.e.title || "")}</p><div class="hm-chbar"><i><span style="width:${t ? n / t * 100 : 0}%"></span></i>${n} of ${t}</div>`; }
+    else if (u && u.kind === "unlock") nx = `<div class="hm-lbl"><span>Up next</span><span>New chapter</span></div><h3>${esc(u.e.label)}</h3><p>Ready to unlock.</p>`;
+    else if (u) nx = `<div class="hm-lbl"><span>Up next</span><span>Sacred Timeline</span></div><h3>${esc(tn(u.t))}</h3>`;
+    else nx = `<div class="hm-lbl"><span>Up next</span><span>All clear</span></div><h3>Nothing queued</h3><p>Every title on your path is watched.</p>`;
+    // the archives you've found
+    const ex = state.eggs || {};
+    const arch = [["cp", "compound", "The Avengers Compound", "Personnel", () => ALLIES.filter(o => cpSteps(o).length).length, "on file"],
+      ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
+      ["dc", "damagecontrol", "Damage Control", "Incidents", () => DC.filter(dcSeen).length, "reports"],
+      ["coll", "collector", "The Collection", "Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
+    // the latest transmission: the last headline you've heard, or the last message
+    const N = cmHeardN(), M = cmHeardM(); let tx = "";
+    if (N.length) { const k = N[N.length - 1].slice(2), i = k.indexOf("::"), t = k.slice(0, i), h = k.slice(i + 2);
+      tx = `<button type="button" class="hm-card hm-tx" data-hm="comms"><div class="hm-lbl"><span>Latest transmission</span><span class="hm-out">${esc(OUTLETS[newsSrc(t)][2] || OUTLETS[newsSrc(t)][0])}</span></div><p>${esc(h)}</p><small>${esc(tn(t))}${cmUnread("news") || cmUnread("msg") ? " · Unread in Comms" : ""}</small></button>`; }
+    else if (M.length) { const m = M[M.length - 1]; tx = `<button type="button" class="hm-card hm-tx" data-hm="comms"><div class="hm-lbl"><span>Latest transmission</span><span>${esc(m.k ? MSG_KIND[m.k] : "Message")}</span></div><p>${esc(m.re || m.f)}</p><small>From ${esc(m.f)}</small></button>`; }
+    const app = (k, name, sub) => dock.querySelector(`[data-dock="${k}"]`) && !dock.querySelector(`[data-dock="${k}"]`).hidden ? `<button type="button" class="hm-card${isNw(k) || (k === "story" && isNw("story")) ? " nw" : ""}" data-hm="${k}">${ico(k)}<b>${name}</b><small>${sub}</small></button>` : "";
+    const sc = hv.scrollTop;
+    hv.innerHTML = `
+      <button type="button" class="hm-card" data-hm="file"><div class="hm-agent"><span class="hm-ava">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : "<b>+</b>"}</span>
+        <span class="hm-who"><b>${state.codename ? esc(state.codename) : "Agent"}</b><small>${esc(agentNo())} · ${level > 10 ? "" : "Level " + level + " · "}${esc(CLEARANCE[level - 1] || CLEARANCE[CLEARANCE.length - 1])}</small></span>
+        <span class="hm-lv"><b>${level > 10 ? "&#9733;" : level}</b><small>Clearance</small></span></div>
+        <div class="hm-xp"><span style="width:${pct}%"></span></div></button>
+      <button type="button" class="hm-card hm-next" data-hm="next">${nx}${u ? `<span class="hm-go"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor"/></svg>${u.kind === "unlock" ? "Unlock" : "Resume"}</span>` : ""}</button>
+      <div class="hm-stats">
+        <div class="hm-card"><b>${seen}<small>/${T.length}</small></b><em>Titles watched</em></div>
+        <div class="hm-card"><b>${chDone}<small>/${mainCh.length}</small></b><em>Chapters</em></div>
+        <div class="hm-card"><b>${chrDone}<small>/${chars.length}</small></b><em>Characters</em></div></div>
+      <div class="hm-card hm-stones"><div class="hm-lbl"><span>Stones</span></div><div>${STONES.map(st => `<i class="${(state.stones || {})[st.id] ? "on" : ""}" style="${gemVars(st)}" title="${esc(st.n)}"></i>`).join("")}</div></div>
+      <div class="hm-lbl"><span>Datapad</span><span>${achCount()} files</span></div>
+      <div class="hm-apps">${app("story", "Story", "Watch list")}${app("log", "Log", "Chapters · Paths")}${app("atlas", "Atlas", "Places")}${app("net", "Network", "Connections")}${app("comms", "Comms", "News · Messages")}${app("file", "File", "Agent ID")}</div>
+      ${arch.length ? `<div class="hm-lbl"><span>Archives</span><span>${arch.length} of 4 found</span></div><div class="hm-arch">${arch.map(([m, , t, k, n, w]) => `<button type="button" class="hm-card ar-${m}" data-hm="arch:${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em></button>`).join("")}</div>` : ""}
+      ${tx}
+      <div class="hm-foot"><i></i><span>Uplink secure</span><span style="margin-left:auto">S.H.I.E.L.D. datapad</span></div>`;
+    hv.scrollTop = sc;
+  }
+  function openHome() {
+    if (homeOpen) { hv.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); return; }
+    renderHome(); hp.hidden = false; homeOpen = true; homeBack = false; bodyLock(); clock(); clearInterval(clockT); clockT = setInterval(clock, 15000); dockSync();
+  }
+  function closeHome() { if (!homeOpen) return; hp.hidden = true; homeOpen = false; clearInterval(clockT); bodyFree(); }
+  // the title row: the page's name and the time, like the top of a tablet
+  hp.insertAdjacentHTML("afterbegin", `<div class="maptop"><h2 data-glow="Home">Home</h2><span class="hm-clock" id="hmClock"></span></div>`);
+  // the dock: Home first. Leaving Home for a page remembers it, so Back from that page comes home again
+  const go = k => { const b = dock.querySelector(`[data-dock="${k}"]`); if (b) b.click(); };
+  dock.addEventListener("click", ev => {
+    const b = ev.target.closest("[data-dock]"); if (!b) return; const t = b.dataset.dock;
+    if (t === "home") { ev.stopImmediatePropagation(); haptic(8);
+      if (homeOpen) { openHome(); return; }
+      if (dockCur() !== "story" || openEntry) { homeBack = false; go("story"); setTimeout(openHome, 60); } else openHome();
+      return; }
+    if (homeOpen) { closeHome(); homeBack = t !== "story"; if (t === "story") { ev.stopImmediatePropagation(); haptic(8); dockSync(); } }
+    else if (t === "story") homeBack = false;
+  }, true);
+  const ds = dockSync; dockSync = function () { ds(); if (homeOpen) dock.querySelectorAll("[data-dock]").forEach(b => b.setAttribute("aria-current", b.dataset.dock === "home" ? "page" : "false")); };
+  window.addEventListener("popstate", () => setTimeout(() => { if (homeBack && !homeOpen && dockCur() === "story" && !openEntry && !dossierOpen) openHome(); }, 30));
+  hv.addEventListener("click", ev => {
+    const b = ev.target.closest("[data-hm]"); if (!b) return; const k = b.dataset.hm; haptic(8);
+    if (k === "next") { closeHome(); homeBack = true; dockSync(); setTimeout(goUpNext, 60); return; }
+    if (k.startsWith("arch:")) { const m = k.slice(5); closeHome(); homeBack = true; openColl(m === "coll" ? undefined : m); dockSync(); return; }
+    go(k);
+  });
+  // the datapad opens on Home
+  openHome();
+})();
+/* MOCKUP END */
 </script>
 </body>
 </html>
