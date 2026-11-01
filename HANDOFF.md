@@ -83,7 +83,7 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
   timeline band is 56px tall, so its row sits just under it, as high as it can go. **Mockup (test build):** Chapter 7's band is replaced by a
   faint copy of its own banner across the whole box (`CH7_BG`: exactly the banner's lines, the gold line in from the left to the
-  junction, four gold strands and the red one, spread evenly from top to bottom; owner: no added branches, "I didn't ask for those"),
+  junction, then four gold strands each side of the red one, spread evenly from top to bottom (owner: "2 on each side that far apart is ugly"); owner: no added branches, "I didn't ask for those"),
   so its row sits level with the rest. The tile on the Story page keeps its band.
 
 ### Testing checklist (everything on main, 1 November 2026)
