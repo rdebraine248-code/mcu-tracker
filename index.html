@@ -1499,6 +1499,43 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .collpanel .cx-case{ border-color:color-mix(in srgb, var(--ix) 30%, #1E2638); }
 .collpanel.raft .co-chain li::before{ border-color:var(--ix); } .collpanel.raft .co-chain li:last-child::before{ background:var(--ix); box-shadow:0 0 8px var(--ix); }
 
+/* MOCKUP BEGIN landscape */
+/* landscape (owner, November 2026: "I want to be able to use this app fully in landscape"): on a phone turned sideways the dock becomes a
+   rail down the left, clear of the camera, so the pages get the whole height; every page moves over to make room for it */
+@media (orientation: landscape) and (max-height: 540px){
+  :root{ --dockh:0px; --dockw:calc(68px + env(safe-area-inset-left,0px)); }
+  body{ padding-bottom:0; padding-left:var(--dockw); }
+  .dock{ top:0; right:auto; bottom:0; width:var(--dockw); height:auto; flex-direction:column; padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px); border-top:0; border-right:1px solid #222A3A; }
+  .dock button{ gap:4px; font-size:8.5px; letter-spacing:1px; }
+  .dock svg{ width:20px; height:20px; }
+  @keyframes dockinl{ from{ transform:translateX(-100%); opacity:0; } to{ transform:none; opacity:1; } }
+  .dock.rise{ animation-name:dockinl; }
+  .filepanel, .mappanel, .netpanel, .dossier:not(.plog), #logHead, .whih, .hf-pick{ left:var(--dockw); }
+  .whih{ bottom:env(safe-area-inset-bottom,0px); }
+  .wrap, .dockpg .maptop, .fileview{ padding-right:max(20px, env(safe-area-inset-right,0px)); }
+  /* a page's title and its tabs share one row, so the page starts higher */
+  .dockpg .maptop{ flex-wrap:nowrap; padding-bottom:8px; }
+  .dockpg .maptop .atl-views{ flex:1 1 0; min-width:0; flex-basis:0; margin-top:0; padding-top:0; }
+  /* Story: the header stands in a column on the left, the boxes fill the right */
+  #app.wrap{ display:grid; grid-template-columns:minmax(230px, 32%) minmax(0, 1fr); column-gap:26px; align-items:start; max-width:none; }
+  #app .mast, #app .modes{ grid-column:1; }
+  #app .mast{ position:sticky; top:0; flex-direction:column; align-items:stretch; gap:10px; padding-top:calc(6px + env(safe-area-inset-top,0px)); padding-bottom:12px; border-bottom:0; }
+  #app .mast h1{ white-space:normal; font-size:30px; line-height:1.02; }
+  #app .mast h1::before{ white-space:normal; right:0; }   /* the glow wraps with its title, instead of trailing off across the boxes */
+  #app .meter{ flex:none; min-width:0; }
+  #app .modes{ position:sticky; top:var(--mastH, 240px); flex-direction:column; align-items:stretch; gap:6px; margin:0 0 10px; }
+  #app .modes button{ padding:8px 14px; font-size:15px; }
+  #app.wrap{ grid-template-rows:auto auto 1fr; }   /* the boxes' height goes to the last row, so the header and its buttons stay together */
+  #app #view{ grid-column:2; grid-row:1 / 4; min-width:0; } #app .postcredits{ grid-column:2; grid-row:4; }
+  /* Atlas: the map on the left, its list beside it */
+  .atl{ flex-direction:row; }
+  .atl-map{ flex:1 1 58% !important; height:auto !important; border-top:0; border-right:1px solid #1C2538; }
+  .atl-low{ flex:0 0 42%; border-top:0; }
+  .atl-grip{ display:none; }
+  .atl.big .atl-list{ visibility:visible; }
+}
+/* MOCKUP END */
+
 </style>
 </head>
 <body>
@@ -12251,6 +12288,13 @@ function shatter(x, y) {
     }, 3800);
   }, 650);
 };
+/* MOCKUP BEGIN landscape */
+// landscape: the Story page's mode buttons stand just under its header in the left column, however tall the header is
+{ const m = document.querySelector("#app .mast"); if (m && window.ResizeObserver) new ResizeObserver(() => document.documentElement.style.setProperty("--mastH", m.offsetHeight + "px")).observe(m); }
+// turning the phone redraws the Atlas for its new shape (map beside the list, or over it)
+{ const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
+/* MOCKUP END */
+
 </script>
 </body>
 </html>

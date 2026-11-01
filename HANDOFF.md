@@ -64,6 +64,18 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   is retired). It's at v99 and matches main (pushed 1 November 2026). Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
+### Landscape (in progress, test build only)
+
+Owner, November 2026: "I want this app to work in landscape mode ... I want to be able to use this app fully in landscape". It's a
+mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn't carry it until it's promoted. One media query,
+`(orientation: landscape) and (max-height: 540px)` (phones on their side; tablets keep the portrait layout).
+- **Stage 1 (done):** the dock is a rail down the left (`--dockw`; `--dockh` is 0), every page moves over for it, the ticker runs along
+  the bottom of the content; Story's header and its mode buttons stand in a sticky column on the left with the boxes on the right
+  (`--mastH` from a ResizeObserver); the Atlas puts its map left and its list right, and redraws when the phone turns; a page's title
+  and its tabs share one row.
+- **Stage 2 (next):** the box panels, the Log, the Network's own header and card, the indexes and their files, then dialogs, toasts,
+  eggs and the boot screen.
+
 ### Testing checklist (everything on main, 1 November 2026)
 
 Close the app fully and reopen it online first.
