@@ -2519,30 +2519,10 @@ function renderAll() { renderMeter(); renderView(); if (openEntry) renderPanel(o
 const panel = document.getElementById("panel");
 let openEntry = null, openFrom = null, openKind = null, closeTimer = null, closeDone = null, pqHoldUntil = 0, listHold = null;
 const CHECK = c => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="square"/></svg>`;
-/* MOCKUP BEGIN ch7 timeline */
-// Chapter 7 open (owner, November 2026: "the branching timeline graphic a little bit more involved in the entire box and maybe a bit
-// fainter, part of the background"): the Sacred Timeline comes in from the left and breaks into branches that reach across and down the
-// whole box, faint, standing still behind the list; the band across its top is gone, so its top row sits level with every other box
-const CH7_BG = (() => {   // Chapter 7's own banner, grown across the whole box (owner, November 2026, from the TVA's monitor, as inspiration only: branches
-  // at different points, and branches from those branches): the gold line comes in from the left to its junction, where the red carries
-  // straight on; the gold splits there, each half splits again further along, and again, ending level and evenly spaced top to bottom
-  const G = "#D9A441", W = 318, H = 600, J = [80, 300], END = W + 12;
-  const ln = (d, c, w) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" vector-effect="non-scaling-stroke"/>`;
-  const fork = (x1, y1, x2, y2) => `M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}`;
-  let out = ln(`M-10 ${J[1]} H${J[0]}`, G, 5);
-  // each split: from (x, y) its two halves curve to y ± d, run level to the next split, and split again
-  const grow = (x, y, d, lvl) => { const w = [3, 2.2, 1.6][lvl], x2 = x + 42, nx = x2 + [32, 24, 0][lvl] + (y < J[1] ? 0 : 10);   // the lower half splits a little later than the upper, so it reads as grown, not stamped
-    [-1, 1].forEach(sg => { const yc = y + sg * d; out += ln(fork(x, y, x2, yc) + ` H${lvl < 2 ? nx : END}`, G, w); if (lvl < 2) grow(nx, yc, d / 2, lvl + 1); }); };
-  grow(J[0], J[1], 150, 0);
-  out += ln(`M${J[0]} ${J[1]} H${END}`, "#C8102E", 3);
-  return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; opacity: .2"><svg width="100%" height="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="display: block">${out}</svg>`
-    + `<span style="position: absolute; left: ${(J[0] / W * 100).toFixed(2)}%; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #15171D; border: 4px solid #F3EFE7; box-sizing: border-box"></span></div>`; })();
-/* MOCKUP END */
 function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
   // background decorations pinned in place while the list scrolls
   let h = e.decor || "";
-  if (typeof CH7_BG !== "undefined" && e.id === "ch-7") h = CH7_BG;
   h = h.replace('style="height: 30px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="30"',
                 'style="height: clamp(56px, 12vw, 150px); margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="100%"');
   h = h.replace('style="position: relative; height: 12px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="12"',
