@@ -2041,7 +2041,7 @@ function available(e) {
 function lockedNote(e) {
   if (extraShut(e)) return "[ Classified ]";
   const p = prevOf(e);
-  return p ? (p.num ? `Finish ${p.label} first` : "Unlock the Extra before it first") : "[ Locked ]";
+  return p ? (p.num ? `Finish ${p.label} first` : "Unlock the Extra before it first") : "Locked";   // a toast: "Locked."
 }
 const LANES = { main: { name: "Sacred Timeline", c: "#FFB347", p: 50 }, beyond: { name: "Beyond the MCU", c: "#3DBB6F", p: 10 },
   fox: { name: "FoX-Men", c: "#3B7DDD", p: 30 }, spider: { name: "Spider-Verse", c: "#E53935", p: 66 }, pruned: { name: "Pruned Timelines", c: "#9C8FB0", p: 82 } };
@@ -2224,13 +2224,13 @@ function tile(e, kind) {
   const cover = locked ? `<div class="cover ${esc(e.cover.cls || "")}" style="${esc(e.cover.style)};position:absolute;inset:0;margin:0;">
       ${scoped(e.cover.decor)}
       <span class="clabel" style="color:${e.cover.ink}">${esc(e.label)}</span>
-      <span class="ctap${available(e) ? "" : " ccl"}" style="color:${e.cover.ink}">${available(e) ? "[ Locked ]" : "[ Classified ]"}</span></div>` : "";
+      <span class="ctap${available(e) ? "" : " ccl"}" style="color:${e.cover.ink}">${available(e) ? "Unlock" : "[ Classified ]"}</span></div>` : "";
   const sealedC = kind === "char" && charHidden(e), shut = sealedC && !charGate(e);
   const name = locked ? e.label + ", locked." : sealedC ? "Classified box." : e.title + (kind === "chapter" ? ", " + e.label : "");
   // a sealed multiverse character box wears the same cover as its Extras chapter
   const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover, known = sealedC && charNamed(e);   // a name you already know reads on the cover; the box still waits for its reveal
-  const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">${known ? esc(boxName(e)) : "Extras"}</span><span class="ctap${shut ? " ccl" : ""}" style="color:${cc.ink}">${shut ? "[ Classified ]" : "[ Locked ]"}</span></div>`
-    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${known ? esc(boxName(e)) : "Extras"}</span><span class="ctap${shut ? " ccl" : ""}">${shut ? "[ Classified ]" : "[ Locked ]"}</span></div>`;
+  const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">${known ? esc(boxName(e)) : "Extras"}</span><span class="ctap${shut ? " ccl" : ""}" style="color:${cc.ink}">${shut ? "[ Classified ]" : "Unlock"}</span></div>`
+    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${known ? esc(boxName(e)) : "Extras"}</span><span class="ctap${shut ? " ccl" : ""}">${shut ? "[ Classified ]" : "Unlock"}</span></div>`;
   return `<div class="${esc(cls)}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
       <div ${locked || sealedC ? 'aria-hidden="true"' : ""} style="display:contents">${tileInner(e)}</div>${cover}${ccover}</div>`;
 }
@@ -2270,7 +2270,7 @@ function refreshChapterChrome() {
   if (state.mode !== "chapters") return;
   document.querySelectorAll('#view .tile[data-kind="chapter"]').forEach(t => {
     const tap = t.querySelector(".cover .ctap"); if (!tap) return;
-    const e = DATA.chapters.find(c => c.id === t.dataset.id); tap.textContent = available(e) ? "[ Locked ]" : "[ Classified ]"; tap.classList.toggle("ccl", !available(e));
+    const e = DATA.chapters.find(c => c.id === t.dataset.id); tap.textContent = available(e) ? "Unlock" : "[ Classified ]"; tap.classList.toggle("ccl", !available(e));
   });
   const H = sagaHeads();
   document.querySelectorAll("#view .saga").forEach((s, i) => {

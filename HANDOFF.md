@@ -64,6 +64,9 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   is retired). It's at v99 and matches main (pushed 1 November 2026). Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
+- **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
+  again, by hand or by holding a list to mark it all, doesn't replay it. Don't reopen.
+
 ### Landscape (in progress, test build only)
 
 Owner, November 2026: "I want this app to work in landscape mode ... I want to be able to use this app fully in landscape". It's a
@@ -89,7 +92,7 @@ Close the app fully and reopen it online first.
   name box plain; transfers read "File transferred to the Raft" with the title small beneath, and "out of the Compound" until the Raft is
   found. Each index has its colour: Compound blue, Raft red, Damage Control muted green, Collection gold.
 - **Earth-199999** for the main MCU world everywhere.
-- **No hint text:** covers read [ Locked ] / [ Classified ] (Characters' multiverse boxes too, once Loki S1 is watched); "Override: N to
+- **No hint text:** covers read Unlock / [ Classified ] (Characters' multiverse boxes too, once Loki S1 is watched); "Override: N to
   go"; boot screen AWAITING AUTHORIZATION.
 - **The news ticker** plays on over Comms.
 - **Earlier on main:** the handover (Wanda, Bucky, Loki, Yelena, Vision); episode-by-episode reveals (WandaVision 4, 5, 7 to 8); the
@@ -354,7 +357,7 @@ insignia celebration covers the page.
   every label, district and line of story text uses it (`earthOfFile`, `earthOf`, `HOME`, `earths.json`). The films call it Earth-616;
   Peter B. Parker's Earth-616B in the Spider-Verse is a different world and keeps its name.
 - **No "tap / hold / swipe to..." text anywhere** (owner, November 2026: "cut the stupid tap to whatever text everywhere, it's
-  immersion breaking"): text names what's there, never how to use it. Box covers read [ Locked ] (can be opened) or [ Classified ] (not yet), the same on Chapters and Characters; a locked box
+  immersion breaking"): text names what's there, never how to use it. Box covers read Unlock (can be opened; owner: "Change [ Locked ] to just Unlock") or [ Classified ] (not yet), the same on Chapters and Characters; a locked box
   tapped again counts down "Override: N to go"; the boot screen says AWAITING AUTHORIZATION. Only the eggs' own how-tos, revealed on
   purpose in the Agent File, explain a gesture.
 - **Pop-ups have no Back button**: back, or a tap off it, closes it. **The phone's back closes the top thing only**: an open card in the
