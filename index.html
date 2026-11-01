@@ -2524,7 +2524,7 @@ function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
   // background decorations pinned in place while the list scrolls
   let h = e.decor || "";
-  if (e.id === "ch-7") return "";   // its branching line moves down into the box, where the titles branch off it (chBranch)
+  if (e.id === "ch-7") return typeof CH7_BG !== "undefined" ? `<div class="pfix" aria-hidden="true">${CH7_BG}</div>` : "";   // its branching line moves down into the box (chBranch; the mockup, CH7_BG, draws it behind the list)
   h = h.replace('style="height: 30px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="30"',
                 'style="height: clamp(56px, 12vw, 150px); margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="100%"');
   h = h.replace('style="position: relative; height: 12px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="12"',
@@ -2633,7 +2633,23 @@ let openWasDone = false, revealChanged = false;
 // Chapter 7 is where the Sacred Timeline branches, so its open box draws its branching line between the progress bar and the titles,
 // full width, the titles carrying on from it (owner, November 2026: up top it was "so small and squished ... why is it there"); its top
 // row stands level with every other box
-function chBranch(e) { if (e.id !== "ch-7" || !e.decor) return ""; const m = /<svg[\s\S]*<\/svg>/.exec(e.decor); if (!m) return "";
+/* MOCKUP BEGIN ch7 branching */
+// Chapter 7 open, mockup (owner, November 2026: the splitting version "was the best idea but just not so wide apart, doesn't need to
+// take up the whole screen"): its gold line comes in from the left to the junction, the red carries straight on, and the gold splits,
+// each half splits again, and again, four strands each side ending level; compact, faint, behind the top of the list
+const CH7_BG = (() => { const G = "#D9A441", W = 318, H = 300, J = [80, 150], END = W + 12;
+  const ln = (d, c, w) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" vector-effect="non-scaling-stroke"/>`;
+  const fork = (x1, y1, x2, y2) => `M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}`;
+  let out = ln(`M-10 ${J[1]} H${J[0]}`, G, 4);
+  const grow = (x, y, d, lvl) => { const w = [2.6, 2, 1.5][lvl], x2 = x + 42, nx = x2 + [32, 24, 0][lvl] + (y < J[1] ? 0 : 10);
+    [-1, 1].forEach(sg => { const yc = y + sg * d; out += ln(fork(x, y, x2, yc) + ` H${lvl < 2 ? nx : END}`, G, w); if (lvl < 2) grow(nx, yc, d / 2, lvl + 1); }); };
+  grow(J[0], J[1], 72, 0);
+  out += ln(`M${J[0]} ${J[1]} H${END}`, "#C8102E", 2.6);
+  return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden"><div style="position: absolute; left: 0; right: 0; top: 215px; height: 340px; opacity: .22">`
+    + `<svg width="100%" height="100%" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="display: block">${out}</svg>`
+    + `<span style="position: absolute; left: ${(J[0] / W * 100).toFixed(2)}%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: #15171D; border: 3.5px solid #F3EFE7; box-sizing: border-box"></span></div></div>`; })();
+/* MOCKUP END */
+function chBranch(e) { if (e.id !== "ch-7" || !e.decor || typeof CH7_BG !== "undefined") return ""; const m = /<svg[\s\S]*<\/svg>/.exec(e.decor); if (!m) return "";
   return `<div class="chbranch" aria-hidden="true">${m[0].replace('height="30"', 'height="100%"').replace(/ style="display: block; background: #15171D"/, ' style="display:block"')}</div>`; }
 function pinTop() { panel.style.removeProperty("--pinT"); const pin = panel.querySelector(".pin"), row = pin && pin.firstElementChild; if (!row) return;
   const pad = parseFloat(getComputedStyle(pin).paddingTop) || 0, base = row.getBoundingClientRect().top - panel.getBoundingClientRect().top - pad;
