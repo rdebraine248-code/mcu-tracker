@@ -350,6 +350,14 @@ insignia celebration covers the page.
   season 6's Benson, Keller, Sarge and Izel in Earth-199999, Sibyl in Earth-19859 with Malick; Across the Spider-Verse's Vulture in Earth-65
   and Prowler in Earth-928, where their stories happen; Deadpool & Wolverine's Gambit and Blob in The Void; Uatu in **The Fifth
   Dimension** (the MCU Wiki's home for him: he watches from outside every Earth).
+- **Compound and Raft files share one layout** (owner, November 2026: "the same info ... designed the same way but stylistically
+  different"): a name box with the badge (the Compound's round one, the Raft's square plate), the ID line, the name, who they are, the
+  universe on its own line (`uniLine`, no Universe tile), and the status in the corner; then First seen and Last seen, as far from the
+  name box as from each other. The Raft's Threat class tile and status banner are gone (its class is on the ID line). A transfer is a
+  line of the record like the rest, its title small under it (`hoMark`), and names the other place only once you've found it ("File
+  transferred out of the Compound" until then).
+- **Back from the Network returns to the file you came from** (`netFrom`, `netGoTo`): tapping a file's connections no longer loses
+  the file.
 - **A Network person counts the seasons on their own file**: a step filed under a whole show ("Agents of S.H.I.E.L.D.", "Agent Carter")
   counts under its season ("In season 5," or the straight-through "In episode 44,"; `season` in `prof/hub2.js`), and an episode only
   brings someone in when that season is on their own file (`epMet`), so a tie that just mentions them (Thor in Agents of S.H.I.E.L.D.
