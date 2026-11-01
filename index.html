@@ -3482,23 +3482,32 @@ document.addEventListener("click", ev => { const b = ev.target.closest("[data-lo
 document.addEventListener("click", ev => { const d = ev.target.closest("[data-dpath]"), p = ev.target.closest("[data-xprof]"), f = ev.target.closest("[data-xfile]");
   if (d) { haptic(8); pathGo(d.dataset.dpath); } else if (p) { haptic(8); profGo(p.dataset.xprof); } else if (f) { haptic(8); const [tg, id] = f.dataset.xfile.split(":"); fileGo(tg, id); } });
 // ---------- Paths, profiles, the indexes and the Network, linked both ways (owner, November 2026: "network, paths, indexes, profiles should
-// all be connected to and from each other", the indexes only once found). A file belongs to the character box whose subjects name them
-// (Yelena is in Black Widow's and The Avengers': the box with fewer subjects, her own, wins); the box gives the profile and the path
-let XBOX = null;
-const BOX_UNI = { "cx-the-watcher": "by", "cx-the-sony-spider-men": "sv", "cx-the-fox-men": "fox", "cx-pruned-characters": "pr" };
-const reEsc = t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-function boxOfFile(o) { if (!o) return null; XBOX = XBOX || {}; if (o.id in XBOX) return XBOX[o.id];
-  const tw = THREATS.includes(o) && ALLIES.find(a => a.rf === o.id); if (tw) return XBOX[o.id] = boxOfFile(tw);
-  const one = x => Array.isArray(x) ? (Array.isArray(x[0]) ? x.map(y => y[0]) : [x[0]]) : [x];
-  const ns = [...one(o.n).filter(n => typeof n === "string" && n.length >= 4),   // Thor, Loki, Wong and Vision go by one word
-    ...(o.al || []).flatMap(one).filter(n => typeof n === "string" && n.includes(" ") && n.length > 4)];   // an alias only in full (Sharon's "Kate" isn't Kate Bishop)
-  const R = ns.map(n => new RegExp(`(^|[^A-Za-z])${reEsc(n)}(?!'s)([^A-Za-z]|$)`));   // not "HYDRA's test subjects"
-  let best = null, bn = 1e9;
-  const u = rfUniOf(o);   // a box holds its own world's people: the What If...? Natasha isn't in Black Widow's box
-  Object.entries(DOSSIERS).forEach(([id, d]) => { const S = d.kind === "char" && d.rows && d.rows.subjects; if (!S || (BOX_UNI[id] || "mcu") !== u && id !== "cx-incursions") return;
-    const L = Array.isArray(S) ? S.map(x => Array.isArray(x) ? x[0] : x) : [S], n = t => t.split(/,| and /).length, last = n(L[L.length - 1]);
-    L.forEach(t => { if (R.some(r => r.test(t))) { const k = n(t) * 100 + last; if (k < bn) { bn = k; best = id; } } }); });   // fewest named with them, then the box that stays smallest (Matt's own, not The Defenders)
-  return XBOX[o.id] = best; }
+// all be connected to and from each other", the indexes only once found). Each profile links its own main characters, the people its
+// Subjects name, and nobody else ("only Wanda and Vision go to that profile ... side characters don't go to a profile"): set by hand.
+// Someone named in two (Bucky in Falcon & Winter Soldier and Thunderbolts*, Kate in Hawkeye and the Champions) goes to their own
+const PROFILE_PEOPLE = {
+  "cx-iron-man": ["tony-stark"], "cx-captain-america": ["steve-rogers"], "cx-thor": ["thor"],
+  "cx-black-widow": ["natasha-romanoff", "yelena-belova"], "cx-hawkeye": ["clint-barton", "kate-bishop"], "cx-hulk": ["bruce-banner", "thaddeus-ross"],
+  "cx-nick-fury": ["nick-fury", "maria-hill"],
+  "cx-s-h-i-e-l-d": ["peggy-carter", "howard-stark", "phil-coulson", "st-daisy-johnson", "st-melinda-may", "st-leo-fitz", "st-jemma-simmons", "st-mack", "st-elena-rodriguez", "shield-org"],
+  "cx-captain-marvel": ["carol-danvers", "monica-rambeau", "kamala-khan"], "cx-ant-man-the-wasp": ["scott-lang", "hope-van-dyne"],
+  "cx-guardians-of-the-galaxy": ["peter-quill", "gamora", "drax", "rocket", "groot", "nebula", "mantis", "yondu", "kraglin", "cosmo", "adam-warlock", "guardians-of-the-galaxy"],
+  "cx-spider-man": ["peter-parker"], "cx-black-panther-wakanda": ["tchalla", "shuri", "okoye", "nakia", "ramonda", "m-baku", "riri-williams"],
+  "cx-doctor-strange-wong": ["stephen-strange", "wong"], "cx-wanda-vision": ["wanda-maximoff", "vision"],
+  "cx-falcon-winter-soldier": ["sam-wilson", "bucky-barnes"], "cx-loki-the-tva": ["loki", "tva"],
+  "cx-the-thunderbolts": ["alexei-shostakov", "ghost", "john-walker", "bob"],
+  "cx-the-fantastic-four": ["reed-richards", "sue-storm", "johnny-storm", "ben-grimm"], "cx-daredevil": ["st-matt-murdock"],
+  "cx-shang-chi-the-ten-rings": ["shang-chi", "xialing", "wenwu", "trevor-slattery", "ten-rings"],
+  "cx-the-champions": ["billy-maximoff", "tommy-maximoff", "america-chavez", "cassie-lang"],
+  "cx-the-defenders": ["st-jessica-jones", "st-luke-cage", "st-danny-rand"], "cx-the-punisher": ["st-frank-castle"],
+  "cx-eternals": ["ajak", "sersi", "ikaris", "thena", "kingo", "sprite", "phastos", "makkari", "druig", "gilgamesh"],
+  "cx-moon-knight": ["marc-spector"], "cx-werewolf-by-night": ["jack-russell", "elsa-bloodstone"], "cx-the-avengers": ["avengers"],
+  "cx-the-watcher": ["by-the-watcher"], "cx-the-sony-spider-men": ["sv-peter-parker-raimi", "sv-peter-parker-asm", "sv-miles-morales"],
+  "cx-the-fox-men": ["fox-charles-xavier", "fox-charles-xavier-young", "fox-magneto-erik", "fox-magneto", "fox-wolverine", "fox-x-23", "fox-deadpool", "wolverine", "fox-x-men"],
+  "cx-pruned-characters": ["pr-blade", "pr-daredevil", "pr-elektra", "pr-punisher", "pr-mister-fantastic", "pr-invisible-woman", "pr-human-torch", "pr-the-thing"] };
+const PBOX = Object.fromEntries(Object.entries(PROFILE_PEOPLE).flatMap(([b, L]) => L.map(id => [id, b])));
+// a Raft file goes where its Compound file goes (Bucky's Winter Soldier file is his)
+const boxOfFile = o => { if (!o) return null; if (PBOX[o.id]) return PBOX[o.id]; const tw = ALLIES.find(a => a.rf === o.id); return tw && PBOX[tw.id] || null; };
 // a box's profile and path show only once the box is known; its path, once it's on the map
 const boxShown = id => { const b = id && DATA.chars.find(c => c.id === id); return !!b && !!DOSSIERS[id] && !charHidden(b) && !charAnon(b); };
 const boxPath = id => { const b = boxShown(id) && DATA.chars.find(c => c.id === id); return b && DATA.map.rows.some(r => r.n === b.title) && !mapHide().has(DATA.chars.indexOf(b)) ? b.title : ""; };

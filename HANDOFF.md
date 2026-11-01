@@ -427,9 +427,12 @@ insignia celebration covers the page.
   line of the record like the rest, its title small under it (`hoMark`), and names the other place only once you've found it ("File
   transferred out of the Compound" until then).
 - **Network, Paths, the indexes and profiles link both ways** (owner, November 2026: "network, paths, indexes, profiles should all be
-  connected to and from each other", the indexes only once found). A file belongs to the character box whose subjects name them
-  (`boxOfFile`: its own world only, `BOX_UNI`; one-word names like Thor count, aliases only in full; among several boxes, the one with
-  the fewest named, then the one that stays smallest: Matt Murdock is Daredevil's, not The Defenders'). Links, each only once the box is
+  connected to and from each other", the indexes only once found). Each profile links only its own main characters, the people
+  its Subjects name, set by hand in `PROFILE_PEOPLE` (owner: "only Wanda and Vision go to that profile ... side characters don't go to a
+  profile"): Captain America is Steve; Falcon & Winter Soldier is Sam and Bucky; S.H.I.E.L.D. is Peggy, Howard and the agents (Coulson,
+  Daisy, May, Fitz, Simmons, Mack, Elena); someone named in two goes to their own (Bucky to Falcon & Winter Soldier, Kate to Hawkeye);
+  a Raft file goes where its Compound file goes. Other-world versions (Earth-838's Strange, Wanda, Reed) link to none. A new profile, or
+  a new main character, needs adding there. Links, each only once the box is
   known (`boxShown`, `boxPath`): a Compound or Raft file's record line carries **Profile ›** and **Path ›** (`xLinks`); a profile's
   story line carries **Path ›**, and its foot an **On file** list of its people's found files (`boxFiles`; "See their path" is gone); a
   Network card carries **Profile** and **Path** beside Open file (`netLinks`, `netProf`, `netPath`); Paths' bar opens the profile. Every
