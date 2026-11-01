@@ -40,7 +40,7 @@ body::before{ content:""; position:fixed; top:0; left:0; width:100%; height:100v
   background-image:var(--padimg);
   background-size:var(--padsize); }
 button{ font:inherit; color:inherit; }
-.wrap{ max-width:1180px; margin:0 auto; padding:26px 20px 64px; }   /* every page's title sits the status bar plus 26px down (owner: one standard) */
+.wrap{ max-width:1180px; margin:0 auto; padding:16px 20px 64px; }   /* every page's title sits the status bar plus 16px down (owner: one standard) */
 #app{ overflow-x:clip; }
 
 /* masthead */
@@ -285,7 +285,7 @@ body{ transition:background-color .4s ease; }
 .tl-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .sl-body .dlog .dt .dck{ margin-left:auto; } .sl-rate{ border:1px solid #33405C; border-radius:999px; background:transparent; color:#E9C46A; padding:2px 9px; font:11px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:.5px; cursor:pointer; white-space:nowrap; }
 .sl-rate:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; } .sl-avg{ color:#E9C46A !important; }
-#logHead{ position:fixed; left:0; right:0; top:0; z-index:75; padding:calc(26px + env(safe-area-inset-top,0px)) 20px 0; background:#0B1019; box-shadow:0 10px 14px -6px rgba(5,8,14,.85); pointer-events:none; }
+#logHead{ position:fixed; left:0; right:0; top:0; z-index:75; padding:calc(16px + env(safe-area-inset-top,0px)) 20px 0; background:#0B1019; box-shadow:0 10px 14px -6px rgba(5,8,14,.85); pointer-events:none; }
 #logHead > *{ pointer-events:auto; } #logHead[hidden]{ display:none; }
 .logtabs{ position:relative; display:flex; margin-top:12px; border-bottom:1px solid #222C40; }
 .logtabs button{ flex:1; padding:10px 0 11px; border:0; background:none; color:#6F7C95; font:13px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; position:relative; }
@@ -1365,7 +1365,7 @@ body{ padding-bottom:var(--dockh); }
 .lnext{ opacity:.75; }
 /* the dock's pages share one header: the page's name in the title's style, its tabs as pills under it, and nothing else. The dock is the way out, so
    there's no Back (inside an Atlas city or universe, the map's own "‹ Earth" steps up a level). The Story log's title is the same */
-.dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(26px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
+.dockpg .maptop{ position:relative; display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-start; gap:0 10px; padding:calc(16px + env(safe-area-inset-top,0px)) 20px 12px; background:transparent; border-bottom:0; }
 .dockpg .maptop .back{ display:none; } #mapPanel.dockpg .maptop .back{ display:revert; }   /* Paths left the dock for the Log, so it has its way back again */
 .dockpg .maptop h2, .pgtitle{ position:relative; display:block; margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 2px 0 rgba(0,0,0,.35); }
 .pgtitle{ margin:0; }   /* the Log's header already makes room for the status bar; counting it again pushed the title down */
