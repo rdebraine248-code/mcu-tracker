@@ -4565,8 +4565,12 @@ const rfUniOf = o => /^sv-/.test(o.id) ? "sv" : /^fox-/.test(o.id) ? "fox" : /^p
 // entries"): the hero file's `ho` lists the stretches of their story, [side ("C" the Compound, "R" the Raft), the title it starts in,
 // 1 when that title is told in both, each file keeping its own half]. Each file keeps only its own stretches and says where the story
 // went: "Transferred to the Compound" where it moves on, "Transferred from the Raft" where it picks up again. A closed file reads Transferred
-const hoPair = o => { const a = o.ho ? o : o.rf ? null : ALLIES.find(x => x.rf === o.id && x.ho); return a ? a.ho.map(([sd, t, both]) => ({ sd, t, both, o: atlOrd(t) ?? 1e9 })) : null; };
-const hoAt = (H, x, side) => { const ox = atlOrd(x[1]) ?? 1e9; let k = 0; H.forEach((h, i) => { if (ox >= h.o) k = i; }); if (k > 0 && H[k].both && ox === H[k].o && H[k - 1].sd === side) k--; return k; };
+// a story's order: the Sacred Timeline's own for its people; another universe's runs in release order (Raimi's Otto is in Spider-Man 2
+// before No Way Home, which the Sacred Timeline's order puts first)
+const hoOrd = (t, u) => u === "mcu" ? atlOrd(t) ?? 1e9 : REL_IX[t] ?? atlOrd(t) ?? 1e9;
+const hoPair = o => { const a = o.ho ? o : o.rf ? null : ALLIES.find(x => x.rf === o.id && x.ho); if (!a) return null; const u = rfUniOf(a);
+  const H = a.ho.map(([sd, t, both]) => ({ sd, t, both, o: hoOrd(t, u) })); H.u = u; return H; };
+const hoAt = (H, x, side) => { const ox = hoOrd(x[1], H.u); let k = 0; H.forEach((h, i) => { if (ox >= h.o) k = i; }); if (k > 0 && H[k].both && ox === H[k].o && H[k - 1].sd === side) k--; return k; };
 const hoKeep = (S, o, side) => { const H = hoPair(o); return H ? S.filter(x => !x.drop && H[hoAt(H, x, side)].sd === side) : S; };
 const hoShut = (o, side) => { const H = hoPair(o); if (!H) return false; let k = -1; H.forEach((h, i) => { if (atlSeenT(h.t)) k = i; }); return k >= 0 && H[k].sd !== side; };
 function hoChain(o, side, S) { const H = hoPair(o); if (!H) return S; const out = []; let had = false;
@@ -4586,7 +4590,7 @@ const REL_IX = (() => { const o = {}; DATA.timelineRelease.forEach((e, i) => { i
 const seenRk = x => { const m = /^In season (\d+),/.exec(x[0]), r = m ? REL_IX[x[1] + " S" + m[1]] : undefined; return r ?? (REL_IX[x[1]] != null ? REL_IX[x[1]] + (/^In episode (\d+),/.exec(x[0]) || [0, 0])[1] / 1000 : undefined) ?? 1000 + (ATL_ORDER[x[1]] ?? 1e6); };
 const rfFirstStep = S => S.reduce((a, x) => seenRk(x) < seenRk(a) ? x : a, S[0]);
 const rfLastStep = S => S.reduce((a, x) => seenRk(x) >= seenRk(a) ? x : a, S[0]);
-const seenTtl = (S, last) => stepTtl(last ? rfLastStep(S) : rfFirstStep(S));   // with its season, as the steps show it
+const seenTtl = (S, last) => S.length ? stepTtl(last ? rfLastStep(S) : rfFirstStep(S)) : "Unknown";   // with its season, as the steps show it
 const rfName = o => stageAt(o.n, atlSeenT)[0], rfKind = o => stageAt(o.k || "", atlSeenT)[0];
 // the other names a person has gone by on screen (a hero or villain name, a cover), each known from the title that first says it. The search
 // finds them too, and a file found only by one of them says so under its name
@@ -4711,7 +4715,7 @@ const cpStatusOf = o => hoShut(o, "C") ? "Transferred" : cpStatus(cpSteps(o));
 const HANDOVER = /*HANDOVER*/{};
 // a group's file shared by several people (PRIDE) is never handed over: each of them keeps their own file whole. A title that runs several
 // seasons can be split by season: `drop` lists the steps (title, n) a file no longer tells because the other one does
-Object.entries(HANDOVER).forEach(([id, h]) => { const a = ALLIES.find(o => o.id === id), b = a && THREATS.find(o => o.id === a.rf); if (!a || !b || !h.ho || ALLIES.filter(o => o.rf === b.id).length > 1) return;
+Object.entries(HANDOVER).forEach(([id, h]) => { const a = ALLIES.find(o => o.id === id), b = a && THREATS.find(o => o.id === a.rf); if (!a || !b || !h.ho || h.ho.length < 2 || ALLIES.filter(o => o.rf === b.id).length > 1) return;   // one side all along: both files stay whole, neither vanishes
   a.ho = h.ho; const F = { C: a, R: b };
   ["C", "R"].forEach(sd => { const o = F[sd];
     ((h.rewrite || {})[sd] || []).forEach(r => { const x = o.st.filter(y => y[1] === r.title)[r.i || 0]; if (x) { x[0] = r.text; if (r.status) x[2] = r.status; } });

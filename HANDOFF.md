@@ -115,6 +115,13 @@ insignia celebration covers the page.
 
 ## Data (mockup-data/)
 
+- **`handover.json`** (November 2026): one person, one history between the Compound and the Raft. `{ allyId: { threat, ho, rewrite,
+  drop, add } }`. `ho`: the stretches in order, `[side "C"|"R", title it starts in, 1 when that title is told in both, each its half]`;
+  the Sacred Timeline orders by story (`atlOrd`), other universes by release (`REL_IX`, `hoOrd`). `rewrite`/`drop`/`add` per side:
+  a step by title and `i` (its index among that file's steps for the title). The app applies it at load (`HANDOVER`); `hoKeep` hides
+  the other side's steps, `hoChain` adds "File transferred / opened / reopened" lines (links once the twin is found), a closed file's
+  status is Transferred. A one-stretch `ho`, or a Raft file shared by several people, is skipped.
+
 - **Format briefs.** Read the brief before editing its files.
   - `ALLIES_FORMAT.md`: the Compound (heroes).
   - `COLL_FORMAT.md`: Collection objects.
@@ -696,13 +703,12 @@ These happened in earlier chats. Each cost the owner time.
     The mockup tags WandaVision only (news at episodes 4 and 9, the Hex-down message at 9, Westview at 1, Salem at 8, Wanda's file at
     1, 5 and 9, Wanda and Agatha at 7). The full pass is about 5,700 moments in 122 TV titles: 2,142 file steps, 3,302 Network stages,
     191 Atlas entries, 75 news, 47 messages.
-  - **The Compound and Raft handover** ("when one closes it's transferred over to the other one ... so that we don't repeat entries"):
-    the engine is in main code (`hoPair`, `hoKeep`, `hoChain`, `hoShut`). A hero file's `ho` lists its person's stretches: [side "C" or
-    "R", the title the stretch starts in, 1 when that title is told in both files, each its own half]. Each file keeps its own stretches,
-    marks "File transferred · To the Raft · title", "File opened" or "File reopened · From the Compound · title" (a link to the twin
-    once that file is found), and a closed file's status reads Transferred. The mockup sets Wanda (Raft from The Winter Soldier, the
-    Compound from Age of Ultron, both telling their half, the Raft again from Multiverse of Madness) and Bucky (the Compound, the Raft
-    in The Winter Soldier, the Compound again from Ant-Man). 77 people have both files; 236 of their 250 Raft steps repeat a title.
+  - **The Compound and Raft handover: done, on main (November 2026)**, see "How the app works" below. 77 people have both files; 54
+    are handed over (`mockup-data/handover.json`, researched by four agents against the wikis, validated by
+    `validate.py` rules: every pair once, statuses from each side's list, no dashes or fourth-wall words, no title lost, each switch
+    title told in halves). 15 who stay on one side all along keep both files whole (a handover would empty one file and make it
+    vanish: Leo Fitz as The Doctor, Lash, Sony's Venom, Morbius and Kraven, the Bloodpack, Brigid O'Reilly, the white Vision and
+    others). The 8 Runaways parents share one Raft file (PRIDE), which is never handed over.
 - **The appearance sweep's open calls are settled** (`appear_sweep.json`, `owner_calls`): Muse gets a Born Again S2 step (Heather's
   memories of his attack, not her hallucinations), Peggy an Agents of S.H.I.E.L.D. S7 step (Simmons posing as her in 1955). No step for
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
