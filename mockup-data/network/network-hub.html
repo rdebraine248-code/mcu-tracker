@@ -191,8 +191,17 @@ const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-M
 let UNI = 'mcu', UNIOK = null;
 // each Earth is its own room (owner, November 2026: "I thought we separated them by Earths ... having Wolverine next to Logan"): inside a
 // universe, a row of Earth chips picks the world; the films' Earth-10005 and the cartoons' Earth-92131 never stand in one room
-let WORLD = null;
-const wk = p => p.u + '|' + (earthOf(p) || '');
+let WORLD = null, DIST = [];   // DIST: the room's Earth districts, each { name, L: its people }
+// where someone stands in the Network: their Earth, unless their story lives elsewhere (owner, November 2026: Sylvie "was born there
+// but that's not where she belongs"; "the Void is definitely a better bubble"). Their files keep the Earth they come from
+const HOME = { 'sylvie': 'Earth-616', 'he-who-remains': 'Earth-616', 'kang': 'Earth-616', 'america-chavez': 'Earth-616',
+  'kid-loki': 'The Void', 'classic-loki': 'The Void', 'alligator-loki': 'The Void', 'president-loki': 'The Void', 'cassandra-nova': 'The Void',
+  'ladypool': 'The Void', 'nicepool': 'The Void', 'dogpool': 'The Void', 'wolverine': 'The Void',   // Deadpool & Wolverine's Void (Logan and Dogpool end up on Deadpool's Earth-10005)
+  // researched November 2026: Defender Strange's Earth-617 is from the director's commentary (the MCU Wiki uses it); the others have only
+  // the Marvel Database's temporary reality numbers, which it marks unofficial
+  'defender-strange': 'Earth-617', 'sinister-strange': 'Earth-TRN954', 'binary': 'Earth-TRN1225', 'beast': 'Earth-TRN1225' };
+const homeOf = p => HOME[p.id] || earthOf(p) || '';
+const wk = p => p.u + '|' + homeOf(p);
 const metP = p => p.A0.some(seen);
 // a universe's tab shows once the app has revealed it, like the indexes; All once there's more than one
 const uniOk = u => !UNIOK ? true : u === 'all' ? UNIS.filter(([v]) => v !== 'all' && UNIOK(v)).length > 1 : UNIOK(u);
@@ -300,6 +309,15 @@ function frame(t) {
   // each person's spot: their own while zoomed in, drawn into their group's bubble as you zoom out
   const pos = N.map(p => { const q = lens(p, t), z = groupOf(p), c = z && gv.get(z);
     if (c && e < 1 && p !== sel) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
+  // the Earth districts: a big faint bubble round each Earth's crews, its name over the top (only in the room, not in someone's web)
+  if (DIST.length && !busy()) DIST.forEach(d => { if (!d.L.length) return;   // round where its people stand on screen (the lens pulls the edges in)
+    let cx = 0, cy = 0; d.L.forEach(p => { cx += pos[p.i].x; cy += pos[p.i].y; }); cx /= d.L.length; cy /= d.L.length;
+    let R = 0; d.L.forEach(p => { R = Math.max(R, Math.hypot(pos[p.i].x - cx, pos[p.i].y - cy) + 21 * pos[p.i].s); });
+    G.forEach(z => { if (z.L[0] && d.L.includes(z.L[0]) && e < 1) { const v = gv.get(z); R = Math.max(R, Math.hypot(v.x - cx, v.y - cy) + v.r); } }); R += 14; const c = { x: cx, y: cy };
+    if (c.x + R < 0 || c.x - R > W || c.y + R < 0 || c.y - R > H) return;
+    g.globalAlpha = 1; g.beginPath(); g.arc(c.x, c.y, R, 0, 6.2832); g.fillStyle = 'rgba(95,130,190,.05)'; g.fill(); g.lineWidth = 1.2; g.strokeStyle = 'rgba(127,166,216,.35)'; g.setLineDash([6, 6]); g.stroke(); g.setLineDash([]);
+    if (d.name) { g.font = `400 ${Math.max(11, Math.min(20, R * .09))}px 'Share Tech Mono', monospace`; g.textAlign = 'center'; g.letterSpacing = '3px'; g.fillStyle = 'rgba(159,195,240,.8)';
+      const yo = c.y - R - 8; g.fillText(d.name.toUpperCase(), c.x, yo >= 150 ? yo : Math.max(c.y - R + 22, 150)); g.letterSpacing = '0px'; } });   /* just above its bubble, clear of its groups */
   // the floor: each crew's name written where it stands; a small crew's only once you're close
   if (e > 0) G.forEach(z => { const c = lens({ wx: z.cx, wy: z.cy + z.ly, ph: 0 }, 0);
     if (!z.L.length || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
@@ -398,7 +416,7 @@ function tap(x, y) {
 }
 const short = n => n.replace(/^(The|Dr\.|Doctor|Captain|Agent|King|Queen|Prince|Princess|General|Colonel|Senator|President) /, '').split(' ')[0];
 function lockOn(p, t) {
-  if (!p.vis && (p.u !== UNI || wk(p) !== WORLD)) { setWorld(p); say('Crossing into ' + (earthOf(p) || (UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u])), 1800); }   // across universes, you go with them
+  if (!p.vis && p.u !== UNI) { setWorld(p); say('Crossing into ' + (earthOf(p) || (UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u])), 1800); }   // across universes, you go with them
   const lines = mapOn; gather(p, t || performance.now());
   if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx, y1: p.hy + 70 / zoom, z0: zoom, z1: Math.max(.9, zoom) };
   fillCard(p); if (navigator.vibrate) try { navigator.vibrate(10); } catch (e) {}
@@ -553,7 +571,7 @@ function applyCut(v, quiet) {
   const off = near ? [cam.x - near.hx, cam.y - near.hy] : [0, 0];
   // met: in a title you've watched, or in a stage you've reached one episode at a time ("WandaVision#7")
   const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && SEENF(x.t)));
-  { const W = worldsOf(UNI); if (!W.some(([k]) => k === WORLD)) WORLD = W.length ? W[0][0] : null; }   // the biggest Earth you've met here, unless you picked one
+  WORLD = null;   // one room per universe, its Earths as districts in it
   N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = (p.A.length > 0 || epMet(p)) && p.u === UNI && (!WORLD || wk(p) === WORLD); p.arrive = p.vis && !was; });
   N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];
     p.M = p.vis ? p.M0.filter(j => N[j].vis && p.T.some(([c]) => joined(p, c) && joined(N[j], c))) : [];
@@ -563,9 +581,23 @@ function applyCut(v, quiet) {
   // everyone stands with the crew they're in as of what you've seen, so the crews form and change as the story goes
   N.forEach(p => { p.g = crewNow(p); });
   if (full) { Z = Z0; Z.forEach(z => { z.L = z.L0.filter(p => p.vis); z.x = z.bx; z.y = z.by; z.cells = z.bcells; z.ly = z.bly; }); }
-  else { const by = new Map(), P = packer(S * .07); N.forEach(p => { if (p.vis) { by.has(p.g) || by.set(p.g, []); by.get(p.g).push(p); } });
-    Z = [...by].sort((a, b) => (b[0] === 'Independent') - (a[0] === 'Independent') || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
-    Z.forEach((z, zi) => P.place(z, zi, !zi)); }
+  else { // each Earth is a district of the room (owner, November 2026): its crews packed together, then the districts packed apart, the
+    // biggest in the middle; a district's big bubble and its name are drawn behind its crews
+    // in The Void the district is the group (owner: "the Void is definitely a better bubble organization than Kid Loki's crew")
+    N.forEach(p => { if (p.vis && homeOf(p) === 'The Void') p.g = UK('The Void', p.u); });
+    const Wd = new Map(); N.forEach(p => { if (p.vis) { const w = wk(p); Wd.has(w) || Wd.set(w, new Map()); const by = Wd.get(w); by.has(p.g) || by.set(p.g, []); by.get(p.g).push(p); } });
+    const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => (b[0] === 'Independent') - (a[0] === 'Independent') || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
+      const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
+      return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
+    // districts as circles that never overlap: the biggest in the middle, the rest round it, each as close in as it fits
+    D.forEach(d => { d.R = Math.max(S, ...d.pts.map(([x, y, r]) => Math.hypot(x, y) + r)) + S * .6; });
+    const done = []; D.forEach((d, di) => { if (!di) { d.x = d.y = 0; done.push(d); return; }
+      const gap = S * .8; let best = null;
+      for (let R = done[0].R + d.R + gap; !best; R += S * .5) for (let a = 0; a < 6.2832 && !best; a += .26) { const x = R * Math.cos(a + di * 1.1), y = R * Math.sin(a + di * 1.1) * .9;
+        if (done.every(o => Math.hypot(o.x - x, o.y - y) >= o.R + d.R + gap)) best = [x, y]; }
+      d.x = best[0]; d.y = best[1]; done.push(d); });
+    Z = []; D.forEach(d => d.ZZ.forEach(z => { z.x += d.x; z.y += d.y; Z.push(z); }));
+    DIST = D.length > 1 ? D.map(d => ({ name: d.w.split('|')[1] || '', L: d.ZZ.flatMap(z => z.L) })) : []; }
   Z.forEach(z => { z.cx = z.x; z.cy = z.y; z.villains = z.L.filter(p => p.k === 'T').length;
     z.L.forEach((p, k) => { p.z = z; p.hx = z.x + z.cells[k][0]; p.hy = z.y + z.cells[k][1]; if (!keep) { p.tx = p.hx; p.ty = p.hy; }
       if (p.arrive && !quiet && !keep) { p.wx = p.hx + (Math.random() - .5) * 300; p.wy = p.hy + 260; p.go = t + Math.random() * 600; p.inAt = p.go + 300; } }); });
@@ -586,7 +618,7 @@ if (EMB) document.body.classList.add('emb');
 // from a file in the app: straight onto them (a Raft file merged into its Compound twin is found by name in the same universe)
 function findP(id) { let p = N.find(x => x.id === id) || N.find(x => x.id === (DATA.merged || {})[id]);   /* a merged file (young Charles) finds its bubble */ if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); } return p; }
 self.netGo = id => { const p = findP(id);
-  if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (p.u !== UNI || wk(p) !== WORLD) setWorld(p); lockOn(p); };
+  if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (p.u !== UNI) setWorld(p); lockOn(p); };
 // the app says what's been watched each time the Network opens; when nothing has changed, nothing moves (no re-shuffle, no flash)
 let seenKey = null, needFit = false;
 function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = false; const L = N.filter(p => p.vis); if (!L.length) return;
@@ -594,7 +626,7 @@ function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = 
   const top = (document.querySelector('header') || {}).offsetHeight || 0, room = H - top, fz = Math.min(1.2, (W - 60) / (x1 - x0 + 80), (room - 60) / (y1 - y0 + 90));
   glide = null; vel = { x: 0, y: 0 };
   if (fz >= .5) { zoom = Math.max(.85, fz);   /* never the in-between zoom, where people half fold into their bubbles */ cam.x = (x0 + x1) / 2; cam.y = (y0 + y1) / 2 - (top / 2 - H * .02) / zoom; }
-  else { const a = L.reduce((m, p) => p.d > m.d ? p : m, L[0]); zoom = 1; cam.x = a.hx; cam.y = a.hy - (top / 2 - H * .02); } }
+  else { zoom = Math.max(.3, fz); cam.x = (x0 + x1) / 2; cam.y = (y0 + y1) / 2 - (top / 2 - H * .02) / zoom; } }   /* a big room: the whole floor, centred, zoomed out to its groups */
 self.netPreview = id => { const p = findP(id); if (!p || !p.vis) return null;
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d);
   return { n: L.length, L: L.slice(0, 3).map(([j, k]) => ({ n: N[j].n, k: KS[k], c: KC[k], w: whoLine(p, N[j], relOf(p, N[j])) })) }; };
@@ -611,11 +643,10 @@ function setUni(u) { if (u === UNI) return; UNI = u; WORLD = null; uniTabs(); if
 // the Earths you've met in a universe, biggest first: [key, label, how many]
 function worldsOf(u) { const c = new Map(); N.forEach(p => { if (p.u === u && (metP(p) || p.vis)) { const k = wk(p); c.set(k, (c.get(k) || 0) + 1); } });
   return [...c].sort((a, b) => b[1] - a[1]).map(([k, n]) => [k, k.split('|')[1] || 'No Earth number', n]); }
-function setWorld(p) { const k = typeof p === 'string' ? p : wk(p), u = k.split('|')[0]; if (u === UNI && k === WORLD) return; UNI = u; WORLD = k; uniTabs(); if (sel) home(); applyCut(CUT);
+function setWorld(p) { const k = typeof p === 'string' ? p : wk(p), u = k.split('|')[0]; if (u === UNI) return; UNI = u; WORLD = null; uniTabs(); if (sel) home(); applyCut(CUT);
   N.forEach(q => { if (q.arrive) { q.arrive = false; q.inAt = 0; q.go = 0; q.wx = q.hx; q.wy = q.hy; } }); fitRoom(); if (LIVE) reveal(); }
 function uniTabs() { const W = worldsOf(UNI), el = document.querySelector('.worlds');
-  if (!W.some(([k]) => k === WORLD)) WORLD = W.length ? W[0][0] : null;
-  el.hidden = W.length < 2; el.innerHTML = W.length < 2 ? '' : W.map(([k, l]) => `<button type="button" role="tab" data-world="${k}" aria-selected="${k === WORLD}">${l}</button>`).join(''); document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
+  el.hidden = true; el.innerHTML = '';   /* Earths are districts in the room now, not tabs */ document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
 document.querySelector('.unis').addEventListener('click', e => { const b = e.target.closest('[data-uni]'); if (b) setUni(b.dataset.uni); });
 document.querySelector('.worlds').addEventListener('click', e => { const b = e.target.closest('[data-world]'); if (b) setWorld(b.dataset.world); });
 uniTabs();

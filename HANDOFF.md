@@ -332,10 +332,15 @@ insignia celebration covers the page.
   bubbles like how every other page reveals new additions"): someone you haven't seen there lights its dock button (`netFresh`, counted
   by the frame as you watch, via `newDots`); opening it pops them in, nearest first, with a gold ring (`reveal`, `p.popAt`), and they're
   remembered (`state.netKnown`, `netKnow`). Holding the dock button marks everyone as seen (`netKnowAll`).
-- **Each Earth is its own room in the Network** (owner, November 2026: "I thought we separated them by Earths ... having Wolverine next
-  to Logan reads like a poorly designed oversight"): Earth chips under the universe tabs (`.worlds`, `WORLD`, `wk(p)` = universe and
-  Earth), shown when a universe has more than one Earth you've met; a crossing into another Earth says so. There is no All universes tab
-  (it mixed every world and was slow). Search finds everyone you've met, in any Earth, and shows their Earth.
+- **Each Earth is a district of the Network's room** (owner, November 2026: "I thought we separated them by Earths ... having
+  Wolverine next to Logan"; then, against Earth tabs: "they could just be a bigger bubble and then within that Earth bubble are the group
+  bubbles"): one room per universe, each Earth's crews packed together inside a big labelled bubble (`DIST`), districts placed as
+  non-overlapping circles, the biggest in the middle. No Earth tabs, no All universes tab. A person stands where their story lives
+  (`HOME` in hub-src): Sylvie, He Who Remains, Kang and America Chavez in Earth-616; the Void's people (the Lokis, Cassandra Nova, the
+  Deadpool & Wolverine variants and that film's Logan) in **The Void**, which is their group; Defender Strange in Earth-617 (the
+  director's number, used by the MCU Wiki); Sinister Strange (Earth-TRN954) and The Marvels' Binary and Beast (Earth-TRN1225) by the
+  Marvel Database's temporary numbers, which it marks unofficial. Their files keep the Earth they come from. Beyond and Pruned still have
+  unnumbered people (an unlabelled district): not yet researched. The room opens zoomed out on its centre.
 - **One person played young and old is one bubble** (Fox's films: Charles, Scott, Jean, Ororo, Kurt, Hank, Moira, Raven, Erik, Stryker;
   `AGE` in the Network builder, `prof/hub2.js`). Their files stay separate in the app; the Network finds the bubble through `merged`.
 - **The Network stands tight**: groups and people close together, no wasted floor ("I've said this like a dozen times").
