@@ -1519,12 +1519,12 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
   /* Story: the header stands in a column on the left, the boxes fill the right */
   #app.wrap{ display:grid; grid-template-columns:minmax(230px, 32%) minmax(0, 1fr); column-gap:26px; align-items:start; max-width:none; }
   #app .mast, #app .modes{ grid-column:1; }
-  #app .mast{ position:sticky; top:0; flex-direction:column; align-items:stretch; gap:10px; padding-top:calc(6px + env(safe-area-inset-top,0px)); padding-bottom:12px; border-bottom:0; }
-  #app .mast h1{ white-space:normal; font-size:30px; line-height:1.02; }
+  #app .mast{ position:sticky; top:var(--lOff, 0px); flex-direction:column; align-items:stretch; gap:10px; padding-top:calc(6px + env(safe-area-inset-top,0px)); padding-bottom:12px; border-bottom:0; }
+  #app .mast h1{ white-space:normal; font-size:26px; line-height:1.02; }
   #app .mast h1::before{ white-space:normal; right:0; }   /* the glow wraps with its title, instead of trailing off across the boxes */
   #app .meter{ flex:none; min-width:0; }
-  #app .modes{ position:sticky; top:var(--mastH, 240px); flex-direction:column; align-items:stretch; gap:6px; margin:0 0 10px; }
-  #app .modes button{ padding:8px 14px; font-size:15px; }
+  #app .modes{ position:sticky; top:calc(var(--lOff, 0px) + var(--mastH, 240px)); flex-direction:row; flex-wrap:wrap; justify-content:flex-start; align-items:stretch; gap:6px; margin:0 0 10px; }
+  #app .modes button{ padding:7px 12px; font-size:14px; }
   #app.wrap{ grid-template-rows:auto auto 1fr; }   /* the boxes' height goes to the last row, so the header and its buttons stay together */
   #app #view{ grid-column:2; grid-row:1 / 4; min-width:0; } #app .postcredits{ grid-column:2; grid-row:4; }
   /* Atlas: the map on the left, its list beside it */
@@ -12290,7 +12290,12 @@ function shatter(x, y) {
 };
 /* MOCKUP BEGIN landscape */
 // landscape: the Story page's mode buttons stand just under its header in the left column, however tall the header is
-{ const m = document.querySelector("#app .mast"); if (m && window.ResizeObserver) new ResizeObserver(() => document.documentElement.style.setProperty("--mastH", m.offsetHeight + "px")).observe(m); }
+// and when the column is taller than the screen, scrolling carries it up until its last button shows, then it stays (it never hides any of itself)
+{ const m = document.querySelector("#app .mast"), b = document.querySelector("#app .modes"), R = document.documentElement.style;
+  const fit = () => { if (!m || !b) return; R.setProperty("--mastH", m.offsetHeight + "px"); const tk = document.querySelector("#whih.in:not([hidden])"), room = innerHeight - (tk ? tk.offsetHeight : 0);
+    R.setProperty("--lOff", Math.min(0, room - m.offsetHeight - b.offsetHeight - 10) + "px"); };
+  if (m && window.ResizeObserver) { const ro = new ResizeObserver(fit); ro.observe(m); ro.observe(b); } addEventListener("resize", fit);
+  const tk = document.getElementById("whih"); if (tk) new MutationObserver(fit).observe(tk, { attributes: true, attributeFilter: ["class", "hidden"] }); }   // the ticker coming and going changes the room
 // turning the phone redraws the Atlas for its new shape (map beside the list, or over it)
 { const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
 /* MOCKUP END */
