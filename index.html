@@ -947,7 +947,7 @@ button.rc{ cursor:pointer; touch-action:manipulation; } .rc.on{ border-color:#C9
 .gate[hidden]{ display:none; }
 .gate{ background:#05080D; }
 .gate canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
-.gate .gseal{ position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }   /* the whole screen: it says "Tap to initialize" */
+.gate .gseal{ position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }   /* the whole screen: it says "Awaiting authorization" */
 .gate .gseal:focus-visible{ outline:2px solid #8FE0FF; outline-offset:6px; }
 body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the home page shows until the terminal has cleared and it starts initializing */
 .postcredits{ display:flex; align-items:center; justify-content:center; text-align:center; padding:44px 16px 8px; }
@@ -1482,7 +1482,7 @@ body{ padding-bottom:var(--dockh); }
 <body>
 <div class="gate" id="gate">
   <canvas aria-hidden="true"></canvas>
-  <button type="button" class="gseal" id="gateEnter" aria-label="Tap to initialize"></button>
+  <button type="button" class="gseal" id="gateEnter" aria-label="Initialize"></button>
 </div>
 <div class="wrap" id="app">
   <header class="mast">
@@ -1982,7 +1982,7 @@ function available(e) {
 function lockedNote(e) {
   if (extraShut(e)) return "[ Classified ]";
   const p = prevOf(e);
-  return p ? (p.num ? `Finish ${p.label} first` : "Unlock the Extra before it first") : "Tap to unlock";
+  return p ? (p.num ? `Finish ${p.label} first` : "Unlock the Extra before it first") : "[ Locked ]";
 }
 const LANES = { main: { name: "Sacred Timeline", c: "#FFB347", p: 50 }, beyond: { name: "Beyond the MCU", c: "#3DBB6F", p: 10 },
   fox: { name: "FoX-Men", c: "#3B7DDD", p: 30 }, spider: { name: "Spider-Verse", c: "#E53935", p: 66 }, pruned: { name: "Pruned Timelines", c: "#9C8FB0", p: 82 } };
@@ -2165,13 +2165,13 @@ function tile(e, kind) {
   const cover = locked ? `<div class="cover ${esc(e.cover.cls || "")}" style="${esc(e.cover.style)};position:absolute;inset:0;margin:0;">
       ${scoped(e.cover.decor)}
       <span class="clabel" style="color:${e.cover.ink}">${esc(e.label)}</span>
-      <span class="ctap${available(e) ? "" : " ccl"}" style="color:${e.cover.ink}">${available(e) ? "Tap to unlock" : "[ Classified ]"}</span></div>` : "";
+      <span class="ctap${available(e) ? "" : " ccl"}" style="color:${e.cover.ink}">${available(e) ? "[ Locked ]" : "[ Classified ]"}</span></div>` : "";
   const sealedC = kind === "char" && charHidden(e), shut = sealedC && !charGate(e);
-  const name = locked ? e.label + ", locked. Tap to unlock." : sealedC ? (shut ? "Classified box. Tap to open anyway." : "Classified box. Tap to reveal.") : e.title + (kind === "chapter" ? ", " + e.label : "");
+  const name = locked ? e.label + ", locked." : sealedC ? "Classified box." : e.title + (kind === "chapter" ? ", " + e.label : "");
   // a sealed multiverse character box wears the same cover as its Extras chapter
   const mc = sealedC && DATA.chapters.find(c => c.id === MV_CHAPTER[e.id]), cc = mc && mc.cover, known = sealedC && charNamed(e);   // a name you already know reads on the cover; the box still waits for its reveal
-  const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}" style="color:${cc.ink}">${shut ? "[ Classified ]" : "Tap to reveal"}</span>`}</div>`
-    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}">${shut ? "[ Classified ]" : "Tap to reveal"}</span>`}</div>`;
+  const ccover = !sealedC ? "" : cc ? `<div class="cover ${esc(cc.cls || "")}" style="${esc(cc.style)};position:absolute;inset:0;margin:0;">${scoped(cc.decor)}<span class="clabel" style="color:${cc.ink}">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}" style="color:${cc.ink}">${shut ? "[ Classified ]" : "[ Sealed ]"}</span>`}</div>`
+    : `<div class="cover csealed" style="position:absolute;inset:0;margin:0;"><span class="clabel">${known ? esc(boxName(e)) : "Extras"}</span>${shut && known ? "" : `<span class="ctap${shut ? " ccl" : ""}">${shut ? "[ Classified ]" : "[ Sealed ]"}</span>`}</div>`;
   return `<div class="${esc(cls)}" style="${esc(e.style)}" role="button" tabindex="0" data-id="${esc(e.id)}" data-kind="${kind}" aria-label="${esc(name)}">
       <div ${locked || sealedC ? 'aria-hidden="true"' : ""} style="display:contents">${tileInner(e)}</div>${cover}${ccover}</div>`;
 }
@@ -2211,7 +2211,7 @@ function refreshChapterChrome() {
   if (state.mode !== "chapters") return;
   document.querySelectorAll('#view .tile[data-kind="chapter"]').forEach(t => {
     const tap = t.querySelector(".cover .ctap"); if (!tap) return;
-    const e = DATA.chapters.find(c => c.id === t.dataset.id); tap.textContent = available(e) ? "Tap to unlock" : "[ Classified ]"; tap.classList.toggle("ccl", !available(e));
+    const e = DATA.chapters.find(c => c.id === t.dataset.id); tap.textContent = available(e) ? "[ Locked ]" : "[ Classified ]"; tap.classList.toggle("ccl", !available(e));
   });
   const H = sagaHeads();
   document.querySelectorAll("#view .saga").forEach((s, i) => {
@@ -2619,7 +2619,7 @@ function activate(el) {
     if (ce && charSealed(ce)) {   // sealed until the multiverse opens: the same taps as a sealed Extras chapter, and the same choice at the end
       el.classList.remove("shake"); void el.offsetWidth; el.classList.add("shake");
       const n = sealedTap("extras"), look = DATA.chapters.find(c => c.id === MV_CHAPTER[id]) || null;   // the toast dresses like its Extras chapter's cover
-      if (n < 10) { if (n >= 5) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unseal.`, look, !!look); } else toast("Classified. Clearance required.", look, !!look); return; }
+      if (n < 10) { if (n >= 5) { const left = 10 - n; toast(`Override: ${left} to go.`, look, !!look); } else toast("Classified. Clearance required.", look, !!look); return; }
       sealedRun.extras.n = 0; found("sealed");
       ask(id === "cx-incursions" ? "The Incursions open after Avengers: Doomsday." : "The Multiverse opens after Loki S1.", "Reveal this box", "Hide").then(ok => {
         if (!ok) return;
@@ -2649,7 +2649,7 @@ function activate(el) {
         sealedRun.extras.n = 0; found("sealed");
         ask(id === INC_ID ? "The Incursions open after Avengers: Doomsday." : "The Multiverse opens after Loki S1.", "Reveal this box", "Hide").then(ok => { if (ok) { forceOpen = id; activate(el); forceOpen = null; } });
       }
-      else if (sealedTaps >= 5) { const left = 10 - sealedTaps; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unseal.`, e, true); }
+      else if (sealedTaps >= 5) { const left = 10 - sealedTaps; toast(`Override: ${left} to go.`, e, true); }
       else toast("Classified. Clearance required.", e, true);
     } else {   // the same as a sealed box: keep tapping and you can choose to open it early
       const sk = e.num ? id : "extras"; sealedTaps = sealedTap(sk); const p = prevOf(e);
@@ -2657,7 +2657,7 @@ function activate(el) {
         sealedRun[sk].n = 0;
         ask(`${e.label} opens when ${p.label} is complete.`, "Open anyway", "Wait").then(ok => { if (ok) { forceOpen = id; activate(el); forceOpen = null; } });
       }
-      else if (sealedTaps >= 5) { const left = 10 - sealedTaps; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to open it early.`, e, true); }
+      else if (sealedTaps >= 5) { const left = 10 - sealedTaps; toast(`Override: ${left} to go.`, e, true); }
       else toast(lockedNote(e) + ".", e, true);
     }
     return;
@@ -2704,7 +2704,7 @@ document.getElementById("view").addEventListener("click", ev => {
   const lg = ev.target.closest("[data-focus-lane]");
   if (lg) {
     if (keyFired) { keyFired = false; return; }
-    if (prunedLanes[lg.dataset.focusLane]) { toast("Pruned. Hold to restore."); return; }
+    if (prunedLanes[lg.dataset.focusLane]) { toast("Pruned."); return; }
     tlSetFocus(lg.dataset.focusLane); return;
   }
   const fb = ev.target.closest("[data-tlfold]");
@@ -6444,14 +6444,14 @@ const KFILES = [
 function kidx(f) {
   f.innerHTML = `<div class="hz"></div><small>Access granted · Level 7</small><h4>Level 7 files</h4><div class="kx">${KFILES.map(k => kOpen(k)
       ? `<button type="button" class="kx-r" data-kf="${k.id}"><b>${esc(k.n)}</b><em>${esc(k.rows[0][1])}</em><i aria-hidden="true">&#8250;</i></button>`
-      : `<div class="kx-r lk"><b><span class="sl-cl">[ Classified ]</span></b><em>Not on your watch yet</em></div>`).join("")}</div><span class="cl">Tap outside to close</span>`;
+      : `<div class="kx-r lk"><b><span class="sl-cl">[ Classified ]</span></b><em>Not on your watch yet</em></div>`).join("")}</div>`;
   f.onclick = ev => { const b = ev.target.closest("[data-kf]"); if (b) { haptic(10); kfile(f, KFILES.find(k => k.id === b.dataset.kf)); } };
   if (!REDUCED) f.querySelectorAll(".kx-r").forEach((r, n) => r.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 300, delay: 700 + n * 110, fill: "backwards" }));
 }
 function kfile(f, k) {
   const paras = k.p.filter(([, t]) => atlSeenT(t)).map(([x]) => x);
   f.innerHTML = `<div class="hz"></div><span class="stamp">Director's eyes only</span><button type="button" class="kx-back" data-kb>&#8249; Level 7 files</button><h4>${esc(k.n)}</h4>
-    <dl>${k.rows.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl>${paras.map(() => "<p></p>").join("")}${k.q ? `<q style="opacity:0">${esc(k.q)}</q>` : ""}<span class="cl">Tap outside to close</span>`;
+    <dl>${k.rows.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl>${paras.map(() => "<p></p>").join("")}${k.q ? `<q style="opacity:0">${esc(k.q)}</q>` : ""}`;
   f.onclick = ev => { if (ev.target.closest("[data-kb]")) { haptic(8); kidx(f); } };
   const P = [...f.querySelectorAll("p")], q = f.querySelector("q"); let pi = 0, ci = 0;
   if (REDUCED) { P.forEach((p, n) => p.textContent = paras[n]); if (q) q.style.opacity = ""; return; }
@@ -6508,7 +6508,7 @@ function keycard() {
       scr.innerHTML = `NOT CLEARED FOR LEVEL 7<span class="big">ACCESS DENIED</span>CARD RETURNED`;
       anim(kr, [{ transform: "translateX(0)" }, { transform: "translateX(-10px)" }, { transform: "translateX(9px)" }, { transform: "translateX(-6px)" }, { transform: "translateX(0)" }], { duration: 420 });
       card.style.transition = "none"; card.style.transform = ""; card.style.opacity = "1"; anim(card, [{ transform: "translateY(120%)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 420, easing: "ease-out" });
-      hint.textContent = "Not cleared yet · tap to close"; return; }
+      hint.textContent = "Not cleared yet"; return; }
     led.className = "kr-led green"; kr.classList.add("ok"); haptic(HAPTIC && HAPTIC.success || 20);
     scr.innerHTML = `CLEARED FOR LEVEL 7<span class="big">ACCESS GRANTED</span>OPENING FILES`;
     hint.textContent = "";
@@ -7389,7 +7389,7 @@ function archSec() {
 function renderFile(fresh) {
   const A = achList(), done = A.filter(a => earned(a.id)).length, pct = Math.round(done / A.length * 100), level = xpLevel(xpOf(A), A);
   const card = a => { const ok = earned(a.id), n = achTaps[a.id] || 0, sec = (a.sec === "chapters" ? a.extra && !state.unlocked[a.cid] : a.sec === "characters" ? charSealed(a.ch) : true) && !ok;
-    const tip = n >= 20 ? a.x + " (tap to hide)" : n >= 10 ? a.h : "";
+    const tip = n >= 20 ? a.x : n >= 10 ? a.h : "";
     // every file reads the same way: Classified while it's locked and unknown; its name and In progress once it's known; then Complete
     const hid = !ok && (a.sec === "chapters" ? !slNamed(DATA.chapters.find(c => c.id === a.cid)) : a.sec === "characters" ? sec || charAnon(a.ch) : sec);
     // a chapter's number is never secret (its cover on Story shows it), so a chapter card keeps it, as the Personal log and the Log do: Ch. 3 over [ Classified ]
@@ -7455,7 +7455,7 @@ function avaPick() {
     const l = ev.target.closest("[data-lk]");
     if (l) { const k = l.dataset.lk, n = embTaps[k] = (embTaps[k] || 0) + 1; haptic(n === 5 ? 14 : 6);
       if (n === 5) l.outerHTML = embCell(k);   // the name comes through
-      if (n < 5) toast("Locked. Clearance required."); else if (n < 10) { const left = 10 - n; toast(`Tap ${left} more time${left === 1 ? "" : "s"} to reveal how to unlock.`); }
+      if (n < 5) toast("Locked. Clearance required."); else if (n < 10) { const left = 10 - n; toast(`Decrypting: ${left} to go.`); }
       if (n >= 10) { embTaps[k] = 0;
         ask(EMB_HINT[k], "Unlock anyway", "Hide").then(ok => { if (ok) { (state.embOpen = state.embOpen || {})[k] = 1; embNew(); state.embSeen[k] = 1; persist(); haptic(12); }
           const c = pk.querySelector(`[data-lk="${CSS.escape(k)}"]`); if (c) c.outerHTML = embCell(k); }); }
@@ -7524,7 +7524,7 @@ document.getElementById("fileView").addEventListener("click", ev => {
     return;
   }
   achTaps[a.id] = (achTaps[a.id] || 0) + 1; haptic(achTaps[a.id] === 10 || achTaps[a.id] === 20 ? [20, 40, 20] : 8);
-  if (achTaps[a.id] === 10 || achTaps[a.id] === 20) { const sm = b.querySelector("small") || b.appendChild(document.createElement("small")); if (sm) { if (!b.dataset.base) b.dataset.base = sm.textContent; sm.textContent = achTaps[a.id] === 20 ? a.x + " (tap to hide)" : a.h; } }
+  if (achTaps[a.id] === 10 || achTaps[a.id] === 20) { const sm = b.querySelector("small") || b.appendChild(document.createElement("small")); if (sm) { if (!b.dataset.base) b.dataset.base = sm.textContent; sm.textContent = achTaps[a.id] === 20 ? a.x : a.h; } }
 });
 try { checkAch(); const fc = document.querySelector("#btnFile .fcount"); if (fc) fc.textContent = achCount(); } catch (e) {}
 // on load, what you'd already charted and earned before the dots existed counts as read, so only what's new from here on gets one
@@ -10995,7 +10995,7 @@ function gateFrame(t) {
   c.restore();
   c.textAlign = "center"; c.font = "10px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = "rgba(200,215,235,.75)";   // the agency's name under its emblem
   const sub = ey + 32 * es + 22; c.fillText(gType("STRATEGIC HOMELAND INTERVENTION,", 2300, t, 60), cx, sub); c.fillText(gType("ENFORCEMENT AND LOGISTICS DIVISION", 2800, t, 60), cx, sub + 16);
-  if (tp == null && t > 3300) { c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},${(.45 + .5 * breathe) * clamp01((t - 3300) / 400)})`; c.fillText("TAP TO INITIALIZE", cx, sub + 58); }
+  if (tp == null && t > 3300) { c.font = "12px 'Share Tech Mono','Courier New',monospace"; c.fillStyle = `rgba(${C},${(.45 + .5 * breathe) * clamp01((t - 3300) / 400)})`; c.fillText("AWAITING AUTHORIZATION", cx, sub + 58); }
   // the boot log, once it's been tapped
   if (tp != null) { const L0 = gateLog(), y0 = sub + 50; c.textAlign = "left"; c.font = "11.5px 'Share Tech Mono','Courier New',monospace";
     L0.forEach(([a, b], i) => { const t0 = 450 + i * 190; if (bt < t0) return; const y = y0 + i * 21, w0 = c.measureText("> " + a).width; c.fillStyle = "rgba(200,215,235,.85)"; c.fillText("> " + gType(a, t0, bt, 110), 28, y);
@@ -11065,7 +11065,7 @@ function bootFrame(t) {
 }
 function bootClose() {
   if (GATE.done) return; GATE.done = true; const g = document.getElementById("gate");
-  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); g.querySelector(".gseal").setAttribute("aria-label", "Tap to initialize"); bodyFree(); };
+  g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: "ease-in", fill: "forwards" }).onfinish = () => { g.hidden = true; g.getAnimations().forEach(a => a.cancel()); g.querySelector(".gseal").setAttribute("aria-label", "Initialize"); bodyFree(); };
 }
 // the terminal clears away, leaving the page's own grid, and the home page builds itself on it
 function gateOpen() {
