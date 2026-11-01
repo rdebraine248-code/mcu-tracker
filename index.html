@@ -2519,10 +2519,22 @@ function renderAll() { renderMeter(); renderView(); if (openEntry) renderPanel(o
 const panel = document.getElementById("panel");
 let openEntry = null, openFrom = null, openKind = null, closeTimer = null, closeDone = null, pqHoldUntil = 0, listHold = null;
 const CHECK = c => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="square"/></svg>`;
+/* MOCKUP BEGIN ch7 timeline */
+// Chapter 7 open (owner, November 2026: "the branching timeline graphic a little bit more involved in the entire box and maybe a bit
+// fainter, part of the background"): the Sacred Timeline comes in from the left and breaks into branches that reach across and down the
+// whole box, faint, standing still behind the list; the band across its top is gone, so its top row sits level with every other box
+const CH7_BG = (() => { const G = "#D9A441", X = 150, Y0 = 205, Y = [-30, 40, 115, 300, 410, 540, 690, 850], sub = [[300, 285, 340], [410, 290, 470], [540, 315, 600], [115, 280, 80], [690, 300, 745], [40, 290, 10]];
+  const br = Y.map((y, i) => `<path d="M${X} ${Y0} C ${X + 55} ${Y0}, ${X + 85 + i * 4} ${y}, 420 ${y}" fill="none" stroke="${G}" stroke-width="${2.6 - i * .15}"/>`).join("");
+  const sb = sub.map(([y, x, y2]) => `<path d="M${x} ${y} C ${x + 40} ${y}, ${x + 60} ${y2}, 420 ${y2}" fill="none" stroke="${G}" stroke-width="1.2"/>`).join("");
+  return `<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; opacity: .18"><svg width="100%" height="100%" viewBox="0 0 400 800" preserveAspectRatio="xMinYMin slice" style="display: block">`
+    + `<path d="M-20 ${Y0} H${X}" stroke="${G}" stroke-width="6"/>${br}${sb}<path d="M${X} ${Y0} C ${X + 60} ${Y0}, ${X + 100} ${Y0}, 420 ${Y0}" fill="none" stroke="#C8102E" stroke-width="3"/>`
+    + `<circle cx="${X}" cy="${Y0}" r="10" fill="#15171D" stroke="#F3EFE7" stroke-width="4"/></svg></div>`; })();
+/* MOCKUP END */
 function panelDecor(e) {
   // full-screen tweaks: taller banners so they don't look squashed, a longer gem glow, and
   // background decorations pinned in place while the list scrolls
   let h = e.decor || "";
+  if (typeof CH7_BG !== "undefined" && e.id === "ch-7") h = CH7_BG;
   h = h.replace('style="height: 30px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="30"',
                 'style="height: clamp(56px, 12vw, 150px); margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="100%"');
   h = h.replace('style="position: relative; height: 12px; margin: -14px -16px 10px -16px; overflow: hidden"><svg width="100%" height="12"',
