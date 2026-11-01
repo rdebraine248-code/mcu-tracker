@@ -88,8 +88,8 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   eggs and the boot screen.
 
 - **A box's head** (owner, November 2026): no Back row; **Close** (a thin pill, no focus ring round it) stands at the title's right,
-  and the chapter label (CH. 1, EXTRAS) sits under the title, before the quote; a character's **Profile** sits on that line, on the
-  left, never stacked under Close. **Chapter boxes have no Log button** any more ("remove the log button from each chapter"), so the
+  and the chapter label (CH. 1, EXTRAS) sits under the title, before the quote; a character's **Profile** takes that line, in the label's
+  look ("PROFILE ›"; owner: "character boxes should match"), never stacked under Close. **Chapter boxes have no Log button** any more ("remove the log button from each chapter"), so the
   per-chapter log pages aren't reached from the box; the Log page's Chapters tab is unchanged.
 - **A box's top row sits the status bar plus 6px down** (owner, November 2026: "all the contents and headers are so low"): `pinTop()`
   measures each box as it opens and sets `--pinT`, since some wear a band across their top (Chapter 1's stars). Chapter 7's branching
@@ -119,7 +119,7 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   3 friends"); one finger drags it, two pinch it; "Open Network ›" at its corner opens the Network on top, and back returns to the file,
   then to the page you came from (try it from the Agent File: Compound, Sharon, Open Network, back three times).
 - **Boxes:** every chapter and character box's title row (the name, with Close at its right) sits just under the status bar; the
-  chapter label (CH. 1, EXTRAS) under the title; a character's Profile under its name on the left; no Log button on chapters. Chapter 7 wears its banner
+  chapter label (CH. 1, EXTRAS) under the title; a character's "PROFILE ›" on that same line, in the label's look; no Log button on chapters. Chapter 7 wears its banner
   faint behind the box: one junction, four gold strands each side of the red, ending level.
 - **Earth-199999** for the main MCU world everywhere.
 - **No hint text:** covers read Unlock / [ Classified ] (Characters' multiverse boxes too, once Loki S1 is watched); "Override: N to
