@@ -125,7 +125,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 <div id="card" role="dialog" aria-live="polite"><button type="button" id="cGrip" aria-label="Show more about them" aria-expanded="false"></button>
   <div id="vOne"><small id="cCrew"></small><h2 id="cName"></h2>
     <div class="ln kinds" id="cSum"></div><div id="cMore"></div>
-    <div class="chips" id="sConn"><b>Their connections</b><div class="strip"></div></div>
+    <div class="chips" id="sConn"><b>Connections</b><div class="strip"></div></div>
     <div class="row" id="cRow"><button type="button" id="cFile">Open file ›</button></div></div>
   <div id="vThree" hidden><small id="tWith"></small><h2 id="tName"></h2><div class="ln"><span><b id="tCount"></b> from their web</span></div>
     <div class="chips"><b>Who was there</b><div class="strip" id="tStrip"></div></div>
@@ -650,9 +650,16 @@ function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = 
   glide = null; vel = { x: 0, y: 0 };
   if (fz >= .5) { zoom = Math.max(.85, fz);   /* never the in-between zoom, where people half fold into their bubbles */ cam.x = (x0 + x1) / 2; cam.y = (y0 + y1) / 2 - (top / 2 - H * .02) / zoom; }
   else { zoom = Math.max(.3, fz); cam.x = (x0 + x1) / 2; cam.y = (y0 + y1) / 2 - (top / 2 - H * .02) / zoom; } }   /* a big room: the whole floor, centred, zoomed out to its groups */
+// up to a dozen, taken a kind at a time in turn so every kind shows (three enemies never all fall off the end), then back in kind order
+const pick12 = L => { if (L.length <= 12) return L; const by = KIND.map(k => L.filter(x => x[1] === k)), out = []; for (let r = 0; out.length < 12; r++) by.forEach(g => { if (g[r] && out.length < 12) out.push(g[r]); });
+  return out.sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d); };
 self.netPreview = id => { const p = findP(id); if (!p || !p.vis) return null;
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d);
-  return { n: L.length, L: L.slice(0, 3).map(([j, k]) => ({ n: N[j].n, k: KS[k], c: KC[k], w: whoLine(p, N[j], relOf(p, N[j])) })) }; };
+  const ini = n => String(n).replace(/^((The|Dr\.|Doctor|Colonel|General|Agent|Captain|Senator|Mister|Mr\.|Mrs\.|Ms\.|King|Queen|Prince|Princess|Lord|Lady|Professor|Sergeant|Major|Director|Detective|Officer|Uncle|Aunt) )+/, '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  const K = KIND.map(k => { const c = L.filter(x => x[1] === k).length; return [c === 1 ? KS[k] : KL[k], KC[k], c, k]; }).filter(x => x[2]);   // "1 partner", "3 friends"
+  return { n: L.length, L: L.slice(0, 3).map(([j, k]) => ({ n: N[j].n, k: KS[k], c: KC[k], w: whoLine(p, N[j], relOf(p, N[j])) })),
+    // for a file's small web: the person, up to a dozen of their connections (kind by kind), and how many of each kind
+    me: { n: p.n, i: ini(p.n) }, W: pick12(L).map(([j, k]) => ({ n: N[j].n, i: ini(N[j].n), c: KC[k], k })), K }; };
 self.netSeen = (f, uok, sat, ek, known) => { if (known) KNOWN = new Set(known); try { return seenIn(f, uok, sat, ek); } finally { if (EMB && parent.netFresh && !LIVE) parent.netFresh(fresh().length); } };
 function seenIn(f, uok, sat, ek) { if (sat != null) document.documentElement.style.setProperty('--sat', sat + 'px');
   const key = TT.map(t => f(t) ? 1 : 0).join('') + UNIS.filter(([u]) => u !== 'all').map(([u]) => uok(u) ? 1 : 0).join('') + (ek || '');   /* and the episodes ticked */
