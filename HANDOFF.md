@@ -317,6 +317,9 @@ insignia celebration covers the page.
 - **The ticker plays on over Comms** (owner, November 2026): opening Comms no longer stops it; each story joins the list as it
   finishes (`newsMark` keeps the open list up to date).
 - **Nothing sits under the news ticker**: a card at the bottom of a page rises over it while it runs.
+- **The main MCU world is Earth-199999** (owner, November 2026: "The main mcu earth is earth 199999"), the Marvel Database's number:
+  every label, district and line of story text uses it (`earthOfFile`, `earthOf`, `HOME`, `earths.json`). The films call it Earth-616;
+  Peter B. Parker's Earth-616B in the Spider-Verse is a different world and keeps its name.
 - **No "tap / hold / swipe to..." text anywhere** (owner, November 2026: "cut the stupid tap to whatever text everywhere, it's
   immersion breaking"): text names what's there, never how to use it. Box covers read [ Locked ] (can be opened) or [ Classified ] (not yet), the same on Chapters and Characters; a locked box
   tapped again counts down "Override: N to go"; the boot screen says AWAITING AUTHORIZATION. Only the eggs' own how-tos, revealed on
@@ -336,15 +339,15 @@ insignia celebration covers the page.
   Wolverine next to Logan"; then, against Earth tabs: "they could just be a bigger bubble and then within that Earth bubble are the group
   bubbles"): one room per universe, each Earth's crews packed together inside a big labelled bubble (`DIST`), districts placed as
   non-overlapping circles, the biggest in the middle. No Earth tabs, no All universes tab. A person stands where their story lives
-  (`HOME` in hub-src): Sylvie, He Who Remains, Kang and America Chavez in Earth-616; the Void's people (the Lokis, Cassandra Nova, the
+  (`HOME` in hub-src): Sylvie, He Who Remains, Kang and America Chavez in Earth-199999; the Void's people (the Lokis, Cassandra Nova, the
   Deadpool & Wolverine variants and that film's Logan) in **The Void**, which is their group; Defender Strange in Earth-617 (the
   director's number, used by the MCU Wiki); Sinister Strange (Earth-TRN954) and The Marvels' Binary and Beast (Earth-TRN1225) by the
   Marvel Database's temporary numbers, which it marks unofficial. Their files keep the Earth they come from. The room opens zoomed out on
   its centre. Every person in every tab now has an Earth or The Void (November 2026 pass, `network/rel/uni/earth/earths.json`, each
   with its source): What If...?'s unnumbered worlds by the Marvel Database's temporary numbers (Earth-TRN908, TRN1089 to TRN1093,
   TRN1491 to TRN1495, TRN1502, TRN1503, TRN1516 for the Eminence, where Captain Carter traps him); the Pruned tab's Runaways, Inhumans and
-  Cloak & Dagger in Earth-616 (the Marvel Database files them all in Earth-199999, its number for the main MCU); Agents of S.H.I.E.L.D.
-  season 6's Benson, Keller, Sarge and Izel in Earth-616, Sibyl in Earth-19859 with Malick; Across the Spider-Verse's Vulture in Earth-65
+  Cloak & Dagger in Earth-199999 (the Marvel Database files them all there); Agents of S.H.I.E.L.D.
+  season 6's Benson, Keller, Sarge and Izel in Earth-199999, Sibyl in Earth-19859 with Malick; Across the Spider-Verse's Vulture in Earth-65
   and Prowler in Earth-928, where their stories happen; Deadpool & Wolverine's Gambit and Blob in The Void; Uatu in **The Fifth
   Dimension** (the MCU Wiki's home for him: he watches from outside every Earth).
 - **An Earth's name is written round the inside of its bubble's edge** (`arcName`), so it can't land on the Earth next door; every
@@ -520,7 +523,7 @@ insignia celebration covers the page.
     Network's other versions and crossings, its circles, labels), use the Earth number, not a film title or a year.
     Owner: "The Earth number separations should have also been included in the indexes and their files, right? So that we know that
     Peter Parker is from Earth x y z, the other Peter Parker is from Earth x y z." MOCKUP: a file's Universe tile reads "Spider-Verse ·
-    Earth-96283", and Compound and Raft index rows show the Earth under the name for anyone not from Earth-616 (`EARTHS`, filled only by
+    Earth-96283", and Compound and Raft index rows show the Earth under the name for anyone not from Earth-199999 (`EARTHS`, filled only by
     build_tb.py from network/rel/uni/earth/earths.json; main has an empty map, so nothing shows). Numbers are only ones stated on screen
     or Marvel's official designations (as the Atlas's), null otherwise.
   - **Never send the owner's personal details to outside sites (October 2026):** two research scripts written by agents put the owner's

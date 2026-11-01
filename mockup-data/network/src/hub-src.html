@@ -194,7 +194,7 @@ let UNI = 'mcu', UNIOK = null;
 let WORLD = null, DIST = [];   // DIST: the room's Earth districts, each { name, L: its people }
 // where someone stands in the Network: their Earth, unless their story lives elsewhere (owner, November 2026: Sylvie "was born there
 // but that's not where she belongs"; "the Void is definitely a better bubble"). Their files keep the Earth they come from
-const HOME = { 'sylvie': 'Earth-616', 'he-who-remains': 'Earth-616', 'kang': 'Earth-616', 'america-chavez': 'Earth-616',
+const HOME = { 'sylvie': 'Earth-199999', 'he-who-remains': 'Earth-199999', 'kang': 'Earth-199999', 'america-chavez': 'Earth-199999',
   'kid-loki': 'The Void', 'classic-loki': 'The Void', 'alligator-loki': 'The Void', 'president-loki': 'The Void', 'cassandra-nova': 'The Void',
   'ladypool': 'The Void', 'nicepool': 'The Void', 'dogpool': 'The Void', 'wolverine': 'The Void',   // Deadpool & Wolverine's Void (Logan and Dogpool end up on Deadpool's Earth-10005)
   'fox-gambit-void': 'The Void', 'fox-blob-void': 'The Void',   // Gambit is last seen still in the Void; Blob dies there
@@ -207,7 +207,7 @@ const wk = p => p.u + '|' + homeOf(p);
 const metP = p => p.A0.some(seen);
 // a universe's tab shows once the app has revealed it, like the indexes; All once there's more than one
 const uniOk = u => !UNIOK ? true : u === 'all' ? UNIS.filter(([v]) => v !== 'all' && UNIOK(v)).length > 1 : UNIOK(u);
-const EARTH = DATA.earth || {}, earthOf = p => p.id in EARTH ? EARTH[p.id] : p.u === 'mcu' ? 'Earth-616' : null, worldOf = p => earthOf(p) || UL[p.u];
+const EARTH = DATA.earth || {}, earthOf = p => p.id in EARTH ? EARTH[p.id] : p.u === 'mcu' ? 'Earth-199999' : null, worldOf = p => earthOf(p) || UL[p.u];
 const vtag = p => p.vt || (p.vt = (() => { const t = TT[[...p.A0].sort((a, b) => ORD[a] - ORD[b])[0]] || UL[p.u]; return t.length > 22 ? t.slice(0, 21) + '…' : t; })());
 const crewName = c => { const [n0, u] = String(c).split('\u2063'), n = n0.split('\u2064')[0]; return u && UNI === 'all' ? n + ' · ' + UL[u] : n; };
 const KC = { family: '#F4A261', partner: '#FF8FB1', friend: '#5FD49A', mentor: '#B79CFF', boss: '#5FD0FF', ally: '#7FB2FF', rival: '#E8C15A', enemy: '#E0574A', variant: '#D7E3F5' };
