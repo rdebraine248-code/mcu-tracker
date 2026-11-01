@@ -735,7 +735,11 @@ These happened in earlier chats. Each cost the owner time.
   datapad opens on Home: the Agent ID strip (insignia, codename, agent number, clearance and the bar to the next level; tap for the File),
   Up next as Story has it (`upNext`; Resume runs `goUpNext`), readouts (titles watched by `xpTitles`, main chapters and character boxes
   complete), the six stones, every dock page as a card (each carrying the dock's new dot), the archives you've found (as the File's
-  Archives), the latest headline heard, and a clock. Story becomes one page among the others. Leaving Home for a page by a card or the
+  Archives), the latest headline heard, and a clock. Story becomes one page among the others. Restyled on the owner's word ("way more in theme of data pad SHIELD tech"): S.H.I.E.L.D.
+  hardware, cut-corner panels with a lit bar on top (the HUD pills' cyan, `#5FD0FF`), tick-marked dials (clearance, titles, chapters,
+  characters), the assignment as Operation and Objective with one segment per title, the stones as Energy signatures in hex sockets,
+  the pages as Systems (SYS-01 to 06), Secure archives, an Incoming feed with its signal, the eagle as a faint watermark; it powers up
+  each time it opens (a scan line down the screen, the panels on behind it, the dials filling; none with reduced motion). Leaving Home for a page by a card or the
   dock remembers it, so Back from that page comes home again (`homeBack`); tapping Story drops that. Not approved: ask the owner before
   folding it into main.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The

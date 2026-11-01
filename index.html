@@ -1475,73 +1475,115 @@ body{ padding-bottom:var(--dockh); }
 .atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; } .atl-dc em{ font-style:normal; font-size:18px; color:#7FD95A; }
 .hf-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(127,217,90,.10),rgba(127,217,90,.03)); --ak:#7FD95A; }
 
-/* MOCKUP BEGIN: Home, the datapad's front screen (owner, November 2026: "build a homepage that's like a datapad"). Not approved */
+/* MOCKUP BEGIN: Home, the datapad's front screen (owner, November 2026: "build a homepage that's like a datapad", then "way more in theme
+   of data pad SHIELD tech"). S.H.I.E.L.D. bridge hardware: cut-corner panels with a lit bar, tick-marked dials, mono readouts, the eagle
+   behind it all, powering up once each time Home opens. Not approved */
+#homePanel{ --hc:#5FD0FF; --hd:#24425F; --hf:#0A1220; }
 #homePanel .maptop{ align-items:flex-end; }
-#homePanel .hm-clock{ margin-left:auto; text-align:right; font:11px/1.35 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
-#homePanel .hm-clock b{ display:block; font:400 22px/1 'Anton','Impact',sans-serif; letter-spacing:1px; color:#EEF5FF; }
-.hm-view{ padding:6px 16px calc(var(--dockh) + 70px); }
-.hm-view > * + *{ margin-top:12px; } .hm-view > .hm-lbl{ margin-top:22px; margin-bottom:-4px; }
-.hm-lbl{ display:flex; justify-content:space-between; align-items:center; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7FA6D8; }
-.hm-lbl span + span{ color:#56637C; }
-/* every card is a pane of the datapad: a thin frame with its corners marked, like a HUD's */
-.hm-card{ position:relative; display:block; width:100%; padding:14px; border:1px solid #232C3E; border-radius:12px; background:linear-gradient(180deg,rgba(26,34,52,.72),rgba(14,19,30,.72)); color:#EEF1F6; text-align:left; touch-action:manipulation; }
-button.hm-card{ cursor:pointer; } button.hm-card:active{ transform:scale(.99); }
-.hm-card::before, .hm-card::after{ content:""; position:absolute; width:10px; height:10px; border:solid #4F7FC0; pointer-events:none; }
-.hm-card::before{ top:-1px; left:-1px; border-width:2px 0 0 2px; border-radius:12px 0 0 0; }
-.hm-card::after{ bottom:-1px; right:-1px; border-width:0 2px 2px 0; border-radius:0 0 12px 0; }
+#homePanel .hm-clock{ margin-left:auto; text-align:right; font:10px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#6F94BE; }
+#homePanel .hm-clock b{ display:block; font:400 20px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#DFF6FF; text-shadow:0 0 8px rgba(95,208,255,.55); }
+.hm-view{ position:relative; padding:0 16px calc(var(--dockh) + 70px); overflow-x:hidden; }
+/* the eagle, huge and faint, behind the panels */
+.hm-wm{ position:absolute; left:50%; top:120px; width:64px; height:64px; margin-left:-32px; transform:scale(6.2); transform-origin:50% 0; opacity:.08; filter:grayscale(1) brightness(2.2); pointer-events:none; z-index:0; }
+.hm-view > *:not(.hm-wm){ position:relative; z-index:1; }
+.hm-view > * + *{ margin-top:10px; }
+/* the system line under the title: who made the hardware, and the link */
+.hm-sys{ display:flex; align-items:center; gap:8px; padding:0 0 8px; border-bottom:1px solid var(--hd); font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#56708F; }
+.hm-sys .emb{ width:64px; height:64px; margin:-23px -22px -23px -22px; transform:scale(.3); filter:grayscale(1) brightness(1.6); opacity:.8; }
+.hm-sys em{ margin-left:auto; font-style:normal; color:#7FD95A; } .hm-sys em::before{ content:""; display:inline-block; width:6px; height:6px; margin-right:6px; border-radius:50%; background:#7FD95A; box-shadow:0 0 6px #7FD95A; vertical-align:1px; }
+.hm-ticks{ height:5px; margin-top:-10px; background:repeating-linear-gradient(90deg, var(--hd) 0 1px, transparent 1px 8px); }
+/* a panel: a cut corner top left and bottom right, a hairline frame, scan lines, and a lit bar on its top edge (the HUD pills' corners) */
+.sp{ --cut:13px; position:relative; display:block; width:100%; padding:12px 14px 14px; border:0; color:#E4F2FF; text-align:left; background:var(--hd);
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut)); touch-action:manipulation; }
+.sp::before{ content:""; position:absolute; inset:1px; z-index:0; background:repeating-linear-gradient(0deg, rgba(95,208,255,.045) 0 1px, transparent 1px 3px), linear-gradient(180deg, rgba(14,26,44,.84), rgba(7,12,22,.88));
+  clip-path:polygon(calc(var(--cut) - .4px) 0,100% 0,100% calc(100% - var(--cut) + .4px),calc(100% - var(--cut) + .4px) 100%,0 100%,0 calc(var(--cut) - .4px)); }
+.sp::after{ content:""; position:absolute; z-index:2; left:calc(var(--cut) + 4px); top:0; width:46px; height:2px; background:var(--hc); box-shadow:0 0 8px var(--hc); }
+.sp > *{ position:relative; z-index:1; }
+button.sp{ cursor:pointer; } button.sp:active{ filter:brightness(1.25); }
+.sp-h{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding-bottom:7px; margin-bottom:10px; border-bottom:1px solid #1A2E46; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:var(--hc); }
+.sp-h::before{ content:""; width:0; height:0; border-left:6px solid var(--hc); border-top:6px solid transparent; margin-right:-2px; transform:rotate(-90deg); }
+.sp-h span:first-of-type{ flex:1; } .sp-h span + span{ color:#56708F; }
+.sp-k{ font:9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#56708F; }
+/* dials: tick marks round the rim, a track, the lit arc, a dotted inner ring */
+.hm-dial{ position:relative; flex:0 0 auto; }
+.hm-dial svg{ display:block; width:100%; height:100%; overflow:visible; }
+.hm-dial .arc{ transition:stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1) .25s; stroke-dashoffset:0; filter:drop-shadow(0 0 3px rgba(95,208,255,.8)); }
+.hm-boot .hm-dial .arc{ stroke-dashoffset:var(--len); transition:none; }
+.hm-dial .dv{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.hm-dial .dv b{ font:400 15px/1 'Share Tech Mono','Courier New',monospace; color:#EAF7FF; }
+.hm-dial .dv small{ margin-top:3px; font:8px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#56708F; }
 /* the agent */
-.hm-agent{ display:flex; align-items:center; gap:12px; }
-.hm-ava{ position:relative; flex:0 0 52px; width:52px; height:52px; border-radius:50%; border:1px solid #2E3A56; background:radial-gradient(circle at 50% 45%, #1A2336 0%, #0B1019 70%); overflow:hidden; }
-.hm-ava .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:scale(.7); }
-.hm-ava b{ display:block; text-align:center; font:300 22px/50px 'IBM Plex Sans',sans-serif; color:#7FA6D8; }
-.hm-agent .hm-who{ flex:1; min-width:0; }
-.hm-agent .hm-who b{ display:block; font:400 21px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.hm-agent .hm-who small{ display:block; margin-top:4px; font:10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#9AA6BA; }
-.hm-agent .hm-lv{ text-align:right; }
-.hm-agent .hm-lv b{ display:block; font:400 30px/1 'Anton','Impact',sans-serif; color:#EEF5FF; }
-.hm-agent .hm-lv small{ display:block; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
-.hm-xp{ height:3px; margin-top:12px; border-radius:2px; background:#1C2536; overflow:hidden; } .hm-xp span{ display:block; height:100%; background:linear-gradient(90deg,#3A78C9,#8FC1FF); }
-/* up next: the one thing to do now */
-.hm-next{ padding:16px; border-color:#2F4F80; background:radial-gradient(500px 200px at 0% 0%, rgba(79,163,255,.16), rgba(0,0,0,0) 70%), linear-gradient(180deg,rgba(22,32,54,.85),rgba(12,18,30,.85)); }
-.hm-next h3{ margin:8px 0 0; font:400 26px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
-.hm-next p{ margin:6px 0 0; color:#9AA3B2; font-size:15px; }
-.hm-go{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:10px 16px; border-radius:999px; background:#EEF1F6; color:#0B1019; font:600 15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
-.hm-go svg{ width:14px; height:14px; }
-.hm-chbar{ display:flex; align-items:center; gap:10px; margin-top:12px; font:10.5px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#9AA6BA; }
-.hm-chbar i{ flex:1; height:3px; border-radius:2px; background:#1C2536; overflow:hidden; } .hm-chbar i span{ display:block; height:100%; background:#8FC1FF; }
-/* the readouts */
-.hm-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-.hm-stats .hm-card{ padding:12px 10px; }
-.hm-stats b{ display:block; font:400 26px/1 'Anton','Impact',sans-serif; color:#EEF5FF; }
-.hm-stats b small{ font:400 15px 'Anton','Impact',sans-serif; color:#56637C; }
-.hm-stats em{ display:block; margin-top:6px; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.5px; text-transform:uppercase; color:#9AA6BA; }
-.hm-stones{ display:flex; align-items:center; gap:10px; }
-.hm-stones .hm-lbl{ flex:0 0 auto; }
-.hm-stones div{ flex:1; display:flex; justify-content:space-between; }
-.hm-stones i{ width:22px; height:22px; transform:rotate(45deg); border-radius:4px; border:1px solid #2A3140; background:#121827; }
-.hm-stones i.on{ border-color:var(--gl); background:radial-gradient(circle at 35% 30%, var(--gl), var(--g) 45%, var(--gd)); box-shadow:0 0 10px var(--g); }
-/* the apps: every page of the datapad, a tap away */
+.hm-agent{ display:flex; align-items:center; gap:14px; }
+.hm-agent .hm-dial{ width:108px; height:108px; }
+.hm-agent .hm-dial .dv b{ font:400 40px/1 'Anton','Impact',sans-serif; text-shadow:0 0 12px rgba(95,208,255,.6); }
+.hm-agent dl{ flex:1; min-width:0; margin:0; display:grid; grid-template-columns:auto 1fr; gap:5px 10px; align-items:baseline; }
+.hm-agent dt{ font:9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#56708F; }
+.hm-agent dd{ margin:0; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; color:#DCEBFA; }
+.hm-agent dd.nm{ font:400 20px/1 'Anton','Impact',sans-serif; letter-spacing:.6px; color:#F2F9FF; }
+.hm-agent dd.ok{ color:#7FD95A; }
+.hm-ava{ position:absolute; top:40px; right:14px; width:40px; height:40px; clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%); background:#1A3350; }
+.hm-ava::before{ content:""; position:absolute; inset:1px; clip-path:inherit; background:#08101C; }
+.hm-ava .emb{ position:absolute; left:50%; top:50%; margin:-32px 0 0 -32px; transform:scale(.5); }
+.hm-bar{ display:flex; align-items:center; gap:10px; margin-top:12px; }
+.hm-bar i{ flex:1; height:16px; opacity:.5; background:repeating-linear-gradient(90deg,#9FC3E8 0 2px,transparent 2px 4px,#9FC3E8 4px 5px,transparent 5px 8px,#9FC3E8 8px 11px,transparent 11px 13px); }
+.hm-bar span{ font:9.5px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#6F94BE; }
+/* the assignment */
+.hm-op{ font:500 14px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#9FB6D2; margin-top:2px; }
+.hm-obj{ margin:3px 0 0; font:400 27px/1.03 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; color:#F2F9FF; text-shadow:0 0 14px rgba(95,208,255,.25); }
+.hm-segs{ display:flex; gap:3px; margin-top:12px; }
+.hm-segs i{ flex:1; height:7px; background:#132235; transform:skewX(-20deg); }
+.hm-segs i.on{ background:var(--hc); box-shadow:0 0 6px rgba(95,208,255,.6); } .hm-segs i.nx{ background:transparent; box-shadow:inset 0 0 0 1px var(--hc); }
+.hm-segs.flat i{ transform:none; }
+.hm-mrow{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; }
+.hm-mrow .sp-k{ color:#6F94BE; }
+.hm-engage{ --cut:8px; display:inline-flex; align-items:center; gap:8px; padding:9px 16px 9px 14px; background:var(--hc); color:#04121F; font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase;
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut)); box-shadow:0 0 12px rgba(95,208,255,.5); }
+.hm-engage svg{ width:10px; height:10px; }
+/* status: three dials */
+.hm-gauges{ display:flex; justify-content:space-between; }
+.hm-gauges > div{ flex:1; display:flex; flex-direction:column; align-items:center; }
+.hm-gauges .hm-dial{ width:84px; height:84px; }
+.hm-gauges .sp-k{ margin-top:6px; text-align:center; } .hm-gauges .sp-k b{ display:block; font:400 11.5px 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#DCEBFA; }
+/* energy signatures: the six stones, each in its socket */
+.hm-stones{ display:flex; justify-content:space-between; }
+.hm-stones > div{ display:flex; flex-direction:column; align-items:center; gap:6px; width:16%; }
+.hm-stones .sk{ position:relative; width:34px; height:38px; clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); background:#1A2E46; }
+.hm-stones .sk::before{ content:""; position:absolute; inset:1px; clip-path:inherit; background:#08101C; }
+.hm-stones .sk i{ position:absolute; left:50%; top:50%; width:14px; height:14px; margin:-7px 0 0 -7px; transform:rotate(45deg); border-radius:3px; background:#142236; }
+.hm-stones .on .sk{ background:var(--g); box-shadow:0 0 10px var(--g); } .hm-stones .on .sk i{ background:radial-gradient(circle at 35% 30%, var(--gl), var(--g) 45%, var(--gd)); box-shadow:0 0 10px var(--g); }
+.hm-stones .sp-k{ font-size:8px; letter-spacing:1.2px; } .hm-stones .on .sp-k{ color:var(--gl); }
+/* systems: every page of the datapad */
 .hm-apps{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-.hm-apps .hm-card{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; padding:14px 12px 12px; }
-.hm-apps svg{ width:26px; height:26px; color:#8FC1FF; }
-.hm-apps b{ font:400 17px/1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
-.hm-apps small{ margin-top:-6px; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; color:#7D8BA6; }
-.hm-apps .nw::after, .hm-arch .nw::after{ content:""; position:absolute; top:10px; right:10px; width:8px; height:8px; border-radius:50%; background:#4FA3FF; box-shadow:0 0 8px #4FA3FF; }
-/* the archives you've found, in their own colours */
+.hm-apps .sp{ --cut:10px; padding:10px 10px 11px; }
+.hm-apps .sp::after{ width:22px; left:14px; }
+.hm-apps .ac{ display:flex; justify-content:space-between; align-items:flex-start; font:9px 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; color:#3F5A7A; }
+.hm-apps .ic{ display:grid; place-items:center; width:38px; height:38px; margin:4px 0 8px; border-radius:50%; border:1px solid #23405F; box-shadow:inset 0 0 10px rgba(95,208,255,.12); background:radial-gradient(circle, rgba(95,208,255,.10), transparent 70%); }
+.hm-apps .ic svg{ width:20px; height:20px; color:var(--hc); }
+.hm-apps b{ display:block; font:400 16px/1 'Anton','Impact',sans-serif; letter-spacing:.6px; text-transform:uppercase; }
+.hm-apps small{ display:block; margin-top:4px; font:8.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; color:#56708F; }
+.hm-apps .nwt{ display:none; color:var(--hc); } .hm-apps .nw .nwt{ display:inline; } .hm-apps .nw .ic{ border-color:var(--hc); }
+/* secure archives, each in its own colour */
 .hm-arch{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.hm-arch .sp{ --hd:var(--ac); } .hm-arch .sp::after{ background:var(--ak); box-shadow:0 0 8px var(--ak); }
+.hm-arch .sp::before{ background:repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 3px), var(--ab), #08101C; }
 .hm-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(127,217,90,.10),rgba(127,217,90,.03)); --ak:#7FD95A; }
-.hm-arch button{ border-color:var(--ac); background:var(--ab); }
-.hm-arch button::before{ border-color:var(--ak); } .hm-arch button::after{ border-color:var(--ak); }
-.hm-arch small{ display:block; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:var(--ak); }
+.hm-arch small{ display:block; font:9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:var(--ak); }
 .hm-arch b{ display:block; margin-top:4px; font:400 17px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
-.hm-arch em{ display:block; margin-top:6px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.2px; text-transform:uppercase; color:#9AA6BA; }
-/* the latest transmission */
-.hm-tx p{ margin:8px 0 0; font-size:16px; line-height:1.35; }
-.hm-tx small{ display:block; margin-top:8px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7D8BA6; }
-.hm-tx .hm-out{ font:400 13px 'Anton','Impact',sans-serif; letter-spacing:1px; color:#E9897E; }
-.hm-foot{ display:flex; align-items:center; gap:10px; padding-top:4px; font:10px 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#56637C; }
-.hm-foot i{ width:7px; height:7px; border-radius:50%; background:#7FD95A; box-shadow:0 0 6px #7FD95A; animation:hmblink 2.4s steps(1) infinite; }
-@keyframes hmblink{ 50%{ opacity:.25; } }
+.hm-arch em{ display:flex; justify-content:space-between; margin-top:8px; font:9.5px/1.3 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:1.2px; text-transform:uppercase; color:#9AA6BA; }
+.hm-arch em span:last-child{ color:var(--ak); }
+/* the incoming feed: the signal it came in on, then the words */
+.hm-wave{ display:flex; align-items:center; justify-content:space-between; height:24px; }
+.hm-wave i{ flex:0 0 2px; background:var(--hc); opacity:.6; border-radius:1px; box-shadow:0 0 4px rgba(95,208,255,.5); }
+.hm-tx p{ margin:10px 0 0; font:500 16px/1.35 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#F2F9FF; }
+.hm-tx .sp-k{ display:block; margin-top:8px; }
+.hm-foot{ padding-top:6px; text-align:center; font:8.5px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#3F5A7A; }
+/* powering up: the panels come on one after another as a scan line passes down the screen */
+.hm-view .sp, .hm-view .hm-sys{ transition:opacity .35s ease calc(var(--i, 0) * 70ms), transform .45s cubic-bezier(.2,.7,.2,1) calc(var(--i, 0) * 70ms); }
+.hm-boot .sp, .hm-boot .hm-sys{ opacity:0; transform:translateY(8px); transition:none; }
+.hm-scan{ position:fixed; left:0; right:0; top:0; height:2px; z-index:62; pointer-events:none; background:var(--hc); box-shadow:0 0 14px 2px rgba(95,208,255,.6); opacity:0; }
+.hm-scan.go{ animation:hmscan .9s cubic-bezier(.4,0,.6,1) both; }
+@keyframes hmscan{ 0%{ transform:translateY(0); opacity:.9; } 90%{ opacity:.7; } 100%{ transform:translateY(100vh); opacity:0; } }
+@media (prefers-reduced-motion: reduce){ .hm-scan{ display:none; } }
 /* MOCKUP END */
 </style>
 </head>
@@ -12283,68 +12325,91 @@ function shatter(x, y) {
     }, 3800);
   }, 650);
 };
-/* MOCKUP BEGIN: Home, the datapad's front screen. A Home button leads the dock, and the datapad opens on it: your Agent ID, what's next,
-   the readouts, every page and archive a tap away, the latest transmission. Story is one of its pages now. Not approved */
+/* MOCKUP BEGIN: Home, the datapad's front screen. A Home button leads the dock, and the datapad opens on it: S.H.I.E.L.D. hardware with your
+   Agent ID and clearance dial, the current assignment (what's next), status dials, the stones' signatures, every page and archive a tap
+   away, and the latest intercepted feed. Story is one of its pages now. Not approved */
 if (MOCK) (() => {
   const dock = document.getElementById("dock");
   dock.insertAdjacentHTML("afterbegin", `<button type="button" data-dock="home" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Home</button>`);
   DOCK_NAMES.home = "Home";
-  document.getElementById("filePanel").insertAdjacentHTML("beforebegin", `<div class="filepanel dockpg" id="homePanel" hidden role="dialog" aria-label="Home"><div class="fileview hm-view" id="homeView"></div></div>`);
+  document.getElementById("filePanel").insertAdjacentHTML("beforebegin", `<div class="filepanel dockpg" id="homePanel" hidden role="dialog" aria-label="Home"><div class="maptop"><h2 data-glow="Home">Home</h2><span class="hm-clock" id="hmClock"></span></div><div class="fileview hm-view" id="homeView"></div><i class="hm-scan" id="hmScan" aria-hidden="true"></i></div>`);
   const hp = document.getElementById("homePanel"), hv = document.getElementById("homeView");
   let homeOpen = false, homeBack = false, clockT = 0;
   const ico = k => { const b = dock.querySelector(`[data-dock="${k}"] svg`); return b ? b.outerHTML : ""; };
   const isNw = k => { const b = dock.querySelector(`[data-dock="${k}"]`); return !!b && b.classList.contains("nw"); };
+  const p2 = n => String(n).padStart(2, "0");
   const clock = () => { const d = new Date(), el = document.getElementById("hmClock"); if (!el) return;
-    el.innerHTML = `<b>${d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</b>${d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" })}`; };
+    el.innerHTML = `<b>${p2(d.getHours())}:${p2(d.getMinutes())}</b>${d.toLocaleDateString("en-GB", { weekday: "short", day: "2-digit", month: "short", year: "numeric" }).replace(/,/g, "")}`; };
+  // a dial: 60 ticks round the rim (every fifth longer), a track, the lit arc for the share, a dotted inner ring
+  const TICKS = Array.from({ length: 60 }, (_, i) => { const a = i / 60 * Math.PI * 2 - Math.PI / 2, r0 = i % 5 ? 46 : 43.5, c = Math.cos(a), s = Math.sin(a);
+    return `M${(50 + c * r0).toFixed(2)} ${(50 + s * r0).toFixed(2)}L${(50 + c * 49).toFixed(2)} ${(50 + s * 49).toFixed(2)}`; }).join("");
+  const dial = (f, inner) => { const C = 2 * Math.PI * 38, len = (Math.max(0, Math.min(1, f)) * C).toFixed(1);
+    return `<div class="hm-dial"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="${TICKS}" stroke="#2A4A6C" stroke-width="1"/><circle cx="50" cy="50" r="38" fill="none" stroke="#132235" stroke-width="5"/>
+      <circle class="arc" cx="50" cy="50" r="38" fill="none" stroke="#5FD0FF" stroke-width="5" stroke-dasharray="${len} ${C.toFixed(1)}" style="--len:${len}" transform="rotate(-90 50 50)"/>
+      <circle cx="50" cy="50" r="31" fill="none" stroke="#24425F" stroke-width="1" stroke-dasharray="1 3"/></svg><div class="dv">${inner}</div></div>`; };
+  const panel = (i, tag, cls, head, right, body, hm) => `<${tag} ${tag === "button" ? 'type="button" ' : ""}class="sp${cls ? " " + cls : ""}" style="--i:${i}"${hm ? ` data-hm="${hm}"` : ""}>${head ? `<div class="sp-h"><span>${head}</span>${right ? `<span>${right}</span>` : ""}</div>` : ""}${body}</${tag}>`;
   function renderHome() {
-    const A = achList(), xp = xpOf(A), level = xpLevel(xp, A), lo = XP_AT[Math.min(level, XP_AT.length) - 1] || 0, hi = XP_AT[level] ?? lo, pct = level > 10 || hi <= lo ? 100 : Math.round((xp - lo) / (hi - lo) * 100);
+    const A = achList(), xp = xpOf(A), level = xpLevel(xp, A), lo = XP_AT[Math.min(level, XP_AT.length) - 1] || 0, hi = XP_AT[level] ?? lo, f = level > 10 || hi <= lo ? 1 : (xp - lo) / (hi - lo);
     const T = xpTitles(), seen = T.filter(([t]) => atlSeenT(t)).length;
     const mainCh = DATA.chapters.filter(c => c.num), chDone = mainCh.filter(isDone).length;
     const chars = DATA.chars.filter(c => !charHidden(c)), chrDone = chars.filter(isDone).length;
-    // up next, as the Story page has it
-    const u = upNext(); let nx;
-    if (u && u.kind === "chapter") { const [n, t] = count(u.e); nx = `<div class="hm-lbl"><span>Up next</span><span>${esc(u.e.label)}</span></div><h3>${esc(tn(u.t))}</h3><p>${esc(u.e.title || "")}</p><div class="hm-chbar"><i><span style="width:${t ? n / t * 100 : 0}%"></span></i>${n} of ${t}</div>`; }
-    else if (u && u.kind === "unlock") nx = `<div class="hm-lbl"><span>Up next</span><span>New chapter</span></div><h3>${esc(u.e.label)}</h3><p>Ready to unlock.</p>`;
-    else if (u) nx = `<div class="hm-lbl"><span>Up next</span><span>Sacred Timeline</span></div><h3>${esc(tn(u.t))}</h3>`;
-    else nx = `<div class="hm-lbl"><span>Up next</span><span>All clear</span></div><h3>Nothing queued</h3><p>Every title on your path is watched.</p>`;
+    const clr = level > 10 ? CLEARANCE[CLEARANCE.length - 1] : CLEARANCE[level - 1];
+    // the agent
+    const agent = panel(1, "button", "", "Agent identification", "Personnel record", `<span class="hm-ava">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : ""}</span>
+      <div class="hm-agent">${dial(f, `<b>${level > 10 ? "&#9733;" : level}</b><small>LEVEL</small>`)}
+        <dl><dt>Agent</dt><dd class="nm">${state.codename ? esc(state.codename) : "Unassigned"}</dd><dt>ID</dt><dd>${esc(agentNo())}</dd><dt>Clearance</dt><dd>${esc(clr)}</dd><dt>XP</dt><dd>${xp}${level > 10 || hi <= lo ? "" : " / " + hi}</dd><dt>Status</dt><dd class="ok">Active</dd></dl></div>
+      <div class="hm-bar"><i></i><span>${esc(agentNo())}</span></div>`, "file");
+    // the current assignment: what Story has up next
+    const u = upNext(); let body, right;
+    if (u && u.kind === "chapter") { const c = u.e, segs = c.items.map(i => state.checks[ck(c, i.t)] ? "on" : i.t === u.t ? "nx" : ""), [n, t] = count(c);
+      right = c.num ? "OP-" + p2(c.num) : "EXTRA";
+      body = `<span class="sp-k">Operation</span><div class="hm-op">${esc(c.title || c.label)}</div><span class="sp-k" style="display:block;margin-top:10px">Objective</span><h3 class="hm-obj">${esc(tn(u.t))}</h3>
+        <div class="hm-segs${segs.length > 24 ? " flat" : ""}">${segs.length > 24 ? `<i class="on" style="flex:${n}"></i><i style="flex:${t - n}"></i>` : segs.map(s => `<i class="${s}"></i>`).join("")}</div>
+        <div class="hm-mrow"><span class="sp-k">${n} / ${t} objectives complete</span><span class="hm-engage"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor"/></svg>Engage</span></div>`; }
+    else if (u && u.kind === "unlock") { right = "Awaiting"; body = `<span class="sp-k">Operation</span><h3 class="hm-obj">${esc(u.e.label)}</h3><div class="hm-mrow"><span class="sp-k">Clearance ready</span><span class="hm-engage">Authorize</span></div>`; }
+    else if (u) { right = "Sacred Timeline"; body = `<span class="sp-k">Objective</span><h3 class="hm-obj">${esc(tn(u.t))}</h3><div class="hm-mrow"><span class="sp-k">Next on the timeline</span><span class="hm-engage">Engage</span></div>`; }
+    else { right = "Standing by"; body = `<span class="sp-k">Objective</span><h3 class="hm-obj">No active assignment</h3><div class="hm-op">Every title on your path is watched.</div>`; }
+    const mission = panel(2, u ? "button" : "div", "", "Current assignment", right, body, u ? "next" : "");
+    // status dials
+    const g = (x, n, k) => `<div>${dial(n ? x / n : 0, `<b>${n ? Math.round(x / n * 100) : 0}%</b>`)}<span class="sp-k">${k}<b>${x} / ${n}</b></span></div>`;
+    const status = panel(3, "div", "", "System status", "Diagnostics", `<div class="hm-gauges">${g(seen, T.length, "Titles")}${g(chDone, mainCh.length, "Chapters")}${g(chrDone, chars.length, "Characters")}</div>`);
+    const have = state.stones || {}, nSt = STONES.filter(st => have[st.id]).length;
+    const stones = panel(4, "div", "", "Energy signatures", `${nSt} / 6 detected`, `<div class="hm-stones">${STONES.map(st => `<div class="${have[st.id] ? "on" : ""}" style="${gemVars(st)}"><span class="sk"><i></i></span><span class="sp-k">${have[st.id] ? esc(st.n) : "No signal"}</span></div>`).join("")}</div>`);
+    // every page of the datapad
+    const apps = [["story", "Story", "Watch list"], ["log", "Log", "Chapters · Paths"], ["atlas", "Atlas", "Global map"], ["net", "Network", "Connections"], ["comms", "Comms", "News · Messages"], ["file", "File", "Agent ID"]]
+      .filter(([k]) => { const b = dock.querySelector(`[data-dock="${k}"]`); return b && !b.hidden; });
+    const sys = `<div class="hm-apps">${apps.map(([k, n, s], i) => `<button type="button" class="sp${isNw(k) ? " nw" : ""}" style="--i:${5 + (i / 3 | 0)}" data-hm="${k}"><span class="ac"><span>SYS-${p2(i + 1)}</span><span class="nwt">&#9679; New</span></span><span class="ic">${ico(k)}</span><b>${n}</b><small>${s}</small></button>`).join("")}</div>`;
     // the archives you've found
     const ex = state.eggs || {};
     const arch = [["cp", "compound", "The Avengers Compound", "Personnel", () => ALLIES.filter(o => cpSteps(o).length).length, "on file"],
       ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
       ["dc", "damagecontrol", "Damage Control", "Incidents", () => DC.filter(dcSeen).length, "reports"],
       ["coll", "collector", "The Collection", "Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
-    // the latest transmission: the last headline you've heard, or the last message
+    const archH = arch.length ? `<div class="hm-arch">${arch.map(([m, , t, k, n, w]) => `<button type="button" class="sp ar-${m}" style="--i:7" data-hm="arch:${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em><span>${n()} ${w}</span><span>Access granted</span></em></button>`).join("")}</div>` : "";
+    // the latest intercepted feed: the last headline you've heard, or the last message
     const N = cmHeardN(), M = cmHeardM(); let tx = "";
-    if (N.length) { const k = N[N.length - 1].slice(2), i = k.indexOf("::"), t = k.slice(0, i), h = k.slice(i + 2);
-      tx = `<button type="button" class="hm-card hm-tx" data-hm="comms"><div class="hm-lbl"><span>Latest transmission</span><span class="hm-out">${esc(OUTLETS[newsSrc(t)][2] || OUTLETS[newsSrc(t)][0])}</span></div><p>${esc(h)}</p><small>${esc(tn(t))}${cmUnread("news") || cmUnread("msg") ? " · Unread in Comms" : ""}</small></button>`; }
-    else if (M.length) { const m = M[M.length - 1]; tx = `<button type="button" class="hm-card hm-tx" data-hm="comms"><div class="hm-lbl"><span>Latest transmission</span><span>${esc(m.k ? MSG_KIND[m.k] : "Message")}</span></div><p>${esc(m.re || m.f)}</p><small>From ${esc(m.f)}</small></button>`; }
-    const app = (k, name, sub) => dock.querySelector(`[data-dock="${k}"]`) && !dock.querySelector(`[data-dock="${k}"]`).hidden ? `<button type="button" class="hm-card${isNw(k) || (k === "story" && isNw("story")) ? " nw" : ""}" data-hm="${k}">${ico(k)}<b>${name}</b><small>${sub}</small></button>` : "";
+    const wave = s => { let h = 7; const L = []; for (let i = 0; i < 90; i++) { h = (h * 31 + s.charCodeAt(i % s.length)) % 997; L.push(Math.round((10 + (h % 90)) * (.35 + .65 * Math.sin(Math.PI * i / 89)))); } return `<div class="hm-wave">${L.map(v => `<i style="height:${v}%"></i>`).join("")}</div>`; };
+    if (N.length) { const k = N[N.length - 1].slice(2), i = k.indexOf("::"), t = k.slice(0, i), h = k.slice(i + 2), o = OUTLETS[newsSrc(t)];
+      tx = panel(8, "button", "hm-tx", "Incoming feed", esc(o[2] || o[0]), `${wave(h)}<p>${esc(h)}</p><span class="sp-k">${esc(tn(t))}${cmUnread("news") || cmUnread("msg") ? " · Unread traffic in Comms" : ""}</span>`, "comms"); }
+    else if (M.length) { const m = M[M.length - 1]; tx = panel(8, "button", "hm-tx", "Incoming feed", esc(m.k ? MSG_KIND[m.k] : "Message"), `${wave(m.re || m.f)}<p>${esc(m.re || m.f)}</p><span class="sp-k">From ${esc(m.f)}</span>`, "comms"); }
     const sc = hv.scrollTop;
-    hv.innerHTML = `
-      <button type="button" class="hm-card" data-hm="file"><div class="hm-agent"><span class="hm-ava">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : "<b>+</b>"}</span>
-        <span class="hm-who"><b>${state.codename ? esc(state.codename) : "Agent"}</b><small>${esc(agentNo())} · ${level > 10 ? "" : "Level " + level + " · "}${esc(CLEARANCE[level - 1] || CLEARANCE[CLEARANCE.length - 1])}</small></span>
-        <span class="hm-lv"><b>${level > 10 ? "&#9733;" : level}</b><small>Clearance</small></span></div>
-        <div class="hm-xp"><span style="width:${pct}%"></span></div></button>
-      <button type="button" class="hm-card hm-next" data-hm="next">${nx}${u ? `<span class="hm-go"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor"/></svg>${u.kind === "unlock" ? "Unlock" : "Resume"}</span>` : ""}</button>
-      <div class="hm-stats">
-        <div class="hm-card"><b>${seen}<small>/${T.length}</small></b><em>Titles watched</em></div>
-        <div class="hm-card"><b>${chDone}<small>/${mainCh.length}</small></b><em>Chapters</em></div>
-        <div class="hm-card"><b>${chrDone}<small>/${chars.length}</small></b><em>Characters</em></div></div>
-      <div class="hm-card hm-stones"><div class="hm-lbl"><span>Stones</span></div><div>${STONES.map(st => `<i class="${(state.stones || {})[st.id] ? "on" : ""}" style="${gemVars(st)}" title="${esc(st.n)}"></i>`).join("")}</div></div>
-      <div class="hm-lbl"><span>Datapad</span><span>${achCount()} files</span></div>
-      <div class="hm-apps">${app("story", "Story", "Watch list")}${app("log", "Log", "Chapters · Paths")}${app("atlas", "Atlas", "Places")}${app("net", "Network", "Connections")}${app("comms", "Comms", "News · Messages")}${app("file", "File", "Agent ID")}</div>
-      ${arch.length ? `<div class="hm-lbl"><span>Archives</span><span>${arch.length} of 4 found</span></div><div class="hm-arch">${arch.map(([m, , t, k, n, w]) => `<button type="button" class="hm-card ar-${m}" data-hm="arch:${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em></button>`).join("")}</div>` : ""}
+    hv.innerHTML = `<span class="hm-wm" aria-hidden="true">${embHTML("eagle")}</span>
+      <div class="hm-sys" style="--i:0">${embHTML("eagle")}<span>S.H.I.E.L.D. datapad · ${achCount()} files</span><em>Secure link</em></div><div class="hm-ticks"></div>
+      ${agent}${mission}${status}${stones}
+      <div class="sp-h" style="margin:18px 0 0;border:0;padding:0"><span>Systems</span><span>${apps.length} online</span></div>${sys}
+      ${arch.length ? `<div class="sp-h" style="margin:18px 0 0;border:0;padding:0"><span>Secure archives</span><span>${arch.length} of 4 located</span></div>${archH}` : ""}
       ${tx}
-      <div class="hm-foot"><i></i><span>Uplink secure</span><span style="margin-left:auto">S.H.I.E.L.D. datapad</span></div>`;
+      <div class="hm-foot">Property of S.H.I.E.L.D. · Level ${level > 10 ? 10 : level} access<br>Unauthorized use is a federal offense</div>`;
     hv.scrollTop = sc;
   }
   function openHome() {
     if (homeOpen) { hv.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }); return; }
     renderHome(); hp.hidden = false; homeOpen = true; homeBack = false; bodyLock(); clock(); clearInterval(clockT); clockT = setInterval(clock, 15000); dockSync();
+    // the datapad powers up: a scan line passes down, and the panels and dials come on behind it, in order
+    if (!REDUCED) { hv.classList.add("hm-boot"); void hv.offsetWidth; const s = document.getElementById("hmScan"); s.classList.remove("go"); void s.offsetWidth; s.classList.add("go");
+      requestAnimationFrame(() => requestAnimationFrame(() => hv.classList.remove("hm-boot"))); }
   }
   function closeHome() { if (!homeOpen) return; hp.hidden = true; homeOpen = false; clearInterval(clockT); bodyFree(); }
-  // the title row: the page's name and the time, like the top of a tablet
-  hp.insertAdjacentHTML("afterbegin", `<div class="maptop"><h2 data-glow="Home">Home</h2><span class="hm-clock" id="hmClock"></span></div>`);
   // the dock: Home first. Leaving Home for a page remembers it, so Back from that page comes home again
   const go = k => { const b = dock.querySelector(`[data-dock="${k}"]`); if (b) b.click(); };
   dock.addEventListener("click", ev => {
