@@ -360,8 +360,8 @@ insignia celebration covers the page.
   `--ix` / `--ixt` on `.collpanel` (Compound blue #5E9BEF, Raft red #D45A4F, Damage Control green #5FAF7E, Collection gold #D9AE52)
   tint the title's glow, the section heads, the tiles, the name box, the search box and the connections box. Damage Control's old neon
   #7FD95A is now #6DBB8A everywhere, its replays included.
-- **Back from the Network returns to the file you came from** (`netFrom`, `netGoTo`): tapping a file's connections no longer loses
-  the file.
+- **A file's connections open the Network over the page the file came from** (`netGoTo`, body class `netup`: the Network's panel sits
+  under the Agent File and the Atlas otherwise, so it opened out of sight), and back returns to the file (`netFrom`), then to that page.
 - **Network titles are broken down by season** (owner, November 2026): a step on a show that runs several seasons counts at its own
   episode ("In episode 44," is `Show#44`; "In season 2," is the last episode of season 2, so no one shows before their season is done;
   `season` in `prof/hub2.js`), and is listed under its season ("What If...? S2", `lab` and `DATA.seas`); a season the app lists as its own

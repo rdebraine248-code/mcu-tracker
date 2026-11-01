@@ -1283,6 +1283,7 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 body{ padding-bottom:var(--dockh); }
 .netpanel{ position:fixed; left:0; right:0; top:0; bottom:var(--dockh); z-index:58; background:#0B1019; } .netpanel iframe{ position:relative; z-index:1; display:block; width:100%; height:100%; border:0; }
 /* while the Network's own page is still on its way, its title already stands where it will be (the page paints over it), never a blank screen */
+body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the file came from */
 .netpanel .net-ph{ position:absolute; z-index:0; left:20px; top:calc(6px + env(safe-area-inset-top,0px)); margin:0; }
 .uni-earth{ color:#9FC3FF; font-weight:400; } .rf-earth{ font-style:normal; color:#9FC3FF; letter-spacing:.5px; margin-right:6px; }
 .dock{ position:fixed; left:0; right:0; bottom:0; z-index:75; display:flex; align-items:stretch; height:var(--dockh); padding:0 4px env(safe-area-inset-bottom,0px); background:rgba(10,14,23,.95); border-top:1px solid #222A3A; }
@@ -9027,6 +9028,7 @@ let askAfter = null;
 function onNavBack() {
   if (netSkip) { netSkip = false; navBusy = false; return; }   // the card closed itself (a tap off it): its step is taken back quietly
   if (netOpen && netCardUp && navAt("net") && !collOpen) { netCardUp = false; navBusy = false; const w = document.getElementById("netFrame").contentWindow; if (w && w.netBack) w.netBack(); return; }
+  if (netOpen && netFrom && !collOpen && !navAt("net") && !navAt("netcard")) { navBusy = false; closeNet(true); return; }   // back from a Network opened from a file: to that file, the page under it left as it was
   if (askAfter) { const f = askAfter; askAfter = null; navBusy = false; f(); return; }
   const ab = document.getElementById("ask"); if (!ab.hidden && ab._back) { navBusy = false; ab._back(); return; }
   navStep();
@@ -10418,7 +10420,7 @@ window.netCard = on => { if (!netOpen || on === netCardUp) return; netCardUp = o
 // Open file only once you've found their file: the Compound (or the Raft) and them in it
 window.netCanOpen = id => !!(ixFile("A", id) || ixFile("T", id));
 function closeNet(fromHistory) { if (!fromHistory && (navAt("net") || navAt("netcard"))) { navBack(); return; }
-  document.getElementById("netPanel").hidden = true; netOpen = false; netCardUp = false; document.body.classList.remove("netopen"); bodyFree();
+  document.getElementById("netPanel").hidden = true; netOpen = false; netCardUp = false; document.body.classList.remove("netopen", "netup"); bodyFree();
   const w = document.getElementById("netFrame").contentWindow; if (w && w.netShow) { w.netShow(false); if (w.netHome) w.netHome(); }
   const nf = netFrom; netFrom = null;
   if (fromHistory && nf && navAt("collrec") && history.state.cr === nf.r) { openColl(nf.m, true, true); collRec = nf.r; renderColl(); document.getElementById("collPanel").scrollTop = nf.y; } }
@@ -10433,6 +10435,7 @@ function netPrevFill() { const w = document.getElementById("netFrame").contentWi
 let netFrom = null;   // the file you went to the Network from: back from the Network opens it again (owner: tapping their connections "just backs out of the profile")
 function netGoTo(id) { netFrom = collOpen && collRec ? { m: collMode, r: collRec, y: document.getElementById("collPanel").scrollTop } : null; if (collOpen) closeColl(true);
   if (netFrom) try { history.pushState({ mcu: "netjump" }, ""); } catch (e) {}   // the Network takes a step of its own on top of the file's, rather than replacing it
+  document.body.classList.add("netup");   // and opens over whatever page the file was opened from (the Agent File, the Atlas), not under it
   openNet(); const f = document.getElementById("netFrame"), go = () => { const w = f.contentWindow; if (w && w.netGo) w.netGo(id); };
   if (f.contentWindow && f.contentWindow.netGo) go(); else f.addEventListener("load", () => setTimeout(go, 50), { once: true }); dockSync(); }
 window.netOpenFile = (id, k) => { const A = ixFile("A", id), T = ixFile("T", id); if (!A && !T) return; haptic(10);
