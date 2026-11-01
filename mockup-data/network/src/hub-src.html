@@ -140,7 +140,11 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 <div id="toast"></div>
 
 <script>
-const DATA = /*DATA*/null, TT = DATA.titles, TIX = new Map(TT.map((t, i) => [t, i])), EMB = window.parent !== window;
+const DATA = /*DATA*/null, TT = DATA.titles, EMB = window.parent !== window;
+// a title as it's listed: a step at an episode of a show that runs several seasons reads as its season ("What If...?#14" is "What If...? S2")
+const SEAS = DATA.seas || {}, lab = t => { const m = /^(.*)#(\d+)$/.exec(t); if (!m) return t; const b = m[1], z = SEAS[b]; if (!z) return b; let k = +m[2], i = 0; const L = z[0];
+  while (i < L.length - 1 && L[i] != null && k > L[i]) { k -= L[i]; i++; } return b.replace(/ S\d+(?:–S\d+)?$/, '') + ' S' + (i + 1 + z[1]); }, LAB = TT.map(lab);
+const labs = L => [...new Set(L.map(j => LAB[j]))];   // title indexes, in order, as the seasons and titles they make
 // a crew is its universe's own: two FoX-Men and MCU groups with the same name are different rooms (the key carries the universe, unseen)
 const UK = (c, u) => u && u !== 'mcu' ? c + '\u2063' + u : c;
 const N = DATA.nodes.map(([n, k, g, F, M, d, T, A, S, AK, U, ID, DK], i) => ({ i, n, k, u: U || 'mcu', id: ID, dk: DK || '', g: UK(g, U), g0: UK(g, U), S: (S || []).map(([c, o]) => [UK(c, U), o]), AK: AK || [], F: F.map(x => x[0]), Fw: Object.fromEntries(F.map(([j, ...w]) => [j, w])), M, d, T, A }));
@@ -209,7 +213,7 @@ const metP = p => p.A0.some(seen);
 // a universe's tab shows once the app has revealed it, like the indexes; All once there's more than one
 const uniOk = u => !UNIOK ? true : u === 'all' ? UNIS.filter(([v]) => v !== 'all' && UNIOK(v)).length > 1 : UNIOK(u);
 const EARTH = DATA.earth || {}, earthOf = p => p.id in EARTH ? EARTH[p.id] : p.u === 'mcu' ? 'Earth-199999' : null, worldOf = p => earthOf(p) || UL[p.u];
-const vtag = p => p.vt || (p.vt = (() => { const t = TT[[...p.A0].sort((a, b) => ORD[a] - ORD[b])[0]] || UL[p.u]; return t.length > 22 ? t.slice(0, 21) + '…' : t; })());
+const vtag = p => p.vt || (p.vt = (() => { const t = LAB[[...p.A0].sort((a, b) => ORD[a] - ORD[b])[0]] || UL[p.u]; return t.length > 22 ? t.slice(0, 21) + '…' : t; })());
 const crewName = c => { const [n0, u] = String(c).split('\u2063'), n = n0.split('\u2064')[0]; return u && UNI === 'all' ? n + ' · ' + UL[u] : n; };
 const KC = { family: '#F4A261', partner: '#FF8FB1', friend: '#5FD49A', mentor: '#B79CFF', boss: '#5FD0FF', ally: '#7FB2FF', rival: '#E8C15A', enemy: '#E0574A', variant: '#D7E3F5' };
 const KL = { family: 'Family', partner: 'Partners', friend: 'Friends', mentor: 'Mentors', boss: 'Chain of command', ally: 'Allies', rival: 'Rivals', enemy: 'Enemies', variant: 'Other versions' };
@@ -447,14 +451,14 @@ const WHO = {
     'Peter Parker': "Spider-Man. She feeds him what she digs up on Damage Control." } };
 const sent1 = t => (String(t).match(/^.*?[.!?](?=\s|$)/) || [t])[0];
 const whoLine = (p, q, r) => (r && r.S[r.S.length - 1].w) || (WHO[p.n] || {})[q.n] || (r ? sent1(r.S[r.S.length - 1].d) : 'Fought on screen.');
-const vtitles = q => { const T = byOrd(q.A0).map(j => TT[j]); return T.length > 2 ? T.slice(0, 2).join(', ') + ' and ' + (T.length - 2) + ' more' : T.join(' and '); };
+const vtitles = q => { const T = labs(byOrd(q.A0)); return T.length > 2 ? T.slice(0, 2).join(', ') + ' and ' + (T.length - 2) + ' more' : T.join(' and '); };
 function moreHTML(p, L) {
   const aka = p.AK.filter(([nm, o]) => o <= CUT && nm !== p.n).map(([nm]) => nm), crews = [];
   p.S.filter(([c, o]) => c !== 'Independent' && o >= 0 && o <= CUT).forEach(([c]) => { if (!crews.includes(c)) crews.push(c); });
-  const T = byOrd(p.A), out = [];
+  const T = labs(byOrd(p.A)), out = [];
   if (aka.length) out.push(`<h4>Also known as</h4><p class="aka">${aka.map(a => `<b>${esc(a)}</b>`).join(', ')}</p>`);
   if (crews.length) out.push(`<h4>Crews</h4><div class="crews">${crews.map(esc).join(' <i>›</i> ')}</div>`);
-  out.push(`<h4>In ${T.length} title${T.length === 1 ? '' : 's'}</h4><ol class="tl">${T.map(j => `<li>${esc(TT[j])}</li>`).join('')}</ol>`);
+  out.push(`<h4>In ${T.length} title${T.length === 1 ? '' : 's'}</h4><ol class="tl">${T.map(t => `<li>${esc(t)}</li>`).join('')}</ol>`);
   if (L.length) { out.push(`<h4>Who's who</h4>`); let k0 = null;
     L.forEach(([j, k]) => { const q = N[j]; if (k !== k0) { out.push(`<div class="kh" style="color:${KC[k]}"><i style="background:${KC[k]}"></i>${KL[k]}</div>`); k0 = k; }
       out.push(`<button type="button" class="wrow" style="--kc:${KC[k]}" data-i="${j}"><b>${esc(q.n)}${q.u !== p.u ? ` <em>${esc(UL[q.u])} · ${esc(vtag(q))}</em>` : ''}</b><span>${esc(whoLine(p, q, relOf(p, q)))}</span></button>`); }); }
@@ -512,10 +516,10 @@ function showOne() { card.classList.remove('two'); link = null; stopSel = null; 
 function showLink(b) {
   const a = sel; link = b; stopSel = null; atStop = null; if (navigator.vibrate) try { navigator.vibrate(8); } catch (e) {}
   const list = L => L.length > 5 ? L.slice(0, 5).join(', ') + ' and ' + (L.length - 5) + ' more' : L.join(', ');
-  const why = [], fw = (a.Fw[b.i] || []).filter(seen).map(j => TT[j]), r = relOf(a, b);
+  const why = [], fw = labs((a.Fw[b.i] || []).filter(seen)), r = relOf(a, b);
   if (r) r.S.forEach(x => why.push([KC[x.k], KS[x.k], esc(x.d) + (x.t ? `<em>${esc(epShow(x.t))}</em>` : '')]));   // how it has gone so far, stage by stage
   if (fought(a, b) && fw.length) why.push([KC.enemy, 'Fought', 'In ' + list(fw)]);
-  const both = a.A.filter(j => b.A.includes(j)).map(j => TT[j]);
+  const bl = new Set(labs(b.A)), both = labs(a.A).filter(t => bl.has(t));   // on screen together: in the same title, or the same season
   if (r) r.S.forEach(x => { const m = /^(.*)#(\d+)$/.exec(x.t || ''); if (m && !both.includes(m[1])) both.push(m[1] + ' (from episode ' + m[2] + ')'); });   // met partway through a title
   why.push(['#8EA2C2', 'On screen together', both.length ? list(both) : 'Never in a title together']);
   $('lName').innerHTML = `${a.n}<br>&amp; ${b.n}`; if (worldOf(a) !== worldOf(b)) $('lName').insertAdjacentHTML('beforeend', `<small class="lw">${esc(worldOf(a))} · ${esc(worldOf(b))}</small>`);
@@ -558,10 +562,10 @@ $('cFile').onclick = () => { if (EMB && sel && parent.netOpenFile) parent.netOpe
 // A fight shows once you've seen the title it happens in; served with, once you've seen both of them join the crew. The room re-packs around
 // whoever's in it. Step a title on and the new arrivals walk in with a gold ring; inside someone's story, new stops pop in and new lines
 // draw themselves down
-const STEPS = [...new Set(ORD)].sort((a, b) => a - b), cutEl = $('cut'), cutPrev = $('cutPrev'), cutNext = $('cutNext'), cutNo = $('cutN');
+const STEPS = [...new Set(ORD.map(Math.floor))].sort((a, b) => a - b), cutEl = $('cut'), cutPrev = $('cutPrev'), cutNext = $('cutNext'), cutNo = $('cutN');
 // inside the app the picker doesn't exist at all (owner: "Seen up to shouldn't even exist in main"): the app says what's been watched
 if (window.parent !== window) { const sr = document.querySelector('header .seen'); if (sr) sr.remove(); }
-const stepName = v => { const L = TT.map((x, i) => i).filter(i => ORD[i] === v), n = i => N.filter(p => p.A0.includes(i)).length; return TT[L.sort((a, b) => n(b) - n(a))[0]]; };
+const stepName = v => { const L = TT.map((x, i) => i).filter(i => Math.floor(ORD[i]) === v), n = i => N.filter(p => p.A0.includes(i)).length; return LAB[L.sort((a, b) => n(b) - n(a))[0]]; };
 cutEl.innerHTML = STEPS.map((v, k) => `<option value="${k}">${stepName(v)}</option>`).join('') + `<option value="${STEPS.length}">Everything</option>`;
 let CUT = Infinity;
 let SEENF = window.parent !== window ? () => false : null;   // set by the app: is this title watched? Inside the app, nothing until it says
@@ -577,9 +581,9 @@ function applyCut(v, quiet) {
   let near = null, nd = 1e9; N.forEach(p => { if (!p.vis) return; const d = Math.hypot(p.hx - cam.x, p.hy - cam.y); if (d < nd) { nd = d; near = p; } });
   const off = near ? [cam.x - near.hx, cam.y - near.hy] : [0, 0];
   // met: in a title you've watched, or in a stage you've reached one episode at a time ("WandaVision#7")
-  // met in an episode you've ticked, on a season that's on their own file: a tie that only mentions them there (Thor, in Agents of
+  // met in an episode you've ticked, in a season that's on their own file: a tie that only mentions them there (Thor, in Agents of
   // S.H.I.E.L.D. season 1) doesn't bring them into the room
-  const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && p.A0.includes(TIX.get(x.t.replace(/#\d+$/, ''))) && SEENF(x.t)));
+  const epMet = p => SEENF && p.R0.some(r => r.S.some(x => /#\d+$/.test(x.t) && (p.LS || (p.LS = new Set(labs(p.A0)))).has(lab(x.t)) && SEENF(x.t)));
   WORLD = null;   // one room per universe, its Earths as districts in it
   N.forEach(p => { const was = p.vis; p.A = p.A0.filter(seen); p.vis = (p.A.length > 0 || epMet(p)) && p.u === UNI && (!WORLD || wk(p) === WORLD); p.arrive = p.vis && !was; });
   N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];
@@ -714,7 +718,7 @@ function mapBuild() {
 // a person's own path: through every title they're in, stop to stop, gold where you've seen it
 function setOver(o) { over = o && o.A0 && o.A0.length ? o : null; if (!MAP) return;
   if (!over) { MAP.over = null; $('mWho').hidden = true; return; }
-  const at = MAP.cols.map((c, ci) => c.tt >= 0 && over.A0.includes(c.tt) ? ci : -1).filter(ci => ci >= 0), segs = [];
+  const at = MAP.cols.map((c, ci) => c.tt.some(j => over.A0.includes(j)) ? ci : -1).filter(ci => ci >= 0), segs = [];
   at.forEach((ci, j) => { if (!j) return; const a = MAP.cols[at[j - 1]], b = MAP.cols[ci], mx = (a.x + b.x) / 2, p = new Path2D(`M${a.x},${a.my} C${mx},${a.my} ${mx},${b.my} ${b.x},${b.my}`); segs.push({ p, seen: a.seen && b.seen }); });
   MAP.over = { o: over, at, segs };
   const met = over.vis && at.some(ci => MAP.cols[ci].seen);
@@ -756,7 +760,7 @@ function drawMap(t, pos) { const k = mapK(); if (k <= 0 || !mcam || !MAP) return
 function mapTap(x, y) { const M = MAP, ms = mscale();
   // a title (its stop, or its name up top): its whole cast; tap anyone to draw their path
   const ci = M.cols.findIndex(c => Math.abs(MX(c.x) - x) < Math.max(10, 12 * ms) && ((y > MY(c.my - c.h / 2) - 14 && y < MY(c.my + c.h / 2) + 14) || (y > 190 && y < 285)));
-  if (ci >= 0) { const c = M.cols[ci]; mfocus = { ci }; const cast = c.tt >= 0 ? N.filter(o => o.A0.includes(c.tt)).sort((a, b) => b.d - a.d) : [];
+  if (ci >= 0) { const c = M.cols[ci]; mfocus = { ci }; const cast = N.filter(o => c.tt.some(j => o.A0.includes(j))).sort((a, b) => b.d - a.d);
     if (!c.seen) { $('mS').textContent = 'A title you haven\'t seen'; $('mT').textContent = '[ Classified ]'; $('mL').innerHTML = `<li>${c.m.length} ${c.m.length > 1 ? 'stories meet' : 'story'} here${cast.length ? ', ' + cast.length + ' people' : ''}</li>`; $('mTip').classList.add('on'); return; }
     $('mS').textContent = c.yr + (cast.length ? ' · ' + cast.length + ' on file' : ''); $('mT').textContent = c.t;
     $('mL').innerHTML = cast.length ? cast.map(o => `<li><button type="button" data-mo="${o.i}" class="${o === over ? 'me' : ''}">${o.n}</button></li>`).join('')

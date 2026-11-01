@@ -358,9 +358,12 @@ insignia celebration covers the page.
   transferred out of the Compound" until then).
 - **Back from the Network returns to the file you came from** (`netFrom`, `netGoTo`): tapping a file's connections no longer loses
   the file.
-- **A Network person counts the seasons on their own file**: a step filed under a whole show ("Agents of S.H.I.E.L.D.", "Agent Carter")
-  counts under its season ("In season 5," or the straight-through "In episode 44,"; `season` in `prof/hub2.js`), and an episode only
-  brings someone in when that season is on their own file (`epMet`), so a tie that just mentions them (Thor in Agents of S.H.I.E.L.D.
+- **Network titles are broken down by season** (owner, November 2026): a step on a show that runs several seasons counts at its own
+  episode ("In episode 44," is `Show#44`; "In season 2," is the last episode of season 2, so no one shows before their season is done;
+  `season` in `prof/hub2.js`), and is listed under its season ("What If...? S2", `lab` and `DATA.seas`); a season the app lists as its own
+  title keeps it. "In N titles", Other versions, On screen together and Served with all go by season. Story order puts an episode at its
+  season's place (`prof/ord.js`). **After hub2.js, always rerun ord.js and mapx.js before bake.js** (they index hub.json's titles).
+  An episode only brings someone in when that season is on their own file (`epMet`), so a tie that just mentions them (Thor in Agents of S.H.I.E.L.D.
   season 1) doesn't. Nobody stands in the room "in 0 titles". Deke Shaw and Flint stand in Earth-199999 (their stories carry on in the
   present); Kasius, Sinara and Grill stay in 2091's Earth-17516.
 - **An Earth's name is written round the inside of its bubble's edge** (`arcName`), so it can't land on the Earth next door; every

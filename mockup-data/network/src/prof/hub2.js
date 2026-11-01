@@ -7,13 +7,18 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const tmAll = o => Array.isArray(o.tm) ? o.tm.map(x => [x[0], x[1]]) : o.tm ? [[o.tm, '']] : [];
     const tmNow = o => Array.isArray(o.tm) ? o.tm[o.tm.length - 1][0] : o.tm || 'Independent';
     const TT = [], ti = t => { t = t.replace(/ \((Post|Mid)-Credits Scene\)$/, ''); let i = TT.indexOf(t); if (i < 0) { i = TT.length; TT.push(t); } return i; };
-    // a step filed under a whole show ("Agents of S.H.I.E.L.D.", "Agent Carter") counts under the season its text names ("In season 5,
-    // ..."), the title the app marks watched: filed under the show, it never counted, and Deke Shaw stood in the room "in 0 titles"
+    // a step on a show that runs several seasons counts at its own episode (owner, November 2026: "Network titles should be broken down by
+    // season"): "In episode 44," is the show's episode 44, "In season 2," the last episode of season 2 (so no one shows before their season
+    // is done), and the Network lists it under its season, "What If...? S2". A season the app lists as its own title keeps that title
     const ITEMS = new Set(); DATA.chapters.forEach(c => c.items.forEach(i => ITEMS.add(i.t)));
-    // (the app counts "In episode N," straight through the show, so episode 44 is the season holding it)
-    const season = x => { const t = x[1]; if (ITEMS.has(t)) return t; const e = /^In episode (\d+),/.exec(x[0] || '');
-      if (e) { const n = +e[1], hit = (epSeas().down[t] || []).find(([, off, len]) => n > off && n <= off + len); if (hit && ITEMS.has(hit[0])) return hit[0]; }
-      const m = /^In season (\d+),/.exec(x[0] || ''); return m && ITEMS.has(t + ' S' + m[1]) ? t + ' S' + m[1] : t; };
+    const season = x => { const t = x[1], e = /^In episode (\d+),/.exec(x[0] || ''); if (e) return t + '#' + e[1];
+      const m = /^In season (\d+),/.exec(x[0] || ''); if (!m) return t; if (ITEMS.has(t + ' S' + m[1])) return t + ' S' + m[1];
+      const L = epList(t) || [], k = +m[1] - (EPO[t] || 0); if (L.length < 2 || k < 1 || k > L.length) return t;
+      let off = 0; for (let i = 0; i < k; i++) { if (L[i] == null) return t; off += L[i]; } return t + '#' + off; };
+    // the season a title is listed under: "What If...?#14" is "What If...? S2"; "Runaways S1–S2#15" is "Runaways S2"
+    const SEAS = {}; Object.keys(EPS).forEach(b => { const L = epList(b); if (L && L.length > 1) SEAS[b] = [L, EPO[b] || 0]; });
+    const lab = t => { const m = /^(.*)#(\d+)$/.exec(t); if (!m) return t; const b = m[1], z = SEAS[b]; if (!z) return b; let k = +m[2], i = 0; const L = z[0];
+      while (i < L.length - 1 && L[i] != null && k > L[i]) { k -= L[i]; i++; } return b.replace(/ S\d+(?:–S\d+)?$/, '') + ' S' + (i + 1 + z[1]); };
     const P = {}, mk = (o, k) => ({ u: rfUniOf(o), dk: Array.isArray(o.k) ? o.k[o.k.length - 1][0] : o.k || '', n: nm(o), k, g: tmNow(o), T: [], A: new Set(), L: new Map(), TM: [], AL: [] });
     const absorb = (p, o) => { (o.al || []).forEach(x => p.AL.push(Array.isArray(x) ? x : [x, ''])); if (Array.isArray(o.n)) o.n.forEach(x => p.AL.push([x[0], x[1] || ''])); tmAll(o).forEach(([t, w]) => { if (!p.T.some(x => x[0] === t)) p.T.push([t, w]); p.TM.push([t, w]); }); (o.st || []).forEach(x => x[1] && p.A.add(season(x))); };
     // one person played young and old (Fox's films: McAvoy's and Stewart's Charles, owner, November 2026: "a few Jean Greys and a few
@@ -46,18 +51,19 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     TH.forEach(o => (o.opp || []).forEach(([h, w]) => fight(cid(o.id), cid(h), w)));
     // a file records each group at the title they join it (or change sides); a group then holds until their next change, a later title
     // whose groups leave it out. A group with no title holds throughout
-    const SO = DATA.timeline.map(e => e.t), so = t => { let i = SO.indexOf(t); if (i < 0) i = SO.findIndex(x => x.startsWith(t + ' S') || x.startsWith(t + ':') || x.startsWith(t + ' (')); return i < 0 ? 9999 : i; };
+    const SO = DATA.timeline.map(e => e.t), so = t => { t = String(t).replace(/#\d+$/, ''); let i = SO.indexOf(t); if (i < 0) i = SO.indexOf(t.replace(/ S\d+$/, '')); if (i < 0) i = SO.findIndex(x => x.startsWith(t + ' S') || x.startsWith(t + ':') || x.startsWith(t + ' (')); return i < 0 ? 9999 : i; };
     Object.values(P).forEach(q => { const st = new Map(); q.TM.forEach(([c, w]) => { const k = w ? so(w) : -1; st.has(k) || st.set(k, new Set()); st.get(k).add(c); }); q.ST = [...st].sort((a, b) => a[0] - b[0]); });
     const active = (q, c, t) => { const x = so(t); let on = false; for (const [k, set] of q.ST) { if (k > x) break; if (k < 0) { if (set.has(c)) return true; continue; } on = set.has(c); } return on; };
     const ids = Object.keys(P).sort((a, b) => (P[a].u !== 'mcu') - (P[b].u !== 'mcu')), idx = Object.fromEntries(ids.map((id, i) => [id, i])), byTeam = {};
     ids.forEach(id => P[id].T.forEach(([t]) => t !== 'Independent' && (byTeam[t] = byTeam[t] || []).push(id)));
     const crews = id => P[id].T.map(x => x[0]).filter(t => t !== 'Independent');
     const deg0 = id => P[id].L.size + P[id].T.length;
-    const deg = id => P[id].L.size + crews(id).length * 3 + P[id].A.size;
-    return { merged: Object.fromEntries(Object.keys(as).map(k => [k, cid(k)])), titles: TT, nodes: ids.map(id => { const p = P[id], mine = crews(id), M = new Set();
+    Object.values(P).forEach(q => { q.AS = new Set([...q.A].map(lab)); });   // the seasons they're in, for who served alongside whom
+    const deg = id => P[id].L.size + crews(id).length * 3 + P[id].AS.size;
+    return { merged: Object.fromEntries(Object.keys(as).map(k => [k, cid(k)])), titles: TT, seas: SEAS, nodes: ids.map(id => { const p = P[id], mine = crews(id), M = new Set();
       // served with: in the same group at the same time, in a title they're both in (owner, October 2026: being in HYDRA doesn't connect
       // Wanda to everyone who was ever in HYDRA)
-      mine.forEach(c => byTeam[c].forEach(o => { if (o !== id && !p.L.has(o) && [...p.A].some(t => P[o].A.has(t) && active(p, c, t) && active(P[o], c, t))) M.add(o); }));
+      mine.forEach(c => byTeam[c].forEach(o => { if (o !== id && !p.L.has(o) && [...p.AS].some(t => P[o].AS.has(t) && active(p, c, t) && active(P[o], c, t))) M.add(o); }));
       const sh = x => crews(x).filter(t => mine.includes(t)).length;
       const g = p.g === 'Independent' && mine.length ? mine[mine.length - 1] : p.g;
       return [p.n, p.k, g,
