@@ -1145,13 +1145,14 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 .cp-teams{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px; } .cp-teams button{ cursor:pointer; touch-action:manipulation; font-family:inherit; } .cp-teams button:active, .cx-hands button:active{ transform:scale(.96); } .cp-teams button.cur{ border-color:#7FB2FF; background:#1A3460; color:#FFFFFF; box-shadow:0 0 0 1px rgba(127,178,255,.25); } .cp-teams button.past{ opacity:.62; } .cp-teams button small{ margin-left:6px; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#8FA8CC; } .cp-teams button{ padding:5px 10px; border:1px solid #2F4F80; border-radius:999px; background:#11203A; color:#D6E6FF; font-size:13px; }
 .cp-rf{ display:flex; align-items:center; gap:12px; width:100%; margin:0 0 14px; padding:10px 14px; border:1px solid #6A2A26; border-radius:12px; background:rgba(224,74,58,.08); color:#FFD2CB; text-align:left; cursor:pointer; }
 .cp-rf.to-cp{ border-color:#2A4A6A; background:rgba(127,166,216,.08); color:#D6E6FA; } .cp-rf.to-cp small{ color:#7FA6D8; }
-.cp-rf.to-net{ align-items:flex-start; border-color:#2A4A6A; background:rgba(127,166,216,.06); color:#D6E6FA; } .cp-rf.to-net small{ color:#7FA6D8; } .cp-rf.to-net em{ align-self:center; }
-.np .npweb{ display:block; width:100%; height:auto; margin:6px 0 2px; overflow:visible; }
-.np .npweb .npi{ font:400 11px 'Anton','Impact',sans-serif; fill:#DCE8FA; letter-spacing:.3px; } .np .npweb .npme{ font-size:15px; fill:#fff; }
-.np .npweb .npn{ font:600 10px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; fill:#AEBBD0; }
-.np .npk{ display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:4px; } .np .npk i{ display:inline-flex; align-items:center; gap:6px; font:13px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#C9D3E4; }
+.cp-rf.to-net{ flex-direction:column; align-items:stretch; gap:0; padding:10px 14px 4px; cursor:default; border-color:#2A4A6A; background:rgba(127,166,216,.06); color:#D6E6FA; } .cp-rf.to-net small{ color:#7FA6D8; }
+.np-open{ align-self:flex-end; display:flex; align-items:center; gap:6px; margin:0 -4px 0 0; padding:8px 4px; border:0; background:none; color:var(--ixt, #9FC3F0); font:12px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+.np-open em{ font-style:normal; font-size:18px; line-height:0; }
+.np .npweb{ display:block; width:100%; height:auto; max-height:210px; margin:4px 0 0; touch-action:none; cursor:grab; }   /* dragged and pinched, not the page */
+.np .npweb .npi{ font:400 9.5px 'Anton','Impact',sans-serif; fill:#DCE8FA; letter-spacing:.3px; } .np .npweb .npme{ font-size:12.5px; fill:#fff; }
+.np .npweb .npn{ font:600 8.5px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; fill:#AEBBD0; }
+.np .npk{ display:flex; flex-wrap:wrap; gap:2px 10px; margin-top:2px; } .np .npk i{ display:inline-flex; align-items:center; gap:5px; font:12px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; font-style:normal; color:#C9D3E4; }
 .np .npk i::before{ content:""; width:12px; height:3px; border-radius:2px; background:var(--kc); }
-.np .npall{ display:block; margin-top:10px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; text-transform:uppercase; color:#9FC3F0; }
 .cp-rf span{ flex:1; } .cp-rf small{ display:block; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#E9897E; } .cp-rf b{ display:block; margin-top:2px; font-size:15px; } .cp-rf em{ font-style:normal; font-size:18px; }
 .cpx .rf-seg button[aria-pressed="true"]{ background:#EEF3FA; border-color:#EEF3FA; }
 .cp-intake i{ background:#4FA3FF; box-shadow:0 0 8px #4FA3FF; }
@@ -1495,7 +1496,7 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .collpanel .co-h, .collpanel.raft .co-h, .collpanel.dcx .co-h{ color:var(--ixt); }
 .collpanel .co-top small, .collpanel.raft .co-top small, .collpanel.cpx .co-top small{ color:var(--ixt); }
 .collpanel .co-tiles div, .collpanel .pg-q, .collpanel .dc-row, .collpanel .cp-card, .collpanel .cp-rf.to-net{ border-color:color-mix(in srgb, var(--ix) 40%, #1E2638); background:color-mix(in srgb, var(--ix) 8%, #0E1524); }
-.collpanel .cp-rf.to-net small, .collpanel .np .npall{ color:var(--ixt); }
+.collpanel .cp-rf.to-net small{ color:var(--ixt); }
 .collpanel .co-tiles small{ color:var(--ixt); }
 .collpanel .rf-head{ border-color:color-mix(in srgb, var(--ix) 38%, #1E2638); background:linear-gradient(180deg, color-mix(in srgb, var(--ix) 12%, #141B28), color-mix(in srgb, var(--ix) 4%, #0D121B)); }
 .collpanel .co-crumb{ border-color:color-mix(in srgb, var(--ix) 35%, #232C40); color:var(--ixt); }
@@ -4744,7 +4745,7 @@ function renderRaft() {
       <div class="rf-head rf-id s-${RF_ST[st]}"><div><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat · ${esc(tmNow(o.tm))}</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p>${uniLine(o)}</div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div></div>
       ${alRow(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
-      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+      ${state.cpIn ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
       <ol class="co-chain">${hoChain(o, "R", S).map(x => { if (x.ho) return hoMark(x, "R", ALLIES.find(a => a.rf === o.id)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
@@ -4845,7 +4846,7 @@ function renderCp() {
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p>${uniLine(o)}</div><b class="cp-stb">${esc(st)}</b></div>
       <div class="co-tiles"><div><small>First seen</small><b>${seenTtl(S)}</b></div><div><small>Last seen</small><b>${seenTtl(S, 1)}</b></div></div>
       ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
-      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<button type="button" class="cp-rf to-net" data-netgo="${esc(o.id)}"><span class="np" data-np="${esc(o.id)}"><small>Connections</small><b>See them in the Network</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+      ${rf ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${hoChain(o, "C", S).map(x => { if (x.ho) return hoMark(x, "C", o.rf && THREATS.find(t => t.id === o.rf)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
@@ -10483,8 +10484,8 @@ function closeNet(fromHistory) { if (!fromHistory && (navAt("net") || navAt("net
 // a file's connections as a small web, the way the Network draws them (owner, November 2026: "I like a preview of the web from network ...
 // the list isn't super great looking"): the person in the middle, a dozen of their connections round them kind by kind, each line in its
 // kind's colour (rivals and enemies dashed), their names beneath, and a count of each kind under the web
-function npWeb(v) { const Wd = 320, Hd = 270, cx = Wd / 2, cy = Hd / 2 - 8, n = v.W.length, a0 = -Math.PI / 2;
-  const at = v.W.map((r, i) => { const a = a0 + (i + .5) * 2 * Math.PI / n; return [cx + Math.cos(a) * 120, cy + Math.sin(a) * 100]; });
+function npWeb(v) { const Wd = 320, Hd = 196, cx = Wd / 2, cy = Hd / 2 - 6, n = v.W.length, a0 = -Math.PI / 2;
+  const at = v.W.map((r, i) => { const a = a0 + (i + .5) * 2 * Math.PI / n; return [cx + Math.cos(a) * 124, cy + Math.sin(a) * 66]; });
   // a short name: no title in front ("Dr. Abraham Erskine" is Abraham, "The Howling Commandos" Howling), two words when the first is tiny (Sam Wilson)
   const short = s => { const w = String(s).replace(/^((The|Dr\.|Doctor|Colonel|General|Agent|Captain|Senator|Mister|Mr\.|Mrs\.|Ms\.|King|Queen|Prince|Princess|Lord|Lady|Professor|Sergeant|Major|Director|Detective|Officer|Uncle|Aunt) )+/, "").split(/\s+/);
     return w[0].length > 3 || w.length < 2 ? w[0] : w.slice(0, 2).join(" "); };
@@ -10492,14 +10493,28 @@ function npWeb(v) { const Wd = 320, Hd = 270, cx = Wd / 2, cy = Hd / 2 - 8, n = 
   v.W.forEach((r, i) => { const [x, y] = at[i], dash = r.k === "enemy" || r.k === "rival" ? ' stroke-dasharray="4 4"' : "";
     g += `<path d="M${cx} ${cy} Q ${((cx + x) / 2).toFixed(1)} ${((cy + y) / 2 - 14).toFixed(1)}, ${x.toFixed(1)} ${y.toFixed(1)}" fill="none" stroke="${r.c}" stroke-width="1.4" opacity=".75"${dash}/>`; });
   v.W.forEach((r, i) => { const [x, y] = at[i];
-    g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="14" fill="#13203A" stroke="${r.c}" stroke-width="2"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" class="npi">${esc(r.i)}</text>`
-      + `<text x="${x.toFixed(1)}" y="${(y + 27).toFixed(1)}" text-anchor="middle" class="npn">${esc(short(r.n))}</text>`; });
-  g += `<circle cx="${cx}" cy="${cy}" r="22" fill="#13203A" stroke="#E9C46A" stroke-width="2.6"/><text x="${cx}" y="${cy + 6}" text-anchor="middle" class="npi npme">${esc(v.me.i)}</text>`;
-  return `<svg class="npweb" viewBox="0 0 ${Wd} ${Hd}" aria-hidden="true">${g}</svg><span class="npk">${v.K.map(([l, c, k]) => `<i style="--kc:${c}">${k} ${esc(l.toLowerCase())}</i>`).join("")}</span>`; }
+    g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="#13203A" stroke="${r.c}" stroke-width="1.8"/><text x="${x.toFixed(1)}" y="${(y + 3.5).toFixed(1)}" text-anchor="middle" class="npi">${esc(r.i)}</text>`
+      + `<text x="${x.toFixed(1)}" y="${(y + 21).toFixed(1)}" text-anchor="middle" class="npn">${esc(short(r.n))}</text>`; });
+  g += `<circle cx="${cx}" cy="${cy}" r="17" fill="#13203A" stroke="#E9C46A" stroke-width="2.4"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" class="npi npme">${esc(v.me.i)}</text>`;
+  return `<svg class="npweb" viewBox="0 0 ${Wd} ${Hd}" data-vb="0 0 ${Wd} ${Hd}" aria-hidden="true">${g}</svg><span class="npk">${v.K.map(([l, c, k]) => `<i style="--kc:${c}">${k} ${esc(l.toLowerCase())}</i>`).join("")}</span>`; }
+// the small web moves like the Network: one finger drags it, two pinch it (a mouse wheel zooms), from half to three times its size
+{ const P = new Map(); let st = null;
+  const vb = sv => sv.getAttribute("viewBox").split(" ").map(Number), set = (sv, b) => sv.setAttribute("viewBox", b.map(v => v.toFixed(1)).join(" "));
+  const zoom = (sv, f, px, py) => { const b = vb(sv), r = sv.getBoundingClientRect(), b0 = sv.dataset.vb.split(" ").map(Number);
+    const w = Math.max(b0[2] / 3, Math.min(b0[2] * 2, b[2] / f)), h = w * b[3] / b[2], ux = b[0] + (px - r.left) / r.width * b[2], uy = b[1] + (py - r.top) / r.height * b[3];
+    set(sv, [ux - (px - r.left) / r.width * w, uy - (py - r.top) / r.height * h, w, h]); };
+  document.addEventListener("pointerdown", ev => { const sv = ev.target.closest && ev.target.closest(".npweb"); if (!sv) return; P.set(ev.pointerId, [ev.clientX, ev.clientY]); sv.setPointerCapture(ev.pointerId); st = { sv }; });
+  document.addEventListener("pointermove", ev => { if (!st || !P.has(ev.pointerId)) return; const sv = st.sv, old = P.get(ev.pointerId), now = [ev.clientX, ev.clientY];
+    if (P.size === 1) { const b = vb(sv), r = sv.getBoundingClientRect(); set(sv, [b[0] - (now[0] - old[0]) * b[2] / r.width, b[1] - (now[1] - old[1]) * b[3] / r.height, b[2], b[3]]); }
+    else { const [a, c] = [...P.entries()].map(([id, p]) => id === ev.pointerId ? now : p), d0 = Math.hypot(...[0, 1].map(i => ([...P.values()][0][i] - [...P.values()][1][i]))), d1 = Math.hypot(a[0] - c[0], a[1] - c[1]);
+      if (d0 > 0) zoom(sv, d1 / d0, (a[0] + c[0]) / 2, (a[1] + c[1]) / 2); }
+    P.set(ev.pointerId, now); });
+  const up = ev => { P.delete(ev.pointerId); if (!P.size) st = null; }; document.addEventListener("pointerup", up); document.addEventListener("pointercancel", up);
+  document.addEventListener("wheel", ev => { const sv = ev.target.closest && ev.target.closest(".npweb"); if (!sv) return; ev.preventDefault(); zoom(sv, ev.deltaY < 0 ? 1.15 : 1 / 1.15, ev.clientX, ev.clientY); }, { passive: false }); }
 function netPrevFill() { const w = document.getElementById("netFrame").contentWindow; if (!w || !w.netPreview || !document.querySelector(".np[data-np]")) return; netSync();
   document.querySelectorAll(".np[data-np]").forEach(el => { const v = w.netPreview(el.dataset.np), b = el.closest(".to-net"); if (!v) return; if (!v.n) { b.hidden = true; return; }
     el.innerHTML = `<small>Connections · ${v.n}</small>` + npWeb(v)
-      + `<span class="npall">${v.n > v.L.length ? `See all ${v.n} in the Network` : "See them in the Network"}</span>`; el.removeAttribute("data-np"); }); }
+; el.removeAttribute("data-np"); }); }
 { let q = 0; new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; netPrevFill(); }); }).observe(document.getElementById("collPanel"), { childList: true, subtree: true }); }
 // from someone in the Network to their file: the file adds its own step, so Back comes back to the Network
 let netFrom = null;   // the file you went to the Network from: back from the Network opens it again (owner: tapping their connections "just backs out of the profile")

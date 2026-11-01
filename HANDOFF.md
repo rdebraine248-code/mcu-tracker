@@ -70,8 +70,10 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
 - **A file's connections are a small web** (on main since 1 November 2026, replacing the three-row list) (owner, November 2026: "I like a preview of the web from network ... the
   list isn't super great looking"): `npWeb` in the app draws the person in the middle and up to a dozen connections round them (`pick12`
   in the Network takes them a kind at a time so every kind shows), each line in its kind's colour, rivals and enemies dashed, names
-  beneath, a count of each kind under it; tapping opens the Network on them. The box reads "Connections" (owner: cut "Their"); short names drop titles (Abraham, Chester),
-  and the tally says "1 partner", not "1 partners". Owner may want it draggable like the Network.
+  beneath, a count of each kind under it. The box reads "Connections" (owner: cut "Their"); short names drop titles (Abraham, Chester),
+  and the tally says "1 partner", not "1 partners". It's a preview, so it's small (owner: "it's supposed to be a preview, not the whole damn file"), it drags and pinches like the
+  Network (a wheel zooms; half to three times its size), and only "Open Network ›" at its bottom right opens the Network ("See all N"
+  is gone).
 
 ### Landscape (in progress, test build only)
 
