@@ -1,0 +1,97 @@
+{
+ "checked": [
+  "A:lylla",
+  "A:lynne-nichols",
+  "A:m-baku",
+  "A:madeline-stanton",
+  "A:madisynn-king",
+  "A:maggie-lang",
+  "A:makkari",
+  "A:mallory-book",
+  "A:mantis",
+  "A:mar-vell",
+  "A:marc-spector",
+  "A:maria-hill",
+  "A:maria-rambeau",
+  "A:maria-rambeau-838",
+  "A:maria-stark",
+  "A:martha-williams",
+  "A:martinex",
+  "A:masters-of-the-mystic-arts",
+  "A:may-parker",
+  "A:maya-lopez",
+  "A:mel",
+  "A:melina-vostokoff",
+  "A:meredith-quill",
+  "A:michelle-jones",
+  "A:miek",
+  "A:mobius-m-mobius",
+  "A:monica-rambeau",
+  "A:morgan-stark",
+  "A:morris",
+  "A:morris-walters",
+  "A:mr-immortal",
+  "A:muneeba-khan",
+  "A:nakia",
+  "A:nakia-bahadir",
+  "A:natalie-washington",
+  "A:natasha-romanoff",
+  "A:nathaniel-barton",
+  "A:nebula",
+  "A:ned-leeds",
+  "A:nicepool",
+  "A:nick-fury",
+  "A:nikki-ramos",
+  "A:noni",
+  "A:nova-corps"
+ ],
+ "changes": [
+  {
+   "key": "A:monica-rambeau",
+   "k": 1,
+   "q": "F1",
+   "now": {
+    "k": 1,
+    "title": "WandaVision",
+    "text": "In episode 4, Monica vanishes in the Blip, leaving her mother behind.",
+    "status": "Missing",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 4, Monica returns from the Blip to find her mother has died, then is pulled into the Westview Hex while investigating it for S.W.O.R.D.",
+    "status": "Active",
+    "at": [
+     "Westview"
+    ]
+   },
+   "evidence": "WandaVision episode 4 ('We Interrupt This Program') shows Monica returning to life after the Blip, learning Maria died of cancer, and being pulled into the Hex in Westview. She does not vanish in this episode, so 'Missing' is wrong for where it leaves her.",
+   "source": "https://en.wikipedia.org/w/index.php?title=WandaVision&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:mobius-m-mobius",
+   "question": "Step 4 ('Loki S2', episode 5) opens with Mobius pulling a time-slipping Loki out of the time stream, which happens in season 2 episode 1. That puts an episode-1 event after the Quantumania step (the 1893 World's Fair, shown in season 2 episode 3). How should this be fixed?",
+   "options": [
+    "Split it: a new 'Loki S2' episode 1 step (Mobius pulls Loki from the time stream with O.B.'s help) placed before the Quantumania step, and step 4 cut down to the episode 5 reset as Don",
+    "Drop the episode-1 sentence from step 4 and keep the order as it is",
+    "Keep as is (a merged season summary)"
+   ],
+   "evidence": "Loki S2 episode 1 'Ouroboros': Mobius uses the Temporal Aura Extractor to pull Loki from the time stream. Episode 3 '1893' shows the World's Fair scene from Quantumania's post-credits. Episode 5: Mobius has been reset to Don and Loki gathers him.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Loki_season_2&action=raw"
+  },
+  {
+   "key": "A:michelle-jones",
+   "question": "Step 4 ('Spider-Man: Brand New Day') describes Jean possessing MJ, Peter saving her, and his love confession, but its place and case point to the Roosevelt Island Incident. In the film the possession and confession happen earlier and somewhere else; at Roosevelt Island, MJ is only one of the people frozen in Jean's psionic field. Which should change?",
+   "options": [
+    "Keep the text; remove 'Roosevelt Island' and the ST-135 case",
+    "Keep the place and case; add that MJ is frozen in Jean's psionic field at the Roosevelt Island facility",
+    "Keep as is"
+   ],
+   "evidence": "Wikipedia plot: the telepath 'possesses and almost kills' MJ and Peter rescues her. Later he declares his love and MJ does not remember him. Later still, at the DODC facility on Roosevelt Island, Jean's psionic field freezes everyone 'including MJ and Ned'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man:_Brand_New_Day&action=raw"
+  }
+ ]
+}
