@@ -1,0 +1,151 @@
+{
+ "checked": [
+  "T:victor-timely",
+  "T:general-dox",
+  "T:hunter-x-5",
+  "T:ezekiel-stane",
+  "T:st-kingpin",
+  "T:st-vanessa-fisk",
+  "T:st-james-wesley",
+  "T:st-leland-owlsley",
+  "T:st-madame-gao",
+  "T:st-nobu",
+  "T:st-anatoly-ranskahov",
+  "T:st-vladimir-ranskahov",
+  "T:st-christian-blake",
+  "T:st-carl-hoffman",
+  "T:st-john-healy",
+  "T:st-turk-barrett",
+  "T:st-felix-manning",
+  "T:st-tammy-hattley",
+  "T:st-bullseye",
+  "T:st-elektra",
+  "T:st-ray-schoonover",
+  "T:st-finn-cooley",
+  "T:st-grotto",
+  "T:st-samantha-reyes",
+  "T:st-kilgrave"
+ ],
+ "changes": [
+  {
+   "key": "T:st-bullseye",
+   "kind": "B",
+   "now": [
+    [
+     "Fisk's Empire",
+     "Daredevil S3"
+    ],
+    [
+     "FBI",
+     "Daredevil S3"
+    ],
+    [
+     "U.S. Army",
+     "Daredevil S3"
+    ],
+    [
+     "Independent",
+     "Daredevil S3"
+    ],
+    [
+     "CIA",
+     "Daredevil: Born Again S2"
+    ]
+   ],
+   "proposed": [
+    [
+     "Fisk's Empire",
+     "Daredevil S3"
+    ],
+    [
+     "FBI",
+     "Daredevil S3"
+    ],
+    [
+     "Independent",
+     "Daredevil S3"
+    ],
+    [
+     "CIA",
+     "Daredevil: Born Again S2"
+    ]
+   ],
+   "evidence": "Poindexter's U.S. Army service is backstory: after his therapist's death he joined the Army, left it, worked at the Brooklyn Suicide Prevention Center, then joined the FBI, all before Daredevil S3, his first title on file (the infobox lists the Army as 'formerly'). In Daredevil S3 he is already an FBI agent.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Benjamin_Poindexter",
+   "confidence": "high"
+  },
+  {
+   "key": "T:st-elektra",
+   "kind": "M",
+   "now": [
+    [
+     "The Chaste",
+     "Daredevil S2"
+    ],
+    [
+     "The Hand",
+     "The Defenders"
+    ]
+   ],
+   "proposed": [
+    [
+     "The Chaste",
+     "Daredevil S2"
+    ],
+    [
+     "Independent",
+     "Daredevil S2"
+    ],
+    [
+     "The Hand",
+     "The Defenders"
+    ]
+   ],
+   "evidence": "Daredevil S2 episode 8 ('Guilty as Sin'): Elektra tells Stick she no longer wants to be with him and will fight the Hand without the Chaste, then orders him out. In episode 10 ('The Man in the Box') the Chaste send Jacques Duchamps to kill her as a former Chaste assassin. She dies outside the Chaste and only joins the Hand after her resurrection (The Defenders).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Elektra_Natchios",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:victor-timely",
+   "question": "At the end of Loki S2 Victor stays at the TVA and is credited as co-author of the new TVA handbook. Does that make him a TVA member (a join), or is he only an ally?",
+   "options": [
+    "Keep groups [] (ally only)",
+    "Add [[\"The TVA\",\"Loki S2\"]]"
+   ],
+   "evidence": "Loki S2 episode 6: 'Timely stayed at the Time Variance Authority as a new edition of the Time Variance Authority Official Handbook was printed, with both him and Ouroboros being credited.' The wiki gives him no affiliation.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Victor_Timely/Temporal_Marvels"
+  },
+  {
+   "key": "T:st-grotto",
+   "question": "In Daredevil S2 episodes 2-3, Grotto survives the Burren Club massacre, asks Nelson and Murdock to help him 'change his career' and get witness protection, and wears a wire as the DA's informant. Does that count as quitting or defecting from the Kitchen Irish?",
+   "options": [
+    "Keep Kitchen Irish (from the start)",
+    "[[\"The Kitchen Irish\",\"Daredevil S2\"],[\"Independent\",\"Daredevil S2\"]]"
+   ],
+   "evidence": "He asks for a second chance and witness protection, then works with Reyes's sting. The wiki still lists the Kitchen Irish as his affiliation without 'formerly', and the gang honors him at its funeral.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Grotto"
+  },
+  {
+   "key": "T:st-bullseye",
+   "question": "In Daredevil: Born Again S1, Vanessa Fisk gets Bullseye released in exchange for killing Benny Cafaro and Foggy Nelson (episode 1, shown in episode 8). Later in S1 he escapes and shoots at Fisk. Should the contract count as rejoining Fisk's Empire, followed by a break with it?",
+   "options": [
+    "Keep as is (a hired job, not membership)",
+    "Add [\"Fisk's Empire\",\"Daredevil: Born Again S1\"],[\"Independent\",\"Daredevil: Born Again S1\"] before the CIA stage"
+   ],
+   "evidence": "Wiki sections 'Hired by Vanessa Fisk', 'Targeting the Fisks' and 'War on Kingpin'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Benjamin_Poindexter"
+  },
+  {
+   "key": "T:st-kingpin",
+   "question": "At the end of Daredevil: Born Again S2, Fisk resigns as mayor, renounces his citizenship and leaves the U.S. for his private island, 'having lost everything'. Does his last stage stay Fisk's Empire, or does exile end it?",
+   "options": [
+    "Keep [\"Fisk's Empire\",\"Daredevil: Born Again S2\"] as the last stage",
+    "Add [\"Independent\",\"Daredevil: Born Again S2\"] after it"
+   ],
+   "evidence": "Born Again S2 episode 8: he takes a deal to avoid prosecution and goes into exile alone. The wiki infobox still lists his criminal holdings (Tracksuit Mafia, Fisk Shipping and others) as current.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Wilson_Fisk"
+  }
+ ]
+}

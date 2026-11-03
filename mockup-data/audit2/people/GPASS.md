@@ -6,8 +6,8 @@ every miss was one of two kinds. This pass looks ONLY for those two kinds, recor
 ## Input
 Your chunk (path in your task) is a JSON list of person records (see fields below). `groups` = `[group, title]` stages in story order:
 from that title on, the person is in that group; the LAST stage is where they stand. `left` = titles where they leave a group for none.
-`steps` = `[title, what they do, status]`, every title they're on file for ("In episode N," = episode N of the whole show, "In season N,"
-= that season). `twin` = the same person's other file.
+`steps` = `[title, what they do, status]`, every title they're on file for ("In episode N," = episode N of the step's title: that season for a season title like "X-Men '97 S2", the whole show
+when the title is the show; "In season N," = that season). `twin` = the same person's other file.
 
 ## The two kinds of miss
 1. **Backstory as a stage (B):** a group they belonged to only BEFORE the first title they're on file for (Laura Barton's S.H.I.E.L.D.
