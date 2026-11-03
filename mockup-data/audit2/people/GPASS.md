@@ -14,8 +14,8 @@ from that title on, the person is in that group; the LAST stage is where they st
    service, Bakuto's K'un-Lun training, Everett Ross's Air Force years). A stage must be membership the person HAS during or after a
    title they're on file for. Fix: remove that stage, or move its title to where it's shown.
 2. **Missing move (M):** within the titles and episodes they're on file for, the story moves them and no stage records it: they quit,
-   retire, are fired or voted out, a firm or team closes or disbands, they're captured and held by another group, they defect, rejoin,
-   or join a new group (Matt and Foggy close their firm in Daredevil S2 episode 9; Storm leaves the X-Men in X-Men '97 episode 3; Fitz
+   retire, are fired or voted out, a firm or team closes or disbands, they defect, rejoin, or join a new group. Being
+   captured, held or imprisoned is NOT a move under the owner's rules (don't propose it or raise it as a call) (Matt and Foggy close their firm in Daredevil S2 episode 9; Storm leaves the X-Men in X-Men '97 episode 3; Fitz
    and Simmons retire in the Agents of S.H.I.E.L.D. finale). Owner's rules: a title where they act alone is not a move; death is not a
    departure; an unsure case keeps what's there.
 
