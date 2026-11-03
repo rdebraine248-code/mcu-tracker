@@ -4822,7 +4822,16 @@ function atlOver(r) { if (atlOpen) { atlGo(r); return; } const st = jkey(history
 document.addEventListener("click", ev => { const a = ev.target.closest("[data-atp]"), c = ev.target.closest("[data-dcr]"); if (!a && !c) return; haptic(8);
   if (a) { const r = atPlace(a.dataset.atp); if (r) atlOver(r); } else fileGo("D", c.dataset.dcr); });
 const rfSteps = o => hoKeep(o.st.filter(atlSeenStep), o, "R");
-const rfStatusOf = o => rfStatus(rfSteps(o));   // a file the other index took over keeps its last status: Transferred is no status (owner, November 2026)
+// one person, one status (owner, November 2026: Wanda's Compound file said Fugitive while she had died on the Raft's side): where a file
+// hands over between the indexes, both cards show where the person stands now, the latest step of either file, in this index's words
+const RF2CP = { "Deceased": "Deceased", "Missing": "Missing", "In custody": "Imprisoned", "Captive": "Imprisoned", "At large": "Fugitive", "Active": "Active", "Allied": "Active" };
+const CP2RF = { "Deceased": "Deceased", "Missing": "Missing", "Imprisoned": "In custody", "Fugitive": "At large", "Active": "Allied", "Off-world": "Allied", "Retired": "Allied" };
+const personSt = (o, side) => { const H = hoPair(o); if (!H) return null; const tw = side === "A" ? THREATS.find(t => t.id === o.rf) : ALLIES.find(a => a.rf === o.id); if (!tw) return null;
+  const mine = (side === "A" ? cpSteps(o) : rfSteps(o)).filter(x => x[2]), theirs = (side === "A" ? rfSteps(tw) : cpSteps(tw)).filter(x => x[2]); if (!theirs.length) return null;
+  // whichever index holds the person at the latest title watched speaks for them: its last status, in this index's words
+  const all = mine.concat(theirs), top = Math.max(...all.map(x => hoOrd(x[1], H.u))); let k = 0; H.forEach((h, i) => { if (top >= h.o) k = i; });
+  if (H[k].sd === (side === "A" ? "C" : "R")) return null; const b = theirs[theirs.length - 1]; return (side === "A" ? RF2CP : CP2RF)[b[2]] || null; };
+const rfStatusOf = o => personSt(o, "T") || rfStatus(rfSteps(o));   // Transferred is no status (owner, November 2026)
 const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
 // First seen and Last seen go by release order, season by season (owner, October 2026): a step "In season N," of a show ranks as its season
 // title where the release list has one; a title the list doesn't carry (the Incursions) falls back to the Chapters path, after the rest
@@ -4973,7 +4982,7 @@ const IDMOVE = /*IDMOVE*/{};
 ["raftSeen", "cpSeen", "collSeen"].forEach(k => { const R = state[k]; if (!R) return; Object.keys(R).forEach(id => { const n = IDMOVE[id]; if (n) { R[n] = R[n] || R[id]; delete R[id]; } }); });
 const CP_ST = { "Active": "act", "Off-world": "off", "Retired": "ret", "Fugitive": "fug", "Imprisoned": "imp", "Missing": "mis", "Deceased": "dec" };
 const cpSteps = o => hoKeep(o.st.filter(atlSeenStep), o, "C");
-const cpStatusOf = o => cpStatus(cpSteps(o));
+const cpStatusOf = o => personSt(o, "A") || cpStatus(cpSteps(o));
 // the handovers (mockup-data/handover.json, researched November 2026): each person's stretches, the two halves of a title where they
 // switch sides, and a step written for the file that owns a title only the other file told
 const HANDOVER = /*HANDOVER*/{};

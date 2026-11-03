@@ -820,7 +820,9 @@ insignia celebration covers the page.
 - **The file's ID card** (owner, November 2026), the same in the Compound and the Raft: the status stamp sits in the card's top corner so
   the text runs the full width. First and last seen are the two ends of the person's path, a line in the index's colour, with "N titles on
   the path ›" between them opening Paths. One person is first and last seen once: someone on file in both indexes counts both files, so
-  their Compound and Raft cards show the same two ends and count. Under it, "Character log" and the box's name open the character log, not the box. Both only
+  their Compound and Raft cards show the same two ends and count. The same for status where a file hands over between the indexes: both
+  cards show where the person stands now, from whichever index holds them at the latest title watched, in each index's own words
+  (`personSt`, `RF2CP`/`CP2RF`: At large = Fugitive, In custody or Captive = Imprisoned, Allied = Active). Wanda reads Deceased in both. Under it, "Character log" and the box's name open the character log, not the box. Both only
   where the person has them (`seenLine(S, o)`). No Character log or Path buttons on the record's header line. Where the record hands over to
   the other index, that entry is the link, in the other index's colour (red to the Raft, blue to the Compound), and the "Also on file" box
   goes; a twin with no hand-over keeps the box.
