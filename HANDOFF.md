@@ -790,7 +790,8 @@ insignia celebration covers the page.
   story order, or ST-001 would wait for a recent show (owner, October 2026). A report filed under a whole show goes by its first season;
   within one title, by year. `DC_NO` computes them, so a new report needs no number; First seen lists by case number.
 - **Index orders** (owner, November 2026), in all four indexes: First seen, Last seen (latest on file first), Most seen (Damage Control:
-  Most people), each sorting inside the groups; and A to Z, which is the whole tab in one straight list (October 2026, kept: the owner
+  Most people, plus Most losses: the losses each report records as far as you've watched, since the reports give no casualty
+  figures), each sorting inside the groups; and A to Z, which is the whole tab in one straight list (October 2026, kept: the owner
   turned down A to Z inside groups). Ties go A to Z. `ixMode()`, saved as `state.ixSort`.
 - **A person stays in a group until the story moves them** (owner, November 2026): they quit, retire, are fired or disavowed, the group
   splits or ends, they turn on it or join another. A title where they act alone is not a move. The checked list of real departures is

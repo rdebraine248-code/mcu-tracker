@@ -4670,12 +4670,12 @@ const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", 
 const ixName = n => String(n).replace(/^The /, "");
 // the orders (owner, November 2026): First seen, Last seen (the latest on file first), Most titles, and A to Z, which is the whole tab in
 // one list (October 2026); the other three sort inside each group. Ties go A to Z
-const ixMode = () => state.ixSort || (state.ixAZ ? "az" : "first");
+const ixMode = () => { const m = state.ixSort || (state.ixAZ ? "az" : "first"); return m === "loss" && collMode !== "dc" ? "first" : m; };
 const ixTitles = S => new Set(S.map(x => x[1])).size, ixLast = S => S.reduce((a, x) => seenRk(x) > seenRk(a) ? x : a, S[0]);
 const ixCmp = (name, steps) => (a, b) => { const m = ixMode(), A = m === "az" ? null : steps(a), B = m === "az" ? null : steps(b);
   return (m === "first" ? seenRk(rfFirstStep(A)) - seenRk(rfFirstStep(B)) : m === "last" ? seenRk(ixLast(B)) - seenRk(ixLast(A)) : m === "most" ? ixTitles(B) - ixTitles(A) : 0) || ixName(name(a)).localeCompare(ixName(name(b))); };
 const IX_SORTS = [["first", "First seen"], ["last", "Last seen"], ["most", "Most seen"], ["az", "A–Z"]];
-const ixSortBar = dc => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg">${IX_SORTS.map(([k, l]) => `<button type="button" data-ixs="${k}" aria-pressed="${ixMode() === k}">${dc && k === "most" ? "Most people" : l}</button>`).join("")}</div></div>`;   // Damage Control: a report is one title, so it counts the people on file in it
+const ixSortBar = dc => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg">${(dc ? IX_SORTS.slice(0, 3).concat([["loss", "Most losses"]], IX_SORTS.slice(3)) : IX_SORTS).map(([k, l]) => `<button type="button" data-ixs="${k}" aria-pressed="${ixMode() === k}">${dc && k === "most" ? "Most people" : l}</button>`).join("")}</div></div>`;   // Damage Control: a report is one title, so it counts the people on file in it; and its losses (owner, November 2026: the reports give no casualty figures, so it counts the losses each one records, as far as you've watched)   // Damage Control: a report is one title, so it counts the people on file in it
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
 const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
 let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0, cxHoldF = "", cxHoldFrom = "";
@@ -11732,7 +11732,7 @@ function renderDc() {
 function dcBody() {
   const q = qNorm(dcQ.trim()), L = DC.filter(d => dcU(d) === dcUni && dcSeen(d));
   const row = d => `<button type="button" class="dc-row" data-dc="${d.id}"><span class="no">Case<br>${DC_NO[d.id]}</span><span><b>${q.length > 1 ? qMark(d.n, q) : esc(d.n)}</b><small>${q.length > 1 ? qMark(d.where, q) : esc(d.where)}</small></span><em>${esc(d.cls)}</em></button>`;
-  const sorted = A => A.slice().sort((a, b) => { const m = ixMode(); return (m === "az" ? 0 : m === "last" ? DC_NO[b.id].localeCompare(DC_NO[a.id]) : m === "most" ? dcNames(b).length - dcNames(a).length : DC_NO[a.id].localeCompare(DC_NO[b.id])) || ixName(a.n).localeCompare(ixName(b.n)); });   // First seen is the case number; Last seen the latest case first; Most titles is the most people on file in it
+  const sorted = A => A.slice().sort((a, b) => { const m = ixMode(); return (m === "az" ? 0 : m === "last" ? DC_NO[b.id].localeCompare(DC_NO[a.id]) : m === "most" ? dcNames(b).length - dcNames(a).length : m === "loss" ? dcLines(b.loss).length - dcLines(a.loss).length : DC_NO[a.id].localeCompare(DC_NO[b.id])) || ixName(a.n).localeCompare(ixName(b.n)); });   // First seen is the case number; Last seen the latest case first; Most titles is the most people on file in it
   if (!L.length) return '<p class="sr-empty">No data.</p>';
   if (q.length > 1) {
     const F = L.filter(d => [d.n, d.where, d.cls, d.t, dcYr(d.yr, d), ...dcNames(d), ...dcNames(d, 1), ...dcAka(d)].some(x => qNorm(x).includes(q)));
