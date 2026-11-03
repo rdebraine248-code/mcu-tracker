@@ -1,0 +1,1606 @@
+{
+ "places": [
+  {
+   "view": "city",
+   "inside": "ny",
+   "id": "redhook",
+   "n": "Red Hook",
+   "r": "Brooklyn",
+   "at": [
+    40.677,
+    -74.011
+   ],
+   "e": [
+    [
+     "Daredevil: Born Again S1",
+     "Red Hook",
+     "Fisk's Task Force locks Frank Castle and Jack Duquesne in a secret prison at the port, and Frank tricks a guard to escape."
+    ],
+    [
+     "Daredevil: Born Again S2#3",
+     "Red Hook",
+     "Daredevil breaks into the Task Force prison at the port and frees the Swordsman, Soledad and the other prisoners."
+    ],
+    [
+     "Daredevil: Born Again S2",
+     "Red Hook",
+     "Fisk runs smuggled CIA weapons through the Red Hook freeport, beyond the reach of the city's police."
+    ],
+    [
+     "Agent Carter#1",
+     "Red Hook, 1946",
+     "Peggy sneaks into a Roxxon refinery where stolen Stark formulas are being made into bombs, and the whole plant implodes."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Fisk_Freeport_Complex&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Red_Hook_Port&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Roxxon_Refinery&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Red_Hook,_Brooklyn&action=raw"
+   ],
+   "note": "Born Again: the Task Force prison (Fisk Freeport Complex) is inside Red Hook Port; Frank's capture and escape are S1 ep 9, the jailbreak is S2 ep 3 (The Scales & The Sword). The wiki also puts Agent Carter's Roxxon Refinery in Red Hook, so it is folded in here as a 1946 entry. The Roxxon step is labelled episode 2 in the input, but the wiki has the refinery scenes and its implosion in episode 1 (Now Is Not the End; ep 2 only mentions it), so that entry uses Agent Carter#1.",
+   "steps": [
+    {
+     "file": "A:st-frank-castle",
+     "title": "Daredevil: Born Again S1",
+     "text": "Frank fights beside Matt, then is captured by Fisk's Task Force and held at Red Hook. He tricks a guard to escape."
+    },
+    {
+     "file": "A:st-soledad-ayala",
+     "title": "Daredevil: Born Again S2",
+     "text": "In episode 3, Arrested by the Task Force at a bodega, Soledad is held at Red Hook until Angela and Matt free her."
+    },
+    {
+     "file": "A:jack-duquesne",
+     "title": "Daredevil: Born Again S1",
+     "text": "Fisk blackmails Jack, who is secretly the vigilante Swordsman. When Fisk outlaws vigilantes, he locks Jack up at Red Hook."
+    },
+    {
+     "file": "A:jack-duquesne",
+     "title": "Daredevil: Born Again S2",
+     "text": "In episode 3, Convicted as the Swordsman, Jack is freed from Red Hook by Daredevil and drives the other prisoners to safety."
+    },
+    {
+     "file": "T:st-fisk-empire",
+     "title": "Daredevil: Born Again S2",
+     "text": "Fisk's regime moves CIA weapons through Red Hook, until Karen's trial exposes it and Fisk takes a deal to leave New York."
+    },
+    {
+     "file": "T:st-roxxon",
+     "title": "Agent Carter",
+     "text": "In episode 2, a Roxxon scientist turns Howard Stark's stolen formula into nitramene bombs at one of the company's oil refineries."
+    }
+   ]
+  },
+  {
+   "view": "city",
+   "inside": "ny",
+   "id": "rikers",
+   "n": "Rikers Island",
+   "r": "The Bronx, East River",
+   "at": [
+    40.7911,
+    -73.8828
+   ],
+   "e": [
+    [
+     "Daredevil S2#9",
+     "Rikers Island",
+     "From his cell at Rikers, Fisk takes over the prison and sets Frank Castle on a rival inmate."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rikers_Island&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Rikers_Island&action=raw"
+   ],
+   "note": "The wiki and Wikipedia spell it Rikers Island; the input used the comics spelling Ryker's. Rename if the show's spelling is preferred.",
+   "steps": [
+    {
+     "file": "T:st-kingpin",
+     "title": "Daredevil S2",
+     "text": "In episode 9, From his cell, Fisk takes control of the prison and uses Frank Castle to kill a rival inmate."
+    },
+    {
+     "file": "T:st-fisk-empire",
+     "title": "Daredevil S2",
+     "text": "In episode 9, Behind bars, Fisk works through lawyer Ben Donovan and bribed guards. He sends Frank after Dutton and takes over the prison."
+    }
+   ]
+  },
+  {
+   "view": "city",
+   "inside": "ny",
+   "id": "centralpark",
+   "n": "Central Park",
+   "r": "Manhattan",
+   "at": [
+    40.7822,
+    -73.9653
+   ],
+   "e": [
+    [
+     "Avengers: Infinity War",
+     "Central Park",
+     "Tony and Pepper are out jogging in Central Park when Doctor Strange steps through a portal, with Bruce Banner behind him."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Central_Park&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Central_Park&action=raw"
+   ],
+   "note": "The pin is about half a kilometre from the existing Manhattan spot (40.7831, -73.9712), which already sits inside the park, so the two will nearly overlap.",
+   "steps": [
+    {
+     "file": "A:pepper-potts",
+     "title": "Avengers: Infinity War",
+     "text": "Pepper and Tony talk about having a child before Bruce and Strange arrive in Central Park."
+    }
+   ]
+  },
+  {
+   "view": "city",
+   "inside": "ny",
+   "id": "happycondo",
+   "n": "Happy's condo",
+   "r": "Long Island City, Queens",
+   "at": [
+    40.7509,
+    -73.9411
+   ],
+   "e": [
+    [
+     "Spider-Man: No Way Home",
+     "Happy's condo",
+     "Peter hides May and the villains from other worlds at Happy's condo, where the Goblin returns and fatally wounds May."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Happy_Hogan's_Condominium&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Long_Island_City&action=raw"
+   ],
+   "note": "The wiki places the condo in Long Island City, Queens (neighborhood-level only, so the pin is the neighborhood's coordinates). It sits about 1.3 km from the Roosevelt Island spot.",
+   "steps": [
+    {
+     "file": "A:dum-e-and-u",
+     "title": "Spider-Man: No Way Home",
+     "text": "At Happy's condo, Dum-E helps Peter build a LEGO Death Star, and Peter webs Norman Osborn's hand to Dum-E when the Goblin stirs."
+    },
+    {
+     "file": "A:sv-otto-octavius-raimi",
+     "title": "Spider-Man: No Way Home",
+     "text": "At Happy Hogan's apartment, Peter fits Otto with a new inhibitor chip, and Otto, himself again, helps make cures for the others. He later cures Electro at the S"
+    },
+    {
+     "file": "A:peter-parker",
+     "title": "Spider-Man: No Way Home",
+     "text": "Exposed as Spider-Man, Peter loses May, then has Strange make the world forget him."
+    },
+    {
+     "file": "A:may-parker",
+     "title": "Spider-Man: No Way Home",
+     "text": "May sets out to help the villains from other universes and is killed by the Green Goblin."
+    },
+    {
+     "file": "T:sv-green-goblin-2002",
+     "title": "Spider-Man: No Way Home",
+     "text": "Pulled across universes just before his death, Norman loses control to the Goblin again, who fatally wounds Aunt May."
+    }
+   ]
+  },
+  {
+   "view": "city",
+   "inside": "ny",
+   "id": "metrogeneral",
+   "n": "Metro-General Hospital",
+   "r": "Manhattan",
+   "at": [
+    40.77,
+    -73.9876
+   ],
+   "e": [
+    [
+     "Doctor Strange",
+     "Metro-General Hospital",
+     "Christine Palmer works at Metro-General, and she saves Strange there when he is stabbed in astral form."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Metro-General_Hospital&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Mount_Sinai_West&action=raw"
+   ],
+   "note": "The wiki gives the address from Jessica Jones' list of hospitals: 479 W 58th Street, the real Mount Sinai West, whose coordinates are used. The wiki treats the Doctor Strange hospital and the Netflix one as the same place. It is about 0.8 km from the Hell's Kitchen spot.",
+   "steps": [
+    {
+     "file": "A:christine-palmer",
+     "title": "Doctor Strange",
+     "text": "Christine helps Strange recover, then saves his life when he is stabbed in astral form."
+    }
+   ]
+  },
+  {
+   "view": "city",
+   "inside": "ny",
+   "id": "wburgbridge",
+   "n": "Williamsburg Bridge",
+   "r": "East River",
+   "at": [
+    40.71356,
+    -73.97197
+   ],
+   "e": [
+    [
+     "Spider-Man: Brand New Day",
+     "Williamsburg Bridge",
+     "Spider-Man catches Tarantula running a smuggling job on a passenger boat near the Williamsburg Bridge."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tarantula&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Williamsburg_Bridge&action=raw"
+   ],
+   "note": "Corrected from the input: the wiki puts the Tarantula fight on a public passenger boat near the Williamsburg Bridge on the East River, not on a ship in New York Harbor. The wiki line has a [citation needed] tag, so this is a lower-confidence entry.",
+   "steps": [
+    {
+     "file": "T:tarantula",
+     "title": "Spider-Man: Brand New Day",
+     "text": "Tarantula fights Spider-Man aboard a ship in New York Harbor."
+    }
+   ]
+  },
+  {
+   "view": "city",
+   "inside": "la",
+   "id": "randys",
+   "n": "Randy's Donuts",
+   "r": "Inglewood",
+   "at": [
+    33.9618,
+    -118.3703
+   ],
+   "e": [
+    [
+     "Iron Man 2",
+     "Randy's Donuts",
+     "Fury finds Tony sitting in the giant donut on the shop's roof and leaves him Howard Stark's old files."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Randy's_Donuts&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Randy's_Donuts&action=raw"
+   ],
+   "note": "",
+   "steps": [
+    {
+     "file": "A:nick-fury",
+     "title": "Iron Man 2",
+     "text": "Fury finds Tony at a donut shop, has Natasha ease his poisoning, and leaves him a box of Howard's old files."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "lakehouse",
+   "n": "The Stark lake house",
+   "r": "Upstate New York",
+   "at": [
+    43.0,
+    -76.0
+   ],
+   "e": [
+    [
+     "Avengers: Endgame",
+     "",
+     "Tony and Pepper raise Morgan in a cabin by a lake, where Tony and F.R.I.D.A.Y. work out time travel."
+    ],
+    [
+     "Avengers: Endgame",
+     "",
+     "Tony's friends and family gather at the lake house to say goodbye at his funeral."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Stark_Eco-Compound&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Upstate_New_York&action=raw"
+   ],
+   "note": "The wiki (page title Stark Eco-Compound) gives only New York state; 'upstate' comes from the owner's correction. No spot is named, so the pin is Wikipedia's representative coordinate for Upstate New York, about 1 degree south of the Lighthouse pin.",
+   "steps": [
+    {
+     "file": "A:maria-hill",
+     "title": "Avengers: Endgame",
+     "text": "Restored, Hill attends Tony Stark's funeral."
+    },
+    {
+     "file": "A:happy-hogan",
+     "title": "Avengers: Endgame",
+     "text": "Happy stays close to Pepper and Morgan and attends Tony's funeral."
+    },
+    {
+     "file": "A:hope-van-dyne",
+     "title": "Avengers: Endgame",
+     "text": "Restored, Hope fights in the final battle and attends Tony's funeral."
+    },
+    {
+     "file": "A:nick-fury",
+     "title": "Avengers: Endgame",
+     "text": "Restored after the Snap, Fury stands among the mourners at Tony's funeral."
+    },
+    {
+     "file": "A:pepper-potts",
+     "title": "Avengers: Endgame",
+     "text": "Pepper raises Morgan with Tony, joins the final battle in the Rescue armor, and is with him when he dies."
+    },
+    {
+     "file": "A:friday",
+     "title": "Avengers: Endgame",
+     "text": "F.R.I.D.A.Y. runs Tony's time travel simulations at the lake house and finds a model that works."
+    },
+    {
+     "file": "A:morgan-stark",
+     "title": "Avengers: Endgame",
+     "text": "Morgan lives with her parents by the lake, and Tony leaves her a goodbye message."
+    },
+    {
+     "file": "A:peter-parker",
+     "title": "Avengers: Endgame",
+     "text": "Restored, Peter fights in the final battle and mourns Tony."
+    },
+    {
+     "file": "T:thaddeus-ross",
+     "title": "Avengers: Endgame",
+     "text": "Ross stands among the mourners at Tony Stark's funeral."
+    },
+    {
+     "file": "A:hank-pym",
+     "title": "Avengers: Endgame",
+     "text": "Restored, Hank attends Tony Stark's funeral with his family."
+    },
+    {
+     "file": "A:harley-keener",
+     "title": "Avengers: Endgame",
+     "text": "Harley attends Tony Stark's funeral."
+    },
+    {
+     "file": "A:may-parker",
+     "title": "Avengers: Endgame",
+     "text": "May attends Tony Stark's funeral with Peter."
+    },
+    {
+     "file": "A:janet-van-dyne",
+     "title": "Avengers: Endgame",
+     "text": "Restored, Janet attends Tony Stark's funeral with her family."
+    },
+    {
+     "file": "A:cassie-lang",
+     "title": "Avengers: Endgame",
+     "text": "Now a teen, Cassie reunites with Scott after five years and attends Tony's funeral."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "anzhou",
+   "n": "Anzhou",
+   "r": "Hebei, China",
+   "at": [
+    38.9354,
+    115.936
+   ],
+   "e": [
+    [
+     "Iron Fist S1#8",
+     "Hand factory",
+     "Danny, Colleen and Claire raid the Hand's heroin factory in Anzhou, and Danny captures Madame Gao."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Anzhou&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hand's_Anzhou_Laboratory&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Anxin_County&action=raw"
+   ],
+   "note": "Corrected from the input: the wiki says Anzhou is a town in Hebei, not the Sichuan district. The pin is Anxin County, Hebei, where the real Anzhou town is; the show itself only says 'Anzhou, China'.",
+   "steps": [
+    {
+     "file": "A:st-claire-temple",
+     "title": "Iron Fist S1",
+     "text": "Training at Colleen's dojo, Claire joins Danny and Colleen against the Hand in Anzhou and New York."
+    },
+    {
+     "file": "T:st-zhou-cheng",
+     "title": "Iron Fist S1",
+     "text": "In episode 8, Zhou Cheng guards the Hand's heroin operation in China, and Danny beats him until Claire makes him stop."
+    },
+    {
+     "file": "T:st-madame-gao",
+     "title": "Iron Fist S1",
+     "text": "In episode 8, Gao is revealed as a leader of the Hand who moves heroin through Rand Enterprises. Danny captures her."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "finland",
+   "n": "Finland",
+   "r": "Northern Europe",
+   "at": [
+    64.0,
+    26.0
+   ],
+   "e": [
+    [
+     "Secret Invasion#5",
+     "",
+     "Fury flies to Finland on Rick Mason's jet and digs the Harvest, a vial of Avengers DNA, out of a hidden grave."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Finland&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rick_Mason&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Harvest_(episode)&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Finland&action=raw"
+   ],
+   "note": "No town is named, so the pin is Wikipedia's country coordinate. Gravik's step moved to New Skrullos: the wiki puts his Super Skrull fight and death at New Skrullos in Russia, not Finland.",
+   "steps": [
+    {
+     "file": "A:rick-mason",
+     "title": "Secret Invasion",
+     "text": "In episode 5, Mason flies Fury to Finland and gives him a passport and a mask that copies faces."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "newskrullos",
+   "n": "New Skrullos",
+   "r": "Zheleznogorsk, Russia",
+   "at": [
+    52.333,
+    35.367
+   ],
+   "e": [
+    [
+     "Secret Invasion",
+     "",
+     "Gravik runs his rebellion from a ruined Russian nuclear town, where he becomes a Super Skrull and G'iah kills him."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=New_Skrullos&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Duel_at_New_Skrullos&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gravik&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Zheleznogorsk,_Kursk_Oblast&action=raw"
+   ],
+   "note": "Extra place, not in the input list: the Skrull rebels' base, which the wiki places in Zheleznogorsk, Kursk Oblast (from a town sign on screen), 312 km southwest of Moscow. It takes the Gravik step from the Finland item. Episode 6 is where he dies; the step's title is plain 'Secret Invasion'.",
+   "steps": [
+    {
+     "file": "T:gravik",
+     "title": "Secret Invasion",
+     "text": "Gravik becomes a Super Skrull with Avengers DNA, but G'iah kills him."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "manama",
+   "n": "Manama",
+   "r": "Bahrain",
+   "at": [
+    26.2233,
+    50.5875
+   ],
+   "e": [
+    [
+     "Agents of S.H.I.E.L.D.#39",
+     "Manama, 2008",
+     "In 2008, a young girl, Katya, uses her powers to turn the people around her into killers, until May shoots her."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bahrain&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Manama&action=raw"
+   ],
+   "note": "The wiki names Manama, Bahrain's capital, as the city of May's 2008 mission, so the pin is Manama rather than the country.",
+   "steps": [
+    {
+     "file": "T:st-katya-belyakova",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 39, in Bahrain in 2008, young Katya turns everyone around her into killers, until May shoots her dead."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "peruinca",
+   "n": "Peru",
+   "r": "Llactapata, in the Andes",
+   "at": [
+    -13.1859,
+    -72.5848
+   ],
+   "e": [
+    [
+     "Agents of S.H.I.E.L.D.#2",
+     "Incan temple",
+     "The team digs a HYDRA weapon powered by the Tesseract out of an Incan temple in the Peruvian jungle."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Peru&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Llaqtapata&action=raw"
+   ],
+   "note": "The wiki puts the 0-8-4's temple in the Llactapata region, so the pin is the Llaqtapata ruins. Reyes's betrayal itself happens on the plane after it leaves Peru; this is the nearest fixed place. The id 'peru' is already used in the Sony universe, hence 'peruinca'.",
+   "steps": [
+    {
+     "file": "T:st-camilla-reyes",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 2, Reyes turns on Coulson's team and seizes their plane to take the 0-8-4 for Peru, until the agents retake it."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "afterlife",
+   "n": "Afterlife",
+   "r": "Nepal",
+   "at": [
+    28.1667,
+    84.25
+   ],
+   "e": [
+    [
+     "Agents of S.H.I.E.L.D.#38",
+     "",
+     "Skye is brought to Afterlife, a hidden Inhuman haven where Jiaying guides new Inhumans through their changes."
+    ],
+    [
+     "Agents of S.H.I.E.L.D.#39",
+     "",
+     "Jiaying leads the Inhumans of Afterlife and helps Skye learn to control her powers."
+    ],
+    [
+     "Agents of S.H.I.E.L.D.#44",
+     "",
+     "Jiaying turns the people of Afterlife against S.H.I.E.L.D. and leads them out to war."
+    ],
+    [
+     "Agents of S.H.I.E.L.D.#133",
+     "",
+     "In a changed past, Nathaniel Malick storms Afterlife and kills Gordon to take his powers."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Afterlife&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Nepal&action=raw"
+   ],
+   "note": "The wiki says Afterlife is in Nepal, with no closer spot. The pin is Wikipedia's country coordinate for Nepal, about 1 degree west of the Kathmandu pin.",
+   "steps": [
+    {
+     "file": "A:st-lincoln-campbell",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 44, Lincoln helps Skye control her new powers at Afterlife, then turns against Jiaying."
+    },
+    {
+     "file": "A:st-afterlife",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 38, Jiaying's hidden haven of Afterlife guides new Inhumans like Skye through their changes."
+    },
+    {
+     "file": "A:st-afterlife",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 44, Jiaying leads Afterlife into war on S.H.I.E.L.D., and the haven is lost when she and Gordon are killed."
+    },
+    {
+     "file": "A:st-afterlife",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 133, in a changed past, Nathaniel Malick seizes Afterlife and kills both Jiaying and Gordon, taking Gordon's powers."
+    },
+    {
+     "file": "T:st-jiaying",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 39, Jiaying, Skye's mother, leads the Inhumans of Afterlife."
+    },
+    {
+     "file": "T:st-jiaying",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 133, in a changed past, Jiaying flees Afterlife when Nathaniel Malick seizes it. At the Lighthouse, he tells her Daisy is her daughter, then kills he"
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "lighthouse",
+   "n": "The Lighthouse",
+   "r": "Under Lake Ontario, New York",
+   "at": [
+    43.95,
+    -76.1167
+   ],
+   "e": [
+    [
+     "Agents of S.H.I.E.L.D.#100",
+     "",
+     "Coulson and Deathlok fight off creatures from the Fear Dimension until the rift in the base closes."
+    ],
+    [
+     "Agents of S.H.I.E.L.D.#107",
+     "",
+     "Davis and Piper guard the gravitonium at the Lighthouse while Coulson's team is on the run."
+    ],
+    [
+     "Agents of S.H.I.E.L.D.#128",
+     "1976",
+     "In a changed 1976, HYDRA agents inside S.H.I.E.L.D. rush Project Insight at the Lighthouse."
+    ],
+    [
+     "Agents of S.H.I.E.L.D.#133",
+     "",
+     "In a changed past, Nathaniel Malick brings Jiaying to the Lighthouse, tells her Daisy is her daughter, and kills her."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Lighthouse&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Sackets_Harbor,_New_York&action=raw"
+   ],
+   "note": "The wiki puts the bunker under a lighthouse in Lake Ontario, and notes that the coordinates Talbot reads out in 'Option Two' match Sackets Harbor, New York, so the pin is Sackets Harbor. The S5 Deathlok step and the #100 step are the same event and share the #100 entry.",
+   "steps": [
+    {
+     "file": "A:st-davis",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 107, Davis rejoins Coulson's fugitive team at the Lighthouse and guards the gravitonium with Piper."
+    },
+    {
+     "file": "T:st-deathlok",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In season 5, Mike helps Coulson close a rift at the Lighthouse, then attends Fitz and Simmons's wedding."
+    },
+    {
+     "file": "T:by-st-freddy-malick",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 128, by 1976, Freddy is using the Chronicoms' help to rush Project Insight, until Deke kills him."
+    },
+    {
+     "file": "T:st-jiaying",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 133, in a changed past, Jiaying flees Afterlife when Nathaniel Malick seizes it. At the Lighthouse, he tells her Daisy is her daughter, then kills he"
+    },
+    {
+     "file": "A:st-mike-peterson",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 100, he helps Coulson seal a rift at the Lighthouse and attends Fitz and Simmons's wedding."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "playground",
+   "n": "The Playground",
+   "r": "United States, likely Virginia",
+   "at": [
+    38.3,
+    -78.3
+   ],
+   "e": [
+    [
+     "Agents of S.H.I.E.L.D.#22",
+     "",
+     "Billy Koenig welcomes Coulson's team to the Playground, a secret S.H.I.E.L.D. base hidden in an old industrial complex."
+    ],
+    [
+     "Agents of S.H.I.E.L.D.#23",
+     "",
+     "Coulson rebuilds S.H.I.E.L.D. from the Playground, with Billy Koenig keeping the base running."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Playground&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The wiki infobox gives only 'United States'. Its trivia says the base is likely in Virginia near Washington, D.C. (Virginia plates on S.H.I.E.L.D. SUVs) and a 20-minute Quinjet flight from Baltimore. The pin is a placeholder in northern Virginia on that basis, about 1.3 degrees from the D.C. pin.",
+   "steps": [
+    {
+     "file": "A:st-billy-koenig",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 22, Billy Koenig, the late Eric's identical brother, welcomes Coulson's team to the Playground."
+    },
+    {
+     "file": "A:st-billy-koenig",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 23, Billy runs the Playground for Coulson."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "shieldacademy",
+   "n": "The S.H.I.E.L.D. Academy",
+   "r": "United States",
+   "at": [
+    39.83,
+    -98.58
+   ],
+   "e": [
+    [
+     "Agents of S.H.I.E.L.D.#12",
+     "",
+     "Fitz and Simmons return to their old school, the S.H.I.E.L.D. Academy of Science and Technology, run by Anne Weaver."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.H.I.E.L.D._Academy_of_Science_and_Technology&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.H.I.E.L.D._Academy&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The sources give only 'United States' (the wiki says it was an SSR facility before S.H.I.E.L.D.). There is no state, so the pin is a placeholder at the geographic center of the contiguous US. Consider labelling it 'Location unknown' if a center-of-country pin looks too precise.",
+   "steps": [
+    {
+     "file": "A:st-anne-weaver",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 12, Anne Weaver runs the S.H.I.E.L.D. Academy of Science and Technology."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "hydraacademy",
+   "n": "HYDRA Preparatory Academy",
+   "r": "Appalachian Mountains",
+   "at": [
+    35.7648,
+    -82.2651
+   ],
+   "e": [
+    [
+     "Agents of S.H.I.E.L.D.#103",
+     "Flashback",
+     "As a teenager at HYDRA's school, Ruby's mother Hale is bullied by a young Strucker and fights back."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=HYDRA_Preparatory_Academy&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Appalachian_Mountains&action=raw",
+    "https://en.wikipedia.org/w/index.php?title=Mount_Mitchell&action=raw"
+   ],
+   "note": "The wiki places the academy, built in a decommissioned US Army facility, in the Appalachian Mountains. No closer spot is given, so the pin is Mount Mitchell, the range's highest point. The step details (bullying, prank) come from the input note and were not checked line by line.",
+   "steps": [
+    {
+     "file": "T:baron-strucker",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 103, back at HYDRA's academy, a jealous teenage Strucker has his friends prank R. Hale, then beat her when she attacks."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "atlantic",
+   "n": "The Atlantic Ocean",
+   "r": "Open sea",
+   "at": [
+    10.0,
+    -30.0
+   ],
+   "e": [
+    [
+     "Black Panther: Wakanda Forever",
+     "Sea Leopard",
+     "Wakanda lures Namor's warriors to the surface around the ship Sea Leopard, and Shuri, now the Black Panther, finally spares Namor."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ambush_on_the_Talokanil&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sea_Leopard&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The wiki gives the final battle as aboard the Sea Leopard in the Atlantic, with no spot, so the pin is a placeholder in the open Atlantic. The duel ends on a desert shore nearby, also unnamed. Attuma's step is retagged to Wakanda (his raids hit the Golden City and, per the wiki, the Harvey Sub-Sea in the Gulf of Mexico, not this battle).",
+   "steps": [
+    {
+     "file": "A:shuri",
+     "title": "Black Panther: Wakanda Forever",
+     "text": "After T'Challa dies, Shuri makes a new heart-shaped herb, becomes the Black Panther, and spares Namor."
+    },
+    {
+     "file": "A:okoye",
+     "title": "Black Panther: Wakanda Forever",
+     "text": "Stripped of her rank by Ramonda, Okoye fights Namor's forces in a Midnight Angel suit."
+    },
+    {
+     "file": "A:m-baku",
+     "title": "Black Panther: Wakanda Forever",
+     "text": "M'Baku stands with Shuri against Namor, then puts himself forward for the throne."
+    },
+    {
+     "file": "A:ayo",
+     "title": "Black Panther: Wakanda Forever",
+     "text": "Ayo fights for Wakanda against Namor's forces."
+    },
+    {
+     "file": "A:dora-milaje",
+     "title": "Black Panther: Wakanda Forever",
+     "text": "Ramonda strips Okoye of her title, and Ayo leads the Dora Milaje against Namor's warriors."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "gobi",
+   "n": "The Gobi Desert",
+   "r": "Mongolia",
+   "at": [
+    43.0,
+    104.25
+   ],
+   "e": [
+    [
+     "Loki S1#1",
+     "2012",
+     "Loki crash-lands in the Gobi Desert with the Tesseract, and Hunter B-15's Minutemen arrest him for the TVA."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gobi_Desert&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Ömnögovi_Province&action=raw"
+   ],
+   "note": "The wiki places this Gobi in Mongolia. The pin is Ömnögovi (South Gobi) Province, Mongolia; Wikipedia's own Gobi coordinate (42.59, 103.43) sits on the China border.",
+   "steps": [
+    {
+     "file": "T:hunter-b-15",
+     "title": "Loki S1",
+     "text": "In episode 1, B-15 hunts and arrests Loki variants for the TVA."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "parisfr",
+   "n": "Paris",
+   "r": "France",
+   "at": [
+    48.8566,
+    2.3522
+   ],
+   "e": [
+    [
+     "Iron Fist S1",
+     "",
+     "Joy Meachum leaves New York and meets Davos in Paris, where they agree that Danny must be stopped."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Joy_Meachum&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Paris&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "Confirmed: the wiki puts the meeting in Paris, episode 13. The id 'paris' is taken by the X-Men universe's Paris, hence 'parisfr'.",
+   "steps": [
+    {
+     "file": "T:st-joy-meachum",
+     "title": "Iron Fist S1",
+     "text": "Feeling betrayed by Danny and Ward, Joy meets Davos in Paris and agrees that Danny must be removed."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "pakistan",
+   "n": "Pakistan",
+   "r": "South Asia",
+   "at": [
+    30.0,
+    70.0
+   ],
+   "e": [
+    [
+     "Iron Man 3",
+     "",
+     "Rhodey, now the Iron Patriot, raids a building in Pakistan chasing the Mandarin's broadcasts, and finds a false trail."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Pakistan&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Geography_of_Pakistan&action=raw"
+   ],
+   "note": "No city is named (the wiki says a house raid). The pin is Wikipedia's coordinate for Pakistan's geography, well clear of Karachi.",
+   "steps": [
+    {
+     "file": "A:james-rhodes",
+     "title": "Iron Man 3",
+     "text": "Rebranded as the Iron Patriot, Rhodey is captured by Killian's men and helps Tony save the President."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "redroomacademy",
+   "n": "The Red Room Academy",
+   "r": "Belarus",
+   "at": [
+    53.0,
+    27.0
+   ],
+   "e": [
+    [
+     "Agent Carter#5",
+     "1946",
+     "Peggy and Dugan's Howling Commandos slip into Soviet Belarus and find a school training girls as assassins."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Belarus&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Red_Room_Academy&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Belarus&action=raw"
+   ],
+   "note": "The episode's target is the original Red Room Academy, which the wiki puts in Byelorussia (Soviet Belarus); the team crosses in from Lithuania through Ashmyany. No town is given for the academy itself, so the pin is Wikipedia's country coordinate for Belarus. This is a separate pin from the airborne Red Room of Black Widow.",
+   "steps": [
+    {
+     "file": "A:howling-commandos",
+     "title": "Agent Carter",
+     "text": "In episode 5, Dugan's Howling Commandos take Peggy on a mission into Soviet territory."
+    },
+    {
+     "file": "A:dum-dum-dugan",
+     "title": "Agent Carter",
+     "text": "In episode 5, Dugan and his Howling Commandos join Peggy on a mission into Soviet territory."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "bletchley",
+   "n": "Bletchley Park",
+   "r": "Milton Keynes, England",
+   "at": [
+    51.998,
+    -0.7411
+   ],
+   "e": [
+    [
+     "Agent Carter#12",
+     "1940",
+     "In 1940, Peggy breaks codes at Bletchley Park, until her brother Michael's death drives her to join the SOE."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bletchley_Park&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Bletchley_Park&action=raw"
+   ],
+   "note": "",
+   "steps": [
+    {
+     "file": "A:peggy-carter",
+     "title": "Agent Carter",
+     "text": "In episode 12, in 1940, Peggy leaves Bletchley Park and her fiancé to join the SOE after her brother Michael is killed."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "salvageyard",
+   "n": "Klaue's salvage yard",
+   "r": "African coast, South Africa",
+   "at": [
+    -33.96,
+    25.6
+   ],
+   "e": [
+    [
+     "Avengers: Age of Ultron",
+     "",
+     "Ultron buys Klaue's stolen vibranium at his ship-breaking yard, then cuts off his arm before the Avengers arrive."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Salvage_Yard&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Battle_at_the_Salvage_Yard&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Churchill&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The wiki puts the yard 'in South Africa on the African Coast'. It gives no stretch of coast, so the pin is an arbitrary point on South Africa's southern coast, well away from Johannesburg.",
+   "steps": [
+    {
+     "file": "T:ulysses-klaue",
+     "title": "Avengers: Age of Ultron",
+     "text": "Klaue sells vibranium to Ultron, who cuts off his arm."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "nanihwaiya",
+   "n": "Nanih Waiya",
+   "r": "Mississippi",
+   "at": [
+    32.9214,
+    -88.9486
+   ],
+   "e": [
+    [
+     "Echo#1",
+     "Long ago",
+     "Long ago, Chafa, the first Choctaw, climbs out of the sacred mound and holds up the collapsing cave so her people escape."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nanih_Waiya&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Nanih_Waiya&action=raw"
+   ],
+   "note": "",
+   "steps": [
+    {
+     "file": "A:st-chafa",
+     "title": "Echo",
+     "text": "In episode 1, Long ago, Chafa emerges into the world at Nanih Waiya."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "swordhq",
+   "n": "S.W.O.R.D. headquarters",
+   "r": "Florida",
+   "at": [
+    28.0,
+    -82.0
+   ],
+   "e": [
+    [
+     "WandaVision#8",
+     "",
+     "Wanda storms S.W.O.R.D. headquarters to reclaim Vision's body, and finds Hayward taking it apart."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.W.O.R.D._Headquarters&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Florida&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Florida&action=raw"
+   ],
+   "note": "The wiki says the base is in Florida (no city, and no on-screen citation given). The pin is Wikipedia's state coordinate. It is not beside Westview, as the input suggested.",
+   "steps": [
+    {
+     "file": "T:tyler-hayward",
+     "title": "WandaVision",
+     "text": "In episode 8, Hayward rebuilds Vision's body as a weapon and lies about it."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "campecho",
+   "n": "Camp Echo One",
+   "r": "Green Bank, West Virginia",
+   "at": [
+    38.42,
+    -79.8314
+   ],
+   "e": [
+    [
+     "Captain America: Brave New World",
+     "",
+     "Sam and Joaquin break into Camp Echo One, the military prison where Ross has secretly held Samuel Sterns."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Camp_Echo_One&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Green_Bank,_West_Virginia&action=raw"
+   ],
+   "note": "The wiki places the prison in Green Bank, West Virginia (real-life National Radio Astronomy Observatory site). The wiki says Captain America and Falcon (Sam and Joaquin in this film) break in.",
+   "steps": [
+    {
+     "file": "T:samuel-sterns",
+     "title": "Captain America: Brave New World",
+     "text": "Ross has secretly held Sterns at Camp Echo One since Harlem, using his genius to win the presidency."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "watersight",
+   "n": "The Water of Sight",
+   "r": "Location unknown",
+   "at": [
+    54.5,
+    -2.0
+   ],
+   "e": [
+    [
+     "Avengers: Age of Ultron",
+     "",
+     "Selvig takes Thor to a hidden cave pool, and Thor steps into it to finish his vision of the Infinity Stones."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Water_of_Sight&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Erik_Selvig&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Avengers:_Age_of_Ultron&action=raw"
+   ],
+   "note": "Location unknown: the wiki calls it only a 'secret location', and Wikipedia's plot gives none. The pin is a placeholder in northern England (Selvig was last seen in London in Thor: The Dark World), not a stated location.",
+   "steps": [
+    {
+     "file": "A:erik-selvig",
+     "title": "Avengers: Age of Ultron",
+     "text": "Selvig helps Thor reach the Water of Sights."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "longisland",
+   "n": "Long Island",
+   "r": "New York",
+   "at": [
+    40.8,
+    -73.3
+   ],
+   "e": [
+    [
+     "Captain America: Civil War",
+     "1991",
+     "On Long Island, the Winter Soldier runs Howard and Maria Stark's car off the road, kills them, and takes the serum."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Assassination_of_Howard_and_Maria_Stark&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Long_Island&action=raw"
+   ],
+   "note": "From the vague list: the wiki gives the place as Long Island, New York, on December 16, 1991, so the car crash gets a pin. The exact road isn't named; the pin is Wikipedia's coordinate for Long Island.",
+   "steps": [
+    {
+     "file": "A:howard-stark",
+     "title": "Captain America: Civil War",
+     "text": "In 1991, the Winter Soldier kills Howard and Maria Stark and takes the super soldier serum from their car."
+    },
+    {
+     "file": "A:maria-stark",
+     "title": "Captain America: Civil War",
+     "text": "In 1991, Maria dies with Howard when the Winter Soldier attacks their car."
+    },
+    {
+     "file": "T:vasily-karpov",
+     "title": "Captain America: Civil War",
+     "text": "In 1991, Karpov sends the Winter Soldier to kill Howard and Maria Stark."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "atlanta",
+   "n": "Atlanta",
+   "r": "Georgia",
+   "at": [
+    33.7489,
+    -84.39
+   ],
+   "e": [
+    [
+     "Avengers: Infinity War",
+     "",
+     "Fury and Hill watch people turn to dust in the streets of Atlanta, and Fury sends one last signal on an old pager."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Atlanta&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Transmitter_Pager&prop=wikitext&format=json&redirects=1",
+    "https://en.wikipedia.org/w/index.php?title=Atlanta&action=raw"
+   ],
+   "note": "From the vague list (the 'New York street'): the MCU wiki puts the post-credits scene in Atlanta, Georgia, on both its Atlanta and Transmitter Pager pages. Wikipedia's plot names no city, and the film was shot in Downtown Atlanta, so the wiki may be reading the setting off the filming. Treat it as medium confidence; I found nothing for New York.",
+   "steps": [
+    {
+     "file": "A:maria-hill",
+     "title": "Avengers: Infinity War",
+     "text": "Hill turns to dust beside Fury, moments before he sends his pager signal."
+    },
+    {
+     "file": "A:nick-fury",
+     "title": "Avengers: Infinity War",
+     "text": "Fury sends a signal to Carol Danvers on his pager before he turns to dust."
+    }
+   ]
+  },
+  {
+   "view": "earth",
+   "inside": null,
+   "id": "redroom",
+   "n": "The Red Room",
+   "r": "In the skies over Russia",
+   "at": [
+    58.5,
+    41.5
+   ],
+   "e": [
+    [
+     "Black Widow",
+     "",
+     "Dreykov hides the Red Room in a flying fortress above Russia, where Natasha finally comes to face him."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Red_Room&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Red_Room_Academy&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Destruction_of_the_Red_Room&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "Owner's request (no steps). The wiki says Dreykov moved the Red Room Academy into 'the high-tech aerial facility in the skies over Russia'. No region is given, and the Widows are sedated so they can't tell where it is. The facility comes down in the Russian countryside, which the Atlas already pins (russia, [57.5, 45]), so this pin sits just northwest of that crash-site pin.",
+   "steps": []
+  },
+  {
+   "view": "cosmos",
+   "inside": null,
+   "id": "sanctuary",
+   "n": "Sanctuary",
+   "r": "Thanos's domain",
+   "at": [
+    560,
+    680
+   ],
+   "e": [
+    [
+     "Guardians of the Galaxy",
+     "",
+     "Ronan and Nebula answer Thanos's summons, and Ronan kills the Other for daring to scold him."
+    ]
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Other&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sanctuary&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "From the vague list (the 'Dark Aster'): the Other contacts Ronan on the Dark Aster, but Ronan kills him at the Sanctuary, Thanos's asteroid realm, so the step goes on a new Sanctuary pin. Placed at [560,680]; the nearest existing cosmos place is Titan, 136 units away.",
+   "steps": [
+    {
+     "file": "T:the-other",
+     "title": "Guardians of the Galaxy",
+     "text": "The Other brings Thanos's warning to Ronan, who kills him for it."
+    }
+   ]
+  }
+ ],
+ "entries": [
+  {
+   "place_key": "Manhattan|city|ny",
+   "e": [
+    "Iron Fist S1#2",
+    "Manhattan",
+    "Ward has Danny drugged and locked up at Birch Psychiatric Hospital to keep him away from Rand Enterprises."
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Birch_Psychiatric_Hospital&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The name 'Birch Psychiatric Hospital' is confirmed. The wiki says Manhattan but gives no address, so this is an entry on the existing Manhattan spot rather than a new pin. Make it its own spot if you want one, but its coordinates would be a guess.",
+   "steps": [
+    {
+     "file": "T:st-ward-meachum",
+     "title": "Iron Fist S1",
+     "text": "In episode 2, Ward has Danny locked in a psychiatric ward to keep him away from Rand Enterprises."
+    }
+   ]
+  },
+  {
+   "place_key": "Malibu|city|la",
+   "e": [
+    "She-Hulk: Attorney at Law#7",
+    "Malibu",
+    "Jen visits Summer Twilights, Emil Blonsky's retreat in Malibu, where he runs a support group for reformed villains."
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Summer_Twilights&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Retreat&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Malibu&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The retreat is Summer Twilights, which the wiki puts in Malibu (infobox, episode location list, Malibu page), inside the Los Angeles map. No address is given, so this is an entry on the existing Malibu spot.",
+   "steps": [
+    {
+     "file": "T:wrecking-crew",
+     "title": "She-Hulk: Attorney at Law",
+     "text": "In episode 7, The Wrecking Crew jumps Jen to take her blood, but she beats them. Later the Wrecker scuffles with Jen at Emil's retreat, then apologizes for atta"
+    }
+   ]
+  },
+  {
+   "place_key": "Malibu|city|la",
+   "e": [
+    "She-Hulk: Attorney at Law",
+    "Malibu",
+    "Todd turns himself into a Hulk with Jen's stolen blood, and a brawl breaks out at Emil's Malibu retreat."
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Summer_Twilights&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The finale's 'Battle at Summer Twilights' (episode 9).",
+   "steps": [
+    {
+     "file": "T:todd-phelps",
+     "title": "She-Hulk: Attorney at Law",
+     "text": "Todd injects himself with Jen's blood and is arrested after the fight."
+    }
+   ]
+  },
+  {
+   "place_key": "ny|earth|",
+   "e": [
+    "Jessica Jones S2#11",
+    "",
+    "Trish forces Dr. Malus to give her powers at a closed clinic, and he burns himself and the lab."
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Karl_Malus&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kidnapping_of_Karl_Malus&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The wiki gives the place only as New York City, with no spot. The entry has an empty sub, so it lands on the city itself. The input step says the clinic 'blows up'; the wiki says Malus sets himself and the lab on fire.",
+   "steps": [
+    {
+     "file": "T:st-karl-malus",
+     "title": "Jessica Jones S2",
+     "text": "In episode 11, Malus experiments on Trish to give her powers, then dies when his clinic blows up."
+    }
+   ]
+  },
+  {
+   "place_key": "ohio|earth|",
+   "e": [
+    "Black Widow (Post-Credits Scene)",
+    "Natasha's grave",
+    "Yelena visits Natasha's grave in the Midwest, where Valentina tells her Clint Barton is to blame for her sister's death."
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ohio&prop=wikitext&format=json&redirects=1",
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Valentina_Allegra_de_Fontaine&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "The wiki puts Natasha's gravesite in Ohio (section 'Natasha Romanoff's Gravesite'; Valentina jokes she's 'allergic to the Midwest'), so this is an entry on the existing Ohio place.",
+   "steps": [
+    {
+     "file": "A:yelena-belova",
+     "title": "Black Widow (Post-Credits Scene)",
+     "text": "At Natasha's grave, Valentina tells Yelena that Clint Barton killed her sister."
+    }
+   ]
+  },
+  {
+   "place_key": "london|earth|",
+   "e": [
+    "Secret Invasion#4",
+    "",
+    "Skrull rebels ambush the President's motorcade on the way into London, and Talos dies helping Fury save him."
+   ],
+   "source": [
+    "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Attack_on_President_Ritson&prop=wikitext&format=json&redirects=1"
+   ],
+   "note": "From the vague list: the wiki gives the attack's place as London, England, so this is an entry on the London city with an empty sub (no London spot is named). London has only a #3 entry, so a #4 entry is added rather than a retag.",
+   "steps": [
+    {
+     "file": "A:talos",
+     "title": "Secret Invasion",
+     "text": "In episode 4, Talos works with Fury against Gravik's rebels, and Gravik kills him during an attack on the President."
+    }
+   ]
+  }
+ ],
+ "retag": [
+  {
+   "steps": [
+    {
+     "file": "T:attuma",
+     "title": "Black Panther: Wakanda Forever",
+     "text": "Attuma leads Talokan raids on the US and on Wakanda."
+    }
+   ],
+   "place_key": "wakanda|earth|",
+   "why": "Attuma's step is about Talokan's raids on the US and Wakanda, not the sea battle. Wakanda already has the Wakanda Forever entry for the flooding of the Golden City. The US raid (Harvey Sub-Sea) is in the Gulf of Mexico per https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Attack_on_the_Harvey_Sub-Sea&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:adam-warlock",
+     "title": "Guardians of the Galaxy Vol. 3",
+     "text": "Wanting revenge for Ayesha's death, Adam crashes into Quill and Gamora's ship in the battle at Arête Laboratories."
+    }
+   ],
+   "place_key": "knowhere|cosmos|",
+   "why": "After Counter-Earth is destroyed, the Arête drifts into space and Knowhere teleports to the same spot. The final battle is fought between the two, and the rescued prisoners go to Knowhere. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Attack_on_Arête_Laboratories&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "A:gamora",
+     "title": "Guardians of the Galaxy Vol. 3",
+     "text": "Now a Ravager, the 2014 Gamora helps save Rocket before rejoining her crew."
+    }
+   ],
+   "place_key": "orgocorp|cosmos|",
+   "why": "The step summarizes Gamora's part in the film. Her main work for Rocket is leading the Ravager-backed break-in at OrgoCorp for his file. Counter-Earth or Knowhere would also be defensible. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Attack_on_Arête_Laboratories&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:agent-cleary",
+     "title": "Spider-Man: No Way Home",
+     "text": "Agent Cleary questions Peter and his friends over Mysterio's death before the charges are dropped."
+    }
+   ],
+   "place_key": "ny|earth|",
+   "why": "The wiki says Peter is arrested at home in Queens and questioned at an unnamed Damage Control facility or precinct in New York. No spot is named, and New York already has No Way Home entries. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Arrest_of_Peter_Parker&prop=wikitext&format=json&redirects=1 ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=P._Cleary&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:fox-emma-frost",
+     "title": "X-Men: First Class",
+     "text": "Erik breaks her out, and she joins his Brotherhood."
+    }
+   ],
+   "place_key": "dc|uni|fox (Earth-10005)",
+   "why": "The X-Men wiki says Emma is sent to CIA headquarters (Langley, Virginia) after her capture in Russia, and Erik frees her from there. The Fox Washington, D.C. place already has a First Class 'CIA' entry. https://xmenmovies.fandom.com/api.php?action=parse&page=Emma_Frost&prop=wikitext&format=json&redirects=1 ; https://xmenmovies.fandom.com/api.php?action=parse&page=CIA_Headquarters&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:sv-green-goblin-2002",
+     "title": "Spider-Man (2002)",
+     "text": "His own glider impales him, and he begs Peter not to tell Harry."
+    }
+   ],
+   "place_key": "queensboro|uni|raimi (Earth-96283)",
+   "why": "Wikipedia's plot says Norman throws Peter from the bridge fight 'into a nearby abandoned building', so the last fight is beside the Queensboro Bridge, which has a Spider-Man (2002) entry. The building itself is never named. https://en.wikipedia.org/w/index.php?title=Spider-Man_(2002_film)&action=raw"
+  }
+ ],
+ "skip": [
+  {
+   "steps": [
+    {
+     "file": "T:fox-magneto",
+     "title": "The Wolverine",
+     "text": "His powers restored, Magneto meets Logan at an airport to warn him of a new threat to mutants."
+    },
+    {
+     "file": "A:fox-magneto",
+     "title": "The Wolverine",
+     "text": "Two years after Japan, Magneto and Xavier approach Logan at an airport to warn him of a new threat."
+    },
+    {
+     "file": "A:fox-charles-xavier",
+     "title": "The Wolverine",
+     "text": "Two years after Japan, Xavier and Magneto approach Logan at an airport to warn him of a new threat."
+    }
+   ],
+   "why": "The X-Men wiki says only that Logan has returned to the United States; no airport or city is named. https://xmenmovies.fandom.com/api.php?action=parse&page=List_of_Post-credits_Scenes&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:fox-brotherhood",
+     "title": "X-Men: The Last Stand",
+     "text": "Magneto raises a new Brotherhood against the mutant cure and frees Juggernaut and Multiple Man from a prison convoy."
+    },
+    {
+     "file": "T:fox-juggernaut",
+     "title": "X-Men: The Last Stand",
+     "text": "Magneto frees Juggernaut from a prison convoy, and he joins the Brotherhood. At Alcatraz he hunts the boy Leech, but Kitty Pryde tricks him into charging headfi"
+    }
+   ],
+   "why": "A moving prison convoy; the wiki gives the place only as 'United States'. https://xmenmovies.fandom.com/api.php?action=parse&page=Convoy_Mutant_Affairs_Ambush&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "A:sv-mary-parker-asm",
+     "title": "The Amazing Spider-Man 2",
+     "text": "She dies with Richard when their jet is hijacked and crashes."
+    }
+   ],
+   "why": "A vehicle in flight; neither the Spider-Man wiki nor Wikipedia gives where the jet crashes. https://en.wikipedia.org/w/index.php?title=The_Amazing_Spider-Man_2&action=raw"
+  },
+  {
+   "steps": [
+    {
+     "file": "A:fox-jubilee",
+     "title": "X-Men: Apocalypse",
+     "text": "Jubilee takes Scott, Jean, and Kurt to the mall in 1983."
+    }
+   ],
+   "why": "An unnamed 1983 mall; the X-Men wiki gives no location. https://xmenmovies.fandom.com/api.php?action=parse&page=Jubilee/Revised_Timeline&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:loki",
+     "title": "Avengers: Infinity War",
+     "text": "Thanos kills Loki aboard the Asgardian refugee ship."
+    },
+    {
+     "file": "A:loki",
+     "title": "Avengers: Infinity War",
+     "text": "Loki hands Thanos the Tesseract to save Thor and dies trying to kill him."
+    }
+   ],
+   "why": "A ship in deep space on its way to Earth; the wiki gives its place as just 'the Statesman', with no location. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Attack_on_the_Statesman&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "A:phil-coulson",
+     "title": "The Avengers",
+     "text": "Coulson gathers the heroes. When Loki stabs him with the scepter, his death unites the Avengers."
+    },
+    {
+     "file": "T:jasper-sitwell",
+     "title": "The Avengers",
+     "text": "On the Helicarrier, Sitwell runs the facial recognition search that finds Loki in Stuttgart."
+    }
+   ],
+   "why": "The Helicarrier's position isn't stated (seaborne, then airborne somewhere); the Coulson and Sitwell scenes have no location. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Attack_on_the_Helicarrier&prop=wikitext&format=json&redirects=1 ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Helicarrier&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:ebony-maw",
+     "title": "Avengers: Infinity War",
+     "text": "Iron Man and Spider-Man blow Maw out of his ship into space."
+    }
+   ],
+   "why": "A ship in transit from Earth to Titan; Maw is thrown into open space with no location. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ebony_Maw&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "A:st-anne-weaver",
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 43, she helps lead the 'real S.H.I.E.L.D.' and takes command of the warship Iliad."
+    }
+   ],
+   "why": "A S.H.I.E.L.D. aircraft carrier at sea; the wiki gives no location for it. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Iliad&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "A:fox-jean-grey-young",
+     "title": "Dark Phoenix",
+     "text": "She saves the mutants from the D'Bari, carries Vuk into space, and becomes a fiery phoenix."
+    }
+   ],
+   "why": "A train heading to an unnamed containment facility after the New York fight; no location given. https://xmenmovies.fandom.com/api.php?action=parse&page=Train_Skirmish&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:fox-jean-grey-phoenix",
+     "title": "Dark Phoenix",
+     "text": "She destroys Vuk in space and vanishes in a burst of fiery light."
+    }
+   ],
+   "why": "Open space, no location. https://xmenmovies.fandom.com/api.php?action=parse&page=Train_Skirmish&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:sv-carjacker-2002",
+     "title": "Spider-Man (2002)",
+     "text": "A thief robs a wrestling promoter, and Peter lets him run past."
+    }
+   ],
+   "why": "An unnamed underground wrestling event; neither the Spider-Man wiki nor Wikipedia places it. https://en.wikipedia.org/w/index.php?title=Spider-Man_(2002_film)&action=raw"
+  },
+  {
+   "steps": [
+    {
+     "file": "T:baron-strucker",
+     "title": "Avengers: Age of Ultron",
+     "text": "Ultron kills Strucker in his cell."
+    }
+   ],
+   "why": "The wiki says only that Strucker is in NATO custody; no prison or country is named. https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Assassination_of_Baron_Strucker&prop=wikitext&format=json&redirects=1"
+  }
+ ]
+}

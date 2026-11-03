@@ -832,7 +832,19 @@ insignia celebration covers the page.
   doesn't. A place shows once lit, a case once Damage Control is found; each opens on top of the file. Data: `mockup-data/at_case.json`
   ("A|T:file id:step index" -> at: place keys "id|view|sub", cases: report ids), tagged by eight agents from each title's own Atlas
   and Damage Control entries (`mockup-data/atcase/BRIEF.md`); a show's whole world is left off for people who live in it.
-  `at_case_missing.json` lists 333 places the stories use that the Atlas doesn't have (Genosha, Afterlife, Tony's lake house...).
+  `at_case_missing.json` was the list of 333 places the stories used that the Atlas didn't have; they're now added (below).
+- **The missing places, added** (owner, November 2026: "I absolutely want those places added", before the audit). 72 new places, 72
+  entries on places that were there, every step re-tagged. Rules from the owner:
+  - **Look every place up** ("literally two seconds of googling"): Tony's lake house is upstate New York, Afterlife is in Nepal, the
+    Lighthouse is under Lake Ontario, the Playground in Virginia. "Location unknown" only when no source gives one; the pin then sits
+    at a stand-in spot and its note says so. Each place's sources are in `mockup-data/places/out*.json` (brief: `BRIEF.md` there).
+  - **Ships and bases are places where their location is known**, pinned there like the Lemurian Star (fictional places in real spots).
+    The Red Room is a place in the skies over Russia, beside where it comes down. A vehicle with no stated location is left untagged.
+  - **The animated world (Earth-92131) has its own Earth map** (`ATLAS_UNI.animx`), like Fox's X-Men: Xavier's School, Genosha, the
+    Savage Land, Muir Island, Asteroid M and more. Its Multiverse pin opens it (`uni:"animx"`), and its episode tags moved there.
+  - **Off-world places on Earth-only maps sit at the map's edge** ("edge works"). On another universe's map they go on the bottom edge,
+    since the map's title covers the top-left (Attilan, Klyntar, Doom's station, the Dark Dimension, the Beyonder's planet, the Axis of
+    Time); Asteroid M stays on the top edge, clear of the title. The Savage Land is below the map's 58°S edge, so it sits on that edge.
   **Step indexes:** the keys count a file's `st` steps, so adding or removing a step shifts the rest: re-tag that file. The audit checks it.
 - **Links in messages: cut** (owner, November 2026: "useless right now, I'll think of it later"). Tried twice: pills, then the names
   underlined in the text. The problem was that file links can't show before the Compound (Age of Ultron) or the Raft (Civil War) are found,
