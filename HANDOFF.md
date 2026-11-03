@@ -802,7 +802,12 @@ insignia celebration covers the page.
   is never shown early.
 - **The zombie world's groups go episode by episode** (What If...? S1 episode 5, Marvel Zombies): The Survivors while alive; turned, The
   Zombies, or The Queen of the Dead's Army once in Wanda's horde; killed or destroyed, they leave their group. `split.json` "steps", from
-  `network/rel/zombie_timeline.json`; unsure fates keep their last group.
+  `network/rel/zombie_timeline.json`; unsure fates keep their last group. Checked against Wikipedia's episode summaries (Marvel Zombies (TV
+  series)), which corrected the first pass: Peter, Scott, Katy and Shang-Chi die in episode 4's battle, Thor is zombified between episodes 3
+  and 4, Riri is alive at the end. Check fates against a source, not memory.
+- **Group records fixed by hand** (`TEAM_FIX` in index.html, November 2026): Bob joins the Thunderbolts and the New Avengers at the end of
+  Thunderbolts* (owner); Buck works for Fisk from Born Again S1; Kara and Akela were S.H.I.E.L.D. before HYDRA and Centipede, then freed.
+  Steve stays an Avenger after Endgame (owner).
 - **Fox's X-Men split at Days of Future Past** (owner, November 2026): the films before it share Earth-10005; from it on, the changed
   timeline (Apocalypse, Dark Phoenix) is Earth-TRN414 (Marvel Database's number). A person played young and old is one bubble for the
   shared past (First Class), and their younger self is a bubble of its own in Earth-TRN414 from Days of Future Past on. Havok, one file
