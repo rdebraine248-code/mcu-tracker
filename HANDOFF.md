@@ -174,6 +174,9 @@ node tests/ct35.js                                                              
 | ct61 | The Darkhold and the Accords held on their titles; only the Tesseract live in the Collection; the sling ring lands only in the Atlas (every realm and submap, never the Incursions); the Watcher's other realities, in his box and in Beyond the MCU |
 | ct62 | A holder's name in the Collection: the list of what they held, their own Compound or Raft file only once found, the right person among a tab's many of a name, back to the list; holders go by their files' names; no Benny or AIDA left |
 
+**Known failing (November 2026, found while adding the missing places):** ct54 ("pill: page while it opens...") and ct61 ("the rings just
+under the Profile button count too") fail on the published main (176c87b) too, so they predate this work. Fix or update them before the
+next main push.
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. Test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled. Screenshots after marking many titles watched: wait about 9 seconds, or the
 insignia celebration covers the page.
@@ -842,9 +845,18 @@ insignia celebration covers the page.
     The Red Room is a place in the skies over Russia, beside where it comes down. A vehicle with no stated location is left untagged.
   - **The animated world (Earth-92131) has its own Earth map** (`ATLAS_UNI.animx`), like Fox's X-Men: Xavier's School, Genosha, the
     Savage Land, Muir Island, Asteroid M and more. Its Multiverse pin opens it (`uni:"animx"`), and its episode tags moved there.
-  - **Off-world places on Earth-only maps sit at the map's edge** ("edge works"). On another universe's map they go on the bottom edge,
-    since the map's title covers the top-left (Attilan, Klyntar, Doom's station, the Dark Dimension, the Beyonder's planet, the Axis of
-    Time); Asteroid M stays on the top edge, clear of the title. The Savage Land is below the map's 58°S edge, so it sits on that edge.
+  - **Off-world places go in an orbit submap, not on the map's edge** (owner, November 2026: the edge "just looks like it's in the south
+    pole"; "I kind of like an orbit submap, especially if it can be applied to all orbits"). Every Earth map with something off-world
+    has an Orbit inset in its bottom-left corner: a little globe in its ring, with a dot while anything in it is new. In another
+    universe it opens that Earth's orbit map (`ATLAS_UNI["animx-o"]` etc.: `map:"orbit"`, `up:` its Earth; the Earth's own list has an
+    "Orbit" row, `{uni:"animx-o"}`, drawn as the inset instead of a pin): the Earth in the middle, a low orbit, the Moon's orbit with
+    the Moon, and deep space at the rim (Asteroid M, Doom's station in low orbit; Attilan on the Moon; Klyntar, the Beyonder's planet,
+    the Axis of Time, the Dark Dimension out at the rim). Its crumb and back go to its Earth, then the Multiverse (`atlorb` step). The
+    main Earth's inset opens the Cosmos centred on Earth, where S.A.B.E.R. and Mar-Vell's lab already orbit it. The Savage Land is
+    on Earth, below the map's 58°S edge, so it sits on that edge.
+  - **Two timelines, two places** (owner: Jean's homes "shouldn't be a conflict because of the timeline earth difference after DOFP"):
+    Fox's map holds both X-Men timelines, so "Jean's childhood home" is in New Jersey (The Last Stand) and in Red Hook, New York
+    (Dark Phoenix, after Days of Future Past). Not a contradiction to flag.
   **Step indexes:** the keys count a file's `st` steps, so adding or removing a step shifts the rest: re-tag that file. The audit checks it.
 - **Links in messages: cut** (owner, November 2026: "useless right now, I'll think of it later"). Tried twice: pills, then the names
   underlined in the text. The problem was that file links can't show before the Compound (Age of Ultron) or the Raft (Civil War) are found,

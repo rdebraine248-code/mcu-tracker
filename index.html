@@ -1059,6 +1059,9 @@ body.booting #app, body.booting .dock{ visibility:hidden; }   /* nothing of the 
 @keyframes atlin{ from{ opacity:0; } to{ opacity:1; } }
 @keyframes atlping{ from{ transform:scale(1); opacity:1; } to{ transform:scale(5); opacity:0; } }
 .atl-zoom{ position:absolute; right:12px; top:12px; display:flex; flex-direction:column; gap:6px; }
+.atl-orb{ position:absolute; left:10px; bottom:10px; z-index:3; display:flex; align-items:center; gap:6px; height:40px; padding:0 10px 0 4px; border:1px solid #26314A; border-radius:10px; background:rgba(8,12,22,.9); color:#7FC6FF; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
+.atl-orb svg{ width:32px; height:32px; flex:none; }
+.atl-orb.upd::after{ content:""; position:absolute; right:-3px; top:-3px; width:8px; height:8px; border-radius:50%; background:#5CC8FF; box-shadow:0 0 6px #5CC8FF; }
 .atl-zoom button{ width:36px; height:36px; border:1px solid #26314A; border-radius:10px; background:rgba(13,19,32,.88); color:#BFD3F0; font:17px/1 'Share Tech Mono','Courier New',monospace; cursor:pointer; touch-action:manipulation; }
 .atl-zoom button[data-atlz="0"]{ font-size:10px; letter-spacing:1px; text-transform:uppercase; }
 .atl-low{ position:relative; flex:1; min-height:0; border-top:1px solid #1C2538; }
@@ -4009,7 +4012,7 @@ const ATLAS_UNI = {
 {"id":"magisland","n":"Magneto's island lair","r":"Off the U.S. East Coast","at":[40.4,-73.3],"e":[["X-Men (2000)","","The Brotherhood holds the kidnapped Senator Kelly on its island and tests Magneto's machine on him, forcing a mutation that later kills him."]]},
 {"id":"hudsons","n":"The Hudsons' farm","r":"Alberta, Canada","at":[53.3,-115.8],"e":[["X-Men Origins: Wolverine","","An elderly couple shelter Logan after his escape from Weapon X, until Agent Zero kills them and Logan brings down his helicopter."]]},
 {"id":"ciabase","n":"The CIA research base","r":"Probably Virginia","at":[37.54,-77.44],"e":[["X-Men: First Class","Division X","Hank builds Cerebro and the young mutants train at the CIA's secret base, until Shaw and Azazel attack and kill the agents."]]},
-{"id":"redhook","n":"The Grey family home","r":"Red Hook, New York","at":[41.995,-73.875],"e":[["Dark Phoenix","1992","Jean finds her father alive in her childhood home, and when the X-Men come for her, she injures Peter and accidentally kills Raven."]]},
+{"id":"redhook","n":"Jean's childhood home","r":"Red Hook, New York","at":[41.995,-73.875],"e":[["Dark Phoenix","1992","Jean finds her father alive in her childhood home, and when the X-Men come for her, she injures Peter and accidentally kills Raven."]]},
 {"id":"greynj","n":"Jean's childhood home","r":"New Jersey","at":[40.3,-74.6],"e":[["X-Men: The Last Stand","","The X-Men and the Brotherhood converge on Jean's old house, where the Phoenix tears it apart and disintegrates Charles Xavier."]]},
 {"id":"muir","n":"Muir Island","r":"Northern Scotland","at":[58.7,-4.8],"e":[["X-Men: The Last Stand","","Moira MacTaggert checks on a comatose patient in her care, who greets her in Charles Xavier's voice."]]},
 {"id":"icebox","n":"The Ice Box","r":"Location unknown","at":[46.5,-74.5],"e":[["Deadpool 2","","Wade and Russell are locked in a mountain prison for mutants, and Cable storms in to kill the boy."]]},
@@ -4023,19 +4026,22 @@ const ATLAS_UNI = {
 {"id":"ax-genosha","n":"Genosha","r":"An island nation off East Africa","at":[-8.3,52.4],"e":[["X-Men: The Animated Series#7","","Genosha lures mutants with the promise of a haven, then collars them as slaves to build Sentinels, until the X-Men free them."],["X-Men: The Animated Series S5","","Magneto gathers his mutant army on Genosha, then calls off the attack when he learns Xavier has been struck down."],["X-Men '97#5","Hammer Bay","The council asks Magneto and Rogue to lead Genosha, but Sentinels strike its UN gala and kill thousands, Gambit among them."],["X-Men '97#7","Hammer Bay","As the X-Men help with the recovery, Emma Frost is pulled alive from the rubble, still in her diamond form."],["X-Men '97#8","","The Wild Sentinel that slaughtered Genosha's mutants turns out to be Bastion's work."],["X-Men '97#9","","Sentinels wipe out the mutant nation of Genosha, and Magneto takes the world hostage."],["X-Men '97#10","Hammer Bay","Psylocke is among the mutants in Genosha's ruins who stand against Bastion's Prime Sentinels."],["X-Men '97#16","Hammer Bay","Banned in the United States, the X-Men follow Xavier to Genosha's ruins, where he founds X-Corp."]]},
 {"id":"ax-savage","n":"The Savage Land","r":"Antarctica","at":[-56,-68.5],"e":[["X-Men: The Animated Series#25","","Stranded here and powerless, Xavier is hypnotized by Sauron, who serves Mister Sinister, into calling the X-Men into a trap."],["X-Men: The Animated Series#26","Magneto's Citadel","Ka-Zar helps the powerless Xavier and Magneto, and the X-Men fight their way in to free them from Mister Sinister."],["X-Men: The Animated Series#38","","Sauron carries Storm off to the Savage Land to feed on her mutant energy, and Wolverine, Beast, Rogue and Jubilee follow."],["X-Men: The Animated Series#39","","Ka-Zar meets the X-Men again when they come to rescue Storm from Sauron."],["X-Men '97#17","The Acolytes' base","Exodus and the Acolytes put the kidnapped Graydon Creed on trial here, and the standoff ends with Exodus dead."]]},
 {"id":"ax-muir","n":"Muir Island","r":"Off the north coast of Scotland","at":[58.75,-5.0],"e":[["X-Men: The Animated Series#10","Mutant Research Center","At Dr. Adler's island clinic, Apocalypse turns cure-seeking mutants into his Horsemen, and Rogue unmasks Adler as Mystique."],["X-Men: The Animated Series#57","Mutant Research Center","Moira MacTaggert's son Proteus breaks out of her island lab, and the X-Men help her stop him in Edinburgh."]]},
-{"id":"ax-asteroidm","n":"Asteroid M","r":"Earth orbit","at":[87,52.4],"e":[["X-Men: The Animated Series#53","","Magneto opens his orbiting haven to mutants, but Fabian Cortez seizes it, captures and tortures Gambit, and fires missiles at Earth."],["X-Men '97#9","","Magneto restores his orbiting haven and turns his back on Earth, and Rogue and Sunspot join him there."],["X-Men '97#10","","Bastion tries to crash the asteroid into Earth, until U.S. missiles strike it and kill him."]]},
 {"id":"ax-ny","n":"New York","r":"New York City","at":[40.71,-74.0],"e":[["Spider-Man (1994)#15","","Peter Parker takes on the Kingpin while his powers start to change him."],["Spider-Man (1994)#58","The Bronx","The Red Skull's doomsday device turns his son Kragov into Electro, who is then lost in its vortex."],["X-Men '97#1","Ryker's Island","The X-Men visit the jailed Gyrich, and Jean probes his mind through Cerebro to find Bolivar Trask."],["X-Men '97#10","Hell's Kitchen","In Magneto's blackout, Daredevil stops looters until a Prime Sentinel blasts him through a window."]]},
 {"id":"ax-dc","n":"Washington, D.C.","r":"United States","at":[38.9,-77.04],"e":[["X-Men: The Animated Series#12","","Gambit sneaks off to Washington and stops a disguised Mystique from assassinating Senator Kelly and framing the X-Men."],["X-Men '97#10","The White House","Iron Man and Captain America guard the White House against Bastion's Prime Sentinels as Magneto's blackout ends."]]},
 {"id":"ax-bavaria","n":"The Bavarian Alps","r":"Germany","at":[47.64,11.77],"e":[["X-Men: The Animated Series#53","","On a ski trip, Gambit and Rogue grow closer, and Gambit shields Nightcrawler from the townsfolk who hunt him as a demon."]]},
 {"id":"ax-neworleans","n":"New Orleans","r":"Louisiana","at":[29.95,-90.07],"e":[["X-Men: The Animated Series#19","","Gambit comes home to save his kidnapped brother from the Assassins Guild and is forced to marry his ex-fiancee, Bella Donna."],["X-Men '97 S2","","Possessed by Apocalypse, Gambit brainwashes his friends and family at home and kidnaps Rogue to marry her."]]},
 {"id":"ax-moscow","n":"Moscow","r":"Russia","at":[55.75,37.62],"e":[["X-Men: The Animated Series#17","Red Square","Colossus brings the X-Men to Russia to stop Omega Red, revived by rogue generals, then stays to rebuild his country."],["Spider-Man (1994)#55","","Peter and Robbie dig into his parents' past in Moscow, where a police officer claims to have known them."]]},
 {"id":"ax-japan","n":"Japan","r":"East Asia","at":[36.0,138.0],"e":[["X-Men: The Animated Series#60","A mountain village","Wolverine returns to rural Japan to build a temple with his old teacher, and stands against the Silver Samurai's gang."],["X-Men '97#10","Tokyo","From a rooftop, the Silver Samurai watches Magneto's blackout strike the world, and later sees the power come back."]]},
-{"id":"ax-axis","n":"The Axis of Time","r":"Outside time","at":[-56,31.24],"e":[["X-Men: The Animated Series#66","","Apocalypse holds Emma Frost and other psychics here to unmake all of time, until they are freed and he is defeated."]]},
 {"id":"ax-london","n":"London","r":"England","at":[51.515,-0.06],"e":[["X-Men: The Animated Series#75","Whitechapel, Victorian era","Dr. Nathaniel Essex experiments on mutants, using the victims of his minion Jack, and transforms himself into Mister Sinister."]]},
 {"id":"ax-egypt","n":"Egypt","r":"North Africa","at":[26.0,30.0],"e":[["X-Men '97 S2","3000 B.C.","Stranded in ancient Egypt, Rogue and her teammates see En Sabah Nur take a Celestial's power and become Apocalypse."]]},
 {"id":"ax-mexicocity","n":"Mexico City","r":"Mexico","at":[19.43,-99.13],"e":[["X-Men '97#7","","Rogue tracks Gyrich down and absorbs his memories, and that night Bastion murders him."]]},
 {"id":"ax-transylvania","n":"Transylvania","r":"Romania","at":[46.5,24.5],"e":[["Spider-Man (1994)#62","","Morbius, Blade and the Black Cat battle Miriam and her vampires, until Spider-Man calls the Black Cat away."]]},
-{"id":"ax-battleworld","n":"The Beyonder's planet","r":"Off-world","at":[-56,-150],"e":[["Spider-Man (1994)#63","","Spider-Man's team of heroes, Storm among them, defeats the Red Skull and then Doctor Doom on the Beyonder's planet."]]}
+{"id":"orbit","n":"Orbit","r":"Above Earth-92131","at":[0,0],"uni":"animx-o","e":[]}
+]},
+"animx-o": {"n": "Orbit", "map": "orbit", "up": "animx", "places": [
+{"id":"ax-asteroidm","n":"Asteroid M","r":"Earth orbit","at":[640,355],"e":[["X-Men: The Animated Series#53","","Magneto opens his orbiting haven to mutants, but Fabian Cortez seizes it, captures and tortures Gambit, and fires missiles at Earth."],["X-Men '97#9","","Magneto restores his orbiting haven and turns his back on Earth, and Rogue and Sunspot join him there."],["X-Men '97#10","","Bastion tries to crash the asteroid into Earth, until U.S. missiles strike it and kill him."]]},
+{"id":"ax-axis","n":"The Axis of Time","r":"Outside time","at":[175,820],"e":[["X-Men: The Animated Series#66","","Apocalypse holds Emma Frost and other psychics here to unmake all of time, until they are freed and he is defeated."]]},
+{"id":"ax-battleworld","n":"The Beyonder's planet","r":"Off-world","at":[850,170],"e":[["Spider-Man (1994)#63","","Spider-Man's team of heroes, Storm among them, defeats the Red Skull and then Doctor Doom on the Beyonder's planet."]]}
 ]},
 "raimi": {"n": "Earth-96283", "map": "ny", "places": [
 {"id":"foresthills","n":"Forest Hills","r":"Queens","at":[40.72,-73.845],"e":[["Spider-Man (2002)","","Peter lives with Aunt May and Uncle Ben, next door to Mary Jane Watson."]]},
@@ -4076,7 +4082,10 @@ const ATLAS_UNI = {
 {"id":"london","n":"London","r":"England","at":[51.5,-0.12],"e":[["Kraven the Hunter","","Kraven reunites with his brother Dmitri, who is taken soon after."]]},
 {"id":"turkey","n":"Turkey","r":"Europe and Asia","at":[39,35],"e":[["Kraven the Hunter","","Aleksei lures Kraven to a monastery for an ambush."]]},
 {"id":"ravensony","n":"Ravencroft Institute","r":"Location unknown","at":[37.9,-122.1],"e":[["Venom: Let There Be Carnage","","Carnage breaks into Ravencroft to free Frances Barrison, the girl Cletus has loved since childhood."]]},
-{"id":"klyntar","n":"Klyntar","r":"Off-world","at":[-56,-102.5],"e":[["Venom: The Last Dance","","From his prison on the symbiotes' home world, Knull sends Xenophages to Earth to take the Codex from Eddie and Venom."]]}
+{"id":"orbit","n":"Orbit","r":"Above Earth-688","at":[0,0],"uni":"sony-o","e":[]}
+]},
+"sony-o": {"n": "Orbit", "map": "orbit", "up": "sony", "places": [
+{"id":"klyntar","n":"Klyntar","r":"Off-world","at":[840,820],"e":[["Venom: The Last Dance","","From his prison on the symbiotes' home world, Knull sends Xenophages to Earth to take the Codex from Eddie and Venom."]]}
 ]},
 "blade": {"n": "Earth-26320", "map": "earth", "places": [
 {"id":"bladecity","n":"Blade's city","r":"Unnamed, United States","at":[39,-98],"e":[["Blade","","Blade hunts vampires with Whistler and stops Deacon Frost."],["Blade: Trinity","","Blade is framed for murder and joins the Nightstalkers."]]},
@@ -4100,15 +4109,21 @@ const ATLAS_UNI = {
 {"id":"siberia","n":"Siberia","r":"Russia","at":[61,96],"e":[["Fantastic Four: Rise of the Silver Surfer","","The army holds the weakened Surfer prisoner."]]},
 {"id":"shanghai","n":"Shanghai","r":"China","at":[31.23,121.47],"e":[["Fantastic Four: Rise of the Silver Surfer","","The Four face Doom, and Johnny brings him down."]]},
 {"id":"japan","n":"Japan","r":"Asia","at":[35,135.76],"e":[["Fantastic Four: Rise of the Silver Surfer","","Reed and Sue finally get married."]]},
-{"id":"doomstation","n":"Von Doom's space station","r":"Earth orbit","at":[-56,-74],"e":[["Fantastic Four (2005)","","A cosmic storm breaks through Victor von Doom's station and changes Reed, Sue, Johnny, Ben and Victor himself."]]},
-{"id":"latveria","n":"Latveria","r":"Eastern Europe","at":[45.95,20.75],"e":[["Fantastic Four (2005)","","Frozen solid in his metal form after his defeat, Victor von Doom is shipped home to Latveria."],["Fantastic Four: Rise of the Silver Surfer","","The Silver Surfer passes over Latveria, and his energy thaws Doom and brings him back to life."]]}
+{"id":"latveria","n":"Latveria","r":"Eastern Europe","at":[45.95,20.75],"e":[["Fantastic Four (2005)","","Frozen solid in his metal form after his defeat, Victor von Doom is shipped home to Latveria."],["Fantastic Four: Rise of the Silver Surfer","","The Silver Surfer passes over Latveria, and his energy thaws Doom and brings him back to life."]]},
+{"id":"orbit","n":"Orbit","r":"Above Earth-121698","at":[0,0],"uni":"ff-o","e":[]}
+]},
+"ff-o": {"n": "Orbit", "map": "orbit", "up": "ff", "places": [
+{"id":"doomstation","n":"Von Doom's space station","r":"Earth orbit","at":[370,350],"e":[["Fantastic Four (2005)","","A cosmic storm breaks through Victor von Doom's station and changes Reed, Sue, Johnny, Ben and Victor himself."]]}
 ]},
 "pruned": {"n": "The pruned timelines", "map": "earth", "places": [
 {"id":"hawaii","n":"Hawaii","r":"Oahu","at":[21.3,-157.86],"e":[["Inhumans","","Black Bolt's family flees Attilan on the Moon and lands scattered across Oahu."]]},
 {"id":"la","n":"Los Angeles","r":"California","at":[34.05,-118.24],"e":[["Runaways S1–S2","","Six teens learn their parents are PRIDE and run away together."],["Runaways S3","","The Runaways take on Morgan le Fay."]]},
 {"id":"neworleans","n":"New Orleans","r":"Louisiana","at":[29.95,-90.07],"e":[["Cloak & Dagger","","Tyrone and Tandy gain powers of darkness and light and fight the city's corruption."]]},
-{"id":"attilan","n":"Attilan","r":"On the Moon","at":[-56,-157.86],"e":[["Inhumans#1","","Maximus seizes Attilan in a coup, and the royal family flees the Moon for Earth."],["Inhumans#6","","Tibor plots with the rebels to overthrow Maximus, who finds out and kills him."],["Inhumans#7","","Killed by Karnak on Earth, Auran wakes back in Attilan and grows troubled by Maximus's plans."],["Inhumans","","The royal family leads Attilan's people to Earth, and Black Bolt seals Maximus in a vault as the city is abandoned."]]},
-{"id":"darkdim","n":"The Dark Dimension","r":"Through Tyrone's cloak","at":[-56,-90.07],"e":[["Cloak & Dagger#10","","Tyrone pulls Detective Connors into his cloak and traps him in the darkness of the Dark Dimension."],["Runaways S3#5","","Freed from the spirit of Jonah's son, Alex is left behind, trapped in the Dark Dimension, as his friends escape."],["Runaways S3#8","","Helped by Tyrone and Tandy, the Runaways cross into the Dark Dimension and rescue Alex from AWOL and his squad."]]}
+{"id":"orbit","n":"Orbit","r":"Above the pruned timelines","at":[0,0],"uni":"pruned-o","e":[]}
+]},
+"pruned-o": {"n": "Orbit", "map": "orbit", "up": "pruned", "places": [
+{"id":"attilan","n":"Attilan","r":"On the Moon","at":[791,256],"e":[["Inhumans#1","","Maximus seizes Attilan in a coup, and the royal family flees the Moon for Earth."],["Inhumans#6","","Tibor plots with the rebels to overthrow Maximus, who finds out and kills him."],["Inhumans#7","","Killed by Karnak on Earth, Auran wakes back in Attilan and grows troubled by Maximus's plans."],["Inhumans","","The royal family leads Attilan's people to Earth, and Black Bolt seals Maximus in a vault as the city is abandoned."]]},
+{"id":"darkdim","n":"The Dark Dimension","r":"Through Tyrone's cloak","at":[170,810],"e":[["Cloak & Dagger#10","","Tyrone pulls Detective Connors into his cloak and traps him in the darkness of the Dark Dimension."],["Runaways S3#5","","Freed from the spirit of Jonah's son, Alex is left behind, trapped in the Dark Dimension, as his friends escape."],["Runaways S3#8","","Helped by Tyrone and Tandy, the Runaways cross into the Dark Dimension and rescue Alex from AWOL and his squad."]]}
 ]}
 };
 
@@ -4188,7 +4203,15 @@ function atlCityGeo(id) {
   return { C, S, cs, x0, y1, h: (y1 - y0) * S, xy: (lat, lon) => [(lon - x0) * cs * S, (y1 - lat) * S] };
 }
 // what kind of map is on screen: the Earth, a city close-up, or open sky. Another universe uses an Earth or a city map of its own
-const atlGeo = () => atlView === "earth" ? ["earth"] : atlView === "city" ? ["city", atlCity] : atlView === "uni" ? (ATLAS_UNI[atlUni].map === "earth" ? ["earth"] : ["city", ATLAS_UNI[atlUni].map]) : ["sky"];
+const atlGeo = () => atlView === "earth" ? ["earth"] : atlView === "city" ? ["city", atlCity] : atlView === "uni" ? (ATLAS_UNI[atlUni].map === "earth" ? ["earth"] : ATLAS_UNI[atlUni].map === "orbit" ? ["sky", "orbit"] : ["city", ATLAS_UNI[atlUni].map]) : ["sky"];
+// an Earth's orbit (owner, November 2026): what's off-world for an Earth-only map opens from a small inset in its corner, not a pin on the edge.
+// The orbit pin is a place like a universe's ({uni: "animx-o"}), drawn as that inset; the main Earth's inset opens the Cosmos, centred on Earth
+const atlIsOrb = p => !!p.uni && ATLAS_UNI[p.uni].map === "orbit";
+const atlDeep = k => ATLAS_UNI[k].places.flatMap(q => q.uni ? atlDeep(q.uni) : [q]);   // every place inside a universe, its orbit's included
+const ATL_ORB_MAIN = ["saber", "marvell"];
+const atlOrbHere = () => atlView === "earth" ? (atlOpenV("cosmos") && ATLAS.cosmos.some(p => ATL_ORB_MAIN.includes(p.id) && atlLit(p)) ? { k: "cosmos" } : null)
+  : atlView === "uni" ? (p => p ? { k: p.uni, p } : null)(atlPlaces().find(p => atlIsOrb(p) && atlLit(p))) : null;
+let atlOrbZoom = false;
 const atlKey = () => atlView === "city" ? "city:" + atlCity : atlView === "uni" ? "uni:" + atlUni : atlView;
 const atlBounds = () => { const g = atlGeo(); return g[0] === "earth" ? [0, 0, 360, 148] : g[0] === "city" ? [0, 0, 1000, atlCityGeo(g[1]).h] : atlView === "incursions" ? [0, 0, 1000, Math.max(1000, ...atlIncLit().map(q => atlIncAt(q)[1] + 70))] : [0, 0, 1000, 1000]; };
 function atlPlaces(view = atlView, sub = view === "city" ? atlCity : atlUni) {   // what can be pinned in the view you're looking at (or another one)
@@ -4278,6 +4301,17 @@ function atlDraw() {
     const rv = geo[0] === "city" && ATL_CITY[geo[1]].river;
     if (rv) { const G = atlCityGeo(geo[1]); g.beginPath(); rv.forEach(([la, lo], i) => { const [X, Y] = G.xy(la, lo); i ? g.lineTo(X, Y) : g.moveTo(X, Y); });
       g.lineJoin = g.lineCap = "round"; g.lineWidth = Math.max(16, 5 * px); g.strokeStyle = "rgba(125,198,255,.75)"; g.stroke(); g.lineWidth = Math.max(16, 5 * px) - 2.2 * px; g.strokeStyle = "#0B1019"; g.stroke(); }
+  } else if (geo[1] === "orbit") {   // an Earth seen from space: its low orbit, the Moon's orbit, and deep space beyond
+    atlStars(atlKey()).forEach(([x, y, s, a]) => { g.fillStyle = `rgba(210,225,255,${a})`; g.fillRect(x, y, s * 1.4 * px, s * 1.4 * px); });
+    g.lineWidth = px; g.strokeStyle = "rgba(90,140,210,.22)"; g.setLineDash([4 * px, 6 * px]);
+    [200, 380, 520].forEach(r => { g.beginPath(); g.arc(500, 500, r, 0, Math.PI * 2); g.stroke(); }); g.setLineDash([]);
+    const eg = g.createRadialGradient(470, 470, 10, 500, 500, 95); eg.addColorStop(0, "rgba(90,160,240,.42)"); eg.addColorStop(1, "rgba(30,70,140,.25)");
+    g.fillStyle = eg; g.beginPath(); g.arc(500, 500, 95, 0, Math.PI * 2); g.fill(); g.lineWidth = 1.4 * px; g.strokeStyle = "rgba(125,198,255,.8)"; g.stroke();
+    g.save(); g.beginPath(); g.arc(500, 500, 95, 0, Math.PI * 2); g.clip(); g.lineWidth = px; g.strokeStyle = "rgba(125,198,255,.3)";
+    [-60, -30, 0, 30, 60].forEach(d => { g.beginPath(); g.ellipse(500, 500, 95 * Math.cos(d * Math.PI / 180) || .1, 95, 0, 0, Math.PI * 2); g.stroke(); });
+    [-45, -15, 15, 45].forEach(d => { const y = 500 + 95 * Math.sin(d * Math.PI / 180); g.beginPath(); g.moveTo(400, y); g.lineTo(600, y); g.stroke(); }); g.restore();
+    g.fillStyle = "rgba(150,170,200,.28)"; g.beginPath(); g.arc(791, 256, 30, 0, Math.PI * 2); g.fill(); g.lineWidth = 1.2 * px; g.strokeStyle = "rgba(190,205,230,.7)"; g.stroke();
+    g.fillStyle = "rgba(190,205,230,.18)"; [[780, 246, 7], [802, 266, 5], [795, 243, 3.5]].forEach(([x, y, r]) => { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); });
   } else {
     const c = atlView === "cosmos" ? [500, 540] : atlView === "multi" ? [500, 500] : [500, 470], col = atlView === "cosmos" ? "90,140,210" : atlView === "multi" ? "235,185,105" : atlView === "incursions" ? "255,122,69" : "160,130,255";
     if (atlView === "incursions") {   // the TVA's wall of monitors: one screen per lost Earth, dark until you've watched it go
@@ -4310,12 +4344,13 @@ function atlSectors(map, g, W, H, dpr) {
       out.push([...S(x0 + c * step, y0 + r * step), code]); }
   } else {   // open sky: a ring and a slice of it
     f = ramp(T.k / max, .55, .85); if (!f) return;
-    const c = atlView === "cosmos" ? [500, 540] : atlView === "multi" ? [500, 500] : [500, 470], rings = [0, 130, 260, 390, 520];
-    col = atlView === "cosmos" ? "120,165,230" : atlView === "multi" ? "235,185,105" : "175,150,255";
-    const n = atlView === "cosmos" ? 8 : 16, CMP = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"], ROM = ["I", "II", "III", "IV", "V"], GRK = ["α", "β", "γ", "δ", "ε"];
+    const cos = atlView === "cosmos" || geo[1] === "orbit";
+    const c = atlView === "cosmos" ? [500, 540] : atlView === "multi" || geo[1] === "orbit" ? [500, 500] : [500, 470], rings = geo[1] === "orbit" ? [0, 200, 380, 520] : [0, 130, 260, 390, 520];
+    col = cos ? "120,165,230" : atlView === "multi" ? "235,185,105" : "175,150,255";
+    const n = cos ? 8 : 16, CMP = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"], ROM = ["I", "II", "III", "IV", "V"], GRK = ["α", "β", "γ", "δ", "ε"];
     rings.forEach((r0, ri) => { for (let k = 0; k < n; k++) {
-      const a = (k + (atlView === "cosmos" ? 0 : .5)) / n * Math.PI * 2, rr = ri ? r0 + 16 : 70;   // just inside the ring: on its bearing in the Cosmos, halfway along the slice elsewhere
-      const code = atlView === "cosmos" ? `${ri + 1}-${CMP[k]}` : atlView === "multi" ? `${GRK[ri]}-${String(k + 1).padStart(2, "0")}` : `${ROM[ri]}-${k + 1}`;
+      const a = (k + (cos ? 0 : .5)) / n * Math.PI * 2, rr = ri ? r0 + 16 : geo[1] === "orbit" ? 120 : 70;   // just inside the ring: on its bearing in the Cosmos, halfway along the slice elsewhere
+      const code = cos ? `${ri + 1}-${CMP[k]}` : atlView === "multi" ? `${GRK[ri]}-${String(k + 1).padStart(2, "0")}` : `${ROM[ri]}-${k + 1}`;
       out.push([...S(c[0] + Math.cos(a) * rr, c[1] + Math.sin(a) * rr), code, 1]); } });
   }
   g.setTransform(dpr, 0, 0, dpr, 0, 0); g.font = "8px 'Share Tech Mono','Courier New',monospace"; g.fillStyle = `rgba(${col},${(.42 * f).toFixed(3)})`;
@@ -4331,11 +4366,11 @@ function atlPlace(map, W, H) {   // move the pins, then show as many names as fi
     p.el.classList.toggle("lft", left); p.el.classList.toggle("nolab", !show); if (show) used.push([...r, p]); });
 }
 function atlPins(map) {   // only places you've charted are on the map; the rest stay off it entirely
-  const seen = state.atlas = state.atlas || {}, key = p => atlView === "city" ? "city:" + atlCity + ":" + p.id : atlView === "uni" ? "uni:" + atlUni + ":" + p.id : p.id, L = atlPlaces().filter(atlLit); let d = 0;
+  const seen = state.atlas = state.atlas || {}, key = p => atlView === "city" ? "city:" + atlCity + ":" + p.id : atlView === "uni" ? "uni:" + atlUni + ":" + p.id : p.id, L = atlPlaces().filter(p => atlLit(p) && !atlIsOrb(p)); let d = 0;
   const news = L.filter(p => !p.home && !seen[key(p)]);
   // a place already on the map pings again when something new turns up in it (or, for a city or a universe, anywhere inside it), once, like a new place
   const sub = atlView === "city" ? atlCity : atlView === "uni" ? atlUni : null, N = state.atlasN = state.atlasN || {};
-  const pn = p => p.city && atlView === "earth" ? atlPlaces("city", p.city).reduce((a, q) => a + atlEvN(q), 0) : p.uni ? ATLAS_UNI[p.uni].places.reduce((a, q) => a + atlEvN(q), 0) : atlEvN(p);
+  const pn = p => p.city && atlView === "earth" ? atlPlaces("city", p.city).reduce((a, q) => a + atlEvN(q), 0) : p.uni ? atlDeep(p.uni).reduce((a, q) => a + atlEvN(q), 0) : atlEvN(p);
   L.forEach(p => { if (!p.home && seen[key(p)] && N[key(p)] == null) N[key(p)] = pn(p); });   // places charted before this was kept start out caught up
   const upds = L.filter(p => !p.home && seen[key(p)] && N[key(p)] < pn(p)), step = Math.min(.22, 2.4 / Math.max(1, news.length + upds.length));   // a big batch still lands within a few seconds
   map.querySelector(".atl-pins").innerHTML = L.map(p => { const fresh = !p.home && !seen[key(p)], upd = upds.includes(p);
@@ -4380,7 +4415,7 @@ function atlPush(kind) {
   if (top === "atlsel" && kind === "atlsub") { try { history.replaceState({ mcu: kind }, ""); } catch (e) {} atlHist[atlHist.length - 1] = kind; return; }   // from a place's entry into its city
   try { history.pushState({ mcu: kind }, ""); atlHist.push(kind); } catch (e) {}
 }
-function atlSub(v, id) { atlPrevT = null; atlPush("atlsub"); atlSwitch(v, id); }
+function atlSub(v, id) { atlPrevT = null; atlPush(v === "uni" && ATLAS_UNI[id].up ? "atlorb" : "atlsub"); atlSwitch(v, id); }   // an orbit is a step of its own, so back goes to its Earth, then out
 function atlSelect(map, id, fromList) {
   const p = atlPlaces().find(q => q.id === id), sh = document.querySelector(".atl-low .atl-sheet");
   if (!p) return; if (p.home) { haptic(10); atlLeave("earth"); return; }
@@ -4419,7 +4454,7 @@ function atlOnBack() {   // a back step inside the Atlas; true if it was the Atl
   if (!atlHist.length || navAt(atlHist[atlHist.length - 1])) return false;
   const k = atlHist.pop(), map = document.getElementById("atlMap");
   if (k === "atlsel") { if (map) atlClose(map, true); }
-  else { atlPrevT = null; atlSwitch(atlView === "uni" ? "multi" : "earth"); }
+  else { atlPrevT = null; const up = atlView === "uni" && ATLAS_UNI[atlUni].up; if (up) atlSwitch("uni", up); else atlSwitch(atlView === "uni" ? "multi" : "earth"); }
   haptic(8); return true;
 }
 const ATL_GROUPS = {
@@ -4439,7 +4474,8 @@ const qMark = (txt, q) => { const i = qNorm(txt).indexOf(q); return i < 0 ? esc(
 function atlFind(q) {
   const R = [], add = (v, sub, p, where) => { if (p.home || !atlLit(p)) return; const ev = (p.e || []).filter(atlEvSeen);
     const hay = [p.n, p.r, ...ev.flatMap(e => [tn(e[0]), e[1], e[2], e[3]])].map(qNorm).join(" | "); if (hay.includes(q)) R.push({ v, sub, p, where, name: qNorm(p.n).includes(q) }); };
-  ATL_VIEWS.forEach(([v, l]) => { if (!atlOpenV(v)) return; ATLAS[v].forEach(p => { if (p.uni) { if (!atlLit(p)) return; ATLAS_UNI[p.uni].places.forEach(q => add("uni", p.uni, q, ATLAS_UNI[p.uni].n)); return; }
+  ATL_VIEWS.forEach(([v, l]) => { if (!atlOpenV(v)) return; ATLAS[v].forEach(p => { if (p.uni) { if (!atlLit(p)) return; const U = ATLAS_UNI[p.uni];
+      U.places.forEach(q => { if (!q.uni) { add("uni", p.uni, q, U.n); return; } if (atlLit(q)) ATLAS_UNI[q.uni].places.forEach(r => add("uni", q.uni, r, U.n + ", orbit")); }); return; }
     if (p.city && v === "earth") { if (!atlLit(p)) return; atlPlaces("city", p.city).forEach(q => add("city", p.city, q, ATL_CITY[p.city].n)); return; }
     add(v, null, p, l); }); });
   return R.sort((a, b) => b.name - a.name || a.p.n.localeCompare(b.p.n));
@@ -4453,7 +4489,7 @@ function atlGo(r) {
   atlQ = ""; const sel = () => { const m = document.getElementById("atlMap"); if (m) atlSelect(m, r.p.id, true); };
   const at = (v, sub) => atlView === v && (v === "city" ? atlCity : v === "uni" ? atlUni : null) === sub;
   if (at(r.v, r.sub)) { renderAtlasList(); sel(); return; }
-  if (r.v === "city" || r.v === "uni") { const top = r.v === "city" ? "earth" : "multi", into = () => { atlSub(r.v, r.sub); setTimeout(sel, 80); };
+  if (r.v === "city" || r.v === "uni") { const up = r.v === "uni" && ATLAS_UNI[r.sub].up, top = r.v === "city" ? "earth" : "multi", into = () => { if (up) { atlSub("uni", up); setTimeout(() => { atlSub("uni", r.sub); setTimeout(sel, 80); }, 80); return; } atlSub(r.v, r.sub); setTimeout(sel, 80); };
     if (atlView === top && !atlHist.length) into(); else { atlLeave(top); setTimeout(into, 420); } return; }
   atlLeave(r.v); setTimeout(sel, 420);
 }
@@ -4496,12 +4532,16 @@ function atlTabs() {
   document.getElementById("atlTabs").innerHTML = ATL_VIEWS.map(([v, l]) => { const o = atlOpenV(v), on = v === atlView || (city && v === "earth") || (uni && v === "multi");
     return `<button type="button" role="tab" data-atlv="${v}" aria-selected="${on}" class="${o ? "" : "lk"}${o && atlNew(v) ? " nw" : ""}">${o ? l : "???"}</button>`; }).join("");
 }
+function atlOrbInset(map) {   // the orbit's inset, bottom left of an Earth map: a little globe in its ring, with a dot while anything in it is new
+  const o = atlOrbHere(); if (!o) return; const unread = o.p ? atlUnread("uni", atlUni, o.p) : false;
+  map.insertAdjacentHTML("beforeend", `<button type="button" class="atl-orb${unread ? " upd" : ""}" data-orb="${esc(o.k)}" aria-label="Orbit"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3" opacity=".7"/><circle cx="20" cy="20" r="8.5" fill="rgba(60,130,220,.35)" stroke="currentColor" stroke-width="1.2"/><path d="M11.5 20h17M20 11.5c-3.5 4.5-3.5 12.5 0 17M20 11.5c3.5 4.5 3.5 12.5 0 17" fill="none" stroke="currentColor" stroke-width=".8" opacity=".7"/><circle cx="33" cy="11" r="2.6" fill="#BFE9FF"/></svg><span>Orbit</span></button>`);
+}
 function renderAtlas() {
   const fv = document.getElementById("atlView"), city = atlView === "city", uni = atlView === "uni", geo = atlGeo();
   atlTabs();
   fv.innerHTML = `<div class="atl">
-    <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : uni ? `<button type="button" class="atl-crumb" data-atlv="multi"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Multiverse</button><span class="atl-cname">${esc(ATLAS_UNI[atlUni].n)}</span>` : ""}</div>
-    <div class="atl-map${geo[0] === "sky" ? " sky " + atlView : uni ? " uni" : ""}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
+    <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : uni ? `<button type="button" class="atl-crumb" ${ATLAS_UNI[atlUni].up ? `data-atlup="${esc(ATLAS_UNI[atlUni].up)}"` : `data-atlv="multi"`}><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${ATLAS_UNI[atlUni].up ? esc(ATLAS_UNI[ATLAS_UNI[atlUni].up].n) : "Multiverse"}</button><span class="atl-cname">${esc(ATLAS_UNI[atlUni].n)}</span>` : ""}</div>
+    <div class="atl-map${geo[0] === "sky" ? " sky " + atlView + (geo[1] === "orbit" ? " orbit" : "") : uni ? " uni" : ""}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
       <div class="atl-zoom"><button type="button" data-atlz="1" aria-label="Zoom in">+</button><button type="button" data-atlz="-1" aria-label="Zoom out">−</button><button type="button" data-atlz="0" aria-label="Show everything">Fit</button></div></div>
     <div class="atl-low"><button type="button" class="atl-grip" aria-label="Resize the map"><span>Places &#9652;</span></button><div class="atl-list">${pgQ("atlQ", "Search the Atlas", atlQ)}<div class="atl-res">${atlQ.length > 1 ? atlFindHTML(qNorm(atlQ)) : atlList()}</div></div><div class="atl-sheet" hidden></div></div></div>`;
   const map = document.getElementById("atlMap"), W = fv.clientWidth, room = fv.clientHeight;
@@ -4536,7 +4576,9 @@ function renderAtlas() {
   });
   low.addEventListener("input", ev => { if (ev.target.id !== "atlQ") return; atlQ = ev.target.value; low.querySelector(".pg-qx").hidden = !atlQ; renderAtlasList(); });
   low.addEventListener("keydown", ev => { if (ev.target.id === "atlQ" && ev.key === "Enter") ev.target.blur(); });
-  atlPins(map); atlT = atlHome(map); atlTs[atlKey()] = atlT; atlDraw();
+  atlPins(map); atlT = atlHome(map);
+  if (atlOrbZoom && atlView === "cosmos") { atlOrbZoom = false; const ks = atlKs(map), k = ks.fit * 3; atlT = atlClamp(map, { k, x: 500 - ks.W / 2 / k, y: 540 - ks.H / 2 / k }); }
+  atlTs[atlKey()] = atlT; atlOrbInset(map); atlDraw();
   const ptr = new Map(); let base = null, moved = false, start = null;
   const local = (x, y) => { const r = map.getBoundingClientRect(); return [x - r.left, y - r.top]; };
   const rebase = () => { base = { T: { ...atlT }, P: [...ptr.values()] }; };
@@ -4559,7 +4601,7 @@ function renderAtlas() {
     const w = [atlT.x + G.x / atlT.k, atlT.y + G.y / atlT.k]; G.p.ox = G.x - G.p.sx; G.p.oy = G.y - G.p.sy; atlIncursion(map, G.p, hit, w); };
   ["pointerup", "pointercancel", "pointerleave"].forEach(n => map.addEventListener(n, drop, true));
   map.addEventListener("click", ev => { if (battleHeld) { battleHeld = false; ev.stopImmediatePropagation(); } }, true);
-  map.addEventListener("pointerdown", ev => { if (ev.target.closest(".atl-zoom")) return; map._anim = (map._anim || 0) + 1;
+  map.addEventListener("pointerdown", ev => { if (ev.target.closest(".atl-zoom, .atl-orb")) return; map._anim = (map._anim || 0) + 1;
     ptr.set(ev.pointerId, local(ev.clientX, ev.clientY)); if (ptr.size === 1) { moved = false; start = local(ev.clientX, ev.clientY); } rebase(); });
   map.addEventListener("pointermove", ev => {
     if (!ptr.has(ev.pointerId) || !base) return; ptr.set(ev.pointerId, local(ev.clientX, ev.clientY));
@@ -4577,6 +4619,8 @@ function renderAtlas() {
   ["pointerup", "pointercancel", "pointerleave"].forEach(n => map.addEventListener(n, up));
   map.addEventListener("wheel", ev => { ev.preventDefault(); const [sx, sy] = local(ev.clientX, ev.clientY); atlZoomAt(map, Math.exp(-ev.deltaY * .0016), sx, sy, 0); }, { passive: false });
   map.addEventListener("click", ev => {
+    const ob = ev.target.closest("[data-orb]");
+    if (ob) { haptic(10); if (ob.dataset.orb === "cosmos") { atlOrbZoom = true; atlLeave("cosmos"); } else atlSub("uni", ob.dataset.orb); return; }
     const z = ev.target.closest("[data-atlz]");
     if (z) { haptic(8); const W = map.clientWidth, H = map.clientHeight, f = +z.dataset.atlz;
       if (f) atlZoomAt(map, f > 0 ? 1.9 : 1 / 1.9, W / 2, H / 2, 260); else atlTo(map, { k: atlKs(map).fit, x: 0, y: 0 }, 320); return; }
@@ -4585,7 +4629,7 @@ function renderAtlas() {
     const b = ev.target.closest(".atl-pin"); if (b) { if (ev.target.closest(".atl-pin span") || atlView === "incursions" || !atlSpread(map, b.dataset.p)) atlSelect(map, b.dataset.p, atlT.k < atlKs(map).fit * 1.4); return; }
     if (atlSel) atlClose(map);
   });
-  map.addEventListener("dblclick", ev => { if (ev.target.closest(".atl-zoom")) return; const [sx, sy] = local(ev.clientX, ev.clientY); atlZoomAt(map, 2, sx, sy, 260); });
+  map.addEventListener("dblclick", ev => { if (ev.target.closest(".atl-zoom, .atl-orb")) return; const [sx, sy] = local(ev.clientX, ev.clientY); atlZoomAt(map, 2, sx, sy, 260); });
 }
 // anything you've since un-watched (unchecked, or reset) forgets it was charted, so it pings in again when it comes back
 function atlForget() {
@@ -4606,6 +4650,11 @@ function closeAtlas(fromHistory) {
   const b = document.getElementById("btnAtlas"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("atlBack").addEventListener("click", () => { if (atlHist.length) navBack(); else closeAtlas(); });
+document.addEventListener("click", ev => { const u = ev.target.closest("[data-atlup]"); if (u && atlOpen) { haptic(8); atlUp(u.dataset.atlup); return; } });
+function atlUp(up) {   // the crumb in an orbit: back up to its Earth, unwinding the Atlas's steps since you went in
+  const i = atlHist.lastIndexOf("atlorb"); if (i < 0) { atlSwitch("uni", up); return; }
+  const n = atlHist.length - i; atlHist = atlHist.slice(0, i); atlPend = ["uni", up]; history.go(-n);
+}
 document.addEventListener("click", ev => { const b = ev.target.closest("[data-atlv]"); if (!b || (b.getAttribute("aria-selected") === "true" && atlView !== "city" && atlView !== "uni")) return; haptic(8); atlLeave(b.dataset.atlv); });
 window.addEventListener("resize", () => { const map = document.getElementById("atlMap"); if (atlOpen && map && atlT) { atlT = atlClamp(map, { ...atlT }); atlTs[atlKey()] = atlT; atlQueue(); } });
 
@@ -9399,7 +9448,7 @@ function readAll(t) {
     const evN = L => L.reduce((a, q) => a + atlEvN(q), 0);
     const mark = (view, sub, p) => { if (p.home || !atlLit(p)) return; const pk = view === "city" ? "city:" + sub + ":" + p.id : view === "uni" ? "uni:" + sub + ":" + p.id : p.id;
       if (p.city && view === "earth") { SN[pk] = 1; N[pk] = evN(atlPlaces("city", p.city)); atlPlaces("city", p.city).forEach(q => mark("city", p.city, q)); return; }
-      if (p.uni) { SN[pk] = 1; N[pk] = evN(ATLAS_UNI[p.uni].places); ATLAS_UNI[p.uni].places.forEach(q => mark("uni", p.uni, q)); return; }
+      if (p.uni) { SN[pk] = 1; N[pk] = evN(atlDeep(p.uni)); ATLAS_UNI[p.uni].places.forEach(q => mark("uni", p.uni, q)); return; }
       const rk = atlRKey(view, sub, p); R[rk] = atlEvN(p); EV[rk] = p.e.map((e, i) => atlEvSeen(e) ? i : -1).filter(i => i >= 0); SN[pk] = 1; N[pk] = atlEvN(p); };
     Object.keys(ATLAS).forEach(v => ATLAS[v].forEach(p => mark(v, null, p)));
   }
@@ -12339,7 +12388,7 @@ function slingDest() {
   const at = (v, sub, where) => p => ({ k: "atlas", p, v, sub, where: where || p.r || "", n: p.n });
   // a city or another universe is a map of its own: the places inside it, not its pin
   const realm = v => ATLAS[v].filter(lit).flatMap(p => p.city ? atlPlaces("city", p.city).filter(lit).map(at("city", p.city))
-    : p.uni ? ATLAS_UNI[p.uni].places.filter(lit).map(at("uni", p.uni, ATLAS_UNI[p.uni].n)) : [at(v, null)(p)]).filter(d => !here(d.v, d.sub, d.p));
+    : p.uni ? ATLAS_UNI[p.uni].places.filter(lit).flatMap(q => q.uni ? ATLAS_UNI[q.uni].places.filter(lit).map(at("uni", q.uni, ATLAS_UNI[p.uni].n + ", orbit")) : [at("uni", p.uni, ATLAS_UNI[p.uni].n)(q)]) : [at(v, null)(p)]).filter(d => !here(d.v, d.sub, d.p));
   const realms = ["earth", "cosmos", "beyond", "multi"].filter(atlOpenV).map(realm).filter(L => L.length);
   return realms.length ? one(one(realms)) : null;
 }
