@@ -647,10 +647,11 @@ function applyCut(v, quiet) {
     const G = S * .9, done = []; if (D.length) { D[0].x = D[0].y = 0; done.push(D[0]); }
     let rest = D.slice(1), inner = D.length ? D[0].R : 0;
     while (rest.length) {   // one ring: as many as fit round it, biggest first
-      const ring = [], wid = d => 2 * Math.asin(Math.min(1, (d.R + G / 2) / (inner + G + d.R)));
-      let used = 0; for (const d of rest) { const w = wid(d); if (ring.length && used + w > 6.2832) break; ring.push(d); used += w; }
-      rest = rest.slice(ring.length); const spare = (6.2832 - used) / ring.length; let a = -1.5708 - wid(ring[0]) / 2 - spare / 2;
-      ring.forEach(d => { const w = wid(d); a += spare / 2 + w / 2; let r = inner + G + d.R;
+      // every Earth in a ring sits on one circle, as far out as its biggest (owner: a small one sat close to the middle and far from the rest)
+      const ring = [], orbit = L => inner + G + Math.max(...L.map(d => d.R)), wid = (d, r) => 2 * Math.asin(Math.min(1, (d.R + G / 2) / r));
+      let used = 0; for (const d of rest) { const r = orbit([...ring, d]), w = [...ring, d].reduce((a, q) => a + wid(q, r), 0); if (ring.length && w > 6.2832) break; ring.push(d); used = w; }
+      rest = rest.slice(ring.length); const R0 = orbit(ring), spare = (6.2832 - used) / ring.length; let a = -1.5708 - wid(ring[0], R0) / 2 - spare / 2;
+      ring.forEach(d => { const w = wid(d, R0); a += spare / 2 + w / 2; let r = R0;
         for (let k = 0; k < 400 && !done.every(q => Math.hypot(q.x - r * Math.cos(a), q.y - r * Math.sin(a)) >= q.R + d.R + G - .01); k++) r += S * .2;
         d.x = r * Math.cos(a); d.y = r * Math.sin(a); done.push(d); a += w / 2 + spare / 2; });
       inner = Math.max(...ring.map(d => Math.hypot(d.x, d.y) + d.R)); }
