@@ -62,7 +62,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
     await p.mouse.move(x, y); await p.mouse.down(); await p.mouse.move(x + move, y + 2); await sleep(1500); const on = await p.evaluate(() => !!defOn); await p.mouse.up(); await sleep(6500); return on; };
   ok(await mhold(5), 'a mouse hold with a 5px wobble still plays Four colors');
   ok(!(await mhold(30)), 'a 30px drag cancels it');
-  // On your left's edge: never beside a title (a finger there meant the title), still beside the name; Sorcerer Supreme's rings: never the Profile button
+  // On your left's edge: never beside a title (a finger there meant the title), still beside the name; Sorcerer Supreme's rings: never the Character log button
   const openBox = async id => { await p.evaluate(id => { if (openEntry) closePanel(); state.charOpen = state.charOpen || {}; state.charOpen[id] = 1; openPanel(DATA.chars.find(c => c.id === id), 'char', document.body); }, id); await sleep(1400); };
   await openBox('cx-falcon-winter-soldier');
   await p.evaluate(() => { window.__laps = 0; const o = oylLaps; oylLaps = (...a) => { __laps++; return o(...a); }; });
@@ -74,14 +74,14 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   await p.evaluate(() => { window.__runes = 0; const o = strangeRunes; strangeRunes = (...a) => { __runes++; return o(...a); }; });
   const [bx, by] = await p.evaluate(() => { const q = document.getElementById('btnDossier').getBoundingClientRect(); return [q.right - 6, q.top + 6]; });   // its corner nearest the rings
   await p.mouse.click(bx, by); await sleep(120); await p.mouse.click(bx, by); await sleep(600);
-  ok(await p.evaluate(() => __runes === 0), 'a double-tap on the Profile button never plays the runes');
+  ok(await p.evaluate(() => __runes === 0), 'a double-tap on the Character log button never plays the runes');
   await p.evaluate(() => { if (typeof closeDossier === 'function' && dossierOpen) closeDossier(true); }); await sleep(800);
   const [rx, rY] = await p.evaluate(() => { const pr = document.getElementById('panel').getBoundingClientRect(); return [pr.right - 14, pr.top + 14]; });
   await p.mouse.click(rx, rY); await sleep(120); await p.mouse.click(rx, rY); await sleep(400);
   ok(await p.evaluate(() => __runes === 1), 'a double-tap on the rings in the corner does');
   await sleep(5600);   // the runes play out
-  const [ux, uy] = await p.evaluate(() => { const q = document.getElementById('btnDossier').getBoundingClientRect(); return [q.right - 20, q.bottom + 20]; });   // just under the button: the old 70px zone never reached it
+  const [ux, uy] = await p.evaluate(() => { const q = document.querySelector('#panel .pwm').getBoundingClientRect(); return [q.left + q.width / 2, q.top + q.height / 2]; });   // the eye's middle: the corner zone alone never reached it
   await p.mouse.click(ux, uy); await sleep(120); await p.mouse.click(ux, uy); await sleep(400);
-  ok(await p.evaluate(() => __runes === 2), 'the rings just under the Profile button count too');
+  ok(await p.evaluate(() => __runes === 2), 'the middle of the eye counts too');
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok', errs.length ? 'errors ' + errs.join(' | ') : '');
   await b.close(); process.exit(fails.length || errs.length ? 1 : 0); })();

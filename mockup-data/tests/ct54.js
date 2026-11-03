@@ -32,6 +32,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   await p.evaluate(() => document.getElementById('btnBack').click()); await sleep(1200);
   // 3. a pill takes a tap only while its panel is open
   const hit = () => p.evaluate(() => { const t = document.getElementById('toast'), r = t.getBoundingClientRect(); if (!t.classList.contains('show') || !r.width) return 'none'; const el = document.elementFromPoint(r.left + r.width * .85, r.top + r.height / 2); return t.contains(el) ? 'pill' : 'page'; });
+  for (let i = 0; i < 120 && await p.evaluate(() => document.getElementById('toast').classList.contains('show') || sayBusy); i++) await sleep(150);   // whatever pill is up first plays out
   await p.evaluate(() => say('A headline long enough to read for a while', null, undefined, 2500, false, 'Daily Bugle', undefined, true));
   const seq = []; for (let i = 0; i < 45; i++) { seq.push(await hit()); await sleep(120); }
   const s = seq.join(' ');

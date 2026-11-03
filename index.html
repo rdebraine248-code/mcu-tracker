@@ -4967,7 +4967,11 @@ const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2
 // First seen and Last seen go by release order, season by season (owner, October 2026): a step "In season N," of a show ranks as its season
 // title where the release list has one; a title the list doesn't carry (the Incursions) falls back to the Chapters path, after the rest
 const REL_IX = (() => { const o = {}; DATA.timelineRelease.forEach((e, i) => { if (!(e.t in o)) o[e.t] = i; }); return o; })();
-const seenRk = x => { const m = /^In season (\d+),/.exec(x[0]), r = m ? REL_IX[x[1] + " S" + m[1]] : undefined; return r ?? (REL_IX[x[1]] != null ? REL_IX[x[1]] + (/^In episode (\d+),/.exec(x[0]) || [0, 0])[1] / 1000 : undefined) ?? 1000 + (ATL_ORDER[x[1]] ?? 1e6); };
+// an episode of a show split into seasons ranks with the season it's in (episode 16 of Agents of S.H.I.E.L.D. is S1's): ranked on the
+// whole show, which has no place of its own, it came after everything and read as the person's last seen (Sitwell, Coulson)
+const seenRk = x => { const m = /^In season (\d+),/.exec(x[0]), e = /^In episode (\d+),/.exec(x[0]), r = m ? REL_IX[x[1] + " S" + m[1]] : undefined; if (r != null) return r;
+  if (e) { const n = +e[1], d = (epSeas().down[x[1]] || []).find(([st, off, len]) => n > off && n <= off + len); if (d && REL_IX[d[0]] != null) return REL_IX[d[0]] + (n - d[1]) / 1000; }
+  return REL_IX[x[1]] != null ? REL_IX[x[1]] + (e ? +e[1] : 0) / 1000 : 1000 + (ATL_ORDER[x[1]] ?? 1e6); };
 const rfFirstStep = S => S.reduce((a, x) => seenRk(x) < seenRk(a) ? x : a, S[0]);
 const rfLastStep = S => S.reduce((a, x) => seenRk(x) >= seenRk(a) ? x : a, S[0]);
 const seenTtl = (S, last) => S.length ? stepTtl(last ? rfLastStep(S) : rfFirstStep(S)) : "Unknown";   // with its season, as the steps show it
@@ -9354,8 +9358,9 @@ panel.addEventListener("click", ev => {
     if (id === "cx-shang-chi-the-ten-rings" && ringHit(ev)) { tenRings(); return; }
     // the edge beside the name, the quote or empty space; never beside a title, where a finger meant the title (owner, October 2026)
     if (id === "cx-falcon-winter-soldier" && ev.clientX < 24 && !ev.target.closest("button") && ![...panel.querySelectorAll(".row")].some(r => { const q = r.getBoundingClientRect(); return ev.clientY >= q.top - 6 && ev.clientY <= q.bottom + 6; })) { oylLaps(); return; }
-    // the rings around the corner, wider than the Profile button that sits in them, and never the button itself
-    if (id === "cx-doctor-strange-wong" && Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 120 && !ev.target.closest("button")) { if (dblCheck(ev)) strangeRunes(); return; }
+    // the rings around the corner and the eye drawn in them (the watermark reaches further down than the corner does), never a button
+    if (id === "cx-doctor-strange-wong" && !ev.target.closest("button") && (Math.hypot(ev.clientX - pr.right, ev.clientY - pr.top) < 120 || (w => { if (!w) return false; const r = w.getBoundingClientRect();
+      return Math.hypot(ev.clientX - (r.left + r.width / 2), ev.clientY - (r.top + r.height / 2)) < r.width * .42; })(panel.querySelector(".pwm")))) { if (dblCheck(ev)) strangeRunes(); return; }
   }
   if (ev.target.closest("#panelTitle") && openEntry && openEntry.id === "cx-hulk") { punyTap(); return; }
   if (openEntry && openEntry.id === "cx-falcon-winter-soldier" && starTap(ev)) return;

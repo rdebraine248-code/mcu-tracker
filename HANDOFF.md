@@ -174,9 +174,13 @@ node tests/ct35.js                                                              
 | ct61 | The Darkhold and the Accords held on their titles; only the Tesseract live in the Collection; the sling ring lands only in the Atlas (every realm and submap, never the Incursions); the Watcher's other realities, in his box and in Beyond the MCU |
 | ct62 | A holder's name in the Collection: the list of what they held, their own Compound or Raft file only once found, the right person among a tab's many of a name, back to the list; holders go by their files' names; no Benny or AIDA left |
 
-**Known failing (November 2026, found while adding the missing places):** ct54 ("pill: page while it opens...") and ct61 ("the rings just
-under the Profile button count too") fail on the published main (176c87b) too, so they predate this work. Fix or update them before the
-next main push.
+**Fixed (November 2026):** six tests had been failing since before the 176c87b main push, five because the app had moved on and one
+over a real bug. ct54 (a pill from earlier was still up; now it waits), ct61 (the Character log button left the rings; now the eye's
+middle counts too, and the app takes a double-tap there), ct51 (the sort is `state.ixSort`; and its test server answered network.html
+with the app, a second copy that saved over the first: tests must serve only the page itself), ct53 and ct55 (first and last seen and
+the universe moved onto the ID card) and ct43 (steps carry episodes now). The real bug: a step tagged to an episode of a show split
+into seasons ranked after everything, so it read as last seen (Sitwell "Agents of S.H.I.E.L.D. S1 · Episode 16" instead of Endgame,
+Coulson S6 instead of S7). `seenRk` now ranks it with its season.
 A failing test must stop a push. Don't pipe test output through `tail`, which hides the exit code. Test pages are served as
 `text/html; charset=utf-8`, or the text comes out garbled. Screenshots after marking many titles watched: wait about 9 seconds, or the
 insignia celebration covers the page.

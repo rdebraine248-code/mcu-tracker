@@ -24,7 +24,8 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(await p.evaluate(() => { const r = document.querySelector('.tile[data-id="cx-the-defenders"]').getBoundingClientRect(); return r.top > -10 && r.bottom < innerHeight + 10; }), 'a jump from a box lands on the new box');
   for (const [m, id, want] of [['raft', 'winter-soldier', 'Sacred Timeline'], ['cp', 'ghost', 'Sacred Timeline'], ['coll', 'tesseract', 'Sacred Timeline']]) {
     await p.evaluate(([m, id]) => { closeColl(true); openColl(m === 'coll' ? undefined : m); collShow(id); }, [m, id]); await sleep(300);
-    ok(await p.evaluate(want => [...document.querySelectorAll('.co-tiles div')].some(d => d.querySelector('small').textContent === 'Universe' && d.querySelector('b').textContent === want), want), m + ': the file names its universe');
+    ok(await p.evaluate(want => [...document.querySelectorAll('.co-tiles div')].some(d => d.querySelector('small').textContent === 'Universe' && d.querySelector('b').textContent.split(' · ')[0] === want)
+      || [...document.querySelectorAll('#collView .id-uni')].some(u => u.textContent.split(' · ')[0] === want), want), m + ': the file names its universe');
   }
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok', errs.length ? 'errors ' + errs.join(' | ') : '');
   await b.close(); process.exit(fails.length || errs.length ? 1 : 0); })();

@@ -7,7 +7,8 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   const w = ['Iron Man', 'The Incredible Hulk', 'Iron Man 2', 'Thor', 'Captain America: The First Avenger', 'The Avengers', 'Iron Man 3', 'Captain America: The Winter Soldier', 'Avengers: Age of Ultron'];
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } },
     JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn: 1, cpIn: 1, collIn: 1, checks: Object.fromEntries(w.map(t => ['tl::' + t, true])) }));
-  await ctx.route('**/*', r => r.request().url().startsWith('http://t/') ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : r.continue());
+  await ctx.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' })
+    : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html; charset=utf-8' }) : r.continue(); });   // only the page itself: network.html served as the app was a second copy saving over the first
   const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500);
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); };
   // each open group's names, as shown
@@ -25,7 +26,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   await p.evaluate(() => { closeColl(true); openColl('raft'); }); await sleep(300);
   const first = await secs(); await p.click('[data-ixs="az"]'); await sleep(300); const az = await secs();
   ok(JSON.stringify(first) !== JSON.stringify(az), 'First seen and A to Z give different orders');
-  ok(await p.evaluate(() => JSON.parse(localStorage.getItem('mcu-watch-tracker-v1')).ixAZ === 1), 'the choice is saved');
+  ok(await p.evaluate(() => JSON.parse(localStorage.getItem('mcu-watch-tracker-v1')).ixSort === 'az'), 'the choice is saved');
   await p.evaluate(() => { closeColl(true); openColl('cp'); }); await sleep(300);
   ok(await p.evaluate(() => document.querySelector('[data-ixs="az"]').getAttribute('aria-pressed') === 'true'), 'one setting for all three indexes');
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok', errs.length ? 'errors ' + errs.join(' | ') : '');
