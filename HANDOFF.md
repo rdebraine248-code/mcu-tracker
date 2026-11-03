@@ -793,6 +793,9 @@ insignia celebration covers the page.
   Most people, plus Most losses: the losses each report records as far as you've watched, since the reports give no casualty
   figures), each sorting inside the groups; and A to Z, which is the whole tab in one straight list (October 2026, kept: the owner
   turned down A to Z inside groups). Ties go A to Z. `ixMode()`, saved as `state.ixSort`.
+  Grouped by a name (Team, Faction, Opposed by, Held by, Involved), the groups start folded, so the order sorts the groups themselves
+  (owner: it looked broken): First seen from the group's own first record, Last seen the most recently active, Most seen the most titles
+  (`ixGroups`; Damage Control by case number, report count and losses). The catch-all group stays last.
 - **A person stays in a group until the story moves them** (owner, November 2026): they quit, retire, are fired or disavowed, the group
   splits or ends, they turn on it or join another. A title where they act alone is not a move. The checked list of real departures is
   `split.json` "left" (`network/src/prof/split.json`, from `network/rel/departures.json`) and the same list is `TEAM_LEFT` in index.html,

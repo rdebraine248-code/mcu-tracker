@@ -4674,6 +4674,14 @@ const ixMode = () => { const m = state.ixSort || (state.ixAZ ? "az" : "first"); 
 const ixTitles = S => new Set(S.map(x => x[1])).size, ixLast = S => S.reduce((a, x) => seenRk(x) > seenRk(a) ? x : a, S[0]);
 const ixCmp = (name, steps) => (a, b) => { const m = ixMode(), A = m === "az" ? null : steps(a), B = m === "az" ? null : steps(b);
   return (m === "first" ? seenRk(rfFirstStep(A)) - seenRk(rfFirstStep(B)) : m === "last" ? seenRk(ixLast(B)) - seenRk(ixLast(A)) : m === "most" ? ixTitles(B) - ixTitles(A) : 0) || ixName(name(a)).localeCompare(ixName(name(b))); };
+// grouped by name (a team, a faction, who opposed them, who held it), the groups start folded, so the order sorts the groups themselves
+// (owner, November 2026: the sort looked broken): First seen, the group whose earliest member comes first; Last seen, the one most
+// recently active; Most seen, the one seen in the most titles. A to Z keeps them A to Z. The catch-all group stays last
+// First seen counts from the group's own first record (the title someone joins it, opposes them, holds it), not a member's first title
+function ixGroups(secs, steps, tail, since) { const m = ixMode(); if (m === "az") return secs;
+  const v = new Map(secs.map(([k, L]) => { const S = L.flatMap(steps), G = L.flatMap(o => since(o, k)).filter(atlSeenT).map(t => seenRk(["", t]));
+    return [k, m === "first" ? -(G.length ? Math.min(...G) : Math.min(...S.map(seenRk))) : m === "last" ? Math.max(...S.map(seenRk)) : new Set(S.map(x => x[1])).size]; }));
+  secs.sort((a, b) => tail(a[0]) - tail(b[0]) || v.get(b[0]) - v.get(a[0]) || ixName(a[0]).localeCompare(ixName(b[0]))); return secs; }
 const IX_SORTS = [["first", "First seen"], ["last", "Last seen"], ["most", "Most seen"], ["az", "A–Z"]];
 const ixSortBar = dc => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg">${(dc ? IX_SORTS.slice(0, 3).concat([["loss", "Most losses"]], IX_SORTS.slice(3)) : IX_SORTS).map(([k, l]) => `<button type="button" data-ixs="${k}" aria-pressed="${ixMode() === k}">${dc && k === "most" ? "Most people" : l}</button>`).join("")}</div></div>`;   // Damage Control: a report is one title, so it counts the people on file in it; and its losses (owner, November 2026: the reports give no casualty figures, so it counts the losses each one records, as far as you've watched)   // Damage Control: a report is one title, so it counts the people on file in it
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
@@ -4753,7 +4761,7 @@ function cxBody() {
   const keys = cxGrp === "holder" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === SPEC) - (b === SPEC) || (a === "Nobody") - (b === "Nobody") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : cxGrp === "status" ? Object.keys(CX_ST) : CX_TY.map(t => t[0]);
   const label = k => cxGrp === "type" ? cxTyName(k) : k;
   cxFold[cxGrp] = cxFold[cxGrp] || {};
-  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
+  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length); if (cxGrp === "holder") ixGroups(secs, cxSteps, k => k === SPEC || k === "Nobody", (o, k) => cxSteps(o).filter(x => x[3] === k).map(x => x[1]));
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CX_GRP.map(([k, l]) => `<button type="button" data-cxg="${k}" aria-pressed="${k === cxGrp}">${l}</button>`).join("")}</div></div>${ixSortBar()}` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = cxShut(k), fresh = L.some(o => !seen[o.id]), cls = cxGrp === "status" ? " s-" + CX_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cxf="${esc(k)}" aria-expanded="${!shut}">${cxGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : cxGrp === "type" ? cxGlyph(k) : ""}<span>${esc(label(k))}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
@@ -4935,7 +4943,7 @@ function rfBody() {
   const NONE = rfGrp === "tm" ? "Independent" : "No hero on file", keyz = o => rfGrp === "class" ? [rfClass(o) || "Unknown"] : rfGrp === "op" ? (L => L.length ? L : [NONE])(rfOpps(o)) : rfGrp === "tm" ? rfTeams(o) : [stOf(o)];
   const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" || rfGrp === "tm" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === NONE) - (b === NONE) || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
   rfFold[rfGrp] = rfFold[rfGrp] || {};
-  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
+  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length); if (rfGrp === "op" || rfGrp === "tm") ixGroups(secs, rfSteps, k => k === NONE, rfGrp === "op" ? (o, k) => Array.isArray(o.opp) ? o.opp.filter(x => (x[0].startsWith("team:") ? x[0].slice(5) : (a => a ? cpName(a) : "")(ALLIES.find(a => a.id === x[0]))) === k).map(x => x[1]) : Array.isArray(o.op) ? o.op.filter(t => t[0] === k).map(t => t[1]) : [] : (o, k) => (Array.isArray(o.tm) ? o.tm : []).filter(t => t[0] === k).map(t => t[1]));
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${RF_GRP.map(([k, l]) => `<button type="button" data-rfg="${k}" aria-pressed="${k === rfGrp}">${l}</button>`).join("")}</div></div>${ixSortBar()}` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = rfShut(k), fresh = L.some(o => !seen[o.id]), cls = rfGrp === "status" ? " s-" + RF_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-rff="${esc(k)}" aria-expanded="${!shut}">${rfGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
@@ -5037,7 +5045,7 @@ function cpBody() {
   const keyz = o => cpGrp === "team" ? [...new Set(cpTeams(o))] : [cpStatusOf(o)];
   const keys = cpGrp === "team" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === "Independent") - (b === "Independent") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(CP_ST);
   cpFold[cpGrp] = cpFold[cpGrp] || {};
-  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length);
+  const secs = keys.map(k => [k, known.filter(o => keyz(o).includes(k))]).filter(x => x[1].length); if (cpGrp === "team") ixGroups(secs, cpSteps, k => k === "Independent", (o, k) => (Array.isArray(o.tm) ? o.tm : []).filter(t => t[0] === k).map(t => t[1]));
   return `${known.length ? `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${CP_GRP.map(([k, l]) => `<button type="button" data-cpg="${k}" aria-pressed="${k === cpGrp}">${l}</button>`).join("")}</div></div>${ixSortBar()}` : `<p class="sr-empty">No data.</p>`}
     ${secs.map(([k, L]) => { const shut = cpShut(k), fresh = L.some(o => !seen[o.id]), cls = cpGrp === "status" ? " s-" + CP_ST[k] : "";
       return `<section class="rf-sec${shut ? " shut" : ""}${cls}"><button type="button" class="rf-sh" data-cpf="${esc(k)}" aria-expanded="${!shut}">${cpGrp === "status" ? '<i class="rf-lamp" aria-hidden="true"></i>' : ""}<span>${esc(k)}</span>${shut && fresh ? '<b class="nw">NEW</b>' : ""}<em>${L.length}</em><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
@@ -11741,7 +11749,10 @@ function dcBody() {
   if (ixMode() === "az") return ixSortBar(1) + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${L.length}</em></div><div class="dc-list2">${sorted(L).map(row).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); the other orders keep the groups (owner, November 2026)
   const keyz = d => dcGrp === "yr" ? [dcYr(d.yr, d)] : dcGrp === "t" ? [d.t] : (A => A.length ? A : [dcGrp === "tm" ? "No team on file" : "Nobody on file"])(dcNames(d, dcGrp === "tm"));
   let keys = [...new Set(L.flatMap(keyz))];
-  if (dcGrp === "who" || dcGrp === "tm") keys.sort((a, b) => /^No/.test(a) - /^No/.test(b) || ixName(a).localeCompare(ixName(b)));
+  if (dcGrp === "who" || dcGrp === "tm") { const m = ixMode(), of = k => L.filter(d => keyz(d).includes(k)), v = new Map(keys.map(k => { const A = of(k), no = A.map(d => DC_NO[d.id]).sort();
+      return [k, m === "first" ? no[0] : m === "last" ? no[no.length - 1] : m === "most" ? A.length : m === "loss" ? A.reduce((n, d) => n + dcLines(d.loss).length, 0) : 0]; }));
+    // the groups themselves follow the order (they start folded): first case first, latest case first, most reports, most losses; A to Z as is
+    keys.sort((a, b) => /^No/.test(a) - /^No/.test(b) || (m === "first" ? String(v.get(a)).localeCompare(String(v.get(b))) : m === "last" ? String(v.get(b)).localeCompare(String(v.get(a))) : m === "az" ? 0 : v.get(b) - v.get(a)) || ixName(a).localeCompare(ixName(b))); }
   dcFold[dcGrp] = dcFold[dcGrp] || {};
   return `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${DC_GRP.map(([k, l]) => `<button type="button" data-dcg="${k}" aria-pressed="${k === dcGrp}">${l}</button>`).join("")}</div></div>${ixSortBar(1)}
     ${keys.map(k => { const A = L.filter(d => keyz(d).includes(k)), shut = dcShut(k);
