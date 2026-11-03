@@ -1,0 +1,156 @@
+{
+ "verdicts": [
+  {
+   "i": 0,
+   "key": "A:billy-maximoff",
+   "verdict": "reject",
+   "why": "The record sums up episodes 3 to 7. Its last event, Billy saying he hears the voices of the Westview residents, happens the morning of episode 7 (he also tells Agnes he can't hear her thoughts), so the episode 7 tag is right. Changing it to episode 3 would put a later event under an earlier number.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Wiccan&prop=wikitext&format=json"
+  },
+  {
+   "i": 1,
+   "key": "A:casey",
+   "verdict": "reject",
+   "why": "This record sums up episodes 2 to 4, and its last event, the Temporal Loom exploding with Casey there, is in episode 4, so the tag is right under the convention. The proposal is mostly rewording and drops a true event.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Casey&prop=wikitext&format=json"
+  },
+  {
+   "i": 2,
+   "key": "A:ayo",
+   "verdict": "reject",
+   "why": "This record sums up episodes 4 and 5: the Riga clash with Bucky is in episode 4, and Bucky handing Zemo over to Ayo's Dora Milaje in Sokovia is in episode 5. Its last event is in episode 5, so it is not wrong under the convention.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Falcon_and_the_Winter_Soldier&action=raw"
+  },
+  {
+   "i": 3,
+   "key": "A:ayo",
+   "verdict": "reject",
+   "why": "The episode 4 Riga clash is already covered by the episode 5 record (k4), which correctly sums up episodes 4 and 5. A separate episode 4 record would repeat it.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Falcon_and_the_Winter_Soldier&action=raw"
+  },
+  {
+   "i": 4,
+   "key": "A:dogpool",
+   "verdict": "reject",
+   "why": "Wikipedia's plot says Nicepool and Dogpool direct Wade and Logan toward the resistance group, and Dogpool is at Wade's gathering at the end, so the current text is supported. The proposal is mostly rewording.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Deadpool_%26_Wolverine&action=raw"
+  },
+  {
+   "i": 5,
+   "key": "A:dora-milaje",
+   "verdict": "reject",
+   "why": "This record sums up episodes 4 and 5: the fight with Walker in Riga is in episode 4, and its last event, taking Zemo for the Raft after Bucky hands him over in Sokovia, is in episode 5. Retagging it as episode 4 would make it wrong.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Falcon_and_the_Winter_Soldier&action=raw"
+  },
+  {
+   "i": 6,
+   "key": "A:helmut-zemo",
+   "verdict": "reject",
+   "why": "The breakout is in episode 3, but the record's last event, Zemo hunting the Flag Smashers with Sam and Bucky in Riga (finding Karli at the funeral), is in episode 4. The episode 4 tag is right under the convention.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Falcon_and_the_Winter_Soldier&action=raw"
+  },
+  {
+   "i": 7,
+   "key": "A:hasan",
+   "verdict": "confirm",
+   "why": "In episode 5 Hasan's village, his marriage and the Partition train station are all in British India; nothing happens in Karachi. The app has no India place, so the list should be empty.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hasan&prop=wikitext&format=json"
+  },
+  {
+   "i": 8,
+   "key": "A:groot",
+   "verdict": "reject",
+   "why": "This record sums up episodes 2 and 3: the Grunds are in episode 2, and its last event, ejecting the shape-shifter Iwua, is in episode 3. The tag is right, and the proposal drops a true event.",
+   "source": "https://en.wikipedia.org/w/index.php?title=I_Am_Groot&action=raw"
+  },
+  {
+   "i": 9,
+   "key": "A:howling-commandos",
+   "verdict": "confirm",
+   "why": "The 1945 SSR raid with Peggy, Dugan and Morita on the last HYDRA base in Austria, where they arrest Reinhardt, is the opening of 'Shadows', the show's 23rd episode overall (season 2, episode 1). Episode 30, 'The Things We Bury', does not include the raid.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Shadows_(Agents_of_S.H.I.E.L.D.)&action=raw"
+  },
+  {
+   "i": 10,
+   "key": "A:jon-jon",
+   "verdict": "confirm",
+   "why": "Jon Jon is Xialing's right-hand man and the announcer at her underground fight club in Macau. He does not film the bus fight. The checker also notes the file's 'kind' is wrong, which needs a separate fix.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Shang-Chi_and_the_Legend_of_the_Ten_Rings&action=raw"
+  },
+  {
+   "i": 11,
+   "key": "A:john-walker",
+   "verdict": "amend",
+   "why": "The file has no record for Walker's fall, which is a real gap. But Walker takes the serum before Lemar dies (he pockets the last vial in episode 4 and injects it before that fight), not after, so the order has to be fixed.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=U.S._Agent&prop=wikitext&format=json",
+   "value": {
+    "after": null,
+    "title": "The Falcon and the Winter Soldier",
+    "text": "In episode 5, Walker secretly takes the last vial of serum. After Karli kills Lemar in Riga, he kills a Flag Smasher with the shield in front of a crowd. Sam and Bucky take the shield from him, and he is stripped of the title of Captain America.",
+    "status": "Active",
+    "at": [
+     "Riga"
+    ],
+    "cases": [
+     "ST-083 The Riga Incident (The Falcon and the Winter Soldier)"
+    ]
+   }
+  },
+  {
+   "i": 12,
+   "key": "A:jack-duquesne",
+   "verdict": "reject",
+   "why": "Under the convention, 'Daredevil: Born Again S2' episodes are counted within the season. Season 2 episode 3, 'The Scales & the Sword', has Jack's conviction and the Red Hook breakout, so 'episode 3' is already right.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again_season_2&action=raw"
+  },
+  {
+   "i": 13,
+   "key": "A:james-rhodes",
+   "verdict": "confirm",
+   "why": "In the last episode, after G'iah kills Gravik at New Skrullos, his human prisoners, Rhodes and Ross among them, are freed there. New Skrullos is a place in the app, and Washington, D.C. fits Raava's impersonation.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Secret_Invasion_(miniseries)&action=raw"
+  },
+  {
+   "i": 14,
+   "key": "A:monica-rambeau",
+   "verdict": "confirm",
+   "why": "WandaVision episode 4 opens with Monica coming back from the Blip to find Maria has died of cancer; she is then pulled into the Westview Hex. She does not vanish in that episode, so the text and the 'Missing' status are wrong.",
+   "source": "https://en.wikipedia.org/w/index.php?title=WandaVision&action=raw"
+  },
+  {
+   "i": 15,
+   "key": "A:sharon-carter",
+   "verdict": "confirm",
+   "why": "By the end of the series, Sharon has a full pardon and rejoins the CIA, so she is no longer a fugitive.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Falcon_and_the_Winter_Soldier&action=raw"
+  },
+  {
+   "i": 16,
+   "key": "A:st-claire-temple",
+   "verdict": "reject",
+   "why": "The record sums up episodes 2 to 5. Claire is still Matt's medic and confidante in episode 5 (fandom cites DD105 for her reading Fisk's texts to him and their argument before he leaves), so the episode 5 tag holds under the convention.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Claire_Temple&prop=wikitext&format=json"
+  },
+  {
+   "i": 17,
+   "key": "A:st-daisy-johnson",
+   "verdict": "confirm",
+   "why": "Both events are in episode 32, 'What They Become', in San Juan: Cal tells Skye her name is Daisy, and she breaks out of a Terrigen cocoon as an earthquake shakes the city. Nothing in the record happens in episode 44.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw"
+  },
+  {
+   "i": 18,
+   "key": "A:st-afterlife",
+   "verdict": "confirm",
+   "why": "In episode 133, 'Stolen', Nathaniel captures Gordon at Afterlife and gives Gordon's powers to Garrett, which kills Gordon. Garrett then teleports him to the Lighthouse, where he kills Jiaying. Nathaniel does not take Gordon's powers himself.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_7&action=raw"
+  },
+  {
+   "i": 19,
+   "key": "A:st-beth-quinn",
+   "verdict": "confirm",
+   "why": "Beth's events are the Michigan bar shooting in episode 1 and Pilgrim's hospital threat in episode 2. The Larkville Sheriff Station siege in Ohio is in episode 3, and Beth is not part of it.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Punisher_season_2&action=raw"
+  }
+ ]
+}

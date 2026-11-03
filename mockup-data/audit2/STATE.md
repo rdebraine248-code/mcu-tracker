@@ -118,3 +118,9 @@ net v13 done (17/27/1). Launched fv06.
 net v15 done (16/29/0; Battleworld card line n633 name unconfirmed). Launched fv07.
 net v16 done (37/8/0).
 FILES PART DONE (39/39). files 39: 6 ch. fvchunk_08 (37+39).
+rfix_people done: 18 changes, 1 no change (Donnie Gill), 16 owner calls. SCHOOLS: HANDOFF lists agencies, armies, companies, crews - schools were MY extension; hold student-at-school stages as one owner question ("do schools count?"). Second check rvchunk_1 (18) -> rvout_1, told to strip school-as-student stages.
+files fv01 (9/1/10), fv02 (8/3/9), fv03 (16/2/2), fv04 (16/1/3). net v12 (17/24/4), v18 (13/8/0).
+NET APPLY: aud/net/build_fix.py -> stage_fix_zaudit.json (rel/). relbake patched: edit.title; line_fix matches by text within pair too. Dry run: stage fixes 1012, 708 'stale' = the card lines the audit itself replaced. New card lines (1321) need the owner's card-line style (network/cards/BRIEF.md) -> lines_NN.json style pass.
+fv07 done (11/4/0). Launched card style passes 1-5, rvchunk second check.
+NET VERIFY ALL DONE (18 + fix1). net v17 (35/9/1). Card style passes 1-7 done (163 changed of 1321), pass 8 for 54 v17 lines running. stage_fix_zaudit.json has styled lines; after pass 8, apply ids then copy to rel/ (repo + scratch), run pipeline. FILES VERIFY ALL 8 DONE (fv06 16/1/3, fv08 11/2/1, fv05 15/4/1). Next: build STEP_AUDIT for files (runtime block in index.html; re-key AT_CASE). live_files.json = raw st/ac; place names via ATLAS walk (dump3.js).
+FILES APPLIED: STEP_AUDIT block after HANDOVER in index.html (108 files, 120 changes; 29 rejected), AT_CASE re-keyed, ep_tags.json recomputed for 43 files, handover drop flags carried. Verified: all 108 match, 0 untouched files changed. rvout_1 done (7 ok, 5 amend, 6 reject).
