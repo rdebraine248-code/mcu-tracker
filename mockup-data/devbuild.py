@@ -453,6 +453,8 @@ if '/*HANDOVER*/' in s: put('HANDOVER',load('handover.json',{}))   # each person
 if '/*COLLX*/' in s: put('COLLX',collx)
 if '/*ALLIES*/' in s: put('ALLIES',allies)
 put('THREATS',threats)
+# under each record entry, its places and Damage Control cases (at_case.json: "A|T:file id:step" -> {at: [place keys], cases: [report ids]})
+if '/*ATCASE*/' in s: put('ATCASE',load('at_case.json',{}))
 put('EPN',epn)
 out=sys.argv[1] if len(sys.argv)>1 else D+'dev.html'
 open(out,'w',encoding='utf8').write(s); print('threats',len(threats),'eps',len(eps),'phases',len(phases),'brief',len(brief))

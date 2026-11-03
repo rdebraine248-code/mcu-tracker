@@ -1297,6 +1297,10 @@ span.ip-mid{ cursor:default; color:#8FA4BE; } .ip-mid em, .ip-log em{ font-style
 .rf-tx .nw, .rf-sh .nw{ flex:none; padding:1px 6px; border-radius:4px; background:#C8102E; color:#fff; font:700 9px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; }
 .s-xfer{ --sc:#7FA6D8; } .cpx .s-xfer{ --sc:#7FA6D8; }
 .co-chain li.ho-mk{ list-style:none; }
+.rec-at{ display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:8px 0 4px; font-size:14px; line-height:1.45; color:#C9D6EA; }
+.rec-at > b{ font:400 10px/2 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#7D8BA6; }
+.rec-at a{ color:inherit; text-decoration:underline; text-decoration-color:color-mix(in srgb, var(--ix, #5E9BEF) 70%, transparent); text-underline-offset:3px; cursor:pointer; }
+.rec-at .rec-cs{ display:block; } .rec-at .rec-cs i{ font:normal 11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:var(--ixt, #8FC1FF); margin-right:8px; }
 /* the hand-over entry is the way to the other index's file, in that index's colour: red to the Raft, blue to the Compound */
 .co-chain li.ho-rf::before{ border-color:#D45A4F !important; background:rgba(212,90,79,.25) !important; box-shadow:none !important; }
 .co-chain li.ho-rf .ho-go > p, .co-chain li.ho-rf .ho-go small, .co-chain li.ho-rf .ho-go em{ color:#EE8C82 !important; }
@@ -3570,8 +3574,8 @@ function profGo(id) { if (dossierOpen === id) { downTo("dossier"); return; }   /
   const st = jkey(history.state), over = collOpen || netOpen || mapOpen, tok = over ? jstamp() : 0; openDossier(id); if (over) jumpUp(document.getElementById("dossier"), () => closeDossier(true), st, tok); dockSync(); }
 function fileGo(tg, id) { const o = ixFile(tg, id); if (!o) return; if (collOpen && collRec === id) { downTo("collPanel"); return; }   // already open underneath
   const cp = document.getElementById("collPanel"), st = jkey(history.state), was = collOpen ? { m: collMode, r: collRec, y: cp.scrollTop } : null, over = dossierOpen || netOpen || mapOpen || commsOpen, tok = over ? jstamp() : 0;
-  if (tg === "A") cpUni = rfUniOf(o); else if (tg === "C") cxUni = rfUniOf(o); else rfUni = rfUniOf(o);
-  collJump(tg === "A" ? "cp" : tg === "C" ? "coll" : "raft", id);
+  if (tg === "A") cpUni = rfUniOf(o); else if (tg === "C") cxUni = rfUniOf(o); else if (tg !== "D") rfUni = rfUniOf(o);
+  collJump(tg === "A" ? "cp" : tg === "C" ? "coll" : tg === "D" ? "dc" : "raft", id);
   if (over) jumpUp(cp, was ? () => { openColl(was.m, true, true); collRec = was.r; renderColl(); cp.scrollTop = was.y; } : () => closeColl(true), st, tok); dockSync(); }
 // the Network's card asks what it can link to, and opens it
 window.netLinks = id => { const o = ALLIES.find(x => x.id === id) || THREATS.find(x => x.id === id), b = boxOfFile(o); return { prof: boxShown(b) ? b : "", path: b ? boxPath(b) : "" }; };
@@ -4296,6 +4300,7 @@ function atlSheet(p, fresh) {   // fresh: the entries that turned up since you l
 // (a step added later, without a tap, is skipped by the phone's back gesture, which then leaves the app)
 let atlHist = [], atlPend = null, atlPrevT = null;
 function atlPush(kind) {
+  if (Date.now() < atlQuiet) return;   // a place opened straight from a file is one step, the link's own
   const top = atlHist[atlHist.length - 1];
   if (top === kind) return;
   if (top === "atlsel" && kind === "atlsub") { try { history.replaceState({ mcu: kind }, ""); } catch (e) {} atlHist[atlHist.length - 1] = kind; return; }   // from a place's entry into its city
@@ -4574,8 +4579,8 @@ function collShow(id) {
 // a file that opens a file in another index is one step: back returns to the file (or list) you came from, in its own index
 function collJump(mode, id) { openColl(mode, true, true); collShow(id); }
 // a link from one index into another (a holder's file, a replay's file) opens only an index you've found, and only a file with a title you've watched
-const ixFile = (tg, pid) => { const o = pid && (tg === "A" ? ALLIES : tg === "C" ? COLLX : THREATS).find(x => x.id === pid);
-  return o && (tg === "A" ? state.cpIn && cpSteps(o).length : tg === "C" ? state.collIn && cxSteps(o).length : state.raftIn && rfSteps(o).length) ? o : null; };
+const ixFile = (tg, pid) => { const o = pid && (tg === "A" ? ALLIES : tg === "C" ? COLLX : tg === "D" ? DC : THREATS).find(x => x.id === pid);
+  return o && (tg === "A" ? state.cpIn && cpSteps(o).length : tg === "C" ? state.collIn && cxSteps(o).length : tg === "D" ? earned("damagecontrol") && dcSeen(o) : state.raftIn && rfSteps(o).length) ? o : null; };
 function collRestore() {   // back landed on a step from another index or another file: put that one back
   const h = history.state || {}; if (!h.cm || (h.mcu !== "coll" && h.mcu !== "collrec") || (h.cm === collMode && (h.cr || null) === collRec)) return false;
   if (h.cm !== collMode) openColl(h.cm, true, true);
@@ -4791,6 +4796,23 @@ const hoMark = (m, side, twin) => { const there = side === "R" ? "the Compound" 
   const say = m.ho === "out" ? (known ? `File transferred to ${there}` : `File transferred out of ${here}`) : (m.first ? "File opened" : "File reopened") + (known ? ` from ${there}` : "");
   const inner = `<p>${say}</p><small>${tnh(m.t)}</small>`;
   return `<li class="ho-mk${tw ? (side === "R" ? " ho-cp" : " ho-rf") : ""}">${tw ? `<button type="button" class="ho-go" ${at}="${esc(twin.id)}">${inner}<em aria-hidden="true">&#8250;</em></button>` : inner}</li>`; };
+/* ---------- under each record entry: where it happens (At) and the Damage Control reports it is (Case), each opening on top of the file.
+   Tagged by what the entry describes happening, named or not (owner, November 2026: "sides with Steve" is the airport); each file its own
+   side. A place shows once it's lit on the Atlas, a case once Damage Control is found. at_case.json, keyed "A|T:file id:step" ---------- */
+const AT_CASE = /*ATCASE*/{};
+function atPlace(key) { const [id, v, sub] = key.split("|"), L = v === "city" ? atlPlaces("city", sub) : v === "uni" ? (ATLAS_UNI[sub] || { places: [] }).places : ATLAS[v] || [];
+  const p = L.find(q => q.id === id); return p ? { p, v, sub: sub || null } : null; }
+function recAt(tg, o, x) { const e = AT_CASE[tg + ":" + o.id + ":" + o.st.indexOf(x)]; if (!e) return "";
+  const at = (e.at || []).map(k => [k, atPlace(k)]).filter(([, r]) => r && atlLit(r.p)), dcOk = earned("damagecontrol");
+  const cs = dcOk ? (e.cases || []).map(id => DC.find(d => d.id === id)).filter(d => d && dcSeen(d)) : [];
+  if (!at.length && !cs.length) return "";
+  return `<div class="rec-at">${at.length ? `<b>At</b><span>${at.map(([k, r]) => `<a role="link" tabindex="0" data-atp="${esc(k)}">${esc(r.p.n)}</a>`).join(", ")}</span>` : ""}${cs.length ? `<b>Case</b><span>${cs.map(d => `<span class="rec-cs"><i>${DC_NO[d.id]}</i><a role="link" tabindex="0" data-dcr="${esc(d.id)}">${esc(d.n)}</a></span>`).join("")}</span>` : ""}</div>`; }
+// the Atlas opened from a file: on top of it, one step, so back comes down to the file (owner's rule: every link opens on top)
+let atlQuiet = 0;
+function atlOver(r) { if (atlOpen) { atlGo(r); return; } const st = jkey(history.state), tok = jstamp(); try { history.pushState({ mcu: "jump" }, ""); } catch (e) {}
+  openAtlas(); jumpUp(document.getElementById("atlasPanel"), () => closeAtlas(true), st, tok); dockSync(); atlQuiet = Date.now() + 1500; setTimeout(() => atlGo(r), 120); }
+document.addEventListener("click", ev => { const a = ev.target.closest("[data-atp]"), c = ev.target.closest("[data-dcr]"); if (!a && !c) return; haptic(8);
+  if (a) { const r = atPlace(a.dataset.atp); if (r) atlOver(r); } else fileGo("D", c.dataset.dcr); });
 const rfSteps = o => hoKeep(o.st.filter(atlSeenStep), o, "R");
 const rfStatusOf = o => rfStatus(rfSteps(o));   // a file the other index took over keeps its last status: Transferred is no status (owner, November 2026)
 const rfStatus = S => { let st = "At large"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
@@ -4876,7 +4898,7 @@ function renderRaft() {
       <div class="co-h">Record</div>
       <ol class="co-chain">${hoChain(o, "R", S).map(x => { if (x.ho) return hoMark(x, "R", ALLIES.find(a => a.rf === o.id)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
         const c = up.get(x[1]); if (c) up.delete(x[1]);   // the step where their class changes says so
-        return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}${c ? `<span class="rf-chg rf-cls">${esc(c)}</span>` : ""}</small></li>`; }).join("")}</ol></div>`;
+        return `<li><p>${esc(stepTxt(x))}</p>${recAt("T", o, x)}<small>${stepTtl(x)}${chg}${c ? `<span class="rf-chg rf-cls">${esc(c)}</span>` : ""}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
   // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header. The search
@@ -4986,7 +5008,7 @@ function renderCp() {
       ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
       ${rf && !hoChain(o, "C", S).some(x => x.ho) ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       <div class="co-h">Service record</div>
-      <ol class="co-chain">${hoChain(o, "C", S).map(x => { if (x.ho) return hoMark(x, "C", o.rf && THREATS.find(t => t.id === o.rf)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
+      <ol class="co-chain">${hoChain(o, "C", S).map(x => { if (x.ho) return hoMark(x, "C", o.rf && THREATS.find(t => t.id === o.rf)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p>${recAt("A", o, x)}<small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
   const U = rfUnis(), all = ALLIES.filter(o => cpSteps(o).length).length, home = cpHome();
