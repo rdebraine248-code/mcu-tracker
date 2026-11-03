@@ -1,0 +1,106 @@
+{
+ "checked": [
+  "T:topaz",
+  "T:vasily-karpov",
+  "A:pepper-potts",
+  "A:sv-ben-parker-ssm",
+  "T:fox-anim-phalanx",
+  "A:fox-anim-morph",
+  "A:kareem",
+  "A:pr-abby-miller",
+  "T:fox-anim-mystique",
+  "A:st-ray-nadeem",
+  "A:sv-rosalie-octavius",
+  "T:fox-selene",
+  "T:sv-gentleman-asm",
+  "T:ronan",
+  "T:fox-toad",
+  "A:st-eric-koenig",
+  "A:st-aloysius-samberly",
+  "A:kingo",
+  "T:st-tucker-shockley",
+  "T:pr-kounen",
+  "T:pr-krieger",
+  "T:fox-anim-arkon",
+  "A:sv-curt-connors-ssm",
+  "T:sv-lizard-ssm",
+  "A:fox-bishop",
+  "T:maya-hansen",
+  "A:thor",
+  "A:pr-st-nico-minoru",
+  "A:mallory-book",
+  "A:sv-ben-parker-raimi",
+  "T:by-the-collector",
+  "T:st-werner-von-strucker",
+  "A:st-bobby-fish",
+  "A:pr-foggy-nelson",
+  "A:jane-foster",
+  "T:saracen",
+  "A:pr-st-tandy-bowen",
+  "A:by-nebula-nova",
+  "T:pr-drake",
+  "T:st-buck-cashman",
+  "A:riri-williams",
+  "T:fox-zander-rice",
+  "T:fox-anim-emma-frost",
+  "A:phastos",
+  "A:dum-e-and-u",
+  "T:fox-hendry",
+  "T:taserface",
+  "A:st-robbie-reyes",
+  "T:ivan-vanko",
+  "A:sharon-davis",
+  "T:pr-galactus"
+ ],
+ "changes": [
+  {
+   "key": "T:sv-lizard-ssm",
+   "q": "G2",
+   "now": {
+    "groups": [],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Empire State University",
+      "The Spectacular Spider-Man"
+     ],
+     [
+      "Independent",
+      "The Spectacular Spider-Man"
+     ]
+    ],
+    "left": [
+     "The Spectacular Spider-Man"
+    ]
+   },
+   "evidence": "The Lizard file has no group, but both of its steps are in The Spectacular Spider-Man, where Curt Connors is the lead scientist of Empire State University Labs. He becomes the Lizard there in season 1, episode 3. In season 2, episode 13 (episode 26, 'Final Curtain'), after Miles Warren blackmails him, he leaves ESU and New York with Martha and Billy for the Florida Everglades. The twin A:sv-curt-connors-ssm already records this as ESU, then Independent, with a left at The Spectacular Spider-Man. Other villain twins carry their workplace too (T:sv-lizard-asm has Oscorp with a left, and T:sv-venom-1994 has The Daily Bugle).",
+   "source": "https://marvel.fandom.com/wiki/Curtis_Connors_(Earth-26496)",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:pr-krieger",
+   "question": "Krieger has no group. In Blade he is a uniformed police officer (with a patrol car) and Deacon Frost's familiar. Under the rule that an employer counts, should he get a group, and under what name?",
+   "options": [
+    "Keep no group",
+    "Add The House of Erebus (Frost's house, which the data already gives Pearl, Quinn, Mercury and Racquel) as Frost's familiar",
+    "Add his police department (the film doesn't seem to name it, so a name would be needed)"
+   ],
+   "evidence": "Wikipedia: 'Karen is attacked by police officer Krieger, who is a familiar, a human thrall loyal to vampires.' Cast list: 'Officer Krieger: A familiar, or human servant, of Frost's.' Marvel Database gives his occupation as police officer and vampire familiar, with no affiliation. Frost kills him for failing.",
+   "source": "https://marvel.fandom.com/wiki/Officer_Krieger_(Earth-26320) ; https://en.wikipedia.org/wiki/Blade_(1998_film)"
+  },
+  {
+   "key": "A:dum-e-and-u",
+   "question": "V1: this record covers two robots, Dum-E and U. Keep it as a pair record, or split it? This is the same question already open for T:att-lass-bron-char.",
+   "options": [
+    "Keep as one pair record",
+    "Split into Dum-E and U"
+   ],
+   "evidence": "Both are Tony's workshop robots with the same group (Stark Industries) and the same steps, from Iron Man to VisionQuest. Splitting would change no facts.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Dum-E"
+  }
+ ]
+}

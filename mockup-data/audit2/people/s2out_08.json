@@ -1,0 +1,122 @@
+{
+ "checked": [
+  "A:pr-st-jen",
+  "T:pr-quentin-glass",
+  "T:st-zane",
+  "A:sv-peni-parker",
+  "A:sv-carla-connors",
+  "A:ancient-one",
+  "A:jorani",
+  "A:fox-vanessa",
+  "A:pr-krista-starr",
+  "A:sv-peter-parker-raimi",
+  "A:zuri",
+  "A:by-mech-avengers",
+  "T:by-strange-supreme",
+  "A:alligator-loki",
+  "A:by-zombie-sorcerers",
+  "A:guang-bo",
+  "A:holden-holliway",
+  "A:sv-asha-yfnsm",
+  "A:sv-sally-avril-ssm",
+  "T:by-klaue-killmonger",
+  "A:pr-hannibal-king",
+  "T:st-kilgrave",
+  "A:muneeba-khan",
+  "A:nikki-ramos",
+  "A:hope-van-dyne",
+  "A:st-ana-jarvis",
+  "A:st-oscar-arocho",
+  "A:sv-punisher-1994",
+  "T:sv-scorpion-itsv",
+  "A:mr-immortal",
+  "A:sv-harry-osborn-ssm",
+  "T:fox-shingen",
+  "A:sv-anne-weying",
+  "A:by-zombie-ikaris",
+  "A:fox-anim-psylocke",
+  "T:hunter-b-15",
+  "A:fox-cyclops",
+  "T:sv-mysterio-1967",
+  "T:sv-miss-trubble-1967",
+  "A:kurt",
+  "A:fox-anim-archangel",
+  "A:fox-beast",
+  "T:ladypool",
+  "T:sv-baron-mordo-1994",
+  "T:fox-blob-apocalypse",
+  "A:by-kahhori",
+  "A:sv-peter-b-parker",
+  "A:by-zombie-sharon",
+  "A:sv-mary-parker-madame-web",
+  "T:najma"
+ ],
+ "changes": [
+  {
+   "key": "A:by-zombie-ikaris",
+   "q": "G1",
+   "now": [
+    [
+     "The Eternals",
+     "Marvel Zombies"
+    ],
+    [
+     "The Survivors",
+     "Marvel Zombies"
+    ]
+   ],
+   "proposed": [
+    [
+     "The Eternals",
+     "Marvel Zombies"
+    ]
+   ],
+   "evidence": "Marvel Zombies episode 1 is Ikaris's only appearance: he is locked in an endless stalemate with the zombie Captain Marvel over the Valley of the Broken Gods, and Kamala's group only stumbles into the fight. He never joins or travels with the Survivors (Kamala's group); the MCU Wiki lists Kamala, Riri and Kate among his Enemies, and the Marvel Database gives him no affiliation.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ikaris/Zombie_Outbreak&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:sv-peni-parker",
+   "question": "Does Peni leave the Spider-Society at the end of Across the Spider-Verse? Peter B. Parker's record (A:sv-peter-b-parker, same chunk) already has Spider-Society then Independent with left = Across the Spider-Verse for the same event, while Peni (and Pavitr, Margo, Mayday) still end in the Spider-Society.",
+   "options": [
+    "Keep Peni as Spider-Society (Across the Spider-Verse), no departure",
+    "Match Peter B.: [[\"Spider-Society\",\"Spider-Man: Across the Spider-Verse\"],[\"Independent\",\"Spider-Man: Across the Spider-Verse\"]] with left = [\"Spider-Man: Across the Spider-Verse\"]",
+    "Remove Peter B.'s departure instead, so both stay in the Spider-Society"
+   ],
+   "evidence": "At the end of Across the Spider-Verse Gwen assembles a splinter group (Peter B. with Mayday, Peni, Pavitr, Hobie, Margo, Ham, Noir) to rescue Miles against Miguel's wishes. Marvel Database: Peter B.'s page says Gwen 'assembled a splinter group of spider heroes to work against the Spider Society'; Peni's says she 'joined Gwen's new Spider-Band'. Both pages list Spider Society as former. The film ends before any formal break, so it is a matter of definition (an earlier, still-open call on Margo and the Spider-Gang covers the same question).",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Peni_Parker_(Earth-14512B)&prop=wikitext&format=json"
+  },
+  {
+   "key": "A:fox-beast",
+   "question": "At the end of X-Men: The Last Stand the President appoints Hank McCoy U.S. ambassador to the United Nations. Is that a move into a new group after The X-Men?",
+   "options": [
+    "Keep as is (last stage The X-Men)",
+    "Add [\"The United Nations\",\"X-Men: The Last Stand\"] as the last Last Stand stage (the name the dataset already uses for Valerie Cooper)"
+   ],
+   "evidence": "Last Stand: Beast resigns as Secretary of Mutant Affairs over the cure, fights at Alcatraz with the X-Men, and in the closing scene 'The President of the United States appoints McCoy as ambassador to the United Nations.' In Days of Future Past's new 2023 he is back at the school. Same question as an earlier open call.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_The_Last_Stand&action=raw"
+  },
+  {
+   "key": "A:sv-anne-weying",
+   "question": "Anne is an attorney at an unnamed law firm that represents the Life Foundation, and she is fired in Venom after Eddie uses her confidential email. Employers count under the owner's rules, but the firm is never named on screen. Add a stage or keep Independent?",
+   "options": [
+    "Keep Independent",
+    "Add the firm under a descriptive name chosen by the owner (no on-screen name exists)"
+   ],
+   "evidence": "Wikipedia: Anne Weying is 'An attorney and Eddie's ex-fiancée'; she loses her job when Eddie confronts Drake (the record's own step says 'Anne loses her job'). No firm name in Wikipedia or the wikis. Same question as an earlier open call.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Venom_(2018_film)&action=raw"
+  },
+  {
+   "key": "A:pr-st-jen",
+   "question": "Jen is one of three partners in Reno's marijuana-growing business on Oahu, a crew that breaks apart in Inhumans when Reno kills Ted and tries to murder Jen and Karnak. Crews count, but this one is never named. Add a stage or keep Independent?",
+   "options": [
+    "Keep [[\"Independent\",\"(from the start)\"]]",
+    "Add an owner-named crew stage at Inhumans, then Independent with left = Inhumans"
+   ],
+   "evidence": "MCU Wiki: 'Jen was recruited along with Ted by Reno to build a marijuana dealing business... they established a farming camp on Oahu'. In episode 5 ('Something Inhuman This Way Comes...') Reno shoots at Jen and Karnak and has killed Ted; Tua's traffickers then kill Reno. Same question as an earlier open call.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jen&prop=wikitext&format=json"
+  }
+ ]
+}

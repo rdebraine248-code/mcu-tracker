@@ -1,0 +1,133 @@
+{
+ "checked": [
+  "A:pr-st-robert-minoru",
+  "T:pr-st-pride",
+  "T:by-yon-rogg",
+  "A:john-walker",
+  "T:fox-bolivar-trask",
+  "T:red-skull",
+  "T:sv-milo",
+  "T:fox-psylocke",
+  "T:st-carl-creel",
+  "A:alexei-shostakov",
+  "A:st-danielle-cage",
+  "A:st-bonnie",
+  "A:st-rafael-hernandez",
+  "A:st-chula",
+  "A:pr-shen",
+  "T:pr-john-saint",
+  "A:rhomann-dey",
+  "T:yelena-belova",
+  "T:shocker-schultz",
+  "T:pr-jose-quesada",
+  "T:pr-st-darius-davis",
+  "A:pr-zoe",
+  "A:st-priscilla-ridley",
+  "A:by-bill-foster-1988",
+  "A:basha",
+  "A:sv-ned-lee-ssm",
+  "T:arthur-harrow",
+  "T:yon-rogg",
+  "A:fox-colossus-dp",
+  "A:by-starlord-tchalla",
+  "A:st-dw-griffith",
+  "T:tyler-hayward",
+  "A:billy-maximoff",
+  "T:ayesha",
+  "T:st-kara-palamas",
+  "A:fox-bolt",
+  "T:fox-anim-deathbird",
+  "T:st-hive",
+  "A:fox-anim-longshot",
+  "T:by-hood-1872",
+  "T:st-davos",
+  "A:st-jemma-simmons",
+  "T:fox-anim-candra",
+  "A:st-ben-urich",
+  "T:sv-synoptic-smu",
+  "A:by-natasha-ultron",
+  "T:sv-walter-hardy-ssm",
+  "A:hasan",
+  "T:by-thanos-ultron",
+  "T:sv-unicorn-yfnsm",
+  "T:sv-electro-ssm"
+ ],
+ "changes": [
+  {
+   "key": "A:pr-st-robert-minoru",
+   "q": "V1",
+   "now": "twin: T:pr-st-pride (PRIDE)",
+   "proposed": "no twin: unlink T:pr-st-pride from A:pr-st-robert-minoru (T:pr-st-pride stays as its own record for the group)",
+   "evidence": "T:pr-st-pride is the collective PRIDE, the group of six parent couples (Minorus, Wilders, Yorkes, Steins, Deans, Hayes) that sacrifice teens for Jonah in Runaways S1-S2. Robert Minoru is one member (his own record already lists The Pride as a group); the group is not the same person as Robert, so the twin link merges a person with an organization.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Robert_Minoru&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "A:alexei-shostakov",
+   "q": "G2",
+   "now": [
+    [
+     "Soviet Armed Forces",
+     "Black Widow"
+    ],
+    [
+     "The Red Room",
+     "Black Widow"
+    ],
+    [
+     "Independent",
+     "Black Widow"
+    ],
+    [
+     "The Thunderbolts",
+     "Thunderbolts*"
+    ],
+    [
+     "New Avengers",
+     "Thunderbolts*"
+    ]
+   ],
+   "proposed": [
+    [
+     "Soviet Armed Forces",
+     "Black Widow"
+    ],
+    [
+     "The Red Room",
+     "Black Widow"
+    ],
+    [
+     "Independent",
+     "Black Widow"
+    ],
+    [
+     "Red Guardian Limo Service",
+     "Thunderbolts*"
+    ],
+    [
+     "The Thunderbolts",
+     "Thunderbolts*"
+    ],
+    [
+     "New Avengers",
+     "Thunderbolts*"
+    ]
+   ],
+   "evidence": "In Thunderbolts*, Alexei runs and drives for his own company, Red Guardian Limo Service (named on his limo and in its commercial), before he suits up to help Yelena and joins the Thunderbolts. The owner's rule counts a person's employer/company as a group; joining the Thunderbolts is the move out of it.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Alexei_Shostakov&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:john-walker",
+   "question": "Valentina employs Walker (U.S. Agent) at the end of The Falcon and the Winter Soldier ep 6 and Yelena (T:yelena-belova) in the Black Widow post-credits scene and Hawkeye; the screen does not name her organization until Thunderbolts*, where it is O.X.E. Should the O.X.E. Group stage start at FATWS (Walker) / Black Widow post-credits (Yelena), dropping Walker's left 'The Falcon and the Winter Soldier' and Yelena's left 'Black Widow', or stay keyed to Thunderbolts* where O.X.E. is first named?",
+   "options": [
+    "Keep O.X.E. Group from Thunderbolts* (as now)",
+    "Start O.X.E. Group at the first title where Valentina employs them (FATWS for Walker, Black Widow (Post-Credits Scene) for Yelena) and remove the matching left titles"
+   ],
+   "evidence": "MCU wiki: 'Walker continued to work for de Fontaine as she became the director of the CIA and sent U.S. Agent on missions through her private organization O.X.E.' Yelena's infobox lists O.X.E. (formerly). Neither FATWS nor Hawkeye names O.X.E. on screen.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=John_Walker&prop=wikitext&format=json"
+  }
+ ]
+}
