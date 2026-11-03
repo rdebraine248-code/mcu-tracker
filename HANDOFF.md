@@ -808,6 +808,11 @@ insignia celebration covers the page.
   shared past (First Class), and their younger self is a bubble of its own in Earth-TRN414 from Days of Future Past on. Havok, one file
   across both, gets a second bubble (`fox-havok-trn`) that opens his one file. In the indexes, young and old were already separate files.
 - **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
+- **A message links only to what it names** (owner, November 2026: "they really need to be talking about the same thing"): a person,
+  group or place the message names outright, quoted in `mockup-data/msg_links.json`; `MSG_LINKS` in index.html. A link shows only once
+  you could reach it anyway (a lit Atlas place, a file in an index you've found), and opens on top of Comms, so back comes down to the
+  message. Now and then a message takes a reply (`MSG_REPLY`, two choices, kept in `state.cmReply`, changing nothing else). No reply on
+  the Sokovia Accords message: signing is the Accords egg's moment.
 - **News and messages are separate feeds** (owner, November 2026): tapping a ticker clears only its own feed; the other still gets its
   ticker.
 - **Card lines: pronouns only where the person is clear** (owner, November 2026: "He fought him and he won when he lost" is the problem,
