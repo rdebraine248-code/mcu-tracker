@@ -1,0 +1,152 @@
+{
+ "checked": [
+  "T:by-st-nathaniel-malick",
+  "T:by-st-sarge",
+  "T:by-st-sibyl",
+  "T:by-stane-killmonger",
+  "T:by-stane-rook",
+  "T:by-strange-supreme",
+  "T:by-thanos-ultron",
+  "T:by-the-apex",
+  "T:by-the-collector",
+  "T:by-the-eminence",
+  "T:by-topaz",
+  "T:by-yon-rogg",
+  "T:by-yondu-egg",
+  "T:by-zombie-abomination",
+  "T:by-zombie-avengers",
+  "T:by-zombie-captain-america",
+  "T:by-zombie-captain-marvel",
+  "T:by-zombie-ghost",
+  "T:by-zombie-john-walker",
+  "T:by-zombie-namor",
+  "T:by-zombie-thanos",
+  "T:by-zombie-thor",
+  "T:by-zombie-zemo",
+  "A:pr-abby-miller",
+  "A:pr-abigail-whistler",
+  "A:pr-abraham-whistler",
+  "A:pr-alicia-masters",
+  "A:pr-ben-urich",
+  "A:pr-blade",
+  "A:pr-bloodpack",
+  "A:pr-bumpo",
+  "A:pr-castle-family",
+  "A:pr-daredevil",
+  "A:pr-debbie-mcilvane",
+  "A:pr-dex",
+  "A:pr-elektra",
+  "A:pr-foggy-nelson",
+  "A:pr-frankie-raye",
+  "A:pr-hannibal-king",
+  "A:pr-hedges",
+  "A:pr-human-torch",
+  "A:pr-invisible-woman",
+  "A:pr-jack-murdock",
+  "A:pr-joan",
+  "A:pr-karen-jenson",
+  "A:pr-krista-starr",
+  "A:pr-mark-miller",
+  "A:pr-mccabe"
+ ],
+ "changes": [
+  {
+   "key": "T:by-st-sibyl",
+   "q": "E1",
+   "now": "Earth-19859",
+   "proposed": "Earth-199999",
+   "evidence": "Marvel Database files Sibyl, the Chronicom Predictor from the main timeline's future (first seen AoS S7E3, killed S7E13 when Daisy destroys her ship), under Reality Earth-199999. The Earth-19859 pages are reserved for natives of the branched timeline, such as Nathaniel Malick (Earth-19859).",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Sibyl_(Earth-199999)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "T:by-strange-supreme",
+   "q": "G1",
+   "now": [
+    [
+     "Masters of the Mystic Arts",
+     "What If...? S1"
+    ],
+    [
+     "Guardians of the Multiverse",
+     "What If...? S1"
+    ],
+    [
+     "Masters of the Mystic Arts",
+     "What If...? S1"
+    ]
+   ],
+   "proposed": [
+    [
+     "Masters of the Mystic Arts",
+     "What If...? S1"
+    ],
+    [
+     "Guardians of the Multiverse",
+     "What If...? S1"
+    ]
+   ],
+   "evidence": "Strange Supreme never rejoins the Masters of the Mystic Arts. His universe is destroyed in S1E4. He joins the Guardians of the Multiverse in S1E8-9 and then stays alone in his dead universe, guarding Killmonger and Zola. Marvel Database lists his affiliation as Guardians of the Multiverse (current) and Masters of the Mystic Arts (former). In S3E8 he aids the new Guardians.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Stephen_Strange_(Earth-91233)&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:pr-human-torch",
+   "q": "G2",
+   "now": [
+    [
+     "The Fantastic Four",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "The Fantastic Four",
+     "Fantastic Four (2005)"
+    ],
+    [
+     "The Resistance",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "evidence": "In Deadpool & Wolverine, Johnny is a member of the Void Resistance alongside Elektra, Blade, Gambit and Laura. He goes missing on a scouting run, and the Resistance learns from Wade and Logan that Cassandra Nova killed him. Marvel Database lists his affiliation as Resistance (Void), formerly the Fantastic Four.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Jonathan_Storm_(Earth-121698)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "A:pr-daredevil",
+   "q": "G2",
+   "now": [
+    [
+     "Nelson & Murdock",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Nelson & Murdock",
+     "Daredevil (2003)"
+    ],
+    [
+     "The Resistance",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "evidence": "Deadpool & Wolverine establishes, through dialogue only, that Matt was pruned to the Void, joined the Resistance against Cassandra Nova, and died defending Elektra. The record's own D&W step already names him among the Resistance dead. Marvel Database lists his affiliations as Nelson and Murdock and Resistance (Void).",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Matthew_Murdock_(Earth-701306)&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:by-the-eminence",
+   "question": "The Eminence's Earth: Marvel Database files him under Reality 'Multiverse' (an Order of the Watchers member from the Fifth Dimension), noting he is currently displaced to Earth-TRN1516 (Strange Supreme's living universe). The record has Earth-TRN1516. Should it stay that way, or use a Watcher/Multiverse designation?",
+   "options": [
+    "Keep Earth-TRN1516 (where he ends up)",
+    "Change to 'Multiverse' per Marvel Database"
+   ],
+   "evidence": "The Marvel Database infobox gives Reality = Multiverse, Reality2 = (currently displaced to Earth-TRN1516), and his former base is the Fifth Dimension.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Eminence_(Multiverse)&prop=wikitext&format=json"
+  }
+ ]
+}

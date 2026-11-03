@@ -1,0 +1,190 @@
+{
+ "checked": [
+  "A:sv-gayatri",
+  "A:sv-george-stacy-asm",
+  "A:sv-george-stacy-earth65",
+  "A:sv-george-stacy-raimi",
+  "A:sv-george-stacy-ssm",
+  "A:sv-git-hoskins",
+  "A:sv-goblin-smu",
+  "A:sv-gwen-stacy-asm",
+  "A:sv-gwen-stacy-earth65",
+  "A:sv-gwen-stacy-raimi",
+  "A:sv-gwen-stacy-ssm",
+  "A:sv-harry-osborn-raimi",
+  "A:sv-harry-osborn-ssm",
+  "A:sv-harry-osborn-yfnsm",
+  "A:sv-hobie-brown",
+  "A:sv-human-torch-1994",
+  "A:sv-inspector-singh",
+  "A:sv-invisible-woman-1994",
+  "A:sv-iron-man-1994",
+  "A:sv-iron-man-yfnsm",
+  "A:sv-j-jonah-jameson-1967",
+  "A:sv-j-jonah-jameson-1994",
+  "A:sv-j-jonah-jameson-raimi",
+  "A:sv-j-jonah-jameson-ssm",
+  "A:sv-janet-ruiz",
+  "A:sv-jeanne-foucault",
+  "A:sv-jefferson-davis",
+  "A:sv-jessica-drew",
+  "A:sv-john-jameson-raimi",
+  "A:sv-john-jameson-smu",
+  "A:sv-julia-cornwall",
+  "A:sv-karen-omalley",
+  "A:sv-kraven-1994",
+  "A:sv-liz-allan-ssm",
+  "A:sv-lonnie-lincoln-yfnsm",
+  "T:sv-lonnie-yfnsm",
+  "A:sv-lyla",
+  "A:sv-madame-web-1994",
+  "A:sv-margo-kess",
+  "A:sv-maria-venom",
+  "A:sv-mariah-crawford-1994",
+  "A:sv-martha-connors",
+  "A:sv-martin-moon",
+  "A:sv-martine-bancroft",
+  "A:sv-mary-jane-1610",
+  "A:sv-mary-jane-1967",
+  "A:sv-mary-jane-616b",
+  "A:sv-mary-jane-watson-1994",
+  "A:sv-mary-jane-watson-raimi"
+ ],
+ "changes": [
+  {
+   "key": "A:sv-george-stacy-earth65",
+   "q": "G1",
+   "now": [
+    [
+     "NYPD",
+     "Spider-Man: Across the Spider-Verse"
+    ],
+    [
+     "Independent",
+     "Spider-Man: Across the Spider-Verse"
+    ]
+   ],
+   "proposed": [
+    [
+     "NYPD",
+     "Spider-Man: Into the Spider-Verse"
+    ],
+    [
+     "Independent",
+     "Spider-Man: Across the Spider-Verse"
+    ]
+   ],
+   "evidence": "George is already an on-duty police officer in Into the Spider-Verse (Spider-Woman saves him from being shot on duty), so the NYPD stage starts there, not at Across the Spider-Verse. He quits the force in Across the Spider-Verse (kept).",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=George_Stacy_(Earth-65B)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "A:sv-hobie-brown",
+   "q": "G2",
+   "now": {
+    "groups": [
+     [
+      "Spider-Society",
+      "(from the start)"
+     ]
+    ],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Spider-Society",
+      "Spider-Man: Across the Spider-Verse"
+     ],
+     [
+      "Independent",
+      "Spider-Man: Across the Spider-Verse"
+     ]
+    ],
+    "left": [
+     "Spider-Man: Across the Spider-Verse"
+    ]
+   },
+   "evidence": "In Across the Spider-Verse, Hobie shows Miles how to break out of Miguel's force cage, then goes back to his Earth stating he is quitting the Spider Society; he later joins Gwen's band of Spiders. Same treatment as Gwen Stacy (Earth-65)'s record.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Hobart_Brown_(Earth-138B)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "A:sv-lonnie-lincoln-yfnsm",
+   "q": "G1",
+   "now": [
+    [
+     "The 110th Street Gang",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Independent",
+     "Your Friendly Neighborhood Spider-Man"
+    ],
+    [
+     "The 110th Street Gang",
+     "Your Friendly Neighborhood Spider-Man (episode 3)"
+    ]
+   ],
+   "evidence": "In episode 1 Lonnie is only Peter's friend and lab partner; in episode 3, when his brother Andre joins the 110th Street gang, Big Donovan forces Lonnie to join in Andre's place. So the gang stage starts at episode 3, not from the start.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Your_Friendly_Neighborhood_Spider-Man_season_1&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:sv-lonnie-yfnsm",
+   "q": "E1",
+   "now": null,
+   "proposed": "Earth-86445",
+   "evidence": "Universe is sv (Your Friendly Neighborhood Spider-Man), not the main MCU; Marvel Database files this Lonnie as Alonzo Lincoln (Earth-86445), matching his twin A:sv-lonnie-lincoln-yfnsm.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Alonzo_Lincoln_(Earth-86445)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "T:sv-lonnie-yfnsm",
+   "q": "G1",
+   "now": [
+    [
+     "The 110th Street Gang",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Independent",
+     "Your Friendly Neighborhood Spider-Man"
+    ],
+    [
+     "The 110th Street Gang",
+     "Your Friendly Neighborhood Spider-Man (episode 3)"
+    ]
+   ],
+   "evidence": "In episode 1 Lonnie is only Peter's friend and lab partner; in episode 3, when his brother Andre joins the 110th Street gang, Big Donovan forces Lonnie to join in Andre's place. So the gang stage starts at episode 3, not from the start.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Your_Friendly_Neighborhood_Spider-Man_season_1&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:sv-margo-kess",
+   "question": "Does Margo leave the Spider-Society in Across the Spider-Verse (record now: Spider-Society from the start, no departure)?",
+   "options": [
+    "Keep Spider-Society (from the start)",
+    "Spider-Society then Independent at Across the Spider-Verse, with left = Across the Spider-Verse (same as Gwen and Hobie)"
+   ],
+   "evidence": "She chooses not to shut down the Go Home Machine to stop Miles, then joins Gwen's rescue team. Marvel Database lists the Spider Society under 'Formerly', but its notes say the departure is not confirmed on screen and is only implied.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Margo_Kess_(Earth-22191)&prop=wikitext&format=json"
+  },
+  {
+   "key": "A:sv-gwen-stacy-earth65, A:sv-george-stacy-earth65, A:sv-hobie-brown, A:sv-gayatri, A:sv-inspector-singh, A:sv-jefferson-davis, A:sv-lyla, A:sv-mary-jane-1610, A:sv-julia-cornwall, A:sv-maria-venom, A:sv-martin-moon, A:sv-martine-bancroft",
+   "question": "Marvel Database files the film versions under 'B' designations (Earth-65B, Earth-138B, Earth-50101B, Earth-1610B, Earth-928B for the Spider-Verse films; Earth-688B for Sony's Venom/Morbius/Madame Web films). The app uses the on-screen numbers (Earth-65, Earth-1610...) and Earth-688. Which should the app use?",
+   "options": [
+    "Keep the on-screen numbers / Earth-688 as now",
+    "Switch to Marvel Database's B designations"
+   ],
+   "evidence": "For example, Gwendolyn Stacy (Earth-65B), Hobart Brown (Earth-138B), Gayatri Singh (Earth-50101B), Inspector Singh (Earth-50101B), Jefferson Morales (Earth-1610B), Mary Jane Watson (Earth-1610B), LYLA (Earth-928B), Julia Cornwall, Martin Moon and Martine Bancroft (Earth-688B). Margo Kess (Earth-22191), Jessica Drew (Earth-332) and Mary Jane Watson (Earth-616B) carry no extra suffix, so they match already. The films themselves name Earth-65, Earth-1610 and so on, so this is a question of which convention to follow.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Gwendolyn_Stacy_(Earth-65B)&prop=wikitext&format=json"
+  }
+ ]
+}

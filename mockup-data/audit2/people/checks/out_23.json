@@ -1,0 +1,104 @@
+{
+ "checked": [
+  "A:fox-anim-morph",
+  "A:fox-anim-mother-askani",
+  "A:fox-anim-nightcrawler",
+  "A:fox-anim-polaris",
+  "A:fox-anim-professor-x",
+  "A:fox-anim-psylocke",
+  "A:fox-anim-rogue",
+  "A:fox-anim-storm",
+  "A:fox-anim-sunspot",
+  "A:fox-anim-wolverine",
+  "A:fox-banshee",
+  "A:fox-beast",
+  "A:fox-beast-young",
+  "A:fox-bishop",
+  "A:fox-blind-al",
+  "A:fox-blink",
+  "A:fox-bolt",
+  "A:fox-buck",
+  "A:fox-cable",
+  "A:fox-caliban",
+  "A:fox-charles-xavier",
+  "A:fox-charles-xavier-young",
+  "A:fox-colossus",
+  "A:fox-colossus-dp",
+  "A:fox-cyclops",
+  "A:fox-cyclops-young",
+  "A:fox-dani-moonstar",
+  "A:fox-darwin",
+  "A:fox-deadpool",
+  "A:fox-domino",
+  "A:fox-dopinder",
+  "A:fox-emma",
+  "A:fox-firefist",
+  "A:fox-fred-dukes",
+  "A:fox-gabriela-lopez",
+  "A:fox-gambit",
+  "A:fox-gambit-void",
+  "A:fox-havok",
+  "A:fox-hudsons",
+  "A:fox-iceman",
+  "A:fox-illyana-rasputin",
+  "A:fox-jean-grey",
+  "T:fox-phoenix",
+  "A:fox-jean-grey-young",
+  "T:fox-jean-grey-phoenix",
+  "A:fox-john-grey",
+  "A:fox-john-wraith",
+  "A:fox-jubilee",
+  "A:fox-kayla-silverfox",
+  "A:fox-kitty-pryde"
+ ],
+ "changes": [
+  {
+   "key": "A:fox-gambit-void",
+   "q": "E1",
+   "now": null,
+   "proposed": "Earth-TRN1401",
+   "evidence": "The Void Gambit of Deadpool & Wolverine is a pruned variant from the unmade Gambit film's reality, not the main MCU; Marvel Database files him as Remy LeBeau (Earth-TRN1401).",
+   "source": "https://marvel.fandom.com/wiki/Remy_LeBeau_(Earth-TRN1401)",
+   "confidence": "high"
+  },
+  {
+   "key": "T:fox-phoenix",
+   "q": "E1",
+   "now": null,
+   "proposed": "Earth-10005",
+   "evidence": "Villain file for the X-Men: The Last Stand / Days of Future Past Jean Grey, the same person as A:fox-jean-grey (Earth-10005). Null wrongly puts her in Earth-199999; Last Stand and the new 2023 of DoFP are Earth-10005 by the owner's rule.",
+   "source": "https://marvel.fandom.com/wiki/Earth-10005",
+   "confidence": "high"
+  },
+  {
+   "key": "T:fox-jean-grey-phoenix",
+   "q": "E1",
+   "now": null,
+   "proposed": "Earth-TRN414",
+   "evidence": "Villain file for Dark Phoenix's Jean Grey, the same person as A:fox-jean-grey-young (Earth-TRN414). Dark Phoenix is Earth-TRN414 by the owner's rule; null wrongly means Earth-199999.",
+   "source": "https://marvel.fandom.com/wiki/Earth-TRN414",
+   "confidence": "high"
+  },
+  {
+   "key": "A:fox-havok",
+   "q": "E1",
+   "now": "Earth-10005",
+   "proposed": "Earth-TRN414",
+   "evidence": "Alex's record runs from X-Men: First Class through DoFP's 1973 and X-Men: Apocalypse, where he dies; his last stand is in Earth-TRN414 under the owner's rule. This matches the young Charles and young Hank records, which are filed Earth-TRN414 even though they start in First Class. (Marvel Database itself keeps Alexander Summers at Earth-10005, which is why this is medium.)",
+   "source": "https://marvel.fandom.com/wiki/Alexander_Summers_(Earth-10005)",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:fox-charles-xavier-young",
+   "question": "In Dark Phoenix, Charles steps down as dean, gives up the school (Hank renames it) and retires to Paris. Under the rules a retirement is a departure, but the next step is the Deadpool 2 cameo showing him with the X-Men at the mansion. Add a left at Dark Phoenix?",
+   "options": [
+    "Keep as is (X-Men to the end; the Deadpool 2 glimpse shows him still with them)",
+    "Add left: [\"Dark Phoenix\"] (retirement is a departure; the Deadpool 2 glimpse is only a gag cameo, not a rejoin)"
+   ],
+   "evidence": "Dark Phoenix: Charles resigns, and the school becomes the Xavier School under Hank. Deadpool 2: he is glimpsed in a room with the X-Men during Deadpool's visit.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Dark_Phoenix_(film)&action=raw"
+  }
+ ]
+}

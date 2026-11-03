@@ -1,0 +1,179 @@
+{
+ "checked": [
+  "T:mitchell-carson",
+  "T:mysterio",
+  "T:n-jobu",
+  "T:najma",
+  "T:namor",
+  "T:namora",
+  "T:nebula",
+  "T:obadiah-stane",
+  "T:pagon",
+  "T:paradox",
+  "T:phineas-mason",
+  "T:pietro-maximoff",
+  "T:porcupine",
+  "T:president-loki",
+  "T:proxima-midnight",
+  "T:raava",
+  "T:ramrod",
+  "T:ravonna-renslayer",
+  "T:raza",
+  "T:razor-fist",
+  "T:recorder-theel",
+  "T:red-skull",
+  "T:rio-vidal",
+  "T:ronan",
+  "T:sadie-deever",
+  "T:samuel-sterns",
+  "T:saracen",
+  "T:selby",
+  "T:senator-stern",
+  "T:shocker-schultz",
+  "T:sidewinder",
+  "T:sinister-strange",
+  "T:skurge",
+  "T:sonny-burch",
+  "T:sprite",
+  "T:st-aida",
+  "T:st-akela-amador",
+  "T:st-alexandra",
+  "T:st-alisa-jones",
+  "T:st-anatoly-ranskahov",
+  "T:st-anton-ivanov",
+  "T:st-bakuto",
+  "T:st-bill-fisk",
+  "T:st-billy-russo",
+  "T:st-buck-cashman",
+  "T:st-bullseye",
+  "T:st-bushmaster",
+  "T:st-calvin-chadwick"
+ ],
+ "changes": [
+  {
+   "key": "T:nebula",
+   "q": "G1",
+   "now": [
+    [
+     "The Children of Thanos",
+     "Guardians of the Galaxy"
+    ],
+    [
+     "Independent",
+     "Guardians of the Galaxy"
+    ],
+    [
+     "The Avengers",
+     "Avengers: Endgame"
+    ],
+    [
+     "Guardians of the Galaxy",
+     "Avengers: Endgame"
+    ],
+    [
+     "The Avengers",
+     "Avengers: Endgame"
+    ]
+   ],
+   "proposed": [
+    [
+     "The Children of Thanos",
+     "Guardians of the Galaxy"
+    ],
+    [
+     "Independent",
+     "Guardians of the Galaxy"
+    ],
+    [
+     "The Avengers",
+     "Avengers: Endgame"
+    ],
+    [
+     "Guardians of the Galaxy",
+     "Avengers: Endgame"
+    ]
+   ],
+   "evidence": "Nebula and Rocket officially join the Avengers after Thanos dies in Avengers: Endgame; after the Battle of Earth and Tony's funeral (end of Endgame) she leaves the Avengers and rejoins the Guardians on the Benatar, staying with them through Thor: Love and Thunder, the Holiday Special and Vol. 3. The last Endgame stage must be Guardians of the Galaxy, not The Avengers (the existing 'left: Guardians of the Galaxy Vol. 3' then correctly records her leaving the team to lead Knowhere).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nebula&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "T:nebula",
+   "q": "G3",
+   "now": [
+    "Guardians of the Galaxy",
+    "Guardians of the Galaxy Vol. 2",
+    "Guardians of the Galaxy Vol. 3"
+   ],
+   "proposed": [
+    "Guardians of the Galaxy",
+    "Guardians of the Galaxy Vol. 3"
+   ],
+   "evidence": "In Guardians of the Galaxy Vol. 2 Nebula is a prisoner of the Guardians and makes a one-off bounty deal with Taserface's mutineers; she belongs to no group there, and at Yondu's funeral she declines to join the Guardians and leaves to hunt Thanos. Nothing is left in Vol. 2, so the Vol. 2 'left' is not a real departure.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nebula&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:st-billy-russo",
+   "q": "G2",
+   "now": [],
+   "proposed": [
+    "The Punisher S1"
+   ],
+   "evidence": "The Punisher S1 episode 13 ('Memento Mori'): with Homeland Security closing in, Billy blows up Anvil Headquarters and walks away as Anvil, the company he built, is destroyed; he is then a fugitive in no group until his arrest at the carousel.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Billy_Russo&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "T:st-billy-russo",
+   "q": "G2",
+   "now": [
+    [
+     "U.S. Marine Corps",
+     "The Punisher S1"
+    ],
+    [
+     "Cerberus Squad",
+     "The Punisher S1"
+    ],
+    [
+     "Anvil",
+     "The Punisher S1"
+    ]
+   ],
+   "proposed": [
+    [
+     "U.S. Marine Corps",
+     "The Punisher S1"
+    ],
+    [
+     "Cerberus Squad",
+     "The Punisher S1"
+    ],
+    [
+     "Anvil",
+     "The Punisher S1"
+    ],
+    [
+     "Jigsaw's Crew",
+     "The Punisher S2"
+    ]
+   ],
+   "evidence": "The Punisher S2 (from episode 6 'Nakazat'): after escaping the hospital, Billy recruits Jake Nelson and other veterans into a criminal crew (Jigsaw's Crew on the MCU wiki, listed among his affiliations) that he leads in robberies until his death. No such group exists in the app yet, so this adds a new group name.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Billy_Russo&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:sadie-deever",
+   "question": "In Ms. Marvel episode 6, Cleary tells Deever she is 'relieved of duty' for disobeying his orders. Does that count as being fired (leaving Damage Control), or as a suspension that keeps her in the group?",
+   "options": [
+    "Keep Damage Control as is (relieved of duty is not a confirmed firing)",
+    "Add left: Ms. Marvel (relieved of duty = removed from Damage Control)"
+   ],
+   "evidence": "Ms. Marvel episode 6: after the failed attack on Kamran, Cleary calls Deever, blames her for disobeying direct orders and declares her relieved of duty; she orders her men to pull out. The MCU wiki still lists Damage Control as her current affiliation (not 'formerly').",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sadie_Deever&prop=wikitext&format=json"
+  }
+ ]
+}
