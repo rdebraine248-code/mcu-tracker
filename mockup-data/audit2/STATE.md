@@ -151,3 +151,5 @@ people r28 2. vsc03: 18 conf 2 amend (n57 Sheila split to Brand New Day; n58/59 
 people r32 4. vsc01: 14 conf 6 amend (splits kept). NOTE n19 B-15: Renslayer custody fact belongs to S1#5, check a stage exists at apply.
 people r35 2, r39 2. vsc04: 12 conf 6 amend 2 rej. Waiting vsc02.
 people r37 1, r40 2, r41 0, r43 0. nr02 10 ch. NET SAMPLE FIXES APPLIED: rel/stage_fix_zsample.json (66 pairs, 23 stages added; n40 dup dropped; 2 rejected in aud/net/zsample_rejected.json); verified 90/90 in rel.json. NOTE nr_* indices predate zsample: apply nr changes by matching now.text, not i.
+people r34 0, r36 7, r44 1, r45 1, r46 0, r47 2, r51 0. fr01 1. ALL r launched; waiting r42,48,49,50. Running nr01,03-10, fr02-04, rv01-03.
+people r42 2, r48 1. fr02 2. PEOPLE WAVE1 VERIFIED: rv01 14c/3a, rv02 15c/2r, rv03 14c/2a/1r. APPLIED apply6.json (from apply4 + wave1; Black Order->Children of Thanos) into index.html TEAM_AUDIT2 + TEAM_LEFT. GVERIFY backstory rule fixed to HANDOFF 26. Yorkes: S3 Gibborim stage is Dale only (merged record; note). Coulson S7 LMD rejected.

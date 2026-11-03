@@ -1,0 +1,97 @@
+{
+ "checked": [
+  "T:sv-lord-tyger-smu",
+  "T:sv-sir-ram-smu",
+  "T:sv-venom-smu",
+  "T:sv-carnage-smu",
+  "T:sv-vulture-ssm",
+  "T:sv-electro-ssm",
+  "T:sv-shocker-ssm",
+  "T:sv-sandman-ssm",
+  "T:sv-rhino-ssm",
+  "T:sv-big-man-ssm",
+  "T:sv-mysterio-ssm",
+  "T:sv-doc-ock-ssm",
+  "T:sv-green-goblin-ssm",
+  "T:sv-venom-ssm",
+  "T:sv-chameleon-ssm",
+  "T:sv-kraven-ssm",
+  "T:sv-molten-man-ssm",
+  "T:sv-tinkerer-ssm",
+  "T:sv-hammerhead-ssm",
+  "T:sv-silvermane-ssm",
+  "T:sv-silvermane-noir",
+  "T:sv-sandman-noir",
+  "T:sv-tombstone-noir",
+  "T:sv-megawatt-noir",
+  "T:sv-otto-yfnsm",
+  "T:sv-scorpion-yfnsm",
+  "T:sv-big-donovan-yfnsm",
+  "T:sv-unicorn-yfnsm",
+  "T:sv-chameleon-yfnsm",
+  "T:sv-mikhail-yfnsm"
+ ],
+ "changes": [
+  {
+   "key": "T:sv-tombstone-noir",
+   "q": "G1",
+   "now": [
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ],
+    [
+     "Independent",
+     "Spider-Noir"
+    ]
+   ],
+   "proposed": [
+    [
+     "U.S. Army",
+     "Spider-Noir"
+    ],
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ],
+    [
+     "Independent",
+     "Spider-Noir"
+    ]
+   ],
+   "evidence": "Past group left out: Lonnie Lincoln is a former World War I American soldier (Meuse-Argonne, captured as a POW), as the show tells in Spider-Noir episodes 3 and 5 (Janet learns Addison, Lincoln and Marko were former POWs; their shared war past is laid out in episode 5). Same 'U.S. Army' group the dataset already gives Marko and Leyden. Keep the existing 'left' (he leaves town after the cure in episode 7).",
+   "source": "https://marvel.fandom.com/wiki/Alonzo_Lincoln_(Earth-62533) ; https://en.wikipedia.org/wiki/Spider-Noir",
+   "confidence": "high"
+  },
+  {
+   "key": "T:sv-hammerhead-ssm",
+   "q": "G1",
+   "now": [],
+   "proposed": [
+    [
+     "Silvermane's Mob",
+     "The Spectacular Spider-Man"
+    ],
+    [
+     "(Tombstone/the Big Man's organization: name per owner call)",
+     "The Spectacular Spider-Man"
+    ]
+   ],
+   "evidence": "Past group left out: in season 2 episode 10 (episode 23, 'Gangland') it is told that Hammerhead was Silvermane's enforcer twelve years earlier, dating Silver Sable, before Silvermane fired him; he then served Tombstone (the Big Man) as his top enforcer all series. In episode 23 he turns on Tombstone at the Valentine's Day summit, Tombstone fires him and he goes into hiding, so add 'left': 'The Spectacular Spider-Man'. The record has no groups at all; the Tombstone stage needs a name (see owner call).",
+   "source": "https://marvel.fandom.com/wiki/Hammerhead_(Joseph)_(Earth-26496) ; https://spiderman.fandom.com/wiki/Hammerhead_(Joseph)_(Earth-26496)",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:sv-hammerhead-ssm",
+   "question": "Tombstone's criminal organization in The Spectacular Spider-Man has no group name in the dataset (screen calls him 'the Big Man'; dataset text says 'the Big Man's Enforcers'). Should it get a group, and under what name? It would cover Hammerhead (his enforcer until he turns on Tombstone in episode 23), T:sv-big-man-ssm (its boss, groups now empty), and past service by Sandman and Rhino (petty crooks for the Big Man in episodes 1 and 5-6, before the Sinister Six) and the Tinkerer.",
+   "options": [
+    "Add a group named for the Big Man's organization (owner picks the name) to these records",
+    "Leave unnamed: no group (records stay as they are, except Hammerhead's Silvermane's Mob past)"
+   ],
+   "evidence": "Hammerhead works for L. Thompson Lincoln, the Big Man, hiring the Enforcers and Shocker for him (season 1); Marko and O'Hirn started as crooks working for the Big Man (season 1 episodes 1, 5, 6). No on-screen name for the organization is given.",
+   "source": "https://marvel.fandom.com/wiki/Lonnie_Lincoln_(Earth-26496) ; https://marvel.fandom.com/wiki/Flint_Marko_(Earth-26496)"
+  }
+ ]
+}

@@ -1,0 +1,117 @@
+{
+ "checked": [
+  "T:sinister-strange",
+  "T:kro",
+  "T:ikaris",
+  "T:sprite",
+  "T:arishem",
+  "T:wenwu",
+  "T:razor-fist",
+  "T:death-dealer",
+  "T:dweller-in-darkness",
+  "T:arthur-harrow",
+  "T:ammit",
+  "T:anton-mogart",
+  "T:verussa-bloodstone",
+  "T:gorr",
+  "T:zeus",
+  "T:high-evolutionary",
+  "T:adam-warlock",
+  "T:karja",
+  "T:najma",
+  "T:sadie-deever",
+  "T:todd-phelps",
+  "T:titania",
+  "T:leap-frog",
+  "T:the-lion",
+  "T:namor",
+  "T:attuma",
+  "T:namora",
+  "T:the-hood",
+  "T:mephisto",
+  "T:gravik"
+ ],
+ "changes": [
+  {
+   "key": "T:the-hood",
+   "q": "G2",
+   "now": [
+    [
+     "The Hood's Crew",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "The Hood's Crew",
+     "Ironheart"
+    ],
+    [
+     "Independent",
+     "Ironheart"
+    ]
+   ],
+   "evidence": "Ironheart episode 5: the gang turns on Parker for having Stuart Clarke killed and he fires them all, ending the crew; in episode 6 he fights Riri alone with only a mind-controlled Zeke. Add a left title \"Ironheart\".",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ironheart_(miniseries)&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "T:gravik",
+   "q": "G1",
+   "now": [
+    [
+     "The Skrull Rebels",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Skrulls",
+     "Secret Invasion"
+    ],
+    [
+     "The Skrull Rebels",
+     "Secret Invasion"
+    ]
+   ],
+   "evidence": "Secret Invasion episode 2 flashback (1997): young Gravik is among Talos's Skrull refugees who agree to Fury's deal to serve as his spy network; episode 6 tells his first mission for Fury. After Fury leaves Earth he breaks away and forms his own rebels at New Skrullos. 'Skrulls' is the group name the dataset uses for Talos's refugees.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gravik&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:sadie-deever",
+   "q": "G2",
+   "now": [
+    [
+     "Damage Control",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Damage Control",
+     "Spider-Man: No Way Home"
+    ],
+    [
+     "Independent",
+     "Ms. Marvel"
+    ]
+   ],
+   "evidence": "Ms. Marvel episode 6 ('No Normal'): after Deever defies his stand-down order and storms Coles Academic, P. Cleary tells her she is relieved of duty and she pulls her men out. Add a left title \"Ms. Marvel\".",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sadie_Deever&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:the-lion",
+   "question": "Eyes of Wakanda episode 1 says Nkati was a former Wakandan Royal Guard captain as well as a War Dog (Hatut Zaraze). Should a past Royal Guard stage be added before Hatut Zaraze? The order of the two services, and whether 'Royal Guard' is the name said on screen, are unclear.",
+   "options": [
+    "Keep as is (Hatut Zaraze, then Independent)",
+    "Add Wakandan Royal Guard before Hatut Zaraze, both keyed to Eyes of Wakanda"
+   ],
+   "evidence": "Akeya briefs Noni that Nkati was a former Royal Guard captain who fled with stolen vibranium; the Lion then reveals he was a War Dog sent out into the world.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Into_the_Lion%27s_Den&prop=wikitext&format=json"
+  }
+ ]
+}

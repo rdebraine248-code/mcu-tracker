@@ -1,0 +1,99 @@
+{
+ "checked": [
+  "A:pr-foggy-nelson",
+  "A:pr-ben-urich",
+  "A:pr-jack-murdock",
+  "A:pr-nikolas-natchios",
+  "A:pr-stick",
+  "A:pr-abby-miller",
+  "A:pr-mark-miller",
+  "A:pr-mccabe",
+  "A:pr-punisher",
+  "A:pr-castle-family",
+  "A:pr-joan",
+  "A:pr-spacker-dave",
+  "A:pr-bumpo",
+  "A:pr-st-black-bolt",
+  "A:pr-st-medusa",
+  "A:pr-st-karnak",
+  "A:pr-st-gorgon",
+  "A:pr-st-crystal",
+  "A:pr-st-lockjaw",
+  "A:pr-st-triton",
+  "A:pr-st-louise-simmons",
+  "A:pr-st-dave",
+  "A:pr-st-jen",
+  "A:pr-st-sammy",
+  "A:pr-st-auran",
+  "A:pr-st-tibor",
+  "A:pr-st-eldrac",
+  "A:pr-st-alex-wilder",
+  "A:pr-st-nico-minoru",
+  "A:pr-st-karolina-dean"
+ ],
+ "changes": [
+  {
+   "key": "A:pr-punisher",
+   "q": "G1",
+   "now": [
+    [
+     "FBI",
+     "The Punisher (2004)"
+    ],
+    [
+     "Independent",
+     "The Punisher (2004)"
+    ]
+   ],
+   "proposed": [
+    [
+     "FBI",
+     "The Punisher (2004)"
+    ],
+    [
+     "Independent",
+     "The Punisher (2004)"
+    ],
+    [
+     "The Resistance",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "evidence": "In Deadpool & Wolverine the Void resisters tell Wade and Logan 'Every time one of us has gone up against her [Cassandra Nova], they die. The Punisher, the Quicksilver, the Daredevil.' Later Blade's launcher is 'Punisher's AT4'. The record's own D&W step already names him among the Resistance dead; same reasoning as the accepted change for A:pr-daredevil (Matt, Earth-701306). Keep the 'left' title The Punisher (2004) (he retires from the FBI there: retirement party, 'This was the last one'). Death in the Void is not a departure.",
+   "source": "https://www.springfieldspringfield.co.uk/movie_script.php?movie=deadpool-wolverine",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:pr-punisher",
+   "question": "Add a past military group for Frank before The Punisher (2004)? The film tells his past service but never names a unit on screen (Marvel Database's 'Delta Force' comes from the Punisher: Countdown tie-in comic).",
+   "options": [
+    "Add a past group stage (e.g. 'U.S. Army' or 'Delta Force') from the start, ending when he joins the FBI",
+    "Leave as is: no unit is named on screen"
+   ],
+   "evidence": "At his retirement party a colleague toasts 'the finest soldier, the finest undercover op'; a TV report says 'He speaks six languages, he did two tours and 12 special ops CTU... Counter Terrorism Unit.' No branch or unit is named on screen.",
+   "source": "https://www.springfieldspringfield.co.uk/movie_script.php?movie=punisher-the-2004"
+  },
+  {
+   "key": "A:pr-st-alex-wilder",
+   "question": "Record Alex's possessed service with Jonah's family (the Magistrate's son inside him) from the Runaways S1–S2 finale until it is driven out in Runaways S3? The screen calls them only 'Jonah's family'; the dataset has no group name for them.",
+   "options": [
+    "Add a possessed stage (name to be chosen, e.g. \"Jonah's family\") at Runaways S1–S2, then The Runaways again at Runaways S3",
+    "Leave as is: possession by a single entity is not service in a group"
+   ],
+   "evidence": "The Magistrate's Son possessed Alex since the battle at the PRIDE construction site (S2 finale). In S3 episode 1 Xavin says Jonah and his family possess Victor, Stacey, Tina and an unknown fourth; in S3 episode 4 Alex kidnaps Leslie's newborn Elle for Jonah's family before the Runaways retrieve her; he is freed of it and left in the Dark Dimension, then rescued.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Alex_Wilder&prop=wikitext&format=json"
+  },
+  {
+   "key": "A:pr-st-tibor",
+   "question": "Tibor joins the conspiracy against Maximus in Inhumans (episodes 6–7). The screen calls them only 'the opposition'/rebels; no group name exists in the dataset. Record a move?",
+   "options": [
+    "Add a stage for the rebel conspiracy at Inhumans (name to be chosen)",
+    "Leave as is: he stays on the Genetic Council and only plots"
+   ],
+   "evidence": "Tibor encounters the opposition, who ask him to help overthrow Maximus; Maximus unearths the assassination plot of Tibor and his rebels and kills him. MCU wiki: 'Tibor joined a conspiracy against Maximus, which led to his execution.'",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tibor&prop=wikitext&format=json"
+  }
+ ]
+}

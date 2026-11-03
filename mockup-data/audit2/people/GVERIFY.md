@@ -10,8 +10,9 @@ stand. ["Independent", title] = they leave for no group. "(from the start)" = a 
 "In episode N," in a step = episode N of that step's title (a season title like "Daredevil S2" counts within the season).
 
 ## The owner's rules
-- A stage is membership the person HAS during or after a title they're on file for. A group they left before their first title is
-  backstory, not a stage (kind B). A membership shown only in flashback, that ended before their first title, is backstory too.
+- A stage is membership the person HAS, including a PAST group the screen shows or tells (a flashback, a line about who they
+  used to serve): those count as stages, keyed to the person's first title (owner's rule, HANDOFF mistake 26). A group named
+  only in wikis or tie-ins is not shown, so it doesn't count.
 - A move (kind M): they quit, retire, are fired or voted out, a firm or team closes or disbands, they defect, rejoin, or join a group.
 - NOT moves: being captured, held or imprisoned; acting alone; dying. (Brainwashed or forced SERVICE in a group does count as membership.) An unsure case keeps what's there.
 - Stage titles must be titles the person's record already uses (or the record's form of a season title). Don't invent group names

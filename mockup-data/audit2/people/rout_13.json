@@ -1,0 +1,117 @@
+{
+ "checked": [
+  "A:korg",
+  "A:miek",
+  "A:eitri",
+  "A:skurge",
+  "A:clint-barton",
+  "A:laura-barton",
+  "A:lila-barton",
+  "A:cooper-barton",
+  "A:nathaniel-barton",
+  "A:maria-hill",
+  "A:felix-blake",
+  "A:natasha-romanoff",
+  "A:wanda-maximoff",
+  "A:pietro-maximoff",
+  "A:vision",
+  "T:white-vision",
+  "A:helen-cho",
+  "A:peter-quill",
+  "A:gamora",
+  "A:drax",
+  "A:rocket",
+  "A:groot",
+  "A:yondu",
+  "A:nebula",
+  "A:kraglin",
+  "A:cosmo",
+  "A:howard-the-duck",
+  "A:meredith-quill",
+  "A:jason-quill",
+  "A:rhomann-dey",
+  "A:irani-rael"
+ ],
+ "changes": [
+  {
+   "key": "A:nebula",
+   "q": "G3",
+   "now": {
+    "groups": [
+     [
+      "The Children of Thanos",
+      "Guardians of the Galaxy"
+     ],
+     [
+      "Independent",
+      "Guardians of the Galaxy"
+     ],
+     [
+      "Independent",
+      "Guardians of the Galaxy Vol. 2"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Endgame"
+     ],
+     [
+      "Guardians of the Galaxy",
+      "Avengers: Endgame"
+     ],
+     [
+      "Independent",
+      "Guardians of the Galaxy Vol. 3"
+     ]
+    ],
+    "left": [
+     "Guardians of the Galaxy",
+     "Guardians of the Galaxy Vol. 2",
+     "Guardians of the Galaxy Vol. 3"
+    ]
+   },
+   "proposed": {
+    "groups": [
+     [
+      "The Children of Thanos",
+      "Guardians of the Galaxy"
+     ],
+     [
+      "Independent",
+      "Guardians of the Galaxy"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Endgame"
+     ],
+     [
+      "Guardians of the Galaxy",
+      "Avengers: Endgame"
+     ],
+     [
+      "Independent",
+      "Guardians of the Galaxy Vol. 3"
+     ]
+    ],
+    "left": [
+     "Guardians of the Galaxy",
+     "Guardians of the Galaxy Vol. 3"
+    ]
+   },
+   "evidence": "Guardians of the Galaxy Vol. 2: Nebula is already in no group (she left Thanos/Ronan in Guardians of the Galaxy); she is the Guardians' prisoner, helps them against Ego, and at Yondu's funeral declines Gamora's offer to stay with the Guardians and leaves to hunt Thanos. She leaves no group in Vol. 2, so the 'left' at Vol. 2 should go, with the redundant second Independent stage. Her twin T:nebula already has the groups without the Vol. 2 stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nebula&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:wanda-maximoff",
+   "question": "In Avengers: Age of Ultron, Wanda (and Pietro, A:pietro-maximoff) willingly serve Ultron, then turn on him and join the Avengers. The dataset has no group for Ultron's side (T:ultron has no groups) and the film never names one. Should Ultron's side be filed as a group stage for the twins?",
+   "options": [
+    "Keep as is (Ultron's alliance is not a group)",
+    "Add a stage for Ultron's side between HYDRA and The Avengers in Avengers: Age of Ultron, under a name the owner picks, for both twins"
+   ],
+   "evidence": "Both records' Age of Ultron steps begin 'Leaving Ultron'; the twins join Ultron after HYDRA falls and defect when they learn he means to wipe out humanity.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Wanda_Maximoff&prop=wikitext&format=json"
+  }
+ ]
+}
