@@ -639,14 +639,21 @@ function applyCut(v, quiet) {
     const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => ZFIRST(b[0]) - ZFIRST(a[0]) || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
       const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
-    // districts as circles that never overlap: the biggest in the middle, the rest round it, each as close in as it fits
+    // districts as a honeycomb (owner, November 2026: "too much empty space", "not sensibly placed", "the little Earth by itself looks
+    // ridiculous", like the Apple Watch's app grid): the biggest in the middle, everyone pulled toward it and pushed apart to one even gap,
+    // so small Earths settle into the hollows between big ones instead of standing alone; a little taller than wide for a phone
     // each with room round its edge for its name, and big enough to hold the name even with one person in it
-    D.forEach(d => { d.R = Math.max(S * 2.4, Math.max(S, ...d.pts.map(([x, y, r]) => Math.hypot(x, y) + r)) + S * 1.8); });
-    const done = []; D.forEach((d, di) => { if (!di) { d.x = d.y = 0; done.push(d); return; }
-      const gap = S * .5; let best = null;
-      for (let R = done[0].R + d.R + gap; !best; R += S * .5) for (let a = 0; a < 6.2832 && !best; a += .26) { const x = R * Math.cos(a + di * 1.1), y = R * Math.sin(a + di * 1.1) * .9;
-        if (done.every(o => Math.hypot(o.x - x, o.y - y) >= o.R + d.R + gap)) best = [x, y]; }
+    D.forEach(d => { d.R = Math.max(S * 2.2, Math.max(S, ...d.pts.map(([x, y, r]) => Math.hypot(x, y) + r)) + S * 1.4); });
+    const G = S * 1.1, done = [];
+    D.forEach((d, di) => { if (!di) { d.x = d.y = 0; done.push(d); return; }   // a first fit, snug against those down, nearest the middle
+      let best = null, bd = 1e18; done.forEach(o => { const R = o.R + d.R + G; for (let a = 0; a < 6.2832; a += .13) { const x = o.x + R * Math.cos(a), y = o.y + R * Math.sin(a), f = Math.hypot(x * 1.2, y);
+        if (f < bd && done.every(q => Math.hypot(q.x - x, q.y - y) >= q.R + d.R + G - .01)) { bd = f; best = [x, y]; } } });
       d.x = best[0]; d.y = best[1]; done.push(d); });
+    const sep = k => { for (let it = 0; it < k; it++) { let moved = false; for (let a = 0; a < D.length; a++) for (let b = a + 1; b < D.length; b++) { const p = D[a], q = D[b];
+      let dx = q.x - p.x, dy = q.y - p.y, dd = Math.hypot(dx, dy) || .01; const need = p.R + q.R + G - dd; if (need <= 0) continue; moved = true; dx /= dd; dy /= dd;
+      const wp = a ? q.R * q.R / (p.R * p.R + q.R * q.R) : 0, wq = 1 - wp; p.x -= dx * need * wp; p.y -= dy * need * wp; q.x += dx * need * wq; q.y += dy * need * wq; } if (!moved) return; } };
+    for (let it = 0; it < 240; it++) { D.forEach((d, di) => { if (!di) return; d.x *= .96; d.y *= .975; }); sep(6); }   // settle: pulled in, then pushed back to the gap
+    sep(400);
     Z = []; D.forEach(d => d.ZZ.forEach(z => { z.x += d.x; z.y += d.y; Z.push(z); }));
     DIST = D.length > 1 ? D.map(d => ({ name: d.w.split('|')[1] || '', L: d.ZZ.flatMap(z => z.L), Rw: d.R - S * .3, x: d.x, y: d.y })) : []; }
   Z.forEach(z => { z.cx = z.x; z.cy = z.y; z.villains = z.L.filter(p => p.k === 'T').length;
