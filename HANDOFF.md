@@ -1017,8 +1017,12 @@ These happened in earlier chats. Each cost the owner time.
 ## Open items
 
 - **The audit plan** (owner, November 2026): step by step, in HANDOFF's words above. 1) Build the content check and run it in full,
-  fix what it finds. 2) The audit in six parts, in order: people (groups, Earths, versions), Network connections, files (records,
-  statuses, hand-overs, At and Case), Atlas, character logs, Damage Control and Comms. Each part: fixed yes/no questions, a change needs
+  fix what it finds. 2) The audit in nine parts, in order: people (groups, Earths, versions), Network connections, files (records,
+  statuses, hand-overs, At and Case), Atlas, character logs, Damage Control and Comms (messages and headlines), the story lists and the
+  boxes' own text (titles, order, years, running times, episode lists and tags, quotes, unlock lines, rename notes), the Agent File (64
+  eggs, 6 stones, 136 achievements, insignia names and hints), the Incursions wall and the Multiverse (lost Earths, TVA notices, the
+  Watcher's realities). Paths and the Log have no text of their own: they're covered through the files and logs. Parts 7 to 9 were
+  added because nothing had been checked under the locked rules; the October lore audit and the eggs audit were single unlocked passes. Each part: fixed yes/no questions, a change needs
   a source, a second checker confirms it, every checked entry is locked, patterns fixed as a whole. 3) After each part, a random 600
   of the passed entries are rechecked from scratch; the owner's bar is 0%, at worst 0.5 to 1% ("if I can't get 0% wrong then .5-1%"):
   0 wrong in 600 passes, 1 to 3 are fixed with their pattern and a fresh 600 drawn, more goes back through the part. 4) The full content
