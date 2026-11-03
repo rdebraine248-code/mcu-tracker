@@ -821,9 +821,14 @@ insignia celebration covers the page.
   where the person has them (`seenLine(S, o)`). No Character log or Path buttons on the record's header line. Where the record hands over to
   the other index, that entry is the link, in the other index's colour (red to the Raft, blue to the Compound), and the "Also on file" box
   goes; a twin with no hand-over keeps the box.
-- **Next for the file (waits on the audit):** under each record entry, "At" (the places) and "Case" (Damage Control, number and name on one
-  line each), tagged by what the entry describes happening, whether or not the place is named (owner: "sides with Steve" is the airport).
-  Each file shows its own side: Wanda's Raft file has Johannesburg, her Compound file doesn't.
+- **At and Case under each record entry** (owner, November 2026): the places (At) and the Damage Control reports (Case, number and name on
+  one line each) where what the entry describes happens, whether or not the sentence names the place ("sides with Steve" is the airport;
+  Infinity War's Mind Stone entry is Wakanda only). Each file shows its own side: Wanda's Raft file has Johannesburg, her Compound file
+  doesn't. A place shows once lit, a case once Damage Control is found; each opens on top of the file. Data: `mockup-data/at_case.json`
+  ("A|T:file id:step index" -> at: place keys "id|view|sub", cases: report ids), tagged by eight agents from each title's own Atlas
+  and Damage Control entries (`mockup-data/atcase/BRIEF.md`); a show's whole world is left off for people who live in it.
+  `at_case_missing.json` lists 333 places the stories use that the Atlas doesn't have (Genosha, Afterlife, Tony's lake house...).
+  **Step indexes:** the keys count a file's `st` steps, so adding or removing a step shifts the rest: re-tag that file. The audit checks it.
 - **Links in messages: cut** (owner, November 2026: "useless right now, I'll think of it later"). Tried twice: pills, then the names
   underlined in the text. The problem was that file links can't show before the Compound (Age of Ultron) or the Raft (Civil War) are found,
   so the early messages had none. Parked, not in the app: the matcher `mockup-data/msg/mech.js` and its output `msg_anchors.json` (every
