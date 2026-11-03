@@ -1,0 +1,84 @@
+{
+ "checked": [
+  "C:ramon-weapon",
+  "C:red-dust",
+  "C:red-guardian-suit",
+  "C:red-skull-bomber",
+  "C:redbook",
+  "C:redwing",
+  "C:rescue-armor",
+  "C:reset-charges",
+  "C:rings",
+  "C:robbie-charger",
+  "C:rocket-kill-switch",
+  "C:rolex",
+  "C:ronans-hammer",
+  "C:ronin-suit",
+  "C:ronin-sword",
+  "C:ross-pills",
+  "C:sam-cap-suit",
+  "C:sanctuary-ii",
+  "C:scales-of-justice",
+  "C:scarab",
+  "C:scepter",
+  "C:second-quantum-band",
+  "C:sentry-kill-switch",
+  "C:serum",
+  "C:she-hulk-blood",
+  "C:she-hulk-suit",
+  "C:shield",
+  "C:shield-prototype",
+  "C:shocker-gauntlet",
+  "C:sling-ring",
+  "C:sokovia-accords",
+  "C:soul",
+  "C:spec-abilisk",
+  "C:spec-aladnan",
+  "C:spec-asgardian",
+  "C:spec-celestial",
+  "C:spec-chitauri",
+  "C:spec-chronicom"
+ ],
+ "changes": [
+  {
+   "key": "C:redwing",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": 2,
+    "title": "The Falcon and the Winter Soldier",
+    "text": "In Munich, Redwing chases the Flag Smashers' trucks until Karli Morgenthau leaps up and breaks it in half.",
+    "status": "Destroyed",
+    "at": [],
+    "cases": []
+   },
+   "evidence": "In FATWS episode 2 (The Star-Spangled Man), Sam sends Redwing to scout Munich; during the truck chase Karli Morgenthau jumps into the air and breaks Redwing in half, and Bucky later says he is sorry about Redwing. Sam gets new Wakandan Redwing drones in episode 6. The file has no record of this destruction.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Redwing&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "C:soul",
+   "question": "Step 3 (Natasha's 2014 sacrifice on Vormir, Steve returning the stone) sits after step 2 (Thanos destroying the stones in 2023) and moves the status from Destroyed back to Secured. Other files (e.g. C:scepter step 2) place time-heist records at their in-story year. Should step 3 move before step 0, or stay as the last record?",
+   "options": [
+    "Move step 3 before step 0 (in-story year 2014, matches C:scepter)",
+    "Keep plot order (step 3 last), accept Destroyed then Secured"
+   ],
+   "evidence": "Endgame: Thanos destroys the stones in 2018 (five years before the heist); the heist retrieves the Soul Stone from an alternate 2014 Vormir and Steve returns it afterward. C:scepter puts its 2012 Endgame record between The Avengers and The Winter Soldier.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Avengers:_Endgame&action=raw"
+  },
+  {
+   "key": "C:redbook",
+   "question": "Step 2 ('T'Challa captures Zemo in Siberia.', status Lost) says nothing about the book itself, and no source shows what happens to it after Berlin. Keep as is, reword to say the book's fate is unknown, or drop the record?",
+   "options": [
+    "Keep as is",
+    "Reword: after Berlin the book is not seen again, and T'Challa captures Zemo in Siberia",
+    "Drop step 2"
+   ],
+   "evidence": "The Fandom item page covers Karpov's ownership, Zemo stealing it in Cleveland and reading it in Berlin; nothing after that in Civil War (later appearances are flashbacks or alternate universes).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Winter_Soldier_Book&prop=wikitext&format=json"
+  }
+ ]
+}

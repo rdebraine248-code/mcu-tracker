@@ -1,0 +1,179 @@
+{
+ "checked": [
+  "T:sv-doc-ock-ssm",
+  "T:sv-green-goblin-ssm",
+  "T:sv-venom-ssm",
+  "T:sv-chameleon-ssm",
+  "T:sv-kraven-ssm",
+  "T:sv-molten-man-ssm",
+  "T:sv-tinkerer-ssm",
+  "T:sv-hammerhead-ssm",
+  "T:sv-silvermane-ssm",
+  "T:sv-silvermane-noir",
+  "T:sv-sandman-noir",
+  "T:sv-tombstone-noir",
+  "T:sv-megawatt-noir",
+  "T:sv-otto-yfnsm",
+  "T:sv-scorpion-yfnsm",
+  "T:sv-big-donovan-yfnsm",
+  "T:sv-unicorn-yfnsm",
+  "T:sv-chameleon-yfnsm",
+  "T:sv-mikhail-yfnsm",
+  "T:sv-speed-demon-yfnsm",
+  "T:sv-tarantula-yfnsm",
+  "T:sv-rhino-1967",
+  "T:sv-noah-boddy-1967",
+  "T:sv-electro-smu",
+  "T:fox-magneto"
+ ],
+ "changes": [
+  {
+   "key": "T:sv-doc-ock-ssm",
+   "kind": "B",
+   "now": [
+    [
+     "Tri-Corp",
+     "The Spectacular Spider-Man"
+    ],
+    [
+     "Oscorp",
+     "The Spectacular Spider-Man"
+    ],
+    [
+     "The Sinister Six",
+     "The Spectacular Spider-Man"
+    ]
+   ],
+   "proposed": [
+    [
+     "Oscorp",
+     "The Spectacular Spider-Man"
+    ],
+    [
+     "The Sinister Six",
+     "The Spectacular Spider-Man"
+    ]
+   ],
+   "evidence": "Otto worked at Tri-Corp only before the series (he had left, and Tri-Corp kept his Megalopack 'when he left'); from his first appearance he is Norman Osborn's Oscorp scientist. He later breaks into Tri-Corp only to steal the Megalopack. Tri-Corp is backstory.",
+   "source": "https://marvel.fandom.com/wiki/Otto_Octavius_(Earth-26496)",
+   "confidence": "high"
+  },
+  {
+   "key": "T:sv-green-goblin-ssm",
+   "kind": "M",
+   "now": [
+    [
+     "Oscorp",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Oscorp",
+     "The Spectacular Spider-Man"
+    ],
+    [
+     "Independent",
+     "The Spectacular Spider-Man"
+    ]
+   ],
+   "evidence": "In the series finale (season 2 episode 13, 'Final Curtain'), Norman is unmasked as the Goblin, fakes his death in the pumpkin-bomb explosion, and flees to the Cayman Islands as 'Mr. Roman'. The wiki lists Oscorp as a former affiliation and his occupation as fugitive. He abandons Oscorp; he does not die.",
+   "source": "https://marvel.fandom.com/wiki/Norman_Osborn_(Earth-26496)",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:sv-sandman-noir",
+   "kind": "B",
+   "now": [
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ],
+    [
+     "U.S. Army",
+     "Spider-Noir"
+    ],
+    [
+     "Independent",
+     "Spider-Noir"
+    ]
+   ],
+   "proposed": [
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ],
+    [
+     "Independent",
+     "Spider-Noir"
+    ]
+   ],
+   "evidence": "Flint Marko's U.S. Army service is World War I service, about 15 years before the series, which is set in 1933. In the series he is already Silvermane's enforcer and Cat Hardy's bodyguard. U.S. Army is backstory, and the record places it after the mob stage as well. He leaves the mob when Silvermane is killed in episode 8, so the Independent stage stays.",
+   "source": "https://marvel.fandom.com/wiki/Flint_Marko_(Earth-62533)",
+   "confidence": "high"
+  },
+  {
+   "key": "T:sv-megawatt-noir",
+   "kind": "B",
+   "now": [
+    [
+     "U.S. Army",
+     "Spider-Noir"
+    ],
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ]
+   ],
+   "proposed": [
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ]
+   ],
+   "evidence": "Dirk Leyden's U.S. Army service is World War I service, about 15 years before the series. In the series he is a subway driver turned jewel thief (episode 4). Silvermane breaks him out of custody and he joins the crime ring (episode 5). He dies under a train in episode 8 while still in the ring. U.S. Army is backstory.",
+   "source": "https://marvel.fandom.com/wiki/Dirk_Leyden_(Earth-62533)",
+   "confidence": "high"
+  },
+  {
+   "key": "T:sv-otto-yfnsm",
+   "kind": "B",
+   "now": [
+    [
+     "Oscorp",
+     "Your Friendly Neighborhood Spider-Man"
+    ],
+    [
+     "Independent",
+     "Your Friendly Neighborhood Spider-Man"
+    ]
+   ],
+   "proposed": [],
+   "evidence": "When Otto first appears (episodes 4 and 5) he is already 'a former associate of Norman's', an independent arms dealer working out of his own warehouse with his assistant Vincent. The MCU wiki lists Oscorp as a former affiliation and Norman as a 'former colleague'. His Oscorp time is backstory, and he never rejoins. With Oscorp removed he has no group, so the Independent stage (and the 'left' entry) goes too.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Doctor_Octopus/Norman_Osborn-Mentored_Spider-Man ; https://en.wikipedia.org/wiki/Your_Friendly_Neighborhood_Spider-Man_season_1",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:sv-hammerhead-ssm",
+   "question": "Hammerhead has no groups, but on screen he is the Big Man's (Tombstone's) enforcer, and Tombstone fires him after the Valentine's Day summit (season 2 episode 10, the record's episode 23). Add a stage for Tombstone's organization and then Independent, or keep him with no groups?",
+   "options": [
+    "Keep groups [] (the organization is not tracked as a group)",
+    "Add [[\"<Tombstone's organization group name>\", \"The Spectacular Spider-Man\"], [\"Independent\", \"The Spectacular Spider-Man\"]]"
+   ],
+   "evidence": "Wiki: worked for L. Thompson Lincoln (the Big Man/Tombstone); 'Hammerhead fled and went into hiding when Tombstone fired him and threatened to kill him' (S2E10). His earlier time as Silvermane's enforcer, 12 years before, is backstory.",
+   "source": "https://marvel.fandom.com/wiki/Hammerhead_(Joseph)_(Earth-26496)"
+  },
+  {
+   "key": "T:fox-magneto",
+   "question": "Does the Brotherhood end after Alcatraz in X-Men: The Last Stand? Magneto is cured, withdraws, and is last seen alone in a park; in The Wolverine he acts alone. Should there be an Independent stage before the X-Men stage in Days of Future Past?",
+   "options": [
+    "Keep [[\"The Brotherhood\",\"X-Men (2000)\"],[\"The X-Men\",\"X-Men: Days of Future Past\"]]",
+    "[[\"The Brotherhood\",\"X-Men (2000)\"],[\"Independent\",\"X-Men: The Last Stand\"],[\"The X-Men\",\"X-Men: Days of Future Past\"]]"
+   ],
+   "evidence": "Wiki: at Alcatraz Beast injects Magneto with the cure; he 'withdraws from Alcatraz with the other mutants', and afterwards he is 'alone' at a chess table in a San Francisco park. The film never says the Brotherhood formally disbands. Under 'an unsure case keeps what's there', the current record stands unless you rule otherwise.",
+   "source": "https://xmenmovies.fandom.com/wiki/Magneto"
+  }
+ ]
+}

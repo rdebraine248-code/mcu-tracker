@@ -1,0 +1,160 @@
+{
+ "checked": [
+  "C:zodiac",
+  "C:zola-algorithm",
+  "T:aaron-davis",
+  "T:abilisk",
+  "T:abu-bakaar",
+  "T:adam-warlock",
+  "T:agatha-harkness",
+  "T:agent-cleary",
+  "T:akihiko",
+  "T:aldrich-killian",
+  "T:alexander-pierce",
+  "T:alioth",
+  "T:ammit",
+  "T:anitolov",
+  "T:anton-mogart",
+  "T:arishem",
+  "T:arnim-zola",
+  "T:arthur-harrow",
+  "T:att-lass-bron-char",
+  "T:attuma",
+  "T:ayesha",
+  "T:baron-strucker",
+  "T:benny-and-claire",
+  "T:bill-foster",
+  "T:bill-metzger",
+  "T:bob-sentry",
+  "T:boomerang",
+  "T:brock-rumlow",
+  "T:cassandra-nova",
+  "T:chitauri",
+  "T:corvus-glaive",
+  "T:council-of-kangs",
+  "T:cull-obsidian",
+  "T:damage-control",
+  "T:dar-benn",
+  "T:darren-cross",
+  "T:deadpool-variants",
+  "T:death-dealer",
+  "T:deviants",
+  "T:dormammu",
+  "T:dr-list",
+  "T:dreykov",
+  "T:dweller-in-darkness",
+  "T:ebony-maw",
+  "T:ego",
+  "T:eleanor-bishop",
+  "T:ellen-brandt",
+  "T:emil-blonsky",
+  "T:eric-savin",
+  "T:ezekiel-stane",
+  "T:fenris",
+  "T:flag-smashers",
+  "T:galactus",
+  "T:gargantos",
+  "T:general-dox",
+  "T:georges-batroc",
+  "T:georgi-luchkov",
+  "T:ghost",
+  "T:gorr",
+  "T:grandmaster",
+  "T:gravik",
+  "T:habooska",
+  "T:he-who-remains",
+  "T:heinz-kruger",
+  "T:hela",
+  "T:helmut-zemo",
+  "T:hercules",
+  "T:high-evolutionary"
+ ],
+ "changes": [
+  {
+   "key": "T:adam-warlock",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": 1,
+    "title": "Guardians of the Galaxy Vol. 3",
+    "text": "Groot pulls Adam from the wreck of the Arête. Adam then saves Quill from dying in space and joins Rocket's new Guardians.",
+    "status": "Allied",
+    "at": [],
+    "cases": []
+   },
+   "evidence": "Wikipedia plot: Quill nearly dies trying to reach Knowhere but is saved by Adam, whom Groot had earlier rescued from Arête's destruction; the new Guardians include Adam. The file ends with him 'At large' though the film ends with him on the team (file team is already Guardians of the Galaxy).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Guardians_of_the_Galaxy_Vol._3&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "T:agatha-harkness",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": 3,
+    "title": "Agatha All Along",
+    "text": "In episode 8, When Death makes Billy and Agatha choose who goes with her, Agatha kisses Rio and dies.",
+    "status": "Deceased",
+    "at": [],
+    "cases": []
+   },
+   "evidence": "Episode 8 summary: Rio attacks Agatha in her backyard, Billy gives her some of his power, Rio orders them to choose who goes with her, and Agatha kisses Rio and dies. The file's last record (episode 8) leaves her 'At large'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "T:agatha-harkness",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": 3,
+    "title": "Agatha All Along",
+    "text": "In episode 9, Agatha returns as a ghost and sets out with Billy to find Tommy.",
+    "status": "Allied",
+    "at": [
+     "Westview"
+    ],
+    "cases": []
+   },
+   "evidence": "Episode 9 summary: Agatha, now a ghost, tells Billy the Road wasn't real until he made it so; after sealing the entrance to the Road in Westview, Billy and Agatha set out to find Tommy. Goes after the new episode 8 death record.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "T:bob-sentry",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": 1,
+    "title": "Thunderbolts*",
+    "text": "The Thunderbolts reach Bob inside the Void and help him take back control. He then goes along with Valentina naming them the New Avengers.",
+    "status": "Allied",
+    "at": [
+     "Midtown"
+    ],
+    "cases": [
+     "ST-122 The Void over Manhattan (Thunderbolts*)"
+    ]
+   },
+   "evidence": "Wikipedia plot: the Thunderbolts hug Bob and affirm their belief in him, empowering him to regain control and overcome the Void; light returns to the city; de Fontaine introduces the team as the New Avengers, and the post-credits scene has Bob with the New Avengers. The file ends with him 'At large' as the Void (file team is already New Avengers).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Thunderbolts*&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:agatha-harkness",
+   "question": "Which status should the proposed episode 9 record (Agatha back as a ghost) carry?",
+   "options": [
+    "Allied (she acts again, now helping Billy)",
+    "Deceased (she is a ghost; text shows the return)"
+   ],
+   "evidence": "Agatha dies in episode 8 and returns in episode 9 as a ghost who guides Billy. The brief's statuses have no 'ghost' state.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw"
+  }
+ ]
+}

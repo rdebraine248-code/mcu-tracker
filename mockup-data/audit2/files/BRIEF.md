@@ -8,7 +8,7 @@ Your chunk (path in your task) is a JSON list of files: `key`, `name`, `universe
 fox = X-Men films and animated X-Men; by = What If...? and branches; pr = pruned timelines/other shows), `kind` (what they are), `team`,
 `handover` (a hero file that continues as a Raft file), `lead` (a hint from a machine check, if any), and `steps` (the record):
 - `k` index, `title` ("In episode N," in the text = episode N of the step's title: of that season when the title is a season title like "Daredevil: Born Again S2", of the whole show when the title is the show; "In season N," = that season; A record that sums up several episodes carries the number of the LAST episode it covers (that is how the files work): it fails F2 only if its last event is not in that episode. Never propose dropping an episode tag.), `text`, `status`
-  (Raft: At large, In custody, Captive, Deceased, Missing, Allied; Compound: Active, Fugitive, Imprisoned, Deceased, Missing,
+  (Raft: Active, At large, In custody, Captive, Deceased, Missing, Allied; Compound: Active, Fugitive, Imprisoned, Deceased, Missing,
   Off-world, Retired; Collection: its own states), `at` (the places shown under the entry), `cases` (Damage Control reports shown
   under it: number, name, title).
 
