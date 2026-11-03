@@ -808,14 +808,10 @@ insignia celebration covers the page.
   shared past (First Class), and their younger self is a bubble of its own in Earth-TRN414 from Days of Future Past on. Havok, one file
   across both, gets a second bubble (`fox-havok-trn`) that opens his one file. In the indexes, young and old were already separate files.
 - **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
-- **Every name in a message is a link** (owner, November 2026): a person, group, Collection object or Atlas place that has a file, case or
-  place is underlined where the message names it, in From, To, Clearance or Sent via, Re and the text: the first time per message, and in
-  every message that names it. Never pills. Built by matching, not by hand (`mockup-data/msg/mech.js`, output `msg_anchors.json`, held in
-  `MSG_LINKS`): full names and current one-word names (Loki, Groot) in the message's own universe; first names and surnames only for people
-  on file in that same title, only when one person there has it, and not inside a longer name (Stark Industries). A name two files share
-  is left out unless the title or the name settles it; the few words that name someone without their name ("the Director", "Cap") are a
-  short hand-checked list. A link shows only once you could reach it (its index found and them on file, or the place lit; indexes stay shut
-  until found) and opens on top of Comms, so back comes down to the message. Rebuild with mech.js after any new message or file.
+- **Links in messages: cut** (owner, November 2026: "useless right now, I'll think of it later"). Tried twice: pills, then the names
+  underlined in the text. The problem was that file links can't show before the Compound (Age of Ultron) or the Raft (Civil War) are found,
+  so the early messages had none. Parked, not in the app: the matcher `mockup-data/msg/mech.js` and its output `msg_anchors.json` (every
+  name with a file, case or place, by universe and title). Don't bring it back unasked.
 - **Replies:** the code is in place (`MSG_REPLY`, two choices, kept in `state.cmReply`, changing nothing else) but there are none: the
   owner deleted the first drafts and is writing their own (November 2026). Don't add any. No reply on the Sokovia Accords message: signing
   is the Accords egg's moment.
