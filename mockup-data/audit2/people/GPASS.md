@@ -1,0 +1,41 @@
+# Audit part 1, second pass: group stages and moves
+
+A first pass checked these records, and a random recheck found it missed too much (about 5% wrong, the owner's bar is under 1%). Almost
+every miss was one of two kinds. This pass looks ONLY for those two kinds, record by record, and must look each person up.
+
+## Input
+Your chunk (path in your task) is a JSON list of person records (see fields below). `groups` = `[group, title]` stages in story order:
+from that title on, the person is in that group; the LAST stage is where they stand. `left` = titles where they leave a group for none.
+`steps` = `[title, what they do, status]`, every title they're on file for ("In episode N," = episode N of the whole show, "In season N,"
+= that season). `twin` = the same person's other file.
+
+## The two kinds of miss
+1. **Backstory as a stage (B):** a group they belonged to only BEFORE the first title they're on file for (Laura Barton's S.H.I.E.L.D.
+   service, Bakuto's K'un-Lun training, Everett Ross's Air Force years). A stage must be membership the person HAS during or after a
+   title they're on file for. Fix: remove that stage, or move its title to where it's shown.
+2. **Missing move (M):** within the titles and episodes they're on file for, the story moves them and no stage records it: they quit,
+   retire, are fired or voted out, a firm or team closes or disbands, they're captured and held by another group, they defect, rejoin,
+   or join a new group (Matt and Foggy close their firm in Daredevil S2 episode 9; Storm leaves the X-Men in X-Men '97 episode 3; Fitz
+   and Simmons retire in the Agents of S.H.I.E.L.D. finale). Owner's rules: a title where they act alone is not a move; death is not a
+   departure; an unsure case keeps what's there.
+
+## Method (required)
+For EVERY record: fetch the character's wiki page (MCU wiki for the main MCU, Marvel Database / the right fandom wiki for others) and
+read its biography and affiliations against the record's `groups` and `steps`. Do not answer from memory. One page per person is
+usually enough; use episode summaries (Wikipedia episode lists) for shows when the page is vague about timing.
+- Wikipedia raw: `https://en.wikipedia.org/w/index.php?title=PAGE&action=raw`
+- Fandom API: `https://<wiki>.fandom.com/api.php?action=parse&page=PAGE&prop=wikitext&format=json` (marvelcinematicuniverse, marvel,
+  xmenmovies, spiderman, marvelanimated). curl with `User-Agent: mcu-tracker-research/1.0`. Never send personal details.
+
+## Output
+ONE JSON file at your output path:
+```
+{"checked": [every key in your chunk, twin keys too],
+ "changes": [{"key": "A:id", "kind": "B|M", "now": <current groups>, "proposed": <the FULL corrected groups list, [[group, title]...];
+              a departure to no group is ["Independent", title]>, "evidence": "what happens, in which title/episode", "source": "URL",
+              "confidence": "high|medium"}],
+ "owner_calls": [{"key": "...", "question": "...", "options": ["..."], "evidence": "...", "source": "URL"}]}
+```
+- Titles in `proposed` must be titles the record already uses (the show's title, or its season title like "Agents of S.H.I.E.L.D. S7"
+  where the record uses those), never invented ones. "(from the start)" only when the person has a single group.
+- Every key must be in `checked`. Reply with ONE line: checked, changes, owner calls.
