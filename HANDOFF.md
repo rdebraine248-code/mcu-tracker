@@ -789,8 +789,29 @@ insignia celebration covers the page.
   repeated anywhere: Case No. ST-001. Numbered in release order, the order the incidents reached the screen, as First seen goes; not by
   story order, or ST-001 would wait for a recent show (owner, October 2026). A report filed under a whole show goes by its first season;
   within one title, by year. `DC_NO` computes them, so a new report needs no number; First seen lists by case number.
-- **A to Z sorts the whole tab into one list**, with no groups, in all four indexes (owner, October 2026); grouping comes back with First
-  seen.
+- **A to Z sorts inside each group** (statuses, teams, holders) in all four indexes, so the groups stay (owner, November 2026; it was one
+  flat list before). First seen and A to Z are the two orders.
+- **A person stays in a group until the story moves them** (owner, November 2026): they quit, retire, are fired or disavowed, the group
+  splits or ends, they turn on it or join another. A title where they act alone is not a move. The checked list of real departures is
+  `split.json` "left" (`network/src/prof/split.json`, from `network/rel/departures.json`) and the same list is `TEAM_LEFT` in index.html,
+  so a file's Teams and the Network always agree. An unsure case keeps the group. New "Independent" records need a verdict first.
+- **No catch-all "Independent" bubble** in the Network (owner, November 2026: "I don't really love the independent group"): someone in no
+  group stands on their own.
+- **Groups change by what you've watched, not by story position:** a group step counts once its own title is ticked, so a later change
+  is never shown early.
+- **The zombie world's groups go episode by episode** (What If...? S1 episode 5, Marvel Zombies): The Survivors while alive; turned, The
+  Zombies, or The Queen of the Dead's Army once in Wanda's horde; killed or destroyed, they leave their group. `split.json` "steps", from
+  `network/rel/zombie_timeline.json`; unsure fates keep their last group.
+- **Fox's X-Men split at Days of Future Past** (owner, November 2026): the films before it share Earth-10005; from it on, the changed
+  timeline (Apocalypse, Dark Phoenix) is Earth-TRN414 (Marvel Database's number). A person played young and old is one bubble for the
+  shared past (First Class), and their younger self is a bubble of its own in Earth-TRN414 from Days of Future Past on. Havok, one file
+  across both, gets a second bubble (`fox-havok-trn`) that opens his one file. In the indexes, young and old were already separate files.
+- **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
+- **News and messages are separate feeds** (owner, November 2026): tapping a ticker clears only its own feed; the other still gets its
+  ticker.
+- **Card lines: pronouns only where the person is clear** (owner, November 2026: "He fought him and he won when he lost" is the problem,
+  not pronouns themselves). No leading name (the card already shows it); name the card's own person instead of a second him or her.
+  Example, Sharon's card about Captain America: "Infects Sharon on the survivors' train." To apply in the audit.
 - **No link in an index opens an index you haven't found.** That includes battle replays and anything added later: use `ixFile`.
 - **One person, one name:** a Collection holder reads as the person's file does, and a variant in another universe as the main universe's
   file, unless the screen names it differently. Spellings follow the screen and its credits (Bennie Pollack, Aida).

@@ -1365,6 +1365,14 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .cm-msg p{ margin:0; font-size:16px; line-height:1.5; color:#E3E8F0; }
 .cm-msg em{ display:block; margin:0 0 10px; font:700 10px/1 'Share Tech Mono','Courier New',monospace; font-style:normal; letter-spacing:2.5px; text-transform:uppercase; color:var(--c); }
 .cm-msg.intercept{ --c:#E8A64A; }
+.cm-links{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 0; }
+.cm-go{ display:inline-flex; align-items:baseline; gap:8px; padding:8px 12px; border:1px solid color-mix(in srgb, var(--c) 40%, transparent); border-radius:999px; background:rgba(10,14,22,.55); color:#E3E8F0; font:14px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; }
+.cm-go small{ font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:var(--c); }
+.cm-go em{ font-style:normal; color:var(--c); } .cm-go.rf small, .cm-go.rf em{ color:#E0574A; }
+.cm-rep{ margin:14px 0 0; padding:12px 0 0; border-top:1px dashed color-mix(in srgb, var(--c) 30%, transparent); }
+.cm-rep small{ display:block; margin:0 0 8px; font:10px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:var(--c); }
+.cm-rep p{ font-style:italic; color:#B9CBE6; }
+.cm-rch{ display:flex; flex-direction:column; gap:8px; } .cm-rch button{ text-align:left; padding:10px 12px; border:1px solid color-mix(in srgb, var(--c) 35%, transparent); border-radius:10px; background:rgba(10,14,22,.55); color:#E3E8F0; font:15px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; }
 .cm-msg.intercept p{ font-family:'Share Tech Mono','Courier New',monospace; font-size:14px; letter-spacing:.5px; color:#EADFCB; }
 .cm-msg.email{ --c:#E0BE6A; }
 .cm-msg.notice{ --c:#6CCB98; }
@@ -10680,6 +10688,24 @@ function cmChips(L, keyOf, all, unreadIn) {
   return `<div class="cm-chips" role="tablist">${all.filter(([k]) => !k || n(k)).map(([k, l]) => `<button type="button" data-cmc="${k}" aria-selected="${k === pick}" class="${k === pick ? "on" : ""}">${l}${k && unreadIn(k) ? '<i aria-label="new"></i>' : ""}</button>`).join("")}</div>`;
 }
 let cmLogOpen = false;
+/* ---------- a message links to what it's about, and now and then you can answer (owner, November 2026). A link only where the message is
+   about that exact place or person (MSG_LINKS, checked by hand), and only once you could reach it anyway: a lit Atlas place, a file in an
+   index you've found. A reply is two choices; the one you pick is kept on the message and changes nothing else ---------- */
+const MSG_LINKS = /*MSG_LINKS*/{};
+const MSG_REPLY = /*MSG_REPLY*/{};
+function atlRef(id) {   // a place by id, wherever it sits: a world view, inside a city, or in another universe
+  for (const v of ["earth", "cosmos", "beyond", "multi", "incursions"]) for (const p of ATLAS[v] || []) {
+    if (p.id === id) return { p, v, sub: null };
+    if (p.city) { const q = atlPlaces("city", p.city).find(x => x.id === id); if (q) return { p: q, v: "city", sub: p.city }; }
+    if (p.uni) { const q = ATLAS_UNI[p.uni].places.find(x => x.id === id); if (q) return { p: q, v: "uni", sub: p.uni }; } }
+  return null; }
+function cmExtra(m) {
+  const id = msgId(m), L = (MSG_LINKS[id] || []).map(([k, x, tg]) => { if (k === "place") { const r = atlRef(x); return r && atlLit(r.p) ? `<button type="button" class="cm-go" data-cmplace="${esc(x)}"><small>Atlas</small>${esc(r.p.n)}<em aria-hidden="true">&#8250;</em></button>` : ""; }
+    const o = ixFile(tg, x); return o ? `<button type="button" class="cm-go${tg === "T" ? " rf" : ""}" data-cmfile="${tg}|${esc(x)}"><small>${tg === "A" ? "The Compound" : "The Raft"}</small>${esc(tg === "A" ? cpName(o) : rfName(o))}<em aria-hidden="true">&#8250;</em></button>` : ""; }).filter(Boolean);
+  const R = MSG_REPLY[id], got = R && (state.cmReply || {})[id];
+  const rep = !R ? "" : got != null ? `<div class="cm-rep"><small>You replied</small><p>${esc(R[got])}</p></div>`
+    : `<div class="cm-rep"><small>Reply</small><div class="cm-rch">${R.map((c, i) => `<button type="button" data-cmrep="${esc(id)}|${i}">${esc(c)}</button>`).join("")}</div></div>`;
+  return (L.length ? `<div class="cm-links">${L.join("")}</div>` : "") + rep; }
 const cmLogFold = M => { const L = M.filter(m => m.log); if (!L.length) return M; const at = M.indexOf(L[0]); return [...M.slice(0, at).filter(m => !m.log), { caseFile: L }, ...M.slice(at).filter(m => !m.log)]; };
 function cmCaseFile(L) {
   return `<article class="cm-msg tva cm-case${cmLogOpen ? " open" : ""}${L.some(m => cmFresh.has(cmMK(m))) ? " nw" : ""}"><em>TVA case file</em><dl><dt>From</dt><dd>Time Variance Authority</dd><dt>Re</dt><dd>The Incursion log</dd></dl>
@@ -10707,7 +10733,7 @@ function renderComms() {
     : (T0.length ? cmChips(T0, newsSrc, CM_OUTLETS, o => T0.some(t => newsSrc(t) === o && NEWS[t].some((h, i) => state.news[newsKey(t, i)] && !state.cmRead[cmNK(t, i)]))) : ""); persist();
   const cv = document.getElementById("commsView"), oc = cv.querySelector(".cm-chips"), cx = oc && cv.dataset.tab === commsTab ? oc.scrollLeft : 0; cv.dataset.tab = commsTab;
   swapIn(cv, chips + (commsTab === "msg"
-    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}${nw(cmMK(m))}"><em>${m.k ? MSG_KIND[m.k] : "Message"}</em><dl>${row("From", m.f)}${row("To", cmTo(m))}${row(m.k === "email" || m.k === "telegram" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p></article>`).join("")}</section>` : `<p class="cm-quiet">No messages.</p>`)
+    ? (M.length ? `<section class="cm-sec">${cmLogFold(M).map(m => m.caseFile ? cmCaseFile(m.caseFile) : `<article class="cm-msg${m.k ? " " + m.k : ""}${nw(cmMK(m))}"><em>${m.k ? MSG_KIND[m.k] : "Message"}</em><dl>${row("From", m.f)}${row("To", cmTo(m))}${row(m.k === "email" || m.k === "telegram" ? "Sent via" : "Clearance", m.cl)}${row(m.k === "email" ? "Subject" : "Re", m.re)}</dl><p>${esc(m.b).replace(/\[\[redacted\]\]/g, '<s class="cm-red" aria-label="redacted">redacted text</s>')}</p>${cmExtra(m)}</article>`).join("")}</section>` : `<p class="cm-quiet">No messages.</p>`)
     : (T.length ? ["whih", "e828", "bugle", "bulletin"].filter(o => T.some(t => newsSrc(t) === o)).map(o => `<section class="cm-sec"><div class="cm-head"><b class="${o === "whih" ? "" : o}">${OUTLETS[o][0]}</b><span>${OUTLETS[o][1]}</span></div>${T.filter(t => newsSrc(t) === o).map(t => `<div class="cm-grp"><small>${tnh(t)}</small>${NEWS[t].map((h, i) => state.news[newsKey(t, i)] ? `<p class="${nw(cmNK(t, i)).trim()}">${esc(h)}</p>` : "").join("")}</div>`).join("")}</section>`).join("") : `<p class="cm-quiet">No headlines.</p>`)));
   const nc = cv.querySelector(".cm-chips"); if (nc && cx) nc.scrollLeft = cx;   // the chip row stays where you'd scrolled it
 }
@@ -10720,7 +10746,11 @@ function closeComms(fromHistory) {
   document.getElementById("commsPanel").hidden = true; commsOpen = false; bodyFree();
 }
 document.getElementById("commsBack").addEventListener("click", () => closeComms());
-document.getElementById("commsView").addEventListener("click", ev => { if (ev.target.closest("[data-cmlog]")) { haptic(8); cmLogOpen = !cmLogOpen; const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; return; }
+document.getElementById("commsView").addEventListener("click", ev => {
+  { const r = ev.target.closest("[data-cmrep]"); if (r) { haptic(10); const [id, i] = r.dataset.cmrep.split("|"); (state.cmReply = state.cmReply || {})[id] = +i; persist(); const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; return; } }
+  { const f = ev.target.closest("[data-cmfile]"); if (f) { haptic(8); const [tg, id] = f.dataset.cmfile.split("|"); closeComms(true); dockSync(); fileGo(tg, id); return; } }
+  { const pl = ev.target.closest("[data-cmplace]"); if (pl) { haptic(8); const r = atlRef(pl.dataset.cmplace); if (!r) return; const b = document.querySelector('#dock [data-dock="atlas"]'); if (b) b.click(); setTimeout(() => atlGo(r), 160); return; } }
+  if (ev.target.closest("[data-cmlog]")) { haptic(8); cmLogOpen = !cmLogOpen; const v = document.getElementById("commsView"), y = v.scrollTop; renderComms(); v.scrollTop = y; return; }
   const c = ev.target.closest("[data-cmc]"); if (!c) return; haptic(8); cmPick[commsTab] = c.dataset.cmc; renderComms(); document.getElementById("commsView").scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; });
 (() => { let t = 0; const v = document.getElementById("commsView");
   v.addEventListener("pointerdown", ev => { const s = ev.target.closest(".cm-red"); clearTimeout(t); if (s) t = setTimeout(() => cmDecrypt(s), 600); });
