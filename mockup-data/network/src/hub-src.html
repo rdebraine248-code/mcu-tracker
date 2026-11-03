@@ -249,7 +249,9 @@ const relOf = (a, b) => a.R.find(r => r.j === b.i);
 const conn = p => [...new Set(p.R.map(r => r.j))];
 const kindOf = (a, b) => { const r = relOf(a, b); return r ? r.k : 'enemy'; };   // a fight on file with no other tie is an enemy
 const crews = {}; N.forEach(p => (crews[p.g] = crews[p.g] || []).push(p));
-let Z = Object.entries(crews).sort((a, b) => (b[0] === 'Independent') - (a[0] === 'Independent') || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
+// The Avengers take the middle of the room and everyone packs around them (owner, November 2026), then those on their own, then the biggest crews
+const ZFIRST = n => n === UK('The Avengers', 'mcu') ? 2 : n === 'Independent' ? 1 : 0;
+let Z = Object.entries(crews).sort((a, b) => ZFIRST(b[0]) - ZFIRST(a[0]) || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
 // the room's packing is worked out once, when the page is built (DATA.at), so the phone doesn't redo it every visit
 if (DATA.at) Z.forEach((z, zi) => { z.x = DATA.at[zi][0]; z.y = DATA.at[zi][1]; });
 else { const P = packer(S * .07); Z.forEach((z, zi) => P.place(z, zi, !zi)); }
@@ -631,7 +633,7 @@ function applyCut(v, quiet) {
     // in The Void the district is the group (owner: "the Void is definitely a better bubble organization than Kid Loki's crew")
     N.forEach(p => { if (p.vis && homeOf(p) === 'The Void') p.g = UK('The Void', p.u); });
     const Wd = new Map(); N.forEach(p => { if (p.vis) { const w = wk(p); Wd.has(w) || Wd.set(w, new Map()); const by = Wd.get(w); by.has(p.g) || by.set(p.g, []); by.get(p.g).push(p); } });
-    const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => (b[0] === 'Independent') - (a[0] === 'Independent') || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
+    const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => ZFIRST(b[0]) - ZFIRST(a[0]) || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
       const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
     // districts as circles that never overlap: the biggest in the middle, the rest round it, each as close in as it fits
