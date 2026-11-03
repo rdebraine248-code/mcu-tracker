@@ -682,8 +682,11 @@ function arcName(t, cx, cy, R, fs, low) { g.font = `400 ${fs}px 'Share Tech Mono
   cw.forEach((w, n) => { a += (low ? -1 : 1) * w / 2 / r; g.save(); g.translate(cx + r * Math.cos(a), cy + r * Math.sin(a)); g.rotate(low ? a - Math.PI / 2 : a + Math.PI / 2); g.fillText(t[n], 0, 0); g.restore(); a += (low ? -1 : 1) * (w / 2 + sp) / r; }); }
 function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = false; const L = N.filter(p => p.vis); if (!L.length) return;
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; L.forEach(p => { x0 = Math.min(x0, p.hx); x1 = Math.max(x1, p.hx); y0 = Math.min(y0, p.hy); y1 = Math.max(y1, p.hy); });
-  // the room centres on The Avengers once they're in it (owner, November 2026), otherwise on everyone; zoomed so the farthest side still fits
-  const AV = (Z.find(z => z.name === 'The Avengers') || { L: [] }).L.filter(p => p.vis), cx = AV.length ? AV.reduce((s, p) => s + p.hx, 0) / AV.length : (x0 + x1) / 2, cy = AV.length ? AV.reduce((s, p) => s + p.hy, 0) / AV.length : (y0 + y1) / 2;
+  // the Sacred Timeline centres on The Avengers once they're in it (owner, November 2026); every other tab on its biggest Earth, the one with
+  // the most people (owner: the tabs opened off to the side, on another universe's Avengers or the empty middle between Earths)
+  let C = UNI === 'mcu' ? (Z.find(z => z.name === 'The Avengers') || { L: [] }).L.filter(p => p.vis && p.u === 'mcu') : [];
+  if (!C.length) { const by = new Map(); L.forEach(p => { const w = worldOf(p) || ''; by.has(w) || by.set(w, []); by.get(w).push(p); }); C = [...by.values()].sort((a, b) => b.length - a.length)[0] || L; }
+  const cx = C.reduce((s, p) => s + p.hx, 0) / C.length, cy = C.reduce((s, p) => s + p.hy, 0) / C.length;
   const hw = Math.max(cx - x0, x1 - cx), hh = Math.max(cy - y0, y1 - cy);
   const top = (document.querySelector('header') || {}).offsetHeight || 0, room = H - top, fz = Math.min(1.2, (W - 60) / (2 * hw + 80), (room - 60) / (2 * hh + 90));
   glide = null; vel = { x: 0, y: 0 };

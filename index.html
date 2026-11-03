@@ -4213,13 +4213,11 @@ function atlCityGeo(id) {
 // what kind of map is on screen: the Earth, a city close-up, or open sky. Another universe uses an Earth or a city map of its own
 const atlGeo = () => atlView === "earth" ? ["earth"] : atlView === "city" ? ["city", atlCity] : atlView === "uni" ? (ATLAS_UNI[atlUni].map === "earth" ? ["earth"] : ATLAS_UNI[atlUni].map === "orbit" ? ["sky", "orbit"] : ["city", ATLAS_UNI[atlUni].map]) : ["sky"];
 // an Earth's orbit (owner, November 2026): what's off-world for an Earth-only map opens from a small inset in its corner, not a pin on the edge.
-// The orbit pin is a place like a universe's ({uni: "animx-o"}), drawn as that inset; the main Earth's inset opens the Cosmos, centred on Earth
+// The orbit pin is a place like a universe's ({uni: "animx-o"}), drawn as that inset. The main Earth has none (owner: cut; the Cosmos has Earth
+// at its centre with what orbits it)
 const atlIsOrb = p => !!p.uni && ATLAS_UNI[p.uni].map === "orbit";
 const atlDeep = k => ATLAS_UNI[k].places.flatMap(q => q.uni ? atlDeep(q.uni) : [q]);   // every place inside a universe, its orbit's included
-const ATL_ORB_MAIN = ["saber", "marvell"];
-const atlOrbHere = () => atlView === "earth" ? (atlOpenV("cosmos") && ATLAS.cosmos.some(p => ATL_ORB_MAIN.includes(p.id) && atlLit(p)) ? { k: "cosmos" } : null)
-  : atlView === "uni" ? (p => p ? { k: p.uni, p } : null)(atlPlaces().find(p => atlIsOrb(p) && atlLit(p))) : null;
-let atlOrbZoom = false;
+const atlOrbHere = () => atlView === "uni" ? (p => p ? { k: p.uni, p } : null)(atlPlaces().find(p => atlIsOrb(p) && atlLit(p))) : null;
 const atlKey = () => atlView === "city" ? "city:" + atlCity : atlView === "uni" ? "uni:" + atlUni : atlView;
 const atlBounds = () => { const g = atlGeo(); return g[0] === "earth" ? [0, 0, 360, 148] : g[0] === "city" ? [0, 0, 1000, atlCityGeo(g[1]).h] : atlView === "incursions" ? [0, 0, 1000, Math.max(1000, ...atlIncLit().map(q => atlIncAt(q)[1] + 70))] : [0, 0, 1000, 1000]; };
 function atlPlaces(view = atlView, sub = view === "city" ? atlCity : atlUni) {   // what can be pinned in the view you're looking at (or another one)
@@ -4585,7 +4583,6 @@ function renderAtlas() {
   low.addEventListener("input", ev => { if (ev.target.id !== "atlQ") return; atlQ = ev.target.value; low.querySelector(".pg-qx").hidden = !atlQ; renderAtlasList(); });
   low.addEventListener("keydown", ev => { if (ev.target.id === "atlQ" && ev.key === "Enter") ev.target.blur(); });
   atlPins(map); atlT = atlHome(map);
-  if (atlOrbZoom && atlView === "cosmos") { atlOrbZoom = false; const ks = atlKs(map), k = ks.fit * 3; atlT = atlClamp(map, { k, x: 500 - ks.W / 2 / k, y: 540 - ks.H / 2 / k }); }
   atlTs[atlKey()] = atlT; atlOrbInset(map); atlDraw();
   const ptr = new Map(); let base = null, moved = false, start = null;
   const local = (x, y) => { const r = map.getBoundingClientRect(); return [x - r.left, y - r.top]; };
@@ -4628,7 +4625,7 @@ function renderAtlas() {
   map.addEventListener("wheel", ev => { ev.preventDefault(); const [sx, sy] = local(ev.clientX, ev.clientY); atlZoomAt(map, Math.exp(-ev.deltaY * .0016), sx, sy, 0); }, { passive: false });
   map.addEventListener("click", ev => {
     const ob = ev.target.closest("[data-orb]");
-    if (ob) { haptic(10); if (ob.dataset.orb === "cosmos") { atlOrbZoom = true; atlLeave("cosmos"); } else atlSub("uni", ob.dataset.orb); return; }
+    if (ob) { haptic(10); atlSub("uni", ob.dataset.orb); return; }
     const z = ev.target.closest("[data-atlz]");
     if (z) { haptic(8); const W = map.clientWidth, H = map.clientHeight, f = +z.dataset.atlz;
       if (f) atlZoomAt(map, f > 0 ? 1.9 : 1 / 1.9, W / 2, H / 2, 260); else atlTo(map, { k: atlKs(map).fit, x: 0, y: 0 }, 320); return; }

@@ -828,6 +828,8 @@ insignia celebration covers the page.
   shared past (First Class), and their younger self is a bubble of its own in Earth-TRN414 from Days of Future Past on. Havok, one file
   across both, gets a second bubble (`fox-havok-trn`) that opens his one file. In the indexes, young and old were already separate files.
 - **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
+  Every other tab opens centred on its biggest Earth, the one with the most people (owner: the tabs opened off to the side, on another
+  universe's Avengers or the empty space between Earths). `fitRoom` in hub-src.
 - **The file's ID card** (owner, November 2026), the same in the Compound and the Raft: the status stamp sits in the card's top corner so
   the text runs the full width. First and last seen are the two ends of the person's path, a line in the index's colour, with "N titles on
   the path ›" between them opening Paths. One person is first and last seen once: someone on file in both indexes counts both files, so
@@ -859,8 +861,8 @@ insignia celebration covers the page.
     universe it opens that Earth's orbit map (`ATLAS_UNI["animx-o"]` etc.: `map:"orbit"`, `up:` its Earth; the Earth's own list has an
     "Orbit" row, `{uni:"animx-o"}`, drawn as the inset instead of a pin): the Earth in the middle, a low orbit, the Moon's orbit with
     the Moon, and deep space at the rim (Asteroid M, Doom's station in low orbit; Attilan on the Moon; Klyntar, the Beyonder's planet,
-    the Axis of Time, the Dark Dimension out at the rim). Its crumb and back go to its Earth, then the Multiverse (`atlorb` step). The
-    main Earth's inset opens the Cosmos centred on Earth, where S.A.B.E.R. and Mar-Vell's lab already orbit it. The Savage Land is
+    the Axis of Time, the Dark Dimension out at the rim). Its crumb and back go to its Earth, then the Multiverse (`atlorb` step).  The
+    main Earth has no inset (owner, November 2026: cut it): the Cosmos already has Earth at its centre with S.A.B.E.R. and Mar-Vell's lab. The Savage Land is
     on Earth, below the map's 58°S edge, so it sits on that edge.
   - **The Atlas splits Fox's X-Men at Days of Future Past, like the Network** (owner, November 2026: "the timeline earth difference
     after DOFP like in networks etc, consistency and accuracy"). Two maps on the Multiverse: Earth-10005 (`ATLAS_UNI.fox`) and
