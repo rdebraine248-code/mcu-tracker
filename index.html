@@ -10697,6 +10697,9 @@ const EPTAGS = /*EPTAGS*/{};
   Object.entries(E.nw || {}).forEach(([t, m]) => { const L = NEWS[t]; if (!L) return; Object.entries(m).forEach(([h, e]) => { const i = L.indexOf(h); if (i < 0 || !(e > 0)) return; L.splice(i, 1);
     const nt = t + "#" + e; (NEWS[nt] = NEWS[nt] || []).push(h); if (R[t + "::" + h]) R[nt + "::" + h] = R[t + "::" + h]; }); if (!L.length) delete NEWS[t]; });
   Object.entries(E.ms || {}).forEach(([id, e]) => { const m = COMMS.find(x => msgId(x) === id || x.id === id); if (m && e > 0 && !/#\d+$/.test(m.t)) { if (!m.id) m.id = m.t; m.t += "#" + e; } }); }   // its id stays, so a read message stays read
+// after "In episode 4, " an ordinary first word reads lower case ("In episode 4, in 2018, ..."); names keep their capital
+{ const W = new Set("In Years After Before When While As At On Back Later Once During Under Undercover Now Still With Without Having Meanwhile Then Soon Decades Months Weeks Days Centuries Long Together Alone The A An Out From Across Inside Outside Over Into Upon Through Throughout Following Despite Unable Hours Moments Minutes Even Only Finally Eventually Desperate Grieving Furious Freed Captured Working Living Hiding Posing Disguised Searching Trapped Stranded Exiled Imprisoned Reunited Determined Haunted Wounded Injured".split(" "));
+  [...ALLIES, ...THREATS, ...COLLX].forEach(o => (o.st || []).forEach(x => { if (typeof x[0] === "string") x[0] = x[0].replace(/^(In (?:season|episode) \d+, )([A-Z][a-z]+)\b/, (m, a, w) => W.has(w) ? a + w.toLowerCase() : m); })); }
 newsKeysV2(); perInit();
 // headlines that moved to a season of their show keep their read mark
 { const N = state.news || {}; Object.keys(N).forEach(k => { const i = k.lastIndexOf("::"), t = k.slice(0, i), h = k.slice(i + 2);
