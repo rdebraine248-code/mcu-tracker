@@ -153,3 +153,11 @@ people r35 2, r39 2. vsc04: 12 conf 6 amend 2 rej. Waiting vsc02.
 people r37 1, r40 2, r41 0, r43 0. nr02 10 ch. NET SAMPLE FIXES APPLIED: rel/stage_fix_zsample.json (66 pairs, 23 stages added; n40 dup dropped; 2 rejected in aud/net/zsample_rejected.json); verified 90/90 in rel.json. NOTE nr_* indices predate zsample: apply nr changes by matching now.text, not i.
 people r34 0, r36 7, r44 1, r45 1, r46 0, r47 2, r51 0. fr01 1. ALL r launched; waiting r42,48,49,50. Running nr01,03-10, fr02-04, rv01-03.
 people r42 2, r48 1. fr02 2. PEOPLE WAVE1 VERIFIED: rv01 14c/3a, rv02 15c/2r, rv03 14c/2a/1r. APPLIED apply6.json (from apply4 + wave1; Black Order->Children of Thanos) into index.html TEAM_AUDIT2 + TEAM_LEFT. GVERIFY backstory rule fixed to HANDOFF 26. Yorkes: S3 Gibborim stage is Dale only (merged record; note). Coulson S7 LMD rejected.
+PEOPLE RE-AUDIT ALL 51 DONE: 80 changes total (wave1 51 applied, wave2 29 -> rvchunk_04,05 -> rvout_04,05 launched). nr03 22 N6. Branch commits b165a2f (net zsample), e7f7f0a (people wave1). After wave2 apply: fresh people 600 sample.
+nr01 54 (all N6, AoS S7 bare titles), nr05 17, nr06 6. people r49 0, r50 2.
+nr07 5. fr04 3, fr06 0.
+fr03 1 (+call Tesseract Carter BoNY status), fr05 2 (+call Brood Thriving vs destroyed).
+rv05: 10c 2a. HOLD T:sv-hammerhead-ssm (needs a name for Tombstone/Big Man's org; owner call). Rufus Hunt -> U.S. Military. Candra left X-Men '97 S2. fr07 2 (Wolverine bullets plural; X-Men 2000 Cyclops+Storm save Logan and Rogue).
+nr08 27, nr18 7.
+nr09 27 (3 calls). fr08 2.
+nr10 51. rv04: 10c 4a 3r. PEOPLE WAVE2 APPLIED: apply7.json (195 changes, left 265) in index.html. HELD for owner: A:st-amy-bendix (Fiona's Crew label), T:pr-st-andre-deschaine (+T:pr-st-lia; trafficking ring label) [ask 12 unnamed crews], T:sv-hammerhead-ssm (Big Man org name). Rejected: Pilgrim (Aryan gang never named: owner call), Cole North, Bakshi. Twin: A:agatha-harkness = T (Salemites). NEXT: rebuild+tests, then fresh PEOPLE 600 sample.
