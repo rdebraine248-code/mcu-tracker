@@ -809,7 +809,8 @@ insignia celebration covers the page.
   across both, gets a second bubble (`fox-havok-trn`) that opens his one file. In the indexes, young and old were already separate files.
 - **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
 - **A message links only to what it names** (owner, November 2026: "they really need to be talking about the same thing"): a person,
-  group or place the message names outright, quoted in `mockup-data/msg_links.json`; `MSG_LINKS` in index.html. A link shows only once
+  group or place the message names outright, quoted in `mockup-data/msg_links.json`; `MSG_LINKS` in index.html holds the exact words.
+  The link is those words, underlined in the message itself (From, Re or the body), never a pill or button (owner). A link shows only once
   you could reach it anyway (a lit Atlas place, a file in an index you've found), and opens on top of Comms, so back comes down to the
   message. Now and then a message takes a reply (`MSG_REPLY`, two choices, kept in `state.cmReply`, changing nothing else). No reply on
   the Sokovia Accords message: signing is the Accords egg's moment.
