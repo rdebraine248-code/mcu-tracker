@@ -373,6 +373,10 @@ insignia celebration covers the page.
 
 ## Standing rules from the owner
 
+- **No "Layer 1/2/3", plain step-by-step plans** (owner, November 2026: "stop calling it Layer one ... it sounds outdated. Just give me
+  step by step"). Call things what they do: the tests (do the features work), the content check (is anything shown too early, does
+  anything contradict itself; a fast version before every push, a full one that ticks every title one at a time), the audit (is the
+  content true). Lay a plan out as numbered steps.
 - **Review passes end** (owner, November 2026: "every time I run a check, something always pops up ... will this nonsense ever be
   done"): a review acts only on factual errors with evidence. Rewordings and "either works" calls are dropped, never reported as fixes.
   A pass that finds only those closes the material; no more passes on it unless new content is added. Tell the owner plainly what a
@@ -1012,6 +1016,13 @@ These happened in earlier chats. Each cost the owner time.
 
 ## Open items
 
+- **The audit plan** (owner, November 2026): step by step, in HANDOFF's words above. 1) Build the content check and run it in full,
+  fix what it finds. 2) The audit in six parts, in order: people (groups, Earths, versions), Network connections, files (records,
+  statuses, hand-overs, At and Case), Atlas, character logs, Damage Control and Comms. Each part: fixed yes/no questions, a change needs
+  a source, a second checker confirms it, every checked entry is locked, patterns fixed as a whole. 3) After each part, a random 600
+  of the passed entries are rechecked from scratch; the owner's bar is 0%, at worst 0.5 to 1% ("if I can't get 0% wrong then .5-1%"):
+  0 wrong in 600 passes, 1 to 3 are fixed with their pattern and a fresh 600 drawn, more goes back through the part. 4) The full content
+  check again after each part. The audit's agents need the owner's "use a workflow".
 - **Owner's calls, November 2026:** the six ideas pitched in October (the Doomsday update, a watch diary, time on the clock, a release
   radar, a home screen widget, a share card) are cut: don't pitch them again. Dropped, don't raise again: Doomsday and Secret Wars
   content, the Encore revisit, Banner and Doom, the sky's first-minute redraws, confirming the cold-start fix. The weakly fitting kinds
