@@ -830,6 +830,8 @@ insignia celebration covers the page.
 - **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
   Every other tab opens centred on its biggest Earth, the one with the most people (owner: the tabs opened off to the side, on another
   universe's Avengers or the empty space between Earths). `fitRoom` in hub-src.
+  The Earths pack close (owner: "too much empty space to scroll through"): each one snug against those already placed, as near the
+  middle as it fits, a little taller than wide for a phone (the district packing in `applyCut`, hub-src).
 - **The file's ID card** (owner, November 2026), the same in the Compound and the Raft: the status stamp sits in the card's top corner so
   the text runs the full width. First and last seen are the two ends of the person's path, a line in the index's colour, with "N titles on
   the path ›" between them opening Paths. One person is first and last seen once: someone on file in both indexes counts both files, so
