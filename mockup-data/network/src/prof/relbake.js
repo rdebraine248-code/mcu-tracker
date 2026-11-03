@@ -34,7 +34,13 @@ const ixId = new Map(H.nodes.map((n, i) => [n[11], i])), mg = H.merged || {}, id
 const seenPair = new Set(out.map(([a, b]) => [a, b].sort((x, y) => x - y).join('|'))); let uni = 0, cross = 0, uskip = [], merged2 = 0; const uniTie = new Map();
 const UNI = fs.existsSync(R + 'uni') ? fs.readdirSync(R + 'uni').filter(d => fs.existsSync(R + 'uni/' + d + '/out.json')).flatMap(d => fs.existsSync(R + 'uni/' + d + '/reviewed.json') ? [R + 'uni/' + d + '/reviewed.json'] : [R + 'uni/' + d + '/out.json', ...fs.readdirSync(R + 'uni/' + d).filter(f => /^extra_.*\.json$/.test(f)).map(f => R + 'uni/' + d + '/' + f)]) : [];
 const CROSS = fs.existsSync(R + 'uni/crossings/reviewed.json') ? R + 'uni/crossings/reviewed.json' : R + 'uni/crossings/crossings_out.json';   // the reviewed file once there
-[...UNI, ...(fs.existsSync(CROSS) ? [CROSS] : [])].forEach(f => JSON.parse(fs.readFileSync(f)).forEach(t => { const a = idOf(t.a), b = idOf(t.b);
+// Fox's X-Men split at Days of Future Past (split.json): a younger self's stages before it are the older self's (one bubble, their shared
+// past); from it on they're the younger self's own bubble in the changed timeline. One connection can become two
+const SPL = JSON.parse(fs.readFileSync(__dirname + '/split.json')), POST = new Set(SPL.post), isPost = t => POST.has(String(t).replace(/#\d+$/, '').replace(/ \((Post|Mid)-Credits Scene\)$/, ''));
+const splitTie = t => { const A = mg[t.a] || t.a, B = mg[t.b] || t.b, sp = x => SPL.age[x] || SPL.single[x]; if (!sp(A) && !sp(B)) return [t];
+  const pre = x => SPL.age[x] || x, post = x => SPL.single[x] || x, S0 = (t.stages || []).filter(x => !isPost(x.title)), S1 = (t.stages || []).filter(x => isPost(x.title));
+  return [S0.length && { ...t, a: pre(A), b: pre(B), stages: S0 }, S1.length && { ...t, a: post(A), b: post(B), stages: S1 }].filter(Boolean); };
+[...UNI, ...(fs.existsSync(CROSS) ? [CROSS] : [])].forEach(f => JSON.parse(fs.readFileSync(f)).flatMap(splitTie).forEach(t => { const a = idOf(t.a), b = idOf(t.b);
   const st = (t.stages || []).map(x => [KINDS.indexOf(x.kind), tIx(x.title), x.text, x.whoA || '', x.whoB || '']);
   if (a == null || b == null || a === b || !st.length || st.some(x => x[0] < 0)) { uskip.push(t.a + '|' + t.b); return; }
   const key = [a, b].sort((x, y) => x - y).join('|');

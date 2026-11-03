@@ -154,7 +154,7 @@ const SEAS = DATA.seas || {}, lab = t => { const m = /^(.*)#(\d+)$/.exec(t); if 
 const labs = L => [...new Set(L.map(j => LAB[j]))];   // title indexes, in order, as the seasons and titles they make
 // a crew is its universe's own: two FoX-Men and MCU groups with the same name are different rooms (the key carries the universe, unseen)
 const UK = (c, u) => u && u !== 'mcu' ? c + '\u2063' + u : c;
-const N = DATA.nodes.map(([n, k, g, F, M, d, T, A, S, AK, U, ID, DK], i) => ({ i, n, k, u: U || 'mcu', id: ID, dk: DK || '', g: UK(g, U), g0: UK(g, U), S: (S || []).map(([c, o]) => [UK(c, U), o]), AK: AK || [], F: F.map(x => x[0]), Fw: Object.fromEntries(F.map(([j, ...w]) => [j, w])), M, d, T, A }));
+const N = DATA.nodes.map(([n, k, g, F, M, d, T, A, S, AK, U, ID, DK], i) => ({ i, n, k, u: U || 'mcu', id: ID, dk: DK || '', g: UK(g, U), g0: UK(g, U), S: (S || []).map(([c, o, t]) => [UK(c, U), o, t == null ? -1 : t]), AK: AK || [], F: F.map(x => x[0]), Fw: Object.fromEntries(F.map(([j, ...w]) => [j, w])), M, d, T, A }));
 const cv = document.getElementById('room'), g = cv.getContext('2d');
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W = 0, H = 0, DPR = 1;
@@ -341,7 +341,7 @@ function frame(t) {
       if (d.name) arcName(d.name.toUpperCase(), cx, cy, R, Math.min(fs, Math.max(8, R - r0 - 2)), cy - R < 150); }); }   /* inside its own bubble, so a name never strays onto the Earth next door */
   // the floor: each crew's name written where it stands; a small crew's only once you're close
   if (e > 0) G.forEach(z => { const c = lens({ wx: z.cx, wy: z.cy + z.ly, ph: 0 }, 0);
-    if (!z.L.length || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
+    if (!z.L.length || z.name === 'Independent' || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
     g.globalAlpha = e * (busy() ? .55 : z.big ? .75 : .45) * Math.min(1, c.s * 1.2); g.fillStyle = sel ? KC[z.rel] || '#5FD0FF' : z.col || '#5FD0FF';
     g.font = `${Math.round((z.big ? 11 : 8) * c.s + 3)}px 'Share Tech Mono', monospace`; g.textAlign = 'center';
     g.letterSpacing = '2px'; g.fillText(z.name.toUpperCase(), c.x, c.y); g.letterSpacing = '0px'; g.globalAlpha = 1; });
@@ -475,7 +475,7 @@ const whoLine = (p, q, r) => (r && r.S[r.S.length - 1].w) || (WHO[p.n] || {})[q.
 const vtitles = q => { const T = labs(byOrd(q.A0)); return T.length > 2 ? T.slice(0, 2).join(', ') + ' and ' + (T.length - 2) + ' more' : T.join(' and '); };
 function moreHTML(p, L) {
   const aka = p.AK.filter(([nm, o]) => o <= CUT && nm !== p.n).map(([nm]) => nm), crews = [];
-  p.S.filter(([c, o]) => c !== 'Independent' && o >= 0 && o <= CUT).forEach(([c]) => { if (!crews.includes(c)) crews.push(c); });
+  p.S.filter(x => x[0] !== 'Independent' && x[1] >= 0 && crewSeen(x)).forEach(([c]) => { if (!crews.includes(c)) crews.push(c); });
   const T = labs(byOrd(p.A)), out = [];
   if (aka.length) out.push(`<h4>Also known as</h4><p class="aka">${aka.map(a => `<b>${esc(a)}</b>`).join(', ')}</p>`);
   if (crews.length) out.push(`<h4>Crews</h4><div class="crews">${crews.map(esc).join(' <i>›</i> ')}</div>`);
@@ -533,7 +533,7 @@ function fillCard(p) {
   const fill = (id, L, f) => { const box = $(id); box.hidden = !L.length; box.querySelector('.strip').innerHTML = L.map(j => `<button type="button" class="chip${f ? ' f' : ''}" data-i="${j}">${N[j].n}</button>`).join(''); box.querySelector('.strip').scrollLeft = 0; };
   card._L = L; card._more = null; $('cMore').innerHTML = ''; if (fillCard.last !== p) { card.style.transition = ''; setBig(false); } else if (cardBig) moreFill(); fillCard.last = p;
   // Open file only once you've found their file (the Compound or the Raft, and them in it), the app's own rule
-  { const f = !EMB || !!(parent.netCanOpen && parent.netCanOpen(p.id)), L = EMB && parent.netLinks ? parent.netLinks(p.id) : { prof: '', path: '' };   // their file, profile and path, each once you can reach it
+  { const f = !EMB || !!(parent.netCanOpen && parent.netCanOpen(FID(p.id))), L = EMB && parent.netLinks ? parent.netLinks(FID(p.id)) : { prof: '', path: '' };   // their file, profile and path, each once you can reach it
     $('cFile').hidden = !f; $('cProf').hidden = !L.prof; $('cPath').hidden = !L.path; $('cRow').hidden = !f && !L.prof && !L.path; }
   showOne(); cardIn(); tell();
 }
@@ -588,7 +588,7 @@ self.netBack = () => { if (!$('ssheet').hidden) $('ssheet').hidden = true; else 
 const say = (m, ms) => { toast.textContent = m; toast.style.opacity = 1; clearTimeout(say.t); say.t = setTimeout(() => toast.style.opacity = 0, ms || 2200); };
 $('cProf').onclick = () => { if (EMB && sel && parent.netProf) parent.netProf(sel.id); };
 $('cPath').onclick = () => { if (EMB && sel && parent.netPath) parent.netPath(sel.id); };
-$('cFile').onclick = () => { if (EMB && sel && parent.netOpenFile) parent.netOpenFile(sel.id, sel.k); else say('In the app, this opens their Compound or Raft file'); };
+$('cFile').onclick = () => { if (EMB && sel && parent.netOpenFile) parent.netOpenFile(FID(sel.id), sel.k); else say('In the app, this opens their Compound or Raft file'); };
 
 
 // ---------- seen up to (a stand-in for the app's own watched titles): someone is in the room once you've seen a title they're on file in.
@@ -606,8 +606,10 @@ if (window.parent !== window) document.documentElement.classList.add('wait');
 const seen = t => SEENF ? SEENF(TT[t]) : ORD[t] <= CUT;
 // the crew someone is in as of what you've seen: the one they end up in once you've seen them join it, otherwise the latest one you've
 // seen them in, otherwise none
-const crewNow = p => { if (CUT === Infinity) return p.g0; const f = p.S.find(([c]) => c === p.g0); if (f && f[1] <= CUT) return p.g0;
-  const L = p.S.filter(([, o]) => o >= 0 && o <= CUT), c = L.length ? L[L.length - 1][0] : UK('Independent', p.u); return String(c).split('\u2063')[0] === 'Independent' && p.circ ? p.circ : c; };
+// a group step counts once its own title is watched (not just anything later in the story, which could give a change away), and the
+// latest one stands: a person stays in a group until the story moves them (owner, November 2026)
+const crewSeen = ([, o, t]) => o < 0 || (SEENF && t >= 0 ? SEENF(DATA.titles[t]) : o <= CUT);
+const crewNow = p => { const L = p.S.filter(crewSeen), c = L.length ? L[L.length - 1][0] : UK('Independent', p.u); return String(c).split('\u2063')[0] === 'Independent' && p.circ ? p.circ : c; };
 const joined = (p, c) => p.T.some(([d, w]) => d === c && (w < 0 ? p.vis : seen(w)));
 function applyCut(v, quiet) {
   CUT = v; const t = performance.now();
@@ -632,7 +634,8 @@ function applyCut(v, quiet) {
     // biggest in the middle; a district's big bubble and its name are drawn behind its crews
     // in The Void the district is the group (owner: "the Void is definitely a better bubble organization than Kid Loki's crew")
     N.forEach(p => { if (p.vis && homeOf(p) === 'The Void') p.g = UK('The Void', p.u); });
-    const Wd = new Map(); N.forEach(p => { if (p.vis) { const w = wk(p); Wd.has(w) || Wd.set(w, new Map()); const by = Wd.get(w); by.has(p.g) || by.set(p.g, []); by.get(p.g).push(p); } });
+    // no catch-all bubble (owner, November 2026): someone in no group stands on their own, not in an "Independent" crowd
+    const Wd = new Map(); N.forEach(p => { if (p.vis) { const w = wk(p), key = String(p.g).split('\u2063')[0] === 'Independent' ? p.g + '\u2064' + p.i : p.g; Wd.has(w) || Wd.set(w, new Map()); const by = Wd.get(w); by.has(key) || by.set(key, []); by.get(key).push(p); } });
     const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => ZFIRST(b[0]) - ZFIRST(a[0]) || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
       const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
@@ -664,7 +667,9 @@ cutNext.onclick = () => setCut(+cutEl.value + 1);
 cutEl.value = STEPS.length; applyCut(Infinity, true);
 if (EMB) document.body.classList.add('emb');
 // from a file in the app: straight onto them (a Raft file merged into its Compound twin is found by name in the same universe)
-function findP(id) { let p = N.find(x => x.id === id) || N.find(x => x.id === (DATA.merged || {})[id]);   /* a merged file (young Charles) finds its bubble */ if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); } return p; }
+const FID = id => (Object.entries(DATA.single || {}).find(([, v]) => v === id) || [id])[0];   // Havok's changed-timeline bubble is still his one file
+// a younger self whose own bubble isn't shown yet (Days of Future Past unwatched) is found in their older self's, their shared past
+function findP(id) { let p = N.find(x => x.id === id && (x.vis || !(DATA.age || {})[id])) || N.find(x => x.id === (DATA.age || {})[id]) || N.find(x => x.id === id) || N.find(x => x.id === (DATA.merged || {})[id]);   /* a merged file (young Charles) finds its bubble */ if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); } return p; }
 self.netGo = id => { const p = findP(id);
   if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (p.u !== UNI) setWorld(p); lockOn(p); };
 // the app says what's been watched each time the Network opens; when nothing has changed, nothing moves (no re-shuffle, no flash)
@@ -703,7 +708,7 @@ function seenIn(f, uok, sat, ek) { if (sat != null) document.documentElement.sty
   // set out while out of sight: everyone is put straight on their spot, so opening the Network never shows them walking over (the first-open spaz)
   if (!sel) N.forEach(p => { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.go = 0; p.inAt = 0; });
   if (first || !sel) fitRoom(); };
-function setUni(u) { if (u === UNI) return; UNI = u; WORLD = null; uniTabs(); if (sel) home(); applyCut(CUT); N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); if (LIVE) reveal();   /* another universe's newcomers pop in when you go there */ }
+function setUni(u) { if (u === UNI) return; UNI = u; WORLD = null; uniTabs(); if (sel) home(); applyCut(CUT); fitRoom();   /* a tab opens with all its Earths in view */ N.forEach(p => { if (p.arrive) { p.arrive = false; p.inAt = 0; p.go = 0; p.wx = p.hx; p.wy = p.hy; } }); if (LIVE) reveal();   /* another universe's newcomers pop in when you go there */ }
 // the Earths you've met in a universe, biggest first: [key, label, how many]
 function worldsOf(u) { const c = new Map(); N.forEach(p => { if (p.u === u && (metP(p) || p.vis)) { const k = wk(p); c.set(k, (c.get(k) || 0) + 1); } });
   return [...c].sort((a, b) => b[1] - a[1]).map(([k, n]) => [k, k.split('|')[1] || 'No Earth number', n]); }
