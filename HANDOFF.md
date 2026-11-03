@@ -1023,9 +1023,31 @@ These happened in earlier chats. Each cost the owner time.
     wastes the owner's time and was called out more than once. Push those yourself, and say so in a line.
 25. **Filing a found problem instead of raising it.** The Collection's holder list mixing eight Spider-Men was noticed while building the
     holder links and only written under Open items. Tell the owner the moment you find something wrong, with what it is and a fix.
+26. **Writing an audit brief from a sample instead of from these rules** (November 2026). The people second pass told checkers that a
+    group someone left before their first title is "backstory, not a stage", that brainwashed service and workplaces don't count, and
+    let them take group names from fan wikis. HANDOFF says the opposite on all four (a hero file notes a villain past even outside its
+    titles; brainwashed, forced and undercover service count; any organization counts, companies included; a group's name is the one
+    said on screen). ct49 caught the Winter Soldier's war years; the rest were found on reading HANDOFF and reverted or re-checked.
+    Before writing any brief, copy the binding rules from this file into it (`audit2/people/RULES_HANDOFF.md` is the people set).
+27. **Changing a file's steps while other data points at them by place.** A file's places and cases (`at_case.json`, "g:id:step"), its
+    episode tags (`ep_tags.json`, "title|n"), its handover rewrites and drops (`handover.json`, by title and n) and the Network's card
+    rewrites (`line_fix.json`, "a|b|stage|side") are all keyed by position. Inserting or moving a step shifts them all. Re-key them with
+    the change and check the result against the built app (every changed file equal to what was checked, every other file unchanged).
 
 ## Open items
 
+- **Audit status (night of 3 to 4 November 2026, on the working branch, NOT on main):** parts 1 to 3 are checked, second-checked and
+  applied; the full suite passes. What went in and where:
+  - People: `TEAM_AUDIT2` in index.html (after `TEAM_AUDIT`, before the Independent filter) and the departures list rebuilt in both
+    `TEAM_LEFT` and `split.json` "left" (`audit2/people/apply3.json`). Held, not applied: 8 group names the screen never says (one
+    question each), being a student at a school (one question), and the Flint record split.
+  - Network: `network/rel/stage_fix_zaudit.json` (edits by stage place, later stages added, and every stage moved earlier SPLIT so the
+    later facts keep their own stage at the episode they happen; card lines restyled with the owner's card-line brief). relbake now
+    lets a fix move a stage to another title (`title`) and matches `line_fix` lines by text within the pair when places shift.
+  - Files: `STEP_AUDIT` in index.html, applied after the handovers; each changed file's places and cases re-keyed in the same block and
+    its episode tags recomputed in `ep_tags.json` (`audit2/files/step_audit.json`, built by `build_steps.py` from the live app's data).
+  - Still to do: the random 600 rechecks for parts 1 to 3 (the owner's bar), then parts 4 to 9. The owner's open questions from the
+    night are in the morning report.
 - **To revisit after the audit (owner, November 2026):** a "Held" line under a file's entry, beside At and Case: the Collection
   objects that person holds in that title (the Darkhold under Wanda's Multiverse of Madness entry), shown once the Collection is found.
   The owner would have liked it before the audit; it waits until after.
