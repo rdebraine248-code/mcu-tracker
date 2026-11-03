@@ -4711,7 +4711,7 @@ function collShow(id) {
 function collJump(mode, id) { openColl(mode, true, true); collShow(id); }
 // a link from one index into another (a holder's file, a replay's file) opens only an index you've found, and only a file with a title you've watched
 const ixFile = (tg, pid) => { const o = pid && (tg === "A" ? ALLIES : tg === "C" ? COLLX : tg === "D" ? DC : THREATS).find(x => x.id === pid);
-  return o && (tg === "A" ? state.cpIn && cpSteps(o).length : tg === "C" ? state.collIn && cxSteps(o).length : tg === "D" ? earned("damagecontrol") && dcSeen(o) : state.raftIn && rfSteps(o).length) ? o : null; };
+  return o && (tg === "A" ? state.cpIn && cpSteps(o).length : tg === "C" ? state.collIn && cxSteps(o).length : tg === "D" ? dcFound() && dcSeen(o) : state.raftIn && rfSteps(o).length) ? o : null; };
 function collRestore() {   // back landed on a step from another index or another file: put that one back
   const h = history.state || {}; if (!h.cm || (h.mcu !== "coll" && h.mcu !== "collrec") || (h.cm === collMode && (h.cr || null) === collRec)) return false;
   if (h.cm !== collMode) openColl(h.cm, true, true);
@@ -4941,8 +4941,10 @@ const hoMark = (m, side, twin) => { const there = side === "R" ? "the Compound" 
 const AT_CASE = /*ATCASE*/{};
 function atPlace(key) { const [id, v, sub] = key.split("|"), L = v === "city" ? atlPlaces("city", sub) : v === "uni" ? (ATLAS_UNI[sub] || { places: [] }).places : ATLAS[v] || [];
   const p = L.find(q => q.id === id); return p ? { p, v, sub: sub || null } : null; }
+// Damage Control is found once its door in Midtown has been opened (state.eggs, as the Archives read it; its Agent File record is "egg-damagecontrol")
+const dcFound = () => !!(state.eggs || {}).damagecontrol;
 function recAt(tg, o, x) { const e = AT_CASE[tg + ":" + o.id + ":" + o.st.indexOf(x)]; if (!e) return "";
-  const at = (e.at || []).map(k => [k, atPlace(k)]).filter(([, r]) => r && atlLit(r.p)), dcOk = earned("damagecontrol");
+  const at = (e.at || []).map(k => [k, atPlace(k)]).filter(([, r]) => r && atlLit(r.p)), dcOk = dcFound();
   const cs = dcOk ? (e.cases || []).map(id => DC.find(d => d.id === id)).filter(d => d && dcSeen(d)) : [];
   if (!at.length && !cs.length) return "";
   return `<div class="rec-at">${at.length ? `<b>At</b><span>${at.map(([k, r]) => `<a role="link" tabindex="0" data-atp="${esc(k)}">${esc(r.p.n)}</a>`).join(", ")}</span>` : ""}${cs.length ? `<b>Case</b><span>${cs.map(d => `<span class="rec-cs"><i>${DC_NO[d.id]}</i><a role="link" tabindex="0" data-dcr="${esc(d.id)}">${esc(d.n)}</a></span>`).join("")}</span>` : ""}</div>`; }

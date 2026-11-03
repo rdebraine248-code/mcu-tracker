@@ -947,6 +947,10 @@ been lost over the different handoffs that I said to remind new chats about, esp
 
 ## Mistakes not to repeat
 
+- **A gate on the wrong record name (November 2026):** the Case lines and the links into Damage Control asked `earned("damagecontrol")`,
+  but the Agent File records a discovery as `egg-damagecontrol`, so no one ever saw a Case line (the owner found it). `dcFound()` reads
+  `state.eggs.damagecontrol`, as the Archives do. The content check now fails any `earned("...")` naming a record that doesn't exist.
+
 - **Gathering data with a mockup switched on.** The episode pass gathered its moments from the dev build while the WandaVision mockup
   was in it, so Wanda's real entry took a mockup entry's tag. Gather from a build with no mockups (or the main build), and check a
   sample end to end (`episodes/check.js`) before pushing.

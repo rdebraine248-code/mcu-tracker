@@ -37,6 +37,9 @@ const out = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[
     Object.entries(ATL_CITY).forEach(([c, C]) => { const host = ATLAS.earth.find(p => p.city === c); (host ? host.e : []).forEach(e => { const k = atlSpot(e[1]); if (k && !C.spots[k]) fail('city entry on a spot the map lacks', c + ': ' + e[1] + ' (' + e[0] + ')'); }); });
     const dupIds = (m, L) => { const s = new Set(); L.forEach(p => { if (s.has(p.id)) fail('two places with one id on a map', m + ':' + p.id); s.add(p.id); }); };
     Object.entries(ATLAS).forEach(([v, L]) => dupIds(v, L)); Object.entries(ATLAS_UNI).forEach(([u, U]) => dupIds('uni:' + u, U.places));
+    // a gate on an Agent File record must name one that exists (Damage Control's Case lines asked for "damagecontrol", the record is "egg-damagecontrol")
+    { const ids = new Set(achList().map(a => a.id)), src = [...document.scripts].map(x => x.textContent).join('\n');
+      [...src.matchAll(/earned\("([^"]+)"\)/g)].forEach(m => { if (!ids.has(m[1])) fail('a gate on an Agent File record that does not exist', m[1]); }); }
     // ---------- 3. the owner's wording rules, over every line of content
     const texts = [];
     [['A', ALLIES], ['T', THREATS], ['C', COLLX]].forEach(([g, F]) => F.forEach(o => { (o.st || []).forEach((x, k) => texts.push([g + ':' + o.id + ':' + k, x[0]])); ['n', 'kind', 'k', 'd', 'desc'].forEach(f => typeof o[f] === 'string' && texts.push([g + ':' + o.id + ' ' + f, o[f]])); }));
