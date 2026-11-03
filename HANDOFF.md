@@ -1026,12 +1026,17 @@ These happened in earlier chats. Each cost the owner time.
 
 ## Open items
 
+- **To revisit after the audit (owner, November 2026):** a "Held" line under a file's entry, beside At and Case: the Collection
+  objects that person holds in that title (the Darkhold under Wanda's Multiverse of Madness entry), shown once the Collection is found.
+  The owner would have liked it before the audit; it waits until after.
 - **The audit plan** (owner, November 2026): step by step, in HANDOFF's words above. 1) Build the content check and run it in full,
   fix what it finds. 2) The audit in nine parts, in order: people (groups, Earths, versions), Network connections, files (records,
   statuses, hand-overs, At and Case), Atlas, character logs, Damage Control and Comms (messages and headlines), the story lists and the
   boxes' own text (titles, order, years, running times, episode lists and tags, quotes, unlock lines, rename notes), the Agent File (64
   eggs, 6 stones, 136 achievements, insignia names and hints), the Incursions wall and the Multiverse (lost Earths, TVA notices, the
-  Watcher's realities). Paths and the Log have no text of their own: they're covered through the files and logs. Parts 7 to 9 were
+  Watcher's realities). Paths and the Log have no text of their own: they're covered through the files and logs. The Atlas part also asks
+  what's MISSING (owner: Earth-67 had no season 2): the content check flags each file step whose At line names a place with no entry
+  for that title, and the Atlas checkers add the entry or correct the At line. Parts 7 to 9 were
   added because nothing had been checked under the locked rules; the October lore audit and the eggs audit were single unlocked passes. Each part: fixed yes/no questions, a change needs
   a source, a second checker confirms it, every checked entry is locked, patterns fixed as a whole. 3) After each part, a random 600
   of the passed entries are rechecked from scratch; the owner's bar is 0%, at worst 0.5 to 1% ("if I can't get 0% wrong then .5-1%"):

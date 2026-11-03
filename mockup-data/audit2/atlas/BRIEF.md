@@ -21,6 +21,10 @@ entries `[title, sub, text]` ("#N" after a show = its episode N across seasons; 
 - **P3 Map:** is the place on the right map/universe for each of its entries?
 - **P4 Spoilers:** does an entry give away something from a later title than its own?
 - **P5 Name:** is the place's name right (as the sources name it)?
+- **P6 Missing:** a place's `leads` (if any) are file steps whose places line points here, for a title (or episode) this place has no
+  entry for. For each: if the step's event really happens here, propose a new entry for it ([title with "#N" for an episode, sub,
+  text]); if it doesn't, say where it happens (the step's places line is then wrong: report it under P6 with "wrong_place": true).
+  Beyond leads, if you know of a major, sourced event at this place in a title it has no entry for, propose it too.
 
 ## Evidence rule
 Change only on a failed question with a source URL and what happens where. No rewording for style. If unsure, it passes.

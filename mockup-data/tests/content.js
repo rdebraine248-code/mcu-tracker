@@ -59,7 +59,13 @@ const out = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[
       ['"in 0 titles"', /\bin 0 titles?\b/i], ['leftover "Profile" button', /\bProfile button\b/i], ['placeholder text', /\b(TODO|TBD|lorem|undefined|NaN|\[object Object\])\b/]];
     texts.forEach(([w, s]) => RULES.forEach(([n, re]) => { if (n === 'gesture instruction' && /^(EGGS|ACH|STONE_HOW|STONES)\./.test(w)) return;   // an egg's how-to names its gesture by design
       if (re.test(s || '')) fail('wording: ' + n, w + ': ' + String(s).slice(0, 140)); }));
-    // ---------- 4. leads for the audit: a file that says someone died and then has them act again
+    // ---------- 4. leads for the audit: a step whose At line names a place that has no entry for that step's title (or its season or
+    // episode): the place is missing what happens there (owner, November 2026: Earth-67 had no season 2 at all)
+    { const same = (a, b) => { const A = epBase(a), B = epBase(b); return A === B || A.replace(/ S\d.*$/, '') === B.replace(/ S\d.*$/, '') || A.replace(/ \((Post|Mid)-Credits Scene\)$/, '') === B.replace(/ \((Post|Mid)-Credits Scene\)$/, ''); };
+      Object.entries(AT_CASE).forEach(([key, e]) => { const [g, id, k] = key.split(':'), o = (g === 'A' ? ALLIES : THREATS).find(x => x.id === id), x = o && o.st[+k]; if (!x) return; const t = stepT(x);
+        (e.at || []).forEach(pk => { const r = atPlace(pk); if (!r || !r.p) return; const E = r.p.uni ? [] : (r.p.e || []); if (r.p.uni) return;
+          const n = epNo(t), hit = E.some(en => same(en[0], t) && (!n || !epNo(en[0]) || epNo(en[0]) === n)); if (!hit) flag('a place with no entry for a title its files put there', key + ' (' + t + ') -> ' + pk); }); }); }
+    // ---------- 4b. leads for the audit: a file that says someone died and then has them act again
     [['A', ALLIES], ['T', THREATS]].forEach(([g, F]) => F.forEach(o => { let dead = -1; (o.st || []).forEach((x, k) => { if (x[2] === 'Deceased') dead = k; else if (dead >= 0 && x[2] && x[2] !== 'Deceased') { flag('alive again after Deceased', g + ':' + o.id + ' step ' + dead + ' -> ' + k + ' (' + x[2] + ')'); dead = -1; } }); }));
     // ---------- 5. (full) tick every title, season and episode alone on every list: only it (and what belongs to it) may show
     const sweep = { states: 0 };
