@@ -90,8 +90,10 @@ console.log('stage fixes', sFix);
 // the card lines rewritten so it's always clear who's who (owner, November 2026: no leading name, the card's own person named, a pronoun
 // only where one person fits): rel/line_fix.json, "idA|idB|stage|A or B" -> [old, new]; applied last, only where the old line still matches
 let lfDone = 0, lfStale = 0; if (fs.existsSync(R + 'line_fix.json')) { const F = JSON.parse(fs.readFileSync(R + 'line_fix.json'));
-  out.forEach(([a, b, st]) => st.forEach((x, si) => ['A', 'B'].forEach((side, j) => { const f = F[H.nodes[a][11] + '|' + H.nodes[b][11] + '|' + si + '|' + side]; if (!f) return;
-    if (x[3 + j] === f[0]) { x[3 + j] = f[1]; lfDone++; } else lfStale++; }))); }
+  // matched by place first, then by the old line anywhere in the pair on that side (a stage added or moved earlier shifts the places)
+  const byText = new Map(); Object.entries(F).forEach(([k, f]) => { const [x1, x2, , sd] = k.split('|'); const g = x1 + '|' + x2 + '|' + sd; if (!byText.has(g)) byText.set(g, new Map()); byText.get(g).set(f[0], f[1]); });
+  out.forEach(([a, b, st]) => st.forEach((x, si) => ['A', 'B'].forEach((side, j) => { const pk = H.nodes[a][11] + '|' + H.nodes[b][11]; const f = F[pk + '|' + si + '|' + side];
+    if (f && x[3 + j] === f[0]) { x[3 + j] = f[1]; lfDone++; return; } const m = byText.get(pk + '|' + side); if (m && m.has(x[3 + j])) { x[3 + j] = m.get(x[3 + j]); lfDone++; return; } if (f) lfStale++; }))); }
 console.log('card lines rewritten', lfDone, '| stale (the old line changed since)', lfStale);
 fs.writeFileSync(__dirname + '/rel.json', JSON.stringify({ kinds: KINDS, titles: T, ord: T.map(so), ties: out, places, cross: cross > 0 }));
 console.log('know-each-other audit: cut', kaCut, 'corrected', kaFix); console.log('other-universe circles', uc, '| Sacred Timeline fights and gaps added', extraMcu); console.log('other universes', uni, 'from', UNI.length, 'files | combined', merged2, '| crossings', cross, '| skipped', uskip.length, uskip.slice(0, 8).join(', '));
