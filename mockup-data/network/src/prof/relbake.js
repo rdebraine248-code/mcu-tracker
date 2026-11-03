@@ -87,6 +87,12 @@ let sFix = 0; ['stage_fix.json', ...fs.readdirSync(R).filter(f => /^stage_fix_.+
     st.push([KINDS.indexOf(e.kind), tIx(e.title + (e.episode ? '#' + e.episode : '')), e.text, flip ? e.whoB : e.whoA, flip ? e.whoA : e.whoB]); sFix++; });
   st.sort((x, y) => so(T[x[1]]) - so(T[y[1]])); }); });
 console.log('stage fixes', sFix);
+// the card lines rewritten so it's always clear who's who (owner, November 2026: no leading name, the card's own person named, a pronoun
+// only where one person fits): rel/line_fix.json, "idA|idB|stage|A or B" -> [old, new]; applied last, only where the old line still matches
+let lfDone = 0, lfStale = 0; if (fs.existsSync(R + 'line_fix.json')) { const F = JSON.parse(fs.readFileSync(R + 'line_fix.json'));
+  out.forEach(([a, b, st]) => st.forEach((x, si) => ['A', 'B'].forEach((side, j) => { const f = F[H.nodes[a][11] + '|' + H.nodes[b][11] + '|' + si + '|' + side]; if (!f) return;
+    if (x[3 + j] === f[0]) { x[3 + j] = f[1]; lfDone++; } else lfStale++; }))); }
+console.log('card lines rewritten', lfDone, '| stale (the old line changed since)', lfStale);
 fs.writeFileSync(__dirname + '/rel.json', JSON.stringify({ kinds: KINDS, titles: T, ord: T.map(so), ties: out, places, cross: cross > 0 }));
 console.log('know-each-other audit: cut', kaCut, 'corrected', kaFix); console.log('other-universe circles', uc, '| Sacred Timeline fights and gaps added', extraMcu); console.log('other universes', uni, 'from', UNI.length, 'files | combined', merged2, '| crossings', cross, '| skipped', uskip.length, uskip.slice(0, 8).join(', '));
 console.log('from', src, '| ties', out.length, 'skipped', skip, '| titles', T.length, 'unplaced titles', T.filter(t => so(t) < 0), '| circles', Object.keys(places).length);

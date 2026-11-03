@@ -845,7 +845,10 @@ insignia celebration covers the page.
   ticker.
 - **Card lines: pronouns only where the person is clear** (owner, November 2026: "He fought him and he won when he lost" is the problem,
   not pronouns themselves). No leading name (the card already shows it); name the card's own person instead of a second him or her.
-  Example, Sharon's card about Captain America: "Infects Sharon on the survivors' train." To apply in the audit.
+  Example, Sharon's card about Captain America: "Infects Sharon on the survivors' train." Done, November 2026, before the audit: 11,524
+  lines rewritten by ten agents from the owner's 20 approved examples (`network/cards/BRIEF.md`), applied last in relbake from
+  `network/rel/line_fix.json` (only where the old line still matches). Each card keeps one short name for its person. On the way the
+  agents found and fixed lines describing the wrong person (swapped pairs) and wrong facts against the stage text.
 - **No link in an index opens an index you haven't found.** That includes battle replays and anything added later: use `ixFile`.
 - **One person, one name:** a Collection holder reads as the person's file does, and a variant in another universe as the main universe's
   file, unless the screen names it differently. Spellings follow the screen and its credits (Bennie Pollack, Aida).
