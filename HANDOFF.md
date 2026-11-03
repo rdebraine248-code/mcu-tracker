@@ -813,6 +813,15 @@ insignia celebration covers the page.
   shared past (First Class), and their younger self is a bubble of its own in Earth-TRN414 from Days of Future Past on. Havok, one file
   across both, gets a second bubble (`fox-havok-trn`) that opens his one file. In the indexes, young and old were already separate files.
 - **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
+- **The file's ID card** (owner, November 2026), the same in the Compound and the Raft: the status stamp sits in the card's top corner so
+  the text runs the full width. First and last seen are the two ends of the person's path, a line in the index's colour, with "N titles on
+  the path ›" between them opening Paths. Under it, "Character log" and the box's name open the character log, not the box. Both only
+  where the person has them (`seenLine(S, o)`). No Character log or Path buttons on the record's header line. Where the record hands over to
+  the other index, that entry is the link, in the other index's colour (red to the Raft, blue to the Compound), and the "Also on file" box
+  goes; a twin with no hand-over keeps the box.
+- **Next for the file (waits on the audit):** under each record entry, "At" (the places) and "Case" (Damage Control, number and name on one
+  line each), tagged by what the entry describes happening, whether or not the place is named (owner: "sides with Steve" is the airport).
+  Each file shows its own side: Wanda's Raft file has Johannesburg, her Compound file doesn't.
 - **Links in messages: cut** (owner, November 2026: "useless right now, I'll think of it later"). Tried twice: pills, then the names
   underlined in the text. The problem was that file links can't show before the Compound (Age of Ultron) or the Raft (Civil War) are found,
   so the early messages had none. Parked, not in the app: the matcher `mockup-data/msg/mech.js` and its output `msg_anchors.json` (every
