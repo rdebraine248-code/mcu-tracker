@@ -5,7 +5,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
 (async () => { const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
   const ctx = await b.newContext({ viewport: { width: 412, height: 900 } });
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, checks: {} }));
-  await ctx.route('**/*', r => r.request().url().startsWith('http://t/') ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : r.continue());
+  await ctx.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
   const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(1200);
   await p.evaluate(() => { const st = state; st.checks = {}; DATA.chapters.forEach(c => { st.unlocked[c.id] = true; c.items.forEach(i => st.checks[ck(c, i.t)] = true); }); DATA.timeline.forEach(e => st.checks['tl::' + e.t] = true);
     st.mvEver = 1; st.incEver = 1; st.charOpen = {}; st.seen = {}; DATA.chars.forEach(c => { st.charOpen[c.id] = 1; st.seen[c.id] = true; c.items.forEach(i => st.checks[ck(c, i.t)] = true); }); st.raftIn = 1; st.cpIn = 1; st.collIn = 1; persist(); });

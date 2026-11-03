@@ -862,8 +862,9 @@ insignia celebration covers the page.
     after DOFP like in networks etc, consistency and accuracy"). Two maps on the Multiverse: Earth-10005 (`ATLAS_UNI.fox`) and
     Earth-TRN414 (`ATLAS_UNI.foxtrn`, pin `u-foxtrn`, "The X-Men's changed timeline"). Changed-timeline titles: Days of Future Past's
     1973, Apocalypse, Dark Phoenix. Days of Future Past's 2023 (the Chinese temple, Moscow) is the old timeline's future, so it stays on
-    Earth-10005, as the old cast's bubbles do in the Network. Deadpool 2 stays on Earth-10005: Deadpool & Wolverine calls Wade's world
-    Earth-10005, and the Network has the Deadpool cast there. A place in both timelines is on both maps with each one's own entries
+    Earth-10005, as the old cast's bubbles do in the Network. Deadpool 2 is on Earth-10005 everywhere (owner, November 2026: "whatever
+    makes the most sense for his story as a whole, not a quick punchline"): Deadpool & Wolverine calls Wade's world Earth-10005, so the
+    young X-Men's glimpse at the mansion doesn't move it. The Network's split list (`split.json` `post`) no longer has it. A place in both timelines is on both maps with each one's own entries
     (Xavier's School, New York, Washington, Alkali Lake...). Jean's childhood home: New Jersey on Earth-10005 (The Last Stand), Red
     Hook on Earth-TRN414 (Dark Phoenix). At lines in the files point at the map of their own title.
   **Step indexes:** the keys count a file's `st` steps, so adding or removing a step shifts the rest: re-tag that file. The audit checks it.

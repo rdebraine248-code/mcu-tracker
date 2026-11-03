@@ -8,7 +8,7 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); }, errs = [];
   const run = async (w, fn) => { const ctx = await b.newContext({ viewport: { width: 412, height: 900 } });
     await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, save(w));
-    await ctx.route('**/*', r => r.request().url().startsWith('http://t/') ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : r.continue());
+    await ctx.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
     const p = await ctx.newPage(); p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500);
     const r = await fn(p); await ctx.close(); return r; };
   const tags = (p, id) => p.evaluate(id => { openColl('raft'); collShow(id); return [...document.querySelectorAll('[data-rft]')].map(x => x.dataset.rft); }, id);
