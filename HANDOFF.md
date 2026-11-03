@@ -854,9 +854,14 @@ insignia celebration covers the page.
     the Axis of Time, the Dark Dimension out at the rim). Its crumb and back go to its Earth, then the Multiverse (`atlorb` step). The
     main Earth's inset opens the Cosmos centred on Earth, where S.A.B.E.R. and Mar-Vell's lab already orbit it. The Savage Land is
     on Earth, below the map's 58°S edge, so it sits on that edge.
-  - **Two timelines, two places** (owner: Jean's homes "shouldn't be a conflict because of the timeline earth difference after DOFP"):
-    Fox's map holds both X-Men timelines, so "Jean's childhood home" is in New Jersey (The Last Stand) and in Red Hook, New York
-    (Dark Phoenix, after Days of Future Past). Not a contradiction to flag.
+  - **The Atlas splits Fox's X-Men at Days of Future Past, like the Network** (owner, November 2026: "the timeline earth difference
+    after DOFP like in networks etc, consistency and accuracy"). Two maps on the Multiverse: Earth-10005 (`ATLAS_UNI.fox`) and
+    Earth-TRN414 (`ATLAS_UNI.foxtrn`, pin `u-foxtrn`, "The X-Men's changed timeline"). Changed-timeline titles: Days of Future Past's
+    1973, Apocalypse, Dark Phoenix. Days of Future Past's 2023 (the Chinese temple, Moscow) is the old timeline's future, so it stays on
+    Earth-10005, as the old cast's bubbles do in the Network. Deadpool 2 stays on Earth-10005: Deadpool & Wolverine calls Wade's world
+    Earth-10005, and the Network has the Deadpool cast there. A place in both timelines is on both maps with each one's own entries
+    (Xavier's School, New York, Washington, Alkali Lake...). Jean's childhood home: New Jersey on Earth-10005 (The Last Stand), Red
+    Hook on Earth-TRN414 (Dark Phoenix). At lines in the files point at the map of their own title.
   **Step indexes:** the keys count a file's `st` steps, so adding or removing a step shifts the rest: re-tag that file. The audit checks it.
 - **Links in messages: cut** (owner, November 2026: "useless right now, I'll think of it later"). Tried twice: pills, then the names
   underlined in the text. The problem was that file links can't show before the Compound (Age of Ultron) or the Raft (Civil War) are found,
