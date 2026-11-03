@@ -4658,7 +4658,7 @@ const ixMode = () => state.ixSort || (state.ixAZ ? "az" : "first");
 const ixTitles = S => new Set(S.map(x => x[1])).size, ixLast = S => S.reduce((a, x) => seenRk(x) > seenRk(a) ? x : a, S[0]);
 const ixCmp = (name, steps) => (a, b) => { const m = ixMode(), A = m === "az" ? null : steps(a), B = m === "az" ? null : steps(b);
   return (m === "first" ? seenRk(rfFirstStep(A)) - seenRk(rfFirstStep(B)) : m === "last" ? seenRk(ixLast(B)) - seenRk(ixLast(A)) : m === "most" ? ixTitles(B) - ixTitles(A) : 0) || ixName(name(a)).localeCompare(ixName(name(b))); };
-const IX_SORTS = [["first", "First seen"], ["last", "Last seen"], ["most", "Most titles"], ["az", "A–Z"]];
+const IX_SORTS = [["first", "First seen"], ["last", "Last seen"], ["most", "Most seen"], ["az", "A–Z"]];
 const ixSortBar = dc => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg">${IX_SORTS.map(([k, l]) => `<button type="button" data-ixs="${k}" aria-pressed="${ixMode() === k}">${dc && k === "most" ? "Most people" : l}</button>`).join("")}</div></div>`;   // Damage Control: a report is one title, so it counts the people on file in it
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
 const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
