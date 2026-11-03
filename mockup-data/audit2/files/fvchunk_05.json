@@ -1,0 +1,1014 @@
+[
+ {
+  "key": "T:st-the-doctor",
+  "k": 1,
+  "q": "F5",
+  "now": {
+   "k": 1,
+   "title": "Agents of S.H.I.E.L.D.",
+   "text": "In episode 87, Radcliffe sends him out of the Framework. The real Fitz wakes up remembering every terrible thing he did.",
+   "status": "Allied",
+   "at": [
+    "The Framework",
+    "Siberia"
+   ],
+   "cases": []
+  },
+  "proposed": {
+   "at": [
+    "The Framework",
+    "The Baltic Sea"
+   ]
+  },
+  "evidence": "Radcliffe sends Fitz out of the Framework and he wakes at Ivanov's oil platform, where Aida runs the Framework; the platform is in the Baltic Sea, not Siberia (Siberia/Krasnoyarsk Krai is where the agents were kidnapped earlier). Use whatever place name the app has for Ivanov's platform.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ivanov_Oil_Platform",
+  "confidence": "medium",
+  "from": "out_21.json",
+  "file": {
+   "name": "The Doctor",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 84, inside the Framework, Fitz is the Doctor, who leads HYDRA with Madame Hydra. He kills Agnes and tortures Radcliffe and Daisy.",
+     "status": "At large",
+     "at": [
+      "The Framework"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 87, Radcliffe sends him out of the Framework. The real Fitz wakes up remembering every terrible thing he did.",
+     "status": "Allied",
+     "at": [
+      "The Framework",
+      "Siberia"
+     ],
+     "cases": []
+    },
+    {
+     "k": 2,
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 104, Fitz lets his Doctor side take over and forces surgery on Daisy to remove her inhibitor. Afterward, she locks him up.",
+     "status": "In custody",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 3,
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 110, fighting beside S.H.I.E.L.D., Fitz is buried in rubble and dies, but an earlier Fitz still sleeps in space.",
+     "status": "Missing",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 4,
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 116, Fitz wakes in space. When the Chronicoms trap his mind together with Simmons's, his Doctor side hunts them both.",
+     "status": "Allied",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 5,
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In season 7, Fitz returns to help defeat the Chronicoms, then retires with Simmons and their daughter Alya.",
+     "status": "Allied",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 80
+ },
+ {
+  "key": "T:st-ward-meachum",
+  "k": 0,
+  "q": "F1",
+  "now": {
+   "k": 0,
+   "title": "Iron Fist S1",
+   "text": "In episode 2, Ward has Danny locked in a psychiatric ward to keep him away from Rand Enterprises.",
+   "status": "Active",
+   "at": [
+    "Manhattan"
+   ],
+   "cases": []
+  },
+  "proposed": {
+   "text": "In episode 2, with Danny locked in a psychiatric hospital, Ward sends men posing as patients to kill him."
+  },
+  "evidence": "Joy, not Ward, drugs Danny and has him institutionalized (end of episode 1). In episode 2 Ward ignores Harold and orders his men, disguised as patients, to kill Danny, who escapes.",
+  "source": "https://en.wikipedia.org/wiki/Iron_Fist_season_1",
+  "confidence": "high",
+  "from": "out_21.json",
+  "file": {
+   "name": "Ward Meachum",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Iron Fist S1",
+     "text": "In episode 2, Ward has Danny locked in a psychiatric ward to keep him away from Rand Enterprises.",
+     "status": "Active",
+     "at": [
+      "Manhattan"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Iron Fist S1",
+     "text": "In episode 9, Ward stabs his father Harold to death and lies to Danny about it, but Harold comes back to life.",
+     "status": "Active",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 2,
+     "title": "Iron Fist S2",
+     "text": "Ward faces his addiction at NA meetings, helps rescue Joy, then joins Danny on a journey across Asia.",
+     "status": "Allied",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 81
+ },
+ {
+  "key": "T:st-ward-meachum",
+  "k": null,
+  "q": "F4",
+  "now": null,
+  "proposed": {
+   "after": 1,
+   "title": "Iron Fist S1",
+   "text": "In episode 13, Ward sides with Danny and shoots Harold, who falls from the Rand Enterprises roof. Ward has the body cremated so he cannot come back.",
+   "status": "Allied",
+   "at": [],
+   "cases": []
+  },
+  "evidence": "In the season 1 finale Ward allies with Danny, Colleen and Claire against Harold, shoots him off the Rand Enterprises rooftop and has the body cremated. The file goes straight from episode 9 to season 2 and never records his father's final death or his change of sides.",
+  "source": "https://en.wikipedia.org/wiki/Iron_Fist_season_1",
+  "confidence": "high",
+  "from": "out_21.json",
+  "file": {
+   "name": "Ward Meachum",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Iron Fist S1",
+     "text": "In episode 2, Ward has Danny locked in a psychiatric ward to keep him away from Rand Enterprises.",
+     "status": "Active",
+     "at": [
+      "Manhattan"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Iron Fist S1",
+     "text": "In episode 9, Ward stabs his father Harold to death and lies to Danny about it, but Harold comes back to life.",
+     "status": "Active",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 2,
+     "title": "Iron Fist S2",
+     "text": "Ward faces his addiction at NA meetings, helps rescue Joy, then joins Danny on a journey across Asia.",
+     "status": "Allied",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 82
+ },
+ {
+  "key": "T:st-typhoid-mary",
+  "k": 0,
+  "q": "F1",
+  "now": {
+   "k": 0,
+   "title": "Iron Fist S2",
+   "text": "In episode 4, Mary Walker is hired to watch Danny's allies, and her violent other self takes over.",
+   "status": "At large",
+   "at": [
+    "Chinatown"
+   ],
+   "cases": []
+  },
+  "proposed": {
+   "text": "In episode 4, Walker, a soldier hired by Joy and Davos to spy on Danny, drugs him and delivers him to the ritual that gives Davos the Iron Fist."
+  },
+  "evidence": "In Iron Fist S2 the gentle 'Mary' is the alter and Walker is the mercenary; no violent self takes over in episode 4. In episode 4 Joy learns of Walker's dissociative identity disorder, and Walker attacks and drugs Rand and takes him to the ritual that moves the Iron Fist to Davos.",
+  "source": "https://en.wikipedia.org/wiki/Iron_Fist_season_2",
+  "confidence": "high",
+  "from": "out_21.json",
+  "file": {
+   "name": "Mary Walker",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Iron Fist S2",
+     "text": "In episode 4, Mary Walker is hired to watch Danny's allies, and her violent other self takes over.",
+     "status": "At large",
+     "at": [
+      "Chinatown"
+     ],
+     "cases": []
+    }
+   ]
+  },
+  "i": 83
+ },
+ {
+  "key": "T:talos",
+  "k": 1,
+  "q": "F3",
+  "now": {
+   "k": 1,
+   "title": "Captain Marvel",
+   "text": "When Fury sees through his disguise, Talos tries to kill him, then tracks Vers to Maria Rambeau's home.",
+   "status": "At large",
+   "at": [
+    "Louisiana"
+   ],
+   "cases": []
+  },
+  "proposed": {
+   "text": "After Fury sees through his disguise, Talos follows Vers to Maria Rambeau's home. There he reveals that the Skrulls are refugees and wins her help.",
+   "status": "Allied"
+  },
+  "evidence": "In the film Talos doesn't try to kill Fury after the Keller disguise is exposed. He arrives unarmed at Rambeau's home in Louisiana, says the Skrulls are refugees and plays the black box recording; he then fights beside Danvers, and she leaves to help the Skrulls find a home. 'At large' is wrong for where the film leaves him.",
+  "source": "https://en.wikipedia.org/wiki/Captain_Marvel_(film)",
+  "confidence": "high",
+  "from": "out_21.json",
+  "file": {
+   "name": "Talos",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Captain Marvel",
+     "text": "Talos hunts Vers on Earth, posing as Nick Fury's boss.",
+     "status": "At large",
+     "at": [
+      "Los Angeles"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Captain Marvel",
+     "text": "When Fury sees through his disguise, Talos tries to kill him, then tracks Vers to Maria Rambeau's home.",
+     "status": "At large",
+     "at": [
+      "Louisiana"
+     ],
+     "cases": []
+    },
+    {
+     "k": 2,
+     "title": "Spider-Man: Far From Home",
+     "text": "Talos poses as Nick Fury to guide Peter Parker through the Elemental attacks in Europe.",
+     "status": "Allied",
+     "at": [
+      "Venice",
+      "Prague"
+     ],
+     "cases": [
+      "ST-080 The Elemental Attacks (Spider-Man: Far From Home)"
+     ]
+    },
+    {
+     "k": 3,
+     "title": "Secret Invasion",
+     "text": "Talos helps Fury hunt Gravik's Skrull rebels, and Gravik kills him.",
+     "status": "Deceased",
+     "at": [
+      "Moscow",
+      "Central London"
+     ],
+     "cases": [
+      "ST-108 The Moscow Bombing (Secret Invasion)"
+     ]
+    }
+   ]
+  },
+  "i": 84
+ },
+ {
+  "key": "T:sylvie",
+  "k": null,
+  "q": "F4",
+  "now": null,
+  "proposed": {
+   "after": 0,
+   "title": "Loki S1",
+   "text": "In episode 6, Sylvie sends Loki away and kills He Who Remains, setting loose the multiverse.",
+   "status": "At large",
+   "at": [
+    "The Citadel at the End of Time"
+   ],
+   "cases": []
+  },
+  "evidence": "In the season 1 finale ('For All Time. Always.') Sylvie sends Loki back to the TVA and kills He Who Remains, unleashing a multiverse the TVA cannot prune. This is her defining act and the file has no record of it.",
+  "source": "https://en.wikipedia.org/wiki/Loki_season_1",
+  "confidence": "high",
+  "from": "out_21.json",
+  "file": {
+   "name": "Sylvie",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Loki S1",
+     "text": "In episode 3, Sylvie attacks TVA Minutemen and plants reset charges across the Sacred Timeline, then fights Loki at the TVA until he steals her TemPad and takes them both to Lamentis-1.",
+     "status": "At large",
+     "at": [
+      "Lamentis-1",
+      "Oshkosh",
+      "Haven Hills",
+      "The TVA"
+     ],
+     "cases": [
+      "ST-085 The Bombing of the Sacred Timeline (Loki S1)"
+     ]
+    },
+    {
+     "k": 1,
+     "title": "Loki S2",
+     "text": "Sylvie starts a quiet life in 1982 Oklahoma, then joins Loki's friends at the TVA as the Loom fails.",
+     "status": "Allied",
+     "at": [
+      "Broxton",
+      "The TVA"
+     ],
+     "cases": [
+      "ST-110 The Failure of the Temporal Loom (Loki S2)"
+     ]
+    }
+   ]
+  },
+  "i": 85
+ },
+ {
+  "key": "T:tarantula",
+  "k": 0,
+  "q": "F3",
+  "now": {
+   "k": 0,
+   "title": "Spider-Man: Brand New Day",
+   "text": "Tarantula fights Spider-Man aboard a ship in New York Harbor.",
+   "status": "At large",
+   "at": [
+    "Williamsburg Bridge"
+   ],
+   "cases": []
+  },
+  "proposed": {
+   "text": "Spider-Man stops Tarantula's smuggling operation on a passenger boat near the Williamsburg Bridge and captures him.",
+   "status": "In custody"
+  },
+  "evidence": "Fandom: Tarantula ran a smuggling operation on a public passenger boat near the Williamsburg Bridge, and Spider-Man 'confronted and apprehended' him during the opening montage. Status should not be 'At large', and the boat is by the Williamsburg Bridge (the record's own at), not in New York Harbor.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Anton_Miguel_Rodriquez",
+  "confidence": "medium",
+  "from": "out_21.json",
+  "file": {
+   "name": "Anton Miguel Rodriquez",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man: Brand New Day",
+     "text": "Tarantula fights Spider-Man aboard a ship in New York Harbor.",
+     "status": "At large",
+     "at": [
+      "Williamsburg Bridge"
+     ],
+     "cases": []
+    }
+   ]
+  },
+  "i": 86
+ },
+ {
+  "key": "T:st-victor-ramon",
+  "k": 0,
+  "q": "F3",
+  "now": {
+   "k": 0,
+   "title": "Agents of S.H.I.E.L.D.",
+   "text": "In episode 55, corrupt Colombian police colonel Ramon executes Elena's cousin Francisco and holds Hunter and Morse captive.",
+   "status": "At large",
+   "at": [
+    "Bogotá"
+   ],
+   "cases": []
+  },
+  "proposed": {
+   "text": "In episode 55, corrupt Colombian police colonel Ramon executes Elena's cousin Francisco and holds Hunter and Morse captive, until Mack knocks him out and he is jailed.",
+   "status": "In custody"
+  },
+  "evidence": "When S.H.I.E.L.D. storms the Bogota station in 'Bouncing Back' (AoS311), Mack knocks Ramon out; he is then imprisoned for corruption and later escapes before Slingshot (per fandom citing Slingshot ep 5). 'At large' is wrong for where episode 55 leaves him.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Victor_Ramon",
+  "confidence": "medium",
+  "from": "out_21.json",
+  "file": {
+   "name": "Victor Ramon",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Agents of S.H.I.E.L.D.",
+     "text": "In episode 55, corrupt Colombian police colonel Ramon executes Elena's cousin Francisco and holds Hunter and Morse captive.",
+     "status": "At large",
+     "at": [
+      "Bogotá"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Agents of S.H.I.E.L.D.: Slingshot",
+     "text": "In episode 5, Ramon, the officer who killed Elena's cousin, tries to sell a HYDRA weapon to the Watchdogs.",
+     "status": "At large",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 2,
+     "title": "Agents of S.H.I.E.L.D.: Slingshot",
+     "text": "When a Watchdog fires the weapon at Yo-Yo, its beam hits Ramon and kills him.",
+     "status": "Deceased",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 87
+ },
+ {
+  "key": "T:st-zip",
+  "k": 0,
+  "q": "F2",
+  "now": {
+   "k": 0,
+   "title": "Luke Cage S1",
+   "text": "In episode 11, Zip provides muscle for Cottonmouth. After Cottonmouth's death, Diamondback makes Zip one of his advisers.",
+   "status": "At large",
+   "at": [
+    "Harlem"
+   ],
+   "cases": []
+  },
+  "proposed": {
+   "text": "In episode 9, Zip provides muscle for Cottonmouth. After Cottonmouth's death, Diamondback makes Zip one of his advisers."
+  },
+  "evidence": "Zip goes to work for Shades and then Diamondback in LC108-LC109 (fandom 'Recruited by Diamondback' cites LC109). Episode 11 is the Harlem's Paradise hostage siege, which this record doesn't describe. So the last event is in episode 9.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Zip",
+  "confidence": "medium",
+  "from": "out_21.json",
+  "file": {
+   "name": "Zip",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Luke Cage S1",
+     "text": "In episode 11, Zip provides muscle for Cottonmouth. After Cottonmouth's death, Diamondback makes Zip one of his advisers.",
+     "status": "At large",
+     "at": [
+      "Harlem"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Luke Cage S1",
+     "text": "In episode 12, Sent by Diamondback to kill Shades, Zip loses the fight and is shot dead by Shades.",
+     "status": "Deceased",
+     "at": [
+      "Harlem"
+     ],
+     "cases": []
+    }
+   ]
+  },
+  "i": 88
+ },
+ {
+  "key": "T:yondu",
+  "k": null,
+  "q": "F4",
+  "now": null,
+  "proposed": {
+   "after": 2,
+   "title": "Guardians of the Galaxy Vol. 2",
+   "text": "After Taserface's mutiny jails him, Yondu escapes with Rocket, Groot and Kraglin and helps the Guardians stop Ego. He dies in space saving Peter, and the Ravagers honor him at his funeral.",
+   "status": "Deceased",
+   "at": [],
+   "cases": []
+  },
+  "evidence": "In Guardians of the Galaxy Vol. 2, Taserface leads a mutiny and imprisons Yondu and Rocket; Kraglin and Groot free them, they join the fight against Ego, and Yondu sacrifices himself to save Quill in the vacuum of space. The file ends with Yondu 'At large' on Berhert and has no record of the mutiny, his switch to the Guardians' side, or his death.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Guardians_of_the_Galaxy_Vol._2&action=raw",
+  "confidence": "high",
+  "from": "out_22.json",
+  "file": {
+   "name": "Yondu Udonta",
+   "steps": [
+    {
+     "k": 0,
+     "title": "The Guardians of the Galaxy Holiday Special",
+     "text": "Kraglin recalls how Yondu ruined Christmas for a young Peter Quill aboard his ship.",
+     "status": "At large",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Guardians of the Galaxy",
+     "text": "Yondu hunts Peter Quill for the Orb, but Peter hands him a fake.",
+     "status": "At large",
+     "at": [
+      "Xandar"
+     ],
+     "cases": []
+    },
+    {
+     "k": 2,
+     "title": "Guardians of the Galaxy Vol. 2",
+     "text": "Hired by Ayesha to bring in the Guardians, Yondu tracks them to Berhert and corners Rocket.",
+     "status": "At large",
+     "at": [
+      "Berhert"
+     ],
+     "cases": []
+    }
+   ]
+  },
+  "i": 89
+ },
+ {
+  "key": "T:wbn-monster-hunters",
+  "k": 1,
+  "q": "F1",
+  "now": {
+   "k": 1,
+   "title": "Werewolf by Night",
+   "text": "None of the hunters survives the bloody night at Bloodstone Manor.",
+   "status": "Deceased",
+   "at": [
+    "Bloodstone Manor"
+   ],
+   "cases": [
+    "ST-102 The Massacre at Bloodstone Manor (Werewolf by Night)"
+   ]
+  },
+  "proposed": {
+   "text": "Elsa kills three of the rival hunters and Ted kills the fourth, so none of them survives the night at Bloodstone Manor."
+  },
+  "evidence": "Jack Russell, one of the five summoned hunters, survives, so 'none of the hunters survives' is wrong as written. Per the plot: Elsa kills one of the other hunters in the maze, Ted kills another, and Elsa later kills the two remaining hunters.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Werewolf_by_Night_(TV_special)&action=raw",
+  "confidence": "medium",
+  "from": "out_22.json",
+  "file": {
+   "name": "The Monster Hunters",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Werewolf by Night",
+     "text": "Hunters including Jovan, Azarel, Barasso and Liorn compete in Verussa's hunt for the Bloodstone.",
+     "status": "At large",
+     "at": [
+      "Bloodstone Manor"
+     ],
+     "cases": [
+      "ST-102 The Massacre at Bloodstone Manor (Werewolf by Night)"
+     ]
+    },
+    {
+     "k": 1,
+     "title": "Werewolf by Night",
+     "text": "None of the hunters survives the bloody night at Bloodstone Manor.",
+     "status": "Deceased",
+     "at": [
+      "Bloodstone Manor"
+     ],
+     "cases": [
+      "ST-102 The Massacre at Bloodstone Manor (Werewolf by Night)"
+     ]
+    }
+   ]
+  },
+  "i": 90
+ },
+ {
+  "key": "A:sv-iron-man-1994",
+  "k": 1,
+  "q": "F2",
+  "now": {
+   "k": 1,
+   "title": "Spider-Man (1994)",
+   "text": "In episode 64, on the Beyonder's world, he fights beside Spider-Man's team and goes home with no memory of it.",
+   "status": "Active",
+   "at": [],
+   "cases": [
+    "SV-006 The Secret Wars (Spider-Man (1994))"
+   ]
+  },
+  "proposed": {
+   "text": "In episode 63, on the Beyonder's world, he fights beside Spider-Man's team and goes home with no memory of it."
+  },
+  "evidence": "The Secret Wars arc is episodes 61-63. In episode 63 (\"Chapter III: Doom\") the heroes defeat Doom and the Beyonder erases the others' memories and sends them back to Earth. Episode 64 (\"I Really, Really Hate Clones\") begins the Spider Wars arc, which Iron Man is not part of.",
+  "source": "https://en.wikipedia.org/wiki/List_of_Spider-Man:_The_Animated_Series_episodes",
+  "confidence": "high",
+  "from": "out_23.json",
+  "file": {
+   "name": "Iron Man",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man (1994)",
+     "text": "In episode 39, Iron Man teams with Spider-Man and Venom to stop Carnage and Dormammu, then shuts down the accelerator.",
+     "status": "Active",
+     "at": [],
+     "cases": [
+      "SV-004 The Carnage Crisis (Spider-Man (1994))"
+     ]
+    },
+    {
+     "k": 1,
+     "title": "Spider-Man (1994)",
+     "text": "In episode 64, on the Beyonder's world, he fights beside Spider-Man's team and goes home with no memory of it.",
+     "status": "Active",
+     "at": [],
+     "cases": [
+      "SV-006 The Secret Wars (Spider-Man (1994))"
+     ]
+    },
+    {
+     "k": 2,
+     "title": "X-Men '97",
+     "text": "In episode 10, Iron Man guards the White House with Captain America against Bastion's Prime Sentinels as Magneto's blackout ends.",
+     "status": "Active",
+     "at": [
+      "Washington, D.C. (Earth-92131)"
+     ],
+     "cases": []
+    }
+   ]
+  },
+  "i": 91
+ },
+ {
+  "key": "A:sv-invisible-woman-1994",
+  "k": 0,
+  "q": "F2",
+  "now": {
+   "k": 0,
+   "title": "Spider-Man (1994)",
+   "text": "In episode 63, on the Beyonder's world, the Invisible Woman and Storm recharge a lab to help Spider-Man's team.",
+   "status": "Active",
+   "at": [],
+   "cases": [
+    "SV-006 The Secret Wars (Spider-Man (1994))"
+   ]
+  },
+  "proposed": {
+   "text": "In episode 61, on the Beyonder's world, the Invisible Woman and Storm recharge a lab to help Spider-Man's team."
+  },
+  "evidence": "The lab recharge happens in episode 61 (\"Chapter I: Arrival\"): 'Storm and Invisible Woman combine their abilities to recharge the laboratory.' Episode 63 (\"Chapter III: Doom\") is about the Thing's kidnapping and the fight with Doom, so the record's only event is not in episode 63.",
+  "source": "https://en.wikipedia.org/wiki/List_of_Spider-Man:_The_Animated_Series_episodes",
+  "confidence": "medium",
+  "from": "out_23.json",
+  "file": {
+   "name": "Invisible Woman",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man (1994)",
+     "text": "In episode 63, on the Beyonder's world, the Invisible Woman and Storm recharge a lab to help Spider-Man's team.",
+     "status": "Active",
+     "at": [],
+     "cases": [
+      "SV-006 The Secret Wars (Spider-Man (1994))"
+     ]
+    }
+   ]
+  },
+  "i": 92
+ },
+ {
+  "key": "T:sv-butane-yfnsm",
+  "k": 0,
+  "q": "F2",
+  "now": {
+   "title": "Your Friendly Neighborhood Spider-Man",
+   "text": "In episode 3, Butane burns down a building to make way for a high-rise. Spider-Man beats him and finds a strange symbol on his gear.",
+   "status": "At large",
+   "at": [],
+   "cases": []
+  },
+  "proposed": {
+   "text": "In episode 2, Butane burns down a building as part of an insurance scam. Spider-Man beats him and finds a strange symbol on his gear."
+  },
+  "evidence": "Butane's fight is in episode 2 ('Peter finds an arsonist named Butane who has been hired to destroy a building ... as part of an insurance scam ... notices a stylized infinity logo on his equipment'). Episode 3 is the Vasquez/Sanders jewelry robbery. The motive is an insurance scam, not a high-rise.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Your_Friendly_Neighborhood_Spider-Man_season_1&action=raw",
+  "confidence": "high",
+  "from": "out_26.json",
+  "file": {
+   "name": "Butane",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Your Friendly Neighborhood Spider-Man",
+     "text": "In episode 3, Butane burns down a building to make way for a high-rise. Spider-Man beats him and finds a strange symbol on his gear.",
+     "status": "At large",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 93
+ },
+ {
+  "key": "T:sv-harry-osborn-raimi",
+  "k": null,
+  "q": "F4",
+  "now": null,
+  "proposed": {
+   "after": 2,
+   "title": "Spider-Man 3",
+   "text": "Learning that Norman's death was not Spider-Man's fault, Harry joins Peter against Venom and Sandman. He takes the glider blow meant for Peter and dies of his wounds.",
+   "status": "Deceased",
+   "at": [],
+   "cases": []
+  },
+  "evidence": "Spider-Man 3: after the butler reveals Norman's death was not Spider-Man's fault, 'Harry arrives and helps Peter subdue Marko. Brock attempts to impale Peter with Harry's glider, but Harry jumps in the way and is impaled instead ... Harry reconciles with Peter before he dies from his injuries.' The file ends with Harry turning Peter away, status At large, with no death record.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man_3&action=raw",
+  "confidence": "high",
+  "from": "out_26.json",
+  "file": {
+   "name": "Harry Osborn",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man 2",
+     "text": "Harry blames Spider-Man for his father's death and trades tritium to Doc Ock for Spider-Man. He unmasks Peter, then finds his father's hidden Goblin gear.",
+     "status": "Active",
+     "at": [
+      "Manhattan (Earth-96283)"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Spider-Man 3",
+     "text": "Harry attacks Peter on a glider, then loses his memory after a fall. His memory back, he forces Mary Jane to break up with Peter, and a pumpkin bomb scars his face.",
+     "status": "At large",
+     "at": [
+      "Manhattan (Earth-96283)"
+     ],
+     "cases": []
+    },
+    {
+     "k": 2,
+     "title": "Spider-Man 3",
+     "text": "When Peter asks for his help to save Mary Jane from Venom and Sandman, Harry turns him away.",
+     "status": "At large",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 94
+ },
+ {
+  "key": "T:sv-doc-ock-2004",
+  "k": null,
+  "q": "F4",
+  "now": null,
+  "proposed": {
+   "after": 3,
+   "title": "Spider-Man: No Way Home",
+   "text": "At Happy's condo, Peter cures Otto with Stark technology. Otto later helps the Spider-Men cure Max at the Statue of Liberty and is sent home.",
+   "status": "Allied",
+   "at": [
+    "Happy's condo",
+    "Statue of Liberty"
+   ],
+   "cases": []
+  },
+  "evidence": "No Way Home: Peter 'takes the villains to Happy Hogan's apartment. He uses Stark Industries technology to cure Octavius'; at the Statue of Liberty 'Octavius helps cure Dillon', and everyone then returns to their universes. The file ends at k3 with Otto 'In custody' and no record of his cure or change of side.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man:_No_Way_Home&action=raw",
+  "confidence": "high",
+  "from": "out_26.json",
+  "file": {
+   "name": "Doctor Octopus",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man 2",
+     "text": "Otto Octavius's fusion demo fails, killing his wife Rosie and fusing his AI arms to his spine. Driven by the arms, he robs a bank to rebuild his reactor and takes Aunt May hostage. To get Harry Osborn's tritium, he fights Spider-Man on a train and delivers him to Harry.",
+     "status": "At large",
+     "at": [
+      "Manhattan (Earth-96283)"
+     ],
+     "cases": [
+      "SV-011 The Fusion Demonstration Disaster (Spider-Man 2)",
+      "SV-012 The Elevated Train Battle (Spider-Man 2)"
+     ]
+    },
+    {
+     "k": 1,
+     "title": "Spider-Man 2",
+     "text": "Peter talks him down, and Otto sinks his reactor in the river, drowning with it.",
+     "status": "Deceased",
+     "at": [
+      "Otto's pier (Earth-96283)"
+     ],
+     "cases": [
+      "SV-013 The Waterfront Reactor (Spider-Man 2)"
+     ]
+    },
+    {
+     "k": 2,
+     "title": "Spider-Man: No Way Home",
+     "text": "Pulled across universes just before he drowns, he fights Peter on a bridge until Stark nanotech takes over his arms.",
+     "status": "In custody",
+     "at": [
+      "Alexander Hamilton Bridge"
+     ],
+     "cases": []
+    },
+    {
+     "k": 3,
+     "title": "Spider-Man: No Way Home",
+     "text": "Doctor Strange locks him in a cell beneath the Sanctum, until Peter frees him and the other visitors to try to cure them.",
+     "status": "In custody",
+     "at": [
+      "Greenwich Village"
+     ],
+     "cases": []
+    }
+   ]
+  },
+  "i": 95
+ },
+ {
+  "key": "T:sv-dr-magneto-1967",
+  "k": 0,
+  "q": "F3",
+  "now": {
+   "title": "Spider-Man (1967)",
+   "text": "In episode 10, snubbed by the Science Hall of Fame, Dr. Matto Magneto seeks revenge and attacks Spider-Man with a magnetic gun.",
+   "status": "At large",
+   "at": [],
+   "cases": []
+  },
+  "proposed": {
+   "status": "In custody"
+  },
+  "evidence": "Episode 10 ('The Revenge of Dr Magneto') ends with Magneto beaten by anti-magnetic webbing; Marvel Animated wiki: 'Dr. Magneto was later defeated by Spider-Man and turned over to the police.'",
+  "source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Matto_Magneto_(Spider-Man_(1967))&prop=wikitext&format=json",
+  "confidence": "high",
+  "from": "out_26.json",
+  "file": {
+   "name": "Dr. Matto Magneto",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man (1967)",
+     "text": "In episode 10, snubbed by the Science Hall of Fame, Dr. Matto Magneto seeks revenge and attacks Spider-Man with a magnetic gun.",
+     "status": "At large",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 96
+ },
+ {
+  "key": "T:sv-green-goblin-1967",
+  "k": 0,
+  "q": "F3",
+  "now": {
+   "title": "Spider-Man (1967)",
+   "text": "In episode 6, the Green Goblin hypnotizes J. Jonah Jameson to summon demons from the spirit world.",
+   "status": "At large",
+   "at": [],
+   "cases": []
+  },
+  "proposed": {
+   "status": "In custody"
+  },
+  "evidence": "Episode 6 ('The Witching Hour') ends with Spider-Man foiling the plan in a graveyard: 'Spider-Man leaves the Goblin webbed up for the police.' He is next seen escaping in episode 17 ('Magic Malice').",
+  "source": "https://en.wikipedia.org/w/index.php?title=List_of_Spider-Man_(1967_TV_series)_episodes&action=raw",
+  "confidence": "medium",
+  "from": "out_26.json",
+  "file": {
+   "name": "Green Goblin",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man (1967)",
+     "text": "In episode 6, the Green Goblin hypnotizes J. Jonah Jameson to summon demons from the spirit world.",
+     "status": "At large",
+     "at": [],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Spider-Man (1967)",
+     "text": "In episode 19, Spider-Man webs him up in a cemetery and beats him with Blackwell's help, then stops him again after Dr. Noah Boddy frees him.",
+     "status": "In custody",
+     "at": [
+      "Earth-67"
+     ],
+     "cases": []
+    }
+   ]
+  },
+  "i": 97
+ },
+ {
+  "key": "T:sv-electro-smu",
+  "k": 0,
+  "q": "F1",
+  "now": {
+   "title": "Spider-Man Unlimited",
+   "text": "In episode 8, Spider-Man breaks into the High Evolutionary's tower and runs into Electro.",
+   "status": "At large",
+   "at": [],
+   "cases": []
+  },
+  "proposed": {
+   "text": "In episode 8, Spider-Man breaks into the High Evolutionary's power plant and runs into Electro."
+  },
+  "evidence": "Episode 8 ('Ill-Met by Moonlight'): the Resistance enlists Spider-Man 'into breaking into the High Evolutionary's power plant. Here, he confronts an electric eel that is Counter-Earth's Bestial version of Electro.' It is a power plant, not a tower.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man_Unlimited&action=raw",
+  "confidence": "medium",
+  "from": "out_26.json",
+  "file": {
+   "name": "Electro",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man Unlimited",
+     "text": "In episode 8, Spider-Man breaks into the High Evolutionary's tower and runs into Electro.",
+     "status": "At large",
+     "at": [],
+     "cases": []
+    }
+   ]
+  },
+  "i": 98
+ },
+ {
+  "key": "T:sv-prowler-itsv",
+  "k": null,
+  "q": "F4",
+  "now": null,
+  "proposed": {
+   "after": 1,
+   "title": "Spider-Man: Into the Spider-Verse",
+   "text": "When Miles unmasks, Aaron cannot bring himself to kill his nephew, and Kingpin shoots him. He dies in Miles's arms.",
+   "status": "Deceased",
+   "at": [],
+   "cases": []
+  },
+  "evidence": "Wikipedia plot: 'Unwilling to murder his own nephew, Aaron attempts to spare Miles, but is fatally shot by Kingpin in retaliation and dies in Miles' arms.' The file ends with him At large and has no death record (the Kingpin file already records the shooting).",
+  "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man:_Into_the_Spider-Verse&action=raw",
+  "confidence": "high",
+  "from": "out_27.json",
+  "file": {
+   "name": "The Prowler",
+   "steps": [
+    {
+     "k": 0,
+     "title": "Spider-Man: Into the Spider-Verse",
+     "text": "Aaron Davis takes his nephew Miles to paint graffiti in the station where Miles is bitten by the spider.",
+     "status": "At large",
+     "at": [
+      "Brooklyn (Earth-1610)"
+     ],
+     "cases": []
+    },
+    {
+     "k": 1,
+     "title": "Spider-Man: Into the Spider-Verse",
+     "text": "As the Prowler, Kingpin's enforcer, he guards the collider against Spider-Man, then hunts the boy who saw Spider-Man killed, not knowing it is Miles.",
+     "status": "At large",
+     "at": [
+      "Kingpin's collider (Earth-1610)"
+     ],
+     "cases": [
+      "SV-024 The Alchemax Collider Incident (Spider-Man: Into the Spider-Verse)"
+     ]
+    }
+   ]
+  },
+  "i": 99
+ }
+]

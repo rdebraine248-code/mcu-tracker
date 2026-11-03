@@ -1,0 +1,281 @@
+[
+ {
+  "key": "A:hatut-zaraze",
+  "question": "Record k0 is labeled 'In episode 3' but sums up episodes 1 to 3 (Crete in ep 1, Troy in ep 2, K'un-Lun in ep 3). Keep it as a show-wide summary, or relabel or split it?",
+  "options": [
+   "Keep as is",
+   "Drop the 'In episode 3,' prefix so it reads as a whole-show summary",
+   "Split into one record per episode"
+  ],
+  "evidence": "Eyes of Wakanda: ep 1 'Into the Lion's Den' is set in 1260 BC Crete, ep 2 'Legends and Lies' is at Troy, ep 3 'Lost and Found' is at K'un-Lun.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Eyes_of_Wakanda&action=raw",
+  "from": "out_02.json"
+ },
+ {
+  "key": "A:mobius-m-mobius",
+  "question": "Step 4 ('Loki S2', episode 5) opens with Mobius pulling a time-slipping Loki out of the time stream, which happens in season 2 episode 1. That puts an episode-1 event after the Quantumania step (the 1893 World's Fair, shown in season 2 episode 3). How should this be fixed?",
+  "options": [
+   "Split it: a new 'Loki S2' episode 1 step (Mobius pulls Loki from the time stream with O.B.'s help) placed before the Quantumania step, and step 4 cut down to the episode 5 reset as Don",
+   "Drop the episode-1 sentence from step 4 and keep the order as it is",
+   "Keep as is (a merged season summary)"
+  ],
+  "evidence": "Loki S2 episode 1 'Ouroboros': Mobius uses the Temporal Aura Extractor to pull Loki from the time stream. Episode 3 '1893' shows the World's Fair scene from Quantumania's post-credits. Episode 5: Mobius has been reset to Don and Loki gathers him.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Loki_season_2&action=raw",
+  "from": "out_04.json"
+ },
+ {
+  "key": "A:michelle-jones",
+  "question": "Step 4 ('Spider-Man: Brand New Day') describes Jean possessing MJ, Peter saving her, and his love confession, but its place and case point to the Roosevelt Island Incident. In the film the possession and confession happen earlier and somewhere else; at Roosevelt Island, MJ is only one of the people frozen in Jean's psionic field. Which should change?",
+  "options": [
+   "Keep the text; remove 'Roosevelt Island' and the ST-135 case",
+   "Keep the place and case; add that MJ is frozen in Jean's psionic field at the Roosevelt Island facility",
+   "Keep as is"
+  ],
+  "evidence": "Wikipedia plot: the telepath 'possesses and almost kills' MJ and Peter rescues her. Later he declares his love and MJ does not remember him. Later still, at the DODC facility on Roosevelt Island, Jean's psionic field freezes everyone 'including MJ and Ned'.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man:_Brand_New_Day&action=raw",
+  "from": "out_04.json"
+ },
+ {
+  "key": "A:phil-coulson",
+  "question": "Season 7 record (k14): the Coulson acting in season 7 is a Chronicom-built LMD with his memories, and the status is 'Deceased'. Should the file show the LMD as Coulson carrying on (Active), or keep 'Deceased' for the original?",
+  "options": [
+   "Keep Deceased (original Coulson stays dead; LMD noted in text)",
+   "Change to Active (LMD Coulson treated as the continuing character)"
+  ],
+  "evidence": "The season 6 premiere opens a year after Coulson's death; the season 6 finale reveals a Chronicom tech-enhanced Coulson LMD, who acts throughout season 7. As it stands, a 'Deceased' status sits on a record where Coulson is active.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_6&action=raw",
+  "from": "out_05.json"
+ },
+ {
+  "key": "A:peggy-carter",
+  "question": "The Agent Carter One-Shot (k5) is set in 1946, one year after The First Avenger, but it comes after the Agent Carter season 2 record (k4, 1947 Los Angeles). Keep it there as the close of Peggy's SSR arc (Howard naming her co-head of S.H.I.E.L.D.), or move it before the season 2 record (and before or after the season 1 record, also 1946) to follow in-universe dates?",
+  "options": [
+   "Keep after season 2 (story-arc order)",
+   "Move before the season 2 record (date order)"
+  ],
+  "evidence": "Wikipedia: the One-Shot takes place 'one year after the events of Captain America: The First Avenger' (category Films set in 1946); Agent Carter season 2 is set in 1947.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agent_Carter_(film)&action=raw",
+  "from": "out_05.json"
+ },
+ {
+  "key": "A:st-robin-hinton",
+  "question": "k2 marks Robin Deceased for the death of her elderly 2091 self (a future that is later averted), and k3 then shows young present-day Robin active. Should k2 keep the Deceased status?",
+  "options": [
+   "Keep Deceased (it is her death on screen)",
+   "Set k2 to Active and keep the death in the text only",
+   "Move the 2091 record to a separate variant file"
+  ],
+  "evidence": "The elderly Robin who dies is from the Destroyed Earth future of 2091. Present-day Robin is alive throughout and the future is erased in AoS522.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Robin_Hinton",
+  "from": "out_08.json"
+ },
+ {
+  "key": "A:st-victoria-hand",
+  "question": "k2 shows a young Victoria Hand in the Chronicom-altered 1983 after her death in k1. Is a version from an altered timeline fine in this file?",
+  "options": [
+   "Keep as is (the text says it is a changed 1983)",
+   "Move to a variant file (Victoria Hand/History Altered by Chronicoms)"
+  ],
+  "evidence": "The 1983 Hand who shoots Garrett (AoS712) and watches Deke take charge (AoS713) is the altered-timeline Hand, a separate fandom page. The record itself is accurate.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Victoria_Hand/History_Altered_by_Chronicoms",
+  "from": "out_08.json"
+ },
+ {
+  "key": "C:soul",
+  "question": "Step 3 (Natasha's 2014 sacrifice on Vormir, Steve returning the stone) sits after step 2 (Thanos destroying the stones in 2023) and moves the status from Destroyed back to Secured. Other files (e.g. C:scepter step 2) place time-heist records at their in-story year. Should step 3 move before step 0, or stay as the last record?",
+  "options": [
+   "Move step 3 before step 0 (in-story year 2014, matches C:scepter)",
+   "Keep plot order (step 3 last), accept Destroyed then Secured"
+  ],
+  "evidence": "Endgame: Thanos destroys the stones in 2018 (five years before the heist); the heist retrieves the Soul Stone from an alternate 2014 Vormir and Steve returns it afterward. C:scepter puts its 2012 Endgame record between The Avengers and The Winter Soldier.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Avengers:_Endgame&action=raw",
+  "from": "out_13.json"
+ },
+ {
+  "key": "C:redbook",
+  "question": "Step 2 ('T'Challa captures Zemo in Siberia.', status Lost) says nothing about the book itself, and no source shows what happens to it after Berlin. Keep as is, reword to say the book's fate is unknown, or drop the record?",
+  "options": [
+   "Keep as is",
+   "Reword: after Berlin the book is not seen again, and T'Challa captures Zemo in Siberia",
+   "Drop step 2"
+  ],
+  "evidence": "The Fandom item page covers Karpov's ownership, Zemo stealing it in Cleveland and reading it in Berlin; nothing after that in Civil War (later appearances are flashbacks or alternate universes).",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Winter_Soldier_Book&prop=wikitext&format=json",
+  "from": "out_13.json"
+ },
+ {
+  "key": "T:agatha-harkness",
+  "question": "Which status should the proposed episode 9 record (Agatha back as a ghost) carry?",
+  "options": [
+   "Allied (she acts again, now helping Billy)",
+   "Deceased (she is a ghost; text shows the return)"
+  ],
+  "evidence": "Agatha dies in episode 8 and returns in episode 9 as a ghost who guides Billy. The brief's statuses have no 'ghost' state.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw",
+  "from": "out_17.json"
+ },
+ {
+  "key": "T:hydra",
+  "question": "Step 2 is tagged 'In episode 30' but the 1945 SSR raid on Reinhardt's base is shown in episode 23 ('Shadows'); episode 30 ('The Things We Bury') covers his imprisonment for life by Carter in 1945 and his 1989 release. Keep 30 or retag 23?",
+  "options": [
+   "Keep episode 30 (the record ends on Reinhardt being locked up, covered in episode 30)",
+   "Retag to episode 23 (the raid and capture are shown there)"
+  ],
+  "evidence": "Episode 23 summary: 'In 1945, Agent Peggy Carter and the SSR raid the last known Hydra base (led by Werner Reinhardt)'. Episode 30 summary: Reinhardt was 'captured by the SSR and imprisoned for life by Carter in 1945'.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw",
+  "from": "out_18.json"
+ },
+ {
+  "key": "T:hydra",
+  "question": "Lead check: step 12 (episode 66) marks HYDRA Deceased, step 13 (episode 76) is At large for ex-HYDRA agents, and the real revival is step 14 (Hale's HYDRA, episode 103). Is step 13's At large fine for remnants, or should it keep a non-active status until Hale's revival?",
+  "options": [
+   "Keep as is (the ex-HYDRA agents in episode 76 count as remnants acting)",
+   "Change step 13 status to Deceased (HYDRA itself does not return until episode 103)"
+  ],
+  "evidence": "Episode 76 'The Patriot': Mace's team crash-lands and finds 'ex-Hydra agents, hired by the Watchdogs'. Episode 103 'Rise and Shine' shows Hale's HYDRA revival. The returns are real; this is only how to label the gap.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+  "from": "out_18.json"
+ },
+ {
+  "key": "T:st-ellen-nadeer, T:st-fisk-empire, T:st-glenn-talbot, T:st-heather-glenn, T:st-joy-meachum, T:st-kingpin, T:st-mariah-dillard, T:st-mr-charles, T:st-powell, T:st-rafael-scarfe, T:st-ray-schoonover, T:st-roxxon",
+  "question": "These Raft files use the status 'Active', which is not in the Raft status list (At large, In custody, Captive, Deceased, Missing, Allied). Keep 'Active' for free, openly operating figures (senators, mayors, officers, companies), or map them to a Raft status?",
+  "options": [
+   "Keep 'Active' as allowed on Raft files",
+   "Map to 'At large'",
+   "Map case by case ('Allied' for Talbot/Scarfe/Schoonover-era allies, 'At large' for the rest)"
+  ],
+  "evidence": "BRIEF lists Raft statuses without 'Active'; the facts behind each record are otherwise correct.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Wilson_Fisk",
+  "from": "out_20.json"
+ },
+ {
+  "key": "T:st-zhou-cheng",
+  "question": "Status after Iron Fist S1 episode 8: Danny beats Zhou Cheng until Claire and Colleen stop him; Claire checks his pulse and says he is 'not' okay, and he never appears again. Fandom gives his status as Unknown. Keep 'At large' or use 'Missing'?",
+  "options": [
+   "Keep At large",
+   "Missing"
+  ],
+  "evidence": "Wikipedia says Rand 'almost beats Cheng to death'; fandom says status Unknown and gives no death.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Zhou_Cheng",
+  "from": "out_21.json"
+ },
+ {
+  "key": "T:sv-miriam-1994",
+  "question": "Step 0 (Blade's mother leaving him at an orphanage) is tagged episode 23 and says she was 'abandoned by his vampire father'. Sources list Miriam only in episodes 48 and 62 and say she was turned into a vampire against her will after his birth and gave him up to spare him. Keep, retag, or reword?",
+  "options": [
+   "Keep as is",
+   "Retag to episode 48 (where Blade learns Miriam is his mother)",
+   "Reword to: Years earlier, after she is turned into a vampire against her will, Blade's mother leaves her baby son at an orphanage to spare him",
+   "Drop the backstory record"
+  ],
+  "evidence": "Marvel Animated wiki Miriam: appearances 'The Vampire Queen' and 'The Gauntlet of the Red Skull'; 'They had a child but after his birth she was unwillingly turned into a vampire. To spare him the life she would then have to lead she gave him up to an orphanage.' Wikipedia ep 48: 'Blade is horrified to learn that she was once his human mother.' No source found placing the flashback in episode 23.",
+  "source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Miriam&prop=wikitext&format=json",
+  "from": "out_27.json"
+ },
+ {
+  "key": "T:sv-spot",
+  "question": "Step 0 (Into the Spider-Verse) is placed at 'Kingpin's collider (Earth-1610)', but Miles hits Ohnn with the bagel at the Alchemax lab, before the collider fight. Which place should it show?",
+  "options": [
+   "Keep Kingpin's collider (Ohnn is later caught in its explosion)",
+   "Change to the Alchemax lab place, if the index has one",
+   "Show no place"
+  ],
+  "evidence": "Spider-Man Wiki: Ohnn chases Miles and Peter B. Parker when they break into Alchemax and is hit by a bagel Miles throws. Later he is at the collider under Fisk Tower and is mutated when it explodes.",
+  "source": "https://spiderman.fandom.com/wiki/Jonathan_Ohnn_(Earth-1610B)",
+  "from": "out_28.json"
+ },
+ {
+  "key": "A:fox-anim-genosha",
+  "question": "Step 3 marks the nation 'Deceased' after the massacre, and step 4 returns it to 'Active' when X-Corp moves into the ruins. No one comes back to life; the island is only reoccupied. Should a nation file use Deceased this way?",
+  "options": [
+   "Keep Deceased then Active (the island is reborn as X-Corp's base)",
+   "Use another status for step 3 (for example Missing), keeping Active for step 4",
+   "Keep Deceased and treat step 4 as the island's ruins rather than a return"
+  ],
+  "evidence": "X-Men '97 episode 5: the Sentinels kill thousands of mutants on Genosha. Episode 16 ('Danger.exe'): with the X-Men banned, Xavier bases the team on Genosha and founds X-Corp.",
+  "source": "https://en.wikipedia.org/wiki/X-Men_'97_season_2",
+  "from": "out_28.json"
+ },
+ {
+  "key": "A:fox-anim-morph",
+  "question": "Step 0 (episode 2, Morph seemingly dies in the Sentinel raid) has status Imprisoned. That episode leaves him believed dead; that Sinister took him and nursed him back only comes out in episodes 14 and 15 (step 1). Should the status show what viewers know at that point?",
+  "options": [
+   "Keep Imprisoned (what really happened)",
+   "Deceased (believed dead; step 1 shows the return)",
+   "Missing"
+  ],
+  "evidence": "Wikipedia: 'Morph is seemingly killed.' Marvel Database: 'leaving a believed dead Morph behind... Mister Sinister found Morph and nursed them back to health' (shown later in Till Death Do Us Part). Imprisoned gives away a later reveal (F7).",
+  "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw ; https://marvel.fandom.com/wiki/Kevin_Sidney_(Earth-92131)",
+  "from": "out_29.json"
+ },
+ {
+  "key": "A:fox-anim-rogue",
+  "question": "Step 4 is tagged Spider-Man (1994) episode 18, but says Rogue flirts with Spider-Man 'when he visits the X-Mansion'. His mansion visit is episode 17 (The Mutant Agenda); in episode 18 the X-Men meet him in the city to fight Landon. I could not confirm in a source which episode has the flirting. Which should it be?",
+  "options": [
+   "Change to episode 17 (mansion visit)",
+   "Keep episode 18 and reword so it is not at the mansion",
+   "Keep as is"
+  ],
+  "evidence": "Marvel Database synopses: episode 17 has Spider-Man at Xavier's school with the X-Men; episode 18 ends with the X-Men arriving in the Blackbird and befriending Spider-Man after Landon is beaten.",
+  "source": "https://marvel.fandom.com/wiki/Spider-Man:_The_Animated_Series_Season_2_4 ; https://marvel.fandom.com/wiki/Spider-Man:_The_Animated_Series_Season_2_5",
+  "from": "out_29.json"
+ },
+ {
+  "key": "A:fox-anim-nightcrawler",
+  "question": "Step 4 (season 2: Kurt gives his life to Eson so Rogue and Gambit can be together) has status Missing. Marvel Database marks this as an apparent death. Should it stay Missing or become Deceased?",
+  "options": [
+   "Keep Missing",
+   "Deceased"
+  ],
+  "evidence": "Wikipedia episode 19: 'Nightcrawler offered his own life to Eson so Rogue and Gambit could be together.' Marvel Database lists Nightcrawler as ApDeath (apparent death) in that episode.",
+  "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw ; https://marvel.fandom.com/wiki/X-Men_%2797_Season_2_9",
+  "from": "out_29.json"
+ },
+ {
+  "key": "T:fox-brotherhood",
+  "question": "k5 (X-Men: The Last Stand) has status Deceased, but the Brotherhood is not wiped out: Magneto is depowered by the cure and is last seen free in a San Francisco park, Pyro is subdued, Juggernaut stopped. Which status should the group end on?",
+  "options": [
+   "At large",
+   "In custody",
+   "Keep Deceased (group treated as ended)"
+  ],
+  "evidence": "Plot: Iceman subdues Pyro, Hank McCoy injects Magneto with the cure; later Magneto sits at a chessboard in San Francisco, seemingly human, and a chess piece wobbles.",
+  "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_The_Last_Stand&action=raw",
+  "from": "out_33.json"
+ },
+ {
+  "key": "T:fox-anim-horsemen",
+  "question": "k3 (X-Men '97 season 2) has status Deceased, but the record says Rogue frees Gambit (who rejoins the X-Men) and traps Apocalypse's mind in a crystal; only War is dead. Which status should the group end on?",
+  "options": [
+   "Keep Deceased (group ended)",
+   "Allied",
+   "Missing"
+  ],
+  "evidence": "Survival of the Fittest (ep 19): Rogue frees Gambit and the others and traps Apocalypse's consciousness inside a crystal she gives to Cable. War was executed in ep 12.",
+  "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw",
+  "from": "out_33.json"
+ },
+ {
+  "key": "T:fox-horsemen-apocalypse",
+  "question": "k3 sets the whole group to Deceased, but in the same record only Angel dies: Psylocke escapes, and Storm and Magneto defect and survive. What status should the group file end on?",
+  "options": [
+   "Keep Deceased (the Horsemen as a group are finished)",
+   "Change to Missing (group broken up, Psylocke at large)",
+   "Change to Allied (two of the four end on the heroes' side)"
+  ],
+  "evidence": "Wikipedia plot: 'Psylocke manages to jump safely and escape, but Angel is killed in the plane crash. Lehnsherr and Ororo turn on En Sabah Nur...' Only one of the four Horsemen dies.",
+  "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_Apocalypse&action=raw",
+  "from": "out_34.json"
+ },
+ {
+  "key": "T:fox-omegas",
+  "question": "The file's name and team are 'The Omegas'. The film's plot never names Callisto's gang; the label comes from the fan wiki (inspired by the comics' Morlocks). Is 'The Omegas' said or shown on screen in X-Men: The Last Stand, or should the file use a plain description (e.g. 'Callisto's gang')?",
+  "options": [
+   "Keep 'The Omegas' (owner confirms it is on screen)",
+   "Rename to a plain description such as 'Callisto's gang'"
+  ],
+  "evidence": "Wikipedia's plot calls them only 'Callisto, and several other mutants'; the X-Men Movies Wiki 'Omegas' page is a wiki team label ('The Omegas are heavily inspired by the Morlocks').",
+  "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Omegas&prop=wikitext&format=json",
+  "from": "out_34.json"
+ }
+]

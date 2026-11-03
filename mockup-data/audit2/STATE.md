@@ -107,3 +107,14 @@ files 29 (4 ch; 3 calls Morph status, Rogue ep, Nightcrawler), files 30 (2 ch), 
 files 28 done (10 ch; calls Spot place, Genosha status). Launched files 37.
 !! BACKSTORY REVERT: GPASS kind B ("backstory is not a stage") was MY invention and contradicts HANDOFF 754 (hero file notes a villain past even outside its titles; hero and villain files list the same groups); ct49 failed on Winter Soldier's U.S. Army. Reverted 67 B-only keys (left at live), merged 3 mixed (Fury, Loki, Luke). TEAM_AUDIT2 now 110 changes; left add 51, del 3. ct49 ok. Factual G1 removals kept (Forge title, Emma X-Factor, Elena Slingshot, Tafari, Enoch, Cottonmouth). Sample "errors" of the backstory type were not errors.
  net v10 done (22/21/2). Launched net v16.
+files 31 (0), 32 (2 ch) done. Launched files 38. Left: files 39, net v17-18, then files verify, net apply, people sample 600.
+22:00 second LIMIT hit at ~21:5x; resuming: rfix_people afcc78c0ee1f97a84, rfix_names a1e93ad447b3462ad, files33 aa8dd45c4b4044435, 34 a7c220021a7f0154b, 35 aa7ecbf3d6dbcbf5e, 36 a1139da98a10a4365, 37 a7e9124c88e1fc3bd, 38 aa64c047a15970a3e, net12 ab5de5eae6661a172, 13 a331ea856eb656e4d, 14 a5d2c4474b3f50aef, 15 a5deb3453789734eb, 16 a1d343f6a43a31663
+files 35 done (2 ch). CHECK: zombie Peter/Scott/Katy fate - HANDOFF 820 says Wikipedia: they die in Marvel Zombies ep4; files35 kept 'Missing/fate unknown'; HANDOFF 702 says 'unknown fate (not dead)' - conflicting lines; resolve at files verify (look at which is newer/owner).
+files 38 done (2 ch).
+files 34 (1 ch; calls Horsemen group Deceased, 'The Omegas' name). net v14 (1/43/1). FILES VERIFY: FVERIFY.md, fvchunk_01..07 (135 items from out_01-36,38; 37/39 later as fvchunk_08) -> fvout_NN. owner_calls_files.json (24). Launched fv01-04.
+files 37 done (8 ch). Launched fv05.
+rfix_names done: 8 keep, 3 rename (Morgan's coven, President Loki's army, Council of the Gods), 4 none (Muspelheim, Russian Armed Forces, Latveria, Tivan Group: drop), 7 owner (Lighthorsemen, Cassandra Nova's Henchmen, Monster Hunting Cabal x2, Kravinoff, Colon Crime Family, Spider-Catchers: HOLD, don't apply).
+net v13 done (17/27/1). Launched fv06.
+net v15 done (16/29/0; Battleworld card line n633 name unconfirmed). Launched fv07.
+net v16 done (37/8/0).
+FILES PART DONE (39/39). files 39: 6 ch. fvchunk_08 (37+39).
