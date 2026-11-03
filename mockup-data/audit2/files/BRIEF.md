@@ -46,3 +46,5 @@ Write ONE JSON file to the output path in your task:
 ```
 - New text: plain, present tense, one or two sentences, no em dashes, no actor names, never "tap/hold/swipe to".
 - Every file key in your chunk must be in `checked`. Reply to your caller with ONE line: checked, changes, owner calls.
+
+- A group's name is the one said or shown on screen; fan wikis invent labels ("the Black Order", "Cassandra Nova's Henchmen"). Don't add or keep a name the screen never uses.

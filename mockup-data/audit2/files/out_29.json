@@ -1,0 +1,142 @@
+{
+ "checked": [
+  "A:fox-anim-havok",
+  "A:fox-anim-iceman",
+  "A:fox-anim-jean-grey",
+  "A:fox-anim-jubilee",
+  "A:fox-anim-ka-zar",
+  "A:fox-anim-lilandra",
+  "A:fox-anim-longshot",
+  "A:fox-anim-madelyne-pryor",
+  "A:fox-anim-magneto",
+  "A:fox-anim-moira-mactaggert",
+  "A:fox-anim-morph",
+  "A:fox-anim-mother-askani",
+  "A:fox-anim-nightcrawler",
+  "A:fox-anim-polaris",
+  "A:fox-anim-professor-x",
+  "A:fox-anim-psylocke",
+  "A:fox-anim-rogue",
+  "A:fox-anim-shiar-empire",
+  "A:fox-anim-starjammers",
+  "A:fox-anim-storm",
+  "A:fox-anim-sunspot",
+  "A:fox-anim-wolverine",
+  "A:fox-anim-x-men",
+  "A:fox-banshee",
+  "A:fox-beast",
+  "A:fox-beast-young",
+  "A:fox-bishop",
+  "A:fox-blind-al"
+ ],
+ "changes": [
+  {
+   "key": "A:fox-anim-magneto",
+   "k": 5,
+   "q": "F3",
+   "now": {
+    "k": 5,
+    "title": "X-Men '97",
+    "text": "In episode 8, presumed dead at Genosha, Magneto is really Bastion's prisoner until Valerie Cooper sets him free.",
+    "status": "Imprisoned",
+    "at": [],
+    "cases": [
+     "FX-028 Operation: Zero Tolerance (X-Men '97)"
+    ]
+   },
+   "proposed": {
+    "status": "Active"
+   },
+   "evidence": "X-Men '97 episode 8 (Tolerance Is Extinction Part 1): 'A horrified Cooper releases Magneto, who creates a world-wide blackout.' The record itself ends with Cooper setting him free, so the title leaves him free, not imprisoned.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "A:fox-anim-madelyne-pryor",
+   "k": 0,
+   "q": "F2",
+   "now": {
+    "k": 0,
+    "title": "X-Men '97",
+    "text": "In episode 3, believing she is Jean Grey, Sinister's clone lives as Scott's wife with the X-Men and gives birth to their son, Nathan.",
+    "status": "Active",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 2, believing she is Jean Grey, she lives as Scott's wife with the X-Men and gives birth to their son, Nathan."
+   },
+   "evidence": "The birth of Nathan, the record's last event, is in X-Men '97 episode 2 (Mutant Liberation Begins: 'Jean gives birth to a son whom she and Cyclops name Nathan'). Episode 3 (Fire Made Flesh) is where she is revealed as Sinister's clone and turns into the Goblin Queen, already covered by k1. 'Sinister's clone' is dropped from the text because that reveal comes in episode 3.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:fox-anim-psylocke",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": -1,
+    "title": "X-Men: The Animated Series",
+    "text": "In episode 64, Magneto seizes Psylocke and takes her through a portal to Apocalypse, who is gathering psychics to drain.",
+    "status": "Imprisoned",
+    "at": [],
+    "cases": []
+   },
+   "evidence": "Beyond Good and Evil Part II (episode 64): Shard and Wolverine go to protect Psylocke, 'Still, she is kidnapped by Magneto and taken to Apocalypse in the axis of time.' In Part IV (episode 66) Bishop frees the psychics. The file has only the episode 66 record, so her capture is missing. 'after': -1 means insert before step 0 (it is the new first record).",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw ; https://marvel.fandom.com/wiki/Elizabeth_Braddock_(Earth-92131)",
+   "confidence": "high"
+  },
+  {
+   "key": "A:fox-anim-havok",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": 2,
+    "title": "X-Men '97",
+    "text": "In episode 19, Havok's X-Factor joins X-Force in attacking X-Corp, and Apocalypse brainwashes them all until Rogue frees them.",
+    "status": "Active",
+    "at": [],
+    "cases": []
+   },
+   "evidence": "X-Men '97 episode 19 (Survival of the Fittest): 'X-Force and X-Factor attack X-Corp... Apocalypse... brainwashes all of the X-Men, X-Force, and X-Factor... Rogue arrives and uses her celestial powers to free Gambit and the others.' Marvel Database lists Havok as appearing in that episode. He changes sides against the X-Men and is mind-controlled, with no record.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw ; https://marvel.fandom.com/wiki/X-Men_%2797_Season_2_9",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:fox-anim-morph",
+   "question": "Step 0 (episode 2, Morph seemingly dies in the Sentinel raid) has status Imprisoned. That episode leaves him believed dead; that Sinister took him and nursed him back only comes out in episodes 14 and 15 (step 1). Should the status show what viewers know at that point?",
+   "options": [
+    "Keep Imprisoned (what really happened)",
+    "Deceased (believed dead; step 1 shows the return)",
+    "Missing"
+   ],
+   "evidence": "Wikipedia: 'Morph is seemingly killed.' Marvel Database: 'leaving a believed dead Morph behind... Mister Sinister found Morph and nursed them back to health' (shown later in Till Death Do Us Part). Imprisoned gives away a later reveal (F7).",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw ; https://marvel.fandom.com/wiki/Kevin_Sidney_(Earth-92131)"
+  },
+  {
+   "key": "A:fox-anim-rogue",
+   "question": "Step 4 is tagged Spider-Man (1994) episode 18, but says Rogue flirts with Spider-Man 'when he visits the X-Mansion'. His mansion visit is episode 17 (The Mutant Agenda); in episode 18 the X-Men meet him in the city to fight Landon. I could not confirm in a source which episode has the flirting. Which should it be?",
+   "options": [
+    "Change to episode 17 (mansion visit)",
+    "Keep episode 18 and reword so it is not at the mansion",
+    "Keep as is"
+   ],
+   "evidence": "Marvel Database synopses: episode 17 has Spider-Man at Xavier's school with the X-Men; episode 18 ends with the X-Men arriving in the Blackbird and befriending Spider-Man after Landon is beaten.",
+   "source": "https://marvel.fandom.com/wiki/Spider-Man:_The_Animated_Series_Season_2_4 ; https://marvel.fandom.com/wiki/Spider-Man:_The_Animated_Series_Season_2_5"
+  },
+  {
+   "key": "A:fox-anim-nightcrawler",
+   "question": "Step 4 (season 2: Kurt gives his life to Eson so Rogue and Gambit can be together) has status Missing. Marvel Database marks this as an apparent death. Should it stay Missing or become Deceased?",
+   "options": [
+    "Keep Missing",
+    "Deceased"
+   ],
+   "evidence": "Wikipedia episode 19: 'Nightcrawler offered his own life to Eson so Rogue and Gambit could be together.' Marvel Database lists Nightcrawler as ApDeath (apparent death) in that episode.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw ; https://marvel.fandom.com/wiki/X-Men_%2797_Season_2_9"
+  }
+ ]
+}

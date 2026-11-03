@@ -1,0 +1,403 @@
+{
+ "verdicts": [
+  {
+   "n": 270,
+   "verdict": "reject",
+   "why": "The current text is right: after spotting the decoy in Times Square, Galactus crosses the city to the Baxter Building, smashes its defenses and takes Franklin from his pod there. The claim that he never comes for Franklin at the Baxter Building is false.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Galactus&prop=wikitext&format=json"
+  },
+  {
+   "n": 271,
+   "verdict": "amend",
+   "value": {
+    "title": "Loki S2#1",
+    "text": "General Dox leads the hunters who want to keep pruning the new branches, while Hunter B-15 wants to protect them. Dox raids the TVA armory and sends her loyalists out to destroy the branches.",
+    "on_a_card_about_b": "Hunter who protects the branches Dox wants pruned.",
+    "on_b_card_about_a": "General who raids the armory to prune the branches B-15 protects.",
+    "split": {
+     "kind": "enemy",
+     "title": "Loki S2#4",
+     "text": "After Dox's loyalists wipe out whole timelines and Dox is locked up, B-15 swallows her anger and asks for her help protecting the TVA.",
+     "on_a_card_about_b": "Hunter who protects the branches Dox wants pruned, then seeks her help.",
+     "on_b_card_about_a": "General whose loyalists wipe out timelines. B-15 later asks for her help."
+    }
+   },
+   "why": "The clash starts in S2E1 (council argument, armory raid), but the timeline wipe is S2E2 and B-15's offer in the cell is S2E4, so the stage is split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Dox&prop=wikitext&format=json"
+  },
+  {
+   "n": 272,
+   "verdict": "amend",
+   "value": {
+    "title": "Loki S2#1",
+    "text": "Hunter X-05 serves under General Dox in the TVA's Minutemen. She sends him to find Sylvie and to lead her troops in planting reset charges on the branching timelines.",
+    "on_a_card_about_b": "Hunter under Dox's command, whom she sends after Sylvie.",
+    "on_b_card_about_a": "X-5's general, who sends him after Sylvie.",
+    "split": {
+     "kind": "boss",
+     "title": "Loki S2#2",
+     "text": "Hunter X-05 goes along with Dox's plan only to buy time to escape and start a new life as an actor.",
+     "on_a_card_about_b": "Hunter under Dox's command, who goes along only to escape.",
+     "on_b_card_about_a": "X-5's general, whom he follows only long enough to escape."
+    }
+   },
+   "why": "He serves Dox and gets her orders in S2E1, but his desertion to live as Brad Wolfe is only revealed in S2E2, so that part moves to a split stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hunter_X-05&prop=wikitext&format=json"
+  },
+  {
+   "n": 273,
+   "verdict": "confirm",
+   "why": "At the end of the film Hank and his family help Ghost escape with Bill Foster, and they keep harvesting quantum energy to cure her, so ally fits; the wiki lists Hank as a former enemy.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ghost&prop=wikitext&format=json"
+  },
+  {
+   "n": 274,
+   "verdict": "confirm",
+   "why": "Giyera first appears as Malick's man in S3E8 (he fetches Malick from the Ward dinner and fights Bobbi at Endotex). Hive's dust only infects him in S3E11.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=R._Giyera&prop=wikitext&format=json"
+  },
+  {
+   "n": 275,
+   "verdict": "confirm",
+   "why": "In S3E11 Hive sends Ward's dust into Giyera to make a believer of him, and in S3E12 Hive orders him to ignore Malick's commands. So his loyalty shifts at S3E11.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=R._Giyera&prop=wikitext&format=json"
+  },
+  {
+   "n": 276,
+   "verdict": "confirm",
+   "why": "Hive infects Giyera in S3E11, and in the same episode Giyera guards him while he eats raw meat and watches footage of humans. Nothing new starts in S3E15.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=R._Giyera&prop=wikitext&format=json"
+  },
+  {
+   "n": 277,
+   "verdict": "confirm",
+   "why": "Malick meets Hive, who is wearing Ward's corpse, on the road at the end of S3E10. By S3E17 Malick has betrayed Hydra and been killed, so boss is wrong there.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gideon_Malick&prop=wikitext&format=json"
+  },
+  {
+   "n": 278,
+   "verdict": "confirm",
+   "why": "Hive kills Stephanie in S3E16. In S3E17 Malick agrees to help S.H.I.E.L.D. against Hydra, and Daisy, under Hive's control, kills him.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gideon_Malick&prop=wikitext&format=json"
+  },
+  {
+   "n": 279,
+   "verdict": "amend",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S3#7",
+    "text": "Gideon Malick secretly steers Rosalind Price as head of the ATCU, and she reports to him as she tries to bring Phil Coulson to meet him.",
+    "on_a_card_about_b": "Malick's protégée, whom he secretly steers as head of the ATCU.",
+    "on_b_card_about_a": "Rosalind's adviser, secretly Hydra, who steers her ATCU."
+   },
+   "why": "The first on-screen link is her S3E7 call apologizing to Malick for missing NORAD, and boss is wrong at S3E8. But the NASA history and his role in designing the ATCU are first told in S3E8, so I cut them from the S3#7 text.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rosalind_Price&prop=wikitext&format=json"
+  },
+  {
+   "n": 280,
+   "verdict": "confirm",
+   "why": "In S3E8 Rosalind realizes Malick is Hydra and has lied to her once Coulson shows her the ATCU is not working on a cure.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rosalind_Price&prop=wikitext&format=json"
+  },
+  {
+   "n": 281,
+   "verdict": "confirm",
+   "why": "In S1E20 Hill leads Talbot to Providence, then she and Coulson attack him and his men (Hill knocks out the soldiers and Coulson ICERs Talbot). That leaves them on opposite sides, and the wiki lists Hill as a former ally.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Glenn_Talbot&prop=wikitext&format=json"
+  },
+  {
+   "n": 282,
+   "verdict": "confirm",
+   "why": "In S3E12 Coulson helps rescue Talbot's son, Coulson calls it a partnership, and Talbot says to call him Glenn. That is where the partnership starts. Nothing matching the stage happens in S3E21.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Glenn_Talbot&prop=wikitext&format=json"
+  },
+  {
+   "n": 283,
+   "verdict": "confirm",
+   "why": "Ward and May are on Coulson's team from the Pilot, and the affair starts in S1E8, so the split is right.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Grant_Ward&prop=wikitext&format=json"
+  },
+  {
+   "n": 284,
+   "verdict": "confirm",
+   "why": "At the end of S1E8 May leaves her door open and Ward follows her in, which starts their affair.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Grant_Ward&prop=wikitext&format=json"
+  },
+  {
+   "n": 285,
+   "verdict": "confirm",
+   "why": "In S2E20 Raina asks Gordon to keep her vision from Jiaying, but out of loyalty he tells Jiaying. He stands silent while Jiaying confronts Raina and has her locked up.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gordon&prop=wikitext&format=json"
+  },
+  {
+   "n": 286,
+   "verdict": "confirm",
+   "why": "A Soul Eater grabs Guang Bo from behind and sucks out his soul while he aims at the Dweller-in-Darkness. The Dweller does not kill him itself.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Guang_Bo&prop=wikitext&format=json"
+  },
+  {
+   "n": 287,
+   "verdict": "confirm",
+   "why": "Grotto never agrees to testify against the Kitchen Irish. Karen sits with him at Metro-General and escapes with him when the Punisher attacks, then she and Foggy talk him into Reyes's deal to wear a wire.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Grotto&prop=wikitext&format=json"
+  },
+  {
+   "n": 288,
+   "verdict": "amend",
+   "value": {
+    "title": "Jessica Jones S3#7",
+    "text": "Gillian, who works at Alias Investigations, refuses to hand Malcolm Jessica's files on Sallinger until Trish gives him permission.",
+    "on_a_card_about_b": "Jessica's friend, whom Gillian keeps from the files until Trish says yes.",
+    "on_b_card_about_a": "Alias assistant who guards Jessica's files on Sallinger.",
+    "split": {
+     "kind": "ally",
+     "title": "Jessica Jones S3#10",
+     "text": "After Malcolm rejoins Alias Investigations, he and Gillian wait together for Jessica, and he looks into Jace Montero, a man Jessica fears is the next target.",
+     "on_a_card_about_b": "Jessica's partner, whom Gillian keeps from the files, then helps.",
+     "on_b_card_about_a": "Alias assistant who guards Jessica's files, then works beside Malcolm at the agency."
+    }
+   },
+   "why": "The files scene is S3E7. The two only wait together for Jessica in S3E10, after Malcolm rejoins Alias, and the target there is Montero, not one of Sallinger's, so that part goes to a split stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Malcolm_Ducasse&prop=wikitext&format=json"
+  },
+  {
+   "n": 289,
+   "verdict": "confirm",
+   "why": "In S5E2 Grill gives Coulson, Mack and Yo-Yo Metrics in exchange for the Kree tablet, on condition that they work for him.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Grill&prop=wikitext&format=json"
+  },
+  {
+   "n": 290,
+   "verdict": "amend",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S5#14",
+    "text": "General Hale hunts S.H.I.E.L.D. while secretly running Hydra, and May and Piper uncover the bomb she has Carl Creel carry onto the Zephyr for her meeting with Coulson.",
+    "on_a_card_about_b": "Agent who uncovers Hale's bomb plot.",
+    "on_b_card_about_a": "Hydra general whose bomb plot May uncovers.",
+    "split": {
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S5#18",
+     "text": "When Ruby runs off with the Gravitonium, Hale surrenders to May and Daisy and leads them to her daughter.",
+     "on_a_card_about_b": "Agent who uncovers Hale's bomb plot, and to whom Hale later surrenders.",
+     "on_b_card_about_a": "Hydra general May hunts, who surrenders to her and Daisy."
+    }
+   },
+   "why": "The conflict starts in S5E14, when May and Piper find Creel with C4. The S5E18 surrender to May and Daisy is real, though, so it is kept as a split stage rather than dropped.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=R._Hale&prop=wikitext&format=json"
+  },
+  {
+   "n": 291,
+   "verdict": "amend",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S5#14",
+    "text": "General Hale lets S.H.I.E.L.D. capture her so she can meet Phil Coulson face to face, then turns the tables on the Zephyr and takes him away as her prisoner. She keeps trying to win him over to her side.",
+    "on_a_card_about_b": "Director Hale takes prisoner and tries to win over.",
+    "on_b_card_about_a": "General who takes Coulson prisoner and tries to win him over.",
+    "split": {
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S5#15",
+     "text": "Hale reveals that she is Hydra and urges Coulson to unite S.H.I.E.L.D. and Hydra. Coulson refuses and stays defiant, even locked in his cell.",
+     "on_a_card_about_b": "Director Hale captures and tries to win to Hydra's side.",
+     "on_b_card_about_a": "Hydra general who captures Coulson and tries to win him over."
+    }
+   },
+   "why": "Hale takes Coulson prisoner in S5E14, but her Hydra pitch and his cell come in S5E15 and S5E16, so those facts are kept in a split stage instead of dropped.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=R._Hale&prop=wikitext&format=json"
+  },
+  {
+   "n": 292,
+   "verdict": "confirm",
+   "why": "Piper's deal with Hale and the Kree beacon trap are S5E11, and Ruby's robots attack despite Hale's promise. Piper's turn against Hale is S5E14.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Piper&prop=wikitext&format=json"
+  },
+  {
+   "n": 293,
+   "verdict": "confirm",
+   "why": "In S5E14 Piper helps S.H.I.E.L.D. hack Hale's phone, which leads to Hale's capture on the Zephyr.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Piper&prop=wikitext&format=json"
+  },
+  {
+   "n": 294,
+   "verdict": "amend",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S5#11",
+    "text": "General Hale is Ruby Hale's mother and is raising her to be a soldier.",
+    "on_a_card_about_b": "Hale's daughter, raised to be a soldier.",
+    "on_b_card_about_a": "Ruby's mother, who raises her to be a soldier.",
+    "split": {
+     "kind": "family",
+     "title": "Agents of S.H.I.E.L.D. S5#15",
+     "text": "Hale is a Hydra general, and she has raised Ruby to be Hydra's ultimate soldier.",
+     "on_a_card_about_b": "Hale's daughter, raised to be Hydra's ultimate soldier.",
+     "on_b_card_about_a": "Ruby's mother, who raised her to be Hydra's ultimate soldier."
+    }
+   },
+   "why": "Hale and Ruby are shown as mother and daughter in S5E11. The Hydra upbringing comes out in S5E15, so it is kept in a split stage instead of dropped.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=R._Hale&prop=wikitext&format=json"
+  },
+  {
+   "n": 295,
+   "verdict": "confirm",
+   "why": "Hale has Werner brought to her base in S5E13, and Ruby talks him into staying. He betrays Hale in S5E17.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Werner_von_Strucker&prop=wikitext&format=json"
+  },
+  {
+   "n": 296,
+   "verdict": "confirm",
+   "why": "In S5E17 Werner takes the Gravitonium and leaves with Ruby after she locks Hale in.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Werner_von_Strucker&prop=wikitext&format=json"
+  },
+  {
+   "n": 297,
+   "verdict": "confirm",
+   "why": "Krylar secretly tips off Kang, and when the Quantumnauts arrive Hank shoots at the soldiers and sets the enlarged creature on Krylar. They are enemies, not rivals.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Krylar&prop=wikitext&format=json"
+  },
+  {
+   "n": 298,
+   "verdict": "confirm",
+   "why": "Heimdall reunites with Loki during the Battle for Asgard and fights the Berserkers beside him as the people board the Statesman.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Heimdall&prop=wikitext&format=json"
+  },
+  {
+   "n": 299,
+   "verdict": "confirm",
+   "why": "Miss Minutes beginning as a chess machine who played chess with He Who Remains is told in Loki S2 '1893', not S1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Miss_Minutes&prop=wikitext&format=json"
+  },
+  {
+   "n": 300,
+   "verdict": "confirm",
+   "why": "In S3E16 Lincoln offers James a Terrigen crystal for the Kree orb, then goes back on the deal, threatens him and takes both. He takes the name Hellfire only in S3E18.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=JT_James&prop=wikitext&format=json"
+  },
+  {
+   "n": 301,
+   "verdict": "confirm",
+   "why": "By S3E18 Hive is in Ward's body. He uses Will's memories to try to win Simmons over, and she tells him Will is dead and shoots him three times.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hive&prop=wikitext&format=json"
+  },
+  {
+   "n": 302,
+   "verdict": "confirm",
+   "why": "That Hive killed Will and wears his body is revealed on Maveth in S3E10.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hive&prop=wikitext&format=json"
+  },
+  {
+   "n": 303,
+   "verdict": "confirm",
+   "why": "Hive's Inhumans kidnap Radcliffe in S3E18, and Hive takes him to Union City to recreate the experiment.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json"
+  },
+  {
+   "n": 304,
+   "verdict": "reject",
+   "why": "The current text is supported. In S3E18 Coulson and May escape an explosion that Hive and his Inhumans rigged at James's home, and in S3E19 May leads the team sent to kill Hive. The claim that no source supports the rigged room is false, so this change is only a rewrite.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Phil_Coulson&prop=wikitext&format=json"
+  },
+  {
+   "n": 305,
+   "verdict": "amend",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S3#22",
+    "text": "After S.H.I.E.L.D. rescues Holden Radcliffe from Hive, Phil Coulson questions him at the Playground, and Radcliffe helps Coulson's team survive Hive's Primitives.",
+    "on_a_card_about_b": "Director whose team Radcliffe helps against Hive.",
+    "on_b_card_about_a": "Scientist who helps Coulson's team against Hive."
+   },
+   "why": "At the end of S3E21 Coulson and Talbot only question and threaten him. He first helps Coulson's team in S3E22, when he cauterizes Yo-Yo's wound and works out how to get past the Primitives.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json"
+  },
+  {
+   "n": 306,
+   "verdict": "confirm",
+   "why": "In S4E11 Fitz finds Radcliffe's treachery in Aida's code. The man S.H.I.E.L.D. arrests is his LMD, while the real Radcliffe has turned to Nadeer.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw"
+  },
+  {
+   "n": 307,
+   "verdict": "confirm",
+   "why": "The end of S4E9 shows Radcliffe holding the real May drugged and planning to use the May LMD to get the Darkhold. In S4E12 the LMD is stopped and Radcliffe takes the book himself, so the softer wording is right.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json"
+  },
+  {
+   "n": 308,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#2",
+    "text": "Heather Glenn starts counseling Vanessa and Wilson Fisk through their marriage troubles.",
+    "on_a_card_about_b": "Client Heather counsels through her marriage troubles.",
+    "on_b_card_about_a": "Vanessa's couples therapist.",
+    "split": {
+     "kind": "ally",
+     "title": "Daredevil: Born Again S1#4",
+     "text": "Heather counsels the Fisks through Vanessa's affair with Adam, and she comes to worry about Vanessa as the strain grows.",
+     "on_a_card_about_b": "Client Heather counsels through her marriage troubles.",
+     "on_b_card_about_a": "Vanessa's couples therapist, who comes to worry about her."
+    }
+   },
+   "why": "Cashman introduces Heather to the Fisks in S1E2. The affair talk and her private check on Vanessa's safety are S1E4, so they are kept in a split stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Heather_Glenn&prop=wikitext&format=json"
+  },
+  {
+   "n": 309,
+   "verdict": "amend",
+   "value": {
+    "title": "Jessica Jones S1#1",
+    "text": "Hope's parents hire Jessica to find their missing daughter, and Jessica rescues her from Kilgrave.",
+    "on_a_card_about_b": "Investigator who rescues Hope from Kilgrave.",
+    "on_b_card_about_a": "Missing girl Jessica rescues from Kilgrave.",
+    "split": {
+     "kind": "ally",
+     "title": "Jessica Jones S1#2",
+     "text": "When Hope is jailed for the killings Kilgrave forced on her, Jessica fights to prove her innocence.",
+     "on_a_card_about_b": "Investigator who rescues Hope and fights to prove her innocence.",
+     "on_b_card_about_a": "Missing girl Jessica rescues and fights to clear."
+    }
+   },
+   "why": "Jessica is hired and finds Hope in episode 1. Her fight to clear Hope (getting Hogarth to take the case) starts in episode 2, so it is kept in a split stage.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Jessica_Jones_season_1&action=raw"
+  },
+  {
+   "n": 310,
+   "verdict": "confirm",
+   "why": "Kilgrave controls and rapes Hope and makes her kill her parents in episode 1. Her suicide is episode 10.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hope_Shlottman&prop=wikitext&format=json"
+  },
+  {
+   "n": 311,
+   "verdict": "confirm",
+   "why": "In episode 10 Kilgrave gets Hope out of prison and trades her for his father, and she kills herself so Jessica will be free to kill him.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Jessica_Jones_season_1&action=raw"
+  },
+  {
+   "n": 312,
+   "verdict": "confirm",
+   "why": "In S1E4 B-15 unlocks Loki and Sylvie's collars, tosses them weapons and is knocked out right away, then stays in custody. She never fights beside Loki.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hunter_B-15&prop=wikitext&format=json"
+  },
+  {
+   "n": 313,
+   "verdict": "confirm",
+   "why": "In S1E1 B-15 tells Mobius that associating with Loki is a mistake, before the Oshkosh mission in S1E2.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hunter_B-15&prop=wikitext&format=json"
+  },
+  {
+   "n": 314,
+   "verdict": "amend",
+   "value": {
+    "title": "Loki S1#1",
+    "text": "Hunter B-15 serves Judge Ravonna Renslayer loyally and brings Loki before her for trial.",
+    "on_a_card_about_b": "Judge B-15 serves loyally.",
+    "on_b_card_about_a": "Loyal Hunter who brings Loki before her for trial.",
+    "split": {
+     "kind": "enemy",
+     "title": "Loki S1#4",
+     "text": "Hunter B-15 shields Renslayer from Sylvie, but after Sylvie unlocks her memories, B-15 turns against Renslayer and frees Loki and Sylvie. Renslayer has her taken into custody as a traitor.",
+     "on_a_card_about_b": "Judge B-15 serves loyally, then turns against.",
+     "on_b_card_about_a": "Loyal Hunter turned traitor, whom Renslayer has taken into custody."
+    }
+   },
+   "why": "B-15 serves Renslayer from S1E1. On Lamentis in S1E4 she shields Renslayer, and later that episode she frees Loki and Sylvie and is taken into custody. Those facts go in the split stage; drop it if another chunk already adds this turn.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hunter_B-15&prop=wikitext&format=json"
+  }
+ ]
+}

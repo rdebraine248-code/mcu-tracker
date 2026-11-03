@@ -22,3 +22,5 @@ spiderman, marvelanimated). curl with `User-Agent: mcu-tracker-research/1.0`. Ne
 Write ONE JSON file to your output path: {"verdicts": [{"n": <item index "n" in your file>, "verdict": "confirm|amend|reject",
 "value": <corrected "proposed" object, for amend>, "why": "one or two sentences", "source": "URL"}]}. Every item gets a verdict.
 Reply with ONE line: confirmed, amended, rejected counts.
+
+- A group's name is the one said or shown on screen; fan wikis invent labels ("the Black Order", "Cassandra Nova's Henchmen"). Don't add or keep a name the screen never uses.

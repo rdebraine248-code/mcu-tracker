@@ -1,0 +1,121 @@
+{
+ "checked": [
+  "T:sv-human-flies-1967",
+  "T:sv-hunter-smu",
+  "T:sv-hydro-man-1994",
+  "T:sv-infinata-1967",
+  "T:sv-insidious-six-1994",
+  "T:sv-jimmy-addison-noir",
+  "T:sv-kafka-asm2",
+  "T:sv-kingpin-1967",
+  "T:sv-kingpin-1994",
+  "T:sv-kingpin-itsv",
+  "T:sv-knull",
+  "T:sv-kraven",
+  "T:sv-kraven-1994",
+  "T:sv-kraven-ssm",
+  "T:sv-lady-vermin-smu",
+  "T:sv-lizard-1967",
+  "T:sv-lizard-1994",
+  "T:sv-lizard-asm",
+  "T:sv-lizard-earth65",
+  "T:sv-lizard-ssm",
+  "T:sv-lonnie-yfnsm",
+  "T:sv-lord-tyger-smu",
+  "T:sv-master-technician-1967",
+  "T:sv-megawatt-noir",
+  "T:sv-menken-asm2",
+  "T:sv-miguel-ohara",
+  "T:sv-mikhail-yfnsm",
+  "T:sv-miles-warren-1994",
+  "T:sv-milo",
+  "T:sv-miriam-1994",
+  "T:sv-miss-trubble-1967",
+  "T:sv-molten-man-ssm",
+  "T:sv-morbius",
+  "T:sv-morbius-1994",
+  "T:sv-mysterio-1967",
+  "T:sv-mysterio-1994",
+  "T:sv-mysterio-ssm",
+  "T:sv-nikolai-kravinoff",
+  "T:sv-noah-boddy-1967",
+  "T:sv-norman-osborn-asm2",
+  "T:sv-otto-yfnsm",
+  "T:sv-parafino-1967",
+  "T:sv-plotter-1967",
+  "T:sv-prowler-anomaly",
+  "T:sv-prowler-earth42",
+  "T:sv-prowler-itsv",
+  "T:sv-ratha-asm",
+  "T:sv-red-skull-1994",
+  "T:sv-rhino-1967",
+  "T:sv-rhino-1994",
+  "T:sv-rhino-asm2",
+  "T:sv-rhino-kraven",
+  "T:sv-rhino-ssm",
+  "T:sv-richard-fisk-1994",
+  "T:sv-riot",
+  "T:sv-sandman-1967",
+  "T:sv-sandman-noir",
+  "T:sv-sandman-raimi",
+  "T:sv-sandman-ssm",
+  "T:sv-scorpion-1967",
+  "T:sv-scorpion-1994",
+  "T:sv-scorpion-itsv",
+  "T:sv-scorpion-yfnsm",
+  "T:sv-semyon-chorney",
+  "T:sv-shocker-1994"
+ ],
+ "changes": [
+  {
+   "key": "T:sv-prowler-itsv",
+   "k": null,
+   "q": "F4",
+   "now": null,
+   "proposed": {
+    "after": 1,
+    "title": "Spider-Man: Into the Spider-Verse",
+    "text": "When Miles unmasks, Aaron cannot bring himself to kill his nephew, and Kingpin shoots him. He dies in Miles's arms.",
+    "status": "Deceased",
+    "at": [],
+    "cases": []
+   },
+   "evidence": "Wikipedia plot: 'Unwilling to murder his own nephew, Aaron attempts to spare Miles, but is fatally shot by Kingpin in retaliation and dies in Miles' arms.' The file ends with him At large and has no death record (the Kingpin file already records the shooting).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man:_Into_the_Spider-Verse&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "T:sv-hunter-smu",
+   "k": 0,
+   "q": "F1",
+   "now": {
+    "k": 0,
+    "title": "Spider-Man Unlimited",
+    "text": "In episode 6, The High Evolutionary hires the Hunter to track down and capture Spider-Man.",
+    "status": "At large",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 6, Sir Ram convinces the High Evolutionary that Spider-Man must be dealt with and hires the Hunter to kill him."
+   },
+   "evidence": "Episode 6 'Enter the Hunter!': 'Sir Ram convinces the High Evolutionary that Spider-Man is too much of a problem and must be dealt with. To do so, Sir Ram hires the human assassin named the Hunter ... to kill the hero.' The record says the High Evolutionary hires him to capture Spider-Man.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man_Unlimited&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:sv-miriam-1994",
+   "question": "Step 0 (Blade's mother leaving him at an orphanage) is tagged episode 23 and says she was 'abandoned by his vampire father'. Sources list Miriam only in episodes 48 and 62 and say she was turned into a vampire against her will after his birth and gave him up to spare him. Keep, retag, or reword?",
+   "options": [
+    "Keep as is",
+    "Retag to episode 48 (where Blade learns Miriam is his mother)",
+    "Reword to: Years earlier, after she is turned into a vampire against her will, Blade's mother leaves her baby son at an orphanage to spare him",
+    "Drop the backstory record"
+   ],
+   "evidence": "Marvel Animated wiki Miriam: appearances 'The Vampire Queen' and 'The Gauntlet of the Red Skull'; 'They had a child but after his birth she was unwillingly turned into a vampire. To spare him the life she would then have to lead she gave him up to an orphanage.' Wikipedia ep 48: 'Blade is horrified to learn that she was once his human mother.' No source found placing the flashback in episode 23.",
+   "source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Miriam&prop=wikitext&format=json"
+  }
+ ]
+}

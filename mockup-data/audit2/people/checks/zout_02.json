@@ -1,0 +1,102 @@
+{
+ "checked": [
+  "T:st-john-healy",
+  "T:st-kilgrave",
+  "T:st-gregory-sallinger",
+  "T:st-diamondback",
+  "T:st-john-pilgrim",
+  "T:st-schultzes",
+  "T:st-krista-dumont",
+  "T:st-muse",
+  "T:st-holden-radcliffe",
+  "T:pr-st-morgan-le-fay",
+  "T:pr-st-andre-deschaine",
+  "T:sv-carjacker-2002",
+  "T:sv-sandman-raimi",
+  "T:sv-gentleman-asm",
+  "T:sv-rhino-asm2",
+  "T:sv-riot",
+  "T:sv-carnage-sony",
+  "T:sv-shriek",
+  "T:sv-knull",
+  "T:sv-xenophages",
+  "T:sv-milo",
+  "T:sv-ezekiel-sims",
+  "T:sv-amaria",
+  "T:sv-nikolai-kravinoff",
+  "T:sv-rhino-kraven"
+ ],
+ "changes": [
+  {
+   "key": "T:pr-st-morgan-le-fay",
+   "kind": "G0",
+   "now": [],
+   "proposed": [
+    [
+     "Morgan's coven",
+     "Runaways S3"
+    ]
+   ],
+   "evidence": "MCU wiki infobox affiliation 'Morgan le Fay's Coven' (category: Coven Leaders). In Runaways S3 she leads the coven of witches, runs it from the Essex Tower Hotel, and inducts Nico into it (Nico's own file already has Morgan's coven in Runaways S3). Banished, not a departure.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Morgan_le_Fay",
+   "confidence": "high"
+  },
+  {
+   "key": "T:st-diamondback",
+   "kind": "G0",
+   "now": [],
+   "proposed": [
+    [
+     "The Stokes Crime Family",
+     "Luke Cage S1"
+    ]
+   ],
+   "evidence": "MCU wiki: after Cottonmouth's death (Luke Cage S1, ep 9-10) Diamondback 'took the command of the Stokes Crime Family members', using Harlem's Paradise as HQ and giving orders to Shades and Zip; the wiki lists the Stokes Crime Family among his allies. He was in charge until his arrest at season end. Not in the infobox, hence medium.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Diamondback",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:st-john-healy",
+   "question": "Healy is a contract assassin hired by Fisk (via Wesley) for one killing in Daredevil S1. Does a hired hitman count as a member of Fisk's Empire?",
+   "options": [
+    "Add [[\"Fisk's Empire\",\"Daredevil S1\"]]",
+    "Keep no group (hired contractor)"
+   ],
+   "evidence": "MCU wiki: 'an assassin hired by Wilson Fisk to kill Prohaszka'; Fisk listed as 'Employer'; no affiliation in infobox. In ep 3 he will not name his boss until Daredevil makes him, then kills himself out of fear of Fisk.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/John_Healy"
+  },
+  {
+   "key": "T:st-holden-radcliffe",
+   "question": "Radcliffe was a S.H.I.E.L.D. consultant (Level Green clearance) after his rescue in ep 66, until his deception was found out; then he worked with the Watchdogs (listed as 'situational allies'). Count S.H.I.E.L.D. (and the Watchdogs)?",
+   "options": [
+    "Add [[\"S.H.I.E.L.D.\",\"Agents of S.H.I.E.L.D.\"],[\"Independent\",\"Agents of S.H.I.E.L.D.\"]]",
+    "Add S.H.I.E.L.D. then Watchdogs",
+    "Keep no group (consultant, not member; Hive held him captive)"
+   ],
+   "evidence": "MCU wiki infobox: affiliation S.H.I.E.L.D. (formerly), title 'Consultant (formerly)', clearance Level Green; Transhumanists and GT Agrochemical are backstory. Hive kidnapped him (captive, not Hydra membership). Section 'Joining the Watchdogs', but the relationships list calls them 'Situational Allies'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Holden_Radcliffe"
+  },
+  {
+   "key": "T:pr-st-andre-deschaine",
+   "question": "Deschaine is the secret leader of a sex-trafficking ring in New Orleans (Cloak & Dagger S2). The ring has no on-screen name; the MCU wiki calls it 'Viking Motel Sex Traffic Ring'. Add it as a new group?",
+   "options": [
+    "Add [[\"Viking Motel Sex Traffic Ring\",\"Cloak & Dagger\"]] (new name, wiki-coined)",
+    "Keep no group"
+   ],
+   "evidence": "MCU wiki infobox affiliation 'Viking Motel Sex Traffic Ring'; lead: 'He became the secret leader of a sex trafficking ring in New Orleans'. The name looks like a wiki descriptor, not a name used in the show.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Andre_Deschaine"
+  },
+  {
+   "key": "T:sv-knull",
+   "question": "Knull created and commands the Xenophages in Venom: The Last Dance. Count 'The Xenophages' (not in group_names.json; tracked as their own file T:sv-xenophages) as a group he leads?",
+   "options": [
+    "Add [[\"The Xenophages\",\"Venom: The Last Dance\"]] (new name, named in the film)",
+    "Keep no group (creatures he made, not an organisation)"
+   ],
+   "evidence": "Marvel Database: Knull's affiliation is 'Xenophages' (also listed as his creations); he sends them from his prison to take the Codex from Eddie and Venom.",
+   "source": "https://marvel.fandom.com/wiki/Knull_(Earth-688B)"
+  }
+ ]
+}
