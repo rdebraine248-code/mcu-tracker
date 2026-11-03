@@ -4853,7 +4853,10 @@ const uniLine = o => { const n = rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))
 // first and last seen, two small lines in the name box (owner, November 2026: the two tiles were "a space suck"); one line when it's one title
 // first and last seen are the two ends of the person's path, a line drawn between them with how many titles it runs through, and the
 // way into Paths; under it, their character log. Both only where they have one (owner, November 2026: built into the card, not buttons)
-const seenLine = (S, o) => { const a = seenTtl(S), b = seenTtl(S, 1); if (!a) return "";
+// one person is first seen once and last seen once (owner, November 2026): a person on file in both indexes counts both files, so the
+// Compound and the Raft give the same two ends and the same count
+const seenLine = (S0, o) => { const cp = o && ALLIES.includes(o), tw = o && (cp ? THREATS.find(t => t.id === o.rf) : ALLIES.find(a => a.rf === o.id)), S = tw ? S0.concat(cp ? rfSteps(tw) : cpSteps(tw)) : S0;
+  const a = seenTtl(S), b = seenTtl(S, 1); if (!a) return "";
   const id = o && boxOfFile(o), pa = id ? boxPath(id) : "", log = id && boxShown(id) ? DATA.chars.find(c => c.id === id) : null, n = new Set(S.map(x => x[1])).size;
   const mid = n > 1 ? (pa ? `<button type="button" class="ip-mid" data-dpath="${esc(pa)}">${n} titles on the path<em aria-hidden="true">&#8250;</em></button>` : `<span class="ip-mid">${n} titles</span>`) : "";
   return `<span class="id-seen">${a === b ? `<span class="ip-one"><i>Seen in</i>${a}</span>${pa ? `<button type="button" class="ip-mid" data-dpath="${esc(pa)}">Path<em aria-hidden="true">&#8250;</em></button>` : ""}`
