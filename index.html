@@ -314,7 +314,7 @@ body:has(#whih.in:not([hidden])) .mapact{ bottom:44px; }   /* the news ticker ru
 .xgo{ display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; } .xgo button{ padding:4px 10px; border:1px solid currentColor; border-radius:999px; background:none; color:var(--ixt, inherit); font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
 .xgo1{ padding:3px 10px; border:1px solid currentColor; border-radius:999px; background:none; color:inherit; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
 .dfiles{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; } .dfiles .dpath{ margin-top:0; }
-body.jumped .dock, body.jumped #logHead{ z-index:86 !important; }   /* over a page a link opened on top */
+body.jumped .dock, body.jumplog #logHead{ z-index:86 !important; }   /* over a page a link opened on top; the Log header only while Paths is the page on top, never over a character log or file opened from it */
 .dpath{ display:inline-block; margin-top:4px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; padding:7px 13px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; opacity:.9; }
 .tl-switch{ display:inline-flex; border:1px solid #3A2A18; border-radius:999px; padding:2px; }
 .tl-switch button{ border:0; background:transparent; color:#C9B79C; font-family:'Share Tech Mono','Courier New',monospace; font-size:12px; letter-spacing:1px; padding:5px 11px; border-radius:999px; cursor:pointer; touch-action:manipulation; }
@@ -3531,12 +3531,13 @@ const JUMPS = [], jkey = h => (h && h.mcu || "") + "|" + (h && h.cr || "");
 // can step back to exactly there, however many steps the pages above added (a Network card adds its own)
 let jtN = 0, unwindTok = null;
 const jstamp = () => { const t = ++jtN; try { history.replaceState({ ...(history.state || {}), jt: t }, ""); } catch (e) {} return t; };
-function jumpUp(el, close, st, tok) { el.style.zIndex = String(81 + JUMPS.length);   /* over a profile too (80) */ JUMPS.push({ st, el, close, tok }); document.body.classList.add("jumped"); }
+function jumpUp(el, close, st, tok) { el.style.zIndex = String(81 + JUMPS.length);   /* over a profile too (80) */ JUMPS.push({ st, el, close, tok }); jumpCls(); }
+function jumpCls() { const top = JUMPS[JUMPS.length - 1]; document.body.classList.toggle("jumped", !!top); document.body.classList.toggle("jumplog", !!top && top.el.id === "mapPanel"); }
 function unwind(n) { if (n <= 0) return; const L = JUMPS.splice(JUMPS.length - n), tok = L[0].tok;
   L.reverse().forEach(j => { j.close(); j.el.style.zIndex = ""; }); jumpSweep(); dockSync();
   if (!(history.state && history.state.jt === tok)) { unwindTok = tok; history.back(); } }
 const downTo = id => { const i = JUMPS.findIndex(j => j.el.id === id); unwind(i >= 0 ? JUMPS.length - 1 - i : JUMPS.length); };   // the page under the rest, open again
-function jumpSweep() { for (let i = JUMPS.length - 1; i >= 0; i--) if (JUMPS[i].el.hidden) { JUMPS[i].el.style.zIndex = ""; JUMPS.splice(i, 1); } document.body.classList.toggle("jumped", JUMPS.length > 0); }
+function jumpSweep() { for (let i = JUMPS.length - 1; i >= 0; i--) if (JUMPS[i].el.hidden) { JUMPS[i].el.style.zIndex = ""; JUMPS.splice(i, 1); } jumpCls(); }
 function jumpBack() { const j = JUMPS[JUMPS.length - 1]; if (!j || jkey(history.state) !== j.st) return false; JUMPS.pop(); j.close(); j.el.style.zIndex = ""; jumpSweep(); dockSync(); return true; }
 const overAny = () => !!(dossierOpen || collOpen || netOpen || openEntry || fileOpen || atlOpen || commsOpen);
 function pathGo(title) {
@@ -10646,7 +10647,7 @@ function fileAt(names) {
   const c = a && document.querySelector(`#fileView [data-ach="${CSS.escape(a.id)}"]`); if (!c) return;
   requestAnimationFrame(() => { c.scrollIntoView({ block: "center", behavior: REDUCED ? "auto" : "smooth" }); c.classList.remove("hf-glow"); void c.offsetWidth; c.classList.add("hf-glow"); });
 }
-document.getElementById("whih").addEventListener("click", () => { haptic(8); const k = document.getElementById("whih").classList.contains("msg") ? "msg" : "news"; newsStop(true); newsMark(msgPending()); newsMark(newsPending());   // opens on it; tapped, the ticker has done its job and goes (owner), and what was still waiting is in the list, so it doesn't start up again   // opens on whatever was playing, from any screen
+document.getElementById("whih").addEventListener("click", () => { haptic(8); const k = document.getElementById("whih").classList.contains("msg") ? "msg" : "news"; newsStop(true); newsMark(k === "msg" ? msgPending() : newsPending());   // opens on it; tapped, the ticker has done its job and goes (owner), and what was still waiting in that feed is in the list. The other feed is separate: messages and breaking news each still get their own ticker (owner, November 2026)   // opens on whatever was playing, from any screen
   if (commsOpen) { commsTab = k; renderComms(); document.getElementById("commsView").scrollTop = 0; document.getElementById("commsPanel").scrollTop = 0; return; }
   if (collOpen) closeColl(true); if (dossierOpen === "saga") closeDossier(true); if (fileOpen) closeFile(true); if (atlOpen) closeAtlas(true); if (mapOpen) closeMap(true); if (netOpen) closeNet(true);
   openComms(k); dockSync(); });

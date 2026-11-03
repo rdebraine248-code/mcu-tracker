@@ -114,7 +114,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 .worlds{ display:flex; gap:6px; overflow-x:auto; margin:8px -20px 0; padding:0 20px 2px; scrollbar-width:none; pointer-events:auto; } .worlds::-webkit-scrollbar{ display:none; } .worlds[hidden]{ display:none; }
 .worlds button{ flex:0 0 auto; border:1px solid #2A3A56; border-radius:999px; padding:5px 11px; background:transparent; color:#9FC3F0; font:12px/1.2 var(--mono); letter-spacing:1px; cursor:pointer; touch-action:manipulation; }
 .worlds button[aria-selected="true"]{ border-color:#7FB2FF; background:#132036; color:#EEF5FF; } .worlds button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
-#nEmpty{ position:fixed; left:0; right:0; top:46%; display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
+#nEmpty{ position:fixed; left:0; right:0; top:calc(var(--hb, 0px) + (100% - var(--hb, 0px)) / 2); transform:translateY(-20px);   /* the circle itself in the middle of the floor */ display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
 #nEmpty[hidden]{ display:none; } html.wait #nEmpty, html.wait #card{ display:none !important; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
 #nEmpty b{ font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; font-weight:400; }
 </style>
@@ -397,6 +397,7 @@ function frame(t) {
   requestAnimationFrame(frame);
 }
 let LIVE = !EMB, looping = LIVE; if (LIVE) requestAnimationFrame(frame);
+new ResizeObserver(() => document.documentElement.style.setProperty('--hb', document.querySelector('header').offsetHeight + 'px')).observe(document.querySelector('header'));   // the empty floor's middle sits below the header
 self.netShow = v => { LIVE = v; if (v) { size(); if (needFit) fitRoom(); reveal(); if (!looping) { looping = true; requestAnimationFrame(frame); } } };
 // who you've seen here, as the app remembers it: the ones you haven't yet light the dock and pop in, nearest first, when you open it
 let KNOWN = null;
@@ -674,10 +675,13 @@ function arcName(t, cx, cy, R, fs, low) { g.font = `400 ${fs}px 'Share Tech Mono
   cw.forEach((w, n) => { a += (low ? -1 : 1) * w / 2 / r; g.save(); g.translate(cx + r * Math.cos(a), cy + r * Math.sin(a)); g.rotate(low ? a - Math.PI / 2 : a + Math.PI / 2); g.fillText(t[n], 0, 0); g.restore(); a += (low ? -1 : 1) * (w / 2 + sp) / r; }); }
 function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = false; const L = N.filter(p => p.vis); if (!L.length) return;
   let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; L.forEach(p => { x0 = Math.min(x0, p.hx); x1 = Math.max(x1, p.hx); y0 = Math.min(y0, p.hy); y1 = Math.max(y1, p.hy); });
-  const top = (document.querySelector('header') || {}).offsetHeight || 0, room = H - top, fz = Math.min(1.2, (W - 60) / (x1 - x0 + 80), (room - 60) / (y1 - y0 + 90));
+  // the room centres on The Avengers once they're in it (owner, November 2026), otherwise on everyone; zoomed so the farthest side still fits
+  const AV = (Z.find(z => z.name === 'The Avengers') || { L: [] }).L.filter(p => p.vis), cx = AV.length ? AV.reduce((s, p) => s + p.hx, 0) / AV.length : (x0 + x1) / 2, cy = AV.length ? AV.reduce((s, p) => s + p.hy, 0) / AV.length : (y0 + y1) / 2;
+  const hw = Math.max(cx - x0, x1 - cx), hh = Math.max(cy - y0, y1 - cy);
+  const top = (document.querySelector('header') || {}).offsetHeight || 0, room = H - top, fz = Math.min(1.2, (W - 60) / (2 * hw + 80), (room - 60) / (2 * hh + 90));
   glide = null; vel = { x: 0, y: 0 };
-  if (fz >= .5) { zoom = Math.max(.85, fz);   /* never the in-between zoom, where people half fold into their bubbles */ cam.x = (x0 + x1) / 2; cam.y = (y0 + y1) / 2 - (top / 2 - H * .02) / zoom; }
-  else { zoom = Math.max(.3, fz); cam.x = (x0 + x1) / 2; cam.y = (y0 + y1) / 2 - (top / 2 - H * .02) / zoom; } }   /* a big room: the whole floor, centred, zoomed out to its groups */
+  zoom = fz >= .5 ? Math.max(.85, fz) : Math.max(.3, fz);   /* never the in-between zoom, where people half fold into their bubbles; a big room: the whole floor, zoomed out to its groups */
+  cam.x = cx; cam.y = cy - (top / 2 - H * .02) / zoom; }
 // up to a dozen, taken a kind at a time in turn so every kind shows (three enemies never all fall off the end), then back in kind order
 const pick12 = L => { if (L.length <= 12) return L; const by = KIND.map(k => L.filter(x => x[1] === k)), out = []; for (let r = 0; out.length < 12; r++) by.forEach(g => { if (g[r] && out.length < 12) out.push(g[r]); });
   return out.sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d); };
