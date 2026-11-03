@@ -789,8 +789,9 @@ insignia celebration covers the page.
   repeated anywhere: Case No. ST-001. Numbered in release order, the order the incidents reached the screen, as First seen goes; not by
   story order, or ST-001 would wait for a recent show (owner, October 2026). A report filed under a whole show goes by its first season;
   within one title, by year. `DC_NO` computes them, so a new report needs no number; First seen lists by case number.
-- **A to Z sorts inside each group** (statuses, teams, holders) in all four indexes, so the groups stay (owner, November 2026; it was one
-  flat list before). First seen and A to Z are the two orders.
+- **Index orders** (owner, November 2026), in all four indexes: First seen, Last seen (latest on file first), Most titles (Damage Control:
+  Most people), each sorting inside the groups; and A to Z, which is the whole tab in one straight list (October 2026, kept: the owner
+  turned down A to Z inside groups). Ties go A to Z. `ixMode()`, saved as `state.ixSort`.
 - **A person stays in a group until the story moves them** (owner, November 2026): they quit, retire, are fired or disavowed, the group
   splits or ends, they turn on it or join another. A title where they act alone is not a move. The checked list of real departures is
   `split.json` "left" (`network/src/prof/split.json`, from `network/rel/departures.json`) and the same list is `TEAM_LEFT` in index.html,

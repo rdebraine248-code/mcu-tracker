@@ -4581,7 +4581,7 @@ document.getElementById("collView").addEventListener("keydown", ev => { if ((ev.
 document.getElementById("collBack").addEventListener("click", () => { haptic(8); if (collRec) collGrid(); else closeColl(); });
 document.getElementById("collView").addEventListener("click", ev => {
   if (ev.target.closest("[data-co-back]")) { haptic(8); collGrid(); return; }
-  const xs = ev.target.closest("[data-ixs]"); if (xs) { const az = xs.dataset.ixs === "az"; if (az !== !!state.ixAZ) { haptic(8); state.ixAZ = az ? 1 : 0; persist(); renderColl(); } return; }
+  const xs = ev.target.closest("[data-ixs]"); if (xs) { const k = xs.dataset.ixs; if (k !== ixMode()) { haptic(8); state.ixSort = k; delete state.ixAZ; persist(); renderColl(); } return; }
   if (collMode === "coll") {
     if (ev.target.closest(".pg-qx")) { haptic(8); cxQ = ""; renderColl(); return; }
     const xh = ev.target.closest("[data-cxh]"); if (xh) { haptic(10); cxHoldF = xh.dataset.cxh; cxHoldFrom = collRec; cxUni = rfUniOf(COLLX.find(o => o.id === collRec)); cxQ = ""; collY = 0; collGrid(); return; }
@@ -4651,8 +4651,14 @@ const cxName = o => stageAt(o.n, atlSeenT)[0], cxKind = o => stageAt(o.k || "", 
 // the order of a group's files in the three indexes: first seen in the story (ties A to Z), or A to Z, ignoring a leading "The". One setting
 // for all three, kept with the save (October 2026)
 const ixName = n => String(n).replace(/^The /, "");
-const ixCmp = (name, steps) => (a, b) => (state.ixAZ ? 0 : seenRk(rfFirstStep(steps(a))) - seenRk(rfFirstStep(steps(b)))) || ixName(name(a)).localeCompare(ixName(name(b)));
-const ixSortBar = () => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg"><button type="button" data-ixs="first" aria-pressed="${!state.ixAZ}">First seen</button><button type="button" data-ixs="az" aria-pressed="${!!state.ixAZ}">A–Z</button></div></div>`;
+// the orders (owner, November 2026): First seen, Last seen (the latest on file first), Most titles, and A to Z, which is the whole tab in
+// one list (October 2026); the other three sort inside each group. Ties go A to Z
+const ixMode = () => state.ixSort || (state.ixAZ ? "az" : "first");
+const ixTitles = S => new Set(S.map(x => x[1])).size, ixLast = S => S.reduce((a, x) => seenRk(x) > seenRk(a) ? x : a, S[0]);
+const ixCmp = (name, steps) => (a, b) => { const m = ixMode(), A = m === "az" ? null : steps(a), B = m === "az" ? null : steps(b);
+  return (m === "first" ? seenRk(rfFirstStep(A)) - seenRk(rfFirstStep(B)) : m === "last" ? seenRk(ixLast(B)) - seenRk(ixLast(A)) : m === "most" ? ixTitles(B) - ixTitles(A) : 0) || ixName(name(a)).localeCompare(ixName(name(b))); };
+const IX_SORTS = [["first", "First seen"], ["last", "Last seen"], ["most", "Most titles"], ["az", "A–Z"]];
+const ixSortBar = dc => `<div class="rf-grp ix-sort"><span>Sort</span><div class="rf-seg">${IX_SORTS.map(([k, l]) => `<button type="button" data-ixs="${k}" aria-pressed="${ixMode() === k}">${dc && k === "most" ? "Most people" : l}</button>`).join("")}</div></div>`;   // Damage Control: a report is one title, so it counts the people on file in it
 const cxTyName = c => (CX_TY.find(t => t[0] === c) || ["", "Other"])[1];
 const cxNo = o => "LOT " + String(COLLX.indexOf(o) + 1).padStart(4, "0");
 let cxUni = "mcu", cxGrp = "type", cxFold = {}, cxQ = "", cxIntake = 0, cxHoldF = "", cxHoldFrom = "";
@@ -4723,7 +4729,7 @@ function cxBody() {
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cx-grid">${L.map(o => card(o, (o, S, st) => st)).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = COLLX.filter(o => rfUniOf(o) === cxUni && cxSteps(o).length).sort(ixCmp(cxName, cxSteps));
-  // A to Z sorts inside each group, so the groups (statuses, teams) stay (owner, November 2026; it used to be one flat list)
+  if (ixMode() === "az" && known.length) return ixSortBar() + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${known.length}</em></div><div class="cx-grid">${known.map(o => card(o, (o, S, st) => cxSpec(o) ? st + " · Home: " + cxHolder(S) : "Held by " + cxHolder(S))).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); the other orders keep the groups (owner, November 2026)
   // grouped by holder, it's an index of every hand an object has passed through, the same names as on its card
   const SPEC = "Living specimens";
   const keyz = o => cxGrp === "holder" ? (cxSpec(o) ? [SPEC] : [...new Set(cxSteps(o).map(x => x[3]).filter(Boolean))]) : [cxGrp === "status" ? cxStatus(cxSteps(o)) : o.c];
@@ -4882,7 +4888,7 @@ function rfBody() {
     return L.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="rf-list">${L.map(o => row(o, (o, st) => `<em>${esc(st)}</em>`)).join("")}</div></section>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = THREATS.filter(o => rfUniOf(o) === rfUni && rfSteps(o).length).sort(ixCmp(rfName, rfSteps));
-  // A to Z sorts inside each group, so the groups (statuses, teams) stay (owner, November 2026; it used to be one flat list)
+  if (ixMode() === "az" && known.length) return ixSortBar() + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${known.length}</em></div><div class="rf-list">${known.map(o => row(o, o => esc(rfClass(o) || ""))).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); the other orders keep the groups (owner, November 2026)
   // grouped by who opposed them, it's an index of heroes and teams: a threat is under everyone who has stood against them, the same names as on its file
   const NONE = rfGrp === "tm" ? "Independent" : "No hero on file", keyz = o => rfGrp === "class" ? [rfClass(o) || "Unknown"] : rfGrp === "op" ? (L => L.length ? L : [NONE])(rfOpps(o)) : rfGrp === "tm" ? rfTeams(o) : [stOf(o)];
   const keys = rfGrp === "class" ? RF_CL.concat("Unknown") : rfGrp === "op" || rfGrp === "tm" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === NONE) - (b === NONE) || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(RF_ST);
@@ -4975,7 +4981,7 @@ function cpBody() {
     return L.length ? `<div class="rf-sh rf-found"><span>Found</span><em>${L.length}</em></div><div class="cp-grid">${L.map(card).join("")}</div>` : `<p class="sr-empty">No data.</p>`;
   }
   const known = ALLIES.filter(o => rfUniOf(o) === cpUni && cpSteps(o).length).sort(ixCmp(cpName, cpSteps));
-  // A to Z sorts inside each group, so the groups (statuses, teams) stay (owner, November 2026; it used to be one flat list)
+  if (ixMode() === "az" && known.length) return ixSortBar() + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${known.length}</em></div><div class="cp-grid">${known.map(o => card(o)).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); the other orders keep the groups (owner, November 2026)
   // grouped by team, it's an index of every team: each person is under every team on their file, so the tags and the list always agree
   const keyz = o => cpGrp === "team" ? [...new Set(cpTeams(o))] : [cpStatusOf(o)];
   const keys = cpGrp === "team" ? [...new Set(known.flatMap(keyz))].sort((a, b) => (a === "Independent") - (b === "Independent") || a.replace(/^The /, "").localeCompare(b.replace(/^The /, ""))) : Object.keys(CP_ST);
@@ -11687,18 +11693,18 @@ function renderDc() {
 function dcBody() {
   const q = qNorm(dcQ.trim()), L = DC.filter(d => dcU(d) === dcUni && dcSeen(d));
   const row = d => `<button type="button" class="dc-row" data-dc="${d.id}"><span class="no">Case<br>${DC_NO[d.id]}</span><span><b>${q.length > 1 ? qMark(d.n, q) : esc(d.n)}</b><small>${q.length > 1 ? qMark(d.where, q) : esc(d.where)}</small></span><em>${esc(d.cls)}</em></button>`;
-  const sorted = A => A.slice().sort(state.ixAZ ? (a, b) => ixName(a.n).localeCompare(ixName(b.n)) : (a, b) => DC_NO[a.id].localeCompare(DC_NO[b.id]));   // First seen is the case number
+  const sorted = A => A.slice().sort((a, b) => { const m = ixMode(); return (m === "az" ? 0 : m === "last" ? DC_NO[b.id].localeCompare(DC_NO[a.id]) : m === "most" ? dcNames(b).length - dcNames(a).length : DC_NO[a.id].localeCompare(DC_NO[b.id])) || ixName(a.n).localeCompare(ixName(b.n)); });   // First seen is the case number; Last seen the latest case first; Most titles is the most people on file in it
   if (!L.length) return '<p class="sr-empty">No data.</p>';
   if (q.length > 1) {
     const F = L.filter(d => [d.n, d.where, d.cls, d.t, dcYr(d.yr, d), ...dcNames(d), ...dcNames(d, 1), ...dcAka(d)].some(x => qNorm(x).includes(q)));
     return F.length ? `<section class="rf-sec"><div class="rf-sh rf-found"><span>Found</span><em>${F.length}</em></div><div class="dc-list2">${sorted(F).map(row).join("")}</div></section>` : '<p class="sr-empty">No data.</p>';
   }
-  // A to Z sorts inside each group, so the groups (statuses, teams) stay (owner, November 2026; it used to be one flat list)
+  if (ixMode() === "az") return ixSortBar(1) + `<section class="rf-sec"><div class="rf-sh rf-found"><span>A–Z</span><em>${L.length}</em></div><div class="dc-list2">${sorted(L).map(row).join("")}</div></section>`;   // A to Z is the whole tab in one list (owner, October 2026); the other orders keep the groups (owner, November 2026)
   const keyz = d => dcGrp === "yr" ? [dcYr(d.yr, d)] : dcGrp === "t" ? [d.t] : (A => A.length ? A : [dcGrp === "tm" ? "No team on file" : "Nobody on file"])(dcNames(d, dcGrp === "tm"));
   let keys = [...new Set(L.flatMap(keyz))];
   if (dcGrp === "who" || dcGrp === "tm") keys.sort((a, b) => /^No/.test(a) - /^No/.test(b) || ixName(a).localeCompare(ixName(b)));
   dcFold[dcGrp] = dcFold[dcGrp] || {};
-  return `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${DC_GRP.map(([k, l]) => `<button type="button" data-dcg="${k}" aria-pressed="${k === dcGrp}">${l}</button>`).join("")}</div></div>${ixSortBar()}
+  return `<div class="rf-grp"><span>Group by</span><div class="rf-seg">${DC_GRP.map(([k, l]) => `<button type="button" data-dcg="${k}" aria-pressed="${k === dcGrp}">${l}</button>`).join("")}</div></div>${ixSortBar(1)}
     ${keys.map(k => { const A = L.filter(d => keyz(d).includes(k)), shut = dcShut(k);
       return `<section class="rf-sec${shut ? " shut" : ""}"><button type="button" class="rf-sh" data-dcf="${esc(k)}" aria-expanded="${!shut}"><span>${esc(k)}</span><em>${A.length}</em></button>${shut ? "" : `<div class="dc-list2">${sorted(A).map(row).join("")}</div>`}</section>`; }).join("")}`;
 
