@@ -812,8 +812,9 @@ insignia celebration covers the page.
   group or place the message names outright, quoted in `mockup-data/msg_links.json`; `MSG_LINKS` in index.html holds the exact words.
   The link is those words, underlined in the message itself (From, Re or the body), never a pill or button (owner). A link shows only once
   you could reach it anyway (a lit Atlas place, a file in an index you've found), and opens on top of Comms, so back comes down to the
-  message. Now and then a message takes a reply (`MSG_REPLY`, two choices, kept in `state.cmReply`, changing nothing else). No reply on
-  the Sokovia Accords message: signing is the Accords egg's moment.
+  message. Replies: the code is in place (`MSG_REPLY`, two choices, kept in `state.cmReply`, changing nothing else) but there are none:
+  the owner deleted the first drafts and is writing their own (November 2026). Don't add any. No reply on the Sokovia Accords message:
+  signing is the Accords egg's moment.
 - **News and messages are separate feeds** (owner, November 2026): tapping a ticker clears only its own feed; the other still gets its
   ticker.
 - **Card lines: pronouns only where the person is clear** (owner, November 2026: "He fought him and he won when he lost" is the problem,
