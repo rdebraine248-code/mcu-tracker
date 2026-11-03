@@ -135,3 +135,19 @@ SAMPLES DONE. People: 12 confirmed non-employer errors /600 (Matt L&Z, Fennhoff,
 People recheck fixes applied (apply4: 140 changes; Matt L&Z, Alisa/Malus IGH restored; Rama-Tut S2; zombie Zemo/Ikaris steps in split.json). Network rebuilt.
 FILES SAMPLE VERIFIED: 7 confirmed of 11 (0-8-4 status, Nightcrawler Deceased, Strange watch, Warriors Three, Doctor ep86 + no Siberia [MY place error], The Thing text) -> FAILS bar (>3). MORNING REPORT published https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny . NETWORK SAMPLE 600: NSBRIEF.md, ns_01..12 (586 pairs) -> nsout_NN, all 12 launched.
 Files recheck fixes applied (7 into STEP_AUDIT, 113 files, ep_tags updated; verified).
+PEOPLE AIMED RE-AUDIT ready: RBRIEF.md, r_01..51.json (30 each, from all_now2) -> rout_NN. Launch as slots free.
+LIMIT 3 hit (~00:xx UTC), resets 03:00 UTC. Stopped: net samples ac8156849db8b8808(01) a456480357fc0546b(02) a6713342568102a95(03) aa4a14482a02dba7f(04) a6fbc3a07e2f51edd(05) a4ee1d9366b42dc25(06) a81f1012f80828bd3(07) a07181c462a7dd4be(08) ab668407784af1b59(09) a6ceb06a9939c4c91(10) a4c1cba4af15a60ed(11) a0eaf858b6419bdd3(12); people re-audit a501730c6eaefcdd5(r01) ad3c7211b88195b63(r02).
+Twin sync (hero/villain same groups) tried and REVERTED: villain files key past groups to their own first title (ct49). Follow-up: sync with re-keying. 10 pairs: lash, anim phoenix, gambit-death, winter-soldier, white-vision, power-broker, bob-sentry, silver-surfer, lizard 1994/ssm.
+NET SAMPLE: ns08 4 ch, ns09 6 stage fixes (+5 splits) -> already >3: Network FAILS bar. Main error type: N6 stage starts too late (facts first hold an earlier episode) + some N2 text. Re-audit aimed at N6 across all pairs needed. People re-audit r01 (4 ch), r02 (3 ch, 1 call) done; r03-06 running.
+net ns01 4, ns02 4, ns03 9, ns06 6, ns10 2-3, ns11 10, ns12 4 changes (+ ns08 4, ns09 6). Error types: N6 late start AND N2 wrong text facts. Network re-audit must recheck N2+N6 on all stages. people r04 0, r05 1, r06 0, r07 2. Running r03,r08-r18; net ns04,05,07.
+net ns04 9, ns05 11, ns07 5 (all 12 done). people r03 4, r09 3, r13 1, r15 0, r17 0. Running r08,r10-12,r14,r16,r18-20; launching r21-25.
+people r10 1, r12 2, r18 0, r19 1, r20 0, r21 0, r22 0. NET SAMPLE SECOND CHECK: vsc_01..04 (80 changes from nsout) -> vscout_NN, launched. Running r08,r11,r14,r16,r23-31.
+people r14 1, r16 1, r23 4, r25 0. NET AIMED RE-AUDIT ready: NRBRIEF.md (N2+N6 only, split rule), nr_01..53 (120 stages each, grouped by show; skip_stages = vsc items) -> nrout_NN. Launched nr01,02, r33. Running r08,r11,r24,r26-33, vsc01-04.
+people r11 6, r24 0, r27 0. FILES AIMED RE-AUDIT ready: files/FRBRIEF.md (F1,F2,F3), fr_01..50 (110 recs, from live_now.json 2146 files 5509 recs) -> frout_NN.
+people r08 6 (3 calls), r26 3, r29 3. Launched fr01, r38, r39.
+people r30 2, r31 0. PEOPLE SECOND CHECK wave1: rvchunk_01..03 (48 items from 30 routs listed in rv_wave1_files.json) -> rvout_NN (GVERIFY.md).
+people r33 3, r38 0. rv01-03 launched (51 items incl r33). Running: r28,32,34-37,39-41; vsc01-04; nr01-02; fr01; rv01-03. NEXT: r42-51, nr03.., fr02..
+people r28 2. vsc03: 18 conf 2 amend (n57 Sheila split to Brand New Day; n58/59 depend on n60 in vsc04; n40 on n39).
+people r32 4. vsc01: 14 conf 6 amend (splits kept). NOTE n19 B-15: Renslayer custody fact belongs to S1#5, check a stage exists at apply.
+people r35 2, r39 2. vsc04: 12 conf 6 amend 2 rej. Waiting vsc02.
+people r37 1, r40 2, r41 0, r43 0. nr02 10 ch. NET SAMPLE FIXES APPLIED: rel/stage_fix_zsample.json (66 pairs, 23 stages added; n40 dup dropped; 2 rejected in aud/net/zsample_rejected.json); verified 90/90 in rel.json. NOTE nr_* indices predate zsample: apply nr changes by matching now.text, not i.
