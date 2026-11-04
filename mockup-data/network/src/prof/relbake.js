@@ -82,10 +82,12 @@ let sFix = 0; ['stage_fix.json', ...fs.readdirSync(R).filter(f => /^stage_fix_.+
   const a = pid(f.a), b = pid(f.b), t = out.find(o => (o[0] === a && o[1] === b) || (o[0] === b && o[1] === a)); if (!t) { console.warn('stage_fix: no connection', f.a, '|', f.b); return; }
   const flip = t[0] !== a, st = t[2];
   (f.edit || []).forEach(e => { const x = st[e.i]; if (!x) { console.warn('stage_fix: no stage', e.i, f.a, f.b); return; } if (e.kind) x[0] = KINDS.indexOf(e.kind); if (e.text) x[2] = e.text; if (e.episode) x[1] = tIx(T[x[1]].replace(/#\d+$/, '') + '#' + e.episode); if (e.title) { if (so(e.title) < 0) console.warn('stage_fix: bad title', e.title, f.a, f.b); else x[1] = tIx(e.title); }   // a stage moved to another title (audit, November 2026)   // a stage moved to the episode it happens in
-    if (e.whoA != null) x[flip ? 4 : 3] = e.whoA; if (e.whoB != null) x[flip ? 3 : 4] = e.whoB; sFix++; });
+    if (e.whoA != null) x[flip ? 4 : 3] = e.whoA; if (e.whoB != null) x[flip ? 3 : 4] = e.whoB; if (e.drop) x.drop = 1; sFix++; });   // drop: a stage that tells nothing between the two (owner's rule) goes
   (f.add || []).forEach(e => { if (KINDS.indexOf(e.kind) < 0 || so(e.title) < 0) { console.warn('stage_fix: bad kind or title', e.kind, e.title, f.a, f.b); return; }
     st.push([KINDS.indexOf(e.kind), tIx(e.title + (e.episode ? '#' + e.episode : '')), e.text, flip ? e.whoB : e.whoA, flip ? e.whoA : e.whoB]); sFix++; });
+  for (let i = st.length - 1; i >= 0; i--) if (st[i].drop) st.splice(i, 1);
   st.sort((x, y) => so(T[x[1]]) - so(T[y[1]])); }); });
+for (let k = out.length - 1; k >= 0; k--) if (!out[k][2].length) out.splice(k, 1);   // a connection whose every stage was dropped goes
 console.log('stage fixes', sFix);
 // the card lines rewritten so it's always clear who's who (owner, November 2026: no leading name, the card's own person named, a pronoun
 // only where one person fits): rel/line_fix.json, "idA|idB|stage|A or B" -> [old, new]; applied last, only where the old line still matches
