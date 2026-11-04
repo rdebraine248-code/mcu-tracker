@@ -224,6 +224,10 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
 - Jimmy Weeks has a Raft file (owner, 4 November 2026: "New Raft file"): pr-jimmy-weeks, Frank's FBI partner who sells him out in
   The Punisher (2004) extended cut. In answers_fix.json (q "jimmy-weeks"), at_case.json, earths.json (Earth-58732), and his Network
   ties with Frank and Howard Saint in rel/uni/cuts/out.json.
+- The Widows are a group (owner, 4 November 2026: "Yes, from Black Widow on"): Yelena and the Widows file stand together as The Widows
+  from the end of Black Widow until Thunderbolts* (O.X.E.). Set in TEAM_FIX (T:yelena-belova), raft_teams.json and answers_fix.json (q "widows").
+- A collective file names everyone it stands for (owner, 4 November 2026, on Sonya and Ana in Hawkeye: fine "if the file is explicit with the
+  names and beats of every featured widow ... if not then they need their own files" and the collective becomes a group, not a file).
 - Families stand together (owner, 4 November 2026: "Why is Laura Barton not part of the Barton family?"): a family circle (rel/out1.json)
   holds every member, parents and siblings included, not only those with no group record; a member stands in it whenever they're in
   no other group (Clint with the Avengers in Endgame, with his family in Hawkeye). And a family or partner tie needs a stage in every
