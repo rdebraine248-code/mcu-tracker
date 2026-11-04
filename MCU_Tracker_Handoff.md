@@ -1181,7 +1181,7 @@ These happened in earlier chats. Each cost the owner time.
   (4.3%), so a fresh Network sample is owed before calling part 2 locked. Audit records: `mockup-data/audit2/`.
 - **The report page** (questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. Answers come back as comment threads
   (the page's Submit). All 59 answered and done; new questions go on as 60 onward.
-- **Held (built 4 November 2026, test build, waiting on the owner's look):** under a file's entry, beside At and Case, `recHeld` lists
+- **Held (built 4 November 2026; approved by the owner, "Love the held item"; goes to main with the next push):** under a file's entry, beside At and Case, `recHeld` lists
   the Collection objects whose step in that title ends with this person as holder (`heldIx`, matched to files the way a holder's
   list is, `cxHoldFiles`), on the title's last entry only, once the Collection is found and the object's own step is reached; each
   opens the object's file on top (`data-held`). A show's running "In episode N," finds its season (`heldKey`). Specimens have homes,
