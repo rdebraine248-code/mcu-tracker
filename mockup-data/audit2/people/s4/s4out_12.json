@@ -1,0 +1,147 @@
+{
+ "checked": [
+  "A:sv-peter-parker-1610",
+  "A:sv-spider-ham",
+  "A:sv-spider-man-noir",
+  "T:sv-green-goblin-itsv",
+  "T:sv-kingpin-itsv",
+  "T:sv-scorpion-itsv",
+  "T:sv-spot",
+  "A:sv-ben-reilly-noir",
+  "A:sv-cat-hardy",
+  "A:sv-janet-ruiz",
+  "A:sv-ruby-williams",
+  "T:sv-jimmy-addison-noir",
+  "T:sv-megawatt-noir",
+  "A:sv-may-parker-asm",
+  "T:sv-burglar-asm",
+  "T:sv-electro-asm2",
+  "A:sv-curt-connors-ssm",
+  "T:sv-lizard-ssm",
+  "A:sv-harry-osborn-ssm",
+  "A:sv-j-jonah-jameson-ssm",
+  "A:sv-mary-jane-watson-ssm",
+  "A:sv-robbie-robertson-ssm",
+  "T:sv-big-man-ssm",
+  "T:sv-chameleon-ssm",
+  "T:sv-doc-ock-ssm",
+  "T:sv-green-goblin-ssm",
+  "T:sv-hammerhead-ssm",
+  "T:sv-rhino-ssm",
+  "T:sv-sandman-ssm",
+  "T:sv-tinkerer-ssm",
+  "T:sv-vulture-ssm",
+  "T:sv-walter-hardy-ssm",
+  "A:sv-anne-weying",
+  "A:sv-dan-lewis",
+  "A:sv-eddie-brock-sony",
+  "T:sv-venom-sony",
+  "A:sv-maria-venom",
+  "T:sv-carlton-drake",
+  "T:sv-riot",
+  "T:sv-treece",
+  "T:sv-xenophages",
+  "A:sv-nick-fury-1994",
+  "A:sv-amadeus-cho",
+  "A:sv-asha-yfnsm",
+  "A:sv-harry-osborn-yfnsm",
+  "A:sv-lonnie-lincoln-yfnsm",
+  "T:sv-lonnie-yfnsm",
+  "A:sv-pearl-pangan",
+  "A:sv-peter-parker-yfnsm",
+  "A:sv-richard-parker-yfnsm",
+  "T:sv-scorpion-yfnsm",
+  "T:sv-speed-demon-yfnsm",
+  "T:sv-unicorn-yfnsm"
+ ],
+ "changes": [
+  {
+   "key": "T:sv-lizard-ssm",
+   "q": "G2",
+   "now": {
+    "groups": [],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Empire State University",
+      "The Spectacular Spider-Man"
+     ],
+     [
+      "Independent",
+      "The Spectacular Spider-Man"
+     ]
+    ],
+    "left": [
+     "The Spectacular Spider-Man"
+    ]
+   },
+   "evidence": "Same person as A:sv-curt-connors-ssm: Dr. Curt Connors is lead scientist of the Empire State University labs from episode 3 (Interactions), where he becomes the Lizard; in season 2 finale (episode 26) he leaves ESU and New York for the Everglades to escape Miles Warren's blackmail. The twin hero file already records exactly this; the villain file has no groups.",
+   "source": "https://marvel.fandom.com/wiki/Curtis_Connors_(Earth-26496)",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:sv-kingpin-itsv",
+   "question": "Earth designations for the Sony/Spider-Verse film universes: the dataset uses the plain numbers, Marvel Database uses B-suffixed pages for the film versions. Change? Affects in this batch: Earth-1610 (A:sv-peter-parker-1610, T:sv-green-goblin-itsv, T:sv-kingpin-itsv, T:sv-scorpion-itsv, T:sv-spot), Earth-8311 (A:sv-spider-ham), Earth-90214 (A:sv-spider-man-noir), Earth-688 (A:sv-anne-weying, A:sv-dan-lewis, A:sv-eddie-brock-sony, T:sv-venom-sony, A:sv-maria-venom, T:sv-carlton-drake, T:sv-riot, T:sv-treece, T:sv-xenophages).",
+   "options": [
+    "Keep the on-screen numbers (Earth-1610, -8311, -90214, -688)",
+    "Use Marvel Database's Earth-1610B, -8311B, -90214B, -688B"
+   ],
+   "evidence": "Marvel Database's Earth-1610B page says it covers Earth-1610 'as depicted in the Spider-Verse films' (EarthNumber 1610, alias E-1610 on screen); Earth-688 there is a comics reality and the Sony Venom films are Earth-688B; film Spider-Ham and Noir are Peter Porker (Earth-8311B) and Peter Parker (Earth-90214B). The brief says to use Marvel Database designations, but the B is only its disambiguation suffix, so it is a convention question.",
+   "source": "https://marvel.fandom.com/wiki/Earth-1610B"
+  },
+  {
+   "key": "A:sv-anne-weying",
+   "question": "Anne is a lawyer at a law firm that works for the Life Foundation; she is fired over Eddie's leak and gets her old job back at the end of Venom. The firm is never named. Add an employer group (and under what name)?",
+   "options": [
+    "Leave as Independent",
+    "Add an unnamed-law-firm stage from Venom (fired and rehired in the same film)"
+   ],
+   "evidence": "Venom (2018): 'Anne Weying was a lawyer whose firm worked for the Life Foundation... Eddie and Anne were soon fired... Anne regaining her old job.'",
+   "source": "https://marvel.fandom.com/wiki/Anne_Weying_(Earth-688B)"
+  },
+  {
+   "key": "A:sv-dan-lewis",
+   "question": "Dr. Dan Lewis is a doctor at an unnamed San Francisco hospital where he scans Eddie in Venom. Add the hospital as an employer group, and under what name?",
+   "options": [
+    "Leave as Independent",
+    "Add an employer stage for the hospital from Venom"
+   ],
+   "evidence": "Venom (2018): Eddie is taken for an MRI at the hospital where Dr. Lewis works; the hospital is not named in the sources.",
+   "source": "https://marvel.fandom.com/wiki/Daniel_Lewis_(Earth-688B)"
+  },
+  {
+   "key": "T:sv-big-man-ssm",
+   "question": "Held question: the Big Man's (Tombstone's) organization in The Spectacular Spider-Man has no on-screen name. Records in this batch that served it: T:sv-big-man-ssm (leader, groups empty), T:sv-hammerhead-ssm (his enforcer after leaving Silvermane, fired by Tombstone in episode 23), T:sv-rhino-ssm and T:sv-sandman-ssm (Big Man's hired thugs before the Sinister Six), T:sv-tinkerer-ssm.",
+   "options": [
+    "Keep as is until the owner names the group",
+    "Add a stage under the name the owner chooses"
+   ],
+   "evidence": "Hammerhead 'worked at the employ of L. Thompson Lincoln, the crimelord also known as The Big Man and Tombstone... Hammerhead fled and went into hiding when Tombstone fired him' (season 2, episode 10 / series episode 23).",
+   "source": "https://marvel.fandom.com/wiki/Hammerhead_(Joseph)_(Earth-26496)"
+  },
+  {
+   "key": "T:sv-unicorn-yfnsm",
+   "question": "Held question: Mila Masaryk's robbery crew (Mikhail Sytsevich, Dmitri Smerdyakov, Roxanna Volkov) in Your Friendly Neighborhood Spider-Man is never named. Add a crew group?",
+   "options": [
+    "Keep groups empty",
+    "Add a crew stage under the name the owner chooses"
+   ],
+   "evidence": "Episode 4: with her three companions she carries out a robbery and escapes with the money, promising to return for them; episode 5 she breaks them out.",
+   "source": "https://marvel.fandom.com/wiki/Mila_Masaryk_(Earth-86445)"
+  },
+  {
+   "key": "T:sv-megawatt-noir",
+   "question": "Held question (how far employers go): Dirk Leyden worked as a subway train driver after the war (told in episode 5). Add the employer?",
+   "options": [
+    "Leave as is",
+    "Add an employer stage keyed to Spider-Noir"
+   ],
+   "evidence": "'He found work as a subway train driver but had aspirations to become an actor' (Spider-Noir episode 5). The employer is not named in sources.",
+   "source": "https://marvel.fandom.com/wiki/Dirk_Leyden_(Earth-62533)"
+  }
+ ]
+}

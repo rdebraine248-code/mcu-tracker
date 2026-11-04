@@ -1,0 +1,197 @@
+{
+ "checked": [
+  "A:fox-kayla-silverfox",
+  "T:fox-agent-zero",
+  "T:fox-victor-creed",
+  "T:fox-weapon-xi",
+  "A:fox-cyclops-young",
+  "A:fox-nightcrawler-young",
+  "A:fox-storm-young",
+  "T:fox-storm-horseman",
+  "T:fox-psylocke",
+  "A:fox-bishop",
+  "A:fox-quicksilver",
+  "A:fox-warpath",
+  "T:fox-sentinels",
+  "A:fox-banshee",
+  "A:fox-darwin",
+  "A:fox-havok",
+  "A:fox-magneto-erik",
+  "A:fox-wolverine",
+  "T:fox-angel-salvadore",
+  "T:fox-azazel",
+  "A:fox-anim-archangel",
+  "A:fox-anim-colossus",
+  "A:fox-anim-corsair",
+  "A:fox-anim-cyclops",
+  "A:fox-anim-gambit",
+  "T:fox-anim-gambit-death",
+  "A:fox-anim-iceman",
+  "A:fox-anim-jubilee",
+  "A:fox-anim-lilandra",
+  "A:fox-anim-longshot",
+  "A:fox-anim-moira-mactaggert",
+  "A:fox-anim-morph",
+  "A:fox-anim-nightcrawler",
+  "A:fox-anim-polaris",
+  "A:fox-anim-wolverine",
+  "T:fox-anim-callisto",
+  "T:fox-anim-deathbird",
+  "T:fox-anim-gyrich",
+  "T:fox-anim-lady-deathstrike",
+  "T:fox-anim-mastermind",
+  "T:fox-anim-mystique",
+  "T:fox-anim-sabretooth",
+  "A:fox-leech",
+  "A:fox-moira-mactaggert",
+  "A:fox-beast",
+  "A:fox-nightcrawler",
+  "T:rio-vidal",
+  "A:peggy-carter",
+  "A:st-ray-krzeminski",
+  "T:st-calvin-chadwick",
+  "T:st-dottie-underwood",
+  "T:st-joseph-manfredi"
+ ],
+ "changes": [
+  {
+   "key": "T:rio-vidal",
+   "q": "G2",
+   "now": {
+    "groups": [],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Agatha's coven",
+      "Agatha All Along"
+     ],
+     [
+      "Independent",
+      "Agatha All Along"
+     ]
+    ],
+    "left": [
+     "Agatha All Along"
+    ]
+   },
+   "evidence": "Agatha All Along episode 4: after Sharon's death the coven summons a replacement Green Witch and the spell brings Rio, who walks the Witches' Road as a member of the coven (episodes 4-6), hiding that she is Death (undercover service counts). Episode 7 reveals she is Death; she then hunts Agatha and claims her in episode 8, so she has turned on the coven. 'Agatha's coven' is the dataset's existing name (Agatha, Sharon Davis, Alice Wu-Gulliver carry it).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:fox-wolverine",
+   "question": "Logan's one file runs into the changed timeline: his X-Men: Apocalypse step (1983, held by Stryker as Weapon X, then escaping) is Earth-TRN414, but the file is Earth-10005. Give him a second Earth-TRN414 bubble for that step, as was done for Havok (split.json 'single': fox-havok -> fox-havok-trn), or keep?",
+   "options": [
+    "Add a TRN414 bubble for Logan's Apocalypse step (like fox-havok-trn)",
+    "Keep as is"
+   ],
+   "evidence": "Owner rule: Days of Future Past's 1973, Apocalypse and Dark Phoenix are Earth-TRN414. Only Havok is listed as a one-file person across both Earths in split.json, yet Logan's file has the Apocalypse step and its Weapon X / Independent stages.",
+   "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Logan&prop=wikitext&format=json"
+  },
+  {
+   "key": "T:fox-sentinels",
+   "question": "The Sentinels' file is Earth-10005 but two of its steps are changed-timeline (Days of Future Past's 1973 prototypes, and the confiscated Sentinels in X-Men: Apocalypse, both Earth-TRN414). Split it like Havok's file, or keep?",
+   "options": [
+    "Add a TRN414 bubble for the 1973 and Apocalypse steps",
+    "Keep as is"
+   ],
+   "evidence": "Owner rule: Days of Future Past's 1973 and Apocalypse are Earth-TRN414; only the dark-future 2023 stays on Earth-10005.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_Days_of_Future_Past&action=raw"
+  },
+  {
+   "key": "A:fox-kayla-silverfox",
+   "question": "Employer: in X-Men Origins: Wolverine Kayla works as a schoolteacher in Canada during her six years with Logan (shown walking her pupils out to their parents). The school is never named. Add it?",
+   "options": [
+    "Add an employer stage before Weapon X (name to be chosen; screen gives none)",
+    "Keep as is"
+   ],
+   "evidence": "X-Men Origins: Wolverine: 'Kayla worked as a school teacher and Logan worked as a lumberjack' (X-Men Movies Wiki).",
+   "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Kayla_Silverfox&prop=wikitext&format=json"
+  },
+  {
+   "key": "A:fox-wolverine",
+   "question": "Employer: after quitting Team X Logan works for six years as a lumberjack in the Canadian Rockies (X-Men Origins: Wolverine), shown at work. The company is never named. Add it?",
+   "options": [
+    "Add an employer stage between Team X and Weapon X (name to be chosen)",
+    "Keep as is"
+   ],
+   "evidence": "X-Men Origins: Wolverine, the Canadian Rockies section.",
+   "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Kayla_Silverfox&prop=wikitext&format=json"
+  },
+  {
+   "key": "A:fox-magneto-erik",
+   "question": "Employer: in X-Men: Apocalypse (1983) Erik, as Henryk Gurszky, works at a factory in Poland, where he saves a co-worker and the workers then turn on him; Apocalypse kills them there. The factory is never named. Add it?",
+   "options": [
+    "Add an employer stage at X-Men: Apocalypse before The Four Horsemen (name to be chosen)",
+    "Keep as is"
+   ],
+   "evidence": "X-Men: Apocalypse opening Poland scenes.",
+   "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Magneto/Revised_Timeline&prop=wikitext&format=json"
+  },
+  {
+   "key": "T:fox-psylocke",
+   "question": "Employer: in X-Men: Apocalypse Psylocke is the bodyguard/enforcer of the mutant broker Caliban until she leaves him for Apocalypse. The screen gives his operation no name. Add it?",
+   "options": [
+    "Add a stage before The Four Horsemen (e.g. described as Caliban's operation; name to be chosen)",
+    "Keep as is"
+   ],
+   "evidence": "X-Men: Apocalypse, Caliban's club in East Berlin.",
+   "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Psylocke/Revised_Timeline&prop=wikitext&format=json"
+  },
+  {
+   "key": "T:fox-angel-salvadore",
+   "question": "Minor job seen once: Angel works as a stripper at a club when Charles and Erik recruit her (X-Men: First Class). The club is unnamed. Add it?",
+   "options": [
+    "Add an employer stage before CIA (name to be chosen)",
+    "Keep as is"
+   ],
+   "evidence": "X-Men: First Class, recruitment montage.",
+   "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Angel_Salvadore&prop=wikitext&format=json"
+  },
+  {
+   "key": "A:fox-anim-longshot",
+   "question": "Longshot is the star of Mojo's entertainment network until he quits over his contract (episode 24), then leads a rebellion against Mojo (episode 36). The record has Independent from the start. Add the network as a past employer and/or the rebellion as a group? The screen names neither as a group.",
+   "options": [
+    "Add Mojo's network before Independent, and keep Independent after he quits",
+    "Also add the rebellion he leads (name to be chosen)",
+    "Keep as is"
+   ],
+   "evidence": "X-Men: The Animated Series, 'Mojovision' (Mojo's 'current star, Longshot, quits over a contract dispute') and 'Longshot' (he 'took leadership of a rebellion' and goes back 'to see his rebellion through').",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw"
+  },
+  {
+   "key": "A:fox-anim-nightcrawler",
+   "question": "In X-Men: The Animated Series episode 53 Kurt is an ordained monk at a monastery in the Alps, persecuted by a fellow monk; he is still a monk when he returns in episode 59. Does the monastery count as a group (an organization) before Genosha? It has no name on screen.",
+   "options": [
+    "Add a stage at X-Men: The Animated Series (name to be chosen, e.g. described as the monastery)",
+    "Keep as is"
+   ],
+   "evidence": "Episode 'Nightcrawler': the X-Men find 'a mutant, Nightcrawler, whose devilish appearance is in stark contrast to his peaceful and deeply religious nature' at 'a local monastery'; Marvel Database occupation: Monk.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Kurt_Wagner_(Earth-92131)&prop=wikitext&format=json"
+  },
+  {
+   "key": "A:fox-anim-moira-mactaggert",
+   "question": "Moira runs the Muir Island research center throughout X-Men: The Animated Series (episodes 9, 31, 57 and season 5), before she joins Genosha's council. Add it as a workplace stage? The screen calls it her research center on Muir Island, not a formal name.",
+   "options": [
+    "Add a stage at X-Men: The Animated Series before Genosha (name to be chosen, e.g. Muir Island Research Center)",
+    "Keep as is"
+   ],
+   "evidence": "Marvel Database: 'She created the Center for Mutant Research on Muir Island, Scotland'; the record's own steps show her running the lab.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Moira_MacTaggert_(Earth-92131)&prop=wikitext&format=json"
+  },
+  {
+   "key": "T:st-dottie-underwood",
+   "question": "Agent Carter S1 shows Dottie as a girl in the Soviet training program for female operatives (episode 5 flashback, 1937; Peggy: 'Russia has been training young women to be undercover operatives'). The dataset calls this program 'The Red Room' for Natasha and Yelena, but Agent Carter never says the name and may treat it as Leviathan's own program. Add 'The Red Room' before Leviathan?",
+   "options": [
+    "Add ['The Red Room', 'Agent Carter S1'] before Leviathan",
+    "Keep as is (treat the training as part of Leviathan)"
+   ],
+   "evidence": "MCU Wiki: 'Underwood was a part of a Red Room program'; trivia: that she was the first Black Widow 'was never specified in the series'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Dottie_Underwood&prop=wikitext&format=json"
+  }
+ ]
+}

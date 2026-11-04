@@ -1,0 +1,425 @@
+[
+ {
+  "key": "A:by-carina-tchalla",
+  "question": "Carina is filed 'Independent (from the start)', but in this episode she is the Collector's slave/servant on Knowhere until she frees T'Challa and helps the Ravagers beat him. Does forced service to the Collector count as a group stage (then left in the same title)? The screen gives his operation no name, and the dataset has no group for it (T:by-the-collector has no groups).",
+  "options": [
+   "Keep [[\"Independent\",\"(from the start)\"]]",
+   "Add a stage for the Collector's operation (name to be chosen by the owner), with a left in What If...? S1 when she turns on him"
+  ],
+  "evidence": "What If...? episode 2 (S1E2, 'What If... T'Challa Became a Star-Lord?'): 'Tivan's slave Carina rescues T'Challa and helps the Ravagers defeat Tivan.' Marvel Database lists her affiliation as 'Tivan Group'.",
+  "source": "https://en.wikipedia.org/w/index.php?title=What_If...%3F_season_1&action=raw"
+ },
+ {
+  "key": "T:fox-zander-rice",
+  "question": "Rice's record has a Reavers stage between two Transigen stages in Logan. Rice is Transigen's surgical head; the Reavers are Transigen's security force led by Donald Pierce, who hunts Laura on Rice's behalf. Does the head of the parent company who directs the Reavers count as serving in the Reavers, or should his record be Transigen only?",
+  "options": [
+   "Keep [[\"Transigen\",\"Logan\"],[\"The Reavers\",\"Logan\"],[\"Transigen\",\"Logan\"]] (he commands the Reavers)",
+   "Change to [[\"Transigen\",\"Logan\"]] (he is Transigen staff, the Reavers' employer, not a Reaver)"
+  ],
+  "evidence": "Logan: Pierce leads the Reavers, 'Transigen's security force', and hunts Laura 'on behalf of Zander Rice'; Rice 'oversaw the operation to capture her'. Neither wiki lists the Reavers among Rice's affiliations (Marvel Database: Transigen Project, Alkali Corporation; X-Men Movies Wiki: Alkali-Transigen).",
+  "source": "https://xmenmovies.fandom.com/wiki/Zander_Rice"
+ },
+ {
+  "key": "A:fox-colossus-dp",
+  "question": "A:fox-colossus (X-Men 2000 to Days of Future Past, incl. the new 2023 epilogue) and A:fox-colossus-dp (Deadpool films) are two Colossus files on the same Earth-10005 under your Fox rule. Marvel Database treats the Days of Future Past epilogue Colossus and the Deadpool Colossus as one person (Piotr Rasputin (Earth-10005), first appearance Days of Future Past, Daniel Cudmore's epilogue cameo listed in his notes) and the X2/Last Stand Colossus as the original timeline's. Keep two files or merge?",
+  "options": [
+   "Keep two files (different portrayals; Deadpool's Colossus is its own character)",
+   "Merge into one Colossus file on Earth-10005"
+  ],
+  "evidence": "Marvel Database Piotr Rasputin (Earth-10005): First = X-Men: Days of Future Past; notes cover Deadpool, Deadpool & Wolverine and Cudmore's DoFP epilogue cameo; trivia: original-timeline Colossus spoke with an American accent (X2), revised-timeline one a Russian accent (Deadpool).",
+  "source": "https://marvel.fandom.com/wiki/Piotr_Rasputin_(Earth-10005)"
+ },
+ {
+  "key": "A:fox-anim-sunspot",
+  "question": "(Already queued in audit2/morning_calls.json.) X-Men '97 S1 ep 9: Roberto joins Magneto and Rogue on Asteroid M against the X-Men; in ep 10 he fights Bastion with the X-Men again. The screen names no group. Add a stage (and under what name), or keep The X-Men throughout S1?",
+  "options": [
+   "Keep as is",
+   "Add an Asteroid M stage in X-Men '97 S1 (owner names it), then The X-Men again in X-Men '97 S1"
+  ],
+  "evidence": "Marvel Database: 'Roberto, now donning an X-Uniform joined Magneto and Rogue after his mom shut him out. He later faced off against an understandably angry Jubilee on Asteroid M' (S1 ep 9); ep 10 he and Rogue fight Bastion, and he is later listed AWOL on Forge's roster.",
+  "source": "https://marvel.fandom.com/wiki/Roberto_Da_Costa_(Earth-92131)"
+ },
+ {
+  "key": "A:fox-caliban",
+  "question": "(Already queued in audit2/morning_calls.json.) Logan is not in your Fox Earth rule. This chunk's Logan records (A:fox-caliban, A:fox-gabriela-lopez, A:fox-munsons, A:fox-transigen-children, T:fox-donald-pierce, T:fox-zander-rice) are Earth-10005; Marvel Database files that film's people as Earth-17315. Keep Earth-10005 or use Earth-17315?",
+  "options": [
+   "Keep Earth-10005",
+   "Use Earth-17315 for Logan's people"
+  ],
+  "evidence": "Marvel Database pages Caliban (Earth-17315), Zander Rice (Earth-17315), Donald Pierce (Earth-17315) exist; no Earth-10005 pages for them.",
+  "source": "https://marvel.fandom.com/wiki/Caliban_(Earth-17315)"
+ },
+ {
+  "key": "A:fox-wolverine",
+  "question": "Logan's one file runs into the changed timeline: his X-Men: Apocalypse step (1983, held by Stryker as Weapon X, then escaping) is Earth-TRN414, but the file is Earth-10005. Give him a second Earth-TRN414 bubble for that step, as was done for Havok (split.json 'single': fox-havok -> fox-havok-trn), or keep?",
+  "options": [
+   "Add a TRN414 bubble for Logan's Apocalypse step (like fox-havok-trn)",
+   "Keep as is"
+  ],
+  "evidence": "Owner rule: Days of Future Past's 1973, Apocalypse and Dark Phoenix are Earth-TRN414. Only Havok is listed as a one-file person across both Earths in split.json, yet Logan's file has the Apocalypse step and its Weapon X / Independent stages.",
+  "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Logan&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:fox-sentinels",
+  "question": "The Sentinels' file is Earth-10005 but two of its steps are changed-timeline (Days of Future Past's 1973 prototypes, and the confiscated Sentinels in X-Men: Apocalypse, both Earth-TRN414). Split it like Havok's file, or keep?",
+  "options": [
+   "Add a TRN414 bubble for the 1973 and Apocalypse steps",
+   "Keep as is"
+  ],
+  "evidence": "Owner rule: Days of Future Past's 1973 and Apocalypse are Earth-TRN414; only the dark-future 2023 stays on Earth-10005.",
+  "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_Days_of_Future_Past&action=raw"
+ },
+ {
+  "key": "A:fox-kayla-silverfox",
+  "question": "Employer: in X-Men Origins: Wolverine Kayla works as a schoolteacher in Canada during her six years with Logan (shown walking her pupils out to their parents). The school is never named. Add it?",
+  "options": [
+   "Add an employer stage before Weapon X (name to be chosen; screen gives none)",
+   "Keep as is"
+  ],
+  "evidence": "X-Men Origins: Wolverine: 'Kayla worked as a school teacher and Logan worked as a lumberjack' (X-Men Movies Wiki).",
+  "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Kayla_Silverfox&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:fox-wolverine",
+  "question": "Employer: after quitting Team X Logan works for six years as a lumberjack in the Canadian Rockies (X-Men Origins: Wolverine), shown at work. The company is never named. Add it?",
+  "options": [
+   "Add an employer stage between Team X and Weapon X (name to be chosen)",
+   "Keep as is"
+  ],
+  "evidence": "X-Men Origins: Wolverine, the Canadian Rockies section.",
+  "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Kayla_Silverfox&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:fox-magneto-erik",
+  "question": "Employer: in X-Men: Apocalypse (1983) Erik, as Henryk Gurszky, works at a factory in Poland, where he saves a co-worker and the workers then turn on him; Apocalypse kills them there. The factory is never named. Add it?",
+  "options": [
+   "Add an employer stage at X-Men: Apocalypse before The Four Horsemen (name to be chosen)",
+   "Keep as is"
+  ],
+  "evidence": "X-Men: Apocalypse opening Poland scenes.",
+  "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Magneto/Revised_Timeline&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:fox-psylocke",
+  "question": "Employer: in X-Men: Apocalypse Psylocke is the bodyguard/enforcer of the mutant broker Caliban until she leaves him for Apocalypse. The screen gives his operation no name. Add it?",
+  "options": [
+   "Add a stage before The Four Horsemen (e.g. described as Caliban's operation; name to be chosen)",
+   "Keep as is"
+  ],
+  "evidence": "X-Men: Apocalypse, Caliban's club in East Berlin.",
+  "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Psylocke/Revised_Timeline&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:fox-angel-salvadore",
+  "question": "Minor job seen once: Angel works as a stripper at a club when Charles and Erik recruit her (X-Men: First Class). The club is unnamed. Add it?",
+  "options": [
+   "Add an employer stage before CIA (name to be chosen)",
+   "Keep as is"
+  ],
+  "evidence": "X-Men: First Class, recruitment montage.",
+  "source": "https://xmenmovies.fandom.com/api.php?action=parse&page=Angel_Salvadore&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:fox-anim-longshot",
+  "question": "Longshot is the star of Mojo's entertainment network until he quits over his contract (episode 24), then leads a rebellion against Mojo (episode 36). The record has Independent from the start. Add the network as a past employer and/or the rebellion as a group? The screen names neither as a group.",
+  "options": [
+   "Add Mojo's network before Independent, and keep Independent after he quits",
+   "Also add the rebellion he leads (name to be chosen)",
+   "Keep as is"
+  ],
+  "evidence": "X-Men: The Animated Series, 'Mojovision' (Mojo's 'current star, Longshot, quits over a contract dispute') and 'Longshot' (he 'took leadership of a rebellion' and goes back 'to see his rebellion through').",
+  "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw"
+ },
+ {
+  "key": "A:fox-anim-nightcrawler",
+  "question": "In X-Men: The Animated Series episode 53 Kurt is an ordained monk at a monastery in the Alps, persecuted by a fellow monk; he is still a monk when he returns in episode 59. Does the monastery count as a group (an organization) before Genosha? It has no name on screen.",
+  "options": [
+   "Add a stage at X-Men: The Animated Series (name to be chosen, e.g. described as the monastery)",
+   "Keep as is"
+  ],
+  "evidence": "Episode 'Nightcrawler': the X-Men find 'a mutant, Nightcrawler, whose devilish appearance is in stark contrast to his peaceful and deeply religious nature' at 'a local monastery'; Marvel Database occupation: Monk.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=Kurt_Wagner_(Earth-92131)&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:fox-anim-moira-mactaggert",
+  "question": "Moira runs the Muir Island research center throughout X-Men: The Animated Series (episodes 9, 31, 57 and season 5), before she joins Genosha's council. Add it as a workplace stage? The screen calls it her research center on Muir Island, not a formal name.",
+  "options": [
+   "Add a stage at X-Men: The Animated Series before Genosha (name to be chosen, e.g. Muir Island Research Center)",
+   "Keep as is"
+  ],
+  "evidence": "Marvel Database: 'She created the Center for Mutant Research on Muir Island, Scotland'; the record's own steps show her running the lab.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=Moira_MacTaggert_(Earth-92131)&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:st-dottie-underwood",
+  "question": "Agent Carter S1 shows Dottie as a girl in the Soviet training program for female operatives (episode 5 flashback, 1937; Peggy: 'Russia has been training young women to be undercover operatives'). The dataset calls this program 'The Red Room' for Natasha and Yelena, but Agent Carter never says the name and may treat it as Leviathan's own program. Add 'The Red Room' before Leviathan?",
+  "options": [
+   "Add ['The Red Room', 'Agent Carter S1'] before Leviathan",
+   "Keep as is (treat the training as part of Leviathan)"
+  ],
+  "evidence": "MCU Wiki: 'Underwood was a part of a Red Room program'; trivia: that she was the first Black Widow 'was never specified in the series'.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Dottie_Underwood&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:pietro-maximoff",
+  "question": "V1: Pietro's WandaVision step is not Pietro. It is Ralph Bohner, whom Agatha enthralls to pose as Pietro ('Fietro'). The dataset has no Ralph Bohner record. Should the impersonator's WandaVision appearance stay on Pietro's file (the same goes for T:pietro-maximoff, which is not in this batch), or go to its own Ralph Bohner record?",
+  "options": [
+   "Keep on Pietro's file (the step text already says it's Ralph)",
+   "Move the WandaVision step to a separate Ralph Bohner record"
+  ],
+  "evidence": "WandaVision episodes 5 to 9: Agatha enthralls Westview resident Ralph Bohner to pose as Pietro, until Monica frees him (episode 9). In Agatha All Along, Agatha calls him 'fake Pietro... Fietro'. The groups are not affected.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Pietro_Maximoff"
+ },
+ {
+  "key": "T:st-davos",
+  "question": "The screen never names the Chinatown street crew that Davos takes over in Iron Fist S2. Keep the dataset's name 'Ryhno's Gang' (a wiki label) for it? A:st-bb-chinatown uses the same group.",
+  "options": [
+   "Keep 'Ryhno's Gang' (the dataset's existing name)",
+   "Rename it to a description of how the screen shows it"
+  ],
+  "evidence": "Iron Fist S2: Davos recruits Ryhno's crew of street kids ('What if I could make you warriors?'). The crew has no name on screen, and the wiki calls it 'Ryhno's Gang'. This falls under the open question on names for crews the screen never names.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Ryhno%27s_Gang"
+ },
+ {
+  "key": "T:st-gao-champions",
+  "question": "V1: this record covers several fighters (the Veznikov brothers, the Bride of Nine Spiders and Scythe), not one person. Keep it as a group record or split it?",
+  "options": [
+   "Keep as one group record",
+   "Split into one record per fighter"
+  ],
+  "evidence": "Iron Fist S1 ep. 6: Danny fights each of Gao's fighters in turn. These are separate characters.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Bride_of_Nine_Spiders"
+ },
+ {
+  "key": "A:dum-e-and-u",
+  "question": "V1: this record merges two separate robots, Dum-E and U. Keep it as one combined record or split it?",
+  "options": [
+   "Keep as one combined record",
+   "Split into Dum-E and U"
+  ],
+  "evidence": "Iron Man 2: Dum-E and U act separately (Dum-E helps make the new element, U serves champagne). They are two characters.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Dum-E"
+ },
+ {
+  "key": "T:the-lion",
+  "question": "In Eyes of Wakanda ep. 1, Nkati (the Lion) leaves the War Dogs and rules his own pirate kingdom as its king. The record files him as 'Independent'. Should he instead be in a group for the kingdom he leads? The screen calls it only 'his kingdom', and the wiki label is 'Lion's Kingdom'.",
+  "options": [
+   "Keep 'Independent'",
+   "Add a stage for the kingdom he leads (name to be decided)"
+  ],
+  "evidence": "Eyes of Wakanda ep. 1 'Into the Lion's Den': the Lion rules a kingdom of followers who worship him and fight for him (the Shieldmaiden, the Blademaster and others).",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Lion"
+ },
+ {
+  "key": "A:st-jeri-hogarth",
+  "question": "Iron Fist S1 episode 3 tells that young Jeri was an intern in the legal department at Rand Enterprises under Wendell Rand. Under the past-group rule, should Rand Enterprises be a first stage keyed to Jessica Jones S1, or is an internship told once too minor a job?",
+  "options": [
+   "Add [\"Rand Enterprises\", \"Jessica Jones S1\"] before Hogarth, Chao & Benowitz",
+   "Keep as is (an internship told once does not count)"
+  ],
+  "evidence": "Danny to Jeri in Rolling Thunder Cannon Punch: 'You were an intern in the legal department in my dad's office? You called his secretary Margaret a hatchet-faced bitch.' The MCU Wiki lists Rand Enterprises (formerly) in her affiliations.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jeri_Hogarth&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:sheikh-abdullah",
+  "question": "Sheikh Abdullah is the imam of Kamala's mosque in Ms. Marvel (he lectures there, hosts Eid and turns Damage Control away from it). Does his mosque count as his workplace group, and under what name?",
+  "options": [
+   "Keep Independent",
+   "Add the mosque as his group (the MCU Wiki calls it the Islamic Masjid of Jersey City; the name the screen uses is unconfirmed)"
+  ],
+  "evidence": "The MCU Wiki gives his affiliation as the Islamic Masjid of Jersey City and an on-screen handle 'SheikhAbdullahJCIC' (episode 6); it is a real workplace, but the brief says how far employers go is the owner's call and the mosque's on-screen name is not confirmed.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Abdullah&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:shang-chi",
+  "question": "Shang-Chi and Katy Chen work together as hotel valets in San Francisco at the start of the film (the wiki lists Fairmont San Francisco, formerly). Does this minor job count as an employer group for A:shang-chi and A:katy-chen?",
+  "options": [
+   "No, leave both records as they are",
+   "Yes, add the hotel as an employer stage keyed to Shang-Chi and the Legend of the Ten Rings for both"
+  ],
+  "evidence": "Shang-Chi and the Legend of the Ten Rings: Katy and Shaun park cars as valets at a hotel (Katy steals a BMW's keys for a joyride); the job is not seen again after the bus fight.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Katy_Chen"
+ },
+ {
+  "key": "A:katy-chen",
+  "question": "A:shang-chi records leaving Ta Lo (Independent, left: Shang-Chi and the Legend of the Ten Rings) when he returns to San Francisco, but A:katy-chen, who fights for Ta Lo and returns home with him in the same scene, still stands in Ta Lo. Should the two match?",
+  "options": [
+   "Keep both as they are",
+   "Give Katy the same departure (Independent, left in Shang-Chi)",
+   "Drop Shang-Chi's departure so both stay in Ta Lo"
+  ],
+  "evidence": "Both fight with the Ta Lo forces in the Battle of Ta Lo, then return to San Francisco together and are summoned by Wong to Kamar-Taj; the MCU wiki lists Ta Lo Armed Forces as 'formerly' for both.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Shang-Chi"
+ },
+ {
+  "key": "T:raava",
+  "question": "Raava serves undercover as James Rhodes inside the U.S. government (Ritson's envoy) throughout Secret Invasion. Under the rule that undercover service counts, should her record add that service, and under what on-screen name?",
+  "options": [
+   "Keep The Skrull Rebels only",
+   "Add the U.S. government (undercover as Rhodes) as a stage keyed to Secret Invasion"
+  ],
+  "evidence": "Secret Invasion: Raava has replaced Rhodes and advises President Ritson; in episode 5 she pushes him toward war before Fury exposes and kills her. The MCU wiki lists U.S. Air Force and U.S. government as undercover affiliations.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Raava"
+ },
+ {
+  "key": "A:dimitri",
+  "question": "Dimitri works for Nick Fury (Talos disguised as Fury) throughout Spider-Man: Far From Home. The screen never names this team (the wiki's 'Nick Fury's Crew' is a fan label). Keep Independent or give the crew a name?",
+  "options": [
+   "Keep Independent",
+   "Name Fury's operation (owner to choose a name)"
+  ],
+  "evidence": "Spider-Man: Far From Home: Dimitri reroutes the school trip and drives Peter on Fury's orders.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Dimitri_Smerdyakov"
+ },
+ {
+  "key": "A:st-amy-bendix",
+  "question": "Amy is filed 'Independent (from the start)', but in The Punisher S2 episode 1 she is a member of a Chicago crew of thieves/con artists (led by Fiona) that is wiped out over the photos they stole. The screen never names the crew (wiki label 'Fiona's Crew', a held name). Add it as a stage keyed to The Punisher S2 with a departure there, and under what name?",
+  "options": [
+   "Keep Independent (from the start)",
+   "Add the crew as a stage keyed to The Punisher S2 plus left The Punisher S2, named as the owner decides"
+  ],
+  "evidence": "MCU wiki infobox lists Amy's affiliation as Fiona's Crew (formerly); the crew dies in S2E1.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Amy_Bendix&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:st-john-pilgrim",
+  "question": "Pilgrim has no groups. S2 (episode 9) tells that he was a white-supremacist gang member before the Schultzes converted him, and in S2 he serves the Schultzes as their enforcer. Record the past gang (held: 'Pilgrim's old gang', wiki 'Aryan Brotherhood') as a past stage with a departure, and/or his service to the Schultzes?",
+  "options": [
+   "Keep no groups",
+   "Add the old gang as a past stage keyed to The Punisher S2 with left The Punisher S2",
+   "Also record his service to the Schultzes under a name the owner chooses"
+  ],
+  "evidence": "MCU wiki: 'former member of the Aryan Brotherhood who changed his ways after meeting Anderson Schultz' (TP209); Kusack names their old gang days in 'Flustercluck'.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=John_Pilgrim&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:pr-st-andre-deschaine",
+  "question": "Andre has no groups, but from Cloak & Dagger episode 16 (S2) he secretly runs the Viking Motel sex-trafficking ring. The screen does not give it a formal name (held: 'Andre's trafficking ring'). Add it as a stage keyed to Cloak & Dagger, and under what name?",
+  "options": [
+   "Keep no groups",
+   "Add the trafficking ring as a stage keyed to Cloak & Dagger under a name the owner chooses"
+  ],
+  "evidence": "MCU wiki infobox affiliation: Viking Motel Sex Traffic Ring; 'He became the secret leader of a sex trafficking ring'.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Andre_Deschaine&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:st-krista-dumont",
+  "question": "Krista has no groups. In The Punisher S2 she is the psychotherapist treating Billy at Sacred Saints Hospital (episodes 1-5), and her Metro-General Hospital certificate is shown; the wiki also files her under Borough Institute of Mental Health. Does her hospital workplace count as an employer group (held: how far employers go)?",
+  "options": [
+   "Keep no groups",
+   "Add Sacred Saints Hospital (or the institution the owner prefers) as a stage keyed to The Punisher S2"
+  ],
+  "evidence": "MCU wiki: 'During her career, Dumont worked at Metro-General Hospital, and Sacred Saints Hospital' (TP204); she treats Billy at Sacred Saints until he escapes. The wiki does not list her as a member of Jigsaw's Crew (she supports Billy as his lover).",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Krista_Dumont&prop=wikitext&format=json"
+ },
+ {
+  "key": "A:sv-ben-parker-madame-web",
+  "question": "(Already open: employer scope.) Ben Parker and Cassie Webb (A:sv-cassie-webb) work as FDNY paramedics through Madame Web. Add FDNY from the start, or keep Independent until the owner settles how far employers go?",
+  "options": [
+   "Keep Independent (employer scope still held)",
+   "FDNY (from the start) for Ben Parker and Cassie Webb (and O'Neil, outside this batch)"
+  ],
+  "evidence": "Madame Web: Cassie and her partner Ben are New York paramedics on an FDNY ambulance crew; neither quits on screen. Held earlier with the other employers (s3_held.json).",
+  "source": "https://marvel.fandom.com/wiki/Cassandra_Webb_(Earth-688B)"
+ },
+ {
+  "key": "A:pr-st-jen",
+  "question": "(Already open: unnamed crew.) Jen is one of Reno's partners in an unnamed marijuana-growing crew on Oahu that breaks apart in Inhumans episode 5. Add a stage, or keep Independent?",
+  "options": [
+   "Keep Independent (from the start)",
+   "Owner-named crew stage at Inhumans, then Independent with left = Inhumans"
+  ],
+  "evidence": "MCU Wiki: Jen was recruited with Ted by Reno to build a marijuana business on Oahu; in episode 5 Reno kills Ted and tries to kill Jen and Karnak. The screen never names the crew.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/Jen"
+ },
+ {
+  "key": "T:pr-toro-brothers",
+  "question": "(Already open, V1.) This record is two people, Joe and Mike Toro. Keep it as a pair record or split it?",
+  "options": [
+   "Keep as one pair record",
+   "Split into Joe Toro and Mike Toro"
+  ],
+  "evidence": "The Punisher (2004): Joe and Mike Toro are two brothers, Howard Saint's money-laundering partners, who appear together.",
+  "source": "https://en.wikipedia.org/w/index.php?title=The_Punisher_(2004_film)&action=raw"
+ },
+ {
+  "key": "T:pr-st-pride",
+  "question": "(Already open, V1.) T:pr-st-pride is the collective PRIDE, a group file, but it is linked as the twin of Robert and Tina Minoru (and four others). Should a group file be a person's twin?",
+  "options": [
+   "Keep the link",
+   "Unlink it: PRIDE is a group-only record"
+  ],
+  "evidence": "The PRIDE file's steps describe the six parent couples together in Runaways S1 to S3. It is not any one member.",
+  "source": "https://marvelcinematicuniverse.fandom.com/wiki/PRIDE"
+ },
+ {
+  "key": "T:sv-miles-warren-1994",
+  "question": "At the end of Spider-Man (1994) episode 60 (The Return of Hydro-Man, Part Two), Warren has Silvermane's side rebuild his lab. Marvel Database calls Silvermane his current employer; Marvel Animated lists Silvermane only as an ally (Warren calls Alistair Smythe to have Silvermane's men rebuild the lab). Should the record add Silvermane's Mob from Spider-Man (1994), or is Silvermane a backer/ally, not membership? (Same open question as an earlier pass.)",
+  "options": [
+   "Keep no group",
+   "Add [[\"Silvermane's Mob\", \"Spider-Man (1994)\"]]"
+  ],
+  "evidence": "Episode 60: after the clones fall apart, Warren keeps a scrap of Spider-Man's suit and contacts Silvermane's operation (through Smythe) to rebuild his lab. Silvermane is only mentioned in the episode.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=Miles_Warren_(Earth-92131)&prop=wikitext&format=json"
+ },
+ {
+  "key": "T:sv-kingpin-itsv",
+  "question": "Earth designations for the Sony/Spider-Verse film universes: the dataset uses the plain numbers, Marvel Database uses B-suffixed pages for the film versions. Change? Affects in this batch: Earth-1610 (A:sv-peter-parker-1610, T:sv-green-goblin-itsv, T:sv-kingpin-itsv, T:sv-scorpion-itsv, T:sv-spot), Earth-8311 (A:sv-spider-ham), Earth-90214 (A:sv-spider-man-noir), Earth-688 (A:sv-anne-weying, A:sv-dan-lewis, A:sv-eddie-brock-sony, T:sv-venom-sony, A:sv-maria-venom, T:sv-carlton-drake, T:sv-riot, T:sv-treece, T:sv-xenophages).",
+  "options": [
+   "Keep the on-screen numbers (Earth-1610, -8311, -90214, -688)",
+   "Use Marvel Database's Earth-1610B, -8311B, -90214B, -688B"
+  ],
+  "evidence": "Marvel Database's Earth-1610B page says it covers Earth-1610 'as depicted in the Spider-Verse films' (EarthNumber 1610, alias E-1610 on screen); Earth-688 there is a comics reality and the Sony Venom films are Earth-688B; film Spider-Ham and Noir are Peter Porker (Earth-8311B) and Peter Parker (Earth-90214B). The brief says to use Marvel Database designations, but the B is only its disambiguation suffix, so it is a convention question.",
+  "source": "https://marvel.fandom.com/wiki/Earth-1610B"
+ },
+ {
+  "key": "A:sv-anne-weying",
+  "question": "Anne is a lawyer at a law firm that works for the Life Foundation; she is fired over Eddie's leak and gets her old job back at the end of Venom. The firm is never named. Add an employer group (and under what name)?",
+  "options": [
+   "Leave as Independent",
+   "Add an unnamed-law-firm stage from Venom (fired and rehired in the same film)"
+  ],
+  "evidence": "Venom (2018): 'Anne Weying was a lawyer whose firm worked for the Life Foundation... Eddie and Anne were soon fired... Anne regaining her old job.'",
+  "source": "https://marvel.fandom.com/wiki/Anne_Weying_(Earth-688B)"
+ },
+ {
+  "key": "A:sv-dan-lewis",
+  "question": "Dr. Dan Lewis is a doctor at an unnamed San Francisco hospital where he scans Eddie in Venom. Add the hospital as an employer group, and under what name?",
+  "options": [
+   "Leave as Independent",
+   "Add an employer stage for the hospital from Venom"
+  ],
+  "evidence": "Venom (2018): Eddie is taken for an MRI at the hospital where Dr. Lewis works; the hospital is not named in the sources.",
+  "source": "https://marvel.fandom.com/wiki/Daniel_Lewis_(Earth-688B)"
+ },
+ {
+  "key": "T:sv-big-man-ssm",
+  "question": "Held question: the Big Man's (Tombstone's) organization in The Spectacular Spider-Man has no on-screen name. Records in this batch that served it: T:sv-big-man-ssm (leader, groups empty), T:sv-hammerhead-ssm (his enforcer after leaving Silvermane, fired by Tombstone in episode 23), T:sv-rhino-ssm and T:sv-sandman-ssm (Big Man's hired thugs before the Sinister Six), T:sv-tinkerer-ssm.",
+  "options": [
+   "Keep as is until the owner names the group",
+   "Add a stage under the name the owner chooses"
+  ],
+  "evidence": "Hammerhead 'worked at the employ of L. Thompson Lincoln, the crimelord also known as The Big Man and Tombstone... Hammerhead fled and went into hiding when Tombstone fired him' (season 2, episode 10 / series episode 23).",
+  "source": "https://marvel.fandom.com/wiki/Hammerhead_(Joseph)_(Earth-26496)"
+ },
+ {
+  "key": "T:sv-unicorn-yfnsm",
+  "question": "Held question: Mila Masaryk's robbery crew (Mikhail Sytsevich, Dmitri Smerdyakov, Roxanna Volkov) in Your Friendly Neighborhood Spider-Man is never named. Add a crew group?",
+  "options": [
+   "Keep groups empty",
+   "Add a crew stage under the name the owner chooses"
+  ],
+  "evidence": "Episode 4: with her three companions she carries out a robbery and escapes with the money, promising to return for them; episode 5 she breaks them out.",
+  "source": "https://marvel.fandom.com/wiki/Mila_Masaryk_(Earth-86445)"
+ },
+ {
+  "key": "T:sv-megawatt-noir",
+  "question": "Held question (how far employers go): Dirk Leyden worked as a subway train driver after the war (told in episode 5). Add the employer?",
+  "options": [
+   "Leave as is",
+   "Add an employer stage keyed to Spider-Noir"
+  ],
+  "evidence": "'He found work as a subway train driver but had aspirations to become an actor' (Spider-Noir episode 5). The employer is not named in sources.",
+  "source": "https://marvel.fandom.com/wiki/Dirk_Leyden_(Earth-62533)"
+ }
+]
