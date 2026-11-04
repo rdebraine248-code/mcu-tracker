@@ -29,7 +29,7 @@ const out = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[
     DC.forEach(d => { tagOf('dc ' + d.id, d.t); ['fall', 'loss'].map(k => [k, d[k]]).forEach(([k, v]) => { if (Array.isArray(v)) v.forEach((x, i) => { if (Array.isArray(x) && typeof x[1] === 'string' && x.length === 2) tagOf('dc ' + d.id + ' ' + k + ':' + i, x[1]); }); }); });
     Object.entries(DOSSIERS).forEach(([id, D]) => Object.entries(D.rows || {}).forEach(([k, L]) => (L || []).forEach((x, i) => { if (Array.isArray(x) && typeof x[1] === 'string') tagOf('log ' + id + ' ' + k + ':' + i, x[1]); })));
     // ---------- 2. links and references
-    Object.entries(AT_CASE).forEach(([key, e]) => { const [g, id, k] = key.split(':'), o = (g === 'A' ? ALLIES : THREATS).find(x => x.id === id);
+    Object.entries(AT_CASE).forEach(([key, e]) => { const [g, id, k] = key.split(':'), o = (g === 'A' ? ALLIES : g === 'C' ? COLLX : THREATS).find(x => x.id === id);   // a Collection object's steps are its own (C:)
       if (!o || !o.st[+k]) fail('At/Case on a missing step', key); (e.at || []).forEach(p => { if (!atPlace(p)) fail('At on a missing place', key + ' -> ' + p); });
       (e.cases || []).forEach(c => { if (!DC.find(d => d.id === c)) fail('Case on a missing report', key + ' -> ' + c); }); });
     ALLIES.forEach(a => { if (a.rf && !THREATS.find(t => t.id === a.rf)) fail('Compound file hands over to a missing Raft file', a.id + ' -> ' + a.rf); });
