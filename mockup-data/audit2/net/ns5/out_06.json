@@ -1,0 +1,100 @@
+{
+ "checked": [
+  "st-bobbi-morse|st-grant-ward:2",
+  "phil-coulson|emil-blonsky:0",
+  "dennis-dunphy|sam-wilson:0",
+  "st-lorelei|phil-coulson:0",
+  "sv-peter-parker-yfnsm|sv-may-parker-yfnsm:0",
+  "sam-wilson|wanda-maximoff:1",
+  "okoye|shuri:0",
+  "pr-kirigi|pr-typhoid:0",
+  "bucky-barnes|yori-nakajima:1",
+  "by-zombie-bucky|by-zombie-captain-america:0",
+  "pr-blade|pr-abigail-whistler:0",
+  "st-kilgrave|st-will-simpson:0",
+  "goose|mar-vell:0",
+  "natasha-romanoff|nick-fury:1",
+  "elaine-walters|morris-walters:1",
+  "fox-wolverine|fox-stryker:1",
+  "fox-charles-xavier-young|fox-moira-mactaggert-young:0",
+  "st-billy-russo|st-brett-mahoney:0",
+  "st-eli-morrow|st-jeffrey-mace:0",
+  "by-zombie-london-master|by-zombie-thor:0",
+  "st-danielle-cage|st-mr-charles:0",
+  "fox-deadpool|fox-peter-wisdom:1",
+  "pr-st-robert-minoru|pr-st-morgan-le-fay:1",
+  "gravik|raava:0",
+  "pr-blade|pr-chase:1",
+  "st-bullseye|st-matt-murdock:0",
+  "maria-hill|sam-wilson:0",
+  "st-aida|st-jeffrey-mace:0",
+  "st-daniel-sousa|st-johann-fennhoff:1",
+  "sv-doc-ock-itsv|sv-peter-b-parker:0",
+  "sv-otto-yfnsm|sv-unicorn-yfnsm:0",
+  "st-mack|st-piper:1",
+  "drax|nebula:0",
+  "st-general-hale|st-piper:1",
+  "fox-deadpool|pr-elektra:0",
+  "john-walker|lemar-hoskins:0",
+  "nicepool|ladypool:0",
+  "sv-peter-parker-1994|sv-scorpion-1994:1",
+  "jane-foster|thor:1",
+  "st-mike-peterson|st-jemma-simmons:1",
+  "sv-peter-parker-1994|sv-red-skull-1994:2",
+  "aisha|sana:0",
+  "st-lance-hunter|phil-coulson:3",
+  "st-diamondback|st-misty-knight:0",
+  "by-st-freddy-malick|phil-coulson:1",
+  "cassandra-nova|fox-juggernaut:0",
+  "sv-curt-connors-1994|sv-iron-man-1994:0",
+  "st-mack|st-melinda-may:0",
+  "sue-storm|masked-figure-ff:0",
+  "st-donnie-gill|st-melinda-may:1"
+ ],
+ "changes": [
+  {
+   "id": "st-diamondback|st-misty-knight:0",
+   "pair": "st-diamondback|st-misty-knight",
+   "a": "Diamondback",
+   "b": "Misty Knight",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Luke Cage S1#8",
+    "text": "Diamondback grabs Misty when she tries to ambush him, takes her gun and holds it to her head while he shoots Luke. Outside, he mocks her and demands that she beg for her life, which she refuses to do.",
+    "on_a_card_about_b": "A detective Diamondback takes hostage and taunts to beg.",
+    "on_b_card_about_a": "The man who holds Misty's own gun to her head and demands she beg."
+   },
+   "proposed": {
+    "text": "Diamondback attacks the clinic where Misty has found Luke, beats the wounded Luke and drags Misty outside as a hostage. He takes her gun, holds it to her head and demands that she beg, but she refuses."
+   },
+   "evidence": "Luke Cage S1#8 (Blowin' Up the Spot): Misty is at the women's clinic with Luke and Claire when Diamondback attacks from outside with a laser-sighted gun; she fires at him and misses, he takes down the wounded Luke, then grabs Misty, drags her outside, takes her gun and puts it to her head hoping she will beg. She does not ambush him, and he does not shoot Luke while holding her (Luke was hit by the Judas bullet before this episode).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Misty_Knight&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "fox-charles-xavier-young|fox-moira-mactaggert-young:0",
+   "question": "The pair's first stage is X-Men: Apocalypse, but Charles and Moira meet and work together in X-Men: First Class, which ends with Charles wiping her memory. Should a First Class stage come before this one? (The Apocalypse stage itself checks out.)",
+   "options": [
+    "Add a First Class stage (kind friend or ally): Moira brings Charles to the CIA, they lead the mission against Shaw, and he wipes her memory to keep the school secret",
+    "Leave as is"
+   ],
+   "evidence": "X-Men: First Class: CIA officer Moira MacTaggert asks Xavier for advice, takes him to the CIA, joins him on the missions against Shaw, and at the end Xavier wipes her memories to keep his location secret.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_First_Class&action=raw"
+  },
+  {
+   "id": "st-danielle-cage|st-mr-charles:0",
+   "question": "Danielle is a toddler and never meets Mr. Charles. His operatives attack the house where she is (Born Again S2#6), and he turns out to keep her father Luke working for the CIA overseas (S2#7). Is that enough for a connection under the huge-consequences exception, or should it be dropped?",
+   "options": [
+    "Keep (his actions hit her home and keep her father away)",
+    "Drop the connection (N7)"
+   ],
+   "evidence": "Requiem (S2#6): armed operatives attack the Cage-Jones house while Jessica looks after Danielle, who plays with a grenade thrown inside; Jessica fights them off. The Hateful Darkness (S2#7): Jessica confronts Mr. Charles and learns Luke works for the CIA overseas. Danielle and Mr. Charles share no scene.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Requiem&prop=wikitext&format=json"
+  }
+ ]
+}

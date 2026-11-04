@@ -1,0 +1,567 @@
+[
+ {
+  "n": 14,
+  "type": "question",
+  "id": "pr-st-andre-deschaine|pr-st-lia:2",
+  "question": "Cloak & Dagger#18: Andre talks Lia into letting him take 'just a little' of her hope, takes all of it, leaves her comatose by the roadside and drives off. That is the last thing that happens between them. Should the kind stay boss, or become enemy for this betrayal?",
+  "options": [
+   "Keep boss (he is still the boss who betrays her)",
+   "Change kind to enemy"
+  ],
+  "their_evidence": "Lia reluctantly agrees to give Andre a little of her hope, he drains all of it, and he abandons her in a coma (S2E8 = #18). The Fandom page lists Andre under Lia's enemies as a 'Former Ally'.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Lia_Dewan&prop=wikitext&format=json",
+  "connection": {
+   "id": "pr-st-andre-deschaine|pr-st-lia:2",
+   "pair": "pr-st-andre-deschaine|pr-st-lia",
+   "a": "Andre Deschaine",
+   "b": "Lia Dewan",
+   "a_desc": "A jazz musician with a dark gift",
+   "b_desc": "A trafficker working with Andre",
+   "universe": "Pruned",
+   "check_stage": 2,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "Cloak & Dagger#12",
+     "text": "Lia helps run the support group Andre heads, calling him when one of its members turns up in hospital.",
+     "on_a_card_about_b": "Andre's helper at the support group.",
+     "on_b_card_about_a": "The head of Lia's support group."
+    },
+    {
+     "i": 1,
+     "kind": "boss",
+     "title": "Cloak & Dagger#16",
+     "text": "Lia also runs Andre's trafficking ring and helps him break Tandy in the ambulance.",
+     "on_a_card_about_b": "Andre's accomplice in his trafficking ring.",
+     "on_b_card_about_a": "Lia's boss in the trafficking ring."
+    },
+    {
+     "i": 2,
+     "kind": "boss",
+     "title": "Cloak & Dagger#18",
+     "text": "When their ring falls apart, Andre drains Lia and abandons her.",
+     "on_a_card_about_b": "Andre's accomplice, whom he drains and abandons.",
+     "on_b_card_about_a": "Lia's boss, who abandons her."
+    }
+   ]
+  }
+ },
+ {
+  "n": 15,
+  "type": "question",
+  "id": "pr-krista-starr|pr-marcus-van-sciver:0",
+  "question": "Stage 0 sits on the first episode (Blade: The Series, part 1 of the two-part pilot) but describes Krista spying on Marcus for Blade as his lover. That only becomes possible after Marcus turns her and Blade recruits her (stage 1, #2), so stage 0 is earlier than what it says has happened. How should it be fixed?",
+  "options": [
+   "Move stage 0 after stage 1, to the episode where Krista and Marcus first become lovers (episode not pinned down from sources here)",
+   "Rewrite stage 0 as the first-episode setup only (Krista hunts her twin brother's killer, Marcus) with kind enemy, and add a later partner stage",
+   "Merge stage 0 into stage 1 and keep stage 2"
+  ],
+  "their_evidence": "Wikipedia premise: Marcus turns Krista into a vampire, then Blade injects her with his serum and recruits her; the rest of the season follows her keeping her cover in the House of Chthon while her feelings for Marcus grow. The pilot 'House of Chthon' is episodes 1 and 2.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Blade:_The_Series&action=raw",
+  "connection": {
+   "id": "pr-krista-starr|pr-marcus-van-sciver:0",
+   "pair": "pr-krista-starr|pr-marcus-van-sciver",
+   "a": "Krista Starr",
+   "b": "Marcus Van Sciver",
+   "a_desc": "A soldier back from Iraq looking into her brother's death",
+   "b_desc": "A powerful vampire of the House of Chthon",
+   "universe": "Pruned",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "partner",
+     "title": "Blade: The Series",
+     "text": "Working undercover at his side for Blade, Krista becomes Marcus's lover, and her hatred softens into real feelings.",
+     "on_a_card_about_b": "Krista's lover, even as she spies on him.",
+     "on_b_card_about_a": "Marcus's lover, secretly spying on him for Blade."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Blade: The Series#2",
+     "text": "Marcus killed Krista's twin brother, and when she tries to kill him he turns her into a vampire.",
+     "on_a_card_about_b": "Krista's brother's killer, who turns her into a vampire.",
+     "on_b_card_about_a": "The woman Marcus turns rather than kills."
+    },
+    {
+     "i": 2,
+     "kind": "enemy",
+     "title": "Blade: The Series#13",
+     "text": "After the conclave Marcus works out that Krista has been Blade's spy all along and seizes her by the throat.",
+     "on_a_card_about_b": "Krista's lover, who finds out she is Blade's spy.",
+     "on_b_card_about_a": "Marcus's lover, who turns out to be Blade's spy."
+    }
+   ]
+  }
+ },
+ {
+  "n": 16,
+  "type": "question",
+  "id": "howard-stark|st-roger-dooley:1",
+  "question": "Do Howard and Dooley ever meet on screen? Dooley hunts Howard through Agent Carter S1#1-7 and dies in S1#7 wearing Howard's heat vest, but Howard only comes to the SSR in S1#8 (Dooley is only mentioned there). If they never share a scene, does the connection pass N7 under the huge-consequences exception, or should it be dropped?",
+  "options": [
+   "Keep it (Howard's case and vest have huge consequences for Dooley)",
+   "Drop the connection (Dooley only knows about Howard)"
+  ],
+  "their_evidence": "MCU wiki appearance list for Roger Dooley: AC101-AC107 on screen, AC108 mentioned only. His death scene is in the Stark Heat Vest in SNAFU (S1#7).",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Roger_Dooley&prop=wikitext&format=json",
+  "connection": {
+   "id": "howard-stark|st-roger-dooley:1",
+   "pair": "howard-stark|st-roger-dooley",
+   "a": "Howard Stark",
+   "b": "Roger Dooley",
+   "a_desc": "A genius inventor and industrialist",
+   "b_desc": "Chief of the New York SSR",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "rival",
+     "title": "Agent Carter S1#1",
+     "text": "Roger Dooley runs the SSR's hunt for Howard Stark, who is suspected of selling his weapons to the country's enemies.",
+     "on_a_card_about_b": "SSR chief who hunts Howard as a suspected traitor.",
+     "on_b_card_about_a": "Fugitive Dooley hunts."
+    },
+    {
+     "i": 1,
+     "kind": "rival",
+     "title": "Agent Carter S1#3",
+     "text": "Dooley blames Howard for the murder of his agent Ray Krzeminski.",
+     "on_a_card_about_b": "SSR chief who blames Howard for the murder of his agent Krzeminski.",
+     "on_b_card_about_a": "Fugitive Dooley blames for Krzeminski's murder."
+    },
+    {
+     "i": 2,
+     "kind": "rival",
+     "title": "Agent Carter S1#4",
+     "text": "Dooley digs into the Battle of Finow and learns that Howard flew out of Finow the day after the massacre.",
+     "on_a_card_about_b": "SSR chief who digs into Howard's past at Finow.",
+     "on_b_card_about_a": "A fugitive whose past at Finow Dooley digs into."
+    }
+   ]
+  }
+ },
+ {
+  "n": 17,
+  "type": "question",
+  "id": "st-elena-rodriguez|st-glenn-talbot:1",
+  "question": "The stage text is true, but it describes two separate actions (Yo-Yo traps Hive and frees the hostages; Talbot's military contacts help stop the launch) with nothing happening between Elena and Talbot. Keep it, or remove it as a stage with no interaction between them?",
+  "options": [
+   "Keep as is",
+   "Remove stage 1"
+  ],
+  "their_evidence": "Agents of S.H.I.E.L.D. S3#21 'Absolution': Coulson and Fitz, with Talbot's help, stop the warhead launch, while Yo-Yo finishes Mack's memory machine, frees Hive's hostages and traps Hive in the suspension-gel cage. No scene between Yo-Yo and Talbot is described.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Yo-Yo_Rodriguez&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-elena-rodriguez|st-glenn-talbot:1",
+   "pair": "st-elena-rodriguez|st-glenn-talbot",
+   "a": "Elena Rodriguez",
+   "b": "Glenn Talbot",
+   "a_desc": "A Colombian Inhuman nicknamed Yo-Yo",
+   "b_desc": "A US Air Force general who distrusts S.H.I.E.L.D.",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S3#20",
+     "text": "When Elena comes to the Playground and is asked to sign the Sokovia Accords, she shows off her speed by stealing the medals off General Talbot's uniform.",
+     "on_a_card_about_b": "The general who wants Yo-Yo on the Accords. She steals his medals.",
+     "on_b_card_about_a": "The speedster who steals the medals off Talbot's uniform."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S3#21",
+     "text": "Yo-Yo helps trap Hive and free his hostages while Talbot helps Coulson stop Hive's warhead launch.",
+     "on_a_card_about_b": "The general who helps stop Hive's warhead while Yo-Yo fights Hive.",
+     "on_b_card_about_a": "The speedster who helps trap Hive while Talbot stops his warhead."
+    },
+    {
+     "i": 2,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S5#19",
+     "text": "During the siege of the Lighthouse, Elena leads a handcuffed Talbot to safety, and he greets her as Speedy. He then ices Simmons, absorbs the gravitonium and uses it to tear apart the Remorath attacking Elena.",
+     "on_a_card_about_b": "The general who calls Elena Speedy, then takes the gravitonium for himself.",
+     "on_b_card_about_a": "The agent Talbot calls Speedy, who leads him through the siege."
+    },
+    {
+     "i": 3,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S5#21",
+     "text": "When Elena and Mack come to stop Graviton at his family's home, he crashes their cars and blocks their bullets, then flies off after his son says he is no hero.",
+     "on_a_card_about_b": "The general turned Graviton, who attacks Elena and Mack at his home.",
+     "on_b_card_about_a": "An agent Talbot attacks at his home as Graviton."
+    }
+   ]
+  }
+ },
+ {
+  "n": 18,
+  "type": "question",
+  "id": "fox-charles-xavier-young|fox-moira-mactaggert-young:0",
+  "question": "The pair's first stage is X-Men: Apocalypse, but Charles and Moira meet and work together in X-Men: First Class, which ends with Charles wiping her memory. Should a First Class stage come before this one? (The Apocalypse stage itself checks out.)",
+  "options": [
+   "Add a First Class stage (kind friend or ally): Moira brings Charles to the CIA, they lead the mission against Shaw, and he wipes her memory to keep the school secret",
+   "Leave as is"
+  ],
+  "their_evidence": "X-Men: First Class: CIA officer Moira MacTaggert asks Xavier for advice, takes him to the CIA, joins him on the missions against Shaw, and at the end Xavier wipes her memories to keep his location secret.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=X-Men:_First_Class&action=raw",
+  "connection": {
+   "id": "fox-charles-xavier-young|fox-moira-mactaggert-young:0",
+   "pair": "fox-charles-xavier-young|fox-moira-mactaggert-young",
+   "a": "Charles Xavier",
+   "b": "Moira MacTaggert",
+   "a_desc": "Professor X, head of a school for mutants",
+   "b_desc": "A CIA agent investigating the Hellfire Club",
+   "universe": "FoX-Men",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "X-Men: Apocalypse",
+     "text": "In 1983 Moira does not remember Charles, though he still cares for her. After they defeat Apocalypse, he gives her memory back and they reconcile.",
+     "on_a_card_about_b": "Has forgotten Charles until he restores her memory.",
+     "on_b_card_about_a": "The man Moira remembers again."
+    }
+   ]
+  }
+ },
+ {
+  "n": 19,
+  "type": "question",
+  "id": "st-danielle-cage|st-mr-charles:0",
+  "question": "Danielle is a toddler and never meets Mr. Charles. His operatives attack the house where she is (Born Again S2#6), and he turns out to keep her father Luke working for the CIA overseas (S2#7). Is that enough for a connection under the huge-consequences exception, or should it be dropped?",
+  "options": [
+   "Keep (his actions hit her home and keep her father away)",
+   "Drop the connection (N7)"
+  ],
+  "their_evidence": "Requiem (S2#6): armed operatives attack the Cage-Jones house while Jessica looks after Danielle, who plays with a grenade thrown inside; Jessica fights them off. The Hateful Darkness (S2#7): Jessica confronts Mr. Charles and learns Luke works for the CIA overseas. Danielle and Mr. Charles share no scene.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Requiem&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-danielle-cage|st-mr-charles:0",
+   "pair": "st-danielle-cage|st-mr-charles",
+   "a": "Danielle Cage",
+   "b": "Mr. Charles",
+   "a_desc": "Jessica Jones and Luke Cage's daughter",
+   "b_desc": "A smooth operative with ties to Langley",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Daredevil: Born Again S2#6",
+     "text": "Mr. Charles's armed agents attack the home where Danielle lives with her mother, Jessica Jones.",
+     "on_a_card_about_b": "The CIA operative whose agents attack Danielle's home.",
+     "on_b_card_about_a": "Jessica's daughter, whose home Mr. Charles's agents attack."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Daredevil: Born Again S2#7",
+     "text": "Mr. Charles turns out to be the CIA handler who keeps Danielle's father, Luke Cage, working overseas.",
+     "on_a_card_about_b": "The CIA handler keeping Danielle's dad overseas. His agents attack her home.",
+     "on_b_card_about_a": "Luke's daughter, whose home Mr. Charles's agents attack."
+    }
+   ]
+  }
+ },
+ {
+  "n": 20,
+  "type": "question",
+  "id": "st-edwin-jarvis|tony-stark:0",
+  "question": "What happens on screen between Edwin Jarvis and Tony is only a passing crossing at Camp Lehigh in Avengers: Endgame. Howard asks Jarvis if they have met 'that guy' (Tony, posing as Howard Potts), and Tony and Jarvis never speak. Jarvis looking after young Tony comes from a tie-in comic (Iron Man 2: Public Identity), not from a film or episode. The AI being named after Jarvis is only shown later: VisionQuest#4 'Malware' (Oct 2026) shows Edwin Jarvis's photo among the people Tony based his AIs on. Keep the connection, and if so, how?",
+  "options": [
+   "Drop the connection (N7): no on-screen relationship, only a background crossing at Camp Lehigh",
+   "Keep it under the 'huge consequences' exception: cut 'looks after a young Tony' from the Endgame stage, and add a VisionQuest#4 stage for the J.A.R.V.I.S. namesake",
+   "Keep it as it is"
+  ],
+  "their_evidence": "Fandom's Jarvis page cites the childhood care and the AI namesake to the tie-in comic Iron Man 2: Public Identity. Its Camp Lehigh variant page shows the only Endgame exchange is between Howard and Jarvis about Tony. The VisionQuest 'Malware' page lists James D'Arcy as Edwin Jarvis in archive photos, among records of the people behind Tony's AIs.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Edwin_Jarvis/Camp_Lehigh_Time_Heist&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-edwin-jarvis|tony-stark:0",
+   "pair": "st-edwin-jarvis|tony-stark",
+   "a": "Edwin Jarvis",
+   "b": "Tony Stark",
+   "a_desc": "Howard Stark's loyal butler",
+   "b_desc": "Iron Man",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "Avengers: Endgame",
+     "text": "Edwin Jarvis is the Stark family's butler who looks after a young Tony Stark, and Tony later names his AI after him. Traveling back to 1970, Tony crosses paths with a younger Jarvis at Camp Lehigh.",
+     "on_a_card_about_b": "The young Stark Jarvis looks after. Later names his A.I. after Jarvis.",
+     "on_b_card_about_a": "The family butler who looks after Tony as a boy. Namesake of Tony's A.I."
+    }
+   ]
+  }
+ },
+ {
+  "n": 21,
+  "type": "question",
+  "id": "n-jobu|toussaint:0",
+  "question": "N'Jobu and Toussaint never meet and nothing passes between them: N'Jobu dies in 1992 and does not appear or get named in Black Panther: Wakanda Forever, the stage's own title. The only link is that N'Jobu is his great-uncle by blood. Does a blood tie with no meeting and no on-screen consequence count as a connection?",
+  "options": [
+   "Drop the connection (N7: knowing about is not a connection)",
+   "Keep it as a family connection"
+  ],
+  "their_evidence": "Toussaint (T'Challa II) appears only in the ending of Wakanda Forever. N'Jobu is not in the film's plot or cast, and his only appearance is in Black Panther (2018), set long before Toussaint is born.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Black_Panther:_Wakanda_Forever&action=raw",
+  "connection": {
+   "id": "n-jobu|toussaint:0",
+   "pair": "n-jobu|toussaint",
+   "a": "N'Jobu",
+   "b": "Toussaint",
+   "a_desc": "A Wakandan prince undercover in Oakland",
+   "b_desc": "Nakia's son, raised in Haiti",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "family",
+     "title": "Black Panther: Wakanda Forever",
+     "text": "N'Jobu is King T'Chaka's brother, which makes him the great-uncle of Toussaint through his father, T'Challa. He dies long before Toussaint is born.",
+     "on_a_card_about_b": "N'Jobu's great-nephew, T'Challa's son, born long after N'Jobu's death.",
+     "on_b_card_about_a": "Toussaint's great-uncle, T'Chaka's brother, who died long before he was born."
+    }
+   ]
+  }
+ },
+ {
+  "n": 22,
+  "type": "question",
+  "id": "sv-silvermane-1994|sv-hammerhead-1994:1",
+  "question": "In Tablet of Time Silvermane fires Hammerhead, and Hammerhead goes over to the Kingpin, Silvermane's rival in the gang war. The stage keeps the kind 'boss' although they no longer work together from here on. Should the kind change for where this title leaves them?",
+  "options": [
+   "Keep boss (the cards already say 'until he fires')",
+   "Change to enemy",
+   "Change to rival"
+  ],
+  "their_evidence": "Spider-Man (1994) #24, 'Tablet of Time': 'After getting fired for failing Silvermane, Hammerhead sides with Kingpin.' In #25, 'Ravages of Time', Hammerhead works for the Kingpin during the Kingpin's exchange with Silvermane.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=List_of_Spider-Man:_The_Animated_Series_episodes&action=raw",
+  "connection": {
+   "id": "sv-silvermane-1994|sv-hammerhead-1994:1",
+   "pair": "sv-silvermane-1994|sv-hammerhead-1994",
+   "a": "Silvermane",
+   "b": "Hammerhead",
+   "a_desc": "An aging crime boss",
+   "b_desc": "A flat-headed mob enforcer",
+   "universe": "Spider-Verse",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "Spider-Man (1994)#15",
+     "text": "Hammerhead is Silvermane's enforcer, and Silvermane has him start the war on the Kingpin.",
+     "on_a_card_about_b": "Silvermane's enforcer.",
+     "on_b_card_about_a": "Hammerhead's boss."
+    },
+    {
+     "i": 1,
+     "kind": "boss",
+     "title": "Spider-Man (1994)#24",
+     "text": "Silvermane fires Hammerhead for failing to steal the Tablet of Time, and he goes over to the Kingpin.",
+     "on_a_card_about_b": "Silvermane's enforcer, until Silvermane fires him.",
+     "on_b_card_about_a": "Hammerhead's boss, until he fires Hammerhead."
+    }
+   ]
+  }
+ },
+ {
+  "n": 23,
+  "type": "question",
+  "id": "sv-debra-whitman-1994|sv-michael-morbius-1994:0",
+  "question": "The only stage sits on Spider-Man (1994)#47, but its first sentence (Morbius is Debra's ESU lab partner, she has a crush on him, he turns her down for Felicia) describes their Season 2 setup, when Morbius was still a human ESU student (#14 'The Insidious Six' to #19 'Morbius'). Should the connection start earlier with its own stage, leaving #47 for her part in finding and reviving him?",
+  "options": [
+   "Keep the single stage on #47 as is",
+   "Add a first stage on Spider-Man (1994)#19 (lab partners, her crush, he picks Felicia) and keep #47 for the search and revival"
+  ],
+  "their_evidence": "Marvel Animated wiki: Debra 'developed a crush on Michael Morbius, though he showed interest in Felicia Hardy'. Morbius was a human ESU student in Season 2 (appears in 'The Insidious Six', 'Battle of the Insidious Six', 'Morbius'). The Morbius page says he 'hibernated until Debra Whitman and Herbert Landon revived him' in 'The Awakening' (#47). I could not find an episode-level source showing Debra on screen with him in Season 2, so this is not a proposed change.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Debra_Whitman&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-debra-whitman-1994|sv-michael-morbius-1994:0",
+   "pair": "sv-debra-whitman-1994|sv-michael-morbius-1994",
+   "a": "Debra Whitman",
+   "b": "Michael Morbius",
+   "a_desc": "An ESU science student",
+   "b_desc": "A vampire fighting his hunger",
+   "universe": "Spider-Verse",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "Spider-Man (1994)#47",
+     "text": "Michael Morbius is Debra's lab partner, and she has a crush on him, but he gently turns her down for Felicia. After he disappears, she leads the search to find him.",
+     "on_a_card_about_b": "Debra's lab partner and crush.",
+     "on_b_card_about_a": "Morbius's lab partner."
+    }
+   ]
+  }
+ },
+ {
+  "n": 24,
+  "type": "question",
+  "id": "st-grant-ward|st-lorelei:0",
+  "question": "Should Ward and Lorelei stay 'partner'? Their only link is a one-episode enchantment: she makes him her enthralled slave (and they share a room in Las Vegas) until Sif captures her. Before the spell, Ward was trying to arrest her.",
+  "options": [
+   "Keep partner",
+   "Change to enemy"
+  ],
+  "their_evidence": "Yes Men (S1#15): Ward holds Lorelei at gunpoint and orders her to surrender, then she enthralls him and makes him her loyal slave. They go to Las Vegas and sleep at Caesars Palace, and he turns on the team until Sif takes her back. Under the brief's rule, a brief fling doesn't make partners.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Lorelei&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-grant-ward|st-lorelei:0",
+   "pair": "st-grant-ward|st-lorelei",
+   "a": "Grant Ward",
+   "b": "Lorelei",
+   "a_desc": "A S.H.I.E.L.D. specialist exposed as a HYDRA mole",
+   "b_desc": "An Asgardian enchantress",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "partner",
+     "title": "Agents of S.H.I.E.L.D. S1#15",
+     "text": "Lorelei, an escaped Asgardian sorceress, enchants Grant Ward with her power over men and makes him her lover and servant. Under her spell he turns on his own team until Sif captures her.",
+     "on_a_card_about_b": "Asgardian sorceress who enchants Ward into her lover and servant.",
+     "on_b_card_about_a": "Agent Lorelei enchants into her lover and servant."
+    }
+   ]
+  }
+ },
+ {
+  "n": 25,
+  "type": "question",
+  "id": "st-holden-radcliffe|st-jemma-simmons:0",
+  "question": "The first stage is at S4#3, but Jemma and Radcliffe first meet in S3#18 ('The Singularity'), when she and Fitz try to recruit him in Bucharest, and they work together against Hive in the two-part S3 finale (S3#21-22). Add an earlier stage?",
+  "options": [
+   "Leave as is",
+   "Add a stage at Agents of S.H.I.E.L.D. S3#18 (they meet in Bucharest; Hive takes him)",
+   "Add a stage at the S3 finale (they work together against Hive)"
+  ],
+  "their_evidence": "Radcliffe tests Fitz and Simmons in Bucharest (The Singularity). Later he works with Simmons at the Playground against Hive's Primitives, and afterwards with FitzSimmons on his research.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-holden-radcliffe|st-jemma-simmons:0",
+   "pair": "st-holden-radcliffe|st-jemma-simmons",
+   "a": "Holden Radcliffe",
+   "b": "Jemma Simmons",
+   "a_desc": "A scientist obsessed with transhumanism",
+   "b_desc": "A S.H.I.E.L.D. biochemist",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S4#3",
+     "text": "Jemma Simmons works with Holden Radcliffe to save Melinda May's life, killing and reviving her.",
+     "on_a_card_about_b": "Scientist who works with Radcliffe to save May.",
+     "on_b_card_about_a": "Scientist Jemma works with to save May."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#17",
+     "text": "Jemma distrusts Radcliffe's android Aida. When he betrays S.H.I.E.L.D. and traps her friends in the Framework, Jemma goes in after them and confronts him there.",
+     "on_a_card_about_b": "Scientist who works with Radcliffe, then confronts him in the Framework.",
+     "on_b_card_about_a": "Scientist Jemma works with. Betrays S.H.I.E.L.D. and traps her friends."
+    }
+   ]
+  }
+ },
+ {
+  "n": 26,
+  "type": "question",
+  "id": "bucky-barnes|peter-parker:1",
+  "question": "Bucky and Peter share no on-screen moment in Avengers: Endgame; they only fight in the same Battle of Earth. Shared battles are not a connection by themselves, and Bucky's card line ('now on Peter's side') and Peter's ('now on the same side against Thanos') read as live news, which the binding rules forbid. Should this ally stage stay?",
+  "options": [
+   "Keep the ally stage as is",
+   "Keep the stage but reword the card lines without 'now'",
+   "Remove the stage, so the pair ends at the Civil War rival stage"
+  ],
+  "their_evidence": "The Endgame plot has both of them in the final battle against Thanos's army with no scene between them. The only scene they share is the Leipzig airport fight in Captain America: Civil War.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Avengers:_Endgame&action=raw",
+  "connection": {
+   "id": "bucky-barnes|peter-parker:1",
+   "pair": "bucky-barnes|peter-parker",
+   "a": "Bucky Barnes",
+   "b": "Peter Parker",
+   "a_desc": "A congressman and one of the New Avengers",
+   "b_desc": "Spider-Man, forgotten by the world",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "rival",
+     "title": "Captain America: Civil War",
+     "text": "Peter Parker and Bucky Barnes are on opposite sides of the Sokovia Accords split. Peter takes him on for Tony Stark at the Leipzig airport, catching his metal fist and marveling at the arm.",
+     "on_a_card_about_b": "Spider-Man, on Tony's side. Catches Bucky's metal fist at Leipzig.",
+     "on_b_card_about_a": "A foe at Leipzig, whose metal fist Peter catches and marvels at."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Avengers: Endgame",
+     "text": "Peter Parker and Bucky Barnes fight on the same side in the Battle of Earth.",
+     "on_a_card_about_b": "Spider-Man. Fought Bucky at Leipzig, now on the same side against Thanos.",
+     "on_b_card_about_a": "The metal-armed foe from Leipzig, now on Peter's side in the Battle of Earth."
+    }
+   ]
+  }
+ },
+ {
+  "n": 27,
+  "type": "question",
+  "id": "st-eddy-costa|st-trish-walker:0",
+  "question": "Is 'enemy' right as Costa and Trish's through-line from Jessica Jones S2#4? The arrest is a one-off scuffle. Later in S2 (#12 to #13) Costa puts Trish in protective custody at the hospital, checks on her and gives her his card. MCU Wiki lists Trish as Costa's 'Former Ally'. The S3#13 stage covers his later arrest of her.",
+  "options": [
+   "Keep enemy",
+   "Change the S2#4 stage kind to ally (Trish's arrest in S3#13 stays enemy)"
+  ],
+  "their_evidence": "In S2#4 Costa arrests Jessica, and Trish is held down after shoving Ruth Sunday aside. In S2 'AKA Pray for My Patsy' and 'AKA Playland', Costa keeps Trish under police protection at Riverbank Medical Center, visits her and gives her his personal card.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Eddy_Costa&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-eddy-costa|st-trish-walker:0",
+   "pair": "st-eddy-costa|st-trish-walker",
+   "a": "Eddy Costa",
+   "b": "Trish Walker",
+   "a_desc": "An NYPD detective",
+   "b_desc": "A masked vigilante",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Jessica Jones S2#4",
+     "text": "Detective Eddy Costa arrests Trish when she shoves her way into Jessica's arrest.",
+     "on_a_card_about_b": "Jessica's adoptive sister, arrested by Costa.",
+     "on_b_card_about_a": "Detective who arrests Trish."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Jessica Jones S3#13",
+     "text": "Once Trish becomes a killer vigilante, Costa works with Jessica to bring her in, then charges her with murder.",
+     "on_a_card_about_b": "Jessica's adoptive sister, hunted as a killer vigilante.",
+     "on_b_card_about_a": "Detective who works with Jessica to bring Trish in."
+    }
+   ]
+  }
+ }
+]

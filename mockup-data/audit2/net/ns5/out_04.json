@@ -1,0 +1,111 @@
+{
+ "checked": [
+  "fox-john-grey|fox-vuk:0",
+  "hank-pym|peggy-carter:0",
+  "sv-j-jonah-jameson-ssm|sv-ned-lee-ssm:0",
+  "st-carson-wolf|st-frank-castle:0",
+  "nick-fury|phil-coulson:1",
+  "sv-cat-hardy|sv-jimmy-addison-noir:0",
+  "st-eli-morrow|st-lucy-bauer:0",
+  "fox-anim-professor-x|fox-anim-jean-grey:2",
+  "jim-paxton|scott-lang:0",
+  "fox-anim-storm|fox-anim-shadow-king:0",
+  "pr-st-nico-minoru|pr-st-karolina-dean:1",
+  "pr-blade|pr-kounen:0",
+  "st-gillian|st-malcolm-ducasse:0",
+  "jentorra|veb:0",
+  "pr-krista-starr|pr-marcus-van-sciver:0",
+  "by-captain-carter|by-rogers-hood:0",
+  "emil-blonsky|jennifer-walters:1",
+  "sv-miles-morales|sv-pavitr-prabhakar:0",
+  "st-john-garrett|st-leo-fitz:1",
+  "sv-knull|sv-eddie-brock-sony:0",
+  "sv-eddie-brock-sony|sv-dora-skirth:0",
+  "st-elena-rodriguez|st-glenn-talbot:1",
+  "fox-wolverine|fox-harada:0",
+  "by-zombie-kamala|by-zombie-yelena:2",
+  "st-anatoly-ranskahov|st-kingpin:0",
+  "fox-charles-xavier-17315|fox-donald-pierce:0",
+  "st-buck-cashman|st-daniel-blake:0",
+  "pr-st-brigid-oreilly|pr-st-james-connors:4",
+  "st-davis|phil-coulson:0",
+  "abu-bakaar|ho-yinsen:0",
+  "fox-anim-professor-x|fox-anim-apocalypse:3",
+  "jentorra|scott-lang:0",
+  "alioth|cassandra-nova:0",
+  "bruce-banner|korg:1",
+  "st-diamondback|st-james-lucas:0",
+  "clint-barton|kazi:1",
+  "mr-immortal|nikki-ramos:0",
+  "jason-quill|peter-quill:0",
+  "pr-st-molly-hernandez|pr-st-leslie-dean:0",
+  "st-jessica-jones|st-malcolm-ducasse:2",
+  "darren-cross|scott-lang:1",
+  "aisha|najma:0",
+  "st-curtis-hoyle|st-frank-castle:0",
+  "helmut-zemo|wilfred-nagel:0",
+  "agatha-harkness|tommy-maximoff:3",
+  "st-bullseye|st-ray-nadeem:0",
+  "howard-stark|st-roger-dooley:1",
+  "by-zombie-bruce-banner|by-zombie-sara:0",
+  "steve-rogers|vision:1",
+  "st-melinda-may|st-sinara:0"
+ ],
+ "changes": [
+  {
+   "id": "st-buck-cashman|st-daniel-blake:0",
+   "pair": "st-buck-cashman|st-daniel-blake",
+   "a": "Buck Cashman",
+   "b": "Daniel Blake",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Daredevil: Born Again S2#7",
+    "text": "Buck Cashman supervises Daniel Blake as Blake rises on Fisk's staff. When Blake refuses to give up BB Urich as the leaker, Cashman kills him.",
+    "on_a_card_about_b": "Buck's charge on Fisk's staff. Refuses to give up BB Urich, so Buck kills him.",
+    "on_b_card_about_a": "Blake's supervisor on Fisk's staff. Kills Blake for refusing to give up BB Urich."
+   },
+   "proposed": {
+    "text": "Buck Cashman oversees Daniel Blake on Fisk's staff. After Blake lets BB Urich escape, Cashman tortures him, and when Blake refuses to say where she is, Cashman kills him."
+   },
+   "evidence": "In Daredevil: Born Again S2#7 ('The Hateful Darkness') Blake nearly hands BB to Cashman but lets her escape; Cashman tortures Blake, who refuses to give up BB's location, then kills him. BB was already known to them as the leaker (in S2#6 Cashman tells Blake to feed BB false information), so 'refuses to give up BB Urich as the leaker' is wrong.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again_season_2&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "pr-krista-starr|pr-marcus-van-sciver:0",
+   "question": "Stage 0 sits on the first episode (Blade: The Series, part 1 of the two-part pilot) but describes Krista spying on Marcus for Blade as his lover. That only becomes possible after Marcus turns her and Blade recruits her (stage 1, #2), so stage 0 is earlier than what it says has happened. How should it be fixed?",
+   "options": [
+    "Move stage 0 after stage 1, to the episode where Krista and Marcus first become lovers (episode not pinned down from sources here)",
+    "Rewrite stage 0 as the first-episode setup only (Krista hunts her twin brother's killer, Marcus) with kind enemy, and add a later partner stage",
+    "Merge stage 0 into stage 1 and keep stage 2"
+   ],
+   "evidence": "Wikipedia premise: Marcus turns Krista into a vampire, then Blade injects her with his serum and recruits her; the rest of the season follows her keeping her cover in the House of Chthon while her feelings for Marcus grow. The pilot 'House of Chthon' is episodes 1 and 2.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Blade:_The_Series&action=raw"
+  },
+  {
+   "id": "howard-stark|st-roger-dooley:1",
+   "question": "Do Howard and Dooley ever meet on screen? Dooley hunts Howard through Agent Carter S1#1-7 and dies in S1#7 wearing Howard's heat vest, but Howard only comes to the SSR in S1#8 (Dooley is only mentioned there). If they never share a scene, does the connection pass N7 under the huge-consequences exception, or should it be dropped?",
+   "options": [
+    "Keep it (Howard's case and vest have huge consequences for Dooley)",
+    "Drop the connection (Dooley only knows about Howard)"
+   ],
+   "evidence": "MCU wiki appearance list for Roger Dooley: AC101-AC107 on screen, AC108 mentioned only. His death scene is in the Stark Heat Vest in SNAFU (S1#7).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Roger_Dooley&prop=wikitext&format=json"
+  },
+  {
+   "id": "st-elena-rodriguez|st-glenn-talbot:1",
+   "question": "The stage text is true, but it describes two separate actions (Yo-Yo traps Hive and frees the hostages; Talbot's military contacts help stop the launch) with nothing happening between Elena and Talbot. Keep it, or remove it as a stage with no interaction between them?",
+   "options": [
+    "Keep as is",
+    "Remove stage 1"
+   ],
+   "evidence": "Agents of S.H.I.E.L.D. S3#21 'Absolution': Coulson and Fitz, with Talbot's help, stop the warhead launch, while Yo-Yo finishes Mack's memory machine, frees Hive's hostages and traps Hive in the suspension-gel cage. No scene between Yo-Yo and Talbot is described.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Yo-Yo_Rodriguez&prop=wikitext&format=json"
+  }
+ ]
+}
