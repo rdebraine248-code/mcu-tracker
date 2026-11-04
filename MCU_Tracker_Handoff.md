@@ -129,7 +129,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v138 (4 November 2026, the audit's end: everything on the working branch, ahead of main until the owner says push) and carries the landscape mockup, which only it has. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v138 (4 November 2026) and matches main (0695617, pushed 4 November 2026: the audit's end) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
