@@ -1,0 +1,43 @@
+{"checked": 10,
+ "adds": [
+  {"pair": "thor|nebula", "kind": "ally", "title": "Thor: Love and Thunder",
+   "text": "Thor travels and trains with the Guardians, and stops Nebula when she tries to kill the screaming goats he brings aboard the Benatar. The team parts ways with him when he leaves to answer Sif's call.",
+   "on_a_card_about_b": "A Guardians teammate who tries to kill the goats Thor brings aboard.",
+   "on_b_card_about_a": "A teammate who stops Nebula killing his goats, then leaves to help Sif.",
+   "evidence": "On the Benatar the Guardians argue with Thor over Toothgrinder and Toothgnasher; Nebula and Mantis try to kill the goats and Thor stops them. Thor then leaves the team to save Sif and the Guardians say goodbye (Thor: Love and Thunder).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nebula&prop=wikitext&format=json", "confidence": "high"},
+  {"pair": "thor|drax", "kind": "ally", "title": "Thor: Love and Thunder",
+   "text": "Drax fights beside Thor on the Guardians' missions and defends the goats Thor brings aboard the Benatar when the others want them gone. The team parts ways with Thor when he leaves to answer Sif's call.",
+   "on_a_card_about_b": "A Guardians teammate who loves the goats Thor brings aboard.",
+   "on_b_card_about_a": "A teammate who brings goats aboard, then leaves to help Sif.",
+   "evidence": "Drax and the Guardians help Thor get back in shape and fight with him on missions; on the Benatar, during the argument with Thor over Toothgrinder and Toothgnasher, Drax says he loves the goats and calms them. Thor then leaves to help Sif and the Guardians say goodbye (Thor: Love and Thunder).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Drax_the_Destroyer&prop=wikitext&format=json", "confidence": "high"},
+  {"pair": "thor|miek", "kind": "friend", "title": "Thor: Love and Thunder",
+   "text": "In the New Asgard town hall, Miek writes Thor's rescue plan on a whiteboard as he speaks. Thor asks her to stop the noise, then has her write down his last point.",
+   "on_a_card_about_b": "Korg's friend. Writes up Thor's rescue plan in the town hall.",
+   "on_b_card_about_a": "A friend whose rescue speech Miek writes on the whiteboard.",
+   "evidence": "After Gorr's attack on New Asgard, Miek is reunited with Thor in the town hall and writes every word of his rescue speech on the whiteboard; Thor asks her to stop the noise, then asks her to write down the last point. She later sees him off at the docks (Thor: Love and Thunder).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Miek&prop=wikitext&format=json", "confidence": "high"},
+  {"pair": "valkyrie|miek", "kind": "boss", "title": "Thor: Love and Thunder",
+   "text": "Miek works as Valkyrie's secretary in New Asgard and helps her open the town's new businesses. After Gorr's attack, Valkyrie orders her to find out which children have been taken.",
+   "on_a_card_about_b": "Her secretary in New Asgard. Tracks down the families of the taken children.",
+   "on_b_card_about_a": "The king Miek works for as secretary.",
+   "evidence": "Valkyrie appoints Miek as her secretary and they open Infinity Conez together; in the town hall after the attack, Valkyrie gives orders to Miek and Darryl to work out which children were taken (Thor: Love and Thunder). The relationship turns from fellow rebels to king and secretary.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Valkyrie&prop=wikitext&format=json", "confidence": "high"},
+  {"pair": "groot|kraglin", "kind": "ally", "title": "Thor: Love and Thunder",
+   "text": "Kraglin returns to the Benatar with Glenda, a new wife he married while keeping watch on Indigarr, catching Groot by surprise.",
+   "on_a_card_about_b": "A fellow Guardian who comes back from Indigarr with a new wife.",
+   "on_b_card_about_a": "A teammate surprised by Kraglin's new wife.",
+   "evidence": "After the Battle of Indigarr, Kraglin introduces his new wife Glenda to the Guardians on the Benatar, which surprises and amuses Groot (Thor: Love and Thunder).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kraglin_Obfonteri&prop=wikitext&format=json", "confidence": "medium"}
+ ],
+ "none": [
+  {"pair": "jane-foster|sif", "title": "Thor: Love and Thunder", "why": "Sif is found by Thor and Korg on Falligar and taken to the infirmary; she and Jane never share a scene or exchange. Sif trains the children at the end, after Jane's death."},
+  {"pair": "heimdall|korg", "title": "Thor: Love and Thunder", "why": "Heimdall appears only in the post-credits scene in Valhalla welcoming Jane; Korg is not there."},
+  {"pair": "thor|darcy-lewis", "title": "Thor: Love and Thunder", "why": "Darcy appears only with Jane during her chemotherapy and suggests Jane go to New Asgard; she never deals with Thor."},
+  {"pair": "heimdall|sif", "title": "Thor: Love and Thunder", "why": "Heimdall appears only in the Valhalla post-credits scene with Jane; Sif trains his son Axl, but she and Heimdall never deal with each other."},
+  {"pair": "groot|mantis", "title": "Thor: Love and Thunder", "why": "Both are on the Guardians in the opening missions and on the Benatar, but no exchange between the two of them is shown (Mantis teams with Nebula over the goats; Groot squabbles with Rocket and reacts to Kraglin)."}
+ ],
+ "owner_calls": [
+  {"pair": "groot|mantis", "title": "Thor: Love and Thunder", "question": "Groot and Mantis are teammates fighting together in the swamp and on Indigarr and share the Benatar scenes, but have no one-on-one exchange. Add a stage for being on the same team here, or leave it?", "options": ["Leave it (no stage)", "Add an ally/friend stage for fighting together as Guardians"], "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Mantis&prop=wikitext&format=json"}
+ ]}

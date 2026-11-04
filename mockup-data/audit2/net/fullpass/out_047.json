@@ -1,0 +1,234 @@
+{
+ "checked": 25,
+ "adds": [
+  {
+   "pair": "ned-leeds|peter-parker",
+   "kind": "friend",
+   "title": "Peter's To-Do List",
+   "text": "Before their class trip to Europe, Peter tells Ned about the errands he has to run, from picking up his passport to taking down the Manfredi crime family.",
+   "on_a_card_about_b": "Tells Ned his to-do list before Europe, crime family included.",
+   "on_b_card_about_a": "Hears Peter's to-do list before the class trip to Europe.",
+   "evidence": "Plot: 'On the eve of his departure to Europe, Peter Parker tells Ned Leeds that he has several things to do before they leave', including taking down the Manfredi Crime Family.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Peter%27s_To-Do_List&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "flash-thompson|peter-parker",
+   "kind": "rival",
+   "title": "Peter's To-Do List",
+   "text": "On the last day of school, Flash throws a wad of paper at Peter as he walks past his locker.",
+   "on_a_card_about_b": "A classmate Flash pelts with a wad of paper on the last day of school.",
+   "on_b_card_about_a": "Classmate who throws a wad of paper at Peter on the last day of school.",
+   "evidence": "Flash Thompson page (ref PTDL): 'On their last day of school, Thompson threw a wad of paper at Peter Parker as he and Ned Leeds walked past his locker.' Flash is in the short's cast.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Flash_Thompson&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "michelle-jones|ned-leeds",
+   "kind": "friend",
+   "title": "Spider-Man: Brand New Day",
+   "text": "After graduating from MIT, MJ and Ned move back to New York and share an apartment, where they invite a masked Spider-Man over and bond with him.",
+   "on_a_card_about_b": "Shares an apartment with MJ back in New York after MIT.",
+   "on_b_card_about_a": "Shares an apartment with Ned back in New York after MIT.",
+   "evidence": "Plot: 'Ned and MJ move back to New York after graduating from MIT'; MJ 'invites him to her and Ned's apartment, where a masked Parker bonds with them both.'",
+   "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man:_Brand_New_Day&action=raw",
+   "confidence": "high"
+  },
+  {
+   "pair": "fox-wolverine|fox-charles-xavier",
+   "kind": "mentor",
+   "title": "The Wolverine",
+   "text": "Two years after Japan, Xavier, long believed dead, reveals himself to Logan at an airport and backs Magneto's warning about a weapon that could end the mutant race.",
+   "on_a_card_about_b": "Believed dead, returns to warn Logan of a threat to all mutants.",
+   "on_b_card_about_a": "The X-Man Xavier comes back to warn of a threat to all mutants.",
+   "evidence": "Mid-credits scene: Logan, back in the US two years later, is approached at the airport by Erik, who warns of a weapon that would end the mutant race; Logan refuses to believe him until Charles Xavier, presumed dead, reveals himself working alongside Erik.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Wolverine_(film)&action=raw",
+   "confidence": "high"
+  },
+  {
+   "pair": "fox-wolverine|fox-magneto",
+   "kind": "ally",
+   "title": "The Wolverine",
+   "text": "Magneto approaches Logan at an airport and warns him that humans are building a weapon that would end the mutant race. Logan does not believe him until Xavier appears at Magneto's side.",
+   "on_a_card_about_b": "Warns Logan of a weapon built to end the mutant race.",
+   "on_b_card_about_a": "An X-Man Magneto warns of a weapon built to end the mutant race.",
+   "evidence": "Mid-credits scene: Erik Lehnsherr approaches Logan at the airport and warns him of a weapon humans are creating that would end the mutant race; Logan refuses to believe him until Xavier reveals he is working with Erik.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Wolverine_(film)&action=raw",
+   "confidence": "high"
+  },
+  {
+   "pair": "fox-charles-xavier|fox-magneto",
+   "kind": "ally",
+   "title": "The Wolverine",
+   "text": "Charles, long believed dead, is working alongside Erik again, and the two come to Logan together to warn him of a threat to all mutants.",
+   "on_a_card_about_b": "Charles's old rival, working beside him again.",
+   "on_b_card_about_a": "Believed dead, now working beside Erik again.",
+   "evidence": "Mid-credits scene: Xavier, presumed dead after The Last Stand, reveals himself to be working alongside Lehnsherr as Erik warns Logan at the airport.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Wolverine_(film)&action=raw",
+   "confidence": "high"
+  },
+  {
+   "pair": "pr-mister-fantastic|pr-the-thing",
+   "kind": "friend",
+   "title": "Fantastic Four: Rise of the Silver Surfer",
+   "text": "Ben throws Reed a bachelor party before his wedding to Sue and gets him onto the dance floor, then fights beside him against the Surfer and Doom.",
+   "on_a_card_about_b": "Throws Reed a bachelor party before the wedding.",
+   "on_b_card_about_a": "Ben's best friend, whose bachelor party he throws.",
+   "evidence": "Early in the film Reed attends a bachelor party (Sue: 'I'm glad you had fun... nothing compared to what I did at my bachelorette party'); Ben hosts it and pushes Reed to dance. The team then fights the Surfer and Doom together (Ben knocks Doom off the board).",
+   "source": "https://en.wikiquote.org/w/index.php?title=Fantastic_Four:_Rise_of_the_Silver_Surfer&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "pair": "pr-the-thing|pr-human-torch",
+   "kind": "friend",
+   "title": "Fantastic Four: Rise of the Silver Surfer",
+   "text": "After the Surfer leaves Johnny able to swap powers by touch, Ben trades powers with him for a moment. Later, when Johnny takes the whole team's powers to fight Doom, Ben knocks Doom off the board with a crane.",
+   "on_a_card_about_b": "Swaps powers with Ben for a moment, then takes on Doom with his help.",
+   "on_b_card_about_a": "Swaps powers with Johnny, then knocks Doom off the board for him.",
+   "evidence": "Ben 'enjoyed the opportunity to briefly swap powers with Johnny to demonstrate Johnny's odd condition'; when Johnny borrows the team's powers to oppose Victor, 'Ben uses a demolition crane to knock Doom off the Surfer's board'.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Benjamin_Grimm_(Earth-121698)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "pr-invisible-woman|pr-the-thing",
+   "kind": "friend",
+   "title": "Fantastic Four: Rise of the Silver Surfer",
+   "text": "In London, Sue holds the falling London Eye level with a force field so Ben can lift it back into place and save its riders.",
+   "on_a_card_about_b": "Lifts the London Eye back into place while Sue holds it level.",
+   "on_b_card_about_a": "Holds the London Eye level so Ben can lift it back.",
+   "evidence": "The team saves the London Eye and its passengers in London; Sue's force fields 'level a large building structure so Ben could lift it back into place', and Ben lifts 'a large building structure (about 1,000 tons) with Sue leveling it'.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Susan_Storm_(Earth-121698)&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "pair": "bruce-banner|wong",
+   "kind": "ally",
+   "title": "Shang-Chi and the Legend of the Ten Rings",
+   "text": "Wong calls Bruce and Carol in to Kamar-Taj to study the Ten Rings with Shang-Chi and Katy, and they find the rings are sending out a beacon.",
+   "on_a_card_about_b": "Calls Bruce in to study the Ten Rings at Kamar-Taj.",
+   "on_b_card_about_a": "The scientist Wong calls in to study the Ten Rings.",
+   "evidence": "Mid-credits scene: 'Wong introduces Shang-Chi and Katy to Bruce Banner and Carol Danvers and the group discusses the origins of the rings. They discover that the rings are acting as a beacon.'",
+   "source": "https://en.wikipedia.org/w/index.php?title=Shang-Chi_and_the_Legend_of_the_Ten_Rings&action=raw",
+   "confidence": "high"
+  },
+  {
+   "pair": "pr-st-molly-hernandez|pr-st-geoffrey-wilder",
+   "kind": "ally",
+   "title": "Runaways S1–S2#16",
+   "text": "Breaking into the Church of Gibborim, Molly rips open the box holding Geoffrey and carries him back to the Hostel.",
+   "on_a_card_about_b": "Alex's father. Molly frees him from a box at the church and carries him out.",
+   "on_b_card_about_a": "The girl who frees Geoffrey from a box and carries him to safety.",
+   "evidence": "S2E6 (running #16): at the Church of Gibborim the Runaways find two Dematerialization Boxes; 'Hernandez ripped open the other to find Geoffrey Wilder. Hernandez used her strength to carry him out of the room and back to the Hostel.' (ref RW206)",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Molly_Hernandez&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-eddie-brock-sony|sv-dan-lewis",
+   "kind": "friend",
+   "title": "Venom: Let There Be Carnage",
+   "text": "When Frances takes Anne, Dan calls Eddie to tell him where she is, then helps him at Grace Cathedral by setting Carnage on fire.",
+   "on_a_card_about_b": "Calls Eddie when Anne is taken, then sets Carnage on fire.",
+   "on_b_card_about_a": "Anne's ex, whom Dan calls when Frances takes her.",
+   "evidence": "Eddie advises Dan and Anne to leave San Francisco; after Shriek abducts Anne, Dan 'called Brock and told him that Shriek and Kasady captured Weying and took her to Grace Cathedral', then 'doused Carnage with burning gasoline'.",
+   "source": "https://sonys-spider-man-universe.fandom.com/api.php?action=parse&page=Dan_Lewis&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-eddie-brock-sony|sv-mrs-chen",
+   "kind": "friend",
+   "title": "Venom: Let There Be Carnage",
+   "text": "Mrs. Chen keeps Eddie supplied with chocolate in exchange for Venom guarding her store. When Anne comes looking for Venom, she scolds her for breaking Eddie's heart.",
+   "on_a_card_about_b": "Trades chocolate for Venom guarding her store.",
+   "on_b_card_about_a": "A friend whose Venom guards Mrs. Chen's store.",
+   "evidence": "Mrs. Chen 'made a deal with Eddie, so he would protect her as Venom in exchange for chocolate supplies' (ref Let There Be Carnage); she 'angrily accuse[s] [Anne] of breaking Eddie Brock's heart'.",
+   "source": "https://sonys-spider-man-universe.fandom.com/api.php?action=parse&page=Mrs._Chen&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "none": [
+  {
+   "pair": "ned-leeds|flash-thompson",
+   "title": "Peter's To-Do List",
+   "why": "Flash's only moment is throwing a wad of paper at Peter while Ned walks beside him; nothing passes between Flash and Ned."
+  },
+  {
+   "pair": "may-parker|michelle-jones",
+   "title": "Spider-Man: Brand New Day",
+   "why": "May is dead; she appears only as a memory inside Peter's mind and at her grave, never with MJ."
+  },
+  {
+   "pair": "may-parker|ned-leeds",
+   "title": "Spider-Man: Brand New Day",
+   "why": "May is dead; she appears only as a memory inside Peter's mind and at her grave, never with Ned."
+  },
+  {
+   "pair": "sv-anne-weying|sv-carnage-sony",
+   "title": "Venom",
+   "why": "Kasady appears only in Eddie's prison interview at the end; Anne is not there and never deals with him."
+  },
+  {
+   "pair": "sv-venom-sony|sv-carnage-sony",
+   "title": "Venom",
+   "why": "Kasady speaks only with Eddie in the prison interview; Venom, though bonded to Eddie, has no exchange with him (raised as an owner call)."
+  },
+  {
+   "pair": "sv-anne-weying|sv-mrs-chen",
+   "title": "Venom",
+   "why": "Mrs. Chen's scenes are with Eddie and Venom at her store; Anne never meets her here."
+  },
+  {
+   "pair": "bruce-banner|emil-blonsky",
+   "title": "Shang-Chi and the Legend of the Ten Rings",
+   "why": "Blonsky fights Wong at Xialing's fight club; Bruce appears only at Kamar-Taj with Wong and Carol. No exchange between them."
+  },
+  {
+   "pair": "bruce-banner|tony-stark",
+   "title": "The Incredible Hulk",
+   "why": "Tony appears only in the closing bar scene with Ross; he never meets or deals with Bruce here."
+  },
+  {
+   "pair": "samuel-sterns|thaddeus-ross",
+   "title": "The Incredible Hulk",
+   "why": "Ross's forces take Banner and Betty from Sterns's lab, but Ross never deals with Sterns; Sterns is questioned by Sparr and then forced by Blonsky."
+  },
+  {
+   "pair": "bucky-barnes|nick-fury",
+   "title": "Captain America: The First Avenger",
+   "why": "Fury appears only in the present day with Steve; Bucky is in the 1940s story. They never meet here."
+  },
+  {
+   "pair": "dum-dum-dugan|howard-stark",
+   "title": "Captain America: The First Avenger",
+   "why": "Dugan only passes on to Steve that Howard wants him to test new gear; Howard and Dugan share no scene or exchange."
+  },
+  {
+   "pair": "pr-st-molly-hernandez|pr-st-xavin",
+   "title": "Runaways S1–S2",
+   "why": "Xavin appears only in the last episodes, dealing with Karolina and Leslie; Molly's scenes there never involve Xavin, and the two first team up in S3."
+  }
+ ],
+ "owner_calls": [
+  {
+   "pair": "sv-venom-sony|sv-carnage-sony",
+   "title": "Venom",
+   "question": "Kasady's prison interview is with Eddie while Venom is bonded inside him but silent. Does Venom being present through Eddie count as dealing with Kasady here, for a stage in Venom?",
+   "options": [
+    "No stage in Venom (proposed)",
+    "Add an enemy stage in Venom: Kasady promises carnage to Eddie and Venom"
+   ],
+   "evidence": "Eddie later interviews Cletus Kasady, who promises 'carnage' when he escapes; the symbiote is secretly bonded to Eddie.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Venom_(2018_film)&action=raw"
+  },
+  {
+   "pair": "ned-leeds|flash-thompson",
+   "title": "Peter's To-Do List",
+   "question": "Flash throws a wad of paper at Peter as Peter and Ned walk past his locker. Is sharing that moment enough for a Ned|Flash stage here?",
+   "options": [
+    "No stage (proposed)",
+    "Add a rival stage: Flash jeers at Peter and Ned as they pass his locker"
+   ],
+   "evidence": "'Thompson threw a wad of paper at Peter Parker as he and Ned Leeds walked past his locker.'",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Flash_Thompson&prop=wikitext&format=json"
+  }
+ ]
+}

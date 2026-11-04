@@ -1,0 +1,41 @@
+{"checked": 13,
+ "adds": [
+  {"pair": "bucky-barnes|sam-wilson", "kind": "ally", "title": "Ant-Man",
+   "text": "Sam Wilson and Steve Rogers have Bucky Barnes in their custody. Unable to turn to Tony Stark because of the Accords, Sam says he knows someone who can help.",
+   "on_a_card_about_b": "Holds Bucky in custody with Steve, and knows someone who can help.",
+   "on_b_card_about_a": "Held in custody by Sam and Steve, who can't turn to Tony.",
+   "evidence": "Post-credits scene of Ant-Man: Steve Rogers and Sam Wilson have Bucky Barnes in their custody; they can't contact Tony Stark because of the Accords and Wilson says he knows someone who can help. Credits scenes belong to their film. Bucky is restrained and silent, so the dealing is one-sided (Sam acting on him).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ant-Man_(film)&action=raw", "confidence": "medium"},
+  {"pair": "bucky-barnes|steve-rogers", "kind": "friend", "title": "Ant-Man",
+   "text": "Steve Rogers finally has Bucky Barnes, holding him in custody with Sam Wilson. Unable to turn to Tony Stark because of the Accords, Steve fears they are on their own.",
+   "on_a_card_about_b": "Bucky's best friend. Holds him in custody, unable to turn to Tony.",
+   "on_b_card_about_a": "Steve's best friend, finally found and held in custody.",
+   "evidence": "Post-credits scene of Ant-Man: Rogers and Wilson have found Bucky Barnes and hold him; unable to contact Tony Stark because of the Accords, Rogers fears they are on their own. Credits scenes belong to their film.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ant-Man_(film)&prop=wikitext&format=json", "confidence": "medium"},
+  {"pair": "sam-wilson|steve-rogers", "kind": "friend", "title": "Ant-Man",
+   "text": "Steve Rogers and Sam Wilson hold Bucky Barnes but cannot call Tony Stark because of the Accords. When Steve fears they are on their own, Sam says he knows a guy who can help.",
+   "on_a_card_about_b": "Sam's friend. Holds Bucky with Sam, unable to call Tony.",
+   "on_b_card_about_a": "Steve's friend, who knows a guy who can help with Bucky.",
+   "evidence": "Post-credits scene of Ant-Man: Rogers and Wilson talk over the captured Bucky; Rogers fears they are on their own, Wilson says he knows a guy who can help.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ant-Man_(film)&prop=wikitext&format=json", "confidence": "high"},
+  {"pair": "howard-stark|peggy-carter", "kind": "friend", "title": "Ant-Man",
+   "text": "In 1989 Howard Stark and Peggy Carter sit together at the head of S.H.I.E.L.D. when Hank Pym storms in and resigns over S.H.I.E.L.D.'s attempt to copy his formula.",
+   "on_a_card_about_b": "Fellow S.H.I.E.L.D. leader at Hank Pym's resignation in 1989.",
+   "on_b_card_about_a": "Fellow S.H.I.E.L.D. leader who tries to keep Hank Pym from quitting in 1989.",
+   "evidence": "Ant-Man opening, 1989 Triskelion: Pym announces his resignation before Stark, Carter and Mitchell Carson; Stark tries to convince him to stay. Howard and Peggy are in the scene together as S.H.I.E.L.D.'s leadership.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Howard_Stark&prop=wikitext&format=json", "confidence": "high"}
+ ],
+ "none": [
+  {"pair": "bucky-barnes|howard-stark", "title": "Ant-Man", "why": "Howard is only in the 1989 opening and Bucky only in the post-credits scene; they never share a scene."},
+  {"pair": "cassie-lang|hank-pym", "title": "Ant-Man", "why": "Hank never meets or deals with Cassie; her scenes are with Scott, Maggie, Paxton and Cross."},
+  {"pair": "darren-cross|janet-van-dyne", "title": "Ant-Man", "why": "Janet appears only in Hank's 1987 flashback; Cross never deals with her."},
+  {"pair": "howard-stark|steve-rogers", "title": "Ant-Man", "why": "Howard is only in the 1989 opening and Steve only in the post-credits scene."},
+  {"pair": "janet-van-dyne|scott-lang", "title": "Ant-Man", "why": "Janet is only in Hank's flashback story; Scott hears about her but they never interact."},
+  {"pair": "scott-lang|steve-rogers", "title": "Ant-Man", "why": "Scott fights Sam, not Steve; Steve only appears in the post-credits scene, where Sam alludes to a guy without Scott present."},
+  {"pair": "janet-van-dyne|cassie-lang", "title": "Ant-Man", "why": "Janet is only in Hank's flashback; no contact with Cassie."},
+  {"pair": "bucky-barnes|peggy-carter", "title": "Ant-Man", "why": "Peggy is only in the 1989 opening and Bucky only in the post-credits scene."},
+  {"pair": "cassie-lang|luis", "title": "Ant-Man", "why": "Luis's scenes are with Scott and the crew; he never deals with Cassie here."}
+ ],
+ "owner_calls": [
+  {"pair": "bucky-barnes|sam-wilson / bucky-barnes|steve-rogers", "title": "Ant-Man", "question": "The Ant-Man post-credits scene is a preview of a Captain America: Civil War scene with Bucky held in custody and silent. Keep the proposed Ant-Man stages for Bucky with Sam and with Steve (credits scenes belong to their film), or leave Bucky's ties to start their custody beat at Civil War?", "options": ["Add the Ant-Man stages", "Leave them at Civil War only"], "evidence": "Post-credits scene: Rogers and Wilson have Bucky in custody, unable to contact Stark because of the Accords.", "source": "https://en.wikipedia.org/w/index.php?title=Ant-Man_(film)&action=raw"}
+ ]}

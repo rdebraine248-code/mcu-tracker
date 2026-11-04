@@ -1,0 +1,169 @@
+{
+ "checked": 25,
+ "adds": [
+  {
+   "pair": "jack-rollins|steve-rogers",
+   "kind": "enemy",
+   "title": "Avengers: Endgame",
+   "text": "Steve Rogers, back in 2012 from the future, steps into an elevator with Rollins and his STRIKE agents and whispers \"Hail Hydra\" to trick them into handing over Loki's scepter.",
+   "on_a_card_about_b": "A Captain America from the future, who tricks Rollins out of the scepter.",
+   "on_b_card_about_a": "A HYDRA agent Steve tricks out of the scepter in 2012 with a whispered \"Hail Hydra.\"",
+   "evidence": "2012 time heist: Rollins and STRIKE take the Scepter at Stark Tower; Steve intercepts them in the elevator and, feigning Hydra affiliation, gets them to hand it over.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jack_Rollins/New_York_Time_Heist&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "james-rhodes|steve-rogers",
+   "kind": "ally",
+   "title": "Avengers: Endgame",
+   "text": "After the Snap, Rhodey and Steve are among the surviving Avengers at the compound. Rhodey joins the plan to bring back the Infinity Stones through time and fights beside Steve against the 2014 Thanos.",
+   "on_a_card_about_b": "Fellow surviving Avenger, beside whom Rhodes joins the time heist.",
+   "on_b_card_about_a": "Fellow surviving Avenger who joins the time heist beside Steve.",
+   "evidence": "Rhodes and Rogers reunite with Stark as the remaining Avengers, plan the Time Heist together (Rhodes goes to 2014 Morag with Nebula), and both fight in the Battle of Earth.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Avengers:_Endgame&action=raw",
+   "confidence": "high"
+  },
+  {
+   "pair": "groot|thor",
+   "kind": "friend",
+   "title": "Avengers: Endgame",
+   "text": "Thor leaves Earth with Groot and the Guardians. When Thor and Quill argue over who leads, Groot is all for settling it with knives, and Thor rules out any knifing.",
+   "on_a_card_about_b": "God who joins Groot and the Guardians as they leave Earth.",
+   "on_b_card_about_a": "Guardian Thor leaves Earth with, keen to settle the leadership spat with knives.",
+   "evidence": "Closing Benatar scene: Thor joins the Guardians; quote 'I am Groot.' / 'Not necessary!' / 'There shall be no knifing one another.' (Groot, Star-Lord, Thor).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Groot&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "groot|peter-quill",
+   "kind": "friend",
+   "title": "Avengers: Endgame",
+   "text": "Groot and Peter Quill, back from the Snap, set off together with the Guardians. When Quill and Thor argue over who leads, Groot is ready for a knife fight, and Quill says it's not necessary.",
+   "on_a_card_about_b": "Fellow Guardian who sets off with Groot, and turns down a knife fight.",
+   "on_b_card_about_a": "Fellow Guardian, all for settling Quill's leadership spat with Thor by knives.",
+   "evidence": "Closing Benatar scene: Groot agrees to Quill and Thor fighting with knives; Quill answers 'Not necessary!'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Groot&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "groot|nebula",
+   "kind": "ally",
+   "title": "Avengers: Endgame",
+   "text": "Nebula rejoins the Guardians aboard the Benatar with Groot. When Quill and Thor argue over who leads, she suggests they fight for it and Groot wants knives.",
+   "on_a_card_about_b": "Fellow Guardian who sets off into space with Groot after the battle.",
+   "on_b_card_about_a": "A fellow Guardian she sets off into space with after the battle.",
+   "evidence": "Nebula rejoins the Guardians in the Benatar with Rocket, Drax, Mantis, Groot and Quill; she suggests Thor and Quill fight for leadership, and Groot chimes in for knives.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nebula&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "pair": "happy-hogan|pepper-potts",
+   "kind": "friend",
+   "title": "Avengers: Endgame",
+   "text": "Happy Hogan watches Tony's last message with Pepper Potts and her daughter at the lake house, then stays with Morgan after the funeral and promises her cheeseburgers.",
+   "on_a_card_about_b": "Tony's widow, whose daughter Happy looks after at the funeral.",
+   "on_b_card_about_a": "Old friend who watches Tony's last message with Pepper and looks after Morgan.",
+   "evidence": "Tony Stark's funeral: Hogan, along with Pepper Potts, Morgan and others, watches Tony's recording at the Stark Eco-Compound; afterwards he sits with Morgan and promises her cheeseburgers.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Happy_Hogan&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "none": [
+  {
+   "pair": "frigga|jane-foster",
+   "title": "Avengers: Endgame",
+   "why": "Frigga only talks with Thor in 2013 Asgard; Rocket extracts the Aether from a sleeping Jane. They share no scene."
+  },
+  {
+   "pair": "gamora|groot",
+   "title": "Avengers: Endgame",
+   "why": "The 2014 Gamora and Groot are both in the Battle of Earth with no exchange; Gamora is not with the Guardians afterward."
+  },
+  {
+   "pair": "gamora|mantis",
+   "title": "Avengers: Endgame",
+   "why": "Both in the Battle of Earth with no exchange between them."
+  },
+  {
+   "pair": "gamora|red-skull",
+   "title": "Avengers: Endgame",
+   "why": "The Red Skull appears only on Vormir with Barton and Romanoff; Gamora is never there."
+  },
+  {
+   "pair": "gamora|rocket",
+   "title": "Avengers: Endgame",
+   "why": "Both in the Battle of Earth with no exchange between them; this Gamora deals only with Nebula, Thanos and Quill."
+  },
+  {
+   "pair": "hank-pym|howard-stark",
+   "title": "Avengers: Endgame",
+   "why": "1970 Camp Lehigh: Hank only takes a call from the disguised Steve and runs off; Howard only talks with Tony. No scene together."
+  },
+  {
+   "pair": "hank-pym|peggy-carter",
+   "title": "Avengers: Endgame",
+   "why": "1970 Camp Lehigh: Peggy is alone in her office watched by Steve; Hank is elsewhere. No scene together."
+  },
+  {
+   "pair": "hank-pym|scott-lang",
+   "title": "Avengers: Endgame",
+   "why": "Hank is dusted for most of it; the young 1970 Hank never meets Scott, and the present Hank only attends Tony's funeral among the crowd."
+  },
+  {
+   "pair": "happy-hogan|natasha-romanoff",
+   "title": "Avengers: Endgame",
+   "why": "Natasha dies on Vormir; Happy appears only at Tony's funeral."
+  },
+  {
+   "pair": "happy-hogan|peter-parker",
+   "title": "Avengers: Endgame",
+   "why": "Both attend Tony's funeral with no exchange between them."
+  },
+  {
+   "pair": "harley-keener|tony-stark",
+   "title": "Avengers: Endgame",
+   "why": "Harley only appears at Tony's funeral, after Tony's death; they never deal with each other here."
+  },
+  {
+   "pair": "howard-stark|peggy-carter",
+   "title": "Avengers: Endgame",
+   "why": "1970 Camp Lehigh: Howard talks only with Tony; Peggy is in her office alone. No scene together."
+  },
+  {
+   "pair": "howard-stark|steve-rogers",
+   "title": "Avengers: Endgame",
+   "why": "1970 Camp Lehigh: Steve, disguised, steals Pym Particles and watches Peggy; only Tony deals with Howard."
+  },
+  {
+   "pair": "jack-rollins|natasha-romanoff",
+   "title": "Avengers: Endgame",
+   "why": "Rollins appears only in the 2012 Stark Tower elevator with Steve; Natasha is not there."
+  },
+  {
+   "pair": "james-rhodes|sam-wilson",
+   "title": "Avengers: Endgame",
+   "why": "Sam returns only for the Battle of Earth and the funeral, with no exchange with Rhodes shown."
+  },
+  {
+   "pair": "james-rhodes|thaddeus-ross",
+   "title": "Avengers: Endgame",
+   "why": "Ross only attends Tony's funeral; no exchange with Rhodes."
+  },
+  {
+   "pair": "jane-foster|loki",
+   "title": "Avengers: Endgame",
+   "why": "2013 Asgard: Jane is asleep while Rocket extracts the Aether; the 2012 Loki escapes in New York. No scene together."
+  },
+  {
+   "pair": "jane-foster|valkyrie",
+   "title": "Avengers: Endgame",
+   "why": "Jane appears only in 2013 Asgard; Valkyrie only in the present. No scene together."
+  },
+  {
+   "pair": "janet-van-dyne|scott-lang",
+   "title": "Avengers: Endgame",
+   "why": "Janet appears only at Tony's funeral among the crowd, with no exchange with Scott."
+  }
+ ],
+ "owner_calls": []
+}
