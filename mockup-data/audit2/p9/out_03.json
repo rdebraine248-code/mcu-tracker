@@ -1,0 +1,79 @@
+{
+ "checked": [
+  "x-600001",
+  "x-600026",
+  "x-700089",
+  "x-400005",
+  "x-730911",
+  "x-96173",
+  "x-600043",
+  "x-700459",
+  "x-8107",
+  "x-58470",
+  "x-trn250",
+  "x-58627",
+  "x-652975",
+  "x-697064",
+  "x-635972",
+  "x-94000",
+  "x-534834",
+  "x-700029",
+  "x-5724",
+  "x-634962",
+  "x-730784",
+  "x-11052",
+  "x-704509",
+  "x-400083",
+  "x-760207",
+  "x-58460"
+ ],
+ "changes": [
+  {
+   "key": "x-trn250#0",
+   "q": "Fact: the hero's name in the Solarman pilot",
+   "now": [
+    "Solarman",
+    "",
+    "Teenager Ben Collins draws his power from the sun as Solarman."
+   ],
+   "proposed": [
+    "Solarman",
+    "",
+    "Teenager Ben Tucker draws his power from the sun as Solarman."
+   ],
+   "evidence": "The Marvel Database's Earth-TRN250 page (Solarman Pilot): 'Teenager Ben Tucker receives a bracelet that allows him to transform into the superhero Solarman.' Wikipedia: the 1992 pilot is based on the Marvel version, whose secret identity is teenager Ben Tucker, who needs sunlight to keep his powers. No source names him Ben Collins.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-TRN250&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "x-94000#0",
+   "q": "Fact: how the 1994 Fantastic Four get their powers",
+   "now": [
+    "The Fantastic Four (1994)",
+    "",
+    "Reed, Sue, Johnny and Ben are changed by a cosmic storm and face Doctor Doom."
+   ],
+   "proposed": [
+    "The Fantastic Four (1994)",
+    "",
+    "Reed, Sue, Johnny and Ben are changed by cosmic rays from a passing comet and face Doctor Doom."
+   ],
+   "evidence": "In the 1994 film the four fly Reed's experimental craft as the comet Colossus passes Earth; a fake diamond leaves them exposed to the comet's cosmic rays, which give them their powers. The 'cosmic storm' is the 2005 film's origin, not this one.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Fantastic_Four_(unreleased_film)&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "x-704509#0",
+   "question": "Mutant X#1 says Adam Kane's team fights 'the Genomex agency'. Wikipedia names the hunting agency the GSA (Genetic Security Agency), led by Mason Eckhart, former head of security at Genomex; the Mutant X wiki calls Genomex a genetic research company (Eckhart its CEO) that wants to capture the new mutants. Keep, or name the GSA?",
+   "options": [
+    "Keep: 'against the Genomex agency.'",
+    "Change to: 'against Mason Eckhart's Genetic Security Agency.'",
+    "Change to: 'against Mason Eckhart and Genomex.'"
+   ],
+   "evidence": "Wikipedia Mutant X: 'Mason Eckhart ... former head of security of Genomex and the current head of the Genetic Security Agency, GSA.' List of episodes, ep 1: 'a secret agency, the GSA, led by ... Mason Eckhart'; overview also says 'Genomex wants to capture this New Mutant'. Mutant X wiki: Genomex is a 'genetic research company', first appearing in 'Shock of the New'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Mutant_X_(TV_series)&action=raw"
+  }
+ ]
+}
