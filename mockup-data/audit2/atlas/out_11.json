@@ -1,0 +1,120 @@
+{
+ "checked": [
+  "ny|uni|daredevil",
+  "ny|uni|ff",
+  "ny|uni|fox",
+  "ny|uni|foxtrn",
+  "ny|uni|sony",
+  "ohio|earth|",
+  "okc|uni|fox17315",
+  "oklahoma|earth|",
+  "omnipotence|cosmos|",
+  "orgocorp|cosmos|",
+  "oscorp|uni|amazing",
+  "oshkosh|earth|",
+  "ottolab|uni|raimi",
+  "oxford|uni|fox",
+  "pakistan|earth|",
+  "parisfr|earth|",
+  "paris|uni|foxtrn",
+  "peruinca|earth|",
+  "peru|uni|sony",
+  "pier|uni|raimi",
+  "playground|earth|",
+  "poland|uni|fox",
+  "poland|uni|foxtrn",
+  "pompeii|earth|",
+  "powerstation|uni|amazing",
+  "prague|earth|",
+  "prague|uni|blade",
+  "pr|uni|punisher",
+  "quantum|beyond|",
+  "queensboro|uni|raimi",
+  "raft|earth|",
+  "ravenasm|uni|amazing",
+  "ravensony|uni|sony",
+  "redhook|uni|foxtrn"
+ ],
+ "changes": [
+  {
+   "key": "ny|uni|foxtrn",
+   "i": 0,
+   "q": "P2",
+   "now": [
+    "Dark Phoenix",
+    "",
+    "Jean's friends try to stop her in the streets of New York."
+   ],
+   "proposed": [
+    "Dark Phoenix",
+    "",
+    "The X-Men come to New York to save Jean from Erik's mutants, and Charles gets through to her in the battle."
+   ],
+   "evidence": "Hank and Erik's faction go to New York City to kill Jean; Kurt teleports the X-Men to New York to save her, the two factions battle, and Xavier helps her former personality resurface. Her friends are protecting her, not trying to stop her.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Dark_Phoenix_(film)&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "raft|earth|",
+   "i": 1,
+   "q": "P2",
+   "now": [
+    "Jessica Jones S2#11",
+    "",
+    "Jessica tries to keep her mother out of the Raft, the prison for powered people."
+   ],
+   "proposed": [
+    "Jessica Jones S2#10",
+    "",
+    "Jessica tries to keep her mother out of the Raft, the prison for powered people."
+   ],
+   "evidence": "The plea deal that lets Alisa avoid the Raft is in episode 10, 'AKA Pork Chop' (season episode 10); the Raft is not mentioned in the episode 11 summary.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Jessica_Jones_season_2&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "oshkosh|earth|",
+   "i": "lead:0",
+   "q": "P6",
+   "now": {
+    "title": "Loki S1#4",
+    "file": "Compound file hunter-c-20"
+   },
+   "proposed": {
+    "wrong_place": true,
+    "happens_at": "The TVA headquarters: in episode 4 C-20 is interrogated there and killed by Renslayer. Her capture and enchantment by Sylvie happen at Oshkosh 1985 in Loki S1#2 (already this place's entry), and the enchanted margarita memory at Haven Hills, Alabama, 2050."
+   },
+   "evidence": "C-20 is captured and enthralled at the Oshkosh 1985 Renaissance fair (LK102), taken to Haven Hills, Alabama 2050, and later brought back to the TVA where Renslayer silences and kills her (LK104). Nothing in episode 4 happens at Oshkosh.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hunter_C-20&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "oshkosh|earth|",
+   "i": "lead:1",
+   "q": "P6",
+   "now": {
+    "title": "Loki S1#3",
+    "file": "Raft file sylvie"
+   },
+   "proposed": {
+    "wrong_place": true,
+    "happens_at": "The TVA headquarters and Lamentis-1 (episode 3); the reset charges are sent across the timeline at Haven Hills, Alabama, 2050, in episode 2."
+   },
+   "evidence": "Episode 3: Sylvie arrives at TVA headquarters, Loki confronts her, and he uses a TemPad to take them to 2077 Lamentis-1. The reset charges are dispersed at the end of episode 2 in 2050 Alabama. None of it is at Oshkosh.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Loki_season_1&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "raft|earth|",
+   "question": "The Jessica Jones entry is only a mention: Alisa's plea deal keeps her out of the Raft, but the Raft never appears and nothing happens there. Keep it as a mention (retitled S2#10) or remove it under 'only what's on screen counts'?",
+   "options": [
+    "Remove the Jessica Jones entry from the Raft",
+    "Keep it as a mention, retitled Jessica Jones S2#10"
+   ],
+   "evidence": "Hogarth arranges a plea deal for Alisa so she can avoid the Raft; Wikipedia's season notes call it a 'mention of the Raft prison'. No scene is set at the Raft.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Jessica_Jones_season_2&action=raw"
+  }
+ ]
+}

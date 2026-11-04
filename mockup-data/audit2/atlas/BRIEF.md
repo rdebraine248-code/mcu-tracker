@@ -1,48 +1,64 @@
 # Audit part 4: the Atlas
 
 You check a batch of places from a Marvel watch-tracker app's Atlas (maps that light up as titles are watched). FACTS only, against
-sources; you write a JSON verdict file.
+sources. You edit nothing: you write one JSON verdict file.
 
 ## Input
-Your chunk (path in your task) is a JSON list of places: `key` (id|map|sub), `map` (which map it's on: the main MCU's Earth, a city
-map, the cosmos, beyond, the multiverse, or another universe's own Earth or orbit map), `n` name, `r` region line, `at` coordinates
-([lat, lon] on Earth and city maps; [x, y] 0..1000 on cosmos/beyond/multiverse/orbit maps, positions there are artistic), and `e`
-entries `[title, sub, text]` ("#N" after a show = its episode N across seasons; sub is a year or a spot inside the place).
+Your chunk (path in your task) is a JSON list of places: `key` (id|map|sub), `map` (which map it's on), `n` name, `r` region line,
+`at` coordinates ([lat, lon] on Earth and New York maps; [x, y] 0..1000 on the cosmos, Beyond and orbit maps, where positions are
+artistic), `city` (a city with its own street map, whose spots are the entries' `sub`), and `e` entries `[title, sub, text]`.
+"Title#N" is episode N; when the title names a season ("... S2#3") N counts within that season, otherwise across the whole show
+("Agents of S.H.I.E.L.D.#42"). `sub` is a year or a spot inside the place. `leads` (some places): file entries whose places line
+points here, for a title this place has no entry for.
+
+## The maps
+- The main MCU Earth is Earth-199999. Agents of S.H.I.E.L.D. and Agent Carter are the same universe as the films.
+- Fox's X-Men: Earth-41578 holds the original films (X-Men to The Last Stand, the Wolverine films, Days of Future Past's 2023
+  future). Earth-10005 holds the changed timeline (Days of Future Past's 1973, Apocalypse, Dark Phoenix) and Deadpool's world (the
+  Deadpool films). Logan is Earth-17315. A place in both timelines is on both maps with each one's own entries.
+- Other universes have their own maps (Earth-92131 the X-Men cartoons, Earth-96283 the Raimi films, Earth-120703 the Amazing films,
+  Earth-1610B Miles's world, Earth-688B Sony's Spider-Man films, and so on). Off-world places for another universe's Earth live in
+  that Earth's orbit map.
 
 ## The owner's rules
-- Look locations up; "Location unknown" only when no source gives one. Ships and bases are pinned where they're known to be.
-- Off-world places for another universe's Earth live in that Earth's orbit map. Fox's X-Men: Earth-10005 (before Days of Future
-  Past, its 2023 future, the Deadpool films) and Earth-TRN414 (Days of Future Past's 1973, Apocalypse, Dark Phoenix).
+- Look every location up; "Location unknown" only when no source gives one (the pin then sits at a stand-in spot and its note says
+  so). Ships and bases are places where their location is known, pinned there. A vehicle with no stated location isn't a place.
+- A place keeps its real name even when the story moves around it.
+- Only what's on screen counts. Fan wikis list comics and tie-in material: check the film or episode supports it.
+- No visions, dreams or illusions as events. Real flashbacks are fine (their `sub` is the year).
+- Entry text: no "season", "episode", "finale", "credits", "the film", "the show" in a sentence; no em dashes; no actor names.
 
 ## The questions
-- **P1 Location:** is the place where the region line and coordinates say (Earth/city maps)? Coordinates off by more than the
-  place's size, or a wrong region/country, fail. Skip coordinate checks on artistic maps.
+- **P1 Location:** is the place where the region line and coordinates say (Earth and New York maps)? Coordinates off by more than
+  the place's size, or a wrong region or country, fail. Skip coordinate checks on artistic maps.
 - **P2 Entry:** does each entry's event happen at THIS place, in THAT title (and episode)?
-- **P3 Map:** is the place on the right map/universe for each of its entries?
+- **P3 Map:** is the place on the right map and universe for each of its entries?
 - **P4 Spoilers:** does an entry give away something from a later title than its own?
-- **P5 Name:** is the place's name right (as the sources name it)?
-- **P6 Missing:** a place's `leads` (if any) are file steps whose places line points here, for a title (or episode) this place has no
-  entry for. For each: if the step's event really happens here, propose a new entry for it ([title with "#N" for an episode, sub,
-  text]); if it doesn't, say where it happens (the step's places line is then wrong: report it under P6 with "wrong_place": true).
-  Beyond leads, if you know of a major, sourced event at this place in a title it has no entry for, propose it too.
+- **P5 Name:** is the place's name right, as the screen or its sources name it?
+- **P6 Missing:** for each lead: if the file entry's event really happens here in that title, propose a new entry ([title, with
+  "#N" when the lead names an episode, sub, text]); if it doesn't, say where it happens with `"wrong_place": true` (the file's places
+  line is then wrong). Beyond leads, a major, sourced event at this place in a title it has no entry for may be proposed too.
 
-## Evidence rule
-Change only on a failed question with a source URL and what happens where. No rewording for style. If unsure, it passes.
+## Evidence rule (the owner's stopping rule)
+Change only on a failed question, with a source URL and what happens where. No rewording for style, no "reads better". If unsure,
+it passes.
 
-## Sources
-Wikipedia raw (`https://en.wikipedia.org/w/index.php?title=PAGE&action=raw`), Fandom API
-(`https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=PAGE&prop=wikitext&format=json`, also marvel.fandom.com,
-xmenmovies.fandom.com, spiderman.fandom.com, marvelanimated.fandom.com). curl with `User-Agent: mcu-tracker-research/1.0`. Never send
-personal details. Don't fetch a page twice.
+## Sources (look things up; do not rely on memory)
+- Wikipedia raw: `https://en.wikipedia.org/w/index.php?title=PAGE&action=raw`
+- Fandom API only (their /wiki/ pages return 403): `https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=PAGE&prop=wikitext&format=json`
+  (also marvel, xmenmovies, spiderman, marvelanimated, sonys-spider-man-universe .fandom.com).
+- curl with header `User-Agent: mcu-tracker-research/1.0`. NEVER put an email, name or any personal detail in a request.
+- Space requests a second or two apart; don't fetch a page twice. Scratch files only in your own work folder.
 
 ## Output
 ONE JSON file at the output path in your task:
 ```
 {"checked": [every place key in your chunk],
- "changes": [{"key": "...", "i": <entry index or null for the place itself>, "q": "P1..P5", "now": ..., "proposed": {...only the
-              fields that change: n, r, at, or the entry [title, sub, text]...}, "evidence": "...", "source": "URL",
+ "changes": [{"key": "...", "i": <entry index, or null for the place itself, or "lead:<n>" for a lead>, "q": "P1..P6",
+              "now": ..., "proposed": {only the fields that change: "n", "r", "at", or an entry [title, sub, text]; for a lead, the new
+              entry, or {"wrong_place": true, "happens_at": "..."}}, "evidence": "what happens, where", "source": "URL",
               "confidence": "high|medium"}],
- "owner_calls": [...]}
+ "owner_calls": [{"key": "...", "question": "...", "options": ["..."], "evidence": "...", "source": "URL"}]}
 ```
-New text: plain, present tense, one sentence of 10 to 25 words, no em dashes, no actor names. Reply with ONE line: checked, changes,
-owner calls.
+New text: plain, present tense, one or two sentences, like the entries around it. Every place must be in `checked`. Reply to your
+caller with ONE line: checked, changes, owner calls. Nothing else.

@@ -1,0 +1,265 @@
+{
+ "checked": [
+  "ax-genosha|uni|animx",
+  "ax-japan|uni|animx",
+  "ax-london|uni|animx",
+  "ax-mexicocity|uni|animx",
+  "ax-moscow|uni|animx",
+  "ax-muir|uni|animx",
+  "ax-neworleans|uni|animx",
+  "ax-ny|uni|animx",
+  "ax-savage|uni|animx",
+  "ax-school|uni|animx",
+  "ax-transylvania|uni|animx",
+  "baltimore|earth|",
+  "bellacoola|earth|",
+  "berhert|cosmos|",
+  "berlin|earth|",
+  "berlin|uni|foxtrn",
+  "bern|earth|",
+  "bladecity|uni|blade",
+  "bletchley|earth|",
+  "bloodstone|earth|",
+  "bogota|earth|",
+  "border|uni|fox17315",
+  "boston|uni|fox",
+  "brooklyn|uni|miles",
+  "broxton|earth|",
+  "bucharest|earth|",
+  "budapest|earth|"
+ ],
+ "changes": [
+  {
+   "key": "ax-genosha|uni|animx",
+   "i": 4,
+   "q": "P2",
+   "now": [
+    "X-Men '97#8",
+    "",
+    "The Wild Sentinel that slaughtered Genosha's mutants turns out to be Bastion's work."
+   ],
+   "proposed": {
+    "remove": true
+   },
+   "evidence": "In X-Men '97 #8 (Tolerance Is Extinction, Part 1) Genosha is only mentioned; the episode's locations are the X-Mansion, Harmony (Pennsylvania), Rio de Janeiro, the North Pole and others. Nothing happens on Genosha in this episode, and Bastion's link to the massacre is already revealed in #7. Remove the entry.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men_%2797_Season_1_8&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "ax-genosha|uni|animx",
+   "i": 5,
+   "q": "P2",
+   "now": [
+    "X-Men '97#9",
+    "",
+    "Sentinels wipe out the mutant nation of Genosha, and Magneto takes the world hostage."
+   ],
+   "proposed": {
+    "remove": true
+   },
+   "evidence": "The Sentinel massacre on Genosha happens in #5 (Remember It), which already has an entry here. In #9 (Tolerance Is Extinction, Part 2) Genosha is only mentioned: the action is at Asteroid M, Muir Island and the Galapagos, and Magneto's blackout began in #8. Remove the entry.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men_%2797_Season_1_9&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "ax-genosha|uni|animx",
+   "i": "lead:0",
+   "q": "P6",
+   "now": {
+    "title": "X-Men: The Animated Series#9",
+    "file": "Compound file fox-anim-cable",
+    "step": "In episode 9, the mercenary Cable helps Gambit escape Genosha, then hunts Apocalypse's agent on Muir Island."
+   },
+   "proposed": {
+    "wrong_place": true,
+    "happens_at": "Muir Island (in #9 Cable hunts Dr. Adler there). Cable helping Gambit escape Genosha happens in #7 (Slave Island), not #9."
+   },
+   "evidence": "In #7 Slave Island, Gambit escapes the Genoshan compound with Cable's help. In #9 The Cure, Cable ambushes Archangel and then goes after Dr. Adler on Muir Island. Genosha is only mentioned in #9.",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "ax-japan|uni|animx",
+   "i": 1,
+   "q": "P2",
+   "now": [
+    "X-Men '97#10",
+    "Tokyo",
+    "From a rooftop, the Silver Samurai watches Magneto's blackout strike the world, and later sees the power come back."
+   ],
+   "proposed": [
+    "X-Men '97#10",
+    "Tokyo",
+    "From a Tokyo rooftop, the Silver Samurai sees the power come back after Magneto's blackout."
+   ],
+   "evidence": "Magneto's worldwide blackout strikes at the end of #8 (Tolerance Is Extinction, Part 1). Xavier restores the power in #10. The Silver Samurai has a cameo in Tokyo in both episodes, so the blackout half of this entry belongs to #8 (see the next change).",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "ax-japan|uni|animx",
+   "i": "new",
+   "q": "P6",
+   "now": null,
+   "proposed": [
+    "X-Men '97#8",
+    "Tokyo",
+    "From a rooftop, the Silver Samurai watches Magneto's blackout strike the world."
+   ],
+   "evidence": "The X-Men '97 #8 location list has the Silver Samurai (cameo) in Tokyo, Japan. This is the episode where Magneto sets off the worldwide blackout.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men_%2797_Season_1_8&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "ax-muir|uni|animx",
+   "i": 1,
+   "q": "P2",
+   "now": [
+    "X-Men: The Animated Series#57",
+    "Mutant Research Center",
+    "Moira MacTaggert's son Proteus breaks out of her island lab, and the X-Men help her stop him in Edinburgh."
+   ],
+   "proposed": [
+    "X-Men: The Animated Series#56",
+    "Mutant Research Center",
+    "Moira MacTaggert's son Proteus breaks out of her island lab, and the X-Men help her stop him in Edinburgh."
+   ],
+   "evidence": "Proteus escapes from Muir Island in Proteus Part I (#56), and Moira then calls in the X-Men. Part II (#57) is the Edinburgh rampage at Union Hall, after which he goes back to Muir Island. The event at this place, the breakout, is #56.",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "ax-muir|uni|animx",
+   "i": "lead:0",
+   "q": "P6",
+   "now": {
+    "title": "X-Men: The Animated Series#9",
+    "file": "Compound file fox-anim-cable",
+    "step": "In episode 9, the mercenary Cable helps Gambit escape Genosha, then hunts Apocalypse's agent on Muir Island."
+   },
+   "proposed": [
+    "X-Men: The Animated Series#9",
+    "Mutant Research Center",
+    "Rogue comes to Dr. Adler's island clinic for his mutant cure, while Cable hunts the doctor and Moira tells Xavier she cannot review his work."
+   ],
+   "evidence": "In The Cure (#9), Cable learns Adler has moved to Muir Island and goes after him there. At the Muir Island Research Center, Xavier asks Moira to review Adler's work and she says she cannot. Rogue goes there for the cure. This one entry also covers lead:1.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men:_The_Animated_Series_Season_1_9&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "ax-muir|uni|animx",
+   "i": "lead:1",
+   "q": "P6",
+   "now": {
+    "title": "X-Men: The Animated Series#9",
+    "file": "Compound file fox-anim-moira-mactaggert",
+    "step": "In episode 9, at her Muir Island research center, Moira tells Xavier she cannot review Dr. Adler's mutant cure."
+   },
+   "proposed": [
+    "X-Men: The Animated Series#9",
+    "Mutant Research Center",
+    "Rogue comes to Dr. Adler's island clinic for his mutant cure, while Cable hunts the doctor and Moira tells Xavier she cannot review his work."
+   ],
+   "evidence": "This is the same #9 entry as lead:0, so add it once. At the Muir Island Research Center, Xavier asks Moira MacTaggert to review Dr. Adler's work and she says she cannot.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men:_The_Animated_Series_Season_1_9&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "ax-muir|uni|animx",
+   "i": "lead:2",
+   "q": "P6",
+   "now": {
+    "title": "X-Men: The Animated Series#31",
+    "file": "Compound file fox-anim-moira-mactaggert",
+    "step": "In episode 31, Moira is caring for Xavier on Muir Island when Juggernaut and Black Tom attack it to seize Lilandra."
+   },
+   "proposed": [
+    "X-Men: The Animated Series#31",
+    "",
+    "While Moira cares for Xavier here, Juggernaut and Black Tom attack the island and carry Lilandra off to Cassidy Keep."
+   ],
+   "evidence": "In The Phoenix Saga, Part III: Cry of the Banshee (#31), Juggernaut and Black Tom Cassidy, working for Erik the Red, attack Muir Island and take Lilandra to Cassidy Keep. In Part II, Xavier had gone to Muir Island to recover in Moira's care.",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "ax-neworleans|uni|animx",
+   "i": 1,
+   "q": "P2",
+   "now": [
+    "X-Men '97 S2",
+    "",
+    "Possessed by Apocalypse, Gambit brainwashes his friends and family at home and kidnaps Rogue to marry her."
+   ],
+   "proposed": [
+    "X-Men '97#18",
+    "",
+    "Possessed by Apocalypse, Gambit brainwashes his friends and family at home and kidnaps Rogue to marry her."
+   ],
+   "evidence": "The event, Gambit returning home to New Orleans, brainwashing his friends and family and kidnapping Rogue to marry her, happens in The Dead Man's Hand. That is season 2 episode 8, or #18 overall. The entry names no episode.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "berlin|earth|",
+   "i": "lead:0",
+   "q": "P6",
+   "now": {
+    "title": "The Falcon and the Winter Soldier#4",
+    "file": "Compound file helmut-zemo",
+    "step": "In episode 4, Bucky breaks Zemo out of prison to help track the super soldier serum, and Zemo joins him and Sam in hunting the Flag Smashers."
+   },
+   "proposed": {
+    "wrong_place": true,
+    "happens_at": "Latvia (Riga). The prison break is at the Berlin Correctional Facility in episode 3, already an entry here; in episode 4 Zemo is with Sam and Bucky hunting Karli in Latvia."
+   },
+   "evidence": "In episode 3 (Power Broker), Bucky visits Zemo in his Berlin cell and stages a prison riot to break him out. Episode 4 (The Whole World Is Watching) takes place in Latvia, where Zemo helps find Karli at her mother's funeral.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Power_Broker_(episode)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "broxton|earth|",
+   "i": "lead:0",
+   "q": "P6",
+   "now": {
+    "title": "Loki S2#5",
+    "file": "Compound file sylvie",
+    "step": "In episode 5, Sylvie lives quietly in 1982 Oklahoma, then returns to help Loki save the TVA and its timelines."
+   },
+   "proposed": [
+    "Loki S2#5",
+    "1982",
+    "Loki finds Sylvie still living here, but she refuses to help him until her timeline begins to unravel."
+   ],
+   "evidence": "In Science/Fiction (season 2 episode 5), Loki gathers everyone except Sylvie, who refuses to help. When her timeline spaghettifies, she goes to help him. The MCU wiki lists Broxton among this episode's locations (LK205).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Loki_season_2&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "broxton|earth|",
+   "i": "new",
+   "q": "P6",
+   "now": null,
+   "proposed": [
+    "Agent Carter#12",
+    "1920s",
+    "As a girl in Broxton, Agnes Cully fixes a broken radio, but her mother tells her that her looks will serve her better than her brains."
+   ],
+   "evidence": "Smoke & Mirrors (season 2 episode 4, #12) flashes back to the 1920s in Broxton, Oklahoma. There the young Agnes Cully, later Whitney Frost, repairs a broken radio and is discouraged by her mother. No exact year is given on screen; Wikipedia says the 1920s.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agent_Carter_season_2&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "ax-savage|uni|animx",
+   "question": "The pin is at [-56, -68.5], which is in the Drake Passage south of Cape Horn, about 700 km north of the Antarctic coast. The region line says Antarctica. Is that a stand-in because the Earth map is cut off before Antarctica, or should the pin move onto the continent?",
+   "options": [
+    "Keep [-56, -68.5] as a stand-in and say so in the note",
+    "Move the pin onto Antarctica (e.g. [-75, -70]) if the map shows that far south"
+   ],
+   "evidence": "The Savage Land is a tropical preserve hidden in Antarctica. In X-Men '97 #17 it appears as the Acolytes' base in Antarctica. No other place in the data has a latitude below -60.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Savage_Land&action=raw"
+  }
+ ]
+}

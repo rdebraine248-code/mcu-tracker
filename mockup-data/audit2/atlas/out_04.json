@@ -1,0 +1,282 @@
+{
+ "checked": [
+  "dc|uni|foxtrn",
+  "detroit|uni|blade",
+  "doomstation|uni|ff-o",
+  "duat|beyond|",
+  "earth|cosmos|",
+  "edinburgh|earth|",
+  "ego|cosmos|",
+  "egypt|earth|",
+  "elektrahome|uni|daredevil",
+  "england|earth|",
+  "eternity|beyond|",
+  "ethiopia|earth|",
+  "everest|earth|",
+  "finland|earth|",
+  "forestcamp|uni|fox",
+  "foresthills|uni|amazing",
+  "foresthills|uni|raimi",
+  "framework|beyond|"
+ ],
+ "changes": [
+  {
+   "key": "edinburgh|earth|",
+   "i": "lead:0",
+   "q": "P6",
+   "now": "In episode 2, living in Edinburgh, Vision is hunted by the bounty hunter Paladin and rescues Tommy, who claims to be his son.",
+   "proposed": {
+    "wrong_place": true,
+    "happens_at": "Saint Mabyn's Psychiatric Sanitarium, in England (the episode does not place it in Edinburgh)"
+   },
+   "evidence": "In VisionQuest#2 Vision finds Tommy at Saint Mabyn's Psychiatric Sanitarium, where Paladin's mercenaries have killed the staff, and escapes with him; fandom places the sanitarium in England. Only #1 is set at the Edinburgh pub.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Saint_Mabyn%27s_Psychiatric_Sanitarium&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "edinburgh|earth|",
+   "i": "lead:1",
+   "q": "P6",
+   "now": "In episode 1, Fiona employs Vision at her Edinburgh pub and is killed when Paladin's mercenaries attack it.",
+   "proposed": [
+    "VisionQuest#1",
+    "",
+    "Vision works at Fiona Guthrie's pub until Paladin's mercenaries attack it to capture him, and Fiona is killed in the crossfire."
+   ],
+   "evidence": "Episode 1 summary: Vision lives and works in a pub in Edinburgh owned by Fiona Guthrie; mercenaries led by Paladin attack the pub, killing Fiona and forcing him to flee. (Aired October 13, 2026.)",
+   "source": "https://en.wikipedia.org/w/index.php?title=VisionQuest&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "england|earth|",
+   "i": null,
+   "q": "P1",
+   "now": {
+    "r": "England",
+    "at": [
+     52.3,
+     -1.6
+    ]
+   },
+   "proposed": {
+    "r": "Gloucestershire, England",
+    "at": [
+     51.85,
+     -2.2
+    ]
+   },
+   "evidence": "Randolph says on screen he saw the carving 'in a castle in Gloucestershire, England, in 1853' (Purpose in the Machine). The current pin is in Warwickshire, about 80 km away.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hydra_Castle&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "england|earth|",
+   "i": "lead:0",
+   "q": "P6",
+   "now": "In episode 54, Malick brings Hive back to Earth to lead HYDRA.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#54",
+    "",
+    "S.H.I.E.L.D. takes the castle's portal room, and Coulson and Fitz come back through it from the alien planet, but Hive secretly returns with them in Ward's body."
+   ],
+   "evidence": "Maveth (#54): Mack, Morse and Hunter secure the castle's portal room; Fitz and Coulson return to Earth through it, and Hive secretly returns too, inhabiting Ward's body.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "england|earth|",
+   "i": "lead:1",
+   "q": "P6",
+   "now": "In episode 46, the Kree Monolith pulls her to an alien planet, where she survives for months before Fitz saves her.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#46",
+    "",
+    "Randolph leads S.H.I.E.L.D. to the castle, whose old machine opens the Monolith. Daisy holds the portal open, and Fitz jumps through and brings Simmons back."
+   ],
+   "evidence": "Purpose in the Machine (#46): the rescue happens here, Daisy keeps the portal open in the castle and Fitz brings Simmons back. Her being pulled in happened at the Playground (#44) and her months of survival are on the alien planet (Maveth), so only the rescue belongs here; same entry as lead:2, add once.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "england|earth|",
+   "i": "lead:2",
+   "q": "P6",
+   "now": "In episode 46, S.H.I.E.L.D. enlists Randolph, who leads them to an English castle whose old machine can open the Monolith.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#46",
+    "",
+    "Randolph leads S.H.I.E.L.D. to the castle, whose old machine opens the Monolith. Daisy holds the portal open, and Fitz jumps through and brings Simmons back."
+   ],
+   "evidence": "Purpose in the Machine (#46): Randolph takes them to an old English castle where a deteriorated machine was built to open the Monolith; Daisy replicates it and Fitz brings Simmons back through the portal.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "england|earth|",
+   "i": "lead:3",
+   "q": "P6",
+   "now": "In episode 54, Ward and Gideon Malick rebuild HYDRA to bring back its ancient master, the Inhuman Hive.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#54",
+    "",
+    "S.H.I.E.L.D. takes the castle's portal room, and Coulson and Fitz come back through it from the alien planet, but Hive secretly returns with them in Ward's body."
+   ],
+   "evidence": "Same event as lead:0 (Hive returns through the castle portal in Ward's body in #54); add the entry once.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:0",
+   "q": "P6",
+   "now": "In episode 88, Fitz lives in the Framework as the Doctor, a HYDRA leader, and is haunted by the memories once he is out.",
+   "proposed": {
+    "wrong_place": true,
+    "happens_at": "Not the Framework in #88: Fitz is out by #86 and haunted at S.H.I.E.L.D. and on the Zephyr; his life there as the Doctor is #82 to #86 (see the #83 entry)"
+   },
+   "evidence": "#86: Radcliffe sends Fitz out of the Framework; #87: in isolation at S.H.I.E.L.D. he remembers the terrible things he did inside. #88 has no Fitz scenes in the Framework.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:1",
+   "q": "P6",
+   "now": "In episode 88, Radcliffe dies inside the Framework as it is erased.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#88",
+    "",
+    "Aida shuts the Framework down. Radcliffe is deleted with it, and Mack leaves with Elena only once Hope's code is gone."
+   ],
+   "evidence": "World's End (#88): Ophelia shuts down the Framework; Radcliffe is deleted after accepting immortality without Kitsworth is worthless; Mack returns with Rodriguez after Hope's code is deleted.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:2",
+   "q": "P6",
+   "now": "In episode 88, inside the Framework, Mack lives with the daughter he lost and nearly stays behind for her.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#88",
+    "",
+    "Aida shuts the Framework down. Radcliffe is deleted with it, and Mack leaves with Elena only once Hope's code is gone."
+   ],
+   "evidence": "Same #88 event as lead:1 (Mack leaves only after Hope's code is deleted); one entry covers both.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:3",
+   "q": "P6",
+   "now": "In episode 84, Mace leads the resistance in the Framework, and when he dies saving others there, his real body dies too.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#84",
+    "",
+    "Mace dies holding up a falling building so children can escape a HYDRA camp, and his real body dies with him."
+   ],
+   "evidence": "No Regrets (#84): Mace stops debris from crushing a student at a Hydra Enlightenment Camp while others escape, is crushed, and Aida finds his real body dead too.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:4",
+   "q": "P6",
+   "now": "In episode 83, Aida reads the Darkhold and traps the team in the Framework, ruling it as Madame Hydra.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#83",
+    "",
+    "Aida rules HYDRA as Madame Hydra beside Fitz, who kills Agnes and imprisons Radcliffe."
+   ],
+   "evidence": "Identity and Change (#83): Aida goes by Ophelia or Madame Hydra in the Framework; Fitz kills Kitsworth and imprisons Radcliffe. (She read the Darkhold back in #73, outside the Framework, so that part is not here.)",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:5",
+   "q": "P6",
+   "now": "In episode 88, Coulson escapes the Framework and briefly becomes the Ghost Rider to destroy Aida. Then a mysterious group takes him.",
+   "proposed": {
+    "wrong_place": true,
+    "happens_at": "Outside the Framework: Coulson escapes it in #86 (see that entry), and in #88 he becomes the Ghost Rider in the real world when Aida comes for the Darkhold"
+   },
+   "evidence": "#86: Daisy, Coulson and May cross back into the real world. #88: Ophelia comes for the Darkhold and Coulson unleashes the Spirit of Vengeance and incinerates her; the agents are then taken by a mysterious group, all outside the Framework.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:6",
+   "q": "P6",
+   "now": "In episode 81, Simmons works under Director Mace, then goes into the Framework with Daisy to free their friends.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#81",
+    "",
+    "Daisy and Simmons go into the Framework to find their friends, who live altered lives in a world where HYDRA has replaced S.H.I.E.L.D."
+   ],
+   "evidence": "Self Control (#81): Daisy plans with Simmons to hack into the Framework to find the others; in the Framework the agents find an altered reality where Hydra has replaced S.H.I.E.L.D. Same entry as lead:8.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:7",
+   "q": "P6",
+   "now": "In episode 86, May is replaced by an LMD and trapped in the Framework, until she escapes with her friends.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#86",
+    "",
+    "Daisy, Coulson and May cross back to the real world through Radcliffe's exit, and Radcliffe sends Fitz and Simmons after them while Mack stays behind."
+   ],
+   "evidence": "Farewell, Cruel World! (#86): Daisy takes the group to Radcliffe's exit point, where she, Coulson and May cross back into the real world; Radcliffe sends Fitz then Simmons through; Mack stays.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:8",
+   "q": "P6",
+   "now": "In episode 81, Daisy returns to S.H.I.E.L.D. and goes into the Framework to free her friends from Aida.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#81",
+    "",
+    "Daisy and Simmons go into the Framework to find their friends, who live altered lives in a world where HYDRA has replaced S.H.I.E.L.D."
+   ],
+   "evidence": "Same #81 event as lead:6; add once.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:9",
+   "q": "P6",
+   "now": "In episode 84, inside the Framework, Fitz is the Doctor, who leads HYDRA with Madame Hydra. He kills Agnes and tortures Radcliffe and Daisy.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#83",
+    "",
+    "Aida rules HYDRA as Madame Hydra beside Fitz, who kills Agnes and imprisons Radcliffe."
+   ],
+   "evidence": "The file's episode is off by one: Fitz kills Kitsworth and imprisons and tortures Radcliffe and Daisy in Identity and Change (#83), not No Regrets (#84). Same entry as lead:4.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "framework|beyond|",
+   "i": "lead:10",
+   "q": "P6",
+   "now": "In episode 86, Radcliffe sends him out of the Framework. The real Fitz wakes up remembering every terrible thing he did.",
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#86",
+    "",
+    "Daisy, Coulson and May cross back to the real world through Radcliffe's exit, and Radcliffe sends Fitz and Simmons after them while Mack stays behind."
+   ],
+   "evidence": "Same #86 event as lead:7 (Radcliffe sends Fitz through, then Simmons); add once.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": []
+}
