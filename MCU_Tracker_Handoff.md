@@ -44,7 +44,11 @@ if they ever differ, the repo's copy on the working branch is newer.
 
 **The close-out plan (owner, 4 November 2026: "Do the rest of the plan"), in this order:**
 1. The Network's dock dot for every universe (option A). Done: on main (`c5d1946`, 4 November 2026, the owner's "push").
-2. A fresh random 600 of the Network's connections, so part 2 can be locked.
+2. A fresh random 600 of the Network's connections, so part 2 can be locked. Done 4 November 2026: 23 wrong (3.8%), all fixed after a
+   second check (`network/rel/stage_fix_zzzzzzzz_sample5.json`, records in `audit2/net/ns5`). Over the bar, so it goes back through the
+   part, **targeted by pattern** (owner's choice over a full re-pass): connections between two people who share no title, pairs both
+   on screen after their last stage, a first stage later than their first title together, and every stage in Daredevil: Born Again,
+   the Netflix shows and the 1994 cartoon; then a fresh 600.
 3. The "Held" line under a file's entry, before the audit (owner: "I think I want a held line so maybe that needs to happen before
    step 3 audit"), so the audit covers it.
 4. Audit parts 4 to 9, each with its second checker, its random 600 and the full content check.
