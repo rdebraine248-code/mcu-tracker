@@ -1,0 +1,103 @@
+{
+ "checked": [
+  "pr-st-tandy-bowen|pr-st-melissa-bowen:2",
+  "peter-parker|sv-sandman-raimi:0",
+  "fox-anim-beast|fox-anim-mister-sinister:0",
+  "flash-thompson|peter-parker:0",
+  "fox-anim-jean-grey|fox-anim-madelyne-pryor:0",
+  "st-joseph-manfredi|peggy-carter:2",
+  "pr-doctor-doom|pr-invisible-woman:2",
+  "fox-iceman|fox-pyro:0",
+  "edith|peter-parker:0",
+  "by-tony-sakaar|by-korg-sakaar:0",
+  "cull-obsidian|tony-stark:0",
+  "sv-mysterio-ssm|sv-peter-parker-ssm:2",
+  "sv-peter-parker-1994|sv-mary-jane-watson-1994:1",
+  "sv-peter-parker-raimi|sv-mary-jane-watson-raimi:2",
+  "jennifer-walters|luke-jacobson:1",
+  "pr-st-livvie|pr-st-darius-davis:0",
+  "pr-st-triton|pr-st-maximus:1",
+  "st-bullseye|st-tammy-hattley:0",
+  "sv-peter-b-parker|sv-mayday-parker:0",
+  "sv-peter-parker-smu|sv-goblin-smu:0",
+  "jeff-kaplan|rebecca-kaplan:0",
+  "st-bb-urich|st-daniel-blake:6",
+  "nebula|yondu:0",
+  "by-queen-of-the-dead|by-zombie-london-master:0",
+  "anitolov|hope-van-dyne:0",
+  "fox-anim-jubilee|fox-anim-cable:1",
+  "by-killmonger|by-klaue-killmonger:0",
+  "st-carl-creel|st-glenn-talbot:0",
+  "happy-hogan|michelle-jones:0",
+  "death-dealer|ying-nan:0",
+  "st-marge-mccaffrey|st-matt-murdock:0",
+  "knox|uzman:0",
+  "fox-deadpool|dogpool:0",
+  "cosmo|kraglin:0",
+  "st-mack|st-lincoln-campbell:1",
+  "st-brett-mahoney|st-kingpin:0",
+  "sv-venom-smu|sv-carnage-smu:0",
+  "arnim-zola|st-johann-fennhoff:0",
+  "sv-j-jonah-jameson-1967|sv-scorpion-1967:1",
+  "clea|stephen-strange:0",
+  "howard-stark|st-jason-wilkes:0",
+  "fox-anim-cyclops|fox-anim-madelyne-pryor:0",
+  "pr-st-alex-wilder|pr-st-jonah:3",
+  "fox-beast-young|fox-jean-grey-young:1",
+  "heimdall|odin:1",
+  "nebula|taserface:0",
+  "st-karen-page|st-mitchell-ellison:1",
+  "james-rhodes|natasha-romanoff:2",
+  "pr-st-chase-stein|pr-st-molly-hernandez:0",
+  "fox-raven-darkholme|fox-sentinels:0"
+ ],
+ "changes": [
+  {
+   "id": "sv-mysterio-ssm|sv-peter-parker-ssm:2",
+   "pair": "sv-mysterio-ssm|sv-peter-parker-ssm",
+   "a": "Mysterio",
+   "b": "Peter Parker",
+   "q": "N6",
+   "i": 2,
+   "now": {
+    "i": 2,
+    "kind": "enemy",
+    "title": "The Spectacular Spider-Man#25",
+    "text": "Later he strikes again, but each Mysterio Spider-Man catches turns out to be a robot decoy.",
+    "on_a_card_about_b": "The hero Mysterio haunts with tricks and decoys.",
+    "on_b_card_about_a": "A master of illusions Peter never quite catches."
+   },
+   "proposed": {
+    "title": "The Spectacular Spider-Man#16",
+    "text": "In the Master Planner's new Sinister Six, Mysterio attacks Spider-Man with illusions and a robot decoy, until Spider-Man catches the real Beck and he is arrested.",
+    "on_a_card_about_b": "The hero who sees through Mysterio's decoys and has him arrested.",
+    "on_b_card_about_a": "A master of illusions Peter finally catches."
+   },
+   "evidence": "The robot-decoy Mysterio and Spider-Man catching the real Beck happen in 'Reinforcement' (#16, Season 2 ep 3), when Mysterio and Kraven join the Sinister Six: Kraven gives away Mysterio's exploding robot duplicate, Spider-Man makes sure he has the real Mysterio, and Beck is arrested. #25 'Opening Night' is the Vault breakout, and its summary does not mention Mysterio. So the card line 'never quite catches' is also false after #16.",
+   "source": "https://spiderman.fandom.com/api.php?action=parse&page=Sinister_Six_(Earth-26496)&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=List_of_The_Spectacular_Spider-Man_episodes&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "fox-anim-jubilee|fox-anim-cable:1",
+   "question": "At X-Men '97#18 Jubilee leaves Cable's X-Force for the X-Men after he tries to kill the unconscious Gambit, and in #19 X-Force attacks X-Corp. Is 'boss' still the right kind from #18 on, or should it be 'rival'?",
+   "options": [
+    "Keep boss (he led her, and that is their through-line)",
+    "Change kind to rival from #18"
+   ],
+   "evidence": "#18: 'After Cable attempts to kill the unconscious Gambit, Jubilee and Sunspot leave with the X-Men.' #19: 'X-Force and X-Factor attack X-Corp' until Rogue frees everyone from Apocalypse.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw"
+  },
+  {
+   "id": "by-queen-of-the-dead|by-zombie-london-master:0",
+   "question": "Is Wanda and the London Master a real connection? In Marvel Zombies#4 he is one of the sorcerers fighting her horde at the Battle of Paris, and the zombified Thor she brings out kills him. They never deal with each other one on one. Also, the line on Wanda's card ('The sorcerers who defend the Hulk from her') describes the group, not him.",
+   "options": [
+    "Drop the connection (they only share a battle)",
+    "Keep it as enemy, but make Wanda's card line about him alone, e.g. 'A sorcerer who defends the Hulk from her horde and falls in Paris.'"
+   ],
+   "evidence": "Episode 4: the sorcerers of Kamar-Taj and the survivors defend Infinity Hulk from Wanda's army in Paris. A zombified Thor kills Blade, Sara and the London Master. His Zombie Outbreak page lists Wanda only as a general enemy, and none of the pages describe a direct exchange between the two.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Red_Queen&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Marvel_Zombies_(TV_series)&action=raw"
+  }
+ ]
+}
