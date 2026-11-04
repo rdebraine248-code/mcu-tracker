@@ -1,0 +1,92 @@
+{
+ "checked": [
+  "dc-coles",
+  "dc-nasg",
+  "dc-eter",
+  "dc-gala",
+  "dc-bsm",
+  "dc-gold",
+  "dc-atl",
+  "dc-qru",
+  "dc-cea",
+  "dc-are",
+  "dc-mos",
+  "dc-rit",
+  "dc-loom",
+  "dc-branches",
+  "dc-tar",
+  "dc-sun",
+  "dc-pow",
+  "dc-ripper",
+  "dc-novalair",
+  "dc-whs",
+  "dc-cel",
+  "dc-rhk",
+  "dc-jos",
+  "dc-blk"
+ ],
+ "changes": [
+  {
+   "key": "dc-sun",
+   "field": "cause",
+   "q": "D1",
+   "now": "Wearing both Quantum Bands, the second stolen from Kamala Khan, Dar-Benn opens a jump point beside Earth's Sun to drain it for Hala, and its pull threatens Nick Fury's S.A.B.E.R. station.",
+   "proposed": "Using her Quantum Band and her Universal Weapon, Dar-Benn opens a jump point beside Earth's Sun to drain it for Hala, and its pull threatens Nick Fury's S.A.B.E.R. station.",
+   "evidence": "Dar-Benn opens the jump point at the Sun with her single band and Universal Weapon, knowing she still needs the second band; she only takes Kamala's band during the fight that follows, and using both destroys her. The Marvels: 'Dar-Benn steals Kamala's Band and attempts to use both Bands, but this destroys Dar-Benn'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Dar-Benn&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "dc-sun",
+   "field": "out",
+   "q": "D1",
+   "now": "Goose and her kittens swallow S.A.B.E.R.'s crew to carry them to safety, and the Marvels fight Dar-Benn until the power of both bands overloads her and she is destroyed. Her jump points leave a tear in space-time, which Monica Rambeau seals with Kamala's help, though she is left on the far side, and Carol reignites Hala's sun.",
+   "proposed": "Goose and her kittens swallow S.A.B.E.R.'s crew to carry them to safety, and the Marvels fight Dar-Benn until she takes Kamala's band and the power of both bands overloads her and she is destroyed. Her jump points leave a tear in space-time, which Monica Rambeau seals with Kamala's help, though she is left on the far side, and Carol reignites Hala's sun.",
+   "evidence": "Goes with the cause fix: the second band is taken from Kamala in this fight, not before the jump point opens.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Marvels&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "dc-are",
+   "field": "out",
+   "q": "D1",
+   "now": "The Guardians break into the ship while Kraglin and Cosmo bring Knowhere into the fight and fire on it. Rocket beats the High Evolutionary and spares him, Cosmo opens a tunnel to carry the captives to Knowhere, and the Arête is destroyed, with Adam Warlock pulling Quill out of space.",
+   "proposed": "The Guardians break into the ship while Kraglin and Cosmo bring Knowhere into the fight and fire on it. The other Guardians beat the High Evolutionary and Rocket spares him, Cosmo opens a tunnel to carry the captives to Knowhere, and the Arête is destroyed, with Adam Warlock pulling Quill out of space.",
+   "evidence": "The High Evolutionary confronts Rocket and is beaten by the other Guardians; Rocket then spares him. Wikipedia plot: 'confronted by the High Evolutionary, whom the other Guardians defeat. Rocket spares the High Evolutionary'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Guardians_of_the_Galaxy_Vol._3&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "dc-cea",
+   "field": "loss:2",
+   "q": "D1",
+   "now": "Recorder Theel, killed in the fall when Quill and Groot leap with him to Counter-Earth.",
+   "proposed": "Recorder Theel, killed by Quill after he and Groot leap with him to Counter-Earth.",
+   "evidence": "Groot grows wings and glides all three down safely; on landing Quill slams Theel into the ground, killing him, and cuts the code from his headpiece. Wikipedia: 'jump off the spaceship with Theel, whom they kill'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Theel&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "dc-cea",
+   "field": "out",
+   "q": "D1",
+   "now": "The bombardment wipes out the planet and every Humanimal on it. Peter Quill and Groot get away with the override code from Recorder Theel's body, while Drax, Nebula and Mantis are taken aboard the Arête.",
+   "proposed": "The bombardment wipes out the planet and every Humanimal on it. Peter Quill and Groot get away with the override code from Recorder Theel's body, while Drax, Nebula and Mantis, who boarded the Arête to rescue them, are left aboard it.",
+   "evidence": "Drax, Nebula and Mantis are not taken; they board the departing Arête themselves to rescue Quill and Groot, who then jump off, and they are captured aboard later. Wikipedia: 'Arête ... departs as Nebula, Drax, and Mantis board it to rescue Quill and Groot'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Guardians_of_the_Galaxy_Vol._3&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "dc-blk",
+   "question": "The cause says 'and then a blackout hits Manhattan', as if by chance. Wikipedia's summary says Fisk himself cuts the power to the city (to set up martial law); the Fandom episode page just says a blackout hits Manhattan. Say Fisk cuts the power?",
+   "options": [
+    "Keep: '...and then a blackout hits Manhattan.'",
+    "Change to: '...and then cuts the power to the city.'"
+   ],
+   "evidence": "Daredevil: Born Again S1 'Straight to Hell': 'Fisk cuts off the power to New York City and orders Cashman to kill Murdock ... He turns the power back on and declares martial law' (Wikipedia). Fandom: 'a massive blackout hits Manhattan'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again_season_1&action=raw"
+  }
+ ]
+}

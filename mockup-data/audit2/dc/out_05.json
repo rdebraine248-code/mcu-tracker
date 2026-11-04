@@ -1,0 +1,85 @@
+{
+ "checked": [
+  "dc-nysanc",
+  "dc-hk",
+  "dc-kun",
+  "dc-ego",
+  "dc-ferry",
+  "dc-coney",
+  "dc-mid",
+  "dc-hela",
+  "dc-sakaar",
+  "dc-ragnarok",
+  "dc-nybomb",
+  "dc-lighthouse",
+  "dc-chicago",
+  "dc-lh2091",
+  "dc-bsh",
+  "dc-snap",
+  "dc-statesman",
+  "dc-gv",
+  "dc-wak",
+  "dc-titan",
+  "dc-harlem-lukeca",
+  "dc-gwens",
+  "dc-sflab",
+  "dc-triad"
+ ],
+ "changes": [
+  {
+   "key": "dc-nybomb",
+   "field": "loss:1",
+   "q": "D1",
+   "now": [
+    "Isaac Lange and other Anvil guards, killed at the hotel.",
+    "The Punisher S1"
+   ],
+   "proposed": [
+    "Isaac Lange, killed for his Anvil uniform, and other Anvil guards, killed at the hotel.",
+    "The Punisher S1"
+   ],
+   "evidence": "Lewis Wilson kills Isaac Lange (a member of Curtis's support group who works for Anvil) in Lange's apartment and takes his uniform to get into the hotel; the other Anvil employees die in the hotel attack. Lange is not killed at the hotel.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Isaac_Lange&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=The_Punisher_season_1&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "dc-snap",
+   "field": "fall:2",
+   "q": "D1",
+   "now": [
+    "The returned are called the Blip, and the Global Repatriation Council struggles to resettle the world.",
+    "The Falcon and the Winter Soldier"
+   ],
+   "proposed": [
+    "The time the vanished were gone comes to be called the Blip, and the Global Repatriation Council struggles to resettle the world.",
+    "The Falcon and the Winter Soldier"
+   ],
+   "evidence": "'The Blip' is the name of the event and the five years it lasted (the Flag Smashers 'believe life was better during the Blip'), not a name for the people who came back.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Falcon_and_the_Winter_Soldier&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "dc-triad",
+   "field": "cause",
+   "q": "D5",
+   "now": "With the Hand gone, the Golden Tigers and the Yangsi Gonshi fight to take over Chinatown, and Davos, with Joy Meachum's help, has the Crane Sisters tear the Iron Fist out of Danny Rand and into himself.",
+   "proposed": "With the Hand gone, the Golden Tigers and the Hatchets fight to take over Chinatown, and Davos, with Joy Meachum's help, has the Crane Sisters tear the Iron Fist out of Danny Rand and into himself.",
+   "evidence": "On screen the rival triad is called the Hatchets (\"Hatchet territory\", \"the Hatchet Men\"); Yangsi Gonshi (Yang Clan Company) is the front company's name, used as the wiki's page title.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Iron_Fist_season_2&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Yangsi_Gonshi&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "dc-kun",
+   "question": "Whose bodies does Danny find at the K'un-Lun pass in Iron Fist S1? The out says dead monks with the Hand's weapons beside them, and loss:0 puts the monks' deaths on Iron Fist S1. The episode summaries say the dead are Hand soldiers; that the Hand killed the monks only comes out later, when Elektra boasts about it in The Defenders.",
+   "options": [
+    "Keep as is (one wiki page says monks' corpses with Hand weapons)",
+    "out: 'he finds dead Hand warriors at the mouth of the pass and the way to the city gone'; move loss:0 to The Defenders as 'The monks of K'un-Lun, killed by Elektra and the Hand.'",
+    "Change only out, keep loss:0 on Iron Fist S1"
+   ],
+   "evidence": "Wikipedia's Iron Fist S1 episode 13 summary: 'they arrive at the gate to find it shut off from the Earth, and surrounded by dead Hand operatives.' Fandom's episode page and its K'un-Lun page: 'the bodies of a few dead Hand ninjas'. But Fandom's Attack on K'un-Lun page: 'he saw the corpses of the Order of the Crane Mother and the Hand weapons near them', and it cites Elektra in The Defenders ('You should've heard the way they screamed when I killed them').",
+   "source": "https://en.wikipedia.org/w/index.php?title=Iron_Fist_season_1&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Dragon_Plays_with_Fire&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Attack_on_K%27un-Lun&prop=wikitext&format=json"
+  }
+ ]
+}

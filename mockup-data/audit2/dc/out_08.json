@@ -1,0 +1,153 @@
+{
+ "checked": [
+  "dc-void",
+  "dc-heir",
+  "dc-galactus",
+  "dc-lion",
+  "dc-troy",
+  "dc-adwa",
+  "dc-horde",
+  "dc-wms",
+  "dc-nst",
+  "dc-fog",
+  "dc-chp",
+  "dc-gnu",
+  "dc-dhq",
+  "dc-rvi",
+  "dc-pr-la-magra",
+  "dc-pr-reapers",
+  "dc-pr-natchios",
+  "dc-pr-castle-massacre",
+  "dc-pr-saints-sinners",
+  "dc-pr-daystar",
+  "dc-pr-treasure",
+  "dc-pr-cosmic-storm",
+  "dc-pr-brooklyn-bridge",
+  "dc-pr-doom"
+ ],
+ "changes": [
+  {
+   "key": "dc-fog",
+   "field": "out",
+   "q": "D1",
+   "now": "Bullseye cuts down the Task Force officers guarding the gym, and Vanessa shoots him, but a glass shard from his attack on Fisk strikes her head. Daredevil stops Fisk from executing Bullseye and drags him out of the gym.",
+   "proposed": "Bullseye cuts down the Task Force officers guarding the gym, and Vanessa shoots him, but a shard of the glass paperweight he throws at her, shattered by Fisk's belt, strikes her head. Daredevil stops Fisk from executing Bullseye and drags him out of the gym.",
+   "evidence": "In 'Gloves Off', Bullseye launches the glass paperweight at Vanessa; Fisk blocks it with his championship belt and a shard lodges in her temple. In 'Requiem' Bullseye says he balanced Foggy's death by killing Vanessa. The throw was at Vanessa, not an attack on Fisk.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gloves_Off&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "dc-heir",
+   "field": "loss:1",
+   "q": "D1",
+   "now": "John King, left locked in a sealed greenhouse.",
+   "proposed": "John King, left to suffocate in a sealed greenhouse.",
+   "evidence": "In 'We in Danger, Girl' the oxygen runs out and King dies in the greenhouse; Riri tells Parker he is already dead. Status means real status: he is dead, not just locked in.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=We_in_Danger,_Girl&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "dc-galactus",
+   "field": "who",
+   "q": "D4",
+   "now": [
+    [
+     "galactus",
+     "T"
+    ],
+    [
+     "silver-surfer",
+     "T"
+    ],
+    [
+     "reed-richards",
+     "A"
+    ],
+    [
+     "sue-storm",
+     "A"
+    ],
+    [
+     "johnny-storm",
+     "A"
+    ],
+    [
+     "ben-grimm",
+     "A"
+    ],
+    [
+     "franklin-richards",
+     "A"
+    ],
+    [
+     "harvey-elder",
+     "A"
+    ]
+   ],
+   "proposed": [
+    [
+     "galactus",
+     "T"
+    ],
+    [
+     "silver-surfer",
+     "T"
+    ],
+    [
+     "reed-richards",
+     "A"
+    ],
+    [
+     "sue-storm",
+     "A"
+    ],
+    [
+     "johnny-storm",
+     "A"
+    ],
+    [
+     "ben-grimm",
+     "A"
+    ],
+    [
+     "franklin-richards",
+     "A"
+    ],
+    [
+     "harvey-elder",
+     "A"
+    ],
+    [
+     "shalla-bal",
+     "A"
+    ]
+   ],
+   "evidence": "Shalla-Bal (the Silver Surfer) turns on Galactus, stops Johnny's sacrifice and pushes Galactus through the portal herself. The app has an ally file A:shalla-bal for The Fantastic Four: First Steps; only the threat file silver-surfer is listed.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Fantastic_Four:_First_Steps&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "dc-chp",
+   "question": "Keep the loss line 'Protesters killed as the Task Force breaks up the crowd.'? The detailed plot of 'Requiem' names only Alan Saunders killed at the City Hall protest; Javi Espinosa is struck down but confirmed alive. Fisk kills protesters later, at the courthouse in 'The Southern Cross'.",
+   "options": [
+    "Keep as is",
+    "Remove the line",
+    "Reword to protesters injured"
+   ],
+   "evidence": "Fandom 'Requiem' plot: Powell kills Saunders and orders force; Espinosa is struck down but 'still alive'. Wikipedia 'The Southern Cross': Fisk 'kills numerous protestors' at the courthouse.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Requiem&prop=wikitext&format=json"
+  },
+  {
+   "key": "dc-horde",
+   "question": "The Horde's destruction of Wakanda (2396) is filed on the Sacred Timeline (u: mcu). The future it shows is undone when Tafari returns the axe, and the MCU wiki files that future as a separate reality ('Horde-Infested Earth' universe). Keep it on the mcu tab as the last Black Panther's own future, or move it?",
+   "options": [
+    "Keep on mcu as is",
+    "Move to another tab (e.g. Pruned or Beyond)"
+   ],
+   "evidence": "The last Black Panther comes from 500 years ahead; her future is averted. Fandom lists her Wakanda under 'Horde-Infested Earth Universe'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Last_Panther&prop=wikitext&format=json"
+  }
+ ]
+}
