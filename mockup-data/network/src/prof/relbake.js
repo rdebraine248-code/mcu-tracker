@@ -26,6 +26,16 @@ const out = []; let skip = 0;
 // the same person under a second name folds into the first; if that leaves a pair twice, the fuller card stays
 const SAME = { 'Deathlok': 'Mike Peterson', 'Lash': 'Andrew Garner', 'The Doctor': 'Leo Fitz' }, best = new Map();
 // each connection is a list of stages in story order: [kind, title, text]; an unstaged one is a single stage
+// files split or merged by the owner's answers (rel/retarget.json, November 2026): a connection of a file that's gone, or of the steps that
+// moved to another file, follows them. Each rule: "from" (a Sacred Timeline name, or an id elsewhere), "to" (one or more; a split gives each
+// their own copy of the connection), "titles" (only the stages in those titles move; none given, all of them)
+const RT = fs.existsSync(R + 'retarget.json') ? JSON.parse(fs.readFileSync(R + 'retarget.json')).rules : [], rtBase = t => String(t).replace(/#\d+$/, '').replace(/ \((Post|Mid)-Credits Scene\)$/, '');
+let rtN = 0; const retarget = L => { RT.forEach(r => { const add = []; L.forEach(t => { if (!t.stages) t.stages = [{ kind: t.kind, title: t.title, text: t.detail }];
+    const side = t.a === r.from ? 'a' : t.b === r.from ? 'b' : null; if (!side) return;
+    const mv = t.stages.filter(x => !r.titles || r.titles.includes(rtBase(x.title))); if (!mv.length) return;
+    t.stages = t.stages.filter(x => !mv.includes(x)); r.to.forEach(to => add.push({ ...t, [side]: to, stages: mv.map(x => ({ ...x })) })); rtN += mv.length; });
+  L.push(...add); for (let k = L.length - 1; k >= 0; k--) if (!L[k].stages.length) L.splice(k, 1); }); return L; };
+retarget(ties);
 ties.forEach(t => { if (!t.stages) t.stages = [{ kind: t.kind, title: t.title, text: t.detail }]; t.a = SAME[t.a] || t.a; t.b = SAME[t.b] || t.b; if (t.a === t.b) return; const key = [t.a, t.b].sort().join('|'), o = best.get(key), len = x => x.stages.reduce((n, s) => n + s.text.length, 0); if (!o || len(t) > len(o)) best.set(key, t); });
 [...best.values()].forEach(t => { const a = ix.get(t.a), b = ix.get(t.b), st = t.stages.map(x => [KINDS.indexOf(x.kind), tIx(x.title), x.text, x.whoA || '', x.whoB || '']); if (a == null || b == null || st.some(x => x[0] < 0)) { skip++; return; } out.push([a, b, st]); });
 // the other universes, and the crossings between them, by id (names repeat across worlds); a Raft file merged into its Compound twin
@@ -40,7 +50,7 @@ const SPL = JSON.parse(fs.readFileSync(__dirname + '/split.json')), POST = new S
 const splitTie = t => { const A = mg[t.a] || t.a, B = mg[t.b] || t.b, sp = x => SPL.age[x] || SPL.single[x]; if (!sp(A) && !sp(B)) return [t];
   const pre = x => SPL.age[x] || x, post = x => SPL.single[x] || x, S0 = (t.stages || []).filter(x => !isPost(x.title)), S1 = (t.stages || []).filter(x => isPost(x.title));
   return [S0.length && { ...t, a: pre(A), b: pre(B), stages: S0 }, S1.length && { ...t, a: post(A), b: post(B), stages: S1 }].filter(Boolean); };
-[...UNI, ...(fs.existsSync(CROSS) ? [CROSS] : [])].forEach(f => JSON.parse(fs.readFileSync(f)).flatMap(splitTie).forEach(t => { const a = idOf(t.a), b = idOf(t.b);
+[...UNI, ...(fs.existsSync(CROSS) ? [CROSS] : [])].forEach(f => retarget(JSON.parse(fs.readFileSync(f))).flatMap(splitTie).forEach(t => { const a = idOf(t.a), b = idOf(t.b);
   const st = (t.stages || []).map(x => [KINDS.indexOf(x.kind), tIx(x.title), x.text, x.whoA || '', x.whoB || '']);
   if (a == null || b == null || a === b || !st.length || st.some(x => x[0] < 0)) { uskip.push(t.a + '|' + t.b); return; }
   const key = [a, b].sort((x, y) => x - y).join('|');
@@ -88,7 +98,7 @@ let sFix = 0; ['stage_fix.json', ...fs.readdirSync(R).filter(f => /^stage_fix_.+
   for (let i = st.length - 1; i >= 0; i--) if (st[i].drop) st.splice(i, 1);
   st.sort((x, y) => so(T[x[1]]) - so(T[y[1]])); }); });
 for (let k = out.length - 1; k >= 0; k--) if (!out[k][2].length) out.splice(k, 1);   // a connection whose every stage was dropped goes
-console.log('stage fixes', sFix);
+console.log('stage fixes', sFix, '| moved with their files', rtN);
 // the card lines rewritten so it's always clear who's who (owner, November 2026: no leading name, the card's own person named, a pronoun
 // only where one person fits): rel/line_fix.json, "idA|idB|stage|A or B" -> [old, new]; applied last, only where the old line still matches
 let lfDone = 0, lfStale = 0; if (fs.existsSync(R + 'line_fix.json')) { const F = JSON.parse(fs.readFileSync(R + 'line_fix.json'));

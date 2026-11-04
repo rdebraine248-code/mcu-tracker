@@ -447,6 +447,29 @@ for _pf,_L in (('prose_coll.json',collx),('prose_raft.json',threats),('prose_cp.
             if new is None: o['st']=[x for x in o['st'] if x[0]!=old]
             else:
                 for x in hit: x[0]=new
+# the owner's answers (November 2026, the morning-report questions): the last word on the files, keyed to the final ids, applied after
+# everything above (answers_fix.json). Under "T" (the Raft) or "A" (the Compound), a list of ops, each naming its question in "q":
+# "add" a new file; "drop": true removes one; "set" replaces fields (null removes one); "steps": [[old step, [new steps]], ...] swaps
+# one step (matched exactly on its text and title) for others, an empty list deleting it; "into" (with drop) sends the dropped file's
+# saved marks on to another id
+for _g,_L in (('T',threats),('A',allies)):
+    for op in load('answers_fix.json',{}).get(_g,[]):
+        if 'add' in op:
+            if any(o['id']==op['add']['id'] for o in _L): print('answers: dup',op['add']['id']); continue
+            _L.append(op['add']); continue
+        o=next((x for x in _L if x['id']==op['id']),None)
+        if o is None: print('answers: no file',_g,op['id']); continue
+        if op.get('drop'):
+            _L.remove(o)
+            if op.get('into'): _im[op['id']]=op['into']
+            continue
+        for k,v in op.get('set',{}).items():
+            if v is None: o.pop(k,None)
+            else: o[k]=v
+        for old,new in op.get('steps',[]):
+            k=next((i for i,x in enumerate(o['st']) if x[0]==old[0] and x[1]==old[1]),None)
+            if k is None: print('answers: no step',_g,op['id'],old[0][:60]); continue
+            o['st'][k:k+1]=new
 if '/*IDMOVE*/' in s: put('IDMOVE',_im)
 if '/*EPTAGS*/' in s: put('EPTAGS',load('ep_tags.json',{}))   # each moment in a show, tied to its episode
 if '/*HANDOVER*/' in s: put('HANDOVER',load('handover.json',{}))   # each person's stretches between the Compound and the Raft

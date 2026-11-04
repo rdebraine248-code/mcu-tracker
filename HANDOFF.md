@@ -279,6 +279,18 @@ insignia celebration covers the page.
   the MCU tab and merges HYDRA, S.H.I.E.L.D., the SSR, the Darkhold and the Kree into one file each, applies `appear_fix.json`, then
   reads `raft_teams.json`.
   `IDMOVE` carries saved "seen" marks to the new ids.
+- **`answers_fix.json`: the owner's answers (November 2026), the last word on the files.** Applied by `devbuild.py` after everything
+  else (after the writing pass), keyed to the final ids. Under `T` or `A`, ops naming their question in `q`: `add` a new file, `drop`
+  (with `into`: the id that inherits its saved marks), `set` fields (null removes one), `steps`: `[[old step, [new steps]], ...]` (the
+  old step matched on its text and title; an empty list deletes it). Splits, merges and moved steps are done here; `at_case.json`
+  keys and `STEP_AUDIT2`/`TEAM_AUDIT2` entries follow the new ids and step positions.
+- **Staged names show by watch progress everywhere** (owner, November 2026, question 51: a cover name until the reveal). The files'
+  own staged `n` (`[[name, title or "Title#episode"], ...]`) drives the Files and the Network card alike: the Network takes the
+  first name until a later stage's title or episode is watched (hub2 passes the stages as the node's 14th field, hub-src `nameNow`).
+  A cover name ("The Green Goblin" until The Spectacular Spider-Man #26) is just a first stage.
+- **The Network follows split and merged files** (`network/rel/retarget.json`, read by relbake): each rule moves a connection of a
+  file that's gone, or of the steps that moved to another file, to the new file(s): `from` (a Sacred Timeline name, or an id in the
+  other universes), `to` (a list; a split gives each their own copy), `titles` (only stages in those titles; none, all).
 
 ## How the app works (key ideas in index.html)
 

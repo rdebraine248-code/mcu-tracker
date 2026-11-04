@@ -154,7 +154,7 @@ const SEAS = DATA.seas || {}, lab = t => { const m = /^(.*)#(\d+)$/.exec(t); if 
 const labs = L => [...new Set(L.map(j => LAB[j]))];   // title indexes, in order, as the seasons and titles they make
 // a crew is its universe's own: two FoX-Men and MCU groups with the same name are different rooms (the key carries the universe, unseen)
 const UK = (c, u) => u && u !== 'mcu' ? c + '\u2063' + u : c;
-const N = DATA.nodes.map(([n, k, g, F, M, d, T, A, S, AK, U, ID, DK], i) => ({ i, n, k, u: U || 'mcu', id: ID, dk: DK || '', g: UK(g, U), g0: UK(g, U), S: (S || []).map(([c, o, t]) => [UK(c, U), o, t == null ? -1 : t]), AK: AK || [], F: F.map(x => x[0]), Fw: Object.fromEntries(F.map(([j, ...w]) => [j, w])), M, d, T, A }));
+const N = DATA.nodes.map(([n, k, g, F, M, d, T, A, S, AK, U, ID, DK, NS], i) => ({ i, n, k, NS: NS || null, u: U || 'mcu', id: ID, dk: DK || '', g: UK(g, U), g0: UK(g, U), S: (S || []).map(([c, o, t]) => [UK(c, U), o, t == null ? -1 : t]), AK: AK || [], F: F.map(x => x[0]), Fw: Object.fromEntries(F.map(([j, ...w]) => [j, w])), M, d, T, A }));
 const cv = document.getElementById('room'), g = cv.getContext('2d');
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W = 0, H = 0, DPR = 1;
@@ -225,6 +225,10 @@ const crewName = c => { const [n0, u] = String(c).split('\u2063'), n = n0.split(
 const KC = { family: '#F4A261', partner: '#FF8FB1', friend: '#5FD49A', mentor: '#B79CFF', boss: '#5FD0FF', ally: '#7FB2FF', rival: '#E8C15A', enemy: '#E0574A', variant: '#D7E3F5' };
 const KL = { family: 'Family', partner: 'Partners', friend: 'Friends', mentor: 'Mentors', boss: 'Chain of command', ally: 'Allies', rival: 'Rivals', enemy: 'Enemies', variant: 'Other versions' };
 const KS = { family: 'Family', partner: 'Partner', friend: 'Friend', mentor: 'Mentor', boss: 'Chain of command', ally: 'Ally', rival: 'Rival', enemy: 'Enemy', variant: 'Another version' };
+// the name as of what you've watched, like the files (owner, November 2026: "show the cover name ('Green Goblin') until the reveal"):
+// a person filed under staged names goes by the first until a later one's title or episode is watched
+N.forEach(p => { p.n0 = p.n; });
+const nameNow = p => { let k = 0; p.NS.forEach(([, w, o], j) => { if (w && (SEENF ? SEENF(w) : o <= CUT)) k = j; }); return p.NS[k][0]; };
 N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === UK('Independent', p.u)) { p.g = p.g0 = p.circ = UK(c, p.u); } });   // a circle is its universe's own
 // a connection is a list of stages in story order, each with its kind, the title it begins in and what happens in that stretch; you see
 // the stages up to what you've watched, and its kind is the latest of them
@@ -629,6 +633,7 @@ function applyCut(v, quiet) {
   const full = false, keep = sel && sel.vis ? sel : null; if (busy() && !keep) home();
   // everyone stands with the crew they're in as of what you've seen, so the crews form and change as the story goes
   N.forEach(p => { p.g = crewNow(p); });
+  N.forEach(p => { if (p.NS) p.n = nameNow(p); });   // the name as of what's watched
   if (full) { Z = Z0; Z.forEach(z => { z.L = z.L0.filter(p => p.vis); z.x = z.bx; z.y = z.by; z.cells = z.bcells; z.ly = z.bly; }); }
   else { // each Earth is a district of the room (owner, November 2026): its crews packed together, then the districts packed apart, the
     // biggest in the middle; a district's big bubble and its name are drawn behind its crews

@@ -20,8 +20,8 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const SEAS = {}; Object.keys(EPS).forEach(b => { const L = epList(b); if (L && L.length > 1) SEAS[b] = [L, EPO[b] || 0]; });
     const lab = t => { const m = /^(.*)#(\d+)$/.exec(t); if (!m) return t; const b = m[1], z = SEAS[b]; if (!z) return b; let k = +m[2], i = 0; const L = z[0];
       while (i < L.length - 1 && L[i] != null && k > L[i]) { k -= L[i]; i++; } return b.replace(/ S\d+(?:–S\d+)?$/, '') + ' S' + (i + 1 + z[1]); };
-    const P = {}, mk = (o, k) => ({ u: rfUniOf(o), dk: Array.isArray(o.k) ? o.k[o.k.length - 1][0] : o.k || '', n: nm(o), k, g: tmNow(o), T: [], A: new Set(), L: new Map(), TM: [], AL: [] });
-    const absorb = (p, o) => { (o.al || []).forEach(x => p.AL.push(Array.isArray(x) ? x : [x, ''])); if (Array.isArray(o.n)) o.n.forEach(x => p.AL.push([x[0], x[1] || ''])); tmAll(o).forEach(([t, w]) => { if (!p.T.some(x => x[0] === t)) p.T.push([t, w]); p.TM.push([t, w, o.id]); }); (o.st || []).forEach(x => x[1] && p.A.add(season(x))); };
+    const P = {}, mk = (o, k) => ({ u: rfUniOf(o), dk: Array.isArray(o.k) ? o.k[o.k.length - 1][0] : o.k || '', n: nm(o), NS: Array.isArray(o.n) ? o.n : null, k, g: tmNow(o), T: [], A: new Set(), L: new Map(), TM: [], AL: [] });
+    const absorb = (p, o) => { if (!p.NS && Array.isArray(o.n)) p.NS = o.n; (o.al || []).forEach(x => p.AL.push(Array.isArray(x) ? x : [x, ''])); if (Array.isArray(o.n)) o.n.forEach(x => p.AL.push([x[0], x[1] || ''])); tmAll(o).forEach(([t, w]) => { if (!p.T.some(x => x[0] === t)) p.T.push([t, w]); p.TM.push([t, w, o.id]); }); (o.st || []).forEach(x => x[1] && p.A.add(season(x))); };
     // one person played young and old (Fox's films: McAvoy's and Stewart's Charles, owner, November 2026: "a few Jean Greys and a few
     // Charles Xaviers ... all mixed in") is one bubble: the younger file folds into the older one, titles, crews and connections together
     const AGE = { 'fox-charles-xavier-young': 'fox-charles-xavier', 'fox-cyclops-young': 'fox-cyclops', 'fox-jean-grey-young': 'fox-jean-grey', 'fox-storm-young': 'fox-storm',
@@ -84,7 +84,9 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
         // their crews as the story goes: each group with the story-order place of the title they're in it from, the current one last
         p.TM.map(([c, w], k) => [c, w ? so(w) + (+((/#(\d+)$/.exec(w) || [])[1] || 0)) / 10000 : -1, k, w]).sort((x, y) => x[1] - y[1] || x[2] - y[2]).map(([c, o, , w]) => [c, o, w ? ti(w) : -1]),
         // the other names they go by, for search, each with where it's first said (story order), so a name that's a reveal stays hidden
-        (() => { const m = new Map(); p.AL.forEach(([a, w]) => { if (!a || a === p.n) return; const o = w ? so(w) : -1; if (!m.has(a) || o < m.get(a)) m.set(a, o); }); return [...m]; })(), p.u, id, p.dk]; }),
+        (() => { const m = new Map(); p.AL.forEach(([a, w]) => { if (!a || a === p.n) return; const o = w ? so(w) : -1; if (!m.has(a) || o < m.get(a)) m.set(a, o); }); return [...m]; })(), p.u, id, p.dk,
+        // staged names (the files' own): the name they go by from each title or episode, so a card shows a cover name until the reveal
+        p.NS ? p.NS.map(([a, w]) => [a, w || '', w ? so(w) + (+((/#(\d+)$/.exec(w) || [])[1] || 0)) / 10000 : -1]) : null]; }),
       // other versions of the same person: the same name in another file, and two the MCU names differently
       variants: (() => { const by = {}; ids.forEach(id => (by[P[id].n] = by[P[id].n] || []).push(idx[id])); const V = [];
         Object.values(by).forEach(L => { for (let a = 0; a < L.length; a++) for (let b = a + 1; b < L.length; b++) V.push([L[a], L[b]]); });
