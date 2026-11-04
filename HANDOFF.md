@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v131 (3 November 2026) and matches main (0cea151, pushed 3 November 2026) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v135 (4 November 2026) and matches main (ab088a6, pushed 4 November 2026) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
@@ -1097,7 +1097,7 @@ These happened in earlier chats. Each cost the owner time.
 
 ## Open items
 
-- **Audit status (4 November 2026, all on main):** parts 1 to 3 (people, the Network, the files) are done: checked, second-checked,
+- **Audit status (4 November 2026, all on main as of ab088a6):** parts 1 to 3 (people, the Network, the files) are done: checked, second-checked,
   applied, then a fresh random 600 of each rechecked (people 1.6%, the Network 4.3%, files 1.2% wrong, all fixed after a second check),
   then the Network's last pass over all 7,357 stages, then the owner's answers to the 59 report questions. **Next: parts 4 to 9**
   (the Atlas, character logs, Damage Control and Comms, the story lists and boxes, the Agent File, the Incursions wall and the
