@@ -147,6 +147,10 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
 - Network group names (owner, 4 November 2026, on Okoye and Ayo after Black Panther): any group of two or more is named on the floor
   once you're zoomed in, in the smaller lettering; only three or more fold into a bubble zoomed out (hub-src, the floor labels).
   A new group's name fades in once its people have landed (owner: "they should pop in or fade in after"), never on an empty floor.
+- Extended cuts count (owner, 4 November 2026: "Both count"): an official extended or alternate cut (X-Men: Days of Future Past's Rogue Cut,
+  No Way Home's More Fun Stuff Version) is part of its film; its scenes give stages under the film's own title. Disc-menu deleted scenes don't count.
+- Hill stays in Far From Home (owner, 4 November 2026: "Keep it on Hill"): the film stays in Maria Hill's appearances though the Hill on screen is
+  Soren. What "Hill" does there belongs to Soren's ties, so Hill gets no new stages in it.
 - Families stand together (owner, 4 November 2026: "Why is Laura Barton not part of the Barton family?"): a family circle (rel/out1.json)
   holds every member, parents and siblings included, not only those with no group record; a member stands in it whenever they're in
   no other group (Clint with the Avengers in Endgame, with his family in Hawkeye). And a family or partner tie needs a stage in every
