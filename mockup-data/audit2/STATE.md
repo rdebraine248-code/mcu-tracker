@@ -161,3 +161,54 @@ rv05: 10c 2a. HOLD T:sv-hammerhead-ssm (needs a name for Tombstone/Big Man's org
 nr08 27, nr18 7.
 nr09 27 (3 calls). fr08 2.
 nr10 51. rv04: 10c 4a 3r. PEOPLE WAVE2 APPLIED: apply7.json (195 changes, left 265) in index.html. HELD for owner: A:st-amy-bendix (Fiona's Crew label), T:pr-st-andre-deschaine (+T:pr-st-lia; trafficking ring label) [ask 12 unnamed crews], T:sv-hammerhead-ssm (Big Man org name). Rejected: Pilgrim (Aryan gang never named: owner call), Cole North, Bakshi. Twin: A:agatha-harkness = T (Salemites). NEXT: rebuild+tests, then fresh PEOPLE 600 sample.
+fr09 3, fr11 0.
+nr12 40, nr17 9.
+nr11 48 (26 splits).
+fr10 3 (+2 calls: anim Sentinels Allied vs Lost; anim Horsemen Deceased though Gambit alive).
+nr14 34. NOTE build: 'split' may be a LIST of stages (nr03 watcher|captain-carter, nr14 ward|bakshi); relbake sorts so moves later are fine.
+nr15 50 (3 calls).
+fr12 1 (+call stark-inventions Secured vs In use).
+nr16 22 (2 calls).
+nr22 2. fr13 2 (Davis LMD call = settled by HANDOFF: LMD doesn't change the real person's status; not an owner call).
+nr13 39, nr20 7. Testrun2 (wave1 build) ALL PASS. Rebuilt with apply7; all_now3.json (1503 people). FRESH PEOPLE 600: s3_01..12 -> s3out_NN (SBRIEF + held/settled lines). Launched s3 01-03; testrun3 running.
+nr19 9 (3 calls), nr21 6. s3 01-04 running.
+fr14 2, fr16 0.
+fr15 2.
+nr23 13 (1 call).
+nr27 6 (1 call).
+nr28 10.
+fr18 2.
+fr17 0.
+s3out_02: 0 changes.
+fr20 2.
+nr29 12 (1 call).
+s3out_03: 1 change, 1 call.
+s3out_01: 3 changes, 2 calls.
+  s3 tally: real errors so far Yon-Rogg (wrong Independent end), Janet (past group keyed to later title -> order). Employers (held scope): Audrey Portland Symphony, Cassie Webb FDNY.
+nr26 35.
+fr19 1.
+testrun3 (apply7 build) ALL PASS. nr25 49, fr21 1. s3out_04: Joy Meachum stale left S2 (twin mismatch). PATTERN: 10 hero/villain pairs disagree (madelyne, anim magneto, loki, trevor, ghost, yelena, walker, maya, trish, joy) -> TWINBRIEF.md, twins_fix.json -> twins_out.json (agent). Stale left cleaned: apply8.json (3 removed) in index.
+fr22 2.
+fr23 3.
+nr24 48 (3 calls).
+s3out_07: 0.
+fr24 0.
+nr30 49 (1 call).
+nr31 30 (2 calls).
+fr26 3 (Lion 'kind' line also says ruling Crete: fix kind too).
+s3out_09: 0 (1 call). s3 11,12 launched.
+nr35 18.
+fr27 1. s3out_05: 5 ch = employers (O'Neil FDNY, Alexei limo, Chula USPS, Bob Alfredo's) + REAL Steve Rogers (S.H.I.E.L.D. collapses CATWS, no Independent). Real tally: Yon-Rogg, Janet, Joy(twin), Steve = 4 of 450 so far -> over bar. Wait all 12, then aimed fix.
+s3out_08: 3 employers (Owlsley Silver&Brent, Schultzes Testament, Krista Sacred Saints) 0 real.
+nr36 6 (1 call).
+nr32 32 (4 calls).
+nr33 43, fr25 6 (agamotto k8 order fix). Twin reconcile done (twins_out.json), second check twinv.json -> twinvout.json running (Joy S1 vs S2 conflict).
+nr34 43 (1 call).
+s3out_06: Enoch bartender (employer), young Xavier DOFP (REJECT: owner ruling #21 no change) -> 0 real. Calls: Korg Ria, Nakia Haiti, Collector Tivan Group (Tivan Group is in DROP list = owner said no).
+fr28 1.
+fr31 1.
+fr29 3 (Raza status: check spoiler rule; status is for where Iron Man leaves him).
+s3out_10: Sharon Davis Westview Historical Society (past group said on screen) = REAL #5. Calls: Beth Lola's Roadhouse, zombie Shang-Chi valet (employers).
+Janet reclassified: NOT an error (HANDOFF doesn't fix the key title; Peggy SOE/Bletchley keyed to the flashback title AC S2 is the live pattern; 41 stages follow it). OWNER CALL: key a past group to the title that shows it (current) or the file's first title? Real tally now 4 (Yon-Rogg, Joy, Steve, Sharon) in 550.
+fr30 3.
+fr32 2. TWINS: second check 10/10 confirmed (Joy leaves S2 buyout -> s3 Joy item is resolved by twin fix). APPLIED apply9.json (201 changes) to index; ct49 ok, check ok. s3 real tally: Yon-Rogg, Steve, Sharon (+Joy twin, now fixed) .
