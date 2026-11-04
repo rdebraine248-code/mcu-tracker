@@ -15,7 +15,7 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
   // only The Avengers: Thanos commands the Chitauri, and his Children aren't named yet
   const early = await run(['The Avengers'], p => tags(p, 'thanos'));
   ok(JSON.stringify(early) === '["The Chitauri"]', 'Thanos before Infinity War ' + JSON.stringify(early));
-  const r = await run(['The Avengers', 'Captain America: The Winter Soldier', 'Agents of S.H.I.E.L.D. S1', 'Avengers: Infinity War'], async p => {
+  const r = await run(['The Avengers', 'Guardians of the Galaxy', 'Captain America: The Winter Soldier', 'Agents of S.H.I.E.L.D. S1', 'Avengers: Infinity War'], async p => {   // his Children are named from Guardians of the Galaxy (audit, November 2026: Gamora and Nebula are already his daughters there)
     const out = { thanos: await tags(p, 'thanos'), ward: await tags(p, 'st-grant-ward'), bucky: await tags(p, 'winter-soldier'), maw: await tags(p, 'ebony-maw') };
     const roster = async id => { await tags(p, id); await p.click('[data-rft]'); await sleep(700);
       return p.evaluate(() => ({ head: document.querySelector('.tf-bar b').textContent, gf: ((document.querySelector('.tf-bar [data-co]') || {}).dataset || {}).co || null,
@@ -30,7 +30,7 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
   ok(['HYDRA', 'Project Centipede', 'S.H.I.E.L.D.'].every(t => r.ward.includes(t)), 'Ward in season 1 ' + JSON.stringify(r.ward));
   ok(r.bucky.includes('HYDRA') && r.bucky[r.bucky.length - 1] === 'Independent', 'the Winter Soldier served HYDRA ' + JSON.stringify(r.bucky));
   ok(/Independent$/.test(r.now.head) && r.now.cur.join() === 'Independent' && r.now.past.includes('HYDRA') && r.now.past.includes('U.S. Army'), 'HYDRA and his war years are former, Independent current ' + JSON.stringify(r.now));
-  ok(r.order.head === 'The Children of Thanos' && r.order.gf === null && r.order.rows === 5, 'Children of Thanos roster, its team file gone ' + JSON.stringify(r.order));
+  ok(r.order.head === 'The Children of Thanos' && r.order.gf === null && r.order.rows >= 5, 'Children of Thanos roster, its team file gone ' + JSON.stringify(r.order));
   ok(r.hydra.head === 'HYDRA' && r.hydra.gf === 'hydra', 'HYDRA roster keeps its group file ' + JSON.stringify(r.hydra));
   ok(JSON.stringify(r.back) === '["bucky-barnes"]' && r.hero.join() === 'cp,bucky-barnes', 'the Winter Soldier links back to Bucky ' + JSON.stringify([r.back, r.hero]));
   ok(r.grp.label.includes('Faction') && r.grp.secs.includes('HYDRA') && r.grp.secs[r.grp.secs.length - 1] === 'Independent', 'grouped by faction ' + JSON.stringify(r.grp));
