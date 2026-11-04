@@ -9,3 +9,4 @@
 - OWNER (4 Nov 2026): "When it's ready, push. I'll test in app" = ONE main push approved after shows + extended cuts applied and suite green. Then report.
 - Extended cuts applied: rel/stage_fix_zzzzzzzzzzzzzzzz_cuts.json (7 stages incl. Betty x3) + rel/uni/cuts/out.json (22 new ties); films DOFP Kitty/Bobby -> partner, Bobby's death place made cut-neutral.
 - FOLLOW-UP (not in this push): Jimmy Weeks (Punisher 2004) needs a new person file (cvout_01 #25); Wade/Logan Deadpool 2 stage (cv #18) waits on Deadpool 2 in fox-wolverine's appearances (#27).
+- Main pushed 9e1b826 (owner's one-time 'When it's ready, push' used up).
