@@ -868,9 +868,14 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
 - **Group records fixed by hand** (`TEAM_FIX` in index.html, November 2026): Bob joins the Thunderbolts and the New Avengers at the end of
   Thunderbolts* (owner); Buck works for Fisk from Born Again S1; Kara and Akela were S.H.I.E.L.D. before HYDRA and Centipede, then freed.
   Steve stays an Avenger after Endgame (owner).
-- **Fox's X-Men split at Days of Future Past** (owner, November 2026): the films before it share Earth-10005; from it on, the changed
-  timeline (Apocalypse, Dark Phoenix) is Earth-TRN414 (Marvel Database's number). A person played young and old is one bubble for the
-  shared past (First Class), and their younger self is a bubble of its own in Earth-TRN414 from Days of Future Past on. Havok, one file
+- **Fox's X-Men split at Days of Future Past** (owner, November 2026): the films before it share one Earth; from it on, the changed
+  timeline (Apocalypse, Dark Phoenix) is another. **Numbers (owner's answer 52, option 1, 4 November 2026): the Marvel Database's.** The
+  original films are Earth-41578 ("Original X-Men Cinematic Timeline"; the number is the fan-run Appendix's, not Marvel's), the changed
+  timeline and Deadpool's world are Earth-10005 ("Revised X-Men Cinematic Universe", named on screen in Deadpool & Wolverine), Logan is
+  Earth-17315 (also the Appendix's, from the filmmakers' interviews). Earth-TRN414, used before, has no source and is gone. The Deadpool
+  files moved with Earth-10005 into the changed timeline (their Atlas entries to `ATLAS_UNI.foxtrn`; Wade's 1979 jump to Three Mile
+  Island stays on the original map). A person played young and old is one bubble for the shared past (First Class), and their younger
+  self is a bubble of its own in the changed timeline from Days of Future Past on. Havok, one file
   across both, gets a second bubble (`fox-havok-trn`) that opens his one file. In the indexes, young and old were already separate files.
 - **The Avengers stand in the middle of the Network** (owner, November 2026): the layout puts them first and the screen centres on them.
   Every other tab opens centred on its biggest Earth, the one with the most people (owner: the tabs opened off to the side, on another
@@ -914,14 +919,14 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
     main Earth has no inset (owner, November 2026: cut it): the Cosmos already has Earth at its centre with S.A.B.E.R. and Mar-Vell's lab. The Savage Land is
     on Earth, below the map's 58°S edge, so it sits on that edge.
   - **The Atlas splits Fox's X-Men at Days of Future Past, like the Network** (owner, November 2026: "the timeline earth difference
-    after DOFP like in networks etc, consistency and accuracy"). Two maps on the Multiverse: Earth-10005 (`ATLAS_UNI.fox`) and
-    Earth-TRN414 (`ATLAS_UNI.foxtrn`, pin `u-foxtrn`, "The X-Men's changed timeline"). Changed-timeline titles: Days of Future Past's
+    after DOFP like in networks etc, consistency and accuracy"). Two maps on the Multiverse: Earth-41578 (`ATLAS_UNI.fox`, "The original X-Men films") and
+    Earth-10005 (`ATLAS_UNI.foxtrn`, pin `u-foxtrn`, "The changed timeline and Deadpool's world"; question 52). Changed-timeline titles: Days of Future Past's
     1973, Apocalypse, Dark Phoenix. Days of Future Past's 2023 (the Chinese temple, Moscow) is the old timeline's future, so it stays on
-    Earth-10005, as the old cast's bubbles do in the Network. Deadpool 2 is on Earth-10005 everywhere (owner, November 2026: "whatever
+    Earth-41578, as the old cast's bubbles do in the Network. Deadpool 2 is on Earth-10005 everywhere (owner, November 2026: "whatever
     makes the most sense for his story as a whole, not a quick punchline"): Deadpool & Wolverine calls Wade's world Earth-10005, so the
     young X-Men's glimpse at the mansion doesn't move it. The Network's split list (`split.json` `post`) no longer has it. A place in both timelines is on both maps with each one's own entries
-    (Xavier's School, New York, Washington, Alkali Lake...). Jean's childhood home: New Jersey on Earth-10005 (The Last Stand), Red
-    Hook on Earth-TRN414 (Dark Phoenix). At lines in the files point at the map of their own title.
+    (Xavier's School, New York, Washington, Alkali Lake...). Jean's childhood home: New Jersey on Earth-41578 (The Last Stand), Red
+    Hook on Earth-10005 (Dark Phoenix). At lines in the files point at the map of their own title.
   **Step indexes:** the keys count a file's `st` steps, so adding or removing a step shifts the rest: re-tag that file. The audit checks it.
 - **Links in messages: cut** (owner, November 2026: "useless right now, I'll think of it later"). Tried twice: pills, then the names
   underlined in the text. The problem was that file links can't show before the Compound (Age of Ultron) or the Raft (Civil War) are found,
