@@ -373,6 +373,35 @@ insignia celebration covers the page.
 
 ## Standing rules from the owner
 
+### The owner's answers to the 43 morning-report questions (4 November 2026, submitted on the report page)
+Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner wrote "make a call", the call made is marked (call).
+- 1 A: every named employer counts, even small or brief jobs. 15 A: unnamed workplaces under a plain description ("Anne's law
+  firm"). 41 A: the further roles listed (the Lion's kingdom, Longshot at Mojo's network, Nightcrawler's monastery, Moira's Muir
+  Island center, Jeri at Rand, Sheikh Abdullah's mosque, Amy's crew, Pilgrim's gang, Krista's hospital, Andre's ring, Raava as
+  Rhodes, Dimitri with "Fury", the Fox jobs, Dirk Leyden, Anne and Dan) each count as a group.
+- 2: the Watcher joins the Guardians of the Multiverse, then goes back to watching (Independent); Kahhori, Byrdie and Storm stay.
+- 3 B: Hive's followers get their own plain-label group (not HYDRA). 4 B: Mace ends on the Framework's Resistance.
+- 5 A: Wakanda = Wakandan or living there; Nakia stays. 6 A: students count (school from their first title; expelled or dropping
+  out is a departure).
+- 7 (call): a support group counts for whoever runs it (Curtis, Malcolm), not for those who only attend.
+- 8 C: Havok (Apocalypse) and Victor Timely are members; the others are allies. 9 A: Kraglin a Guardian from Vol. 2.
+- 10 (call): Wade ends with no group; his friends are not an organization. 11 B: the hired pair are crew members.
+- 12 C: Nomak and Knull count as leading their groups; Dormammu and Arishem don't. 13 A: a familiar is in the house it serves.
+- 14 (call, "better safe than sorry"): unnamed crews that stand across a story get a plain label; one-episode crews don't.
+- 16 B: a short alliance inside one title is being an ally. 17 B: the Spider-Verse team under a plain label.
+- 18 (call) A: Tuklo keeps her Choctaw Nation group only. 19 B: "Cassandra Nova's forces". 20 (call): "Bloodstone's hunters".
+- 21 A: a plain label for Kraven's father's operation. 22 A: no Spider-Catchers group. 23 A: "Domingo's crew". 24 A: keep "The Omegas".
+- 25 B: split combined files, except 42: Dum-E and U, and the Toro brothers, stay combined; Gao's champions split, made a group.
+- 26 B: Venom (Sony) is the symbiote alone, a separate file from Eddie. 27 B: one Victor Creed file. 43 B: Colossus stays two files.
+- 28 B: Marvel's "B" Earth numbers everywhere they exist. 29 B: Earth-6799 for the 1967 cartoon. 30 B: Earth-17315 for Logan's
+  people, Wolverine's Logan and Deadpool & Wolverine entries in a file of their own. 31 B: the Eminence has no Earth number.
+- 32 C: a broken-up group ends case by case ("At large" for the Brotherhood, "Allied" for Horsemen who switch sides, Genosha as is).
+- 33 B: Robin Hinton stays active; the 2091 death is told in the text. 34 (call) C: drop the 1994 Electro and Fury connection.
+- 35 A: changed-timeline steps go to the changed-timeline files. 36 A: Pietro's WandaVision step moves to a new Ralph file (noted).
+- 37 B: keep the current names, even ones the screen never speaks (Graviton, Scarlet Scarab, Final Horsemen, Luphomoid, Wild
+  Sentinel, Ryhno's Gang; taken to cover credits names like Crossbones too). A name that gives away a later reveal still goes.
+- 38 A: extended and IMAX scenes count. 39 A: add the missing places. 40 B: Peggy keeps the Arctic.
+
 - **No "Layer 1/2/3", plain step-by-step plans** (owner, November 2026: "stop calling it Layer one ... it sounds outdated. Just give me
   step by step"). Call things what they do: the tests (do the features work), the content check (is anything shown too early, does
   anything contradict itself; a fast version before every push, a full one that ticks every title one at a time), the audit (is the
