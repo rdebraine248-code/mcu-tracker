@@ -1,0 +1,1217 @@
+[
+ {
+  "type": "question",
+  "pair": null,
+  "a": null,
+  "b": null,
+  "stages": null,
+  "question": "The batch treats 'Agent Carter' as one whole-show title, but the show has seasons on file (stages use 'Agent Carter S1#N' / 'S2#N'), and 21 of these 25 pairs already have stages there. Should the whole-show 'Agent Carter' title be dropped from the per-title check (or mapped to its seasons) so these pairs stop being flagged?",
+  "batch": 49,
+  "n": 0
+ },
+ {
+  "type": "question",
+  "pair": null,
+  "a": null,
+  "b": null,
+  "stages": null,
+  "question": "The pass flags pairs under the bare 'Agent Carter' title even though every one already has stages titled 'Agent Carter S1...' or 'Agent Carter S2...', and the app maps the bare title onto S1 and S2. Should the checker treat the umbrella as covered by its seasons (drop these flags), or should these ties also get stages titled under the bare 'Agent Carter'?",
+  "batch": 51,
+  "n": 1
+ },
+ {
+  "type": "add",
+  "pair": "howling-commandos|dum-dum-dugan",
+  "a": "The Howling Commandos",
+  "b": "Dum Dum Dugan",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Captain America: The First Avenger",
+    "text": "Dum Dum Dugan is one of the Howling Commandos. He is freed from HYDRA's prison camp with the rest of the unit and fights with them across Europe under Steve Rogers.",
+    "on_a_card_about_b": "One of the Commandos, freed from HYDRA's camp with the rest of the unit.",
+    "on_b_card_about_a": "Dugan's unit, freed from the same HYDRA camp and fighting under Steve."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agent Carter S1#5",
+   "text": "In 1946, Dugan and the Howling Commandos join Peggy's raid on a Leviathan complex, where a young girl stabs him and shoots Juniper dead.",
+   "on_a_card_about_b": "Back with the Commandos for Peggy's Leviathan raid, where he is stabbed.",
+   "on_b_card_about_a": "Dugan's unit, back together for Peggy's raid on Leviathan."
+  },
+  "their_evidence": "The Iron Ceiling (Agent Carter S1 episode 5): Carter meets members of the 107th, Dugan, Sawyer, Juniper and Pinkerton, nicknamed the Howling Commandos; they infiltrate the complex together, a girl stabs Dugan and shoots Juniper, and Dugan blows a hole in the wall so the group can escape.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=The_Iron_Ceiling&action=raw",
+  "batch": 52,
+  "n": 2
+ },
+ {
+  "type": "add",
+  "pair": "st-mack|st-jemma-simmons",
+  "a": "Alphonso \"Mack\" Mackenzie",
+  "b": "Jemma Simmons",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2#6",
+    "text": "Mack tells Jemma Simmons that he only knows the new Fitz and thinks Fitz is better off without her around, and she tearfully agrees.",
+    "on_a_card_about_b": "A close friend on Coulson's team.",
+    "on_b_card_about_a": "A close friend on Coulson's team."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "After Fitz dies, Jemma serves under Mack, now Director, while she searches space for the younger Fitz, who is still frozen out there.",
+    "on_a_card_about_b": "A friend who serves under Mack while searching space for Fitz.",
+    "on_b_card_about_a": "Jemma's friend and Director while she searches space for Fitz."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#10",
+   "text": "Kasius, raging on odium, is about to kill Mack when Simmons stabs him with a deafening implant, letting Mack kill him.",
+   "on_a_card_about_b": "A friend who saves Mack from Kasius.",
+   "on_b_card_about_a": "A friend who kills Kasius once she stops him."
+  },
+  "their_evidence": "Past Life (5x10): Simmons injects Kasius with Ava's deafening implant before he kills Mackenzie, enabling Mack to slay him.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Past_Life_(Agents_of_S.H.I.E.L.D.)&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 3
+ },
+ {
+  "type": "add",
+  "pair": "st-mack|st-leo-fitz",
+  "a": "Alphonso \"Mack\" Mackenzie",
+  "b": "Leo Fitz",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2#2",
+    "text": "Mack joins the team while Fitz is struggling after his brain injury, helps him modify the Overkill Device, and becomes his closest friend.",
+    "on_a_card_about_b": "Mack's closest friend, struggling after a brain injury.",
+    "on_b_card_about_a": "Fitz's closest friend, who helps him through his brain injury."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2#15",
+    "text": "Mack throws himself over Fitz to shield him from an explosion.",
+    "on_a_card_about_b": "Mack's closest friend, whom Mack shields from an explosion.",
+    "on_b_card_about_a": "Fitz's closest friend, who shields him from an explosion."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#9",
+    "text": "Later, as Director of S.H.I.E.L.D., Mack teams up with Jaco to rescue Fitz and Jemma from Izel.",
+    "on_a_card_about_b": "Mack's friend, whom Mack rescues from Izel with Jaco.",
+    "on_b_card_about_a": "Fitz's friend, now Director, who rescues him and Jemma from Izel."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#22",
+   "text": "Fitz goes back into Qovas' ship to save Mack from two Remorath. When Fitz is buried under rubble in Chicago, Mack digs him out and stays at his side, crying, as he dies.",
+   "on_a_card_about_b": "Mack's closest friend, who dies in Mack's arms in Chicago.",
+   "on_b_card_about_a": "Fitz's closest friend, who stays with him as he dies."
+  },
+  "their_evidence": "The End (5x22): Fitz and May rescue Mackenzie from two Remorath; Mackenzie and May clear the rubble over Fitz and remain at his side until he dies.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_End&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 4
+ },
+ {
+  "type": "add",
+  "pair": "st-mack|st-melinda-may",
+  "a": "Alphonso \"Mack\" Mackenzie",
+  "b": "Melinda May",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2",
+    "text": "Mack and May become close friends on Coulson's team.",
+    "on_a_card_about_b": "A close friend on Coulson's team.",
+    "on_b_card_about_a": "A close friend on Coulson's team."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6",
+    "text": "May stands behind Mack when he becomes Director of S.H.I.E.L.D. In the fight against Sarge and Izel, she kills Izel and throws Mack Sarge's sword so he can finish Sarge.",
+    "on_a_card_about_b": "Mack's backer as Director. She kills Izel and throws him Sarge's sword.",
+    "on_b_card_about_a": "May's friend, now Director. She throws him the sword to finish Sarge."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#22",
+   "text": "May and Mack dig Fitz out of the rubble in Chicago together and stay with him, both crying, as he dies.",
+   "on_a_card_about_b": "A close friend who stays with Mack at Fitz's side.",
+   "on_b_card_about_a": "A close friend who stays with May at Fitz's side."
+  },
+  "their_evidence": "The End (5x22): Mackenzie and May clear the rubble over Fitz and, both crying, remain at his side until he dies.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_End&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 5
+ },
+ {
+  "type": "add",
+  "pair": "st-mack|st-piper",
+  "a": "Alphonso \"Mack\" Mackenzie",
+  "b": "Piper",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S3#19",
+    "text": "Piper volunteers for Mack and May's mission to kill Hive, and she helps carry the wounded Mack away after Daisy nearly kills him.",
+    "on_a_card_about_b": "An agent who helps carry Mack away after Daisy nearly kills him.",
+    "on_b_card_about_a": "The agent whose mission to kill Hive Piper volunteers for."
+   },
+   {
+    "i": 1,
+    "kind": "boss",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Piper later serves under Mack once he becomes Director of S.H.I.E.L.D.",
+    "on_a_card_about_b": "An agent under Mack once he is Director.",
+    "on_b_card_about_a": "Piper's Director."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#17",
+   "text": "Piper finds Mack locked in a cell at the Lighthouse, and the two rush the wounded Deke into surgery and save his life.",
+   "on_a_card_about_b": "An agent who helps Mack save Deke's life.",
+   "on_b_card_about_a": "An agent Piper finds locked up, then saves Deke with."
+  },
+  "their_evidence": "The Honeymoon (5x17): Piper finds Mackenzie locked in a cell; Piper and Mackenzie take Shaw to surgery and save him.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Honeymoon&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 6
+ },
+ {
+  "type": "add",
+  "pair": "st-carl-creel|st-melinda-may",
+  "a": "Carl Creel",
+  "b": "Melinda May",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S2#1",
+    "text": "May clashes with Carl Creel, the Absorbing Man, when he ambushes Glenn Talbot to find the Obelisk. She kicks Creel away to save Talbot, and Skye stuns him so Talbot's soldiers can take him.",
+    "on_a_card_about_b": "An agent who kicks Creel away to save Talbot.",
+    "on_b_card_about_a": "The Absorbing Man, who ambushes Talbot. May fights him off."
+   }
+  ],
+  "proposed": {
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S5#14",
+   "text": "May finds that Hale's driver, taken aboard the Zephyr, is Creel in a bomb belt, ready to blow up the plane unless Hale goes free.",
+   "on_a_card_about_b": "Hale's driver, who threatens to blow up the Zephyr.",
+   "on_b_card_about_a": "An agent who catches him wearing a bomb on the Zephyr."
+  },
+  "their_evidence": "The Devil Complex (5x14): Coulson, May and Piper capture Hale and her driver; May discovers the driver is Carl Creel with a bomb belt ready to blow up the Zephyr.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Devil_Complex&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 7
+ },
+ {
+  "type": "add",
+  "pair": "st-daisy-johnson|st-davis",
+  "a": "Daisy Johnson",
+  "b": "Davis",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#5",
+    "text": "Agent Davis follows Daisy's lead on a S.H.I.E.L.D. mission to rescue Coulson and May from a prison overrun by Lucy Bauer's ghostly infection.",
+    "on_a_card_about_b": "A S.H.I.E.L.D. agent Daisy leads on a prison rescue.",
+    "on_b_card_about_a": "Davis's leader on a prison rescue."
+   },
+   {
+    "i": 1,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#12",
+    "text": "Agent Davis works alongside Daisy on S.H.I.E.L.D. missions, such as tracking down L.T. Koenig and the Darkhold.",
+    "on_a_card_about_b": "A S.H.I.E.L.D. agent working missions beside Daisy.",
+    "on_b_card_about_a": "Davis's teammate on S.H.I.E.L.D. missions, like tracking Koenig and the Darkhold."
+   },
+   {
+    "i": 2,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Davis joins Daisy on the long search through space for Leo Fitz.",
+    "on_a_card_about_b": "A fellow agent on the long search through space for Fitz.",
+    "on_b_card_about_a": "A fellow agent on the long search through space for Fitz."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#16",
+   "text": "Davis flies Daisy to the Retreat in a Quinjet so she can find Robin and ask where Coulson is.",
+   "on_a_card_about_b": "An agent who flies Daisy to find Robin.",
+   "on_b_card_about_a": "An agent Davis flies to find Robin."
+  },
+  "their_evidence": "Inside Voices (5x16): Johnson and James Davis fly a Quinjet to the Retreat, where Robin is hiding with Polly.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Inside_Voices&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 8
+ },
+ {
+  "type": "add",
+  "pair": "st-daisy-johnson|st-elena-rodriguez",
+  "a": "Daisy Johnson",
+  "b": "Elena Rodriguez",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S3#11",
+    "text": "Daisy Johnson helps catch Elena Rodriguez in Bogotá, then fights beside her to rescue Bobbi and Hunter, and Elena agrees to join Daisy's Secret Warriors.",
+    "on_a_card_about_b": "A fellow Inhuman who joins Daisy's Secret Warriors.",
+    "on_b_card_about_a": "The Inhuman whose Secret Warriors Elena joins."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#18",
+   "text": "While Daisy tries to calm Ruby down, Yo-Yo cuts Ruby's throat for taking her arms, and Daisy blames her for the killing.",
+   "on_a_card_about_b": "A friend who kills Ruby as Daisy tries to calm her.",
+   "on_b_card_about_a": "A friend who blames Yo-Yo for killing Ruby."
+  },
+  "their_evidence": "All Roads Lead... (5x18): Hale and Quake are calming Ruby when Rodriguez slits Ruby's throat with her chakram; Quake blames Rodriguez for killing Ruby.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=All_Roads_Lead...&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 9
+ },
+ {
+  "type": "add",
+  "pair": "st-daisy-johnson|st-jemma-simmons",
+  "a": "Daisy Johnson",
+  "b": "Jemma Simmons",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Jemma Simmons and Daisy Johnson are best friends. They have been through nearly everything together since Daisy joined Coulson's team.",
+    "on_a_card_about_b": "Daisy's best friend since Daisy joined Coulson's team.",
+    "on_b_card_about_a": "Jemma's best friend since joining Coulson's team."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#4",
+   "text": "Kasius questions Daisy and Simmons together with a telepath, and they convince him they came to the Lighthouse alone.",
+   "on_a_card_about_b": "A best friend held with Daisy by Kasius.",
+   "on_b_card_about_a": "A best friend held with Simmons by Kasius."
+  },
+  "their_evidence": "A Life Earned (5x4): using Ben, Kasius interrogates Daisy and Simmons about the others; they convince him they came alone.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw",
+  "batch": 53,
+  "n": 10
+ },
+ {
+  "type": "add",
+  "pair": "st-daisy-johnson|st-leo-fitz",
+  "a": "Daisy Johnson",
+  "b": "Leo Fitz",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Fitz and Skye become close friends on Coulson's team.",
+    "on_a_card_about_b": "A close friend on Coulson's team.",
+    "on_b_card_about_a": "A close friend on Coulson's team."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2#11",
+    "text": "When Skye gains her powers, Fitz is the first to help her hide them.",
+    "on_a_card_about_b": "A close friend, the first to help Daisy hide her powers.",
+    "on_b_card_about_a": "A close friend, whom Fitz is first to help hide her powers."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Daisy spends a year searching space to bring Fitz home.",
+    "on_a_card_about_b": "A close friend Daisy spends a year searching space to bring home.",
+    "on_b_card_about_a": "A close friend, who spends a year searching space for Fitz."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#14",
+   "text": "Fitz straps Daisy to a table and forces out her inhibitor so her powers can seal the rift, though she tells him she will never forgive him.",
+   "on_a_card_about_b": "A friend who forces out Daisy's inhibitor.",
+   "on_b_card_about_a": "A friend who swears she won't forgive Fitz."
+  },
+  "their_evidence": "The Devil Complex (5x14): as the Doctor, Fitz straps Johnson to a table and forcefully extracts her inhibitor while she says she will never forgive him; she then uses her powers on the gravitonium.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Devil_Complex&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 11
+ },
+ {
+  "type": "add",
+  "pair": "st-daisy-johnson|st-melinda-may",
+  "a": "Daisy Johnson",
+  "b": "Melinda May",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "mentor",
+    "title": "Agents of S.H.I.E.L.D. S1#21",
+    "text": "After Ward's betrayal, Melinda May talks with Skye about him and offers to be her new supervising officer, taking over her training.",
+    "on_a_card_about_b": "Daisy's trainer and supervising officer.",
+    "on_b_card_about_a": "May's trainee."
+   }
+  ],
+  "proposed": {
+   "kind": "mentor",
+   "title": "Agents of S.H.I.E.L.D. S5#19",
+   "text": "Daisy and May secretly ask Caine to look into Project Deathlok for a cure for Coulson, and May promises to cover for Daisy at the Lighthouse.",
+   "on_a_card_about_b": "A mentor who covers for Daisy's secret plan to save Coulson.",
+   "on_b_card_about_a": "A protégée May covers for while seeking a cure for Coulson."
+  },
+  "their_evidence": "Option Two (5x19): Johnson and May ask Caine to investigate Project Deathlok to help Coulson; Johnson leaves and May assures her she will cover for her in the Lighthouse.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Option_Two&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 12
+ },
+ {
+  "type": "add",
+  "pair": "st-daisy-johnson|st-piper",
+  "a": "Daisy Johnson",
+  "b": "Piper",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S3#19",
+    "text": "Piper is a S.H.I.E.L.D. agent who shoots Daisy with an I.C.E.R. while Hive has her under his control.",
+    "on_a_card_about_b": "An agent who shoots Daisy with an I.C.E.R. while Hive controls her.",
+    "on_b_card_about_a": "Under Hive's control when Piper shoots her with an I.C.E.R."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Piper has become a trusted friend, and she joins Daisy on the year-long search through space for Leo Fitz.",
+    "on_a_card_about_b": "A trusted friend on the year-long search through space for Fitz.",
+    "on_b_card_about_a": "A trusted friend on the year-long search through space for Fitz."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#22",
+   "text": "Piper interrupts Daisy's goodbye with Deke to tell her Talbot is attacking Chicago.",
+   "on_a_card_about_b": "An agent who brings Daisy word of Talbot's attack.",
+   "on_b_card_about_a": "An agent Piper warns about Talbot's attack."
+  },
+  "their_evidence": "The End (5x22): Johnson's talk with Shaw is interrupted by Piper, who informs them that Talbot is attacking Chicago.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_End&prop=wikitext&format=json",
+  "batch": 53,
+  "n": 13
+ },
+ {
+  "type": "question",
+  "pair": "st-daisy-johnson|st-leo-fitz",
+  "a": "Daisy Johnson",
+  "b": "Leo Fitz",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Fitz and Skye become close friends on Coulson's team.",
+    "on_a_card_about_b": "A close friend on Coulson's team.",
+    "on_b_card_about_a": "A close friend on Coulson's team."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2#11",
+    "text": "When Skye gains her powers, Fitz is the first to help her hide them.",
+    "on_a_card_about_b": "A close friend, the first to help Daisy hide her powers.",
+    "on_b_card_about_a": "A close friend, whom Fitz is first to help hide her powers."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Daisy spends a year searching space to bring Fitz home.",
+    "on_a_card_about_b": "A close friend Daisy spends a year searching space to bring home.",
+    "on_b_card_about_a": "A close friend, who spends a year searching space for Fitz."
+   }
+  ],
+  "question": "Fitz forcibly removes Daisy's inhibitor and she says she will never forgive him; keep the kind as friend (they are friends again by S6) or mark this stage rival?",
+  "batch": 53,
+  "n": 14
+ },
+ {
+  "type": "add",
+  "pair": "st-davis|st-elena-rodriguez",
+  "a": "Davis",
+  "b": "Elena Rodriguez",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4",
+    "text": "Agent Davis checks Yo-Yo in for her Inhuman checkups and jokes with her about his pregnant wife.",
+    "on_a_card_about_b": "An Inhuman Davis checks in and jokes with about his pregnant wife.",
+    "on_b_card_about_a": "An agent who checks Elena in and jokes about his pregnant wife."
+   },
+   {
+    "i": 1,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S7#13",
+    "text": "After the war with the Chronicoms, Davis is brought back as a Life Model Decoy, and he, Yo-Yo and Piper go on missions together as a team.",
+    "on_a_card_about_b": "A teammate on missions with Davis, now that he is an LMD.",
+    "on_b_card_about_a": "A teammate brought back as an LMD, on missions with Elena and Piper."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#19",
+   "text": "When the Remorath storm the Lighthouse, Davis and Yo-Yo fight side by side to keep them away from the Gravitonium in the lab.",
+   "on_a_card_about_b": "A teammate who holds off the Remorath beside Davis.",
+   "on_b_card_about_a": "A teammate who holds off the Remorath beside Elena."
+  },
+  "their_evidence": "Option Two (S5#19): Yo-Yo, Piper and Davis try to keep the Remorath from reclaiming the Gravitonium in the labs.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Option_Two&prop=wikitext&format=json",
+  "batch": 54,
+  "n": 15
+ },
+ {
+  "type": "add",
+  "pair": "st-davis|st-jemma-simmons",
+  "a": "Davis",
+  "b": "Jemma Simmons",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#14",
+    "text": "Agent Davis goes with Jemma Simmons to hunt for Aida at an old Russian submarine base.",
+    "on_a_card_about_b": "A fellow agent Davis helps hunt Aida.",
+    "on_b_card_about_a": "An agent who helps Jemma hunt Aida."
+   },
+   {
+    "i": 1,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#15",
+    "text": "Davis flies Zephyr One out of the Playground with Jemma and Daisy aboard before it is blown up.",
+    "on_a_card_about_b": "A fellow agent Davis escapes the Playground with and helps hunt Aida.",
+    "on_b_card_about_a": "An agent who escapes the Playground with Jemma and helps her hunt Aida."
+   },
+   {
+    "i": 2,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Davis joins Jemma on the long search through space for Fitz.",
+    "on_a_card_about_b": "A teammate on the long search for Fitz.",
+    "on_b_card_about_a": "A teammate on the long search for Fitz."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#19",
+   "text": "Davis guards the Gravitonium in the lab with Jemma when the Remorath storm the Lighthouse.",
+   "on_a_card_about_b": "A fellow agent Davis guards the Gravitonium with.",
+   "on_b_card_about_a": "An agent who guards the Gravitonium with Jemma."
+  },
+  "their_evidence": "Option Two (S5#19): Simmons, Piper and Davis guard the Gravitonium in the lab during the Remorath siege.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw",
+  "batch": 54,
+  "n": 16
+ },
+ {
+  "type": "add",
+  "pair": "st-davis|st-leo-fitz",
+  "a": "Davis",
+  "b": "Leo Fitz",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#21",
+    "text": "Agent Davis is one of the agents who pull Fitz out of the containment chamber he is locked in with Aida when she turns on him.",
+    "on_a_card_about_b": "Locked in a chamber with Aida when she turns on him. Davis helps pull him out.",
+    "on_b_card_about_a": "One of the agents who pull Fitz out of Aida's chamber."
+   },
+   {
+    "i": 1,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Davis joins Daisy and Jemma on the long search through space to bring Fitz home.",
+    "on_a_card_about_b": "The agent Davis helps search space to bring home.",
+    "on_b_card_about_a": "One of the agents who search space to bring Fitz home."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#12",
+   "text": "Davis comes to the Lighthouse with the surviving agents and sees Fitz marry Jemma.",
+   "on_a_card_about_b": "A fellow agent whose wedding Davis attends.",
+   "on_b_card_about_a": "An agent who comes to Fitz's wedding."
+  },
+  "their_evidence": "The Real Deal (S5#12): Davis, alive after Aida's attack, comes to the Lighthouse with Deathlok and other agents and attends Fitz and Simmons' wedding.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=James_Davis&prop=wikitext&format=json",
+  "batch": 54,
+  "n": 17
+ },
+ {
+  "type": "add",
+  "pair": "st-davis|st-piper",
+  "a": "Davis",
+  "b": "Piper",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S4",
+    "text": "Piper and Agent Davis are partners and best friends who serve on mission after mission together.",
+    "on_a_card_about_b": "Davis's partner and best friend.",
+    "on_b_card_about_a": "Piper's partner and best friend."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6",
+    "text": "Piper and Davis join the long search through space for Fitz.",
+    "on_a_card_about_b": "Davis's partner and best friend, on the long search for Fitz.",
+    "on_b_card_about_a": "Piper's partner and best friend, on the long search for Fitz."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#10",
+    "text": "Izel possesses Davis and drops him from a ledge to his death, and Piper is left mourning her best friend.",
+    "on_a_card_about_b": "Davis's partner and best friend, who sees Izel kill him.",
+    "on_b_card_about_a": "Piper's partner and best friend, killed by Izel."
+   },
+   {
+    "i": 3,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#12",
+    "text": "Piper flies to the temple with the team to stop Izel and asks Sarge to make sure he kills her for Davis.",
+    "on_a_card_about_b": "Davis's partner and best friend, who joins the mission to stop his killer.",
+    "on_b_card_about_a": "Piper's partner and best friend, killed by Izel. Piper joins the mission to stop Izel."
+   },
+   {
+    "i": 4,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7#13",
+    "text": "After the war with the Chronicoms, Piper has Davis brought back as a Life Model Decoy, and they go on missions together again with Yo-Yo.",
+    "on_a_card_about_b": "Davis's partner and best friend, who brings him back as an LMD.",
+    "on_b_card_about_a": "Piper's partner and best friend, brought back as an LMD."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#19",
+   "text": "When the Remorath storm the Lighthouse, Davis and Piper fight side by side to hold them back from the Gravitonium.",
+   "on_a_card_about_b": "Davis's partner and best friend, fighting beside him in the siege.",
+   "on_b_card_about_a": "Piper's partner and best friend, fighting beside her in the siege."
+  },
+  "their_evidence": "Option Two (S5#19): Yo-Yo, Davis and Piper try to keep the Remorath from reclaiming the Gravitonium.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Option_Two&prop=wikitext&format=json",
+  "batch": 54,
+  "n": 18
+ },
+ {
+  "type": "add",
+  "pair": "st-elena-rodriguez|st-melinda-may",
+  "a": "Elena Rodriguez",
+  "b": "Melinda May",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S3#20",
+    "text": "Melinda May looks out for Yo-Yo after she joins Coulson's team.",
+    "on_a_card_about_b": "Friend who looks out for Yo-Yo on Coulson's team.",
+    "on_b_card_about_a": "Friend May looks out for on Coulson's team."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7#3",
+    "text": "When the team lands in 1955, May and Yo-Yo pose as pilots and storm a lab at Area 51 to flush out a Chronicom spy.",
+    "on_a_card_about_b": "Friend who storms Area 51 with Yo-Yo.",
+    "on_b_card_about_a": "Friend May storms Area 51 with."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7#8",
+    "text": "May takes Yo-Yo to Afterlife to seek Jiaying's help, then talks her through the block until she wins back her powers.",
+    "on_a_card_about_b": "Friend who takes Yo-Yo to Afterlife and helps her win back her powers.",
+    "on_b_card_about_a": "Friend May takes to Afterlife and helps win back her powers."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#19",
+   "text": "After Yo-Yo kills Ruby and fights with Mack over it, May talks with her and advises her on how to live with what she did.",
+   "on_a_card_about_b": "Friend who helps Yo-Yo cope with killing Ruby.",
+   "on_b_card_about_a": "Friend May helps cope with killing Ruby."
+  },
+  "their_evidence": "Option Two (S5#19): Rodriguez talks with May, who tries to advise her on the way to cope with her actions.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Option_Two&prop=wikitext&format=json",
+  "batch": 54,
+  "n": 19
+ },
+ {
+  "type": "add",
+  "pair": "st-enoch|st-jemma-simmons",
+  "a": "Enoch",
+  "b": "Jemma Simmons",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#6",
+    "text": "Enoch warns Atarah that her mind machine is too dangerous for Jemma and Fitz. Told to choose between his people and his friends, he chooses his friends, knocks out the Chronicoms and helps the two escape.",
+    "on_a_card_about_b": "Agent Enoch first betrays to the hunters, then rescues.",
+    "on_b_card_about_a": "Chronicom who betrays Jemma to the hunters, then rescues her and Fitz."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#13",
+    "text": "Enoch saves Jemma and Fitz from the Chronicom hunters, and together they build a Chronicom Life Model Decoy of Phil Coulson to guide the team through S.H.I.E.L.D.'s past.",
+    "on_a_card_about_b": "Friend Enoch saves from the hunters.",
+    "on_b_card_about_a": "Chronicom friend who saves Jemma and Fitz from the hunters."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7#13",
+    "text": "Jemma remembers the years she and Fitz spent hidden away with Enoch, working out how to travel through time.",
+    "on_a_card_about_b": "Friend Enoch saves from the Hunters and hides with for years.",
+    "on_b_card_about_a": "Chronicom friend who saves Jemma and Fitz, then hides with them for years."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#10",
+   "text": "Enoch stays behind on the Zephyr and gives his life powering the machine that sends Jemma and the team back to their own time.",
+   "on_a_card_about_b": "An agent Enoch dies sending home.",
+   "on_b_card_about_a": "Chronicom who gives his life to send Jemma home."
+  },
+  "their_evidence": "Past Life (S5#10): Enoch stays on the Zephyr and wires his own battery into the machine, dying as the team returns to the present. In S6#5 Simmons tells him he sacrificed himself to send them back.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch/Destroyed_Earth&prop=wikitext&format=json",
+  "batch": 54,
+  "n": 20
+ },
+ {
+  "type": "add",
+  "pair": "st-franklin-hall|st-ian-quinn",
+  "a": "Franklin Hall",
+  "b": "Ian Quinn",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S1#3",
+    "text": "Ian Quinn and Franklin Hall were friends and colleagues working on Gravitonium. Hall turns on Quinn to stop his project.",
+    "on_a_card_about_b": "Old friend and colleague whose Gravitonium project Hall turns against.",
+    "on_b_card_about_a": "Old friend and colleague who turns on Quinn to stop his project."
+   }
+  ],
+  "proposed": {
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S5#16",
+   "text": "Hall's mind inside the Gravitonium wants Quinn, and when Raina opens the container it pulls Quinn in. Trapped together, the two minds argue without end.",
+   "on_a_card_about_b": "Old friend trapped with Hall in the Gravitonium, forever arguing.",
+   "on_b_card_about_a": "Old friend whose mind in the Gravitonium pulls Quinn in."
+  },
+  "their_evidence": "Inside Voices (S5#16): a flashback shows Raina saying the Gravitonium wants Quinn before it absorbs him; Quinn is the second voice Hall's voice argues with in Creel's head. All Roads Lead (S5#18): Creel tells Hale Hall wanted revenge but is stuck with Quinn forever.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Inside_Voices&prop=wikitext&format=json",
+  "batch": 54,
+  "n": 21
+ },
+ {
+  "type": "add",
+  "pair": "st-jemma-simmons|st-melinda-may",
+  "a": "Jemma Simmons",
+  "b": "Melinda May",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Melinda May and Jemma Simmons serve together on Coulson's team and become close friends.",
+    "on_a_card_about_b": "A close friend and teammate on Coulson's team.",
+    "on_b_card_about_a": "A close friend and teammate on Coulson's team."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1#17",
+    "text": "May admits that she, not Coulson, put the team together, reporting on the candidates for Fury, Jemma among them.",
+    "on_a_card_about_b": "A close friend, who handpicked Jemma for Coulson's team.",
+    "on_b_card_about_a": "A close friend May handpicked for Coulson's team."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#13",
+    "text": "Jemma has saved May's life before, curing her after a ghost's touch nearly kills her. When Sarge fatally stabs May, Jemma injects her with a healing formula and freezes her in a cryo chamber to keep her alive.",
+    "on_a_card_about_b": "A close friend Jemma has saved before and freezes to keep alive.",
+    "on_b_card_about_a": "A close friend who saved May once and freezes her to save her life."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#18",
+   "text": "May storms the Hydra facility where Ruby holds Jemma and Fitz and gets the two of them out.",
+   "on_a_card_about_b": "A close friend who gets Jemma out of Ruby's Hydra base.",
+   "on_b_card_about_a": "A close friend May rescues from Ruby's Hydra base."
+  },
+  "their_evidence": "All Roads Lead... (S5#18): while Daisy and Hale try to calm Ruby, May extracts Fitz and Simmons.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw",
+  "batch": 54,
+  "n": 22
+ },
+ {
+  "type": "add",
+  "pair": "st-jemma-simmons|phil-coulson",
+  "a": "Jemma Simmons",
+  "b": "Phil Coulson",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Phil Coulson recruits Jemma Simmons and Leo Fitz to his team, and she becomes one of his most trusted agents and friends.",
+    "on_a_card_about_b": "Jemma's team leader and friend, who recruits her and Fitz.",
+    "on_b_card_about_a": "One of Coulson's most trusted agents and friends, whom he recruits with Fitz."
+   },
+   {
+    "i": 1,
+    "kind": "boss",
+    "title": "Agents of S.H.I.E.L.D. S2#3",
+    "text": "As Director of the new S.H.I.E.L.D., Coulson sends Jemma undercover inside HYDRA, and she keeps serving him as one of his closest agents.",
+    "on_a_card_about_b": "Jemma's director, who sends her undercover inside HYDRA.",
+    "on_b_card_about_a": "One of Coulson's closest agents, whom he sends undercover inside HYDRA."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#13",
+    "text": "After Coulson's death, Jemma has a Life Model Decoy built that carries all his memories.",
+    "on_a_card_about_b": "Jemma's late friend, whose memories she puts into a decoy.",
+    "on_b_card_about_a": "A friend who has a decoy built carrying all of Coulson's memories."
+   },
+   {
+    "i": 3,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7",
+    "text": "Jemma brings the team to see the Coulson decoy woken up.",
+    "on_a_card_about_b": "Jemma's late friend, whose memories she has put into a decoy.",
+    "on_b_card_about_a": "A friend who has a decoy built carrying all of Coulson's memories."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#22",
+   "text": "Jemma gives Coulson the Centipede serum that could save his life, but he refuses it and says goodbye before leaving to spend his last days in Tahiti.",
+   "on_a_card_about_b": "Jemma's friend, who refuses the serum she brings to save him.",
+   "on_b_card_about_a": "A friend who brings Coulson the serum that could save him."
+  },
+  "their_evidence": "The End (S5#22): Simmons provides Coulson with the Centipede serum, he refuses it and hides it in Daisy's gauntlets, then bids his agents farewell and leaves for Tahiti.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw",
+  "batch": 54,
+  "n": 23
+ },
+ {
+  "type": "add",
+  "pair": "st-jemma-simmons|st-piper",
+  "a": "Jemma Simmons",
+  "b": "Piper",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#15",
+    "text": "Jemma Simmons wakes Piper at gunpoint during Aida's takeover and shows her she is not a decoy. Piper helps get the agents out of the Playground before it is blown up.",
+    "on_a_card_about_b": "An agent Jemma wakes and gets out of the Playground before it falls.",
+    "on_b_card_about_a": "The scientist who gets Piper out of the Playground before it falls."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Piper joins Jemma's long search through space to find Fitz and bring him home.",
+    "on_a_card_about_b": "A friend who joins Jemma's long search through space for Fitz.",
+    "on_b_card_about_a": "A friend whose search through space for Fitz Piper joins."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7#13",
+    "text": "Fitz and Jemma trust Piper to guard the module where they keep their daughter safe while they finish their mission.",
+    "on_a_card_about_b": "A friend Jemma trusts to guard her daughter's hiding place.",
+    "on_b_card_about_a": "A friend who, with Fitz, trusts Piper to guard their daughter's hiding place."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#19",
+   "text": "Piper guards the Gravitonium in the lab with Jemma when the Remorath storm the Lighthouse.",
+   "on_a_card_about_b": "An agent who guards the Gravitonium with Jemma.",
+   "on_b_card_about_a": "The scientist Piper guards the Gravitonium with."
+  },
+  "their_evidence": "Option Two (S5#19): Simmons, Piper and Davis guard the Gravitonium in the lab during the Remorath siege.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw",
+  "batch": 54,
+  "n": 24
+ },
+ {
+  "type": "question",
+  "pair": "st-franklin-hall|phil-coulson",
+  "a": "Franklin Hall",
+  "b": "Phil Coulson",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S1#3",
+    "text": "Phil Coulson stops Franklin Hall's plan and drops him into the Gravitonium.",
+    "on_a_card_about_b": "Agent who stops Hall's plan and drops him into the Gravitonium.",
+    "on_b_card_about_a": "Scientist whose plan Coulson stops by dropping him into the Gravitonium."
+   }
+  ],
+  "question": "Hall's mind in the Gravitonium, through Creel, wants Coulson dead, and Creel attacks Coulson because of it (S5#16). Is that enough for a stage between Hall and Coulson?",
+  "batch": 54,
+  "n": 25
+ },
+ {
+  "type": "question",
+  "pair": "st-ian-quinn|phil-coulson",
+  "a": "Ian Quinn",
+  "b": "Phil Coulson",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S1#3",
+    "text": "Phil Coulson leads the raid on Ian Quinn's mansion in Malta to rescue the kidnapped Franklin Hall, and Quinn escapes.",
+    "on_a_card_about_b": "The agent who raids Quinn's Malta mansion.",
+    "on_b_card_about_a": "A billionaire Coulson raids in Malta."
+   },
+   {
+    "i": 1,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S1#13",
+    "text": "After Quinn shoots Skye, Coulson's team storms his villa in Italy and Coulson holds a gun to his head. Quinn is locked up on the Bus.",
+    "on_a_card_about_b": "The agent whose team captures Quinn after Quinn shoots Skye.",
+    "on_b_card_about_a": "A billionaire who shoots Skye, then is captured by Coulson."
+   }
+  ],
+  "question": "Quinn's mind in the Gravitonium is one of the voices in Creel's head agreeing Coulson should die (S5#16). Is that enough for a stage between Quinn and Coulson?",
+  "batch": 54,
+  "n": 26
+ },
+ {
+  "type": "add",
+  "pair": "st-leo-fitz|st-melinda-may",
+  "a": "Leo Fitz",
+  "b": "Melinda May",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Melinda May keeps pushing the lab engineer Fitz to get his hands dirty in the field. They grow close over the years.",
+    "on_a_card_about_b": "The agent who pushes Fitz into the field.",
+    "on_b_card_about_a": "The engineer May pushes into the field."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1#17",
+    "text": "May admits that she, not Coulson, put the team together, reporting on the candidates for Fury, Fitz among them.",
+    "on_a_card_about_b": "The agent who picked Fitz for the team and pushes him into the field.",
+    "on_b_card_about_a": "The engineer May picked for the team and pushes into the field."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7#12",
+    "text": "After years apart from the team, Fitz comes through a portal and reunites with May and the others in 1983.",
+    "on_a_card_about_b": "An old friend Fitz reunites with in 1983 to finish the mission.",
+    "on_b_card_about_a": "An old friend who rejoins May in 1983 against the Chronicoms."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#22",
+   "text": "When falling debris mortally wounds Fitz during the rescue of Robin and Polly in Chicago, May stays by his side with Mack as he dies.",
+   "on_a_card_about_b": "An old friend who stays by Fitz's side as he dies.",
+   "on_b_card_about_a": "An old friend May stays beside as he dies in Chicago."
+  },
+  "their_evidence": "5x22 The End: while rescuing Polly and Robin from Qovas' ship, Fitz is mortally wounded by falling debris, May and Mack staying by his side as he dies.",
+  "their_source": "https://en.wikipedia.org/wiki/Agents_of_S.H.I.E.L.D._season_5",
+  "batch": 55,
+  "n": 27
+ },
+ {
+  "type": "add",
+  "pair": "st-leo-fitz|st-mike-peterson",
+  "a": "Leo Fitz",
+  "b": "Mike Peterson",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S1#1",
+    "text": "Fitz helps save Mike Peterson when the Centipede serum is about to make him explode.",
+    "on_a_card_about_b": "A man Fitz helps save from exploding Centipede serum.",
+    "on_b_card_about_a": "A scientist who helps keep the Centipede serum from making Mike explode."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2#19",
+    "text": "After Mike is rescued from HYDRA, Fitz tells him HYDRA dismantled his leg and promises to send him to a facility where he can be rebuilt.",
+    "on_a_card_about_b": "A friend Fitz promises to have rebuilt after HYDRA's experiments.",
+    "on_b_card_about_a": "A friend who promises to get Mike rebuilt."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#12",
+   "text": "After helping seal the rift, Mike stays at the Lighthouse to watch Fitz marry Jemma.",
+   "on_a_card_about_b": "A friend who watches Fitz marry Jemma.",
+   "on_b_card_about_a": "A friend whose wedding to Jemma Mike stays to watch."
+  },
+  "their_evidence": "5x12 The Real Deal: Deathlok attends Fitz and Simmons' wedding in the underground forest, asking Deke whether he is with the bride or groom; no direct exchange with Fitz is shown.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/wiki/Mike_Peterson",
+  "batch": 55,
+  "n": 28
+ },
+ {
+  "type": "add",
+  "pair": "st-leo-fitz|phil-coulson",
+  "a": "Leo Fitz",
+  "b": "Phil Coulson",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Phil Coulson recruits Fitz and Jemma Simmons to his team, and the young engineer becomes one of his most loyal agents and friends. Fitz builds much of the gear Coulson relies on, like the Night-Night Pistol.",
+    "on_a_card_about_b": "Fitz's team leader and friend, for whom he builds gear.",
+    "on_b_card_about_a": "One of Coulson's most loyal agents and friends, who builds his gear."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2",
+    "text": "Coulson keeps Fitz on his team despite the brain damage that leaves him withdrawn, and has him working on cloaking for the Bus.",
+    "on_a_card_about_b": "Fitz's director and friend, for whom he builds gear.",
+    "on_b_card_about_a": "One of Coulson's most loyal agents and friends, who stays at his side."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#12",
+   "text": "Before going down alone to seal the rift with Fitz's device, Coulson makes Fitz promise to marry Jemma whatever happens, and once the rift is closed he walks Fitz to his wedding.",
+   "on_a_card_about_b": "A friend who makes Fitz promise to marry Jemma and walks him to the wedding.",
+   "on_b_card_about_a": "A friend Coulson makes promise to marry Jemma, whose device seals the rift."
+  },
+  "their_evidence": "5x12 The Real Deal: Fitz gives Coulson the Gravity Containment Device and Coulson has Fitz promise that he and Simmons will marry; afterwards Coulson and Deke accompany Fitz to his wedding.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/wiki/The_Real_Deal",
+  "batch": 55,
+  "n": 29
+ },
+ {
+  "type": "add",
+  "pair": "st-leo-fitz|st-piper",
+  "a": "Leo Fitz",
+  "b": "Piper",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#21",
+    "text": "When Aida turns on Fitz in the containment chamber they are locked in together, Piper is one of the agents who pull him out, and she gets him away to the Zephyr.",
+    "on_a_card_about_b": "An agent who helps pull Fitz out of Aida's chamber.",
+    "on_b_card_about_a": "A scientist Piper pulls out of Aida's chamber and gets to the Zephyr."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S6#1",
+    "text": "Piper joins Daisy and Jemma on the long search through space to bring Fitz home.",
+    "on_a_card_about_b": "A friend who joins the long search through space for Fitz.",
+    "on_b_card_about_a": "A friend Piper searches space for with Daisy and Jemma."
+   },
+   {
+    "i": 2,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S7#13",
+    "text": "Fitz and Jemma trust Piper to guard the module that hides their daughter, and in return they bring her friend Davis back as a Life-Model Decoy.",
+    "on_a_card_about_b": "A friend who guards the module hiding Fitz's daughter.",
+    "on_b_card_about_a": "A friend who trusts Piper with his daughter and rebuilds Davis for her as a Life-Model Decoy."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#11",
+   "text": "Having made a deal with General Hale, Piper lures the team to the Kree beacon and holds Fitz at gunpoint, then turns back to their side when Hale's robots open fire.",
+   "on_a_card_about_b": "A friend who holds Fitz at gunpoint for Hale, then turns back.",
+   "on_b_card_about_a": "A friend Piper holds at gunpoint for Hale before turning back."
+  },
+  "their_evidence": "5x11 All the Comforts of Home: Piper draws her gun on the team and holds Coulson, Fitz and Simmons at gunpoint as Ruby's robots arrive; when Ruby orders them killed, Piper chooses to help her team escape.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/wiki/Piper",
+  "batch": 55,
+  "n": 30
+ },
+ {
+  "type": "add",
+  "pair": "st-melinda-may|st-mike-peterson",
+  "a": "Melinda May",
+  "b": "Mike Peterson",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S1",
+    "text": "Mike Peterson knocks May out while the Centipede serum is making him unstable.",
+    "on_a_card_about_b": "A Centipede subject who knocks May out.",
+    "on_b_card_about_a": "An agent Mike knocks out while unstable."
+   },
+   {
+    "i": 1,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S2#19",
+    "text": "May backs Coulson's plan and joins the raid on Dr. List's Hydra base that frees Mike from his cell.",
+    "on_a_card_about_b": "Free of Hydra and fighting with May's team.",
+    "on_b_card_about_a": "An agent on the team Mike fights beside once he is free of Hydra."
+   }
+  ],
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S5#12",
+   "text": "May goes out to meet an incoming Quinjet and finds Mike leading the reinforcements Deke called, and he goes down to help Coulson seal the rift.",
+   "on_a_card_about_b": "Leads the reinforcements May meets at the Lighthouse.",
+   "on_b_card_about_a": "An agent who meets Mike's Quinjet when he brings reinforcements."
+  },
+  "their_evidence": "5x12 The Real Deal: May and Daisy go outside to check an incoming Quinjet, which carries the S.H.I.E.L.D. reinforcements gathered by Deke and led by Deathlok; May later attends the wedding with him.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/wiki/Melinda_May",
+  "batch": 55,
+  "n": 31
+ },
+ {
+  "type": "add",
+  "pair": "st-melinda-may|st-piper",
+  "a": "Melinda May",
+  "b": "Piper",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "boss",
+    "title": "Agents of S.H.I.E.L.D. S3#19",
+    "text": "Piper volunteers for the mission to stop Hive and rescue Daisy, fighting under May's lead.",
+    "on_a_card_about_b": "An agent who fights under May to stop Hive.",
+    "on_b_card_about_a": "Piper's commander on the mission to stop Hive and rescue Daisy."
+   },
+   {
+    "i": 1,
+    "kind": "boss",
+    "title": "Agents of S.H.I.E.L.D. S4",
+    "text": "May trains Piper in hand-to-hand combat and leads the strike team she serves on under Director Jeffrey Mace.",
+    "on_a_card_about_b": "An agent May trains in combat and leads on the strike team.",
+    "on_b_card_about_a": "Piper's trainer and strike team leader under Director Mace."
+   }
+  ],
+  "proposed": {
+   "kind": "boss",
+   "title": "Agents of S.H.I.E.L.D. S5#11",
+   "text": "Piper tells May she searched everywhere for the team, even keeping watch on May's mother, but she has made a deal with General Hale and leads them into a trap before turning back to their side.",
+   "on_a_card_about_b": "An agent who leads the team into Hale's trap, then turns back.",
+   "on_b_card_about_a": "The agent whose mother Piper watches while searching for the team."
+  },
+  "their_evidence": "5x11 All the Comforts of Home: Piper tells May 'I even had eyes on your families' (May: 'One more thing for my mother to be paranoid about'); Piper then betrays the team to Hale's robots before helping them escape.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/wiki/Piper",
+  "batch": 55,
+  "n": 32
+ },
+ {
+  "type": "add",
+  "pair": "st-melinda-may|st-anton-ivanov",
+  "a": "Melinda May",
+  "b": "The Superior",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S4#14",
+    "text": "Years ago in Russia, Melinda May steals an 0-8-4 from Anton Ivanov's unit, and his comrades are executed for the failure. Now calling himself the Superior, he blames May and Phil Coulson and wants them dead.",
+    "on_a_card_about_b": "Wants May dead for the 0-8-4 she stole from his unit.",
+    "on_b_card_about_a": "The agent whose theft of an 0-8-4 got the Superior's comrades executed."
+   }
+  ],
+  "proposed": {
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S5#14",
+   "text": "Ivanov docks with the Zephyr as General Hale's partner and demands that May and her teammates release Hale, and May can only object as Coulson leaves with them.",
+   "on_a_card_about_b": "Hale's partner, who demands May release her and takes Coulson.",
+   "on_b_card_about_a": "The agent the Superior faces down on the Zephyr to free Hale."
+  },
+  "their_evidence": "5x14 The Devil Complex: a Quinjet docks with the Zephyr revealing Ivanov works with Hale; Ivanov explains to May and her teammates they are averting an extinction event and demands Hale's release; May refuses to let Coulson go but he leaves with them.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/wiki/Melinda_May",
+  "batch": 55,
+  "n": 33
+ },
+ {
+  "type": "add",
+  "pair": "st-mike-peterson|st-jemma-simmons",
+  "a": "Mike Peterson",
+  "b": "Jemma Simmons",
+  "stages": [
+   {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1#1",
+    "text": "Jemma Simmons creates the cure that stabilizes the Extremis in Mike Peterson's body and saves his life.",
+    "on_a_card_about_b": "The scientist whose cure saves Mike's life.",
+    "on_b_card_about_a": "A Centipede subject whose life Jemma saves with her cure."
+   },
+   {
+    "i": 1,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S2#19",
+    "text": "Once Mike is free of Hydra and back in Coulson's fight, Jemma tends his wounds when the team rescues him from Hydra's base, and she and Fitz plan to rebuild his cybernetic parts.",
+    "on_a_card_about_b": "A scientist who tends Mike's wounds and, with Fitz, plans his repairs.",
+    "on_b_card_about_a": "A friend Jemma tends after the rescue from Hydra."
+   }
+  ],
+  "proposed": {
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S5#12",
+   "text": "After helping seal the rift, Mike stays at the Lighthouse to watch Jemma marry Fitz.",
+   "on_a_card_about_b": "A friend whose wedding to Fitz Mike stays to watch.",
+   "on_b_card_about_a": "A friend who watches Jemma marry Fitz."
+  },
+  "their_evidence": "5x12 The Real Deal: Deathlok attends Fitz and Simmons' wedding in the underground forest; no direct exchange with Simmons is shown.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/wiki/Mike_Peterson",
+  "batch": 55,
+  "n": 34
+ }
+]

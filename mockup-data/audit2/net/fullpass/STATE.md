@@ -6,3 +6,4 @@
 - Launched fp 001-080 (081-089 to go; 045 done). Films second check: fv_01..14 -> fvout_01..14, all launched. Apply films with fm/apply.py-style builder -> stage_fix_zzzzzzzzzzzzzz_films.json (14 z).
 - fvout_07: items 15 and 16 hold until the owner answers item 17 (see owner list).
 - Films applied: rel/stage_fix_zzzzzzzzzzzzzz_films.json (399 stages, 252 pairs, all landed). Held: fv_07 15-17 (No Way Home extended cut). Owner: fv_05 25 Rogue Cut, fv_09 11 Hill/Soren. Shows: svout_01..05 in; sv_06..12 launched (sv_09..12 = batches 56,57,80,82-89).
+- OWNER (4 Nov 2026): "When it's ready, push. I'll test in app" = ONE main push approved after shows + extended cuts applied and suite green. Then report.
