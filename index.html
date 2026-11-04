@@ -4839,11 +4839,15 @@ const CX_HOLD_PICK = { "by-hydra-stomper|Steve Rogers": ["A:by-steve-rogers-stom
   "sv-1994-symbiote|Spider-Man": ["A:sv-peter-parker-1994"], "sv-1994-neogenic-recombinator|Spider-Man": ["A:sv-peter-parker-1994"],
   "pr-staff-of-one|Tina Minoru": ["A:pr-st-tina-minoru"], "pr-karolina-bracelet|Robert Minoru": ["A:pr-st-robert-minoru"] };
 const ixNames = f => [...(Array.isArray(f.n) ? f.n.map(x => x[0]) : [f.n]), ...(f.rn ? [f.rn[0]] : []), ...(f.al || []).map(a => a[0])].map(n => String(n).replace(/^The /, ""));
+// the Compound's and the Raft's files by index, universe and name (names on files don't change as you watch), built once
+let HOLD_NM = null;
+const holdNm = () => { if (HOLD_NM) return HOLD_NM; HOLD_NM = new Map();
+  [["A", ALLIES], ["T", THREATS]].forEach(([tg, L]) => L.forEach(f => new Set(ixNames(f)).forEach(n => { const k = tg + "|" + rfUniOf(f) + "|" + n; if (!HOLD_NM.has(k)) HOLD_NM.set(k, []); HOLD_NM.get(k).push(f); }))); return HOLD_NM; };
 function cxHoldFiles(o, h) {   // [tag, file] for each of the holder's files, A the Compound and T the Raft
   const pick = CX_HOLD_PICK[o.id + "|" + h];
   if (pick) return pick.map(x => { const [tg, id] = x.split(":"); return [tg, (tg === "A" ? ALLIES : THREATS).find(f => f.id === id)]; }).filter(x => x[1]);
   const u = rfUniOf(o), aka = CX_HOLD_AKA[u + "|" + h] || [], nm = h.replace(/^The /, ""), T = new Set(o.st.filter(x => x[3] === h).map(x => x[1]));
-  return ["A", "T"].flatMap(tg => { const sc = (tg === "A" ? ALLIES : THREATS).filter(f => rfUniOf(f) === u && (aka.includes(f.id) || ixNames(f).includes(nm)))
+  return ["A", "T"].flatMap(tg => { const sc = [...new Set([...(holdNm().get(tg + "|" + u + "|" + nm) || []), ...(tg === "A" ? ALLIES : THREATS).filter(f => aka.includes(f.id) && rfUniOf(f) === u)])]
       .map(f => [f, new Set(f.st.map(x => x[1]).filter(t => T.has(t))).size]).filter(x => x[1]);
     const top = Math.max(0, ...sc.map(x => x[1])), best = sc.filter(x => x[1] === top); return best.length === 1 ? [[tg, best[0][0]]] : []; });   // a tie links nothing rather than the wrong one
 }
@@ -4952,17 +4956,33 @@ function atPlace(key) { const [id, v, sub] = key.split("|"), L = v === "city" ? 
   const p = L.find(q => q.id === id); return p ? { p, v, sub: sub || null } : null; }
 // Damage Control is found once its door in Midtown has been opened (state.eggs, as the Archives read it; its Agent File record is "egg-damagecontrol")
 const dcFound = () => !!(state.eggs || {}).damagecontrol;
-function recAt(tg, o, x) { const e = AT_CASE[tg + ":" + o.id + ":" + o.st.indexOf(x)]; if (!e) return "";
+// Held: the Collection objects someone holds in a title (owner, November 2026: "the Darkhold under Wanda's Multiverse of Madness
+// entry"), from the Collection's own steps: whoever has the object at the end of a step holds it, matched to their file the way a
+// holder's list finds it (cxHoldFiles). Keyed by index, file, title and season; specimens have homes, not holders
+let HELD = null;
+// a step's season: "In season N," as written, or the season a show's running "In episode N," falls in (as epTag counts it); none
+// for a show of one season
+const heldKey = x => { const b = x[1], L = epList(b) || [], m = /^In (season|episode) (\d+),/.exec(x[0]); if (!m || L.length < 2) return b + "|";
+  if (m[1] === "season") return b + "|" + m[2]; let k = +m[2], i = 0; while (i < L.length - 1 && k > L[i]) { k -= L[i]; i++; } return b + "|" + (i + 1 + (EPO[b] || 0)); };
+const heldIx = () => { if (HELD) return HELD; HELD = new Map();
+  COLLX.forEach(o => { if (o.c === "specimens") return; [...new Set(o.st.map(x => x[3]).filter(Boolean))].forEach(h => cxHoldFiles(o, h).forEach(([tg, f]) => o.st.forEach(x => { if (x[3] !== h) return;
+    const k = tg + ":" + f.id + ":" + heldKey(x); if (!HELD.has(k)) HELD.set(k, []); HELD.get(k).push([o, x]); }))); });
+  return HELD; };
+// shown under the last entry of that title in the file, once the Collection is found, for each object whose own step you've reached
+function recHeld(tg, o, x, S) { if (!state.collIn || !S) return []; const k = heldKey(x);
+  if (S.filter(y => !y.ho && heldKey(y) === k).pop() !== x) return [];
+  return [...new Set((heldIx().get(tg + ":" + o.id + ":" + k) || []).filter(([c, y]) => atlSeenStep(y) && ixFile("C", c.id)).map(([c]) => c))]; }
+function recAt(tg, o, x, S) { const e = AT_CASE[tg + ":" + o.id + ":" + o.st.indexOf(x)] || {};
   const at = (e.at || []).map(k => [k, atPlace(k)]).filter(([, r]) => r && atlLit(r.p)), dcOk = dcFound();
-  const cs = dcOk ? (e.cases || []).map(id => DC.find(d => d.id === id)).filter(d => d && dcSeen(d)) : [];
-  if (!at.length && !cs.length) return "";
-  return `<div class="rec-at">${at.length ? `<b>At</b><span>${at.map(([k, r]) => `<a role="link" tabindex="0" data-atp="${esc(k)}">${esc(r.p.n)}</a>`).join(", ")}</span>` : ""}${cs.length ? `<b>Case</b><span>${cs.map(d => `<span class="rec-cs"><i>${DC_NO[d.id]}</i><a role="link" tabindex="0" data-dcr="${esc(d.id)}">${esc(d.n)}</a></span>`).join("")}</span>` : ""}</div>`; }
+  const cs = dcOk ? (e.cases || []).map(id => DC.find(d => d.id === id)).filter(d => d && dcSeen(d)) : [], hd = recHeld(tg, o, x, S);
+  if (!at.length && !cs.length && !hd.length) return "";
+  return `<div class="rec-at">${at.length ? `<b>At</b><span>${at.map(([k, r]) => `<a role="link" tabindex="0" data-atp="${esc(k)}">${esc(r.p.n)}</a>`).join(", ")}</span>` : ""}${cs.length ? `<b>Case</b><span>${cs.map(d => `<span class="rec-cs"><i>${DC_NO[d.id]}</i><a role="link" tabindex="0" data-dcr="${esc(d.id)}">${esc(d.n)}</a></span>`).join("")}</span>` : ""}${hd.length ? `<b>Held</b><span>${hd.map(c => `<a role="link" tabindex="0" data-held="${esc(c.id)}">${esc(c.n)}</a>`).join(", ")}</span>` : ""}</div>`; }
 // the Atlas opened from a file: on top of it, one step, so back comes down to the file (owner's rule: every link opens on top)
 let atlQuiet = 0;
 function atlOver(r) { if (atlOpen) { atlGo(r); return; } const st = jkey(history.state), tok = jstamp(); try { history.pushState({ mcu: "jump" }, ""); } catch (e) {}
   openAtlas(); jumpUp(document.getElementById("atlasPanel"), () => closeAtlas(true), st, tok); dockSync(); atlQuiet = Date.now() + 1500; setTimeout(() => atlGo(r), 120); }
-document.addEventListener("click", ev => { const a = ev.target.closest("[data-atp]"), c = ev.target.closest("[data-dcr]"); if (!a && !c) return; haptic(8);
-  if (a) { const r = atPlace(a.dataset.atp); if (r) atlOver(r); } else fileGo("D", c.dataset.dcr); });
+document.addEventListener("click", ev => { const a = ev.target.closest("[data-atp]"), c = ev.target.closest("[data-dcr]"), h = ev.target.closest("[data-held]"); if (!a && !c && !h) return; haptic(8);
+  if (a) { const r = atPlace(a.dataset.atp); if (r) atlOver(r); } else if (c) fileGo("D", c.dataset.dcr); else fileGo("C", h.dataset.held); });
 const rfSteps = o => hoKeep(o.st.filter(atlSeenStep), o, "R");
 // one person, one status (owner, November 2026: Wanda's Compound file said Fugitive while she had died on the Raft's side): where a file
 // hands over between the indexes, both cards show where the person stands now, the latest step of either file, in this index's words
@@ -5064,7 +5084,7 @@ function renderRaft() {
       <div class="co-h">Record</div>
       <ol class="co-chain">${hoChain(o, "R", S).map(x => { if (x.ho) return hoMark(x, "R", ALLIES.find(a => a.rf === o.id)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${RF_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev;
         const c = up.get(x[1]); if (c) up.delete(x[1]);   // the step where their class changes says so
-        return `<li><p>${esc(stepTxt(x))}</p>${recAt("T", o, x)}<small>${stepTtl(x)}${chg}${c ? `<span class="rf-chg rf-cls">${esc(c)}</span>` : ""}</small></li>`; }).join("")}</ol></div>`;
+        return `<li><p>${esc(stepTxt(x))}</p>${recAt("T", o, x, S)}<small>${stepTtl(x)}${chg}${c ? `<span class="rf-chg rf-cls">${esc(c)}</span>` : ""}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
   // the list: one row per threat, grouped (by status, by class, or by who opposed them), each group folding away under its header. The search
@@ -5189,7 +5209,7 @@ function renderCp() {
       ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
       ${rf && !hoChain(o, "C", S).some(x => x.ho) ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       <div class="co-h">Service record</div>
-      <ol class="co-chain">${hoChain(o, "C", S).map(x => { if (x.ho) return hoMark(x, "C", o.rf && THREATS.find(t => t.id === o.rf)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p>${recAt("A", o, x)}<small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
+      <ol class="co-chain">${hoChain(o, "C", S).map(x => { if (x.ho) return hoMark(x, "C", o.rf && THREATS.find(t => t.id === o.rf)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p>${recAt("A", o, x, S)}<small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
     return;
   }
   const U = rfUnis(), all = ALLIES.filter(o => cpSteps(o).length).length, home = cpHome();

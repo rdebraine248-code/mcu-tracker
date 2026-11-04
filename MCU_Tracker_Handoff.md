@@ -6,7 +6,7 @@ all "Standing rules from the owner" and "Mistakes not to repeat". Ask the owner 
 you're unsure. **Never push to main without the owner's explicit "push".** The same handoff also lives in the repo as `HANDOFF.md`;
 if they ever differ, the repo's copy on the working branch is newer.
 
-- **main** is at `ab088a6` (pushed 4 November 2026). The published test build is v135:
+- **main** is at `c5d1946` (pushed 4 November 2026: the Network's dock dot for every universe). The published test build is v135:
   https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s
 - **The report page** (owner's questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. All 59 questions are
   answered and applied; new questions go on as 60 onward. Answers come back as comment threads (the page's Submit).
@@ -43,7 +43,7 @@ if they ever differ, the repo's copy on the working branch is newer.
     a group name.
 
 **The close-out plan (owner, 4 November 2026: "Do the rest of the plan"), in this order:**
-1. The Network's dock dot for every universe (option A). Done and pushed to main on the owner's "push".
+1. The Network's dock dot for every universe (option A). Done: on main (`c5d1946`, 4 November 2026, the owner's "push").
 2. A fresh random 600 of the Network's connections, so part 2 can be locked.
 3. The "Held" line under a file's entry, before the audit (owner: "I think I want a held line so maybe that needs to happen before
    step 3 audit"), so the audit covers it.
@@ -59,7 +59,6 @@ if they ever differ, the repo's copy on the working branch is newer.
   Deceased". They predate this round and belong to the Atlas part.
 - Before the audit (owner, 4 November 2026): a "Held" line under a file's entry (the Collection objects that person holds in that title).
 - Test build only: landscape, stage 2.
-- The old mirror branch `claude/gracious-cray-lhdt2k` was not updated (that session could push only its own branch).
 
 **Not coming back** (owner's calls): the VisionQuest audit, the six October pitches, Doomsday and Secret Wars content.
 
@@ -201,7 +200,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 62); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 63); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -236,6 +235,7 @@ node tests/ct35.js                                                              
 | ct60 | The Space Stone in the Tesseract's case |
 | ct61 | The Darkhold and the Accords held on their titles; only the Tesseract live in the Collection; the sling ring lands only in the Atlas (every realm and submap, never the Incursions); the Watcher's other realities, in his box and in Beyond the MCU |
 | ct62 | A holder's name in the Collection: the list of what they held, their own Compound or Raft file only once found, the right person among a tab's many of a name, back to the list; holders go by their files' names; no Benny or AIDA left |
+| ct63 | The Held line: the Collection objects a person holds under a title's last entry, gated by the Collection, linked both ways |
 
 **Fixed (November 2026):** six tests had been failing since before the 176c87b main push, five because the app had moved on and one
 over a real bug. ct54 (a pill from earlier was still up; now it waits), ct61 (the Character log button left the rings; now the eye's
@@ -1177,7 +1177,12 @@ These happened in earlier chats. Each cost the owner time.
   (4.3%), so a fresh Network sample is owed before calling part 2 locked. Audit records: `mockup-data/audit2/`.
 - **The report page** (questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. Answers come back as comment threads
   (the page's Submit). All 59 answered and done; new questions go on as 60 onward.
-- **Now before the audit (owner, 4 November 2026; first set for after it):** a "Held" line under a file's entry, beside At and Case: the Collection
+- **Held (built 4 November 2026, test build, waiting on the owner's look):** under a file's entry, beside At and Case, `recHeld` lists
+  the Collection objects whose step in that title ends with this person as holder (`heldIx`, matched to files the way a holder's
+  list is, `cxHoldFiles`), on the title's last entry only, once the Collection is found and the object's own step is reached; each
+  opens the object's file on top (`data-held`). A show's running "In episode N," finds its season (`heldKey`). Specimens have homes,
+  not holders. Test: ct63. Holder entries that match no file entry are audit leads in `mockup-data/audit2/held/leads.json`.
+  The first ask was a "Held" line under a file's entry, beside At and Case: the Collection
   objects that person holds in that title (the Darkhold under Wanda's Multiverse of Madness entry), shown once the Collection is found.
   It comes before audit parts 4 to 9, so the audit covers it.
 - **The audit plan** (owner, November 2026): step by step, in HANDOFF's words above. 1) Build the content check and run it in full,
