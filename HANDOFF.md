@@ -1227,6 +1227,18 @@ These happened in earlier chats. Each cost the owner time.
   "either episode works" are dropped, not reported. When a pass finds only those, the material is done: no more passes unless new
   content is added.
 
+- **The owner's answers round (4 November 2026, on the working branch, waiting on "push").** Everything checked twice before applying.
+  - Groups: all 1,503 people swept under the rulings (30 chunks), every proposal second-checked: 255 files changed, 13 rejected
+    (`TEAM_AUDIT2`; records in the scratchpad's `aud/people/job` and `jv`). A finished school is left like dropping out.
+  - Cover names (51): 21 files staged (Spectacular Spider-Man's Goblin, Agnes, Sylvie, the Power Broker, Rama-Tut and the rest), with
+    their kind lines, groups, aliases and the "Also on file" link (`coverOn`) staged to the reveal too. The Network follows every
+    file's staged names. Madelyne Pryor left out (an impostor case; question 57).
+  - Files: the combined files split (25, 42), Venom as the symbiote (26), one Sabretooth file (27), Logan's world (Earth-17315: its own
+    Logan and Charles files and map, 30), the changed timeline's Logan and Sentinels (35), Ralph Bohner (36, his name from WandaVision
+    #9), Robin Hinton (33), Jon Jon, the cloaked stranger, four new places (39), all in `answers_fix.json`; the Network's connections
+    follow (`retarget.json`). The 1994 Electro and Fury tie dropped (34). Marvel's B numbers (28) and Earth-6799 (29).
+  - New questions for the owner: 52 to 59 on the report page.
+
 ## The third October 2026 round, all on main (newest last)
 
 - Battery: the Watcher's eyes blink one blink at a time instead of one looping animation, and the dock drops its blur (idle redraws fell
