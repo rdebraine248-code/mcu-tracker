@@ -151,6 +151,11 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   No Way Home's More Fun Stuff Version) is part of its film; its scenes give stages under the film's own title. Disc-menu deleted scenes don't count.
 - Hill stays in Far From Home (owner, 4 November 2026: "Keep it on Hill"): the film stays in Maria Hill's appearances though the Hill on screen is
   Soren. What "Hill" does there belongs to Soren's ties, so Hill gets no new stages in it.
+- Reused footage is not an appearance (owner, 4 November 2026: "No, leave it out"): Logan gets no Deadpool 2 entry for the 1979 scene
+  (X-Men Origins footage), so the checked Wade and Logan stage stays out.
+- Jimmy Weeks has a Raft file (owner, 4 November 2026: "New Raft file"): pr-jimmy-weeks, Frank's FBI partner who sells him out in
+  The Punisher (2004) extended cut. In answers_fix.json (q "jimmy-weeks"), at_case.json, earths.json (Earth-58732), and his Network
+  ties with Frank and Howard Saint in rel/uni/cuts/out.json.
 - Families stand together (owner, 4 November 2026: "Why is Laura Barton not part of the Barton family?"): a family circle (rel/out1.json)
   holds every member, parents and siblings included, not only those with no group record; a member stands in it whenever they're in
   no other group (Clint with the Avengers in Endgame, with his family in Hawkeye). And a family or partner tie needs a stage in every
