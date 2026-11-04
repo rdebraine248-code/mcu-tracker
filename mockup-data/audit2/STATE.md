@@ -273,3 +273,13 @@ p3_29 0 (3 calls).
 frv03: 20c 5a. Note: A:karen k0 place Coney Island + case ST-055 may be wrong after text fix -> check at apply.
 nrv03: 32c 7a 1r.
 FILES RE-AUDIT APPLIED: STEP_AUDIT2 in index (71 fixes, text-matched after EPTAGS), ep_tags 12 updated; verified in built app: 71 files = expected, others team-only. nrv04 38c 2a. nrv05 37c 3a (n197 Dottie/Krzeminski move to S1#3 names the assassin early = spoiler -> keep original title at apply). p3_37 1.
+
+## 4 November 2026, afternoon session (scratchpad: ns5/, nt/, atlas/, logs/, dc/)
+- Network fifth sample: 23/600 wrong, fixed (stage_fix_zzzzzzzz_sample5.json). Owner chose the targeted redo: nt/ cands.json (P1 share no
+  title 53, P2 after last stage 1006, P3 before first stage 497, P4 Netflix/Born Again/1994 837; union 1,960 connections), 36 batches
+  nt/chunk_NN -> out_NN (brief nt/BRIEF.md). Launched 01-12. Then: second check, apply as a new stage_fix file, fresh 600 (exclude ns4+ns5 ids).
+- Part 4 Atlas: 14 batches done (191 changes, 13 calls); second check atlas/v_1..6 -> vout_1..6 running. Apply: Atlas data lives in
+  index.html (ATLAS, ATLAS_UNI); wrong_place leads fix at_case.json.
+- Part 5 logs: 19 batches done (44 changes, 19 calls; Doomsday/Secret Wars/Beyond/VisionQuest/1610B calls dropped as settled);
+  second check logs/v_1..2 running. Apply: DOSSIERS in index.html.
+- Part 6 next: DC (238 reports), TR (7), news NX, Comms messages. dc/ has only a peek.
