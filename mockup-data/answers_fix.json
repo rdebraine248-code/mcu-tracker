@@ -60,7 +60,652 @@
      ]
     ]
    ]
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "att-lass",
+    "n": "Att-Lass",
+    "k": "A Kree sniper of Starforce",
+    "cl": "Cosmic",
+    "op": "Captain Marvel",
+    "opp": [
+     [
+      "carol-danvers",
+      "Captain Marvel"
+     ]
+    ],
+    "tm": "Starforce",
+    "st": [
+     [
+      "Att-Lass snipes Skrulls from high ground on Torfa, but the rescue mission is a Skrull trap and Vers is taken.",
+      "Captain Marvel",
+      "At large"
+     ],
+     [
+      "With Starforce he captures Carol's group at Mar-Vell's orbiting lab, then tackles Carol when she breaks free, and her full power overwhelms him.",
+      "Captain Marvel",
+      "At large"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "bron-char",
+    "n": "Bron-Char",
+    "k": "A hulking Kree brawler of Starforce",
+    "cl": "Cosmic",
+    "op": "Captain Marvel",
+    "opp": [
+     [
+      "carol-danvers",
+      "Captain Marvel"
+     ]
+    ],
+    "tm": "Starforce",
+    "st": [
+     [
+      "Bron-Char fights the disguised Skrulls on Torfa with his energy gauntlets, until Starforce falls back after Vers is taken.",
+      "Captain Marvel",
+      "At large"
+     ],
+     [
+      "With Starforce he captures Carol at Mar-Vell's orbiting lab. When she breaks free, he keeps attacking, but her full power blasts him away.",
+      "Captain Marvel",
+      "At large"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "id": "att-lass-bron-char",
+   "drop": true,
+   "into": "att-lass"
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "bennie",
+    "n": "Bennie",
+    "rn": [
+     "Benjamin Pollack",
+     "Item 47"
+    ],
+    "k": "A broke man who gets a Chitauri gun working",
+    "cl": "Street",
+    "op": "S.H.I.E.L.D.",
+    "opp": [
+     [
+      "team:S.H.I.E.L.D.",
+      "Item 47"
+     ],
+     [
+      "felix-blake",
+      "Item 47"
+     ]
+    ],
+    "tm": [
+     [
+      "Independent",
+      "Item 47"
+     ],
+     [
+      "S.H.I.E.L.D.",
+      "Item 47"
+     ]
+    ],
+    "st": [
+     [
+      "Bennie gets a Chitauri gun left from the Battle of New York working, and Claire talks him into robbing banks with it.",
+      "Item 47",
+      "At large"
+     ],
+     [
+      "Sitwell catches him at a motel and, learning he fixed the gun, hires him for S.H.I.E.L.D.'s R&D think tank to reverse-engineer alien tech.",
+      "Item 47",
+      "Allied"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "claire",
+    "n": "Claire",
+    "rn": [
+     "Claire Wise",
+     "Item 47"
+    ],
+    "k": "Bennie's girlfriend, who plans their bank robberies",
+    "cl": "Street",
+    "op": "S.H.I.E.L.D.",
+    "opp": [
+     [
+      "team:S.H.I.E.L.D.",
+      "Item 47"
+     ],
+     [
+      "felix-blake",
+      "Item 47"
+     ]
+    ],
+    "tm": [
+     [
+      "Independent",
+      "Item 47"
+     ],
+     [
+      "S.H.I.E.L.D.",
+      "Item 47"
+     ]
+    ],
+    "st": [
+     [
+      "Claire talks her boyfriend Bennie into using the Chitauri gun he fixed to rob banks for a better life.",
+      "Item 47",
+      "At large"
+     ],
+     [
+      "When Sitwell catches them at a motel she fires the gun to save Bennie. Sitwell makes her Agent Blake's new assistant.",
+      "Item 47",
+      "Allied"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "id": "benny-and-claire",
+   "drop": true,
+   "into": "bennie"
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "st-jakob-nystrom",
+    "n": "Jakob Nystrom",
+    "k": "A leader of a Norse Paganist hate group",
+    "cl": "Street",
+    "op": "S.H.I.E.L.D.",
+    "opp": [
+     [
+      "team:S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D."
+     ],
+     [
+      "st-elliot-randolph",
+      "Agents of S.H.I.E.L.D."
+     ]
+    ],
+    "tm": "Norse Paganist hate group",
+    "st": [
+     [
+      "In episode 8, Jakob and his girlfriend Petra find a piece of the Asgardian Berserker staff in a Norwegian forest and lead riots in Oslo.",
+      "Agents of S.H.I.E.L.D.",
+      "At large"
+     ],
+     [
+      "In episode 8, he hunts the staff's last piece to a church in Ireland and stabs Elliot Randolph, until Ward, made stronger by the staff, beats him.",
+      "Agents of S.H.I.E.L.D.",
+      "In custody"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "st-petra-larsen",
+    "n": "Petra Larsen",
+    "k": "Jakob's girlfriend, a leader of his Norse Paganist hate group",
+    "cl": "Street",
+    "op": "S.H.I.E.L.D.",
+    "opp": [
+     [
+      "st-melinda-may",
+      "Agents of S.H.I.E.L.D."
+     ],
+     [
+      "team:S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D."
+     ]
+    ],
+    "tm": "Norse Paganist hate group",
+    "st": [
+     [
+      "In episode 8, Petra grabs a piece of the Berserker staff in a Norwegian forest, kills a park worker in its rage, and riots in Oslo with Jakob.",
+      "Agents of S.H.I.E.L.D.",
+      "At large"
+     ],
+     [
+      "In episode 8, she follows Jakob to a church in Ireland for the last piece, where May, wielding the staff, beats her.",
+      "Agents of S.H.I.E.L.D.",
+      "In custody"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "id": "st-nystrom-larsen",
+   "drop": true,
+   "into": "st-jakob-nystrom"
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "st-anderson-schultz",
+    "n": "Anderson Schultz",
+    "k": "A rich, devout patron of John Pilgrim's church",
+    "cl": "City",
+    "op": "The Punisher",
+    "opp": [
+     [
+      "st-frank-castle",
+      "The Punisher S2"
+     ],
+     [
+      "st-amy-bendix",
+      "The Punisher S2"
+     ]
+    ],
+    "tm": [
+     [
+      "Independent",
+      "The Punisher S2"
+     ],
+     [
+      "Testament Industries",
+      "The Punisher S2#6"
+     ]
+    ],
+    "st": [
+     [
+      "In episode 3, Anderson, a rich patron of John Pilgrim's church, asks Pilgrim to deal with a serious matter that threatens all they hold dear.",
+      "The Punisher S2",
+      "At large"
+     ],
+     [
+      "In episode 5, after Pilgrim fails to catch Amy, Anderson and his wife Eliza send him to New York to finish the job.",
+      "The Punisher S2",
+      "At large"
+     ],
+     [
+      "In episode 9, Anderson orders Pilgrim to put a bounty on Frank and Amy, then plays golf with his son, Senator David Schultz.",
+      "The Punisher S2",
+      "At large"
+     ],
+     [
+      "In episode 13, Frank shoots Eliza dead in front of him, then leaves him a gun and the choice to live with the truth. Anderson shoots himself.",
+      "The Punisher S2",
+      "Deceased"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "st-eliza-schultz",
+    "n": "Eliza Schultz",
+    "k": "Anderson's wife, a devout patron of Pilgrim's church",
+    "cl": "City",
+    "op": "The Punisher",
+    "opp": [
+     [
+      "st-frank-castle",
+      "The Punisher S2"
+     ],
+     [
+      "st-amy-bendix",
+      "The Punisher S2"
+     ]
+    ],
+    "tm": [
+     [
+      "Independent",
+      "The Punisher S2"
+     ],
+     [
+      "Testament Industries",
+      "The Punisher S2#6"
+     ]
+    ],
+    "st": [
+     [
+      "In episode 3, Eliza and her husband Anderson, patrons of John Pilgrim's church, promise to care for his family while he is away on their mission.",
+      "The Punisher S2",
+      "At large"
+     ],
+     [
+      "In episode 5, Eliza visits Pilgrim's sick wife, and she and Anderson send Pilgrim to New York after Amy.",
+      "The Punisher S2",
+      "At large"
+     ],
+     [
+      "In episode 11, Eliza goes to New York to tell Pilgrim his wife has died and pushes him to finish the mission as a test of faith.",
+      "The Punisher S2",
+      "At large"
+     ],
+     [
+      "In episode 13, Eliza reaches for a knife to attack Amy at the Schultzes' mansion, and Frank shoots her dead.",
+      "The Punisher S2",
+      "Deceased"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "id": "st-schultzes",
+   "drop": true,
+   "into": "st-anderson-schultz"
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "sv-stan-patterson-1967",
+    "n": [
+     [
+      "Human Fly",
+      "Spider-Man (1967)"
+     ],
+     [
+      "Stan Patterson",
+      "Spider-Man (1967)#20"
+     ]
+    ],
+    "k": "A jewel thief, one of the twin Human Flies",
+    "cl": "Street",
+    "op": "Spider-Man",
+    "opp": [
+     [
+      "sv-peter-parker-1967",
+      "Spider-Man (1967)"
+     ]
+    ],
+    "tm": "Independent",
+    "al": [
+     [
+      "Human Fly",
+      "Spider-Man (1967)"
+     ]
+    ],
+    "st": [
+     [
+      "In episode 15, he and his twin brother steal jewels as one Human Fly, until Spider-Man tracks them to an old amusement park and catches them.",
+      "Spider-Man (1967)",
+      "In custody"
+     ],
+     [
+      "In episode 20, out on parole, Stan and his twin Lee frame Spider-Man for a vault break-in, but he finds their fly-tracer and catches them again.",
+      "Spider-Man (1967)",
+      "In custody"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "sv-lee-patterson-1967",
+    "n": [
+     [
+      "Human Fly",
+      "Spider-Man (1967)"
+     ],
+     [
+      "Lee Patterson",
+      "Spider-Man (1967)#20"
+     ]
+    ],
+    "k": "A jewel thief, one of the twin Human Flies",
+    "cl": "Street",
+    "op": "Spider-Man",
+    "opp": [
+     [
+      "sv-peter-parker-1967",
+      "Spider-Man (1967)"
+     ]
+    ],
+    "tm": "Independent",
+    "al": [
+     [
+      "Human Fly",
+      "Spider-Man (1967)"
+     ]
+    ],
+    "st": [
+     [
+      "In episode 15, he and his twin brother steal jewels as one Human Fly, until Spider-Man tracks them to an old amusement park and catches them.",
+      "Spider-Man (1967)",
+      "In custody"
+     ],
+     [
+      "In episode 20, out on parole, Lee and his twin Stan frame Spider-Man for a vault break-in, but he finds their fly-tracer and catches them again.",
+      "Spider-Man (1967)",
+      "In custody"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "id": "sv-human-flies-1967",
+   "drop": true,
+   "into": "sv-stan-patterson-1967"
+  },
+  {
+   "q": 42,
+   "id": "st-gao-champions",
+   "set": {
+    "grp": 1
+   }
+  },
+  {
+   "q": 42,
+   "add": {
+    "id": "st-veznikov-brothers",
+    "n": "The Veznikov brothers",
+    "k": "Twin knife fighters, Gao's first champions",
+    "cl": "Street",
+    "op": "Iron Fist",
+    "opp": [
+     [
+      "st-danny-rand",
+      "Iron Fist S1"
+     ]
+    ],
+    "tm": "Gao's Champions",
+    "st": [
+     [
+      "In episode 6, the twins mark a ring in their own blood and fight Danny with knives, until he kicks one out of the ring and beats the other.",
+      "Iron Fist S1",
+      "At large"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 42,
+   "add": {
+    "id": "st-bride-of-nine-spiders",
+    "n": "The Bride of Nine Spiders",
+    "k": "A poison-needle fighter, Gao's second champion",
+    "cl": "Street",
+    "op": "Iron Fist",
+    "opp": [
+     [
+      "st-danny-rand",
+      "Iron Fist S1"
+     ]
+    ],
+    "tm": "Gao's Champions",
+    "st": [
+     [
+      "In episode 6, she toys with Danny and poisons him with needles of Singing Spider venom, but he clears his head and knocks her out with a kick.",
+      "Iron Fist S1",
+      "At large"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 42,
+   "add": {
+    "id": "st-scythe",
+    "n": "Scythe",
+    "k": "A Hand assassin, Gao's third champion",
+    "cl": "Street",
+    "op": "Iron Fist",
+    "opp": [
+     [
+      "st-danny-rand",
+      "Iron Fist S1"
+     ]
+    ],
+    "tm": "Gao's Champions",
+    "st": [
+     [
+      "In episode 6, Scythe fights Danny with a naginata, then a scythe, and loses, but Danny spares him and withdraws when Gao threatens to kill Sabina.",
+      "Iron Fist S1",
+      "At large"
+     ]
+    ]
+   }
   }
  ],
- "A": []
+ "A": [
+  {
+   "q": 25,
+   "add": {
+    "id": "by-zombie-rocket",
+    "n": "Rocket",
+    "k": "A Guardian of the Galaxy who joins Thor in Wakanda",
+    "tm": "Guardians of the Galaxy",
+    "cam": 1,
+    "st": [
+     [
+      "In episode 3, Rocket arrives in Wakanda with Thor and Groot to fight the zombie Thanos, whose Power Stone blast burns him and Groot to death.",
+      "Marvel Zombies",
+      "Deceased"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "by-zombie-groot",
+    "n": "Groot",
+    "k": "A Guardian of the Galaxy who joins Thor in Wakanda",
+    "tm": "Guardians of the Galaxy",
+    "cam": 1,
+    "st": [
+     [
+      "In episode 3, Groot arrives in Wakanda with Thor and Rocket to fight the zombie Thanos, whose Power Stone blast burns him and Rocket to death.",
+      "Marvel Zombies",
+      "Deceased"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "id": "by-zombie-rocket-groot",
+   "drop": true,
+   "into": "by-zombie-rocket"
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "by-zombie-rintrah",
+    "n": "Rintrah",
+    "k": "A minotaur sorcerer of Kamar-Taj",
+    "tm": "Masters of the Mystic Arts",
+    "em": "agamotto",
+    "st": [
+     [
+      "In episode 3, Rintrah and his fellow sorcerers pull Peter and Scott out of Wakanda through a portal as the Stones' energy breaks loose.",
+      "Marvel Zombies",
+      "Active"
+     ],
+     [
+      "In episode 4, the sorcerers catch Kamala's falling group after the Nova Corps attack, and Rintrah asks them to make a last stand for Banner.",
+      "Marvel Zombies",
+      "Active"
+     ],
+     [
+      "In episode 4, in the battle in Paris, Rintrah is torn apart by Wanda's zombie horde.",
+      "Marvel Zombies",
+      "Deceased"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "by-zombie-sara",
+    "n": "Sara",
+    "k": "A sorceress of Kamar-Taj",
+    "tm": "Masters of the Mystic Arts",
+    "em": "agamotto",
+    "st": [
+     [
+      "In episode 3, Sara and her fellow sorcerers pull Peter and Scott out of Wakanda through a portal as the Stones' energy breaks loose.",
+      "Marvel Zombies",
+      "Active"
+     ],
+     [
+      "In episode 4, after the sorcerers save Kamala's group from the Nova Corps, Sara tells them Banner holds the Stones' energy and Wanda has an army.",
+      "Marvel Zombies",
+      "Active"
+     ],
+     [
+      "In episode 4, in the battle in Paris, the zombie Thor's lightning burns Sara and the London Master to charred skeletons.",
+      "Marvel Zombies",
+      "Deceased"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "add": {
+    "id": "by-zombie-london-master",
+    "n": "The London Master",
+    "k": "The master of the London Sanctum",
+    "tm": "Masters of the Mystic Arts",
+    "em": "agamotto",
+    "st": [
+     [
+      "In episode 3, the London Master and the other sorcerers pull Peter and Scott out of Wakanda through a portal as the Stones' energy breaks loose.",
+      "Marvel Zombies",
+      "Active"
+     ],
+     [
+      "In episode 4, he helps save Kamala's group from the Nova Corps, then fights Wanda's horde in Paris with his sword and Gaelic battle cries.",
+      "Marvel Zombies",
+      "Active"
+     ],
+     [
+      "In episode 4, the zombie Thor arrives in Paris and his lightning burns the London Master and Sara to charred skeletons.",
+      "Marvel Zombies",
+      "Deceased"
+     ]
+    ]
+   }
+  },
+  {
+   "q": 25,
+   "id": "by-zombie-sorcerers",
+   "drop": true,
+   "into": "by-zombie-rintrah"
+  }
+ ]
 }
