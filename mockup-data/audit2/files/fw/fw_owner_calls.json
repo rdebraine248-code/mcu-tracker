@@ -1,0 +1,58 @@
+[
+ {
+  "key": "T:by-st-freddy-malick",
+  "question": "Step 1 shows The Lighthouse, but Deke kills Wilfred at Wilfred Malick's Estate in River's End, New York (only the Insight launch is at the Lighthouse). The app has no place for the estate. Keep The Lighthouse or clear it?",
+  "options": [
+   "Keep ['The Lighthouse'] (Insight part of the record)",
+   "Clear to []"
+  ],
+  "evidence": "Fandom 'Assassination of Wilfred Malick': place = Wilfred Malick's Estate, River's End, New York, July 4, 1976; Wikipedia ep 128: Coulson and May plant explosives in the Lighthouse while Deke and Yo-Yo confront Wilfred, who is killed by Deke.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Assassination_of_Wilfred_Malick&prop=wikitext&format=json&redirects=1",
+  "src_chunk": "01"
+ },
+ {
+  "key": "T:fox-anim-final-horsemen",
+  "question": "The file's name is 'The Final Horsemen', a comics label (Uncanny X-Force). On screen in X-Men '97 episode 11 they appear as Apocalypse's Horsemen. Rename the file?",
+  "options": [
+   "Rename to 'Apocalypse's Horsemen (3960)' or similar",
+   "Keep 'The Final Horsemen'"
+  ],
+  "evidence": "The Marvel Database lists the 3960 A.D. team as 'Horsemen of Apocalypse' and notes they are only based on the comics' Final Horsemen.",
+  "source": "https://marvel.fandom.com/wiki/Horsemen_of_Apocalypse_(Earth-13393)",
+  "src_chunk": "04"
+ },
+ {
+  "key": "T:fox-horsemen-apocalypse",
+  "question": "Step 3 (X-Men: Apocalypse) marks the 1983 Four Horsemen 'Deceased', but only Angel dies: Psylocke survives and leaves, and Storm and Magneto turn on Apocalypse and live. The group disbands rather than dies, and the Raft has no 'Disbanded' status. Which status should the group file end on?",
+  "options": [
+   "Keep 'Deceased' (the group as a unit is finished, and its leader is dead)",
+   "Change to 'Missing' (the group breaks up, and its surviving members go their own ways)",
+   "Change to 'Allied' (two of the three surviving members join the X-Men)"
+  ],
+  "evidence": "Wikipedia: Psylocke manages to jump safely and escape, but Angel is killed in the plane crash; Lehnsherr and Ororo turn on En Sabah Nur. X-Men Movies Wiki gives the 1983 team's status as 'Disbanded', with Psylocke 'defected' and Storm and Magneto 'formerly' members. Current record: {\"k\": 3, \"title\": \"X-Men: Apocalypse\", \"text\": \"Angel dies in a crash, Psylocke flees, and Storm and Magneto turn on Apocalypse.\", \"status\": \"Deceased\", \"at\": [\"Cairo (Earth-TRN414)\"], \"cases\": [\"FX-018 The Battle of Cairo (X-Men: Apocalypse)\"]}",
+  "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_Apocalypse&action=raw ; https://xmenmovies.fandom.com/api.php?action=parse&page=Horsemen_of_Apocalypse&prop=wikitext&format=json",
+  "src_chunk": "05"
+ },
+ {
+  "key": "A:peggy-carter",
+  "question": "Step 1 (Captain America: The First Avenger) lists 'The Arctic' under Peggy. She hears Steve's last call over the radio at the SSR base and is never in the Arctic herself; only Steve's crash happens there. Keep the Arctic, or drop it so only Camp Lehigh is shown?",
+  "options": [
+   "Keep [\"Camp Lehigh\", \"The Arctic\"]",
+   "Change to [\"Camp Lehigh\"]"
+  ],
+  "evidence": "Wikipedia plot: \"Rogers radios Carter to say goodbye before crashing in the Arctic.\" Peggy takes the call at the base. Only Steve is in the Arctic.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Captain_America:_The_First_Avenger&action=raw",
+  "src_chunk": "09"
+ },
+ {
+  "key": "T:fox-anim-sentinels",
+  "question": "Step 3 (X-Men '97 episode 5) calls the Genosha attacker 'a giant Wild Sentinel'. Wikipedia's episode summary calls it 'an upgraded Master Mold and army of Sentinels'. 'Wild Sentinel' comes from the comics and from Marvel Database, and I could not confirm the show ever says it. Keep the name, or reword?",
+  "options": [
+   "Keep: 'In episode 5, a giant Wild Sentinel slaughters the mutants of Genosha.'",
+   "Reword: 'In episode 5, an upgraded Master Mold and an army of Sentinels slaughter the mutants of Genosha.'"
+  ],
+  "evidence": "Wikipedia X-Men '97 season 1, episode 5 'Remember It': 'an upgraded Master Mold and army of Sentinels attack Genosha and kill thousands of mutants. Gambit sacrifices himself to destroy the Master Mold.' Marvel Database (Master Mold, Earth-92131) uses the label 'Wild Sentinel Master Mold'.",
+  "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw",
+  "src_chunk": "09"
+ }
+]

@@ -1,0 +1,125 @@
+{
+ "checked": [
+  "T:fox-anim-horsemen",
+  "T:fox-anim-imperial-guard",
+  "T:fox-anim-inner-circle",
+  "T:fox-anim-juggernaut",
+  "T:fox-anim-lady-deathstrike",
+  "T:fox-anim-magneto",
+  "T:fox-anim-mastermind",
+  "T:fox-anim-mister-sinister",
+  "T:fox-anim-mojo",
+  "T:fox-anim-morlocks",
+  "T:fox-anim-mystique",
+  "T:fox-anim-omega-red",
+  "T:fox-anim-phalanx",
+  "T:fox-anim-phoenix",
+  "T:fox-anim-proteus",
+  "T:fox-anim-sabretooth",
+  "T:fox-anim-sauron",
+  "T:fox-anim-sentinels",
+  "T:fox-anim-shadow-king",
+  "T:fox-anim-silver-samurai",
+  "T:fox-anim-war",
+  "A:fox-angel",
+  "A:fox-leech",
+  "A:fox-moira-mactaggert",
+  "C:fox-juggernaut-helmet",
+  "C:fox-mutant-cure",
+  "T:fox-callisto",
+  "T:fox-juggernaut",
+  "T:fox-multiple-man",
+  "T:fox-omegas",
+  "T:fox-phoenix",
+  "A:fox-beast",
+  "A:fox-nightcrawler",
+  "C:fox-cerebro-stryker",
+  "T:fox-lady-deathstrike",
+  "A:agatha-harkness",
+  "A:alice-wu-gulliver",
+  "A:eddie",
+  "A:jeff-kaplan",
+  "A:jennifer-kale",
+  "A:lilia-calderu",
+  "A:rebecca-kaplan",
+  "C:coven-brooms",
+  "T:rio-vidal",
+  "T:salem-seven",
+  "A:peggy-carter",
+  "A:st-aloysius-samberly",
+  "A:st-ana-jarvis",
+  "A:st-angie-martinelli",
+  "A:st-daniel-sousa",
+  "A:st-edwin-jarvis",
+  "A:st-isodyne"
+ ],
+ "changes": [
+  {
+   "key": "T:rio-vidal",
+   "k": 0,
+   "q": "F5",
+   "now": {
+    "title": "Agatha All Along",
+    "text": "In episode 8, Rio Vidal hunts Agatha along the Witches' Road. Revealed as Death herself, she claims Agatha's life.",
+    "status": "At large",
+    "at": [
+     "The Witches' Road"
+    ],
+    "cases": []
+   },
+   "proposed": {
+    "at": [
+     "The Witches' Road",
+     "Westview"
+    ]
+   },
+   "evidence": "Agatha All Along episode 8: after finishing the last trial, Agatha escapes into her own backyard in Westview, where Rio attacks her and takes her life after the kiss. The record ends with Rio claiming Agatha's life, so Westview belongs alongside the Road (Agatha's own record already puts this death at Westview).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:st-daniel-sousa",
+   "k": 2,
+   "q": "F5",
+   "now": {
+    "title": "Agents of S.H.I.E.L.D.",
+    "text": "In episode 127, the time-traveling S.H.I.E.L.D. team saves Sousa from his 1955 assassination, and he joins them.",
+    "status": "Active",
+    "at": [
+     "Area 51"
+    ],
+    "cases": []
+   },
+   "proposed": {
+    "at": [
+     "Hollywood"
+    ]
+   },
+   "evidence": "Agents of S.H.I.E.L.D. episode 127 'Out of the Past': the team saves Sousa from his 1955 assassination on a train and at the Hotel Roosevelt in Los Angeles (Hollywood), where Coulson takes the bullet and fakes Sousa's death. Area 51 is where they met him in episode 126, not where the record's event happens.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Out_of_the_Past&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:peggy-carter",
+   "question": "Step 1 (Captain America: The First Avenger) lists 'The Arctic' under Peggy. She hears Steve's last call over the radio at the SSR base and is never in the Arctic herself; only Steve's crash happens there. Keep the Arctic, or drop it so only Camp Lehigh is shown?",
+   "options": [
+    "Keep [\"Camp Lehigh\", \"The Arctic\"]",
+    "Change to [\"Camp Lehigh\"]"
+   ],
+   "evidence": "Wikipedia plot: \"Rogers radios Carter to say goodbye before crashing in the Arctic.\" Peggy takes the call at the base. Only Steve is in the Arctic.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Captain_America:_The_First_Avenger&action=raw"
+  },
+  {
+   "key": "T:fox-anim-sentinels",
+   "question": "Step 3 (X-Men '97 episode 5) calls the Genosha attacker 'a giant Wild Sentinel'. Wikipedia's episode summary calls it 'an upgraded Master Mold and army of Sentinels'. 'Wild Sentinel' comes from the comics and from Marvel Database, and I could not confirm the show ever says it. Keep the name, or reword?",
+   "options": [
+    "Keep: 'In episode 5, a giant Wild Sentinel slaughters the mutants of Genosha.'",
+    "Reword: 'In episode 5, an upgraded Master Mold and an army of Sentinels slaughter the mutants of Genosha.'"
+   ],
+   "evidence": "Wikipedia X-Men '97 season 1, episode 5 'Remember It': 'an upgraded Master Mold and army of Sentinels attack Genosha and kill thousands of mutants. Gambit sacrifices himself to destroy the Master Mold.' Marvel Database (Master Mold, Earth-92131) uses the label 'Wild Sentinel Master Mold'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw"
+  }
+ ]
+}

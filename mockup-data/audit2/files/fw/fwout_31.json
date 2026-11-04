@@ -1,0 +1,144 @@
+{
+ "checked": [
+  "C:aether",
+  "C:gravimetric-spikes",
+  "C:gungnir",
+  "C:spec-dark-elf",
+  "C:spec-kronan",
+  "T:kurse",
+  "T:malekith",
+  "T:the-collector",
+  "A:bob",
+  "A:mel",
+  "C:sentry-kill-switch",
+  "T:bob-sentry",
+  "C:spec-symbiote",
+  "A:fiona-guthrie",
+  "A:lisa-molinari",
+  "A:billy-maximoff",
+  "A:sharon-davis",
+  "A:tommy-maximoff",
+  "T:agatha-harkness",
+  "T:tyler-hayward",
+  "T:white-vision",
+  "A:elsa-bloodstone",
+  "A:jack-russell",
+  "A:ted",
+  "C:bloodstone",
+  "C:spec-werewolf",
+  "T:verussa-bloodstone",
+  "T:wbn-monster-hunters",
+  "A:demarr-davis",
+  "A:eric-williams",
+  "A:janelle-jackson",
+  "A:martha-williams",
+  "A:simon-williams",
+  "A:von-kovak",
+  "A:pr-karen-jenson",
+  "C:pr-blade-serum",
+  "C:pr-bladesword",
+  "C:pr-book-of-erebus",
+  "C:pr-edta",
+  "C:pr-glaive",
+  "C:pr-spec-vampire",
+  "T:pr-deacon-frost",
+  "T:pr-dragonetti",
+  "T:pr-krieger",
+  "T:pr-mercury",
+  "T:pr-pearl",
+  "T:pr-quinn",
+  "T:pr-racquel",
+  "A:pr-bloodpack",
+  "A:pr-nyssa-damaskinos",
+  "A:pr-scud",
+  "C:pr-reinhardt-bomb",
+  "C:pr-spec-reaper",
+  "C:pr-uv-bomb",
+  "T:pr-bloodpack",
+  "T:pr-damaskinos",
+  "T:pr-jared-nomak",
+  "T:pr-kounen",
+  "T:pr-reinhardt",
+  "A:pr-abraham-whistler",
+  "A:pr-blade",
+  "A:pr-krista-starr",
+  "A:pr-shen"
+ ],
+ "changes": [
+  {
+   "key": "T:malekith",
+   "k": 1,
+   "q": "F1",
+   "now": {
+    "k": 1,
+    "title": "Thor: The Dark World",
+    "text": "Malekith tries to darken the universe at the Convergence in Greenwich, and his own ship crushes him.",
+    "status": "Deceased",
+    "at": [
+     "Greenwich"
+    ],
+    "cases": [
+     "ST-023 The Battle of Greenwich (Thor: The Dark World)"
+    ]
+   },
+   "proposed": {
+    "text": "Malekith tries to darken the universe at the Convergence in Greenwich, until Jane's group sends him back to Svartalfheim, where his own ship crushes him.",
+    "at": [
+     "Greenwich",
+     "Svartalfheim"
+    ]
+   },
+   "evidence": "Thor: The Dark World: Jane's group use their scientific equipment to transport Malekith to Svartalfheim, where he is crushed by his own ship. The text implies he is crushed in Greenwich, and the place of his death (Svartalfheim, a place the app has) is missing.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Thor:_The_Dark_World&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "T:bob-sentry",
+   "k": 0,
+   "q": "F6",
+   "now": {
+    "k": 0,
+    "title": "Thunderbolts*",
+    "text": "Freed from an O.X.E. vault, Bob Reynolds helps the others escape, then Valentina makes him her Sentry and he turns on them.",
+    "status": "Active",
+    "at": [
+     "Utah",
+     "Midtown"
+    ],
+    "cases": [
+     "ST-122 The Void over Manhattan (Thunderbolts*)"
+    ]
+   },
+   "proposed": {
+    "cases": []
+   },
+   "evidence": "Thunderbolts*: this record covers Bob's release from the O.X.E. vault, his capture, becoming the Sentry and overpowering the Thunderbolts at the Watchtower. It ends before Mel's kill switch triggers the Void, which is what ST-122 The Void over Manhattan reports (that event is covered by k1 and k2).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Thunderbolts*&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:pr-abraham-whistler",
+   "k": 3,
+   "q": "F6",
+   "now": {
+    "k": 3,
+    "title": "Blade: Trinity",
+    "text": "Whistler dies when the FBI raids his base.",
+    "status": "Deceased",
+    "at": [
+     "Blade's city (Earth-26320)"
+    ],
+    "cases": [
+     "PR-006 The Release of Daystar (Blade: Trinity)"
+    ]
+   },
+   "proposed": {
+    "cases": []
+   },
+   "evidence": "Blade: Trinity: FBI agents locate Blade's hideout and kill Whistler at the start of the film. PR-006 The Release of Daystar is the climax where Blade stabs Drake with the Daystar arrow and the virus is released; Whistler is long dead and not part of it.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Blade:_Trinity&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": []
+}
