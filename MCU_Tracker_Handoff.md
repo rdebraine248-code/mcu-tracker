@@ -232,6 +232,8 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
 - The Widows bubble stays a bubble (owner, 4 November 2026: "We don't name groups that are only one ... as it is now, I guess it's fine"):
   no name for a one-member group, collective or not. The owner would rather have the Widows named one by one inside a group; the
   file naming each featured Widow is the agreed alternative.
+- No stage that reads before the two meet (owner, 4 November 2026: "Leave it out"): Bruce and Natasha get no Captain Marvel stage for the
+  credits-scene pager, since the app orders Captain Marvel at 1995 and it would become their first stage, set after the Snap.
 - Families stand together (owner, 4 November 2026: "Why is Laura Barton not part of the Barton family?"): a family circle (rel/out1.json)
   holds every member, parents and siblings included, not only those with no group record; a member stands in it whenever they're in
   no other group (Clint with the Avengers in Endgame, with his family in Hawkeye). And a family or partner tie needs a stage in every
