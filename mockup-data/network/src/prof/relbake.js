@@ -88,7 +88,9 @@ console.log('text fixes', tFix, 'cuts', tCut);
 // later stage added where the relationship turns (an enemy who becomes an ally), kept in story order
 // a and b by id (any world) or by Sacred Timeline name; the review's files (rel/stage_fix_*.json) after the hand-written one
 const pid = k => { const i = idOf(k); return i != null ? i : ix.get(k); };
-let sFix = 0; ['stage_fix.json', ...fs.readdirSync(R).filter(f => /^stage_fix_.+\.json$/.test(f)).sort()].forEach(fn => { if (fs.existsSync(R + fn)) JSON.parse(fs.readFileSync(R + fn)).pairs.forEach(f => {
+// a fix written for a file that has since been split or merged goes to the file(s) it became (rel/retarget.json, rules that move every stage)
+const rtFix = f => { for (const r of RT) if (!r.titles && (f.a === r.from || f.b === r.from)) return r.to.map(to => ({ ...f, a: f.a === r.from ? to : f.a, b: f.b === r.from ? to : f.b })); return [f]; };
+let sFix = 0; ['stage_fix.json', ...fs.readdirSync(R).filter(f => /^stage_fix_.+\.json$/.test(f)).sort()].forEach(fn => { if (fs.existsSync(R + fn)) JSON.parse(fs.readFileSync(R + fn)).pairs.flatMap(rtFix).forEach(f => {
   const a = pid(f.a), b = pid(f.b), t = out.find(o => (o[0] === a && o[1] === b) || (o[0] === b && o[1] === a)); if (!t) { console.warn('stage_fix: no connection', f.a, '|', f.b); return; }
   const flip = t[0] !== a, st = t[2];
   (f.edit || []).forEach(e => { const x = st[e.i]; if (!x) { console.warn('stage_fix: no stage', e.i, f.a, f.b); return; } if (e.kind) x[0] = KINDS.indexOf(e.kind); if (e.text) x[2] = e.text; if (e.episode) x[1] = tIx(T[x[1]].replace(/#\d+$/, '') + '#' + e.episode); if (e.title) { if (so(e.title) < 0) console.warn('stage_fix: bad title', e.title, f.a, f.b); else x[1] = tIx(e.title); }   // a stage moved to another title (audit, November 2026)   // a stage moved to the episode it happens in
