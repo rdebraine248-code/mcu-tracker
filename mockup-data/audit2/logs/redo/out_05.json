@@ -1,0 +1,30 @@
+{
+ "checked": [
+  "cx-ant-man-the-wasp:rows",
+  "cx-guardians-of-the-galaxy:rows",
+  "cx-spider-man:rows",
+  "cx-black-panther-wakanda:rows",
+  "cx-doctor-strange-wong:rows"
+ ],
+ "changes": [
+  {
+   "key": "cx-guardians-of-the-galaxy:rows:affiliation:3",
+   "q": "L4",
+   "now": ["Knowhere", "The Guardians of the Galaxy Holiday Special"],
+   "proposed": {"insert_after": 3, "stage": ["Rocket's new Guardians. Peter: home on Earth. Gamora: the Ravagers. Nebula and Drax: Knowhere", "Guardians of the Galaxy Vol. 3"]},
+   "evidence": "The 'Knowhere' stage runs to the end of the box, but Vol. 3 ends with the team breaking up: Quill leaves the Guardians, makes Rocket captain and goes back to his grandfather on Earth, Mantis leaves with the Abilisks, Gamora rejoins the Ravagers, and only Nebula and Drax stay on Knowhere. The status row already has this Vol. 3 stage; affiliation was never updated to match.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Guardians_of_the_Galaxy_Vol._3&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "cx-doctor-strange-wong:rows:affiliation:1",
+   "q": "L4",
+   "now": ["The Masters of the Mystic Arts, fighting beside the Avengers", "Avengers: Infinity War"],
+   "proposed": {"insert_after": 1, "stage": ["The Masters of the Mystic Arts, Kamar-Taj", "Doctor Strange in the Multiverse of Madness"]},
+   "evidence": "The 'fighting beside the Avengers' stage runs through Multiverse of Madness and She-Hulk, where no Avengers appear. Multiverse of Madness is Strange and Wong at Kamar-Taj against Wanda, and it ends with Kamar-Taj being rebuilt and the sorcerers, joined by America Chavez, training there again.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Doctor_Strange_in_the_Multiverse_of_Madness&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": []
+}

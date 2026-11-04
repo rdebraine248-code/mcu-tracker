@@ -1,0 +1,44 @@
+{
+ "checked": [
+  "cx-falcon-winter-soldier:rows",
+  "cx-loki-the-tva:rows",
+  "cx-the-thunderbolts:rows",
+  "cx-the-fantastic-four:rows"
+ ],
+ "changes": [
+  {
+   "key": "cx-falcon-winter-soldier:rows:status:0",
+   "q": "L4",
+   "now": "Bucky: presumed dead, 1944",
+   "proposed": "Bucky: presumed dead, 1945",
+   "evidence": "Bucky falls from the train during the Howling Commandos' capture of Arnim Zola, dated February 1945. On screen in Captain America: The Winter Soldier, Zola says the Captain took him prisoner in 1945, which is the mission where Bucky fell. No on-screen source puts the fall in 1944.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Capture_of_Arnim_Zola&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "cx-falcon-winter-soldier:rows:status:2",
+   "q": "L4",
+   "now": "Bucky: missing. Sam: an Avenger",
+   "proposed": {
+    "insert_after": 2,
+    "stage": [
+     "Bucky: found, in Steve and Sam's custody. Sam: with Steve",
+     "Ant-Man"
+    ]
+   },
+   "evidence": "Stage 2 (Age of Ultron) still holds through Ant-Man, but Ant-Man's post-credits scene shows Steve Rogers and Sam Wilson holding Bucky Barnes in their custody, unable to call Tony because of the accords. That is the same scene the log's own Ant-Man recap uses ('Sam says he knows a guy'). So 'Bucky: missing' no longer holds by the end of Ant-Man.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ant-Man_(film)&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "cx-loki-the-tva:rows:status:0",
+   "q": "L4",
+   "now": "Missing, presumed dead",
+   "proposed": "Presumed dead, but secretly alive on Earth",
+   "evidence": "Thor's post-credits scene: when Nick Fury asks Erik Selvig to study the cube, an invisible Loki, who survived his fall and reached Earth, secretly prompts Selvig to agree. Under the real-status rule, Loki is alive by the end of Thor, not just missing, and Thor itself reveals it.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Thor_(film)&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": []
+}

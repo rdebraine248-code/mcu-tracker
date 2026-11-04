@@ -1,0 +1,24 @@
+{
+ "checked": ["cx-nick-fury:rows", "cx-s-h-i-e-l-d:rows", "cx-captain-marvel:rows"],
+ "changes": [
+  {
+   "key": "cx-s-h-i-e-l-d:rows:affiliation:0",
+   "q": "L4",
+   "now": ["The Allied war effort", "Captain America: The First Avenger"],
+   "proposed": {"insert_after": 0, "stage": ["The U.S. government", "Agent Carter S1"]},
+   "evidence": "Stage 0 holds unchanged from The First Avenger until The Consultant, so it stays 'The Allied war effort' through Agent Carter S1 and S2, the One-Shot, Captain Marvel (1995), Iron Man, Iron Man 2 and Thor. But Agent Carter S1 is set in 1946, after World War II has ended (the log's own status row says 'The war is over' from Agent Carter S1), with the SSR working as a U.S. agency in New York investigating Stark for selling weapons to enemies of the United States. The MCU wiki lists the SSR's affiliation as the United States, and S.H.I.E.L.D.'s (which the One-Shot founds) also as the United States, with the World Security Council coming later. So a stage is missing at Agent Carter S1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Strategic_Scientific_Reserve&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "cx-s-h-i-e-l-d:rows:affiliation:3",
+   "q": "L4",
+   "now": ["Rebuilt in secret under Coulson", "Agents of S.H.I.E.L.D. S1"],
+   "proposed": {"insert_after": 3, "stage": ["In secret, under a new director", "Agents of S.H.I.E.L.D. S3"]},
+   "evidence": "Stage 3 holds until Agents of S.H.I.E.L.D. S4, so it stays 'under Coulson' through S3 and Slingshot. At the end of S3 (six months later) Coulson is no longer director of S.H.I.E.L.D. (the log's own status row 9 says so at S3), and Slingshot shows the new director, Jeffrey Mace. S.H.I.E.L.D. is announced as a legitimate organization again only in S4, so 'in secret' still holds until stage 4. The new director's name isn't given in S3, so the stage leaves it out.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": []
+}

@@ -1,0 +1,492 @@
+[
+ {
+  "type": "change",
+  "key": "ch-10:rows:period:6",
+  "q": "L4",
+  "now": [
+   "2027",
+   "The Punisher: One Last Kill"
+  ],
+  "proposed": [
+   "2028",
+   "The Punisher: One Last Kill"
+  ],
+  "evidence": "One Last Kill is set in 2028, after Daredevil: Born Again S2 (which ends in fall 2027): the MCU wiki dates the Gnucci killings it opens with to 2028, citing Disney+'s MCU Complete Timeline, and the attack on Frank's apartment building to mid-2028.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Hunt_for_Frank_Castle",
+  "confidence": "high",
+  "n": 0,
+  "context": {
+   "log": "ch-10",
+   "name": "Dark Reign",
+   "order": [
+    "Echo",
+    "Captain America: Brave New World",
+    "Daredevil: Born Again S1",
+    "Thunderbolts*",
+    "Wonder Man",
+    "Daredevil: Born Again S2",
+    "The Punisher: One Last Kill",
+    "Daredevil: Born Again S3"
+   ],
+   "rows": {
+    "period": [
+     [
+      "2025",
+      "Echo"
+     ],
+     [
+      "2027",
+      "Captain America: Brave New World"
+     ],
+     [
+      "2026 to 2027",
+      "Daredevil: Born Again S1"
+     ],
+     [
+      "2027",
+      "Thunderbolts*"
+     ],
+     [
+      "2025 to 2027",
+      "Wonder Man"
+     ],
+     [
+      "2027",
+      "Daredevil: Born Again S2"
+     ],
+     [
+      "2027",
+      "The Punisher: One Last Kill"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "ch-11:rows:period:2",
+  "q": "L4",
+  "now": "(no stage at Spider-Man: Brand New Day; 'Across the multiverse' from Deadpool & Wolverine still holds)",
+  "proposed": {
+   "insert_after": 2,
+   "stage": [
+    "2028",
+    "Spider-Man: Brand New Day"
+   ]
+  },
+  "evidence": "Brand New Day stays in Peter's own world, four years after No Way Home (2024): the MCU wiki dates it to 2028. It does not cross the multiverse, so the Deadpool & Wolverine stage doesn't hold through it.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Spider-Man:_Brand_New_Day",
+  "confidence": "medium",
+  "n": 1,
+  "context": {
+   "log": "ch-11",
+   "name": "Secret Wars",
+   "order": [
+    "Ant-Man and the Wasp: Quantumania",
+    "Loki S2",
+    "Deadpool & Wolverine",
+    "Spider-Man: Brand New Day",
+    "The Fantastic Four: First Steps",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "period": [
+     [
+      "The Quantum Realm",
+      "Ant-Man and the Wasp: Quantumania"
+     ],
+     [
+      "Outside of time",
+      "Loki S2"
+     ],
+     [
+      "Across the multiverse",
+      "Deadpool & Wolverine"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "ch-11:rows:period:3",
+  "q": "L4",
+  "now": "(no stage at The Fantastic Four: First Steps)",
+  "proposed": {
+   "insert_after": 3,
+   "stage": [
+    "An alternate 1960s",
+    "The Fantastic Four: First Steps"
+   ]
+  },
+  "evidence": "Apply this with the Brand New Day insert above (insert_after 3 counts that new stage). Without it, First Steps would inherit the Brand New Day year. The MCU wiki says First Steps is set 'in an alternate 1960s' on Earth-828.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=The_Fantastic_Four:_First_Steps",
+  "confidence": "medium",
+  "n": 2,
+  "context": {
+   "log": "ch-11",
+   "name": "Secret Wars",
+   "order": [
+    "Ant-Man and the Wasp: Quantumania",
+    "Loki S2",
+    "Deadpool & Wolverine",
+    "Spider-Man: Brand New Day",
+    "The Fantastic Four: First Steps",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "period": [
+     [
+      "The Quantum Realm",
+      "Ant-Man and the Wasp: Quantumania"
+     ],
+     [
+      "Outside of time",
+      "Loki S2"
+     ],
+     [
+      "Across the multiverse",
+      "Deadpool & Wolverine"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "ch-beyond-the-mcu:rows:period:2",
+  "q": "L4",
+  "now": "(no stage at Marvel Zombies; 'Agents of S.H.I.E.L.D. S7's '1931 onward' still holds)",
+  "proposed": {
+   "insert_after": 2,
+   "stage": [
+    "2023",
+    "Marvel Zombies"
+   ]
+  },
+  "evidence": "Marvel Zombies isn't part of the S.H.I.E.L.D. timeline. It is set in the What If...? Zombie Outbreak reality, five years after the 2018 outbreak, so in 2023.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Kamala_Khan/Zombie_Outbreak",
+  "confidence": "medium",
+  "n": 3,
+  "context": {
+   "log": "ch-beyond-the-mcu",
+   "name": "Beyond the MCU",
+   "order": [
+    "What If...?",
+    "Agents of S.H.I.E.L.D. S6",
+    "Agents of S.H.I.E.L.D. S7",
+    "Marvel Zombies",
+    "Team Thor, Team Thor: Part 2 & Team Darryl"
+   ],
+   "rows": {
+    "period": [
+     [
+      "Other realities",
+      "What If...?"
+     ],
+     [
+      "2019",
+      "Agents of S.H.I.E.L.D. S6"
+     ],
+     [
+      "1931 onward",
+      "Agents of S.H.I.E.L.D. S7"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "ch-beyond-the-mcu:rows:period:3",
+  "q": "L4",
+  "now": "(no stage at Team Thor, Team Thor: Part 2 & Team Darryl)",
+  "proposed": {
+   "insert_after": 3,
+   "stage": [
+    "2016 to 2018",
+    "Team Thor, Team Thor: Part 2 & Team Darryl"
+   ]
+  },
+  "evidence": "Apply this with the Marvel Zombies insert above (insert_after 3 counts that new stage). The MCU wiki sets Team Thor in 2016, while the Avengers fight in Civil War, and Team Darryl in 2018, when Darryl moves to Los Angeles. Both are outside the main continuity.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Marvel_One-Shot:_Team_Darryl",
+  "confidence": "medium",
+  "n": 4,
+  "context": {
+   "log": "ch-beyond-the-mcu",
+   "name": "Beyond the MCU",
+   "order": [
+    "What If...?",
+    "Agents of S.H.I.E.L.D. S6",
+    "Agents of S.H.I.E.L.D. S7",
+    "Marvel Zombies",
+    "Team Thor, Team Thor: Part 2 & Team Darryl"
+   ],
+   "rows": {
+    "period": [
+     [
+      "Other realities",
+      "What If...?"
+     ],
+     [
+      "2019",
+      "Agents of S.H.I.E.L.D. S6"
+     ],
+     [
+      "1931 onward",
+      "Agents of S.H.I.E.L.D. S7"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "ch-incursions:63",
+  "q": "L1",
+  "now": "Iron Man and the Hulk team up when the Abomination and MODOK unleash a creature of pure energy, Zzzax.",
+  "proposed": "Iron Man and the Hulk team up when the Abomination and two HYDRA scientists unleash a creature of pure energy, Zzzax.",
+  "evidence": "MODOK is not in Iron Man & Hulk: Heroes United. Two HYDRA scientists (Doctor Cruller and Doctor Fump) bring in the Abomination to capture the Hulk and drain his gamma energy into their own copy of Stark's arc reactor, and that creates Zzzax. The cast list is Iron Man, Hulk, Zzzax, Abomination, the two scientists, J.A.R.V.I.S. and Red Skull.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Heroes_United&action=raw",
+  "confidence": "high",
+  "n": 5,
+  "context": {
+   "log": "ch-incursions",
+   "name": "Incursions",
+   "order": [
+    "Captain America (1944)",
+    "The Marvel Super Heroes",
+    "Fantastic Four (1967)",
+    "The Incredible Hulk (1977)",
+    "The Incredible Hulk Returns",
+    "The Trial of the Incredible Hulk",
+    "The Death of the Incredible Hulk",
+    "The Amazing Spider-Man (1977)",
+    "Doctor Strange (1978)",
+    "Captain America (1979)",
+    "Captain America II: Death Too Soon",
+    "Spider-Woman",
+    "Spider-Man (1981)",
+    "Spider-Man and His Amazing Friends",
+    "The Incredible Hulk (1982)",
+    "Howard the Duck",
+    "Solarman",
+    "The Punisher (1989)",
+    "Pryde of the X-Men",
+    "Captain America (1990)",
+    "Power Pack",
+    "The Fantastic Four (1994)",
+    "Iron Man (1994)",
+    "Fantastic Four (1994)",
+    "The Incredible Hulk (1996)",
+    "Generation X",
+    "Nick Fury: Agent of S.H.I.E.L.D.",
+    "Silver Surfer",
+    "Avengers: United They Stand",
+    "X-Men: Evolution",
+    "Mutant X",
+    "Hulk (2003)",
+    "Spider-Man: The New Animated Series",
+    "Man-Thing",
+    "Ultimate Avengers",
+    "Ultimate Avengers 2",
+    "Fantastic Four: World's Greatest Heroes",
+    "Ghost Rider",
+    "Ghost Rider: Spirit of Vengeance",
+    "Doctor Strange: The Sorcerer Supreme",
+    "The Invincible Iron Man",
+    "Punisher: War Zone",
+    "Next Avengers: Heroes of Tomorrow",
+    "Wolverine and the X-Men",
+    "Hulk Vs. Wolverine",
+    "Hulk Vs. Thor",
+    "The Avengers: Earth's Mightiest Heroes",
+    "Thor: Tales of Asgard",
+    "Iron Man: Armored Adventures",
+    "The Super Hero Squad Show",
+    "Planet Hulk",
+    "Iron Man (2010)",
+    "Wolverine (2011)",
+    "X-Men (2011)",
+    "Blade (2011)",
+    "Iron Man: Rise of Technovore",
+    "Avengers Confidential: Black Widow & Punisher",
+    "Ultimate Spider-Man",
+    "Avengers Assemble",
+    "Hulk and the Agents of S.M.A.S.H.",
+    "Avengers: Ultron Revolution",
+    "Hulk: Where Monsters Dwell",
+    "Avengers: Secret Wars (2017)",
+    "Iron Man & Hulk: Heroes United",
+    "Iron Man & Captain America: Heroes United",
+    "LEGO Marvel Super Heroes: Maximum Overload",
+    "LEGO Marvel Super Heroes: Avengers Reassembled",
+    "LEGO Marvel Super Heroes: Guardians of the Galaxy: The Thanos Threat",
+    "LEGO Marvel Super Heroes: Black Panther: Trouble in Wakanda",
+    "LEGO Marvel Spider-Man: Vexed by Venom",
+    "LEGO Marvel Avengers: Climate Conundrum",
+    "LEGO Marvel Avengers: Loki in Training",
+    "LEGO Marvel Avengers: Time Twisted",
+    "LEGO Marvel Avengers: Code Red",
+    "LEGO Marvel Avengers: Mission Demolition",
+    "Big Hero 6",
+    "Big Hero 6: The Series",
+    "Baymax!",
+    "Fantastic Four (2015)",
+    "Marvel Super Hero Adventures: Frost Fight!",
+    "Guardians of the Galaxy (2015)",
+    "Marvel's Spider-Man",
+    "Avengers: Black Panther's Quest",
+    "Legion",
+    "The Gifted",
+    "Marvel Super Hero Adventures",
+    "Marvel Rising: Initiation",
+    "Marvel Rising: Secret Warriors",
+    "Marvel Rising: Chasing Ghosts",
+    "Marvel Rising: Ultimate Comics",
+    "Marvel Rising: Heart of Iron",
+    "Marvel Rising: Battle of the Bands",
+    "Marvel Rising: Operation Shuri",
+    "Marvel Rising: Playing with Fire",
+    "Helstrom",
+    "M.O.D.O.K.",
+    "Hit-Monkey",
+    "Moon Girl and Devil Dinosaur"
+   ],
+   "rows": null,
+   "entry": {
+    "i": 63,
+    "t": "Iron Man & Hulk: Heroes United",
+    "x": "Iron Man and the Hulk team up when the Abomination and MODOK unleash a creature of pure energy, Zzzax."
+   }
+  }
+ },
+ {
+  "type": "change",
+  "key": "ch-incursions:72",
+  "q": "L1",
+  "now": "Thanos steals the Avengers' quantum tunnel, and the team chases him through time to stop him from changing history.",
+  "proposed": "Thanos steals the Avengers' quantum tunnel and uses it to pull their old enemies out of the past, and the team has to track him down and stop him.",
+  "evidence": "The Avengers never travel through time in Time Twisted. The Chitauri steal Scott Lang's van with the Quantum Tunnel, and Thanos uses it to bring the Red Skull's past self, Iron Monger and Ultron into the present for an army. Ant-Man tracks the van to HYDRA's island base, the team fights them there in the present, and Scott shrinks the island into a bottle.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=LEGO_Marvel_Avengers:_Time_Twisted&prop=wikitext&format=json",
+  "confidence": "high",
+  "n": 6,
+  "context": {
+   "log": "ch-incursions",
+   "name": "Incursions",
+   "order": [
+    "Captain America (1944)",
+    "The Marvel Super Heroes",
+    "Fantastic Four (1967)",
+    "The Incredible Hulk (1977)",
+    "The Incredible Hulk Returns",
+    "The Trial of the Incredible Hulk",
+    "The Death of the Incredible Hulk",
+    "The Amazing Spider-Man (1977)",
+    "Doctor Strange (1978)",
+    "Captain America (1979)",
+    "Captain America II: Death Too Soon",
+    "Spider-Woman",
+    "Spider-Man (1981)",
+    "Spider-Man and His Amazing Friends",
+    "The Incredible Hulk (1982)",
+    "Howard the Duck",
+    "Solarman",
+    "The Punisher (1989)",
+    "Pryde of the X-Men",
+    "Captain America (1990)",
+    "Power Pack",
+    "The Fantastic Four (1994)",
+    "Iron Man (1994)",
+    "Fantastic Four (1994)",
+    "The Incredible Hulk (1996)",
+    "Generation X",
+    "Nick Fury: Agent of S.H.I.E.L.D.",
+    "Silver Surfer",
+    "Avengers: United They Stand",
+    "X-Men: Evolution",
+    "Mutant X",
+    "Hulk (2003)",
+    "Spider-Man: The New Animated Series",
+    "Man-Thing",
+    "Ultimate Avengers",
+    "Ultimate Avengers 2",
+    "Fantastic Four: World's Greatest Heroes",
+    "Ghost Rider",
+    "Ghost Rider: Spirit of Vengeance",
+    "Doctor Strange: The Sorcerer Supreme",
+    "The Invincible Iron Man",
+    "Punisher: War Zone",
+    "Next Avengers: Heroes of Tomorrow",
+    "Wolverine and the X-Men",
+    "Hulk Vs. Wolverine",
+    "Hulk Vs. Thor",
+    "The Avengers: Earth's Mightiest Heroes",
+    "Thor: Tales of Asgard",
+    "Iron Man: Armored Adventures",
+    "The Super Hero Squad Show",
+    "Planet Hulk",
+    "Iron Man (2010)",
+    "Wolverine (2011)",
+    "X-Men (2011)",
+    "Blade (2011)",
+    "Iron Man: Rise of Technovore",
+    "Avengers Confidential: Black Widow & Punisher",
+    "Ultimate Spider-Man",
+    "Avengers Assemble",
+    "Hulk and the Agents of S.M.A.S.H.",
+    "Avengers: Ultron Revolution",
+    "Hulk: Where Monsters Dwell",
+    "Avengers: Secret Wars (2017)",
+    "Iron Man & Hulk: Heroes United",
+    "Iron Man & Captain America: Heroes United",
+    "LEGO Marvel Super Heroes: Maximum Overload",
+    "LEGO Marvel Super Heroes: Avengers Reassembled",
+    "LEGO Marvel Super Heroes: Guardians of the Galaxy: The Thanos Threat",
+    "LEGO Marvel Super Heroes: Black Panther: Trouble in Wakanda",
+    "LEGO Marvel Spider-Man: Vexed by Venom",
+    "LEGO Marvel Avengers: Climate Conundrum",
+    "LEGO Marvel Avengers: Loki in Training",
+    "LEGO Marvel Avengers: Time Twisted",
+    "LEGO Marvel Avengers: Code Red",
+    "LEGO Marvel Avengers: Mission Demolition",
+    "Big Hero 6",
+    "Big Hero 6: The Series",
+    "Baymax!",
+    "Fantastic Four (2015)",
+    "Marvel Super Hero Adventures: Frost Fight!",
+    "Guardians of the Galaxy (2015)",
+    "Marvel's Spider-Man",
+    "Avengers: Black Panther's Quest",
+    "Legion",
+    "The Gifted",
+    "Marvel Super Hero Adventures",
+    "Marvel Rising: Initiation",
+    "Marvel Rising: Secret Warriors",
+    "Marvel Rising: Chasing Ghosts",
+    "Marvel Rising: Ultimate Comics",
+    "Marvel Rising: Heart of Iron",
+    "Marvel Rising: Battle of the Bands",
+    "Marvel Rising: Operation Shuri",
+    "Marvel Rising: Playing with Fire",
+    "Helstrom",
+    "M.O.D.O.K.",
+    "Hit-Monkey",
+    "Moon Girl and Devil Dinosaur"
+   ],
+   "rows": null,
+   "entry": {
+    "i": 72,
+    "t": "LEGO Marvel Avengers: Time Twisted",
+    "x": "Thanos steals the Avengers' quantum tunnel, and the team chases him through time to stop him from changing history."
+   }
+  }
+ }
+]

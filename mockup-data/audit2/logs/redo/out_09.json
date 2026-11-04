@@ -1,0 +1,103 @@
+{
+ "checked": [
+  "ch-3:rows",
+  "ch-4:rows",
+  "ch-5:rows",
+  "ch-7:rows",
+  "ch-8:rows",
+  "ch-9:rows",
+  "ch-10:rows",
+  "ch-11:rows",
+  "ch-beyond-the-mcu:rows",
+  "ch-the-spider-verse:rows"
+ ],
+ "changes": [
+  {
+   "key": "ch-10:rows:period:6",
+   "q": "L4",
+   "now": [
+    "2027",
+    "The Punisher: One Last Kill"
+   ],
+   "proposed": [
+    "2028",
+    "The Punisher: One Last Kill"
+   ],
+   "evidence": "One Last Kill is set in 2028, after Daredevil: Born Again S2 (which ends in fall 2027): the MCU wiki dates the Gnucci killings it opens with to 2028, citing Disney+'s MCU Complete Timeline, and the attack on Frank's apartment building to mid-2028.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Hunt_for_Frank_Castle",
+   "confidence": "high"
+  },
+  {
+   "key": "ch-11:rows:period:2",
+   "q": "L4",
+   "now": "(no stage at Spider-Man: Brand New Day; 'Across the multiverse' from Deadpool & Wolverine still holds)",
+   "proposed": {
+    "insert_after": 2,
+    "stage": [
+     "2028",
+     "Spider-Man: Brand New Day"
+    ]
+   },
+   "evidence": "Brand New Day stays in Peter's own world, four years after No Way Home (2024): the MCU wiki dates it to 2028. It does not cross the multiverse, so the Deadpool & Wolverine stage doesn't hold through it.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Spider-Man:_Brand_New_Day",
+   "confidence": "medium"
+  },
+  {
+   "key": "ch-11:rows:period:3",
+   "q": "L4",
+   "now": "(no stage at The Fantastic Four: First Steps)",
+   "proposed": {
+    "insert_after": 3,
+    "stage": [
+     "An alternate 1960s",
+     "The Fantastic Four: First Steps"
+    ]
+   },
+   "evidence": "Apply this with the Brand New Day insert above (insert_after 3 counts that new stage). Without it, First Steps would inherit the Brand New Day year. The MCU wiki says First Steps is set 'in an alternate 1960s' on Earth-828.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=The_Fantastic_Four:_First_Steps",
+   "confidence": "medium"
+  },
+  {
+   "key": "ch-beyond-the-mcu:rows:period:2",
+   "q": "L4",
+   "now": "(no stage at Marvel Zombies; 'Agents of S.H.I.E.L.D. S7's '1931 onward' still holds)",
+   "proposed": {
+    "insert_after": 2,
+    "stage": [
+     "2023",
+     "Marvel Zombies"
+    ]
+   },
+   "evidence": "Marvel Zombies isn't part of the S.H.I.E.L.D. timeline. It is set in the What If...? Zombie Outbreak reality, five years after the 2018 outbreak, so in 2023.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Kamala_Khan/Zombie_Outbreak",
+   "confidence": "medium"
+  },
+  {
+   "key": "ch-beyond-the-mcu:rows:period:3",
+   "q": "L4",
+   "now": "(no stage at Team Thor, Team Thor: Part 2 & Team Darryl)",
+   "proposed": {
+    "insert_after": 3,
+    "stage": [
+     "2016 to 2018",
+     "Team Thor, Team Thor: Part 2 & Team Darryl"
+    ]
+   },
+   "evidence": "Apply this with the Marvel Zombies insert above (insert_after 3 counts that new stage). The MCU wiki sets Team Thor in 2016, while the Avengers fight in Civil War, and Team Darryl in 2018, when Darryl moves to Los Angeles. Both are outside the main continuity.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=Marvel_One-Shot:_Team_Darryl",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "ch-11:rows:period",
+   "question": "If the Brand New Day and First Steps stages go in, the Avengers: Doomsday and Secret Wars placeholders would inherit the First Steps stage ('An alternate 1960s'). Add a stage that brings back 'Across the multiverse' at Avengers: Doomsday, or leave the placeholders with no stage of their own?",
+   "options": [
+    "Add ['Across the multiverse', 'Avengers: Doomsday'] after the First Steps stage",
+    "Leave the placeholders inheriting the First Steps stage until they are released"
+   ],
+   "evidence": "Doomsday and Secret Wars are unreleased placeholders, so nothing on screen sets their period yet.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&prop=wikitext&format=json&page=The_Fantastic_Four:_First_Steps"
+  }
+ ]
+}

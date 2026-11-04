@@ -1,0 +1,1821 @@
+[
+ {
+  "type": "change",
+  "key": "cx-captain-america:rows:aliases:1",
+  "q": "L4",
+  "now": [
+   "Captain America. Gives up the name",
+   "Captain America: Civil War"
+  ],
+  "proposed": {
+   "insert_after": 1,
+   "stage": [
+    "Captain America again. Tony gives the shield back, and in the end Steve hands it to Sam Wilson",
+    "Avengers: Endgame"
+   ]
+  },
+  "evidence": "The CW stage ('Gives up the name') runs to the end of the box, but in Avengers: Endgame (2023) Tony brings the repaired shield to the Avengers Compound and gives it back to Steve ('Why not? He made it for you'; Iron Man to Captain America: 'You lose this again, I'm keeping it'). Steve carries it through the Time Heist and the final battle, and as an old man passes the shield to Sam Wilson ('Like it's someone else's.' 'It isn't.'). So 'gives up the name' stops being true at Endgame, and a stage there is missing.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Captain_America%27s_Shield&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Avengers:_Endgame&action=raw",
+  "confidence": "high",
+  "n": 0,
+  "context": {
+   "log": "cx-captain-america",
+   "name": "Captain America",
+   "order": [
+    "Captain America: The First Avenger",
+    "The Avengers",
+    "Captain America: The Winter Soldier",
+    "Avengers: Age of Ultron",
+    "WHIH Newsfront (Part 2)",
+    "Captain America: Civil War",
+    "Avengers: Infinity War",
+    "Avengers: Endgame",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Steve Rogers",
+      "Captain America: The First Avenger"
+     ]
+    ],
+    "aliases": [
+     [
+      "Captain America",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Captain America. Gives up the name",
+      "Captain America: Civil War"
+     ]
+    ],
+    "affiliation": [
+     [
+      "U.S. Army, the Strategic Scientific Reserve, the Howling Commandos",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "S.H.I.E.L.D. and the Avengers",
+      "The Avengers"
+     ],
+     [
+      "S.H.I.E.L.D., until it falls",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Age of Ultron"
+     ],
+     [
+      "None. Fugitive",
+      "Captain America: Civil War"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Infinity War"
+     ]
+    ],
+    "status": [
+     [
+      "Frozen in the Arctic in 1945. Awake in 2011, nearly 70 years later",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Active. A man out of time",
+      "The Avengers"
+     ],
+     [
+      "Active, searching for Bucky",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Fugitive",
+      "Captain America: Civil War"
+     ],
+     [
+      "Retired. Stayed in the past with Peggy",
+      "Avengers: Endgame"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-black-widow:rows:affiliation:4",
+  "q": "L4",
+  "now": [
+   "Natasha: the Avengers. Yelena: none",
+   "Black Widow"
+  ],
+  "proposed": {
+   "insert_after": 4,
+   "stage": [
+    "Natasha: deceased. Yelena: none",
+    "Avengers: Endgame"
+   ]
+  },
+  "evidence": "Natasha dies on Vormir in Avengers: Endgame (the box's own status row already turns to 'Natasha: deceased' at Endgame), but the affiliation row keeps 'Natasha: the Avengers' through the end of Endgame and only switches to 'Natasha: deceased' at Black Widow (Post-Credits Scene). Endgame changes it and the row was never updated; Yelena's part is unchanged (nothing on screen gives her an affiliation until the post-credits scene).",
+  "source": "https://en.wikipedia.org/w/index.php?title=Avengers:_Endgame&action=raw",
+  "confidence": "medium",
+  "n": 1,
+  "context": {
+   "log": "cx-black-widow",
+   "name": "Black Widow",
+   "order": [
+    "Iron Man 2",
+    "The Avengers",
+    "Captain America: The Winter Soldier",
+    "Avengers: Age of Ultron",
+    "Captain America: Civil War",
+    "Black Widow",
+    "Avengers: Infinity War",
+    "Avengers: Endgame",
+    "Black Widow (Post-Credits Scene)",
+    "Hawkeye",
+    "Thunderbolts*",
+    "Spider-Man: Brand New Day",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Natasha Romanoff",
+      "Iron Man 2"
+     ],
+     [
+      "Natasha Romanoff and Yelena Belova",
+      "Black Widow"
+     ]
+    ],
+    "aliases": [
+     [
+      "Natasha: Black Widow. Undercover as Natalie Rushman",
+      "Iron Man 2"
+     ],
+     [
+      "Natasha: Black Widow",
+      "The Avengers"
+     ],
+     [
+      "Natasha: Black Widow. Yelena: a Widow",
+      "Black Widow"
+     ],
+     [
+      "Natasha and Yelena: Black Widow",
+      "Spider-Man: Brand New Day"
+     ]
+    ],
+    "affiliation": [
+     [
+      "S.H.I.E.L.D.",
+      "Iron Man 2"
+     ],
+     [
+      "S.H.I.E.L.D. and the Avengers",
+      "The Avengers"
+     ],
+     [
+      "S.H.I.E.L.D., until it falls",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Age of Ultron"
+     ],
+     [
+      "Natasha: the Avengers. Yelena: none",
+      "Black Widow"
+     ],
+     [
+      "Natasha: deceased. Yelena: works for Valentina Allegra de Fontaine",
+      "Black Widow (Post-Credits Scene)"
+     ],
+     [
+      "Natasha: deceased. Yelena: the *New Avengers",
+      "Thunderbolts*"
+     ]
+    ],
+    "status": [
+     [
+      "Active",
+      "Iron Man 2"
+     ],
+     [
+      "Fugitive",
+      "Captain America: Civil War"
+     ],
+     [
+      "Natasha: fugitive. Yelena: free of the Red Room",
+      "Black Widow"
+     ],
+     [
+      "Natasha: survived the snap. Yelena: unknown",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Natasha: deceased. Vormir, 2014. Yelena: unknown",
+      "Avengers: Endgame"
+     ],
+     [
+      "Natasha: deceased. Yelena: grieving her sister, working for Valentina",
+      "Black Widow (Post-Credits Scene)"
+     ],
+     [
+      "Natasha: deceased. Yelena: lost in the snap in 2018 and back in 2023, at peace with Clint",
+      "Hawkeye"
+     ],
+     [
+      "Natasha: deceased. Yelena: leading the *New Avengers",
+      "Thunderbolts*"
+     ],
+     [
+      "Natasha: deceased. Yelena: leading the *New Avengers, digging into Damage Control",
+      "Spider-Man: Brand New Day"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-s-h-i-e-l-d:rows:affiliation:0",
+  "q": "L4",
+  "now": [
+   "The Allied war effort",
+   "Captain America: The First Avenger"
+  ],
+  "proposed": {
+   "insert_after": 0,
+   "stage": [
+    "The U.S. government",
+    "Agent Carter S1"
+   ]
+  },
+  "evidence": "Stage 0 holds unchanged from The First Avenger until The Consultant, so it stays 'The Allied war effort' through Agent Carter S1 and S2, the One-Shot, Captain Marvel (1995), Iron Man, Iron Man 2 and Thor. But Agent Carter S1 is set in 1946, after World War II has ended (the log's own status row says 'The war is over' from Agent Carter S1), with the SSR working as a U.S. agency in New York investigating Stark for selling weapons to enemies of the United States. The MCU wiki lists the SSR's affiliation as the United States, and S.H.I.E.L.D.'s (which the One-Shot founds) also as the United States, with the World Security Council coming later. So a stage is missing at Agent Carter S1.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Strategic_Scientific_Reserve&prop=wikitext&format=json",
+  "confidence": "high",
+  "n": 2,
+  "context": {
+   "log": "cx-s-h-i-e-l-d",
+   "name": "S.H.I.E.L.D.",
+   "order": [
+    "Captain America: The First Avenger",
+    "Agent Carter S1",
+    "Agent Carter S2",
+    "Agent Carter (One-Shot)",
+    "Captain Marvel",
+    "Iron Man",
+    "Iron Man 2",
+    "A Funny Thing Happened on the Way to Thor's Hammer",
+    "Thor",
+    "The Consultant",
+    "The Avengers",
+    "Item 47",
+    "Captain America: The Winter Soldier",
+    "Agents of S.H.I.E.L.D. S1",
+    "Avengers: Age of Ultron",
+    "Agents of S.H.I.E.L.D. S2",
+    "Ant-Man",
+    "Agents of S.H.I.E.L.D. S3",
+    "Agents of S.H.I.E.L.D.: Slingshot",
+    "Agents of S.H.I.E.L.D. S4",
+    "Agents of S.H.I.E.L.D. S5",
+    "Avengers: Endgame",
+    "Agents of S.H.I.E.L.D. S6",
+    "Agents of S.H.I.E.L.D. S7"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Peggy Carter and Howard Stark",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Peggy Carter and the SSR",
+      "Agent Carter S1"
+     ],
+     [
+      "Agents Nick Fury and Phil Coulson",
+      "Captain Marvel"
+     ],
+     [
+      "Nick Fury, Phil Coulson and S.H.I.E.L.D.",
+      "Iron Man"
+     ],
+     [
+      "Nick Fury, Phil Coulson, Maria Hill and S.H.I.E.L.D.",
+      "The Avengers"
+     ],
+     [
+      "What is left of S.H.I.E.L.D.",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Coulson's S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D. S1"
+     ],
+     [
+      "Director Mackenzie's S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D. S5"
+     ]
+    ],
+    "aliases": [
+     [
+      "The Strategic Scientific Reserve",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "S.H.I.E.L.D.",
+      "Agent Carter (One-Shot)"
+     ],
+     [
+      "S.H.I.E.L.D.: Strategic Homeland Intervention, Enforcement and Logistics Division",
+      "Iron Man"
+     ]
+    ],
+    "affiliation": [
+     [
+      "The Allied war effort",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "The World Security Council",
+      "The Consultant"
+     ],
+     [
+      "None. S.H.I.E.L.D. has fallen",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Rebuilt in secret under Coulson",
+      "Agents of S.H.I.E.L.D. S1"
+     ],
+     [
+      "Legal again under the Sokovia Accords",
+      "Agents of S.H.I.E.L.D. S4"
+     ]
+    ],
+    "status": [
+     [
+      "At war",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "The war is over. The SSR in New York: Chief Dooley dead",
+      "Agent Carter S1"
+     ],
+     [
+      "The SSR: Sousa running Los Angeles. Thompson: shot",
+      "Agent Carter S2"
+     ],
+     [
+      "S.H.I.E.L.D. founded",
+      "Agent Carter (One-Shot)"
+     ],
+     [
+      "Active",
+      "Captain Marvel"
+     ],
+     [
+      "Fury and Coulson: active",
+      "Iron Man"
+     ],
+     [
+      "Fury and Hill: active. Coulson: killed in action",
+      "The Avengers"
+     ],
+     [
+      "S.H.I.E.L.D. dissolved. Fury: in hiding. Hill: at Stark Industries",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Coulson: alive, director of a secret S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D. S1"
+     ],
+     [
+      "Coulson: no longer director, an agent under a new director",
+      "Agents of S.H.I.E.L.D. S3"
+     ],
+     [
+      "S.H.I.E.L.D.: Director Mace dead, its agents wanted. Coulson and the team: taken by strangers",
+      "Agents of S.H.I.E.L.D. S4"
+     ],
+     [
+      "S.H.I.E.L.D.: Director Mackenzie. Coulson: dying, retired to Tahiti",
+      "Agents of S.H.I.E.L.D. S5"
+     ],
+     [
+      "S.H.I.E.L.D.: Director Mackenzie. Coulson: dead",
+      "Agents of S.H.I.E.L.D. S6"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-s-h-i-e-l-d:rows:affiliation:3",
+  "q": "L4",
+  "now": [
+   "Rebuilt in secret under Coulson",
+   "Agents of S.H.I.E.L.D. S1"
+  ],
+  "proposed": {
+   "insert_after": 3,
+   "stage": [
+    "In secret, under a new director",
+    "Agents of S.H.I.E.L.D. S3"
+   ]
+  },
+  "evidence": "Stage 3 holds until Agents of S.H.I.E.L.D. S4, so it stays 'under Coulson' through S3 and Slingshot. At the end of S3 (six months later) Coulson is no longer director of S.H.I.E.L.D. (the log's own status row 9 says so at S3), and Slingshot shows the new director, Jeffrey Mace. S.H.I.E.L.D. is announced as a legitimate organization again only in S4, so 'in secret' still holds until stage 4. The new director's name isn't given in S3, so the stage leaves it out.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+  "confidence": "medium",
+  "n": 3,
+  "context": {
+   "log": "cx-s-h-i-e-l-d",
+   "name": "S.H.I.E.L.D.",
+   "order": [
+    "Captain America: The First Avenger",
+    "Agent Carter S1",
+    "Agent Carter S2",
+    "Agent Carter (One-Shot)",
+    "Captain Marvel",
+    "Iron Man",
+    "Iron Man 2",
+    "A Funny Thing Happened on the Way to Thor's Hammer",
+    "Thor",
+    "The Consultant",
+    "The Avengers",
+    "Item 47",
+    "Captain America: The Winter Soldier",
+    "Agents of S.H.I.E.L.D. S1",
+    "Avengers: Age of Ultron",
+    "Agents of S.H.I.E.L.D. S2",
+    "Ant-Man",
+    "Agents of S.H.I.E.L.D. S3",
+    "Agents of S.H.I.E.L.D.: Slingshot",
+    "Agents of S.H.I.E.L.D. S4",
+    "Agents of S.H.I.E.L.D. S5",
+    "Avengers: Endgame",
+    "Agents of S.H.I.E.L.D. S6",
+    "Agents of S.H.I.E.L.D. S7"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Peggy Carter and Howard Stark",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Peggy Carter and the SSR",
+      "Agent Carter S1"
+     ],
+     [
+      "Agents Nick Fury and Phil Coulson",
+      "Captain Marvel"
+     ],
+     [
+      "Nick Fury, Phil Coulson and S.H.I.E.L.D.",
+      "Iron Man"
+     ],
+     [
+      "Nick Fury, Phil Coulson, Maria Hill and S.H.I.E.L.D.",
+      "The Avengers"
+     ],
+     [
+      "What is left of S.H.I.E.L.D.",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Coulson's S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D. S1"
+     ],
+     [
+      "Director Mackenzie's S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D. S5"
+     ]
+    ],
+    "aliases": [
+     [
+      "The Strategic Scientific Reserve",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "S.H.I.E.L.D.",
+      "Agent Carter (One-Shot)"
+     ],
+     [
+      "S.H.I.E.L.D.: Strategic Homeland Intervention, Enforcement and Logistics Division",
+      "Iron Man"
+     ]
+    ],
+    "affiliation": [
+     [
+      "The Allied war effort",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "The World Security Council",
+      "The Consultant"
+     ],
+     [
+      "None. S.H.I.E.L.D. has fallen",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Rebuilt in secret under Coulson",
+      "Agents of S.H.I.E.L.D. S1"
+     ],
+     [
+      "Legal again under the Sokovia Accords",
+      "Agents of S.H.I.E.L.D. S4"
+     ]
+    ],
+    "status": [
+     [
+      "At war",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "The war is over. The SSR in New York: Chief Dooley dead",
+      "Agent Carter S1"
+     ],
+     [
+      "The SSR: Sousa running Los Angeles. Thompson: shot",
+      "Agent Carter S2"
+     ],
+     [
+      "S.H.I.E.L.D. founded",
+      "Agent Carter (One-Shot)"
+     ],
+     [
+      "Active",
+      "Captain Marvel"
+     ],
+     [
+      "Fury and Coulson: active",
+      "Iron Man"
+     ],
+     [
+      "Fury and Hill: active. Coulson: killed in action",
+      "The Avengers"
+     ],
+     [
+      "S.H.I.E.L.D. dissolved. Fury: in hiding. Hill: at Stark Industries",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Coulson: alive, director of a secret S.H.I.E.L.D.",
+      "Agents of S.H.I.E.L.D. S1"
+     ],
+     [
+      "Coulson: no longer director, an agent under a new director",
+      "Agents of S.H.I.E.L.D. S3"
+     ],
+     [
+      "S.H.I.E.L.D.: Director Mace dead, its agents wanted. Coulson and the team: taken by strangers",
+      "Agents of S.H.I.E.L.D. S4"
+     ],
+     [
+      "S.H.I.E.L.D.: Director Mackenzie. Coulson: dying, retired to Tahiti",
+      "Agents of S.H.I.E.L.D. S5"
+     ],
+     [
+      "S.H.I.E.L.D.: Director Mackenzie. Coulson: dead",
+      "Agents of S.H.I.E.L.D. S6"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-guardians-of-the-galaxy:rows:affiliation:3",
+  "q": "L4",
+  "now": [
+   "Knowhere",
+   "The Guardians of the Galaxy Holiday Special"
+  ],
+  "proposed": {
+   "insert_after": 3,
+   "stage": [
+    "Rocket's new Guardians. Peter: home on Earth. Gamora: the Ravagers. Nebula and Drax: Knowhere",
+    "Guardians of the Galaxy Vol. 3"
+   ]
+  },
+  "evidence": "The 'Knowhere' stage runs to the end of the box, but Vol. 3 ends with the team breaking up: Quill leaves the Guardians, makes Rocket captain and goes back to his grandfather on Earth, Mantis leaves with the Abilisks, Gamora rejoins the Ravagers, and only Nebula and Drax stay on Knowhere. The status row already has this Vol. 3 stage; affiliation was never updated to match.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Guardians_of_the_Galaxy_Vol._3&action=raw",
+  "confidence": "medium",
+  "n": 4,
+  "context": {
+   "log": "cx-guardians-of-the-galaxy",
+   "name": "Guardians of the Galaxy",
+   "order": [
+    "Guardians of the Galaxy",
+    "Guardians of the Galaxy Vol. 2",
+    "I Am Groot",
+    "Avengers: Infinity War",
+    "Avengers: Endgame",
+    "Thor: Love and Thunder",
+    "The Guardians of the Galaxy Holiday Special",
+    "Guardians of the Galaxy Vol. 3",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Peter Quill, Gamora, Drax, Rocket and Groot",
+      "Guardians of the Galaxy"
+     ],
+     [
+      "Peter, Gamora, Drax, Rocket, Groot, Nebula, Mantis and Yondu",
+      "Guardians of the Galaxy Vol. 2"
+     ],
+     [
+      "Peter, Drax, Rocket, Groot, Mantis and Nebula",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Peter, Drax, Rocket, Groot, Mantis and Nebula, with Thor along",
+      "Avengers: Endgame"
+     ],
+     [
+      "Peter, Drax, Rocket, Groot, Mantis, Nebula and Kraglin",
+      "Thor: Love and Thunder"
+     ],
+     [
+      "Peter, Drax, Rocket, Groot, Mantis, Nebula, Kraglin and Cosmo",
+      "The Guardians of the Galaxy Holiday Special"
+     ],
+     [
+      "Peter, Drax, Rocket, Groot, Mantis, Nebula, Kraglin and Cosmo, helped by a Gamora from 2014. Then Rocket's new team, joined by Adam Warlock and a girl they rescued",
+      "Guardians of the Galaxy Vol. 3"
+     ]
+    ],
+    "aliases": [
+     [
+      "Peter: Star-Lord",
+      "Guardians of the Galaxy"
+     ]
+    ],
+    "affiliation": [
+     [
+      "Themselves, and the Nova Corps of Xandar",
+      "Guardians of the Galaxy"
+     ],
+     [
+      "Themselves",
+      "Guardians of the Galaxy Vol. 2"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Endgame"
+     ],
+     [
+      "Knowhere",
+      "The Guardians of the Galaxy Holiday Special"
+     ]
+    ],
+    "status": [
+     [
+      "Together, the galaxy's newest heroes",
+      "Guardians of the Galaxy"
+     ],
+     [
+      "Together, mourning Yondu",
+      "Guardians of the Galaxy Vol. 2"
+     ],
+     [
+      "Gamora killed by Thanos. Most of the team lost in the snap",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Back together. Peter searching for Gamora",
+      "Avengers: Endgame"
+     ],
+     [
+      "Disbanded. Rocket leads a new team. Peter home on Earth, Mantis exploring, Nebula and Drax on Knowhere, Gamora back with the Ravagers",
+      "Guardians of the Galaxy Vol. 3"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-doctor-strange-wong:rows:affiliation:1",
+  "q": "L4",
+  "now": [
+   "The Masters of the Mystic Arts, fighting beside the Avengers",
+   "Avengers: Infinity War"
+  ],
+  "proposed": {
+   "insert_after": 1,
+   "stage": [
+    "The Masters of the Mystic Arts, Kamar-Taj",
+    "Doctor Strange in the Multiverse of Madness"
+   ]
+  },
+  "evidence": "The 'fighting beside the Avengers' stage runs through Multiverse of Madness and She-Hulk, where no Avengers appear. Multiverse of Madness is Strange and Wong at Kamar-Taj against Wanda, and it ends with Kamar-Taj being rebuilt and the sorcerers, joined by America Chavez, training there again.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Doctor_Strange_in_the_Multiverse_of_Madness&action=raw",
+  "confidence": "medium",
+  "n": 5,
+  "context": {
+   "log": "cx-doctor-strange-wong",
+   "name": "Doctor Strange & Wong",
+   "order": [
+    "Doctor Strange",
+    "Thor: Ragnarok",
+    "Avengers: Infinity War",
+    "Avengers: Endgame",
+    "Shang-Chi and the Legend of the Ten Rings",
+    "Spider-Man: No Way Home",
+    "Doctor Strange in the Multiverse of Madness",
+    "She-Hulk: Attorney at Law",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Stephen Strange and Wong",
+      "Doctor Strange"
+     ]
+    ],
+    "aliases": [
+     [
+      "Strange: Doctor Strange",
+      "Doctor Strange"
+     ],
+     [
+      "Strange: Doctor Strange. Wong: Sorcerer Supreme",
+      "Spider-Man: No Way Home"
+     ]
+    ],
+    "affiliation": [
+     [
+      "The Masters of the Mystic Arts, Kamar-Taj",
+      "Doctor Strange"
+     ],
+     [
+      "The Masters of the Mystic Arts, fighting beside the Avengers",
+      "Avengers: Infinity War"
+     ]
+    ],
+    "status": [
+     [
+      "Strange: guardian of the New York Sanctum. Wong: keeper of Kamar-Taj's library",
+      "Doctor Strange"
+     ],
+     [
+      "Strange: lost in the snap. Wong: still standing",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Strange: back from the snap. Wong: fighting beside him",
+      "Avengers: Endgame"
+     ],
+     [
+      "Strange: guardian of the Sanctum, passed over while he was blipped. Wong: Sorcerer Supreme",
+      "Spider-Man: No Way Home"
+     ],
+     [
+      "Strange: marked by the Darkhold with a third eye. Wong: Sorcerer Supreme",
+      "Doctor Strange in the Multiverse of Madness"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-falcon-winter-soldier:rows:status:0",
+  "q": "L4",
+  "now": "Bucky: presumed dead, 1944",
+  "proposed": "Bucky: presumed dead, 1945",
+  "evidence": "Bucky falls from the train during the Howling Commandos' capture of Arnim Zola, dated February 1945. On screen in Captain America: The Winter Soldier, Zola says the Captain took him prisoner in 1945, which is the mission where Bucky fell. No on-screen source puts the fall in 1944.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Capture_of_Arnim_Zola&prop=wikitext&format=json",
+  "confidence": "high",
+  "n": 6,
+  "context": {
+   "log": "cx-falcon-winter-soldier",
+   "name": "Falcon & Winter Soldier",
+   "order": [
+    "Captain America: The First Avenger",
+    "Captain America: The Winter Soldier",
+    "Avengers: Age of Ultron",
+    "Ant-Man",
+    "Captain America: Civil War",
+    "Avengers: Infinity War",
+    "Avengers: Endgame",
+    "The Falcon and the Winter Soldier",
+    "Captain America: Brave New World",
+    "Thunderbolts*",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Bucky Barnes",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky Barnes and Sam Wilson",
+      "Captain America: The Winter Soldier"
+     ]
+    ],
+    "aliases": [
+     [
+      "Bucky: none",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky: the Winter Soldier. Sam: the Falcon",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Bucky: White Wolf. Sam: the Falcon",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Bucky: none. Sam: Captain America",
+      "The Falcon and the Winter Soldier"
+     ]
+    ],
+    "affiliation": [
+     [
+      "The Howling Commandos",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky: HYDRA. Sam: Steve Rogers",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Sam: the Avengers",
+      "Avengers: Age of Ultron"
+     ],
+     [
+      "Steve Rogers's side",
+      "Captain America: Civil War"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Sam: Captain America. Bucky: his partner",
+      "The Falcon and the Winter Soldier"
+     ],
+     [
+      "Bucky: Congress, then the *New Avengers",
+      "Thunderbolts*"
+     ]
+    ],
+    "status": [
+     [
+      "Bucky: presumed dead, 1944",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky: alive, escaping HYDRA's control. Sam: with Steve",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Bucky: missing. Sam: an Avenger",
+      "Avengers: Age of Ultron"
+     ],
+     [
+      "Bucky: frozen in Wakanda. Sam: fugitive",
+      "Captain America: Civil War"
+     ],
+     [
+      "Both lost in the snap",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Both back. Sam holds the shield",
+      "Avengers: Endgame"
+     ],
+     [
+      "Sam: Captain America. Bucky: free",
+      "The Falcon and the Winter Soldier"
+     ],
+     [
+      "Sam: Captain America. Bucky: running for Congress",
+      "Captain America: Brave New World"
+     ],
+     [
+      "Sam: Captain America. Bucky: a congressman, and one of the *New Avengers",
+      "Thunderbolts*"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-falcon-winter-soldier:rows:status:2",
+  "q": "L4",
+  "now": "Bucky: missing. Sam: an Avenger",
+  "proposed": {
+   "insert_after": 2,
+   "stage": [
+    "Bucky: found, in Steve and Sam's custody. Sam: with Steve",
+    "Ant-Man"
+   ]
+  },
+  "evidence": "Stage 2 (Age of Ultron) still holds through Ant-Man, but Ant-Man's post-credits scene shows Steve Rogers and Sam Wilson holding Bucky Barnes in their custody, unable to call Tony because of the accords. That is the same scene the log's own Ant-Man recap uses ('Sam says he knows a guy'). So 'Bucky: missing' no longer holds by the end of Ant-Man.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Ant-Man_(film)&action=raw",
+  "confidence": "medium",
+  "n": 7,
+  "context": {
+   "log": "cx-falcon-winter-soldier",
+   "name": "Falcon & Winter Soldier",
+   "order": [
+    "Captain America: The First Avenger",
+    "Captain America: The Winter Soldier",
+    "Avengers: Age of Ultron",
+    "Ant-Man",
+    "Captain America: Civil War",
+    "Avengers: Infinity War",
+    "Avengers: Endgame",
+    "The Falcon and the Winter Soldier",
+    "Captain America: Brave New World",
+    "Thunderbolts*",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Bucky Barnes",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky Barnes and Sam Wilson",
+      "Captain America: The Winter Soldier"
+     ]
+    ],
+    "aliases": [
+     [
+      "Bucky: none",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky: the Winter Soldier. Sam: the Falcon",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Bucky: White Wolf. Sam: the Falcon",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Bucky: none. Sam: Captain America",
+      "The Falcon and the Winter Soldier"
+     ]
+    ],
+    "affiliation": [
+     [
+      "The Howling Commandos",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky: HYDRA. Sam: Steve Rogers",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Sam: the Avengers",
+      "Avengers: Age of Ultron"
+     ],
+     [
+      "Steve Rogers's side",
+      "Captain America: Civil War"
+     ],
+     [
+      "The Avengers",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Sam: Captain America. Bucky: his partner",
+      "The Falcon and the Winter Soldier"
+     ],
+     [
+      "Bucky: Congress, then the *New Avengers",
+      "Thunderbolts*"
+     ]
+    ],
+    "status": [
+     [
+      "Bucky: presumed dead, 1944",
+      "Captain America: The First Avenger"
+     ],
+     [
+      "Bucky: alive, escaping HYDRA's control. Sam: with Steve",
+      "Captain America: The Winter Soldier"
+     ],
+     [
+      "Bucky: missing. Sam: an Avenger",
+      "Avengers: Age of Ultron"
+     ],
+     [
+      "Bucky: frozen in Wakanda. Sam: fugitive",
+      "Captain America: Civil War"
+     ],
+     [
+      "Both lost in the snap",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Both back. Sam holds the shield",
+      "Avengers: Endgame"
+     ],
+     [
+      "Sam: Captain America. Bucky: free",
+      "The Falcon and the Winter Soldier"
+     ],
+     [
+      "Sam: Captain America. Bucky: running for Congress",
+      "Captain America: Brave New World"
+     ],
+     [
+      "Sam: Captain America. Bucky: a congressman, and one of the *New Avengers",
+      "Thunderbolts*"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-loki-the-tva:rows:status:0",
+  "q": "L4",
+  "now": "Missing, presumed dead",
+  "proposed": "Presumed dead, but secretly alive on Earth",
+  "evidence": "Thor's post-credits scene: when Nick Fury asks Erik Selvig to study the cube, an invisible Loki, who survived his fall and reached Earth, secretly prompts Selvig to agree. Under the real-status rule, Loki is alive by the end of Thor, not just missing, and Thor itself reveals it.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Thor_(film)&action=raw",
+  "confidence": "high",
+  "n": 8,
+  "context": {
+   "log": "cx-loki-the-tva",
+   "name": "Loki & The TVA",
+   "order": [
+    "Thor",
+    "The Avengers",
+    "Thor: The Dark World",
+    "Thor: Ragnarok",
+    "Avengers: Infinity War",
+    "Avengers: Endgame",
+    "Loki S1",
+    "Loki S2",
+    "Deadpool & Wolverine",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Loki",
+      "Thor"
+     ],
+     [
+      "Loki (a variant from 2012) and the TVA",
+      "Loki S1"
+     ]
+    ],
+    "aliases": [
+     [
+      "God of Mischief",
+      "Thor"
+     ],
+     [
+      "God of Mischief. Variant L1130 to the TVA",
+      "Loki S1"
+     ],
+     [
+      "God of Stories",
+      "Loki S2"
+     ]
+    ],
+    "affiliation": [
+     [
+      "Asgard",
+      "Thor"
+     ],
+     [
+      "The Chitauri, and whoever sent them",
+      "The Avengers"
+     ],
+     [
+      "Asgard",
+      "Thor: The Dark World"
+     ],
+     [
+      "The TVA, against his will, then by choice",
+      "Loki S1"
+     ]
+    ],
+    "status": [
+     [
+      "Missing, presumed dead",
+      "Thor"
+     ],
+     [
+      "A prisoner in Asgard",
+      "The Avengers"
+     ],
+     [
+      "Ruling Asgard disguised as Odin",
+      "Thor: The Dark World"
+     ],
+     [
+      "With Thor, guarding Asgard's survivors",
+      "Thor: Ragnarok"
+     ],
+     [
+      "Dead",
+      "Avengers: Infinity War"
+     ],
+     [
+      "Dead. A 2012 variant is loose with the Tesseract",
+      "Avengers: Endgame"
+     ],
+     [
+      "Stranded in a TVA that doesn't know him",
+      "Loki S1"
+     ],
+     [
+      "Holding the multiverse together at the end of time",
+      "Loki S2"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-shang-chi-the-ten-rings:rows:status:1",
+  "q": "L4",
+  "now": "Its name stolen by Aldrich Killian (from Iron Man 3, holding through All Hail the King)",
+  "proposed": {
+   "insert_after": 1,
+   "stage": [
+    "Its name stolen by Aldrich Killian. Real and active: its agents break Trevor Slattery out of prison to meet their leader",
+    "All Hail the King"
+   ]
+  },
+  "evidence": "All Hail the King: Jackson Norriss reveals he is a member of the real Ten Rings, which Slattery did not know existed, kills the guards and breaks Slattery out of Seagate Prison to meet the group's actual leader. The Iron Man 3 stage leaves the group as a stolen name only, and nothing updates it until Shang-Chi.",
+  "source": "https://en.wikipedia.org/w/index.php?title=All_Hail_the_King&action=raw",
+  "confidence": "medium",
+  "n": 9,
+  "context": {
+   "log": "cx-shang-chi-the-ten-rings",
+   "name": "Shang-Chi & The Ten Rings",
+   "order": [
+    "Iron Man",
+    "Iron Man 3",
+    "All Hail the King",
+    "Shang-Chi and the Legend of the Ten Rings",
+    "Wonder Man",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "The Ten Rings",
+      "Iron Man"
+     ],
+     [
+      "The Ten Rings and the Mandarin",
+      "Iron Man 3"
+     ],
+     [
+      "The Ten Rings, Xu Wenwu, Shang-Chi and Xialing",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ],
+     [
+      "The Ten Rings, Shang-Chi, Xialing and Trevor Slattery",
+      "Wonder Man"
+     ]
+    ],
+    "aliases": [
+     [
+      "None known",
+      "Iron Man"
+     ],
+     [
+      "The Mandarin, played by actor Trevor Slattery",
+      "Iron Man 3"
+     ],
+     [
+      "Wenwu: the real Mandarin",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ]
+    ],
+    "affiliation": [
+     [
+      "A terrorist group",
+      "Iron Man"
+     ],
+     [
+      "Led by Wenwu for a thousand years, then by Xialing",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ]
+    ],
+    "status": [
+     [
+      "Active in Afghanistan",
+      "Iron Man"
+     ],
+     [
+      "Its name stolen by Aldrich Killian",
+      "Iron Man 3"
+     ],
+     [
+      "Wenwu dead. Shang-Chi wields the rings. Xialing leads the organization",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ],
+     [
+      "Shang-Chi wields the rings. Xialing leads the Ten Rings. Trevor Slattery: on the run with Simon Williams",
+      "Wonder Man"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-shang-chi-the-ten-rings:rows:aliases:1",
+  "q": "L4",
+  "now": "The Mandarin, played by actor Trevor Slattery (from Iron Man 3, holding through All Hail the King)",
+  "proposed": {
+   "insert_after": 1,
+   "stage": [
+    "The Mandarin: the name of the Ten Rings' real leader, worn by actor Trevor Slattery",
+    "All Hail the King"
+   ]
+  },
+  "evidence": "All Hail the King: Norriss tells Slattery that the real Mandarin exists and is angry at the actor for making a mockery of his name (the log's own recap says the leader 'is not pleased that an actor has worn his name'). The Iron Man 3 stage presents the Mandarin only as Slattery's role until Shang-Chi.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Marvel_One-Shot:_All_Hail_the_King&prop=wikitext&format=json",
+  "confidence": "medium",
+  "n": 10,
+  "context": {
+   "log": "cx-shang-chi-the-ten-rings",
+   "name": "Shang-Chi & The Ten Rings",
+   "order": [
+    "Iron Man",
+    "Iron Man 3",
+    "All Hail the King",
+    "Shang-Chi and the Legend of the Ten Rings",
+    "Wonder Man",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "The Ten Rings",
+      "Iron Man"
+     ],
+     [
+      "The Ten Rings and the Mandarin",
+      "Iron Man 3"
+     ],
+     [
+      "The Ten Rings, Xu Wenwu, Shang-Chi and Xialing",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ],
+     [
+      "The Ten Rings, Shang-Chi, Xialing and Trevor Slattery",
+      "Wonder Man"
+     ]
+    ],
+    "aliases": [
+     [
+      "None known",
+      "Iron Man"
+     ],
+     [
+      "The Mandarin, played by actor Trevor Slattery",
+      "Iron Man 3"
+     ],
+     [
+      "Wenwu: the real Mandarin",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ]
+    ],
+    "affiliation": [
+     [
+      "A terrorist group",
+      "Iron Man"
+     ],
+     [
+      "Led by Wenwu for a thousand years, then by Xialing",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ]
+    ],
+    "status": [
+     [
+      "Active in Afghanistan",
+      "Iron Man"
+     ],
+     [
+      "Its name stolen by Aldrich Killian",
+      "Iron Man 3"
+     ],
+     [
+      "Wenwu dead. Shang-Chi wields the rings. Xialing leads the organization",
+      "Shang-Chi and the Legend of the Ten Rings"
+     ],
+     [
+      "Shang-Chi wields the rings. Xialing leads the Ten Rings. Trevor Slattery: on the run with Simon Williams",
+      "Wonder Man"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-the-champions:rows:status:4",
+  "q": "L4",
+  "now": "Kate, America and Kamala: active. Riri: building her own armor",
+  "proposed": "Kate and America: active. Kamala: vanished from her room as Captain Marvel appears in it. Riri: building her own armor",
+  "evidence": "The previous stage (Ms. Marvel) ends with Kamala vanishing from her room as Captain Marvel appears in it. Black Panther: Wakanda Forever does not feature Kamala, so it can't change that; her return is only shown in The Marvels, later in this box's order. Calling her 'active' at Wakanda Forever shows The Marvels' resolution early.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(TV_series)&action=raw",
+  "confidence": "medium",
+  "n": 11,
+  "context": {
+   "log": "cx-the-champions",
+   "name": "The Champions",
+   "order": [
+    "WandaVision",
+    "Hawkeye",
+    "Doctor Strange in the Multiverse of Madness",
+    "Ms. Marvel",
+    "Black Panther: Wakanda Forever",
+    "Ironheart",
+    "Ant-Man and the Wasp: Quantumania",
+    "Agatha All Along",
+    "The Marvels",
+    "VisionQuest",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Billy and Tommy Maximoff",
+      "WandaVision"
+     ],
+     [
+      "Billy and Tommy Maximoff, and Kate Bishop",
+      "Hawkeye"
+     ],
+     [
+      "Billy and Tommy, Kate Bishop and America Chavez",
+      "Doctor Strange in the Multiverse of Madness"
+     ],
+     [
+      "Billy and Tommy, Kate, America and Kamala Khan",
+      "Ms. Marvel"
+     ],
+     [
+      "Billy and Tommy, Kate, America, Kamala and Riri Williams",
+      "Black Panther: Wakanda Forever"
+     ],
+     [
+      "Billy and Tommy, Kate, America, Kamala, Riri and Cassie Lang",
+      "Ant-Man and the Wasp: Quantumania"
+     ]
+    ],
+    "aliases": [
+     [
+      "None yet",
+      "WandaVision"
+     ],
+     [
+      "Kate: Hawkeye",
+      "Hawkeye"
+     ],
+     [
+      "Kate: Hawkeye. Kamala: Ms. Marvel",
+      "Ms. Marvel"
+     ],
+     [
+      "Kate: Hawkeye. Kamala: Ms. Marvel. Riri: Ironheart",
+      "Ironheart"
+     ]
+    ],
+    "affiliation": [
+     [
+      "None. Each on their own",
+      "WandaVision"
+     ],
+     [
+      "Kamala's new team, still forming",
+      "The Marvels"
+     ]
+    ],
+    "status": [
+     [
+      "Billy and Tommy: vanished with the Hex",
+      "WandaVision"
+     ],
+     [
+      "Billy and Tommy: vanished. Kate: the new Hawkeye",
+      "Hawkeye"
+     ],
+     [
+      "Billy and Tommy: vanished. Kate: Hawkeye. America: training at Kamar-Taj",
+      "Doctor Strange in the Multiverse of Madness"
+     ],
+     [
+      "Billy and Tommy: vanished. Kate: Hawkeye. America: at Kamar-Taj. Kamala: Ms. Marvel, vanished from her room as Captain Marvel appears in it",
+      "Ms. Marvel"
+     ],
+     [
+      "Kate, America and Kamala: active. Riri: building her own armor",
+      "Black Panther: Wakanda Forever"
+     ],
+     [
+      "Riri: back in Chicago, bound by a deal with Mephisto",
+      "Ironheart"
+     ],
+     [
+      "Cassie: home from the Quantum Realm",
+      "Ant-Man and the Wasp: Quantumania"
+     ],
+     [
+      "Billy: alive, reborn, searching for Tommy",
+      "Agatha All Along"
+     ],
+     [
+      "Kamala is recruiting, starting with Kate. Billy and Tommy: vanished. America and Riri: on their own",
+      "The Marvels"
+     ],
+     [
+      "Kamala is recruiting, starting with Kate. Billy: alive, reborn, searching for Tommy. America and Riri: on their own",
+      [
+       "The Marvels",
+       "Agatha All Along"
+      ]
+     ],
+     [
+      "Kamala is recruiting, starting with Kate. Billy: searching for Tommy. Cassie, America and Riri: on their own",
+      [
+       "The Marvels",
+       "Agatha All Along",
+       "Ant-Man and the Wasp: Quantumania"
+      ]
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-pruned-characters:rows:affiliation:0",
+  "q": "L4",
+  "now": "None. Each from their own world",
+  "proposed": {
+   "insert_after": 0,
+   "stage": [
+    "Blade: the Nightstalkers",
+    "Blade: Trinity"
+   ]
+  },
+  "evidence": "In Blade: Trinity, Hannibal King and Abigail Whistler invite Blade to join their band of vampire hunters, the Nightstalkers, named on screen, and he fights with them to the end (the log's own recap: 'Blade joins the Nightstalkers'). 'None' is false for the only subject from this title on. Insert this before the Blade: The Series stage below (titles in box order).",
+  "source": "https://en.wikipedia.org/w/index.php?title=Blade:_Trinity&action=raw",
+  "confidence": "medium",
+  "n": 12,
+  "context": {
+   "log": "cx-pruned-characters",
+   "name": "Pruned Characters",
+   "order": [
+    "Blade",
+    "Blade II",
+    "Blade: Trinity",
+    "Blade: The Series",
+    "Daredevil (2003)",
+    "Elektra",
+    "The Punisher (2004)",
+    "Fantastic Four (2005)",
+    "Fantastic Four: Rise of the Silver Surfer",
+    "X-Men Origins: Wolverine",
+    "The Wolverine",
+    "X-Men: Apocalypse",
+    "Dark Phoenix",
+    "The New Mutants",
+    "X-Men: The Animated Series",
+    "Deadpool & Wolverine",
+    "Inhumans",
+    "Doctor Strange in the Multiverse of Madness",
+    "Venom",
+    "Venom: Let There Be Carnage",
+    "Venom: The Last Dance",
+    "Morbius",
+    "Madame Web",
+    "Kraven the Hunter",
+    "Spider-Noir",
+    "Spider-Man (1967)",
+    "Spider-Man (1994)",
+    "Spider-Man Unlimited",
+    "The Spectacular Spider-Man",
+    "Runaways S1–S2",
+    "Cloak & Dagger",
+    "Runaways S3",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Blade",
+      "Blade"
+     ],
+     [
+      "Blade and Matt Murdock",
+      "Daredevil (2003)"
+     ],
+     [
+      "Blade, Matt Murdock and Elektra",
+      "Elektra"
+     ],
+     [
+      "Blade, Matt Murdock, Elektra and Frank Castle",
+      "The Punisher (2004)"
+     ],
+     [
+      "Blade, Matt Murdock, Elektra, Frank Castle and the Fantastic Four",
+      "Fantastic Four (2005)"
+     ],
+     [
+      "Blade, Matt Murdock, Elektra, Frank Castle, the Fantastic Four and Wolverine",
+      "X-Men Origins: Wolverine"
+     ],
+     [
+      "The forgotten heroes in the Void",
+      "Deadpool & Wolverine"
+     ],
+     [
+      "Black Bolt and the Inhumans royal family",
+      "Inhumans"
+     ],
+     [
+      "Black Bolt of the Illuminati",
+      "Doctor Strange in the Multiverse of Madness"
+     ],
+     [
+      "Eddie Brock and Venom",
+      "Venom"
+     ],
+     [
+      "Michael Morbius",
+      "Morbius"
+     ],
+     [
+      "Cassandra Webb",
+      "Madame Web"
+     ],
+     [
+      "Sergei Kravinoff",
+      "Kraven the Hunter"
+     ],
+     [
+      "Ben Reilly, the Spider",
+      "Spider-Noir"
+     ],
+     [
+      "Peter Parker",
+      "Spider-Man (1967)"
+     ],
+     [
+      "The Runaways",
+      "Runaways S1–S2"
+     ],
+     [
+      "Cloak and Dagger",
+      "Cloak & Dagger"
+     ],
+     [
+      "The Runaways, Cloak and Dagger",
+      "Runaways S3"
+     ]
+    ],
+    "aliases": [
+     [
+      "Blade: the Daywalker",
+      "Blade"
+     ],
+     [
+      "Blade: the Daywalker. Matt: Daredevil",
+      "Daredevil (2003)"
+     ]
+    ],
+    "affiliation": [
+     [
+      "None. Each from their own world",
+      "Blade"
+     ],
+     [
+      "The resistance in the Void",
+      "Deadpool & Wolverine"
+     ]
+    ],
+    "status": [
+     [
+      "Active in their own worlds",
+      "Blade"
+     ],
+     [
+      "Their timelines abandoned. Johnny: killed in the Void. Laura: rescued, now in Wade's world. Blade, Elektra and Gambit: Wade asks the TVA to save them from the Void",
+      "Deadpool & Wolverine"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ },
+ {
+  "type": "change",
+  "key": "cx-pruned-characters:rows:affiliation:0",
+  "q": "L4",
+  "now": "None. Each from their own world",
+  "proposed": {
+   "insert_after": 0,
+   "stage": [
+    "None. Each from their own world",
+    "Blade: The Series"
+   ]
+  },
+  "evidence": "Goes with the Blade: Trinity stage: in Blade: The Series Blade hunts in Detroit with Krista Starr and his armorer, with no Nightstalkers, so the original value holds again from here until the Fantastic Four stage. Insert after the Blade: Trinity stage.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Blade:_The_Series&action=raw",
+  "confidence": "medium",
+  "n": 13,
+  "context": {
+   "log": "cx-pruned-characters",
+   "name": "Pruned Characters",
+   "order": [
+    "Blade",
+    "Blade II",
+    "Blade: Trinity",
+    "Blade: The Series",
+    "Daredevil (2003)",
+    "Elektra",
+    "The Punisher (2004)",
+    "Fantastic Four (2005)",
+    "Fantastic Four: Rise of the Silver Surfer",
+    "X-Men Origins: Wolverine",
+    "The Wolverine",
+    "X-Men: Apocalypse",
+    "Dark Phoenix",
+    "The New Mutants",
+    "X-Men: The Animated Series",
+    "Deadpool & Wolverine",
+    "Inhumans",
+    "Doctor Strange in the Multiverse of Madness",
+    "Venom",
+    "Venom: Let There Be Carnage",
+    "Venom: The Last Dance",
+    "Morbius",
+    "Madame Web",
+    "Kraven the Hunter",
+    "Spider-Noir",
+    "Spider-Man (1967)",
+    "Spider-Man (1994)",
+    "Spider-Man Unlimited",
+    "The Spectacular Spider-Man",
+    "Runaways S1–S2",
+    "Cloak & Dagger",
+    "Runaways S3",
+    "Avengers: Doomsday",
+    "Avengers: Secret Wars"
+   ],
+   "rows": {
+    "subjects": [
+     [
+      "Blade",
+      "Blade"
+     ],
+     [
+      "Blade and Matt Murdock",
+      "Daredevil (2003)"
+     ],
+     [
+      "Blade, Matt Murdock and Elektra",
+      "Elektra"
+     ],
+     [
+      "Blade, Matt Murdock, Elektra and Frank Castle",
+      "The Punisher (2004)"
+     ],
+     [
+      "Blade, Matt Murdock, Elektra, Frank Castle and the Fantastic Four",
+      "Fantastic Four (2005)"
+     ],
+     [
+      "Blade, Matt Murdock, Elektra, Frank Castle, the Fantastic Four and Wolverine",
+      "X-Men Origins: Wolverine"
+     ],
+     [
+      "The forgotten heroes in the Void",
+      "Deadpool & Wolverine"
+     ],
+     [
+      "Black Bolt and the Inhumans royal family",
+      "Inhumans"
+     ],
+     [
+      "Black Bolt of the Illuminati",
+      "Doctor Strange in the Multiverse of Madness"
+     ],
+     [
+      "Eddie Brock and Venom",
+      "Venom"
+     ],
+     [
+      "Michael Morbius",
+      "Morbius"
+     ],
+     [
+      "Cassandra Webb",
+      "Madame Web"
+     ],
+     [
+      "Sergei Kravinoff",
+      "Kraven the Hunter"
+     ],
+     [
+      "Ben Reilly, the Spider",
+      "Spider-Noir"
+     ],
+     [
+      "Peter Parker",
+      "Spider-Man (1967)"
+     ],
+     [
+      "The Runaways",
+      "Runaways S1–S2"
+     ],
+     [
+      "Cloak and Dagger",
+      "Cloak & Dagger"
+     ],
+     [
+      "The Runaways, Cloak and Dagger",
+      "Runaways S3"
+     ]
+    ],
+    "aliases": [
+     [
+      "Blade: the Daywalker",
+      "Blade"
+     ],
+     [
+      "Blade: the Daywalker. Matt: Daredevil",
+      "Daredevil (2003)"
+     ]
+    ],
+    "affiliation": [
+     [
+      "None. Each from their own world",
+      "Blade"
+     ],
+     [
+      "The resistance in the Void",
+      "Deadpool & Wolverine"
+     ]
+    ],
+    "status": [
+     [
+      "Active in their own worlds",
+      "Blade"
+     ],
+     [
+      "Their timelines abandoned. Johnny: killed in the Void. Laura: rescued, now in Wade's world. Blade, Elektra and Gambit: Wade asks the TVA to save them from the Void",
+      "Deadpool & Wolverine"
+     ]
+    ]
+   },
+   "entry": null
+  }
+ }
+]

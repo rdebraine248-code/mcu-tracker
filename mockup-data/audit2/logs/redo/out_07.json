@@ -1,0 +1,64 @@
+{
+ "checked": [
+  "cx-daredevil:rows",
+  "cx-shang-chi-the-ten-rings:rows",
+  "cx-the-champions:rows",
+  "cx-the-punisher:rows",
+  "cx-eternals:rows",
+  "cx-moon-knight:rows",
+  "cx-werewolf-by-night:rows"
+ ],
+ "changes": [
+  {
+   "key": "cx-shang-chi-the-ten-rings:rows:status:1",
+   "q": "L4",
+   "now": "Its name stolen by Aldrich Killian (from Iron Man 3, holding through All Hail the King)",
+   "proposed": {
+    "insert_after": 1,
+    "stage": [
+     "Its name stolen by Aldrich Killian. Real and active: its agents break Trevor Slattery out of prison to meet their leader",
+     "All Hail the King"
+    ]
+   },
+   "evidence": "All Hail the King: Jackson Norriss reveals he is a member of the real Ten Rings, which Slattery did not know existed, kills the guards and breaks Slattery out of Seagate Prison to meet the group's actual leader. The Iron Man 3 stage leaves the group as a stolen name only, and nothing updates it until Shang-Chi.",
+   "source": "https://en.wikipedia.org/w/index.php?title=All_Hail_the_King&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "cx-shang-chi-the-ten-rings:rows:aliases:1",
+   "q": "L4",
+   "now": "The Mandarin, played by actor Trevor Slattery (from Iron Man 3, holding through All Hail the King)",
+   "proposed": {
+    "insert_after": 1,
+    "stage": [
+     "The Mandarin: the name of the Ten Rings' real leader, worn by actor Trevor Slattery",
+     "All Hail the King"
+    ]
+   },
+   "evidence": "All Hail the King: Norriss tells Slattery that the real Mandarin exists and is angry at the actor for making a mockery of his name (the log's own recap says the leader 'is not pleased that an actor has worn his name'). The Iron Man 3 stage presents the Mandarin only as Slattery's role until Shang-Chi.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Marvel_One-Shot:_All_Hail_the_King&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "cx-the-champions:rows:status:4",
+   "q": "L4",
+   "now": "Kate, America and Kamala: active. Riri: building her own armor",
+   "proposed": "Kate and America: active. Kamala: vanished from her room as Captain Marvel appears in it. Riri: building her own armor",
+   "evidence": "The previous stage (Ms. Marvel) ends with Kamala vanishing from her room as Captain Marvel appears in it. Black Panther: Wakanda Forever does not feature Kamala, so it can't change that; her return is only shown in The Marvels, later in this box's order. Calling her 'active' at Wakanda Forever shows The Marvels' resolution early.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(TV_series)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "cx-the-champions:rows:status",
+   "question": "VisionQuest (in this box's order) premiered October 13, 2026 and is airing now (finale November 10). It shows Tommy alive, his soul in Thomas Shepherd's body, found by Vision, who accepts him as his son. No status stage covers VisionQuest, so the last stage ('Billy: searching for Tommy') stays shown through it. Add a VisionQuest stage now, or wait for the finale (the VisionQuest recap is still empty)?",
+   "options": [
+    "Add now: a VisionQuest stage adding 'Tommy: alive, reborn as Thomas Shepherd, found by Vision'",
+    "Wait until the finale airs and the recap is written"
+   ],
+   "evidence": "Wikipedia VisionQuest: Tommy is an 18-year-old London orphan whose soul Billy placed in the body of Thomas Shepherd; Vision finds and rescues him at Saint Mabyn's, and in episode 7 accepts Tommy as his son. Episodes released weekly from October 13 to November 10, 2026.",
+   "source": "https://en.wikipedia.org/w/index.php?title=VisionQuest&action=raw"
+  }
+ ]
+}
