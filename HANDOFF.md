@@ -646,6 +646,12 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
     If Gilgamesh says Odin taught him a recipe, that is a connection implied by dialogue, but Agent Cleary isn't connected to Mysterio,
     he just has information." Knowing about someone (a case file, a name in the news, a story told about them, a dead man's legend) is
     not a connection. Off-screen ties count only when the dialogue shows the two really know each other.
+    Implied ties stay (owner, 4 November 2026): "I hope you're not removing implied connections... A lot of lore is built in through
+    implication and easter eggs. If character one has character two in their phone contact, and it's shown even if briefly then the
+    implication is that they are connected through one way or the other." Anything shown on screen that implies the two know each
+    other counts: a name in someone's phone contacts, classmates or a shared inner circle, a line that shows they've dealt with each
+    other. Only knowing ABOUT someone with nothing that implies they know each other (a case file, the news, a legend) stays out, and so
+    does a shared battle where they never deal with each other. When unsure, keep the tie and ask.
     Exception (owner): "If one person's knowledge or involvement in another one has huge consequences" it is a connection even if they
     never meet: Bruce Banner and Erskine (recreating Erskine's formula made Bruce the Hulk), Valentina and Clint (she sends Yelena after
     him). Cleary and Mysterio stay out: a case file with no consequence.
