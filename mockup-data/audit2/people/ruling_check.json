@@ -1,0 +1,338 @@
+{
+ "conflicts": [
+  {
+   "key": "A:st-soledad-ayala",
+   "ruling": "\"No change for ... Soledad (freed, then a witness).\" (mockup-data/audit2/morning_calls.json settled, rule \"A one-job hire or an ally doesn't count; death is not a departure.\", item A:st-soledad-ayala #74)",
+   "now": [
+    [
+     "Matt's resistance",
+     "Daredevil: Born Again S2"
+    ]
+   ],
+   "fix": "Independent",
+   "kind": "contradicts",
+   "note": "The audit added Matt's resistance at Daredevil: Born Again S2; the owner ruled no change. Fix restores the pre-audit value (bare 'Independent')."
+  },
+  {
+   "key": "T:by-peter-quill-1988",
+   "ruling": "\"No change for ... the 1988 Peter Quill with the Avengers\" (mockup-data/audit2/morning_calls.json settled, rule \"A one-job hire or an ally doesn't count\", item T:by-peter-quill-1988 #102)",
+   "now": [
+    [
+     "The Avengers",
+     "What If...? S2"
+    ]
+   ],
+   "fix": "Independent",
+   "kind": "contradicts",
+   "note": "The audit added The Avengers at What If...? S2; the owner ruled him an ally, no change. Fix restores the pre-audit value."
+  },
+  {
+   "key": "T:sadie-deever",
+   "ruling": "\"No change for: ... Sadie Deever 'relieved of duty' (both files)\" (mockup-data/audit2/morning_calls.json settled, rule \"An unsure case keeps what's there; acting alone is not a move; death is not a departure.\", items T:sadie-deever #81 and #178)",
+   "now": [
+    [
+     "Damage Control",
+     "Spider-Man: No Way Home"
+    ],
+    [
+     "Independent",
+     "Ms. Marvel"
+    ]
+   ],
+   "fix": [
+    [
+     "Damage Control",
+     "Spider-Man: No Way Home"
+    ]
+   ],
+   "kind": "contradicts",
+   "note": "The audit added Independent at Ms. Marvel, which is the 'relieved of duty' scene (owner call T:sadie-deever). Only the T: file is in the diff."
+  },
+  {
+   "key": "A:michelle-jones",
+   "ruling": "\"No change for: ... Michelle Jones and the donut shop\" (mockup-data/audit2/morning_calls.json settled, rule \"An unsure case keeps what's there...\", item A:michelle-jones #168)",
+   "now": [
+    [
+     "Peter Pan Donut & Pastry Shop",
+     "Spider-Man: No Way Home"
+    ],
+    [
+     "Independent",
+     "Spider-Man: Brand New Day"
+    ]
+   ],
+   "fix": [
+    [
+     "Peter Pan Donut & Pastry Shop",
+     "Spider-Man: No Way Home"
+    ]
+   ],
+   "kind": "contradicts",
+   "note": "The audit added Independent at Spider-Man: Brand New Day, which is the 'leaves the donut shop' question the owner ruled on (owner call A:michelle-jones)."
+  },
+  {
+   "key": "A:by-zombie-ikaris",
+   "ruling": "\"Zombie Ikaris: keep The Survivors (it means alive in that world).\" (mockup-data/audit2/morning_calls.json settled, rule \"The zombie world goes episode by episode...\", item A:by-zombie-ikaris #27)",
+   "now": [
+    [
+     "The Eternals",
+     "Marvel Zombies"
+    ]
+   ],
+   "fix": [
+    [
+     "The Eternals",
+     "Marvel Zombies"
+    ],
+    [
+     "The Survivors",
+     "Marvel Zombies"
+    ]
+   ],
+   "kind": "contradicts",
+   "note": "The audit dropped The Survivors. network/src/prof/split.json 'steps' for by-zombie-ikaris also has only The Eternals (Marvel Zombies#1), so it needs restoring there too."
+  },
+  {
+   "key": "A:pr-punisher",
+   "ruling": "\"Drop the Deadpool & Wolverine step from the 2004 Punisher, and drop the 2003 Matt Murdock's Resistance stage, which rests on the same name-check.\" (mockup-data/audit2/morning_calls.json settled, rule \"Owner's October fix: the 2003/2004 Daredevil and Punisher are not in Deadpool & Wolverine; a mention doesn't count.\", item A:pr-punisher #38)",
+   "now": [
+    [
+     "FBI",
+     "The Punisher (2004)"
+    ],
+    [
+     "Independent",
+     "The Punisher (2004)"
+    ],
+    [
+     "The Resistance",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "fix": [
+    [
+     "FBI",
+     "The Punisher (2004)"
+    ],
+    [
+     "Independent",
+     "The Punisher (2004)"
+    ]
+   ],
+   "kind": "contradicts",
+   "note": "The audit added The Resistance at Deadpool & Wolverine, which rests on the same name-check the owner threw out. (A:pr-daredevil is not in the diff.)"
+  },
+  {
+   "key": "T:power-broker",
+   "ruling": "\"Power Broker: copy Sharon's hero-file groups (CIA, out as a fugitive, CIA again in The Falcon and the Winter Soldier episode 6).\" (mockup-data/audit2/morning_calls.json settled, rule \"A person's hero and villain files list the same groups...\", item T:power-broker #170); also HANDOFF.md 'Factions and teams...' (\"A person's hero and villain files list the same groups\") and 'One person, one bubble (owner)' (Sharon Carter / Power Broker)",
+   "now": [
+    [
+     "CIA",
+     "The Falcon and the Winter Soldier"
+    ]
+   ],
+   "fix": [
+    [
+     "S.H.I.E.L.D.",
+     "Captain America: The Winter Soldier"
+    ],
+    [
+     "CIA",
+     "Captain America: The Winter Soldier"
+    ],
+    [
+     "Independent",
+     "Captain America: Civil War"
+    ],
+    [
+     "CIA",
+     "The Falcon and the Winter Soldier"
+    ]
+   ],
+   "kind": "contradicts",
+   "note": "Now only CIA at The Falcon and the Winter Soldier, so the fugitive break is missing. Fix copies A:sharon-carter's current groups."
+  },
+  {
+   "key": "T:st-holden-radcliffe",
+   "ruling": "\"Radcliffe: S.H.I.E.L.D. while a consultant, then out when his deception is found, keyed to the season titles; the Watchdogs were allies.\" (mockup-data/audit2/morning_calls.json settled, rule \"Any organization counts...\", item T:st-holden-radcliffe #116)",
+   "now": [
+    [
+     "S.H.I.E.L.D.",
+     "Agents of S.H.I.E.L.D. S4"
+    ],
+    [
+     "Watchdogs",
+     "Agents of S.H.I.E.L.D. S4"
+    ]
+   ],
+   "fix": [
+    [
+     "S.H.I.E.L.D.",
+     "Agents of S.H.I.E.L.D. S4"
+    ],
+    [
+     "Independent",
+     "Agents of S.H.I.E.L.D. S4"
+    ]
+   ],
+   "kind": "contradicts",
+   "note": "The audit added a Watchdogs stage, but the owner says the Watchdogs were allies. The 'out' stage is also missing."
+  },
+  {
+   "key": "A:st-malcolm-ducasse",
+   "ruling": "\"Malcolm: add Cheng Consulting Management at Jessica Jones S2 before Hogarth & Associates (his support group waits on that question).\" (mockup-data/audit2/morning_calls.json settled, rule \"Any organization counts, companies and employers included...\", item A:st-malcolm-ducasse #70)",
+   "now": [
+    [
+     "Alias Investigations",
+     "Jessica Jones S1"
+    ],
+    [
+     "Hogarth & Associates",
+     "Jessica Jones S2"
+    ],
+    [
+     "Alias Investigations",
+     "Jessica Jones S3"
+    ]
+   ],
+   "fix": [
+    [
+     "Alias Investigations",
+     "Jessica Jones S1"
+    ],
+    [
+     "Cheng Consulting Management",
+     "Jessica Jones S2"
+    ],
+    [
+     "Hogarth & Associates",
+     "Jessica Jones S2"
+    ],
+    [
+     "Alias Investigations",
+     "Jessica Jones S3"
+    ]
+   ],
+   "kind": "ruled stage missing",
+   "note": "The audit changed the record (Alias moved to S1), but the Cheng Consulting Management stage the owner ordered is not there."
+  },
+  {
+   "key": "A:shang-chi",
+   "ruling": "\"Shang-Chi: keep The Ten Rings (real flashbacks count), add his hotel valet job if the hotel is named on screen, and Ta Lo only if he is shown serving in its forces rather than fighting beside them.\" (mockup-data/audit2/morning_calls.json settled, rule \"Any organization counts...\", item A:shang-chi #59)",
+   "now": [
+    [
+     "The Ten Rings",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ],
+    [
+     "Ta Lo",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ],
+    [
+     "Independent",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ]
+   ],
+   "fix": [
+    [
+     "The Ten Rings",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ],
+    [
+     "Fairmont San Francisco",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ],
+    [
+     "Independent",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ]
+   ],
+   "kind": "ruled stage missing + conditional stage",
+   "note": "The hotel is named on screen ('Welcome to the Fairmont', confirmed in audit2/people svout_2), so Fairmont San Francisco should be there, and it isn't. The audit's Ta Lo stage rests on 'trains with Ying Nan and fights with Ta Lo's army', which is fighting beside them, so the fix drops it. Put Ta Lo back if the film shows him serving in its forces. The closing Independent is the existing one, kept."
+  },
+  {
+   "key": "A:sv-eddie-brock-sony",
+   "ruling": "\"Eddie (Sony): add MNBN until he is fired in Venom\" (mockup-data/audit2/morning_calls.json settled, rule \"Any organization counts...\", item A:sv-eddie-brock-sony, T:sv-venom-sony... #64)",
+   "now": [
+    [
+     "The Brock Report",
+     "Venom"
+    ],
+    [
+     "Independent",
+     "Venom"
+    ]
+   ],
+   "fix": [
+    [
+     "MNBN",
+     "Venom"
+    ],
+    [
+     "Independent",
+     "Venom"
+    ]
+   ],
+   "kind": "group name differs from ruling",
+   "note": "Now has 'The Brock Report' instead of MNBN. The people verifier (rvout_1) found that 'MNBN' is never said on screen and chose the show's name, but the owner's ruling names MNBN. Confirm with the owner before changing it."
+  },
+  {
+   "key": "T:sv-venom-sony",
+   "ruling": "\"Eddie (Sony): add MNBN until he is fired in Venom\" (mockup-data/audit2/morning_calls.json settled, rule \"Any organization counts...\", item A:sv-eddie-brock-sony, T:sv-venom-sony... #64)",
+   "now": [
+    [
+     "The Brock Report",
+     "Venom"
+    ],
+    [
+     "Independent",
+     "Venom"
+    ]
+   ],
+   "fix": [
+    [
+     "MNBN",
+     "Venom"
+    ],
+    [
+     "Independent",
+     "Venom"
+    ]
+   ],
+   "kind": "group name differs from ruling",
+   "note": "Now has 'The Brock Report' instead of MNBN. The people verifier (rvout_1) found that 'MNBN' is never said on screen and chose the show's name, but the owner's ruling names MNBN. Confirm with the owner before changing it."
+  },
+  {
+   "key": "A:tony-stark",
+   "ruling": "\"Crews as of what you've seen (owner, October 2026): ... their final crew once you've seen them join it, otherwise the latest one seen, otherwise none (Tony at Stark Industries until The Avengers).\" (HANDOFF.md, Network section)",
+   "now": [
+    [
+     "Stark Industries",
+     "Iron Man"
+    ],
+    [
+     "S.H.I.E.L.D.",
+     "Iron Man 2"
+    ],
+    [
+     "The Avengers",
+     "The Avengers"
+    ]
+   ],
+   "fix": [
+    [
+     "Stark Industries",
+     "Iron Man"
+    ],
+    [
+     "The Avengers",
+     "The Avengers"
+    ]
+   ],
+   "kind": "low confidence (owner rule's example)",
+   "note": "The audit added S.H.I.E.L.D. at Iron Man 2 (his consultant job), so Tony now stands with S.H.I.E.L.D. from Iron Man 2 until The Avengers. That goes against the example in the owner's rule. It may be only an illustration: the later ruling 'S.H.I.E.L.D. while a consultant' for Radcliffe points the other way. Owner's call."
+  }
+ ],
+ "checked_rulings": 57,
+ "checked_note": "13 HANDOFF.md rulings that name people (Steve after Endgame, Bob, Buck, Kara/Akela, Gamora/Nebula as Children of Thanos, Winter Soldier/Widows/Simmons/Natasha, older Magneto, Cassie/Ned/Jane/Tommy, Tony's crews, hero/villain same groups incl. Sharon/Power Broker, zombie fates, Void characters, Void Blob) + 44 person keys from the settled morning calls found in audit_diff.json (129 A:/T: items named in total; 85 are not in the diff, so the audit did not change them). Checked and OK: Steve, Simmons, Fitz, May, Captain Carter, Catherine Wilder (her audit Independent is the S1 'Leaving PRIDE' to S2 return, not the arrest), Nebula (A/T), Sarge, Saunders, Comanche, Beast, Raimi Peter, Gwen-65, Debra 1994, What If...? Agatha, What If...? Wanda and Sir Nicholas Fury, Everett Ross, young Xavier, animated Wolverine, Loki T, Valkyrie, What If...? Gamora, Rhino 1994 (the added Independent is the Six disbanding), Herbert Landon, John Walker A/T, Juggernaut/Toad."
+}

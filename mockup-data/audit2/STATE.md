@@ -212,3 +212,56 @@ s3out_10: Sharon Davis Westview Historical Society (past group said on screen) =
 Janet reclassified: NOT an error (HANDOFF doesn't fix the key title; Peggy SOE/Bletchley keyed to the flashback title AC S2 is the live pattern; 41 stages follow it). OWNER CALL: key a past group to the title that shows it (current) or the file's first title? Real tally now 4 (Yon-Rogg, Joy, Steve, Sharon) in 550.
 fr30 3.
 fr32 2. TWINS: second check 10/10 confirmed (Joy leaves S2 buyout -> s3 Joy item is resolved by twin fix). APPLIED apply9.json (201 changes) to index; ct49 ok, check ok. s3 real tally: Yon-Rogg, Steve, Sharon (+Joy twin, now fixed) .
+nr40 24.
+nr38 21 (1 call).
+nr39 18 (1 call).
+s3out_11: REAL Vreede (familiar of House of Talos), REAL Trask anim (Mutant Control Agency). Calls: Vreede police, Karen Jenson hospital (employers). Real tally: Yon-Rogg, Steve, Sharon, Vreede, Trask (+Joy twin fixed) = 5-6/600 -> FAIL. Types: missed memberships (incl. told-about, familiars, societies) and wrong final departure (group ends / no move).
+nr41 11 (2 calls).
+fr37 1.
+nr37 42 (1 call).
+fr33 4 (+ fixes not calls: A:jiang-li display name -> Ying Li (screen name; keep key), A:jon-jon kind line: ringmaster of Xialing's fight club).
+fr36 0 (+ Samson deleted-scene record: settled rule = deleted scenes don't count (same as B-15 Network fix) -> apply the call's option 2 as a fix).
+nr42 31. PEOPLE S3 SAMPLE DONE: real errors 9 (+Joy, Hank Pym already fixed): Yon-Rogg, Steve, Sharon, Vreede, Trask, Felicia1994, Mysterio SSM, Po, Beast -> FAIL (1.5-1.8%). s3vchunk.json (10 items) -> s3vout.json second check launched. Employers + calls in s3_held.json. NEXT: thorough people pass P3 (smaller chunks, per-title checklist).
+PEOPLE P3 THOROUGH PASS: P3BRIEF.md (SBRIEF + per-title checklist + found error types), p3_01..46 (20 recs each; the 903 not in s3 sample; from all_now4 after apply9) -> p3out_NN. Launched 01-03.
+fr35 0.
+fr38 1.
+fr34 5.
+fr40 1.
+nr44 37 (2 calls).
+fr39 2.
+s3v: 6c 2a 2r. Steve: audit had overridden owner ruling (stays Avenger after Endgame) -> fixed in apply10 (index). Trask, Mysterio rejected. Beast 'The United Nations'. RULING SWEEP agent: audit_diff.json vs HANDOFF+morning_calls -> ruling_check.json. nr41 11, nr46 41, nr48 13, fr41 0, fr42 0. nr53/fr47 launched (all nr launched).
+nr45 15. p3_03 3 ch 3 calls.
+nr43 54.
+nr47 24 (2 calls).
+fr46 0.
+nr50 7.
+fr44 0. All fr launched.
+p3_02 0 (5 calls).
+p3_01 6 (5 calls).
+fr43 0 (call Infinata 1967 status).
+p3_04 2 (3 calls).
+fr50 2.
+fr45 0 (Recombinator 1994 k3 Destroyed but used in S4: fix status, call options Lost / add record). p3_05 3 (2 calls).
+fr47 0.
+p3_06 0 (8 calls).
+RULING SWEEP: 13 'conflicts' but morning_calls 'settled' = earlier triage, NOT owner. Only Steve (HANDOFF) is owner -> fixed. Punisher 2004 'owner October fix' not found in HANDOFF/git; file still has D&W step -> NOT applied; OWNER CALL. 12 disagreements -> tiebreak.json -> tiebreak_out.json (agent). p3_11 2 (1 call).
+p3_09 2 (3 calls).
+nr53 23. p3_08 1 (1 call).
+p3_16 3 (2 calls).
+p3_15 1, p3_10 4, p3_17 2.
+nr51 22 (4 calls).
+p3_14 0 (3 calls). NET SECOND CHECK: nrv_01..33 (1286 items, 40 each; nr52 to add as nrv_34) -> nrvout_NN (VERIFY.md + split may be list). Launched 01-02.
+fr48 1. p3_12 0 (4 calls).
+p3_07 3 (7 calls).
+fr49 1. FILES RE-AUDIT ALL 50 DONE.
+p3_13 1 (3 calls). FILES SECOND CHECK frv_01..03 (75 items) -> frvout_NN launched.
+p3_18 7.
+p3_20 4 (3 calls).
+p3_22 0 (1 call).
+p3_19 3, p3_23 3, p3_26 0.
+nrv02: 38c 2a 0r.
+nr52 26 (4 calls). NETWORK RE-AUDIT ALL 53 DONE: 1312 changes; nrv_34 = nr52.
+p3_25 3 (4 calls).
+p3_24 2 (4 calls).
+p3_27 2 (2 calls).
+p3_21 0 (3 calls). TIEBREAK applied (apply12): ruling side for Soledad, Quill1988, Deever, Power Broker, Radcliffe, Ducasse, Tony; 'now' kept for Michelle, zombie Ikaris, Eddie (MNBN call). Shang-Chi held (Fairmont = employer scope).
