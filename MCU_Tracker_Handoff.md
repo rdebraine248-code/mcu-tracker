@@ -6,7 +6,7 @@ all "Standing rules from the owner" and "Mistakes not to repeat". Ask the owner 
 you're unsure. **Never push to main without the owner's explicit "push".** The same handoff also lives in the repo as `HANDOFF.md`;
 if they ever differ, the repo's copy on the working branch is newer.
 
-- **main** is at `c5d1946` (pushed 4 November 2026: the Network's dock dot for every universe). The published test build is v142 (see the Network notes below):
+- **main** is at `0695617` (pushed 4 November 2026: the audit's end). The published test build is v142 (see the Network notes below):
   https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s
 - **The report page** (owner's questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. All 59 questions are
   answered and applied; new questions go on as 60 onward. Answers come back as comment threads (the page's Submit).
