@@ -7,7 +7,7 @@ work. **Read all of it before changing anything, above all "Standing rules from 
 
 Paste this as the first message:
 
-> Work on the repo `rdebraine248-code/mcu-tracker`, branch `ccr-9703a988-d86jbb`. Before doing anything, read `HANDOFF.md` on that
+> Work on the repo `rdebraine248-code/mcu-tracker`, branch `ccr-5d4aa1b8-sj0vmn`. Before doing anything, read `HANDOFF.md` on that
 > branch in full and follow it, especially "Standing rules from the owner" and "Mistakes not to repeat". Ask me with options when
 > something is mine to decide or you're unsure, and never push to main without my go-ahead.
 
@@ -25,7 +25,7 @@ Paste this as the first message:
 - **Repo:** `rdebraine248-code/mcu-tracker`.
 - **`main`:** the built app that people use: `index.html` (every placeholder filled), `sw.js`, `manifest.webmanifest` and the icons. Nothing
   else goes on main.
-- **Working branch `ccr-9703a988-d86jbb`** (it carries on from `ccr-260b58ec-boqbta`): the source. It holds `index.html` with its data
+- **Working branch `ccr-5d4aa1b8-sj0vmn`** (it carries on from `ccr-9703a988-d86jbb` and `ccr-260b58ec-boqbta`): the source. It holds `index.html` with its data
   placeholders still empty, `mockup-data/` (all the data, the build scripts and the tests) and this file. **Check this branch out**, not
   main. After every push to main it's synced with `git merge -s ours origin/main`, which keeps the source and records main's history.
   `claude/gracious-cray-lhdt2k` is a mirror of it from the October 2026 chat: push both, so they stay identical.
@@ -1097,18 +1097,14 @@ These happened in earlier chats. Each cost the owner time.
 
 ## Open items
 
-- **Audit status (night of 3 to 4 November 2026, on the working branch, NOT on main):** parts 1 to 3 are checked, second-checked and
-  applied; the full suite passes. What went in and where:
-  - People: `TEAM_AUDIT2` in index.html (after `TEAM_AUDIT`, before the Independent filter) and the departures list rebuilt in both
-    `TEAM_LEFT` and `split.json` "left" (`audit2/people/apply3.json`). Held, not applied: 8 group names the screen never says (one
-    question each), being a student at a school (one question), and the Flint record split.
-  - Network: `network/rel/stage_fix_zaudit.json` (edits by stage place, later stages added, and every stage moved earlier SPLIT so the
-    later facts keep their own stage at the episode they happen; card lines restyled with the owner's card-line brief). relbake now
-    lets a fix move a stage to another title (`title`) and matches `line_fix` lines by text within the pair when places shift.
-  - Files: `STEP_AUDIT` in index.html, applied after the handovers; each changed file's places and cases re-keyed in the same block and
-    its episode tags recomputed in `ep_tags.json` (`audit2/files/step_audit.json`, built by `build_steps.py` from the live app's data).
-  - Still to do: the random 600 rechecks for parts 1 to 3 (the owner's bar), then parts 4 to 9. The owner's open questions from the
-    night are in the morning report.
+- **Audit status (4 November 2026, all on main):** parts 1 to 3 (people, the Network, the files) are done: checked, second-checked,
+  applied, then a fresh random 600 of each rechecked (people 1.6%, the Network 4.3%, files 1.2% wrong, all fixed after a second check),
+  then the Network's last pass over all 7,357 stages, then the owner's answers to the 59 report questions. **Next: parts 4 to 9**
+  (the Atlas, character logs, Damage Control and Comms, the story lists and boxes, the Agent File, the Incursions wall and the
+  Multiverse), each with its random 600. The owner's bar is 0 to 1% wrong; parts 1 to 3's last samples were over it for the Network
+  (4.3%), so a fresh Network sample is owed before calling part 2 locked. Audit records: `mockup-data/audit2/`.
+- **The report page** (questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. Answers come back as comment threads
+  (the page's Submit). All 59 answered and done; new questions go on as 60 onward.
 - **To revisit after the audit (owner, November 2026):** a "Held" line under a file's entry, beside At and Case: the Collection
   objects that person holds in that title (the Darkhold under Wanda's Multiverse of Madness entry), shown once the Collection is found.
   The owner would have liked it before the audit; it waits until after.
