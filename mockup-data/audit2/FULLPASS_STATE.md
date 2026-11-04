@@ -3,4 +3,4 @@
 - Second check: fp/VERIFY.md, items built with a mkv like fm/mkv.py (adds + owner calls), -> fp/vout_NNN.json.
 - Apply: new stage_fix file (sorts after zzzzzzzzzzzz_sample7), one per wave; rebake; test build after the films wave.
 - Family batch (fm/): out_01..08 done; second checks vout_01 done, vvout_2..4 running (vv_2..4 = fm batches 02..08 merged).
-- Launched fp 001-017. NEXT: fp 018 (keep ~17 running, launch as each finishes).
+- Launched fp 001-080 (081-089 to go; 045 done). Films second check: fv_01..14 -> fvout_01..14, all launched. Apply films with fm/apply.py-style builder -> stage_fix_zzzzzzzzzzzzzz_films.json (14 z).
