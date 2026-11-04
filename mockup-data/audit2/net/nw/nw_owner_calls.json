@@ -1,0 +1,325 @@
+[
+ {
+  "pair": "by-nebula-tchalla|by-thanos-ravager",
+  "question": "Stage 0 (What If...?#2) says 'the Children of Thanos' overpower Thanos on Knowhere. I could not confirm which group name, if any, is said on screen in this episode; the fandom plot calls the group the Black Order. Keep the name, or use a neutral wording?",
+  "options": [
+   "Keep 'the Children of Thanos'",
+   "Use 'his old henchmen, now the Collector's guards' (no group name)",
+   "Use 'the Black Order'"
+  ],
+  "evidence": "Fandom episode plot: 'Thanos remains behind to confront the Black Order, but is overpowered by Midnight and Cull Obsidian. Nebula returns to save her father.' The event itself is correct; only the on-screen name is unverified.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=What_If..._T%27Challa_Became_a_Star-Lord%3F&prop=wikitext&format=json",
+  "src": "02"
+ },
+ {
+  "pair": "fox-anim-black-tom|fox-anim-banshee",
+  "question": "Tom and Sean Cassidy: brothers or cousins? Right now the Network says both. This pair says brothers, but the Banshee|Juggernaut stage (XTAS#31) says 'Sean's cousin Tom'.",
+  "options": [
+   "Brothers everywhere (marvelanimated: the series made them siblings), so change Banshee|Juggernaut to 'Sean's brother Tom'",
+   "Cousins everywhere (Wikipedia's #31 summary: 'Tom's cousin Sean'), so change this pair's text and both card lines",
+   "Leave as is"
+  ],
+  "evidence": "Wikipedia's Phoenix Saga Part III summary says 'Tom's cousin Sean'. marvelanimated's Banshee page says 'Sean and Tom were made siblings in the series rather than cousins as in the comics', and its Black Tom page says 'brother'. The sources disagree, so I changed nothing.",
+  "source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Banshee&prop=wikitext&format=json",
+  "src": "07"
+ },
+ {
+  "pair": "fox-anim-apocalypse|fox-anim-mastermind",
+  "question": "The series never uses the name 'Mastermind': he is only ever called Jason Wyngarde. Should the stage text ('Apocalypse imprisons Mastermind...') and the card line 'Mastermind's captor.' use 'Jason Wyngarde' or 'Jason' instead? The node's own name and its desc ('member of the Hellfire Club') have the same problem, since the show calls it the Inner Circle.",
+  "options": [
+   "Rename to Jason Wyngarde in the stage, the card and the node",
+   "Keep 'Mastermind' as the app's node name"
+  ],
+  "evidence": "marvelanimated's Jason Wyngarde page says 'Wyngarde goes by the name Mastermind, but he doesn't use it in the series.' In #66 (Beyond Good and Evil Part 4) he appears only in a cameo among the captive psychics.",
+  "source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Jason%20Wyngarde&prop=wikitext&format=json",
+  "src": "07"
+ },
+ {
+  "pair": "fox-anim-havok|fox-anim-cyclops",
+  "question": "The XTAS#37 stage calls him 'Alex Summers' and calls him Scott's brother as fact. The show never says they are brothers, and the name Alex is first said in X-Men '97 #12. Should the stage text and Havok's card use 'Havok' instead of 'Alex' and keep the brother line?",
+  "options": [
+   "Use 'Havok' in the #37 text and card line, and keep the brother line",
+   "Leave as is"
+  ],
+  "evidence": "marvelanimated's Havok page says 'It is not stated that Havok is Scott's brother' (it is only hinted at in their fight) and 'Havok's real name Alex Summers was mentioned by Polaris in X-men 97 Season 2 episode 2.'",
+  "source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Havok&prop=wikitext&format=json",
+  "src": "07"
+ },
+ {
+  "pair": "st-dottie-underwood|st-ray-krzeminski",
+  "question": "The only stage is titled 'Agent Carter S1' (from episode 1), but Dottie first appears in S1#3, and the killer who rams Krzeminski's car and shoots him in S1#3 is unseen; Peggy names Dottie as his killer in S1#7. Which episode should the stage start at?",
+  "options": [
+   "Agent Carter S1#3 (when the murder happens, as now worded)",
+   "Agent Carter S1#6 (Peggy ties a female Leviathan operative to his death and sees Dottie is that operative)",
+   "Agent Carter S1#7 (Peggy tells the SSR Dottie killed Krzeminski)"
+  ],
+  "evidence": "S1#3: 'an unidentified assassin kills them both' (Wikipedia); Dottie fandom page: she followed Krzeminski, bumped his car and shot him; Dooley fandom page (S1#7 interrogation): Carter 'claimed they should be hunting Dottie Underwood who she claimed had killed Krzeminski'.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agent_Carter_season_1&action=raw",
+  "src": "09"
+ },
+ {
+  "pair": "st-ana-jarvis|st-whitney-frost",
+  "question": "Stage S2#8 tells only what Edwin Jarvis does (shoots Whitney twice to avenge Ana, and she heals); Ana is in hospital and nothing passes between Ana and Whitney. Keep it, or drop the stage so the S2#7 shooting stands alone?",
+  "options": [
+   "Drop stage S2#8",
+   "Keep as is"
+  ],
+  "evidence": "S2#8 (The Edge of Mystery): 'A revenge-seeking Jarvis shoots Frost, but she survives due to her Zero Matter'; Ana is recovering from surgery in hospital.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agent_Carter_season_2&action=raw",
+  "src": "09"
+ },
+ {
+  "pair": "howard-stark|st-roger-dooley",
+  "question": "Stage S1#7 ('Fennhoff kills Dooley before Howard is cleared') tells only what a third person does to Dooley; Howard is away and nothing passes between them. Keep, reword around the fact that Dooley dies in Howard's own Stark Heat Vest, or drop?",
+  "options": [
+   "Drop stage S1#7",
+   "Reword: 'Dooley dies in one of Howard's own inventions, a Stark Heat Vest that Fennhoff straps on him, before Howard is cleared.'",
+   "Keep as is"
+  ],
+  "evidence": "S1#7 (Snafu): Ivchenko hypnotizes Dooley and puts him in a Stark experimental vest, which explodes as Dooley jumps from a window.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agent_Carter_season_1&action=raw",
+  "src": "09"
+ },
+ {
+  "pair": "st-antoine-triplett|st-mike-peterson",
+  "question": "Stage 1 (S1#22) only tells Mike turning on Garrett, not anything between Trip and Mike. Keep it as the point where Mike stops being Trip's enemy, or drop it?",
+  "options": [
+   "keep as is",
+   "drop stage 1",
+   "keep, but change kind from enemy to ally"
+  ],
+  "evidence": "In S1#22 (Beginning of the End) Deathlok turns on Garrett once Skye frees Ace; Trip fights the Centipede soldiers and breaks a wall with Coulson using a Humvee. No source shows a direct Trip and Mike moment in the episode.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Antoine%20Triplett&prop=wikitext&format=json",
+  "src": "10"
+ },
+ {
+  "pair": "st-mike-peterson|st-raina",
+  "question": "Stage 1 (S1#11, 'boss'): Raina overseeing Mike's recovery is not shown. In S1#11 Raina is captured by Coulson's team, and Mike is shown alive with an eye implanted 'by someone working for the Clairvoyant'. Keep, remove the stage, or move it?",
+  "options": [
+   "Remove stage 1 (stage 0 already covers their bond)",
+   "Keep as is",
+   "Rewrite to what is shown: Raina is amazed to see on Centipede's feed that Mike survived (S1#10)"
+  ],
+  "evidence": "S1#10 'The Bridge': 'Po and Raina look through his feed... Raina is amazed that Peterson is alive.' S1#11: 'the team rescues him after capturing Raina'; 'Peterson is alive... with an explosive surveillance eye implanted in him by someone working for the Clairvoyant.'",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Magical_Place&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Bridge&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_1&action=raw",
+  "src": "11"
+ },
+ {
+  "pair": "nick-fury|st-robert-gonzales",
+  "question": "Stage 0 (S2#15) says Gonzales first insists on following Fury's order to blow up the Iliad. The fandom recap gives that order to Bobbi Morse, with Gonzales badly hurt, and Wikipedia says Morse, Gonzales, Mack and Hartley all disobeyed Fury. Rewrite?",
+  "options": [
+   "Keep as is",
+   "Rewrite: 'Robert Gonzales commands the Iliad when Hydra rises. He and the agents with him defy Fury's order to sink the ship, saving hundreds of agents.'"
+  ],
+  "evidence": "Fandom 'One Door Closes': 'Robert Gonzales was the commander of the Iliad and was hurt badly... Morse had another mission, given to her by Nick Fury; she was to destroy the ship... Morse decided to help the others retake the ship.' Wikipedia S2#15: 'Morse, Gonzales, Mack, and Hartley disobeyed Fury's orders, saving hundreds of loyal S.H.I.E.L.D. agents.'",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=One_Door_Closes&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw",
+  "src": "11"
+ },
+ {
+  "pair": "st-glenn-talbot|st-general-hale",
+  "question": "Stage S5#20 (text 'As Graviton, Talbot kills Hale', both card lines) and st-glenn-talbot|st-robin-hinton stage S5#21 (text 'As Graviton, Talbot kidnaps Robin', card A 'later kidnaps as Graviton') use the name 'Graviton'. Fandom cites that codename only to a marvel.com interview, and Wikipedia uses it only in production notes. Neither source shows the name said on screen. Keep it, or reword as 'With his gravitonium powers'?",
+  "options": [
+   "Keep 'Graviton'",
+   "Reword to 'With his gravitonium powers' / 'after taking the gravitonium'"
+  ],
+  "evidence": "The Fandom Glenn Talbot infobox cites 'codenames = Graviton' to the marvel.com article 'Adrian Pasdar on the One Who Will Save Us All'. Its Behind the Scenes uses the name only in showrunner quotes. Wikipedia's season 5 page: '...merging with Talbot when he enters the Rebirth chamber and becomes Graviton' (production section). Neither source gives an on-screen use, so I am not sure enough to change it.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Glenn%20Talbot&prop=wikitext&format=json",
+  "src": "16"
+ },
+ {
+  "pair": "jackson-norriss|wenwu",
+  "question": "The All Hail the King stage text names him 'Xu Wenwu'. The one-shot only calls him the real leader of the Ten Rings / the real Mandarin. The name comes from Shang-Chi (a later title). Drop the name from this stage's text (e.g. 'serves the real leader behind the Mandarin name')? The pair itself already shows Wenwu's card.",
+  "options": [
+   "Keep 'Xu Wenwu' in the text",
+   "Drop the name from the text, keep the cards as they are"
+  ],
+  "evidence": "All Hail the King plot: Norriss reveals the real reason for the interview is to break Trevor out so he can meet 'the actual leader of the Ten Rings'. The one-shot never names Wenwu.",
+  "source": "https://en.wikipedia.org/w/index.php?title=All_Hail_the_King&action=raw",
+  "src": "16"
+ },
+ {
+  "pair": "scott-lang|thaddeus-ross",
+  "question": "Stage 1 (Ant-Man and the Wasp) says Scott takes a deal 'from Ross'. Ross does not appear in Ant-Man and the Wasp, where the house arrest is overseen by FBI agent Jimmy Woo; the deal is first mentioned in Avengers: Infinity War ('he and Scott took a deal'). Keep it as is, move the stage to Avengers: Infinity War, or reword it as a deal with the government?",
+  "options": [
+   "keep",
+   "move stage title to Avengers: Infinity War",
+   "reword: Scott is under house arrest after taking a deal for his part in the Accords fight (no Ross)"
+  ],
+  "evidence": "The Scott Lang fandom page says Lang 'made a deal with the FBI' / 'with the government'; the Thaddeus Ross page says Scott and Clint 'took deals from Ross'. The Ant-Man and the Wasp plot names only Jimmy Woo.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Scott_Lang&prop=wikitext&format=json",
+  "src": "20"
+ },
+ {
+  "pair": "st-matt-murdock|st-marci-stahl",
+  "question": "Stage 2 (The Defenders) says Marci is now with Foggy and is Matt's best friend's girlfriend, but sources show no Foggy-Marci romance in The Defenders (she only works with Foggy at Hogarth's firm in #2); they are dating again and living together from Daredevil S3#3. Move, keep, or drop this stage?",
+  "options": [
+   "Move the stage to Daredevil S3#3 unchanged",
+   "Keep at The Defenders but say Marci works with Foggy at Hogarth's firm",
+   "Drop the stage"
+  ],
+  "evidence": "Fandom Marci Stahl: TD102 Marci is talking to Foggy when Hogarth interrupts; 'Stahl and Foggy Nelson began dating again, and soon they were living together' (DD303). Wikipedia S3#4: 'his girlfriend Marci Stahl'.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Marci%20Stahl&prop=wikitext&format=json",
+  "src": "22"
+ },
+ {
+  "pair": "st-matt-murdock|st-ray-nadeem",
+  "question": "The pair's first stage is S3#11, but Matt and Nadeem are already working together in S3#7-#8, and Nadeem lures Matt into Fisk's trap in S3#9. Add earlier stages?",
+  "options": [
+   "Add an ally stage at Daredevil S3#7 (Matt confronts Nadeem at home and tells him the fake Daredevil is an FBI agent; in #8 they search Poindexter's apartment together), and an enemy stage at S3#9 (Nadeem, blackmailed, calls Matt to lure him into Fisk's trap), keeping S3#11 as is",
+   "Leave the pair starting at S3#11"
+  ],
+  "evidence": "S3#7 (Aftermath): Matt confronts Nadeem at his home and explains the attacker was a pretender and an FBI agent. S3#8: 'Matt and Nadeem break into Dex's apartment'. S3#9: 'Fisk coerces Nadeem into luring Matt to the meeting'. S3#11: Matt helps Nadeem fight off Fisk's men and reveals his identity.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Daredevil_season_3&action=raw",
+  "src": "23"
+ },
+ {
+  "pair": "cosmo|rocket",
+  "question": "The only stage is at Guardians of the Galaxy Vol. 3, but its first event (Rocket and Cosmo snarling at each other in the Collector's museum) happens in Guardians of the Galaxy (2014), and their rebuilding of Knowhere is already shown in the Holiday Special. Should the pair start earlier?",
+  "options": [
+   "Keep one stage at Vol. 3 (past event told as background)",
+   "Add a stage at Guardians of the Galaxy (rival: they growl at each other in the museum) and keep Vol. 3 for the later team-up",
+   "Start at The Guardians of the Galaxy Holiday Special (they rebuild Knowhere together) and drop the museum line"
+  ],
+  "evidence": "Cosmo article: 'In 2014, when the soon-to-be Guardians of the Galaxy were guided through the establishment by Carina, Cosmo and Rocket growled and bared their teeth at each other'; 'In December 2025, Cosmo was working with Rocket to rebuild Knowhere' (Holiday Special).",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Cosmo&prop=wikitext&format=json",
+  "src": "27"
+ },
+ {
+  "pair": "st-alisa-jones|st-will-simpson",
+  "question": "Simpson is killed by the then-unnamed IGH killer in S2#2, but the stage sits at S2#7, where Alisa's identity is revealed. Keep it at #7 as a look-back, or move it to S2#2 (which would put Alisa's name on Simpson's card five episodes before the reveal)?",
+  "options": [
+   "Keep at Jessica Jones S2#7 (text tells the earlier killing)",
+   "Move to Jessica Jones S2#2 and word it without naming her",
+   "Move to S2#2 as written"
+  ],
+  "evidence": "Simpson dies protecting Trish from the assailant in S2#2 'AKA Freak Accident'; the killer is shown to be Alisa only in S2#6-#7. 'Greenpoint Stages' is not in any source I fetched.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Will_Simpson&prop=wikitext&format=json",
+  "src": "29"
+ },
+ {
+  "pair": "st-cottonmouth|st-diamondback",
+  "question": "Keep 'friend' and the claim that Diamondback is Cottonmouth's old friend who gave him the Biggie Smalls picture?",
+  "options": [
+   "Keep as is",
+   "Change kind to 'ally' and text to: Diamondback supplies Cottonmouth's guns through Shades, and after Cottonmouth dies he moves in on his criminal empire."
+  ],
+  "evidence": "Sources show only a business tie: Diamondback supplies the Hammer weapons and sends Shades to back Cottonmouth up (S1#1), and offers Judas bullets (S1#5). The Biggie Smalls photograph is called Cottonmouth's own; no source says Diamondback gave it or that the two are old friends.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Willis%20Stryker&prop=wikitext&format=json",
+  "src": "30"
+ },
+ {
+  "pair": "aamir-khan|sana",
+  "question": "Stage 1 (Ms. Marvel#3) only tells Sana's vision of the train and her call to Kamala; nothing happens between Aamir and Sana there (Sana is in Karachi, not at the wedding). Drop the stage, or keep it?",
+  "options": [
+   "Drop stage 1 (stage 0 stands for the whole series)",
+   "Keep it as is"
+  ],
+  "evidence": "Ms. Marvel#3 (Destined): after the wedding attack, Sana calls Kamala to say she saw the train too and urges Kamala and Muneeba to come to Karachi. Aamir is not part of it.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Destined&prop=wikitext&format=json",
+  "src": "31"
+ },
+ {
+  "pair": "agent-cleary|happy-hogan",
+  "question": "Cleary's only scene with Happy (questioning him about missing Stark tech, with Matt beside him) is in the extended 'More Fun Stuff Version' of No Way Home, not the theatrical cut. Does that count as the screen?",
+  "options": [
+   "Keep the pair as is (extended cut counts)",
+   "Remove the pair (theatrical cut only)"
+  ],
+  "evidence": "The fandom P. Cleary and Matt Murdock pages cite only SMNWHTMFSV (The More Fun Stuff Version) for the Cleary and Happy interrogation. In the theatrical cut Matt only warns Happy he is under investigation.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=P._Cleary&prop=wikitext&format=json",
+  "src": "34"
+ },
+ {
+  "pair": "loki|thanos",
+  "question": "The Avengers never names Thanos: the Other's master is only seen in the mid-credits scene, and the name is first said in Guardians of the Galaxy. The Avengers stages of loki|thanos, loki|the-other and thanos|the-other say 'Thanos' in their text and card lines. Should those lines say 'the Other's master' instead, or is the name OK because the person node is called Thanos anyway?",
+  "options": [
+   "Keep 'Thanos' in The Avengers stages",
+   "Reword them to 'the Other's master' / 'his master'"
+  ],
+  "evidence": "Wikipedia's The Avengers article says Whedon included Thanos in the post-credits scene 'even though the character is not identified in the film'; Feige confirmed the master is Thanos in an interview.",
+  "source": "https://en.wikipedia.org/w/index.php?title=The_Avengers_(2012_film)&action=raw",
+  "src": "34"
+ },
+ {
+  "pair": "heimdall|hela",
+  "question": "The text and both card lines call the Bifrost sword 'Hofund'. On screen in Thor: Ragnarok it seems to be just 'the sword' (Hela: 'Where's the sword? That sword is the key to opening the Bifrost'); Hofund looks like a wiki or reference-book name. Also, the card line on Heimdall's card is broken ('Usurper Heimdall steals Hofund from and hides Asgard's people from.'). Swap the name?",
+  "options": [
+   "Keep 'Hofund'",
+   "Text: 'Heimdall steals the sword that opens the Bifrost so Hela cannot use it, and he hides the fleeing people of Asgard in the mountains. He keeps them safe from her until Thor comes home to fight her.' Card on Heimdall: 'Usurper whose Bifrost sword Heimdall steals, and from whom he hides Asgard's people.' Card on Hela: 'Gatekeeper who steals the Bifrost sword and hides Asgard's people from Hela.'"
+  ],
+  "evidence": "Fandom: 'Hofund, often simply referred as the Bifrost Sword'; the Ragnarok quote on its page says only 'the sword'. I could not confirm the name is never said, so this is not a firm change.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hofund&prop=wikitext&format=json",
+  "src": "37"
+ },
+ {
+  "pair": "pr-marcus-van-sciver|pr-charlotte",
+  "question": "Stage 0 (titled 'Blade: The Series', so from the pilot) tells Marcus's bomb on Charlotte's plane, but Charlotte first appears in ep6 and the bomb comes late in the season, after stage 1 (#6, Charlotte confronts Marcus about Aurora). How should the stages be reordered?",
+  "options": [
+   "Stage 0 becomes #6 (confrontation over Aurora); the plane bomb moves to a later stage at #12 'Monsters', where Blade and Collins hunt the surviving Charlotte",
+   "Stage 0 becomes #6 (confrontation); the plane bomb moves to #11 'Hunters'",
+   "Leave as is"
+  ],
+  "evidence": "Blade fandom: Charlotte's appearances are The Evil Within (6), Delivery (7), Sacrifice (8), Angels and Demons (10), Hunters (11), Monsters (12). Marcus page: after Aurora's pureblood test succeeds and he kills Damek, he tries to kill Charlotte with a bomb on her plane; she survives and warns the purebloods. Ep12 synopsis: 'Blade and Detective Collins team up to track down Pureblood Charlotte.' No episode synopsis names the bomb's episode.",
+  "source": "https://blade.fandom.com/api.php?action=parse&page=Charlotte&prop=wikitext&format=json",
+  "src": "38"
+ },
+ {
+  "pair": "pr-st-chase-stein|pr-st-victor-stein",
+  "question": "Stage 3 (S3#6, 'Victor learns what has become of Janet') tells only what Victor learns with Stacey; Chase is not part of it. What should happen to it?",
+  "options": [
+   "Drop stage 3; stage 4 (S3#9) already carries the relationship",
+   "Drop stage 3 and change stage 4 text to: Victor tells Chase that Janet's mind lives on in the algorithm, and the two work with her to take down Morgan's phone towers.",
+   "Keep as is"
+  ],
+  "evidence": "In 'Merry Meet Again' (S3#6) Victor offers Stacey to work together, causing Stacey to realize Janet's consciousness survived in the Healing Algorithm; Chase is elsewhere (Max, WIZARD party). In 'The Broken Circle' (S3#9) Victor reveals to Chase that Janet survived and the three hack the cell towers.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Merry_Meet_Again&prop=wikitext&format=json",
+  "src": "41"
+ },
+ {
+  "pair": "sv-scorpion-1994|sv-vulture-1994",
+  "question": "The pair's only stage is #46, but the Scorpion and the Vulture already meet in #27 (The Final Nightmare): they fight at Dr. Connors's lab, then agree to team up to cure their mutations. Add an earlier stage at #27?",
+  "options": [
+   "Add an ally stage at Spider-Man (1994)#27: 'The Scorpion and the Vulture fight at Dr. Connors's lab, then agree to team up to cure their mutations.' and keep #46 as the enemy stage",
+   "Leave as is (only #46)"
+  ],
+  "evidence": "Episode 27: 'After a brief fight, Scorpion and Vulture agree to team up to assist each other with their problems.' Then Connors leaves the Vulture with the mutation.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=Spider-Man_(1994_animated_series)_Season_2_14&prop=wikitext&format=json",
+  "src": "45"
+ },
+ {
+  "pair": "sv-green-goblin-ssm (all pairs)",
+  "question": "The Spectacular Spider-Man's Green Goblin is unmasked as Norman only in #26, but his Goblin stages from #7 on sit on the 'Norman Osborn' entity (pairs with the Big Man, Hammerhead, Black Cat, Molten Man). If the card shows the name Norman Osborn at those stages, the reveal leaks whatever the wording. How should these show before #26?",
+  "options": [
+   "Show the entity as 'Green Goblin' until #26 (name reveal)",
+   "Keep as is; only fix text that names Norman (done in this chunk)",
+   "Move the pre-#26 Goblin stages to a separate masked entity"
+  ],
+  "evidence": "#9 makes the Goblin look like Harry; #26 (Final Curtain) unmasks Norman. Molten Man #24 card A ('A pawn Norman turns into the Molten Man') was left as is because one fan source says Norman is present on screen at the injection.",
+  "source": "https://en.wikipedia.org/w/index.php?title=List_of_The_Spectacular_Spider-Man_episodes&action=raw (episodes 9, 24, 26); https://marvelanimated.fandom.com/api.php?action=parse&page=Green_Goblin_(The_Spectacular_Spider-Man)&prop=wikitext&format=json",
+  "src": "48"
+ },
+ {
+  "pair": "sv-peter-parker-ssm|sv-green-goblin-ssm",
+  "question": "Stage 0 sits at #7 but its first event, Spider-Man saving Norman from the Vulture, happens in #1 (Survival of the Fittest), where Peter also meets Norman at the Osborn home. Should the pair start at #1?",
+  "options": [
+   "Move stage 0 to The Spectacular Spider-Man#1 (kind friend or ally) with the Vulture rescue, and add a #7 enemy stage for the Green Goblin's debut",
+   "Keep stage 0 at #7 and drop the Vulture clause from its text (the card line can keep it as past)",
+   "Leave as is (recap of #1 inside the #7 stage)"
+  ],
+  "evidence": "#1: the Vulture snatches Norman from his balcony and drops him, and Spider-Man catches him (his first civilian rescue), then protects him again from the Vulture that night. #7: the Green Goblin debuts and tries to kill Spider-Man.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=Spectacular%20Spider-Man%20(animated%20series)%20Season%201%201&prop=wikitext&format=json",
+  "src": "49"
+ },
+ {
+  "pair": "sv-peter-parker-ssm|sv-walter-hardy-ssm",
+  "question": "Stage 0 at #12 links Peter to Walter Hardy (Black Cat's father) as Uncle Ben's killer, and its card line names Walter. On screen the burglar is unnamed at #12; that he is Walter Hardy, Black Cat's father, is the reveal of #25 (Opening Night). Does showing this pair from #12 give away the #25 reveal?",
+  "options": [
+   "Start the pair at #25 and fold the #12 flashback into the #25 text",
+   "Keep the #12 stage (the app hides or allows the identity at #12)",
+   "Keep #12 but have the cards avoid tying him to Black Cat"
+  ],
+  "evidence": "#12 (Intervention): in Peter's mindscape the origin replays; the burglar Peter let go kills Ben, and Peter catches him and spares him. #25 (Opening Night): Black Cat reveals she came to free her father, Walter Hardy, the Cat Burglar, and Walter Hardy was the man who killed Uncle Ben.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=Spectacular%20Spider-Man%20(animated%20series)%20Season%202%2012&prop=wikitext&format=json",
+  "src": "49"
+ }
+]

@@ -1,0 +1,278 @@
+{
+ "checked": [
+  "sv-captain-america-1994|fox-anim-wolverine",
+  "sv-captain-america-1994|sv-nick-fury-1994",
+  "sv-peter-parker-1994|sv-war-machine-1994",
+  "sv-red-skull-1994|fox-anim-wolverine",
+  "sv-red-skull-1994|sv-captain-america-1994",
+  "sv-big-donovan-yfnsm|sv-lonnie-lincoln-yfnsm",
+  "sv-big-donovan-yfnsm|sv-peter-parker-yfnsm",
+  "sv-butane-yfnsm|sv-peter-parker-yfnsm",
+  "sv-carla-connors|sv-norman-osborn-yfnsm",
+  "sv-carla-connors|sv-peter-parker-yfnsm",
+  "sv-chameleon-yfnsm|sv-peter-parker-yfnsm",
+  "sv-daredevil-yfnsm|sv-jeanne-foucault",
+  "sv-daredevil-yfnsm|sv-peter-parker-yfnsm",
+  "sv-doctor-strange-yfnsm|sv-norman-osborn-yfnsm",
+  "sv-harry-osborn-yfnsm|sv-jeanne-foucault",
+  "sv-harry-osborn-yfnsm|sv-nico-minoru",
+  "sv-lonnie-lincoln-yfnsm|sv-pearl-pangan",
+  "sv-lonnie-lincoln-yfnsm|sv-peter-parker-yfnsm",
+  "sv-may-parker-yfnsm|sv-richard-parker-yfnsm",
+  "sv-mikhail-yfnsm|sv-peter-parker-yfnsm",
+  "sv-norman-osborn-yfnsm|sv-amadeus-cho",
+  "sv-norman-osborn-yfnsm|sv-asha-yfnsm",
+  "sv-norman-osborn-yfnsm|sv-harry-osborn-yfnsm",
+  "sv-norman-osborn-yfnsm|sv-jeanne-foucault",
+  "sv-norman-osborn-yfnsm|sv-otto-yfnsm",
+  "sv-norman-osborn-yfnsm|sv-peter-parker-yfnsm",
+  "sv-otto-yfnsm|sv-iron-man-yfnsm",
+  "sv-otto-yfnsm|sv-peter-parker-yfnsm",
+  "sv-otto-yfnsm|sv-scorpion-yfnsm",
+  "sv-otto-yfnsm|sv-unicorn-yfnsm",
+  "sv-pearl-pangan|sv-peter-parker-yfnsm",
+  "sv-peter-parker-yfnsm|sv-amadeus-cho",
+  "sv-peter-parker-yfnsm|sv-doctor-strange-yfnsm",
+  "sv-peter-parker-yfnsm|sv-harry-osborn-yfnsm",
+  "sv-peter-parker-yfnsm|sv-may-parker-yfnsm",
+  "sv-peter-parker-yfnsm|sv-nico-minoru",
+  "sv-peter-parker-yfnsm|sv-richard-parker-yfnsm",
+  "sv-peter-parker-yfnsm|sv-speed-demon-yfnsm",
+  "sv-peter-parker-yfnsm|sv-tarantula-yfnsm",
+  "sv-scorpion-yfnsm|sv-big-donovan-yfnsm",
+  "sv-scorpion-yfnsm|sv-lonnie-lincoln-yfnsm",
+  "sv-scorpion-yfnsm|sv-peter-parker-yfnsm",
+  "sv-speed-demon-yfnsm|sv-tarantula-yfnsm",
+  "sv-unicorn-yfnsm|sv-chameleon-yfnsm",
+  "sv-unicorn-yfnsm|sv-mikhail-yfnsm",
+  "sv-unicorn-yfnsm|sv-peter-parker-yfnsm"
+ ],
+ "changes": [
+  {
+   "pair": "sv-peter-parker-1994|sv-war-machine-1994",
+   "q": "N4",
+   "i": 1,
+   "now": {
+    "i": 1,
+    "kind": "ally",
+    "title": "Spider-Man (1994)#37",
+    "text": "War Machine helps Spider-Man fight Venom and Carnage at Stark Enterprises. He keeps Jameson from unmasking the fallen Spider-Man, but is too badly hurt to fight on.",
+    "on_a_card_about_b": "Helps Peter fight Venom.",
+    "on_b_card_about_a": "A hero War Machine fights beside."
+   },
+   "proposed": {
+    "text": "War Machine helps Spider-Man fight Venom and Carnage at Stark Enterprises, until Carnage beats them both.",
+    "split": {
+     "kind": "ally",
+     "title": "Spider-Man (1994)#38",
+     "text": "After Venom and Carnage flee, the hurt War Machine stops Jameson from unmasking the fallen Spider-Man.",
+     "on_a_card_about_b": "Helps Peter fight Venom, then keeps Jameson from unmasking him.",
+     "on_b_card_about_a": "A hero War Machine fights beside and protects."
+    }
+   },
+   "evidence": "Episode 37 (Venom Returns) ends with Carnage defeating Spider-Man and War Machine. Jameson trying to unmask the injured Spider-Man and being stopped by the hurt War Machine opens episode 38 (Carnage), per the Marvel Database synopsis of Season 3 ep 11.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Spider-Man:_The_Animated_Series_Season_3_11&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-unicorn-yfnsm|sv-chameleon-yfnsm",
+   "q": "N4",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "ally",
+    "title": "Your Friendly Neighborhood Spider-Man#4",
+    "text": "Dmitri is part of Mila's robbery crew. When the police close in, Mila escapes with the money and Dmitri is caught.",
+    "on_a_card_about_b": "A member of Mila's crew. She breaks him out.",
+    "on_b_card_about_a": "Dmitri's partner in the crew."
+   },
+   "proposed": {
+    "on_a_card_about_b": "A member of Mila's crew."
+   },
+   "evidence": "In #4 (Hitting the Big Time) Mila escapes with the money and Dmitri is arrested; she breaks him out of prison only in #5 (The Unicorn Unleashed!). The #4 card line tells the #5 breakout.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hitting_the_Big_Time&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-unicorn-yfnsm|sv-mikhail-yfnsm",
+   "q": "N1",
+   "i": 1,
+   "now": {
+    "i": 1,
+    "kind": "enemy",
+    "title": "Your Friendly Neighborhood Spider-Man#5",
+    "text": "The Unicorn uses Mikhail as bait, but after Spider-Man saves him, Mikhail takes her helmet and the police arrest them both.",
+    "on_a_card_about_b": "Mila's partner. Takes her helmet.",
+    "on_b_card_about_a": "Uses Mikhail as bait."
+   },
+   "proposed": {
+    "kind": "ally",
+    "text": "Mila uses her new helmet to break Mikhail and the rest of the crew out of prison.",
+    "on_a_card_about_b": "Mila's partner in the crew.",
+    "on_b_card_about_a": "Mikhail's partner. Breaks him out of prison."
+   },
+   "evidence": "In #5 the order is: Mila breaks the crew out of prison first, then during the fight she uses Mikhail as bait, he pulls off her helmet and both are arrested. The two #5 stages are in reverse order, so the pair ends #5 as allies when the episode leaves them at odds. Swap stages 1 and 2 (this is stage 1).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Unicorn_Unleashed!&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-unicorn-yfnsm|sv-mikhail-yfnsm",
+   "q": "N1",
+   "i": 2,
+   "now": {
+    "i": 2,
+    "kind": "ally",
+    "title": "Your Friendly Neighborhood Spider-Man#5",
+    "text": "Mila uses her new helmet to break Mikhail and the rest of the crew out of prison.",
+    "on_a_card_about_b": "Mila's partner in the crew.",
+    "on_b_card_about_a": "Mikhail's partner. Breaks him out of prison."
+   },
+   "proposed": {
+    "kind": "enemy",
+    "text": "The Unicorn uses Mikhail as bait, but after Spider-Man saves him, Mikhail takes her helmet and the police arrest them both.",
+    "on_a_card_about_b": "Mila's partner. Takes her helmet.",
+    "on_b_card_about_a": "Uses Mikhail as bait."
+   },
+   "evidence": "Second half of the swap: the bait fight and Mikhail taking her helmet come after the breakout in #5 and end the episode with both arrested.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Unicorn_Unleashed!&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-chameleon-yfnsm|sv-peter-parker-yfnsm",
+   "q": "N4",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Your Friendly Neighborhood Spider-Man#4",
+    "text": "Dmitri is one of the robbers Spider-Man chases, and the police catch him while Spider-Man saves people from the blaze.",
+    "on_a_card_about_b": "Chases Dmitri's crew.",
+    "on_b_card_about_a": "One of the Unicorn's crew."
+   },
+   "proposed": {
+    "on_b_card_about_a": "One of Mila's robbery crew."
+   },
+   "evidence": "Mila first takes the name the Unicorn in #5 (The Unicorn Unleashed!); in #4 she is only Mila Masaryk of the Russian crew, so the #4 card line uses a later name.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Your_Friendly_Neighborhood_Spider-Man_season_1&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "pair": "sv-mikhail-yfnsm|sv-peter-parker-yfnsm",
+   "q": "N4",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Your Friendly Neighborhood Spider-Man#4",
+    "text": "Mikhail is part of the Russian robbery crew Spider-Man chases, and the police catch him.",
+    "on_a_card_about_b": "Tries to stop Mikhail's crew.",
+    "on_b_card_about_a": "One of the Unicorn's crew."
+   },
+   "proposed": {
+    "on_b_card_about_a": "One of Mila's robbery crew."
+   },
+   "evidence": "Mila first calls herself the Unicorn in #5 (The Unicorn Unleashed!); at #4 the name is a later one.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Your_Friendly_Neighborhood_Spider-Man_season_1&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "pair": "sv-carla-connors|sv-peter-parker-yfnsm",
+   "q": "N2",
+   "i": 2,
+   "now": {
+    "i": 2,
+    "kind": "mentor",
+    "title": "Your Friendly Neighborhood Spider-Man#8",
+    "text": "Together Carla and Peter get the Magnetic Generator working.",
+    "on_a_card_about_b": "The intern Carla supervises.",
+    "on_b_card_about_a": "Peter's supervisor at Oscorp, who believes in him."
+   },
+   "proposed": {
+    "text": "While Peter is away, Carla and the interns test his Magnetic Generator successfully. When he turns up hurt, Carla worries and urges him to go home."
+   },
+   "evidence": "In #8 (Tangled Web) the interns celebrate a successful test of Peter's Magnetic Generator that he missed; he apologizes to Carla for missing the demonstration, and she worries about his injuries and urges him to go home. They do not get it working together.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tangled_Web&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-peter-parker-yfnsm|sv-doctor-strange-yfnsm",
+   "q": "N4",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "ally",
+    "title": "Your Friendly Neighborhood Spider-Man",
+    "text": "Doctor Strange fights an alien at Midtown High on Peter's first day, and a spider from his portal bites Peter. Later Peter helps Strange send the alien back and close Norman's gateway, and the two become friends.",
+    "on_a_card_about_b": "The sorcerer Peter helps close Norman's gateway.",
+    "on_b_card_about_a": "A young hero Strange befriends."
+   },
+   "proposed": {
+    "text": "Doctor Strange fights an alien at Midtown High on Peter's first day, and a spider that comes through his portal bites Peter.",
+    "on_a_card_about_b": "The sorcerer whose portal brings the spider that bites Peter.",
+    "on_b_card_about_a": "A freshman bitten by a spider from Strange's portal.",
+    "split": {
+     "kind": "ally",
+     "title": "Your Friendly Neighborhood Spider-Man#10",
+     "text": "When Norman's gateway lets the alien through, Peter helps Strange send it back to space and destroy the gateway.",
+     "on_a_card_about_b": "The sorcerer Peter helps close Norman's gateway.",
+     "on_b_card_about_a": "A young hero who helps Strange close Norman's gateway."
+    }
+   },
+   "evidence": "The stage starts at #1 but tells the gateway fight, which is #10 (If This Be My Destiny...): Strange and Peter send the alien back to space and destroy the gateway. In #1 only Strange's fight at Midtown and the spider bite happen.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Your_Friendly_Neighborhood_Spider-Man_season_1&action=raw",
+   "confidence": "high"
+  },
+  {
+   "pair": "sv-peter-parker-yfnsm|sv-harry-osborn-yfnsm",
+   "q": "N4",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "friend",
+    "title": "Your Friendly Neighborhood Spider-Man",
+    "text": "Spider-Man saves Harry from thugs, and Harry learns Peter's secret and guides him from Oscorp. He has a new red and blue suit made for Peter, and they stay friends after Peter cuts ties with Oscorp.",
+    "on_a_card_about_b": "Peter's friend and guide at Oscorp.",
+    "on_b_card_about_a": "The friend Harry backs as Spider-Man."
+   },
+   "proposed": {
+    "text": "Spider-Man saves Harry from a group of thugs on his way to school.",
+    "on_a_card_about_b": "Peter saves him from thugs.",
+    "on_b_card_about_a": "The masked hero who saves Harry from thugs.",
+    "split": [
+     {
+      "kind": "friend",
+      "title": "Your Friendly Neighborhood Spider-Man#4",
+      "text": "At Oscorp, Peter accidentally reveals to Harry that he is Spider-Man.",
+      "on_a_card_about_b": "Norman's son, who learns Peter's secret.",
+      "on_b_card_about_a": "Secretly Spider-Man, as Harry finds out."
+     },
+     {
+      "kind": "friend",
+      "title": "Your Friendly Neighborhood Spider-Man#5",
+      "text": "Norman brings Harry into the Spider-Man partnership, and Harry guides Peter from Oscorp.",
+      "on_a_card_about_b": "Peter's friend and guide at Oscorp.",
+      "on_b_card_about_a": "The friend Harry backs as Spider-Man."
+     },
+     {
+      "kind": "friend",
+      "title": "Your Friendly Neighborhood Spider-Man#8",
+      "text": "Harry has Oscorp's engineers make Peter a new red and blue Spider-Man suit.",
+      "on_a_card_about_b": "Peter's friend and guide at Oscorp.",
+      "on_b_card_about_a": "The friend Harry backs as Spider-Man."
+     },
+     {
+      "kind": "friend",
+      "title": "Your Friendly Neighborhood Spider-Man#10",
+      "text": "Peter quits Oscorp and cannot trust Norman again, but he and Harry stay friends.",
+      "on_a_card_about_b": "Peter's friend, still on his side after Oscorp.",
+      "on_b_card_about_a": "The friend Harry backs as Spider-Man."
+     }
+    ]
+   },
+   "evidence": "The stage starts at #1 but tells events from later episodes: #1 Spider-Man saves Harry from thugs; #4 Peter accidentally reveals his identity to Harry; #5 Norman involves Harry in the Spider-Man partnership; #8 Harry reveals the new red and blue suit; #10 Peter quits the internship while Harry stays with him.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Your_Friendly_Neighborhood_Spider-Man_season_1&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": []
+}
