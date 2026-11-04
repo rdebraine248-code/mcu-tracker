@@ -401,6 +401,10 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
 - 37 B: keep the current names, even ones the screen never speaks (Graviton, Scarlet Scarab, Final Horsemen, Luphomoid, Wild
   Sentinel, Ryhno's Gang; taken to cover credits names like Crossbones too). A name that gives away a later reveal still goes.
 - 38 A: extended and IMAX scenes count. 39 A: add the missing places. 40 B: Peggy keeps the Arctic.
+- 44 to 47, 49, 50: "make a call based on what's true in the show" (Black Tom and Banshee, Mike and Raina, Fury and Gonzales,
+  Dottie and Krzeminski, Cottonmouth and Diamondback; Marci and Foggy: "if they are said to be together off screen then they're
+  together"). 48 A: Scott and Ross's deal stage moves to Infinity War.
+- 51 A: a Network card shows the cover name ("Green Goblin") until the episode that reveals who it is, for every such person.
 
 - **No "Layer 1/2/3", plain step-by-step plans** (owner, November 2026: "stop calling it Layer one ... it sounds outdated. Just give me
   step by step"). Call things what they do: the tests (do the features work), the content check (is anything shown too early, does
