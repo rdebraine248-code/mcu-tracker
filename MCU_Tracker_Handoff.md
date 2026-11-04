@@ -6,7 +6,7 @@ all "Standing rules from the owner" and "Mistakes not to repeat". Ask the owner 
 you're unsure. **Never push to main without the owner's explicit "push".** The same handoff also lives in the repo as `HANDOFF.md`;
 if they ever differ, the repo's copy on the working branch is newer.
 
-- **main** is at `c5d1946` (pushed 4 November 2026: the Network's dock dot for every universe). The published test build is v135:
+- **main** is at `c5d1946` (pushed 4 November 2026: the Network's dock dot for every universe). The published test build is v142 (see the Network notes below):
   https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s
 - **The report page** (owner's questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. All 59 questions are
   answered and applied; new questions go on as 60 onward. Answers come back as comment threads (the page's Submit).
@@ -129,7 +129,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v138 (4 November 2026) and matches main (0695617, pushed 4 November 2026: the audit's end) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v142 (4 November 2026: the full pass films wave). Main is 0695617 (pushed 4 November 2026: the audit's end); the test build is ahead of it (group names for pairs, fade-in, the Kate loop fix, family circles and stages, the full pass) and also carries the landscape mockup. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
