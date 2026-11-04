@@ -202,12 +202,18 @@
    "b": "by-zombie-kamala",
    "edit": [
     {
-     "i": 0,
-     "drop": true
+     "kind": "enemy",
+     "text": "Wanda haunts Kamala's dreams as a red figure who attacks her, and Blade later tells Kamala that Wanda is sending the visions into her mind.",
+     "whoA": "The hero Wanda haunts in her dreams.",
+     "whoB": "Haunts Kamala's dreams.",
+     "title": "Marvel Zombies",
+     "episode": 1,
+     "i": 0
     }
    ],
    "src": [
-    "#13 https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kamala_Khan/Zombie_Outbreak&prop=wikitext&format=json"
+    "#13 https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kamala_Khan/Zombie_Outbreak&prop=wikitext&format=json",
+    "restored under the owner's implied-ties rule (4 November 2026): https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kamala_Khan/Zombie_Outbreak&prop=wikitext&format=json"
    ]
   },
   {
@@ -253,33 +259,30 @@
    ]
   },
   {
-   "a": "st-danielle-cage",
-   "b": "st-mr-charles",
-   "edit": [
-    {
-     "i": 0,
-     "drop": true
-    },
-    {
-     "i": 1,
-     "drop": true
-    }
-   ],
-   "src": [
-    "#19 https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Hateful_Darkness&prop=wikitext&format=json"
-   ]
-  },
-  {
    "a": "st-edwin-jarvis",
    "b": "tony-stark",
    "edit": [
     {
-     "i": 0,
-     "drop": true
+     "kind": "friend",
+     "text": "Traveling back to 1970, Tony crosses paths with Howard's butler Jarvis at Camp Lehigh, and Howard asks Jarvis whether they have ever met him.",
+     "whoA": "Howard's future son, met at Camp Lehigh. Names his A.I. after Jarvis.",
+     "whoB": "His father's butler, met at Camp Lehigh. Namesake of Tony's A.I.",
+     "i": 0
     }
    ],
    "src": [
-    "#20 https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Edwin_Jarvis&prop=wikitext&format=json"
+    "#20 https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Edwin_Jarvis&prop=wikitext&format=json",
+    "restored under the owner's implied-ties rule (4 November 2026): https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Edwin_Jarvis&prop=wikitext&format=json"
+   ],
+   "add": [
+    {
+     "kind": "friend",
+     "text": "Stark records show that Tony models his A.I. J.A.R.V.I.S. on Edwin Jarvis.",
+     "whoA": "Names his A.I. J.A.R.V.I.S. after Jarvis.",
+     "whoB": "The man Tony's A.I. J.A.R.V.I.S. is modeled on.",
+     "title": "VisionQuest",
+     "episode": 4
+    }
    ]
   },
   {
