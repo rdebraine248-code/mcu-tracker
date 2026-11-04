@@ -77,7 +77,9 @@ header #hSearch{ display:flex; align-items:center; gap:10px; width:100%; margin:
 header #hSearch svg{ flex:none; color:#8EA2C2; } header #hSearch:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
 .unis{ display:flex; gap:8px; overflow-x:auto; margin:12px -20px 2px; padding:0 20px 2px; scrollbar-width:none; pointer-events:auto; } .unis::-webkit-scrollbar{ display:none; }
 .unis button{ flex:0 0 auto; border:1px solid #2A3140; border-radius:999px; padding:8px 14px; background:#1A2030; color:#EEF1F6; font:500 14.5px var(--body); cursor:pointer; touch-action:manipulation; }
-.unis button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; border-color:#EEF1F6; } .unis button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
+.unis button[aria-selected="true"]{ background:#EEF1F6; color:#0B1019; border-color:#EEF1F6; }
+/* a universe with someone you haven't seen there yet wears the app's new dot, as Story's mode buttons do */
+.unis button{ position:relative; } .unis button.nw::after{ content:""; position:absolute; top:-2px; right:-2px; width:7px; height:7px; border-radius:50%; background:#5FD0FF; box-shadow:0 0 6px #5FD0FF; } .unis button:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
 #pTip button{ margin-top:10px; width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
 [hidden]{ display:none !important; }
 #ssheet{ position:fixed; inset:0; display:flex; flex-direction:column; background:var(--bg); }
@@ -407,12 +409,17 @@ new ResizeObserver(() => document.documentElement.style.setProperty('--hb', docu
 self.netShow = v => { LIVE = v; if (v) { size(); if (needFit) fitRoom(); reveal(); if (!looping) { looping = true; requestAnimationFrame(frame); } } };
 // who you've seen here, as the app remembers it: the ones you haven't yet light the dock and pop in, nearest first, when you open it
 let KNOWN = null;
-const fresh = () => KNOWN ? N.filter(p => p.vis && !KNOWN.has(p.id)) : [];
-function reveal() { if (!EMB || !KNOWN) return; const F = fresh(); if (!F.length) return; const t = performance.now();
+// everyone new in every universe you've opened up (the dock's dot counts them all; owner, November 2026: a whole Spider-Verse watched lit
+// nothing, as only the room on screen was counted), and the ones in the room on screen, who pop in when it opens
+const fresh = () => KNOWN ? N.filter(p => p.A.length > 0 && uniOk(p.u) && !KNOWN.has(p.id)) : [];
+const freshHere = () => fresh().filter(p => p.vis);
+// what's left lights the dock, and the tab of each universe that still has someone new in it
+const freshTell = () => { if (parent.netFresh) parent.netFresh(fresh().length); uniTabs(); };
+function reveal() { if (!EMB || !KNOWN) return; const F = freshHere(); if (!F.length) return; const t = performance.now();
   const step = Math.min(40, 2000 / F.length);   // each one on its own, nearest first, the whole lot within two seconds (owner: some came one by one, then the rest all at once)
   F.sort((a, b) => Math.hypot(a.hx - cam.x, a.hy - cam.y) - Math.hypot(b.hx - cam.x, b.hy - cam.y)).forEach((p, i) => { p.popAt = t + 250 + i * step; p.inAt = p.popAt + 150; KNOWN.add(p.id); });
-  if (parent.netKnow) parent.netKnow(F.map(p => p.id)); if (parent.netFresh) parent.netFresh(0); }
-self.netKnowAll = () => { const F = fresh(); F.forEach(p => KNOWN.add(p.id)); if (parent.netKnow) parent.netKnow(F.map(p => p.id)); if (parent.netFresh) parent.netFresh(0); };
+  if (parent.netKnow) parent.netKnow(F.map(p => p.id)); freshTell(); }
+self.netKnowAll = () => { const F = fresh(); F.forEach(p => KNOWN.add(p.id)); if (parent.netKnow) parent.netKnow(F.map(p => p.id)); freshTell(); };
 
 // wandering: drag to pan, with a little glide when you let go; two fingers (or the wheel) to zoom; a tap picks whoever is under it
 let drag = null, pts = new Map(), pinch0 = null, lastEmpty = null;
@@ -714,7 +721,7 @@ self.netPreview = id => { const p = findP(id); if (!p || !p.vis) return null;
   return { n: L.length, L: L.slice(0, 3).map(([j, k]) => ({ n: N[j].n, k: KS[k], c: KC[k], w: whoLine(p, N[j], relOf(p, N[j])) })),
     // for a file's small web: the person, up to a dozen of their connections (kind by kind), and how many of each kind
     me: { n: p.n, i: ini(p.n) }, W: pick12(L).map(([j, k]) => ({ n: N[j].n, i: ini(N[j].n), c: KC[k], k })), K }; };
-self.netSeen = (f, uok, sat, ek, known) => { if (known) KNOWN = new Set(known); try { return seenIn(f, uok, sat, ek); } finally { if (EMB && parent.netFresh && !LIVE) parent.netFresh(fresh().length); } };
+self.netSeen = (f, uok, sat, ek, known) => { if (known) KNOWN = new Set(known); try { return seenIn(f, uok, sat, ek); } finally { if (EMB && !LIVE) freshTell(); } };
 function seenIn(f, uok, sat, ek) { if (sat != null) document.documentElement.style.setProperty('--sat', sat + 'px');
   const key = TT.map(t => f(t) ? 1 : 0).join('') + UNIS.filter(([u]) => u !== 'all').map(([u]) => uok(u) ? 1 : 0).join('') + (ek || '');   /* and the episodes ticked */
   SEENF = f; UNIOK = uok; document.documentElement.classList.remove('wait'); if (key === seenKey) return; const first = seenKey === null; seenKey = key;
@@ -730,7 +737,8 @@ function worldsOf(u) { const c = new Map(); N.forEach(p => { if (p.u === u && (m
 function setWorld(p) { const k = typeof p === 'string' ? p : wk(p), u = k.split('|')[0]; if (u === UNI) return; UNI = u; WORLD = null; uniTabs(); if (sel) home(); applyCut(CUT);
   N.forEach(q => { if (q.arrive) { q.arrive = false; q.inAt = 0; q.go = 0; q.wx = q.hx; q.wy = q.hy; } }); fitRoom(); if (LIVE) reveal(); }
 function uniTabs() { const W = worldsOf(UNI), el = document.querySelector('.worlds');
-  el.hidden = true; el.innerHTML = '';   /* Earths are districts in the room now, not tabs */ document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}">${l}</button>`).join(''); }
+  el.hidden = true; el.innerHTML = '';   /* Earths are districts in the room now, not tabs */ const nw = new Set(fresh().map(p => p.u));
+  document.querySelector('.unis').innerHTML = UNIS.filter(([u]) => uniOk(u)).map(([u, l]) => `<button type="button" role="tab" data-uni="${u}" aria-selected="${u === UNI}"${nw.has(u) ? ' class="nw"' : ''}>${l}</button>`).join(''); }
 document.querySelector('.unis').addEventListener('click', e => { const b = e.target.closest('[data-uni]'); if (b) setUni(b.dataset.uni); });
 document.querySelector('.worlds').addEventListener('click', e => { const b = e.target.closest('[data-world]'); if (b) setWorld(b.dataset.world); });
 uniTabs();

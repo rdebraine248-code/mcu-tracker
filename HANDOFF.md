@@ -456,6 +456,10 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
   bubbles like how every other page reveals new additions"): someone you haven't seen there lights its dock button (`netFresh`, counted
   by the frame as you watch, via `newDots`); opening it pops them in, nearest first, with a gold ring (`reveal`, `p.popAt`), and they're
   remembered (`state.netKnown`, `netKnow`). Holding the dock button marks everyone as seen (`netKnowAll`).
+  **Every universe counts** (owner, 4 November 2026, option A: a whole Spider-Verse watched lit no dot, since only the room on screen
+  was counted): the dock dot counts newcomers in every universe whose tab you've opened up (`fresh`); opening the Network pops in the
+  ones in the room it opens on (`freshHere`), a universe tab that still has newcomers wears the app's new dot (as Story's mode buttons
+  do), and opening that tab pops them in. The dock dot goes out once every such tab has been opened (`freshTell`).
 - **Each Earth is a district of the Network's room** (owner, November 2026: "I thought we separated them by Earths ... having
   Wolverine next to Logan"; then, against Earth tabs: "they could just be a bigger bubble and then within that Earth bubble are the group
   bubbles"): one room per universe, each Earth's crews packed together inside a big labelled bubble (`DIST`), districts placed as
@@ -539,6 +543,11 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
   `season` in `prof/hub2.js`), and is listed under its season ("What If...? S2", `lab` and `DATA.seas`); a season the app lists as its own
   title keeps it. "In N titles", Other versions, On screen together and Served with all go by season. Story order puts an episode at its
   season's place (`prof/ord.js`). **After hub2.js, always rerun ord.js and mapx.js before bake.js** (they index hub.json's titles).
+  **Rebuilding the Network** (4 November 2026; the intermediate files had lived only in an old scratchpad): from `mockup-data/`, with
+  the main build served at `ROOT=$PWD/out/root` (see Tests), run in `network/src/prof/`: `node hub2.js`, `node ord.js`, `node mapx.js`,
+  `node relbake.js`, `node bake.js`, then copy `network/src/network-hub.html` over `network/network-hub.html`. `src/rel` links to
+  `network/rel`; `prof/story.json` (the Sacred Timeline's titles in story order, `DATA.timeline`) and `rel/out1.json` (the crewless
+  people's circles, recovered from the built Network) were rebuilt and checked: the whole run reproduces the Network byte for byte.
   A season counts as soon as you've reached an episode they're in (`epSeen`; owner: met in Agent Carter S1's first episode, yet "in
   0 titles"). Leaving the Network sends it back to the start, like every other page (`netHome`): the Sacred Timeline's room, centred and
   zoomed out, no one locked on, the search shut.
@@ -1097,6 +1106,15 @@ These happened in earlier chats. Each cost the owner time.
 
 ## Open items
 
+**The close-out plan (owner, 4 November 2026: "Do the rest of the plan"), in this order:**
+1. The Network's dock dot for every universe (option A). Done and pushed to main on the owner's "push".
+2. A fresh random 600 of the Network's connections, so part 2 can be locked.
+3. The "Held" line under a file's entry, before the audit (owner: "I think I want a held line so maybe that needs to happen before
+   step 3 audit"), so the audit covers it.
+4. Audit parts 4 to 9, each with its second checker, its random 600 and the full content check.
+5. The final round: the whole test suite, the owner's check of the test build, one push to main on their word, the handoff updated.
+6. Landscape, stage 2, last of all (owner: "all the way at the end ... when all is said and done").
+
 - **Audit status (4 November 2026, all on main as of ab088a6):** parts 1 to 3 (people, the Network, the files) are done: checked, second-checked,
   applied, then a fresh random 600 of each rechecked (people 1.6%, the Network 4.3%, files 1.2% wrong, all fixed after a second check),
   then the Network's last pass over all 7,357 stages, then the owner's answers to the 59 report questions. **Next: parts 4 to 9**
@@ -1105,9 +1123,9 @@ These happened in earlier chats. Each cost the owner time.
   (4.3%), so a fresh Network sample is owed before calling part 2 locked. Audit records: `mockup-data/audit2/`.
 - **The report page** (questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. Answers come back as comment threads
   (the page's Submit). All 59 answered and done; new questions go on as 60 onward.
-- **To revisit after the audit (owner, November 2026):** a "Held" line under a file's entry, beside At and Case: the Collection
+- **Now before the audit (owner, 4 November 2026; first set for after it):** a "Held" line under a file's entry, beside At and Case: the Collection
   objects that person holds in that title (the Darkhold under Wanda's Multiverse of Madness entry), shown once the Collection is found.
-  The owner would have liked it before the audit; it waits until after.
+  It comes before audit parts 4 to 9, so the audit covers it.
 - **The audit plan** (owner, November 2026): step by step, in HANDOFF's words above. 1) Build the content check and run it in full,
   fix what it finds. 2) The audit in nine parts, in order: people (groups, Earths, versions), Network connections, files (records,
   statuses, hand-overs, At and Case), Atlas, character logs, Damage Control and Comms (messages and headlines), the story lists and the
