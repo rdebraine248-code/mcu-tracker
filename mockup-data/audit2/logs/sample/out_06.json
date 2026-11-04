@@ -1,0 +1,98 @@
+{
+ "checked": [
+  "cx-incursions:rows:status:50",
+  "cx-daredevil:1",
+  "cx-captain-marvel:rows:aliases:2",
+  "cx-the-champions:rows:subjects:3",
+  "cx-s-h-i-e-l-d:22",
+  "ch-3:rows:period:1",
+  "cx-the-thunderbolts:6",
+  "cx-the-punisher:rows:status:1",
+  "cx-incursions:rows:status:48",
+  "cx-s-h-i-e-l-d:rows:affiliation:0",
+  "cx-spider-man:rows:aliases:0",
+  "cx-nick-fury:7",
+  "cx-pruned-characters:rows:affiliation:0",
+  "cx-thor:0",
+  "ch-incursions:rows:period:36",
+  "cx-s-h-i-e-l-d:12",
+  "cx-falcon-winter-soldier:1",
+  "ch-incursions:66",
+  "ch-the-spider-verse:16",
+  "cx-incursions:82",
+  "cx-the-watcher:rows:status:0",
+  "cx-incursions:37",
+  "cx-spider-man:rows:affiliation:1",
+  "cx-loki-the-tva:3",
+  "cx-daredevil:rows:affiliation:0",
+  "cx-incursions:12",
+  "cx-the-defenders:rows:status:3",
+  "ch-the-fox-men:1",
+  "cx-hulk:rows:status:3",
+  "cx-loki-the-tva:1",
+  "cx-hawkeye:rows:affiliation:4",
+  "cx-s-h-i-e-l-d:23",
+  "cx-s-h-i-e-l-d:rows:subjects:6",
+  "cx-nick-fury:rows:status:6",
+  "ch-4:0",
+  "cx-s-h-i-e-l-d:rows:subjects:4",
+  "ch-incursions:rows:period:31",
+  "ch-the-spider-verse:19",
+  "cx-nick-fury:rows:status:2",
+  "ch-pruned-timelines:9",
+  "cx-wanda-vision:6",
+  "ch-incursions:rows:period:19",
+  "cx-the-sony-spider-men:rows:affiliation:0",
+  "cx-incursions:rows:status:34",
+  "cx-incursions:rows:status:2",
+  "cx-incursions:96",
+  "ch-incursions:9",
+  "cx-thor:rows:status:6",
+  "cx-the-fox-men:rows:affiliation:0",
+  "ch-2:3"
+ ],
+ "changes": [
+  {
+   "id": "cx-incursions:rows:status:50",
+   "q": "L4",
+   "now": [
+    "Fifty-one worlds terminated",
+    "M.O.D.O.K."
+   ],
+   "proposed": [
+    "Fifty-one worlds terminated",
+    "Hit-Monkey"
+   ],
+   "evidence": "M.O.D.O.K. and Hit-Monkey are one reality, Earth-1226 (Marvel Database: 'The reality of Marvel's M.O.D.O.K. and Marvel's Hit-Monkey'). This log's own recaps mark it terminated only at Hit-Monkey ('On the TVA's monitors, Earth-1226 is marked terminated'); the M.O.D.O.K. recap has no termination. So the 51st termination is shown one title early. Moving the stage to Hit-Monkey matches the recap and the earlier stages (Hulk TV films, Ghost Rider, Ultimate Avengers, which count at a world's last title).",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-1226&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "cx-incursions:rows:status:48",
+   "q": "L4",
+   "now": [
+    "Forty-nine worlds terminated",
+    "Marvel Rising: Initiation"
+   ],
+   "proposed": [
+    "Forty-nine worlds terminated",
+    "Marvel Rising: Playing with Fire"
+   ],
+   "evidence": "Every Marvel Rising title (Initiation to Playing with Fire) is one reality, Earth-18878 (Marvel Database). This log's recaps mark Earth-18878 terminated only at Marvel Rising: Playing with Fire; the Initiation recap has no termination. The stage is shown seven titles before the title that reveals it.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-18878&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "cx-incursions:rows:status and ch-incursions:rows:period (stages 37, 38, 39, 40, 41, 44, 48, 50)",
+   "question": "From stage 37 on, both Incursions logs put each new count at a world's FIRST title, but the recaps mark that world terminated at its LAST title (earlier stages, 0 to 36, count at the last title). Move all of them to the terminating title, as proposed for stages 48 and 50?",
+   "options": [
+    "Move every stage to the title whose recap marks the world terminated: Iron Man (2010) to Avengers Confidential: Black Widow & Punisher (Earth-101001); Ultimate Spider-Man to Avengers: Secret Wars (2017) (Earth-12041); Iron Man & Hulk: Heroes United to Iron Man & Captain America: Heroes United (Earth-TRN607); LEGO Marvel Super Heroes: Maximum Overload to LEGO Marvel Avengers: Mission Demolition (Earth-13122); Big Hero 6 to Baymax! (Earth-14123); Guardians of the Galaxy (2015) to Avengers: Black Panther's Quest (Earth-17628); Marvel Rising: Initiation to Marvel Rising: Playing with Fire (Earth-18878); M.O.D.O.K. to Hit-Monkey (Earth-1226)",
+    "Keep the counts at each world's first title and remove the per-recap termination lines instead"
+   ],
+   "evidence": "Compared each stage title with the recap text in index.html: the recap carrying 'Earth-X is marked terminated' is the last title of each of those worlds, never the stage title. Marvel Database confirms the groupings, e.g. Earth-17628 = Guardians of the Galaxy (2015), Marvel's Spider-Man and Black Panther's Quest; Earth-1226 = M.O.D.O.K. and Hit-Monkey.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-17628&prop=wikitext&format=json"
+  }
+ ]
+}

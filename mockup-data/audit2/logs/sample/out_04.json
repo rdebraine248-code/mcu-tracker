@@ -1,0 +1,153 @@
+{
+ "checked": [
+  "ch-incursions:rows:period:38",
+  "cx-s-h-i-e-l-d:rows:aliases:0",
+  "cx-the-punisher:0",
+  "cx-incursions:4",
+  "cx-the-sony-spider-men:rows:status:3",
+  "cx-iron-man:4",
+  "cx-s-h-i-e-l-d:16",
+  "cx-shang-chi-the-ten-rings:rows:aliases:2",
+  "ch-incursions:rows:period:2",
+  "cx-thor:rows:subjects:0",
+  "cx-nick-fury:rows:affiliation:1",
+  "cx-nick-fury:1",
+  "cx-black-widow:rows:status:4",
+  "cx-hulk:rows:status:6",
+  "cx-hulk:6",
+  "cx-the-defenders:rows:affiliation:4",
+  "ch-7:rows:period:4",
+  "cx-the-champions:rows:status:7",
+  "cx-the-avengers:rows:affiliation:1",
+  "cx-thor:rows:affiliation:2",
+  "cx-incursions:16",
+  "cx-the-fox-men:8",
+  "ch-incursions:13",
+  "ch-incursions:62",
+  "cx-black-widow:rows:affiliation:6",
+  "ch-incursions:65",
+  "ch-incursions:rows:period:13",
+  "cx-loki-the-tva:rows:status:4",
+  "cx-the-sony-spider-men:rows:status:2",
+  "ch-pruned-timelines:11",
+  "cx-spider-man:4",
+  "cx-incursions:67",
+  "cx-incursions:18",
+  "ch-8:rows:period:6",
+  "cx-the-avengers:rows:affiliation:4",
+  "ch-10:6",
+  "cx-the-avengers:rows:subjects:3",
+  "cx-wanda-vision:3",
+  "cx-hawkeye:1",
+  "cx-nick-fury:rows:status:5",
+  "cx-incursions:84",
+  "cx-nick-fury:rows:affiliation:3",
+  "cx-incursions:rows:status:42",
+  "cx-s-h-i-e-l-d:rows:subjects:5",
+  "cx-incursions:33",
+  "cx-the-fox-men:rows:affiliation:3",
+  "ch-9:rows:period:0",
+  "cx-the-avengers:rows:status:1",
+  "ch-incursions:2",
+  "ch-incursions:rows:period:43"
+ ],
+ "changes": [
+  {
+   "id": "cx-s-h-i-e-l-d:rows:aliases:0",
+   "q": "L4",
+   "now": "Stage 0 'The Strategic Scientific Reserve' (Captain America: The First Avenger) holds until stage 1 at Iron Man, so it is still shown at Agent Carter (One-Shot) and Captain Marvel",
+   "proposed": "Keep stage 0, and add a stage ['S.H.I.E.L.D.', 'Agent Carter (One-Shot)'] before the Iron Man stage",
+   "evidence": "At the end of Agent Carter (One-Shot), Howard Stark tells Flynn that Carter is to run S.H.I.E.L.D. with him, which is the first time the name is said. In Captain Marvel, Fury and Coulson are S.H.I.E.L.D. agents and the agency is named throughout. This box's own status row already marks 'S.H.I.E.L.D. founded' at the One-Shot. So the SSR name is out of date at the One-Shot and at Captain Marvel. The full 'Strategic Homeland Intervention, Enforcement and Logistics Division' line is first said by Coulson in Iron Man, so stage 1 can stay where it is.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Agent_Carter_(One-Shot)&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "id": "cx-the-avengers:rows:affiliation:4",
+   "q": "L4",
+   "now": "Valentina Allegra de Fontaine owns the name",
+   "proposed": "Valentina Allegra de Fontaine claims the name",
+   "evidence": "In Thunderbolts*, Valentina presents the team to the press as the New Avengers to save herself. Nothing on screen says she owns the name. In the post-credits scene, set fourteen months later, the New Avengers are arguing about Sam Wilson's lawsuit against them over their use of the 'Avengers' trademark, so the name is in dispute.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Thunderbolts*&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "ch-incursions:2",
+   "question": "This recap ends 'On the TVA's monitors, Earth-700089 is marked terminated.' No title in this box shows that. The only on-screen TVA monitor list of Earths is the Incursion scene added to Avengers Endgame: Encore, and Earth-700089 is not on it. The Marvel Database lists Earth-700089 as Existing. The same line is in every Incursions recap, and the 'worlds lost' period row and 'worlds terminated' status row count these lines. Is the termination line an intended in-box framing device, or should it come out?",
+   "options": [
+    "Keep it as an intended framing device for the Incursions box (no change)",
+    "Drop the termination sentence from every Incursions recap and change or remove the counting rows to match",
+    "Keep the line only for Earths actually shown on the Encore TVA monitors"
+   ],
+   "evidence": "The Marvel Database page for Avengers Endgame: Encore lists the Earths named on the TVA monitors (Earth-10005, Earth-1127, Earth-7355, Earth-8558, Earth-7712, Earth-312, Earth-43214 and others), and Earth-700089 is not among them. The Earth-700089 reality page shows Status = Existing. A batch-02 worker dropped this sentence as an L1 change for several entries, while batch 01 left it in. Raised here once per entry so the treatment stays the same across the box.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Avengers_Endgame:_Encore&prop=wikitext&format=json"
+  },
+  {
+   "key": "cx-incursions:16",
+   "question": "This recap ends 'On the TVA's monitors, Earth-TRN250 is marked terminated.' No title in this box shows that. The only on-screen TVA monitor list of Earths is the Incursion scene added to Avengers Endgame: Encore, and Earth-TRN250 is not on it. The Marvel Database lists Earth-TRN250 as Existing. The same line is in every Incursions recap, and the 'worlds lost' period row and 'worlds terminated' status row count these lines. Is the termination line an intended in-box framing device, or should it come out?",
+   "options": [
+    "Keep it as an intended framing device for the Incursions box (no change)",
+    "Drop the termination sentence from every Incursions recap and change or remove the counting rows to match",
+    "Keep the line only for Earths actually shown on the Encore TVA monitors"
+   ],
+   "evidence": "The Marvel Database page for Avengers Endgame: Encore lists the Earths named on the TVA monitors (Earth-10005, Earth-1127, Earth-7355, Earth-8558, Earth-7712, Earth-312, Earth-43214 and others), and Earth-TRN250 is not among them. The Earth-TRN250 reality page shows Status = Existing. A batch-02 worker dropped this sentence as an L1 change for several entries, while batch 01 left it in. Raised here once per entry so the treatment stays the same across the box.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Avengers_Endgame:_Encore&prop=wikitext&format=json"
+  },
+  {
+   "key": "cx-incursions:18",
+   "question": "This recap ends 'On the TVA's monitors, Earth-652975 is marked terminated.' No title in this box shows that. The only on-screen TVA monitor list of Earths is the Incursion scene added to Avengers Endgame: Encore, and Earth-652975 is not on it. The Marvel Database lists Earth-652975 as Existing. The same line is in every Incursions recap, and the 'worlds lost' period row and 'worlds terminated' status row count these lines. Is the termination line an intended in-box framing device, or should it come out?",
+   "options": [
+    "Keep it as an intended framing device for the Incursions box (no change)",
+    "Drop the termination sentence from every Incursions recap and change or remove the counting rows to match",
+    "Keep the line only for Earths actually shown on the Encore TVA monitors"
+   ],
+   "evidence": "The Marvel Database page for Avengers Endgame: Encore lists the Earths named on the TVA monitors (Earth-10005, Earth-1127, Earth-7355, Earth-8558, Earth-7712, Earth-312, Earth-43214 and others), and Earth-652975 is not among them. The Earth-652975 reality page shows Status = Existing. A batch-02 worker dropped this sentence as an L1 change for several entries, while batch 01 left it in. Raised here once per entry so the treatment stays the same across the box.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Avengers_Endgame:_Encore&prop=wikitext&format=json"
+  },
+  {
+   "key": "cx-incursions:33",
+   "question": "This recap ends 'On the TVA's monitors, Earth-58460 is marked terminated.' No title in this box shows that. The only on-screen TVA monitor list of Earths is the Incursion scene added to Avengers Endgame: Encore, and Earth-58460 is not on it. The Marvel Database lists Earth-58460 as Existing. The same line is in every Incursions recap, and the 'worlds lost' period row and 'worlds terminated' status row count these lines. Is the termination line an intended in-box framing device, or should it come out?",
+   "options": [
+    "Keep it as an intended framing device for the Incursions box (no change)",
+    "Drop the termination sentence from every Incursions recap and change or remove the counting rows to match",
+    "Keep the line only for Earths actually shown on the Encore TVA monitors"
+   ],
+   "evidence": "The Marvel Database page for Avengers Endgame: Encore lists the Earths named on the TVA monitors (Earth-10005, Earth-1127, Earth-7355, Earth-8558, Earth-7712, Earth-312, Earth-43214 and others), and Earth-58460 is not among them. The Earth-58460 reality page shows Status = Existing. A batch-02 worker dropped this sentence as an L1 change for several entries, while batch 01 left it in. Raised here once per entry so the treatment stays the same across the box.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Avengers_Endgame:_Encore&prop=wikitext&format=json"
+  },
+  {
+   "key": "cx-incursions:84",
+   "question": "This recap ends 'On the TVA's monitors, Earth-17372 is marked terminated.' No title in this box shows that. The only on-screen TVA monitor list of Earths is the Incursion scene added to Avengers Endgame: Encore, and Earth-17372 is not on it. The Marvel Database lists Earth-17372 as Existing. The same line is in every Incursions recap, and the 'worlds lost' period row and 'worlds terminated' status row count these lines. Is the termination line an intended in-box framing device, or should it come out?",
+   "options": [
+    "Keep it as an intended framing device for the Incursions box (no change)",
+    "Drop the termination sentence from every Incursions recap and change or remove the counting rows to match",
+    "Keep the line only for Earths actually shown on the Encore TVA monitors"
+   ],
+   "evidence": "The Marvel Database page for Avengers Endgame: Encore lists the Earths named on the TVA monitors (Earth-10005, Earth-1127, Earth-7355, Earth-8558, Earth-7712, Earth-312, Earth-43214 and others), and Earth-17372 is not among them. The Earth-17372 reality page shows Status = Existing. A batch-02 worker dropped this sentence as an L1 change for several entries, while batch 01 left it in. Raised here once per entry so the treatment stays the same across the box.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Avengers_Endgame:_Encore&prop=wikitext&format=json"
+  },
+  {
+   "key": "ch-incursions:62",
+   "question": "This recap ends 'On the TVA's monitors, Earth-12041 is marked terminated.' No title in this box shows that. The only on-screen TVA monitor list of Earths is the Incursion scene added to Avengers Endgame: Encore, and Earth-12041 is not on it. The Marvel Database lists Earth-12041 as Existing. The same line is in every Incursions recap, and the 'worlds lost' period row and 'worlds terminated' status row count these lines. Is the termination line an intended in-box framing device, or should it come out?",
+   "options": [
+    "Keep it as an intended framing device for the Incursions box (no change)",
+    "Drop the termination sentence from every Incursions recap and change or remove the counting rows to match",
+    "Keep the line only for Earths actually shown on the Encore TVA monitors"
+   ],
+   "evidence": "The Marvel Database page for Avengers Endgame: Encore lists the Earths named on the TVA monitors (Earth-10005, Earth-1127, Earth-7355, Earth-8558, Earth-7712, Earth-312, Earth-43214 and others), and Earth-12041 is not among them. The Earth-12041 reality page shows Status = Existing. A batch-02 worker dropped this sentence as an L1 change for several entries, while batch 01 left it in. Raised here once per entry so the treatment stays the same across the box.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Avengers_Endgame:_Encore&prop=wikitext&format=json"
+  },
+  {
+   "key": "ch-incursions:rows:period:38",
+   "question": "Earth-12041 covers Ultimate Spider-Man through Avengers: Secret Wars (2017). The period row counts it as the 39th world lost at Ultimate Spider-Man, the first of those titles, but the recaps mark it terminated only at Avengers: Secret Wars (2017), five titles later. By Ultimate Spider-Man the recaps have marked 38 worlds, the 38th being Earth-101001 at Avengers Confidential. Earth-101001 itself is counted early, at Iron Man (2010) in stage 37. Should each stage move to the title whose recap marks the world terminated?",
+   "options": [
+    "Move the stage to the title whose recap marks the termination (Avengers: Secret Wars (2017) here)",
+    "Keep stages at the first title of each world, and move the recap's termination line to match",
+    "Leave as is"
+   ],
+   "evidence": "This is the same shared-world pattern raised for cx-incursions:rows:status:44 in batch 01, and the ch-incursions period row mirrors the cx-incursions status row. The Marvel Database gives Earth-12041 as the 2012 to 2018 Marvel Animated Universe, first appearing in Ultimate Spider-Man. This is about internal consistency: the TVA monitors are not on screen in these titles.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-12041&prop=wikitext&format=json"
+  }
+ ]
+}

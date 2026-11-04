@@ -1,0 +1,120 @@
+{
+ "checked": [
+  "cx-incursions:rows:status:33",
+  "cx-the-fox-men:rows:status:6",
+  "ch-incursions:27",
+  "cx-nick-fury:rows:subjects:0",
+  "cx-pruned-characters:26",
+  "cx-black-widow:4",
+  "cx-incursions:1",
+  "cx-captain-america:rows:status:1",
+  "cx-the-fox-men:rows:affiliation:2",
+  "cx-thor:2",
+  "cx-the-fantastic-four:rows:affiliation:0",
+  "cx-guardians-of-the-galaxy:rows:status:4",
+  "ch-incursions:57",
+  "ch-5:rows:period:11",
+  "cx-incursions:rows:status:10",
+  "ch-5:rows:period:1",
+  "ch-11:0",
+  "cx-the-champions:rows:aliases:3",
+  "cx-spider-man:3",
+  "cx-falcon-winter-soldier:6",
+  "cx-the-watcher:rows:subjects:0",
+  "cx-the-avengers:rows:subjects:2",
+  "ch-pruned-timelines:rows:period:3",
+  "ch-4:2",
+  "cx-wanda-vision:rows:status:7",
+  "cx-wanda-vision:rows:status:2",
+  "cx-incursions:rows:status:36",
+  "ch-incursions:rows:period:48",
+  "ch-incursions:rows:period:50",
+  "cx-the-champions:4",
+  "cx-ant-man-the-wasp:3",
+  "cx-shang-chi-the-ten-rings:rows:subjects:2",
+  "cx-loki-the-tva:rows:status:5",
+  "cx-the-watcher:3",
+  "cx-black-panther-wakanda:rows:aliases:0",
+  "cx-wanda-vision:rows:status:3",
+  "cx-the-watcher:0",
+  "ch-incursions:rows:period:35",
+  "cx-thor:rows:affiliation:4",
+  "cx-the-avengers:rows:aliases:0",
+  "cx-iron-man:1",
+  "cx-nick-fury:rows:status:1",
+  "cx-the-fantastic-four:rows:aliases:0",
+  "cx-iron-man:rows:status:5",
+  "ch-4:rows:period:0",
+  "cx-wanda-vision:8",
+  "cx-iron-man:rows:affiliation:2",
+  "cx-the-thunderbolts:1",
+  "cx-incursions:rows:status:23",
+  "cx-wanda-vision:9"
+ ],
+ "changes": [
+  {
+   "id": "ch-incursions:rows:period:48",
+   "q": "L4",
+   "now": [
+    "Forty-nine worlds, lost",
+    "Marvel Rising: Initiation"
+   ],
+   "proposed": [
+    "Forty-nine worlds, lost",
+    "Marvel Rising: Playing with Fire"
+   ],
+   "evidence": "Marvel Rising: Initiation through Playing with Fire are all set in Earth-18878 (first appearance: Marvel Rising: Initiation). The chapter's own recaps mark Earth-18878 terminated only at Marvel Rising: Playing with Fire (Initiation's recap has no termination line), so the 49th world is not lost until then; the stage still precedes Helstrom (Fifty). Same pattern, not in this sample: in both Incursions rows (ch-incursions period and cx-incursions status) every stage from index 37 on sits on the first title of its world instead of the title whose recap marks it terminated (markers: Avengers Confidential, Avengers: Secret Wars (2017), Iron Man & Captain America: Heroes United, LEGO Marvel Avengers: Mission Demolition, Baymax!, Fantastic Four (2015), Frost Fight!, Avengers: Black Panther's Quest, Legion, The Gifted, Marvel Super Hero Adventures, Marvel Rising: Playing with Fire, Helstrom, Hit-Monkey, Moon Girl and Devil Dinosaur), the same fix part 5 already made for stages 3 to 33.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-18878&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "ch-incursions:rows:period:50",
+   "q": "L4",
+   "now": [
+    "Fifty-one worlds, lost",
+    "M.O.D.O.K."
+   ],
+   "proposed": [
+    "Fifty-one worlds, lost",
+    "Hit-Monkey"
+   ],
+   "evidence": "Earth-1226 is the shared reality of both M.O.D.O.K. and Hit-Monkey. The chapter's own recaps mark Earth-1226 terminated only at Hit-Monkey (M.O.D.O.K.'s recap has no termination line), so the count rises one title early; Hit-Monkey still precedes Moon Girl and Devil Dinosaur (Fifty-two).",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-1226&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "ch-11:0",
+   "q": "L1",
+   "now": "Cassie Lang's device pulls her family into the Quantum Realm, where Janet van Dyne admits she was trapped with Kang the Conqueror, an exiled man from another universe. Scott and Cassie lead the Quantum Realm's people against him and defeat him, but Scott wonders if it's really over.",
+   "proposed": "Cassie Lang's device pulls her family into the Quantum Realm, where Janet van Dyne admits she was trapped with Kang the Conqueror, an exiled man from another universe. Cassie leads the Quantum Realm's people against him, and Scott and Hope defeat him, but Scott wonders if it's really over.",
+   "evidence": "Cassie rescues Jentorra and they start the uprising against Kang's army; Scott fights Kang, and it is Hope who returns and, with Scott, throws Kang into his power core. Scott does not lead the people, and Cassie is not part of Kang's defeat.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ant-Man_and_the_Wasp:_Quantumania&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "id": "cx-the-watcher:3",
+   "q": "L1",
+   "now": "Baby Groot gets into one small adventure after another on the Guardians' ship.",
+   "proposed": "Baby Groot gets into one small adventure after another, on the Guardians' ship and on alien worlds.",
+   "evidence": "Several shorts are not on the ship: The Little Guy (Grunds under a rock), Groot Takes a Bath (a mud pool with a squirrel bird), the egg adopted 'on an alien planet', the snowman on 'a snowy planet', and the temple of the sacred seed narrated by the Watcher.",
+   "source": "https://en.wikipedia.org/w/index.php?title=I_Am_Groot&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "id": "cx-the-fantastic-four:rows:aliases:0",
+   "q": "L4",
+   "now": [
+    "Reed: Mister Fantastic",
+    "Doctor Strange in the Multiverse of Madness"
+   ],
+   "proposed": [
+    "None yet",
+    "Doctor Strange in the Multiverse of Madness"
+   ],
+   "evidence": "In Multiverse of Madness Earth-838's Reed is named only as Reed Richards (the smartest man alive); the MCU wiki cites his real name to the film but sources the codename Mister Fantastic only to a talk-show interview, so it is not on screen. Stage 1 (Deadpool & Wolverine, where Reed does not appear) repeats 'Reed: Mister Fantastic' and inherits the same problem; the name is first on screen in The Fantastic Four: First Steps (stage 2).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Mister_Fantastic/Earth-838&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": []
+}

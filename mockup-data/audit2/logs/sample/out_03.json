@@ -1,0 +1,77 @@
+{
+ "checked": [
+  "cx-nick-fury:10",
+  "ch-3:rows:period:7",
+  "cx-wanda-vision:1",
+  "ch-the-spider-verse:rows:period:3",
+  "cx-the-champions:rows:status:5",
+  "ch-7:rows:period:5",
+  "cx-guardians-of-the-galaxy:3",
+  "cx-nick-fury:rows:subjects:1",
+  "cx-incursions:rows:status:9",
+  "ch-6:rows:period:1",
+  "ch-incursions:55",
+  "cx-shang-chi-the-ten-rings:3",
+  "ch-the-fox-men:rows:period:3",
+  "cx-the-thunderbolts:4",
+  "ch-10:4",
+  "cx-hulk:rows:status:5",
+  "ch-the-spider-verse:10",
+  "cx-black-widow:rows:status:5",
+  "cx-black-widow:5",
+  "cx-incursions:45",
+  "cx-the-defenders:7",
+  "ch-incursions:rows:period:16",
+  "cx-incursions:rows:status:17",
+  "ch-5:1",
+  "cx-the-watcher:rows:status:1",
+  "ch-incursions:58",
+  "ch-8:rows:period:2",
+  "cx-iron-man:2",
+  "cx-ant-man-the-wasp:rows:affiliation:4",
+  "cx-guardians-of-the-galaxy:rows:subjects:2",
+  "cx-pruned-characters:3",
+  "cx-incursions:14",
+  "cx-incursions:rows:status:26",
+  "cx-shang-chi-the-ten-rings:rows:subjects:0",
+  "cx-the-sony-spider-men:rows:subjects:2",
+  "cx-captain-marvel:rows:status:2",
+  "cx-the-punisher:rows:aliases:1",
+  "cx-black-panther-wakanda:rows:subjects:2",
+  "cx-the-fox-men:rows:aliases:1",
+  "cx-loki-the-tva:rows:aliases:1",
+  "cx-incursions:44",
+  "cx-the-champions:rows:status:0",
+  "cx-incursions:46",
+  "cx-loki-the-tva:rows:affiliation:1",
+  "cx-loki-the-tva:rows:affiliation:3",
+  "cx-hulk:rows:aliases:0",
+  "ch-the-fox-men:rows:period:2",
+  "cx-thor:5",
+  "cx-black-widow:rows:status:0",
+  "ch-the-fox-men:rows:period:1"
+ ],
+ "changes": [
+  {
+   "id": "ch-incursions:55",
+   "q": "L1",
+   "now": "Tony Stark is framed for an attack by the young genius Ezekiel Stane and his Technovore technology, and goes on the run from S.H.I.E.L.D., with the Punisher's help.",
+   "proposed": "After an attack by the young genius Ezekiel Stane and his Technovore technology, Tony Stark goes on the run from S.H.I.E.L.D., with the Punisher's help.",
+   "evidence": "Tony is never framed. Ezekiel Stane attacks the HOWARD satellite launch and seemingly kills Rhodey; Fury holds Tony on the Helicarrier as the only surviving witness (Tony asks if they think he had anything to do with it, Fury says they need answers), Tony breaks out and Fury declares him a fugitive. The same 'framed' wording is in cx-incursions:55.",
+   "source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Iron_Man:_Rise_of_Technovore_(Video)&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "cx-incursions:rows:status (and ch-incursions:rows:period), stages 37-41, 44, 48, 50 (outside this sample)",
+   "question": "For a world spanning several titles, the count stage sits on that world's first title (e.g. Iron Man (2010), Ultimate Spider-Man, Big Hero 6, Marvel Rising: Initiation, M.O.D.O.K.), but the recaps only mark the world terminated on its last title (Avengers Confidential, Avengers: Secret Wars (2017), Baymax!, Marvel Rising: Playing with Fire, Hit-Monkey). Should each stage move to the title whose recap marks the termination?",
+   "options": [
+    "Move each stage to the title whose recap says 'marked terminated'",
+    "Keep stages on the world's first title"
+   ],
+   "evidence": "Stages 0-36 match the recaps' 'marked terminated' titles one to one; from stage 37 on, 8 stages sit on an earlier title of the same world than the recap that reveals the termination (both logs, identical).",
+   "source": "logs_now.json (cx-incursions and ch-incursions story vs rows)"
+  }
+ ]
+}

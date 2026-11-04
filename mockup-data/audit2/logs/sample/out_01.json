@@ -1,0 +1,78 @@
+{
+ "checked": [
+  "cx-captain-marvel:4",
+  "cx-incursions:rows:status:44",
+  "cx-incursions:59",
+  "cx-the-fox-men:rows:subjects:1",
+  "cx-the-champions:8",
+  "cx-incursions:rows:status:7",
+  "cx-falcon-winter-soldier:rows:aliases:3",
+  "cx-iron-man:6",
+  "cx-s-h-i-e-l-d:4",
+  "ch-2:4",
+  "ch-incursions:93",
+  "cx-pruned-characters:18",
+  "cx-the-defenders:5",
+  "cx-captain-marvel:rows:aliases:0",
+  "cx-black-panther-wakanda:rows:aliases:2",
+  "cx-falcon-winter-soldier:rows:affiliation:4",
+  "cx-the-thunderbolts:rows:aliases:0",
+  "cx-daredevil:6",
+  "cx-pruned-characters:6",
+  "cx-doctor-strange-wong:rows:affiliation:1",
+  "cx-nick-fury:4",
+  "cx-thor:rows:affiliation:1",
+  "cx-hulk:7",
+  "cx-incursions:rows:status:19",
+  "ch-7:0",
+  "cx-doctor-strange-wong:rows:aliases:1",
+  "cx-the-defenders:2",
+  "cx-captain-america:rows:affiliation:5",
+  "cx-pruned-characters:11",
+  "ch-the-spider-verse:17",
+  "cx-pruned-characters:21",
+  "cx-incursions:2",
+  "cx-incursions:31",
+  "cx-incursions:rows:status:13",
+  "cx-wanda-vision:rows:aliases:0",
+  "cx-the-champions:2",
+  "ch-pruned-timelines:0",
+  "cx-ant-man-the-wasp:rows:status:0",
+  "cx-falcon-winter-soldier:rows:status:5",
+  "cx-incursions:rows:status:15",
+  "cx-s-h-i-e-l-d:10",
+  "ch-the-spider-verse:9",
+  "cx-the-fantastic-four:0",
+  "cx-black-panther-wakanda:rows:affiliation:1",
+  "cx-nick-fury:rows:status:4",
+  "cx-black-panther-wakanda:6",
+  "ch-4:rows:period:2",
+  "ch-7:rows:period:2",
+  "cx-incursions:81",
+  "cx-incursions:56"
+ ],
+ "changes": [
+  {
+   "id": "cx-incursions:31",
+   "q": "L1",
+   "now": "Scientist Bruce Banner survives a gamma accident in his lab at Berkeley and becomes the Hulk, while his father David, who experimented on his own son years ago, turns himself into something worse. General Ross, the father of Bruce's colleague Betty, hunts the Hulk across the desert and into San Francisco, where Betty talks him down. Bruce fights his father one last time and disappears to a jungle clinic in South America. On the TVA's monitors, Earth-400083 is marked terminated.",
+   "proposed": "Scientist Bruce Banner survives a gamma accident in his lab at Berkeley and becomes the Hulk, while his father David, who experimented on himself years ago and passed the change on to his son, turns himself into something worse. General Ross, the father of Bruce's colleague Betty, hunts the Hulk across the desert and into San Francisco, where Betty talks him down. Bruce fights his father one last time and disappears to a jungle clinic in South America. On the TVA's monitors, Earth-400083 is marked terminated.",
+   "evidence": "In Hulk (2003), David Banner experiments on himself after Ross forbids human experimentation; Bruce inherits his altered DNA and David tries to find a cure. Neither the Wikipedia plot nor the Marvel Database plot has David experimenting on Bruce.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Hulk_(film)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "cx-incursions:rows:status:44",
+   "question": "Earth-17628 covers Guardians of the Galaxy (2015), Marvel's Spider-Man and Avengers: Black Panther's Quest. The status row counts it as the 45th world terminated at Guardians of the Galaxy (2015), the first of the three, but the recaps mark it terminated only at Avengers: Black Panther's Quest, the last of the three. That means the row shows the termination two titles before the recap reveals it. Should the stage move to the last title of each shared world?",
+   "options": [
+    "Move the stage to the last title of the shared world, matching the recaps (Avengers: Black Panther's Quest here)",
+    "Keep stages at the first title of each world, and move the recap's termination line to match",
+    "Leave as is"
+   ],
+   "evidence": "Same pattern in this row for other shared worlds: stages 37 to 41 (Iron Man (2010), Ultimate Spider-Man, Iron Man & Hulk: Heroes United, LEGO Marvel Super Heroes: Maximum Overload, Big Hero 6), stage 48 (Marvel Rising: Initiation) and stage 50 (M.O.D.O.K.) sit at the first title, while the recaps mark those worlds terminated at Avengers Confidential, Avengers: Secret Wars (2017), Iron Man & Captain America: Heroes United, LEGO Marvel Avengers: Mission Demolition, Baymax!, Marvel Rising: Playing with Fire and Hit-Monkey. This is internal consistency. The TVA monitors are not on screen in these titles.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-18878&prop=wikitext&format=json"
+  }
+ ]
+}

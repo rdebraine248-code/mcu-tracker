@@ -1,0 +1,96 @@
+{
+ "checked": [
+  "ch-incursions:rows:period:40",
+  "cx-nick-fury:11",
+  "cx-s-h-i-e-l-d:19",
+  "cx-incursions:21",
+  "cx-pruned-characters:rows:status:0",
+  "cx-the-defenders:rows:affiliation:3",
+  "cx-s-h-i-e-l-d:rows:status:4",
+  "ch-5:rows:period:4",
+  "cx-the-avengers:rows:affiliation:3",
+  "cx-the-avengers:rows:status:0",
+  "cx-ant-man-the-wasp:rows:status:2",
+  "ch-1:6",
+  "cx-captain-america:0",
+  "cx-moon-knight:rows:status:0",
+  "ch-incursions:rows:period:3",
+  "ch-9:rows:period:7",
+  "cx-the-thunderbolts:rows:affiliation:4",
+  "cx-pruned-characters:rows:affiliation:1",
+  "cx-the-avengers:1",
+  "cx-iron-man:rows:affiliation:4",
+  "cx-ant-man-the-wasp:rows:affiliation:1",
+  "cx-incursions:36",
+  "cx-the-fox-men:5",
+  "ch-6:rows:period:3",
+  "ch-incursions:85",
+  "cx-the-sony-spider-men:1",
+  "cx-iron-man:rows:status:2",
+  "cx-s-h-i-e-l-d:8",
+  "cx-spider-man:rows:status:4",
+  "ch-3:6",
+  "cx-incursions:rows:status:32",
+  "cx-the-defenders:4",
+  "ch-9:rows:period:5",
+  "cx-incursions:rows:status:0",
+  "cx-wanda-vision:rows:status:4",
+  "cx-the-sony-spider-men:rows:subjects:0",
+  "cx-the-champions:rows:subjects:2",
+  "ch-10:1",
+  "cx-wanda-vision:rows:subjects:1",
+  "cx-incursions:23",
+  "ch-5:rows:period:7",
+  "ch-5:rows:period:9",
+  "ch-1:rows:period:11",
+  "ch-incursions:33",
+  "cx-doctor-strange-wong:rows:status:4",
+  "cx-the-champions:rows:aliases:2",
+  "cx-the-thunderbolts:rows:affiliation:0",
+  "ch-incursions:61",
+  "cx-thor:rows:affiliation:3",
+  "cx-the-punisher:3"
+ ],
+ "changes": [
+  {
+   "id": "ch-3:6",
+   "q": "L1",
+   "now": "WHIH profiles Scott Lang, the burglar who robbed his crooked employer and gave the money back to its customers, just released from prison.",
+   "proposed": "WHIH profiles Scott Lang, the burglar who robbed his crooked employer and gave the money back to its customers, soon to be released from prison.",
+   "evidence": "In WHIH Newsfront, Christine Everhart interviews Scott Lang by video from San Quentin; he is a soon-to-be-released prisoner, not already released (the box's own Ant-Man row says 'In San Quentin, about to be released').",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=WHiH_Newsfront_(web_series)/Season_One&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "cx-incursions:21",
+   "q": "L1",
+   "now": "Reed, Sue, Johnny and Ben are changed by a cosmic storm and face Doctor Doom over a diamond he wants for his weapon. The film was never released. On the TVA's monitors, Earth-94000 is marked terminated.",
+   "proposed": "Reed, Sue, Johnny and Ben are changed by cosmic rays from a passing comet and face Doctor Doom over a diamond he wants for his weapon. The film was never released. On the TVA's monitors, Earth-94000 is marked terminated.",
+   "evidence": "In the 1994 film the four are exposed to cosmic rays from the passing comet Colossus during Reed's space flight (the Jeweler swapped the protective diamond). The 'cosmic storm' is the 2005 film's version.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Fantastic_Four_(unreleased_film)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "cx-pruned-characters:rows:status:0",
+   "question": "The stage 'Active in their own worlds' (Blade to X-Men: The Animated Series) covers Daredevil (2003), where Elektra is killed; she is revived only in Elektra (2005). Add stages for her death and revival, or keep the group summary?",
+   "options": [
+    "Add a stage at Daredevil (2003): Elektra killed by Bullseye, the others active; and a stage at Elektra: all active again",
+    "Keep as is"
+   ],
+   "evidence": "Elektra (2005) opens with Elektra revived by Stick after being killed in Daredevil (2003).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Elektra_(2005_film)&action=raw"
+  },
+  {
+   "id": "cx-the-defenders:rows:affiliation:3",
+   "question": "The Defenders box's order includes Daredevil: Born Again S3, which is not released (it is scheduled for March 2027). It is not one of the kept placeholders. Remove it from the order, or keep it as a placeholder?",
+   "options": [
+    "Remove Daredevil: Born Again S3 from the order until it airs",
+    "Keep it as a placeholder"
+   ],
+   "evidence": "Wikipedia's series overview lists season 3 as starting in March 2027 (S2 ran March 24 to May 5, 2026).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again&action=raw"
+  }
+ ]
+}

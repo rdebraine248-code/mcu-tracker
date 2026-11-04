@@ -1,0 +1,99 @@
+{
+ "checked": [
+  "cx-werewolf-by-night:rows:aliases:0",
+  "cx-wanda-vision:rows:affiliation:4",
+  "ch-1:10",
+  "ch-incursions:56",
+  "ch-incursions:rows:period:26",
+  "ch-incursions:rows:period:17",
+  "cx-s-h-i-e-l-d:11",
+  "ch-incursions:26",
+  "cx-s-h-i-e-l-d:rows:aliases:1",
+  "ch-incursions:rows:period:44",
+  "cx-captain-marvel:rows:subjects:2",
+  "cx-guardians-of-the-galaxy:7",
+  "ch-1:1",
+  "cx-nick-fury:12",
+  "ch-incursions:37",
+  "cx-incursions:39",
+  "ch-6:4",
+  "cx-the-fantastic-four:rows:affiliation:2",
+  "cx-doctor-strange-wong:2",
+  "cx-pruned-characters:31",
+  "cx-falcon-winter-soldier:2",
+  "cx-black-panther-wakanda:rows:affiliation:0",
+  "cx-incursions:rows:status:51",
+  "cx-black-panther-wakanda:rows:subjects:3",
+  "cx-incursions:11",
+  "cx-incursions:rows:status:12",
+  "cx-hulk:rows:affiliation:3",
+  "cx-guardians-of-the-galaxy:5",
+  "ch-10:5",
+  "cx-incursions:rows:status:39",
+  "ch-incursions:35",
+  "ch-incursions:47",
+  "ch-6:rows:period:5",
+  "cx-incursions:90",
+  "cx-the-defenders:11",
+  "cx-the-defenders:rows:status:0",
+  "cx-hulk:rows:affiliation:1",
+  "cx-pruned-characters:20",
+  "cx-nick-fury:3",
+  "cx-nick-fury:rows:status:9",
+  "cx-pruned-characters:rows:status:1",
+  "cx-incursions:66",
+  "ch-1:rows:period:4",
+  "cx-the-watcher:2",
+  "cx-the-champions:rows:affiliation:1",
+  "ch-incursions:rows:period:27",
+  "cx-pruned-characters:19",
+  "ch-incursions:94",
+  "cx-guardians-of-the-galaxy:rows:subjects:6",
+  "ch-5:9"
+ ],
+ "changes": [
+  {
+   "id": "ch-incursions:rows:period:44",
+   "q": "L4",
+   "now": [
+    "Forty-five worlds, lost",
+    "Guardians of the Galaxy (2015)"
+   ],
+   "proposed": [
+    "Forty-five worlds, lost",
+    "Avengers: Black Panther's Quest"
+   ],
+   "evidence": "Guardians of the Galaxy (2015), Marvel's Spider-Man and Avengers: Black Panther's Quest are one reality, Earth-17628, and this box's own recaps mark Earth-17628 terminated only at Avengers: Black Panther's Quest. The stage shows the 45th world lost two titles before that is revealed. Every earlier stage up to Planet Hulk sits on the title whose recap marks the termination (The Death of the Incredible Hulk, Ultimate Avengers 2, Ghost Rider: Spirit of Vengeance, Thor: Tales of Asgard). Stages outside this sample look shifted to the first title of a world in the same way: Thirty-eight at Iron Man (2010) (terminated at Avengers Confidential), Thirty-nine at Ultimate Spider-Man (at Avengers: Secret Wars (2017)), Forty at Iron Man & Hulk (at Iron Man & Captain America), Forty-one at LEGO Maximum Overload (at LEGO Mission Demolition), Forty-two at Big Hero 6 (at Baymax!), Forty-nine at Marvel Rising: Initiation (at Playing with Fire), Fifty-one at M.O.D.O.K. (at Hit-Monkey).",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-17628&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "cx-incursions:rows:status:39",
+   "q": "L4",
+   "now": [
+    "Forty worlds terminated",
+    "Iron Man & Hulk: Heroes United"
+   ],
+   "proposed": [
+    "Forty worlds terminated",
+    "Iron Man & Captain America: Heroes United"
+   ],
+   "evidence": "Both Heroes United films are one reality, Earth-TRN607, and this box's own recaps mark Earth-TRN607 terminated at Iron Man & Captain America: Heroes United, not at Iron Man & Hulk. The stage shows the 40th termination one title early. The same shift affects this row's stages outside the sample (Thirty-eight at Iron Man (2010), Thirty-nine at Ultimate Spider-Man, Forty-one, Forty-two, Forty-five, Forty-nine, Fifty-one), matching the ch-incursions period row.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Earth-TRN607&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "cx-s-h-i-e-l-d:rows:aliases:1",
+   "question": "The S.H.I.E.L.D. alias stage starts at Iron Man (where the full name is first spelled out), but the name S.H.I.E.L.D. is said earlier in this box's order: at the end of Agent Carter (One-Shot) Howard Stark says Peggy will run S.H.I.E.L.D., and Captain Marvel (1995) uses it throughout. Until Iron Man the row shows only 'The Strategic Scientific Reserve'. Should a S.H.I.E.L.D. stage start earlier?",
+   "options": [
+    "Keep as is (stage at Iron Man, where the full name is first said)",
+    "Add a stage 'S.H.I.E.L.D.' at Agent Carter (One-Shot), keep the full-name stage at Iron Man",
+    "Move the S.H.I.E.L.D. stage to Agent Carter (One-Shot)"
+   ],
+   "evidence": "Agent Carter (One-Shot): Stark tells Flynn that Carter is to run S.H.I.E.L.D. with him (S.H.I.E.L.D. mentioned). Stage 1 itself is true from Iron Man on and is not early, so it passes; the question is whether stage 0 runs too long.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Agent_Carter_(One-Shot)&prop=wikitext&format=json"
+  }
+ ]
+}
