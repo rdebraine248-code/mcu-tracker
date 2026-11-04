@@ -109,7 +109,8 @@ let lfDone = 0, lfStale = 0; if (fs.existsSync(R + 'line_fix.json')) { const F =
   out.forEach(([a, b, st]) => st.forEach((x, si) => ['A', 'B'].forEach((side, j) => { const pk = H.nodes[a][11] + '|' + H.nodes[b][11]; const f = F[pk + '|' + si + '|' + side];
     if (f && x[3 + j] === f[0]) { x[3 + j] = f[1]; lfDone++; return; } const m = byText.get(pk + '|' + side); if (m && m.has(x[3 + j])) { x[3 + j] = m.get(x[3 + j]); lfDone++; return; } if (f) lfStale++; }))); }
 console.log('card lines rewritten', lfDone, '| stale (the old line changed since)', lfStale);
-// whole lines reworded wherever they stand (owner, November 2026: Thanos's group is "the Children of Thanos", never "the Black Order"):
+// whole lines reworded wherever they stand (owner, November 2026: the four are the Black Order; Gamora and Nebula are Thanos's children but
+// never in it, so a line that put them there says "his children" instead):
 // rel/word_fix.json, old line -> new line, for a stage's text and both card lines
 let tfDone = 0; if (fs.existsSync(R + 'word_fix.json')) { const F = JSON.parse(fs.readFileSync(R + 'word_fix.json')); out.forEach(([, , st]) => st.forEach(x => [2, 3, 4].forEach(j => { if (F[x[j]] != null) { x[j] = F[x[j]]; tfDone++; } }))); }
 console.log('lines reworded', tfDone);

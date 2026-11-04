@@ -795,11 +795,13 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
   sentence; "In season N," stays at the very start in the data only.
 - **Factions and teams record everyone who served a group, willingly or not:** brainwashed, forced and undercover service count (the
   Winter Soldier and the Widows in their groups, Simmons inside HYDRA, Natasha as Natalie Rushman); the steps say how. Any organization
-  counts: agencies, armies, companies, crews. A captive, a victim, a one-job hire or an ally doesn't count. Gamora and Nebula count as
-  the Children of Thanos (owner's call). A hero file also notes a villain past, even outside its own titles (the older Magneto's
+  counts: agencies, armies, companies, crews. A captive, a victim, a one-job hire or an ally doesn't count. Gamora and Nebula are in
+  "Thanos's forces" while they serve him (owner, 4 November 2026), never the Black Order. A hero file also notes a villain past, even outside its own titles (the older Magneto's
   Brotherhood). A person's hero and villain files list the same groups.
-- **A group's name is the one said on screen:** the Children of Thanos (never "the Black Order"), the Queen of the Dead's Army (not "Red
-  Queen"). Comics, marketing and wiki-only names don't count. A clearly shown but unnamed group may get a plain descriptive name
+- **A group's name is the one said on screen:** the Queen of the Dead's Army (not "Red Queen"). One exception by the owner (4 November
+  2026): Thanos's four are **the Black Order**, the official name; "Children of Thanos" (what Maw calls them) is what they are, not a
+  group name, and all six (Gamora and Nebula too) are his children through their kind lines and family ties, while only the four are
+  in the Black Order (sources say so: the MCU wiki keeps Gamora and Nebula out). This replaces the earlier "never the Black Order". Comics, marketing and wiki-only names don't count. A clearly shown but unnamed group may get a plain descriptive name
   ("Kid Loki's Crew").
 - **Team files:** a team's own file goes when every member's file carries the team's tag and the team file has nothing of its own. This
   removed 36 Compound and 37 Raft team files; 17 Raft team files with steps of their own stay.
@@ -1030,7 +1032,7 @@ These happened in earlier chats. Each cost the owner time.
 1. **Inferring a group from a place or a person.** Cyclops and Nightcrawler were tagged Weapon X because Stryker brainwashed them at
    Alkali Lake; X2's operation is Stryker's own. Before tagging, confirm the screen shows this person serving that named group in that
    title.
-2. **Using names the screen never says.** "The Black Order" and "Red Queen" come from comics and marketing. Fan wikis list affiliations
+2. **Using names the screen never says.** "Red Queen" comes from comics and marketing (the Black Order is the owner's exception). Fan wikis list affiliations
    from comics and tie-ins: check the film or episode supports them.
 3. **Reading an unclear answer as a decision.** "A servant isn't a group, it's an affliction" was taken to mean "drop them", and the owner
    meant the opposite. When an answer can be read two ways, ask again with both readings as options.
@@ -1195,8 +1197,8 @@ These happened in earlier chats. Each cost the owner time.
   cases, Handle with care, and the Watcher's jump elsewhere.
 - Upcoming titles (Avengers: Doomsday, Avengers: Secret Wars) stay on the main line on purpose: the main line is finished once they're
   out and watched.
-- Decided and closed: Ant-Man and the Wasp stays out of the S.H.I.E.L.D. box; Bucky's hero file keeps HYDRA; Gamora and Nebula keep the
-  Children of Thanos.
+- Decided and closed: Ant-Man and the Wasp stays out of the S.H.I.E.L.D. box; Bucky's hero file keeps HYDRA; Gamora and Nebula are in
+  Thanos's forces while they serve him, never the Black Order (owner, 4 November 2026).
 
 ## The November 2026 round, all on main (newest last)
 
