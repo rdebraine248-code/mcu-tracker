@@ -1,0 +1,102 @@
+{
+ "checked": [
+  "A:fox-sam-guthrie",
+  "A:fox-roberto-da-costa",
+  "T:fox-cecilia-reyes",
+  "T:fox-demon-bear",
+  "C:fox-lockheed",
+  "C:fox-illyana-sword",
+  "A:fox-magneto",
+  "A:fox-mariko-yashida",
+  "A:fox-yukio",
+  "T:fox-viper",
+  "T:fox-yashida",
+  "T:fox-shingen",
+  "T:fox-harada",
+  "T:fox-noburo-mori",
+  "C:fox-silver-samurai",
+  "C:fox-heart-parasite",
+  "A:fox-anim-madelyne-pryor",
+  "A:fox-anim-sunspot",
+  "A:fox-anim-mother-askani",
+  "A:fox-anim-black-widow",
+  "T:fox-anim-madelyne-pryor",
+  "T:fox-anim-apocalypse",
+  "T:fox-anim-bastion",
+  "T:fox-anim-rama-tut",
+  "T:fox-anim-gambit-death",
+  "T:fox-anim-valerie-cooper",
+  "T:fox-anim-exodus",
+  "T:fox-anim-danger",
+  "T:fox-anim-brood",
+  "T:fox-anim-adversary",
+  "T:fox-anim-final-horsemen",
+  "T:fox-anim-candra",
+  "T:fox-anim-x-cutioner",
+  "C:fox-anim-ship",
+  "C:fox-anim-bastion-collar",
+  "C:fox-anim-apocalypse-crystal",
+  "C:fox-spec-brood",
+  "A:fox-jean-grey",
+  "A:fox-storm",
+  "A:fox-rogue",
+  "A:fox-iceman",
+  "A:fox-kitty-pryde",
+  "A:fox-colossus",
+  "T:fox-magneto"
+ ],
+ "changes": [
+  {
+   "key": "A:fox-anim-sunspot",
+   "k": 0,
+   "q": "F2",
+   "now": {
+    "k": 0,
+    "title": "X-Men '97",
+    "text": "In episode 3, Roberto is saved from the Friends of Humanity and joins the X-Men.",
+    "status": "Active",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 1, the X-Men save Roberto from the Friends of Humanity and take him to the mansion."
+   },
+   "evidence": "X-Men '97 episode 1 'To Me, My X-Men': 'They save a young mutant, Roberto da Costa, from the anti-mutant group Friends of Humanity (FoH) who are using Sentinel technology.' Episode 3 'Fire Made Flesh' is the Goblin Queen story and has no rescue of Roberto. Marvel Database (Roberto Da Costa (Earth-92131)) also places the rescue and his first trip to the mansion in Season 1 1, and says only that he returned to the mansion 'at some point' before episode 4, so no joining event can be pinned to episode 3.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:fox-anim-danger",
+   "k": 1,
+   "q": "F3",
+   "now": {
+    "k": 1,
+    "title": "X-Men '97",
+    "text": "In episode 16, she hijacks a jet to confront Xavier on Genosha, and Xavier, Jean, Bishop and Polaris defeat her.",
+    "status": "Missing",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 16, she hijacks a jet to confront Xavier on Genosha and bests the X-Men there, until Polaris, urged on by Xavier, destroys her.",
+    "status": "Deceased"
+   },
+   "evidence": "X-Men '97 episode 16 'Danger.exe': 'Danger goes to Genosha and battles Xavier and the X-Men, besting them due to her knowledge of their powers. Polaris and Bishop follow her, and Xavier uses his positive memories of Magneto to encourage Polaris to embrace her power and defeat Danger.' Marvel Database lists Danger as '1st Dies' in X-Men '97 Season 2 6 and gives her Death = X-Men '97 Season 2 6, so 'Missing' does not match. The defeat is Polaris's (the old text credited Jean too, who was among those Danger bested).",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "C:fox-spec-brood",
+   "question": "The record says the lab explodes and destroys the Brood inside, yet its status is 'Thriving'. Which specimen status should it end on?",
+   "options": [
+    "Extinct (no Brood are shown surviving anywhere in X-Men '97)",
+    "Endangered (this nest is wiped out, but the Brood are an alien species that may exist elsewhere)",
+    "Keep Thriving"
+   ],
+   "evidence": "X-Men '97 episode 15 'Weapon X, Lies, and DVDs': 'The survivors escape from the facility as it explodes, destroying the Brood.' The matching Raft file T:fox-anim-brood already ends Deceased. The show never says whether other Brood exist, so the right specimen state is a choice.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw"
+  }
+ ]
+}

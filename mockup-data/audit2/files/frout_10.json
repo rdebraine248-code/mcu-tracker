@@ -1,0 +1,125 @@
+{
+ "checked": [
+  "T:fox-anim-sentinels",
+  "T:fox-anim-bolivar-trask",
+  "T:fox-anim-mister-sinister",
+  "T:fox-anim-sabretooth",
+  "T:fox-anim-mystique",
+  "T:fox-anim-juggernaut",
+  "T:fox-anim-omega-red",
+  "T:fox-anim-mojo",
+  "T:fox-anim-phoenix",
+  "T:fox-anim-mastermind",
+  "T:fox-anim-graydon-creed",
+  "T:fox-anim-fabian-cortez",
+  "T:fox-anim-proteus",
+  "T:fox-anim-war",
+  "T:fox-anim-emma-frost",
+  "T:fox-anim-gyrich",
+  "T:fox-anim-callisto",
+  "T:fox-anim-brotherhood",
+  "T:fox-anim-inner-circle",
+  "T:fox-anim-dken",
+  "T:fox-anim-erik-the-red",
+  "T:fox-anim-imperial-guard",
+  "T:fox-anim-sauron",
+  "T:fox-anim-silver-samurai",
+  "T:fox-anim-arkon",
+  "T:fox-anim-phalanx",
+  "T:fox-anim-lady-deathstrike",
+  "T:fox-anim-black-tom",
+  "T:fox-anim-deathbird",
+  "T:fox-anim-friends-of-humanity",
+  "T:fox-anim-morlocks",
+  "T:fox-anim-horsemen",
+  "T:fox-anim-shadow-king",
+  "C:fox-anim-claws",
+  "C:fox-anim-cerebro",
+  "C:fox-anim-sentinels"
+ ],
+ "changes": [
+  {
+   "key": "T:fox-anim-sabretooth",
+   "k": 1,
+   "q": "F1",
+   "now": {
+    "k": 1,
+    "title": "X-Men: The Animated Series",
+    "text": "In episode 6, Sabretooth stalks Wolverine and clashes with the X-Men again and again.",
+    "status": "At large",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 6, Sabretooth follows Wolverine to the Arctic, burns the Inuit camp that took him in and takes the villagers captive, until Wolverine beats him and he falls into a chasm."
+   },
+   "evidence": "In episode 6 (Cold Vengeance) Sabretooth fights only Wolverine: he throws him into the Arctic sea, burns the Inuit fishing camp, ties the villagers to an ice bridge, and falls into a chasm when Wolverine dodges him. The other X-Men are on the Genosha trip and never meet him in this episode, so 'clashes with the X-Men again and again' is wrong for this episode.",
+   "source": "https://marvel.fandom.com/wiki/X-Men:_The_Animated_Series_Season_1_6",
+   "confidence": "high"
+  },
+  {
+   "key": "T:fox-anim-black-tom",
+   "k": 0,
+   "q": "F1",
+   "now": {
+    "k": 0,
+    "title": "X-Men: The Animated Series",
+    "text": "In episode 31, hired by Erik the Red, Black Tom and Juggernaut seize Lilandra. Tom escapes as Gladiator routs the X-Men.",
+    "status": "At large",
+    "at": [],
+    "cases": [
+     "FX-002 The M'Kraan Crystal Crisis (X-Men: The Animated Series)"
+    ]
+   },
+   "proposed": {
+    "text": "In episode 31, hired by Erik the Red, Black Tom and Juggernaut seize Lilandra. When Gladiator arrives and hurls Juggernaut into the sea, Tom slips away."
+   },
+   "evidence": "In Phoenix Saga Part III (episode 31) Gladiator beats Juggernaut and throws him far out to sea, and Black Tom leaves. Gladiator does not rout the X-Men: the Phoenix rescues Lilandra and defeats him.",
+   "source": "https://marvel.fandom.com/wiki/Thomas_Cassidy_(Earth-92131)",
+   "confidence": "medium"
+  },
+  {
+   "key": "C:fox-anim-sentinels",
+   "k": 1,
+   "q": "F1",
+   "now": {
+    "k": 1,
+    "title": "X-Men: The Animated Series",
+    "text": "In season 4, Master Mold's head sends Sentinels to capture Xavier, Trask and Gyrich, until Trask blows up their base.",
+    "status": "Destroyed",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In season 4, Master Mold's surviving head has its Sentinels kidnap Trask and Gyrich to build it a new body, until Morph drives a spike through its head and shuts it down."
+   },
+   "evidence": "In Courage (season 4, episode 51) the salvaged head of Master Mold has Sentinels kidnap Trask and Gyrich to rebuild its body, and Morph stops it by driving a spike through its head. Trask blowing up his own base happens in The Final Decision (season 1, episode 13), not here. The 'Destroyed' status stays.",
+   "source": "https://marvelanimated.fandom.com/wiki/Master_Mold",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:fox-anim-sentinels",
+   "question": "Step 5 (X-Men '97 episode 10) has status 'Allied'. Jean's collar cuts Bastion off from the Sentinels, the Prime Sentinels become ordinary humans again, and Bastion is killed. The Sentinels never side with the X-Men. Which status fits?",
+   "options": [
+    "Keep Allied",
+    "Deceased (the Sentinel force is destroyed or stopped)",
+    "Missing"
+   ],
+   "evidence": "Jean puts the collar on Bastion, which restores the Prime Sentinels' humanity. US missiles then kill Bastion. The matching Collection file (C:fox-anim-sentinels) marks the same moment 'Lost'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw"
+  },
+  {
+   "key": "T:fox-anim-horsemen",
+   "question": "Step 3 (X-Men '97 season 2) has status 'Deceased'. War is dead (episode 12), but Rogue frees Gambit and he is alive at the end. Apocalypse's mind is trapped in a crystal. Is 'Deceased' right for the group?",
+   "options": [
+    "Keep Deceased",
+    "Missing",
+    "In custody (Apocalypse's mind is held in the crystal Cable keeps)"
+   ],
+   "evidence": "In episode 19 Rogue frees Gambit and the others and traps Apocalypse's consciousness in a crystal she gives to Cable. Gambit survives because Nightcrawler gives his own life to Eson.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw"
+  }
+ ]
+}

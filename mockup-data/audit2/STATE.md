@@ -265,3 +265,11 @@ p3_25 3 (4 calls).
 p3_24 2 (4 calls).
 p3_27 2 (2 calls).
 p3_21 0 (3 calls). TIEBREAK applied (apply12): ruling side for Soledad, Quill1988, Deever, Power Broker, Radcliffe, Ducasse, Tony; 'now' kept for Michelle, zombie Ikaris, Eddie (MNBN call). Shang-Chi held (Fairmont = employer scope).
+nrv01 33c 7a. Notes: Nathaniel cards 'HYDRA ally' (he says not HYDRA); n31 Bruce 'Sorcerers of Kamar-Taj' vs screen 'Masters of the Mystic Arts' -> later fix pass.
+p3_28 3 (4 calls).
+frv01: 23c 2r. Note: A:fox-anim-sunspot k1 Mojo game ep 9 vs Wikipedia ep 4 -> later fix (needs check).
+p3_30 2 (1 call).
+p3_29 0 (3 calls).
+frv03: 20c 5a. Note: A:karen k0 place Coney Island + case ST-055 may be wrong after text fix -> check at apply.
+nrv03: 32c 7a 1r.
+FILES RE-AUDIT APPLIED: STEP_AUDIT2 in index (71 fixes, text-matched after EPTAGS), ep_tags 12 updated; verified in built app: 71 files = expected, others team-only. nrv04 38c 2a. nrv05 37c 3a (n197 Dottie/Krzeminski move to S1#3 names the assassin early = spoiler -> keep original title at apply). p3_37 1.

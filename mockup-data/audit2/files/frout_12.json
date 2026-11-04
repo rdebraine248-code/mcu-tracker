@@ -1,0 +1,77 @@
+{
+ "checked": [
+  "A:st-ana-jarvis",
+  "A:st-jack-thompson",
+  "A:st-angie-martinelli",
+  "A:st-rose-roberts",
+  "A:st-roger-dooley",
+  "A:st-ray-krzeminski",
+  "A:st-jason-wilkes",
+  "A:st-aloysius-samberly",
+  "A:peggy-carter",
+  "A:st-isodyne",
+  "T:st-leviathan",
+  "T:st-johann-fennhoff",
+  "T:st-dottie-underwood",
+  "T:st-whitney-frost",
+  "T:st-calvin-chadwick",
+  "T:st-joseph-manfredi",
+  "T:st-spider-raymond",
+  "T:st-leet-brannis",
+  "T:st-rufus-hunt",
+  "T:st-vernon-masters",
+  "T:st-sasha-demidov",
+  "T:st-council-of-nine",
+  "T:st-roxxon",
+  "C:nitramene",
+  "C:stark-inventions",
+  "C:leviathan-typewriter",
+  "C:steve-blood",
+  "C:midnight-oil",
+  "C:stark-vest",
+  "C:zero-matter",
+  "C:gamma-cannon",
+  "C:council-key",
+  "C:carter-file",
+  "A:shield-org",
+  "C:zodiac",
+  "A:st-daisy-johnson",
+  "A:st-melinda-may",
+  "A:st-leo-fitz"
+ ],
+ "changes": [
+  {
+   "key": "T:st-johann-fennhoff",
+   "k": 1,
+   "q": "F1",
+   "now": {
+    "k": 1,
+    "title": "Agent Carter",
+    "text": "In episode 8, Peggy stops him, and he ends up in a cell next to Arnim Zola.",
+    "status": "In custody",
+    "at": [
+     "Manhattan"
+    ],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 8, Sousa captures him while Peggy talks Howard down, and he ends up in a cell next to Arnim Zola."
+   },
+   "evidence": "In 'Valediction' (episode 8) it is Sousa who apprehends Fennhoff at Stark's hangar (he blocks his ears against the hypnosis); Peggy fights Dottie and talks Howard out of the trance. Peggy does not stop Fennhoff himself.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agent_Carter_season_1&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "C:stark-inventions",
+   "question": "Step 0 (Leviathan smuggles the inventions out of Howard's vault and onto a ship) is marked 'Secured'. With the 0-8-4 precedent (stolen by the villain = 'In use'), should a stolen item held and sold by the thieves be 'In use' instead of 'Secured'?",
+   "options": [
+    "Keep 'Secured' (the thieves hold it in storage on the ship)",
+    "Change to 'In use' (in Leviathan/Brannis's hands and being sold, e.g. the nitramene)"
+   ],
+   "evidence": "Brannis steals the inventions from Stark's vault for Leviathan, sells some (nitramene to Spider Raymond), and stores the rest on The Heartbreak until Peggy finds them and the SSR seizes them in episode 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Midnight_Oil&prop=wikitext&format=json"
+  }
+ ]
+}

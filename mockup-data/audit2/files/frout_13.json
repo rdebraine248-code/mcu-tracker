@@ -1,0 +1,90 @@
+{
+ "checked": [
+  "A:st-jemma-simmons",
+  "A:st-mack",
+  "A:st-elena-rodriguez",
+  "A:st-bobbi-morse",
+  "A:st-lance-hunter",
+  "A:st-lincoln-campbell",
+  "A:st-deke-shaw",
+  "A:st-antoine-triplett",
+  "A:st-mike-peterson",
+  "A:st-jeffrey-mace",
+  "A:st-robbie-reyes",
+  "A:st-gabe-reyes",
+  "A:st-andrew-garner",
+  "A:st-rosalind-price",
+  "A:st-joey-gutierrez",
+  "A:st-victoria-hand",
+  "A:st-eric-koenig",
+  "A:st-billy-koenig",
+  "A:st-isabelle-hartley",
+  "A:st-robert-gonzales",
+  "A:st-anne-weaver",
+  "A:st-davis",
+  "A:st-piper",
+  "A:st-elliot-randolph",
+  "A:st-audrey-nathan",
+  "A:st-will-daniels",
+  "A:st-robin-hinton",
+  "A:st-enoch",
+  "A:st-flint",
+  "A:st-afterlife",
+  "A:st-atcu",
+  "T:jasper-sitwell",
+  "T:baron-strucker",
+  "T:st-john-garrett"
+ ],
+ "changes": [
+  {
+   "key": "A:st-mike-peterson",
+   "k": 0,
+   "q": "F1",
+   "now": {
+    "k": 0,
+    "title": "Agents of S.H.I.E.L.D.",
+    "text": "In episode 41, Deathlok secretly works for Coulson and helps take down HYDRA's Dr. List.",
+    "status": "Active",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 41, Deathlok, secretly working for Coulson, has been captured while hunting HYDRA's Dr. List, and Coulson's team frees him from List's base."
+   },
+   "evidence": "Peterson does not help take down List. In episode 40 (The Frenemy of My Enemy) Hydra captures Peterson and Lincoln; in episode 41 (The Dirty Half Dozen) Simmons and Ward save Peterson, List is not defeated, and the base intel goes to Maria Hill for the Avengers.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "A:st-jemma-simmons",
+   "k": 3,
+   "q": "F1",
+   "now": {
+    "k": 3,
+    "title": "Agents of S.H.I.E.L.D.: Slingshot",
+    "text": "In episode 3, Simmons and Fitz upgrade Elena's tracking watch, and a question from Elena about living together gets Simmons thinking.",
+    "status": "Active",
+    "at": [],
+    "cases": []
+   },
+   "proposed": {
+    "text": "In episode 3, Simmons checks Elena's pulse while Fitz upgrades her tracking watch, and Elena's suggestion that they look for an apartment gets Simmons hooked on the idea."
+   },
+   "evidence": "In Slingshot episode 3 (Progress), Simmons checks Elena's pulse and Fitz upgrades the watch; Fitz and Simmons are already arguing about a TV in their bedroom, and Elena's distraction is suggesting they look for an apartment, which Simmons leaves intrigued by.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Progress&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:st-davis",
+   "question": "Season 7 record (k 4) keeps status Deceased, but the finale shows a Life Model Decoy of Davis active a year later, driving Piper and Elena on missions. Should the last status reflect the LMD?",
+   "options": [
+    "Keep Deceased (the man died; the LMD is a copy)",
+    "Change to Active (the title leaves an LMD Davis active in S.H.I.E.L.D.)"
+   ],
+   "evidence": "What We're Fighting For: Elena is in a car with Piper and an LMD of Davis on a mission one year later; Piper keeps arguing with the LMD Davis about his driving.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=What_We%27re_Fighting_For&prop=wikitext&format=json"
+  }
+ ]
+}
