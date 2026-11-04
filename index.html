@@ -4669,14 +4669,14 @@ function openColl(mode, keep, step) {   // step: going back to an index (or jump
   document.getElementById("collBack").focus({ preventScroll: true });
 }
 function closeColl(fromHistory) {
-  if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") ? -2 : -1); return; }
+  if (!fromHistory && (navAt("coll") || navAt("collrec"))) { history.go(navAt("collrec") && history.state.g ? -2 : -1); return; }   // a file with no list under it is one step
   document.getElementById("collPanel").hidden = true; collOpen = false; collRec = null; rfIntake = 0; rfQ = ""; cpIntake = 0; cpQ = ""; cpTeamF = ""; rfOppF = ""; rfTeamF = ""; cxIntake = 0; cxQ = ""; cxHoldF = ""; bodyFree();
 }
 function collShow(id) {
   const v = document.getElementById("collPanel"); collY = v.scrollTop;   // back from the record returns to this spot in the cases
   try { history.replaceState({ ...history.state, y: collY }, ""); } catch (e) {}   // the step you leave keeps its place, for the way back
   collRec = id; if (collMode === "raft") (state.raftSeen = state.raftSeen || {})[id] = 1; else if (collMode === "cp") (state.cpSeen = state.cpSeen || {})[id] = 1; else (state.collSeen = state.collSeen || {})[id] = 1; persist(); renderColl(); v.scrollTop = 0;
-  try { history.pushState({ mcu: "collrec", cm: collMode, cr: id }, ""); } catch (e) {}
+  try { history.pushState({ mcu: "collrec", cm: collMode, cr: id, g: navAt("coll") }, ""); } catch (e) {}   // g: opened from the list
 }
 // a file that opens a file in another index is one step: back returns to the file (or list) you came from, in its own index
 function collJump(mode, id) { openColl(mode, true, true); collShow(id); }
@@ -4689,7 +4689,12 @@ function collRestore() {   // back landed on a step from another index or anothe
   if (h.hf) { cxHoldF = h.hf; cxHoldFrom = h.hfo || ""; }   // the holder's list you followed a file out of
   collRec = h.cr || null; renderColl(); document.getElementById("collPanel").scrollTop = h.cr ? 0 : h.y || 0; return true;
 }
-function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { navBack(); return; } collRec = null; renderColl(); document.getElementById("collPanel").scrollTop = collY; }
+// back to the list: the step below if the file was opened from it; a file opened straight from somewhere else (the Network, another file)
+// has no list under it, so the list takes the file's place there (owner, November 2026: a group in Kate's file, opened from the Network,
+// threw you back to the Network instead of the Compound filtered by that group)
+function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { if (history.state.g) { navBack(); return; }
+    try { history.replaceState({ mcu: "coll", cm: collMode }, ""); } catch (e) {} collY = 0; }
+  collRec = null; renderColl(); document.getElementById("collPanel").scrollTop = collY; }
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cxQ") return; cxQ = ev.target.value; cxHoldF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !cxQ; v.querySelector(".cx-body").innerHTML = cxBody(); v.querySelectorAll("[data-cxu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cxu === cxUni)); });
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cpQ") return; cpQ = ev.target.value; cpTeamF = ""; const v = document.getElementById("collView");
