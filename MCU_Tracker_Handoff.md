@@ -197,6 +197,19 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
 - **Test build only:** landscape, stage 1 (the dock as a left rail; Story's left column scrolling on its own beside the boxes; the Atlas
   map beside its list). Atlas and the left column approved; stage 2 next.
 
+### Owner's answers, 4 November 2026 (evening)
+- Network ties kept although the two never really meet: Saunders and Fisk, Mace and Ward (the Framework), Hernandez and Rawlins,
+  Valentina and Ross, J.A.R.V.I.S. and Edwin Jarvis, Lorelei and Thor, Gilgamesh and Laufey, Wenwu and Killian, Zola and Maria Stark
+  (huge consequences: HYDRA's crash). Removed: John Walker and Steve, Wanda and the London Master.
+- Gesture puns in hints stay ("Swipe your clearance.", "Hold on to the team's name"): wordplay, not instructions.
+- Insignia: a single-title unlock is fine when that title is the team's only version (Red Star, the Fantastic Four, the Defenders in
+  The Defenders, the Thunderbolts*). The Champions also unlock after The Marvels.
+- The What If...? S3 Ultron entry stays on Ultron's world (a variant, but moving it would only make things messier).
+- Atlas: Ancient Greece's pin on Crete; the First Class CIA scene on its own Langley pin; Wakanda's pin at Lake Turkana as on Civil
+  War's map; the HYDRA Academy flashback labelled 1990 ("28 years ago" from 2018). Saint Mabyn's and Project Pegasus stay as they are.
+- The Incredible Hulk (1977) keeps the two pilot movies in season 1 (12 episodes), as TVmaze and the DVD sets list it.
+- Damage Control's Horde report (2396) stays on the Sacred Timeline: the last Black Panther's own future.
+
 ### Tests
 
 The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/lib/node_modules/playwright` and Chromium at
