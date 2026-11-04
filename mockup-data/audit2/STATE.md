@@ -283,3 +283,15 @@ FILES RE-AUDIT APPLIED: STEP_AUDIT2 in index (71 fixes, text-matched after EPTAG
 - Part 5 logs: 19 batches done (44 changes, 19 calls; Doomsday/Secret Wars/Beyond/VisionQuest/1610B calls dropped as settled);
   second check logs/v_1..2 running. Apply: DOSSIERS in index.html.
 - Part 6 next: DC (238 reports), TR (7), news NX, Comms messages. dc/ has only a peek.
+
+## 4 November 2026, evening (scratchpad: ns6/, s6/, s7/, p9/)
+- Committed: logs redo (31 fixes) + Atlas redo (17) 06ce4fb; parts 7 and 8 71ab375 (part 8's two hint fixes, Fury's cards and the
+  Collector's cube, were checked by hand against the films, not by a second agent; the Watcher's Loki S1 removal rejected, owner's rule).
+- Part 7 held for the owner: The Incredible Hulk (1977) season 1 counts the two 1977 pilot movies (12 vs Wikipedia's 10); dropping
+  them shifts every saved episode mark of that show by two. The One-Shot's 1946–1947 label stays (owner's call in audit_findings F004).
+- Network sample 6 (fresh 600, after the targeted redo): 9 proposed changes, 12 calls; second check ns6/v_1 -> vout_1 running.
+- Logs sample 7 (fresh 600, excluding sample 5's): s7/chunk_01..12 -> out_NN running. Atlas sample 6 (600 of all 703 entries;
+  only 703 exist, so it overlaps sample 4): s6/chunk_01..12, 01-05 running, 06-12 to launch.
+- Part 9: 5 batches done (37 changes, 5 calls); second check p9/v_1, v_2 -> vout_1, vout_2 running. Apply: the Multiverse map and
+  the Incursions wall live in index.html (ATLAS_UNI / the Incursions data); the Watcher boxes in DATA.
+- Suite run on the logs+Atlas+parts 7-8 build: out/suite.log.
