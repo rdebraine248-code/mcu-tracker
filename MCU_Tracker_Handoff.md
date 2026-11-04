@@ -720,6 +720,9 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
     other counts: a name in someone's phone contacts, classmates or a shared inner circle, a line that shows they've dealt with each
     other. Only knowing ABOUT someone with nothing that implies they know each other (a case file, the news, a legend) stays out, and so
     does a shared battle where they never deal with each other. When unsure, keep the tie and ask.
+    Ancestors seen through visions are ties (owner, 4 November 2026, on Echo's ancestors Chafa, Tuklo, Lowak and Chula: "it sounds
+    like a connection to me"): the ancestral echo is real power in the show, so a descendant and the ancestors who reach her are
+    connected, and so are the ancestors with each other through the echo.
     Exception (owner): "If one person's knowledge or involvement in another one has huge consequences" it is a connection even if they
     never meet: Bruce Banner and Erskine (recreating Erskine's formula made Bruce the Hulk), Valentina and Clint (she sends Yelena after
     him). Cleary and Mysterio stay out: a case file with no consequence.
