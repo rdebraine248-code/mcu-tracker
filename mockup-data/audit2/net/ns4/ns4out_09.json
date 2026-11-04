@@ -1,0 +1,124 @@
+{
+ "checked": [
+  "jasper-sitwell|phil-coulson:0",
+  "betty-brant|j-jonah-jameson:1",
+  "st-foggy-nelson|st-luke-cage:0",
+  "st-jessica-jones|st-matt-murdock:0",
+  "st-alexandra|st-jessica-jones:0",
+  "st-danny-rand|st-matt-murdock:1",
+  "st-danny-rand|st-sowande:0",
+  "st-murakami|st-stick:1",
+  "st-bakuto|st-luke-cage:0",
+  "st-alexandra|st-elektra:2",
+  "st-matt-murdock|st-murakami:1",
+  "st-jessica-jones|st-madame-gao:1",
+  "st-bakuto|st-elektra:1",
+  "st-elektra|st-murakami:2",
+  "georges-batroc|sam-wilson:0",
+  "bucky-barnes|lemar-hoskins:0",
+  "karli-morgenthau|sam-wilson:1",
+  "galactus|reed-richards:0",
+  "ego|mantis:1",
+  "carol-danvers|prince-yan:0",
+  "kamala-khan|nick-fury:0",
+  "monica-rambeau|nick-fury:1",
+  "st-carson-wolf|st-sam-stein:0",
+  "st-billy-russo|st-frank-castle:2",
+  "st-carson-wolf|st-william-rawlins:0",
+  "st-david-lieberman|st-frank-castle:1",
+  "st-billy-russo|st-curtis-hoyle:0",
+  "st-david-lieberman|st-dinah-madani:0",
+  "st-curtis-hoyle|st-dinah-madani:1",
+  "heimdall|loki:0",
+  "clint-barton|phil-coulson:0",
+  "clint-barton|phil-coulson:1",
+  "heimdall|warriors-three:0",
+  "thor|toothgnasher-and-toothgrinder:0",
+  "loki|topaz:0",
+  "bruce-banner|fenris:0",
+  "loki|odin:1",
+  "kurse|loki:0",
+  "valentina|thaddeus-ross:0",
+  "alexei-shostakov|yelena-belova:1",
+  "bucky-barnes|valentina:0",
+  "friday|vision:0",
+  "pietro-maximoff|tommy-maximoff:0",
+  "billy-maximoff|wanda-maximoff:0",
+  "tommy-maximoff|vision:0",
+  "maria-rambeau|monica-rambeau:1",
+  "agatha-harkness|tommy-maximoff:0",
+  "agatha-harkness|tommy-maximoff:2",
+  "billy-maximoff|tommy-maximoff:1",
+  "agatha-harkness|monica-rambeau:0"
+ ],
+ "changes": [
+  {
+   "pair": "clint-barton|phil-coulson",
+   "a": "Clint Barton",
+   "b": "Phil Coulson",
+   "q": "N2",
+   "i": 1,
+   "now": {
+    "kind": "ally",
+    "title": "The Avengers",
+    "text": "Loki takes over Clint's mind, and Clint is still under Loki's control when Loki kills Coulson.",
+    "on_a_card_about_b": "A longtime colleague, killed by Loki while Clint is under Loki's control.",
+    "on_b_card_about_a": "A longtime colleague, still under Loki's control when Loki kills Coulson."
+   },
+   "proposed": {
+    "text": "Loki takes over Clint's mind, and Clint leads the attack on the Helicarrier that lets Loki escape. Loki kills Coulson during the escape.",
+    "on_a_card_about_b": "A longtime colleague, killed by Loki in the Helicarrier attack Clint leads.",
+    "on_b_card_about_a": "A longtime colleague. Under Loki's control, leads the Helicarrier attack in which Coulson dies."
+   },
+   "evidence": "In The Avengers, Romanoff knocks Barton out and breaks Loki's control before Loki tricks Thor into the cell and stabs Coulson, so Clint is no longer under Loki's control when Coulson is killed. The text and both card lines say he still is.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Attack_on_the_Helicarrier ; https://en.wikipedia.org/wiki/The_Avengers_(2012_film)#Plot",
+   "confidence": "medium"
+  },
+  {
+   "pair": "loki|topaz",
+   "a": "Loki",
+   "b": "Topaz",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "kind": "ally",
+    "title": "Thor: Ragnarok",
+    "text": "Topaz works with Loki while he is in the Grandmaster's favor, then hunts him when he flees.",
+    "on_a_card_about_b": "The Grandmaster's enforcer, who works with Loki, then hunts him.",
+    "on_b_card_about_a": "A favorite of the Grandmaster, whom Topaz hunts when he flees."
+   },
+   "proposed": {
+    "kind": "rival",
+    "text": "Loki is the Grandmaster's favorite, but when he interrupts the Grandmaster, Topaz hands over the Melt Stick to have him killed. The Grandmaster refuses.",
+    "on_a_card_about_b": "The Grandmaster's bodyguard, who offers the Melt Stick to have Loki killed.",
+    "on_b_card_about_a": "A favorite of the Grandmaster, whom Topaz wants melted for interrupting."
+   },
+   "evidence": "In Thor: Ragnarok, Topaz offers the Grandmaster the Melt Stick when Loki interrupts him ('He was interrupting. That's not a capital violation.'). She never works with Loki, and she never hunts him: she chases Thor, Banner and Valkyrie in the Commodore, while Loki stays behind on Sakaar and leaves with the gladiators. Kind 'ally' does not fit; 'rival' (or 'enemy') does.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Topaz ; https://marvelcinematicuniverse.fandom.com/wiki/Loki",
+   "confidence": "medium"
+  },
+  {
+   "pair": "st-curtis-hoyle|st-dinah-madani",
+   "a": "Curtis Hoyle",
+   "b": "Dinah Madani",
+   "q": "N2",
+   "i": 1,
+   "now": {
+    "kind": "ally",
+    "title": "The Punisher S2#8",
+    "text": "Madani and Curtis work together to protect Amy Bendix from John Pilgrim while Frank hunts Russo.",
+    "on_a_card_about_b": "An agent who helps Curtis protect Amy from Pilgrim.",
+    "on_b_card_about_a": "Frank's friend, who protects Amy with Madani."
+   },
+   "proposed": {
+    "text": "Madani tracks Curtis to the trailer where he is looking after Amy Bendix and presses him to give up Frank. He says he does not know where Frank is, and they end up sharing a drink.",
+    "on_a_card_about_b": "An agent who tracks Curtis to the trailer and presses him to give up Frank.",
+    "on_b_card_about_a": "Frank's friend, looking after Amy when Madani tracks him down."
+   },
+   "evidence": "In The Punisher S2 episode 8 (My Brother's Keeper), Madani tracks Hoyle's phone to the trailer, finds him with Amy, asks where Castle is and offers to help Hoyle if they give Castle and Russo to Mahoney. They drink together while she decides whether to give Castle up. The two do not work together to protect Amy from Pilgrim (Pilgrim attacks the trailer in episode 12, with Madani absent).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Dinah_Madani ; https://marvelcinematicuniverse.fandom.com/wiki/Curtis_Hoyle",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": []
+}

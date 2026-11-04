@@ -1,0 +1,89 @@
+{
+ "checked": [
+  "st-cottonmouth|st-misty-knight:0",
+  "st-luke-cage|st-shades:0",
+  "st-shades|st-zip:0",
+  "st-candace-miller|st-mariah-dillard:1",
+  "st-cottonmouth|st-pop:0",
+  "st-tone|st-turk-barrett:0",
+  "st-comanche|st-shades:0",
+  "st-misty-knight|st-tilda-johnson:0",
+  "st-bushmaster|st-shades:1",
+  "anton-mogart|layla-el-faouly:0",
+  "marc-spector|randall-spector:0",
+  "ammit|arthur-harrow:1",
+  "aamir-khan|muneeba-khan:0",
+  "aisha|kamala-khan:0",
+  "bruno-carrelli|najma:0",
+  "tyesha-hillman|yusuf-khan:0",
+  "kamala-khan|kareem:0",
+  "aisha|hasan:0",
+  "hasan|muneeba-khan:0",
+  "hasan|kamala-khan:0",
+  "hasan|sana:0",
+  "kamran|kareem:0",
+  "bruno-carrelli|kamran:1",
+  "giah|nick-fury:0",
+  "gravik|pagon:1",
+  "raava|sonya-falsworth:0",
+  "guang-bo|shang-chi:0",
+  "death-dealer|xialing:0",
+  "jiang-li|xialing:0",
+  "razor-fist|shang-chi:0",
+  "jennifer-walters|madisynn-king:0",
+  "emil-blonsky|jennifer-walters:2",
+  "jennifer-walters|todd-phelps:1",
+  "elaine-walters|jennifer-walters:2",
+  "peter-parker|ramrod:0",
+  "bruce-banner|jean-grey:0",
+  "bill-metzger|peter-parker:0",
+  "dimitri|peter-parker:0",
+  "edith|tony-stark:0",
+  "karen|peter-parker:0",
+  "aaron-davis|jackson-brice:0",
+  "happy-hogan|peter-parker:0",
+  "stephen-strange|wong:1",
+  "flash-thompson|peter-parker:1",
+  "may-parker|michelle-jones:0",
+  "agent-cleary|happy-hogan:0",
+  "bruce-banner|clint-barton:0",
+  "nick-fury|thor:0",
+  "loki|thanos:0",
+  "loki|phil-coulson:0"
+ ],
+ "changes": [
+  {
+   "pair": "bruce-banner|clint-barton",
+   "a": "Bruce Banner",
+   "b": "Clint Barton",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "ally",
+    "title": "The Avengers",
+    "text": "Bruce and Clint are recruited to the Avengers when Loki attacks. Once Clint is freed from Loki's control, they fight side by side in the Battle of New York.",
+    "on_a_card_about_b": "A fellow Avenger Bruce fights beside in New York.",
+    "on_b_card_about_a": "A fellow Avenger Clint fights beside in New York."
+   },
+   "proposed": {
+    "text": "Bruce is recruited to the Avengers after Loki takes Clint under his control. Once Clint is freed, they fight side by side in the Battle of New York."
+   },
+   "evidence": "The Avengers: Clint is not recruited when Loki attacks. Loki uses his scepter to enslave Clint at the Tesseract facility, while Fury reactivates the Avengers Initiative and Natasha recruits Bruce in Kolkata. Natasha frees Clint during the Helicarrier attack, and he then fights with the team in New York.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Avengers_(2012_film)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "pair": "agent-cleary|happy-hogan",
+   "question": "Stage 0 (Spider-Man: No Way Home): Cleary questioning Happy with Matt Murdock at his side happens only in the extended 'The More Fun Stuff Version', not in the theatrical cut. Does that re-release count as on screen?",
+   "options": [
+    "Keep: the More Fun Stuff Version was shown in theaters, so it counts as on screen",
+    "Treat it like a deleted scene: drop or rewrite this pair, since in the theatrical cut Damage Control only investigates and arrests Happy, with no scene shown between him and Cleary"
+   ],
+   "evidence": "Fandom cites the Cleary-Happy-Murdock interrogation only to 'Spider-Man: No Way Home - The More Fun Stuff Version' (ref SMNWHTMFSV). Theatrical-cut refs (SMNWH) cover only the news report that Happy is under investigation, Murdock saying so, and Damage Control agents arresting Happy.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=P._Cleary&prop=wikitext&format=json"
+  }
+ ]
+}

@@ -1,0 +1,133 @@
+{
+ "checked": [
+  "simon-williams|trevor-slattery:0",
+  "trevor-slattery|von-kovak:0",
+  "agent-cleary|trevor-slattery:1",
+  "pr-blade|pr-jared-nomak:0",
+  "pr-krista-starr|pr-shen:0",
+  "pr-marcus-van-sciver|pr-charlotte:1",
+  "pr-drake|pr-hedges:0",
+  "pr-asher-talos|pr-jarko-grimwood:0",
+  "pr-abigail-whistler|pr-hannibal-king:0",
+  "pr-drake|pr-dex:0",
+  "pr-blade|pr-danica-talos:0",
+  "pr-st-tyrone-johnson|pr-st-chantelle:1",
+  "pr-st-tyrone-johnson|pr-st-adina-johnson:2",
+  "pr-st-tyrone-johnson|pr-st-adina-johnson:3",
+  "pr-st-brigid-oreilly|pr-st-liam-walsh:1",
+  "pr-daredevil|pr-elektra:0",
+  "pr-blade|fox-blob-void:0",
+  "pr-mark-miller|pr-kinkou:0",
+  "pr-mister-fantastic|pr-human-torch:0",
+  "pr-silver-surfer|pr-galactus:0",
+  "pr-st-karnak|pr-st-gorgon:0",
+  "pr-st-crystal|pr-st-dave:1",
+  "pr-st-locus|pr-st-black-bolt:0",
+  "pr-st-alex-wilder|pr-st-karolina-dean:1",
+  "pr-st-nico-minoru|pr-st-chase-stein:1",
+  "pr-st-livvie|pr-st-darius-davis:1",
+  "pr-st-janet-stein|pr-st-karolina-dean:1",
+  "pr-st-molly-hernandez|pr-st-jonah:2",
+  "pr-st-karolina-dean|pr-st-leslie-dean:2",
+  "pr-st-alex-wilder|pr-st-awol:2",
+  "pr-st-nico-minoru|pr-st-alex-wilder:3",
+  "pr-st-tandy-bowen|pr-st-alex-wilder:0",
+  "pr-st-chase-stein|pr-st-victor-stein:4",
+  "pr-st-gert-yorkes|pr-st-morgan-le-fay:0",
+  "pr-howard-saint|pr-the-russian:0",
+  "pr-punisher|pr-howard-saint:0",
+  "pr-punisher|pr-harry-heck:0",
+  "pr-punisher|pr-the-russian:0",
+  "pr-punisher|pr-castle-family:0",
+  "sv-cassie-webb|sv-constance-webb:0",
+  "sv-julia-cornwall|sv-ezekiel-sims:0",
+  "sv-peter-parker-1967|sv-rhino-1967:1",
+  "sv-j-jonah-jameson-1967|sv-vulture-1967:0",
+  "sv-peter-parker-1967|sv-fiddler-1967:0",
+  "sv-betty-brant-1967|sv-j-jonah-jameson-1967:1",
+  "sv-peter-parker-1967|sv-lizard-1967:2",
+  "sv-peter-parker-1967|sv-sandman-1967:0",
+  "sv-eddie-brock-1994|sv-j-jonah-jameson-1994:0",
+  "sv-peter-parker-1994|sv-kingpin-1994:1",
+  "sv-peter-parker-1994|sv-shocker-1994:1"
+ ],
+ "changes": [
+  {
+   "pair": "agent-cleary|trevor-slattery",
+   "a": "Agent Cleary",
+   "b": "Trevor Slattery",
+   "q": "N2",
+   "i": 1,
+   "now": {
+    "i": 1,
+    "kind": "enemy",
+    "title": "Wonder Man#8",
+    "text": "Trevor stops cooperating and goes on live TV as the Mandarin to cover for Simon. Cleary arrests him and sends him to a Damage Control prison.",
+    "on_a_card_about_b": "Cleary's former informant. Cleary arrests him and locks him up.",
+    "on_b_card_about_a": "Trevor's former handler. Arrests Trevor and locks him up."
+   },
+   "proposed": {
+    "text": "Trevor stops cooperating and, as the Mandarin, sends news outlets a video claiming the set explosion to cover for Simon. Cleary arrests him and sends him to a Damage Control prison."
+   },
+   "evidence": "Wonder Man ep 8 'Yucca Valley': Trevor does not go on live TV; as the Mandarin he claims responsibility for the set explosion in a recorded video sent to multiple news outlets, then is arrested by the DODC.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Arrest_of_Trevor_Slattery&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "pair": "pr-marcus-van-sciver|pr-charlotte",
+   "a": "Marcus Van Sciver",
+   "b": "Charlotte",
+   "q": "N2",
+   "i": 1,
+   "now": {
+    "i": 1,
+    "kind": "rival",
+    "title": "Blade: The Series#6",
+    "text": "Charlotte, an elder of his house, comes to check on Marcus's Aurora Project and has him watched, while he secretly plots against the purebloods.",
+    "on_a_card_about_b": "The pureblood elder who keeps watch on Marcus.",
+    "on_b_card_about_a": "The ambitious vampire Charlotte keeps watch on."
+   },
+   "proposed": {
+    "text": "Charlotte, a pureblood elder of his house, comes to confront Marcus about his Aurora Project.",
+    "on_a_card_about_b": "The pureblood elder who confronts Marcus about Aurora.",
+    "on_b_card_about_a": "The ambitious vampire Charlotte confronts about Aurora."
+   },
+   "evidence": "Blade: The Series ep 6 'The Evil Within' (Charlotte's first appearance): Charlotte confronts Marcus about Aurora. Her having him watched comes in ep 11 'Hunters', when she asks Chase to keep an eye on Marcus. Marcus's plot against the purebloods is only uncovered in ep 10, so 'while he secretly plots against the purebloods' gives away a later turn.",
+   "source": "https://api.tvmaze.com/singlesearch/shows?q=Blade:%20The%20Series&embed=episodes ; https://marvel.fandom.com/api.php?action=parse&page=Charlotte_(Earth-26320)&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "pair": "pr-punisher|pr-castle-family",
+   "a": "Frank Castle",
+   "b": "The Castle Family",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "family",
+    "title": "The Punisher (2004)",
+    "text": "Frank's wife, son and parents are gunned down by Howard Saint's men at a family reunion in Puerto Rico. Their deaths make him the Punisher.",
+    "on_a_card_about_b": "Frank's wife, son and parents, murdered by the Saints.",
+    "on_b_card_about_a": "Husband, father and son to the Castles, left for dead."
+   },
+   "proposed": {
+    "text": "Frank's wife, son and parents are killed by Howard Saint's men at a family reunion in Puerto Rico. Their deaths make him the Punisher."
+   },
+   "evidence": "The Punisher (2004): at the reunion Saint's men kill the whole family, but Maria and Will are not gunned down: they flee in a jeep and are run down by John Saint's truck.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Maria_Castle_(Earth-58732)&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "pair": "sv-peter-parker-1967|sv-lizard-1967",
+   "question": "Stage 2 (Spider-Man (1967)#40) is kind 'enemy', but the Lizard never appears in it: Spider-Man rescues Dr. Connors from an intelligent alligator. Keep 'enemy' for the pair throughout, or mark the rescue stages as 'ally'?",
+   "options": [
+    "Keep enemy (the pair is Spider-Man vs the Lizard)",
+    "Change stage 2 (and stage 1, #18, also a rescue) to ally"
+   ],
+   "evidence": "Ep 40b 'Conner's Reptiles': an alligator made intelligent by Connors's experiments kidnaps him, and Spider-Man defeats it. Ep 18a: Spider-Man finds Connors held prisoner at the Spanish fort and frees him. Neither has the Lizard.",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_Spider-Man_(1967_TV_series)_episodes&action=raw"
+  }
+ ]
+}
