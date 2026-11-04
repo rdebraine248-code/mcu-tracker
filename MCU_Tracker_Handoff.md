@@ -225,7 +225,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 64); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 65); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -262,6 +262,7 @@ node tests/ct35.js                                                              
 | ct62 | A holder's name in the Collection: the list of what they held, their own Compound or Raft file only once found, the right person among a tab's many of a name, back to the list; holders go by their files' names; no Benny or AIDA left |
 | ct63 | The Held line: the Collection objects a person holds under a title's last entry, gated by the Collection, linked both ways |
 | ct64 | A person shows the group they're in during a title you've watched (Peter at Midtown with only Homecoming), files and Network alike |
+| ct65 | A file opened from the Network: its group opens the Compound filtered by that group, and back returns to the Network |
 
 **Fixed (November 2026):** six tests had been failing since before the 176c87b main push, five because the app had moved on and one
 over a real bug. ct54 (a pill from earlier was still up; now it waits), ct61 (the Character log button left the rings; now the eye's
