@@ -166,6 +166,11 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   file naming each featured Widow is the agreed alternative.
 - No stage that reads before the two meet (owner, 4 November 2026: "Leave it out"): Bruce and Natasha get no Captain Marvel stage for the
   credits-scene pager, since the app orders Captain Marvel at 1995 and it would become their first stage, set after the Snap.
+- Ask every open question before any test run, in one batch (owner, 4 November 2026: three full-suite runs in a row because questions
+  came up after each one, "a waste of time ... a waste of credits"). Check the parked lists (scratchpad owner_*/held_* files, side
+  findings from checkers) before running anything long.
+- The full suite (about 15 minutes) runs once, right before a main push. A data-only change gets the quick checks: tests/content.js,
+  tests/check.js and the tests that touch what changed (files: ct36, ct49; the Network: ct64, ct65), a couple of minutes.
 - Families stand together (owner, 4 November 2026: "Why is Laura Barton not part of the Barton family?"): a family circle (rel/out1.json)
   holds every member, parents and siblings included, not only those with no group record; a member stands in it whenever they're in
   no other group (Clint with the Avengers in Endgame, with his family in Hawkeye). And a family or partner tie needs a stage in every
