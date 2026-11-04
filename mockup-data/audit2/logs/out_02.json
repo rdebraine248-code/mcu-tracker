@@ -1,0 +1,69 @@
+{
+ "checked": [
+  "ch-1:0",
+  "ch-1:1",
+  "ch-1:2",
+  "ch-1:3",
+  "ch-1:4",
+  "ch-1:5",
+  "ch-1:6",
+  "ch-1:7",
+  "ch-1:8",
+  "ch-1:9",
+  "ch-1:10",
+  "ch-1:11",
+  "ch-1:rows",
+  "ch-6:0",
+  "ch-6:1",
+  "ch-6:2",
+  "ch-6:3",
+  "ch-6:4",
+  "ch-6:5",
+  "ch-6:6",
+  "ch-6:7",
+  "ch-6:rows",
+  "cx-the-avengers:0",
+  "cx-the-avengers:1",
+  "cx-the-avengers:2",
+  "cx-the-avengers:3",
+  "cx-the-avengers:4",
+  "cx-the-avengers:5",
+  "cx-the-avengers:6",
+  "cx-the-avengers:7",
+  "cx-the-avengers:8",
+  "cx-the-avengers:rows"
+ ],
+ "changes": [
+  {
+   "key": "cx-the-avengers:0",
+   "q": "L1",
+   "now": "Nick Fury revives the Avengers Initiative when Loki steals the Tesseract, and puts Tony Stark, Steve Rogers, Bruce Banner, Thor, Natasha Romanoff and Clint Barton on the Helicarrier together, where they argue more than they work. Then Loki attacks the ship and kills Phil Coulson. Over New York they fight as a team, and Tony flies a nuke through the portal.",
+   "proposed": "Nick Fury revives the Avengers Initiative when Loki steals the Tesseract, and puts Tony Stark, Steve Rogers, Bruce Banner, Thor and Natasha Romanoff on the Helicarrier together, where they argue more than they work. Then Loki's agents, led by a mind-controlled Clint Barton, attack the ship, and Loki kills Phil Coulson. Over New York they fight as a team, and Tony flies a nuke through the portal.",
+   "evidence": "Clint Barton is under Loki's control from the opening and is not among the team arguing on the Helicarrier; during the argument Loki's agents (led by Barton) attack the Helicarrier, Romanoff subdues Barton and frees him, and Loki, a prisoner aboard, escapes after fatally wounding Coulson. Loki does not attack the ship himself.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Avengers_(2012_film)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "ch-1:rows:period:3",
+   "question": "The Agent Carter One-Shot is set in 1946 on screen (one year after The First Avenger), but the row says '1946 to 1947' and the chapter places it after Agent Carter S2 (1947). Keep the span, or set it to the on-screen year?",
+   "options": [
+    "Keep '1946 to 1947'",
+    "Change to '1946'"
+   ],
+   "evidence": "Wikipedia: 'One year after the events of Captain America: The First Avenger'; MCU wiki: 'In the year 1946, Peggy Carter works in data analysis...' and notes the One-Shot is shown set in 1946 while later sources put S.H.I.E.L.D.'s founding later. Nothing on screen places it in 1947.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Agent_Carter_(One-Shot)&prop=wikitext&format=json&redirects=1"
+  },
+  {
+   "key": "cx-the-avengers:7",
+   "question": "Avengers: Doomsday (US release December 18, 2026) and Avengers: Secret Wars (December 17, 2027) are not released as of 2026-11-04. Their entries are empty (null) placeholders in the order. Keep the placeholders, or remove these titles from the order until release?",
+   "options": [
+    "Keep empty placeholders",
+    "Remove until released"
+   ],
+   "evidence": "Wikipedia: 'Avengers: Doomsday is scheduled to be released in the United States on December 18, 2026... Avengers: Secret Wars, is set to be released on December 17, 2027.'",
+   "source": "https://en.wikipedia.org/w/index.php?title=Avengers:_Doomsday&action=raw"
+  }
+ ]
+}

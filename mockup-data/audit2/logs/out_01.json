@@ -1,0 +1,76 @@
+{
+ "checked": [
+  "cx-wanda-vision:0",
+  "cx-wanda-vision:1",
+  "cx-wanda-vision:2",
+  "cx-wanda-vision:3",
+  "cx-wanda-vision:4",
+  "cx-wanda-vision:5",
+  "cx-wanda-vision:6",
+  "cx-wanda-vision:7",
+  "cx-wanda-vision:8",
+  "cx-wanda-vision:9",
+  "cx-wanda-vision:10",
+  "cx-wanda-vision:11",
+  "cx-wanda-vision:12",
+  "cx-wanda-vision:rows",
+  "cx-the-defenders:0",
+  "cx-the-defenders:1",
+  "cx-the-defenders:2",
+  "cx-the-defenders:3",
+  "cx-the-defenders:4",
+  "cx-the-defenders:5",
+  "cx-the-defenders:6",
+  "cx-the-defenders:7",
+  "cx-the-defenders:8",
+  "cx-the-defenders:9",
+  "cx-the-defenders:10",
+  "cx-the-defenders:11",
+  "cx-the-defenders:12",
+  "cx-the-defenders:13",
+  "cx-the-defenders:14",
+  "cx-the-defenders:rows"
+ ],
+ "changes": [
+  {
+   "key": "cx-wanda-vision:rows:aliases:0",
+   "q": "L4",
+   "now": "J.A.R.V.I.S.: Just A Rather Very Intelligent System",
+   "proposed": "None on record",
+   "evidence": "The expansion 'Just A Rather Very Intelligent System' is never spoken or shown in Iron Man (or any film); the MCU wiki marks it as conjectural, sourced only to the tie-in Iron Man book. On screen the A.I. is only ever 'J.A.R.V.I.S.'",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=J.A.R.V.I.S.&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "cx-wanda-vision:9",
+   "q": "L1",
+   "now": "A teenager calling himself Teen frees Agatha Harkness from Wanda's spell and walks the Witches' Road with her.",
+   "proposed": "A teenager the others call Teen frees Agatha Harkness from Wanda's spell and walks the Witches' Road with her.",
+   "evidence": "He does not call himself Teen: a sigil (Glamour) hex stops anyone learning his name, so Agatha and the others refer to him as 'Teen' (episodes 1-2).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "cx-wanda-vision:rows:aliases:2",
+   "question": "'White Vision' is not said on screen in WandaVision: it comes from the creative team's interviews and the Character Encyclopedia, and the episode 9 credits call him 'The Vision'. Keep it as his alias, or drop it?",
+   "options": [
+    "Keep: 'Wanda: the Scarlet Witch. Vision: the White Vision'",
+    "On-screen only: 'Wanda: the Scarlet Witch'"
+   ],
+   "evidence": "The MCU wiki gives his real name as 'The Vision' (cited to the WandaVision 109 credits) and sources the 'White Vision' codename only to a Rotten Tomatoes creative-team interview and Marvel Studios: Character Encyclopedia Updated Edition.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=White_Vision&prop=wikitext&format=json"
+  },
+  {
+   "key": "cx-wanda-vision:10",
+   "question": "VisionQuest is released and still airing: it premiered on Disney+ on October 13, 2026, with weekly episodes. Its recap is still null, and the status row 'White Vision: whereabouts unknown' (from WandaVision) carries on into it, although VisionQuest shows where he is. Write the VisionQuest entry and status stage now, or wait until the season ends?",
+   "options": [
+    "Write the VisionQuest recap and status stage now",
+    "Leave both until the season finishes airing"
+   ],
+   "evidence": "Wikipedia: the first episodes premiered on Disney+ on October 13, 2026, and the rest are being released weekly. The MCU wiki already lists 7 VisionQuest episodes for the character.",
+   "source": "https://en.wikipedia.org/w/index.php?title=VisionQuest&action=raw"
+  }
+ ]
+}

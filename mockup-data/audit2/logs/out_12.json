@@ -1,0 +1,105 @@
+{
+ "checked": [
+  "cx-pruned-characters:0",
+  "cx-pruned-characters:1",
+  "cx-pruned-characters:2",
+  "cx-pruned-characters:3",
+  "cx-pruned-characters:4",
+  "cx-pruned-characters:5",
+  "cx-pruned-characters:6",
+  "cx-pruned-characters:7",
+  "cx-pruned-characters:8",
+  "cx-pruned-characters:9",
+  "cx-pruned-characters:10",
+  "cx-pruned-characters:11",
+  "cx-pruned-characters:12",
+  "cx-pruned-characters:13",
+  "cx-pruned-characters:14",
+  "cx-pruned-characters:15",
+  "cx-pruned-characters:16",
+  "cx-pruned-characters:17",
+  "cx-pruned-characters:18",
+  "cx-pruned-characters:19",
+  "cx-pruned-characters:20",
+  "cx-pruned-characters:21",
+  "cx-pruned-characters:22",
+  "cx-pruned-characters:23",
+  "cx-pruned-characters:24",
+  "cx-pruned-characters:25",
+  "cx-pruned-characters:26",
+  "cx-pruned-characters:27",
+  "cx-pruned-characters:28",
+  "cx-pruned-characters:29",
+  "cx-pruned-characters:30",
+  "cx-pruned-characters:31",
+  "cx-pruned-characters:32",
+  "cx-pruned-characters:33",
+  "cx-pruned-characters:rows",
+  "ch-2:0",
+  "ch-2:1",
+  "ch-2:2",
+  "ch-2:3",
+  "ch-2:4",
+  "ch-2:rows",
+  "ch-3:0",
+  "ch-3:1",
+  "ch-3:2",
+  "ch-3:3",
+  "ch-3:4",
+  "ch-3:5",
+  "ch-3:6",
+  "ch-3:7",
+  "ch-3:rows"
+ ],
+ "changes": [
+  {
+   "key": "cx-pruned-characters:20",
+   "q": "L1",
+   "now": "Eddie and Venom are on the run from the military and from Knull, the creator of the symbiotes, who hunts the key Venom carries. Venom sacrifices himself to save Eddie and destroy the symbiotes hunting them.",
+   "proposed": "Eddie and Venom are on the run from the military and from Knull, the creator of the symbiotes, who hunts the key Venom carries. Venom sacrifices himself to save Eddie and destroy the key and the Xenophages, Knull's creatures, hunting them.",
+   "evidence": "The hunters are Xenophages, creatures Knull sent to retrieve the Codex, not symbiotes. Venom merges with the Xenophages and leads them to the acid tanks, sacrificing himself to destroy the Codex; the other symbiotes fight on Eddie's side.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Venom:_The_Last_Dance&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "ch-2:1",
+   "q": "L1",
+   "now": "Peter Quill, taken from Earth as a boy the night his mother died, steals an orb that Ronan the Accuser wants for Thanos. He's arrested with Gamora, Thanos's adopted daughter, and bounty hunters Rocket and Groot, and they escape prison with Drax, who lost his family to Ronan. The orb holds the Power Stone. When Ronan tries to use it to destroy Xandar, the five hold the stone together and destroy him. Groot sacrifices himself and regrows as a sapling, and the five call themselves the Guardians of the Galaxy.",
+   "proposed": "Peter Quill, taken from Earth as a boy the night his mother died, steals an orb that Ronan the Accuser wants for Thanos. He's arrested with Gamora, Thanos's adopted daughter, and bounty hunters Rocket and Groot, and they escape prison with Drax, who lost his family to Ronan. The orb holds the Power Stone. When Ronan tries to use it to destroy Xandar, Peter, Gamora, Drax and Rocket hold the stone together and destroy him. Groot sacrifices himself and regrows as a sapling, and the five call themselves the Guardians of the Galaxy.",
+   "evidence": "Groot has already sacrificed himself shielding the group when the Dark Aster crashes; Quill grabs the Stone and only Gamora, Drax and Rocket share its burden with him to vaporize Ronan.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Guardians_of_the_Galaxy_(film)&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "ch-3:0",
+   "q": "L1",
+   "now": "A terrorist called the Mandarin destroys Tony Stark's home while Tony, haunted by New York, can't sleep. Stranded in Tennessee with a broken suit, Tony learns the Mandarin is an actor, Trevor Slattery, hired by businessman Aldrich Killian to cover up the explosions of his Extremis soldiers. Tony stops Killian and saves Pepper and the President, then has the shrapnel removed from his heart.",
+   "proposed": "A terrorist called the Mandarin destroys Tony Stark's home while Tony, haunted by New York, can't sleep. Stranded in Tennessee with a broken suit, Tony learns the Mandarin is an actor, Trevor Slattery, hired by businessman Aldrich Killian to cover up the explosions of his Extremis soldiers. Tony and Rhodes stop Killian's plot, Rhodes rescues the President, and Pepper, who survived Extremis, kills Killian. Tony then has the shrapnel removed from his heart.",
+   "evidence": "On the Norco, Rhodes rescues President Ellis while Tony goes after Pepper; Pepper falls and Tony cannot save her; Tony's Mark XLII self-destruct fails to kill Killian, and Pepper, surviving through Extremis, kills him.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=2013&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "ch-2:0",
+   "question": "The recap calls the Aether 'the Reality Stone'. The Dark World only says it is an Infinity Stone; the name 'Reality Stone' is first said in Avengers: Infinity War. Is naming the specific stone a spoiler at this point in the chapter?",
+   "options": [
+    "Keep 'the Reality Stone'",
+    "Change to 'the Aether, an Infinity Stone,'"
+   ],
+   "evidence": "Mid-credits line in The Dark World: 'It's not wise to keep two Infinity Stones so close together.' The 'Reality Stone' name is spoken first in Infinity War ('the Reality Stone's been safely stored there with a man called the Collector').",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Reality_Stone&prop=wikitext&format=json"
+  },
+  {
+   "key": "ch-2:1",
+   "question": "The recap says 'The orb holds the Power Stone'. In Guardians of the Galaxy it is only called an Infinity Stone; 'Power Stone' is first said in Avengers: Infinity War. Same question: keep the later name or use what this film says?",
+   "options": [
+    "Keep 'the Power Stone'",
+    "Change to 'an Infinity Stone'"
+   ],
+   "evidence": "In the film Tivan opens the Orb, revealing an Infinity Stone; Ronan: 'now that I know it contains an Infinity Stone'. 'Power Stone' is first spoken by Thor in Infinity War.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Power_Stone&prop=wikitext&format=json"
+  }
+ ]
+}

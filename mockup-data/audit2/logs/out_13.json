@@ -1,0 +1,86 @@
+{
+ "checked": [
+  "ch-4:0",
+  "ch-4:1",
+  "ch-4:2",
+  "ch-4:3",
+  "ch-4:4",
+  "ch-4:5",
+  "ch-4:6",
+  "ch-4:7",
+  "ch-4:rows",
+  "ch-5:0",
+  "ch-5:1",
+  "ch-5:2",
+  "ch-5:3",
+  "ch-5:4",
+  "ch-5:5",
+  "ch-5:6",
+  "ch-5:7",
+  "ch-5:8",
+  "ch-5:9",
+  "ch-5:10",
+  "ch-5:11",
+  "ch-5:12",
+  "ch-5:rows",
+  "ch-7:0",
+  "ch-7:1",
+  "ch-7:2",
+  "ch-7:3",
+  "ch-7:4",
+  "ch-7:5",
+  "ch-7:6",
+  "ch-7:7",
+  "ch-7:8",
+  "ch-7:rows",
+  "ch-8:0",
+  "ch-8:1",
+  "ch-8:2",
+  "ch-8:3",
+  "ch-8:4",
+  "ch-8:5",
+  "ch-8:6",
+  "ch-8:rows"
+ ],
+ "changes": [
+  {
+   "key": "ch-7:3",
+   "q": "L1",
+   "now": "Before the class trip, Peter has a list of errands to finish, starting with his passport, and Spider-Man keeps getting in the way.",
+   "proposed": "Before the class trip, Peter has a list of errands to finish, including his passport, and Spider-Man keeps getting in the way.",
+   "evidence": "Peter's first errand is Delmar's deli (a dual headphone adapter), then he sells toys for money for MJ's necklace, and only then picks up his passport; the list does not start with the passport.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Peter%27s_To-Do_List&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "key": "ch-7:4",
+   "q": "L1",
+   "now": "On a school trip to Europe, Nick Fury recruits Peter Parker to fight elemental monsters with Quentin Beck, and Peter, sure he isn't ready to replace Iron Man, gives Beck Tony's glasses. Beck is a former Stark employee whose monsters are illusions. Peter defeats him and starts dating MJ, until Beck's final video frames Spider-Man for his death and reveals Peter's identity.",
+   "proposed": "On a school trip to Europe, Nick Fury, really the Skrull Talos in disguise, recruits Peter Parker to fight elemental monsters with Quentin Beck, and Peter, sure he isn't ready to replace Iron Man, gives Beck Tony's glasses. Beck is a former Stark employee whose monsters are illusions. Peter defeats him and starts dating MJ, until Beck's final video frames Spider-Man for his death and reveals Peter's identity.",
+   "evidence": "The film's post-credits scene reveals that the Fury (and Hill) seen throughout are the Skrulls Talos and Soren in disguise, acting on orders from the real Fury, who is in space. The reveal is in this same title, so it is not a spoiler, and the owner's rule is real status over what characters believe.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Spider-Man:_Far_From_Home&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "ch-4:7",
+   "q": "L1",
+   "now": "Jeffrey Mace is S.H.I.E.L.D.'s new director, and Coulson and Mack go looking for Daisy and find Robbie Reyes, a Ghost Rider. Holden Radcliffe's android, Aida, reads a book of dark magic called the Darkhold, replaces agents with Life Model Decoys and traps the team in the Framework, a virtual world where HYDRA rules. The team escapes, Mace dies, and Coulson, who has made a deal to be the Ghost Rider for a moment, burns away Aida, now a living woman. Then the team is taken, and Coulson wakes up on a space station.",
+   "proposed": "Jeffrey Mace is S.H.I.E.L.D.'s new director, and Coulson and Mack go looking for Daisy and find Robbie Reyes, a Ghost Rider. Holden Radcliffe's android, Aida, reads a book of dark magic called the Darkhold, replaces agents with Life Model Decoys and traps the team in the Framework, a virtual world where HYDRA rules. Mace dies, the team escapes, and Coulson, who has made a deal to be the Ghost Rider for a moment, burns away Aida, now a living woman. Then the team is taken, and Coulson wakes up on a space station.",
+   "evidence": "Mace dies inside the Framework, crushed holding up debris to save a student, and Aida finds his real body dead too. This happens while the team is still trapped; they escape the Framework afterward. The recap puts his death after the escape.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "ch-7:5",
+   "question": "In the Bugle TikTok (Dec 1, 2021), Betty Brant reports lightning storms and sandstorms in NYC and guesses supervillains are back; the source does not say she names Electro or Sandman. Naming them in a title placed before No Way Home also gives away that film's villains. Keep the names, or describe only what she reports?",
+   "options": [
+    "Keep: 'Betty Brant reports sightings of Electro and Sandman in New York'",
+    "Change to: 'Betty Brant reports strange lightning storms and sandstorms in New York'"
+   ],
+   "evidence": "Fandom's video list: 'Betty Brant reports on intense thunderstorms and sandstorms appearing in New York, speculating that it could mean the result of supervillains returning. However, she receives word from J. Jonah Jameson that she is to report that Spider-Man is responsible.' Caption: 'Lightning and sand storms in NYC? Find out who's behind it all'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Daily_Bugle/Promotional_Campaign&prop=wikitext&format=json"
+  }
+ ]
+}

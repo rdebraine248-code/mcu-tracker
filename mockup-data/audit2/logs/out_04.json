@@ -1,0 +1,72 @@
+{
+ "checked": [
+  "cx-black-widow:0",
+  "cx-black-widow:1",
+  "cx-black-widow:2",
+  "cx-black-widow:3",
+  "cx-black-widow:4",
+  "cx-black-widow:5",
+  "cx-black-widow:6",
+  "cx-black-widow:7",
+  "cx-black-widow:8",
+  "cx-black-widow:9",
+  "cx-black-widow:10",
+  "cx-black-widow:11",
+  "cx-black-widow:12",
+  "cx-black-widow:13",
+  "cx-black-widow:rows",
+  "cx-hawkeye:0",
+  "cx-hawkeye:1",
+  "cx-hawkeye:2",
+  "cx-hawkeye:3",
+  "cx-hawkeye:4",
+  "cx-hawkeye:5",
+  "cx-hawkeye:6",
+  "cx-hawkeye:rows",
+  "cx-hulk:0",
+  "cx-hulk:1",
+  "cx-hulk:2",
+  "cx-hulk:3",
+  "cx-hulk:4",
+  "cx-hulk:5",
+  "cx-hulk:6",
+  "cx-hulk:7",
+  "cx-hulk:8",
+  "cx-hulk:9",
+  "cx-hulk:rows"
+ ],
+ "changes": [
+  {
+   "key": "cx-hulk:rows:affiliation:5",
+   "q": "L4",
+   "now": "Bruce: Empire State University. Ross: a prisoner",
+   "proposed": "Bruce: Empire State University, until the attack. Ross: a prisoner",
+   "evidence": "In Spider-Man: Brand New Day, after Jean Grey's possession sets the Hulk loose on Damage Control headquarters, Banner is put in an ambulance and is promptly removed from his position at Empire State University and sent to a psychiatric ward. As the log's last affiliation stage, plain 'Empire State University' would hold after he has lost the job.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hulk&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "cx-black-widow:rows:status:4",
+   "question": "Natasha's status says 'deceased. Vormir, 2023.' She left from 2023 but died on Vormir in 2014 (Time Heist). Keep 2023 (her own timeline) or give the 2014 date?",
+   "options": [
+    "Keep 'Vormir, 2023'",
+    "'Natasha: deceased. Vormir, 2014 (on the Time Heist from 2023). Yelena: unknown'",
+    "'Natasha: deceased. Vormir. Yelena: unknown' (no year)"
+   ],
+   "evidence": "MCU wiki gives her date of death as August 2014, time-traveled from October 16, 2023, citing Marvel Studios and the Endgame script.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Natasha_Romanoff&prop=wikitext&format=json"
+  },
+  {
+   "key": "cx-hawkeye:rows:aliases:1",
+   "question": "The name 'Ronin' is staged at Avengers: Endgame (row and recap cx-hawkeye:4 'he becomes Ronin'), but nobody says the name on screen until Hawkeye episode 1. Endgame only shows the persona. Keep it at Endgame or move the name to Hawkeye?",
+   "options": [
+    "Keep at Endgame (the persona is on screen there)",
+    "Move 'Ronin' to the Hawkeye stage and reword cx-hawkeye:4 without the name (e.g. 'he becomes a masked vigilante')"
+   ],
+   "evidence": "MCU wiki lists the codename Ronin with its first reference in Hawkeye 1x01 (HE101). Hawkeye is cited only by his own name in the Endgame article; 'Ronin' shows up there only in a trailer citation title.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hawkeye&prop=wikitext&format=json"
+  }
+ ]
+}
