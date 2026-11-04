@@ -349,7 +349,11 @@ function frame(t) {
   // or more is named at normal zoom, so the Dora Milaje read as a group from Black Panther on)
   if (e > 0) (busy() ? G : Z.filter(z => z.fold || z.L.length >= 2)).forEach(z => { const c = lens({ wx: z.cx, wy: z.cy + z.ly, ph: 0 }, 0);   // a pair is named too, though only three or more fold into a bubble
     if (!z.L.length || z.name === 'Independent' || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && z.L.length < 2 && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
-    g.globalAlpha = e * (busy() ? .55 : z.big ? .75 : .45) * Math.min(1, c.s * 1.2); g.fillStyle = sel ? KC[z.rel] || '#5FD0FF' : z.col || '#5FD0FF';
+    // a new group's name waits for its people (owner, November 2026: "they should pop in or fade in after"): it fades in once the last of
+    // them has landed, so the floor is never named before anyone stands on it
+    const land = z.L.reduce((m, p) => Math.max(m, p.inAt || 0, p.popAt > t ? p.popAt + 150 : 0), 0), fin = t < land ? 0 : Math.min(1, (t - land) / 700);
+    if (!fin) return;
+    g.globalAlpha = fin * e * (busy() ? .55 : z.big ? .75 : .45) * Math.min(1, c.s * 1.2); g.fillStyle = sel ? KC[z.rel] || '#5FD0FF' : z.col || '#5FD0FF';
     g.font = `${Math.round((z.big ? 11 : 8) * c.s + 3)}px 'Share Tech Mono', monospace`; g.textAlign = 'center';
     g.letterSpacing = '2px'; g.fillText(z.name.toUpperCase(), c.x, c.y); g.letterSpacing = '0px'; g.globalAlpha = 1; });
   // the threads of whoever is locked on: blue to those they served with, red dashes to those they fought; a link picked out in gold.
