@@ -1,0 +1,121 @@
+{
+ "checked": [
+  "alkali|uni|fox#1",
+  "westview|earth|#8",
+  "hydraacademy|earth|#0",
+  "bugle|uni|raimi#0",
+  "manhattan|uni|raimi#4",
+  "ny|earth|#82",
+  "ax-genosha|uni|animx#2",
+  "ny|earth|#99",
+  "ny|earth|#53",
+  "sf|earth|#7",
+  "mansion|uni|foxtrn#4",
+  "missouri|earth|#0",
+  "future|beyond|#4",
+  "vegas|uni|fox#1",
+  "westview|earth|#0",
+  "westview|earth|#6",
+  "vienna|earth|#1",
+  "ny|earth|#102",
+  "ny|earth|#45",
+  "mesopotamia|earth|#1",
+  "ny|earth|#84",
+  "chicago|earth|#3",
+  "ny|uni|sony#1",
+  "nm|earth|#2",
+  "westview|earth|#7",
+  "ny|earth|#40",
+  "bladecity|uni|blade#0",
+  "latveria|uni|ff#0",
+  "salvageyard|earth|#0",
+  "mansion|uni|foxtrn#3",
+  "ny|earth|#7",
+  "boston|uni|fox#0",
+  "ny|uni|foxtrn#5",
+  "australia|earth|#0",
+  "compound|earth|#5",
+  "dc|uni|foxtrn#0",
+  "oklahoma|earth|#0",
+  "seagate|earth|#1",
+  "svartalfheim|cosmos|#0",
+  "wakanda|earth|#2",
+  "la|earth|#2",
+  "kunlun|beyond|#1",
+  "moscow|uni|fox#1",
+  "seoul|earth|#0",
+  "edinburgh|earth|#1",
+  "siberia|uni|ff#0",
+  "dc|earth|#0",
+  "sf|uni|sony#0",
+  "ax-savage|uni|animx#2",
+  "lighthouse|earth|#2"
+ ],
+ "changes": [
+  {
+   "id": "ny|earth|#45",
+   "key": "ny|earth|",
+   "i": 45,
+   "q": "P2",
+   "now": [
+    "Jessica Jones S3#12",
+    "Hell's Kitchen",
+    "Jessica hunts a serial killer, Gregory Sallinger, while Trish turns vigilante."
+   ],
+   "proposed": [
+    "Jessica Jones S3#12",
+    "Hell's Kitchen",
+    "Sallinger ties Jessica up at her apartment, but she records him confessing to Dorothy's murder and leaves him for the police. Trish kills him on his way to court."
+   ],
+   "evidence": "In episode 12 (A.K.A. A Lotta Worms) Jessica is no longer hunting Sallinger: she saves him from Trish, uses him as bait to trap her, then Sallinger restrains and tortures Jessica at her apartment, she reveals she recorded his confession about killing Dorothy, subdues him and leaves him for the police, and Trish murders him while he is being taken to court. Trish became a vigilante back in the season's opening episodes.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Jessica_Jones_season_3&action=raw",
+   "confidence": "high"
+  },
+  {
+   "id": "oklahoma|earth|#0",
+   "key": "oklahoma|earth|",
+   "i": null,
+   "q": "P1",
+   "now": {
+    "at": [
+     35.4,
+     -95.2
+    ]
+   },
+   "proposed": {
+    "at": [
+     35.4,
+     -94.99
+    ]
+   },
+   "evidence": "Tamaha, Oklahoma is at 35 deg 23' 51\" N, 94 deg 59' 15\" W (35.398, -94.987). The pin at -95.2 sits about 19 km west of this very small town.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Tamaha,_Oklahoma&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "wakanda|earth|#2",
+   "key": "wakanda|earth|",
+   "question": "Where should Wakanda's pin go? It is at [1.5, 30.5] (Lake Albert, on the Uganda and DR Congo border). The on-screen map in Captain America: Civil War puts Wakanda around Lake Turkana, where Uganda, Kenya, South Sudan and Ethiopia meet (about [4, 36]). The Art of Black Panther book puts it in the East African Rift, bordering Rwanda, DR Congo and Uganda.",
+   "options": [
+    "Keep [1.5, 30.5] (Art of Black Panther placement)",
+    "Move to the Lake Turkana area, about [4, 36] (the on-screen Civil War map)"
+   ],
+   "evidence": "MCU wiki Wakanda trivia: 'In Captain America: Civil War, Wakanda is depicted as a small area around Lake Turkana, a point where Uganda, Kenya, South Sudan, and Ethiopia meet ... The Art of Black Panther, however, depicts it in the East African Rift Valley, bordering Rwanda, the Democratic Republic of the Congo, and Uganda.' The owner's rule says only what's on screen counts, which points to Lake Turkana.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Wakanda&prop=wikitext&format=json"
+  },
+  {
+   "id": "nm|earth|#2",
+   "key": "nm|earth|",
+   "question": "The Avengers' Project Pegasus base (Joint Dark Energy Mission Facility) is filed under New Mexico. The MCU wiki's infobox gives its location as the Mojave Desert, Nevada, but its own trivia says the Phase One tie-in book puts it in New Mexico, and the exteriors were shot in Albuquerque. The film itself names no state. Keep it under New Mexico?",
+   "options": [
+    "Keep under New Mexico (the tie-in book; Thor's New Mexico link)",
+    "Move to a Mojave Desert / Nevada place (the MCU wiki's infobox)",
+    "Mark the location unknown"
+   ],
+   "evidence": "Joint Dark Energy Mission Facility infobox: 'location = Mojave Desert, Nevada'. Trivia: 'In Phase One: Marvel's The Avengers, the facility is in New Mexico.' Behind the scenes: the exterior is Atrisco Heritage Academy High School in Albuquerque.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Joint_Dark_Energy_Mission_Facility&prop=wikitext&format=json"
+  }
+ ]
+}

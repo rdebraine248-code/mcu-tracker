@@ -1,0 +1,102 @@
+{
+ "checked": [
+  "powerstation|uni|amazing#0",
+  "brooklyn|uni|miles#1",
+  "japan|uni|ff#0",
+  "ny|uni|fox#0",
+  "ax-savage|uni|animx#0",
+  "la|earth|#12",
+  "oshkosh|earth|#0",
+  "ny|earth|#6",
+  "mansion|uni|fox#2",
+  "ny|earth|#31",
+  "witches|beyond|#4",
+  "ny|earth|#49",
+  "ny|earth|#11",
+  "ax-ny|uni|animx#3",
+  "pakistan|earth|#0",
+  "alps|earth|#1",
+  "future|beyond|#0",
+  "framework|beyond|#5",
+  "kathmandu|earth|#2",
+  "china|uni|fox#0",
+  "australia|earth|#1",
+  "dc|uni|fox#2",
+  "asgard|cosmos|#3",
+  "ax-savage|uni|animx#4",
+  "poland|uni|foxtrn#1",
+  "moscow|earth|#0",
+  "afghanistan|earth|#2",
+  "ny|earth|#64",
+  "la|earth|#18",
+  "moscow|uni|fox#0",
+  "millbury|uni|fox#0",
+  "knowhere|cosmos|#1",
+  "mexico|earth|#0",
+  "poland|uni|fox#0",
+  "kyln|cosmos|#0",
+  "la|earth|#25",
+  "mojave|earth|#0",
+  "tva|beyond|#8",
+  "kingston|earth|#0",
+  "sf|uni|sony#2",
+  "manhattan|uni|raimi#3",
+  "maveth|cosmos|#2",
+  "ny|earth|#52",
+  "mali|earth|#0",
+  "ohio|earth|#0",
+  "elektrahome|uni|daredevil#0",
+  "ego|cosmos|#0",
+  "ax-school|uni|animx#0",
+  "guatemala|earth|#0",
+  "norway|earth|#5"
+ ],
+ "changes": [
+  {
+   "id": "ny|earth|#31",
+   "q": "P2",
+   "now": [
+    "The Punisher: One Last Kill",
+    "Manhattan",
+    "Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."
+   ],
+   "proposed": [
+    "The Punisher: One Last Kill",
+    "Queens",
+    "Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."
+   ],
+   "evidence": "Frank's apartment building is in Little Sicily, which the MCU wiki files under Queens (Little Sicily redirects to Queens; the special's locations list Frank Castle's Apartment Building under Queens, with Manhattan only in flashbacks). Wikipedia: Castle lives in a Little Sicily apartment complex that a small army of criminals attacks. Filming was on Jamaica Avenue, Queens.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Punisher:_One_Last_Kill&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "ax-school|uni|animx#0",
+   "q": "P2",
+   "now": [
+    "X-Men: The Animated Series#10",
+    "",
+    "Led by Professor X and Cyclops, the X-Men protect a world that fears them from Sentinels, Magneto and Apocalypse."
+   ],
+   "proposed": [
+    "X-Men: The Animated Series#10",
+    "",
+    "The X-Men watch Apocalypse's Horsemen attack a peace conference in Paris on television, and Xavier, recognizing them from Muir Island, sends Rogue there to investigate."
+   ],
+   "evidence": "The current text sums up the whole series and is no event of episode 10 ('Come the Apocalypse'). In that episode, at Xavier's School (rec room and War Room), Storm turns on the World Peace Conference in Paris as Apocalypse and his Horsemen attack it, and Xavier sends the team out and Rogue to Muir Island because he recognizes the Horsemen as mutants who waited for the cure there.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men:_The_Animated_Series_Season_1_10&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "ny|earth|#49",
+   "question": "Jersey City is in New Jersey, across the Hudson, not in New York City. Should the Jersey City entries (Ms. Marvel x2, The Marvels) stay under 'New York' (region 'New York City'), or move to their own Jersey City, New Jersey place?",
+   "options": [
+    "Keep them under New York as part of the metro area (sub 'Jersey City')",
+    "Make a Jersey City place (New Jersey, about [40.72, -74.07]) and move the three entries there"
+   ],
+   "evidence": "Kamala Khan's home and neighborhood are in Jersey City, New Jersey. The pin sits about 6 km from Jersey City, but the region line says New York City.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(miniseries)&action=raw"
+  }
+ ]
+}

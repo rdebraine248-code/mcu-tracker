@@ -1,0 +1,95 @@
+{
+ "checked": [
+  "ny|earth|#46",
+  "sakaar|cosmos|#0",
+  "ax-mexicocity|uni|animx#0",
+  "quantum|beyond|#0",
+  "russia|uni|sony#0",
+  "mansion|uni|fox#0",
+  "ny|earth|#24",
+  "ax-axis|uni|animx-o#0",
+  "sovereign|cosmos|#1",
+  "yashidalab|uni|fox#0",
+  "compound|earth|#0",
+  "ohio|earth|#1",
+  "ax-bavaria|uni|animx#0",
+  "jotunheim|cosmos|#0",
+  "ny|earth|#13",
+  "dc|uni|foxtrn#1",
+  "ny|earth|#0",
+  "sf|earth|#0",
+  "aladna|cosmos|#0",
+  "wakanda|earth|#4",
+  "dc|uni|fox#3",
+  "mansion|uni|fox#3",
+  "busan|earth|#0",
+  "ny|earth|#51",
+  "sokovia|earth|#4",
+  "ciabase|uni|fox#0",
+  "ny|earth|#71",
+  "ny|earth|#75",
+  "anzhou|earth|#0",
+  "london|uni|sony#0",
+  "ny|earth|#50",
+  "ny|earth|#2",
+  "darkdim|uni|pruned-o#1",
+  "ravenasm|uni|amazing#0",
+  "quantum|beyond|#3",
+  "chicago|earth|#1",
+  "timessq|uni|raimi#0",
+  "bladecity|uni|blade#1",
+  "nagasaki|uni|fox#1",
+  "shieldacademy|earth|#0",
+  "ny|earth|#3",
+  "eternity|beyond|#0",
+  "sf|earth|#2",
+  "la|earth|#7",
+  "titan|cosmos|#0",
+  "genosha|uni|foxtrn#0",
+  "ny|earth|#100",
+  "mirror|beyond|#0",
+  "neworleans|uni|pruned#0",
+  "sf|earth|#4"
+ ],
+ "changes": [
+  {
+   "id": "mirror|beyond|#0",
+   "key": "mirror|beyond|",
+   "i": 0,
+   "q": "P2",
+   "now": [
+    "Doctor Strange",
+    "",
+    "Strange and Mordo chase Kaecilius through a city that folds like paper."
+   ],
+   "proposed": [
+    "Doctor Strange",
+    "",
+    "Kaecilius and his zealots chase Strange and Mordo through a city that folds like paper."
+   ],
+   "evidence": "In Doctor Strange, Strange pulls everyone into the Mirror Dimension, but Kaecilius is stronger there; Strange takes his sling ring and flees the Sanctum with Mordo, and the zealots pursue the two through a twisting New York until Kaecilius corners Strange and the Ancient One intervenes. Strange and Mordo are the ones being chased, not the chasers.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Battle_of_the_Mirror_Dimension&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "sovereign|cosmos|#1",
+   "key": "sovereign|cosmos|",
+   "i": 1,
+   "q": "P2",
+   "now": [
+    "Guardians of the Galaxy Vol. 3",
+    "",
+    "The High Evolutionary scolds Ayesha on her own world and sends Adam Warlock after Rocket."
+   ],
+   "proposed": {
+    "remove": true,
+    "wrong_place": true,
+    "happens_at": "Arête Laboratories on Counter-Earth (counterearth|cosmos|, sub 'Arête Laboratories'): the wounded Adam flies back there after the Knowhere attack, and the High Evolutionary berates Ayesha and orders her to bring back Rocket or he will wipe out the Sovereign"
+   },
+   "evidence": "Fandom's Adam Warlock page: after Nebula stabs him on Knowhere, Adam flies 'back to Arête Laboratories on Counter-Earth', the High Evolutionary's headquarters, where Ayesha treats his wound and the High Evolutionary inspects and threatens her (the Ayesha page describes the same scene). Fandom's Sovereign (Planet) page lists Guardians of the Galaxy Vol. 3 only as 'mentioned', so the planet itself is not shown. Wikipedia's plot: the High Evolutionary 'threatened to wipe out the Sovereign if they failed to retrieve Rocket'. The scene is not on Ayesha's world.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Adam_Warlock&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": []
+}

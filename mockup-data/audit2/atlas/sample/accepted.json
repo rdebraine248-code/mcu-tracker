@@ -1,0 +1,2060 @@
+{
+ "xandar|cosmos|#1": {
+  "item": {
+   "type": "question",
+   "id": "xandar|cosmos|#1",
+   "key": "xandar|cosmos|",
+   "i": 1,
+   "question": "Avengers: Infinity War never shows Xandar: Thanos taking the Power Stone there happens before the film and is only mentioned in dialogue (Thor: \"he stole it last week when he decimated Xandar\"). Does a dialogue-only, off-screen event count as on screen?",
+   "options": [
+    "Keep the entry (stated in the film's dialogue)",
+    "Remove the entry (the event is not shown on screen)"
+   ],
+   "evidence": "Thor says Thanos already has the Power Stone because he stole it last week when he decimated Xandar; the film opens on the Statesman with the stone already in Thanos's gauntlet. Xandar itself never appears.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Xandar&prop=wikitext&format=json",
+   "n": 0,
+   "item": {
+    "id": "xandar|cosmos|#1",
+    "key": "xandar|cosmos|",
+    "map": "the MCU cosmos (space)",
+    "n": "Xandar",
+    "r": "Home of the Nova Corps",
+    "at": [
+     720,
+     330
+    ],
+    "check_entry": 1,
+    "e": [
+     [
+      "Guardians of the Galaxy",
+      "",
+      "The Guardians stop Ronan from destroying the planet with the Power Stone."
+     ],
+     [
+      "Avengers: Infinity War",
+      "",
+      "Thanos takes the Power Stone from Xandar."
+     ]
+    ]
+   }
+  },
+  "value": {
+   "remove": true
+  }
+ },
+ "afterlife|earth|#2": {
+  "item": {
+   "type": "change",
+   "id": "afterlife|earth|#2",
+   "key": "afterlife|earth|",
+   "i": 2,
+   "q": "P2",
+   "now": [
+    "Agents of S.H.I.E.L.D.#44",
+    "",
+    "Jiaying turns the people of Afterlife against S.H.I.E.L.D. and leads them out to war."
+   ],
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#43",
+    "",
+    "Jiaying fakes a S.H.I.E.L.D. attack and turns the people of Afterlife against S.H.I.E.L.D., ready for war."
+   ],
+   "evidence": "Afterlife does not appear in episode 44 (S.O.S. Part Two): that episode is the Inhumans' attack aboard the Iliad, at sea, and its location list has no Nepal or Afterlife. The turning happens in episode 43 (S.O.S. Part One), at Afterlife: Jiaying blames Gonzales and a hijacked Quinjet fires on Afterlife, so its people agree to fight beside her, and she tells Skye they must come out of hiding and fight S.H.I.E.L.D. They don't leave for war until episode 44, so the text is tied to episode 43's events.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.O.S._Part_Two&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.O.S._Part_One&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw",
+   "confidence": "high",
+   "n": 1,
+   "item": {
+    "id": "afterlife|earth|#2",
+    "key": "afterlife|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "Afterlife",
+    "r": "Nepal",
+    "at": [
+     28.1667,
+     84.25
+    ],
+    "check_entry": 2,
+    "e": [
+     [
+      "Agents of S.H.I.E.L.D.#38",
+      "",
+      "Skye is brought to Afterlife, a hidden Inhuman haven where Jiaying guides new Inhumans through their changes."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#39",
+      "",
+      "Jiaying leads the Inhumans of Afterlife and helps Skye learn to control her powers."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#44",
+      "",
+      "Jiaying turns the people of Afterlife against S.H.I.E.L.D. and leads them out to war."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#133",
+      "",
+      "In a changed past, Nathaniel Malick storms Afterlife and kills Gordon to take his powers."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#43",
+      "",
+      "Jiaying kills Raina when she threatens to reveal who really started the war, and Skye, who sees it, turns against her mother."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#131",
+      "",
+      "In a changed past, Nathaniel Malick wins Kora over and takes Afterlife, and Jiaying and Gordon flee with May and Yo-Yo."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Agents of S.H.I.E.L.D.#43",
+   "",
+   "Jiaying fakes a S.H.I.E.L.D. attack and turns the people of Afterlife against S.H.I.E.L.D., ready for war."
+  ]
+ },
+ "ny|earth|#45": {
+  "item": {
+   "type": "change",
+   "id": "ny|earth|#45",
+   "key": "ny|earth|",
+   "i": 45,
+   "q": "P2",
+   "now": [
+    "Jessica Jones S3#12",
+    "Hell's Kitchen",
+    "Jessica hunts a serial killer, Gregory Sallinger, while Trish turns vigilante."
+   ],
+   "proposed": [
+    "Jessica Jones S3#12",
+    "Hell's Kitchen",
+    "Sallinger ties Jessica up at her apartment, but she records him confessing to Dorothy's murder and leaves him for the police. Trish kills him on his way to court."
+   ],
+   "evidence": "In episode 12 (A.K.A. A Lotta Worms) Jessica is no longer hunting Sallinger: she saves him from Trish, uses him as bait to trap her, then Sallinger restrains and tortures Jessica at her apartment, she reveals she recorded his confession about killing Dorothy, subdues him and leaves him for the police, and Trish murders him while he is being taken to court. Trish became a vigilante back in the season's opening episodes.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Jessica_Jones_season_3&action=raw",
+   "confidence": "high",
+   "n": 2,
+   "item": {
+    "id": "ny|earth|#45",
+    "key": "ny|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "New York",
+    "r": "New York City",
+    "at": [
+     40.71,
+     -74
+    ],
+    "check_entry": 45,
+    "e": [
+     [
+      "Captain America: The First Avenger",
+      "Brooklyn",
+      "Steve Rogers, a skinny kid from Brooklyn, is turned away by army recruiters again and again."
+     ],
+     [
+      "Captain America: The First Avenger",
+      "Flushing Meadows, Queens",
+      "At the World Exposition of Tomorrow, Dr. Erskine overhears Steve and gives him his chance."
+     ],
+     [
+      "Captain America: The First Avenger",
+      "Times Square",
+      "Steve runs out of a fake 1940s hospital room and into a Times Square seventy years later."
+     ],
+     [
+      "Iron Man 2",
+      "Flushing Meadows, Queens",
+      "Ivan Vanko turns Justin Hammer's drones on the crowd at the Stark Expo."
+     ],
+     [
+      "The Incredible Hulk",
+      "Harlem",
+      "The Hulk and the Abomination tear through the streets of Harlem."
+     ],
+     [
+      "The Avengers",
+      "Midtown",
+      "The Chitauri pour through a portal above Stark Tower, and the Avengers fight them street by street."
+     ],
+     [
+      "Daredevil S1#1",
+      "Hell's Kitchen",
+      "Matt Murdock and Foggy Nelson open a law practice, and at night Matt puts on a mask."
+     ],
+     [
+      "Jessica Jones S1#1",
+      "Hell's Kitchen",
+      "Jessica runs Alias Investigations out of her apartment, until Kilgrave comes back for her."
+     ],
+     [
+      "Daredevil S2",
+      "Hell's Kitchen",
+      "Frank Castle wipes out gangs across the neighborhood, and Elektra pulls Matt into a war with the Hand."
+     ],
+     [
+      "Luke Cage S1#2",
+      "Harlem",
+      "Luke sweeps floors at Pop's barbershop until a shooting there pulls him into a fight for Harlem."
+     ],
+     [
+      "Iron Fist S1#1",
+      "Midtown",
+      "Danny Rand walks barefoot into Rand Enterprises, fifteen years after his family's plane went down."
+     ],
+     [
+      "The Defenders",
+      "Midland Circle",
+      "Matt, Jessica, Luke and Danny trap the Hand's leaders under Midland Circle and bring the building down."
+     ],
+     [
+      "Captain America: Civil War",
+      "Queens",
+      "Tony Stark shows up at Peter Parker's apartment and offers him a trip to Germany."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Staten Island Ferry",
+      "Peter's fight with the Vulture's buyers splits the ferry in half, and Iron Man has to hold it together."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Coney Island",
+      "Peter brings down the Vulture's stolen cargo plane on the beach."
+     ],
+     [
+      "Daredevil S3#3",
+      "Manhattan",
+      "Fisk moves into a hotel penthouse under FBI protection and runs his operation from it."
+     ],
+     [
+      "Doctor Strange",
+      "Greenwich Village",
+      "Strange defends the New York Sanctum from Kaecilius and his zealots."
+     ],
+     [
+      "Thor: Ragnarok",
+      "Greenwich Village",
+      "Doctor Strange gives Thor directions to Odin, after leaving Loki falling through a portal for thirty minutes."
+     ],
+     [
+      "Avengers: Infinity War",
+      "Greenwich Village",
+      "Ebony Maw and Cull Obsidian come for the Time Stone, and Strange is taken aboard their ship."
+     ],
+     [
+      "The Punisher S2#4",
+      "Manhattan",
+      "Frank comes back to New York to finish things with Billy Russo."
+     ],
+     [
+      "Avengers: Endgame",
+      "Midtown, 2012",
+      "The Avengers slip back into the Battle of New York to take the Tesseract and the scepter."
+     ],
+     [
+      "The Falcon and the Winter Soldier",
+      "Manhattan",
+      "Sam stops the Flag Smashers' attack on the Global Repatriation Council in his new suit."
+     ],
+     [
+      "Spider-Man: Far From Home",
+      "Midtown",
+      "Mysterio's last video plays on a giant screen, and the city learns Spider-Man is Peter Parker."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Statue of Liberty",
+      "Three Spider-Men fight villains from other universes on the scaffolding around the Statue of Liberty."
+     ],
+     [
+      "Hawkeye",
+      "Rockefeller Center",
+      "Clint and Kate fight the Tracksuit Mafia around the Christmas tree at Rockefeller Center."
+     ],
+     [
+      "Doctor Strange in the Multiverse of Madness",
+      "Midtown",
+      "A giant one-eyed monster chases America Chavez through the streets until Strange and Wong stop it."
+     ],
+     [
+      "Ms. Marvel",
+      "Jersey City",
+      "In her bedroom, Kamala's bangle glows and Captain Marvel takes her place."
+     ],
+     [
+      "Echo#4",
+      "Manhattan, 2008",
+      "Young Maya sees Fisk beat a street vendor who couldn't understand her signing."
+     ],
+     [
+      "Daredevil: Born Again S1#1",
+      "City Hall",
+      "Wilson Fisk is elected mayor of New York."
+     ],
+     [
+      "Thunderbolts*",
+      "Midtown",
+      "The Void spreads darkness across Manhattan from the top of the old Avengers Tower."
+     ],
+     [
+      "Daredevil: Born Again S2",
+      "Courthouse",
+      "Matt reveals in open court that he is Daredevil."
+     ],
+     [
+      "The Punisher: One Last Kill",
+      "Manhattan",
+      "Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "Roosevelt Island",
+      "Jean Grey's psionic field takes over Damage Control's Roosevelt Island facility, and Peter lets her into his mind to reach her."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#124",
+      "Manhattan, 1931",
+      "The team chases the Chronicoms through New York in 1931."
+     ],
+     [
+      "Captain America: The First Avenger",
+      "Brooklyn",
+      "Steve steps out of Erskine's chamber, taller and stronger, in a lab hidden under an antique shop."
+     ],
+     [
+      "Avengers: Age of Ultron",
+      "Midtown",
+      "Ultron crashes the Avengers' party at Avengers Tower."
+     ],
+     [
+      "Avengers: Endgame",
+      "Midtown, 2012",
+      "Steve fights his 2012 self, who thinks he's Loki in disguise."
+     ],
+     [
+      "Avengers: Endgame",
+      "Greenwich Village, 2012",
+      "Bruce talks the Ancient One into giving up the Time Stone."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Alexander Hamilton Bridge",
+      "Doctor Octopus attacks Peter on a bridge, and Peter realizes this Otto is from another world."
+     ],
+     [
+      "Agent Carter (One-Shot)",
+      "Manhattan, 1946",
+      "Stuck on desk duty at the SSR's New York office, Peggy takes the Zodiac mission alone and wins."
+     ],
+     [
+      "Agent Carter#1",
+      "Manhattan, 1946",
+      "Peggy works at the SSR's New York office while secretly clearing Howard Stark's name."
+     ],
+     [
+      "The Punisher S1#12",
+      "Manhattan",
+      "Frank Castle hunts the men behind his family's murder, and his best friend Billy Russo turns out to be one of them."
+     ],
+     [
+      "Jessica Jones S2#6",
+      "Hell's Kitchen",
+      "Jessica digs into IGH, the company that gave her powers, and finds her mother alive."
+     ],
+     [
+      "Luke Cage S2",
+      "Harlem",
+      "Bushmaster comes for Mariah Dillard, and Luke ends up running Harlem's Paradise."
+     ],
+     [
+      "Iron Fist S2#4",
+      "Chinatown",
+      "With the Hand gone, gangs fight over Chinatown, and Davos steals the Iron Fist."
+     ],
+     [
+      "Jessica Jones S3#12",
+      "Hell's Kitchen",
+      "Jessica hunts a serial killer, Gregory Sallinger, while Trish turns vigilante."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Queens",
+      "Peter goes to Midtown School of Science and Technology and patrols the neighborhood after class."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Greenwich Village",
+      "Strange casts a spell to make the world forget Peter Parker, and it pulls in visitors from other worlds."
+     ],
+     [
+      "Hawkeye#1",
+      "Manhattan",
+      "Kate Bishop puts on Ronin's suit at an underground auction, and Clint comes to find out who she is."
+     ],
+     [
+      "Ms. Marvel",
+      "Jersey City",
+      "Kamala Khan starts looking out for her own neighborhood, and Jersey City gets a hero of its own."
+     ],
+     [
+      "The Marvels",
+      "Jersey City",
+      "Kamala swaps places with Carol and Monica, and the Khan family's living room becomes a battlefield."
+     ],
+     [
+      "Daredevil: Born Again S1#1",
+      "Hell's Kitchen",
+      "Bullseye kills Foggy Nelson at Josie's bar."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "Manhattan",
+      "Four years on, Spider-Man takes down Tombstone, Ramrod and Boomerang across the city."
+     ],
+     [
+      "Loki S1#1",
+      "Midtown, 2012",
+      "Loki grabs the Tesseract and escapes the Avengers."
+     ],
+     [
+      "Peter's To-Do List",
+      "Queens",
+      "Peter works through his chores between saving people."
+     ],
+     [
+      "Daredevil: Born Again S1",
+      "Red Hook",
+      "Fisk's Task Force locks Frank Castle and Jack Duquesne in a secret prison at the port, and Frank tricks a guard to escape."
+     ],
+     [
+      "Daredevil: Born Again S2#3",
+      "Red Hook",
+      "Daredevil breaks into the Task Force prison at the port and frees the Swordsman, Soledad and the other prisoners."
+     ],
+     [
+      "Daredevil: Born Again S2",
+      "Red Hook",
+      "Fisk runs smuggled CIA weapons through the Red Hook freeport, beyond the reach of the city's police."
+     ],
+     [
+      "Agent Carter#1",
+      "Red Hook, 1946",
+      "Peggy sneaks into a Roxxon refinery where stolen Stark formulas are being made into bombs, and the whole plant implodes."
+     ],
+     [
+      "Daredevil S2#9",
+      "Rikers Island",
+      "From his cell at Rikers, Fisk takes over the prison and sets Frank Castle on a rival inmate."
+     ],
+     [
+      "Avengers: Infinity War",
+      "Central Park",
+      "Tony and Pepper are out jogging in Central Park when Doctor Strange steps through a portal, with Bruce Banner behind him."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Happy's condo",
+      "Peter hides May and the villains from other worlds at Happy's condo, where the Goblin returns and fatally wounds May."
+     ],
+     [
+      "Doctor Strange",
+      "Metro-General Hospital",
+      "Christine Palmer works at Metro-General, and she saves Strange there after a zealot wounds him at the Sanctum."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "Williamsburg Bridge",
+      "Spider-Man catches Tarantula running a smuggling job on a passenger boat near the Williamsburg Bridge."
+     ],
+     [
+      "Iron Fist S1#2",
+      "Manhattan",
+      "Ward has Danny drugged and locked up at Birch Psychiatric Hospital to keep him away from Rand Enterprises."
+     ],
+     [
+      "Jessica Jones S2#11",
+      "",
+      "Trish forces Dr. Malus to give her powers at a closed clinic, and he burns himself and the lab."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Midtown",
+      "Damage Control takes over the Battle of New York cleanup from Toomes's crew, and years later Happy packs up Avengers Tower for the move upstate."
+     ],
+     [
+      "Hawkeye",
+      "Midtown, 2012",
+      "During the Battle of New York, young Kate Bishop sees Hawkeye leap from Stark Tower and decides to become an archer."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Queens",
+      "Back at Midtown School after his unmasking, Mr. Dell and Mr. Harrington warmly greet Peter, and Harrington shows off his Europe trip display."
+     ],
+     [
+      "Avengers: Endgame",
+      "Queens",
+      "Back from the Blip on the first day of the new school year, Ned spots Peter at Midtown School and they share a tearful reunion."
+     ],
+     [
+      "Spider-Man: Far From Home",
+      "Queens",
+      "On the Midtown School news, Betty explains how she and half her classmates vanished in the Blip and had to restart the school year."
+     ],
+     [
+      "Daredevil S3",
+      "Hell's Kitchen",
+      "At Clinton Church and its orphanage, nuns nurse Matt back to health, Dex attacks Karen inside the church, and Father Lantom is laid to rest."
+     ],
+     [
+      "Daredevil S3#10",
+      "Hell's Kitchen",
+      "Father Lantom shelters the injured Matt and then Karen at Clinton Church, and is killed by Dex while shielding her."
+     ],
+     [
+      "The Defenders#1",
+      "Hell's Kitchen",
+      "In confession at Clinton Church, Matt admits to Father Lantom that he misses being Daredevil and has lied to Karen about it."
+     ],
+     [
+      "The Defenders",
+      "Hell's Kitchen",
+      "Presumed dead after Midland Circle falls, Matt wakes battered and bandaged in the care of nuns at the orphanage beside Clinton Church."
+     ],
+     [
+      "Daredevil: Born Again S2#2",
+      "Hell's Kitchen",
+      "Matt and Karen hide out at Josie's bar, until the Anti-Vigilante Task Force surrounds it and Daredevil fights them off."
+     ],
+     [
+      "The Defenders#2",
+      "Harlem",
+      "At a Harlem bar, Luke Cage grabs Turk Barrett and presses him for the man in white recruiting neighborhood kids."
+     ],
+     [
+      "Daredevil S2#11",
+      "Chinatown",
+      "Daredevil storms a Chinatown dry cleaner's that fronts for Madame Gao's heroin trade, and she tells him what she knows of the Blacksmith."
+     ],
+     [
+      "Iron Fist S1",
+      "Chinatown",
+      "Claire signs up for classes at Colleen Wing's struggling Chikara Dojo, which becomes Danny's base in the fight against the Hand."
+     ],
+     [
+      "Daredevil: Born Again S2",
+      "City Hall",
+      "At a protest outside City Hall, Karen projects detainees' testimony onto its walls, and Powell kills Saunders and turns the task force on the crowd."
+     ],
+     [
+      "Echo#1",
+      "Manhattan, 2021",
+      "In 2021, Maya watches the Ronin kill her father and his Tracksuit crew, then fights Daredevil on her first job for Fisk."
+     ],
+     [
+      "The Marvels",
+      "Manhattan",
+      "Kamala Khan visits Kate Bishop and Lucky the dog at Kate's apartment to recruit her for a new team of young heroes."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "MJ and Ned's apartment",
+      "Back from MIT, MJ and Ned share an apartment, and later MJ invites a masked Spider-Man inside to meet Ned."
+     ],
+     [
+      "Agent Carter#8",
+      "Manhattan, 1946",
+      "Back at the SSR office, the agents give Peggy a standing ovation, but the government hands Thompson the credit for stopping Leviathan."
+     ],
+     [
+      "Agent Carter#8",
+      "City Hall, 1946",
+      "At a press conference at City Hall, the SSR clears Howard Stark's name, until shots ring out and a hypnotized police officer drives off with him, leaving Jarvis behind."
+     ],
+     [
+      "Agent Carter#7",
+      "Manhattan, 1946",
+      "Hypnotized by Ivchenko into wearing a Stark bomb vest, Chief Dooley jumps out of the SSR office window and dies saving his agents."
+     ],
+     [
+      "Agent Carter#6",
+      "Manhattan, 1946",
+      "Sousa exposes Peggy to Dooley, and as the SSR raids the Griffith, Angie helps her hide, until Dottie knocks her out and the agents arrest her."
+     ],
+     [
+      "Agent Carter#3",
+      "Manhattan, 1946",
+      "Agent Krzeminski is shot dead by an unseen assassin while driving a captured guard back to SSR headquarters."
+     ],
+     [
+      "Jessica Jones S1#10",
+      "Brooklyn",
+      "Detective Clemons guards the proof of Kilgrave's power at an old CDC facility, until a drugged Will Simpson shoots him and burns the place."
+     ],
+     [
+      "Jessica Jones S1#7",
+      "Hell's Kitchen",
+      "Jessica brings Ruben's head to the 15th Precinct to get herself locked up, and Kilgrave takes control of every officer in the station, Mahoney among them."
+     ],
+     [
+      "Jessica Jones S3#2",
+      "Hell's Kitchen",
+      "Oscar breaks things off with Jessica, telling her he has met someone else."
+     ],
+     [
+      "Jessica Jones S3#8",
+      "Manhattan",
+      "Trish helps Jessica hunt Gregory Sallinger, who murders Trish's mother Dorothy at her apartment."
+     ],
+     [
+      "The Punisher S1#10",
+      "Manhattan",
+      "Lewis Wilson attacks Senator Ori's fundraiser at a hotel in a bomb vest and takes Karen hostage, until Frank frees her and Lewis blows himself up. Detective Mahoney then questions the survivors."
+     ],
+     [
+      "The Punisher S1#9",
+      "Manhattan",
+      "At the Bulletin, Ellison holds back the bomber's letter until the FBI is called, then turns on the news to show Karen that Frank Castle is alive."
+     ],
+     [
+      "The Punisher S2#7",
+      "Manhattan",
+      "CIA Deputy Director Marion James tells Madani to stay out of it and let Frank and Billy Russo kill each other."
+     ],
+     [
+      "Daredevil S3#5",
+      "Manhattan",
+      "Karen confronts Fisk's fixer Felix Manning, and he threatens her with what he knows about her family."
+     ],
+     [
+      "Daredevil S3#7",
+      "Manhattan",
+      "After the attack on the Bulletin, Ellison orders Karen to name Daredevil or quit."
+     ],
+     [
+      "Daredevil S3#6",
+      "Manhattan",
+      "Dex attacks the Bulletin in Daredevil's suit and kills Jasper Evans before he can talk about Fisk."
+     ],
+     [
+      "Daredevil S3#2",
+      "Hell's Kitchen",
+      "With Matt missing, Foggy thinks about leaving the law to help his brother Theo run the family butcher shop."
+     ],
+     [
+      "Daredevil S3#12",
+      "Manhattan",
+      "Nadeem testifies against Fisk before a grand jury, but Fisk controls the jurors and the hearing changes nothing."
+     ],
+     [
+      "Daredevil S3#12",
+      "Queens",
+      "Back at his home, Nadeem is shot dead by Dex on the Fisks' orders."
+     ],
+     [
+      "Hawkeye#5",
+      "Manhattan",
+      "Yelena waits for Kate in her apartment and reveals she has come to kill Clint, whom she blames for Natasha's death."
+     ],
+     [
+      "Hawkeye#4",
+      "Manhattan",
+      "Clint and Kate trace the stolen watch to Maya Lopez's apartment, where Maya, hunting the Ronin who killed her father, attacks Kate."
+     ],
+     [
+      "Iron Fist S1#10",
+      "Manhattan",
+      "Bakuto, secretly a leader of the Hand, visits Harold Meachum and offers him a partnership."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Jessica Jones S3#12",
+   "Hell's Kitchen",
+   "Sallinger ties Jessica up at her apartment, but she records him confessing to Dorothy's murder and leaves him for the police. Trish kills him on his way to court."
+  ]
+ },
+ "oklahoma|earth|#0": {
+  "item": {
+   "type": "change",
+   "id": "oklahoma|earth|#0",
+   "key": "oklahoma|earth|",
+   "i": null,
+   "q": "P1",
+   "now": {
+    "at": [
+     35.4,
+     -95.2
+    ]
+   },
+   "proposed": {
+    "at": [
+     35.4,
+     -94.99
+    ]
+   },
+   "evidence": "Tamaha, Oklahoma is at 35 deg 23' 51\" N, 94 deg 59' 15\" W (35.398, -94.987). The pin at -95.2 sits about 19 km west of this very small town.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Tamaha,_Oklahoma&action=raw",
+   "confidence": "high",
+   "n": 3,
+   "item": {
+    "id": "oklahoma|earth|#0",
+    "key": "oklahoma|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "Tamaha",
+    "r": "Oklahoma",
+    "at": [
+     35.4,
+     -95.2
+    ],
+    "check_entry": 0,
+    "e": [
+     [
+      "Echo#3",
+      "",
+      "Maya comes home to Tamaha, and Fisk follows her there."
+     ]
+    ]
+   }
+  },
+  "value": {
+   "at": [
+    35.4,
+    -94.99
+   ]
+  }
+ },
+ "la|earth|#4": {
+  "item": {
+   "type": "change",
+   "id": "la|earth|#4",
+   "i": 4,
+   "q": "P2",
+   "now": [
+    "Agent Carter#13",
+    "Hollywood",
+    "Peggy chases Whitney Frost and Zero Matter through Hollywood."
+   ],
+   "proposed": [
+    "Agent Carter#13",
+    "",
+    "Peggy's team breaks into a Roxxon warehouse to disarm its atomic bombs before Whitney Frost can take one, and Peggy is impaled on rebar fighting her."
+   ],
+   "evidence": "In The Atomic Job (S2E5, #13) Frost takes the Zero Matter from Jane Scott's body, then Peggy, Jarvis, Sousa, Rose and Samberly break into the Roxxon Warehouse in Los Angeles to disarm the atomic bombs; Peggy fights Frost and is impaled on rebar as Frost escapes. No chase through Hollywood; the warehouse is placed only in Los Angeles.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Atomic_Job&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Roxxon_Warehouse&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agent_Carter_season_2&action=raw",
+   "confidence": "medium",
+   "n": 6,
+   "item": {
+    "id": "la|earth|#4",
+    "key": "la|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "Los Angeles",
+    "r": "California",
+    "at": [
+     34.05,
+     -118.24
+    ],
+    "check_entry": 4,
+    "e": [
+     [
+      "Iron Man",
+      "Malibu",
+      "Tony builds a new suit in his workshop and teaches himself to fly it."
+     ],
+     [
+      "Iron Man 3",
+      "Malibu",
+      "The Mandarin's helicopters destroy Tony's house."
+     ],
+     [
+      "Team Thor, Team Thor: Part 2 & Team Darryl",
+      "",
+      "Darryl moves to Los Angeles, and the Grandmaster becomes his new roommate."
+     ],
+     [
+      "Captain Marvel",
+      "Downtown",
+      "Vers crashes through the roof of a Blockbuster video store."
+     ],
+     [
+      "Agent Carter#13",
+      "Hollywood",
+      "Peggy chases Whitney Frost and Zero Matter through Hollywood."
+     ],
+     [
+      "The Guardians of the Galaxy Holiday Special",
+      "Beverly Hills",
+      "Mantis and Drax kidnap Kevin Bacon as a Christmas present."
+     ],
+     [
+      "She-Hulk: Attorney at Law#2",
+      "Downtown",
+      "Jen Walters becomes head of GLK&H's new superhuman law division."
+     ],
+     [
+      "Wonder Man#1",
+      "Hollywood",
+      "Simon Williams chases the lead in Von Kovak's remake of Wonder Man."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#70",
+      "",
+      "A Darkhold experiment leaves ghosts behind, and the Ghost Rider joins the hunt."
+     ],
+     [
+      "Iron Man",
+      "",
+      "Tony and Pepper overload the arc reactor to stop Obadiah Stane, and the next day Tony tells the press he is Iron Man."
+     ],
+     [
+      "Iron Man 2",
+      "Malibu",
+      "Tony fights Rhodey at his own birthday party, and Rhodey flies off in one of the suits."
+     ],
+     [
+      "Iron Man 3",
+      "Hollywood",
+      "A Mandarin bombing outside the Chinese Theatre puts Happy in the hospital."
+     ],
+     [
+      "Iron Man 2",
+      "Randy's Donuts",
+      "Fury finds Tony sitting in the giant donut on the shop's roof and leaves him Howard Stark's old files."
+     ],
+     [
+      "She-Hulk: Attorney at Law#7",
+      "Malibu",
+      "Jen visits Summer Twilights, Emil Blonsky's retreat in Malibu, where he runs a support group for reformed villains."
+     ],
+     [
+      "She-Hulk: Attorney at Law",
+      "Malibu",
+      "Todd turns himself into a Hulk with Jen's stolen blood, and a brawl breaks out at Emil's Malibu retreat."
+     ],
+     [
+      "Captain Marvel",
+      "",
+      "In 1995, the Skrull Talos, posing as Fury's boss Keller, mourns a fallen comrade at S.H.I.E.L.D.'s field office and sends Fury after Vers."
+     ],
+     [
+      "She-Hulk: Attorney at Law#8",
+      "",
+      "At the Southern California Law Awards gala, Intelligencia leaks a private video of Jen, and she smashes the screen and is arrested by Damage Control."
+     ],
+     [
+      "Agent Carter#12",
+      "",
+      "Vernon Masters arrives at the SSR's Los Angeles office with FBI agents and an order that stops its raid on the Arena Club."
+     ],
+     [
+      "Agent Carter#17",
+      "",
+      "Thompson betrays Masters to Whitney Frost at her base, and she begins draining him with Zero Matter until Wilkes bursts in."
+     ],
+     [
+      "Wonder Man#2",
+      "Hollywood",
+      "Damage Control's agent Cleary offers Trevor Slattery his freedom to spy on Simon, and Trevor secretly hacks Simon's computer while helping him film an audition."
+     ],
+     [
+      "She-Hulk: Attorney at Law#5",
+      "Downtown",
+      "With GLK&H's Mallory Book as her lawyer, Jen sues Titania over the She-Hulk trademark and wins, and the two lawyers start a tentative friendship."
+     ],
+     [
+      "She-Hulk: Attorney at Law#4",
+      "Downtown",
+      "Wong hires Jen to sue Donny Blaze, a stage magician who misuses the mystic arts."
+     ],
+     [
+      "She-Hulk: Attorney at Law#1",
+      "Downtown",
+      "Titania bursts through the courtroom wall during Jen's case, and Jen turns into She-Hulk, knocks her out and finishes her closing argument."
+     ],
+     [
+      "Wonder Man#4",
+      "Hollywood",
+      "Some time earlier, the doorman DeMarr Davis gains powers and becomes a film star until the actor who cast him vanishes inside him on set, and Hollywood's studios ban powered people from acting."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#72",
+      "",
+      "Robbie tells Gabe how the attack that paralyzed him also made Robbie the Ghost Rider. At an abandoned Roxxon plant, Robbie destroys Lucy Bauer's ghost, and Eli Morrow uses his machine to gain the power to create matter."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#67",
+      "",
+      "Daisy, now the vigilante Quake, hunts the Watchdogs in Los Angeles and is beaten by the Ghost Rider, who turns out to be the mechanic Robbie Reyes."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#74",
+      "",
+      "Eli Morrow barricades himself in an abandoned building with a demon core that could destroy half the city, and Robbie holds him as both are dragged through a portal into another dimension."
+     ],
+     [
+      "She-Hulk: Attorney at Law#8",
+      "Downtown",
+      "Matt Murdock beats Jen in court over a faulty supersuit, then teams up with her as Daredevil to rescue the tailor Luke Jacobson from Leap-Frog."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#1",
+      "Downtown",
+      "Coulson's new team, with Fitz and Simmons in its lab, tracks Mike Peterson, a man with unstable Centipede powers, and stops him at Union Station before he explodes."
+     ],
+     [
+      "She-Hulk: Attorney at Law#6",
+      "Downtown",
+      "Mallory and Nikki handle the divorce case of Mr. Immortal, who has faked his death again and again to escape his marriages."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#127",
+      "Hollywood",
+      "In 1955, the time-traveling S.H.I.E.L.D. team fakes Daniel Sousa's death at the Hotel Roosevelt to save him from a HYDRA assassination, and he joins them."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Agent Carter#13",
+   "",
+   "Peggy's team breaks into a Roxxon warehouse to disarm its atomic bombs before Whitney Frost can take one, and Peggy is impaled on rebar fighting her."
+  ]
+ },
+ "lighthouse|earth|#3": {
+  "item": {
+   "type": "change",
+   "id": "lighthouse|earth|#3",
+   "q": "P2",
+   "now": [
+    "Agents of S.H.I.E.L.D.#133",
+    "",
+    "In a changed past, Nathaniel Malick brings Jiaying to the Lighthouse, tells her Daisy is her daughter, and kills her."
+   ],
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#133",
+    "",
+    "In a changed past, Garrett teleports Nathaniel Malick into the Lighthouse, where S.H.I.E.L.D. is keeping Jiaying safe, and Nathaniel tells her Daisy is her daughter before killing her."
+   ],
+   "evidence": "In 'Stolen', S.H.I.E.L.D. already keeps Jiaying at the Lighthouse for protection; Garrett teleports Nathaniel there, and he reveals to Jiaying that Daisy is her daughter before killing her. Nathaniel does not bring her to the Lighthouse.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_7&action=raw",
+   "confidence": "high",
+   "n": 7,
+   "item": {
+    "id": "lighthouse|earth|#3",
+    "key": "lighthouse|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "The Lighthouse",
+    "r": "Under Lake Ontario, New York",
+    "at": [
+     43.95,
+     -76.1167
+    ],
+    "check_entry": 3,
+    "e": [
+     [
+      "Agents of S.H.I.E.L.D.#100",
+      "",
+      "Coulson and Deathlok fight off creatures from the Fear Dimension until the rift in the base closes."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#107",
+      "",
+      "With the Lighthouse in lockdown, Remorath soldiers teleport in after the gravitonium that Simmons, Piper and Davis guard, and Talbot absorbs it himself."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#128",
+      "1976",
+      "In a changed 1976, HYDRA agents inside S.H.I.E.L.D. rush Project Insight at the Lighthouse."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#133",
+      "",
+      "In a changed past, Nathaniel Malick brings Jiaying to the Lighthouse, tells her Daisy is her daughter, and kills her."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Agents of S.H.I.E.L.D.#133",
+   "",
+   "In a changed past, Garrett teleports Nathaniel Malick into the Lighthouse, where S.H.I.E.L.D. is keeping Jiaying safe, and Nathaniel tells her Daisy is her daughter before killing her."
+  ]
+ },
+ "ax-asteroidm|uni|animx-o#0": {
+  "item": {
+   "type": "change",
+   "id": "ax-asteroidm|uni|animx-o#0",
+   "q": "P2",
+   "now": [
+    "X-Men: The Animated Series#49",
+    "",
+    "Magneto opens his orbiting haven to mutants, but Fabian Cortez seizes it, captures and tortures Gambit, and fires missiles at Earth."
+   ],
+   "proposed": [
+    "X-Men: The Animated Series#49",
+    "",
+    "Fabian Cortez takes over Magneto's orbiting haven and fires hundreds of missiles at Earth, until Magneto returns and destroys both the missiles and the asteroid."
+   ],
+   "evidence": "Episode 49 is Sanctuary Part II. Magneto offering Asteroid M to mutants and Cortez forcing him out in an escape pod happen in Part I (episode 48). In Part II Cortez runs the asteroid and sends missiles at Earth, Rogue looks for the missing Gambit, and Magneto comes back to destroy the missiles and the asteroid. Both the Wikipedia list and the Marvel Database pages (Season 4 6 and 7) say so.",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw",
+   "confidence": "high",
+   "n": 8,
+   "item": {
+    "id": "ax-asteroidm|uni|animx-o#0",
+    "key": "ax-asteroidm|uni|animx-o",
+    "map": "animx-o (orbit map)",
+    "n": "Asteroid M",
+    "r": "Earth orbit",
+    "at": [
+     640,
+     355
+    ],
+    "check_entry": 0,
+    "e": [
+     [
+      "X-Men: The Animated Series#49",
+      "",
+      "Magneto opens his orbiting haven to mutants, but Fabian Cortez seizes it, captures and tortures Gambit, and fires missiles at Earth."
+     ],
+     [
+      "X-Men '97#9",
+      "",
+      "Magneto restores his orbiting haven and turns his back on Earth, and Rogue and Sunspot join him there."
+     ],
+     [
+      "X-Men '97#10",
+      "",
+      "Bastion tries to crash the asteroid into Earth, until U.S. missiles strike it and kill him."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "X-Men: The Animated Series#49",
+   "",
+   "Fabian Cortez takes over Magneto's orbiting haven and fires hundreds of missiles at Earth, until Magneto returns and destroys both the missiles and the asteroid."
+  ]
+ },
+ "ax-school|uni|animx#2": {
+  "item": {
+   "type": "question",
+   "id": "ax-school|uni|animx#2",
+   "question": "Spider-Man (1994)#18 (Mutants' Revenge): the entry puts Rogue flirting with Spider-Man and Wolverine joining his hunt at the mansion, but the full synopsis has Spider-Man only in Manhattan. Wolverine meets him there, they raid Landon's building, and the X-Men fly in by Blackbird. The mansion shows up only as the War Room. No source mentions Rogue flirting. Spider-Man's visit to the mansion is episode 17, which already has an entry. What to do with this entry?",
+   "options": [
+    "Drop the entry from the mansion (the team-up belongs on the New York pin)",
+    "Rewrite it to a mansion event once one is confirmed on screen",
+    "Keep as is"
+   ],
+   "evidence": "Marvel Database 'Spider-Man: The Animated Series Season 2 5' full synopsis: Spider-Man and Wolverine fight and team up outside and inside Landon's building in Manhattan, and the X-Men arrive in the Blackbird. Its locations list Xavier's School only through the War Room. Season 2 4 (episode 17) is the mansion visit.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Spider-Man:_The_Animated_Series_Season_2_5&prop=wikitext&format=json",
+   "n": 9,
+   "item": {
+    "id": "ax-school|uni|animx#2",
+    "key": "ax-school|uni|animx",
+    "map": "animx (Earth map)",
+    "n": "Xavier's School",
+    "r": "Salem Center, Westchester County, New York",
+    "at": [
+     41.33,
+     -73.6
+    ],
+    "check_entry": 2,
+    "e": [
+     [
+      "X-Men: The Animated Series#10",
+      "",
+      "Led by Professor X and Cyclops, the X-Men protect a world that fears them from Sentinels, Magneto and Apocalypse."
+     ],
+     [
+      "Spider-Man (1994)#17",
+      "",
+      "Spider-Man comes looking for a cure for his mutation, scuffles with the X-Men, and learns Xavier cannot cure him."
+     ],
+     [
+      "Spider-Man (1994)#18",
+      "",
+      "Rogue flirts with Spider-Man at the mansion, and Wolverine joins his hunt for the missing Beast."
+     ]
+    ]
+   }
+  },
+  "value": {
+   "remove": true
+  }
+ },
+ "sf|uni|sony#1": {
+  "item": {
+   "type": "question",
+   "id": "sf|uni|sony#1",
+   "question": "Venom: Let There Be Carnage's San Quentin execution sits as a spot inside the San Francisco pin, but San Quentin is in unincorporated Marin County, north of San Francisco across the bay (about 37.94, -122.49). Keep it under San Francisco as a Bay Area spot, or give it its own place?",
+   "options": [
+    "Keep under San Francisco (Bay Area)",
+    "Make San Quentin its own place at 37.939, -122.489 (Marin County, California)"
+   ],
+   "evidence": "Wikipedia: San Quentin Rehabilitation Center (formerly San Quentin State Prison) is located north of San Francisco in unincorporated Marin County, on Point San Quentin on the north side of San Francisco Bay.",
+   "source": "https://en.wikipedia.org/w/index.php?title=San_Quentin_Rehabilitation_Center&action=raw",
+   "n": 10,
+   "item": {
+    "id": "sf|uni|sony#1",
+    "key": "sf|uni|sony",
+    "map": "sony (Earth map)",
+    "n": "San Francisco",
+    "r": "California",
+    "at": [
+     37.77,
+     -122.42
+    ],
+    "check_entry": 1,
+    "e": [
+     [
+      "Venom",
+      "Life Foundation",
+      "Eddie bonds with the symbiote inside the Life Foundation's lab."
+     ],
+     [
+      "Venom: Let There Be Carnage",
+      "San Quentin",
+      "Carnage breaks out during Cletus Kasady's execution."
+     ],
+     [
+      "Venom: Let There Be Carnage",
+      "Grace Cathedral",
+      "Cletus and Frances take hostages for their wedding, and the cathedral comes down."
+     ]
+    ]
+   }
+  },
+  "value": {
+   "key": "sf|uni|sony",
+   "i": 1,
+   "q": "P1",
+   "now": [
+    "Venom: Let There Be Carnage",
+    "San Quentin",
+    "Carnage breaks out during Cletus Kasady's execution."
+   ],
+   "proposed": {
+    "remove": true,
+    "wrong_place": true,
+    "happens_at": "San Quentin State Prison, Marin County, California",
+    "new_place": {
+     "key": "sanquentin|uni|sony",
+     "map": "sony (Earth map)",
+     "n": "San Quentin State Prison",
+     "r": "Marin County, California",
+     "at": [
+      37.939,
+      -122.489
+     ],
+     "e": [
+      [
+       "Venom: Let There Be Carnage",
+       "",
+       "Carnage breaks out during Cletus Kasady's execution."
+      ]
+     ]
+    }
+   }
+  }
+ },
+ "mirror|beyond|#0": {
+  "item": {
+   "type": "change",
+   "id": "mirror|beyond|#0",
+   "key": "mirror|beyond|",
+   "i": 0,
+   "q": "P2",
+   "now": [
+    "Doctor Strange",
+    "",
+    "Strange and Mordo chase Kaecilius through a city that folds like paper."
+   ],
+   "proposed": [
+    "Doctor Strange",
+    "",
+    "Kaecilius and his zealots chase Strange and Mordo through a city that folds like paper."
+   ],
+   "evidence": "In Doctor Strange, Strange pulls everyone into the Mirror Dimension, but Kaecilius is stronger there; Strange takes his sling ring and flees the Sanctum with Mordo, and the zealots pursue the two through a twisting New York until Kaecilius corners Strange and the Ancient One intervenes. Strange and Mordo are the ones being chased, not the chasers.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Battle_of_the_Mirror_Dimension&prop=wikitext&format=json",
+   "confidence": "high",
+   "n": 11,
+   "item": {
+    "id": "mirror|beyond|#0",
+    "key": "mirror|beyond|",
+    "map": "Beyond (realms and places outside normal space and time)",
+    "n": "The Mirror Dimension",
+    "r": "Behind our own",
+    "at": [
+     300,
+     560
+    ],
+    "check_entry": 0,
+    "e": [
+     [
+      "Doctor Strange",
+      "",
+      "Strange and Mordo chase Kaecilius through a city that folds like paper."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "",
+      "Peter traps Strange in the Mirror Dimension."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Doctor Strange",
+   "",
+   "Kaecilius and his zealots chase Strange and Mordo through a city that folds like paper."
+  ]
+ },
+ "sovereign|cosmos|#1": {
+  "item": {
+   "type": "change",
+   "id": "sovereign|cosmos|#1",
+   "key": "sovereign|cosmos|",
+   "i": 1,
+   "q": "P2",
+   "now": [
+    "Guardians of the Galaxy Vol. 3",
+    "",
+    "The High Evolutionary scolds Ayesha on her own world and sends Adam Warlock after Rocket."
+   ],
+   "proposed": {
+    "remove": true,
+    "wrong_place": true,
+    "happens_at": "Arête Laboratories on Counter-Earth (counterearth|cosmos|, sub 'Arête Laboratories'): the wounded Adam flies back there after the Knowhere attack, and the High Evolutionary berates Ayesha and orders her to bring back Rocket or he will wipe out the Sovereign"
+   },
+   "evidence": "Fandom's Adam Warlock page: after Nebula stabs him on Knowhere, Adam flies 'back to Arête Laboratories on Counter-Earth', the High Evolutionary's headquarters, where Ayesha treats his wound and the High Evolutionary inspects and threatens her (the Ayesha page describes the same scene). Fandom's Sovereign (Planet) page lists Guardians of the Galaxy Vol. 3 only as 'mentioned', so the planet itself is not shown. Wikipedia's plot: the High Evolutionary 'threatened to wipe out the Sovereign if they failed to retrieve Rocket'. The scene is not on Ayesha's world.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Adam_Warlock&prop=wikitext&format=json",
+   "confidence": "medium",
+   "n": 12,
+   "item": {
+    "id": "sovereign|cosmos|#1",
+    "key": "sovereign|cosmos|",
+    "map": "the MCU cosmos (space)",
+    "n": "Sovereign",
+    "r": "A golden people",
+    "at": [
+     640,
+     240
+    ],
+    "check_entry": 1,
+    "e": [
+     [
+      "Guardians of the Galaxy Vol. 2",
+      "",
+      "The Guardians protect the Sovereign's batteries, and Rocket steals some."
+     ],
+     [
+      "Guardians of the Galaxy Vol. 3",
+      "",
+      "The High Evolutionary scolds Ayesha on her own world and sends Adam Warlock after Rocket."
+     ]
+    ]
+   }
+  },
+  "value": {
+   "remove": true,
+   "wrong_place": true,
+   "happens_at": "Arête Laboratories on Counter-Earth (counterearth|cosmos|, sub 'Arête Laboratories'): the wounded Adam flies back there after the Knowhere attack, and the High Evolutionary berates Ayesha and orders her to bring back Rocket or he will wipe out the Sovereign"
+  }
+ },
+ "alaska|earth|#0": {
+  "item": {
+   "type": "change",
+   "id": "alaska|earth|#0",
+   "key": "alaska|earth|",
+   "i": 0,
+   "q": "P2",
+   "now": [
+    "Eternals",
+    "",
+    "Ikaris takes Ajak to a remote town where frozen Deviants are thawing out of the ice."
+   ],
+   "proposed": [
+    "Eternals",
+    "",
+    "Ikaris takes Ajak to a cliff above a melting glacier where frozen Deviants are waking, and pushes her down to them."
+   ],
+   "evidence": "There is no town: Ikaris shows Ajak a cliff above a slowly melting glacier in Alaska with Deviants below, then pushes her off and Kro kills her.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ajak&prop=wikitext&format=json",
+   "confidence": "medium",
+   "n": 13,
+   "item": {
+    "id": "alaska|earth|#0",
+    "key": "alaska|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "Alaska",
+    "r": "United States",
+    "at": [
+     64.2,
+     -149.5
+    ],
+    "check_entry": 0,
+    "e": [
+     [
+      "Eternals",
+      "",
+      "Ikaris takes Ajak to a remote town where frozen Deviants are thawing out of the ice."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Eternals",
+   "",
+   "Ikaris takes Ajak to a cliff above a melting glacier where frozen Deviants are waking, and pushes her down to them."
+  ]
+ },
+ "afterlife|earth|#3": {
+  "item": {
+   "type": "change",
+   "id": "afterlife|earth|#3",
+   "key": "afterlife|earth|",
+   "i": 3,
+   "q": "P2",
+   "now": [
+    "Agents of S.H.I.E.L.D.#133",
+    "",
+    "In a changed past, Nathaniel Malick storms Afterlife and kills Gordon to take his powers."
+   ],
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#133",
+    "",
+    "In a changed past, Malick's men catch Coulson and Gordon slipping into Afterlife, and Malick drains Gordon's powers into John Garrett. Gordon teleports Coulson out of his cell with the last of his strength, then dies."
+   ],
+   "evidence": "In 'Stolen', Malick already holds Afterlife; Gordon teleports in with Coulson, is shot and captured, and his teleportation is drained into John Garrett, not Malick. Gordon dies after teleporting Coulson out of the cell.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Stolen&prop=wikitext&format=json",
+   "confidence": "high",
+   "n": 14,
+   "item": {
+    "id": "afterlife|earth|#3",
+    "key": "afterlife|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "Afterlife",
+    "r": "Nepal",
+    "at": [
+     28.1667,
+     84.25
+    ],
+    "check_entry": 3,
+    "e": [
+     [
+      "Agents of S.H.I.E.L.D.#38",
+      "",
+      "Skye is brought to Afterlife, a hidden Inhuman haven where Jiaying guides new Inhumans through their changes."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#39",
+      "",
+      "Jiaying leads the Inhumans of Afterlife and helps Skye learn to control her powers."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#44",
+      "",
+      "Jiaying turns the people of Afterlife against S.H.I.E.L.D. and leads them out to war."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#133",
+      "",
+      "In a changed past, Nathaniel Malick storms Afterlife and kills Gordon to take his powers."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#43",
+      "",
+      "Jiaying kills Raina when she threatens to reveal who really started the war, and Skye, who sees it, turns against her mother."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#131",
+      "",
+      "In a changed past, Nathaniel Malick wins Kora over and takes Afterlife, and Jiaying and Gordon flee with May and Yo-Yo."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Agents of S.H.I.E.L.D.#133",
+   "",
+   "In a changed past, Malick's men catch Coulson and Gordon slipping into Afterlife, and Malick drains Gordon's powers into John Garrett. Gordon teleports Coulson out of his cell with the last of his strength, then dies."
+  ]
+ },
+ "ny|earth|#31": {
+  "item": {
+   "type": "change",
+   "id": "ny|earth|#31",
+   "q": "P2",
+   "now": [
+    "The Punisher: One Last Kill",
+    "Manhattan",
+    "Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."
+   ],
+   "proposed": [
+    "The Punisher: One Last Kill",
+    "Queens",
+    "Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."
+   ],
+   "evidence": "Frank's apartment building is in Little Sicily, which the MCU wiki files under Queens (Little Sicily redirects to Queens; the special's locations list Frank Castle's Apartment Building under Queens, with Manhattan only in flashbacks). Wikipedia: Castle lives in a Little Sicily apartment complex that a small army of criminals attacks. Filming was on Jamaica Avenue, Queens.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Punisher:_One_Last_Kill&prop=wikitext&format=json",
+   "confidence": "high",
+   "n": 15,
+   "item": {
+    "id": "ny|earth|#31",
+    "key": "ny|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "New York",
+    "r": "New York City",
+    "at": [
+     40.71,
+     -74
+    ],
+    "check_entry": 31,
+    "e": [
+     [
+      "Captain America: The First Avenger",
+      "Brooklyn",
+      "Steve Rogers, a skinny kid from Brooklyn, is turned away by army recruiters again and again."
+     ],
+     [
+      "Captain America: The First Avenger",
+      "Flushing Meadows, Queens",
+      "At the World Exposition of Tomorrow, Dr. Erskine overhears Steve and gives him his chance."
+     ],
+     [
+      "Captain America: The First Avenger",
+      "Times Square",
+      "Steve runs out of a fake 1940s hospital room and into a Times Square seventy years later."
+     ],
+     [
+      "Iron Man 2",
+      "Flushing Meadows, Queens",
+      "Ivan Vanko turns Justin Hammer's drones on the crowd at the Stark Expo."
+     ],
+     [
+      "The Incredible Hulk",
+      "Harlem",
+      "The Hulk and the Abomination tear through the streets of Harlem."
+     ],
+     [
+      "The Avengers",
+      "Midtown",
+      "The Chitauri pour through a portal above Stark Tower, and the Avengers fight them street by street."
+     ],
+     [
+      "Daredevil S1#1",
+      "Hell's Kitchen",
+      "Matt Murdock and Foggy Nelson open a law practice, and at night Matt puts on a mask."
+     ],
+     [
+      "Jessica Jones S1#1",
+      "Hell's Kitchen",
+      "Jessica runs Alias Investigations out of her apartment, until Kilgrave comes back for her."
+     ],
+     [
+      "Daredevil S2",
+      "Hell's Kitchen",
+      "Frank Castle wipes out gangs across the neighborhood, and Elektra pulls Matt into a war with the Hand."
+     ],
+     [
+      "Luke Cage S1#2",
+      "Harlem",
+      "Luke sweeps floors at Pop's barbershop until a shooting there pulls him into a fight for Harlem."
+     ],
+     [
+      "Iron Fist S1#1",
+      "Midtown",
+      "Danny Rand walks barefoot into Rand Enterprises, fifteen years after his family's plane went down."
+     ],
+     [
+      "The Defenders",
+      "Midland Circle",
+      "Matt, Jessica, Luke and Danny trap the Hand's leaders under Midland Circle and bring the building down."
+     ],
+     [
+      "Captain America: Civil War",
+      "Queens",
+      "Tony Stark shows up at Peter Parker's apartment and offers him a trip to Germany."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Staten Island Ferry",
+      "Peter's fight with the Vulture's buyers splits the ferry in half, and Iron Man has to hold it together."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Coney Island",
+      "Peter brings down the Vulture's stolen cargo plane on the beach."
+     ],
+     [
+      "Daredevil S3#3",
+      "Manhattan",
+      "Fisk moves into a hotel penthouse under FBI protection and runs his operation from it."
+     ],
+     [
+      "Doctor Strange",
+      "Greenwich Village",
+      "Strange defends the New York Sanctum from Kaecilius and his zealots."
+     ],
+     [
+      "Thor: Ragnarok",
+      "Greenwich Village",
+      "Doctor Strange gives Thor directions to Odin, after leaving Loki falling through a portal for thirty minutes."
+     ],
+     [
+      "Avengers: Infinity War",
+      "Greenwich Village",
+      "Ebony Maw and Cull Obsidian come for the Time Stone, and Strange is taken aboard their ship."
+     ],
+     [
+      "The Punisher S2#4",
+      "Manhattan",
+      "Frank comes back to New York to finish things with Billy Russo."
+     ],
+     [
+      "Avengers: Endgame",
+      "Midtown, 2012",
+      "The Avengers slip back into the Battle of New York to take the Tesseract and the scepter."
+     ],
+     [
+      "The Falcon and the Winter Soldier",
+      "Manhattan",
+      "Sam stops the Flag Smashers' attack on the Global Repatriation Council in his new suit."
+     ],
+     [
+      "Spider-Man: Far From Home",
+      "Midtown",
+      "Mysterio's last video plays on a giant screen, and the city learns Spider-Man is Peter Parker."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Statue of Liberty",
+      "Three Spider-Men fight villains from other universes on the scaffolding around the Statue of Liberty."
+     ],
+     [
+      "Hawkeye",
+      "Rockefeller Center",
+      "Clint and Kate fight the Tracksuit Mafia around the Christmas tree at Rockefeller Center."
+     ],
+     [
+      "Doctor Strange in the Multiverse of Madness",
+      "Midtown",
+      "A giant one-eyed monster chases America Chavez through the streets until Strange and Wong stop it."
+     ],
+     [
+      "Ms. Marvel",
+      "Jersey City",
+      "In her bedroom, Kamala's bangle glows and Captain Marvel takes her place."
+     ],
+     [
+      "Echo#4",
+      "Manhattan, 2008",
+      "Young Maya sees Fisk beat a street vendor who couldn't understand her signing."
+     ],
+     [
+      "Daredevil: Born Again S1#1",
+      "City Hall",
+      "Wilson Fisk is elected mayor of New York."
+     ],
+     [
+      "Thunderbolts*",
+      "Midtown",
+      "The Void spreads darkness across Manhattan from the top of the old Avengers Tower."
+     ],
+     [
+      "Daredevil: Born Again S2",
+      "Courthouse",
+      "Matt reveals in open court that he is Daredevil."
+     ],
+     [
+      "The Punisher: One Last Kill",
+      "Manhattan",
+      "Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "Roosevelt Island",
+      "Jean Grey's psionic field takes over Damage Control's Roosevelt Island facility, and Peter lets her into his mind to reach her."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#124",
+      "Manhattan, 1931",
+      "The team chases the Chronicoms through New York in 1931."
+     ],
+     [
+      "Captain America: The First Avenger",
+      "Brooklyn",
+      "Steve steps out of Erskine's chamber, taller and stronger, in a lab hidden under an antique shop."
+     ],
+     [
+      "Avengers: Age of Ultron",
+      "Midtown",
+      "Ultron crashes the Avengers' party at Avengers Tower."
+     ],
+     [
+      "Avengers: Endgame",
+      "Midtown, 2012",
+      "Steve fights his 2012 self, who thinks he's Loki in disguise."
+     ],
+     [
+      "Avengers: Endgame",
+      "Greenwich Village, 2012",
+      "Bruce talks the Ancient One into giving up the Time Stone."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Alexander Hamilton Bridge",
+      "Doctor Octopus attacks Peter on a bridge, and Peter realizes this Otto is from another world."
+     ],
+     [
+      "Agent Carter (One-Shot)",
+      "Manhattan, 1946",
+      "Stuck on desk duty at the SSR's New York office, Peggy takes the Zodiac mission alone and wins."
+     ],
+     [
+      "Agent Carter#1",
+      "Manhattan, 1946",
+      "Peggy works at the SSR's New York office while secretly clearing Howard Stark's name."
+     ],
+     [
+      "The Punisher S1#12",
+      "Manhattan",
+      "Frank Castle hunts the men behind his family's murder, and his best friend Billy Russo turns out to be one of them."
+     ],
+     [
+      "Jessica Jones S2#6",
+      "Hell's Kitchen",
+      "Jessica digs into IGH, the company that gave her powers, and finds her mother alive."
+     ],
+     [
+      "Luke Cage S2",
+      "Harlem",
+      "Bushmaster comes for Mariah Dillard, and Luke ends up running Harlem's Paradise."
+     ],
+     [
+      "Iron Fist S2#4",
+      "Chinatown",
+      "With the Hand gone, gangs fight over Chinatown, and Davos steals the Iron Fist."
+     ],
+     [
+      "Jessica Jones S3#12",
+      "Hell's Kitchen",
+      "Jessica hunts a serial killer, Gregory Sallinger, while Trish turns vigilante."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Queens",
+      "Peter goes to Midtown School of Science and Technology and patrols the neighborhood after class."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Greenwich Village",
+      "Strange casts a spell to make the world forget Peter Parker, and it pulls in visitors from other worlds."
+     ],
+     [
+      "Hawkeye#1",
+      "Manhattan",
+      "Kate Bishop puts on Ronin's suit at an underground auction, and Clint comes to find out who she is."
+     ],
+     [
+      "Ms. Marvel",
+      "Jersey City",
+      "Kamala Khan starts looking out for her own neighborhood, and Jersey City gets a hero of its own."
+     ],
+     [
+      "The Marvels",
+      "Jersey City",
+      "Kamala swaps places with Carol and Monica, and the Khan family's living room becomes a battlefield."
+     ],
+     [
+      "Daredevil: Born Again S1#1",
+      "Hell's Kitchen",
+      "Bullseye kills Foggy Nelson at Josie's bar."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "Manhattan",
+      "Four years on, Spider-Man takes down Tombstone, Ramrod and Boomerang across the city."
+     ],
+     [
+      "Loki S1#1",
+      "Midtown, 2012",
+      "Loki grabs the Tesseract and escapes the Avengers."
+     ],
+     [
+      "Peter's To-Do List",
+      "Queens",
+      "Peter works through his chores between saving people."
+     ],
+     [
+      "Daredevil: Born Again S1",
+      "Red Hook",
+      "Fisk's Task Force locks Frank Castle and Jack Duquesne in a secret prison at the port, and Frank tricks a guard to escape."
+     ],
+     [
+      "Daredevil: Born Again S2#3",
+      "Red Hook",
+      "Daredevil breaks into the Task Force prison at the port and frees the Swordsman, Soledad and the other prisoners."
+     ],
+     [
+      "Daredevil: Born Again S2",
+      "Red Hook",
+      "Fisk runs smuggled CIA weapons through the Red Hook freeport, beyond the reach of the city's police."
+     ],
+     [
+      "Agent Carter#1",
+      "Red Hook, 1946",
+      "Peggy sneaks into a Roxxon refinery where stolen Stark formulas are being made into bombs, and the whole plant implodes."
+     ],
+     [
+      "Daredevil S2#9",
+      "Rikers Island",
+      "From his cell at Rikers, Fisk takes over the prison and sets Frank Castle on a rival inmate."
+     ],
+     [
+      "Avengers: Infinity War",
+      "Central Park",
+      "Tony and Pepper are out jogging in Central Park when Doctor Strange steps through a portal, with Bruce Banner behind him."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Happy's condo",
+      "Peter hides May and the villains from other worlds at Happy's condo, where the Goblin returns and fatally wounds May."
+     ],
+     [
+      "Doctor Strange",
+      "Metro-General Hospital",
+      "Christine Palmer works at Metro-General, and she saves Strange there after a zealot wounds him at the Sanctum."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "Williamsburg Bridge",
+      "Spider-Man catches Tarantula running a smuggling job on a passenger boat near the Williamsburg Bridge."
+     ],
+     [
+      "Iron Fist S1#2",
+      "Manhattan",
+      "Ward has Danny drugged and locked up at Birch Psychiatric Hospital to keep him away from Rand Enterprises."
+     ],
+     [
+      "Jessica Jones S2#11",
+      "",
+      "Trish forces Dr. Malus to give her powers at a closed clinic, and he burns himself and the lab."
+     ],
+     [
+      "Spider-Man: Homecoming",
+      "Midtown",
+      "Damage Control takes over the Battle of New York cleanup from Toomes's crew, and years later Happy packs up Avengers Tower for the move upstate."
+     ],
+     [
+      "Hawkeye",
+      "Midtown, 2012",
+      "During the Battle of New York, young Kate Bishop sees Hawkeye leap from Stark Tower and decides to become an archer."
+     ],
+     [
+      "Spider-Man: No Way Home",
+      "Queens",
+      "Back at Midtown School after his unmasking, Mr. Dell and Mr. Harrington warmly greet Peter, and Harrington shows off his Europe trip display."
+     ],
+     [
+      "Avengers: Endgame",
+      "Queens",
+      "Back from the Blip on the first day of the new school year, Ned spots Peter at Midtown School and they share a tearful reunion."
+     ],
+     [
+      "Spider-Man: Far From Home",
+      "Queens",
+      "On the Midtown School news, Betty explains how she and half her classmates vanished in the Blip and had to restart the school year."
+     ],
+     [
+      "Daredevil S3",
+      "Hell's Kitchen",
+      "At Clinton Church and its orphanage, nuns nurse Matt back to health, Dex attacks Karen inside the church, and Father Lantom is laid to rest."
+     ],
+     [
+      "Daredevil S3#10",
+      "Hell's Kitchen",
+      "Father Lantom shelters the injured Matt and then Karen at Clinton Church, and is killed by Dex while shielding her."
+     ],
+     [
+      "The Defenders#1",
+      "Hell's Kitchen",
+      "In confession at Clinton Church, Matt admits to Father Lantom that he misses being Daredevil and has lied to Karen about it."
+     ],
+     [
+      "The Defenders",
+      "Hell's Kitchen",
+      "Presumed dead after Midland Circle falls, Matt wakes battered and bandaged in the care of nuns at the orphanage beside Clinton Church."
+     ],
+     [
+      "Daredevil: Born Again S2#2",
+      "Hell's Kitchen",
+      "Matt and Karen hide out at Josie's bar, until the Anti-Vigilante Task Force surrounds it and Daredevil fights them off."
+     ],
+     [
+      "The Defenders#2",
+      "Harlem",
+      "At a Harlem bar, Luke Cage grabs Turk Barrett and presses him for the man in white recruiting neighborhood kids."
+     ],
+     [
+      "Daredevil S2#11",
+      "Chinatown",
+      "Daredevil storms a Chinatown dry cleaner's that fronts for Madame Gao's heroin trade, and she tells him what she knows of the Blacksmith."
+     ],
+     [
+      "Iron Fist S1",
+      "Chinatown",
+      "Claire signs up for classes at Colleen Wing's struggling Chikara Dojo, which becomes Danny's base in the fight against the Hand."
+     ],
+     [
+      "Daredevil: Born Again S2",
+      "City Hall",
+      "At a protest outside City Hall, Karen projects detainees' testimony onto its walls, and Powell kills Saunders and turns the task force on the crowd."
+     ],
+     [
+      "Echo#1",
+      "Manhattan, 2021",
+      "In 2021, Maya watches the Ronin kill her father and his Tracksuit crew, then fights Daredevil on her first job for Fisk."
+     ],
+     [
+      "The Marvels",
+      "Manhattan",
+      "Kamala Khan visits Kate Bishop and Lucky the dog at Kate's apartment to recruit her for a new team of young heroes."
+     ],
+     [
+      "Spider-Man: Brand New Day",
+      "MJ and Ned's apartment",
+      "Back from MIT, MJ and Ned share an apartment, and later MJ invites a masked Spider-Man inside to meet Ned."
+     ],
+     [
+      "Agent Carter#8",
+      "Manhattan, 1946",
+      "Back at the SSR office, the agents give Peggy a standing ovation, but the government hands Thompson the credit for stopping Leviathan."
+     ],
+     [
+      "Agent Carter#8",
+      "City Hall, 1946",
+      "At a press conference at City Hall, the SSR clears Howard Stark's name, until shots ring out and a hypnotized police officer drives off with him, leaving Jarvis behind."
+     ],
+     [
+      "Agent Carter#7",
+      "Manhattan, 1946",
+      "Hypnotized by Ivchenko into wearing a Stark bomb vest, Chief Dooley jumps out of the SSR office window and dies saving his agents."
+     ],
+     [
+      "Agent Carter#6",
+      "Manhattan, 1946",
+      "Sousa exposes Peggy to Dooley, and as the SSR raids the Griffith, Angie helps her hide, until Dottie knocks her out and the agents arrest her."
+     ],
+     [
+      "Agent Carter#3",
+      "Manhattan, 1946",
+      "Agent Krzeminski is shot dead by an unseen assassin while driving a captured guard back to SSR headquarters."
+     ],
+     [
+      "Jessica Jones S1#10",
+      "Brooklyn",
+      "Detective Clemons guards the proof of Kilgrave's power at an old CDC facility, until a drugged Will Simpson shoots him and burns the place."
+     ],
+     [
+      "Jessica Jones S1#7",
+      "Hell's Kitchen",
+      "Jessica brings Ruben's head to the 15th Precinct to get herself locked up, and Kilgrave takes control of every officer in the station, Mahoney among them."
+     ],
+     [
+      "Jessica Jones S3#2",
+      "Hell's Kitchen",
+      "Oscar breaks things off with Jessica, telling her he has met someone else."
+     ],
+     [
+      "Jessica Jones S3#8",
+      "Manhattan",
+      "Trish helps Jessica hunt Gregory Sallinger, who murders Trish's mother Dorothy at her apartment."
+     ],
+     [
+      "The Punisher S1#10",
+      "Manhattan",
+      "Lewis Wilson attacks Senator Ori's fundraiser at a hotel in a bomb vest and takes Karen hostage, until Frank frees her and Lewis blows himself up. Detective Mahoney then questions the survivors."
+     ],
+     [
+      "The Punisher S1#9",
+      "Manhattan",
+      "At the Bulletin, Ellison holds back the bomber's letter until the FBI is called, then turns on the news to show Karen that Frank Castle is alive."
+     ],
+     [
+      "The Punisher S2#7",
+      "Manhattan",
+      "CIA Deputy Director Marion James tells Madani to stay out of it and let Frank and Billy Russo kill each other."
+     ],
+     [
+      "Daredevil S3#5",
+      "Manhattan",
+      "Karen confronts Fisk's fixer Felix Manning, and he threatens her with what he knows about her family."
+     ],
+     [
+      "Daredevil S3#7",
+      "Manhattan",
+      "After the attack on the Bulletin, Ellison orders Karen to name Daredevil or quit."
+     ],
+     [
+      "Daredevil S3#6",
+      "Manhattan",
+      "Dex attacks the Bulletin in Daredevil's suit and kills Jasper Evans before he can talk about Fisk."
+     ],
+     [
+      "Daredevil S3#2",
+      "Hell's Kitchen",
+      "With Matt missing, Foggy thinks about leaving the law to help his brother Theo run the family butcher shop."
+     ],
+     [
+      "Daredevil S3#12",
+      "Manhattan",
+      "Nadeem testifies against Fisk before a grand jury, but Fisk controls the jurors and the hearing changes nothing."
+     ],
+     [
+      "Daredevil S3#12",
+      "Queens",
+      "Back at his home, Nadeem is shot dead by Dex on the Fisks' orders."
+     ],
+     [
+      "Hawkeye#5",
+      "Manhattan",
+      "Yelena waits for Kate in her apartment and reveals she has come to kill Clint, whom she blames for Natasha's death."
+     ],
+     [
+      "Hawkeye#4",
+      "Manhattan",
+      "Clint and Kate trace the stolen watch to Maya Lopez's apartment, where Maya, hunting the Ronin who killed her father, attacks Kate."
+     ],
+     [
+      "Iron Fist S1#10",
+      "Manhattan",
+      "Bakuto, secretly a leader of the Hand, visits Harold Meachum and offers him a partnership."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "The Punisher: One Last Kill",
+   "Queens",
+   "Ma Gnucci's crew attacks Frank's building, and he fights to protect his neighbors."
+  ]
+ },
+ "ax-school|uni|animx#0": {
+  "item": {
+   "type": "change",
+   "id": "ax-school|uni|animx#0",
+   "q": "P2",
+   "now": [
+    "X-Men: The Animated Series#10",
+    "",
+    "Led by Professor X and Cyclops, the X-Men protect a world that fears them from Sentinels, Magneto and Apocalypse."
+   ],
+   "proposed": [
+    "X-Men: The Animated Series#10",
+    "",
+    "The X-Men watch Apocalypse's Horsemen attack a peace conference in Paris on television, and Xavier, recognizing them from Muir Island, sends Rogue there to investigate."
+   ],
+   "evidence": "The current text sums up the whole series and is no event of episode 10 ('Come the Apocalypse'). In that episode, at Xavier's School (rec room and War Room), Storm turns on the World Peace Conference in Paris as Apocalypse and his Horsemen attack it, and Xavier sends the team out and Rogue to Muir Island because he recognizes the Horsemen as mutants who waited for the cure there.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men:_The_Animated_Series_Season_1_10&prop=wikitext&format=json",
+   "confidence": "medium",
+   "n": 16,
+   "item": {
+    "id": "ax-school|uni|animx#0",
+    "key": "ax-school|uni|animx",
+    "map": "animx (Earth map)",
+    "n": "Xavier's School",
+    "r": "Salem Center, Westchester County, New York",
+    "at": [
+     41.33,
+     -73.6
+    ],
+    "check_entry": 0,
+    "e": [
+     [
+      "X-Men: The Animated Series#10",
+      "",
+      "Led by Professor X and Cyclops, the X-Men protect a world that fears them from Sentinels, Magneto and Apocalypse."
+     ],
+     [
+      "Spider-Man (1994)#17",
+      "",
+      "Spider-Man comes looking for a cure for his mutation, scuffles with the X-Men, and learns Xavier cannot cure him."
+     ],
+     [
+      "Spider-Man (1994)#18",
+      "",
+      "Rogue flirts with Spider-Man at the mansion, and Wolverine joins his hunt for the missing Beast."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "X-Men: The Animated Series#10",
+   "",
+   "The X-Men watch Apocalypse's Horsemen attack a peace conference in Paris on television, and Xavier, recognizing them from Muir Island, sends Rogue there to investigate."
+  ]
+ },
+ "alps|earth|#0": {
+  "item": {
+   "type": "change",
+   "id": "alps|earth|#0",
+   "q": "P2",
+   "now": [
+    "Captain America: The First Avenger",
+    "1944",
+    "The Howling Commandos ambush Zola's train, and Bucky falls."
+   ],
+   "proposed": [
+    "Captain America: The First Avenger",
+    "1945",
+    "The Howling Commandos ambush Zola's train, and Bucky falls."
+   ],
+   "evidence": "The capture of Arnim Zola from the HYDRA train in the Alps (where Bucky falls) is dated February 1945. On screen, Zola tells Natasha in Captain America: The Winter Soldier that the Captain took him prisoner in 1945, and Agents of S.H.I.E.L.D. 2x08 shows Phillips' 'Feb 3rd 1945' telegram. The event and place are right; only the year is wrong.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Capture_of_Arnim_Zola&prop=wikitext&format=json",
+   "confidence": "high",
+   "n": 18,
+   "item": {
+    "id": "alps|earth|#0",
+    "key": "alps|earth|",
+    "map": "the main MCU's Earth (Earth-199999)",
+    "n": "The Alps",
+    "r": "Austria",
+    "at": [
+     47.25,
+     11.4
+    ],
+    "check_entry": 0,
+    "e": [
+     [
+      "Captain America: The First Avenger",
+      "1944",
+      "The Howling Commandos ambush Zola's train, and Bucky falls."
+     ],
+     [
+      "Moon Knight#1",
+      "",
+      "Steven Grant wakes up in a mountain village with no idea how he got there."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#23",
+      "Austria, 1945",
+      "In 1945, Peggy Carter leads an SSR raid with Dugan and Morita on HYDRA's last known base and seizes its strange artifacts."
+     ],
+     [
+      "Agents of S.H.I.E.L.D.#30",
+      "Austria, 1945",
+      "In 1945, Reinhardt tests a strange obelisk on villagers brought from China at a HYDRA fortress, until Allied forces close in and he is captured."
+     ]
+    ]
+   }
+  },
+  "value": [
+   "Captain America: The First Avenger",
+   "1945",
+   "The Howling Commandos ambush Zola's train, and Bucky falls."
+  ]
+ }
+}

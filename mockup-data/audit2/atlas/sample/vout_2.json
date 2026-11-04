@@ -1,0 +1,90 @@
+{
+ "verdicts": [
+  {
+   "n": 10,
+   "verdict": "change",
+   "value": {
+    "key": "sf|uni|sony",
+    "i": 1,
+    "q": "P1",
+    "now": [
+     "Venom: Let There Be Carnage",
+     "San Quentin",
+     "Carnage breaks out during Cletus Kasady's execution."
+    ],
+    "proposed": {
+     "remove": true,
+     "wrong_place": true,
+     "happens_at": "San Quentin State Prison, Marin County, California",
+     "new_place": {
+      "key": "sanquentin|uni|sony",
+      "map": "sony (Earth map)",
+      "n": "San Quentin State Prison",
+      "r": "Marin County, California",
+      "at": [
+       37.939,
+       -122.489
+      ],
+      "e": [
+       [
+        "Venom: Let There Be Carnage",
+        "",
+        "Carnage breaks out during Cletus Kasady's execution."
+       ]
+      ]
+     }
+    }
+   },
+   "why": "The execution and breakout happen at San Quentin State Prison, which is in Marin County north of San Francisco (about 19 km from the pin), and this map has no street map to place the spot correctly. The owner's rule pins a place where sources put it, so it gets its own place.",
+   "source": "https://sonys-spider-man-universe.fandom.com/api.php?action=parse&page=San_Quentin_State_Prison&prop=wikitext&format=json"
+  },
+  {
+   "n": 11,
+   "verdict": "confirm",
+   "why": "Strange traps everyone in the Mirror Dimension, then steals Kaecilius's sling ring and flees with Mordo while the zealots pursue the two through a twisting New York. Strange and Mordo are the ones chased.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Battle_of_the_Mirror_Dimension&prop=wikitext&format=json"
+  },
+  {
+   "n": 12,
+   "verdict": "confirm",
+   "why": "The wounded Adam returns to Arête Laboratories, the High Evolutionary's headquarters on Counter-Earth, where the High Evolutionary berates Ayesha and threatens the Sovereign. The Sovereign planet is only mentioned in Vol. 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Adam_Warlock&prop=wikitext&format=json"
+  },
+  {
+   "n": 13,
+   "verdict": "confirm",
+   "why": "Ikaris shows Ajak a cliff above a slowly melting glacier in Alaska with Deviants below and pushes her off; Kro kills her. There is no town.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ajak&prop=wikitext&format=json"
+  },
+  {
+   "n": 14,
+   "verdict": "confirm",
+   "why": "In 'Stolen' Malick already holds Afterlife; Gordon is shot after teleporting in with Coulson, his powers are drained into John Garrett, and he dies after teleporting himself and Coulson out of the cell.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Stolen&prop=wikitext&format=json"
+  },
+  {
+   "n": 15,
+   "verdict": "confirm",
+   "why": "Frank's apartment building is in Little Sicily, which the MCU wiki places in Queens (citing the special); Manhattan appears only in flashbacks.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Frank_Castle%27s_Apartment_Building&prop=wikitext&format=json"
+  },
+  {
+   "n": 16,
+   "verdict": "confirm",
+   "why": "The current text is a series summary, not an event of 'Come the Apocalypse'. In that episode, at the mansion, Storm turns on the Paris World Peace Conference as Apocalypse and his Horsemen attack, and Xavier sends Rogue (with Jubilee) to Muir Island because he recognizes the Horsemen.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men:_The_Animated_Series_Season_1_10&prop=wikitext&format=json"
+  },
+  {
+   "n": 17,
+   "verdict": "keep",
+   "why": "The New York street map already has a 'Jersey City' spot pinned at Jersey City's real coordinates (40.7178, -74.0431), so the entries sit where the events happen. Kamala's home is in Jersey City, as the spot says.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(miniseries)&action=raw"
+  },
+  {
+   "n": 18,
+   "verdict": "confirm",
+   "why": "The train capture of Zola, where Bucky falls, is dated February 1945; on screen Zola says the Captain took him prisoner in 1945.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Capture_of_Arnim_Zola&prop=wikitext&format=json"
+  }
+ ]
+}

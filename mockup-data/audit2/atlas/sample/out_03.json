@@ -1,0 +1,89 @@
+{
+ "checked": [
+  "lemurian|earth|#0",
+  "ny|earth|#48",
+  "ethiopia|earth|#0",
+  "ny|earth|#83",
+  "ax-moscow|uni|animx#1",
+  "miami|earth|#2",
+  "ax-savage|uni|animx#3",
+  "kunlun|beyond|#0",
+  "broxton|earth|#2",
+  "alps|earth|#2",
+  "ny|earth|#8",
+  "ny|earth|#63",
+  "sovereign|cosmos|#0",
+  "columbia|uni|raimi#1",
+  "brooklyn|uni|miles#0",
+  "la|uni|pruned#0",
+  "ny|earth|#32",
+  "paris|uni|foxtrn#0",
+  "kathmandu|earth|#1",
+  "tampa|uni|punisher#0",
+  "icebox|uni|foxtrn#0",
+  "la|earth|#29",
+  "la|earth|#3",
+  "nagasaki|uni|fox#0",
+  "hudsons|uni|fox#0",
+  "afterlife|earth|#2",
+  "hala|cosmos|#1",
+  "lehigh|earth|#1",
+  "nd|uni|fox17315#0",
+  "baltimore|earth|#0",
+  "gobi|earth|#0",
+  "mexico|earth|#2",
+  "oxford|uni|fox#0",
+  "vormir|cosmos|#0",
+  "mexico|uni|sony#0",
+  "iowa|earth|#2",
+  "michigan|earth|#1",
+  "ny|earth|#78",
+  "dc|uni|fox#4",
+  "queensboro|uni|raimi#0",
+  "wakanda|earth|#7",
+  "ny|earth|#93",
+  "mexico|uni|sony#1",
+  "tva|beyond|#7",
+  "ny|earth|#59",
+  "cairo|uni|foxtrn#0",
+  "williamsburg|uni|amazing#0",
+  "vanaheim|cosmos|#0",
+  "la|uni|pruned#1",
+  "hongkong|earth|#1"
+ ],
+ "changes": [
+  {
+   "id": "afterlife|earth|#2",
+   "key": "afterlife|earth|",
+   "i": 2,
+   "q": "P2",
+   "now": [
+    "Agents of S.H.I.E.L.D.#44",
+    "",
+    "Jiaying turns the people of Afterlife against S.H.I.E.L.D. and leads them out to war."
+   ],
+   "proposed": [
+    "Agents of S.H.I.E.L.D.#43",
+    "",
+    "Jiaying fakes a S.H.I.E.L.D. attack and turns the people of Afterlife against S.H.I.E.L.D., ready for war."
+   ],
+   "evidence": "Afterlife does not appear in episode 44 (S.O.S. Part Two): that episode is the Inhumans' attack aboard the Iliad, at sea, and its location list has no Nepal or Afterlife. The turning happens in episode 43 (S.O.S. Part One), at Afterlife: Jiaying blames Gonzales and a hijacked Quinjet fires on Afterlife, so its people agree to fight beside her, and she tells Skye they must come out of hiding and fight S.H.I.E.L.D. They don't leave for war until episode 44, so the text is tied to episode 43's events.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.O.S._Part_Two&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.O.S._Part_One&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "ax-savage|uni|animx#3",
+   "key": "ax-savage|uni|animx",
+   "question": "The Savage Land's region says Antarctica, but its pin at [-56, -68.5] is in the open sea of the Drake Passage, south of Cape Horn and about 700 km north of Antarctica. Is that on purpose (the map may not show below about -60), or should the pin go onto Antarctica?",
+   "options": [
+    "Keep [-56, -68.5] as a deliberate stand-in for map visibility",
+    "Move onto the Antarctic Peninsula, e.g. [-64.5, -62]",
+    "Move further into Antarctica, e.g. [-75, -70]"
+   ],
+   "evidence": "The X-Men cartoon puts the Savage Land in Antarctica: in episode 16, Xavier and Magneto come through an Antarctic avalanche into it, and the episode pages list it under Antarctica. Entry #3 (episode 39, Ka-Zar with the X-Men against Garokk) passes P2 to P5.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men:_The_Animated_Series_Season_3_9&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw"
+  }
+ ]
+}
