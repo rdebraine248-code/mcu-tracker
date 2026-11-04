@@ -451,8 +451,8 @@ for _pf,_L in (('prose_coll.json',collx),('prose_raft.json',threats),('prose_cp.
 # everything above (answers_fix.json). Under "T" (the Raft) or "A" (the Compound), a list of ops, each naming its question in "q":
 # "add" a new file; "drop": true removes one; "set" replaces fields (null removes one); "steps": [[old step, [new steps]], ...] swaps
 # one step (matched exactly on its text and title) for others, an empty list deleting it; "into" (with drop) sends the dropped file's
-# saved marks on to another id
-for _g,_L in (('T',threats),('A',allies)):
+# saved marks on to another id. "C" (the Collection) takes the same ops
+for _g,_L in (('T',threats),('A',allies),('C',collx)):
     for op in load('answers_fix.json',{}).get(_g,[]):
         if 'add' in op:
             if any(o['id']==op['add']['id'] for o in _L): print('answers: dup',op['add']['id']); continue
