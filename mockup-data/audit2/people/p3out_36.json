@@ -1,0 +1,135 @@
+{
+ "checked": [
+  "T:sv-high-evolutionary-smu",
+  "T:sv-sir-ram-smu",
+  "T:sv-vulture-ssm",
+  "T:sv-shocker-ssm",
+  "T:sv-sandman-ssm",
+  "T:sv-rhino-ssm",
+  "T:sv-big-man-ssm",
+  "T:sv-doc-ock-ssm",
+  "T:sv-venom-ssm",
+  "T:sv-kraven-ssm",
+  "T:sv-molten-man-ssm",
+  "T:sv-hammerhead-ssm",
+  "T:sv-silvermane-ssm",
+  "T:sv-sandman-noir",
+  "T:sv-tombstone-noir",
+  "T:sv-otto-yfnsm",
+  "T:sv-big-donovan-yfnsm",
+  "T:sv-unicorn-yfnsm",
+  "T:sv-mikhail-yfnsm",
+  "T:sv-speed-demon-yfnsm"
+ ],
+ "changes": [
+  {
+   "key": "T:sv-sandman-noir",
+   "q": "G1",
+   "now": [
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ],
+    [
+     "U.S. Army",
+     "Spider-Noir"
+    ],
+    [
+     "Independent",
+     "Spider-Noir"
+    ]
+   ],
+   "proposed": [
+    [
+     "U.S. Army",
+     "Spider-Noir"
+    ],
+    [
+     "Silvermane's Mob",
+     "Spider-Noir"
+    ],
+    [
+     "Independent",
+     "Spider-Noir"
+    ]
+   ],
+   "evidence": "Stages in the wrong order. The U.S. Army is his past: Flint Marko is a WWI soldier captured in the Meuse-Argonne offensive and experimented on as a POW (told in Spider-Noir ep 5). He works for Silvermane in the show's present: from ep 1 as Cat Hardy's bodyguard, then as one of the enforcers in eps 4-8. As the record stands, he leaves Silvermane for the Army. The past group goes first, as in the Tombstone and Jimmy Addison Noir records. The end stays: Silvermane is killed in ep 8, and Flint leaves to start a new life with Cat, so Independent and the left title stand.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Flint_Marko_(Earth-62533)&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "T:sv-hammerhead-ssm",
+   "q": "G2",
+   "now": {
+    "groups": [],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Silvermane's Mob",
+      "(from the start)"
+     ],
+     [
+      "Independent",
+      "The Spectacular Spider-Man"
+     ]
+    ],
+    "left": [
+     "The Spectacular Spider-Man"
+    ]
+   },
+   "evidence": "A past group is missing. Gangland (S2E10, ep 23) says Hammerhead once worked for Silvermane as an enforcer and dated Silver Sable, and was fired before he went to work for Tombstone. He is no longer with Silvermane: at the ep 23 summit he works against both bosses, and Tombstone then fires him. The record's name for that mob is Silvermane's Mob. The stage for Tombstone's organization is left out because its name is held (see owner_calls), so Independent and the left title record that he ends the show with no group.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Hammerhead_(Joseph)_(Earth-26496)&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=List_of_The_Spectacular_Spider-Man_characters&action=raw",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:sv-venom-ssm",
+   "q": "G2",
+   "now": {
+    "groups": [],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Empire State University",
+      "(from the start)"
+     ],
+     [
+      "Independent",
+      "The Spectacular Spider-Man"
+     ]
+    ],
+    "left": [
+     "The Spectacular Spider-Man"
+    ]
+   },
+   "evidence": "A job is missing. Eddie Brock works in Dr. Curt Connors's lab at ESU (from S1E2 'Interactions'; Peter and Gwen are unpaid interns there and both have the ESU stage). He was meant to guard the symbiote, and he loses the job after Black Cat's theft attempt (S1E10 'Persona'). The Wikipedia character list calls Debra Whitman 'Eddie Brock's replacement'. The record's name for this employer is Empire State University (Connors and Martha Connors use the same 'ESU, then Independent, left' form). In S2E7 ('Identity Crisis', ep 20) he goes back to the lab to get his old job back, but uses the visit to steal the gene cleanser, and he ends in Ravencroft. No source says he was rehired, so he stays Independent.",
+   "source": "https://spiderman.fandom.com/api.php?action=parse&page=Edward_Brock_(Earth-26496)&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=List_of_The_Spectacular_Spider-Man_characters&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:sv-big-man-ssm",
+   "question": "Held question: the screen never gives a group name for Tombstone's (the Big Man's) organization in The Spectacular Spider-Man. Record it as a group, and under what name?",
+   "options": [
+    "Keep it unrecorded (Big Man's groups stay [])",
+    "Add it under a name the owner picks, for Tombstone and the people in this chunk who serve it: Hammerhead (his right hand until fired in ep 23), Sandman and Rhino (petty crooks working for the Big Man; Sandman does the ep 18 oil tanker job for Hammerhead), Shocker and the Enforcers (on the Big Man's contract), and Molten Man (forced to fight for the Goblin, who takes over as the Big Man after ep 23)"
+   ],
+   "evidence": "Tombstone runs the Big Man's crime empire all through the show. In Gangland (S2E10) he is exposed, arrested, fires Hammerhead and makes bail, and the Green Goblin takes over as the Big Man. Wikipedia calls him the 'Big Man of Crime'. The show never names the organization itself.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Lonnie_Lincoln_(Earth-26496)&prop=wikitext&format=json"
+  },
+  {
+   "key": "T:sv-unicorn-yfnsm",
+   "question": "Held question: the screen never names Mila Masaryk's crew of Russian criminals (Mila, Mikhail Sytsevich, Dmitri Smerdyakov, Roxanna Volkov). Record it as a group for the Unicorn and for Mikhail (T:sv-mikhail-yfnsm)?",
+   "options": [
+    "Keep it unrecorded (both stay [])",
+    "Add a crew under a name the owner picks, with the Unicorn leaving it when she turns on Mikhail in ep 5"
+   ],
+   "evidence": "YFNSM eps 4-5: the four rob a stash house together. Mila escapes and the others are arrested. She frees them with Otto's helmet, then uses Mikhail as bait, and he takes her helmet. The fan wiki has no name for the crew; its event page says only 'the Russian Criminals'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Mila_Masaryk&prop=wikitext&format=json"
+  }
+ ]
+}

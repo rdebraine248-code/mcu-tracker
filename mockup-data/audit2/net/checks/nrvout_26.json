@@ -1,0 +1,553 @@
+{
+ "verdicts": [
+  {
+   "n": 1000,
+   "verdict": "confirm",
+   "why": "In episode 1 Cleary calls Trevor after his drinks with Simon to confirm he has made contact, so Trevor already reports to Cleary on Simon from #1.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Wonder_Man_(TV_series)&action=raw"
+  },
+  {
+   "n": 1001,
+   "verdict": "amend",
+   "value": {
+    "title": "Wonder Man#1",
+    "text": "Trevor Slattery is sent by Damage Control to trick Simon into exposing his powers. He coaches Simon through his first Wonder Man audition, and they go for drinks.",
+    "on_a_card_about_b": "Sent to trick Simon, and coaches him through his audition.",
+    "on_b_card_about_a": "The actor Trevor is sent to trick.",
+    "split": [
+     {
+      "kind": "friend",
+      "title": "Wonder Man#3",
+      "text": "Instead of exposing him, Trevor becomes Simon's best friend. Simon says Trevor is the first person outside his family to know about his powers, and Trevor destroys his wiretap recording.",
+      "on_a_card_about_b": "Sent to trick Simon, but becomes his best friend.",
+      "on_b_card_about_a": "The target Trevor is sent to trick, who becomes his best friend."
+     },
+     {
+      "kind": "friend",
+      "title": "Wonder Man#6",
+      "text": "Trevor helps Simon land the role of Wonder Man, and Von Kovak casts them both.",
+      "on_a_card_about_b": "Helps Simon land the role of Wonder Man.",
+      "on_b_card_about_a": "Lands the role of Wonder Man with Trevor's help."
+     }
+    ]
+   },
+   "why": "They meet and Trevor coaches him in #1, but the friendship (Martha glad he has a friend, Simon naming him the first outsider to know of his powers, Trevor destroying the recording) is #3; the proposed #1 text and the unchanged Trevor card still said he becomes Simon's best friend, so that part is split to #3.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Wonder_Man_(TV_series)&action=raw"
+  },
+  {
+   "n": 1002,
+   "verdict": "confirm",
+   "why": "Otis is on screen as Tyrone's disappointed father in First Light (#1); the Wild Red Hawks visit and Billy's cloak are #4.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Cloak_%26_Dagger_season_1&action=raw"
+  },
+  {
+   "n": 1003,
+   "verdict": "confirm",
+   "why": "Adina flees the Uptown Block Kings with Tyrone and hides at Clemence Convent in Rabbit Hold (#14); her confession that she killed Connors once she had proof is Two Player (#18). Order after stages at #1 and #2 holds.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Cloak_%26_Dagger_season_2&action=raw"
+  },
+  {
+   "n": 1004,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#3",
+    "text": "Chantelle is Evita's aunt, a voodoo priestess.",
+    "on_a_card_about_b": "Evita's aunt, a voodoo priestess.",
+    "on_b_card_about_a": "Chantelle's niece.",
+    "split": {
+     "kind": "family",
+     "title": "Cloak & Dagger#18",
+     "text": "Andre kills Chantelle, and Evita takes on her work.",
+     "on_a_card_about_b": "Evita's late aunt, a voodoo priestess whose work she takes on.",
+     "on_b_card_about_a": "Chantelle's niece, who takes on her work."
+    }
+   },
+   "why": "Chantelle first appears in Stained Glass (#3), but the text also tells her murder by Andre (#17) and Evita taking her place as mambo and shop manager (#18); those are split to #18.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Chantelle_Fusilier&prop=wikitext&format=json"
+  },
+  {
+   "n": 1005,
+   "verdict": "confirm",
+   "why": "Evita brings Tyrone to Chantelle, who reads his cards and prescribes the cleansing bath that brings his visions, in Stained Glass (#3); Chantelle never warns Tyrone herself, and her Divine Pairing prediction reaches him through Evita in Colony Collapse (#10).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Chantelle_Fusilier&prop=wikitext&format=json"
+  },
+  {
+   "n": 1006,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#2",
+    "text": "Father Delgado is a priest and counselor at Tyrone's school who talks with him about his survivor's guilt and anger.",
+    "split": {
+     "kind": "mentor",
+     "title": "Cloak & Dagger#9",
+     "text": "When Tyrone touches Delgado in a fight, he sees the priest's fear of drinking again and causing a deadly crash.",
+     "on_a_card_about_b": "The priest and counselor who guides Tyrone.",
+     "on_b_card_about_a": "The student Delgado counsels."
+    }
+   },
+   "why": "Move to #2 is right (Delgado counsels Tyrone on survivor's guilt and his anger as poison in Suicide Sprints). In the #9 split, 'another deadly crash' is dropped to 'a deadly crash', since sources differ on whether his drinking ever killed anyone.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Francis_Xavier_Delgado&prop=wikitext&format=json"
+  },
+  {
+   "n": 1007,
+   "verdict": "confirm",
+   "why": "In Two Player (#18) Adina goes to Delgado at the Irish Channel Sober Living Center, hands him the documents proving Connors's guilt and confesses she killed Connors; they share no earlier stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Two_Player&prop=wikitext&format=json"
+  },
+  {
+   "n": 1008,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#6",
+    "text": "Tandy interns for Mina at Roxxon, and they become friends.",
+    "on_b_card_about_a": "Mina's intern and friend at Roxxon.",
+    "split": [
+     {
+      "kind": "friend",
+      "title": "Cloak & Dagger#7",
+      "text": "Tandy and Tyrone wake Mina's father from his coma.",
+      "on_a_card_about_b": "Tandy's friend at Roxxon.",
+      "on_b_card_about_a": "A friend from Roxxon who wakes Mina's father from his coma."
+     },
+     {
+      "kind": "friend",
+      "title": "Cloak & Dagger#10",
+      "text": "Mina helps Tandy confront Scarborough and expose Roxxon.",
+      "on_a_card_about_b": "Tandy's friend at Roxxon.",
+      "on_b_card_about_a": "A friend from Roxxon who wakes Mina's father from his coma."
+     }
+    ]
+   },
+   "why": "Tandy becomes Mina's intern and is forgiven in Funhouse Mirrors (#6) and Ivan wakes in Lotus Eaters (#7), but the proposed #7 split also told Mina helping Tandy against Scarborough, which is Colony Collapse (#10); that is split again to #10.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Cloak_%26_Dagger_season_1&action=raw"
+  },
+  {
+   "n": 1009,
+   "verdict": "confirm",
+   "why": "Evita pushes Tandy back and realizes she is the other half of the Divine Pairing in Back Breaker (#9); she tells them the legend in Colony Collapse (#10).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Back_Breaker_(episode)&prop=wikitext&format=json"
+  },
+  {
+   "n": 1010,
+   "verdict": "confirm",
+   "why": "O'Reilly hunts Tandy over Rick Cotton from #2 and in Stained Glass (#3) deduces he tried to rape her, tells Melissa Tandy is a victim and meets her; she fights the Terrors beside Tandy and Tyrone in #10.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Brigid_O%27Reilly&prop=wikitext&format=json"
+  },
+  {
+   "n": 1011,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#12",
+    "text": "Shot by Connors, O'Reilly splits in two, and her violent half, Mayhem, starts killing traffickers. Tandy teams up with her to catch one, not knowing who she is.",
+    "on_a_card_about_b": "Splits in two, and her violent half, Mayhem, becomes Tandy's uneasy partner.",
+    "on_b_card_about_a": "The young hero Mayhem teams up with.",
+    "split": [
+     {
+      "kind": "rival",
+      "title": "Cloak & Dagger#13",
+      "text": "Tandy clashes with Mayhem's violent methods, even as Mayhem rescues trafficked girls.",
+      "on_a_card_about_b": "Splits in two, and her violent half, Mayhem, becomes Tandy's uneasy partner.",
+      "on_b_card_about_a": "The young hero who keeps holding O'Reilly back."
+     },
+     {
+      "kind": "rival",
+      "title": "Cloak & Dagger#19",
+      "text": "Tandy and Mayhem come to blows over whether to kill Andre's accomplice Lia.",
+      "on_a_card_about_b": "Splits in two, and her violent half, Mayhem, becomes Tandy's uneasy partner.",
+      "on_b_card_about_a": "The young hero who keeps holding O'Reilly back."
+     }
+    ]
+   },
+   "why": "In White Lines (#12) Mayhem, posing as O'Reilly, helps Tandy catch the ambulance driver and kills him, and the reveal of two O'Reillys ends the episode; Tandy only clashes with her from Shadow Selves (#13), so the clash and the 'holding her back' card move to a #13 split, with the Lia fight at #19.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Shadow_Selves&prop=wikitext&format=json"
+  },
+  {
+   "n": 1012,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#5",
+    "text": "O'Reilly doubts Tyrone's story about his brother at first, but agrees to look into Connors if he stays away.",
+    "split": [
+     {
+      "kind": "ally",
+      "title": "Cloak & Dagger#8",
+      "text": "O'Reilly helps Tyrone scare a recorded confession out of Connors.",
+      "on_a_card_about_b": "The detective who helps Tyrone go after Connors.",
+      "on_b_card_about_a": "The young man O'Reilly helps against Connors."
+     },
+     {
+      "kind": "ally",
+      "title": "Cloak & Dagger#10",
+      "text": "When Connors frames Tyrone for murder, O'Reilly tries to get him out of the city and is locked up with him.",
+      "on_a_card_about_b": "The detective who helps Tyrone go after Connors.",
+      "on_b_card_about_a": "The young man O'Reilly helps against Connors."
+     }
+    ]
+   },
+   "why": "The #5 start is right (Princeton Offense), but the proposed #8 split still told the framing (#9) and the arrest and lock-up together (#10); those are split again to #10.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Brigid_O%27Reilly&prop=wikitext&format=json"
+  },
+  {
+   "n": 1013,
+   "verdict": "confirm",
+   "why": "In Princeton Offense (#5) O'Reilly snorts confiscated cocaine at the station to draw Connors in, and he joins her and suggests they work together; the cruise is #6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Brigid_O%27Reilly&prop=wikitext&format=json"
+  },
+  {
+   "n": 1014,
+   "verdict": "confirm",
+   "why": "O'Reilly hits Connors at Fuchs's memorial and he beats her in Back Breaker (#9); he shoots her and drops her in the river in Colony Collapse (#10).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Back_Breaker_(episode)&prop=wikitext&format=json"
+  },
+  {
+   "n": 1015,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#13",
+    "text": "Split in two by his bullet, O'Reilly's violent half, Mayhem, hunts Connors for revenge.",
+    "on_a_card_about_b": "The cop who shot O'Reilly, hunted by her violent half.",
+    "on_b_card_about_a": "Her violent half, Mayhem, hunts Connors for revenge.",
+    "split": {
+     "kind": "enemy",
+     "title": "Cloak & Dagger#20",
+     "text": "After Adina kills Connors, Mayhem hangs his body at the police station with a sign calling him guilty, clearing Tyrone's name.",
+     "on_a_card_about_b": "The cop who shot O'Reilly. Her violent half hangs his body as guilty.",
+     "on_b_card_about_a": "Her violent half, Mayhem, hunts Connors for revenge."
+    }
+   },
+   "why": "Mayhem's hunt for Connors is shown in Shadow Selves (#13), but the text and card also tell Adina killing him (#18) and Mayhem hanging his body at the precinct (Level Up, #20); those are split to #20.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Level_Up&prop=wikitext&format=json"
+  },
+  {
+   "n": 1016,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#13",
+    "text": "Mina walks O'Reilly through a lab rat that split in two from the same energy, explaining what happened to her.",
+    "on_a_card_about_b": "The scientist who explains O'Reilly's split.",
+    "on_b_card_about_a": "The detective whose split Mina studies.",
+    "split": {
+     "kind": "ally",
+     "title": "Cloak & Dagger#20",
+     "text": "O'Reilly's violent half, Mayhem, comes to Mina for a brain scan.",
+     "on_a_card_about_b": "The scientist who explains O'Reilly's split.",
+     "on_b_card_about_a": "The detective whose split Mina studies."
+    }
+   },
+   "why": "Mina shows Tandy, Tyrone and O'Reilly her split mouse in Shadow Selves (#13), but the brain scan in the text is Level Up (#20), so it is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Mina_Hess&prop=wikitext&format=json"
+  },
+  {
+   "n": 1017,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#18",
+    "text": "Evita calls on the Loa to open the way so O'Reilly and Tandy can enter the Dark Dimension for Tyrone.",
+    "on_a_card_about_b": "The girl who opens the way into the Dark Dimension for O'Reilly.",
+    "on_b_card_about_a": "The detective Evita sends into the Dark Dimension.",
+    "split": {
+     "kind": "ally",
+     "title": "Cloak & Dagger#20",
+     "text": "In the final fight, Mayhem guards Evita and the candle that keeps the way open from Andre's creatures.",
+     "on_a_card_about_b": "The girl who opens the way, whom O'Reilly guards.",
+     "on_b_card_about_a": "The detective who guards Evita."
+    }
+   },
+   "why": "Evita calls on Papa Legba to open the gateway for O'Reilly and Tandy in Two Player (#18), but the candle fight and both 'guards' card lines are Level Up (#20), so they are split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Two_Player&prop=wikitext&format=json"
+  },
+  {
+   "n": 1018,
+   "verdict": "confirm",
+   "why": "O'Reilly arrests Liam at his car in Suicide Sprints (#2); in Princeton Offense (#5) she questions him, still in custody, and he tells her about the drug dealing at the nightclub where he used to work.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Liam_Walsh&prop=wikitext&format=json"
+  },
+  {
+   "n": 1019,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#1",
+    "text": "Connors shot Tyrone's brother Billy and covered it up.",
+    "on_b_card_about_a": "Billy's brother, who saw Connors kill him.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Cloak & Dagger#8",
+      "text": "Tyrone haunts Connors as Billy's ghost and scares a confession out of him.",
+      "on_a_card_about_b": "The cop who killed Tyrone's brother.",
+      "on_b_card_about_a": "Billy's brother. Scares a confession out of Connors."
+     },
+     {
+      "kind": "enemy",
+      "title": "Cloak & Dagger#10",
+      "text": "Connors frames Tyrone for murder, and Tyrone traps him in the Dark Dimension with his cloak.",
+      "on_a_card_about_b": "The cop who killed Tyrone's brother and framed him.",
+      "on_b_card_about_a": "Billy's brother, who traps Connors in the Dark Dimension."
+     }
+    ]
+   },
+   "why": "Connors kills Billy before young Tyrone's eyes in First Light (#1), but the proposed #8 split still told the framing (#9) and the Dark Dimension (#10); those are split again to #10, ahead of the existing #15 stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=First_Light&prop=wikitext&format=json"
+  },
+  {
+   "n": 1020,
+   "verdict": "confirm",
+   "why": "Tyrone brings Connors to Adina for judgment at the end of Alignment Chart (#15); she holds him prisoner in #17 and confesses killing him in Two Player (#18).",
+   "source": "https://en.wikipedia.org/w/index.php?title=Cloak_%26_Dagger_season_2&action=raw"
+  },
+  {
+   "n": 1021,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#5",
+    "text": "Scarborough defamed Tandy's father to bury the truth about the rig. Tandy tracks him to his house and reads his greed.",
+    "on_a_card_about_b": "The Roxxon executive who buried Tandy's father's name.",
+    "on_b_card_about_a": "The girl who reads Scarborough's greed.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Cloak & Dagger#8",
+      "text": "Tandy confronts Scarborough with her father's evidence, and in the end she takes his bribe.",
+      "on_a_card_about_b": "The Roxxon executive who buried Tandy's father's name and bribes her.",
+      "on_b_card_about_a": "The girl Scarborough pays off."
+     },
+     {
+      "kind": "enemy",
+      "title": "Cloak & Dagger#10",
+      "text": "Tandy traps Scarborough's mind in a coma.",
+      "on_a_card_about_b": "The Roxxon executive who buried Tandy's father's name.",
+      "on_b_card_about_a": "The girl who traps Scarborough in his own mind."
+     }
+    ]
+   },
+   "why": "Tandy learns he defamed Nathan and reads his greed at his house in Princeton Offense (#5), but the #5 card on Scarborough still said she traps him in his mind, and the #8 split told the coma from Colony Collapse (#10); both are fixed with a further #10 split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Princeton_Offense&prop=wikitext&format=json"
+  },
+  {
+   "n": 1022,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#16",
+    "text": "Andre feeds on despair and traps Tandy in a string of false lives.",
+    "on_a_card_about_b": "The despair feeder who traps Tandy's mind.",
+    "on_b_card_about_a": "The girl Andre traps in false lives.",
+    "split": {
+     "kind": "enemy",
+     "title": "Cloak & Dagger#20",
+     "text": "Tandy breaks free of Andre, and with Tyrone she defeats him for good.",
+     "on_a_card_about_b": "The despair feeder who traps Tandy's mind.",
+     "on_b_card_about_a": "The hero who defeats Andre."
+    }
+   },
+   "why": "Andre turns on Tandy and traps her in false lives in B Sides (#16); she regains hope in #17 and they defeat him in Level Up (#20), so that part and the 'defeats Andre' card are split to #20.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=B_Sides&prop=wikitext&format=json"
+  },
+  {
+   "n": 1023,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#17",
+    "text": "Andre convinces Tyrone that Tandy has abandoned him, but Tyrone still goes on to rescue her.",
+    "on_a_card_about_b": "The despair feeder who tricks Tyrone.",
+    "on_b_card_about_a": "The young man Andre tricks.",
+    "split": {
+     "kind": "enemy",
+     "title": "Cloak & Dagger#20",
+     "text": "Tyrone and Tandy defeat Andre for good.",
+     "on_a_card_about_b": "The despair feeder who tricks Tyrone.",
+     "on_b_card_about_a": "The hero who defeats Andre."
+    }
+   },
+   "why": "Andre meets Tyrone at the support group and plays a record to turn him against Tandy, and Tyrone rescues her, in Vikingtown Sound (#17); defeating Andre is Level Up (#20), so it is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Vikingtown_Sound&prop=wikitext&format=json"
+  },
+  {
+   "n": 1024,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#17",
+    "text": "Andre kills Evita's aunt, Chantelle.",
+    "on_a_card_about_b": "The niece of the priestess Andre kills.",
+    "on_b_card_about_a": "The man who kills Evita's aunt.",
+    "split": {
+     "kind": "enemy",
+     "title": "Cloak & Dagger#20",
+     "text": "When Andre becomes a Loa, Evita keeps the way into the Dark Dimension open so Tyrone and Tandy can face him.",
+     "on_a_card_about_b": "The girl who opens the way to Andre's defeat.",
+     "on_b_card_about_a": "The man who kills Evita's aunt."
+    }
+   },
+   "why": "Andre kills Chantelle in Vikingtown Sound (#17); Evita keeping the way open is Level Up (#20), so it and the 'opens the way' card are split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Vikingtown_Sound&prop=wikitext&format=json"
+  },
+  {
+   "n": 1025,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#19",
+    "text": "Melissa is among the people caught in Andre's trance at his club.",
+    "on_a_card_about_b": "One of the people Andre puts in a trance.",
+    "on_b_card_about_a": "The man who traps Melissa in his trance.",
+    "split": {
+     "kind": "enemy",
+     "title": "Cloak & Dagger#20",
+     "text": "Tandy frees Melissa from Andre's trance.",
+     "on_a_card_about_b": "One of the people Andre puts in a trance.",
+     "on_b_card_about_a": "The man who traps Melissa in his trance."
+    }
+   },
+   "why": "Melissa is in Andre's unresponsive crowd at the old Club Delight in Blue Note (#19); Tandy frees her in Level Up (#20), so that is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Blue_Note&prop=wikitext&format=json"
+  },
+  {
+   "n": 1026,
+   "verdict": "confirm",
+   "why": "Mina vanishes from her lab mid-scan into Andre's audience and is freed by Tandy's dagger, all in Level Up (#20).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Level_Up&prop=wikitext&format=json"
+  },
+  {
+   "n": 1027,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#17",
+    "text": "Trapped in the Dark Dimension, Mayhem finds Andre's record store of stolen memories and turns it against him.",
+    "on_a_card_about_b": "The despair feeder O'Reilly spies on.",
+    "on_b_card_about_a": "With her violent half, Mayhem, turns Andre's records against him.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Cloak & Dagger#18",
+      "text": "O'Reilly plans to overload Andre with the stolen memories in his record store.",
+      "on_a_card_about_b": "The despair feeder O'Reilly spies on.",
+      "on_b_card_about_a": "With her violent half, Mayhem, turns Andre's records against him."
+     },
+     {
+      "kind": "enemy",
+      "title": "Cloak & Dagger#20",
+      "text": "In the final fight, O'Reilly holds off Andre's creatures of despair.",
+      "on_a_card_about_b": "The despair feeder O'Reilly spies on and fights.",
+      "on_b_card_about_a": "With her violent half, Mayhem, turns Andre's records against him."
+     }
+    ]
+   },
+   "why": "Mayhem swaps and destroys Andre's records in Vikingtown Sound (#17), but O'Reilly's overload plan is Two Player (#18) and the fight with his creatures is Level Up (#20), so both are split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Brigid_O%27Reilly&prop=wikitext&format=json"
+  },
+  {
+   "n": 1028,
+   "verdict": "amend",
+   "value": {
+    "title": "Cloak & Dagger#12",
+    "text": "Lia helps run the support group Andre heads, calling him when one of its members turns up in hospital.",
+    "on_a_card_about_b": "Andre's helper at the support group.",
+    "on_b_card_about_a": "The head of Lia's support group.",
+    "split": [
+     {
+      "kind": "boss",
+      "title": "Cloak & Dagger#16",
+      "text": "Lia also runs Andre's trafficking ring and helps him break Tandy in the ambulance.",
+      "on_a_card_about_b": "Andre's accomplice in his trafficking ring.",
+      "on_b_card_about_a": "Lia's boss in the trafficking ring."
+     },
+     {
+      "kind": "boss",
+      "title": "Cloak & Dagger#18",
+      "text": "When their ring falls apart, Andre drains Lia and abandons her.",
+      "on_a_card_about_b": "Andre's accomplice, whom he drains and abandons.",
+      "on_b_card_about_a": "Lia's boss, who abandons her."
+     }
+    ]
+   },
+   "why": "Lia calls Andre about Mikayla's overdose after he introduces himself as the group's head in White Lines (#12), but the proposed #16 split also told him draining and abandoning her, which is Two Player (#18); that is split again.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Lia_Dewan&prop=wikitext&format=json"
+  },
+  {
+   "n": 1029,
+   "verdict": "confirm",
+   "why": "Tandy befriends Lia, shares stories of abuse and is tasered into an ambulance in Alignment Chart (#15); Lia and Andre break her and unload her at the Viking Motel in B Sides (#16).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Lia_Dewan&prop=wikitext&format=json"
+  },
+  {
+   "n": 1030,
+   "verdict": "confirm",
+   "why": "Lia runs the abuse support group that Tandy and Melissa attend from Restless Energy (#11), where she is in the cast and steers the session.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Lia_Dewan&prop=wikitext&format=json"
+  },
+  {
+   "n": 1031,
+   "verdict": "confirm",
+   "why": "Mayhem's visits to Delgado (after he quits, outside the liquor store, outside the Glitter Gutter asking his blessing) are flashbacks in Shadow Selves (#13).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Francis_Xavier_Delgado&prop=wikitext&format=json"
+  },
+  {
+   "n": 1032,
+   "verdict": "confirm",
+   "why": "Connors prepares to kill Tandy first and she disarms him outside the Roxxon facility in Colony Collapse (#10); she saves him from Mayhem and he escapes the Dark Dimension in Rabbit Hold (#14).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Colony_Collapse&prop=wikitext&format=json"
+  },
+  {
+   "n": 1033,
+   "verdict": "confirm",
+   "why": "Maximus never had powers to lose: his Terrigenesis turned him into a normal human with no Inhuman powers, so 'lost his powers' is wrong.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Maximus&prop=wikitext&format=json"
+  },
+  {
+   "n": 1034,
+   "verdict": "confirm",
+   "why": "In Behold... The Inhumans! (#1) Gorgon is already head of the Royal Guard and Black Bolt sends him to Earth to find Triton; the rescue at Declan's lab and his death are #6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gorgon&prop=wikitext&format=json"
+  },
+  {
+   "n": 1035,
+   "verdict": "confirm",
+   "why": "In #1 Black Bolt reveals he secretly sent Triton to Earth to bring back new Inhumans, and Triton is shot and falls into the sea, presumed dead; he returns and captures Maximus in #7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Triton&prop=wikitext&format=json"
+  },
+  {
+   "n": 1036,
+   "verdict": "confirm",
+   "why": "In #1 the 'military forces' that shoot Triton are Attilan Royal Guards, and the same team gets a kill order from Maximus that episode; the capture is #7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Triton&prop=wikitext&format=json"
+  },
+  {
+   "n": 1037,
+   "verdict": "amend",
+   "value": {
+    "title": "Inhumans",
+    "text": "During his coup, Maximus has his sister in law Crystal captured and locked up.",
+    "on_a_card_about_b": "Crystal's brother in law, who holds her prisoner.",
+    "on_b_card_about_a": "Maximus's sister in law, whom he holds prisoner.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Inhumans#2",
+      "text": "Maximus presses Crystal to back his rule, offering her the choice of staying locked up or joining him, and threatens Lockjaw when she refuses.",
+      "on_a_card_about_b": "Crystal's brother in law, who holds her prisoner.",
+      "on_b_card_about_a": "Maximus's sister in law, whom he holds prisoner."
+     },
+     {
+      "kind": "enemy",
+      "title": "Inhumans#3",
+      "text": "Crystal pretends to agree, then disowns Maximus before the Genetic Council and escapes to Earth with Lockjaw.",
+      "on_a_card_about_b": "Crystal's brother in law, whose rule she defies.",
+      "on_b_card_about_a": "Maximus's sister in law, who defies him."
+     }
+    ]
+   },
+   "why": "The enmity starts earlier than #2: in Behold... The Inhumans! (#1) Maximus has Crystal captured by the Royal Guard and locked in the Quiet Room. His pressing her is #2 and her escape is #3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Crystal&prop=wikitext&format=json"
+  },
+  {
+   "n": 1038,
+   "verdict": "confirm",
+   "why": "The old friendship, Maximus's resentment over Tibor's council seat, and his demand that Tibor prove his loyalty all come in Make Way For... Medusa (#4).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tibor&prop=wikitext&format=json"
+  },
+  {
+   "n": 1039,
+   "verdict": "confirm",
+   "why": "In Divide and Conquer (#3) Maximus sends Locus to Earth with Mordis, Flora, Pulsus and Sakas to back Auran, and they go after Gorgon.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Locus&prop=wikitext&format=json"
+  }
+ ]
+}

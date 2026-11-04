@@ -1,0 +1,62 @@
+{
+ "checked": [
+  "A:fox-anim-mother-askani",
+  "A:fox-anim-black-widow",
+  "A:fox-anim-corsair",
+  "A:fox-anim-ka-zar",
+  "A:fox-anim-longshot",
+  "A:pr-mister-fantastic",
+  "A:pr-the-thing",
+  "A:pr-abraham-whistler",
+  "A:pr-bloodpack",
+  "A:pr-abigail-whistler",
+  "A:pr-hannibal-king",
+  "A:pr-sommerfield",
+  "A:pr-zoe",
+  "A:pr-dex",
+  "A:pr-shen",
+  "A:pr-foggy-nelson",
+  "A:pr-stick",
+  "A:pr-abby-miller",
+  "A:pr-mark-miller",
+  "A:pr-castle-family"
+ ],
+ "changes": [
+  {
+   "key": "A:pr-the-thing",
+   "q": "G1",
+   "now": [
+    [
+     "The Fantastic Four",
+     "Fantastic Four (2005)"
+    ]
+   ],
+   "proposed": [
+    [
+     "NASA",
+     "Fantastic Four (2005)"
+    ],
+    [
+     "The Fantastic Four",
+     "Fantastic Four (2005)"
+    ]
+   ],
+   "evidence": "Fantastic Four (2005): Ben is told on screen to be a former NASA shuttle pilot. When Victor's pilot Johnny is named mission commander, Reed says 'It's just like the shuttle you flew', and Ben refuses to 'take orders from the underwear model' who 'washed out of NASA' (Johnny was his subordinate there). Reed and Ben's earlier NASA project was shut down ('He knew about NASA. Maybe he made the call to shut us down'). A past group the screen tells counts, keyed to his first title and placed first; NASA is an existing dataset group name.",
+   "source": "https://www.springfieldspringfield.co.uk/movie_script.php?movie=fantastic-four ; https://marvel-movies.fandom.com/api.php?action=parse&page=Benjamin_Grimm_(Earth-121698)&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:fox-anim-longshot",
+   "question": "Longshot starred in Mojo's TV network and quits it in episode 24, and in episode 36 he goes home to keep leading the rebellion against Mojo. Should either be a stage? (Both are held questions: the employer rule and unnamed crews.)",
+   "options": [
+    "Keep [[\"Independent\", \"(from the start)\"]]",
+    "Add Mojo's network as a past employer from the start, with a 'left' at X-Men: The Animated Series (episode 24)",
+    "Also add a stage for the rebellion against Mojo at X-Men: The Animated Series (episode 36), under a name the owner chooses"
+   ],
+   "evidence": "Marvel Database: 'Longshot quit his own hit TV show, leaving Mojo to kidnap the X-Men' (S2E11, episode 24); later 'Longshot returned home to continue leading the rebellion against Mojo' (S5E5, episode 36). The screen never names the rebel group.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Longshot_(Earth-92131)&prop=wikitext&format=json"
+  }
+ ]
+}

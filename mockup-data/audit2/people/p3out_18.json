@@ -1,0 +1,158 @@
+{
+ "checked": [
+  "A:ronnie-williams",
+  "A:zelma-stanton",
+  "A:madeline-stanton",
+  "A:landon",
+  "A:gary-williams",
+  "A:sonya-falsworth",
+  "A:prince-yan",
+  "A:ruth-bat-seraph",
+  "A:mel",
+  "A:simon-williams",
+  "A:von-kovak",
+  "A:janelle-jackson",
+  "A:demarr-davis",
+  "A:veb",
+  "A:quaz",
+  "A:wolverine",
+  "A:dogpool",
+  "A:sue-storm",
+  "A:johnny-storm",
+  "A:ben-grimm"
+ ],
+ "changes": [
+  {
+   "key": "A:madeline-stanton",
+   "q": "G2",
+   "now": [
+    [
+     "Masters of the Mystic Arts",
+     "Ironheart"
+    ],
+    [
+     "Independent",
+     "Ironheart"
+    ]
+   ],
+   "proposed": [
+    [
+     "Masters of the Mystic Arts",
+     "Ironheart"
+    ],
+    [
+     "Stanton's Sweets, Reads & More",
+     "Ironheart"
+    ]
+   ],
+   "evidence": "Ironheart episode 4 ('Bad Magic'): Madeline says she left Kamar-Taj to raise Zelma in Chicago, and she owns and runs her candy and book shop there, where Ronnie brings Riri to see her (Zelma at the counter: 'Welcome to Stanton's. We got sweets. We got reads.'). Leaving the Masters of the Mystic Arts is a move into her own business, not into no group. The dataset already counts a person's own business as a group (Kale Kare, Luke's Bar, Skully's Pawn Shop). Also remove 'Ironheart' from left, since she does not end with no group.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Madeline_Stanton",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:madeline-stanton",
+   "q": "G3",
+   "now": [
+    "Ironheart"
+   ],
+   "proposed": [],
+   "evidence": "Goes with the G2 change: in Ironheart she leaves the Masters of the Mystic Arts for her own shop, Stanton's Sweets, Reads & More (episode 4), so a 'left' meaning no group afterwards does not hold.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Stanton%27s_Sweets,_Reads_%26_More",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:zelma-stanton",
+   "q": "G2",
+   "now": [
+    [
+     "Independent",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Stanton's Sweets, Reads & More",
+     "(from the start)"
+    ]
+   ],
+   "evidence": "Ironheart episode 4 ('Bad Magic'): Zelma works the front counter of her family's candy and magic shop ('Welcome to Stanton's. We got sweets. We got reads. All your wishes guaranteed.'), and in episode 6 Parker Robbins comes to her there for magic. It is her workplace through the series.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Zelma_Stanton",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:gary-williams",
+   "q": "G2",
+   "now": [
+    [
+     "Independent",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Gary's Auto Repair",
+     "(from the start)"
+    ]
+   ],
+   "evidence": "Ironheart episode 1 (flashbacks): Gary owns and works in his own repair shop, Gary's Auto Repair, where he and Riri rebuild cars and where he is killed in the drive-by shooting. Ronnie and Riri call it 'Gary's' and 'the garage' on screen. The dataset counts a person's own business as a group (Luke's Bar, Skully's Pawn Shop, Kale Kare).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Gary%27s_Auto_Repair",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:wolverine",
+   "q": "G2",
+   "now": [
+    [
+     "The X-Men",
+     "Deadpool & Wolverine"
+    ],
+    [
+     "The Resistance",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "proposed": [
+    [
+     "The X-Men",
+     "Deadpool & Wolverine"
+    ],
+    [
+     "The Resistance",
+     "Deadpool & Wolverine"
+    ],
+    [
+     "Independent",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "evidence": "Deadpool & Wolverine: the Resistance's last strike on Cassandra ends with only Logan and Wade going through her portal to Earth-10005. The group is finished (Marvel Database: Resistance status 'Defunct', Logan 'formerly' Resistance), and Logan stays on Wade's world. Wade (A:fox-deadpool) and Laura (A:fox-x-23) already go from The Resistance to Independent in this title with a left entry; Logan's record has no such move. Add 'Deadpool & Wolverine' to left.",
+   "source": "https://marvel.fandom.com/wiki/Resistance_(Void)",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:wolverine",
+   "q": "G2",
+   "now": {
+    "left": []
+   },
+   "proposed": {
+    "left": [
+     "Deadpool & Wolverine"
+    ]
+   },
+   "evidence": "Goes with the groups change above: the Resistance ends in Deadpool & Wolverine when Logan and Wade leave the Void through Cassandra's portal, and Logan belongs to no group afterwards (he stays with Wade's friends on Earth-10005). Same left entry as Wade and Laura already have for this title.",
+   "source": "https://marvel.fandom.com/wiki/James_Howlett_(Earth-TRN1400)",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:dogpool",
+   "q": "E1",
+   "now": null,
+   "proposed": "Earth-TRN872",
+   "evidence": "Deadpool & Wolverine: Dogpool (Mary Puppins) is a Deadpool variant pruned by the TVA to the Void, not a native of the main MCU (Earth-199999). Marvel Database files her as Mary Puppins (Earth-TRN872), its designation for those pruned to the Void whose home reality is unknown (now displaced to Earth-10005). Nicepool (A:nicepool) is filed the same way there.",
+   "source": "https://marvel.fandom.com/wiki/Mary_Puppins_(Earth-TRN872)",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": []
+}

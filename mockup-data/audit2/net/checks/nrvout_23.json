@@ -1,0 +1,488 @@
+{
+ "verdicts": [
+  {
+   "n": 880,
+   "verdict": "confirm",
+   "why": "Clint's family and Fury's part in hiding the farm are first revealed in Age of Ultron ('Fury helped me set this up when I joined. He kept it off S.H.I.E.L.D.'s files'), so they move to a split there.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hawkeye&prop=wikitext&format=json"
+  },
+  {
+   "n": 881,
+   "verdict": "confirm",
+   "why": "After Electro is sent away, Marko accuses Peter of killing him and is teleported to a Sanctum cell before he can attack; he only goes along with the cure plan later, to see his daughter.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sandman&prop=wikitext&format=json"
+  },
+  {
+   "n": 882,
+   "verdict": "confirm",
+   "why": "In the film Jameson exposes Ned and MJ as Peter's friends; his discrediting of Ned's Europe claims is from TheDailyBugle.net tie-in content, not the film.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=J._Jonah_Jameson&prop=wikitext&format=json"
+  },
+  {
+   "n": 883,
+   "verdict": "confirm",
+   "why": "May's line about past protest arrests is cited to the extended cut only; in the film Cleary answers her by warning of a child endangerment charge for encouraging Peter.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=P._Cleary&prop=wikitext&format=json"
+  },
+  {
+   "n": 884,
+   "verdict": "confirm",
+   "why": "Cleary questioning Happy with Matt present is only in The More Fun Stuff Version; in the film Matt's role is getting the charges dropped.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=P._Cleary&prop=wikitext&format=json"
+  },
+  {
+   "n": 885,
+   "verdict": "amend",
+   "value": {
+    "text": "Matt Murdock warns Happy Hogan that he is under investigation over his role at Stark Industries and needs a really good lawyer.",
+    "on_a_card_about_b": "The Parkers' lawyer, who warns Happy he is under investigation.",
+    "on_b_card_about_a": "Peter's friend, whom Matt warns he is under investigation."
+   },
+   "why": "The theatrical scene is Matt warning Happy of an investigation into the missing Stark tech and telling him to get a good lawyer; the representation in a Damage Control interrogation is extended-cut only. Dropped 'Damage Control' from Happy's card since the film scene does not tie that investigation to Damage Control.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Happy_Hogan&prop=wikitext&format=json"
+  },
+  {
+   "n": 886,
+   "verdict": "confirm",
+   "why": "Bakuto is ordered back in #4 but first appears in #5, where Alexandra promises to confront him over his failures; everything in the stage holds at #5.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bakuto&prop=wikitext&format=json"
+  },
+  {
+   "n": 887,
+   "verdict": "confirm",
+   "why": "In #2 Gao reports the K'un-Lun wall, Alexandra says it is a door the Iron Fist can open, and she takes Stick captive to find the Iron Fist; this all precedes the #3 Midland Circle meeting.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Alexandra_Reid&prop=wikitext&format=json"
+  },
+  {
+   "n": 888,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#1",
+    "text": "Alexandra keeps the resurrected Elektra, the Black Sky, at her side as the Hand's assassin.",
+    "on_a_card_about_b": "The resurrected Black Sky, kept at Alexandra's side.",
+    "on_b_card_about_a": "The Hand leader who keeps Elektra at her side.",
+    "split": [
+     {
+      "kind": "boss",
+      "title": "The Defenders#3",
+      "text": "Alexandra is the one who raised Elektra from the dead, using the last of the Hand's elixir, and trained her as her weapon.",
+      "on_a_card_about_b": "Alexandra's weapon, the Black Sky she raises from the dead.",
+      "on_b_card_about_a": "The Hand leader who resurrects Elektra as the Black Sky."
+     },
+     {
+      "kind": "enemy",
+      "title": "The Defenders#6",
+      "text": "Elektra turns on Alexandra and kills her in front of the Hand's leaders, then claims command of the Hand.",
+      "on_a_card_about_b": "The Black Sky Alexandra raised. Turns on her and kills her.",
+      "on_b_card_about_a": "The Hand leader who raised Elektra, until Elektra kills her."
+     }
+    ]
+   },
+   "why": "The #1 start is right (Alexandra comforts the resurrected Elektra during the earthquake, after Elektra kills Shaft), but the resurrection by Alexandra and her training of Elektra are only shown in the #3 flashback, so that moves to a #3 split; the killing stays in a #6 split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Alexandra_Reid&prop=wikitext&format=json"
+  },
+  {
+   "n": 889,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#3"
+   },
+   "why": "The enmity starts earlier than #4: in #3 Alexandra is at Midland Circle and sends Elektra into the fight, where Matt duels her alongside Danny, Luke and Jessica before they escape together.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Worst_Behavior&prop=wikitext&format=json"
+  },
+  {
+   "n": 890,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#3",
+    "text": "Sowande serves Alexandra Reid, the leader of the Hand, and brings her Elektra's body so she can be reborn as the Black Sky.",
+    "on_a_card_about_b": "A Hand leader who brings Elektra's body to Alexandra.",
+    "split": {
+     "kind": "boss",
+     "title": "The Defenders#6",
+     "text": "Sowande's death shakes the other Hand leaders' faith in Alexandra's leadership.",
+     "on_a_card_about_b": "A Hand founder whose death shakes faith in Alexandra.",
+     "on_b_card_about_a": "Sowande's leader, doubted by the others after his death."
+    }
+   },
+   "why": "The #3 flashback shows Sowande bringing Elektra's corpse to Alexandra, and his head reaches the leaders in #6, so the move and split are right. The #3 card says 'Hand leader' rather than 'founder' because the five founders are only explained by Stick in #4.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sowande&prop=wikitext&format=json"
+  },
+  {
+   "n": 891,
+   "verdict": "confirm",
+   "why": "#2 ends with Alexandra unhooding her captive Stick; in #4 Stick joins the Defenders, warns Danny against going with her and says Elektra must be killed, which fits the #4 split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Stick&prop=wikitext&format=json"
+  },
+  {
+   "n": 892,
+   "verdict": "confirm",
+   "why": "In #5 Bakuto asks why Daredevil matters when Murakami reports his return; Bakuto and Murakami fight Daredevil together at Midland Circle in #7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bakuto&prop=wikitext&format=json"
+  },
+  {
+   "n": 893,
+   "verdict": "confirm",
+   "why": "Bakuto and Misty only meet in #8, when she breaks in to save Claire and Bakuto cuts off her arm.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Defenders_(miniseries)&action=raw"
+  },
+  {
+   "n": 894,
+   "verdict": "confirm",
+   "why": "In #5 Bakuto first appears with the other founders and backs Murakami's challenge to Alexandra; their joint fight against Daredevil is in #7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bakuto&prop=wikitext&format=json"
+  },
+  {
+   "n": 895,
+   "verdict": "confirm",
+   "why": "Colleen never fights Elektra in The Defenders; in #1 she stays with the dying Shaft while Danny chases the assassin, and in #8 she fights Bakuto upstairs while Elektra is below.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Colleen_Wing&prop=wikitext&format=json"
+  },
+  {
+   "n": 896,
+   "verdict": "confirm",
+   "why": "Misty only meets Colleen in #5 at the precinct; they fight the Hand together in #8, when Misty saves Claire from Bakuto and Colleen visits her in hospital.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Misty_Knight&prop=wikitext&format=json"
+  },
+  {
+   "n": 897,
+   "verdict": "confirm",
+   "why": "In #1 Danny chases and fights Elektra in Phnom Penh after she fatally wounds Shaft, and she slashes him and escapes; the kidnapping is in #6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_H_Word&prop=wikitext&format=json"
+  },
+  {
+   "n": 898,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#3",
+    "text": "Danny Rand and Jessica first meet at Midland Circle, where they fight the Hand side by side and escape together.",
+    "on_a_card_about_b": "A strong private eye who fights the Hand beside Danny.",
+    "on_b_card_about_a": "The Iron Fist, who fights the Hand beside Jessica.",
+    "split": {
+     "kind": "ally",
+     "title": "The Defenders#6",
+     "text": "When Danny attacks the others to go after the Hand alone, Jessica knocks him out with one punch so the Defenders can keep him from the Hand.",
+     "on_a_card_about_b": "A fellow Defender Danny clashes with, then fights beside.",
+     "on_b_card_about_a": "A fellow Defender Jessica clashes with, then fights the Hand beside."
+    }
+   },
+   "why": "They first meet at the end of #3, but the team only forms in #4 and their clash comes in #6, when Jessica knocks Danny out and they tie him up, so that moves to a split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ashes,_Ashes&prop=wikitext&format=json"
+  },
+  {
+   "n": 899,
+   "verdict": "amend",
+   "value": {
+    "kind": "rival",
+    "title": "The Defenders#2",
+    "text": "Danny Rand and Luke clash when they first meet. Luke pulls Danny off Cole Miller, and they fight until the police arrive.",
+    "on_a_card_about_b": "A bulletproof man who pulls Danny off Cole Miller and fights him.",
+    "on_b_card_about_a": "A young fighter with a glowing fist who clashes with Luke.",
+    "split": [
+     {
+      "kind": "ally",
+      "title": "The Defenders#4",
+      "text": "Danny and Luke put their clash behind them and fight the Hand together as fellow Defenders.",
+      "on_a_card_about_b": "A fellow Defender who clashes with Danny at first.",
+      "on_b_card_about_a": "A fellow Defender who clashes with Luke at first."
+     },
+     {
+      "kind": "friend",
+      "title": "The Defenders#6",
+      "text": "While guarding the tied-up Danny, Luke bonds with him, and the two become friends.",
+      "on_a_card_about_b": "A fellow Defender who clashes with Danny at first, then becomes a close friend.",
+      "on_b_card_about_a": "A fellow Defender who clashes with Luke at first, then becomes a close friend."
+     }
+    ]
+   },
+   "why": "They first meet and fight in #2, so the move is right, but becoming fellow Defenders (#4) and friends (#6, when Luke bonds with Danny while guarding him) are later facts, so they split out and the #2 kind becomes rival.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Luke_Cage&prop=wikitext&format=json"
+  },
+  {
+   "n": 900,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#3",
+    "text": "Danny Rand is the Iron Fist. At Midland Circle he saves Matt from Elektra, and they escape the Hand together.",
+    "on_a_card_about_b": "A masked fighter Danny saves from Elektra at Midland Circle.",
+    "on_b_card_about_a": "The Iron Fist, who saves Matt from Elektra at Midland Circle.",
+    "split": {
+     "kind": "ally",
+     "title": "The Defenders#4",
+     "text": "Matt fights beside Danny in the Defenders and protects him from the Hand.",
+     "on_a_card_about_b": "A fellow Defender who protects Danny from the Hand.",
+     "on_b_card_about_a": "The Iron Fist, a fellow Defender Matt protects from the Hand."
+    }
+   },
+   "why": "They first meet at the end of #3, when Danny knocks Elektra off Matt. The Defenders only form at the Royal Dragon in #4, where they refuse to hand Danny to Alexandra, so the team and protection facts move to a #4 split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Worst_Behavior&prop=wikitext&format=json"
+  },
+  {
+   "n": 901,
+   "verdict": "amend",
+   "value": {
+    "kind": "ally",
+    "title": "The Defenders#5",
+    "text": "Misty meets Danny Rand when he and Claire Temple bring the wounded Colleen Wing to her precinct to hide from the Hand.",
+    "on_a_card_about_b": "A detective who shelters Colleen from the Hand.",
+    "on_b_card_about_a": "Colleen's boyfriend, who brings her to Misty's precinct for safety.",
+    "split": {
+     "kind": "friend",
+     "title": "The Defenders#8",
+     "text": "After Misty loses her arm to Bakuto, Danny, through Colleen, offers her care at the hospital he owns.",
+     "on_a_card_about_b": "A detective who loses her arm to the Hand. Danny offers her help.",
+     "on_b_card_about_a": "Offers Misty care at his hospital after she loses her arm."
+    }
+   },
+   "why": "The #5 first meeting is right, but in #8 Colleen only tells Misty that Danny owns the hospital and may help; the Rand Enterprises arm comes in Luke Cage S2, so 'a new arm' is cut. The #5 kind is set to ally since they have only just met.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Misty_Knight&prop=wikitext&format=json"
+  },
+  {
+   "n": 902,
+   "verdict": "confirm",
+   "why": "Misty first appears in Iron Fist S2 in #4, meeting Danny and Colleen and asking Danny to stay away; she brings the task force against Davos in #9.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Iron_Fist_season_2&action=raw"
+  },
+  {
+   "n": 903,
+   "verdict": "confirm",
+   "why": "In #4 Murakami agrees with Alexandra to reunite the five fingers and capture the Iron Fist; he drops into the Royal Dragon and fights Danny in #5.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Murakami&prop=wikitext&format=json"
+  },
+  {
+   "n": 904,
+   "verdict": "confirm",
+   "why": "Stick reaches the Royal Dragon in #4, joins the four against the Hand and gives Danny a respectful bow; the tying up, the attempt on Danny and Stick's death are in #6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Royal_Dragon&prop=wikitext&format=json"
+  },
+  {
+   "n": 905,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#6",
+    "text": "Elektra kills Alexandra in front of Murakami and declares herself leader of the Hand.",
+    "on_a_card_about_b": "A Hand founder who watches Elektra kill Alexandra and take over.",
+    "on_b_card_about_a": "The Black Sky, who kills Alexandra and takes over the Hand.",
+    "split": [
+     {
+      "kind": "boss",
+      "title": "The Defenders#7",
+      "text": "Murakami distrusts Elektra but goes along with the other Hand leaders in following her as their new leader.",
+      "on_a_card_about_b": "Hand fighter who follows Elektra as his new leader.",
+      "on_b_card_about_a": "Murakami's new leader after she kills Alexandra and takes over the Hand."
+     },
+     {
+      "kind": "boss",
+      "title": "The Defenders#8",
+      "text": "Elektra and Murakami fight the Defenders together beneath Midland Circle.",
+      "on_a_card_about_b": "Hand fighter who fights the Defenders beside Elektra.",
+      "on_b_card_about_a": "Murakami's leader, beside whom he fights the Defenders."
+     }
+    ]
+   },
+   "why": "Elektra kills Alexandra and claims the Hand at the end of #6, but the leaders only agree to follow her in #7 (Murakami still wants her destroyed), and the fight beneath Midland Circle is #8, so those split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Fish_in_the_Jailhouse&prop=wikitext&format=json"
+  },
+  {
+   "n": 906,
+   "verdict": "confirm",
+   "why": "Foggy is Matt's ex-partner at Hogarth's firm; in #2 Hogarth tasks him with keeping Jessica's fallout away from the firm, and Matt turns up as her lawyer under his deal to take Foggy's extra work.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Defenders_(miniseries)&action=raw"
+  },
+  {
+   "n": 907,
+   "verdict": "confirm",
+   "why": "In #5 Jessica shoves Gao aside as Gao's men try to restrain Danny at the Royal Dragon; the concrete-block fight is in #7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Take_Shelter&prop=wikitext&format=json"
+  },
+  {
+   "n": 908,
+   "verdict": "amend",
+   "value": {
+    "kind": "ally",
+    "title": "The Defenders#2",
+    "text": "Matt Murdock walks into the precinct and becomes Jessica's lawyer after her arrest.",
+    "on_a_card_about_b": "Jessica's lawyer after her arrest.",
+    "on_b_card_about_a": "Matt's client after her arrest.",
+    "split": {
+     "kind": "friend",
+     "title": "The Defenders#4",
+     "text": "Matt Murdock is Jessica's lawyer and her fellow Defender.",
+     "on_a_card_about_b": "Jessica's lawyer and fellow Defender.",
+     "on_b_card_about_a": "Matt's client and fellow Defender."
+    }
+   },
+   "why": "#2 ends with Matt arriving at Misty's interrogation as Jessica's attorney, and they become Defenders in #4, so the move and split are right. The #2 kind is set to ally because they are strangers there.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Misty_Knight&prop=wikitext&format=json"
+  },
+  {
+   "n": 909,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#7",
+    "text": "Misty Knight questions Jessica and the other Defenders about the Hand for the NYPD, then agrees at Midland Circle to stall the police while they go after Danny.",
+    "on_a_card_about_b": "An NYPD detective who questions the Defenders, then helps them.",
+    "on_b_card_about_a": "A Defender Misty questions, then helps at Midland Circle.",
+    "split": {
+     "kind": "ally",
+     "title": "The Defenders#8",
+     "text": "Misty joins the battle against the Hand at Midland Circle, fighting at the Defenders' side.",
+     "on_a_card_about_b": "An NYPD detective who fights beside the Defenders while watching them.",
+     "on_b_card_about_a": "A Defender Misty fights beside while keeping an eye on them for the NYPD."
+    }
+   },
+   "why": "Misty first works with the Defenders in #7 (questioning, then stalling the police), but she only fights in the battle in #8, when she breaks in against Bakuto, so the fighting moves to a split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Misty_Knight&prop=wikitext&format=json"
+  },
+  {
+   "n": 910,
+   "verdict": "confirm",
+   "why": "In #4 Jessica walks out of the Royal Dragon when Stick tries ordering her around, before he explains the five fingers, so she never hears the Hand's history.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Royal_Dragon&prop=wikitext&format=json"
+  },
+  {
+   "n": 911,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#3",
+    "text": "Luke Cage and Matt Murdock are brought together by the Hand and fight side by side at Midland Circle.",
+    "on_a_card_about_b": "A masked fighter who fights the Hand beside Luke.",
+    "on_b_card_about_a": "A bulletproof man who fights the Hand beside Matt.",
+    "split": {
+     "kind": "ally",
+     "title": "The Defenders#8",
+     "text": "When Midland Circle collapses, Luke and the other Defenders believe Matt has died there.",
+     "on_a_card_about_b": "A fellow Defender Luke believes dies at Midland Circle.",
+     "on_b_card_about_a": "A fellow Defender against the Hand."
+    }
+   },
+   "why": "They first meet at the end of #3, but Matt's apparent death when Midland Circle collapses is in #8, so it moves to a split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Worst_Behavior&prop=wikitext&format=json"
+  },
+  {
+   "n": 912,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#7",
+    "text": "Luke Cage trades blows with Murakami when the Defenders storm Midland Circle, launching him across the hood of a car.",
+    "on_a_card_about_b": "A Hand leader Luke throws across a car at Midland Circle.",
+    "on_b_card_about_a": "A Defender who throws Murakami across a car.",
+    "split": {
+     "kind": "enemy",
+     "title": "The Defenders#8",
+     "text": "As the Defenders escape the cavern beneath Midland Circle, Luke and Danny throw Murakami off the elevator.",
+     "on_a_card_about_b": "A Hand leader Luke fights and knocks off the elevator.",
+     "on_b_card_about_a": "A Defender who throws Murakami across a car and off an elevator."
+    }
+   },
+   "why": "They first fight in #7 (Luke is outside with Sowande during the #5 ambush), but the elevator fight is in #8, so it moves to a split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Murakami&prop=wikitext&format=json"
+  },
+  {
+   "n": 913,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#4",
+    "text": "Madame Gao and Murakami are two of the five founders of the Hand, who left K'un-Lun together in search of immortality.",
+    "on_a_card_about_b": "A fellow Hand founder from K'un-Lun.",
+    "on_b_card_about_a": "A fellow Hand founder who left K'un-Lun with Murakami.",
+    "split": {
+     "kind": "ally",
+     "title": "The Defenders#8",
+     "text": "Gao and Murakami work side by side beneath Midland Circle, and both are buried there when it collapses.",
+     "on_a_card_about_b": "A fellow Hand founder from K'un-Lun, buried with Gao at Midland Circle.",
+     "on_b_card_about_a": "A fellow Hand founder who left K'un-Lun with Murakami."
+    }
+   },
+   "why": "Murakami is introduced in #4, where Stick names him and Gao among the five fingers, but their burial in the collapse is in #8, so it moves to a split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Murakami&prop=wikitext&format=json"
+  },
+  {
+   "n": 914,
+   "verdict": "confirm",
+   "why": "Before #7 Misty only meets Matt as Jessica's lawyer; she first works with the Defenders in #7, when she agrees at Midland Circle to stall the NYPD.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Misty_Knight&prop=wikitext&format=json"
+  },
+  {
+   "n": 915,
+   "verdict": "confirm",
+   "why": "In #5 Murakami fights Danny and Matt at the Royal Dragon, and later Daredevil knocks his dagger away from Jessica; the Midland Circle fights are in #7 and #8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Murakami&prop=wikitext&format=json"
+  },
+  {
+   "n": 916,
+   "verdict": "confirm",
+   "why": "Stick tells the group in #4 that Murakami pulled Nobu's strings; the Royal Dragon fight and the escape Stick leads are in #5.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Royal_Dragon&prop=wikitext&format=json"
+  },
+  {
+   "n": 917,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#3",
+    "text": "Elektra, raised from the dead as the Hand's weapon, attacks Luke and the others at Midland Circle.",
+    "on_a_card_about_b": "A bulletproof man Elektra attacks at Midland Circle.",
+    "on_b_card_about_a": "The Hand's weapon, who attacks Luke and the others at Midland Circle.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "The Defenders#5",
+      "text": "Elektra fights Luke and Jessica again when the Hand ambushes the Defenders at the Royal Dragon.",
+      "on_a_card_about_b": "A bulletproof man Elektra fights at the Royal Dragon.",
+      "on_b_card_about_a": "The Hand's weapon, whom Luke fights at the Royal Dragon."
+     },
+     {
+      "kind": "enemy",
+      "title": "The Defenders#6",
+      "text": "Elektra kills Stick while Luke lies poisoned, then knocks Luke out and takes Danny.",
+      "on_a_card_about_b": "A bulletproof man Elektra knocks out after killing Stick.",
+      "on_b_card_about_a": "The Hand's weapon, who kills Stick and knocks Luke out."
+     },
+     {
+      "kind": "enemy",
+      "title": "The Defenders#8",
+      "text": "The Defenders finally beat Elektra and the Hand beneath Midland Circle.",
+      "on_a_card_about_b": "A bulletproof man among the Defenders Elektra fights.",
+      "on_b_card_about_a": "The Hand's weapon, whom Luke fights alongside the Defenders."
+     }
+    ]
+   },
+   "why": "Elektra first attacks Luke and the others at Midland Circle in #3, but the Royal Dragon fight (#5), Stick's death while Luke is poisoned (#6) and her defeat (#8) are later, so they split out.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Defenders_(miniseries)&action=raw"
+  },
+  {
+   "n": 918,
+   "verdict": "amend",
+   "value": {
+    "title": "The Defenders#2",
+    "text": "Jessica first meets Elektra when the assassin comes for John Raymond in her building, and chases her but cannot catch her.",
+    "on_a_card_about_b": "A strong private eye who chases Elektra after John Raymond's death.",
+    "on_b_card_about_a": "The assassin who comes for John Raymond in Jessica's building.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "The Defenders#4",
+      "text": "Jessica rams Elektra with a car when she bursts into the Royal Dragon.",
+      "on_a_card_about_b": "A strong private eye who rams Elektra with a car.",
+      "on_b_card_about_a": "The Hand's assassin, whom Jessica hits with a car."
+     },
+     {
+      "kind": "enemy",
+      "title": "The Defenders#8",
+      "text": "Jessica fights Elektra with the Defenders until they beat her beneath Midland Circle.",
+      "on_a_card_about_b": "A strong private eye who fights Elektra with the Defenders.",
+      "on_b_card_about_a": "The Black Sky, whom Jessica and the Defenders beat."
+     }
+    ]
+   },
+   "why": "They first meet in #2, when Elektra comes for Raymond and escapes Jessica, but the car at the Royal Dragon is #4 and the final defeat is #8, so those split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Mean_Right_Hook&prop=wikitext&format=json"
+  },
+  {
+   "n": 919,
+   "verdict": "confirm",
+   "why": "Gao matches Luke's strength and pins him with a car in the #7 Midland Circle fight; at the Royal Dragon in #5 Luke is outside with Sowande.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Madame_Gao&prop=wikitext&format=json"
+  }
+ ]
+}

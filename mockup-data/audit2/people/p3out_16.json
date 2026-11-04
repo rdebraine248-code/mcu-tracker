@@ -1,0 +1,125 @@
+{
+ "checked": [
+  "A:katy-chen",
+  "A:xialing",
+  "A:ying-nan",
+  "A:jiang-li",
+  "A:morris",
+  "A:jon-jon",
+  "A:marc-spector",
+  "A:layla-el-faouly",
+  "A:khonshu",
+  "A:randall-spector",
+  "A:elsa-bloodstone",
+  "A:ted",
+  "A:love",
+  "A:axl",
+  "A:adam-warlock",
+  "A:lylla",
+  "A:floor",
+  "A:muneeba-khan",
+  "A:tyesha-hillman",
+  "A:kamran"
+ ],
+ "changes": [
+  {
+   "key": "A:katy-chen",
+   "q": "G1",
+   "now": [
+    [
+     "Independent",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Ta Lo",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ]
+   ],
+   "evidence": "In Shang-Chi and the Legend of the Ten Rings, Katy joins the Ta Lo villagers in training, is taught archery by Guang Bo, wears Ta Lo dragon-scale gear and stands with Ta Lo's archers as the second line of defense in the Battle of Ta Lo (same service the dataset already records as a Ta Lo stage for Xialing, Shang-Chi and Trevor). Wikipedia plot: 'Shang-Chi, Xialing, Katy, Slattery, and Morris join the villagers in training and preparing for Wenwu's arrival'. MCU wiki lists her in the Ta Lo Armed Forces.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Katy_Chen",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:jon-jon",
+   "q": "G1",
+   "now": [
+    [
+     "Independent",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "The Golden Daggers Club",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ],
+    [
+     "The Ten Rings",
+     "Shang-Chi and the Legend of the Ten Rings"
+    ]
+   ],
+   "evidence": "In Shang-Chi and the Legend of the Ten Rings, Jon Jon is the ringmaster/announcer employed by Xialing at her Golden Daggers Club in Macau (he tours Katy and Shaun round the club and signs Shang-Chi up to fight); in the post-credits scene he is at Xialing's side as she takes over and rebuilds the Ten Rings. The dataset already names both groups (Xialing's record).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Jon_Jon",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:marc-spector",
+   "q": "G1",
+   "now": [
+    [
+     "National Art Gallery",
+     "Moon Knight"
+    ],
+    [
+     "U.S. Marine Corps",
+     "Moon Knight"
+    ],
+    [
+     "Independent",
+     "Moon Knight"
+    ]
+   ],
+   "proposed": [
+    [
+     "U.S. Marine Corps",
+     "Moon Knight"
+    ],
+    [
+     "National Art Gallery",
+     "Moon Knight"
+    ],
+    [
+     "Independent",
+     "Moon Knight"
+    ]
+   ],
+   "evidence": "Order is wrong: Marc's Marine Corps service is a past group told on screen (Moon Knight episode 5, he joined the Marines after leaving home and was discharged before becoming a mercenary), so it must come FIRST. The National Art Gallery is Steven's job in the present (episode 1), and Steven is fired from it by the director in episode 2 after the bathroom is wrecked, which is what makes the last stage Independent. Left stays ['Moon Knight'].",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Moon_Knight",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:katy-chen",
+   "question": "Should Katy's hotel valet job (with Shaun, San Francisco, shown at the start of Shang-Chi and the Legend of the Ten Rings) be an employer stage? The hotel is not named on screen (the MCU wiki calls it the Fairmont San Francisco).",
+   "options": [
+    "No stage (keep as is)",
+    "Add an employer stage keyed to Shang-Chi and the Legend of the Ten Rings, under a name the owner chooses (also applies to Shang-Chi's record)"
+   ],
+   "evidence": "Wikipedia plot: 'In the present day, Shang-Chi works as a parking valet with his best friend Katy.' Cast list: 'A hotel valet and Shang-Chi's best friend'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Shang-Chi_and_the_Legend_of_the_Ten_Rings&action=raw"
+  },
+  {
+   "key": "A:marc-spector",
+   "question": "Marc's past work as a mercenary under his former commanding officer Raul Bushman (told in Moon Knight episode 5: the Egypt dig-site massacre where Bushman shoots him) is an unnamed crew. Add a past stage, and under what name?",
+   "options": [
+    "No stage (keep as is)",
+    "Add a past stage after U.S. Marine Corps keyed to Moon Knight, under a name the owner chooses (e.g. Bushman's mercenaries)"
+   ],
+   "evidence": "MCU wiki: after his discharge 'Spector decided to become a mercenary, working under his former commanding officer' Raul Bushman, who later betrayed and shot him in Egypt.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Moon_Knight"
+  }
+ ]
+}

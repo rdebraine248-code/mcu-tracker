@@ -1,0 +1,435 @@
+{
+ "verdicts": [
+  {
+   "n": 600,
+   "verdict": "confirm",
+   "why": "North first appears in S1E3 only as the masked gunman. He and Powell are first together as fellow Punisher-admiring cops in S1E6, when Fisk recruits them both into the Anti-Vigilante Task Force.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Cole_North&prop=wikitext&format=json"
+  },
+  {
+   "n": 601,
+   "verdict": "confirm",
+   "why": "Powell spots and arrests Karen at the City Hall protest at the end of S2E6. Fisk visits her in her cell and has her tried in S2E7, which the split covers.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Requiem&prop=wikitext&format=json"
+  },
+  {
+   "n": 602,
+   "verdict": "confirm",
+   "why": "North and Frank first clash in S1E9, in the AVTF raid on Matt's apartment, where Frank spots his skull on North's casing. All of the stage happens in that episode.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Straight_to_Hell&prop=wikitext&format=json"
+  },
+  {
+   "n": 603,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#9"
+   },
+   "why": "Hector is shot in S1E3, but only by a masked man in a Punisher vest. North is revealed as the killer in S1E9, so putting the stage at E3 would give away the E9 reveal.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again_season_1&action=raw"
+  },
+  {
+   "n": 604,
+   "verdict": "confirm",
+   "why": "Matt and North first meet in the S1E9 apartment raid, where Daredevil learns North killed Hector. Fisk recruits North in E6, earlier.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Straight_to_Hell&prop=wikitext&format=json"
+  },
+  {
+   "n": 605,
+   "verdict": "confirm",
+   "why": "The AVTF captures Frank at Red Hook, and Powell offers him a place, which he refuses, in S1E9. That is their first meeting.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Straight_to_Hell&prop=wikitext&format=json"
+  },
+  {
+   "n": 606,
+   "verdict": "confirm",
+   "why": "In S1E6 Gallo looks through Powell's and North's files and objects to Fisk picking the worst officers. The confrontation at the ball, Gallo's assault threat, and Powell saying the AVTF answers only to Fisk are all in S1E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Phil_Gallo&prop=wikitext&format=json"
+  },
+  {
+   "n": 607,
+   "verdict": "confirm",
+   "why": "Powell arrests Hector, and he and Williams jump Matt and Powell suggests killing him, all in S1E2. Powell joins the AVTF in S1E6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Optics&prop=wikitext&format=json"
+  },
+  {
+   "n": 608,
+   "verdict": "confirm",
+   "why": "In S1E1 Fisk asks Rivera where she found Blake, and she cites his signatures and low cost. The promotion she objects to is S1E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sheila_Rivera&prop=wikitext&format=json"
+  },
+  {
+   "n": 609,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#1",
+    "text": "Daniel Blake is a young admirer who works on Fisk's mayoral campaign.",
+    "on_a_card_about_b": "Blake's idol and boss.",
+    "on_b_card_about_a": "A young admirer on Fisk's campaign.",
+    "split": [
+     {
+      "kind": "boss",
+      "title": "Daredevil: Born Again S1#4",
+      "text": "Blake leaks Fisk's plans to BB Urich, but Fisk forgives him once and keeps him on.",
+      "on_a_card_about_b": "Blake's idol and boss, who forgives him once for a leak.",
+      "on_b_card_about_a": "A young admirer on Fisk's staff, forgiven once for a leak."
+     },
+     {
+      "kind": "boss",
+      "title": "Daredevil: Born Again S1#8",
+      "text": "Fisk promotes Blake to deputy mayor for communications.",
+      "on_a_card_about_b": "Blake's idol and boss, who forgives him once for a leak.",
+      "on_b_card_about_a": "A young admirer who rises on Fisk's staff, forgiven once for a leak."
+     }
+    ]
+   },
+   "why": "The E1 start and the E4 leak are right. But the E4 split says Blake 'goes on to rise' on Fisk's staff, and that is his S1E8 promotion to deputy mayor, so it moves into its own E8 stage.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again_season_1&action=raw"
+  },
+  {
+   "n": 610,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S2#7",
+    "text": "Fisk's people murder Blake after he lets BB escape instead of handing her over.",
+    "on_a_card_about_b": "Blake's old boss, whose people murder him.",
+    "on_b_card_about_a": "Fisk's former aide, murdered by his people.",
+    "split": {
+     "kind": "enemy",
+     "title": "Daredevil: Born Again S2#8",
+     "text": "BB reveals that Fisk's people murdered Blake, and the truth helps turn the city against Fisk.",
+     "on_a_card_about_b": "Blake's old boss, whose people murder him.",
+     "on_b_card_about_a": "Fisk's former aide, murdered by his people. The truth about it turns the city against Fisk."
+    }
+   },
+   "why": "Cashman kills Blake in S2E7, so E7 is right. BB's broadcast that reveals the murder and helps rouse the city is in S2E8, so that part needs a split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Daniel_Blake&prop=wikitext&format=json"
+  },
+  {
+   "n": 611,
+   "verdict": "confirm",
+   "why": "Danielle first appears in S2E6, and the wiki cites E6 for Luke and Jessica as her parents. Luke comes home after his CIA work only in S2E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Luke_Cage&prop=wikitext&format=json"
+  },
+  {
+   "n": 612,
+   "verdict": "confirm",
+   "why": "Mr. Charles's men attack Jessica's house in S2E6, where Danielle picks up the grenade. Jessica learns that Luke works for the CIA under Mr. Charles in S2E7.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again_season_2&action=raw"
+  },
+  {
+   "n": 613,
+   "verdict": "confirm",
+   "why": "Gallo is not in S1E1. In the S1E6 Muse briefing, Rivera and Gallo say the public must be warned. Gallo asks for her support, and she hands Fisk the recording, in S1E9.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Phil_Gallo&prop=wikitext&format=json"
+  },
+  {
+   "n": 614,
+   "verdict": "confirm",
+   "why": "Gallo first appears in S1E2, where he tells Fisk he despises him and Fisk blackmails him with his secret family. Fisk crushes his skull himself in S1E9.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Phil_Gallo&prop=wikitext&format=json"
+  },
+  {
+   "n": 615,
+   "verdict": "confirm",
+   "why": "Heather's evaluation of Karen, which ends with Heather attacking her, is S2E7. Her testimony at the trial is S2E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Southern_Cross&prop=wikitext&format=json"
+  },
+  {
+   "n": 616,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#2",
+    "text": "Bastian Cooper, a fan of Heather Glenn's book, meets her at a signing and asks to become her patient.",
+    "on_a_card_about_b": "A fan of Heather's book who asks to become her patient.",
+    "on_b_card_about_a": "The author whose book Bastian loves. Agrees to see him.",
+    "split": {
+     "kind": "enemy",
+     "title": "Daredevil: Born Again S1#7",
+     "text": "Bastian Cooper, the serial killer Muse, becomes obsessed with therapist Heather Glenn and her book. He goes to her as a patient, then attacks her, and she kills him.",
+     "on_a_card_about_b": "Serial killer obsessed with Heather, who attacks her. She kills him.",
+     "on_b_card_about_a": "Therapist Muse obsesses over and attacks, who kills him."
+    },
+    "kind": "ally"
+   },
+   "why": "Cooper meets Heather at her S1E2 book event and asks to become her patient, so the E2 start and split are right. But at E2 he is only a fan who wants therapy, and he is not shown as Muse until E7, so 'enemy' is wrong for that stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bastian_Cooper&prop=wikitext&format=json"
+  },
+  {
+   "n": 617,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#2",
+    "kind": "ally",
+    "text": "Heather Glenn becomes the couples therapist for Wilson Fisk and his wife Vanessa, helping them work through their marriage troubles.",
+    "on_a_card_about_b": "A client Heather counsels with his wife Vanessa.",
+    "on_b_card_about_a": "The couples therapist Fisk and Vanessa see.",
+    "split": [
+     {
+      "kind": "ally",
+      "title": "Daredevil: Born Again S1#3",
+      "text": "In their sessions, Heather helps Fisk and Vanessa work through Vanessa's affair.",
+      "on_a_card_about_b": "A client Heather counsels with his wife Vanessa through her affair.",
+      "on_b_card_about_a": "The couples therapist helping Fisk and Vanessa past Vanessa's affair."
+     },
+     {
+      "kind": "boss",
+      "title": "Daredevil: Born Again S1#9",
+      "text": "After her ordeal with Muse, Heather accepts Fisk's offer to become his Commissioner of Mental Health.",
+      "on_a_card_about_b": "Client, then the mayor whose crackdown Heather serves.",
+      "on_b_card_about_a": "Couples therapist who joins Fisk's administration after Muse."
+     }
+    ]
+   },
+   "why": "Couples therapy starts in S1E2, but that first session is about Fisk's absence. The affair comes up in the sessions from S1E3, and Heather takes the commissioner post in S1E9. The cut affair fact gets its own E3 stage instead of being dropped.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Hollow_of_His_Hand&prop=wikitext&format=json"
+  },
+  {
+   "n": 618,
+   "verdict": "confirm",
+   "why": "In S1E2 Kirsten agrees to take Hector's case and sits with Matt at his bail hearing on the charge of killing Officer Shanahan.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Optics&prop=wikitext&format=json"
+  },
+  {
+   "n": 619,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#2",
+    "text": "Matt Murdock takes on Hector Ayala's case when he is charged with killing a police officer, and learns that Hector is the White Tiger.",
+    "on_a_card_about_b": "Hector's lawyer, who learns he is the White Tiger.",
+    "on_b_card_about_a": "A client Matt defends, who turns out to be the White Tiger.",
+    "split": {
+     "kind": "friend",
+     "title": "Daredevil: Born Again S1#3",
+     "text": "Matt Murdock defends Hector Ayala in court and outs him as White Tiger to win the case. The two come to respect each other as fellow vigilantes.",
+     "on_a_card_about_b": "Hector's lawyer, who outs him as White Tiger, and a fellow vigilante.",
+     "on_b_card_about_a": "Client Matt outs as White Tiger to win. A fellow vigilante he respects."
+    },
+    "kind": "ally"
+   },
+   "why": "Matt takes Hector's case and learns he is White Tiger in S1E2. Outing him in court and their mutual respect come in S1E3. At E2 they are only lawyer and client, so the E2 stage should be 'ally', not 'friend'.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Optics&prop=wikitext&format=json"
+  },
+  {
+   "n": 620,
+   "verdict": "confirm",
+   "why": "Both appear in S1E2, where Soledad tells Kirsten that Hector is no longer the man she married. His saving for their new home comes out in S1E3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Soledad_Ayala&prop=wikitext&format=json"
+  },
+  {
+   "n": 621,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#6",
+    "text": "At Fisk's fundraiser, Jack Duquesne tells Mayor Wilson Fisk to his face that he and the city's elite oppose his plans, and warns him not to underestimate them.",
+    "on_a_card_about_b": "The mayor Jack openly opposes at a fundraiser.",
+    "on_b_card_about_a": "A socialite who opposes Fisk's plans to his face.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Daredevil: Born Again S1#8",
+      "text": "At the Black & White Ball, Fisk threatens Jack with his secret life as the vigilante Swordsman to force his support.",
+      "on_a_card_about_b": "The mayor who threatens Jack over his Swordsman secret.",
+      "on_b_card_about_a": "A critic secretly living as the vigilante Swordsman, whom Fisk blackmails."
+     },
+     {
+      "kind": "enemy",
+      "title": "Daredevil: Born Again S1#9",
+      "text": "Fisk has his men lock Jack away in a secret prison at Red Hook.",
+      "on_a_card_about_b": "The mayor who threatens Jack over his Swordsman secret, then locks him away.",
+      "on_b_card_about_a": "A critic secretly living as the vigilante Swordsman. Fisk locks him away."
+     }
+    ]
+   },
+   "why": "The E6 start is right: they first clash at the S1E6 fundraiser. But the proposed E8 split also has Fisk locking Jack away, and that happens in S1E9. So the blackmail stays at E8 and the imprisonment gets its own E9 stage.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Daredevil:_Born_Again_season_1&action=raw"
+  },
+  {
+   "n": 622,
+   "verdict": "confirm",
+   "why": "In S2E1 Karen has Jessica look into the Northern Star's surviving crew, and Jessica texts her the captain's and first mate's names. Jessica is only mentioned there and first appears in E6, but that part of the stage starts in E1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jessica_Jones&prop=wikitext&format=json"
+  },
+  {
+   "n": 623,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S2#1",
+    "text": "Jessica investigates Mayor Wilson Fisk's corruption for Matt Murdock and Karen Page and digs up the Northern Star's records.",
+    "on_a_card_about_b": "The corrupt mayor Jessica investigates for Matt and Karen.",
+    "on_b_card_about_a": "An investigator who digs into Fisk for Matt and Karen.",
+    "split": {
+     "kind": "enemy",
+     "title": "Daredevil: Born Again S2#6",
+     "text": "Jessica joins the fight against Fisk and helps Daredevil destroy the weapons at the Task Force's warehouse.",
+     "on_a_card_about_b": "The corrupt mayor Jessica investigates for Matt's resistance.",
+     "on_b_card_about_a": "An investigator who digs into Fisk for the resistance."
+    }
+   },
+   "why": "In S2E1 Jessica is only mentioned, digging into Fisk's shipment for Matt and Karen. She first appears in S2E6, where she joins the fight and helps Daredevil destroy the AVTF weapons, so 'joins the resistance' moves to a split at E6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jessica_Jones&prop=wikitext&format=json"
+  },
+  {
+   "n": 624,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S2#4",
+    "text": "Karen asks Kirsten McDuffie, Matt's law partner, for help against Fisk, and Kirsten formally records the Northern Star first mate's testimony.",
+    "on_a_card_about_b": "Matt's law partner, who records a witness's testimony for Karen.",
+    "on_b_card_about_a": "An ally who asks Kirsten to help against Fisk.",
+    "split": [
+     {
+      "kind": "ally",
+      "title": "Daredevil: Born Again S2#7",
+      "text": "Kirsten McDuffie, Matt's law partner, defends Karen in court when Fisk's government puts her on trial for vigilantism.",
+      "on_a_card_about_b": "Matt's law partner, who defends Karen at her vigilantism trial.",
+      "on_b_card_about_a": "A client Kirsten defends when Fisk puts her on trial."
+     },
+     {
+      "kind": "ally",
+      "title": "Daredevil: Born Again S2#8",
+      "text": "Kirsten and Matt win Karen's case, and she walks free.",
+      "on_a_card_about_b": "Matt's law partner, who defends Karen at her vigilantism trial.",
+      "on_b_card_about_a": "A client Kirsten defends when Fisk puts her on trial."
+     }
+    ]
+   },
+   "why": "The E4 start is right: Karen asks Kirsten for help, and Kirsten records Savva's testimony in S2E4. But the trial starts in S2E7 and Karen is freed only in S2E8, so 'helps win her freedom' can't be in the E7 split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Southern_Cross&prop=wikitext&format=json"
+  },
+  {
+   "n": 625,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S1#2",
+    "text": "Kirsten McDuffie represents Soledad Ayala's husband Hector and urges her to stand by him at his trial.",
+    "on_a_card_about_b": "Wife of Kirsten's client, whom she urges to stand by Hector at his trial.",
+    "on_b_card_about_a": "Soledad's husband's lawyer, who urges her to stand by him.",
+    "split": {
+     "kind": "ally",
+     "title": "Daredevil: Born Again S1#3",
+     "text": "Soledad comes to Hector's trial, where Kirsten and Matt win his acquittal.",
+     "on_a_card_about_b": "Wife of Kirsten's client, whom she supports through Hector's trial.",
+     "on_b_card_about_a": "Soledad's husband's lawyer, who supports her through his trial."
+    }
+   },
+   "why": "Kirsten visits Soledad and urges her to attend the trial in S1E2. But the trial itself, which Soledad attends, is S1E3, so 'supports her through his trial' moves to an E3 split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Soledad_Ayala&prop=wikitext&format=json"
+  },
+  {
+   "n": 626,
+   "verdict": "confirm",
+   "why": "The AVTF raids Murdock & McDuffie, and Kirsten tells Karen the raid and the frozen accounts are Fisk's retaliation, both in S2E4, where she also records Savva's testimony.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kirsten_McDuffie&prop=wikitext&format=json"
+  },
+  {
+   "n": 627,
+   "verdict": "confirm",
+   "why": "McCaffrey and Matt are first together in S2E8 at the locked-down courthouse. The exile deal is offered there, and Matt gets Fisk to take it.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Southern_Cross&prop=wikitext&format=json"
+  },
+  {
+   "n": 628,
+   "verdict": "confirm",
+   "why": "Rivera catches up with McCaffrey at the Gracie Mansion charity event in S2E3, their first scene together and McCaffrey's first episode.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Scales_%26_The_Sword&prop=wikitext&format=json"
+  },
+  {
+   "n": 629,
+   "verdict": "confirm",
+   "why": "After Bullseye kills AVTF officers, Powell vows to Fisk in S2E2 to take him out. The fake-Bullseye sniper plot that the real Bullseye takes over is S2E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Shoot_the_Moon&prop=wikitext&format=json"
+  },
+  {
+   "n": 630,
+   "verdict": "confirm",
+   "why": "North opens fire on the fleeing prisoners and the transport Karen and Angela steal at Red Hook in S2E3. Angela's stand that makes North doubt Powell is S2E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Cole_North&prop=wikitext&format=json"
+  },
+  {
+   "n": 631,
+   "verdict": "confirm",
+   "why": "Outside the courthouse in S2E8, Powell calls Hector a cop killer and orders North to fire as Soledad and Angela defend him. That is the start of this stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Connor_Powell&prop=wikitext&format=json"
+  },
+  {
+   "n": 632,
+   "verdict": "confirm",
+   "why": "Kim and Gallo brief Fisk on Muse's killings in S1E6. The Bastian Cooper briefing, Fisk's anger at Daredevil's return, and her dismissal are S1E7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Excessive_Force&prop=wikitext&format=json"
+  },
+  {
+   "n": 633,
+   "verdict": "confirm",
+   "why": "Kim, Cherry and Mahoney face down the AVTF holding the courthouse, and the crowd storms in until Fisk gives up, all in S2E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Southern_Cross&prop=wikitext&format=json"
+  },
+  {
+   "n": 634,
+   "verdict": "amend",
+   "value": {
+    "title": "Daredevil: Born Again S2#6",
+    "text": "Powell, a corrupt officer in Fisk's Anti-Vigilante Task Force, recognizes Karen and arrests her during a protest at City Hall.",
+    "on_a_card_about_b": "A corrupt Task Force cop who arrests Karen.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Daredevil: Born Again S2#7",
+      "text": "Powell testifies against Karen at her trial.",
+      "on_a_card_about_b": "A corrupt Task Force cop who arrests Karen and testifies at her trial.",
+      "on_b_card_about_a": "Daredevil's ally, whom Powell arrests at a City Hall protest."
+     },
+     {
+      "kind": "enemy",
+      "title": "Daredevil: Born Again S2#8",
+      "text": "Karen's trial ends with her cleared of all charges.",
+      "on_a_card_about_b": "A corrupt Task Force cop who arrests Karen and testifies at her trial.",
+      "on_b_card_about_a": "Daredevil's ally, whom Powell arrests at a City Hall protest."
+     }
+    ]
+   },
+   "why": "Powell recognizes and arrests Karen at the S2E6 protest, and he testifies in S2E7. But the case is dismissed only in S2E8, so 'cleared of all charges' can't be in the E7 split.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Requiem&prop=wikitext&format=json"
+  },
+  {
+   "n": 635,
+   "verdict": "confirm",
+   "why": "The Red Hook breakout where North fires on the prisoners and Karen fires back is S2E3. North testifies that he was only told she drove the getaway vehicle in S2E7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Cole_North&prop=wikitext&format=json"
+  },
+  {
+   "n": 636,
+   "verdict": "confirm",
+   "why": "Nicepool comes to Earth-10005 with the Deadpool Corps. Dogpool runs off from him there before he is killed, so he does not follow her there.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nicepool&prop=wikitext&format=json"
+  },
+  {
+   "n": 637,
+   "verdict": "confirm",
+   "why": "The film only shows Drumm as Master of the New York Sanctum, killed when Kaecilius and his Zealots storm it. Training alongside Kaecilius comes from the tie-in Prelude comics, and the film itself calls them Zealots.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Daniel_Drumm&prop=wikitext&format=json"
+  },
+  {
+   "n": 638,
+   "verdict": "amend",
+   "value": {
+    "title": "Echo#1",
+    "text": "Chula Battiest is Taloa's mother, and she learned sign language to raise her deaf daughter. Taloa's death in a car crash breaks Chula's heart, and she blames William and cuts him out of the family.",
+    "split": {
+     "kind": "family",
+     "title": "Echo#4",
+     "text": "Chula tells Maya how she gave birth to Taloa in the woods, drawing strength from a vision of their ancestors.",
+     "on_a_card_about_b": "Chula's daughter, born with strength from their ancestors.",
+     "on_b_card_about_a": "Taloa's mother, who gave birth to her with strength from the ancestors."
+    }
+   },
+   "why": "Episode 1 shows Chula and Taloa in 2007, Taloa's death, and Chula blaming William, and the birth story comes in episode 4, so the move and split are right. But William decides himself to take Maya to New York, so 'drives him out of Tamaha' is wrong. She cuts him out of the family.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Chula_Battiest&prop=wikitext&format=json"
+  },
+  {
+   "n": 639,
+   "verdict": "confirm",
+   "why": "In episode 3 Zane holds Henry and Maya at gunpoint at the skating rink and leaves after Kingpin's call. In episode 5 Henry shoots him before he can fire the RPG at the powwow.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Zane&prop=wikitext&format=json"
+  }
+ ]
+}

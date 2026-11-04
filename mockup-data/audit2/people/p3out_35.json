@@ -1,0 +1,167 @@
+{
+ "checked": [
+  "T:sv-scorpion-itsv",
+  "T:sv-green-goblin-itsv",
+  "T:sv-spot",
+  "T:sv-vulture-atsv",
+  "T:sv-green-goblin-1967",
+  "T:sv-vulture-1967",
+  "T:sv-electro-1967",
+  "T:sv-mysterio-1967",
+  "T:sv-scorpion-1967",
+  "T:sv-hobgoblin-1994",
+  "T:sv-green-goblin-1994",
+  "T:sv-harry-goblin-1994",
+  "T:sv-spider-slayer-1994",
+  "T:sv-scorpion-1994",
+  "T:sv-mysterio-1994",
+  "T:sv-vulture-1994",
+  "T:sv-chameleon-1994",
+  "T:sv-hydro-man-1994",
+  "T:sv-silvermane-1994",
+  "T:sv-spider-carnage-1994"
+ ],
+ "changes": [
+  {
+   "key": "T:sv-vulture-1994",
+   "q": "G1",
+   "now": [
+    [
+     "Independent",
+     "Spider-Man (1994)"
+    ],
+    [
+     "The Insidious Six",
+     "Spider-Man (1994)"
+    ],
+    [
+     "Independent",
+     "Spider-Man (1994)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Toomes Aerodynamics",
+     "Spider-Man (1994)"
+    ],
+    [
+     "The Insidious Six",
+     "Spider-Man (1994)"
+    ],
+    [
+     "Independent",
+     "Spider-Man (1994)"
+    ]
+   ],
+   "evidence": "Shriek of the Vulture (S2E13, ep 26): Adrian Toomes owns and runs his own company, Toomes Aerodynamics. He takes part in its board meeting by phone while Norman Osborn tries to get the board to sell it to Oscorp, and he then poses as 'Arthur Avis', Toomes's 'second in command'. His first stage is that company (the way Norman's is Oscorp), not Independent. Nothing on screen has him leave it before he joins the Kingpin's Insidious Six in Six Forgotten Warriors (S5, ep 54-58), which then disbands (final Independent and the left entry stay). Wikipedia's episode list calls the company 'Toomes Aeronautical'; the Marvel Database episode page names it Toomes Aerodynamics, after the Toomes Aerodynamics Building.",
+   "source": "https://marvel.fandom.com/wiki/Spider-Man_(1994_animated_series)_Season_2_13",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:sv-mysterio-1994",
+   "q": "G2",
+   "now": [
+    [
+     "The Insidious Six",
+     "Spider-Man (1994)"
+    ],
+    [
+     "Independent",
+     "Spider-Man (1994)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Wonder Studios",
+     "Spider-Man (1994)"
+    ],
+    [
+     "The Insidious Six",
+     "Spider-Man (1994)"
+    ],
+    [
+     "Independent",
+     "Spider-Man (1994)"
+    ]
+   ],
+   "evidence": "The Menace of Mysterio (S1E5, ep 5): Spider-Man and Detective Lee work out that Mysterio is Quentin Beck, a special-effects man on the film crew whose rigged effect downed a helicopter on the Brooklyn Bridge. Spider-Man then goes to Beck's address, Wonder Studios, where the fight happens. Beck's employer is never recorded. It is a real workplace, so it is a stage from his first title, and it comes before the Insidious Six (S2E1-2, ep 14-15). The Marvel Database lists his affiliation as 'Formerly: Wonder Studios, Insidious Six'; the Spider-Man Wiki lists 'Wonder Studios, Insidious Six'.",
+   "source": "https://marvel.fandom.com/wiki/Quentin_Beck_(Earth-92131)",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:sv-hydro-man-1994",
+   "q": "G2",
+   "now": [],
+   "proposed": [
+    [
+     "U.S. Navy",
+     "Spider-Man (1994)"
+    ]
+   ],
+   "evidence": "Hydro-Man (S2E3, ep 16): Morrie Bench's backstory says his parents put him in the Navy. He was serving in its special research unit when he was pulled overboard and mutated (the Marvel Database episode page lists the US Navy as mentioned; his character page lists 'Formerly: enlisted in the Navy'). A past group the screen tells counts as a stage from his first title. Nothing on screen has him discharged or deserting, so under the rules it stays his stage. If the owner wants a departure for his turn to crime, use [U.S. Navy, Independent] with left ['Spider-Man (1994)']. 'U.S. Navy' is the name the dataset already uses.",
+   "source": "https://marvel.fandom.com/wiki/Morris_Bench_(Earth-92131)",
+   "confidence": "medium"
+  },
+  {
+   "key": "T:sv-spider-slayer-1994",
+   "q": "G2",
+   "now": {
+    "groups": [
+     [
+      "Fisk's Empire",
+      "Spider-Man (1994)"
+     ],
+     [
+      "Silvermane's Mob",
+      "Spider-Man (1994)"
+     ]
+    ],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Fisk's Empire",
+      "Spider-Man (1994)"
+     ],
+     [
+      "Independent",
+      "Spider-Man (1994)"
+     ],
+     [
+      "Silvermane's Mob",
+      "Spider-Man (1994)"
+     ]
+    ],
+    "left": [
+     "Spider-Man (1994)"
+    ]
+   },
+   "evidence": "The Ultimate Slayer (S3E8, ep 35): the Kingpin turns Alistair into a cyborg, and Alistair breaks his programming on learning that the Kingpin kept his father frozen. He turns on the Kingpin and leaves him ('Having defected from the Kingpin once and for all'). He works for nobody until Partners (S4E5, ep 46), where he is Silvermane's top scientist. Nothing records the ep-35 departure, so his ep-35 step reads as still serving Fisk.",
+   "source": "https://marvel.fandom.com/wiki/Alistair_Smythe_(Earth-92131)",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:sv-spider-slayer-1994",
+   "question": "On Battleworld in Secret Wars (S5E9-11, ep 61-63), Alistair joins forces with the Red Skull with Doctor Octopus, until the Beyonder wipes their memories and sends them home. Should that be a stage after Silvermane's Mob? This is the same open 'short alliance' question already put for Doctor Octopus.",
+   "options": [
+    "No: an alliance is being an ally; keep Silvermane's Mob as his last stage (current)",
+    "Yes: add a Red Skull stage, then go back to Silvermane's Mob (in The Return of Hydro-Man, ep 60, he already has Silvermane's men at hand)"
+   ],
+   "evidence": "Wikipedia episode list, 'The Gauntlet of the Red Skull' (ep 62): 'Doctor Octopus and Alistair join forces with the Red Skull.' 'Doom' (ep 63): the Beyonder erases the villains' memories and sends them back to Earth.",
+   "source": "https://en.wikipedia.org/wiki/List_of_Spider-Man:_The_Animated_Series_episodes"
+  },
+  {
+   "key": "T:sv-chameleon-1994",
+   "question": "In Six Forgotten Warriors (S5E5-6, ep 57-58), the Chameleon betrays the Kingpin and the Six to side with his stepfather the Red Skull and his stepbrother Kragov (Electro), until Spider-Man stops them. Is that a group stage (the Red Skull's side) before his final Independent, or only an alliance? It is the same open 'short alliance' question as Doctor Octopus on Battleworld.",
+   "options": [
+    "No: keep Independent after the Six (current)",
+    "Yes: add a Red Skull stage after the second Insidious Six, then Independent"
+   ],
+   "evidence": "Wikipedia ep 57 'The Six Fight Again': 'the Chameleon betrays him and helps Kragov release their father the Red Skull'. Marvel Database: 'the Chameleon betrayed the crime lord and joined forces with his stepfather, the Red Skull'.",
+   "source": "https://marvel.fandom.com/wiki/Dmitri_Smerdyakov_(Earth-92131)"
+  }
+ ]
+}

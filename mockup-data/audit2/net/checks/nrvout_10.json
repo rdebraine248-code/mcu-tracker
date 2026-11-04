@@ -1,0 +1,445 @@
+{
+ "verdicts": [
+  {
+   "n": 360,
+   "verdict": "confirm",
+   "why": "Fitz traps Gordon with Quantum Field Disruptors and kills him with a pipe aboard the Iliad in S.O.S. Part Two (S2#22); nothing in the stage happens at S2#1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=S.O.S._Part_Two&prop=wikitext&format=json"
+  },
+  {
+   "n": 361,
+   "verdict": "amend",
+   "why": "Lincoln first appears with Gordon at Afterlife in S2#16, but the text also covers the S2#22 split (Gordon talks Lincoln into Jiaying's war, Lincoln turns on her after Skye tells him the truth, Gordon dies) and the car-crash rescue, which is only revealed in S3#16. Split into three stages.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Lincoln_Campbell&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Afterlife_(episode)&prop=wikitext&format=json",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S2#16",
+    "text": "Lincoln Campbell lives at Afterlife and trusts Gordon, the teleporter who is the community's only link to the outside world.",
+    "on_a_card_about_b": "Inhuman at Afterlife who trusts Gordon.",
+    "on_b_card_about_a": "Afterlife's teleporter and its only link to the outside world.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Agents of S.H.I.E.L.D. S2#22",
+      "text": "Gordon talks Lincoln into standing with Jiaying aboard the Iliad, but once Skye tells him the truth, Lincoln turns against Jiaying's war, in which Gordon is killed.",
+      "on_a_card_about_b": "Inhuman who turns against Jiaying's war, in which Gordon dies.",
+      "on_b_card_about_a": "Afterlife's teleporter, who sides with Jiaying and dies in her war."
+     },
+     {
+      "kind": "ally",
+      "title": "Agents of S.H.I.E.L.D. S3#16",
+      "text": "Lincoln reveals that Gordon watched over him before Afterlife, saved him and his girlfriend after Lincoln crashed his car drunk, and brought him to Afterlife.",
+      "on_a_card_about_b": "Inhuman Gordon saved from a car crash and brought to Afterlife.",
+      "on_b_card_about_a": "Teleporter who saved Lincoln from a car crash and brought him to Afterlife."
+     }
+    ]
+   }
+  },
+  {
+   "n": 362,
+   "verdict": "confirm",
+   "why": "In S2#11 Gordon teleports in as Raina tries to make S.H.I.E.L.D. agents kill her and promises to show her a way to cope; he tends to her at Afterlife in S2#17.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Raina&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Aftershocks&prop=wikitext&format=json"
+  },
+  {
+   "n": 363,
+   "verdict": "amend",
+   "why": "The disguised abduction of Talbot and Hartley's death are both S2#1. But in S2#2 it is Hunter who demands an honorable funeral for Hartley (plus money) as his price for giving Talbot Coulson, not Talbot who offers it, so the split text is corrected.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Isabelle_Hartley&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Heavy_Is_the_Head&prop=wikitext&format=json",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S2#1",
+    "text": "Isabelle Hartley and Lance Hunter pose as Air Force soldiers during Carl Creel's attack on Glenn Talbot, then take him captive for Coulson's team.",
+    "split": {
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S2#2",
+     "text": "After Hartley is killed, Lance Hunter demands an honorable funeral for her from Talbot as his price for betraying Coulson.",
+     "on_a_card_about_b": "Agent who takes Talbot captive. Hunter later wins her a proper funeral from Talbot.",
+     "on_b_card_about_a": "General Hartley takes captive, who later grants Hunter's demand for her funeral."
+    }
+   }
+  },
+  {
+   "n": 364,
+   "verdict": "confirm",
+   "why": "In S3#12 Lincoln notices a man trailing Talbot, he and May bring Creel down, and Talbot says Creel was protecting him; Lincoln's Lash gambit is explained to Talbot in S3#20.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Inside_Man&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Emancipation&prop=wikitext&format=json"
+  },
+  {
+   "n": 365,
+   "verdict": "amend",
+   "why": "Talbot ambushes the team at Providence and questions Fitz, Triplett and Simmons in S1#20, so the earlier start is right. But he is still a Colonel then and only becomes a Brigadier General after the Hydra Uprising, so the rank is fixed.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Glenn_Talbot&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nothing_Personal&prop=wikitext&format=json",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S1#20",
+    "text": "Colonel Glenn Talbot storms Providence to take the base and questions Fitz and the rest of Coulson's team as fugitives.",
+    "on_a_card_about_b": "Agent Talbot hunts and questions at Providence.",
+    "on_b_card_about_a": "Colonel who hunts Fitz's team at Providence.",
+    "split": {
+     "kind": "rival",
+     "title": "Agents of S.H.I.E.L.D. S3#21",
+     "text": "Glenn Talbot grudgingly works beside Fitz against threats like Hive.",
+     "on_a_card_about_b": "Agent Talbot hunts at first, then grudgingly works beside.",
+     "on_b_card_about_a": "General who hunts the team, then grudgingly works beside Fitz."
+    }
+   }
+  },
+  {
+   "n": 366,
+   "verdict": "confirm",
+   "why": "Fitz is mortally wounded by falling debris during the fight with Talbot in Chicago in S5#22; Talbot only has Gravitonium powers from S5#19.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_End&prop=wikitext&format=json"
+  },
+  {
+   "n": 367,
+   "verdict": "confirm",
+   "why": "Talbot uses the Particle Infusion Chamber to absorb the Gravitonium in S5#19; a bare S5 puts this at S5#1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Option_Two&prop=wikitext&format=json"
+  },
+  {
+   "n": 368,
+   "verdict": "confirm",
+   "why": "S5#15 flashbacks show Hale moving the recovering Talbot to the Hydra academy, revealing she is Hydra, and having him tortured for months when he refuses; he kills her in S5#20 when her Faustus trigger fails.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Glenn_Talbot&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_One_Who_Will_Save_Us_All&prop=wikitext&format=json"
+  },
+  {
+   "n": 369,
+   "verdict": "confirm",
+   "why": "In S5#15 Ruby twists Talbot's arm, holds a chakram to his throat and restrains him, but the months of torture are carried out on R. Hale's orders, not by Ruby.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Glenn_Talbot&prop=wikitext&format=json"
+  },
+  {
+   "n": 370,
+   "verdict": "amend",
+   "why": "The S5#18 attempt to take Robin is right, but in S5#21 Talbot holds Robin and Polly on a Quinjet; he only takes Qovas' ship and makes the promise to win Robin over in S5#22. The split is cut back to what is true at S5#21.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Robin_Hinton&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S5#18",
+    "text": "Under Hydra's brainwashing, Glenn Talbot, the man from Robin Hinton's visions, attacks her mother and tries to take Robin for General Hale.",
+    "on_a_card_about_b": "Girl Talbot tries to take for Hale.",
+    "on_b_card_about_a": "Man from Robin's visions, who tries to take her for Hale.",
+    "split": {
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S5#21",
+     "text": "As Graviton, Talbot kidnaps Robin and her mother Polly and holds them captive, demanding that Robin lead him to more Gravitonium.",
+     "on_a_card_about_b": "Girl Talbot hunts for Hale and later kidnaps as Graviton.",
+     "on_b_card_about_a": "Man from Robin's visions, who hunts her for Hale and later kidnaps her."
+    }
+   }
+  },
+  {
+   "n": 371,
+   "verdict": "confirm",
+   "why": "Eli first appears in S4#4, where he and Robbie talk about how Gabe is doing; that he raised the boys after their parents died is from S4#5.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Eli_Morrow&prop=wikitext&format=json"
+  },
+  {
+   "n": 372,
+   "verdict": "amend",
+   "why": "Coulson questions Eli in prison in S4#4 and the power-plant events are S4#6, so the split is right. But Eli is not yet a foe at S4#4: he talks to S.H.I.E.L.D. through Robbie, and in S4#5 Coulson breaks him out to use against Lucy. So the S4#4 stage is ally, not enemy, which would give away the S4#6 twist.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Eli_Morrow&prop=wikitext&format=json",
+   "value": {
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S4#4",
+    "text": "Phil Coulson visits Eli Morrow in prison to ask about Momentum Labs, but gets no answers.",
+    "on_a_card_about_b": "S.H.I.E.L.D. agent who questions Eli in prison.",
+    "on_b_card_about_a": "Momentum scientist Coulson questions in prison.",
+    "split": {
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#6",
+     "text": "Coulson tries to bring Eli to safety at the power plant. Eli refuses, seals himself in the machine and gains the power to create matter.",
+     "on_a_card_about_b": "S.H.I.E.L.D. agent who visits Eli in prison, then tries to rescue him.",
+     "on_b_card_about_a": "Momentum scientist Coulson questions in prison, who turns out to be the villain."
+    }
+   }
+  },
+  {
+   "n": 373,
+   "verdict": "confirm",
+   "why": "In S4#3 Robbie tells Daisy his uncle Eli Morrow is jailed over the Momentum explosion and that atoning for Morrow's sins will pay his debt; Robbie drags Eli away in S4#8.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Robbie_Reyes&prop=wikitext&format=json"
+  },
+  {
+   "n": 374,
+   "verdict": "confirm",
+   "why": "In S6#13 a disguised Enoch saves Fitz and Simmons, and Simmons reveals the Coulson L.M.D. built with Enoch; Jemma gets back her memories of the years in hiding when Fitz restores them in S7#13.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=New_Life&prop=wikitext&format=json"
+  },
+  {
+   "n": 375,
+   "verdict": "amend",
+   "why": "The S6#13 rescue and plan are right. But Enoch and Fitz are already best friends in S6#3 (Kitson), so the S7#13 split cannot say Enoch becomes his best friend there. Also, Fitz does appear before S7#12 (in Simmons' memory of the hideout in S7#11). The split now carries only the years in hiding.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Fear_and_Loathing_on_the_Planet_of_Kitson&prop=wikitext&format=json",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S6#13",
+    "text": "Enoch saves Fitz and Jemma from the Chronicom hunters and proposes a plan that will change their lives forever.",
+    "on_a_card_about_b": "Friend Enoch saves from the hunters.",
+    "on_b_card_about_a": "Friend who saves Fitz from the hunters.",
+    "split": {
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S7#13",
+     "text": "Enoch stands by Fitz, his best friend, for years while Fitz and Jemma hide from the Chronicoms and build a time machine.",
+     "on_a_card_about_b": "Enoch's best friend. Enoch stands by him for years in hiding.",
+     "on_b_card_about_a": "Fitz's best friend. Stands by him for years in hiding."
+    }
+   }
+  },
+  {
+   "n": 376,
+   "verdict": "confirm",
+   "why": "In S7#1 Enoch runs the healing pod treating May's wounds; she wakes and he tries to stop her leaving the Zephyr with an I.C.E.R. in S7#2.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_New_Deal&prop=wikitext&format=json"
+  },
+  {
+   "n": 377,
+   "verdict": "confirm",
+   "why": "The Coulson L.M.D. 'created with Enoch' is revealed at the end of S6#13; Enoch's last moments with Coulson are S7#9.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=New_Life&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch&prop=wikitext&format=json"
+  },
+  {
+   "n": 378,
+   "verdict": "confirm",
+   "why": "The Zephyr scene where Davis is fed up with Enoch's moping and Piper reminds him of the fuse box he wrecked is in S6#5 (The Other Thing), before the Chronicoms board them.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Piper&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch&prop=wikitext&format=json"
+  },
+  {
+   "n": 379,
+   "verdict": "confirm",
+   "why": "Fitz, Simmons and Enoch leaving Piper and Flint to guard the module holding Alya is shown in S7#13.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Piper&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=What_We're_Fighting_For&prop=wikitext&format=json"
+  },
+  {
+   "n": 380,
+   "verdict": "confirm",
+   "why": "In S5#14 Piper helps S.H.I.E.L.D. hack into Hale's personal phone to track her; she does not hand over the phone.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Piper&prop=wikitext&format=json"
+  },
+  {
+   "n": 381,
+   "verdict": "confirm",
+   "why": "In S5#5 Hale's subordinates tell her about a child who can see the future and she orders them to find and bring her in, but they fail; Talbot's kidnapping attempt is S5#18.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=R._Hale&prop=wikitext&format=json"
+  },
+  {
+   "n": 382,
+   "verdict": "amend",
+   "why": "The S3#18 start is right (Daisy smashes a crystal in James's home, Hive's dust makes him loyal, he settles on Hellfire), and he serves Hive until Hive dies in S3#22. But the split's card line still says he 'joins Hive for powers', which the corrected text shows is wrong.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=JT_James&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S3#18",
+    "text": "Daisy, under Hive's control, smashes a Terrigen crystal in James's home, giving him the Terrigenesis Afterlife denied him, and Hive's touch makes him loyal. He takes the name Hellfire and serves Hive.",
+    "on_b_card_about_a": "Follower Hive gives powers to, who becomes Hellfire.",
+    "split": {
+     "kind": "boss",
+     "title": "Agents of S.H.I.E.L.D. S3#22",
+     "text": "James keeps serving Hive aboard Zephyr One until Hive dies in space, which frees him from Hive's influence.",
+     "on_a_card_about_b": "Hellfire's master, who helps him finally become an Inhuman.",
+     "on_b_card_about_a": "Follower Hive gives powers to, who serves him as Hellfire until Hive dies."
+    }
+   }
+  },
+  {
+   "n": 383,
+   "verdict": "confirm",
+   "why": "Fitz finds 'Daniels' on Maveth and learns he is Hive in S3#10; S.H.I.E.L.D., with Fitz on the kill codes, stops Hive's launch in S3#21.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Absolution&prop=wikitext&format=json"
+  },
+  {
+   "n": 384,
+   "verdict": "confirm",
+   "why": "In S3#17 Lincoln refuses Daisy when he realizes Hive is controlling her and used her to kill Malick and frame him; he flies Hive into space in S3#22.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw"
+  },
+  {
+   "n": 385,
+   "verdict": "amend",
+   "why": "The S3#18 bomb trap and the S3#19 strike team (May and Mack lead it to kill Hive) are right. But May's part in capturing Hive and bringing him to the Playground is S3#21, so that sentence becomes its own stage instead of sitting in S3#19.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Absolution&prop=wikitext&format=json",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S3#18",
+    "text": "Hive has James rig his home with explosives for Melinda May and Coulson, who are hunting for Daisy, and Coulson's shield saves them.",
+    "on_a_card_about_b": "Agent Hive sets a bomb trap for.",
+    "on_b_card_about_a": "Inhuman who sets a bomb trap for May and Coulson.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Agents of S.H.I.E.L.D. S3#19",
+      "text": "Melinda May leads the S.H.I.E.L.D. strike team sent to kill Hive and rescue the people he controls, Daisy among them.",
+      "on_a_card_about_b": "Agent who leads a strike team against Hive.",
+      "on_b_card_about_a": "Inhuman May leads a strike team against."
+     },
+     {
+      "kind": "enemy",
+      "title": "Agents of S.H.I.E.L.D. S3#21",
+      "text": "May helps capture Hive and bring him back to the Playground.",
+      "on_a_card_about_b": "Agent who leads the strike team against Hive and helps capture him.",
+      "on_b_card_about_a": "Inhuman May leads a strike team against and helps capture."
+     }
+    ]
+   }
+  },
+  {
+   "n": 386,
+   "verdict": "amend",
+   "why": "S3#10 (Coulson kills Ward, Hive takes his body) and S3#17 (Hive takes Daisy and turns on the team) are right. But Coulson's agents only send Hive into space in S3#22, so that becomes its own stage instead of sitting in the S3#17 split.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_3&action=raw",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S3#10",
+    "text": "Phil Coulson kills Grant Ward on the planet Maveth, and the ancient Inhuman Hive takes over Ward's body.",
+    "on_a_card_about_b": "Director who killed Ward, whose body Hive wears.",
+    "on_b_card_about_a": "Inhuman who takes over Ward's body after Coulson kills him.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Agents of S.H.I.E.L.D. S3#17",
+      "text": "Hive wages war on Coulson's team on Earth and takes control of Daisy.",
+      "on_a_card_about_b": "Director who killed Ward, whose body Hive wears, and whose team Hive wars on.",
+      "on_b_card_about_a": "Inhuman wearing Ward's body, who wages war on Coulson's team."
+     },
+     {
+      "kind": "enemy",
+      "title": "Agents of S.H.I.E.L.D. S3#22",
+      "text": "Coulson's agents send Hive into space, where he dies.",
+      "on_a_card_about_b": "Director who killed Ward, whose body Hive wears. Coulson's agents end Hive.",
+      "on_b_card_about_a": "Inhuman wearing Ward's body, who wages war on Coulson's team."
+     }
+    ]
+   }
+  },
+  {
+   "n": 387,
+   "verdict": "confirm",
+   "why": "Radcliffe and Simmons cure May by killing and reviving her in S4#3, when they are working together; the Framework confrontation stays at S4#17.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Uprising_(episode)&prop=wikitext&format=json"
+  },
+  {
+   "n": 388,
+   "verdict": "confirm",
+   "why": "Radcliffe helps Simmons cure May in S4#3; the May L.M.D. and Radcliffe's plan to steal the Darkhold come out in S4#9.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw"
+  },
+  {
+   "n": 389,
+   "verdict": "confirm",
+   "why": "In S3#21 Radcliffe is rescued and taken to the Playground, where Talbot and Coulson question him about the Primitives; he helps the team survive them in S3#22.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json"
+  },
+  {
+   "n": 390,
+   "verdict": "confirm",
+   "why": "Raina presents the freed Quinn to Garrett in S1#18 and they work together on Centipede; they take the Gravitonium and leave Hydra in S1#22.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Raina&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ian_Quinn&prop=wikitext&format=json"
+  },
+  {
+   "n": 391,
+   "verdict": "confirm",
+   "why": "Raina's betrayal of Quinn is only shown in an S5#16 (Inside Voices) flashback.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ian_Quinn&prop=wikitext&format=json"
+  },
+  {
+   "n": 392,
+   "verdict": "confirm",
+   "why": "Hartley and Hand's only scene together is the S2#15 flashback where Hand calls her to say the Hub is secure.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Isabelle_Hartley&prop=wikitext&format=json"
+  },
+  {
+   "n": 393,
+   "verdict": "confirm",
+   "why": "In S1#7 Sitwell greets Coulson's team at the Hub and takes them to Hand's briefing; Hand passes on his Lemurian Star orders in S1#16.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Hub&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Victoria_Hand&prop=wikitext&format=json"
+  },
+  {
+   "n": 394,
+   "verdict": "amend",
+   "why": "Mace makes Simmons his science advisor from S4#1, and that same episode she tells May she is 'clawing for as much power as I could possibly grab' and does not trust the new Director. So the distrust and the power grab belong at S4#1, not S4#5. Only the Vienna blackmail over lie-detector tests is S4#5.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jemma_Simmons&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "value": {
+    "title": "Agents of S.H.I.E.L.D. S4#1",
+    "text": "Jeffrey Mace makes Jemma Simmons his special advisor on science and technology even though she does not trust him. She uses the post to grab as much control as she can so she can protect her friends.",
+    "on_a_card_about_b": "Mace's science advisor, who distrusts him and uses the post to protect her friends.",
+    "on_b_card_about_a": "Jemma's director, who makes her his science advisor though she distrusts him.",
+    "split": {
+     "kind": "boss",
+     "title": "Agents of S.H.I.E.L.D. S4#5",
+     "text": "Jemma threatens to expose the truth about Mace's actions in Vienna, and he agrees to exempt her from lie-detector tests.",
+     "on_a_card_about_b": "Mace's science advisor, who distrusts him and blackmails him over Vienna.",
+     "on_b_card_about_a": "Jemma's director, who makes her his science advisor though she distrusts him."
+    }
+   }
+  },
+  {
+   "n": 395,
+   "verdict": "confirm",
+   "why": "Mace is Director and May is training his new specialist team in S4#1; her ghost-induced rampage and Mace restraining her are S4#2.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jeffrey_Mace&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw"
+  },
+  {
+   "n": 396,
+   "verdict": "amend",
+   "why": "Coulson serves under Mace from S4#1, and in S4#10 Mace's serum is exposed and Coulson takes charge of operations while Mace stays the public face. But Mace dies in the Framework in S4#18, so that becomes its own stage. Coulson's part in choosing Mace (he set the criteria) is already known by S4#2, so it is not a new reveal at S4#10.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jeffrey_Mace&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+   "value": {
+    "kind": "boss",
+    "title": "Agents of S.H.I.E.L.D. S4#1",
+    "text": "Phil Coulson serves under Jeffrey Mace, the new Director of S.H.I.E.L.D.",
+    "on_a_card_about_b": "Agent who serves under Mace.",
+    "on_b_card_about_a": "The new director Coulson serves under.",
+    "split": [
+     {
+      "kind": "friend",
+      "title": "Agents of S.H.I.E.L.D. S4#10",
+      "text": "After Mace is exposed as not being an Inhuman, Coulson, who helped choose him as Director, runs S.H.I.E.L.D.'s operations while Mace stays its public face, and the two stand together.",
+      "on_a_card_about_b": "A friend who helped choose Mace as director and now runs operations beside him.",
+      "on_b_card_about_a": "The director Coulson helped choose, who stays the public face while Coulson runs operations."
+     },
+     {
+      "kind": "friend",
+      "title": "Agents of S.H.I.E.L.D. S4#18",
+      "text": "Mace and Coulson fight side by side in the Framework until Mace dies there saving a child.",
+      "on_a_card_about_b": "A friend who helps choose Mace as director and stands by him.",
+      "on_b_card_about_a": "The director Coulson helps choose and serves under, standing beside him until Mace dies in the Framework."
+     }
+    ]
+   }
+  },
+  {
+   "n": 397,
+   "verdict": "confirm",
+   "why": "Mace has May build and train a specialist team, with Piper on it, from S4#1; Piper trains Mace and pins him in S4#13.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jeffrey_Mace&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Ghost&prop=wikitext&format=json"
+  },
+  {
+   "n": 398,
+   "verdict": "confirm",
+   "why": "In S4#6 Mace boards Coulson's plane to arrest Reyes and Daisy, is beaten by the Ghost Rider until Gabe stops him, and is talked into using Robbie against Lucy; he approves the strike team against Morrow in S4#8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Robbie_Reyes&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw"
+  },
+  {
+   "n": 399,
+   "verdict": "amend",
+   "why": "Garrett joins the Guest House mission in S1#14 (ally is right there). But he is exposed as the Clairvoyant and arrested at the Hub in S1#17, where Simmons is. So the enemy turn starts at S1#17, and the ocean drop on his orders (S1#21) is its own stage.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Turn,_Turn,_Turn&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ragtag&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_1&action=raw",
+   "value": {
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S1#14",
+    "text": "John Garrett joins Coulson's team on the mission to save Skye and earns their trust.",
+    "on_a_card_about_b": "Senior agent who helps the team save Skye.",
+    "on_b_card_about_a": "One of Coulson's agents.",
+    "split": [
+     {
+      "kind": "enemy",
+      "title": "Agents of S.H.I.E.L.D. S1#17",
+      "text": "Garrett is exposed as Hydra's Clairvoyant and arrested at the Hub.",
+      "on_a_card_about_b": "Hydra's Clairvoyant, who wins the team's trust before he is exposed.",
+      "on_b_card_about_a": "One of Coulson's agents, at the Hub when Garrett is exposed."
+     },
+     {
+      "kind": "enemy",
+      "title": "Agents of S.H.I.E.L.D. S1#21",
+      "text": "On Garrett's orders, Grant Ward dumps Jemma and Fitz into the ocean.",
+      "on_a_card_about_b": "Hydra's Clairvoyant, who wins the team's trust, then has Jemma dumped in the ocean.",
+      "on_b_card_about_a": "An agent of Coulson's Garrett has Ward dump in the ocean."
+     }
+    ]
+   }
+  }
+ ]
+}

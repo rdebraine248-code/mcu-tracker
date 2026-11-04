@@ -1,0 +1,178 @@
+{
+ "checked": [
+  "A:fox-colossus-dp",
+  "A:fox-negasonic",
+  "A:fox-yukio-dp",
+  "A:fox-peter-wisdom",
+  "A:fox-buck",
+  "A:fox-cable",
+  "A:fox-anim-wolverine",
+  "A:fox-anim-beast",
+  "A:fox-anim-professor-x",
+  "A:fox-anim-morph",
+  "A:fox-anim-cable",
+  "A:fox-anim-madelyne-pryor",
+  "A:fox-anim-nightcrawler",
+  "A:fox-anim-forge",
+  "A:fox-anim-psylocke",
+  "A:fox-anim-archangel",
+  "A:fox-anim-polaris",
+  "A:fox-anim-iceman",
+  "A:fox-anim-lilandra",
+  "A:fox-anim-banshee"
+ ],
+ "changes": [
+  {
+   "key": "A:fox-anim-cable",
+   "q": "G2",
+   "now": [
+    [
+     "Cable's Resistance",
+     "X-Men: The Animated Series"
+    ],
+    [
+     "The X-Men",
+     "X-Men '97 S1"
+    ],
+    [
+     "X-Force",
+     "X-Men '97 S2"
+    ]
+   ],
+   "proposed": [
+    [
+     "Genosha",
+     "X-Men: The Animated Series"
+    ],
+    [
+     "Cable's Resistance",
+     "X-Men: The Animated Series"
+    ],
+    [
+     "The X-Men",
+     "X-Men '97 S1"
+    ],
+    [
+     "X-Force",
+     "X-Men '97 S2"
+    ]
+   ],
+   "evidence": "X-Men: The Animated Series episode 7 ('Slave Island', covered by the record's first TAS step where Cable helps Gambit escape Genosha): Cameron Hodge tells the Leader on screen that Cable was a mercenary in the Leader's Genoshan army until he learned the Leader was no champion of democracy, threw his wages back in the Leader's face and took to the hills. That is a past group told on screen, so it goes first, keyed to his first title. The dataset already uses 'Genosha' for the Genoshan state (Magneto's TAS stage, the '97 council members).",
+   "source": "https://marvel.fandom.com/wiki/X-Men:_The_Animated_Series_Season_1_7",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:fox-anim-forge",
+   "q": "G2",
+   "now": [
+    [
+     "X-Factor",
+     "X-Men: The Animated Series"
+    ],
+    [
+     "The X-Men",
+     "X-Men '97 S1"
+    ]
+   ],
+   "proposed": [
+    [
+     "U.S. Department of Defense",
+     "X-Men: The Animated Series"
+    ],
+    [
+     "X-Factor",
+     "X-Men: The Animated Series"
+    ],
+    [
+     "The X-Men",
+     "X-Men '97 S1"
+    ]
+   ],
+   "evidence": "X-Men '97 episode 4 ('Lifedeath - Part 1', on file through the record's episode 6 step): Forge tells Storm that after the war the U.S. Department of Defense offered to help him in exchange for building devices to neutralize mutants, and that he later left the department (his designs led to the inhibitor collars). Marvel Database's episode page lists the United States Department of Defense as mentioned in the episode. A past employer (a government agency) told on screen goes first, keyed to his first title; he then took the government job building X-Factor.",
+   "source": "https://marvel.fandom.com/wiki/Forge_(Earth-92131)",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:fox-anim-forge",
+   "q": "V1",
+   "now": "steps include 'X-Men: The Animated Series, In episode 11, in a Sentinel-ruled future, an older Forge fighting with the mutant rebels backs Bishop's journey into the past.'",
+   "proposed": "Remove the episode 11 step from this record (or move it to its own record for the future Forge, Earth-31393). Groups are unchanged.",
+   "evidence": "X-Men: The Animated Series episode 11 ('Days of Future Past' Part 1) shows the Forge of Bishop's 2055 Sentinel-ruled future, which Marvel Database files as a separate character, Forge (Daniel) (Earth-31393), not the Earth-92131 Forge who leads X-Factor in the present. The older Wolverine of the same episode is likewise Earth-31393 and is not on Wolverine's Earth-92131 record.",
+   "source": "https://marvel.fandom.com/wiki/Forge_(Earth-31393)",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:fox-anim-wolverine",
+   "question": "Should Wolverine's World War II service be a first (past) stage, and under what name?",
+   "options": [
+    "Add 'OSS' as a first stage keyed to X-Men: The Animated Series (Marvel Database's name)",
+    "Add a generic Allied/Canadian military stage",
+    "Leave as is (the screen may not name the unit)"
+   ],
+   "evidence": "Episode 73 ('Old Soldiers'): in WWII, 'Logan of Canada' and Captain America are sent by Captain Sawyer behind enemy lines to rescue Andre Cocteau. Marvel Database says Logan was an OSS agent, but neither the episode page nor Wikipedia confirms 'OSS' is said on screen.",
+   "source": "https://marvel.fandom.com/wiki/James_Howlett_(Earth-92131)"
+  },
+  {
+   "key": "A:fox-anim-beast",
+   "question": "Beast works at a hospital/eye clinic for the blind in episode 23; the screen does not name it. Add an employer stage, and under what name?",
+   "options": [
+    "Add a stage for the clinic under a name the owner picks",
+    "Leave as is"
+   ],
+   "evidence": "Episode 23 ('Beauty & the Beast'): the Friends of Humanity attack the hospital for the blind where Beast works as a medical researcher; Carly is his patient.",
+   "source": "https://marvel.fandom.com/wiki/X-Men:_The_Animated_Series_Season_2_10"
+  },
+  {
+   "key": "A:fox-anim-nightcrawler",
+   "question": "Nightcrawler is an ordained monk at a mountain abbey/monastery in episode 53 (unnamed on screen). Should the monastery be a first stage, and under what name?",
+   "options": [
+    "Add a stage for the monastery under a name the owner picks, before Genosha",
+    "Leave as is"
+   ],
+   "evidence": "Episode 53 ('Nightcrawler'): Kurt lives and serves as a monk in the local monastery, persecuted by his superior; the townsfolk burn it. Marvel Database gives his occupation as Monk.",
+   "source": "https://marvel.fandom.com/wiki/Kurt_Wagner_(Earth-92131)"
+  },
+  {
+   "key": "A:fox-anim-nightcrawler",
+   "question": "In X-Men '97 episode 18 Gambit (Apocalypse's Horseman) brainwashes Nightcrawler, who fights for him until Rogue frees Gambit's followers. Is this a stage, and under what name?",
+   "options": [
+    "Add a brainwashed stage and back to X-Corp in X-Men '97 S2 (name the owner picks; the screen calls them Gambit's followers)",
+    "Leave as is (one fight within an episode)"
+   ],
+   "evidence": "X-Men '97 episode 18 ('The Dead Man's Hand'): Gambit brainwashes his friends and family and Nightcrawler; Nightcrawler overpowers the X-Men and X-Force alongside Gambit's followers until Rogue frees Gambit and his followers.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw"
+  },
+  {
+   "key": "A:fox-anim-banshee",
+   "question": "Banshee helps Moira run her Mutant Research Center on Muir Island in the original series. Should that workplace be a first stage before Genosha (Moira's record also lacks it)?",
+   "options": [
+    "Add a 'Muir Island' research centre stage keyed to X-Men: The Animated Series (name the owner picks)",
+    "Leave as is"
+   ],
+   "evidence": "Episodes 33 and 57: Banshee is on Muir Island with Moira, his fiancée, at her research centre; Marvel Database says he helped her run it.",
+   "source": "https://marvel.fandom.com/wiki/Sean_Cassidy_(Earth-92131)"
+  },
+  {
+   "key": "A:fox-anim-iceman",
+   "question": "After leaving the X-Men, Bobby Drake works as an accountant (minor civilian job, employer not named). Add it?",
+   "options": [
+    "Add an employer stage after Independent",
+    "Leave as is"
+   ],
+   "evidence": "Episode 37 ('Cold Comfort'): Bobby has given up heroism for a civilian life; Marvel Database lists his occupation as accountant, citing this episode.",
+   "source": "https://marvel.fandom.com/wiki/Robert_Drake_(Earth-92131)"
+  },
+  {
+   "key": "A:fox-anim-morph",
+   "question": "Between Sinister's two hold-overs, Morph works in a circus sideshow (minor job). Add it?",
+   "options": [
+    "Add a stage between the first Independent and the second Nasty Boys stage",
+    "Leave as is"
+   ],
+   "evidence": "Episodes 25-26 ('Reunion'): Morph has found work in a circus sideshow when Sinister re-establishes control over him.",
+   "source": "https://marvel.fandom.com/wiki/Morph_(Earth-92131)"
+  }
+ ]
+}

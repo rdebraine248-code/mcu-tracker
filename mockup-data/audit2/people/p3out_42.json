@@ -1,0 +1,119 @@
+{
+ "checked": [
+  "T:pr-pearl",
+  "T:pr-krieger",
+  "T:pr-kounen",
+  "T:pr-chase",
+  "T:pr-kinkou",
+  "T:pr-bobby-saint",
+  "T:pr-st-locus",
+  "T:fox-anim-final-horsemen",
+  "T:att-lass-bron-char",
+  "T:abilisk",
+  "T:georgi-luchkov",
+  "T:n-jobu",
+  "T:linda-bp",
+  "T:aaron-davis",
+  "T:fenris",
+  "T:topaz",
+  "T:the-widows",
+  "T:uzman",
+  "T:st-tone",
+  "T:st-zhou-cheng"
+ ],
+ "changes": [
+  {
+   "key": "T:uzman",
+   "q": "G2",
+   "now": {
+    "groups": [],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "MI6",
+      "Ant-Man and the Wasp"
+     ],
+     [
+      "Independent",
+      "Ant-Man and the Wasp"
+     ]
+    ],
+    "left": [
+     "Ant-Man and the Wasp"
+    ]
+   },
+   "evidence": "Ant-Man and the Wasp: at the X-Con office Sonny Burch introduces Uzman's serum as 'a little concoction that he has been perfecting since his days with SIS' (MI6), so the screen tells a past MI6 service that has ended. A past group the screen tells is a stage keyed to his first title, followed by his departure (dataset name 'MI6', as on Sonya Falsworth). His service in Burch's gang stays the held owner question (see owner_calls).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Uzman%27s_Truth_Serum",
+   "confidence": "high"
+  },
+  {
+   "key": "T:pr-krieger",
+   "q": "G2",
+   "now": [],
+   "proposed": [
+    [
+     "The House of Erebus",
+     "(from the start)"
+    ]
+   ],
+   "evidence": "Blade (1998): police officer Krieger is a familiar, 'a human servant of Frost's', and carries Frost's glyph; he reports to Frost and Frost kills him for his failure, before Frost's coup against the Erebus elders (Frost is filed The House of Erebus until he leaves it later in Blade; Quinn, Mercury and Racquel are House of Erebus). Under the applied familiar ruling (Vreede and Hannibal King in the House of Talos), a familiar serves the house of his vampire master.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Blade_(1998_film)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:pr-krieger",
+   "question": "Krieger is a uniformed police officer in Blade (real workplace), but the film never names his department. Add a police stage, and under what name?",
+   "options": [
+    "No police stage (current)",
+    "Add a police department stage under a name the owner picks"
+   ],
+   "evidence": "Wikipedia plot: 'Karen is attacked by police officer Krieger, who is a familiar'; cast list: 'Officer Krieger'. The city/department is not named.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Blade_(1998_film)&action=raw"
+  },
+  {
+   "key": "T:georgi-luchkov",
+   "question": "Luchkov appears in a Russian general's service-dress uniform with Soviet-era medals (Colonel General per the wiki), and runs an arms operation with his own men. The screen never names his army. Add a military stage, and under what name?",
+   "options": [
+    "No group (current)",
+    "Add 'Russian Armed Forces' (a new name) from The Avengers",
+    "Add the existing 'Soviet Armed Forces' then a Russian stage"
+   ],
+   "evidence": "MCU wiki: 'Colonel General Georgi Luchkov is a high-ranking officer of the Russian Armed Forces and a weapons dealer'; Equipment: 'Luchkov uses the Service Dress uniform' with Soviet jubilee medals. Natasha mentions 'General Solohob' as his front. His henchmen crew is unnamed (held crew question).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Georgi_Luchkov"
+  },
+  {
+   "key": "T:linda-bp",
+   "question": "Held: Linda serves in Killmonger's crew (museum robbery, Klaue's rescue from the CIA site), which the screen never names. Give it a group?",
+   "options": [
+    "No group (current)",
+    "Add Killmonger's crew under a name the owner picks"
+   ],
+   "evidence": "Already on the open list ('Killmonger's crew (Linda)'). MCU wiki: 'Linda, along with Erik Killmonger and the rest of the crew, planned a rescue for Klaue.'",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Linda_(Mercenary)"
+  },
+  {
+   "key": "T:uzman",
+   "question": "Held: Uzman is Sonny Burch's hired enforcer in his gang, which the screen never names. Give it a group (after MI6)?",
+   "options": [
+    "No gang stage (Independent after MI6, as proposed)",
+    "Add Burch's gang under a name the owner picks, after MI6"
+   ],
+   "evidence": "Already on the open list ('Sonny Burch's gang (Uzman)'). Wikipedia: 'Sonny Burch's team of men includes Divian Ladwa as Uzman'.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ant-Man_and_the_Wasp&action=raw"
+  },
+  {
+   "key": "T:fenris",
+   "question": "Fenris is Hela's war wolf: the Asgard ceiling mural shows it in Hela's conquests for Asgard, and Hela raises it to guard her rule in Thor: Ragnarok. Does a beast in service count as a member, giving Fenris Hela's 'Asgard' stage?",
+   "options": [
+    "No group (current)",
+    "Add [['Asgard', 'Thor: Ragnarok']] (as Hela, Skurge)"
+   ],
+   "evidence": "MCU wiki: 'Fenris was a giant Asgardian Wolf who served Hela during the times of the expansion of Asgard... resurrected by Hela with the Eternal Flame and put at their service during their rule over Asgard.' Precedents differ: Lockjaw is in The Royal Family, Cosmo in the Guardians, Goose Independent.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Fenris"
+  }
+ ]
+}

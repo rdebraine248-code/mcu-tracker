@@ -1,0 +1,389 @@
+{
+ "verdicts": [
+  {
+   "n": 800,
+   "verdict": "confirm",
+   "why": "S1E6: Scarfe tries to blackmail Stokes and is shot by Stokes himself; the mercenaries only ambush them later.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Luke_Cage_season_1&action=raw"
+  },
+  {
+   "n": 801,
+   "verdict": "amend",
+   "value": {
+    "kind": "ally",
+    "title": "Luke Cage S2#4",
+    "text": "Tilda Johnson treats Luke's concussion at her herbal shop while he hunts Bushmaster.",
+    "on_a_card_about_b": "Mariah's daughter, a herbal doctor who treats Luke.",
+    "on_b_card_about_a": "The man Tilda treats for a concussion.",
+    "split": [
+     {
+      "kind": "ally",
+      "title": "Luke Cage S2#7",
+      "text": "Tilda Johnson treats Luke's concussion at her herbal shop while he hunts Bushmaster, and he pulls her and her mother Mariah Dillard out of a burning building.",
+      "on_a_card_about_b": "Mariah's daughter, who treats Luke and whom he saves from a fire.",
+      "on_b_card_about_a": "The man Tilda treats, who saves her from a fire."
+     },
+     {
+      "kind": "enemy",
+      "title": "Luke Cage S2#13",
+      "text": "Tilda Johnson treats Luke's concussion at her herbal shop while he hunts Bushmaster, and he pulls her and her mother Mariah Dillard out of a burning building. She later poisons Mariah and turns on Luke when Mariah leaves Harlem's Paradise to him instead of her.",
+      "on_a_card_about_b": "Mariah's daughter, who treats Luke, then turns on him.",
+      "on_b_card_about_a": "The man Tilda treats, then turns on when Mariah leaves him her club."
+     }
+    ]
+   },
+   "why": "They first meet in S2E4, but the fire rescue is S2E7 and the poisoning and the will are S2E13, so those are split out to later stages.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tilda_Johnson&prop=wikitext&format=json"
+  },
+  {
+   "n": 802,
+   "verdict": "confirm",
+   "why": "Luke and Rosalie first deal with each other in S2E13, when he storms her office and later she visits him at Harlem's Paradise.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rosalie_Carbone&prop=wikitext&format=json"
+  },
+  {
+   "n": 803,
+   "verdict": "confirm",
+   "why": "Rosalie makes her move on Harlem in the war among the bosses once Mariah has been arrested (S2E13).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rosalie_Carbone&prop=wikitext&format=json"
+  },
+  {
+   "n": 804,
+   "verdict": "amend",
+   "value": {
+    "title": "Luke Cage S1#8",
+    "text": "Misty works to bring Mariah Dillard to justice for Cottonmouth's death.",
+    "on_a_card_about_b": "A detective who wants Mariah charged for Cottonmouth's death.",
+    "on_b_card_about_a": "A councilwoman Misty suspects in Cottonmouth's murder.",
+    "split": {
+     "kind": "enemy",
+     "title": "Luke Cage S1#13",
+     "text": "Misty works to bring Mariah Dillard to justice for Cottonmouth's death, but Mariah escapes charges by having the only witness, Candace Miller, killed.",
+     "on_a_card_about_b": "A detective who wants Mariah charged for Cottonmouth's death.",
+     "on_b_card_about_a": "A councilwoman who dodges Cottonmouth's murder by having the witness killed."
+    }
+   },
+   "why": "Misty first questions and suspects Mariah in S1E8, but Candace Miller's killing and Mariah going free are S1E13, so that part is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Mariah_Dillard&prop=wikitext&format=json"
+  },
+  {
+   "n": 805,
+   "verdict": "confirm",
+   "why": "Ridley first arrives in S1E7 and consoles and hugs Mariah after Cottonmouth's murder in S1E8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Priscilla_Ridley&prop=wikitext&format=json"
+  },
+  {
+   "n": 806,
+   "verdict": "amend",
+   "value": {
+    "title": "Luke Cage S2#12",
+    "text": "Mariah Dillard calls Rosalie Carbone and the other crime bosses to a meeting to work together.",
+    "on_a_card_about_b": "A crime boss Mariah calls in to work together.",
+    "on_b_card_about_a": "A Harlem crime boss who calls Rosalie in to work together.",
+    "split": {
+     "kind": "enemy",
+     "title": "Luke Cage S2#13",
+     "text": "Mariah Dillard calls Rosalie Carbone and the other crime bosses to a meeting to work together. Once Mariah is arrested, Rosalie turns against her and moves in on Harlem.",
+     "on_a_card_about_b": "A crime boss Mariah calls in to work together, who later turns on her.",
+     "on_b_card_about_a": "A Harlem crime boss who calls Rosalie in to work together. Rosalie later turns on her."
+    }
+   },
+   "why": "Rosalie first appears at Mariah's auction house meeting in S2E12; her move on Harlem after Mariah's arrest is S2E13, so it is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rosalie_Carbone&prop=wikitext&format=json"
+  },
+  {
+   "n": 807,
+   "verdict": "amend",
+   "value": {
+    "title": "Luke Cage S1#7",
+    "text": "Shades helps Mariah Dillard cover up her murder of Cottonmouth, and the two become partners in crime.",
+    "on_a_card_about_b": "Mariah's partner in crime, who helps cover up her murder of Cottonmouth.",
+    "on_b_card_about_a": "Shades's partner in crime. He helps her cover up Cottonmouth's murder.",
+    "split": {
+     "kind": "partner",
+     "title": "Luke Cage S1#13",
+     "text": "Shades helps Mariah Dillard cover up her murder of Cottonmouth, and the two become lovers and partners in crime.",
+     "on_a_card_about_b": "Mariah's lover and partner in crime, who helps cover up her murder of Cottonmouth.",
+     "on_b_card_about_a": "Shades's lover and partner in crime. He helps her cover up Cottonmouth's murder."
+    }
+   },
+   "why": "The murder and cover-up start in S1E7, but their first kiss and becoming lovers is at the reopening of Harlem's Paradise in S1E13, so that is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Shades&prop=wikitext&format=json"
+  },
+  {
+   "n": 808,
+   "verdict": "confirm",
+   "why": "S2E11: Shades confronts Mariah, their relationship ends and he surrenders to Misty; his confession and the gun that brings her down are S2E12.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Luke_Cage_season_2&action=raw"
+  },
+  {
+   "n": 809,
+   "verdict": "amend",
+   "value": {
+    "title": "Luke Cage S2#2",
+    "text": "Mariah Dillard is Tilda Johnson's mother. After years apart, Mariah comes to Tilda's shop wanting to reunite with her.",
+    "on_a_card_about_b": "Mariah's daughter, raised apart from her.",
+    "on_b_card_about_a": "Tilda's estranged mother, who wants to reunite with her.",
+    "split": [
+     {
+      "kind": "family",
+      "title": "Luke Cage S2#8",
+      "text": "Mariah Dillard is Tilda Johnson's mother, but Mama Mabel had Tilda taken from her, and Mamie Johnson raised her.",
+      "on_a_card_about_b": "Mariah's daughter, raised apart from her.",
+      "on_b_card_about_a": "Tilda's mother, who was kept from raising her."
+     },
+     {
+      "kind": "family",
+      "title": "Luke Cage S2#13",
+      "text": "Mariah Dillard is Tilda Johnson's mother, but Mama Mabel had Tilda taken from her, and Mamie Johnson raised her. Tilda poisons Mariah in prison.",
+      "on_a_card_about_b": "Mariah's daughter, raised apart from her. Poisons Mariah in prison.",
+      "on_b_card_about_a": "Tilda's mother, who was kept from raising her. Tilda poisons her in prison."
+     }
+    ]
+   },
+   "why": "Tilda is introduced in S2E2 when Mariah seeks a reunion, but Mariah only explains that Mama Mabel took Tilda from her in S2E8, and the poisoning is S2E13, so both are split out.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Luke_Cage_season_2&action=raw"
+  },
+  {
+   "n": 810,
+   "verdict": "confirm",
+   "why": "S2E6: Ridenhour questions Mariah about the dead men despite their high school history; the deal and his murder are S2E7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tom_Ridenhour&prop=wikitext&format=json"
+  },
+  {
+   "n": 811,
+   "verdict": "amend",
+   "value": {
+    "title": "Luke Cage S1#11",
+    "text": "Shades corners Misty and Claire Temple in the basement of Harlem's Paradise, but they overpower him and he is taken into custody.",
+    "on_a_card_about_b": "A gangster who tries to kill Misty, then is arrested.",
+    "on_b_card_about_a": "A detective who helps overpower Shades.",
+    "split": {
+     "kind": "enemy",
+     "title": "Luke Cage S1#13",
+     "text": "Misty spends years trying to bring down Shades, who kills Candace Miller, the witness she needs against Mariah Dillard.",
+     "on_a_card_about_b": "A gangster Misty hunts for years, who kills her key witness.",
+     "on_b_card_about_a": "A detective who has hunted Shades for years."
+    }
+   },
+   "why": "They first face each other in S1E11, but Shades kills Candace Miller in S1E13, so that is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Shades&prop=wikitext&format=json"
+  },
+  {
+   "n": 812,
+   "verdict": "confirm",
+   "why": "Misty's only dealings with Tilda as described (asking about Bushmaster, being sent away without a warrant while Tilda hides him) are all in S2E13.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tilda_Johnson&prop=wikitext&format=json"
+  },
+  {
+   "n": 813,
+   "verdict": "confirm",
+   "why": "S1E2 (Code of the Streets): Misty warns Turk off outside Pop's; S1E12: she finds him where Luke left him and arrests him.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Turk_Barrett&prop=wikitext&format=json"
+  },
+  {
+   "n": 814,
+   "verdict": "amend",
+   "value": {
+    "title": "Luke Cage S2",
+    "text": "Tom Ridenhour takes over Priscilla Ridley's precinct when she is promoted to deputy chief.",
+    "on_a_card_about_b": "Ridley's successor at the precinct.",
+    "on_b_card_about_a": "Ridenhour's predecessor at the precinct.",
+    "split": [
+     {
+      "kind": "ally",
+      "title": "Luke Cage S2#9",
+      "text": "Tom Ridenhour takes over Priscilla Ridley's precinct when she is promoted to deputy chief. After he is killed, Ridley returns to lead it.",
+      "on_a_card_about_b": "Ridley's successor at the precinct, after whose murder she returns.",
+      "on_b_card_about_a": "Ridenhour's predecessor at the precinct, who returns after his murder."
+     },
+     {
+      "kind": "ally",
+      "title": "Luke Cage S2#12",
+      "text": "Ridley sees Ridenhour's murder solved when Shades confesses that Comanche shot him, and she arrests Mariah Dillard.",
+      "on_a_card_about_b": "Ridley's successor at the precinct, whose murder she sees solved.",
+      "on_b_card_about_a": "Ridenhour's predecessor at the precinct, who returns after his murder."
+     }
+    ]
+   },
+   "why": "Ridenhour says in S2E1 that he took over when Ridley made deputy chief, so the stage starts there; she returns in S2E9. Mariah is not charged with Ridenhour's murder: in S2E12 Shades confesses that Comanche shot him. Text kept in present tense.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Priscilla_Ridley&prop=wikitext&format=json"
+  },
+  {
+   "n": 815,
+   "verdict": "confirm",
+   "why": "Ridley is an inspector in season 1 (she replaces Captain Audrey in S1E7); Misty and Claire take Shades down in S1E11 and Ridley questions him in S1E12.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Priscilla_Ridley&prop=wikitext&format=json"
+  },
+  {
+   "n": 816,
+   "verdict": "confirm",
+   "why": "S2E11: Ridley tells Misty the press know about the survivor and City Hall wants Misty to make a statement; Misty is the one at the press conference.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Creator&prop=wikitext&format=json"
+  },
+  {
+   "n": 817,
+   "verdict": "confirm",
+   "why": "S2E1: Shades meets Comanche on his release and gives him a car and a security job at Harlem's Paradise; their prison romance comes up in S2E6 and Shades kills him in S2E7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Comanche&prop=wikitext&format=json"
+  },
+  {
+   "n": 818,
+   "verdict": "confirm",
+   "why": "Comanche secretly reports to Ridenhour in S2E4 and meets him again in S2E5; the fatal meeting is S2E7.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tom_Ridenhour&prop=wikitext&format=json"
+  },
+  {
+   "n": 819,
+   "verdict": "confirm",
+   "why": "Episode 1 calls Harrow a servant of Ammit; in episode 6 Ammit spares him and makes him her avatar after he frees her.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Gods_and_Monsters&prop=wikitext&format=json"
+  },
+  {
+   "n": 820,
+   "verdict": "confirm",
+   "why": "Episode 2 sets out Harrow's plan to use the scarab to find and resurrect Ammit, which Khonshu opposes (he accuses Harrow before the gods in episode 3); Ammit is freed and fights Khonshu only in episode 6.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Moon_Knight_(miniseries)&action=raw"
+  },
+  {
+   "n": 821,
+   "verdict": "confirm",
+   "why": "Ammit is freed, and Layla becomes the Scarlet Scarab and fights in Cairo, only in episode 6.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Moon_Knight_(miniseries)&action=raw"
+  },
+  {
+   "n": 822,
+   "verdict": "confirm",
+   "why": "Taweret is named in episode 5, where souls fall into the Duat as Ammit rises and she agrees to help Marc and Steven go back to stop Ammit and Harrow; Layla becomes her avatar in episode 6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Taweret&prop=wikitext&format=json"
+  },
+  {
+   "n": 823,
+   "verdict": "amend",
+   "value": {
+    "title": "Moon Knight#2",
+    "text": "Layla confronts Arthur Harrow to get Steven back.",
+    "on_a_card_about_b": "A woman who confronts Harrow to get Steven back.",
+    "on_b_card_about_a": "The cult leader Layla confronts to get Steven back.",
+    "split": {
+     "kind": "enemy",
+     "title": "Moon Knight#6",
+     "text": "Layla confronts Arthur Harrow to get Steven back and later fights him and his disciples in Cairo.",
+     "on_a_card_about_b": "A woman who confronts Harrow and fights his disciples in Cairo.",
+     "on_b_card_about_a": "The cult leader Layla confronts to get Steven back."
+    }
+   },
+   "why": "Layla first confronts Harrow in episode 2 when she breaks up his meeting with Steven, but the Cairo fight is episode 6, so it is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Summon_the_Suit&prop=wikitext&format=json"
+  },
+  {
+   "n": 824,
+   "verdict": "confirm",
+   "why": "Episode 2 ends with Khonshu threatening to claim Layla as his next avatar if Marc fails; she frees him and refuses to be his avatar in episode 6.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Moon_Knight_(miniseries)&action=raw"
+  },
+  {
+   "n": 825,
+   "verdict": "confirm",
+   "why": "Taweret first contacts Layla, and makes her a temporary avatar with the Scarlet Scarab suit, in episode 6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Taweret&prop=wikitext&format=json"
+  },
+  {
+   "n": 826,
+   "verdict": "confirm",
+   "why": "Taweret only greets them, unnamed, at the very end of episode 4; she guides them through the Duat and steers for the Gates of Osiris in episode 5, and they escape with her help in episode 6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Taweret&prop=wikitext&format=json"
+  },
+  {
+   "n": 827,
+   "verdict": "confirm",
+   "why": "Episode 1: Aamir brings Kamala tea after their parents turn down AvengerCon; the wedding and fire alarm are episode 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Aamir_Khan&prop=wikitext&format=json"
+  },
+  {
+   "n": 828,
+   "verdict": "confirm",
+   "why": "Aamir lives at home and has dinner with his family in episode 1; the wedding is episode 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Aamir_Khan&prop=wikitext&format=json"
+  },
+  {
+   "n": 829,
+   "verdict": "confirm",
+   "why": "Episode 1: Aamir looks over the things Sana sent; her wedding-day vision of the train is episode 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sana_Ali&prop=wikitext&format=json"
+  },
+  {
+   "n": 830,
+   "verdict": "confirm",
+   "why": "Episode 1: after the family dinner Aamir goes to see his fiancée Tyesha; they marry in episode 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Aamir_Khan&prop=wikitext&format=json"
+  },
+  {
+   "n": 831,
+   "verdict": "confirm",
+   "why": "Aamir is at home and at dinner with his parents in episode 1; the money talk before the wedding is episode 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Aamir_Khan&prop=wikitext&format=json"
+  },
+  {
+   "n": 832,
+   "verdict": "confirm",
+   "why": "Episode 2: Kamala asks about her great-grandmother Aisha and Sana says the bangle was her mother's, who vanished during Partition; Najma calls Aisha a Clandestine in episode 3 and Kamala meets her in episode 5.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sana_Ali&prop=wikitext&format=json"
+  },
+  {
+   "n": 833,
+   "verdict": "confirm",
+   "why": "Episode 2: Kamala asks Sana and Muneeba about Aisha, the bangle's first owner, and both brush her off; Najma says Aisha was a Clandestine in episode 3.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(miniseries)&action=raw"
+  },
+  {
+   "n": 834,
+   "verdict": "confirm",
+   "why": "Episode 2: Sana tells Kamala the bangle belonged to her mother, who disappeared during Partition; the Partition events are episode 5.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sana_Ali&prop=wikitext&format=json"
+  },
+  {
+   "n": 835,
+   "verdict": "amend",
+   "value": {
+    "title": "Ms. Marvel#5",
+    "text": "With nowhere else to go, Kamran turns to Bruno, who takes him in just before a Damage Control drone attacks them.",
+    "on_a_card_about_b": "A boy who turns to Bruno for help.",
+    "on_b_card_about_a": "Takes Kamran in when he has nowhere else to go.",
+    "split": {
+     "kind": "friend",
+     "title": "Ms. Marvel#6",
+     "text": "Bruno Carrelli helps Kamran escape Damage Control, and the two become friends.",
+     "on_a_card_about_b": "A friend Bruno helps escape Damage Control.",
+     "on_b_card_about_a": "Helps Kamran escape Damage Control. The two become friends."
+    }
+   },
+   "why": "They properly meet at the end of episode 5 when Kamran asks Bruno for help and the drone attacks, but their escape from Damage Control is episode 6, so it is split out.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bruno_Carrelli&prop=wikitext&format=json"
+  },
+  {
+   "n": 836,
+   "verdict": "confirm",
+   "why": "Najma first appears at the end of episode 2; the Clandestines storm Aamir's wedding, where Bruno helps fight them and is knocked out by Saleem, in episode 3.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Bruno_Carrelli&prop=wikitext&format=json"
+  },
+  {
+   "n": 837,
+   "verdict": "confirm",
+   "why": "Deever's hunt for Bruno and Kamran, with a city-wide lockdown, is episode 6; before that she never goes after Bruno.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(miniseries)&action=raw"
+  },
+  {
+   "n": 838,
+   "verdict": "confirm",
+   "why": "Abdullah gives Bruno and Kamran caps and guidance while Damage Control searches the mosque in episode 6.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Abdullah&prop=wikitext&format=json"
+  },
+  {
+   "n": 839,
+   "verdict": "confirm",
+   "why": "Kamala meets Kamran at Zoe's party in episode 2, and he introduces her to his mother Najma that episode; she protects him from Damage Control and helps him flee in episode 6.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(miniseries)&action=raw"
+  }
+ ]
+}

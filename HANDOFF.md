@@ -893,6 +893,15 @@ insignia celebration covers the page.
   lines rewritten by ten agents from the owner's 20 approved examples (`network/cards/BRIEF.md`), applied last in relbake from
   `network/rel/line_fix.json` (only where the old line still matches). Each card keeps one short name for its person. On the way the
   agents found and fixed lines describing the wrong person (swapped pairs) and wrong facts against the stage text.
+- **A dock button for the page you're on goes back to that page's main page** (owner, November 2026: "im in agent file > compound >
+  character file and I press agent file button on the dock again it should bring me back to the main agent file page ... This should
+  apply to other pages"). Every page the same: what's on top of it closes, the page opens fresh at its top. Story's box covers the dock.
+- **Card lines don't read as live news** (owner, November 2026, on Bucky and Vision: "makes it sound like it's in the present. Shuri is
+  working on vision now. What does that have to do with the relationship"). No "Now ..." sentence in a card line ("Once shot by Bucky.
+  On the same side in Wakanda.", not "Now on the same side"), and a stage says what happens between the two people, not what a third
+  person does nearby. Swept: 58 lines, in `network/rel/line_fix.json`.
+- **A step that names a case's incident links that case** (owner, November 2026: Ross's Civil War step names the Vienna bombing and
+  showed no case, "Seems like an oversight"). Taking part in it, caught up in it or its aftermath links; sharing a city doesn't.
 - **No link in an index opens an index you haven't found.** That includes battle replays and anything added later: use `ixFile`.
 - **One person, one name:** a Collection holder reads as the person's file does, and a variant in another universe as the main universe's
   file, unless the screen names it differently. Spellings follow the screen and its credits (Bennie Pollack, Aida).

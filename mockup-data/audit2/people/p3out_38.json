@@ -1,0 +1,138 @@
+{
+ "checked": [
+  "T:fox-angel-salvadore",
+  "T:fox-bolivar-trask",
+  "T:fox-apocalypse",
+  "T:fox-psylocke",
+  "T:fox-vuk",
+  "T:fox-donald-pierce",
+  "T:fox-x-24",
+  "T:fox-angel-dust",
+  "T:fox-firefist",
+  "T:fox-headmaster",
+  "T:fox-blob-void",
+  "T:fox-demon-bear",
+  "T:fox-anim-magneto",
+  "T:fox-anim-sentinels",
+  "T:fox-anim-madelyne-pryor",
+  "T:fox-anim-sabretooth",
+  "T:fox-anim-mystique",
+  "T:fox-anim-juggernaut",
+  "T:fox-anim-mojo",
+  "T:fox-anim-graydon-creed"
+ ],
+ "changes": [
+  {
+   "key": "T:fox-anim-sentinels",
+   "q": "G2",
+   "now": {
+    "groups": [
+     [
+      "Operation: Zero Tolerance",
+      "X-Men '97 S1"
+     ]
+    ],
+    "left": []
+   },
+   "proposed": {
+    "groups": [
+     [
+      "Mutant Control Agency",
+      "X-Men: The Animated Series"
+     ],
+     [
+      "Independent",
+      "X-Men: The Animated Series"
+     ],
+     [
+      "Operation: Zero Tolerance",
+      "X-Men '97 S1"
+     ],
+     [
+      "Independent",
+      "X-Men '97 S1"
+     ]
+    ],
+    "left": [
+     "X-Men: The Animated Series",
+     "X-Men '97 S1"
+    ]
+   },
+   "evidence": "Two moves are missing. (1) X-Men: The Animated Series episodes 1-2 ('Night of the Sentinels'): the Sentinels are the Mutant Control Agency's weapon. Gyrich's agency pays Trask to build them and feeds them its registered-mutant files. After the X-Men's raid the President has the program shut down (the agency is defunct). In episode 13 Master Mold and its Sentinels turn on Trask, their maker. (2) X-Men '97 S1 episode 10: Bastion dies and Operation: Zero Tolerance ends (listed as Defunct in the episode's cast list). The Prime Sentinels' humanity comes back, as the record's own 'Allied' step says. The record has only the OZT stage and no departures. Gyrich's record already uses 'Mutant Control Agency' (TAS).",
+   "source": "https://marvel.fandom.com/wiki/Mutant_Control_Agency_(Earth-92131) ; https://marvel.fandom.com/wiki/Bolivar_Trask_(Earth-92131) ; https://marvel.fandom.com/wiki/Operation_Zero_Tolerance_(Earth-92131) ; https://marvel.fandom.com/wiki/X-Men_'97_Season_1_10",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "T:fox-anim-magneto",
+   "question": "Does Magneto rejoin the X-Men in X-Men '97 S1 episode 10, which would add a last stage ['The X-Men', \"X-Men '97 S1\"] after Genosha?",
+   "options": [
+    "Keep as is (Genosha last)",
+    "Append ['The X-Men', \"X-Men '97 S1\"]"
+   ],
+   "evidence": "Marvel Database's episode 10 cast list puts Magneto under the X-Men with a 'Rejoins' tag, the same tag it gives Rogue and Sunspot. Their records already return to the X-Men in '97 S1. When Xavier breaks through to Magneto, he stops Asteroid M. In S2 eps 3-4 he fights in Egypt with Xavier, Beast, Rogue and Nightcrawler, and the wiki gives his current affiliation as the X-Men. Earlier passes split on this: gvout_11 added the stage, then the twin pass dropped it because no Wikipedia summary shows him rejoin. The two passes disagree, so it needs a definition call.",
+   "source": "https://marvel.fandom.com/wiki/X-Men_'97_Season_1_10 ; https://marvel.fandom.com/wiki/Erik_Lehnsherr_(Earth-92131)"
+  },
+  {
+   "key": "T:fox-anim-sabretooth",
+   "question": "In X-Men: The Animated Series, Sabretooth, Mystique and Magneto (T:fox-anim-mystique, T:fox-anim-magneto in this batch) each serve Apocalypse, but the screen never names their group. Should that service be recorded, and under what name?",
+   "options": [
+    "Keep as is (no stage; service to one person is not a named group)",
+    "Add a stage for Apocalypse's service (owner to give the name)"
+   ],
+   "evidence": "'Beyond Good and Evil' (record ep 65-66): Sabretooth 'formed an alliance with Apocalypse and helped kidnap psychics'. Magneto aids him until Apocalypse reveals his plan, then turns on him. Mystique serves him too, then turns. Earlier, in season 1 ('Come the Apocalypse' / 'Days of Future Past'), Mystique works for Apocalypse: she poses as Dr. Adler to turn mutants into his Horsemen, then poses as Gambit to kill Kelly on his orders. None of them is called a Horseman. Mister Sinister's record (ep 66) also records no stage for this.",
+   "source": "https://marvel.fandom.com/wiki/Graydon_Creed_Sr._(Earth-92131) ; https://marvel.fandom.com/wiki/Raven_Darkh%C3%B6lme_(Earth-92131) ; https://marvel.fandom.com/wiki/Erik_Lehnsherr_(Earth-92131)"
+  },
+  {
+   "key": "T:fox-anim-graydon-creed",
+   "question": "Graydon Creed is elected U.S. President in the X-Men '97 S2 finale. Is winning the election a new post to record now (like Beast's UN post at the end of The Last Stand), or does it wait until he is shown in office?",
+   "options": [
+    "Keep The Friends of Humanity last",
+    "Append ['The White House', \"X-Men '97 S2\"]"
+   ],
+   "evidence": "X-Men '97 S2: Creed announces his candidacy on an anti-mutant platform (ep 7). The finale's mid-credits scene has Mystique replace Cooper 'while Creed is elected president'. Marvel Database lists his occupation as United States President. The record's last step already says he wins the presidency.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_2&action=raw ; https://marvel.fandom.com/wiki/Graydon_Creed_Jr._(Earth-92131)"
+  },
+  {
+   "key": "T:fox-angel-salvadore",
+   "question": "Angel works as a stripper at a club when Charles and Erik recruit her in X-Men: First Class. Is that job an employer group (it is seen once and the club is unnamed)?",
+   "options": [
+    "Keep as is (minor job, no stage)",
+    "Add a past employer stage first (owner to name it)"
+   ],
+   "evidence": "X-Men: First Class: 'In 1962, Angel was working as a stripper when she was approached by Charles Xavier and Erik Lehnsherr' ('My stage name is Angel'). After that come the CIA (Division X), the Hellfire Club and Erik's Brotherhood, which the record already has.",
+   "source": "https://xmenmovies.fandom.com/wiki/Angel_Salvadore"
+  },
+  {
+   "key": "T:fox-psylocke",
+   "question": "In X-Men: Apocalypse, Psylocke works as the black-market mutant broker Caliban's enforcer and bodyguard until Apocalypse recruits her. Should this unnamed crew/employer be a stage before The Four Horsemen?",
+   "options": [
+    "Keep as is",
+    "Add a stage for Caliban's operation before The Four Horsemen (owner to name it)"
+   ],
+   "evidence": "X-Men: Apocalypse (1983, East Berlin): Psylocke is 'an enforcer for the information broker Caliban'. She draws her blades to protect him, then abandons 'her boss, Caliban, for Apocalypse'. The screen never names his business.",
+   "source": "https://xmenmovies.fandom.com/wiki/Psylocke/Revised_Timeline ; https://xmenmovies.fandom.com/wiki/Caliban"
+  },
+  {
+   "key": "T:fox-anim-magneto",
+   "question": "Past groups that are told on screen but missing: in X-Men: The Animated Series S1 ep 3 (flashback), Erik works as an aide at a psychiatric hospital alongside Xavier, then 'amassed a growing legion of followers' who attack plants and government buildings. The screen names neither the hospital nor the followers. Record them as past stages ahead of The Savage Land Mutates?",
+   "options": [
+    "Keep as is",
+    "Add a past employer stage for the hospital, and/or a past stage for his early followers (owner to name them)"
+   ],
+   "evidence": "Marvel Database's Origins section cites X-Men: The Animated Series Season 1 3 for both the hospital job and the band of followers.",
+   "source": "https://marvel.fandom.com/wiki/Erik_Lehnsherr_(Earth-92131)"
+  },
+  {
+   "key": "T:fox-anim-mojo",
+   "question": "Mojo runs his own television network (his 'media empire', staffed by his slaves and servants), but the screen gives it no group name. Record it as his employer/company, the way Trask has Trask Industries?",
+   "options": [
+    "Keep as is (no group)",
+    "Add a stage for Mojo's network from the start (owner to name it)"
+   ],
+   "evidence": "X-Men: The Animated Series S2 ep 11 / S5 ep 5 and X-Men '97 S1 ep 4: Mojo, the executive of his own TV network, pulls the X-Men in for his reality show, then pivots his media empire to video games. Marvel Database gives his occupation as 'Executive of his own television network' and no affiliation.",
+   "source": "https://marvel.fandom.com/wiki/Mojo_(Earth-92131)"
+  }
+ ]
+}

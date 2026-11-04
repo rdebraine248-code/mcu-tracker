@@ -1,0 +1,165 @@
+{
+ "checked": [
+  "A:st-trish-walker",
+  "A:st-malcolm-ducasse",
+  "A:st-oscar-clemons",
+  "A:st-dorothy-walker",
+  "A:st-oscar-arocho",
+  "A:st-vido-arocho",
+  "A:st-eddy-costa",
+  "A:st-gillian",
+  "A:st-reva-connors",
+  "A:st-candace-miller",
+  "A:st-dw-griffith",
+  "A:st-priscilla-ridley",
+  "A:st-james-lucas",
+  "A:st-wendell-rand",
+  "A:st-lei-kung",
+  "A:st-bethany",
+  "A:st-bb-chinatown",
+  "A:st-david-lieberman",
+  "A:st-sarah-lieberman",
+  "A:st-sam-stein"
+ ],
+ "changes": [
+  {
+   "key": "A:st-trish-walker",
+   "q": "G2",
+   "now": [
+    [
+     "Trish Talk",
+     "Jessica Jones S1"
+    ],
+    [
+     "ZCN",
+     "Jessica Jones S2"
+    ],
+    [
+     "ARN TV",
+     "Jessica Jones S3"
+    ]
+   ],
+   "proposed": [
+    [
+     "It's Patsy",
+     "Jessica Jones S1"
+    ],
+    [
+     "Trish Talk",
+     "Jessica Jones S1"
+    ],
+    [
+     "ZCN",
+     "Jessica Jones S2"
+    ],
+    [
+     "ARN TV",
+     "Jessica Jones S3"
+    ]
+   ],
+   "evidence": "Past employer that the screen shows and names: as a child Trish starred in the TV series It's Patsy (Dorothy got the network to rename That's Our Girl to It's Patsy). Jessica Jones S1 names the show (eps 3-5) and shows it in flashback (ep 11). Under the settled rule it is a past stage, keyed to her first title and listed first, before Trish Talk. This matches how the dataset already treats a show she works on as her group (Trish Talk).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/It%27s_Patsy",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:st-malcolm-ducasse",
+   "q": "G2",
+   "now": [
+    [
+     "Alias Investigations",
+     "Jessica Jones S1"
+    ],
+    [
+     "Hogarth & Associates",
+     "Jessica Jones S2"
+    ],
+    [
+     "Alias Investigations",
+     "Jessica Jones S3"
+    ]
+   ],
+   "proposed": [
+    [
+     "Alias Investigations",
+     "Jessica Jones S1"
+    ],
+    [
+     "Cheng Consulting Management",
+     "Jessica Jones S2"
+    ],
+    [
+     "Hogarth & Associates",
+     "Jessica Jones S2"
+    ],
+    [
+     "Alias Investigations",
+     "Jessica Jones S3"
+    ]
+   ],
+   "evidence": "Jessica Jones S2: Malcolm quits Alias in episode 11 (AKA Three Lives and Counting). In episode 13 (AKA Playland) he takes Pryce Cheng's job offer and joins Cheng's P.I. firm, Cheng Consulting Management. Cheng then brings him to Jeri Hogarth, who hires him ('Welcome to Hogarth & Associates'). The Cheng firm stage is missing between Alias and Hogarth.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Malcolm_Ducasse",
+   "confidence": "medium"
+  },
+  {
+   "key": "A:st-dorothy-walker",
+   "q": "G2",
+   "now": [
+    [
+     "Independent",
+     "(from the start)"
+    ]
+   ],
+   "proposed": [
+    [
+     "Stars & Tykes Talent Agency",
+     "(from the start)"
+    ]
+   ],
+   "evidence": "Dorothy founded and runs her own talent agency, Stars & Tykes Talent Agency. In Jessica Jones S1 episode 7 (AKA Top Shelf Perverts), Jessica confronts her at the agency's office while she sees clients; the agency's slogan 'Stars aren't born, they're made!' is shown. The agency is seen again in S2 episode 2 and mentioned in S3 episodes 9 and 10. She is never Independent of it.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Stars_%26_Tykes_Talent_Agency",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "A:st-malcolm-ducasse",
+   "question": "Should Malcolm get a stage for the support group for Kilgrave's victims, which he starts and leads in Jessica Jones S1, before Alias Investigations? The screen calls it only a 'support group'. The wiki's name 'Kilgrave Victim Support Group' is a label, and no dataset name exists for it.",
+   "options": [
+    "Add a stage, keyed Jessica Jones S1 before Alias Investigations (name to be set by the owner)",
+    "No stage: a support group is not a group under the rules"
+   ],
+   "evidence": "Jessica Jones S1, episodes 6-11: Malcolm runs meetings of Kilgrave's victims (Robyn, Donald, Jackson and others).",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Malcolm_Ducasse"
+  },
+  {
+   "key": "A:st-bethany",
+   "question": "Does Narcotics Anonymous count as Bethany's group? The screen says 'NA meetings', and she is Ward's sponsor there. Her job as an anesthesiologist has no named employer.",
+   "options": [
+    "Add a stage: Narcotics Anonymous / NA, from Iron Fist S2",
+    "Keep Independent"
+   ],
+   "evidence": "Iron Fist S2, episodes 1-7: Bethany sponsors Ward at his NA meeting and later hands his sponsorship to someone else.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/Bethany"
+  },
+  {
+   "key": "A:st-dw-griffith",
+   "question": "In Luke Cage S2, D.W. runs his Luke Cage merchandise business out of Pop's Barber Shop. Does that make him part of Pop's Barber Shop, which is already a dataset group?",
+   "options": [
+    "Add a stage: Pop's Barber Shop, from Luke Cage S2",
+    "Keep Independent: he is a vendor who works on the premises, not shop staff"
+   ],
+   "evidence": "Luke Cage S2, episode 1 (Soul Brother #1): D.W. sells merchandise inside Pop's and ushers fans out of the shop. Episode 10: he is at the shop with Luke and Danny.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/D.W._Griffith"
+  },
+  {
+   "key": "A:st-james-lucas",
+   "question": "James Lucas is a pastor. Does his church count as his employer, and under which name? Mount Calvary Baptist Church in Savannah is shown on screen, with its sign, in Luke Cage S1 episode 10. In New York in Luke Cage S2 he preaches at a church the wiki calls Mount Olivet Baptist Church, a name it sources only to a prop auction.",
+   "options": [
+    "Add a stage: his church (name to be set by the owner), from Luke Cage S2",
+    "Keep Independent"
+   ],
+   "evidence": "Luke Cage S2, episodes 2, 7 and 9: Lucas preaches to his congregation at his New York church, and the Stylers attack him there in episode 8.",
+   "source": "https://marvelcinematicuniverse.fandom.com/wiki/James_Lucas"
+  }
+ ]
+}
