@@ -44,6 +44,8 @@ if they ever differ, the repo's copy on the working branch is newer.
 
 **The close-out plan (owner, 4 November 2026: "Do the rest of the plan"), in this order:**
 1. The Network's dock dot for every universe (option A). Done: on main (`c5d1946`, 4 November 2026, the owner's "push").
+**The bar (owner, 4 November 2026): 1 to 1.5% wrong in a random 600** (it was 0 to 1%; "Let's keep going but 1-1.5% is a better
+   window"). Over it, the part goes back through, targeted by the patterns the sample found, then a fresh 600.
 2. A fresh random 600 of the Network's connections, so part 2 can be locked. Done 4 November 2026: 23 wrong (3.8%), all fixed after a
    second check (`network/rel/stage_fix_zzzzzzzz_sample5.json`, records in `audit2/net/ns5`). Over the bar, so it goes back through the
    part, **targeted by pattern** (owner's choice over a full re-pass): connections between two people who share no title, pairs both
