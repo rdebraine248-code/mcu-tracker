@@ -1,0 +1,97 @@
+{
+ "checked": [
+  "ch-1",
+  "ch-2",
+  "ch-3",
+  "ch-4",
+  "ch-5",
+  "ch-6",
+  "ch-7",
+  "ch-8",
+  "ch-9",
+  "ch-10",
+  "ch-11",
+  "ch-beyond-the-mcu",
+  "ch-the-spider-verse",
+  "ch-the-fox-men",
+  "ch-pruned-timelines",
+  "ch-incursions",
+  "Captain America",
+  "Iron Man",
+  "Thor",
+  "Black Widow",
+  "Hawkeye",
+  "Hulk",
+  "Nick Fury",
+  "S.H.I.E.L.D.",
+  "Captain Marvel",
+  "Guardians of the Galaxy",
+  "Spider-Man",
+  "Black Panther & Wakanda",
+  "Doctor Strange & Wong",
+  "Wanda & Vision",
+  "Falcon & Winter Soldier",
+  "Loki & The TVA",
+  "The Thunderbolts",
+  "The Fantastic Four",
+  "Shang-Chi & The Ten Rings",
+  "The Champions",
+  "The Punisher",
+  "Eternals",
+  "Moon Knight",
+  "The Watcher",
+  "The Sony Spider-Men",
+  "The FoX-Men",
+  "Pruned Characters",
+  "The Avengers",
+  "Daredevil",
+  "Werewolf by Night",
+  "The Defenders",
+  "Ant-Man & the Wasp",
+  "Incursions"
+ ],
+ "changes": [
+  {
+   "key": "Thor",
+   "field": "quote",
+   "q": "S7",
+   "now": "Whosoever holds this hammer, if he be worthy, shall possess the power of Thor.",
+   "proposed": "This drink, I like it. Another!",
+   "evidence": "In Thor (2011) the hammer line is Odin's: he whispers it to Mjolnir as he banishes Thor to Earth (Wikiquote, Thor (film), Dialogue). Thor never says it, so it fails the character-box test. The proposed line is Thor's own in the same film (MCU wiki Thor/Quote, 'Spoken by Thor'); any other line Thor speaks would do.",
+   "source": "https://en.wikiquote.org/w/index.php?title=Thor_(film)&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Thor/Quote&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "Doctor Strange & Wong",
+   "field": "quote",
+   "q": "S7",
+   "now": "Forget everything you think you know.",
+   "proposed": "Dormammu, I’ve come to bargain.",
+   "evidence": "The line is Karl Mordo's to Stephen Strange at Kamar-Taj in Doctor Strange (2016) ('I once stood in your place... Forget everything you think you know.'). Neither Strange nor Wong says it. The proposed line is Strange's own in the same film (MCU wiki Doctor Strange/Quote).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Karl_Mordo/Quote&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Doctor_Strange/Quote&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "Hawkeye",
+   "field": "quote",
+   "q": "S7",
+   "now": "It comes with a price. This life you wanna live.",
+   "proposed": "This life you wanna live. To really help people. Comes a lot of sacrifices.",
+   "evidence": "Clint's line to Kate in Hawkeye episode 'Partners, Am I Right?' is 'This life you wanna live. To really help people. I mean, try to help people, anyway. Comes a lot of sacrifices.' 'It comes with a price' is not in it. Medium only because a trailer cut could word it differently.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kate_Bishop/Quote&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "ch-10, The Falcon & Winter Soldier, Moon Knight, Eternals, The FoX-Men, The Defenders",
+   "question": "These six quotes could not be found on screen in the sources (they pass under the stopping rule, but may be trailer or paraphrased lines). Keep them, or swap in sourced lines?",
+   "options": [
+    "Keep all six as they are",
+    "Replace any that are trailer-only or paraphrased with a line confirmed on screen"
+   ],
+   "evidence": "ch-10 'The Avengers are not coming.': not in Wikiquote's Thunderbolts* page (closest: Mel, 'No one else is coming to save the day'). Falcon & Winter Soldier: Sam's 'Co-workers.' is on screen (to Bucky's 'we're partners'), but 'Friends is a stretch' is not found. Moon Knight 'Your mind, I feel it. Fractured. Broken.': not on the Moon Knight, Arthur Harrow or Khonshu quote pages (if it is Harrow's, it is not the box's character either). Eternals 'Throughout the years, we have never interfered... until now.': not found in the film's quotes (looks like teaser narration). FoX-Men 'You're in my school for the gifted...': not on Wikiquote's X-Men (2000) or X-Men: The Animated Series pages. Defenders 'This is what we get, isn't it?...': no Wikiquote page; not found on the MCU wiki.",
+   "source": "https://en.wikiquote.org/w/index.php?title=Thunderbolts*&action=raw ; https://en.wikiquote.org/w/index.php?title=The_Falcon_and_the_Winter_Soldier&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Arthur_Harrow/Quote&prop=wikitext&format=json ; https://en.wikiquote.org/w/index.php?title=Eternals_(film)&action=raw ; https://en.wikiquote.org/w/index.php?title=X-Men_(film)&action=raw"
+  }
+ ]
+}

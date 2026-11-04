@@ -1,0 +1,82 @@
+{
+ "checked": [
+  "What If...? S3",
+  "X-Men '97 S2",
+  "Captain America (1944)",
+  "The Marvel Super Heroes",
+  "Fantastic Four (1967)",
+  "The Incredible Hulk (1977)",
+  "The Incredible Hulk Returns",
+  "The Trial of the Incredible Hulk",
+  "The Death of the Incredible Hulk",
+  "The Amazing Spider-Man (1977)",
+  "Doctor Strange (1978)",
+  "Captain America (1979)",
+  "Captain America II: Death Too Soon",
+  "Spider-Woman",
+  "Spider-Man (1981)",
+  "Spider-Man and His Amazing Friends",
+  "The Incredible Hulk (1982)",
+  "Howard the Duck",
+  "Solarman",
+  "The Punisher (1989)",
+  "Pryde of the X-Men",
+  "Captain America (1990)",
+  "Power Pack",
+  "The Fantastic Four (1994)",
+  "Iron Man (1994)",
+  "Fantastic Four (1994)",
+  "The Incredible Hulk (1996)",
+  "Generation X",
+  "Nick Fury: Agent of S.H.I.E.L.D.",
+  "Silver Surfer",
+  "Avengers: United They Stand",
+  "X-Men: Evolution",
+  "Mutant X",
+  "Hulk (2003)"
+ ],
+ "changes": [
+  {
+   "key": "Avengers: United They Stand",
+   "field": "t",
+   "q": "S1",
+   "now": "Avengers: United They Stand",
+   "proposed": "The Avengers: United They Stand",
+   "evidence": "The 1999 series' official title includes the leading article: Wikipedia opens \"The Avengers: United They Stand (also known simply as The Avengers) is an American animated television series\"; Marvel Database's Earth-730784 page also gives Title = \"The Avengers: United They Stand\" and cites \"The Avengers: United They Stand Season 1 1\". If changing the key t is awkward, set shown_as to the same string instead. Episode names (13) all match.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Avengers:_United_They_Stand&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "Doctor Strange (1978)",
+   "field": "shown_as",
+   "q": "S1",
+   "now": "Doctor Strange",
+   "proposed": "Dr. Strange",
+   "evidence": "The 1978 CBS TV film was released as \"Dr. Strange\" (Wikipedia: \"Dr. Strange is a 1978 American superhero television film\", aired September 6, 1978). Marvel Database's Earth-96173 page cites it as \"Dr. Strange (film)\". The t key could likewise become \"Dr. Strange (1978)\" if the owner wants the key to match.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Dr._Strange_(1978_film)&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "The Incredible Hulk (1977)",
+   "question": "Season 1 is given as 12 episodes because it includes the two 1977 pilot movies (\"The Incredible Hulk\" and \"A Death in the Family\"). Wikipedia lists those as separate pilot movies and gives season 1 (1978) as 10 episodes. In the same Incursions box, The Amazing Spider-Man (1977) leaves out its pilot movie. Should the Hulk pilots stay in season 1?",
+   "options": [
+    "Keep [12, 22, 23, 18, 7] with the pilots in season 1 (the DVD set convention)",
+    "Change to [10, 22, 23, 18, 7] and leave out the pilots, as with The Amazing Spider-Man (1977)"
+   ],
+   "evidence": "Wikipedia's series overview: pilot movies Nov 4 and Nov 28, 1977 (no season), season 1 episodes = 10, season 2 = 22, season 3 = 23, season 4 = 18, season 5 = 7. Every episode name and its order in the app otherwise match exactly.",
+   "source": "https://en.wikipedia.org/w/index.php?title=List_of_The_Incredible_Hulk_(1978_TV_series)_episodes&action=raw"
+  },
+  {
+   "key": "The Marvel Super Heroes",
+   "question": "episodes_per_season is [13, 13, 13, 13, 13], one group for each hero (Captain America, Hulk, Iron Man, Thor, Sub-Mariner). The show actually had one season of 65 episodes (Sept 5 to Dec 2, 1966). If the app labels these groups as Seasons 1 to 5, that's wrong. Keep the hero groups or make it one season?",
+   "options": [
+    "Keep the five 13-episode hero groups (fine if they're not labelled as seasons)",
+    "Change to one season of 65 episodes in the same order"
+   ],
+   "evidence": "Wikipedia infobox: num_seasons = 1, num_episodes = 65 (195 segments). The episode list is split by hero, 13 each. All 65 three-segment names in the app match exactly and are in order.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Marvel_Super_Heroes&action=raw"
+  }
+ ]
+}

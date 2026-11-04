@@ -1,0 +1,71 @@
+{
+ "checked": [
+  "avengers",
+  "arc",
+  "shield",
+  "mjolnir",
+  "hourglass",
+  "hawkeye",
+  "gamma",
+  "fury",
+  "eagle",
+  "hala",
+  "antman",
+  "starlord",
+  "spider",
+  "claws",
+  "agamotto",
+  "mind",
+  "redstar",
+  "loki",
+  "bolt",
+  "four",
+  "dd",
+  "rings",
+  "kamala",
+  "defenders",
+  "skull",
+  "eternals",
+  "moon",
+  "bloodstone",
+  "watcher",
+  "verse",
+  "xmen",
+  "tva",
+  "incursion"
+ ],
+ "changes": [
+  {
+   "key": "watcher",
+   "field": "unlocks_on",
+   "q": "A2",
+   "now": [
+    "What If...?",
+    "Loki S1"
+   ],
+   "proposed": [
+    "What If...?"
+   ],
+   "evidence": "Uatu the Watcher does not appear in Loki season 1. His Fandom infobox and Appearances list cover What If...? (26 episodes) plus one-episode spots in I Am Groot, Your Friendly Neighborhood Spider-Man, Eyes of Wakanda, Marvel Zombies (flashback), Daredevil: Born Again S2 (visual gag) and VisionQuest, a photo in She-Hulk and a statue in Thor: Love and Thunder. No Loki episode is listed.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Uatu&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "key": "watcher",
+   "field": "hint",
+   "q": "A2",
+   "now": "Unlocks after What If...? or Loki S1.",
+   "proposed": "Unlocks after What If...?.",
+   "evidence": "Follows the unlocks_on fix: the hint has to match the list, and the Watcher is not in Loki S1.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Uatu&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  "watcher: once Loki S1 is dropped, What If...? is the only title left, and A2 says never a single title. Every other Uatu appearance is one episode or a cameo (Eyes of Wakanda, Marvel Zombies, VisionQuest, I Am Groot, YFNSM), so which, if any, to add is the owner's call. Fix the hint's punctuation too if needed ('What If...?.').",
+  "Single-title unlocks_on (A2 says 'never a single one'): redstar (The Falcon and the Winter Soldier; Sam and Bucky are also in The Winter Soldier, Civil War, Infinity War, Endgame, plus Brave New World for Sam and Thunderbolts* for Bucky), defenders (could add Daredevil, Jessica Jones, Luke Cage, Iron Fist if they're in the catalog), bolt, four, rings, eternals, moon, bloodstone. For the last six, one title may be all there is today. Owner decides whether these are deliberate.",
+  "kamala (The Champions): the hint matches the list. But The Marvels is where Kamala starts recruiting the team (her end-credits visit to Kate Bishop), and Kate's Hawkeye is a Champions origin too. Owner decides whether The Marvels or Hawkeye belong in unlocks_on (the hint would change to match).",
+  "eagle (S.H.I.E.L.D.) has no hint or unlocks_on; tva (Pruned Characters) and incursion have a hint but no unlocks_on. A2's hint-matches-list check can't be run on them.",
+  "Titles not yet released as of 2026-11-04 appear in some lists: Avengers: Doomsday (xmen, out Dec 2026), Spider-Man: Beyond the Spider-Verse (verse) and probably Daredevil: Born Again S3 (dd). Not an MCU-fact error, so no change proposed. Just confirming they're intentional catalog entries."
+ ]
+}

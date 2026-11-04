@@ -1,0 +1,74 @@
+{
+ "checked": [
+  "The Amazing Spider-Man",
+  "The Punisher (2004)",
+  "What If...?",
+  "Marvel Zombies",
+  "X-Men: The Last Stand",
+  "The Wolverine",
+  "The Amazing Spider-Man 2",
+  "Blade: Trinity",
+  "Elektra",
+  "Fantastic Four (2005)",
+  "Peter's To-Do List",
+  "Spider-Man: Far From Home",
+  "The Daily Bugle",
+  "X-Men: Days of Future Past",
+  "Venom",
+  "Blade: The Series",
+  "Eternals",
+  "X-Men: Apocalypse",
+  "Venom: Let There Be Carnage",
+  "Fantastic Four: Rise of the Silver Surfer",
+  "Spider-Man: No Way Home",
+  "Agents of S.H.I.E.L.D. S6",
+  "Agents of S.H.I.E.L.D. S7",
+  "Dark Phoenix",
+  "X-Men: The Animated Series",
+  "X-Men '97",
+  "Venom: The Last Dance",
+  "Inhumans",
+  "Doctor Strange in the Multiverse of Madness",
+  "Black Widow (Post-Credits Scene)",
+  "Hawkeye",
+  "Moon Knight",
+  "Runaways S1–S2",
+  "Black Panther: Wakanda Forever",
+  "Deadpool",
+  "Morbius"
+ ],
+ "changes": [
+  {
+   "key": "The Daily Bugle",
+   "field": "episode_names:S2E7",
+   "q": "S5",
+   "now": "Daily Bugle Exclusive: meet author Eugene \"Flash\" Thompson - the creator of the name Spider-Man.",
+   "proposed": "Daily Bugle Exclusive: meet author Eugene \"Flash\" Thompson - the creator of the name \"Spider-Man.\"",
+   "evidence": "Wikipedia episode table, NWH campaign ep 7, title: Daily Bugle Exclusive: meet author Eugene \"Flash\" Thompson [dash] the creator of the name \"Spider-Man.\" (the name is in quotes). The app drops those quote marks. Its hyphen, standing in for Wikipedia's em dash, is kept per the no-em-dash rule.",
+   "source": "https://en.wikipedia.org/w/index.php?title=The_Daily_Bugle_(web_series)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "X-Men '97",
+   "question": "Season 1 episodes 4 and 6 are officially \"Motendo / Lifedeath – Part 1\" and \"Lifedeath – Part 2\" (en dash), but the app has \"Lifedeath, Part 1/2\". Do you want the official en-dash form or the app's own \", Part N\" style? The app uses that style for multi-part episodes everywhere (Wikipedia gives \"Tolerance Is Extinction\" as one title split into parts).",
+   "options": [
+    "Keep the app style \", Part N\"",
+    "Use the official \"Motendo / Lifedeath – Part 1\" and \"Lifedeath – Part 2\""
+   ],
+   "evidence": "X-Men '97 season 1 episode table: Title_2 = Lifedeath – Part 1; Title = Lifedeath – Part 2 (the Disney+ episode citation uses the same title).",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw"
+  },
+  {
+   "key": "X-Men '97",
+   "question": "episodes_per_season is [10, 9, null] and episode_names has an empty third season. Season 3 is unreleased (expected 2027). Should the empty season-3 slot stay as a placeholder or be removed until it is released?",
+   "options": [
+    "Remove the empty season 3 slot",
+    "Keep it as a deliberate placeholder"
+   ],
+   "evidence": "The X-Men '97 page lists only Season 1 (2024) and Season 2 (2026, 9 episodes, July 1 to August 12, 2026). A hidden comment on the page says season 3 is expected in 2027.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797&action=raw"
+  }
+ ]
+}

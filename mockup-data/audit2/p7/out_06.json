@@ -1,0 +1,76 @@
+{
+ "checked": [
+  "Thunderbolts*",
+  "Wonder Man",
+  "Spider-Man (1994)",
+  "Daredevil: Born Again S2",
+  "The Punisher: One Last Kill",
+  "Spider-Man Unlimited",
+  "Spider-Man: Brand New Day",
+  "VisionQuest",
+  "The Spectacular Spider-Man",
+  "Daredevil: Born Again S3",
+  "The Fantastic Four: First Steps",
+  "Avengers: Doomsday",
+  "Avengers: Secret Wars",
+  "What If...? S1",
+  "I Am Groot S1",
+  "I Am Groot S2",
+  "What If...? S2",
+  "X-Men '97 S1"
+ ],
+ "changes": [
+  {
+   "key": "VisionQuest",
+   "field": "episode_names:5",
+   "q": "S5",
+   "now": null,
+   "proposed": "Firewall",
+   "evidence": "Wikipedia's VisionQuest episode table lists episode 5 as \"Firewall\", released October 27, 2026, so it has aired and its name is known; the app leaves it blank.",
+   "source": "https://en.wikipedia.org/w/index.php?title=VisionQuest&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "VisionQuest",
+   "field": "episode_names:6",
+   "q": "S5",
+   "now": null,
+   "proposed": "Deadlock",
+   "evidence": "Wikipedia's VisionQuest episode table lists episode 6 as \"Deadlock\", released October 27, 2026, so it has aired and its name is known; the app leaves it blank.",
+   "source": "https://en.wikipedia.org/w/index.php?title=VisionQuest&action=raw",
+   "confidence": "high"
+  },
+  {
+   "key": "VisionQuest",
+   "field": "episode_names:7",
+   "q": "S5",
+   "now": null,
+   "proposed": "Immolation",
+   "evidence": "Wikipedia's VisionQuest episode table lists episode 7 as \"Immolation\", released November 3, 2026, so it has aired and its name is known; the app leaves it blank.",
+   "source": "https://en.wikipedia.org/w/index.php?title=VisionQuest&action=raw",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "key": "VisionQuest",
+   "question": "Episode 8 \"Forever\" is titled but not released until November 10, 2026. Fill its name now, or leave it blank until it airs?",
+   "options": [
+    "Fill \"Forever\" now",
+    "Leave blank until November 10, 2026"
+   ],
+   "evidence": "Wikipedia's VisionQuest episode table lists episode 8 as \"Forever\" with a release date of November 10, 2026.",
+   "source": "https://en.wikipedia.org/w/index.php?title=VisionQuest&action=raw"
+  },
+  {
+   "key": "X-Men '97 S1",
+   "question": "The official multi-part episode titles use an en dash (\"Lifedeath – Part 1\", \"Lifedeath – Part 2\", \"Tolerance Is Extinction – Part 1/2/3\"); the app writes them with a comma (\"Lifedeath, Part 2\", \"Tolerance Is Extinction, Part 1\"). Switch to the en-dash form, or keep the comma form as the app's house style?",
+   "options": [
+    "Use the official en-dash form for episodes 4, 6, 8, 9 and 10",
+    "Keep the comma form"
+   ],
+   "evidence": "Wikipedia's X-Men '97 season 1 episode table gives Title_2 = \"Lifedeath – Part 1\" (episode 4), \"Lifedeath – Part 2\" (episode 6), and the three-part \"Tolerance Is Extinction\" labelled Part 1 to 3 (episodes 8 to 10). The words and order otherwise match.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw"
+  }
+ ]
+}
