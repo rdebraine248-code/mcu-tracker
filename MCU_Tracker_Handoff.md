@@ -212,6 +212,8 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
 - The error bar (owner, 4 November 2026): the 1 to 1.5% bar counts wrong statements only (a wrong fact, episode, kind or tie). A missing
   stage, where the tie and its text are right but the story skips a turn or starts a title late, is completeness, fixed when found
   but not counted. The Network's seventh 600 is 1.5% on that count (9 wrong, plus 7 missing stages), so the Network is done.
+- Network group names (owner, 4 November 2026, on Okoye and Ayo after Black Panther): any group of two or more is named on the floor
+  once you're zoomed in, in the smaller lettering; only three or more fold into a bubble zoomed out (hub-src, the floor labels).
 
 ### Tests
 
