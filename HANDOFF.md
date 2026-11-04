@@ -61,7 +61,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v135 (4 November 2026) and matches main (ab088a6, pushed 4 November 2026) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v138 (4 November 2026, the audit's end: everything on the working branch, ahead of main until the owner says push) and carries the landscape mockup, which only it has. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
@@ -141,6 +141,9 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   War's map; the HYDRA Academy flashback labelled 1990 ("28 years ago" from 2018). Saint Mabyn's and Project Pegasus stay as they are.
 - The Incredible Hulk (1977) keeps the two pilot movies in season 1 (12 episodes), as TVmaze and the DVD sets list it.
 - Damage Control's Horde report (2396) stays on the Sacred Timeline: the last Black Panther's own future.
+- The error bar (owner, 4 November 2026): the 1 to 1.5% bar counts wrong statements only (a wrong fact, episode, kind or tie). A missing
+  stage, where the tie and its text are right but the story skips a turn or starts a title late, is completeness, fixed when found
+  but not counted. The Network's seventh 600 is 1.5% on that count (9 wrong, plus 7 missing stages), so the Network is done.
 
 ### Tests
 

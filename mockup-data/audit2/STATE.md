@@ -295,3 +295,6 @@ FILES RE-AUDIT APPLIED: STEP_AUDIT2 in index (71 fixes, text-matched after EPTAG
 - Part 9: 5 batches done (37 changes, 5 calls); second check p9/v_1, v_2 -> vout_1, vout_2 running. Apply: the Multiverse map and
   the Incursions wall live in index.html (ATLAS_UNI / the Incursions data); the Watcher boxes in DATA.
 - Suite run on the logs+Atlas+parts 7-8 build: out/suite.log.
+- AUDIT DONE (4 November 2026, evening). Logs 1.3% (s7), Atlas 0% (s6), Network 1.5% wrong statements in ns7 (owner: missing
+  stages are completeness, not counted). Parts 6 to 9 applied. Implied ties restored (rc/), the screen and episode-text pass (pass7),
+  the owner's answers in HANDOFF. Suite green (33 + content). Test build v138. NEXT: owner's look, main on "push", landscape stage 2.
