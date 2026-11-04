@@ -1,0 +1,87 @@
+{
+ "checked": [
+  "bucky-barnes|christina-raynor:0",
+  "sv-peter-parker-1994|sv-green-goblin-1994:0",
+  "sv-ben-reilly-noir|sv-sandman-noir:0",
+  "st-alexandra|st-danny-rand:1",
+  "st-glenn-talbot|st-melinda-may:0",
+  "st-jack-thompson|peggy-carter:0",
+  "pr-punisher|pr-joan:0",
+  "ronnie-williams|zelma-stanton:0",
+  "korg|miek:0",
+  "cooper-barton|nathaniel-barton:0",
+  "by-st-nathaniel-malick|st-daniel-sousa:0",
+  "fox-anim-magneto|fox-anim-apocalypse:0",
+  "pr-kingpin|pr-wesley-owen-welch:0",
+  "st-mack|st-davis:0",
+  "agent-cleary|sadie-deever:0",
+  "sv-julia-cornwall|sv-mattie-franklin:0",
+  "fox-anim-professor-x|fox-anim-sauron:0",
+  "alligator-loki|loki:0",
+  "by-zombie-okoye|by-zombie-bucky:0",
+  "fox-anim-beast|fox-anim-magneto:2",
+  "fox-kitty-pryde|fox-juggernaut:0",
+  "sv-peter-parker-1967|sv-stan-patterson-1967:1",
+  "kate-bishop|st-kingpin:0",
+  "fox-nightcrawler-young|fox-stryker-young:0",
+  "pr-punisher|pr-bobby-saint:0",
+  "st-elena-rodriguez|st-enoch:2",
+  "agent-cleary|simon-williams:0",
+  "st-dottie-underwood|st-jason-wilkes:0",
+  "st-felix-manning|st-melvin-potter:0",
+  "st-glenn-talbot|st-melinda-may:1",
+  "st-mr-charles|valentina:1",
+  "fox-anim-bishop|fox-anim-cable:0",
+  "pr-abby-miller|pr-mark-miller:0",
+  "sv-peter-parker-smu|sv-carnage-smu:0",
+  "sv-kingpin-1994|sv-silvermane-1994:0",
+  "st-shades|st-zip:1",
+  "st-lance-hunter|st-leo-fitz:2",
+  "st-daisy-johnson|st-leo-fitz:0",
+  "by-zombie-rintrah|by-zombie-peter-parker:1",
+  "st-claire-temple|st-rafael-scarfe:0",
+  "sv-richard-fisk-1994|sv-daredevil-1994:0",
+  "st-james-wesley|st-karen-page:0",
+  "sv-scorpion-itsv|sv-spider-man-noir:0",
+  "aaron-davis|peter-parker:0",
+  "sv-tinkerer-ssm|sv-peter-parker-ssm:0",
+  "st-calvin-chadwick|st-jason-wilkes:0",
+  "fox-anim-morph|fox-anim-brood:0",
+  "corvus-glaive|thanos:0",
+  "by-ultron-atoned|by-captain-carter:0",
+  "by-zombie-sara|by-zombie-thor:0"
+ ],
+ "changes": [],
+ "owner_calls": [
+  {
+   "id": "st-jack-thompson|peggy-carter:0",
+   "question": "Stage 0 (Agent Carter S1) has kind 'boss', but at the start of S1 Thompson is a fellow agent and Chief Roger Dooley is the boss of both. He only becomes chief after Dooley dies in S1#7. He does run the office while Dooley is in Nuremberg and orders Peggy to take lunch orders, so 'boss' can be argued. Keep 'boss' or change it to 'rival'?",
+   "options": [
+    "Keep kind 'boss'",
+    "Change kind to 'rival' (fellow agent who belittles her)"
+   ],
+   "evidence": "Fandom: Thompson 'had little to no respect for one of his fellow agents, Peggy Carter'; he is appointed lead investigator by Chief Roger Dooley; 'With Dooley dead, Thompson was now the acting chief of the SSR' (AC107). While Dooley is away, he is left in charge and orders Carter to take lunch orders (AC103/104).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jack_Thompson&prop=wikitext&format=json"
+  },
+  {
+   "id": "st-glenn-talbot|st-melinda-may:0",
+   "question": "Possible missing turn (N5). Between S2#1 (rival) and S5 (enemy), Talbot comes over to S.H.I.E.L.D.'s side. In S2#6 'A Fractured House', May's team hands captured Hydra agents over to Talbot, and he starts to agree with Coulson's mission. He keeps working with the team through S3 and early S5, then turns on them in S5. Add an ally stage at S2#6?",
+   "options": [
+    "Leave as is",
+    "Add an ally stage at Agents of S.H.I.E.L.D. S2#6: May leads the team that captures the Hydra agents behind the UN attack and hands them to Talbot, who comes round to S.H.I.E.L.D.'s side"
+   ],
+   "evidence": "Wikipedia, AoS S2 ep 6 'A Fractured House': 'May leads a team against the Hydra agents who attacked the UN, capturing several and turning them over to Talbot, who begins to agree with Coulson's mission and offers his condolences for fallen S.H.I.E.L.D. agents.'",
+   "source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw"
+  },
+  {
+   "id": "agent-cleary|simon-williams:0",
+   "question": "N7 / implied tie. The stage text is accurate, but Cleary and Simon never meet on screen. Cleary runs the whole Damage Control case against Simon through Trevor. Simon learns of that deal in #7 and breaks Trevor out of Cleary's prison in #8, while Cleary pitches Simon to his boss as a threat or asset. Keep the tie (an active targeting with big consequences for Simon), or drop it as knowing about each other only?",
+   "options": [
+    "Keep the tie as is (recommended under 'Implied ties stay')",
+    "Drop the connection"
+   ],
+   "evidence": "Cleary has Trevor spy on Simon and wiretap and hack him (eps 1-6). Trevor confesses the DODC deal to Simon (ep 7). Simon breaks Trevor out of the DODC prison as Cleary arrives too late (ep 8). Fandom lists Simon as Cleary's 'Target', with no scene of the two together.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=P._Cleary&prop=wikitext&format=json"
+  }
+ ]
+}

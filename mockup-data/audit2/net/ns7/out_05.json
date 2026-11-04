@@ -1,0 +1,112 @@
+{
+ "checked": [
+  "fox-anim-magneto|fox-anim-fabian-cortez:0",
+  "st-kara-palamas|st-sunil-bakshi:0",
+  "ayesha|peter-quill:0",
+  "frigga|jane-foster:0",
+  "st-kilgrave|st-reva-connors:0",
+  "fox-rogue|fox-iceman:2",
+  "pr-kounen|pr-abraham-whistler:0",
+  "natasha-romanoff|okoye:0",
+  "fox-anim-storm|fox-anim-adversary:1",
+  "natasha-romanoff|phil-coulson:1",
+  "st-elena-rodriguez|st-eli-morrow:0",
+  "st-misty-knight|st-shades:1",
+  "nakia-bahadir|sadie-deever:1",
+  "sv-doc-ock-ssm|sv-tinkerer-ssm:0",
+  "gilgamesh|kro:0",
+  "razor-fist|ying-nan:0",
+  "sv-chameleon-ssm|sv-tinkerer-ssm:0",
+  "st-antoine-triplett|phil-coulson:1",
+  "karl-mordo|wong:0",
+  "korg|zeus:0",
+  "pr-deacon-frost|pr-karen-jenson:0",
+  "fox-charles-xavier-young|fox-wolverine:0",
+  "brock-rumlow|jasper-sitwell:0",
+  "st-foggy-nelson|st-kingpin:0",
+  "st-jason-wilkes|peggy-carter:0",
+  "st-luke-cage|st-misty-knight:1",
+  "sv-miles-morales|sv-may-parker-1610:0",
+  "tchalla|toussaint:0",
+  "sv-miles-morales|sv-prowler-earth42:0",
+  "kevin-bacon|mantis:0",
+  "bill-foster|scott-lang:0",
+  "fox-colossus-dp|fox-negasonic:0",
+  "sv-peter-parker-1994|sv-michael-morbius-1994:1",
+  "pr-st-nico-minoru|pr-st-darius-davis:0",
+  "bucky-barnes|jack-rollins:0",
+  "st-luke-cage|st-murakami:1",
+  "lylla|high-evolutionary:0",
+  "sv-hobgoblin-1994|sv-green-goblin-1994:2",
+  "pagon|talos:0",
+  "sv-robbie-robertson-noir|sv-megawatt-noir:0",
+  "mobius-m-mobius|victor-timely:0",
+  "liz|vulture:0",
+  "brock-rumlow|maria-hill:0",
+  "sv-iron-man-1994|sv-war-machine-1994:1",
+  "st-mack|st-enoch:0",
+  "st-nobu|st-stick:1",
+  "fox-deadpool|fox-weasel:0",
+  "by-zombie-kamala|by-zombie-katy:0",
+  "alioth|sylvie:0",
+  "loki|president-loki:0"
+ ],
+ "changes": [
+  {
+   "id": "st-foggy-nelson|st-kingpin:0",
+   "pair": "st-foggy-nelson|st-kingpin",
+   "a": "Foggy Nelson",
+   "b": "Wilson Fisk",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "enemy",
+    "title": "Daredevil S1#9",
+    "text": "Foggy Nelson digs with Karen and Ben Urich for something in Fisk's past to use against him.",
+    "on_a_card_about_b": "The crime lord Foggy digs into.",
+    "on_b_card_about_a": "Lawyer who digs into Fisk's past."
+   },
+   "proposed": {
+    "text": "Foggy Nelson digs into Fisk's operations with Karen, Matt and Ben Urich, looking for the link between Westmeyer-Holt and Confederated Global."
+   },
+   "evidence": "In Daredevil S1#9 'Speak of the Devil', Ben Urich meets Karen and Foggy, and with Matt they decide to find the connection from Westmeyer-Holt Contracting to Confederated Global Investments to reach Fisk. They are digging into his current operations, not his past (Fisk's past is dug up later by Karen and Ben).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Speak_of_the_Devil&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "id": "by-zombie-kamala|by-zombie-katy:0",
+   "pair": "by-zombie-kamala|by-zombie-katy",
+   "a": "Kamala Khan",
+   "b": "Katy Chen",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "friend",
+    "title": "Marvel Zombies#2",
+    "text": "Katy joins Kamala's group with Shang-Chi after the Raft falls.",
+    "on_a_card_about_b": "Shang-Chi's best friend, now Kamala's too.",
+    "on_b_card_about_a": "Katy's new friend."
+   },
+   "proposed": {
+    "text": "Katy and Shang-Chi's group reaches the Raft along with Kamala's, and the two groups agree to work together."
+   },
+   "evidence": "In Marvel Zombies #2, Shang-Chi's group (with Katy) arrives at Zemo's Raft along with Kamala's group and both agree to work together; only afterwards does Namor's attack sink the Raft. The groups join at the Raft, not after it falls.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Marvel_Zombies_(TV_series)&action=raw",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "fox-charles-xavier-young|fox-wolverine:0",
+   "question": "The X-Men: Days of Future Past stage already mentions the earlier bar scene in X-Men: First Class, where young Charles and Erik try to recruit Logan and he brushes them off. Should that meeting get its own earlier stage on X-Men: First Class?",
+   "options": [
+    "Keep as is: one stage on Days of Future Past that mentions the bar scene",
+    "Add a stage 0 on X-Men: First Class (kind rival or ally) for the bar scene, with Days of Future Past as stage 1"
+   ],
+   "evidence": "In X-Men: First Class, Charles and Erik approach Logan in a bar to recruit him and he turns them away (Hugh Jackman's cameo, which won Best Cameo). The current stage 0 text refers to it as backstory but no stage sits on that title.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men:_First_Class&action=raw"
+  }
+ ]
+}

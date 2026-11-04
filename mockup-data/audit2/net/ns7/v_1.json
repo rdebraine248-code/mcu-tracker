@@ -1,0 +1,988 @@
+[
+ {
+  "n": 0,
+  "type": "question",
+  "id": "st-jack-thompson|peggy-carter:0",
+  "question": "Stage 0 (Agent Carter S1) has kind 'boss', but at the start of S1 Thompson is a fellow agent and Chief Roger Dooley is the boss of both. He only becomes chief after Dooley dies in S1#7. He does run the office while Dooley is in Nuremberg and orders Peggy to take lunch orders, so 'boss' can be argued. Keep 'boss' or change it to 'rival'?",
+  "options": [
+   "Keep kind 'boss'",
+   "Change kind to 'rival' (fellow agent who belittles her)"
+  ],
+  "their_evidence": "Fandom: Thompson 'had little to no respect for one of his fellow agents, Peggy Carter'; he is appointed lead investigator by Chief Roger Dooley; 'With Dooley dead, Thompson was now the acting chief of the SSR' (AC107). While Dooley is away, he is left in charge and orders Carter to take lunch orders (AC103/104).",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jack_Thompson&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-jack-thompson|peggy-carter:0",
+   "pair": "st-jack-thompson|peggy-carter",
+   "a": "Jack Thompson",
+   "b": "Peggy Carter",
+   "a_desc": "The SSR's star agent",
+   "b_desc": "A founder of S.H.I.E.L.D.",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "Agent Carter S1",
+     "text": "Jack Thompson is the SSR's star agent and treats Peggy Carter like a secretary.",
+     "on_a_card_about_b": "An agent Jack belittles.",
+     "on_b_card_about_a": "The SSR's star agent, who belittles Peggy."
+    },
+    {
+     "i": 1,
+     "kind": "boss",
+     "title": "Agent Carter S1#5",
+     "text": "After their mission in Russia, Thompson comes to respect Peggy.",
+     "on_a_card_about_b": "An agent Jack belittles, then respects after Russia.",
+     "on_b_card_about_a": "The star agent who belittles Peggy, then respects her after Russia."
+    },
+    {
+     "i": 2,
+     "kind": "boss",
+     "title": "Agent Carter S1#8",
+     "text": "With Dooley dead, Thompson is now Peggy's chief, and he takes the credit for her work in stopping Fennhoff.",
+     "on_a_card_about_b": "An agent Jack belittles, then respects after Russia, while taking credit for her work.",
+     "on_b_card_about_a": "Peggy's chief, who belittles her, comes to respect her, and still takes her credit."
+    },
+    {
+     "i": 3,
+     "kind": "rival",
+     "title": "Agent Carter S2",
+     "text": "Thompson runs the SSR in New York and sends Peggy to help the Los Angeles office.",
+     "on_a_card_about_b": "Jack's agent, whom he sends to Los Angeles.",
+     "on_b_card_about_a": "Peggy's chief in New York, who sends her to Los Angeles."
+    },
+    {
+     "i": 4,
+     "kind": "rival",
+     "title": "Agent Carter S2#3",
+     "text": "Thompson comes to Los Angeles at Vernon Masters's invitation and tries to bury Peggy's case, signing a forged report himself and ordering her back to New York.",
+     "on_a_card_about_b": "Jack's rival. He tries to bury her case.",
+     "on_b_card_about_a": "Peggy's old chief, who tries to bury her case."
+    },
+    {
+     "i": 5,
+     "kind": "rival",
+     "title": "Agent Carter S2#8",
+     "text": "Thompson learns that Masters is working for Whitney Frost and joins Peggy's team at the rift to stop her.",
+     "on_a_card_about_b": "Jack's rival, whose team he joins against Frost.",
+     "on_b_card_about_a": "Peggy's old chief, who tries to bury her case, then joins her against Frost."
+    },
+    {
+     "i": 6,
+     "kind": "rival",
+     "title": "Agent Carter S2#9",
+     "text": "Thompson secretly turns the gamma cannon into a bomb to kill Frost, Masters and Wilkes, and Peggy races to stop him and save Wilkes.",
+     "on_a_card_about_b": "Jack's rival, who races to stop his bomb.",
+     "on_b_card_about_a": "Peggy's old chief, who goes behind her back with a bomb."
+    },
+    {
+     "i": 7,
+     "kind": "rival",
+     "title": "Agent Carter S2#10",
+     "text": "Thompson helps Peggy's team defeat Whitney Frost, then gives Peggy the Council of Nine's secret key.",
+     "on_a_card_about_b": "Jack's rival, to whom he gives the Council's key.",
+     "on_b_card_about_a": "Peggy's old chief, who helps her stop Whitney Frost and gives her the Council's key."
+    }
+   ]
+  }
+ },
+ {
+  "n": 1,
+  "type": "question",
+  "id": "st-glenn-talbot|st-melinda-may:0",
+  "question": "Possible missing turn (N5). Between S2#1 (rival) and S5 (enemy), Talbot comes over to S.H.I.E.L.D.'s side. In S2#6 'A Fractured House', May's team hands captured Hydra agents over to Talbot, and he starts to agree with Coulson's mission. He keeps working with the team through S3 and early S5, then turns on them in S5. Add an ally stage at S2#6?",
+  "options": [
+   "Leave as is",
+   "Add an ally stage at Agents of S.H.I.E.L.D. S2#6: May leads the team that captures the Hydra agents behind the UN attack and hands them to Talbot, who comes round to S.H.I.E.L.D.'s side"
+  ],
+  "their_evidence": "Wikipedia, AoS S2 ep 6 'A Fractured House': 'May leads a team against the Hydra agents who attacked the UN, capturing several and turning them over to Talbot, who begins to agree with Coulson's mission and offers his condolences for fallen S.H.I.E.L.D. agents.'",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_2&action=raw",
+  "connection": {
+   "id": "st-glenn-talbot|st-melinda-may:0",
+   "pair": "st-glenn-talbot|st-melinda-may",
+   "a": "Glenn Talbot",
+   "b": "Melinda May",
+   "a_desc": "A US Air Force general who distrusts S.H.I.E.L.D.",
+   "b_desc": "A veteran S.H.I.E.L.D. pilot called the Cavalry",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "rival",
+     "title": "Agents of S.H.I.E.L.D. S2#1",
+     "text": "Melinda May saves General Glenn Talbot from Carl Creel and then helps kidnap him so Coulson can deal with him.",
+     "on_a_card_about_b": "Agent who saves Talbot from Creel, then helps kidnap him.",
+     "on_b_card_about_a": "General May saves from Creel, then helps kidnap for Coulson."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S5",
+     "text": "When May and Daisy board Qovas' ship to bring Coulson back, Talbot, now powered by gravitonium, knocks Daisy out and forces May to surrender.",
+     "on_a_card_about_b": "Agent Talbot forces to surrender aboard Qovas' ship.",
+     "on_b_card_about_a": "Gravitonium-powered general who forces May to surrender aboard Qovas' ship."
+    }
+   ]
+  }
+ },
+ {
+  "n": 2,
+  "type": "question",
+  "id": "agent-cleary|simon-williams:0",
+  "question": "N7 / implied tie. The stage text is accurate, but Cleary and Simon never meet on screen. Cleary runs the whole Damage Control case against Simon through Trevor. Simon learns of that deal in #7 and breaks Trevor out of Cleary's prison in #8, while Cleary pitches Simon to his boss as a threat or asset. Keep the tie (an active targeting with big consequences for Simon), or drop it as knowing about each other only?",
+  "options": [
+   "Keep the tie as is (recommended under 'Implied ties stay')",
+   "Drop the connection"
+  ],
+  "their_evidence": "Cleary has Trevor spy on Simon and wiretap and hack him (eps 1-6). Trevor confesses the DODC deal to Simon (ep 7). Simon breaks Trevor out of the DODC prison as Cleary arrives too late (ep 8). Fandom lists Simon as Cleary's 'Target', with no scene of the two together.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=P._Cleary&prop=wikitext&format=json",
+  "connection": {
+   "id": "agent-cleary|simon-williams:0",
+   "pair": "agent-cleary|simon-williams",
+   "a": "Agent Cleary",
+   "b": "Simon Williams",
+   "a_desc": "A Department of Damage Control agent",
+   "b_desc": "A struggling actor hiding ionic superpowers",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Wonder Man#1",
+     "text": "Agent Cleary of Damage Control targets Simon Williams and plants Trevor Slattery near him to prove he has powers.",
+     "on_a_card_about_b": "Cleary's target. Cleary plants Trevor near Simon to prove Simon has powers.",
+     "on_b_card_about_a": "A Damage Control agent who targets Simon and plants Trevor near him."
+    }
+   ]
+  }
+ },
+ {
+  "n": 3,
+  "type": "question",
+  "id": "pr-st-andre-deschaine|pr-st-mina-hess:0",
+  "question": "Keep this tie? Mina is one of the many people across New Orleans pulled into Andre's trance club. No scene shows the two dealing with each other one on one. It is his power acting on her directly, but it is also a mass event.",
+  "options": [
+   "Keep as is (Andre's trance acts on Mina directly)",
+   "Drop (a mass event where they never deal with each other)"
+  ],
+  "their_evidence": "Cloak & Dagger S2E10 'Level Up': people disappear all over the city into Andre's trance, Mina among them. Tandy and Tyrone defeat Andre and free everyone.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Cloak_%26_Dagger_season_2&action=raw",
+  "connection": {
+   "id": "pr-st-andre-deschaine|pr-st-mina-hess:0",
+   "pair": "pr-st-andre-deschaine|pr-st-mina-hess",
+   "a": "Andre Deschaine",
+   "b": "Mina Hess",
+   "a_desc": "A jazz musician with a dark gift",
+   "b_desc": "A Roxxon scientist",
+   "universe": "pr",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Cloak & Dagger#20",
+     "text": "Mina is among the people caught in Andre's trance, until Tandy frees her.",
+     "on_a_card_about_b": "One of the people Andre puts in a trance.",
+     "on_b_card_about_a": "The man who traps Mina in his trance."
+    }
+   ]
+  }
+ },
+ {
+  "n": 4,
+  "type": "question",
+  "id": "pr-st-karnak|pr-st-gorgon:0",
+  "question": "Does the show say on screen that Karnak and Gorgon are cousins? Sources only describe each one as Black Bolt's cousin (and Triton as Karnak's brother). If the show never makes them cousins of each other, the kind 'family' and the card lines 'Karnak's cousin' / 'Gorgon's cousin' rest on the comics.",
+  "options": [
+   "Keep family/cousins",
+   "Change kind to friend and drop the 'cousin' wording"
+  ],
+  "their_evidence": "Inhumans cast list: Karnak is 'Black Bolt's cousin and closest adviser'; Gorgon is 'Black Bolt's cousin and leader of Attilan's Royal Guard'. Episode summaries (eps 5 to 8) support the rest of the text: Gorgon rescues Karnak and Jen, dies in ep 6, and is revived by a second Terrigenesis in ep 7.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Inhumans_(TV_series)&action=raw",
+  "connection": {
+   "id": "pr-st-karnak|pr-st-gorgon:0",
+   "pair": "pr-st-karnak|pr-st-gorgon",
+   "a": "Karnak",
+   "b": "Gorgon",
+   "a_desc": "An Inhuman who sees the flaw in everything",
+   "b_desc": "An Inhuman with hooves that make shockwaves",
+   "universe": "pr",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "family",
+     "title": "Inhumans",
+     "text": "Karnak and Gorgon are cousins and old friends who scold each other's extremes. Gorgon rescues Karnak and Jen on Oahu, and when Gorgon dies, Karnak brings him back through a second Terrigenesis and helps him remember.",
+     "on_a_card_about_b": "Karnak's cousin, whom he brings back from death.",
+     "on_b_card_about_a": "Gorgon's cousin, who brings him back."
+    }
+   ]
+  }
+ },
+ {
+  "n": 5,
+  "type": "question",
+  "id": "sv-peter-parker-1994|sv-baron-mordo-1994:1",
+  "question": "This is outside the stage I checked (stage 0 passes), but stage 1 has a factual title error. Stage 1 sits on #37 ('Venom Returns'), yet its text also says Mordo helps turn Cletus Kasady into Carnage, and that happens in #38 ('Carnage'). Move stage 1 to 'Spider-Man (1994)#38'?",
+  "options": [
+   "Move stage 1 title to Spider-Man (1994)#38",
+   "Leave as is"
+  ],
+  "their_evidence": "Ep 37 'Venom Returns': Dormammu and Mordo bring the symbiote back to Earth. Ep 38 'Carnage': when Brock refuses them, they turn Cletus Kasady into Carnage.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=List_of_Spider-Man:_The_Animated_Series_episodes&action=raw",
+  "connection": {
+   "id": "sv-peter-parker-1994|sv-baron-mordo-1994:0",
+   "pair": "sv-peter-parker-1994|sv-baron-mordo-1994",
+   "a": "Peter Parker",
+   "b": "Baron Mordo",
+   "a_desc": "An ESU student and Bugle photographer",
+   "b_desc": "A sorcerer who serves Dormammu",
+   "universe": "sv",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Spider-Man (1994)#28",
+     "text": "Baron Mordo draws Mary Jane into his cult to free Dormammu, and Spider-Man teams with Doctor Strange to stop him.",
+     "on_a_card_about_b": "A sorcerer serving Dormammu.",
+     "on_b_card_about_a": "Stands in Mordo's way."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Spider-Man (1994)#37",
+     "text": "Mordo brings back Venom's symbiote and helps turn Cletus Kasady into Carnage to free Dormammu.",
+     "on_a_card_about_b": "A sorcerer serving Dormammu.",
+     "on_b_card_about_a": "Stands in Mordo's way."
+    }
+   ]
+  }
+ },
+ {
+  "n": 6,
+  "type": "change",
+  "id": "st-calvin-zabo|st-jemma-simmons:0",
+  "q": "N5",
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S2#22",
+   "text": "Once Cal agrees to help stop Jiaying, Jemma treats him and reverses the changes his formula caused.",
+   "on_a_card_about_b": "A S.H.I.E.L.D. scientist who revives Cal, then reverses his formula's changes.",
+   "on_b_card_about_a": "Skye's father. Jemma reverses his formula's changes once he agrees to help."
+  },
+  "i": null,
+  "their_evidence": "In S.O.S. Part Two (S2#22), after Coulson talks Cal down, Cal agrees to work with S.H.I.E.L.D.; he is placed under guard while Simmons counteracts his formula, reversing his physical changes, and he joins the mission against Jiaying. Enemy turns ally with no stage.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Calvin_Zabo&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-calvin-zabo|st-jemma-simmons:0",
+   "pair": "st-calvin-zabo|st-jemma-simmons",
+   "a": "Calvin Zabo",
+   "b": "Jemma Simmons",
+   "a_desc": "Skye's volatile father, a doctor",
+   "b_desc": "A S.H.I.E.L.D. biochemist",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S2#21",
+     "text": "When Calvin Zabo's heart stops in S.H.I.E.L.D. custody, Jemma revives him with adrenaline, which accidentally completes the formula in his blood. He transforms, shrugs off the agents' I.C.E.R.s, and comes after her and the others.",
+     "on_a_card_about_b": "A S.H.I.E.L.D. scientist who revives Cal, completing his formula by accident.",
+     "on_b_card_about_a": "Skye's father. Jemma revives him, completing his formula by accident."
+    }
+   ]
+  }
+ },
+ {
+  "n": 7,
+  "type": "change",
+  "id": "pr-st-alex-wilder|pr-st-awol:0",
+  "q": "N5",
+  "proposed": {
+   "kind": "enemy",
+   "title": "Runaways S1–S2#19",
+   "text": "Alex makes a deal with AWOL to turn on Flores and PRIDE, but AWOL double-crosses him and kidnaps Livvie to find the Runaways.",
+   "on_a_card_about_b": "The corrupt cop who makes a deal with Alex, then double-crosses him.",
+   "on_b_card_about_a": "A runaway who makes a deal with AWOL and is double-crossed."
+  },
+  "i": null,
+  "their_evidence": "In S2E9 (#19 counting S1's 10 episodes), Alex confronts AWOL at the restaurant, then meets him at Tamar's house and they strike a deal for AWOL to turn on Flores; AWOL double-crosses Alex, goes to PRIDE, kills Flores and abducts Livvie. A betrayal between the stages at #18 and #20.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=AWOL&prop=wikitext&format=json",
+  "connection": {
+   "id": "pr-st-alex-wilder|pr-st-awol:0",
+   "pair": "pr-st-alex-wilder|pr-st-awol",
+   "a": "Alex Wilder",
+   "b": "Anthony Wall",
+   "a_desc": "A gamer and son of Geoffrey and Catherine Wilder",
+   "b_desc": "Lt. Flores's corrupt partner",
+   "universe": "pr",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Runaways S1–S2#18",
+     "text": "AWOL, a corrupt cop, shoots at Alex and Livvie at the hospital.",
+     "on_a_card_about_b": "The corrupt cop who tries to kill Alex.",
+     "on_b_card_about_a": "A runaway AWOL tries to kill."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Runaways S1–S2#20",
+     "text": "AWOL corners the Runaways at the hostel.",
+     "on_a_card_about_b": "The corrupt cop who tries to kill Alex.",
+     "on_b_card_about_a": "A runaway AWOL tries to kill."
+    },
+    {
+     "i": 2,
+     "kind": "enemy",
+     "title": "Runaways S3#5",
+     "text": "Trapped in the Dark Dimension, Alex is held prisoner by AWOL.",
+     "on_a_card_about_b": "Alex's captor in the Dark Dimension.",
+     "on_b_card_about_a": "AWOL's prisoner in the Dark Dimension."
+    }
+   ]
+  }
+ },
+ {
+  "n": 8,
+  "type": "question",
+  "id": "pietro-maximoff|tony-stark:0",
+  "question": "The single Age of Ultron stage is kind enemy, but Pietro switches sides and dies fighting on Tony's side in Sokovia. Keep enemy as the through-line, or should the title leave them as allies (or get a second same-title ally stage, as Ebo and Jorani have)?",
+  "options": [
+   "Keep enemy",
+   "Change kind to ally",
+   "Add a second Age of Ultron stage (ally) for the switch to Tony's side"
+  ],
+  "their_evidence": "Pietro joins Ultron against Tony, then the twins turn on Ultron and fight with the Avengers in the Battle of Sokovia, where Pietro dies.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Avengers:_Age_of_Ultron&action=raw",
+  "connection": {
+   "id": "pietro-maximoff|tony-stark:0",
+   "pair": "pietro-maximoff|tony-stark",
+   "a": "Pietro Maximoff",
+   "b": "Tony Stark",
+   "a_desc": "Wanda's twin brother, a speedster",
+   "b_desc": "Iron Man",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Avengers: Age of Ultron",
+     "text": "Pietro Maximoff hates Tony Stark for the Stark shell that killed his parents and joins Ultron against him. He switches sides and fights with Tony's Avengers in the Battle of Sokovia, where he dies.",
+     "on_a_card_about_b": "The man whose shell killed Pietro's parents, later his ally in Sokovia.",
+     "on_b_card_about_a": "Blames Tony for his parents' deaths, then dies on Tony's side in Sokovia."
+    }
+   ]
+  }
+ },
+ {
+  "n": 9,
+  "type": "change",
+  "id": "st-foggy-nelson|st-kingpin:0",
+  "q": "N2",
+  "proposed": {
+   "text": "Foggy Nelson digs into Fisk's operations with Karen, Matt and Ben Urich, looking for the link between Westmeyer-Holt and Confederated Global."
+  },
+  "i": 0,
+  "their_evidence": "In Daredevil S1#9 'Speak of the Devil', Ben Urich meets Karen and Foggy, and with Matt they decide to find the connection from Westmeyer-Holt Contracting to Confederated Global Investments to reach Fisk. They are digging into his current operations, not his past (Fisk's past is dug up later by Karen and Ben).",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Speak_of_the_Devil&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-foggy-nelson|st-kingpin:0",
+   "pair": "st-foggy-nelson|st-kingpin",
+   "a": "Foggy Nelson",
+   "b": "Wilson Fisk",
+   "a_desc": "Matt's partner at Nelson, Murdock & Page",
+   "b_desc": "New York's exiled former mayor",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Daredevil S1#9",
+     "text": "Foggy Nelson digs with Karen and Ben Urich for something in Fisk's past to use against him.",
+     "on_a_card_about_b": "The crime lord Foggy digs into.",
+     "on_b_card_about_a": "Lawyer who digs into Fisk's past."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Daredevil S1#13",
+     "text": "Foggy and Matt represent Carl Hoffman when he testifies against Fisk, and the FBI arrests Fisk.",
+     "on_a_card_about_b": "The crime lord Foggy helps send to prison.",
+     "on_b_card_about_a": "Lawyer who helps send Fisk to prison."
+    }
+   ]
+  }
+ },
+ {
+  "n": 10,
+  "type": "change",
+  "id": "by-zombie-kamala|by-zombie-katy:0",
+  "q": "N2",
+  "proposed": {
+   "text": "Katy and Shang-Chi's group reaches the Raft along with Kamala's, and the two groups agree to work together."
+  },
+  "i": 0,
+  "their_evidence": "In Marvel Zombies #2, Shang-Chi's group (with Katy) arrives at Zemo's Raft along with Kamala's group and both agree to work together; only afterwards does Namor's attack sink the Raft. The groups join at the Raft, not after it falls.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Marvel_Zombies_(TV_series)&action=raw",
+  "connection": {
+   "id": "by-zombie-kamala|by-zombie-katy:0",
+   "pair": "by-zombie-kamala|by-zombie-katy",
+   "a": "Kamala Khan",
+   "b": "Katy Chen",
+   "a_desc": "Ms. Marvel, a survivor in New York",
+   "b_desc": "Shang-Chi's best friend",
+   "universe": "by",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "Marvel Zombies#2",
+     "text": "Katy joins Kamala's group with Shang-Chi after the Raft falls.",
+     "on_a_card_about_b": "Shang-Chi's best friend, now Kamala's too.",
+     "on_b_card_about_a": "Katy's new friend."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "Marvel Zombies#4",
+     "text": "Katy stands with Kamala in the last battle in Paris.",
+     "on_a_card_about_b": "Shang-Chi's best friend, who fights beside Kamala in Paris.",
+     "on_b_card_about_a": "Katy's friend. They fight side by side in Paris."
+    }
+   ]
+  }
+ },
+ {
+  "n": 11,
+  "type": "question",
+  "id": "fox-charles-xavier-young|fox-wolverine:0",
+  "question": "The X-Men: Days of Future Past stage already mentions the earlier bar scene in X-Men: First Class, where young Charles and Erik try to recruit Logan and he brushes them off. Should that meeting get its own earlier stage on X-Men: First Class?",
+  "options": [
+   "Keep as is: one stage on Days of Future Past that mentions the bar scene",
+   "Add a stage 0 on X-Men: First Class (kind rival or ally) for the bar scene, with Days of Future Past as stage 1"
+  ],
+  "their_evidence": "In X-Men: First Class, Charles and Erik approach Logan in a bar to recruit him and he turns them away (Hugh Jackman's cameo, which won Best Cameo). The current stage 0 text refers to it as backstory but no stage sits on that title.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=X-Men:_First_Class&action=raw",
+  "connection": {
+   "id": "fox-charles-xavier-young|fox-wolverine:0",
+   "pair": "fox-charles-xavier-young|fox-wolverine",
+   "a": "Charles Xavier",
+   "b": "Logan",
+   "a_desc": "Professor X, head of a school for mutants",
+   "b_desc": "Wolverine, a clawed mutant with an adamantium skeleton",
+   "universe": "fox",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "mentor",
+     "title": "X-Men: Days of Future Past",
+     "text": "Years after Logan brushed him off in a bar, a future Logan finds Charles drunk and broken in 1973. Sent by Charles's older self, he gets him back on his feet.",
+     "on_a_card_about_b": "Sent from the future to get Charles back on his feet.",
+     "on_b_card_about_a": "Drunk and broken in 1973 until Logan gets him back on his feet."
+    }
+   ]
+  }
+ },
+ {
+  "n": 12,
+  "type": "change",
+  "id": "sv-curt-connors-1994|sv-debra-whitman-1994:0",
+  "q": "N6",
+  "proposed": {
+   "title": "Spider-Man (1994)#1",
+   "text": "Debra Whitman, an ESU science student, works in Dr. Connors's lab alongside Peter."
+  },
+  "i": 0,
+  "their_evidence": "Debra is already working in Connors's ESU lab in the first episode, 'Night of the Lizard' (#1): she and Peter put on lab coats there, she mistakes the Lizard's voice for Connors, and afterward she wonders why it took Connors. The wiki calls her Connors's intern from the start. #26 ('Shriek of the Vulture') is about Toomes and Norman, and no source places a new start to her work with Connors there.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Night_of_the_Lizard&prop=wikitext&format=json ; https://marvelanimated.fandom.com/api.php?action=parse&page=Debra_Whitman&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=List_of_Spider-Man:_The_Animated_Series_episodes&action=raw",
+  "connection": {
+   "id": "sv-curt-connors-1994|sv-debra-whitman-1994:0",
+   "pair": "sv-curt-connors-1994|sv-debra-whitman-1994",
+   "a": "Curt Connors",
+   "b": "Debra Whitman",
+   "a_desc": "Peter's science teacher at ESU",
+   "b_desc": "An ESU science student",
+   "universe": "sv",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "Spider-Man (1994)#26",
+     "text": "Debra Whitman, an ESU science student, becomes Dr. Connors's assistant at his new neogenics lab.",
+     "on_a_card_about_b": "Connors's student and lab assistant.",
+     "on_b_card_about_a": "Debra's teacher and boss."
+    }
+   ]
+  }
+ },
+ {
+  "n": 13,
+  "type": "question",
+  "id": "pr-st-alex-wilder|pr-st-darius-davis:3",
+  "question": "In Runaways S2E3 ('Double Zeros', #13), Darius tricks Alex into a fake run and hands him over to Geoffrey in exchange for the deed to the construction site. Catherine kills Darius in the same episode. Should the kind stay 'ally', or should it become 'enemy' because the stage ends on this betrayal?",
+  "options": [
+   "Keep 'ally' (Darius apologizes and says Alex is safer with his parents)",
+   "Change kind to 'enemy' (the stage records Darius selling Alex out)"
+  ],
+  "their_evidence": "Darius lies to Alex about a run, takes him to a warehouse where Geoffrey waits, blocks him from running, apologizes ('just the way it had to be') and takes the deed as payment. Catherine then kills Darius at the Gordon Hotel.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Darius_Davis&prop=wikitext&format=json",
+  "connection": {
+   "id": "pr-st-alex-wilder|pr-st-darius-davis:3",
+   "pair": "pr-st-alex-wilder|pr-st-darius-davis",
+   "a": "Alex Wilder",
+   "b": "Darius Davis",
+   "a_desc": "A gamer and son of Geoffrey and Catherine Wilder",
+   "b_desc": "A gangster tied to Geoffrey Wilder",
+   "universe": "pr",
+   "check_stage": 3,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Runaways S1–S2#5",
+     "text": "Darius kidnaps Alex to get a ransom from Geoffrey, his old friend who wronged him, and the Runaways rescue him.",
+     "on_a_card_about_b": "The gangster who kidnaps Alex.",
+     "on_b_card_about_a": "Geoffrey's son, whom Darius kidnaps."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Runaways S1–S2#10",
+     "text": "On the run, Alex strikes a deal with Darius against PRIDE and gets money and a gun.",
+     "on_a_card_about_b": "The gangster who arms Alex against PRIDE.",
+     "on_b_card_about_a": "Geoffrey's son, who makes a deal with Darius."
+    },
+    {
+     "i": 2,
+     "kind": "ally",
+     "title": "Runaways S1–S2#11",
+     "text": "Alex works for Darius.",
+     "on_a_card_about_b": "The gangster Alex works for.",
+     "on_b_card_about_a": "Geoffrey's son, who works for Darius."
+    },
+    {
+     "i": 3,
+     "kind": "ally",
+     "title": "Runaways S1–S2#13",
+     "text": "Darius trades Alex back to Geoffrey.",
+     "on_a_card_about_b": "The gangster Alex works for. Trades Alex back to Geoffrey.",
+     "on_b_card_about_a": "Geoffrey's son, who works for Darius."
+    }
+   ]
+  }
+ },
+ {
+  "n": 14,
+  "type": "question",
+  "id": "hercules|thor:0",
+  "question": "Hercules and Thor never meet on screen. Thor names Hercules as a possible recruit, and in the mid-credits scene Zeus sends Hercules to kill Thor. Does this tie stay as it is (an implied tie, and the brief says to keep it), or do you want it treated as knowing ABOUT someone?",
+  "options": [
+   "Keep the tie as is",
+   "Drop it (knowing about only)"
+  ],
+  "their_evidence": "Thor: 'We could recruit Ra, Hercules, Tumatauenga...'. Mid-credits: Zeus tells Hercules to bring Thor down and Hercules says 'Yes, father.' The stage text is accurate.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hercules&prop=wikitext&format=json",
+  "connection": {
+   "id": "hercules|thor:0",
+   "pair": "hercules|thor",
+   "a": "Hercules",
+   "b": "Thor",
+   "a_desc": "Zeus's son, a god of Olympus",
+   "b_desc": "A former king traveling the stars",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Thor: Love and Thunder",
+     "text": "Thor names Hercules as a possible recruit for his fight against Gorr. After Thor wounds Zeus in Omnipotence City, Zeus sends his son Hercules to hunt Thor down and kill him.",
+     "on_a_card_about_b": "God whom Zeus sends Hercules to hunt and kill.",
+     "on_b_card_about_a": "Son of Zeus, sent to hunt Thor down and kill him."
+    }
+   ]
+  }
+ },
+ {
+  "n": 15,
+  "type": "question",
+  "id": "aisha|muneeba-khan:1",
+  "question": "Aisha dies during Partition in 1947 and Muneeba is her granddaughter born decades later; they never meet on screen, and Muneeba only knows about her (she brushes off Kamala's questions in Ms. Marvel#2). The binding rule says a blood tie never met stays out, but the tie is family lore central to the bangle story. Keep or drop this connection?",
+  "options": [
+   "Keep the family tie (the bangle passes through Muneeba's family, implied lineage)",
+   "Drop it as a blood tie never met (N7)"
+  ],
+  "their_evidence": "Ms. Marvel#5: Aisha dies in 1947 after leaving the bangle with young Sana; Muneeba appears only in the present day. Ms. Marvel#2: Kamala asks Sana and Muneeba about Aisha and both dismiss her.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Ms._Marvel_(miniseries)&action=raw",
+  "connection": {
+   "id": "aisha|muneeba-khan:1",
+   "pair": "aisha|muneeba-khan",
+   "a": "Aisha",
+   "b": "Muneeba Khan",
+   "a_desc": "Kamala's great-grandmother, a Clandestine",
+   "b_desc": "Kamala's protective mother",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "family",
+     "title": "Ms. Marvel#2",
+     "text": "Aisha is Muneeba's grandmother, whose bangle Sana sends to Kamala. Muneeba brushes off Kamala's questions about her.",
+     "on_a_card_about_b": "Aisha's granddaughter, Sana's daughter.",
+     "on_b_card_about_a": "Muneeba's grandmother, whose bangle passed down to Kamala."
+    },
+    {
+     "i": 1,
+     "kind": "family",
+     "title": "Ms. Marvel#3",
+     "text": "Najma reveals that Aisha, Muneeba's grandmother, was a Clandestine.",
+     "on_a_card_about_b": "Aisha's granddaughter, Sana's daughter.",
+     "on_b_card_about_a": "Muneeba's grandmother, the Clandestine whose bangle passed down to Kamala."
+    }
+   ]
+  }
+ },
+ {
+  "n": 16,
+  "type": "question",
+  "id": "eleanor-bishop|valentina:0",
+  "question": "Valentina never appears or is named on screen in Hawkeye; the Eleanor-to-Valentina link is inferred from Black Widow's credits scene (Valentina gives Yelena the hit on Clint) plus Hawkeye#5 (Yelena reveals Eleanor hired her). Keep the tie and its text as is, or keep the tie with text that states only what is shown?",
+  "options": [
+   "Keep as is (implied tie: Eleanor is the client behind the hit Valentina hands Yelena)",
+   "Keep the tie, reword text to: Eleanor is the client behind the hit on Clint that Valentina hands to Yelena"
+  ],
+  "their_evidence": "Hawkeye#5: Yelena texts Kate that she was hired by Eleanor to kill Barton. Black Widow credits: Valentina gives Yelena Clint as the target. MCU wiki says Eleanor's call to Valentina in #4 goes unanswered and the request itself is placed in Black Widow.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Hawkeye_(miniseries)&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Eleanor_Bishop&prop=wikitext&format=json",
+  "connection": {
+   "id": "eleanor-bishop|valentina:0",
+   "pair": "eleanor-bishop|valentina",
+   "a": "Eleanor Bishop",
+   "b": "Valentina Allegra de Fontaine",
+   "a_desc": "Kate Bishop's mother, a security CEO",
+   "b_desc": "The director of the CIA",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Hawkeye#5",
+     "text": "Eleanor Bishop secretly pays Valentina Allegra de Fontaine, who passes the job to Yelena Belova and sends her after Clint Barton.",
+     "on_a_card_about_b": "The broker Eleanor pays to send Yelena after Clint.",
+     "on_b_card_about_a": "Client who pays Valentina for the hit on Clint."
+    }
+   ]
+  }
+ },
+ {
+  "n": 17,
+  "type": "change",
+  "id": "ego|kraglin:0",
+  "q": "N2",
+  "proposed": {
+   "text": "Ego once hired Yondu's crew, Kraglin included, to bring him Peter Quill. When the Guardians fight Ego, Kraglin flies the ship that carries them off his dying planet."
+  },
+  "i": 0,
+  "their_evidence": "Kraglin and Yondu's talk about it being a good thing they never delivered Quill to the man who hired them is the closing scene of Guardians of the Galaxy (2014), after the Battle of Xandar, not a later moment in Vol. 2 (and Ego is not named there). The rest of the text holds for Vol. 2.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Kraglin_Obfonteri&prop=wikitext&format=json",
+  "connection": {
+   "id": "ego|kraglin:0",
+   "pair": "ego|kraglin",
+   "a": "Ego",
+   "b": "Kraglin",
+   "a_desc": "A living planet who says he is Peter Quill's father",
+   "b_desc": "Yondu's first mate in the Ravagers",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Guardians of the Galaxy Vol. 2",
+     "text": "Ego hired Yondu's crew, Kraglin included, to bring him Peter Quill, and Kraglin and Yondu later agree it was for the best that they never did. When the Guardians fight Ego, Kraglin flies the ship that carries them off his dying planet.",
+     "on_a_card_about_b": "Ravager in the crew Ego hired to bring him Quill.",
+     "on_b_card_about_a": "Quill's father, who hired Yondu's crew. Kraglin flies the Guardians off the dying planet."
+    }
+   ]
+  }
+ },
+ {
+  "n": 18,
+  "type": "change",
+  "id": "pietro-maximoff|tommy-maximoff:1",
+  "q": "N7",
+  "proposed": {
+   "drop": true
+  },
+  "i": null,
+  "their_evidence": "A blood tie never met. Pietro dies in Sokovia in Avengers: Age of Ultron; Tommy only exists from WandaVision#3 inside the Hex. The 'Pietro' who meets the twins in Westview (WandaVision#5-#8) is Ralph Bohner, a separate file (ralph-bohner). Tommy's speed resembling Pietro's is not a meeting or a dealing between them, and the owner's rule lists a blood tie never met as staying out.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=WandaVision&action=raw",
+  "connection": {
+   "id": "pietro-maximoff|tommy-maximoff:1",
+   "pair": "pietro-maximoff|tommy-maximoff",
+   "a": "Pietro Maximoff",
+   "b": "Tommy Maximoff",
+   "a_desc": "Wanda's twin brother, a speedster",
+   "b_desc": "A London grifter called Thomas Shepherd",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "family",
+     "title": "WandaVision#3",
+     "text": "Tommy is the nephew of Pietro Maximoff, Wanda's twin brother who died in Sokovia.",
+     "on_a_card_about_b": "Pietro's nephew, Wanda's son.",
+     "on_b_card_about_a": "Tommy's uncle, his mother's twin, who died in Sokovia."
+    },
+    {
+     "i": 1,
+     "kind": "family",
+     "title": "WandaVision#6",
+     "text": "Tommy turns out to share his late uncle's super speed.",
+     "on_a_card_about_b": "Pietro's nephew, Wanda's son, who shares his speed.",
+     "on_b_card_about_a": "Tommy's uncle, his mother's speedster twin."
+    }
+   ]
+  }
+ },
+ {
+  "n": 19,
+  "type": "change",
+  "id": "hunter-b-15|sylvie:0",
+  "q": "N5",
+  "proposed": {
+   "kind": "enemy",
+   "title": "Loki S1#2",
+   "text": "When the TVA corners Sylvie at a Roxxcart in 2050 Alabama, she enchants Hunter B-15 and speaks through her.",
+   "on_a_card_about_b": "The variant who enchants B-15 at the Roxxcart.",
+   "on_b_card_about_a": "A TVA hunter Sylvie enchants at the Roxxcart."
+  },
+  "i": null,
+  "their_evidence": "Missing opening stage before stage 0: they first meet as enemies in Loki S1#2 'The Variant', where the Variant enchants several locals and Hunter B-15 during the 2050 Alabama ambush. The ally turn then comes in S1#4, where the existing stage sits (its text already refers back to the Roxxcart).",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Loki_season_1&action=raw",
+  "connection": {
+   "id": "hunter-b-15|sylvie:0",
+   "pair": "hunter-b-15|sylvie",
+   "a": "Hunter B-15",
+   "b": "Sylvie",
+   "a_desc": "A TVA leader, once Dr. Verity Willis",
+   "b_desc": "A Loki variant who broke free of the TVA",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Loki S1#4",
+     "text": "Sylvie enchants Hunter B-15 at the Roxxcart, and the spell stirs memories of the life B-15 had before the TVA. B-15 later asks Sylvie to show her more, then turns on the TVA and frees Sylvie and Loki in front of Renslayer.",
+     "on_a_card_about_b": "Variant whose enchantment stirs B-15's memories. B-15 later frees her.",
+     "on_b_card_about_a": "Hunter Sylvie enchants, who later frees her and Loki."
+    }
+   ]
+  }
+ },
+ {
+  "n": 20,
+  "type": "change",
+  "id": "st-john-garrett|st-victoria-hand:0",
+  "q": "N5",
+  "proposed": {
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S1#16",
+   "text": "Victoria Hand and John Garrett work together on Coulson's hunt for the Clairvoyant. Hand dismisses Garrett's plan and tells him not to call her Vic.",
+   "on_a_card_about_b": "A senior agent who doubts Garrett's plan to catch the Clairvoyant.",
+   "on_b_card_about_a": "A veteran agent whose Clairvoyant plan Hand dismisses."
+  },
+  "i": null,
+  "their_evidence": "Missing opening stage before stage 0: in S1#16 'End of the Beginning' Hand is briefed aboard the Bus by Coulson, Garrett and Triplett, then back at the Hub shoots down Garrett's defence of the plan and orders him not to call her 'Vic'. They turn enemies in S1#17, where the existing stage sits.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Victoria_Hand&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-john-garrett|st-victoria-hand:0",
+   "pair": "st-john-garrett|st-victoria-hand",
+   "a": "John Garrett",
+   "b": "Victoria Hand",
+   "a_desc": "A veteran S.H.I.E.L.D. agent",
+   "b_desc": "A senior S.H.I.E.L.D. agent who runs the Hub",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S1#17",
+     "text": "John Garrett and Victoria Hand once served together in Lisbon, and he jokes that she is a buzzkill at parties. When he is exposed as the Clairvoyant, Hand takes him into custody to send him to the Fridge, and Grant Ward kills her on the way.",
+     "on_a_card_about_b": "An old colleague from Lisbon, who takes Garrett into custody.",
+     "on_b_card_about_a": "An old colleague from Lisbon, exposed as the Clairvoyant."
+    }
+   ]
+  }
+ },
+ {
+  "n": 21,
+  "type": "change",
+  "id": "st-holden-radcliffe|st-leo-fitz:1",
+  "q": "N6",
+  "proposed": {
+   "title": "Agents of S.H.I.E.L.D. S4#17"
+  },
+  "i": 1,
+  "their_evidence": "The Framework events in this stage (Fitz as Hydra's Doctor rejecting Radcliffe's appeal, killing Agnes Kitsworth and imprisoning Radcliffe) happen in S4#17 'Identity and Change'. The season-wide title 'S4' places the stage before S4#1, ahead of the Aida work (S4#1) and Radcliffe's exposed betrayal (S4#11) that its card lines refer to.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+  "connection": {
+   "id": "st-holden-radcliffe|st-leo-fitz:1",
+   "pair": "st-holden-radcliffe|st-leo-fitz",
+   "a": "Holden Radcliffe",
+   "b": "Leo Fitz",
+   "a_desc": "A scientist obsessed with transhumanism",
+   "b_desc": "A S.H.I.E.L.D. engineer and weapons expert",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S3#18",
+     "text": "Fitz and Jemma track Holden Radcliffe to Romania, and Fitz begs him to help stop Hive before Hive's Inhumans carry Radcliffe off.",
+     "on_a_card_about_b": "A S.H.I.E.L.D. scientist who seeks Radcliffe's help against Hive.",
+     "on_b_card_about_a": "A transhumanist Fitz seeks out for help against Hive."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4",
+     "text": "In the Framework, Fitz, now Hydra's ruthless Doctor, ignores Radcliffe's pleas to remember who he really is. He kills Agnes and takes Radcliffe prisoner.",
+     "on_a_card_about_b": "The friend Radcliffe builds Aida with, later trapped in Radcliffe's Framework.",
+     "on_b_card_about_a": "The friend Fitz builds Aida with, whose Framework later traps Fitz's mind."
+    },
+    {
+     "i": 2,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S4#1",
+     "text": "Fitz learns that Holden Radcliffe has built the android Aida and agrees to help him perfect her, keeping it secret from Jemma.",
+     "on_a_card_about_b": "The friend who secretly helps Radcliffe perfect Aida.",
+     "on_b_card_about_a": "The friend Fitz secretly helps perfect the android Aida."
+    },
+    {
+     "i": 3,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#11",
+     "text": "Fitz finds proof in Aida's programming that Radcliffe betrayed S.H.I.E.L.D. When S.H.I.E.L.D. locks Radcliffe up, Fitz works out that the prisoner is a Life Model Decoy.",
+     "on_a_card_about_b": "The friend Radcliffe builds Aida with, who uncovers his betrayal.",
+     "on_b_card_about_a": "The friend Fitz builds Aida with, who betrays S.H.I.E.L.D."
+    }
+   ]
+  }
+ },
+ {
+  "n": 22,
+  "type": "question",
+  "id": "st-holden-radcliffe|st-leo-fitz:1",
+  "question": "After the Framework stage (moved to S4#17), should a stage be added at S4#20 'Farewell, Cruel World!', where Radcliffe, who first helps Fitz hunt Simmons, turns on him, overpowers him and sends him back through to the real world, regretting all he has done?",
+  "options": [
+   "Add an ally stage at Agents of S.H.I.E.L.D. S4#20: Radcliffe overpowers Fitz and sends him out of the Framework, regretting everything he has done since the Darkhold",
+   "Leave as is"
+  ],
+  "their_evidence": "S4#20: Fitz begins hunting Simmons with help from Radcliffe; Fitz is overpowered by Radcliffe, who regrets all his actions; Radcliffe sends Fitz through, followed by Simmons.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_4&action=raw",
+  "connection": {
+   "id": "st-holden-radcliffe|st-leo-fitz:1",
+   "pair": "st-holden-radcliffe|st-leo-fitz",
+   "a": "Holden Radcliffe",
+   "b": "Leo Fitz",
+   "a_desc": "A scientist obsessed with transhumanism",
+   "b_desc": "A S.H.I.E.L.D. engineer and weapons expert",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S3#18",
+     "text": "Fitz and Jemma track Holden Radcliffe to Romania, and Fitz begs him to help stop Hive before Hive's Inhumans carry Radcliffe off.",
+     "on_a_card_about_b": "A S.H.I.E.L.D. scientist who seeks Radcliffe's help against Hive.",
+     "on_b_card_about_a": "A transhumanist Fitz seeks out for help against Hive."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4",
+     "text": "In the Framework, Fitz, now Hydra's ruthless Doctor, ignores Radcliffe's pleas to remember who he really is. He kills Agnes and takes Radcliffe prisoner.",
+     "on_a_card_about_b": "The friend Radcliffe builds Aida with, later trapped in Radcliffe's Framework.",
+     "on_b_card_about_a": "The friend Fitz builds Aida with, whose Framework later traps Fitz's mind."
+    },
+    {
+     "i": 2,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S4#1",
+     "text": "Fitz learns that Holden Radcliffe has built the android Aida and agrees to help him perfect her, keeping it secret from Jemma.",
+     "on_a_card_about_b": "The friend who secretly helps Radcliffe perfect Aida.",
+     "on_b_card_about_a": "The friend Fitz secretly helps perfect the android Aida."
+    },
+    {
+     "i": 3,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#11",
+     "text": "Fitz finds proof in Aida's programming that Radcliffe betrayed S.H.I.E.L.D. When S.H.I.E.L.D. locks Radcliffe up, Fitz works out that the prisoner is a Life Model Decoy.",
+     "on_a_card_about_b": "The friend Radcliffe builds Aida with, who uncovers his betrayal.",
+     "on_b_card_about_a": "The friend Fitz builds Aida with, who betrays S.H.I.E.L.D."
+    }
+   ]
+  }
+ },
+ {
+  "n": 23,
+  "type": "question",
+  "id": "pr-st-tandy-bowen|pr-st-andre-deschaine:0",
+  "question": "The connection starts at Cloak & Dagger#16, but Tandy first meets Andre in Cloak & Dagger#12 (S2E2 'White Lines') as the friendly leader of her support group, before he is revealed as her captor. Should an earlier stage be added at #12?",
+  "options": [
+   "Add a friend stage at Cloak & Dagger#12: Tandy finds comfort in Andre, the friendly leader of her support group",
+   "Leave as is"
+  ],
+  "their_evidence": "S2E2 'White Lines': Tandy finds comfort in the friendly support leader, Andre Deschaine. S2E6 'B Sides': Lia is revealed to be working for Andre, who traps Tandy's mind.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Cloak_%26_Dagger_season_2&action=raw",
+  "connection": {
+   "id": "pr-st-tandy-bowen|pr-st-andre-deschaine:0",
+   "pair": "pr-st-tandy-bowen|pr-st-andre-deschaine",
+   "a": "Tandy Bowen",
+   "b": "Andre Deschaine",
+   "a_desc": "A teen grifter who survived the Roxxon rig explosion",
+   "b_desc": "A jazz musician with a dark gift",
+   "universe": "pr",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Cloak & Dagger#16",
+     "text": "Andre feeds on despair and traps Tandy in a string of false lives.",
+     "on_a_card_about_b": "The despair feeder who traps Tandy's mind.",
+     "on_b_card_about_a": "The girl Andre traps in false lives."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Cloak & Dagger#20",
+     "text": "Tandy breaks free of Andre, and with Tyrone she defeats him for good.",
+     "on_a_card_about_b": "The despair feeder who traps Tandy's mind.",
+     "on_b_card_about_a": "The hero who defeats Andre."
+    }
+   ]
+  }
+ }
+]
