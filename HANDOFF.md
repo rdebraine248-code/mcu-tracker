@@ -138,7 +138,7 @@ The tests are in `mockup-data/tests/`. They use the Playwright in `/opt/node22/l
 rm -rf out/root && mkdir -p out/root && cp out/main.html out/root/index.html && cp ../*.png ../manifest.webmanifest ../sw.js out/root/
 export ROOT=$PWD/out/root                                                            # feat.js fails without it
 for s in check smoke feat; do node tests/$s.js; done                                 # the app at $ROOT
-for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 63); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
+for s in ct32 ct36 ct37b $(seq -f 'ct%g' 38 64); do echo "== $s"; node tests/$s.js $ROOT/index.html; done
 node tests/ct35.js                                                                   # test build only (out/datapad-test.html)
 ```
 
@@ -174,6 +174,7 @@ node tests/ct35.js                                                              
 | ct61 | The Darkhold and the Accords held on their titles; only the Tesseract live in the Collection; the sling ring lands only in the Atlas (every realm and submap, never the Incursions); the Watcher's other realities, in his box and in Beyond the MCU |
 | ct62 | A holder's name in the Collection: the list of what they held, their own Compound or Raft file only once found, the right person among a tab's many of a name, back to the list; holders go by their files' names; no Benny or AIDA left |
 | ct63 | The Held line: the Collection objects a person holds under a title's last entry, gated by the Collection, linked both ways |
+| ct64 | A person shows the group they're in during a title you've watched (Peter at Midtown with only Homecoming), files and Network alike |
 
 **Fixed (November 2026):** six tests had been failing since before the 176c87b main push, five because the app had moved on and one
 over a real bug. ct54 (a pill from earlier was still up; now it waits), ct61 (the Character log button left the rings; now the eye's
@@ -871,7 +872,10 @@ Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner w
 - **No catch-all "Independent" bubble** in the Network (owner, November 2026: "I don't really love the independent group"): someone in no
   group stands on their own.
 - **Groups change by what you've watched, not by story position:** a group step counts once its own title is ticked, so a later change
-  is never shown early.
+  is never shown early. **But a person shows the group they're in during a title you've watched** (owner, 4 November 2026, option 1:
+  with only Homecoming watched, Peter stood alone, his school being recorded at Civil War, and Tony too): the group they belong to at
+  the latest title you've seen them in counts even if they joined it in a title you haven't watched; nothing after that title shows.
+  The Network and the files' Teams rows follow the same rule, so they agree.
 - **The zombie world's groups go episode by episode** (What If...? S1 episode 5, Marvel Zombies): The Survivors while alive; turned, The
   Zombies, or The Queen of the Dead's Army once in Wanda's horde; killed or destroyed, they leave their group. `split.json` "steps", from
   `network/rel/zombie_timeline.json`; unsure fates keep their last group. Checked against Wikipedia's episode summaries (Marvel Zombies (TV

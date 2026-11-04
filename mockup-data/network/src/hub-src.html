@@ -620,7 +620,10 @@ const seen = t => SEENF ? SEENF(TT[t]) : ORD[t] <= CUT;
 // a group step counts once its own title is watched (not just anything later in the story, which could give a change away), and the
 // latest one stands: a person stays in a group until the story moves them (owner, November 2026)
 const crewSeen = ([, o, t]) => o < 0 || (SEENF && t >= 0 ? SEENF(DATA.titles[t]) : o <= CUT);
-const crewNow = p => { const L = p.S.filter(crewSeen), c = L.length ? L[L.length - 1][0] : UK('Independent', p.u); return String(c).split('\u2063')[0] === 'Independent' && p.circ ? p.circ : c; };
+// a person stands with the group they're in during a title you've watched (owner, November 2026: with only Homecoming watched, Peter
+// stood alone, his school being recorded at Civil War): a group stage counts once its title is watched, or when it comes, in story
+// order, no later than the latest title you've seen them in. Nothing after that shows. The files' Teams rows follow the same rule
+const crewNow = p => { const last = p.A.reduce((m, j) => Math.max(m, ORD[j]), -Infinity), L = p.S.filter(s => crewSeen(s) || (s[1] >= 0 && s[1] <= last)), c = L.length ? L[L.length - 1][0] : UK('Independent', p.u); return String(c).split('\u2063')[0] === 'Independent' && p.circ ? p.circ : c; };
 const joined = (p, c) => p.T.some(([d, w]) => d === c && (w < 0 ? p.vis : seen(w)));
 function applyCut(v, quiet) {
   CUT = v; const t = performance.now();

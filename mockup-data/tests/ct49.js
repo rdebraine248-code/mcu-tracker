@@ -28,8 +28,10 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
     return out; });
   ok(JSON.stringify(r.thanos) === '["The Chitauri","The Black Order"]', 'Thanos after Infinity War ' + JSON.stringify(r.thanos));
   ok(['HYDRA', 'Project Centipede', 'S.H.I.E.L.D.'].every(t => r.ward.includes(t)), 'Ward in season 1 ' + JSON.stringify(r.ward));
-  ok(r.bucky.includes('HYDRA') && r.bucky[r.bucky.length - 1] === 'Independent', 'the Winter Soldier served HYDRA ' + JSON.stringify(r.bucky));
-  ok(/Independent$/.test(r.now.head) && r.now.cur.join() === 'Independent' && r.now.past.includes('HYDRA') && r.now.past.includes('U.S. Army'), 'HYDRA and his war years are former, Independent current ' + JSON.stringify(r.now));
+  // with Infinity War watched he stands with Wakanda, where he lives in that film, though Black Panther (where the file records it) isn't
+  // watched: a person shows the group they're in during a title you've watched (owner, November 2026)
+  ok(r.bucky.includes('HYDRA') && r.bucky[r.bucky.length - 1] === 'Wakanda', 'the Winter Soldier served HYDRA ' + JSON.stringify(r.bucky));
+  ok(/Wakanda$/.test(r.now.head) && r.now.cur.join() === 'Wakanda' && r.now.past.includes('HYDRA') && r.now.past.includes('U.S. Army'), 'HYDRA and his war years are former, Wakanda current ' + JSON.stringify(r.now));
   ok(r.order.head === 'The Black Order' && r.order.gf === null && r.order.rows >= 5, 'Black Order roster, its team file gone ' + JSON.stringify(r.order));
   ok(r.hydra.head === 'HYDRA' && r.hydra.gf === 'hydra', 'HYDRA roster keeps its group file ' + JSON.stringify(r.hydra));
   ok(JSON.stringify(r.back) === '["bucky-barnes"]' && r.hero.join() === 'cp,bucky-barnes', 'the Winter Soldier links back to Bucky ' + JSON.stringify([r.back, r.hero]));

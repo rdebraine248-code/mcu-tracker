@@ -5030,14 +5030,23 @@ let rfOppF = "";
 // a villain's factions: the organizations they serve (tm, staged by title like a hero's team; October 2026), shown on their file, as a roster
 // with the group's own file, and as a way to group the registry. Everyone who served counts, brainwashed or forced servants too
 // the factions served so far; "Independent" only for someone who has served none
-const rfTeams = o => { const L = (Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [o.tm || "Independent"]).filter(t => t !== "Independent"); return L.length ? L : ["Independent"]; };
+const rfTeams = o => { const see = tmSeen(o), L = (Array.isArray(o.tm) ? [...new Set(o.tm.filter(t => see(t[1])).map(t => t[0]))] : [o.tm || "Independent"]).filter(t => t !== "Independent"); return L.length ? L : ["Independent"]; };
 let rfTeamF = "", rfTeamFrom = "";
 // where someone stands now: the last group whose title you've watched
-const tmNow = tm => { if (!Array.isArray(tm)) return tm || "Independent"; const S = tm.filter(t => atlSeenT(t[1])); return S.length ? S[S.length - 1][0] : "Independent"; };
+// a person shows the group they're in during a title you've watched (owner, November 2026: with only Homecoming watched, Peter stood
+// alone, his school being recorded at Civil War, and Tony too): a group stage counts once its title is watched, or when it comes, in
+// story order, no later than the latest title you've seen them in. Nothing after that shows. The Network follows the same rule
+// a title's place in story order, an episode at its own season's place ("Agents of S.H.I.E.L.D.#44" in season 3)
+const tmOrd = t => { const b = epBase(t), n = epNo(t), d = n && (epSeas().down[b] || []).find(([, off, len]) => n > off && n <= off + len);
+  return d && ATL_ORDER[d[0]] != null ? ATL_ORDER[d[0]] + (n - d[1]) / 1000 : atlOrd(t); };
+const tmLast = o => { let m = -Infinity; ((o && o.st) || []).forEach(x => { if (!atlSeenStep(x)) return; const e = /^In episode (\d+),/.exec(x[0]), q = /^In season (\d+),/.exec(x[0]);
+  const v = tmOrd(e ? x[1] + "#" + e[1] : q && ATL_ORDER[x[1] + " S" + q[1]] != null ? x[1] + " S" + q[1] : x[1]); if (v != null && v > m) m = v; }); return m; };
+const tmSeen = o => { const m = tmLast(o); return t => atlSeenT(t) || (m > -Infinity && (tmOrd(t) ?? Infinity) <= m); };
+const tmNow = (tm, o) => { if (!Array.isArray(tm)) return tm || "Independent"; const see = o ? tmSeen(o) : atlSeenT, S = tm.filter(t => see(t[1])); return S.length ? S[S.length - 1][0] : "Independent"; };
 // a person's groups as tags on their file (factions on the Raft, teams in the Compound): every one served so far in story order, the current
 // one lit and the rest marked Former; "Independent" only when it's where they stand now
-function tmChips(tm, attr) {
-  const cur = tmNow(tm), L = (Array.isArray(tm) ? [...new Set(tm.filter(t => atlSeenT(t[1])).map(t => t[0]))] : [tm || "Independent"]).filter(t => t !== "Independent");
+function tmChips(tm, attr, o) {
+  const see = o ? tmSeen(o) : atlSeenT, cur = tmNow(tm, o), L = (Array.isArray(tm) ? [...new Set(tm.filter(t => see(t[1])).map(t => t[0]))] : [tm || "Independent"]).filter(t => t !== "Independent");
   return L.concat(cur === "Independent" ? ["Independent"] : []).map(t => t === cur ? `<button type="button" class="cur" ${attr}="${esc(t)}">${esc(t)}</button>`
     : `<button type="button" class="past" ${attr}="${esc(t)}">${esc(t)}<small>Former</small></button>`).join("");
 }
@@ -5077,8 +5086,8 @@ function renderRaft() {
     const o = THREATS.find(x => x.id === collRec), S = rfSteps(o), st = rfStatusOf(o), up = new Map(Array.isArray(o.cl) ? o.cl.slice(1).map(c => [c[1], c[0]]) : []);
     let prev = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
-      <div class="rf-head rf-id s-${RF_ST[st]}"><div><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat · ${esc(tmNow(o.tm))}</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p>${uniLine(o)}${seenLine(S, o)}</div><b class="cp-stb">${esc(st)}</b></div>
-      ${alRow(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft")}</div>
+      <div class="rf-head rf-id s-${RF_ST[st]}"><div><small>${rfNo(o)} · ${esc(rfClass(o) || "")} threat · ${esc(tmNow(o.tm, o))}</small><h3>${esc(rfName(o))}</h3><p>${esc(rfKind(o))}</p>${uniLine(o)}${seenLine(S, o)}</div><b class="cp-stb">${esc(st)}</b></div>
+      ${alRow(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft", o)}</div>
       ${state.cpIn && !hoChain(o, "R", S).some(x => x.ho) ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length && !coverOn(o, cpName(a)) && !coverOn(a, rfName(o))).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       <div class="co-h">Record</div>
@@ -5179,7 +5188,7 @@ const STEP_AUDIT = {"A:hasan": {"st": [["In episode 5, Hasan marries Aisha, lose
   o.st = f.st.map((x, i) => { const y = old[f.from[i]]; if (f.from[i] != null && y && y.drop) x.drop = 1; return x; });
   Object.keys(AT_CASE).forEach(k => { if (k.startsWith(pre)) delete AT_CASE[k]; }); Object.entries(f.ac).forEach(([k, v]) => { AT_CASE[pre + k] = v; }); }));
 const cpStatus = S => { let st = "Active"; S.forEach(x => { if (x[2]) st = x[2]; }); return st; };
-const cpName = o => stageAt(o.n, atlSeenT)[0], cpKind = o => stageAt(o.k || "", atlSeenT)[0], cpTeam = o => stageAt(o.tm || "Independent", atlSeenT)[0];
+const cpName = o => stageAt(o.n, atlSeenT)[0], cpKind = o => stageAt(o.k || "", atlSeenT)[0], cpTeam = o => stageAt(o.tm || "Independent", tmSeen(o))[0];
 const cpNo = o => "ID " + String(ALLIES.indexOf(o) + 1).padStart(4, "0");
 const cpInit = n => String(n).replace(/^(The|Dr\.|Doctor|Captain|Agent|Mister|Miss|Mr\.|Mrs\.|Ms\.) /, "").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
 // the Compound stands until Endgame; its files are recovered from the rubble, and the New Avengers keep them after Thunderbolts* (the page keeps the name of the pin it opens from)
@@ -5193,7 +5202,7 @@ function cpGroupFile(team, from) {
   return L.slice().sort((a, b) => near(b) - near(a))[0];
 }
 // everyone in this universe who has served on a team, as far as you've watched
-const cpTeams = o => Array.isArray(o.tm) ? o.tm.filter(t => atlSeenT(t[1])).map(t => t[0]) : [o.tm || "Independent"];
+const cpTeams = o => { if (!Array.isArray(o.tm)) return [o.tm || "Independent"]; const see = tmSeen(o); return o.tm.filter(t => see(t[1])).map(t => t[0]); };
 const CP_GRP = [["status", "Status"], ["team", "Team"]];
 const cpShut = k => { const v = (cpFold[cpGrp] || {})[k]; return v == null ? cpGrp === "team" : v; };
 function cpBadge(o) { const em = o.em && EMBLEMS[o.em] && embOpen(o.em) ? o.em : null;
@@ -5206,7 +5215,7 @@ function renderCp() {
     let prev = null;
     v.innerHTML = `<div class="co co-rec"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Personnel files</button>
       <div class="cp-id s-${CP_ST[st]}">${cpBadge(o)}<div><small>${cpNo(o)} · ${esc(cpTeam(o))}</small><h3>${esc(cpName(o))}</h3><p>${esc(cpKind(o))}</p>${uniLine(o)}${seenLine(S, o)}</div><b class="cp-stb">${esc(st)}</b></div>
-      ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt")}</div>
+      ${alRow(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt", o)}</div>
       ${rf && !hoChain(o, "C", S).some(x => x.ho) ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       <div class="co-h">Service record</div>
       <ol class="co-chain">${hoChain(o, "C", S).map(x => { if (x.ho) return hoMark(x, "C", o.rf && THREATS.find(t => t.id === o.rf)); const chg = x[2] && x[2] !== prev ? `<span class="rf-chg s-${CP_ST[x[2]]}">${esc(x[2])}</span>` : ""; prev = x[2] || prev; return `<li><p>${esc(stepTxt(x))}</p>${recAt("A", o, x, S)}<small>${stepTtl(x)}${chg}</small></li>`; }).join("")}</ol></div>`;
