@@ -1,0 +1,178 @@
+{
+ "checked": [
+  "st-melinda-may|st-victoria-hand:1",
+  "st-mike-peterson|felix-blake:0",
+  "st-antoine-triplett|st-john-garrett:1",
+  "st-antoine-triplett|st-victoria-hand:1",
+  "st-daisy-johnson|st-ian-quinn:2",
+  "st-daisy-johnson|st-john-garrett:1",
+  "st-edison-po|st-john-garrett:0",
+  "st-grant-ward|phil-coulson:1",
+  "st-grant-ward|st-victoria-hand:1",
+  "st-grant-ward|st-victoria-hand:2",
+  "jasper-sitwell|phil-coulson:2",
+  "st-jemma-simmons|st-john-garrett:1",
+  "st-jemma-simmons|st-melinda-may:1",
+  "st-jemma-simmons|st-victoria-hand:1",
+  "st-john-garrett|st-leo-fitz:1",
+  "st-john-garrett|st-melinda-may:1",
+  "st-john-garrett|st-mike-peterson:0",
+  "st-john-garrett|phil-coulson:1",
+  "st-john-garrett|st-victoria-hand:0",
+  "st-leo-fitz|st-melinda-may:1",
+  "st-melinda-may|nick-fury:1",
+  "st-melinda-may|st-victoria-hand:2",
+  "phil-coulson|st-victoria-hand:1",
+  "st-antoine-triplett|st-daisy-johnson:0",
+  "st-antoine-triplett|st-leo-fitz:0",
+  "st-antoine-triplett|st-melinda-may:0",
+  "st-antoine-triplett|phil-coulson:0",
+  "st-daisy-johnson|st-eric-koenig:0",
+  "st-eric-koenig|nick-fury:0",
+  "st-eric-koenig|phil-coulson:0",
+  "st-grant-ward|st-raina:0",
+  "st-ian-quinn|st-john-garrett:0",
+  "st-ian-quinn|st-raina:0",
+  "st-john-garrett|st-raina:0",
+  "st-antoine-triplett|st-marcus-daniels:0",
+  "st-audrey-nathan|st-marcus-daniels:0",
+  "st-audrey-nathan|phil-coulson:0",
+  "st-daisy-johnson|st-eric-koenig:1",
+  "st-daisy-johnson|st-grant-ward:1",
+  "st-eric-koenig|st-grant-ward:0",
+  "st-eric-koenig|phil-coulson:1",
+  "st-marcus-daniels|phil-coulson:0",
+  "st-leo-fitz|st-marcus-daniels:0",
+  "st-jemma-simmons|st-marcus-daniels:0",
+  "st-john-garrett|alexander-pierce:0",
+  "st-antoine-triplett|st-glenn-talbot:0",
+  "st-antoine-triplett|st-grant-ward:1",
+  "st-antoine-triplett|maria-hill:0",
+  "st-daisy-johnson|maria-hill:0",
+  "st-glenn-talbot|st-leo-fitz:0"
+ ],
+ "changes": [
+  {
+   "id": "st-edison-po|st-john-garrett:0",
+   "pair": "st-edison-po|st-john-garrett",
+   "a": "Edison Po",
+   "b": "John Garrett",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "boss",
+    "title": "Agents of S.H.I.E.L.D. S1#17",
+    "text": "Edison Po is the Centipede Project's only line to the Clairvoyant, who is secretly John Garrett. Po helps capture and interrogate Phil Coulson for him, and the Clairvoyant then has him killed.",
+    "on_a_card_about_b": "Po's secret boss, known to Centipede as the Clairvoyant. Has Po killed.",
+    "on_b_card_about_a": "Centipede's only line to Garrett as the Clairvoyant, until Garrett has him killed."
+   },
+   "proposed": {
+    "text": "Exposed as the Clairvoyant, John Garrett turns out to be the voice Edison Po took his orders from, and the man who had Po killed. Garrett tells Coulson he could have had Po kill him but chose not to."
+   },
+   "evidence": "The current text tells Po's capture and interrogation of Coulson and his death, which happen in S1#10-11 (The Magical Place: the Clairvoyant kills Po over the phone). In S1#17 (Turn, Turn, Turn) what happens is the reveal that Garrett is the Clairvoyant, and Garrett tells Coulson he could have had Edison Po kill him when he had the chance. Moving the stage to S1#11 would spoil Garrett's identity, so the text is fixed to the S1#17 events.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=John_Garrett&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "st-daisy-johnson|st-ian-quinn:2",
+   "pair": "st-daisy-johnson|st-ian-quinn",
+   "a": "Daisy Johnson",
+   "b": "Ian Quinn",
+   "q": "N2",
+   "i": 2,
+   "now": {
+    "i": 2,
+    "kind": "enemy",
+    "title": "Agents of S.H.I.E.L.D. S1#17",
+    "text": "Daisy learns that Quinn shot her on the orders of John Garrett, the Clairvoyant.",
+    "on_a_card_about_b": "The man who shot Daisy on Garrett's orders.",
+    "on_b_card_about_a": "The agent Quinn shot on Garrett's orders."
+   },
+   "proposed": {
+    "text": "When Garrett is exposed as the Clairvoyant, it comes out that Quinn shot Skye on the Clairvoyant's orders."
+   },
+   "evidence": "In S1#17 Garrett lists the Clairvoyant's crimes, including having Skye shot in the stomach, to Coulson, May and Fitz while Skye is away with Ward planting explosives in the Hub's processing center. Nothing on screen shows Skye herself learning it in that episode (in S1#18 Ward and Garrett argue about the order, also without Skye).",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Turn,_Turn,_Turn&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "id": "st-ian-quinn|st-john-garrett:0",
+   "pair": "st-ian-quinn|st-john-garrett",
+   "a": "Ian Quinn",
+   "b": "John Garrett",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "boss",
+    "title": "Agents of S.H.I.E.L.D. S1#18",
+    "text": "John Garrett recruits billionaire Ian Quinn to fund his plans. Quinn later works for him again after S.H.I.E.L.D. falls.",
+    "on_a_card_about_b": "Quinn's boss. Recruits Quinn to fund his plans, and again after S.H.I.E.L.D. falls.",
+    "on_b_card_about_a": "The billionaire Garrett recruits to fund his plans."
+   },
+   "proposed": {
+    "text": "After the Fridge raid frees Ian Quinn, he is brought to John Garrett and rages that the Clairvoyant has no real powers. Garrett wins him back by giving him the Gravitonium."
+   },
+   "evidence": "The current text sums up Quinn's earlier recruitment (off screen, before S1#12) and then calls S1#18 'later'. In S1#18 (Providence) Quinn, freed in the Fridge raid, is brought to the Hydra base in Cuba, is angry that Garrett has no real powers and says he will never work for him again, and agrees to rejoin when Garrett gives him the Gravitonium.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ian_Quinn&prop=wikitext&format=json",
+   "confidence": "high"
+  },
+  {
+   "id": "st-antoine-triplett|st-daisy-johnson:0",
+   "pair": "st-antoine-triplett|st-daisy-johnson",
+   "a": "Antoine Triplett",
+   "b": "Daisy Johnson",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "friend",
+    "title": "Agents of S.H.I.E.L.D. S1#18",
+    "text": "Trip and Skye become close friends on Coulson's team as they hunt Hydra after S.H.I.E.L.D. falls.",
+    "on_a_card_about_b": "A close friend hunting Hydra with Trip.",
+    "on_b_card_about_a": "A close friend on Coulson's team."
+   },
+   "proposed": {
+    "text": "Trip joins Coulson's team, and he and Skye flee the Hub together and follow Coulson's coordinates to Providence."
+   },
+   "evidence": "The current text sums up their whole friendship after S.H.I.E.L.D. falls. In S1#18 (Providence) Trip is allowed onto Coulson's team as Simmons' responsibility, leaves the Hub with the team on the Bus before Talbot's troops arrive, and travels with them to Providence.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Antoine_Triplett&prop=wikitext&format=json",
+   "confidence": "medium"
+  },
+  {
+   "id": "st-antoine-triplett|st-melinda-may:0",
+   "pair": "st-antoine-triplett|st-melinda-may",
+   "a": "Antoine Triplett",
+   "b": "Melinda May",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "ally",
+    "title": "Agents of S.H.I.E.L.D. S1#18",
+    "text": "Antoine Triplett joins Coulson's team after S.H.I.E.L.D. falls and fights beside May on mission after mission.",
+    "on_a_card_about_b": "A teammate Trip fights beside on mission after mission.",
+    "on_b_card_about_a": "A teammate who fights beside May on mission after mission."
+   },
+   "proposed": {
+    "text": "Antoine Triplett joins Coulson's team after S.H.I.E.L.D. falls and leaves the Hub with May and the others to follow Coulson's coordinates to Providence."
+   },
+   "evidence": "'Fights beside May on mission after mission' sums up many later episodes. In S1#18 (Providence) Trip joins the team, escapes the Hub on the Bus, and goes with the team (May arguing Fury is dead) to the coordinates that lead to Providence.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Antoine_Triplett&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "st-antoine-triplett|st-marcus-daniels:0",
+   "question": "The text calls Marcus Daniels 'Blackout'. The fandom page sources that codename to a promotional image, not a line in the episode. Keep the name or drop it?",
+   "options": [
+    "Keep 'the Darkforce-wielding Blackout'",
+    "Change to 'Marcus Daniels, an escaped prisoner who wields Darkforce'"
+   ],
+   "evidence": "Marcus Daniels page: codenames = Blackout, referenced to File:Blackout.png ('Introducing Marcus Daniels A.K.A. Blackout'); the S1#19 plot never uses the name.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Marcus_Daniels&prop=wikitext&format=json"
+  }
+ ]
+}

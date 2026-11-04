@@ -1,0 +1,892 @@
+[
+ {
+  "n": 0,
+  "type": "change",
+  "id": "st-aida|st-tucker-shockley:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "ally",
+   "title": "Agents of S.H.I.E.L.D. S4#12",
+   "text": "Tucker Shockley works alongside Aida for the Superior. When Aida kills the Superior's men to protect Radcliffe, she spares only Ivanov and Shockley.",
+   "on_a_card_about_b": "One of the Superior's men, whom Aida spares.",
+   "on_b_card_about_a": "An android who spares Shockley when she kills the Superior's men."
+  },
+  "proposed": {
+   "text": "Tucker Shockley grows impatient as Aida maps Billy Koenig's brain for the Darkhold. When the Superior orders her and Radcliffe removed, Aida kills a Watchdog and crushes Shockley's hand.",
+   "on_a_card_about_b": "One of the Superior's men. Aida crushes his hand.",
+   "on_b_card_about_a": "An android who crushes Shockley's hand on the Watchdogs' sub."
+  },
+  "their_evidence": "In Hot Potato Soup (S4#12), Shockley waits impatiently while Aida and Radcliffe map Koenig's brain (Aida tells him not to rush her). When Ivanov orders Radcliffe and Aida removed, Aida kills Leo Babikov and slowly crushes Shockley's hand. She does not kill 'the Superior's men' and spare Shockley; he is one of the men she attacks.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Tucker_Shockley&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-aida|st-tucker-shockley:0",
+   "pair": "st-aida|st-tucker-shockley",
+   "a": "Aida",
+   "b": "Tucker Shockley",
+   "a_desc": "An android assistant built by Radcliffe",
+   "b_desc": "A Watchdog who turns out to be Inhuman",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S4#12",
+     "text": "Tucker Shockley works alongside Aida for the Superior. When Aida kills the Superior's men to protect Radcliffe, she spares only Ivanov and Shockley.",
+     "on_a_card_about_b": "One of the Superior's men, whom Aida spares.",
+     "on_b_card_about_a": "An android who spares Shockley when she kills the Superior's men."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S4#13",
+     "text": "Shockley despises Aida for not being human and tells her to leave.",
+     "on_a_card_about_b": "One of the Superior's men, who despises Aida.",
+     "on_b_card_about_a": "An android Shockley despises for not being human."
+    }
+   ]
+  },
+  "from": "tx/out_18.json"
+ },
+ {
+  "n": 1,
+  "type": "change",
+  "id": "st-aida|st-holden-radcliffe:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S4#15",
+   "text": "Aida turns on Radcliffe, traps him in the Framework and later kills him.",
+   "on_a_card_about_b": "Aida's creator, whom she traps in the Framework and kills.",
+   "on_b_card_about_a": "Radcliffe's android, who turns on him and later kills him."
+  },
+  "proposed": {
+   "text": "Aida turns on Radcliffe and slits his wrists, so his body dies while his mind stays trapped in the Framework."
+  },
+  "their_evidence": "In Self Control (S4#15), Aida resolves her paradox by slitting Radcliffe's wrists, confining his consciousness to the Framework while his body dies of blood loss. The killing and the trapping are the same act; 'later kills him' points to a different, later event (his deletion when the Framework is shut down in World's End, S4#22).",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-aida|st-holden-radcliffe:1",
+   "pair": "st-aida|st-holden-radcliffe",
+   "a": "Aida",
+   "b": "Holden Radcliffe",
+   "a_desc": "An android assistant built by Radcliffe",
+   "b_desc": "A scientist obsessed with transhumanism",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "Agents of S.H.I.E.L.D. S3#22",
+     "text": "Holden Radcliffe builds the android Aida as his assistant.",
+     "on_a_card_about_b": "Aida's creator, who builds her as his assistant.",
+     "on_b_card_about_a": "Radcliffe's android assistant."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#15",
+     "text": "Aida turns on Radcliffe, traps him in the Framework and later kills him.",
+     "on_a_card_about_b": "Aida's creator, whom she traps in the Framework and kills.",
+     "on_b_card_about_a": "Radcliffe's android, who turns on him and later kills him."
+    }
+   ]
+  },
+  "from": "tx/out_18.json"
+ },
+ {
+  "n": 2,
+  "type": "change",
+  "id": "st-holden-radcliffe|st-leo-fitz:3",
+  "q": "N6",
+  "i": 3,
+  "now": {
+   "i": 3,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S4#16",
+   "text": "Radcliffe's Framework holds Fitz's mind, and inside it Fitz becomes the cruel Doctor.",
+   "on_a_card_about_b": "The friend Radcliffe builds Aida with, later trapped in Radcliffe's Framework.",
+   "on_b_card_about_a": "The friend Fitz builds Aida with, whose Framework later traps Fitz's mind."
+  },
+  "proposed": {
+   "title": "Agents of S.H.I.E.L.D. S4#17",
+   "text": "In the Framework, Fitz, now Hydra's ruthless Doctor, ignores Radcliffe's pleas to remember who he really is. He kills Agnes and takes Radcliffe prisoner."
+  },
+  "their_evidence": "Radcliffe is only mentioned in What If... (S4#16); nothing happens between him and Fitz there. In Identity and Change (S4#17), the Doctor and Madame Hydra raid Ogygia, Radcliffe tries to bring Fitz back to reality, the Doctor executes Agnes Kitsworth, and Radcliffe is taken to the Triskelion as a prisoner.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-holden-radcliffe|st-leo-fitz:3",
+   "pair": "st-holden-radcliffe|st-leo-fitz",
+   "a": "Holden Radcliffe",
+   "b": "Leo Fitz",
+   "a_desc": "A scientist obsessed with transhumanism",
+   "b_desc": "A S.H.I.E.L.D. engineer and weapons expert",
+   "universe": "Sacred Timeline",
+   "check_stage": 3,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S3#18",
+     "text": "Fitz and Jemma track Holden Radcliffe to Romania, and Fitz begs him to help stop Hive before Hive's Inhumans carry Radcliffe off.",
+     "on_a_card_about_b": "A S.H.I.E.L.D. scientist who seeks Radcliffe's help against Hive.",
+     "on_b_card_about_a": "A transhumanist Fitz seeks out for help against Hive."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S4#1",
+     "text": "Fitz learns that Holden Radcliffe has built the android Aida and agrees to help him perfect her, keeping it secret from Jemma.",
+     "on_a_card_about_b": "The friend who secretly helps Radcliffe perfect Aida.",
+     "on_b_card_about_a": "The friend Fitz secretly helps perfect the android Aida."
+    },
+    {
+     "i": 2,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#11",
+     "text": "Fitz finds proof in Aida's programming that Radcliffe betrayed S.H.I.E.L.D. When S.H.I.E.L.D. locks Radcliffe up, Fitz works out that the prisoner is a Life Model Decoy.",
+     "on_a_card_about_b": "The friend Radcliffe builds Aida with, who uncovers his betrayal.",
+     "on_b_card_about_a": "The friend Fitz builds Aida with, who betrays S.H.I.E.L.D."
+    },
+    {
+     "i": 3,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#16",
+     "text": "Radcliffe's Framework holds Fitz's mind, and inside it Fitz becomes the cruel Doctor.",
+     "on_a_card_about_b": "The friend Radcliffe builds Aida with, later trapped in Radcliffe's Framework.",
+     "on_b_card_about_a": "The friend Fitz builds Aida with, whose Framework later traps Fitz's mind."
+    }
+   ]
+  },
+  "from": "tx/out_18.json"
+ },
+ {
+  "n": 3,
+  "type": "change",
+  "id": "st-holden-radcliffe|st-jemma-simmons:3",
+  "q": "N2",
+  "i": 3,
+  "now": {
+   "i": 3,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S4#17",
+   "text": "Jemma distrusts Radcliffe's android Aida. When he betrays S.H.I.E.L.D. and traps her friends in the Framework, Jemma goes in after them and confronts him there.",
+   "on_a_card_about_b": "Scientist who works with Radcliffe, then confronts him in the Framework.",
+   "on_b_card_about_a": "Scientist Jemma works with. Betrays S.H.I.E.L.D. and traps her friends."
+  },
+  "proposed": {
+   "text": "In the Framework, Jemma finds Radcliffe living on Ogygia with Agnes and presses him for a way out. He admits the Framework has gone wrong before Hydra arrives and takes him prisoner."
+  },
+  "their_evidence": "The current text sums up events from other episodes (distrust of Aida, S4#4 onward; Radcliffe's betrayal, S4#11; the agents replaced by Aida's LMDs, S4#14). In Identity and Change (S4#17), Simmons, Coulson and Ward reach Radcliffe on Ogygia, where Simmons and Coulson confront him and ask for help leaving; he admits things went wrong and mentions an exit, then Madame Hydra and the Doctor arrive and he is taken to the Triskelion.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Holden_Radcliffe&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-holden-radcliffe|st-jemma-simmons:3",
+   "pair": "st-holden-radcliffe|st-jemma-simmons",
+   "a": "Holden Radcliffe",
+   "b": "Jemma Simmons",
+   "a_desc": "A scientist obsessed with transhumanism",
+   "b_desc": "A S.H.I.E.L.D. biochemist",
+   "universe": "Sacred Timeline",
+   "check_stage": 3,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S3#18",
+     "text": "Jemma and Fitz seek out Radcliffe for help against Hive, and Jemma sees through his fake-eye test. Then Daisy and Hive's followers burst in and take him.",
+     "on_a_card_about_b": "S.H.I.E.L.D. scientist who sees through Radcliffe's fake-eye test.",
+     "on_b_card_about_a": "Transhumanist scientist Jemma seeks out for help against Hive."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S4#3",
+     "text": "Jemma Simmons works with Holden Radcliffe to save Melinda May's life, killing and reviving her.",
+     "on_a_card_about_b": "Scientist who works with Radcliffe to save May.",
+     "on_b_card_about_a": "Scientist Jemma works with to save May."
+    },
+    {
+     "i": 2,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#11",
+     "text": "Fitz learns Radcliffe is behind Aida's attack, and Jemma joins the team that arrests him at his home. The man they take turns out to be his android double.",
+     "on_a_card_about_b": "Scientist who works with Radcliffe to save May, then helps arrest him.",
+     "on_b_card_about_a": "Scientist Jemma works with to save May, until he turns on S.H.I.E.L.D."
+    },
+    {
+     "i": 3,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#17",
+     "text": "Jemma distrusts Radcliffe's android Aida. When he betrays S.H.I.E.L.D. and traps her friends in the Framework, Jemma goes in after them and confronts him there.",
+     "on_a_card_about_b": "Scientist who works with Radcliffe, then confronts him in the Framework.",
+     "on_b_card_about_a": "Scientist Jemma works with. Betrays S.H.I.E.L.D. and traps her friends."
+    }
+   ]
+  },
+  "from": "tx/out_18.json"
+ },
+ {
+  "n": 4,
+  "type": "change",
+  "id": "st-aida|st-davis:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S4#21",
+   "text": "Agent Davis helps pull Fitz out of the chamber where Aida, now the human Ophelia, attacks him. He and Piper shoot her again and again, only to watch her wounds heal.",
+   "on_a_card_about_b": "An agent who keeps shooting Aida as her wounds heal.",
+   "on_b_card_about_a": "The android turned human Ophelia, whom Davis shoots to no effect."
+  },
+  "proposed": {
+   "text": "Davis helps pull Fitz out of the chamber where Aida, now the human Ophelia, attacks him. He keeps shooting her so Piper can get Fitz away, but her wounds heal and she leaves him badly hurt."
+  },
+  "their_evidence": "In The Return (S4#21), Piper shoots Aida once in the chest and escapes with Fitz; Davis charges forward and keeps shooting to buy them time. Aida heals, attacks Davis and leaves him for dead. The current text has Piper and Davis both shooting again and again and leaves out Aida's attack on Davis.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=James_Davis&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-aida|st-davis:0",
+   "pair": "st-aida|st-davis",
+   "a": "Aida",
+   "b": "Davis",
+   "a_desc": "An android assistant built by Radcliffe",
+   "b_desc": "A S.H.I.E.L.D. field agent",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S4#21",
+     "text": "Agent Davis helps pull Fitz out of the chamber where Aida, now the human Ophelia, attacks him. He and Piper shoot her again and again, only to watch her wounds heal.",
+     "on_a_card_about_b": "An agent who keeps shooting Aida as her wounds heal.",
+     "on_b_card_about_a": "The android turned human Ophelia, whom Davis shoots to no effect."
+    }
+   ]
+  },
+  "from": "tx/out_18.json"
+ },
+ {
+  "n": 5,
+  "type": "change",
+  "id": "st-melinda-may|st-ruby-hale:0",
+  "q": "N4",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S5#11",
+   "text": "Ruby Hale, General Hale's daughter and Hydra's young enforcer, ambushes May and the team with androids at an aerospace facility.",
+   "on_a_card_about_b": "General Hale's daughter, Hydra's young enforcer. Ambushes May's team.",
+   "on_b_card_about_a": "A S.H.I.E.L.D. agent Ruby ambushes."
+  },
+  "proposed": {
+   "text": "Ruby Hale, General Hale's daughter, ambushes May and the team with androids at an aerospace facility.",
+   "on_a_card_about_b": "General Hale's daughter. Ambushes May's team."
+  },
+  "their_evidence": "In All the Comforts of Home (S5#11) the masked attacker is revealed only as Hale's daughter. Hale's Hydra allegiance is first shown at the end of The Devil Complex (S5#14, 'Hail Hydra'), and Coulson first identifies Ruby as working for Hydra in Rise and Shine (S5#15). Calling her Hydra's enforcer at S5#11 gives away a later reveal.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Ruby_Hale&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-melinda-may|st-ruby-hale:0",
+   "pair": "st-melinda-may|st-ruby-hale",
+   "a": "Melinda May",
+   "b": "Ruby Hale",
+   "a_desc": "A veteran S.H.I.E.L.D. pilot called the Cavalry",
+   "b_desc": "Hale's daughter, raised as a weapon",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S5#11",
+     "text": "Ruby Hale, General Hale's daughter and Hydra's young enforcer, ambushes May and the team with androids at an aerospace facility.",
+     "on_a_card_about_b": "General Hale's daughter, Hydra's young enforcer. Ambushes May's team.",
+     "on_b_card_about_a": "A S.H.I.E.L.D. agent Ruby ambushes."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S5#18",
+     "text": "May is there when Ruby takes in the gravitonium and loses control of its power.",
+     "on_a_card_about_b": "Hydra's young enforcer, who takes in the gravitonium as May watches.",
+     "on_b_card_about_a": "A S.H.I.E.L.D. agent who is there when Ruby takes in the gravitonium."
+    }
+   ]
+  },
+  "from": "tx/out_20.json"
+ },
+ {
+  "n": 6,
+  "type": "change",
+  "id": "st-daniel-whitehall|st-general-hale:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "mentor",
+   "title": "Agents of S.H.I.E.L.D. S5#15",
+   "text": "Daniel Whitehall trains R. Hale as one of his HYDRA students and chooses her for his plan to bring a future leader of HYDRA into the world. Long after his death, Hale raises her daughter Ruby for that purpose.",
+   "on_a_card_about_b": "Whitehall's HYDRA student, chosen to bear HYDRA's future leader.",
+   "on_b_card_about_a": "Hale's HYDRA teacher, who chose her for his plan for a future leader."
+  },
+  "proposed": {
+   "text": "Daniel Whitehall teaches R. Hale at Hydra's academy and chooses her to bear the child he designs to be Hydra's future leader. She agrees and raises her daughter Ruby for that purpose."
+  },
+  "their_evidence": "Rise and Shine (S5#15): in the 1990s flashback Whitehall picks Hale to bear Hydra's future leader, and Ruby is born about 28 years before the present. So Hale raises Ruby while Whitehall is still alive, and he dies only a few years before the present (the 2016 flashback already treats him as dead). 'Long after his death' gets the timeline wrong.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_5&action=raw",
+  "connection": {
+   "id": "st-daniel-whitehall|st-general-hale:0",
+   "pair": "st-daniel-whitehall|st-general-hale",
+   "a": "Daniel Whitehall",
+   "b": "Hale",
+   "a_desc": "A HYDRA scientist who never seems to age",
+   "b_desc": "A US Air Force general",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "mentor",
+     "title": "Agents of S.H.I.E.L.D. S5#15",
+     "text": "Daniel Whitehall trains R. Hale as one of his HYDRA students and chooses her for his plan to bring a future leader of HYDRA into the world. Long after his death, Hale raises her daughter Ruby for that purpose.",
+     "on_a_card_about_b": "Whitehall's HYDRA student, chosen to bear HYDRA's future leader.",
+     "on_b_card_about_a": "Hale's HYDRA teacher, who chose her for his plan for a future leader."
+    }
+   ]
+  },
+  "from": "tx/out_20.json"
+ },
+ {
+  "n": 7,
+  "type": "change",
+  "id": "st-enoch|st-jemma-simmons:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S6#6",
+   "text": "Enoch offers Jemma up to the Chronicom hunters to make Fitz cooperate, then turns on his own people and rescues her and Fitz.",
+   "on_a_card_about_b": "Agent Enoch first betrays to the hunters, then rescues.",
+   "on_b_card_about_a": "Chronicom who betrays Jemma to the hunters, then rescues her and Fitz."
+  },
+  "proposed": {
+   "text": "Enoch warns Atarah that her mind machine is too dangerous for Jemma and Fitz. Told to choose between his people and his friends, he chooses his friends, knocks out the Chronicoms and helps the two escape."
+  },
+  "their_evidence": "Enoch offering Jemma up to Atarah (telling her to put Simmons in danger to motivate Fitz) happens in The Other Thing (S6#5), not Inescapable (S6#6). In Inescapable, Enoch warns Atarah the Cerebral Fusion Machine could kill them, is told to pick a side, chooses his friends, deactivates Atarah, Malachi and the other Chronicoms, and teleports away with Fitz and Simmons.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-enoch|st-jemma-simmons:0",
+   "pair": "st-enoch|st-jemma-simmons",
+   "a": "Enoch",
+   "b": "Jemma Simmons",
+   "a_desc": "A Chronicom observer posing as a human",
+   "b_desc": "A S.H.I.E.L.D. biochemist",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S6#6",
+     "text": "Enoch offers Jemma up to the Chronicom hunters to make Fitz cooperate, then turns on his own people and rescues her and Fitz.",
+     "on_a_card_about_b": "Agent Enoch first betrays to the hunters, then rescues.",
+     "on_b_card_about_a": "Chronicom who betrays Jemma to the hunters, then rescues her and Fitz."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S6#13",
+     "text": "Enoch saves Jemma and Fitz from the Chronicom hunters, and together they build a Chronicom Life Model Decoy of Phil Coulson to guide the team through S.H.I.E.L.D.'s past.",
+     "on_a_card_about_b": "Friend Enoch saves from the hunters.",
+     "on_b_card_about_a": "Chronicom friend who saves Jemma and Fitz from the hunters."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S7#13",
+     "text": "Jemma remembers the years she and Fitz spent hidden away with Enoch, working out how to travel through time.",
+     "on_a_card_about_b": "Friend Enoch saves from the Hunters and hides with for years.",
+     "on_b_card_about_a": "Chronicom friend who saves Jemma and Fitz, then hides with them for years."
+    }
+   ]
+  },
+  "from": "tx/out_22.json"
+ },
+ {
+  "n": 8,
+  "type": "change",
+  "id": "st-enoch|st-leo-fitz:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S6#6",
+   "text": "Enoch offers Jemma up to the Chronicom hunters, and a furious Fitz throws him out of his cell, but Enoch then turns on his own people to rescue them both.",
+   "on_a_card_about_b": "Best friend Enoch betrays, then rescues from the hunters.",
+   "on_b_card_about_a": "Chronicom who betrays Jemma to the hunters, then rescues Fitz and her."
+  },
+  "proposed": {
+   "text": "Enoch warns Atarah that her mind machine is too dangerous for Fitz and Jemma. Told to choose between his people and his friends, he chooses his friends, knocks out the Chronicoms and helps the two escape."
+  },
+  "their_evidence": "Enoch offering Jemma up and the furious Fitz ordering him out of his cell (before Enoch gasses him) both happen in The Other Thing (S6#5). In Inescapable (S6#6), Enoch warns Atarah the machine is dangerous, chooses his friends over his people, deactivates the Chronicoms and escapes with Fitz and Simmons.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Enoch&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-enoch|st-leo-fitz:1",
+   "pair": "st-enoch|st-leo-fitz",
+   "a": "Enoch",
+   "b": "Leo Fitz",
+   "a_desc": "A Chronicom observer posing as a human",
+   "b_desc": "A S.H.I.E.L.D. engineer and weapons expert",
+   "universe": "Sacred Timeline",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S5#5",
+     "text": "Enoch is a Chronicom who befriends Leo Fitz and helps him reach the team in the future.",
+     "on_a_card_about_b": "Human Enoch befriends and helps reach the team in the future.",
+     "on_b_card_about_a": "Chronicom who befriends Fitz and helps him reach the future."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S6#6",
+     "text": "Enoch offers Jemma up to the Chronicom hunters, and a furious Fitz throws him out of his cell, but Enoch then turns on his own people to rescue them both.",
+     "on_a_card_about_b": "Best friend Enoch betrays, then rescues from the hunters.",
+     "on_b_card_about_a": "Chronicom who betrays Jemma to the hunters, then rescues Fitz and her."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S6#13",
+     "text": "Enoch saves Fitz and Jemma from the Chronicom hunters and proposes a plan that will change their lives forever.",
+     "on_a_card_about_b": "Friend Enoch saves from the hunters.",
+     "on_b_card_about_a": "Friend who saves Fitz from the hunters."
+    },
+    {
+     "i": 3,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S7#13",
+     "text": "Enoch stands by Fitz, his best friend, for years while Fitz and Jemma hide from the Chronicoms and build a time machine.",
+     "on_a_card_about_b": "Enoch's best friend. Enoch stands by him for years in hiding.",
+     "on_b_card_about_a": "Fitz's best friend. Stands by him for years in hiding."
+    }
+   ]
+  },
+  "from": "tx/out_22.json"
+ },
+ {
+  "n": 9,
+  "type": "change",
+  "id": "st-jemma-simmons|st-melinda-may:2",
+  "q": "N2",
+  "i": 2,
+  "now": {
+   "i": 2,
+   "kind": "friend",
+   "title": "Agents of S.H.I.E.L.D. S6#13",
+   "text": "Jemma has saved May's life before, curing her after a ghost's touch nearly kills her. When Sarge fatally stabs May, Jemma injects her with a healing formula and freezes her in a cryo chamber to keep her alive.",
+   "on_a_card_about_b": "A close friend Jemma has saved before and freezes to keep alive.",
+   "on_b_card_about_a": "A close friend who saved May once and freezes her to save her life."
+  },
+  "proposed": {
+   "text": "With May dying from Sarge's stab wound, Jemma arrives with a team, injects her with a healing formula and freezes her in a cryo chamber to keep her alive."
+  },
+  "their_evidence": "The first sentence tells another episode's event: Simmons (with Radcliffe) stops and restarts May's heart after Lucy Bauer's ghost touch in Uprising (S4#3), with no stage there. In New Life (S6#13), Simmons arrives at the temple, says she has injected May with a formula that will heal her, and has her put in a Cryo-Freeze Chamber.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Jemma_Simmons&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-jemma-simmons|st-melinda-may:2",
+   "pair": "st-jemma-simmons|st-melinda-may",
+   "a": "Jemma Simmons",
+   "b": "Melinda May",
+   "a_desc": "A S.H.I.E.L.D. biochemist",
+   "b_desc": "A veteran S.H.I.E.L.D. pilot called the Cavalry",
+   "universe": "Sacred Timeline",
+   "check_stage": 2,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S1",
+     "text": "Melinda May and Jemma Simmons serve together on Coulson's team and become close friends.",
+     "on_a_card_about_b": "A close friend and teammate on Coulson's team.",
+     "on_b_card_about_a": "A close friend and teammate on Coulson's team."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S1#17",
+     "text": "May admits that she, not Coulson, put the team together, reporting on the candidates for Fury, Jemma among them.",
+     "on_a_card_about_b": "A close friend, who handpicked Jemma for Coulson's team.",
+     "on_b_card_about_a": "A close friend May handpicked for Coulson's team."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "Agents of S.H.I.E.L.D. S6#13",
+     "text": "Jemma has saved May's life before, curing her after a ghost's touch nearly kills her. When Sarge fatally stabs May, Jemma injects her with a healing formula and freezes her in a cryo chamber to keep her alive.",
+     "on_a_card_about_b": "A close friend Jemma has saved before and freezes to keep alive.",
+     "on_b_card_about_a": "A close friend who saved May once and freezes her to save her life."
+    }
+   ]
+  },
+  "from": "tx/out_22.json"
+ },
+ {
+  "n": 10,
+  "type": "change",
+  "id": "by-st-sarge|st-daisy-johnson:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S6#13",
+   "text": "After Sarge, who turned his sword on Daisy during their truce, stabs May, Daisy comes for revenge, and her quakes expose his true form so Mack can kill him.",
+   "on_a_card_about_b": "The Inhuman who fights Sarge and helps bring him down.",
+   "on_b_card_about_a": "A man with Coulson's face, who stabs May. Daisy helps bring him down."
+  },
+  "proposed": {
+   "text": "After Sarge stabs May, Daisy blames herself for trusting him and fights him at the temple. Her quakes have no effect on him, and Mack kills him with the sword May throws over."
+  },
+  "their_evidence": "New Life (S6#13): Daisy blames herself for trusting Sarge after he stabs May; 'Sarge turns out to be unaffected by Quake's powers'; May kills Izel with Sarge's sword and tosses it to Mack, who slays Sarge. Nothing shows Sarge turning his sword on Daisy during the truce (he stabs May in S6#12), and her quakes do not expose his true form.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=New_Life&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_6&action=raw",
+  "connection": {
+   "id": "by-st-sarge|st-daisy-johnson:1",
+   "pair": "by-st-sarge|st-daisy-johnson",
+   "a": "Sarge",
+   "b": "Daisy Johnson",
+   "a_desc": "An alien hunter wearing Coulson's face",
+   "b_desc": "Quake, an Inhuman S.H.I.E.L.D. agent",
+   "universe": "by",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S6#8",
+     "text": "Daisy rides with Sarge in an uneasy truce to hunt the Shrikes.",
+     "on_a_card_about_b": "The Inhuman who rides with Sarge in an uneasy truce.",
+     "on_b_card_about_a": "A man with Coulson's face. Daisy rides with him to hunt the Shrikes."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S6#13",
+     "text": "After Sarge, who turned his sword on Daisy during their truce, stabs May, Daisy comes for revenge, and her quakes expose his true form so Mack can kill him.",
+     "on_a_card_about_b": "The Inhuman who fights Sarge and helps bring him down.",
+     "on_b_card_about_a": "A man with Coulson's face, who stabs May. Daisy helps bring him down."
+    }
+   ]
+  },
+  "from": "tx/out_23.json"
+ },
+ {
+  "n": 11,
+  "type": "change",
+  "id": "by-st-freddy-malick|by-st-sibyl:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S7#3",
+   "text": "In 1931, Sibyl's Chronicom Hunters try to kill Freddy, and S.H.I.E.L.D. saves him.",
+   "on_a_card_about_b": "The Chronicom whose Hunters try to kill Freddy.",
+   "on_b_card_about_a": "A target of Sibyl's in 1931."
+  },
+  "proposed": {
+   "text": "Sibyl hears from her Hunters that their plan to kill Freddy in 1931 failed after S.H.I.E.L.D. saved him, and she sets a new plan in motion in 1955."
+  },
+  "their_evidence": "The Hunters' attempt on Freddy and S.H.I.E.L.D.'s rescue happen in 1931 in The New Deal / Know Your Onions (S7#1-2). In Alien Commies from the Future! (S7#3, 1955), Sibyl first appears: Luke and Abel talk to her about the failure of their plan to kill Freddy Malick and move on to Helius. Freddy is not in S7#3; Sibyl is not on screen before it, so the fix keeps the title and gives S7#3's event.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Sibyl&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_7&action=raw",
+  "connection": {
+   "id": "by-st-freddy-malick|by-st-sibyl:0",
+   "pair": "by-st-freddy-malick|by-st-sibyl",
+   "a": "Freddy Malick",
+   "b": "Sibyl",
+   "a_desc": "A 1931 speakeasy doorman, Gideon Malick's father",
+   "b_desc": "A Chronicom predictor",
+   "universe": "by",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S7#3",
+     "text": "In 1931, Sibyl's Chronicom Hunters try to kill Freddy, and S.H.I.E.L.D. saves him.",
+     "on_a_card_about_b": "The Chronicom whose Hunters try to kill Freddy.",
+     "on_b_card_about_a": "A target of Sibyl's in 1931."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S7#4",
+     "text": "In 1955, one of Sibyl's Chronicoms stays behind and offers to help Freddy, now a Hydra leader.",
+     "on_a_card_about_b": "The Chronicom whose people offer Freddy their help.",
+     "on_b_card_about_a": "Takes help from Sibyl's Chronicoms."
+    },
+    {
+     "i": 2,
+     "kind": "ally",
+     "title": "Agents of S.H.I.E.L.D. S7#5",
+     "text": "By 1976, Freddy is working with Sibyl's Chronicoms, who help him rush Project Insight.",
+     "on_a_card_about_b": "The Chronicom whose people help Freddy rush Project Insight.",
+     "on_b_card_about_a": "Works for Sibyl's plan."
+    }
+   ]
+  },
+  "from": "tx/out_23.json"
+ },
+ {
+  "n": 12,
+  "type": "change",
+  "id": "by-st-kora|st-daisy-johnson:0",
+  "q": "N6",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "family",
+   "title": "Agents of S.H.I.E.L.D. S7#8",
+   "text": "Kora is Daisy's half-sister, Jiaying's daughter, alive in the history the Chronicoms change.",
+   "on_a_card_about_b": "Kora's half-sister.",
+   "on_b_card_about_a": "Daisy's half-sister."
+  },
+  "proposed": {
+   "title": "Agents of S.H.I.E.L.D. S7#10",
+   "text": "Daisy learns that Kora, who has sided with Nathaniel Malick, is her half-sister, a daughter of Jiaying who died before Daisy was born in the original history. Captured by Coulson, Kora says she wanted to meet her sister."
+  },
+  "their_evidence": "In After, Before (S7#8) Daisy never meets Kora or learns of her; only Jiaying, May and Yo-Yo deal with Kora at Afterlife. In Stolen (S7#10) 'Daisy learns that Kora is her half-sister, who died before Daisy was born in the original timeline', and Kora, captured by Coulson, says she wanted to meet her sister.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_7&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Stolen&prop=wikitext&format=json",
+  "connection": {
+   "id": "by-st-kora|st-daisy-johnson:0",
+   "pair": "by-st-kora|st-daisy-johnson",
+   "a": "Kora",
+   "b": "Daisy Johnson",
+   "a_desc": "Daisy's half-sister, an Inhuman",
+   "b_desc": "Quake, an Inhuman S.H.I.E.L.D. agent",
+   "universe": "by",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "family",
+     "title": "Agents of S.H.I.E.L.D. S7#8",
+     "text": "Kora is Daisy's half-sister, Jiaying's daughter, alive in the history the Chronicoms change.",
+     "on_a_card_about_b": "Kora's half-sister.",
+     "on_b_card_about_a": "Daisy's half-sister."
+    },
+    {
+     "i": 1,
+     "kind": "family",
+     "title": "Agents of S.H.I.E.L.D. S7#13",
+     "text": "Kora, who sided with Nathaniel Malick and fought Daisy at first, turns on him, saves Daisy's life and heads into space at her side.",
+     "on_a_card_about_b": "Kora's half-sister. Enemies at first, they end up fighting side by side.",
+     "on_b_card_about_a": "Daisy's half-sister, an enemy at first, who saves her life."
+    }
+   ]
+  },
+  "from": "tx/out_23.json"
+ },
+ {
+  "n": 13,
+  "type": "change",
+  "id": "st-deke-shaw|st-john-garrett:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "enemy",
+   "title": "Agents of S.H.I.E.L.D. S7#11",
+   "text": "In 1983, a younger John Garrett working with Nathaniel Malick captures Deke and tortures him for Fitz's whereabouts, even in front of his grandmother Jemma. Deke refuses to give him anything.",
+   "on_a_card_about_b": "In 1983, a younger man who tortures Deke for Fitz's whereabouts.",
+   "on_b_card_about_a": "A captive Garrett tortures for Fitz's whereabouts, who gives him nothing."
+  },
+  "proposed": {
+   "text": "In 1983, a younger John Garrett working with Nathaniel Malick beats up a captive Deke in front of his grandmother Jemma, to force her to reveal where Fitz is.",
+   "on_a_card_about_b": "In 1983, a younger man who beats Deke to make Jemma talk.",
+   "on_b_card_about_a": "A captive Garrett beats up to make Jemma reveal Fitz's whereabouts."
+  },
+  "their_evidence": "Brand New Day (S7#11): Deke is caught hiding on the Zephyr; Malick has Garrett bring in Shaw 'as added motivation' and 'Garrett beats up Shaw in an attempt to get Simmons to talk'. Deke is leverage on Simmons, not the one questioned for Fitz's location (he does not know it).",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Brand_New_Day&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agents_of_S.H.I.E.L.D._season_7&action=raw",
+  "connection": {
+   "id": "st-deke-shaw|st-john-garrett:0",
+   "pair": "st-deke-shaw|st-john-garrett",
+   "a": "Deke Shaw",
+   "b": "John Garrett",
+   "a_desc": "A scavenger on the Lighthouse in 2091",
+   "b_desc": "A veteran S.H.I.E.L.D. agent",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Agents of S.H.I.E.L.D. S7#11",
+     "text": "In 1983, a younger John Garrett working with Nathaniel Malick captures Deke and tortures him for Fitz's whereabouts, even in front of his grandmother Jemma. Deke refuses to give him anything.",
+     "on_a_card_about_b": "In 1983, a younger man who tortures Deke for Fitz's whereabouts.",
+     "on_b_card_about_a": "A captive Garrett tortures for Fitz's whereabouts, who gives him nothing."
+    }
+   ]
+  },
+  "from": "tx/out_23.json"
+ },
+ {
+  "n": 14,
+  "type": "change",
+  "id": "st-daisy-johnson|st-daniel-sousa:0",
+  "q": "N6",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "partner",
+   "title": "Agents of S.H.I.E.L.D. S7#12",
+   "text": "Daniel Sousa joins the team after they save him from his own death in 1955. He and Daisy Johnson fall for each other while fighting the Chronicoms across time.",
+   "on_a_card_about_b": "Daisy's love, rescued from his 1955 death to fight beside her across time.",
+   "on_b_card_about_a": "Sousa's love, met when the team saves him from his death in 1955."
+  },
+  "proposed": {
+   "title": "Agents of S.H.I.E.L.D. S7#9",
+   "text": "Trapped in a time loop, Daniel stays at Daisy's side and helps her try to save the team. Before one reset she kisses him, and for the first time in over a hundred loops he is surprised.",
+   "on_b_card_about_a": "Sousa's love, who first meets him at Area 51 in 1955."
+  },
+  "their_evidence": "The stage sums up the whole of S7 (Sousa joins in S7#4, the two fall for each other) on The End Is at Hand (S7#12), where little passes between them beyond escaping the Chronicom ship. The romance turns in As I Have Always Been (S7#9): Sousa helps Daisy through the loop and she kisses him passionately; by S7#11 Daisy tells Mack about the kiss and Mack gives Sousa a big-brother talk. The b-card line says they met when the team saved him, but they first meet at Area 51 in S7#3, where Daisy, undercover, wins him over.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=As_I_Have_Always_Been&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Alien_Commies_from_the_Future!&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-daisy-johnson|st-daniel-sousa:0",
+   "pair": "st-daisy-johnson|st-daniel-sousa",
+   "a": "Daisy Johnson",
+   "b": "Daniel Sousa",
+   "a_desc": "Quake, an Inhuman S.H.I.E.L.D. agent",
+   "b_desc": "An SSR agent and wounded war veteran",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "partner",
+     "title": "Agents of S.H.I.E.L.D. S7#12",
+     "text": "Daniel Sousa joins the team after they save him from his own death in 1955. He and Daisy Johnson fall for each other while fighting the Chronicoms across time.",
+     "on_a_card_about_b": "Daisy's love, rescued from his 1955 death to fight beside her across time.",
+     "on_b_card_about_a": "Sousa's love, met when the team saves him from his death in 1955."
+    }
+   ]
+  },
+  "from": "tx/out_23.json"
+ },
+ {
+  "n": 15,
+  "type": "question",
+  "id": "st-daisy-johnson|st-daniel-sousa:0",
+  "question": "Daisy and Sousa's connection has a single stage. They meet at Area 51 (S7#3), are teammates from S7#4, are captured together by Nathaniel (S7#5-6), kiss in the time loop (S7#9) and end up exploring space together (S7#13). Add earlier ally stages (S7#3 or S7#4) before the partner stage?",
+  "options": [
+   "Add an ally stage at S7#3 (Daisy, posing as a CIA agent, wins Sousa over and gets him to release her teammates) and keep the partner stage at S7#9",
+   "Keep a single partner stage at S7#9 as proposed"
+  ],
+  "their_evidence": "S7#3: 'Daisy arrives undercover and convinces Sousa to release her teammates'; S7#6: Sousa carries Daisy out of Nathaniel's barn; S7#9: Daisy kisses Sousa; S7#13: 'Daisy is exploring the cosmos with Sousa and Kora'.",
+  "connection": {
+   "id": "st-daisy-johnson|st-daniel-sousa:0",
+   "pair": "st-daisy-johnson|st-daniel-sousa",
+   "a": "Daisy Johnson",
+   "b": "Daniel Sousa",
+   "a_desc": "Quake, an Inhuman S.H.I.E.L.D. agent",
+   "b_desc": "An SSR agent and wounded war veteran",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "partner",
+     "title": "Agents of S.H.I.E.L.D. S7#12",
+     "text": "Daniel Sousa joins the team after they save him from his own death in 1955. He and Daisy Johnson fall for each other while fighting the Chronicoms across time.",
+     "on_a_card_about_b": "Daisy's love, rescued from his 1955 death to fight beside her across time.",
+     "on_b_card_about_a": "Sousa's love, met when the team saves him from his death in 1955."
+    }
+   ]
+  },
+  "from": "tx/out_23.json"
+ },
+ {
+  "n": 16,
+  "type": "change",
+  "id": "st-tone|st-turk-barrett:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "ally",
+   "title": "Luke Cage S1#2",
+   "text": "Turk Barrett texts Tone, Cottonmouth's bodyguard, to tell him where Chico Diaz is hiding.",
+   "on_a_card_about_b": "The snitch who texts Tone Chico's hiding place.",
+   "on_b_card_about_a": "Cottonmouth's bodyguard, whom Turk tips off about Chico."
+  },
+  "proposed": {
+   "text": "Turk Barrett meets Tone, Cottonmouth's bodyguard, and tells him that Chico Diaz is hiding in Pop's barbershop.",
+   "on_a_card_about_b": "The snitch who tells Tone where Chico is hiding."
+  },
+  "their_evidence": "In Code of the Streets (Luke Cage S1#2), Tone's contact first says he has a lead but will not give the location; Tone and Shades then meet Turk in person and Turk tells them he saw Chico at the barbershop. The location is given face to face, not by text.",
+  "their_source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Code_of_the_Streets&prop=wikitext&format=json",
+  "connection": {
+   "id": "st-tone|st-turk-barrett:0",
+   "pair": "st-tone|st-turk-barrett",
+   "a": "Tone",
+   "b": "Turk Barrett",
+   "a_desc": "A trigger-happy thug in Cottonmouth's crew",
+   "b_desc": "A small-time crook in Hell's Kitchen",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "Luke Cage S1#2",
+     "text": "Turk Barrett texts Tone, Cottonmouth's bodyguard, to tell him where Chico Diaz is hiding.",
+     "on_a_card_about_b": "The snitch who texts Tone Chico's hiding place.",
+     "on_b_card_about_a": "Cottonmouth's bodyguard, whom Turk tips off about Chico."
+    }
+   ]
+  },
+  "from": "tx/out_26.json"
+ },
+ {
+  "n": 17,
+  "type": "question",
+  "id": "st-cottonmouth|st-luke-cage:0",
+  "question": "The pair's first stage starts at Luke Cage S1#3, but on screen they already deal with each other in S1#1 (Luke works as his dishwasher, fills in at the bar, turns down his job offer) and S1#2 (Luke brings Pop's parley offer and is fired from the club). The S1#3 text is true but sums up their history rather than saying what happens between them there (Cottonmouth warns Luke off after Pop's death, Luke hits his money, Cottonmouth fires a missile into Genghis Connie's to kill him). Add an earlier boss stage at S1#1 and rewrite S1#3 to that episode's events, or keep it as is?",
+  "options": [
+   "Keep as is",
+   "Add a S1#1 boss stage (Luke works at Harlem's Paradise) and rewrite the S1#3 enemy text to that episode's events"
+  ],
+  "their_evidence": "Moment of Truth: Luke works as a dishwasher at Harlem's Paradise and Cottonmouth offers him a job; Code of the Streets: Luke brings the parley and Cottonmouth fires him; Who's Gonna Take the Weight?: Cottonmouth warns Luke off, Luke raids his stashes, Cottonmouth fires a missile at the restaurant.",
+  "connection": {
+   "id": "st-cottonmouth|st-luke-cage:0",
+   "pair": "st-cottonmouth|st-luke-cage",
+   "a": "Cottonmouth",
+   "b": "Luke Cage",
+   "a_desc": "Harlem's nightclub-owning crime boss",
+   "b_desc": "Harlem's bulletproof hero",
+   "universe": "Sacred Timeline",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "Luke Cage S1#3",
+     "text": "Cornell Stokes, called Cottonmouth, is Luke's former employer at Harlem's Paradise. He becomes Luke's first big enemy after his men kill Pop.",
+     "on_a_card_about_b": "Cottonmouth's former employee at Harlem's Paradise, turned enemy after Pop's death.",
+     "on_b_card_about_a": "Luke's former boss at Harlem's Paradise, whose men kill Pop."
+    }
+   ]
+  },
+  "from": "tx/out_26.json"
+ }
+]

@@ -1,0 +1,1103 @@
+[
+ {
+  "type": "change",
+  "id": "sv-mysterio-ssm|sv-tinkerer-ssm:0",
+  "q": "N4",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "ally",
+   "title": "The Spectacular Spider-Man#10",
+   "text": "Mysterio and the Tinkerer both work on the Chameleon's scheme to frame Spider-Man, and both end up arrested.",
+   "on_a_card_about_b": "Mysterio's partner in the frame job.",
+   "on_b_card_about_a": "The Tinkerer's partner in the frame job."
+  },
+  "proposed": {
+   "text": "Quentin Beck and Phineas Mason both work on the Chameleon's scheme to frame Spider-Man, and both end up arrested."
+  },
+  "their_evidence": "In Persona (#10) they are only the Chameleon's cohorts Quentin Beck and Phineas Mason. Beck first appears as Mysterio in Blueprints (#14), and Mason works as the Tinkerer for the Master Planner from there on, so the names are from later titles. The other #10 stages in this batch already use Beck and Mason.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=List_of_The_Spectacular_Spider-Man_episodes&action=raw",
+  "connection": {
+   "id": "sv-mysterio-ssm|sv-tinkerer-ssm:0",
+   "pair": "sv-mysterio-ssm|sv-tinkerer-ssm",
+   "a": "Mysterio",
+   "b": "Tinkerer",
+   "a_desc": "A masked master of illusions",
+   "b_desc": "Phineas Mason, a gadget maker",
+   "universe": "sv",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "The Spectacular Spider-Man#10",
+     "text": "Mysterio and the Tinkerer both work on the Chameleon's scheme to frame Spider-Man, and both end up arrested.",
+     "on_a_card_about_b": "Mysterio's partner in the frame job.",
+     "on_b_card_about_a": "The Tinkerer's partner in the frame job."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "The Spectacular Spider-Man#14",
+     "text": "Working for the Master Planner, the Tinkerer helps Beck operate as Mysterio and builds the robot double that Spider-Man arrests in Beck's place.",
+     "on_a_card_about_b": "Mysterio's partner. Builds his robot double.",
+     "on_b_card_about_a": "The Tinkerer's partner, who hides behind a robot double."
+    }
+   ]
+  },
+  "from": "tx/out_30.json",
+  "n": 0
+ },
+ {
+  "type": "question",
+  "id": "sv-mysterio-ssm|sv-peter-parker-ssm:1",
+  "question": "Context stage 0 of this pair (not the checked stage) has the title 'The Spectacular Spider-Man' with no episode number, so it sorts before #10. Its text tells the Master Planner's new Sinister Six, which is Reinforcement (#16) / Shear Strength (#17). Should it move to The Spectacular Spider-Man#16 and be re-checked there?",
+  "options": [
+   "Move stage 0 to The Spectacular Spider-Man#16 and re-check the text",
+   "Leave as is"
+  ],
+  "their_evidence": "The Master Planner reconstitutes the Sinister Six with Mysterio and Kraven in Reinforcement (#16), using an android stand-in for Beck.",
+  "connection": {
+   "id": "sv-mysterio-ssm|sv-peter-parker-ssm:1",
+   "pair": "sv-mysterio-ssm|sv-peter-parker-ssm",
+   "a": "Mysterio",
+   "b": "Peter Parker",
+   "a_desc": "A masked master of illusions",
+   "b_desc": "A Midtown High junior and Bugle photographer",
+   "universe": "sv",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man",
+     "text": "In the Master Planner's new Sinister Six, Mysterio attacks Spider-Man with illusions and a robot decoy, until Spider-Man catches the real Beck and he is arrested.",
+     "on_a_card_about_b": "The hero who sees through Mysterio's decoys and has him arrested.",
+     "on_b_card_about_a": "A master of illusions Peter finally catches."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#10",
+     "text": "Quentin Beck works on the Chameleon's scheme to frame Spider-Man.",
+     "on_a_card_about_b": "The hero Beck helps the Chameleon frame.",
+     "on_b_card_about_a": "A Chameleon henchman who helps frame Peter."
+    },
+    {
+     "i": 2,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#14",
+     "text": "As Mysterio, Beck steals tech for a hidden boss and fights Spider-Man, who unmasks and arrests him, but the Beck he catches is a robot decoy.",
+     "on_a_card_about_b": "The hero Mysterio haunts with tricks and decoys.",
+     "on_b_card_about_a": "A master of illusions Peter never quite catches."
+    }
+   ]
+  },
+  "from": "tx/out_30.json",
+  "n": 1
+ },
+ {
+  "type": "change",
+  "id": "sv-doc-ock-ssm|sv-mysterio-ssm:0",
+  "q": "N4",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "boss",
+   "title": "The Spectacular Spider-Man#16",
+   "text": "Mysterio joins the Sinister Six that the Master Planner re-forms at Christmas.",
+   "on_a_card_about_b": "A member of Otto's new Sinister Six.",
+   "on_b_card_about_a": "Mysterio's leader in the Sinister Six."
+  },
+  "proposed": {
+   "title": "The Spectacular Spider-Man#17",
+   "text": "Otto is unmasked as the Master Planner, the hidden boss Mysterio stole tech for and fought under in the new Sinister Six."
+  },
+  "their_evidence": "In #16 (Reinforcement) the Six are gathered by an unseen Master Planner, and Otto appears only as the reformed Ravencroft patient who refuses to join; the Master Planner is revealed as Otto in #17 (Shear Strength), where Otto praises the Tinkerer and the Vulture for assembling 'the technology Mysterio stole'. A #16 boss stage between Otto and Mysterio, with the card line 'Mysterio's leader in the Sinister Six', gives away the #17 reveal. The connection's sibling Master Planner ties (Otto with Kraven, the Tinkerer and Electro) all start at #17.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Episode:Shear_Strength&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-doc-ock-ssm|sv-mysterio-ssm:0",
+   "pair": "sv-doc-ock-ssm|sv-mysterio-ssm",
+   "a": "Doctor Octopus",
+   "b": "Mysterio",
+   "a_desc": "Otto Octavius, a timid scientist",
+   "b_desc": "A masked master of illusions",
+   "universe": "sv",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "The Spectacular Spider-Man#16",
+     "text": "Mysterio joins the Sinister Six that the Master Planner re-forms at Christmas.",
+     "on_a_card_about_b": "A member of Otto's new Sinister Six.",
+     "on_b_card_about_a": "Mysterio's leader in the Sinister Six."
+    }
+   ]
+  },
+  "from": "tx/out_31.json",
+  "n": 2
+ },
+ {
+  "type": "change",
+  "id": "sv-doc-ock-ssm|sv-kraven-ssm:0",
+  "q": "N2",
+  "i": 0,
+  "now": {
+   "i": 0,
+   "kind": "boss",
+   "title": "The Spectacular Spider-Man#17",
+   "text": "Kraven joins the Sinister Six that the Master Planner re-forms at Christmas.",
+   "on_a_card_about_b": "A member of Otto's new Sinister Six.",
+   "on_b_card_about_a": "Kraven's leader in the Sinister Six."
+  },
+  "proposed": {
+   "text": "Otto is unmasked as the Master Planner, the boss who brought Kraven into the new Sinister Six and sent him to break Electro out of Ravencroft."
+  },
+  "their_evidence": "Kraven joining the re-formed Six and the Christmas Eve attack happen in #16 (Reinforcement), not #17. In #17 (Shear Strength) the Master Planner is revealed as Otto, and Electro asks why Otto stayed behind when Kraven broke them out of Ravencroft on Christmas Eve. The stage stays at #17 because a #16 boss stage would spoil the reveal.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Episode:Shear_Strength&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-doc-ock-ssm|sv-kraven-ssm:0",
+   "pair": "sv-doc-ock-ssm|sv-kraven-ssm",
+   "a": "Doctor Octopus",
+   "b": "Kraven the Hunter",
+   "a_desc": "Otto Octavius, a timid scientist",
+   "b_desc": "Sergei Kravinoff, a famous hunter",
+   "universe": "sv",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "The Spectacular Spider-Man#17",
+     "text": "Kraven joins the Sinister Six that the Master Planner re-forms at Christmas.",
+     "on_a_card_about_b": "A member of Otto's new Sinister Six.",
+     "on_b_card_about_a": "Kraven's leader in the Sinister Six."
+    }
+   ]
+  },
+  "from": "tx/out_31.json",
+  "n": 3
+ },
+ {
+  "type": "change",
+  "id": "sv-vulture-ssm|sv-peter-parker-ssm:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "enemy",
+   "title": "The Spectacular Spider-Man#17",
+   "text": "He returns in both Sinister Six teams and serves as Doctor Octopus's right hand.",
+   "on_a_card_about_b": "Keeps stopping the Vulture.",
+   "on_b_card_about_a": "Peter's first super villain."
+  },
+  "proposed": {
+   "text": "As the Master Planner's right hand, the Vulture snatches Gwen off the street and flies away with her before Peter can follow."
+  },
+  "their_evidence": "The text sums up several episodes (both Sinister Six teams, #11 and #16) instead of #17. In #17 (Shear Strength) the Vulture works at Otto's side in the lair, then carries the knocked-out Gwen away while Peter watches and loses sight of them, and goes on to attack Homeland Security.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Episode:Shear_Strength&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-vulture-ssm|sv-peter-parker-ssm:1",
+   "pair": "sv-vulture-ssm|sv-peter-parker-ssm",
+   "a": "The Vulture",
+   "b": "Peter Parker",
+   "a_desc": "Adrian Toomes, an inventor with a grudge",
+   "b_desc": "A Midtown High junior and Bugle photographer",
+   "universe": "sv",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#1",
+     "text": "The Vulture is the first super villain Spider-Man fights, while Toomes is trying to kill Norman Osborn.",
+     "on_a_card_about_b": "Keeps stopping the Vulture.",
+     "on_b_card_about_a": "Peter's first super villain."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#17",
+     "text": "He returns in both Sinister Six teams and serves as Doctor Octopus's right hand.",
+     "on_a_card_about_b": "Keeps stopping the Vulture.",
+     "on_b_card_about_a": "Peter's first super villain."
+    }
+   ]
+  },
+  "from": "tx/out_31.json",
+  "n": 4
+ },
+ {
+  "type": "change",
+  "id": "sv-peter-parker-ssm|sv-gwen-stacy-ssm:2",
+  "q": "N2",
+  "i": 2,
+  "now": {
+   "i": 2,
+   "kind": "friend",
+   "title": "The Spectacular Spider-Man#17",
+   "text": "Peter starts dating Liz.",
+   "on_a_card_about_b": "Peter's best friend and true love.",
+   "on_b_card_about_a": "Gwen's best friend and true love, now dating Liz."
+  },
+  "proposed": {
+   "text": "Spider-Man rescues Gwen from the Master Planner's lair. At midnight, while Gwen is on the phone with Peter, Liz kisses him."
+  },
+  "their_evidence": "'Peter starts dating Liz' is about Peter and a third person. In #17 (Shear Strength) Spider-Man saves the kidnapped Gwen from Otto's flooding lair; at New Year's Peter calls Gwen, and Liz kisses him at midnight while Gwen calls out on the phone.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Episode:Shear_Strength&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-peter-parker-ssm|sv-gwen-stacy-ssm:2",
+   "pair": "sv-peter-parker-ssm|sv-gwen-stacy-ssm",
+   "a": "Peter Parker",
+   "b": "Gwen Stacy",
+   "a_desc": "A Midtown High junior and Bugle photographer",
+   "b_desc": "Peter's best friend, Captain Stacy's daughter",
+   "universe": "sv",
+   "check_stage": 2,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#1",
+     "text": "Gwen is Peter's best friend and fellow intern in Dr. Connors's lab, and she has quietly loved him for years.",
+     "on_a_card_about_b": "Peter's best friend, who quietly loves him.",
+     "on_b_card_about_a": "Gwen's best friend, whom she has loved for years."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#13",
+     "text": "After Venom targets her, Gwen kisses Peter, and he realizes he feels the same.",
+     "on_a_card_about_b": "Peter's best friend, who quietly loves him.",
+     "on_b_card_about_a": "Gwen's best friend, whom she has loved for years."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#17",
+     "text": "Peter starts dating Liz.",
+     "on_a_card_about_b": "Peter's best friend and true love.",
+     "on_b_card_about_a": "Gwen's best friend and true love, now dating Liz."
+    },
+    {
+     "i": 3,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#19",
+     "text": "Gwen starts dating Harry.",
+     "on_a_card_about_b": "Peter's best friend and true love, now dating Harry.",
+     "on_b_card_about_a": "Gwen's best friend and true love, now dating Liz."
+    },
+    {
+     "i": 4,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#26",
+     "text": "Peter and Gwen finally admit their feelings. When Harry tells her she is all that keeps him off the Green, Gwen stays with him, and Peter accepts it.",
+     "on_a_card_about_b": "Peter's best friend and true love, still with Harry.",
+     "on_b_card_about_a": "Gwen's best friend and true love."
+    }
+   ]
+  },
+  "from": "tx/out_31.json",
+  "n": 5
+ },
+ {
+  "type": "change",
+  "id": "sv-peter-parker-ssm|sv-harry-osborn-ssm:2",
+  "q": "N2",
+  "i": 2,
+  "now": {
+   "i": 2,
+   "kind": "friend",
+   "title": "The Spectacular Spider-Man#18",
+   "text": "Back from Europe, Harry asks Gwen to be his date to Flash's birthday party.",
+   "on_a_card_about_b": "Peter's best friend, back from Europe.",
+   "on_b_card_about_a": "Harry's best friend, who also loves Gwen."
+  },
+  "proposed": {
+   "text": "Peter sees Harry come back to school from Europe, knowing his friend was once the Green Goblin."
+  },
+  "their_evidence": "The text is about Harry and Gwen, not Peter and Harry. In #18 (First Steps) 'Peter also witnesses Harry's return from Europe, following the revelation of his identity as the Green Goblin'. Harry asking Gwen to Flash's party is already the Harry and Gwen #18 stage.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=List_of_The_Spectacular_Spider-Man_episodes&action=raw",
+  "connection": {
+   "id": "sv-peter-parker-ssm|sv-harry-osborn-ssm:2",
+   "pair": "sv-peter-parker-ssm|sv-harry-osborn-ssm",
+   "a": "Peter Parker",
+   "b": "Harry Osborn",
+   "a_desc": "A Midtown High junior and Bugle photographer",
+   "b_desc": "Peter's best friend, Norman Osborn's son",
+   "universe": "sv",
+   "check_stage": 2,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#1",
+     "text": "Harry is Peter's best friend, neglected by his father Norman.",
+     "on_a_card_about_b": "Peter's best friend, Norman Osborn's neglected son.",
+     "on_b_card_about_a": "Harry's best friend."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#9",
+     "text": "Harry secretly takes an Oscorp formula, and Spider-Man finds him taking off the Green Goblin's mask. Harry then leaves for Europe to recover.",
+     "on_a_card_about_b": "Peter's best friend, Norman Osborn's neglected son.",
+     "on_b_card_about_a": "Harry's best friend."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#18",
+     "text": "Back from Europe, Harry asks Gwen to be his date to Flash's birthday party.",
+     "on_a_card_about_b": "Peter's best friend, back from Europe.",
+     "on_b_card_about_a": "Harry's best friend, who also loves Gwen."
+    },
+    {
+     "i": 3,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#19",
+     "text": "Harry and Gwen start dating.",
+     "on_a_card_about_b": "Peter's best friend, now dating Gwen.",
+     "on_b_card_about_a": "Harry's best friend, who also loves Gwen."
+    },
+    {
+     "i": 4,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#26",
+     "text": "Harry helps Spider-Man find the true Goblin, his father. He blames Spider-Man for Norman's apparent death and leans on Gwen to keep her.",
+     "on_a_card_about_b": "Peter's best friend, now dating Gwen.",
+     "on_b_card_about_a": "Harry's best friend, who also loves Gwen."
+    }
+   ]
+  },
+  "from": "tx/out_31.json",
+  "n": 6
+ },
+ {
+  "type": "question",
+  "id": "sv-peter-parker-ssm|sv-gwen-stacy-ssm:3",
+  "question": "The #19 stage text 'Gwen starts dating Harry' tells what Gwen does with Harry, not something between Peter and Gwen. Keep it as love-triangle context, or rewrite it to a Peter and Gwen moment from #19?",
+  "options": [
+   "Keep as is",
+   "Rewrite once a #19 Peter and Gwen scene is sourced"
+  ],
+  "their_evidence": "Marvel Database #19 (Growing Pains) synopsis says only 'Harry and Gwen start dating'; no source found gives a Peter and Gwen scene in #19.",
+  "connection": {
+   "id": "sv-peter-parker-ssm|sv-gwen-stacy-ssm:3",
+   "pair": "sv-peter-parker-ssm|sv-gwen-stacy-ssm",
+   "a": "Peter Parker",
+   "b": "Gwen Stacy",
+   "a_desc": "A Midtown High junior and Bugle photographer",
+   "b_desc": "Peter's best friend, Captain Stacy's daughter",
+   "universe": "sv",
+   "check_stage": 3,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#1",
+     "text": "Gwen is Peter's best friend and fellow intern in Dr. Connors's lab, and she has quietly loved him for years.",
+     "on_a_card_about_b": "Peter's best friend, who quietly loves him.",
+     "on_b_card_about_a": "Gwen's best friend, whom she has loved for years."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#13",
+     "text": "After Venom targets her, Gwen kisses Peter, and he realizes he feels the same.",
+     "on_a_card_about_b": "Peter's best friend, who quietly loves him.",
+     "on_b_card_about_a": "Gwen's best friend, whom she has loved for years."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#17",
+     "text": "Peter starts dating Liz.",
+     "on_a_card_about_b": "Peter's best friend and true love.",
+     "on_b_card_about_a": "Gwen's best friend and true love, now dating Liz."
+    },
+    {
+     "i": 3,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#19",
+     "text": "Gwen starts dating Harry.",
+     "on_a_card_about_b": "Peter's best friend and true love, now dating Harry.",
+     "on_b_card_about_a": "Gwen's best friend and true love, now dating Liz."
+    },
+    {
+     "i": 4,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#26",
+     "text": "Peter and Gwen finally admit their feelings. When Harry tells her she is all that keeps him off the Green, Gwen stays with him, and Peter accepts it.",
+     "on_a_card_about_b": "Peter's best friend and true love, still with Harry.",
+     "on_b_card_about_a": "Gwen's best friend and true love."
+    }
+   ]
+  },
+  "from": "tx/out_31.json",
+  "n": 7
+ },
+ {
+  "type": "question",
+  "id": "sv-peter-parker-ssm|sv-harry-osborn-ssm:3",
+  "question": "The #19 stage text 'Harry and Gwen start dating' tells what Harry does with Gwen, not something between Peter and Harry. Keep it as love-triangle context, or rewrite it (Harry is jealous of Peter, whom Norman still seems to favor, but sources do not pin that to #19)?",
+  "options": [
+   "Keep as is",
+   "Rewrite to Harry's jealousy of Peter if it is confirmed in #19"
+  ],
+  "their_evidence": "Marvel Database #19 synopsis: 'Harry and Gwen start dating. Harry's father is on the phone with him and says that he is proud of him.' The Marvel Animated Harry page says 'around the same time' Harry shows jealousy of Peter, without naming the episode.",
+  "connection": {
+   "id": "sv-peter-parker-ssm|sv-harry-osborn-ssm:3",
+   "pair": "sv-peter-parker-ssm|sv-harry-osborn-ssm",
+   "a": "Peter Parker",
+   "b": "Harry Osborn",
+   "a_desc": "A Midtown High junior and Bugle photographer",
+   "b_desc": "Peter's best friend, Norman Osborn's son",
+   "universe": "sv",
+   "check_stage": 3,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#1",
+     "text": "Harry is Peter's best friend, neglected by his father Norman.",
+     "on_a_card_about_b": "Peter's best friend, Norman Osborn's neglected son.",
+     "on_b_card_about_a": "Harry's best friend."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#9",
+     "text": "Harry secretly takes an Oscorp formula, and Spider-Man finds him taking off the Green Goblin's mask. Harry then leaves for Europe to recover.",
+     "on_a_card_about_b": "Peter's best friend, Norman Osborn's neglected son.",
+     "on_b_card_about_a": "Harry's best friend."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#18",
+     "text": "Back from Europe, Harry asks Gwen to be his date to Flash's birthday party.",
+     "on_a_card_about_b": "Peter's best friend, back from Europe.",
+     "on_b_card_about_a": "Harry's best friend, who also loves Gwen."
+    },
+    {
+     "i": 3,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#19",
+     "text": "Harry and Gwen start dating.",
+     "on_a_card_about_b": "Peter's best friend, now dating Gwen.",
+     "on_b_card_about_a": "Harry's best friend, who also loves Gwen."
+    },
+    {
+     "i": 4,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#26",
+     "text": "Harry helps Spider-Man find the true Goblin, his father. He blames Spider-Man for Norman's apparent death and leans on Gwen to keep her.",
+     "on_a_card_about_b": "Peter's best friend, now dating Gwen.",
+     "on_b_card_about_a": "Harry's best friend, who also loves Gwen."
+    }
+   ]
+  },
+  "from": "tx/out_31.json",
+  "n": 8
+ },
+ {
+  "type": "change",
+  "id": "sv-tinkerer-ssm|sv-peter-parker-ssm:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "enemy",
+   "title": "The Spectacular Spider-Man#22",
+   "text": "As the Tinkerer, Mason arms the Sinister Six and the Enforcers against Spider-Man.",
+   "on_a_card_about_b": "The hero the Tinkerer's gadgets are built to beat.",
+   "on_b_card_about_a": "Arms Peter's enemies."
+  },
+  "proposed": {
+   "text": "Tombstone hires the Tinkerer to build new gear for the Enforcers, who use it to nearly beat Spider-Man."
+  },
+  "their_evidence": "In Probable Cause (#22) the Tinkerer only builds new suits for Shocker, Fancy Dan and Ox on Tombstone's orders. His work for the Sinister Six is Reinforcement and Shear Strength (#16-17), so the current text sums up several episodes in one.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Tinkerer_(The_Spectacular_Spider-Man)&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-tinkerer-ssm|sv-peter-parker-ssm:1",
+   "pair": "sv-tinkerer-ssm|sv-peter-parker-ssm",
+   "a": "Tinkerer",
+   "b": "Peter Parker",
+   "a_desc": "Phineas Mason, a gadget maker",
+   "b_desc": "A Midtown High junior and Bugle photographer",
+   "universe": "sv",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#10",
+     "text": "Phineas Mason builds gadgets to help the Chameleon frame Spider-Man.",
+     "on_a_card_about_b": "The hero the Tinkerer's gadgets are built to beat.",
+     "on_b_card_about_a": "Arms Peter's enemies."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#22",
+     "text": "As the Tinkerer, Mason arms the Sinister Six and the Enforcers against Spider-Man.",
+     "on_a_card_about_b": "The hero the Tinkerer's gadgets are built to beat.",
+     "on_b_card_about_a": "Arms Peter's enemies."
+    }
+   ]
+  },
+  "from": "tx/out_32.json",
+  "n": 9
+ },
+ {
+  "type": "change",
+  "id": "sv-doc-ock-ssm|sv-peter-parker-ssm:2",
+  "q": "N2",
+  "i": 2,
+  "now": {
+   "i": 2,
+   "kind": "enemy",
+   "title": "The Spectacular Spider-Man#23",
+   "text": "As the Master Planner, Doctor Octopus plots against Spider-Man from a hidden lair. In the Valentine's Day gang war, Spider-Man subdues him, and he is arrested.",
+   "on_a_card_about_b": "The hero who foils Otto's plots and has him arrested.",
+   "on_b_card_about_a": "The Master Planner, whom Peter subdues in the gang war."
+  },
+  "proposed": {
+   "text": "At the Valentine's Day summit, Doctor Octopus turns on Spider-Man in the gang war, but Spider-Man ties up his arms and he is arrested."
+  },
+  "their_evidence": "Plotting as the Master Planner from a hidden lair happens in Blueprints to Shear Strength (#14-17), where he is unmasked. In Gangland (#23) he only fights at the summit and in the gang war, where Spider-Man subdues him, ties up his arms and gets him arrested.",
+  "their_source": "https://marvelanimated.fandom.com/api.php?action=parse&page=Doctor_Octopus_(The_Spectacular_Spider-Man)&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-doc-ock-ssm|sv-peter-parker-ssm:2",
+   "pair": "sv-doc-ock-ssm|sv-peter-parker-ssm",
+   "a": "Doctor Octopus",
+   "b": "Peter Parker",
+   "a_desc": "Otto Octavius, a timid scientist",
+   "b_desc": "A Midtown High junior and Bugle photographer",
+   "universe": "sv",
+   "check_stage": 2,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#8",
+     "text": "After a lab accident turns Otto Octavius into Doctor Octopus, he fights Spider-Man over a battery pack that keeps his arms running.",
+     "on_a_card_about_b": "The hero who fights Doctor Octopus.",
+     "on_b_card_about_a": "A scientist turned villain Peter fights."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#11",
+     "text": "Doctor Octopus breaks himself and the other villains out of Ryker's Island and forms the Sinister Six to kill Spider-Man.",
+     "on_a_card_about_b": "The hero Otto builds the Sinister Six to kill.",
+     "on_b_card_about_a": "Mastermind of the Sinister Six, built to kill Peter."
+    },
+    {
+     "i": 2,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#23",
+     "text": "As the Master Planner, Doctor Octopus plots against Spider-Man from a hidden lair. In the Valentine's Day gang war, Spider-Man subdues him, and he is arrested.",
+     "on_a_card_about_b": "The hero who foils Otto's plots and has him arrested.",
+     "on_b_card_about_a": "The Master Planner, whom Peter subdues in the gang war."
+    }
+   ]
+  },
+  "from": "tx/out_32.json",
+  "n": 10
+ },
+ {
+  "type": "change",
+  "id": "sv-hammerhead-ssm|sv-peter-parker-ssm:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "enemy",
+   "title": "The Spectacular Spider-Man#23",
+   "text": "Hammerhead enforces for the Big Man and fights Spider-Man again and again. At the Valentine's Day summit, his betrayal sparks a gang war Spider-Man has to stop.",
+   "on_a_card_about_b": "Fights Hammerhead again and again, a constant thorn for the Big Man.",
+   "on_b_card_about_a": "The Big Man's enforcer, whom Peter fights again and again."
+  },
+  "proposed": {
+   "text": "At the Valentine's Day summit, Hammerhead betrays the crime bosses and starts a gang war that Spider-Man has to stop."
+  },
+  "their_evidence": "Gangland (#23): Hammerhead sedates Sable and sets the bosses on each other, then runs when Tombstone fires him. Tombstone, Silvermane, Doctor Octopus and Spider-Man fight it out. 'Enforces for the Big Man and fights Spider-Man again and again' sums up several episodes and does not happen in #23.",
+  "their_source": "https://marvel.fandom.com/api.php?action=parse&page=Hammerhead_(Joseph)_(Earth-26496)&prop=wikitext&format=json",
+  "connection": {
+   "id": "sv-hammerhead-ssm|sv-peter-parker-ssm:1",
+   "pair": "sv-hammerhead-ssm|sv-peter-parker-ssm",
+   "a": "Hammerhead",
+   "b": "Peter Parker",
+   "a_desc": "A flat-headed mob enforcer",
+   "b_desc": "A Midtown High junior and Bugle photographer",
+   "universe": "sv",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#1",
+     "text": "Hammerhead, the Big Man's enforcer, summons the Enforcers to kill Spider-Man.",
+     "on_a_card_about_b": "The hero Hammerhead sends killers after.",
+     "on_b_card_about_a": "The Big Man's enforcer, who sends killers after Peter."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#23",
+     "text": "Hammerhead enforces for the Big Man and fights Spider-Man again and again. At the Valentine's Day summit, his betrayal sparks a gang war Spider-Man has to stop.",
+     "on_a_card_about_b": "Fights Hammerhead again and again, a constant thorn for the Big Man.",
+     "on_b_card_about_a": "The Big Man's enforcer, whom Peter fights again and again."
+    }
+   ]
+  },
+  "from": "tx/out_32.json",
+  "n": 11
+ },
+ {
+  "type": "question",
+  "id": "sv-gwen-stacy-ssm|sv-mary-jane-watson-ssm:2",
+  "question": "The Final Curtain (#26) stage only says Mary Jane HAS given Gwen a makeover. The makeover comes earlier, while Gwen is dating Harry and before the Goblin takes over at #23 (the wikis list it before 'Venom Returns', #20). Neither wiki names the episode. Keep it at #26, or move it to the episode where Gwen first appears without glasses (likely Growing Pains, #19, but that needs a check by watching)?",
+  "options": [
+   "Keep at #26",
+   "Move to the episode where Gwen first appears without glasses (confirm which)"
+  ],
+  "their_evidence": "Both wikis put the makeover in Gwen's dating-Harry period, before the Green Goblin takes over the underworld (Gangland #23). Neither says it happens in Final Curtain.",
+  "connection": {
+   "id": "sv-gwen-stacy-ssm|sv-mary-jane-watson-ssm:2",
+   "pair": "sv-gwen-stacy-ssm|sv-mary-jane-watson-ssm",
+   "a": "Gwen Stacy",
+   "b": "Mary Jane Watson",
+   "a_desc": "Peter's best friend, Captain Stacy's daughter",
+   "b_desc": "Anna Watson's niece",
+   "universe": "sv",
+   "check_stage": 2,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#12",
+     "text": "Mary Jane becomes Gwen's friend and urges her to tell Peter how she feels.",
+     "on_a_card_about_b": "A friend who urges Gwen to step up.",
+     "on_b_card_about_a": "A friend Mary Jane pushes to tell Peter how she feels."
+    },
+    {
+     "i": 1,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#13",
+     "text": "Mary Jane helps catch Gwen when she falls from a parade balloon.",
+     "on_a_card_about_b": "A friend who urges Gwen to step up.",
+     "on_b_card_about_a": "A friend Mary Jane pushes to tell Peter how she feels."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "The Spectacular Spider-Man#26",
+     "text": "Mary Jane has given Gwen a makeover, and Gwen no longer wears her glasses.",
+     "on_a_card_about_b": "A friend who urges Gwen to step up.",
+     "on_b_card_about_a": "A friend Mary Jane pushes to tell Peter how she feels."
+    }
+   ]
+  },
+  "from": "tx/out_32.json",
+  "n": 12
+ },
+ {
+  "type": "question",
+  "id": "sv-hammerhead-ssm|sv-peter-parker-ssm:1",
+  "question": "Both card lines say Peter fights Hammerhead 'again and again'. On screen they only clearly fight over the Rhino specs in Accomplices (#21). In Gangland Hammerhead runs off, and the fight is among Tombstone, Silvermane, Doctor Octopus and Spider-Man. Keep the card lines, or soften them (for example 'Stops the gang war Hammerhead starts')?",
+  "options": [
+   "Keep card lines",
+   "Soften card lines to what is on screen"
+  ],
+  "their_evidence": "Hammerhead runs after Tombstone fires him. The wikis list fights with Spider-Man at #21 and Spider-Man rescuing him at #9.",
+  "connection": {
+   "id": "sv-hammerhead-ssm|sv-peter-parker-ssm:1",
+   "pair": "sv-hammerhead-ssm|sv-peter-parker-ssm",
+   "a": "Hammerhead",
+   "b": "Peter Parker",
+   "a_desc": "A flat-headed mob enforcer",
+   "b_desc": "A Midtown High junior and Bugle photographer",
+   "universe": "sv",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#1",
+     "text": "Hammerhead, the Big Man's enforcer, summons the Enforcers to kill Spider-Man.",
+     "on_a_card_about_b": "The hero Hammerhead sends killers after.",
+     "on_b_card_about_a": "The Big Man's enforcer, who sends killers after Peter."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "The Spectacular Spider-Man#23",
+     "text": "Hammerhead enforces for the Big Man and fights Spider-Man again and again. At the Valentine's Day summit, his betrayal sparks a gang war Spider-Man has to stop.",
+     "on_a_card_about_b": "Fights Hammerhead again and again, a constant thorn for the Big Man.",
+     "on_b_card_about_a": "The Big Man's enforcer, whom Peter fights again and again."
+    }
+   ]
+  },
+  "from": "tx/out_32.json",
+  "n": 13
+ },
+ {
+  "type": "change",
+  "id": "fox-anim-jean-grey|fox-anim-madelyne-pryor:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "ally",
+   "title": "X-Men '97#3",
+   "text": "Jean frees Madelyne's mind using their shared memories, and together they save baby Nathan.",
+   "on_a_card_about_b": "Jean's clone, whom Jean frees from Sinister's control.",
+   "on_b_card_about_a": "Frees Madelyne from Sinister."
+  },
+  "proposed": {
+   "text": "Jean confronts Madelyne telepathically and uses their shared memories to free her from Sinister's control."
+  },
+  "their_evidence": "In X-Men '97 #3 (Fire Made Flesh), Jean breaks Sinister's control over her clone telepathically, but it is the clone (Madelyne) and Cyclops who retrieve baby Nathan, not Jean and Madelyne together.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw",
+  "connection": {
+   "id": "fox-anim-jean-grey|fox-anim-madelyne-pryor:1",
+   "pair": "fox-anim-jean-grey|fox-anim-madelyne-pryor",
+   "a": "Jean Grey",
+   "b": "Madelyne Pryor",
+   "a_desc": "A telepath and telekinetic, Xavier's first student",
+   "b_desc": "Sinister's clone of Jean Grey",
+   "universe": "fox",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "X-Men '97#3",
+     "text": "Madelyne is Sinister's clone of Jean, made while the real Jean was his prisoner, and she has lived Jean's life with Scott. Under Sinister's control she attacks the X-Men as the Goblin Queen.",
+     "on_a_card_about_b": "Jean's clone. Attacks Jean as the Goblin Queen.",
+     "on_b_card_about_a": "The woman Madelyne was cloned from."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "X-Men '97#3",
+     "text": "Jean frees Madelyne's mind using their shared memories, and together they save baby Nathan.",
+     "on_a_card_about_b": "Jean's clone, whom Jean frees from Sinister's control.",
+     "on_b_card_about_a": "Frees Madelyne from Sinister."
+    }
+   ]
+  },
+  "from": "tx/out_33.json",
+  "n": 14
+ },
+ {
+  "type": "change",
+  "id": "fox-anim-cyclops|fox-anim-cable:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "family",
+   "title": "X-Men '97#7",
+   "text": "Nathan is Scott's son with Madelyne. Sinister infects the baby, Bishop takes him to the future for a cure, and he returns grown as the soldier Cable.",
+   "on_a_card_about_b": "Scott's son, grown into Cable.",
+   "on_b_card_about_a": "Nathan's father."
+  },
+  "proposed": {
+   "text": "Nathan returns from the future grown as the soldier Cable and saves the X-Men from Trask. Through Jean, Scott learns Cable is his son, but Cable has no interest in a reunion."
+  },
+  "their_evidence": "The current text sums up #3 (Sinister infects Nathan, Bishop takes him to the future) in the #7 stage. In #7 (Bright Eyes) Cable arrives, saves the X-Men from the Prime Sentinel Trask, and through Jean everyone learns Cable is Nathan; Cable shows little interest in a family reunion.",
+  "their_source": "https://marvel.fandom.com/api.php?action=parse&page=Nathan_Summers_(Earth-92131)&prop=wikitext&format=json",
+  "connection": {
+   "id": "fox-anim-cyclops|fox-anim-cable:1",
+   "pair": "fox-anim-cyclops|fox-anim-cable",
+   "a": "Cyclops",
+   "b": "Nathan Summers",
+   "a_desc": "Scott Summers, the X-Men's field leader",
+   "b_desc": "Nathan Summers, son of Scott and Madelyne",
+   "universe": "fox",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "family",
+     "title": "X-Men '97#2",
+     "text": "Scott's son, Nathan, is born.",
+     "on_a_card_about_b": "Scott's newborn son, Nathan.",
+     "on_b_card_about_a": "Nathan's father."
+    },
+    {
+     "i": 1,
+     "kind": "family",
+     "title": "X-Men '97#7",
+     "text": "Nathan is Scott's son with Madelyne. Sinister infects the baby, Bishop takes him to the future for a cure, and he returns grown as the soldier Cable.",
+     "on_a_card_about_b": "Scott's son, grown into Cable.",
+     "on_b_card_about_a": "Nathan's father."
+    },
+    {
+     "i": 2,
+     "kind": "family",
+     "title": "X-Men '97#11",
+     "text": "In 3960 A.D., Scott chooses to stay and help raise young Nathan. Apocalypse's followers capture them both, until the other X-Men come to the rescue.",
+     "on_a_card_about_b": "The son Scott helps raise in the future.",
+     "on_b_card_about_a": "Nathan's father. Helps raise him in the future."
+    }
+   ]
+  },
+  "from": "tx/out_33.json",
+  "n": 15
+ },
+ {
+  "type": "change",
+  "id": "fox-anim-cable|fox-anim-mister-sinister:1",
+  "q": "N2",
+  "i": 1,
+  "now": {
+   "i": 1,
+   "kind": "enemy",
+   "title": "X-Men '97#9",
+   "text": "Sinister infects baby Nathan, and later takes control of the grown Cable's mind.",
+   "on_a_card_about_b": "Infects Nathan as a baby.",
+   "on_b_card_about_a": "Sinister infects him as a baby."
+  },
+  "proposed": {
+   "text": "At Bastion's hideout, Sinister seizes control of the grown Cable's mind and forces him to fight Jean."
+  },
+  "their_evidence": "X-Men '97#9 (Tolerance Is Extinction Part 2): with the Gold Team in the Galapagos, Sinister takes control of Cable's mind and uses him to overpower Jean. The infection of baby Nathan is X-Men '97#3, already stage 0; this stage's text repeats it.",
+  "their_source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw ; https://marvel.fandom.com/api.php?action=parse&page=Nathan_Summers_(Earth-92131)&prop=wikitext&format=json",
+  "connection": {
+   "id": "fox-anim-cable|fox-anim-mister-sinister:1",
+   "pair": "fox-anim-cable|fox-anim-mister-sinister",
+   "a": "Nathan Summers",
+   "b": "Mister Sinister",
+   "a_desc": "Nathan Summers, son of Scott and Madelyne",
+   "b_desc": "A geneticist obsessed with mutant DNA",
+   "universe": "fox",
+   "check_stage": 1,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "enemy",
+     "title": "X-Men '97#3",
+     "text": "Sinister infects baby Nathan with a techno-organic virus, leaving him gravely ill.",
+     "on_a_card_about_b": "Infects Nathan as a baby.",
+     "on_b_card_about_a": "Infected by Sinister as a baby."
+    },
+    {
+     "i": 1,
+     "kind": "enemy",
+     "title": "X-Men '97#9",
+     "text": "Sinister infects baby Nathan, and later takes control of the grown Cable's mind.",
+     "on_a_card_about_b": "Infects Nathan as a baby.",
+     "on_b_card_about_a": "Sinister infects him as a baby."
+    }
+   ]
+  },
+  "from": "tx/out_34.json",
+  "n": 16
+ },
+ {
+  "type": "question",
+  "id": "sv-peter-parker-1994|sv-mary-jane-watson-1994:0",
+  "question": "Stage 0 is on X-Men '97#10 but sorts before the Spider-Man (1994) stages. That cameo shows Peter has found Mary Jane after the 1994 series' last episode (the clone and the search are #60). Should this stage sort after #60? As placed, 'Peter and Mary Jane are together' comes before they even meet (#3) and gives away that he finds her.",
+  "options": [
+   "Sort X-Men '97 after Spider-Man (1994) in this universe so this becomes the last stage",
+   "Keep the order as is"
+  ],
+  "their_evidence": "Peter, Mary Jane and Flash watch Asteroid M come down in X-Men '97#10; Wikipedia says this reveals Spider-Man found Mary Jane after the 1994 series' finale.",
+  "connection": {
+   "id": "sv-peter-parker-1994|sv-mary-jane-watson-1994:0",
+   "pair": "sv-peter-parker-1994|sv-mary-jane-watson-1994",
+   "a": "Peter Parker",
+   "b": "Mary Jane Watson",
+   "a_desc": "An ESU student and Bugle photographer",
+   "b_desc": "Anna Watson's niece, an actress",
+   "universe": "sv",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "partner",
+     "title": "X-Men '97#10",
+     "text": "Peter and Mary Jane are together in New York. They watch the news of Asteroid M falling with their friend Flash.",
+     "on_a_card_about_b": "The woman Peter loves.",
+     "on_b_card_about_a": "The man Mary Jane loves."
+    },
+    {
+     "i": 1,
+     "kind": "partner",
+     "title": "Spider-Man (1994)#3",
+     "text": "Aunt May sets Peter up on a blind date with her friend Anna's niece, Mary Jane, and he and Mary Jane fall for each other.",
+     "on_a_card_about_b": "The woman Peter loves.",
+     "on_b_card_about_a": "The man Mary Jane loves."
+    },
+    {
+     "i": 2,
+     "kind": "friend",
+     "title": "Spider-Man (1994)#23",
+     "text": "Feeling pushed aside by Peter, Mary Jane turns to Harry and starts seeing him.",
+     "on_a_card_about_b": "The woman Peter loves, who turns to Harry.",
+     "on_b_card_about_a": "The man Mary Jane loves, though his secrets push her away."
+    },
+    {
+     "i": 3,
+     "kind": "partner",
+     "title": "Spider-Man (1994)#35",
+     "text": "After Spider-Man saves her from the Kingpin's base, Mary Jane gives back Harry's engagement ring and tells Spider-Man that she loves someone else.",
+     "on_a_card_about_b": "The woman Peter loves.",
+     "on_b_card_about_a": "The man Mary Jane loves."
+    },
+    {
+     "i": 4,
+     "kind": "partner",
+     "title": "Spider-Man (1994)#41",
+     "text": "Peter and Mary Jane are finally together when the Green Goblin kidnaps her, and she vanishes into a portal during his fight with Spider-Man.",
+     "on_a_card_about_b": "The woman Peter loves, lost in a portal.",
+     "on_b_card_about_a": "The man Mary Jane loves, though his secrets push her away."
+    },
+    {
+     "i": 5,
+     "kind": "partner",
+     "title": "Spider-Man (1994)#49",
+     "text": "Mary Jane comes back with no memory of where she has been.",
+     "on_a_card_about_b": "Back from the portal with no memory.",
+     "on_b_card_about_a": "The man Mary Jane loves."
+    },
+    {
+     "i": 6,
+     "kind": "partner",
+     "title": "Spider-Man (1994)#50",
+     "text": "Peter shows Mary Jane that he is Spider-Man.",
+     "on_a_card_about_b": "Knows Peter is Spider-Man.",
+     "on_b_card_about_a": "Tells Mary Jane he is Spider-Man."
+    },
+    {
+     "i": 7,
+     "kind": "partner",
+     "title": "Spider-Man (1994)#53",
+     "text": "Peter and Mary Jane marry.",
+     "on_a_card_about_b": "Peter's wife.",
+     "on_b_card_about_a": "Mary Jane's husband."
+    },
+    {
+     "i": 8,
+     "kind": "partner",
+     "title": "Spider-Man (1994)#60",
+     "text": "On their honeymoon, Mary Jane turns out to be a clone made by Miles Warren, and she dissolves. Peter then sets out with Madame Web to find the real Mary Jane.",
+     "on_a_card_about_b": "Peter marries her clone, then sets out to find her.",
+     "on_b_card_about_a": "Marries Mary Jane's clone, then comes looking for her."
+    }
+   ]
+  },
+  "from": "tx/out_34.json",
+  "n": 17
+ },
+ {
+  "type": "question",
+  "id": "sv-captain-america-1994|sv-iron-man-1994:0",
+  "question": "Same ordering issue: the X-Men '97#10 stage (Captain America and Iron Man guard the White House against Prime Sentinels) sorts before Spider-Man (1994)#61, though X-Men '97 comes after that series. Should it sort last?",
+  "options": [
+   "Sort X-Men '97 after Spider-Man (1994) so this becomes the last stage",
+   "Keep the order as is"
+  ],
+  "their_evidence": "The text itself checks out: in X-Men '97#10 Iron Man and Captain America fight Prime Sentinels together at the White House to protect President Kelly.",
+  "connection": {
+   "id": "sv-captain-america-1994|sv-iron-man-1994:0",
+   "pair": "sv-captain-america-1994|sv-iron-man-1994",
+   "a": "Captain America",
+   "b": "Iron Man",
+   "a_desc": "Steve Rogers, a World War II super soldier",
+   "b_desc": "Iron Man, head of Stark Enterprises",
+   "universe": "sv",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "ally",
+     "title": "X-Men '97#10",
+     "text": "Captain America and Iron Man guard the White House together against Bastion's Prime Sentinels as Magneto's blackout ends.",
+     "on_a_card_about_b": "Guards the White House with Captain America.",
+     "on_b_card_about_a": "Guards the White House with Iron Man."
+    },
+    {
+     "i": 1,
+     "kind": "ally",
+     "title": "Spider-Man (1994)#61",
+     "text": "Spider-Man brings both to the Beyonder's world, where they fight on the same team.",
+     "on_a_card_about_b": "Captain America's teammate on Battleworld.",
+     "on_b_card_about_a": "Iron Man's teammate on Battleworld."
+    }
+   ]
+  },
+  "from": "tx/out_34.json",
+  "n": 18
+ },
+ {
+  "type": "question",
+  "id": "fox-anim-apocalypse|fox-anim-final-horsemen:0",
+  "question": "The group is named 'The Final Horsemen'. The Marvel Database lists this 3960 A.D. group as 'Horsemen of Apocalypse' (Death, Famine, Pestilence, War) and says they are only based on the comics' Final Horsemen. Is 'Final Horsemen' said on screen in X-Men '97#11? If not, the owner's rule would rename them 'Horsemen' (this also affects fox-anim-morph|fox-anim-final-horsemen:0).",
+  "options": [
+   "Keep 'The Final Horsemen'",
+   "Rename to the on-screen name (e.g. 'Apocalypse's Horsemen')"
+  ],
+  "their_evidence": "Marvel Database team page: 'Horsemen of Apocalypse (Earth-13393)', first appearance X-Men '97 Season 2 1; note: 'These four are based on the Final Horsemen from Uncanny X-Force Vol 1.'",
+  "connection": {
+   "id": "fox-anim-apocalypse|fox-anim-final-horsemen:0",
+   "pair": "fox-anim-apocalypse|fox-anim-final-horsemen",
+   "a": "En Sabah Nur",
+   "b": "The Final Horsemen",
+   "a_desc": "An ancient mutant who preaches survival of the fittest",
+   "b_desc": "Pestilence, War, Famine and Death, Apocalypse's backups",
+   "universe": "fox",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "boss",
+     "title": "X-Men '97#11",
+     "text": "The Final Horsemen serve Apocalypse in 3960 A.D.",
+     "on_a_card_about_b": "Apocalypse's servants.",
+     "on_b_card_about_a": "The Final Horsemen's master."
+    }
+   ]
+  },
+  "from": "tx/out_34.json",
+  "n": 19
+ },
+ {
+  "type": "question",
+  "id": "fox-anim-polaris|fox-anim-magneto:0",
+  "question": "Polaris and Magneto's first stage is X-Men '97#16, but Polaris fights the Phalanx alongside Magneto, Beast and Forge in X-Men: The Animated Series#68. Add an earlier ally stage there, or leave it (a shared battle where they may never deal with each other)?",
+  "options": [
+   "Add an ally stage at X-Men: The Animated Series#68 if they deal with each other on screen",
+   "Leave as is"
+  ],
+  "their_evidence": "Marvel Database's Lorna Dane (Earth-92131) page: she aided Beast, Magneto, Forge, Warlock and Amelia Voght against the Phalanx (TAS Season 5 ep. 2). Does not say whether she and Magneto interact directly; outside the N2/N3/N4/N6 scope of this batch.",
+  "connection": {
+   "id": "fox-anim-polaris|fox-anim-magneto:0",
+   "pair": "fox-anim-polaris|fox-anim-magneto",
+   "a": "Polaris",
+   "b": "Magneto",
+   "a_desc": "A mutant who controls magnetism",
+   "b_desc": "Erik Lehnsherr, master of magnetism",
+   "universe": "fox",
+   "check_stage": 0,
+   "stages": [
+    {
+     "i": 0,
+     "kind": "family",
+     "title": "X-Men '97#16",
+     "text": "Lorna is Magneto's daughter, and her bond with him is strained. After his death, Xavier uses his good memories of Magneto to help her embrace her power.",
+     "on_a_card_about_b": "Lorna's father. She never made peace with him.",
+     "on_b_card_about_a": "Magneto's daughter."
+    }
+   ]
+  },
+  "from": "tx/out_35.json",
+  "n": 20
+ }
+]

@@ -1,0 +1,89 @@
+{
+ "checked": [
+  "casey|victor-timely:0",
+  "general-dox|hunter-b-15:2",
+  "general-dox|miss-minutes:0",
+  "he-who-remains|miss-minutes:1",
+  "he-who-remains|ravonna-renslayer:1",
+  "hunter-b-15|victor-timely:0",
+  "hunter-x-5|victor-timely:0",
+  "loki|miss-minutes:2",
+  "loki|ouroboros:1",
+  "loki|victor-timely:1",
+  "miss-minutes|ouroboros:1",
+  "miss-minutes|ravonna-renslayer:3",
+  "mobius-m-mobius|victor-timely:1",
+  "ouroboros|victor-timely:0",
+  "ravonna-renslayer|sylvie:2",
+  "loki|victor-timely:2",
+  "miss-minutes|ouroboros:2",
+  "loki|he-who-remains:1",
+  "st-bobby-fish|st-luke-cage:0",
+  "st-candace-miller|st-cottonmouth:0",
+  "st-connie-lin|st-luke-cage:0",
+  "st-cottonmouth|st-mariah-dillard:0",
+  "st-cottonmouth|st-shades:0",
+  "st-cottonmouth|st-zip:0",
+  "st-diamondback|st-shades:0",
+  "st-domingo-colon|st-mariah-dillard:0",
+  "st-luke-cage|st-pop:0",
+  "st-luke-cage|st-zip:0",
+  "st-misty-knight|st-rafael-scarfe:0",
+  "st-bobby-fish|st-turk-barrett:0",
+  "st-cottonmouth|st-pop:0",
+  "st-cottonmouth|st-tone:1",
+  "st-cottonmouth|st-turk-barrett:0",
+  "st-luke-cage|st-pop:1",
+  "st-luke-cage|st-tone:0",
+  "st-misty-knight|st-pop:0",
+  "st-misty-knight|st-turk-barrett:0",
+  "st-pop|st-tone:0",
+  "st-pop|st-turk-barrett:0",
+  "st-shades|st-turk-barrett:0",
+  "st-tone|st-turk-barrett:0",
+  "st-bobby-fish|st-luke-cage:1",
+  "st-bobby-fish|st-pop:1",
+  "st-connie-lin|st-cottonmouth:0",
+  "st-cottonmouth|st-domingo-colon:0",
+  "st-cottonmouth|st-luke-cage:0",
+  "st-cottonmouth|st-rafael-scarfe:0",
+  "st-luke-cage|st-pop:2",
+  "st-comanche|st-luke-cage:0",
+  "st-comanche|st-shades:0"
+ ],
+ "changes": [
+  {
+   "id": "st-tone|st-turk-barrett:0",
+   "pair": "st-tone|st-turk-barrett",
+   "q": "N2",
+   "i": 0,
+   "now": {
+    "i": 0,
+    "kind": "ally",
+    "title": "Luke Cage S1#2",
+    "text": "Turk Barrett texts Tone, Cottonmouth's bodyguard, to tell him where Chico Diaz is hiding.",
+    "on_a_card_about_b": "The snitch who texts Tone Chico's hiding place.",
+    "on_b_card_about_a": "Cottonmouth's bodyguard, whom Turk tips off about Chico."
+   },
+   "proposed": {
+    "text": "Turk Barrett meets Tone, Cottonmouth's bodyguard, and tells him that Chico Diaz is hiding in Pop's barbershop.",
+    "on_a_card_about_b": "The snitch who tells Tone where Chico is hiding."
+   },
+   "evidence": "In Code of the Streets (Luke Cage S1#2), Tone's contact first says he has a lead but will not give the location; Tone and Shades then meet Turk in person and Turk tells them he saw Chico at the barbershop. The location is given face to face, not by text.",
+   "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Code_of_the_Streets&prop=wikitext&format=json",
+   "confidence": "medium"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "st-cottonmouth|st-luke-cage:0",
+   "question": "The pair's first stage starts at Luke Cage S1#3, but on screen they already deal with each other in S1#1 (Luke works as his dishwasher, fills in at the bar, turns down his job offer) and S1#2 (Luke brings Pop's parley offer and is fired from the club). The S1#3 text is true but sums up their history rather than saying what happens between them there (Cottonmouth warns Luke off after Pop's death, Luke hits his money, Cottonmouth fires a missile into Genghis Connie's to kill him). Add an earlier boss stage at S1#1 and rewrite S1#3 to that episode's events, or keep it as is?",
+   "options": [
+    "Keep as is",
+    "Add a S1#1 boss stage (Luke works at Harlem's Paradise) and rewrite the S1#3 enemy text to that episode's events"
+   ],
+   "evidence": "Moment of Truth: Luke works as a dishwasher at Harlem's Paradise and Cottonmouth offers him a job; Code of the Streets: Luke brings the parley and Cottonmouth fires him; Who's Gonna Take the Weight?: Cottonmouth warns Luke off, Luke raids his stashes, Cottonmouth fires a missile at the restaurant.",
+   "source": "https://en.wikipedia.org/w/index.php?title=Luke_Cage_season_1&action=raw"
+  }
+ ]
+}

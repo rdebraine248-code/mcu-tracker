@@ -1,0 +1,110 @@
+{
+ "checked": [
+  "fox-anim-jean-grey|fox-anim-storm:0",
+  "fox-anim-cyclops|fox-anim-magneto:2",
+  "fox-anim-beast|fox-anim-forge:1",
+  "fox-anim-wolverine|fox-anim-magneto:1",
+  "fox-anim-cable|fox-anim-mister-sinister:1",
+  "fox-anim-storm|fox-anim-bastion:0",
+  "fox-anim-beast|fox-anim-bastion:0",
+  "fox-anim-forge|fox-anim-bastion:0",
+  "fox-anim-cyclops|fox-anim-jean-grey:6",
+  "fox-anim-rogue|fox-anim-nightcrawler:1",
+  "fox-anim-cable|fox-anim-mother-askani:0",
+  "fox-anim-professor-x|fox-anim-magneto:5",
+  "fox-anim-cyclops|fox-anim-mother-askani:0",
+  "fox-anim-jean-grey|fox-anim-mother-askani:0",
+  "fox-anim-jean-grey|fox-anim-mister-sinister:3",
+  "fox-anim-jean-grey|fox-anim-bastion:0",
+  "fox-anim-storm|fox-anim-bastion:1",
+  "fox-anim-forge|fox-anim-bastion:1",
+  "sv-peter-parker-1994|sv-mary-jane-watson-1994:0",
+  "sv-captain-america-1994|sv-iron-man-1994:0",
+  "fox-anim-cyclops|fox-anim-cable:2",
+  "fox-anim-jean-grey|fox-anim-cable:0",
+  "fox-anim-cable|fox-anim-mother-askani:1",
+  "fox-anim-jean-grey|fox-anim-mother-askani:1",
+  "fox-anim-bishop|fox-anim-forge:1",
+  "fox-anim-psylocke|fox-anim-cable:0",
+  "fox-anim-archangel|fox-anim-cable:1",
+  "fox-anim-archangel|fox-anim-psylocke:2",
+  "fox-anim-cable|fox-anim-apocalypse:3",
+  "fox-anim-apocalypse|fox-anim-final-horsemen:0",
+  "fox-anim-morph|fox-anim-final-horsemen:0",
+  "fox-anim-cyclops|fox-anim-apocalypse:0",
+  "fox-anim-mother-askani|fox-anim-apocalypse:0",
+  "fox-anim-cyclops|fox-anim-jean-grey:7",
+  "fox-anim-polaris|fox-anim-havok:1",
+  "fox-anim-jubilee|fox-anim-sunspot:1",
+  "fox-anim-jubilee|fox-anim-cable:0",
+  "fox-anim-sunspot|fox-anim-cable:0",
+  "fox-anim-archangel|fox-anim-cable:2",
+  "fox-anim-archangel|fox-anim-psylocke:3",
+  "fox-anim-polaris|fox-anim-jubilee:0",
+  "fox-anim-polaris|fox-anim-valerie-cooper:0",
+  "fox-anim-havok|fox-anim-valerie-cooper:0",
+  "fox-anim-havok|fox-anim-jubilee:0",
+  "fox-anim-cable|fox-anim-emma-frost:0",
+  "fox-anim-archangel|fox-anim-war:0",
+  "fox-anim-cable|fox-anim-war:0",
+  "fox-anim-valerie-cooper|fox-anim-jubilee:0",
+  "fox-anim-valerie-cooper|fox-anim-cable:0",
+  "fox-anim-jubilee|fox-anim-war:0"
+ ],
+ "changes": [
+  {
+   "id": "fox-anim-cable|fox-anim-mister-sinister:1",
+   "pair": "fox-anim-cable|fox-anim-mister-sinister",
+   "a": "Nathan Summers",
+   "b": "Mister Sinister",
+   "q": "N2",
+   "i": 1,
+   "now": {
+    "i": 1,
+    "kind": "enemy",
+    "title": "X-Men '97#9",
+    "text": "Sinister infects baby Nathan, and later takes control of the grown Cable's mind.",
+    "on_a_card_about_b": "Infects Nathan as a baby.",
+    "on_b_card_about_a": "Sinister infects him as a baby."
+   },
+   "proposed": {
+    "text": "At Bastion's hideout, Sinister seizes control of the grown Cable's mind and forces him to fight Jean."
+   },
+   "evidence": "X-Men '97#9 (Tolerance Is Extinction Part 2): with the Gold Team in the Galapagos, Sinister takes control of Cable's mind and uses him to overpower Jean. The infection of baby Nathan is X-Men '97#3, already stage 0; this stage's text repeats it.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw ; https://marvel.fandom.com/api.php?action=parse&page=Nathan_Summers_(Earth-92131)&prop=wikitext&format=json",
+   "confidence": "high"
+  }
+ ],
+ "owner_calls": [
+  {
+   "id": "sv-peter-parker-1994|sv-mary-jane-watson-1994:0",
+   "question": "Stage 0 is on X-Men '97#10 but sorts before the Spider-Man (1994) stages. That cameo shows Peter has found Mary Jane after the 1994 series' last episode (the clone and the search are #60). Should this stage sort after #60? As placed, 'Peter and Mary Jane are together' comes before they even meet (#3) and gives away that he finds her.",
+   "options": [
+    "Sort X-Men '97 after Spider-Man (1994) in this universe so this becomes the last stage",
+    "Keep the order as is"
+   ],
+   "evidence": "Peter, Mary Jane and Flash watch Asteroid M come down in X-Men '97#10; Wikipedia says this reveals Spider-Man found Mary Jane after the 1994 series' finale.",
+   "source": "https://en.wikipedia.org/w/index.php?title=X-Men_%2797_season_1&action=raw"
+  },
+  {
+   "id": "sv-captain-america-1994|sv-iron-man-1994:0",
+   "question": "Same ordering issue: the X-Men '97#10 stage (Captain America and Iron Man guard the White House against Prime Sentinels) sorts before Spider-Man (1994)#61, though X-Men '97 comes after that series. Should it sort last?",
+   "options": [
+    "Sort X-Men '97 after Spider-Man (1994) so this becomes the last stage",
+    "Keep the order as is"
+   ],
+   "evidence": "The text itself checks out: in X-Men '97#10 Iron Man and Captain America fight Prime Sentinels together at the White House to protect President Kelly.",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Anthony_Stark_(Earth-92131)&prop=wikitext&format=json"
+  },
+  {
+   "id": "fox-anim-apocalypse|fox-anim-final-horsemen:0",
+   "question": "The group is named 'The Final Horsemen'. The Marvel Database lists this 3960 A.D. group as 'Horsemen of Apocalypse' (Death, Famine, Pestilence, War) and says they are only based on the comics' Final Horsemen. Is 'Final Horsemen' said on screen in X-Men '97#11? If not, the owner's rule would rename them 'Horsemen' (this also affects fox-anim-morph|fox-anim-final-horsemen:0).",
+   "options": [
+    "Keep 'The Final Horsemen'",
+    "Rename to the on-screen name (e.g. 'Apocalypse's Horsemen')"
+   ],
+   "evidence": "Marvel Database team page: 'Horsemen of Apocalypse (Earth-13393)', first appearance X-Men '97 Season 2 1; note: 'These four are based on the Final Horsemen from Uncanny X-Force Vol 1.'",
+   "source": "https://marvel.fandom.com/api.php?action=parse&page=Horsemen_of_Apocalypse_(Earth-13393)&prop=wikitext&format=json"
+  }
+ ]
+}
