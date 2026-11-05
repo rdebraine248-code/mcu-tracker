@@ -56,7 +56,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   - The random 600, in proportion to each part (Damage Control and Comms 275 of 504, story lists and quotes 165 of 301, the Agent
     File 96 of 175, the Multiverse, Incursions and Watcher 64 of 117), each finding second-checked by an independent agent: wrong
     statements 1 (0.4%), 1 (0.6%), 0 and 0, all inside the bar: Eddy Costa's fallout line had no title (now Jessica Jones S2), the
-    Doctor Strange & Wong box quoted Mordo ("Forget everything you think you know"; now "Dormammu, I've come to bargain."). Also
+    Doctor Strange & Wong box quotes Mordo ("Forget everything you think you know"): the owner keeps it (question 62, option C:
+    "Put Mordo's line back"), so it is not an error to fix again. Also
     fixed, completeness: John King's loss line had no title (Ironheart), Hope van Dyne added to the zombie outbreak's losses.
   - The leads: 8 new Atlas entries (Dottie at the Griffith Hotel and the bank, Kasius and Sinara at the Lighthouse in 2091, Ward's
     men at Birch, Monica at Westview, Proteus home to Muir Island, Vision in Edinburgh), 16 At lines moved to the right place
@@ -164,6 +165,14 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   2. Copy `out/main.html` over its `index.html`, commit and `git push origin HEAD:main`. Remove the worktree.
   3. Back on the working branch, run `git merge -s ours origin/main` and push the branch (and its mirror).
   4. Check: `cmp <(git show origin/main:index.html) mockup-data/out/main.html` prints nothing.
+  4b. **The launch page is split** (owner, 5 November 2026, question 61: "Slim it"): after the Network step below, run
+     `python3 mainsplit.py out/main.html out/mainroot`. It moves the files' data (`COLLX`, `THREATS`, `ALLIES`, `IDMOVE`, the `EPS` line,
+     about 1.4 MB) into `data.<hash>.js`, loaded by a plain `<script src>` just before the app's script, so the app runs as before. The
+     launch page went from 4.34 MB to 2.97 MB. Main gets `out/mainroot/index.html` and its `data.<hash>.js` (`git rm` the old
+     `data.*.js`), then the `cmp` check is against `out/mainroot/index.html`. The hash is the data's own: a code-only push keeps the same
+     file, so the phone keeps its saved copy. `sw.js` serves it from the saved copy first, takes it from the internet only whole, and
+     clears out old ones; the page retries once if it can't load it. Tests: the full suite runs on the split build (`ROOT` =
+     `out/mainroot` with network.html and the icons); the ct tests' routes serve the data file next to the page they're given.
   5. **The Network on main:** after devbuild, replace `/*EARTHS*/{}` the way build_tb.py does and `/*NETWORK*/null` with
      `"url:network.html"`, and copy `network/network-hub.html` to the worktree as `network.html`. `sw.js` saves it for offline (CORE).
      Never put the Network back inline on main: the launch page must stay near its old size (about 3.6 MB).
