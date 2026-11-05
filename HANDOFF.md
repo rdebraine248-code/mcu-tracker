@@ -15,14 +15,15 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `835b077`; test build v148 is main plus the Time Machine and Six Degrees drafts, the mutual connections mockup, the sliding How they're connected card (and landscape)
+- **main** is at `6f22626` (pushed 5 November 2026, the owner's "push": How they're connected slides up and scrolls like a person's
+  card; full suite passed, 35 of 35); test build v148 is main plus the Time Machine and Six Degrees drafts, the mutual connections mockup (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
   the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
   owner will come back to them. They stay in the test build; mainprep cuts them from main, so a main push doesn't need them settled.
-- **In the test build (v148), waiting on the owner's check:**
+- **Since the last main push (5 November 2026):**
   - **How they're connected slides up like a person's card** (owner, 5 November 2026: "should also be scrollable and tapable starting
-    at the top etc just like an individuals pop up"). Not a mockup: it reaches main with the next push. The grip shows on it, it
+    at the top etc just like an individuals pop up"). On main (`6f22626`). The grip shows on it, it
     follows your finger and settles small or full, pulled down far it closes; small, it shows the first of it fading out (`#lBody`,
     24vh); full, the whole thing scrolls, always from its top; pulling down from the top of the list drags the card down.
   - **Mutual connections (mockup, owner, 5 November 2026: "when two people are selected in network, their mutual connections are
@@ -141,7 +142,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v148 (5 November 2026: the Time Machine and Six Degrees drafts, mutual connections, the sliding How they're connected card) and otherwise matches main (835b077, pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v148 (5 November 2026: the Time Machine and Six Degrees drafts, mutual connections) and otherwise matches main (6f22626, pushed 5 November 2026: How they're connected slides like a person's card; before it 835b077, pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
