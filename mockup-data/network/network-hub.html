@@ -119,9 +119,9 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 #nEmpty{ position:fixed; left:0; right:0; top:calc(var(--hb, 0px) + (100% - var(--hb, 0px)) / 2); transform:translateY(-20px);   /* the circle itself in the middle of the floor */ display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
 #nEmpty[hidden]{ display:none; } html.wait #nEmpty, html.wait #card{ display:none !important; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
 #nEmpty b{ font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; font-weight:400; }
-/* ---------- Six Degrees (a mockup, November 2026; shown only when the app turns it on, netSixOn): a daily puzzle in the room you're in.
-   Two people you've met; link them through people they're connected to, in as few links as you can. Every link is a real connection, its
-   latest stage as far as you've watched, so nothing is spoiled; par is the shortest chain there is */
+/* ---------- Six Degrees (a mockup, November 2026; shown only when the app turns it on, netSixOn): link two people you've met through people
+   they're connected to, in as few links as you can. Every link is a real connection, its latest stage as far as you've watched, so
+   nothing is spoiled; par is the shortest chain there is. A new pair whenever you like (owner: no daily puzzle), or pick your own */
 header #hSix{ position:absolute; right:max(20px, env(safe-area-inset-right, 0px)); top:calc(6px + var(--sat, env(safe-area-inset-top, 0px))); display:flex; align-items:center; gap:7px; height:28px; padding:0 12px; border:1px solid #6B5A2A; border-radius:999px; background:rgba(233,196,106,.07); color:var(--both); font:11px/1 var(--mono); letter-spacing:1.5px; text-transform:uppercase; pointer-events:auto; cursor:pointer; }
 header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
 #dsheet{ position:fixed; inset:0; display:flex; flex-direction:column; background-color:var(--bg); background-image:var(--padimg); background-size:var(--padsize); }
@@ -147,8 +147,10 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
 .dch li.gap{ height:26px; } .dch li.gap::before{ content:""; position:absolute; left:10px; top:0; bottom:0; border-left:2px dotted #2A4570; }
 .dnx h4{ margin:18px 0 6px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
 .dnx .kh{ display:flex; align-items:center; gap:7px; margin:12px 0 3px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; } .dnx .kh i{ width:12px; height:3px; border-radius:2px; }
-.dnx button.wrow{ display:block; width:100%; margin:0; padding:8px 0 8px 10px; border:0; border-left:2px solid var(--kc); background:none; text-align:left; color:inherit; cursor:pointer; }
-.dnx button.wrow + button.wrow{ margin-top:2px; } .dnx .wrow b{ display:block; color:#fff; font:600 15px/1.25 var(--body); } .dnx .wrow span{ display:block; margin-top:2px; color:#AEBBD0; font:14px/1.35 var(--body); }
+.dnx button.wrow{ position:relative; display:block; width:100%; margin:0; padding:10px 34px 10px 12px; border:1px solid #22324F; border-left:3px solid var(--kc); border-radius:10px; background:#111C2E; text-align:left; color:inherit; cursor:pointer; }
+.dnx button.wrow::after{ content:"\203A"; position:absolute; right:12px; top:50%; transform:translateY(-50%); font:300 26px/1 var(--body); color:var(--kc); }
+.dnx button.wrow.on::after{ content:none; } .dnx button.wrow:active{ background:#182742; }
+.dnx button.wrow + button.wrow{ margin-top:6px; } .dnx .wrow b{ display:block; color:#fff; font:600 15px/1.25 var(--body); } .dnx .wrow span{ display:block; margin-top:2px; color:#AEBBD0; font:14px/1.35 var(--body); }
 .dnx .wrow.on b::after{ content:" · on the chain"; font:11px var(--mono); letter-spacing:1px; color:var(--mute); } .dnx .wrow.on{ opacity:.45; cursor:default; }
 .dnx .wrow.tg b{ color:var(--both); }
 .drow{ display:flex; gap:8px; margin-top:16px; } .drow button{ flex:1; padding:10px 12px; border:1px solid var(--line); border-radius:999px; background:transparent; color:#D6E6FA; font:12px/1.2 var(--mono); letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
@@ -157,6 +159,15 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
 .dres small{ display:block; font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--both); }
 .dres b{ display:block; margin-top:2px; font:400 30px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; color:#fff; } .dres p{ margin:6px 0 0; color:#C9D3E2; font-size:14.5px; line-height:1.4; }
 .dnone{ padding:40px 0; text-align:center; font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
+.dpair button.dp{ padding:0; border:0; background:none; color:inherit; text-align:inherit; cursor:pointer; }
+.dpair button.dp b{ text-decoration:underline; text-decoration-color:#4A5F86; text-decoration-thickness:1px; text-underline-offset:5px; }
+.dpair button.dp[aria-pressed="true"] b{ color:var(--both); text-decoration-color:var(--both); }
+.dpk{ margin-top:14px; } .dpk input{ width:100%; box-sizing:border-box; padding:11px 14px; border:1px solid #2A4570; border-radius:12px; background:#111C2E; color:var(--ink); font:500 16px/1.2 var(--body); }
+.dpk input:focus-visible{ outline:2px solid var(--cyan); outline-offset:1px; }
+.dpk ul{ list-style:none; margin:8px 0 0; padding:0; } .dpk li button{ display:flex; justify-content:space-between; gap:12px; width:100%; padding:12px 2px; border:0; border-bottom:1px solid #16223A; background:none; color:var(--ink); font:500 15px/1.3 var(--body); text-align:left; cursor:pointer; }
+.dpk li button span{ flex:none; font:12px/1.6 var(--mono); color:var(--mute); }
+.dnote{ margin:14px 2px 0; color:#C9D3E2; font-size:14.5px; line-height:1.4; }
+.drow button.go{ border-color:#E9C46A; background:#E9C46A; color:#0B1019; } .drow button:disabled{ opacity:.35; }
 </style>
 
 <canvas id="room" aria-label="Everyone you've met, standing in groups by crew."></canvas>
@@ -910,26 +921,25 @@ $('hSearch').onclick = () => { $('ssheet').hidden = false; $('sQ').value = ''; s
 $('sClose').onclick = () => { $('ssheet').hidden = true; tell(); };
 $('sQ').addEventListener('input', searchRun);
 $('sList').addEventListener('click', e => { const b = e.target.closest('[data-sp]'); if (!b) return; $('ssheet').hidden = true; tell(); if (mapOn) $('mBack').click(); lockOn(N[+b.dataset.sp]); });
-// ---------- Six Degrees (a mockup): today's two people in the room you're in, and the chain you build between them, one connection at a
-// time. Only people you've met and connections you've seen count, each link showing the latest stage you've watched; par is the
-// shortest chain there is. The day's pair holds while both stay in the room
+// ---------- Six Degrees (a mockup): two people in the room you're in, and the chain you build between them, one connection at a time.
+// It opens on a pair to start from (a new one whenever you like, or either end picked by hand); Start, then each move is one of the
+// current person's connections. Only people you've met and connections you've seen count, each link showing the latest stage you've
+// watched; par is the shortest chain there is. A pair holds while both stay in the room (the Time Machine or a new tab can take them away)
 let SIX = null;
 self.netSixOn = () => { $('hSix').hidden = false; };
-const sixDay = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
-const sixRng = k => { let h = 2166136261; for (const c of k) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return () => { h += 0x6D2B79F5; let t = h; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; };
 const sixNb = p => p.R.filter(r => N[r.j].vis).map(r => r.j);   // their connections standing in this room
 function sixBfs(a) { const D = new Map([[a.i, 0]]), P = new Map(), Q = [a.i];
   for (let h = 0; h < Q.length; h++) { const x = Q[h]; for (const j of sixNb(N[x])) if (!D.has(j)) { D.set(j, D.get(x) + 1); P.set(j, x); Q.push(j); } } return { D, P }; }
-function sixPick() { const key = sixDay() + '|' + UNI;
-  if (SIX && SIX.key === key && N[SIX.a].vis && N[SIX.b].vis) return SIX;
-  // the day's pair: two familiar faces (the most titles you've seen them in), three or four links apart where the room allows it
-  const pool = N.filter(p => p.vis && sixNb(p).length >= 2).sort((a, b) => b.A.length - a.A.length || a.n.localeCompare(b.n));
-  const top = pool.slice(0, Math.max(30, Math.ceil(pool.length * .2))), rnd = sixRng(key);
+const sixSet = (a, b) => { const d = sixBfs(N[a]).D.get(b); SIX = { u: UNI, a, b, par: d == null ? null : d, ch: [a], done: 0, on: 0, pick: null }; return SIX; };
+// a new pair: two familiar faces (the most titles you've seen them in), three or four links apart where the room allows it
+function sixNew() { const pool = N.filter(p => p.vis && sixNb(p).length >= 2).sort((a, b) => b.A.length - a.A.length || a.n.localeCompare(b.n));
+  const top = pool.slice(0, Math.max(30, Math.ceil(pool.length * .2))), was = SIX ? [SIX.a, SIX.b] : [];
   let best = null;
-  for (let k = 0; k < 60 && top.length > 1; k++) { const a = top[Math.floor(rnd() * top.length)], { D } = sixBfs(a);
-    const C = top.filter(q => D.get(q.i) >= 3 && D.get(q.i) <= 4), C2 = top.filter(q => D.get(q.i) >= 2);
-    const L = C.length ? C : C2; if (!L.length) continue; const b = L[Math.floor(rnd() * L.length)]; best = { a: a.i, b: b.i, par: D.get(b.i) }; if (C.length) break; }
-  SIX = best ? { key, ...best, ch: [best.a], done: 0 } : { key, none: 1 }; return SIX; }
+  for (let k = 0; k < 80 && top.length > 1; k++) { const a = top[Math.floor(Math.random() * top.length)], { D } = sixBfs(a);
+    const ok = q => !(was.includes(a.i) && was.includes(q.i)), C = top.filter(q => D.get(q.i) >= 3 && D.get(q.i) <= 4 && ok(q)), C2 = top.filter(q => D.get(q.i) >= 2 && ok(q));
+    const L = C.length ? C : C2; if (!L.length) continue; best = [a.i, L[Math.floor(Math.random() * L.length)].i]; if (C.length) break; }
+  return best ? sixSet(...best) : (SIX = { u: UNI, none: 1 }); }
+const sixCur = () => SIX && !SIX.none && SIX.u === UNI && N[SIX.a].vis && N[SIX.b].vis ? SIX : sixNew();
 const sixLink = (x, y) => { const r = relOf(N[x], N[y]); if (!r) return null; const s = r.S[r.S.length - 1]; return { k: r.k, d: s.d, t: s.t }; };
 function sixChain(ch, goal) { const out = [];
   ch.forEach((j, n) => { if (n) { const L = sixLink(ch[n - 1], j); if (L) out.push(`<li><div class="dl" style="--kc:${KC[L.k]}"><span>${KS[L.k]}</span><p>${esc(L.d)}</p>${L.t ? `<em>${esc(epShow(L.t))}</em>` : ''}</div></li>`); }
@@ -937,31 +947,46 @@ function sixChain(ch, goal) { const out = [];
   if (goal != null) out.push(`<li class="gap"></li><li class="goal"><div class="dn"><i></i>${esc(N[goal].n)}<em>To</em></div></li>`);
   return `<ol class="dch">${out.join('')}</ol>`; }
 function sixShortest() { const { P } = sixBfs(N[SIX.a]), L = [SIX.b]; while (L[0] !== SIX.a) L.unshift(P.get(L[0])); return L; }
-function sixDraw() { const S = sixPick(), body = $('dBody');
-  { const [y, m, d] = S.key.split('|')[0].split('-'); $('dDay').textContent = 'Daily link · ' + (+d) + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+m - 1] + ' · ' + UL[UNI]; }
+const sixPair = (S, live) => { const end = (w, j, lab) => live ? `<button type="button" class="dp" data-dpick="${w}" aria-pressed="${S.pick === w}"><small>${lab}</small><b>${esc(N[j].n)}</b></button>` : `<div class="dp"><small>${lab}</small><b>${esc(N[j].n)}</b></div>`;
+  return `<div class="dpair">${end('a', S.a, 'From')}<div class="par"><svg width="54" height="10" viewBox="0 0 54 10" aria-hidden="true"><circle cx="4" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="50" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 5h38" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 3"/></svg><span>${S.par == null ? 'No chain' : 'Par ' + S.par}</span></div>${end('b', S.b, 'To')}</div>`; };
+// someone to put at one end: everyone in this room with a connection, the most seen first, or by name
+function sixPickList() { const q = fold1(($('dQ') || {}).value || ''), L = N.filter(p => p.vis && sixNb(p).length && (!q || fold1(p.n).includes(q))).sort((a, b) => (q ? !fold1(a.n).startsWith(q) - !fold1(b.n).startsWith(q) : 0) || b.A.length - a.A.length || a.n.localeCompare(b.n)).slice(0, 40);
+  return L.length ? L.map(p => `<li><button type="button" data-dset="${p.i}">${esc(p.n)}<span>${sixNb(p).length} connections</span></button></li>`).join('') : '<li class="snone">No one you\'ve met goes by that.</li>'; }
+function sixDraw() { const S = sixCur(), body = $('dBody'); $('dDay').textContent = UL[UNI];
   if (S.none) { body.innerHTML = '<div class="dnone">Awaiting data.</div>'; return; }
   const A = N[S.a], B = N[S.b], cur = S.ch[S.ch.length - 1], moves = S.ch.length - 1;
-  let h = `<div class="dpair"><div class="dp"><small>From</small><b>${esc(A.n)}</b></div><div class="par"><svg width="54" height="10" viewBox="0 0 54 10" aria-hidden="true"><circle cx="4" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="50" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 5h38" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2 3"/></svg><span>Par ${S.par}</span></div><div class="dp"><small>To</small><b>${esc(B.n)}</b></div></div>`;
+  if (!S.on) {   // the pair to start from
+    let h = sixPair(S, true);
+    if (S.pick) h += `<div class="dpk"><label for="dQ" hidden>A name</label><input id="dQ" type="search" placeholder="${S.pick === 'a' ? 'From' : 'To'}: a name" autocomplete="off" enterkeyhint="search"><ul id="dPk">${sixPickList()}</ul></div>`;
+    else h += `<p class="dnote">${S.par == null ? 'No chain links them as far as you\'ve watched.' : 'Link ' + esc(short(A.n)) + ' to ' + esc(short(B.n)) + ' through the people they know, in as few links as you can.'}</p>`
+      + `<div class="drow"><button type="button" id="dNew">New pair</button><button type="button" class="go" id="dGo"${S.par == null ? ' disabled' : ''}>Start ›</button></div>`;
+    body.innerHTML = h; return; }
+  let h = sixPair(S, false);
   if (S.done) {
     const won = S.done === 1, over = moves - S.par;
     h += `<div class="dres"><small>${won ? 'Linked' : 'Revealed'}</small><b>${won ? moves + (moves === 1 ? ' link' : ' links') : 'Par ' + S.par}</b><p>${won ? (over <= 0 ? 'On par: the shortest chain there is.' : over + ' over par. The shortest chain is ' + S.par + (S.par === 1 ? ' link.' : ' links.')) : 'The shortest chain between them, as far as you\'ve watched.'}</p></div>`;
+    h += `<div class="drow"><button type="button" class="go" id="dNew">New pair</button><button type="button" class="gold" data-dgo="${S.b}">Lock onto ${esc(short(B.n))} ›</button></div>`;
     h += sixChain(won ? S.ch : sixShortest());
     if (won && over > 0) h += `<div class="dnx"><h4>The shortest chain</h4></div>` + sixChain(sixShortest());
-    h += `<div class="drow"><button type="button" class="gold" data-dgo="${S.b}">Lock onto ${esc(short(B.n))} ›</button></div>`;
     body.innerHTML = h; return; }
   h += sixChain(S.ch, S.b);
   const on = new Set(S.ch), L = sixNb(N[cur]).map(j => [j, kindOf(N[cur], N[j])]).sort((a, b) => (b[0] === S.b) - (a[0] === S.b) || KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].A.length - N[a[0]].A.length);
-  h += `<div class="dnx"><h4>${esc(short(N[cur].n))}'s connections · ${L.length}</h4>`; let k0 = null;
+  h += `<div class="dnx"><h4>Link ${moves + 1} · ${esc(short(N[cur].n))}'s connections</h4>`; let k0 = null;
   L.forEach(([j, k]) => { if (j !== S.b && k !== k0) { h += `<div class="kh" style="color:${KC[k]}"><i style="background:${KC[k]}"></i>${KL[k]}</div>`; k0 = k; }
     h += `<button type="button" class="wrow${on.has(j) ? ' on' : ''}${j === S.b ? ' tg' : ''}" style="--kc:${KC[k]}" data-dj="${j}"${on.has(j) ? ' disabled' : ''}><b>${esc(N[j].n)}</b><span>${esc(whoLine(N[cur], N[j], relOf(N[cur], N[j])))}</span></button>`; });
   h += `</div><div class="drow"><button type="button" id="dUndo"${moves ? '' : ' hidden'}>‹ Undo</button><button type="button" id="dShow">Reveal</button></div>`;
   body.innerHTML = h; }
-$('hSix').onclick = () => { if (sel || mapOn) home(); $('dsheet').hidden = false; sixDraw(); $('dBody').scrollTop = 0; tell(); };
+$('hSix').onclick = () => { if (sel || mapOn) home(); $('dsheet').hidden = false; if (SIX && SIX.done) sixNew(); sixDraw(); $('dBody').scrollTop = 0; tell(); };
 $('dClose').onclick = () => { $('dsheet').hidden = true; tell(); };
+$('dBody').addEventListener('input', e => { if (e.target.id === 'dQ') $('dPk').innerHTML = sixPickList(); });
 $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) return;
-  const b = e.target.closest('[data-dj]'), go = e.target.closest('[data-dgo]');
+  const b = e.target.closest('[data-dj]'), go = e.target.closest('[data-dgo]'), pk = e.target.closest('[data-dpick]'), set = e.target.closest('[data-dset]'), id = (e.target.closest('button') || {}).id;
   if (go) { $('dsheet').hidden = true; tell(); lockOn(N[+go.dataset.dgo]); return; }
+  if (pk) { S.pick = S.pick === pk.dataset.dpick ? null : pk.dataset.dpick; sixDraw(); if (S.pick) setTimeout(() => $('dQ') && $('dQ').focus(), 50); return; }
+  if (set) { const j = +set.dataset.dset, w = S.pick, a = w === 'a' ? j : S.a, z = w === 'b' ? j : S.b; if (a !== z) sixSet(a, z); else SIX.pick = null; sixDraw(); return; }
+  if (id === 'dNew') { sixNew(); sixDraw(); $('dBody').scrollTop = 0; return; }
+  if (id === 'dGo') { S.on = 1; S.pick = null; sixDraw(); return; }
   if (b && !b.disabled) { const j = +b.dataset.dj; S.ch.push(j); if (j === S.b) S.done = 1; if (navigator.vibrate) try { navigator.vibrate(8); } catch (x) {} sixDraw(); return; }
-  if (e.target.id === 'dUndo' && S.ch.length > 1) { S.ch.pop(); sixDraw(); return; }
-  if (e.target.id === 'dShow') { S.done = 2; sixDraw(); $('dBody').scrollTop = 0; } });
+  if (id === 'dUndo' && S.ch.length > 1) { S.ch.pop(); sixDraw(); return; }
+  if (id === 'dShow') { S.done = 2; sixDraw(); $('dBody').scrollTop = 0; } });
 </script>

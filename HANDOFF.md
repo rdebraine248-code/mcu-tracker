@@ -5,21 +5,79 @@ work. **Read all of it before changing anything, above all "Standing rules from 
 
 ## Starting a new chat
 
-Paste this as the first message:
-
-> Work on the repo `rdebraine248-code/mcu-tracker`, branch `ccr-5d4aa1b8-sj0vmn`. Before doing anything, read `HANDOFF.md` on that
-> branch in full and follow it, especially "Standing rules from the owner" and "Mistakes not to repeat". Ask me with options when
-> something is mine to decide or you're unsure, and never push to main without my go-ahead.
+The owner uploads this file (`HANDOFF.md`) to the new chat; nothing needs pasting. **To the new chat:** this one file is the whole
+handoff. Work on the GitHub repo `rdebraine248-code/mcu-tracker`, branch `ccr-5d4aa1b8-sj0vmn` (check it out; it is the source, main
+is the built app). Read it in full before changing anything, above all "Standing rules from the owner" and "Mistakes not to repeat".
+Ask the owner with options when something is theirs to decide or you're unsure. **Never push to main without the owner's explicit
+"push".** If the uploaded copy and the repo's differ, the repo's copy on the working branch is newer.
+There is only this one handoff file (owner, 5 November 2026, option 1: the second copy, `MCU_Tracker_Handoff.md`, duplicated it and
+had to be edited twice; it's gone, and its checklist is below). Don't make another copy.
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `835b077`; test build v146 is main plus the Time Machine and Six Degrees drafts (and landscape)
+- **main** is at `835b077`; test build v147 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **Drafted, waiting on the owner's review:** the Time Machine and Six Degrees, both mockups in the test build (see "Drafts: the
   Time Machine and Six Degrees" under Open items). Next: the owner's answers to the questions asked with them, then changes, then
   main only on their "push".
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
+
+## Checklist (up to date, 4 November 2026)
+
+**Done and on main**
+- The owner's five notes: Bucky's groups (Wakanda from Black Panther, no group in The Falcon and the Winter Soldier, the Thunderbolts at
+  the end); "in 2018" capitalization (already right); Bucky and Vision's stage and every "Now..." card line rewritten; the dock button
+  on the page you're on goes back to its main page (every page); the Vienna bombing case linked from Ross's step, plus 391 more steps
+  that name an incident.
+- The wrap-up plan: the Files pass (89 fixes, checked twice); fresh random 600 rechecks (people 1.6%, Network 4.3%, files 1.2%, all
+  fixed after a second check); the Network's last pass over all 7,357 stages (549 changes); the interactive report page.
+- The owner's answers to questions 1 to 59, all applied after a second check:
+  - Groups (1 to 24, 41): employers, schools, crews, support groups, familiars and the rest: 255 files. Finishing a school is leaving
+    it, like dropping out.
+  - Splits and merges: combined files split except Dum-E and U and the Toro brothers (25, 42); Gao's champions a group; Venom the
+    symbiote alone (26); one Sabretooth file (27); Ralph Bohner's own file, "Pietro" until WandaVision episode 9 (36).
+  - Earth numbers: Marvel's B numbers for the film worlds (28); Earth-6799 for the 1967 cartoon (29); no number for the Eminence (31);
+    the X-Men as the database has them (52, option 1): original films Earth-41578, the changed timeline and Deadpool's world
+    Earth-10005, Logan Earth-17315 with its own files and map (30); the changed timeline's Logan and Sentinels in their own files (35).
+    Earth-TRN414 is gone (no source). Note: Earth-41578 and Earth-17315 come from the fan-run Appendix the database cites, not Marvel.
+  - Broken-up groups end case by case (32); Robin Hinton stays active (33); the 1994 Electro and Fury tie dropped (34).
+  - Names the screen never says are kept (37), except one that gives a reveal away.
+  - Cover names until the reveal (51, 57): 22 people (the Goblin, Agnes, Sylvie, the Power Broker, Madelyne as "Jean Grey" and more),
+    with kind lines, groups, aliases and the "Also on file" link held back too.
+  - Places (39, 58): Wilfred Malick's estate, MJ and Ned's apartment, Elektra's childhood home, the Alchemax lab in Earth-1610B's new
+    "Upstate" inset.
+  - The calls left to Claude (44 to 50) made from transcripts; 54 to 56 needed no change; Iceman's office job (59); Mystique's groups
+    including X-Factor as Val Cooper (53; Creed's "coalition" is only a newscaster's phrase, so he stays in the Friends of Humanity).
+  - The Black Order (owner, 4 November): the four (Ebony Maw, Proxima Midnight, Corvus Glaive, Cull Obsidian), Thanos at the head;
+    Gamora and Nebula are in "Thanos's forces" while they serve him and stay his children. "Children of Thanos" is what they are, not
+    a group name.
+
+**The close-out plan (owner, 4 November 2026: "Do the rest of the plan"), in this order:**
+1. The Network's dock dot for every universe (option A). Done: on main (`c5d1946`, 4 November 2026, the owner's "push").
+**The bar (owner, 4 November 2026): 1 to 1.5% wrong in a random 600** (it was 0 to 1%; "Let's keep going but 1-1.5% is a better
+   window"). Over it, the part goes back through, targeted by the patterns the sample found, then a fresh 600.
+2. A fresh random 600 of the Network's connections, so part 2 can be locked. Done 4 November 2026: 23 wrong (3.8%), all fixed after a
+   second check (`network/rel/stage_fix_zzzzzzzz_sample5.json`, records in `audit2/net/ns5`). Over the bar, so it goes back through the
+   part, **targeted by pattern** (owner's choice over a full re-pass): connections between two people who share no title, pairs both
+   on screen after their last stage, a first stage later than their first title together, and every stage in Daredevil: Born Again,
+   the Netflix shows and the 1994 cartoon; then a fresh 600.
+3. The "Held" line under a file's entry, before the audit (owner: "I think I want a held line so maybe that needs to happen before
+   step 3 audit"), so the audit covers it.
+4. Audit parts 4 to 9, each with its second checker, its random 600 and the full content check.
+5. The final round: the whole test suite, the owner's check of the test build, one push to main on their word, the handoff updated.
+6. Landscape, stage 2, last of all (owner: "all the way at the end ... when all is said and done").
+
+**Still open**
+- Audit parts 4 to 9: the Atlas, character logs, Damage Control and Comms, the story lists and boxes, the Agent File, the Incursions
+  wall and the Multiverse, each with its random 600 and the owner's 0 to 1% bar.
+- A fresh random 600 for the Network before part 2 counts as locked.
+- The content check's warnings (not failures): 187 places with no Atlas entry for a title a file puts there, 38 "alive again after
+  Deceased". They predate this round and belong to the Atlas part.
+- Before the audit (owner, 4 November 2026): a "Held" line under a file's entry (the Collection objects that person holds in that title).
+- Test build only: landscape, stage 2.
+
+**Not coming back** (owner's calls): the VisionQuest audit, the six October pitches, Doomsday and Secret Wars content.
 
 ## What the owner cares about
 
@@ -39,7 +97,7 @@ Paste this as the first message:
   placeholders still empty, `mockup-data/` (all the data, the build scripts and the tests) and this file. **Check this branch out**, not
   main. After every push to main it's synced with `git merge -s ours origin/main`, which keeps the source and records main's history.
   `claude/gracious-cray-lhdt2k` is a mirror of it from the October 2026 chat, and `ccr-537d906a-oxzbql` (the 5 November 2026
-  drafting chat's branch) another: push all three, so they stay identical.
+  drafting chat's branch) another: push all three, so they stay identical. This file (`HANDOFF.md`) is the only handoff.
 - Helper scripts written during a session (agent briefs, change appliers, the faction builder) live in that session's scratchpad and are
   gone afterwards. Everything they produced is in the repo: `audit_fix.json`, `raft_teams.json`, `index.html` and the audit records.
 
@@ -72,7 +130,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v146 (5 November 2026: the Time Machine and Six Degrees drafts) and otherwise matches main (835b077, pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v147 (5 November 2026: the Time Machine and Six Degrees drafts, Six Degrees reworked) and otherwise matches main (835b077, pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
@@ -1195,21 +1253,6 @@ These happened in earlier chats. Each cost the owner time.
 
 ## Open items
 
-**The close-out plan (owner, 4 November 2026: "Do the rest of the plan"), in this order:**
-1. The Network's dock dot for every universe (option A). Done: on main (`c5d1946`, 4 November 2026, the owner's "push").
-**The bar (owner, 4 November 2026): 1 to 1.5% wrong in a random 600** (it was 0 to 1%; "Let's keep going but 1-1.5% is a better
-   window"). Over it, the part goes back through, targeted by the patterns the sample found, then a fresh 600.
-2. A fresh random 600 of the Network's connections, so part 2 can be locked. Done 4 November 2026: 23 wrong (3.8%), all fixed after a
-   second check (`network/rel/stage_fix_zzzzzzzz_sample5.json`, records in `audit2/net/ns5`). Over the bar, so it goes back through the
-   part, **targeted by pattern** (owner's choice over a full re-pass): connections between two people who share no title, pairs both
-   on screen after their last stage, a first stage later than their first title together, and every stage in Daredevil: Born Again,
-   the Netflix shows and the 1994 cartoon; then a fresh 600.
-3. The "Held" line under a file's entry, before the audit (owner: "I think I want a held line so maybe that needs to happen before
-   step 3 audit"), so the audit covers it.
-4. Audit parts 4 to 9, each with its second checker, its random 600 and the full content check.
-5. The final round: the whole test suite, the owner's check of the test build, one push to main on their word, the handoff updated.
-6. Landscape, stage 2, last of all (owner: "all the way at the end ... when all is said and done").
-
 - **Audit status (4 November 2026, all on main as of ab088a6):** parts 1 to 3 (people, the Network, the files) are done: checked, second-checked,
   applied, then a fresh random 600 of each rechecked (people 1.6%, the Network 4.3%, files 1.2% wrong, all fixed after a second check),
   then the Network's last pass over all 7,357 stages, then the owner's answers to the 59 report questions. **Next: parts 4 to 9**
@@ -1267,7 +1310,7 @@ These happened in earlier chats. Each cost the owner time.
   memories of his attack, not her hallucinations), Peggy an Agents of S.H.I.E.L.D. S7 step (Simmons posing as her in 1955). No step for
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
-- **Drafts: the Time Machine and Six Degrees (5 November 2026, test build v146, mockups, waiting on the owner's review).** The owner
+- **Drafts: the Time Machine and Six Degrees (5 November 2026, test build v147, mockups, waiting on the owner's review).** The owner
   asked to "draft up 6 degrees and time machine in the build". Both run only on data the app already has; nothing new was written or
   researched. Screenshots were shown in the chat.
   - **The Time Machine** (`/* MOCKUP BEGIN timemachine */` in index.html's CSS and script). A "Time Machine" pill on the Sacred
@@ -1286,16 +1329,19 @@ These happened in earlier chats. Each cost the owner time.
   - **Six Degrees** (in the Network: `network/src/hub-src.html`, its CSS block and the script at the end; `network/network-hub.html`
     rebuilt by putting the existing baked data back into the new source, so nothing else in the Network changed). A gold "Six
     Degrees" pill at the right of the Network's title, hidden unless the app calls `netSixOn()` (only the app's timemachine mockup
-    block does, so main's network.html carries it hidden). It opens a full-screen sheet like Search: "Daily link · 5 Nov · Sacred
-    Timeline", From and To with Par N between them (the shortest chain), the chain so far (each link with its kind, the latest stage
-    you've watched in full and its title or episode), then the current person's connections by kind with their card lines; pick one
-    to add a link, Undo, Reveal (gives up and shows a shortest chain). Linked: "6 links. 2 over par. The shortest chain is 4 links."
-    with both chains, and "Lock onto <name> ›". The day's pair: two familiar faces in the room you're in (the top fifth by titles seen),
-    three or four links apart where the room allows, seeded by the date and universe; it holds for the day while both stay in the
-    room. Only people you've met and connections you've seen count, so it's spoiler-safe; with the Time Machine on it's that moment's
-    room. Progress isn't saved (reopening the app starts the day's puzzle again).
+    block does, so main's network.html carries it hidden). It opens a full-screen sheet like Search, on a pair to start from: From
+    and To with Par N between them (the shortest chain), a line saying what to do, **New pair** and **Start ›** (owner, 5 November
+    2026: "how am I supposed to play? ... no like start or go"). Either name can be tapped to pick your own from a list of everyone in
+    the room with a connection (searchable); a pair with no chain says so and can't start. Playing: the chain so far (each link with
+    its kind, the latest stage you've watched in full and its title or episode), then "Link N · <name>'s connections", each a card
+    with an arrow, by kind; Undo, Reveal (gives up and shows a shortest chain). Linked: "6 links. 2 over par." with both chains,
+    **New pair** and "Lock onto <name> ›". A new pair is two familiar faces in the room you're in (the top fifth by titles seen), three
+    or four links apart where the room allows, at random. Only people you've met and connections you've seen count, so it's
+    spoiler-safe; with the Time Machine on it's that moment's room.
+  - **No daily anything** (owner, 5 November 2026: "Wtf is this daily shit nonsense"): no daily puzzle, daily pair, streak or
+    anything else that runs on the calendar. A game gives a new round whenever you ask.
   - **Open questions for the owner (asked in the chat, 5 November 2026):** where the Time Machine's way in goes; Release Order;
-    ticks while travelling; Six Degrees per universe or Sacred Timeline only; a saved daily record or streak; the names.
+    ticks while travelling; Six Degrees per universe or Sacred Timeline only; the names. (The daily pair was cut on the owner's word.)
   - main is untouched: mainprep cuts the timemachine block (checked: no `tmBand` or `netSixOn` call in the main build), and check,
     smoke, ct64 and ct65 pass on a main build with the new network.html.
 - **Home screen: cut (owner, November 2026: "Cut it completely").** A datapad Home page leading the dock (an Agent ID strip, Up next,
