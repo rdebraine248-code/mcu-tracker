@@ -73,6 +73,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
     one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
   - On main (`3e844a5`, the owner's answer 60).
+- **Alioth stands in The Void** (owner, 5 November 2026, asked why Alioth was "part of the Citadel at the end of time" but He Who
+  Remains wasn't: option 1). The Citadel was only a circle the Network gives someone with no group; Alioth lives in the Void in all
+  its titles and guards the way to the Citadel, so `HOME` in hub-src puts it in The Void. He Who Remains stays with the TVA, his group.
+  A place is never a group (the screen never calls the Citadel an organization).
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 
