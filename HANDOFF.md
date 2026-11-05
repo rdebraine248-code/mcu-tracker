@@ -11,6 +11,14 @@ Paste this as the first message:
 > branch in full and follow it, especially "Standing rules from the owner" and "Mistakes not to repeat". Ask me with options when
 > something is mine to decide or you're unsure, and never push to main without my go-ahead.
 
+## Where things stand (5 November 2026)
+
+- **main** is at `835b077`; test build v145 matches it (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s). Nothing is open.
+- **Next up:** the owner asked to **draft Six Degrees and the Time Machine** (see "Next major update ideas" under the standing
+  rules): a design and a mockup for review, not a build, and nothing content heavy (no research, writing or audits).
+- The landscape layout is set aside (owner: "Ignore landscape for now").
+- Ask every open question in one batch before any test run; the full suite runs only before a main push.
+
 ## What the owner cares about
 
 - **Accuracy first.** Every fact must hold up on screen. Verify it yourself against sources rather than asking the owner, and follow a fix

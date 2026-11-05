@@ -1,4 +1,4 @@
-# MCU Tracker: everything a new chat needs (4 November 2026)
+# MCU Tracker: everything a new chat needs (5 November 2026)
 
 **To the new chat:** this one file is the whole handoff. Work on the GitHub repo `rdebraine248-code/mcu-tracker`, branch
 `ccr-5d4aa1b8-sj0vmn` (check it out; it is the source, main is the built app). Read this file in full before changing anything, above
@@ -6,11 +6,16 @@ all "Standing rules from the owner" and "Mistakes not to repeat". Ask the owner 
 you're unsure. **Never push to main without the owner's explicit "push".** The same handoff also lives in the repo as `HANDOFF.md`;
 if they ever differ, the repo's copy on the working branch is newer.
 
-- **main** is at `835b077` (pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859). The published test build is v142 (see the Network notes below):
+- **main** is at `835b077` (pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859). The published test build is v145 and matches main (plus the landscape mockup only it carries):
   https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s
 - **The report page** (owner's questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. All 59 questions are
   answered and applied; new questions go on as 60 onward. Answers come back as comment threads (the page's Submit).
-- **Next up:** the close-out plan below (the Network's 600, the Held line, audit parts 4 to 9, the final push, landscape last).
+- **Next up:** the owner asked (5 November 2026) to **draft Six Degrees and the Time Machine**, two of the "next major update" ideas
+  under the standing rules (not content heavy: no research, writing or audits; built only from data the app already has). Draft
+  means a design and a mockup for the owner to review, not a build. Everything else is closed: the full pass, the extended cuts,
+  Jimmy Weeks, the Widows, Dottie and the Team Thor / Earth-19859 Atlas moves are all on main. The landscape layout is set aside
+  (owner: "Ignore landscape for now"). Ask every open question in one batch before any test run; the full suite runs only before
+  a main push.
 
 ## Checklist (up to date, 4 November 2026)
 
