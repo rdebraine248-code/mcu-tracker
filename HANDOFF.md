@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `3e844a5` (pushed 5 November 2026, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
+- **main** is at `3cd6996` (pushed 5 November 2026, the owner's "push": the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
@@ -177,7 +177,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
      file, so the phone keeps its saved copy. `sw.js` serves it from the saved copy first, takes it from the internet only whole, and
      clears out old ones; the page retries once if it can't load it. Tests: the full suite runs on the split build (`ROOT` =
      `out/mainroot` with network.html and the icons); the ct tests' routes serve the data file next to the page they're given.
-     Checked 5 November 2026: full suite 37 of 37 on the split build (ct46 and ct47 needed the same route change). Waiting on the owner's "push".
+     Checked 5 November 2026: full suite 37 of 37 on the split build (ct46 and ct47 needed the same route change). On main since `3cd6996`.
   5. **The Network on main:** after devbuild, replace `/*EARTHS*/{}` the way build_tb.py does and `/*NETWORK*/null` with
      `"url:network.html"`, and copy `network/network-hub.html` to the worktree as `network.html`. `sw.js` saves it for offline (CORE).
      Never put the Network back inline on main: the launch page must stay near its old size (about 3.6 MB).
