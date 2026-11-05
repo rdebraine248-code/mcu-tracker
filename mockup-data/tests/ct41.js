@@ -3,7 +3,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 (async () => { const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
   const ctx = await b.newContext();
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, cpSeen: { 'by-st-daisy-johnson': 1, 'by-st-shield': 1 }, raftSeen: { 'by-st-hydra': 1 }, collSeen: { 'by-darkhold': 1 } }));
-  await ctx.route('**/*', r => { const u = r.request().url(); if (u.startsWith('http://t/')) return r.fulfill({ body: require('fs').readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }); return r.continue(); });
+  await ctx.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(process.argv[2]), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ if (u.startsWith('http://t/')) return r.fulfill({ body: require('fs').readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }); return r.continue(); });
   const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500);
   console.log(await p.evaluate(() => JSON.stringify({ cp: state.cpSeen, raft: state.raftSeen, coll: state.collSeen,
     tabs: Object.fromEntries(['mcu', 'by'].map(u => [u, ALLIES.filter(o => rfUniOf(o) === u).length + THREATS.filter(o => rfUniOf(o) === u).length + COLLX.filter(o => rfUniOf(o) === u).length])),

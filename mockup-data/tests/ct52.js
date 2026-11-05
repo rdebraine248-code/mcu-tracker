@@ -6,7 +6,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); }, errs = [];
   const run = async (save, fn) => { const ctx = await b.newContext({ viewport: { width: 412, height: 900 }, hasTouch: false });
     await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, JSON.stringify(save));
-    await ctx.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
+    await ctx.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(process.argv[2]), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
     const p = await ctx.newPage(); p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500);
     const r = await fn(p); await ctx.close(); return r; };
   const base = { entered: 1, booted: 1, orderPicked: 1, raftIn: 1, cpIn: 1, collIn: 1 };

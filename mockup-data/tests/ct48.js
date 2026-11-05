@@ -9,7 +9,7 @@ const T = 'Agents of S.H.I.E.L.D. S6–S7', S6 = 'Agents of S.H.I.E.L.D. S6', S7
     eps: { ['tr::' + T]: [1, 2, 14, 15] }, rate: { [T]: 4 }, watchedOn: { [T]: '2026-01-02' },
     dSeen: { 'ch-beyond-the-mcu': { ['s:' + T]: 1 }, 'cx-nick-fury-s-h-i-e-l-d': { ['s:' + T]: 1 } }, msgs: { [T]: 1 } };
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, JSON.stringify(old));
-  await ctx.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
+  await ctx.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(process.argv[2]), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
   const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500);
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); };
   const r = await p.evaluate(([T, S6, S7]) => {

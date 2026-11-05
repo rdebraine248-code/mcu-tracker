@@ -6,7 +6,7 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
 (async () => { const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
   const ctx = await b.newContext({ viewport: { width: 412, height: 900 } }), dir = path.dirname(process.argv[2]);
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, checks: {} }));
-  await ctx.route('**/*', r => { const u = r.request().url(); if (u === 'http://t/') return r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' });
+  await ctx.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(process.argv[2]), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ if (u === 'http://t/') return r.fulfill({ body: fs.readFileSync(process.argv[2], 'utf8'), contentType: 'text/html; charset=utf-8' });
     if (u === 'http://t/network.html' && fs.existsSync(dir + '/network.html')) return r.fulfill({ body: fs.readFileSync(dir + '/network.html', 'utf8'), contentType: 'text/html; charset=utf-8' });
     return u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
   const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(1200);

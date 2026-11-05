@@ -6,13 +6,13 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
 (async () => { const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); }, errs = [];
   const html = fs.readFileSync(process.argv[2], 'utf8');
-  const c0 = await b.newContext(); await c0.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: html, contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
+  const c0 = await b.newContext(); await c0.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(process.argv[2]), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ return u === 'http://t/' ? r.fulfill({ body: html, contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
   const p0 = await c0.newPage(); await p0.goto('http://t/'); await sleep(1500);
   const all = await p0.evaluate(() => [...new Set([...DATA.chapters, ...DATA.chars].flatMap(c => c.items.map(i => i.t)))]); await c0.close();
   const ctx = await b.newContext({ viewport: { width: 412, height: 900 } });
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } },
     JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn: 1, cpIn: 1, collIn: 1, checks: Object.fromEntries(all.map(t => ['tl::' + t, true])) }));
-  await ctx.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: html, contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
+  await ctx.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(process.argv[2]), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ return u === 'http://t/' ? r.fulfill({ body: html, contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
   const p = await ctx.newPage(); p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500);
   const seen = (m, id) => p.evaluate(([m, id]) => { openColl(m); collShow(id); const one = document.querySelector('#collView .ip-one'); if (one) { const t = one.lastChild.textContent; return [t, t]; }
     return [...document.querySelectorAll('#collView .id-path > span:not(.ip-mid)')].map(s => s.lastChild.textContent); }, [m, id]);   // the ends of the ID card's path line (November 2026)

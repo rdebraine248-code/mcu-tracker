@@ -7,7 +7,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const ch = id => [];
   const st = { entered: 1, booted: 1, orderPicked: 1, mode: 'chapters', unlocked: { 'ch-1': true, 'ch-2': true, 'ch-3': true, 'ch-4': true, 'ch-5': true }, checks: { 'ch-5::Jessica Jones S1': true } };
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, JSON.stringify(st));
-  await ctx.route('**/*', r => { const u = r.request().url(); if (u.startsWith('http://t/')) return r.fulfill({ body: require('fs').readFileSync(process.argv[2], 'utf8'), contentType: 'text/html' }); return r.continue(); });
+  await ctx.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(process.argv[2]), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ if (u.startsWith('http://t/')) return r.fulfill({ body: require('fs').readFileSync(process.argv[2], 'utf8'), contentType: 'text/html' }); return r.continue(); });
   const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2200);
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); };
   await p.evaluate(() => { const t = document.querySelector('.tile[data-id="ch-5"]'); t.scrollIntoView(); t.click(); }); await sleep(1500);
