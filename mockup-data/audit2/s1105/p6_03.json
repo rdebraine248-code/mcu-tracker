@@ -1,0 +1,2400 @@
+[
+ {
+  "kind": "replay",
+  "key": "dc-sok",
+  "item": {
+   "sides": {
+    "A": "The Avengers",
+    "T": "Ultron",
+    "C": "The people of Novi Grad"
+   },
+   "fx": [
+    {
+     "k": "blast",
+     "x": 200,
+     "y": 150,
+     "at": 1,
+     "r": 40,
+     "c": "#BFE6FF"
+    },
+    {
+     "k": "ring",
+     "x": 200,
+     "y": 150,
+     "r": 150,
+     "from": 1,
+     "to": 1.9,
+     "c": "#BFE6FF"
+    },
+    {
+     "k": "ship",
+     "x": 330,
+     "y": 30,
+     "w": 56,
+     "from": 3,
+     "to": 10,
+     "lab": "Helicarrier"
+    },
+    {
+     "k": "site",
+     "x": 350,
+     "y": 212,
+     "from": 3.3,
+     "to": 8.2,
+     "lab": "Lifeboats"
+    },
+    {
+     "k": "blast",
+     "x": 240,
+     "y": 190,
+     "at": 7.05,
+     "r": 22,
+     "c": "#FF5A4E"
+    },
+    {
+     "k": "blast",
+     "x": 200,
+     "y": 150,
+     "at": 8.5,
+     "r": 190,
+     "c": "#FFD27A"
+    },
+    {
+     "k": "beam",
+     "x1": 64,
+     "y1": 268,
+     "x2": 34,
+     "y2": 284,
+     "from": 9.3,
+     "to": 9.55,
+     "c": "#FFE27A"
+    }
+   ],
+   "swarms": [
+    {
+     "s": "T",
+     "n": 70,
+     "keys": [
+      [
+       0,
+       200,
+       150,
+       60,
+       0.4
+      ],
+      [
+       1,
+       200,
+       150,
+       120,
+       0.8
+      ],
+      [
+       2,
+       200,
+       150,
+       150,
+       1
+      ],
+      [
+       5,
+       200,
+       150,
+       120,
+       1
+      ],
+      [
+       7,
+       200,
+       150,
+       70,
+       0.6
+      ],
+      [
+       8,
+       200,
+       150,
+       60,
+       0
+      ]
+     ]
+    },
+    {
+     "s": "C",
+     "n": 50,
+     "keys": [
+      [
+       0,
+       160,
+       150,
+       90,
+       1
+      ],
+      [
+       3,
+       200,
+       170,
+       80,
+       1
+      ],
+      [
+       4,
+       280,
+       190,
+       50,
+       1
+      ],
+      [
+       5,
+       330,
+       202,
+       26,
+       1
+      ],
+      [
+       7.5,
+       340,
+       208,
+       18,
+       0.5
+      ],
+      [
+       8,
+       340,
+       208,
+       18,
+       0
+      ]
+     ]
+    }
+   ],
+   "units": [
+    {
+     "c": "CA",
+     "n": "Captain America",
+     "s": "A",
+     "f": "A:steve-rogers",
+     "p": [
+      [
+       0,
+       100,
+       150
+      ],
+      [
+       4,
+       170,
+       180
+      ],
+      [
+       5,
+       196,
+       146
+      ],
+      [
+       7,
+       200,
+       150
+      ],
+      [
+       7.6,
+       330,
+       206
+      ]
+     ]
+    },
+    {
+     "c": "IM",
+     "n": "Iron Man",
+     "s": "A",
+     "f": "A:tony-stark",
+     "p": [
+      [
+       0,
+       260,
+       100
+      ],
+      [
+       5,
+       214,
+       156
+      ],
+      [
+       7.6,
+       206,
+       170
+      ],
+      [
+       8,
+       204,
+       216
+      ],
+      [
+       8.6,
+       204,
+       216
+      ],
+      [
+       9,
+       300,
+       40
+      ]
+     ]
+    },
+    {
+     "c": "TH",
+     "n": "Thor",
+     "s": "A",
+     "f": "A:thor",
+     "p": [
+      [
+       0,
+       230,
+       90
+      ],
+      [
+       5,
+       188,
+       144
+      ],
+      [
+       7.6,
+       194,
+       170
+      ],
+      [
+       8,
+       194,
+       216
+      ],
+      [
+       8.6,
+       194,
+       216
+      ],
+      [
+       9,
+       280,
+       30
+      ]
+     ]
+    },
+    {
+     "c": "BW",
+     "n": "Black Widow",
+     "s": "A",
+     "f": "A:natasha-romanoff",
+     "p": [
+      [
+       0,
+       110,
+       170
+      ],
+      [
+       5,
+       204,
+       156
+      ],
+      [
+       7,
+       204,
+       152
+      ],
+      [
+       7.8,
+       340,
+       196
+      ]
+     ]
+    },
+    {
+     "c": "HE",
+     "n": "Hawkeye",
+     "s": "A",
+     "f": "A:clint-barton",
+     "p": [
+      [
+       0,
+       120,
+       160
+      ],
+      [
+       5,
+       194,
+       158
+      ],
+      [
+       5.8,
+       286,
+       198
+      ],
+      [
+       6.6,
+       330,
+       206
+      ]
+     ]
+    },
+    {
+     "c": "HU",
+     "n": "The Hulk",
+     "s": "A",
+     "f": "A:bruce-banner",
+     "p": [
+      [
+       0,
+       150,
+       190
+      ],
+      [
+       5,
+       186,
+       160
+      ],
+      [
+       7,
+       200,
+       164
+      ],
+      [
+       7.8,
+       336,
+       186
+      ]
+     ]
+    },
+    {
+     "c": "VI",
+     "n": "Vision",
+     "s": "A",
+     "f": "A:vision",
+     "p": [
+      [
+       0,
+       180,
+       100
+      ],
+      [
+       5,
+       212,
+       148
+      ],
+      [
+       8,
+       212,
+       150
+      ],
+      [
+       8.6,
+       140,
+       250
+      ],
+      [
+       9,
+       64,
+       268
+      ]
+     ]
+    },
+    {
+     "c": "SW",
+     "n": "Scarlet Witch",
+     "s": "A",
+     "f": "A:wanda-maximoff",
+     "p": [
+      [
+       0,
+       150,
+       110
+      ],
+      [
+       5,
+       200,
+       160
+      ],
+      [
+       6.6,
+       200,
+       158
+      ],
+      [
+       7,
+       236,
+       186
+      ],
+      [
+       7.6,
+       330,
+       196
+      ]
+     ]
+    },
+    {
+     "c": "QS",
+     "n": "Quicksilver",
+     "s": "A",
+     "f": "A:pietro-maximoff",
+     "down": 6.4,
+     "p": [
+      [
+       0,
+       140,
+       120
+      ],
+      [
+       4,
+       250,
+       170
+      ],
+      [
+       5,
+       206,
+       144
+      ],
+      [
+       5.8,
+       280,
+       192
+      ]
+     ]
+    },
+    {
+     "c": "WM",
+     "n": "War Machine",
+     "s": "A",
+     "f": "A:james-rhodes",
+     "p": [
+      [
+       3,
+       420,
+       40
+      ],
+      [
+       3.5,
+       300,
+       80
+      ],
+      [
+       5,
+       220,
+       120
+      ],
+      [
+       7.6,
+       320,
+       90
+      ]
+     ]
+    },
+    {
+     "c": "UL",
+     "n": "Ultron",
+     "s": "T",
+     "f": "T:ultron",
+     "down": 7.1,
+     "p": [
+      [
+       0.5,
+       200,
+       150
+      ],
+      [
+       2,
+       236,
+       110
+      ],
+      [
+       5,
+       206,
+       126
+      ],
+      [
+       5.9,
+       262,
+       188
+      ],
+      [
+       6.6,
+       244,
+       188
+      ],
+      [
+       7,
+       240,
+       190
+      ]
+     ]
+    },
+    {
+     "c": "UL",
+     "n": "The last Ultron",
+     "s": "T",
+     "f": "T:ultron",
+     "down": 9.6,
+     "p": [
+      [
+       8.8,
+       34,
+       284
+      ]
+     ]
+    }
+   ],
+   "beats": [
+    "Steve, Tony, Thor, Natasha, Clint, Bruce Banner, Vision and the Maximoff twins reach Novi Grad and start getting its people out as Ultron's sentries attack.",
+    "Ultron sets off his vibranium core, and the whole city tears free of the ground and rises into the sky.",
+    "Ultron means to drop it like a meteor and wipe out humanity. His army swarms the streets.",
+    "Nick Fury arrives with a Helicarrier and its lifeboats, and James Rhodes joins the fight in War Machine.",
+    "The people are led across the city to the lifeboats while the team holds the sentries off.",
+    "The team gathers in the church to guard the core against Ultron and all of his army.",
+    "Pietro Maximoff is killed shielding Clint Barton and a child from Ultron's fire.",
+    "Wanda tears out Ultron's core as the last of the people get away.",
+    "Thor and Tony overload the core, and the city is blown apart in the air.",
+    "Vision finds the last Ultron alone in a forest and destroys him."
+   ]
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m55",
+  "item": {
+   "t": "Spider-Man (1981)",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-8107",
+   "b": "Spider-Man, his amazing friends and a Hulk down the road. A whole neighborhood, gone at once.",
+   "also": [
+    "Spider-Man and His Amazing Friends",
+    "The Incredible Hulk (1982)"
+   ]
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-earth",
+  "item": {
+   "id": "dc-earth",
+   "u": "mcu",
+   "n": "The Battle of Earth",
+   "yr": 2023,
+   "where": "The Avengers Compound, Upstate New York",
+   "t": "Avengers: Endgame",
+   "cls": "Extraterrestrial invasion",
+   "cause": "Five years after the Snap, Bruce Banner brings back everyone it took with the Nano Gauntlet, and the Thanos of 2014, brought forward by his Nebula through the Avengers' quantum tunnel, levels the Avengers Compound from his warship.",
+   "out": "Steve Rogers, Tony Stark and Thor hold Thanos off until every returned hero and army comes through the sorcerers' portals, and Carol Danvers destroys the warship. When Thanos seizes the stones, Tony takes them into his own armor and snaps, turning Thanos and his army to dust.",
+   "loss": [
+    [
+     "Tony Stark, killed by the power of the stones.",
+     "Avengers: Endgame"
+    ],
+    [
+     "The Avengers Compound, flattened by Thanos's warship.",
+     "Avengers: Endgame"
+    ],
+    [
+     "The Nebula of 2014, shot by her future self.",
+     "Avengers: Endgame"
+    ]
+   ],
+   "fall": [
+    [
+     "Tony's family and friends gather at the lake house for his funeral.",
+     "Avengers: Endgame"
+    ],
+    [
+     "Steve returns the stones, stays in the past with Peggy Carter, and as an old man hands his shield to Sam Wilson.",
+     "Avengers: Endgame"
+    ],
+    [
+     "Peter Parker grieves for Tony on a school trip to Europe, where Tony's glasses, E.D.I.T.H., pass to him.",
+     "Spider-Man: Far From Home"
+    ],
+    [
+     "The Gamora of 2014 slips away after the battle and joins the Ravagers.",
+     "Guardians of the Galaxy Vol. 3"
+    ]
+   ],
+   "who": [
+    [
+     "thanos",
+     "T"
+    ],
+    [
+     "ebony-maw",
+     "T"
+    ],
+    [
+     "proxima-midnight",
+     "T"
+    ],
+    [
+     "corvus-glaive",
+     "T"
+    ],
+    [
+     "cull-obsidian",
+     "T"
+    ],
+    [
+     "tony-stark",
+     "A"
+    ],
+    [
+     "steve-rogers",
+     "A"
+    ],
+    [
+     "thor",
+     "A"
+    ],
+    [
+     "bruce-banner",
+     "A"
+    ],
+    [
+     "carol-danvers",
+     "A"
+    ],
+    [
+     "wanda-maximoff",
+     "A"
+    ],
+    [
+     "peter-parker",
+     "A"
+    ],
+    [
+     "tchalla",
+     "A"
+    ],
+    [
+     "pepper-potts",
+     "A"
+    ],
+    [
+     "james-rhodes",
+     "A"
+    ],
+    [
+     "clint-barton",
+     "A"
+    ],
+    [
+     "scott-lang",
+     "A"
+    ],
+    [
+     "hope-van-dyne",
+     "A"
+    ],
+    [
+     "nebula",
+     "A"
+    ],
+    [
+     "gamora",
+     "A"
+    ],
+    [
+     "stephen-strange",
+     "A"
+    ],
+    [
+     "wong",
+     "A"
+    ],
+    [
+     "sam-wilson",
+     "A"
+    ],
+    [
+     "bucky-barnes",
+     "A"
+    ],
+    [
+     "valkyrie",
+     "A"
+    ],
+    [
+     "okoye",
+     "A"
+    ],
+    [
+     "shuri",
+     "A"
+    ],
+    [
+     "m-baku",
+     "A"
+    ],
+    [
+     "peter-quill",
+     "A"
+    ],
+    [
+     "drax",
+     "A"
+    ],
+    [
+     "mantis",
+     "A"
+    ],
+    [
+     "rocket",
+     "A"
+    ],
+    [
+     "groot",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "chitauri",
+     "T"
+    ],
+    [
+     "avengers",
+     "A"
+    ],
+    [
+     "dora-milaje",
+     "A"
+    ],
+    [
+     "guardians-of-the-galaxy",
+     "A"
+    ],
+    [
+     "ravagers",
+     "A"
+    ],
+    [
+     "masters-of-the-mystic-arts",
+     "A"
+    ]
+   ],
+   "obj": [
+    "nano-gauntlet",
+    "iron-man-armor",
+    "mjolnir",
+    "shield",
+    "thanos-sword",
+    "sanctuary-ii",
+    "quantum-tunnel"
+   ]
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m118",
+  "item": {
+   "t": "Team Thor, Team Thor: Part 2 & Team Darryl",
+   "k": "email",
+   "id": "x-teamthor-1",
+   "f": "Darryl Jacobson",
+   "to": "Agent",
+   "cl": "Personal email",
+   "re": "Roommate update",
+   "b": "Thor moved out. My new roommate is called the Grandmaster, and he is a lot. If anyone at S.H.I.E.L.D. is looking for him, he's on my couch."
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-chicago",
+  "item": {
+   "id": "dc-chicago",
+   "u": "mcu",
+   "n": "The Battle of Chicago",
+   "yr": 2018,
+   "where": "Downtown Chicago, Illinois",
+   "t": "Agents of S.H.I.E.L.D. S5",
+   "cls": "Gravitonium event",
+   "cause": "Convinced he alone can stand against Thanos, Glenn Talbot forces the young seer Robin Hinton to lead him to the gravitonium buried under Chicago, and starts tearing it out of the ground to make himself stronger.",
+   "out": "S.H.I.E.L.D. evacuates the city as its streets break apart. When Talbot tries to absorb Daisy Johnson's powers, she injects the last of the Centipede serum, breaks free and blasts him into space, killing him.",
+   "loss": [
+    [
+     "Leo Fitz, fatally hurt by falling rubble.",
+     "Agents of S.H.I.E.L.D. S5"
+    ],
+    [
+     "Glenn Talbot, killed by Daisy.",
+     "Agents of S.H.I.E.L.D. S5"
+    ]
+   ],
+   "fall": [
+    [
+     "The dying Coulson retires to Tahiti with May to spend his last days.",
+     "Agents of S.H.I.E.L.D. S5"
+    ],
+    [
+     "Simmons and the team set out to find the earlier Fitz, still frozen in space.",
+     "Agents of S.H.I.E.L.D. S5"
+    ]
+   ],
+   "who": [
+    [
+     "st-glenn-talbot",
+     "T"
+    ],
+    [
+     "st-daisy-johnson",
+     "A"
+    ],
+    [
+     "st-mack",
+     "A"
+    ],
+    [
+     "st-leo-fitz",
+     "A"
+    ],
+    [
+     "st-jemma-simmons",
+     "A"
+    ],
+    [
+     "st-melinda-may",
+     "A"
+    ],
+    [
+     "phil-coulson",
+     "A"
+    ],
+    [
+     "st-robin-hinton",
+     "A"
+    ],
+    [
+     "st-davis",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "st-confederacy",
+     "T"
+    ],
+    [
+     "shield-org",
+     "A"
+    ],
+    [
+     "hydra",
+     "T"
+    ]
+   ],
+   "obj": [
+    "gravitonium",
+    "centipede-serum",
+    "zephyr-one",
+    "quinjet"
+   ]
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-emer",
+  "item": {
+   "id": "dc-emer",
+   "u": "mcu",
+   "n": "The Emergence",
+   "yr": 2024,
+   "where": "The Emergence point, the Indian Ocean",
+   "t": "Eternals",
+   "cls": "Celestial emergence",
+   "cause": "The return of the people lost in the Blip gives the Celestial Tiamut, planted inside the Earth by Arishem long ago, the life he needs to be born, and his emergence would destroy the planet.",
+   "out": "Sersi gathers the Eternals to stop the birth, while Ikaris and Sprite fight to let it happen and the Deviant Kro attacks them all. Phastos links the Eternals into the Uni-Mind, and Sersi uses their combined power to turn Tiamut to marble as he rises out of the ocean.",
+   "loss": [
+    [
+     "Ajak, killed by Deviants before the battle after Ikaris leads her to them.",
+     "Eternals"
+    ],
+    [
+     "Gilgamesh, killed by Kro before the battle.",
+     "Eternals"
+    ],
+    [
+     "Kro, killed by Thena.",
+     "Eternals"
+    ],
+    [
+     "Ikaris, who cannot bring himself to kill Sersi and flies into the sun.",
+     "Eternals"
+    ]
+   ],
+   "fall": [
+    [
+     "Arishem takes Sersi, Kingo and Phastos away to judge whether humanity should live.",
+     "Eternals"
+    ],
+    [
+     "Thena, Makkari and Druig leave Earth on the Domo to find other Eternals, and Eros joins them.",
+     "Eternals"
+    ],
+    [
+     "Adamantium is found in Tiamut's body, and the nations of the world race to claim what becomes Celestial Island.",
+     "Captain America: Brave New World"
+    ]
+   ],
+   "who": [
+    [
+     "ikaris",
+     "T"
+    ],
+    [
+     "sprite",
+     "T"
+    ],
+    [
+     "kro",
+     "T"
+    ],
+    [
+     "sersi",
+     "A"
+    ],
+    [
+     "thena",
+     "A"
+    ],
+    [
+     "phastos",
+     "A"
+    ],
+    [
+     "makkari",
+     "A"
+    ],
+    [
+     "druig",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "domo",
+    "spec-celestial"
+   ]
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m26",
+  "item": {
+   "t": "Agents of S.H.I.E.L.D. S7",
+   "id": "Agents of S.H.I.E.L.D. S6\u2013S7",
+   "f": "Phil Coulson (L.M.D.)",
+   "to": "Agent",
+   "cl": "Branched timeline",
+   "re": "Nobody will know",
+   "b": "Strange thing, remembering a life you didn't live. The Chronicoms are finished, the team has moved on, and in this timeline no one will ever know what they did. That's how it's supposed to be. Fury taught me that. Thanks for keeping the secret."
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m24",
+  "item": {
+   "t": "Agents of S.H.I.E.L.D. S2",
+   "f": "Director Phil Coulson",
+   "to": "Agent",
+   "cl": "Level 10",
+   "re": "The Playground",
+   "b": "Gonzales was right about one thing: I kept too many secrets. So here's one. S.H.I.E.L.D. survived, and we run it out of a base called the Playground. We lost Trip this year, and we just met the Inhumans. I need agents who can keep a secret and still tell the truth. Report Monday."
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m58",
+  "item": {
+   "t": "The Fantastic Four (1994)",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-94000",
+   "b": "A Fantastic Four the world never got to see. Now no one will."
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-sv-synoptic",
+  "item": {
+   "id": "dc-sv-synoptic",
+   "u": "sv",
+   "n": "The Counter-Earth Symbiote Release",
+   "yr": 2001,
+   "where": "Counter-Earth",
+   "t": "Spider-Man Unlimited",
+   "cls": "Symbiote invasion",
+   "cause": "Venom and Carnage, who reached Counter-Earth by hijacking John Jameson's ship, serve the Synoptic, a mass of ancient symbiotes, and plot with the High Evolutionary to unleash millions of symbiotes on the planet.",
+   "out": "Spider-Man, John Jameson, the rebels, X-51 and the Goblin team up to stop the plan, but they arrive too late, and the symbiotes are unleashed as they fight on.",
+   "loss": [],
+   "fall": [],
+   "who": [
+    [
+     "sv-synoptic-smu",
+     "T"
+    ],
+    [
+     "sv-venom-smu",
+     "T"
+    ],
+    [
+     "sv-carnage-smu",
+     "T"
+    ],
+    [
+     "sv-high-evolutionary-smu",
+     "T"
+    ],
+    [
+     "sv-peter-parker-smu",
+     "A"
+    ],
+    [
+     "sv-john-jameson-smu",
+     "A"
+    ],
+    [
+     "sv-x-51",
+     "A"
+    ],
+    [
+     "sv-goblin-smu",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "sv-spec-smu-symbiote",
+    "sv-smu-nanotech-suit"
+   ]
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m39",
+  "item": {
+   "t": "Power Pack",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-635972",
+   "b": "Four kids with an alien's gift and a secret kept from their parents. Kept for good now."
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "The Spectacular Spider-Man#6",
+  "item": [
+   "Costumed villains on the rise across New York"
+  ]
+ },
+ {
+  "kind": "message",
+  "key": "m49",
+  "item": {
+   "t": "The Gifted",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-17372",
+   "b": "The Mutant Underground ran out of places to hide."
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "Ms. Marvel#1",
+  "item": [
+   "Chaos at AvengerCon at Camp Lehigh, New Jersey"
+  ]
+ },
+ {
+  "kind": "headlines",
+  "key": "Iron Fist S2#2",
+  "item": [
+   "Gang war breaks out in Chinatown"
+  ]
+ },
+ {
+  "kind": "report",
+  "key": "dc-sv-carnage",
+  "item": {
+   "id": "dc-sv-carnage",
+   "u": "sv",
+   "n": "The Carnage Rampage",
+   "yr": 2021,
+   "where": "San Quentin State Prison and Grace Cathedral, San Francisco",
+   "t": "Venom: Let There Be Carnage",
+   "cls": "Symbiote rampage",
+   "cause": "Cletus Kasady, who swallowed a piece of Venom when he bit Eddie Brock, becomes Carnage at his own execution and tears through San Quentin, killing guards and freeing inmates.",
+   "out": "Carnage frees Frances Barrison from Ravencroft, and the two burn down the children's home where they grew up and take Anne Weying hostage at Grace Cathedral to marry. Eddie and Venom, reunited, provoke Frances into screaming Carnage apart from Kasady, and Venom devours them both.",
+   "loss": [
+    [
+     "Prison guards at San Quentin, killed by Carnage.",
+     "Venom: Let There Be Carnage"
+    ],
+    [
+     "Cletus Kasady, devoured by Venom.",
+     "Venom: Let There Be Carnage"
+    ],
+    [
+     "Frances Barrison, crushed as the cathedral collapses.",
+     "Venom: Let There Be Carnage"
+    ],
+    [
+     "St. Estes Home for Unwanted Children, burned down.",
+     "Venom: Let There Be Carnage"
+    ]
+   ],
+   "fall": [
+    [
+     "A piece of Carnage lives on in Detective Mulligan, and Eddie and Venom flee as fugitives.",
+     "Venom: Let There Be Carnage"
+    ],
+    [
+     "A blinding light pulls Eddie and Venom into another universe, and when they are sent home, a piece of Venom is left behind.",
+     "Spider-Man: No Way Home"
+    ],
+    [
+     "Blamed for Mulligan's apparent death, Eddie is wanted around the world.",
+     "Venom: The Last Dance"
+    ]
+   ],
+   "who": [
+    [
+     "sv-carnage-sony",
+     "T"
+    ],
+    [
+     "sv-shriek",
+     "T"
+    ],
+    [
+     "sv-venom-sony",
+     "T"
+    ],
+    [
+     "sv-eddie-brock-sony",
+     "A"
+    ],
+    [
+     "sv-anne-weying",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "sv-spec-venom-symbiote"
+   ]
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-by-zombie-wakanda",
+  "item": {
+   "id": "dc-by-zombie-wakanda",
+   "u": "by",
+   "n": "The Battle of Wakanda",
+   "yr": 2018,
+   "where": "Birnin Zana, Wakanda, in the reality overrun by zombies",
+   "t": "Marvel Zombies",
+   "cls": "Zombie siege",
+   "cause": "Peter Parker, Scott Lang and T'Challa reach Wakanda with the Mind Stone and find it conquered by a zombie Thanos, who wears an Infinity Gauntlet missing only that Stone.",
+   "out": "They fight Thanos beside Thor, Rocket and Groot, and he kills Rocket and Groot, badly burns Thor and tries to snap. T'Challa drives him into Wakanda's vibranium core, destroying them both along with the Stones, while the sorcerers of Kamar-Taj carry Peter and Scott to safety.",
+   "loss": [
+    [
+     "T'Challa, who dies with Thanos in the vibranium core.",
+     "Marvel Zombies"
+    ],
+    [
+     "Rocket and Groot, killed by Thanos.",
+     "Marvel Zombies"
+    ],
+    [
+     "The Infinity Stones, destroyed in the core.",
+     "Marvel Zombies"
+    ]
+   ],
+   "fall": [
+    [
+     "Bruce Banner absorbs the Stones' energy to keep it from destroying the Earth, and becomes the Infinity Hulk.",
+     "Marvel Zombies"
+    ],
+    [
+     "Five years later, Wanda gathers her hordes to take that power from him.",
+     "Marvel Zombies"
+    ]
+   ],
+   "who": [
+    [
+     "by-zombie-thanos",
+     "T"
+    ],
+    [
+     "by-zombie-tchalla",
+     "A"
+    ],
+    [
+     "by-zombie-peter-parker",
+     "A"
+    ],
+    [
+     "by-zombie-scott-lang",
+     "A"
+    ],
+    [
+     "by-zombie-thor",
+     "A"
+    ],
+    [
+     "by-zombie-rocket-groot",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "by-zombie-sorcerers",
+     "A"
+    ]
+   ],
+   "obj": [
+    "by-zombie-infinity-stones"
+   ]
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-nybomb",
+  "item": {
+   "id": "dc-nybomb",
+   "u": "mcu",
+   "n": "The New York Bombings",
+   "yr": 2016,
+   "where": "Federal buildings across Manhattan, New York",
+   "t": "The Punisher S1",
+   "cls": "Terrorist attack",
+   "cause": "Lewis Wilson, a troubled veteran from Curtis Hoyle's support group, kills the man who filled his head with anti-government rage and turns that rage on the city, planting homemade bombs at a federal courthouse, an ATF field office and a police precinct.",
+   "out": "He mails a manifesto to Karen Page, then strikes at Senator Stan Ori's fundraiser for the victims, killing Anvil guards and taking Karen hostage in an explosive belt. Frank Castle gets her free, and Lewis blows himself up.",
+   "loss": [
+    [
+     "Several people killed in the first bombings.",
+     "The Punisher S1"
+    ],
+    [
+     "Isaac Lange, killed for his Anvil uniform, and other Anvil guards, killed at the hotel.",
+     "The Punisher S1"
+    ],
+    [
+     "Lewis Wilson, killed by his own bomb.",
+     "The Punisher S1"
+    ]
+   ],
+   "fall": [
+    [
+     "Caught on camera leaving the house where Lewis held Curtis, Frank is named on the news as alive and a possible terrorist.",
+     "The Punisher S1"
+    ],
+    [
+     "At the hotel, Frank sees Billy Russo shoot at him and realizes his best friend has betrayed him.",
+     "The Punisher S1"
+    ]
+   ],
+   "who": [
+    [
+     "st-lewis-wilson",
+     "T"
+    ],
+    [
+     "st-billy-russo",
+     "T"
+    ],
+    [
+     "st-frank-castle",
+     "A"
+    ],
+    [
+     "st-karen-page",
+     "A"
+    ],
+    [
+     "st-curtis-hoyle",
+     "A"
+    ],
+    [
+     "st-dinah-madani",
+     "A"
+    ],
+    [
+     "st-brett-mahoney",
+     "A"
+    ],
+    [
+     "st-mitchell-ellison",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": []
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-pr-galactus",
+  "item": {
+   "id": "dc-pr-galactus",
+   "u": "pr",
+   "n": "The Coming of Galactus",
+   "yr": 2007,
+   "where": "Shanghai, China, and the skies above Earth",
+   "t": "Fantastic Four: Rise of the Silver Surfer",
+   "cls": "Planetary extinction threat",
+   "cause": "The Silver Surfer's board is a beacon leading Galactus, who feeds on living worlds, to Earth. Victor von Doom steals the board and its power and flies to China.",
+   "out": "The Four free the Surfer and chase Doom to Shanghai in the Fantasticar, where Doom impales Sue, and Johnny takes on the powers of all four to knock Doom off the board. The Surfer takes it back, brings Sue back to life and flies into Galactus, and a blinding blast engulfs them both.",
+   "loss": [
+    [
+     "Sue Storm, killed by Doom until the Surfer revives her.",
+     "Fantastic Four: Rise of the Silver Surfer"
+    ],
+    [
+     "Galactus, destroyed when the Surfer flies into him.",
+     "Fantastic Four: Rise of the Silver Surfer"
+    ]
+   ],
+   "fall": [
+    [
+     "Reed and Sue choose to stay with the Fantastic Four and finally marry in Japan.",
+     "Fantastic Four: Rise of the Silver Surfer"
+    ],
+    [
+     "Drifting in space, the Surfer opens his eyes and his board flies back to him.",
+     "Fantastic Four: Rise of the Silver Surfer"
+    ]
+   ],
+   "who": [
+    [
+     "pr-galactus",
+     "T"
+    ],
+    [
+     "pr-doctor-doom",
+     "T"
+    ],
+    [
+     "pr-silver-surfer",
+     "A"
+    ],
+    [
+     "pr-mister-fantastic",
+     "A"
+    ],
+    [
+     "pr-invisible-woman",
+     "A"
+    ],
+    [
+     "pr-human-torch",
+     "A"
+    ],
+    [
+     "pr-the-thing",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "pr-surfer-board",
+    "pr-fantasticar"
+   ]
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-hpr",
+  "item": {
+   "id": "dc-hpr",
+   "u": "mcu",
+   "n": "The Siege of Harlem's Paradise",
+   "yr": 2015,
+   "where": "Harlem's Paradise, Harlem, New York",
+   "t": "Luke Cage S1",
+   "cls": "Hostage crisis",
+   "cause": "When Misty Knight comes to arrest Willis Stryker at Harlem's Paradise, he shoots her and decides to hold the club's guests hostage, meaning to pin the shooting on Luke Cage.",
+   "out": "Luke hides the bleeding Misty in a basement below the kitchen, where Claire Temple slips away from the hostages to treat her, while Stryker kills Damon Boone and threatens to shoot hostages until Luke shows himself. Luke frees the hostages, and Stryker drops Candace Miller from the balcony so Luke has to catch her, then slips out as police armed with Judas bullets storm in and arrest Luke and Shades.",
+   "loss": [
+    [
+     "Damon Boone, killed by Stryker.",
+     "Luke Cage S1"
+    ]
+   ],
+   "fall": [
+    [
+     "Luke breaks out of the police van and goes after Stryker.",
+     "Luke Cage S1"
+    ],
+    [
+     "Stryker faces Luke in the street in a powered suit, loses, and is arrested.",
+     "Luke Cage S1"
+    ],
+    [
+     "Shades kills Candace before she can tell Misty the truth about Cornell's murder.",
+     "Luke Cage S1"
+    ]
+   ],
+   "who": [
+    [
+     "st-diamondback",
+     "T"
+    ],
+    [
+     "st-shades",
+     "T"
+    ],
+    [
+     "st-zip",
+     "T"
+    ],
+    [
+     "st-luke-cage",
+     "A"
+    ],
+    [
+     "st-misty-knight",
+     "A"
+    ],
+    [
+     "st-claire-temple",
+     "A"
+    ],
+    [
+     "st-candace-miller",
+     "A"
+    ],
+    [
+     "st-priscilla-ridley",
+     "A"
+    ],
+    [
+     "st-blake-tower",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "st-judas-bullet"
+   ]
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "The Falcon and the Winter Soldier#4",
+  "item": [
+   "Captain America kills a man in a Latvian square"
+  ]
+ },
+ {
+  "kind": "report",
+  "key": "dc-rhk",
+  "item": {
+   "id": "dc-rhk",
+   "u": "mcu",
+   "n": "The Red Hulk Rampage",
+   "yr": 2027,
+   "where": "The White House, Washington, D.C.",
+   "t": "Captain America: Brave New World",
+   "cls": "Gamma event",
+   "cause": "Sterns's pills have kept President Ross's failing heart going while secretly dosing him with gamma radiation. When Sterns's arrest and his ties to Ross come out at a press conference, Ross loses control and becomes a red Hulk.",
+   "out": "Ross tears through part of the White House and fights Sam out into the cherry blossoms, where Sam wounds him enough to reach him and reminds him of his estranged daughter Betty, and Ross changes back.",
+   "loss": [
+    [
+     "Part of the White House, wrecked.",
+     "Captain America: Brave New World"
+    ]
+   ],
+   "fall": [
+    [
+     "Ross resigns and has himself locked in the Raft, where Sam and Betty visit him.",
+     "Captain America: Brave New World"
+    ],
+    [
+     "Sterns, also held in the Raft, warns Sam of a coming attack from other worlds.",
+     "Captain America: Brave New World"
+    ]
+   ],
+   "who": [
+    [
+     "thaddeus-ross",
+     "T"
+    ],
+    [
+     "samuel-sterns",
+     "T"
+    ],
+    [
+     "sam-wilson",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "ross-pills",
+    "shield",
+    "sam-cap-suit"
+   ]
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "X-Men Origins: Wolverine",
+  "item": [
+   "1979: Emergency at Three Mile Island nuclear plant"
+  ]
+ },
+ {
+  "kind": "report",
+  "key": "dc-lion",
+  "item": {
+   "id": "dc-lion",
+   "u": "mcu",
+   "n": "The Fall of the Lion's Kingdom",
+   "yr": -1260,
+   "where": "The Lion's Kingdom, a pirate fleet raiding Crete",
+   "t": "Eyes of Wakanda",
+   "cls": "Rogue agent",
+   "cause": "Nkati, the Lion, a former Wakandan agent armed with stolen Wakandan tech, rules a kingdom of pirates like a god and raids the villages of Crete for slaves. Akeya of the Dora Milaje sends Noni to end him.",
+   "out": "Noni lets herself be taken in a raid, fights her way through the Lion's pride and beats him in a duel. Swearing he will never go back into a cage, he sets off a blast that destroys his stronghold, and Noni escapes into the sea.",
+   "loss": [
+    [
+     "Nkati, the Lion, killed in his own blast.",
+     "Eyes of Wakanda"
+    ],
+    [
+     "The Lion's stronghold, destroyed.",
+     "Eyes of Wakanda"
+    ]
+   ],
+   "fall": [
+    [
+     "Noni turns down a place back in the Dora Milaje and joins the Hatut Zaraze, to hunt down what was taken from Wakanda.",
+     "Eyes of Wakanda"
+    ]
+   ],
+   "who": [
+    [
+     "the-lion",
+     "T"
+    ],
+    [
+     "noni",
+     "A"
+    ],
+    [
+     "akeya",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "dora-milaje",
+     "A"
+    ]
+   ],
+   "obj": []
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "Venom: The Last Dance",
+  "item": [
+   "Reporter Eddie Brock wanted by police"
+  ]
+ },
+ {
+  "kind": "headlines",
+  "key": "X-Men: The Animated Series#2",
+  "item": [
+   "Mutant Control Agency files destroyed in break-in"
+  ]
+ },
+ {
+  "kind": "report",
+  "key": "dc-skb",
+  "item": {
+   "id": "dc-skb",
+   "u": "mcu",
+   "n": "The Raid on Strucker's Fortress",
+   "yr": 2015,
+   "where": "Baron Strucker's HYDRA base, outside Novi Grad, Sokovia",
+   "t": "Avengers: Age of Ultron",
+   "cls": "Military raid",
+   "cause": "The Avengers storm HYDRA's last base, Baron Strucker's fortress in the Sokovian forest, to take back Loki's scepter, which Strucker has used to give powers to the twins Pietro and Wanda Maximoff.",
+   "out": "The team breaks through the fortress's defenses and Steve Rogers captures Strucker, while Clint Barton is wounded as Pietro darts through the fight and Wanda plants a vision of the Avengers' deaths in Tony Stark's mind. Tony takes the scepter from Strucker's lab and kills Dr. List as he tries to wipe HYDRA's files.",
+   "loss": [
+    [
+     "Dr. List, killed by Iron Man.",
+     "Avengers: Age of Ultron"
+    ]
+   ],
+   "fall": [
+    [
+     "Haunted by Wanda's vision, Tony and Bruce Banner use the AI they find in the scepter's gem to create Ultron.",
+     "Avengers: Age of Ultron"
+    ],
+    [
+     "Ultron kills Strucker in his cell, and the twins join Ultron against the Avengers.",
+     "Avengers: Age of Ultron"
+    ]
+   ],
+   "who": [
+    [
+     "baron-strucker",
+     "T"
+    ],
+    [
+     "dr-list",
+     "T"
+    ],
+    [
+     "wanda-maximoff",
+     "T"
+    ],
+    [
+     "pietro-maximoff",
+     "T"
+    ],
+    [
+     "steve-rogers",
+     "A"
+    ],
+    [
+     "tony-stark",
+     "A"
+    ],
+    [
+     "thor",
+     "A"
+    ],
+    [
+     "bruce-banner",
+     "A"
+    ],
+    [
+     "natasha-romanoff",
+     "A"
+    ],
+    [
+     "clint-barton",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "hydra",
+     "T"
+    ],
+    [
+     "avengers",
+     "A"
+    ]
+   ],
+   "obj": [
+    "scepter",
+    "iron-legion",
+    "chitauri-tech",
+    "shield"
+   ]
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "Doctor Strange",
+  "item": [
+   "Star surgeon Stephen Strange badly hurt in car wreck"
+  ]
+ },
+ {
+  "kind": "message",
+  "key": "m52",
+  "item": {
+   "t": "The Marvel Super Heroes",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-600026",
+   "b": "Five heroes who barely moved, drawn straight off the page. The page is blank now."
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-pr-brooklyn-bridge",
+  "item": {
+   "id": "dc-pr-brooklyn-bridge",
+   "u": "pr",
+   "n": "The Brooklyn Bridge Pile-Up",
+   "yr": 2005,
+   "where": "The Brooklyn Bridge, New York",
+   "t": "Fantastic Four (2005)",
+   "cls": "Public disaster",
+   "cause": "Ben Grimm, newly changed into the Thing, stops a man from jumping off the Brooklyn Bridge and sets off a chain of crashes across the traffic.",
+   "out": "Reed, Sue, Johnny and Ben use their new powers to contain the damage and save the people trapped in it, among them firefighters on a fire truck tipping over the side, and the crowd on the bridge cheers them.",
+   "loss": [
+    [
+     "The wrecked cars on the bridge.",
+     "Fantastic Four (2005)"
+    ]
+   ],
+   "fall": [
+    [
+     "Debbie leaves her engagement ring on the bridge and walks away from Ben.",
+     "Fantastic Four (2005)"
+    ],
+    [
+     "The press names the four the Fantastic Four, and they move into Reed's lab in the Baxter Building.",
+     "Fantastic Four (2005)"
+    ]
+   ],
+   "who": [
+    [
+     "pr-the-thing",
+     "A"
+    ],
+    [
+     "pr-mister-fantastic",
+     "A"
+    ],
+    [
+     "pr-invisible-woman",
+     "A"
+    ],
+    [
+     "pr-human-torch",
+     "A"
+    ],
+    [
+     "pr-debbie-mcilvane",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": []
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-pr-roxxon-rig",
+  "item": {
+   "id": "dc-pr-roxxon-rig",
+   "u": "pr",
+   "n": "The Roxxon Gulf Platform Explosion",
+   "yr": 2009,
+   "where": "The Roxxon Gulf platform, off the coast of New Orleans",
+   "t": "Cloak & Dagger",
+   "cls": "Industrial disaster",
+   "cause": "Roxxon drills for a strange energy beneath the Gulf without the shielding it needs, and the energy leaks into the platform and turns its crew violent.",
+   "out": "The platform explodes in the night, and Nathan Bowen, driving his daughter Tandy along the shore, crashes into the water. On the same night Detective James Connors shoots Tyrone Johnson's brother Billy, and Tandy and Tyrone, both in the water, are touched by the energy from the rig.",
+   "loss": [
+    [
+     "Nathan Bowen, who dies after his car goes into the water.",
+     "Cloak & Dagger"
+    ],
+    [
+     "The workers on the platform, all but Ivan Hess, who is left trapped in his own mind.",
+     "Cloak & Dagger"
+    ],
+    [
+     "Billy Johnson, shot by Connors the same night.",
+     "Cloak & Dagger"
+    ]
+   ],
+   "fall": [
+    [
+     "Roxxon's Peter Scarborough buries the truth and lets the blame fall on Nathan Bowen.",
+     "Cloak & Dagger"
+    ],
+    [
+     "Years later, Tandy and Tyrone meet again and their powers awaken.",
+     "Cloak & Dagger"
+    ],
+    [
+     "Andre Deschaine, who went into the water that night, comes out of it able to feed on despair.",
+     "Cloak & Dagger"
+    ]
+   ],
+   "who": [
+    [
+     "pr-st-james-connors",
+     "T"
+    ],
+    [
+     "pr-st-peter-scarborough",
+     "T"
+    ],
+    [
+     "pr-st-andre-deschaine",
+     "T"
+    ],
+    [
+     "pr-st-tandy-bowen",
+     "A"
+    ],
+    [
+     "pr-st-tyrone-johnson",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "pr-nathan-evidence"
+   ]
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "Daredevil S2#2",
+  "item": [
+   "Vigilante dubbed \"the Punisher\" tied to gang killings"
+  ]
+ },
+ {
+  "kind": "report",
+  "key": "dc-dhq",
+  "item": {
+   "id": "dc-dhq",
+   "u": "mcu",
+   "n": "The Attack on Damage Control",
+   "yr": 2028,
+   "where": "Damage Control headquarters, Manhattan, New York",
+   "t": "Spider-Man: Brand New Day",
+   "cls": "Telepathic attack",
+   "cause": "Jean Grey, a teenage telepath searching for her sister, strikes at Damage Control's headquarters. She takes over Bruce Banner's mind and strips off his inhibitor, turning him into the Hulk.",
+   "out": "Spider-Man fights the Hulk and calms him while Jean takes control of Frank Castle to open a vault where Damage Control agents are hiding. Peter blocks her powers with a universal inhibitor, and Bill Metzger sedates her and takes her away.",
+   "loss": [
+    [
+     "The Shocker's old gauntlet, smashed by the Hulk.",
+     "Spider-Man: Brand New Day"
+    ]
+   ],
+   "fall": [
+    [
+     "Metzger holds Jean at Damage Control's Roosevelt Island facility to experiment on her.",
+     "Spider-Man: Brand New Day"
+    ]
+   ],
+   "who": [
+    [
+     "jean-grey",
+     "T"
+    ],
+    [
+     "bill-metzger",
+     "T"
+    ],
+    [
+     "peter-parker",
+     "A"
+    ],
+    [
+     "bruce-banner",
+     "A"
+    ],
+    [
+     "st-frank-castle",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "damage-control",
+     "T"
+    ]
+   ],
+   "obj": [
+    "hulk-inhibitors",
+    "shocker-gauntlet"
+   ]
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-bsh",
+  "item": {
+   "id": "dc-bsh",
+   "u": "mcu",
+   "n": "The Battle of Mount Bashenga",
+   "yr": 2016,
+   "where": "The Great Mound and the plains of Mount Bashenga, Wakanda",
+   "t": "Black Panther",
+   "cls": "Civil war",
+   "cause": "Killmonger wins the throne by throwing T'Challa from Warrior Falls, burns the garden of the heart-shaped herb, and orders vibranium weapons flown to War Dogs around the world. Healed among the Jabari, T'Challa comes home to finish the challenge.",
+   "out": "The Border Tribe fights for Killmonger against the Dora Milaje, and M'Baku's Jabari ride in on T'Challa's side while Everett Ross, flying a jet from Shuri's lab, shoots down the weapons planes. W'Kabi kneels to Okoye, and T'Challa stabs Killmonger in the vibranium mine.",
+   "loss": [
+    [
+     "Killmonger, who chooses to die rather than live in prison.",
+     "Black Panther"
+    ]
+   ],
+   "fall": [
+    [
+     "T'Challa buys the Oakland building where his father killed N'Jobu and opens an outreach center there.",
+     "Black Panther"
+    ],
+    [
+     "T'Challa reveals Wakanda to the world at the United Nations.",
+     "Black Panther"
+    ]
+   ],
+   "who": [
+    [
+     "killmonger",
+     "T"
+    ],
+    [
+     "w-kabi",
+     "T"
+    ],
+    [
+     "tchalla",
+     "A"
+    ],
+    [
+     "okoye",
+     "A"
+    ],
+    [
+     "shuri",
+     "A"
+    ],
+    [
+     "nakia",
+     "A"
+    ],
+    [
+     "m-baku",
+     "A"
+    ],
+    [
+     "everett-ross",
+     "A"
+    ],
+    [
+     "ayo",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "dora-milaje",
+     "A"
+    ],
+    [
+     "jabari",
+     "A"
+    ]
+   ],
+   "obj": [
+    "herb",
+    "killmonger-suit",
+    "black-panther-suit",
+    "wakandan-vibranium",
+    "kimoyo-beads"
+   ]
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m34",
+  "item": {
+   "t": "Doctor Strange (1978)",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-96173",
+   "b": "A psychiatrist who became a sorcerer's heir. No spell held this one together."
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-fox-cairo",
+  "item": {
+   "id": "dc-fox-cairo",
+   "u": "fox",
+   "n": "The Battle of Cairo",
+   "yr": 1983,
+   "where": "Cairo, Egypt, and cities around the world",
+   "t": "X-Men: Apocalypse",
+   "cls": "Mutant apocalypse",
+   "cause": "En Sabah Nur means to wipe away the world and remake it for the strong. Erik, broken by the deaths of his wife and daughter, joins him as a Horseman and bends the Earth's magnetic field to tear cities apart, while Nur prepares to move his mind into Charles's body.",
+   "out": "The young X-Men fly to Cairo, rescue Charles and escape as Angel and Psylocke bring down their jet. Erik and Storm turn on Nur and hold him with Scott while Charles fights him in the astral plane, until Charles begs Jean to unleash her full power and she burns Nur away.",
+   "loss": [
+    [
+     "Angel, killed when the jet crashes.",
+     "X-Men: Apocalypse"
+    ],
+    [
+     "En Sabah Nur, burned away by Jean.",
+     "X-Men: Apocalypse"
+    ],
+    [
+     "Cairo and cities across the world, torn apart by Erik's power.",
+     "X-Men: Apocalypse"
+    ]
+   ],
+   "fall": [
+    [
+     "Charles gives Moira her memory back.",
+     "X-Men: Apocalypse"
+    ],
+    [
+     "Hank and Raven train the new X-Men, Scott, Jean, Ororo, Kurt and Peter, at the rebuilt school.",
+     "X-Men: Apocalypse"
+    ]
+   ],
+   "who": [
+    [
+     "fox-apocalypse",
+     "T"
+    ],
+    [
+     "fox-magneto-erik",
+     "T"
+    ],
+    [
+     "fox-storm-horseman",
+     "T"
+    ],
+    [
+     "fox-psylocke",
+     "T"
+    ],
+    [
+     "fox-archangel",
+     "T"
+    ],
+    [
+     "fox-charles-xavier-young",
+     "A"
+    ],
+    [
+     "fox-jean-grey-young",
+     "A"
+    ],
+    [
+     "fox-cyclops-young",
+     "A"
+    ],
+    [
+     "fox-nightcrawler-young",
+     "A"
+    ],
+    [
+     "fox-beast-young",
+     "A"
+    ],
+    [
+     "fox-raven-darkholme",
+     "A"
+    ],
+    [
+     "fox-quicksilver",
+     "A"
+    ],
+    [
+     "fox-moira-mactaggert-young",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "fox-horsemen-apocalypse",
+     "T"
+    ],
+    [
+     "fox-x-men",
+     "A"
+    ]
+   ],
+   "obj": [
+    "fox-magneto-helmet",
+    "fox-x-jet-young",
+    "fox-spec-mutant"
+   ]
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m59",
+  "item": {
+   "t": "Iron Man (1994)",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-534834",
+   "b": "Iron Man and the Fantastic Four shared an hour, and the Hulk shared their world. Time's up.",
+   "also": [
+    "Fantastic Four (1994)",
+    "The Incredible Hulk (1996)"
+   ]
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "The Punisher S1#10",
+  "item": [
+   "Veteran turned bomber terrorizes New York"
+  ]
+ },
+ {
+  "kind": "report",
+  "key": "dc-pr-castle-massacre",
+  "item": {
+   "id": "dc-pr-castle-massacre",
+   "u": "pr",
+   "n": "The Castle Family Massacre",
+   "yr": 2004,
+   "where": "The Castle family reunion, Puerto Rico",
+   "t": "The Punisher (2004)",
+   "cls": "Massacre",
+   "cause": "Bobby Saint dies in an FBI arms sting run by undercover agent Frank Castle, and his father, the crime boss Howard Saint, orders Castle killed. Livia Saint insists that his whole family die with him.",
+   "out": "Saint's men, among them Quentin Glass and John Saint, descend on the Castle family reunion and kill Frank's entire family. John shoots Frank and leaves him for dead, but he survives and is nursed back to health.",
+   "loss": [
+    [
+     "Frank's wife Maria, his son Will, his father and the rest of the family at the reunion.",
+     "The Punisher (2004)"
+    ],
+    [
+     "Bobby Saint, killed in the sting before the massacre.",
+     "The Punisher (2004)"
+    ]
+   ],
+   "fall": [
+    [
+     "With the police and the FBI unwilling to touch Saint, Frank moves into a run-down apartment and sets out to bring the Saints down.",
+     "The Punisher (2004)"
+    ],
+    [
+     "Frank wages war on the Saint family as the Punisher.",
+     "The Punisher (2004)"
+    ]
+   ],
+   "who": [
+    [
+     "pr-howard-saint",
+     "T"
+    ],
+    [
+     "pr-livia-saint",
+     "T"
+    ],
+    [
+     "pr-quentin-glass",
+     "T"
+    ],
+    [
+     "pr-john-saint",
+     "T"
+    ],
+    [
+     "pr-bobby-saint",
+     "T"
+    ],
+    [
+     "pr-punisher",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "pr-castle-family",
+     "A"
+    ]
+   ],
+   "obj": [
+    "pr-skull-shirt"
+   ]
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "Cloak & Dagger#8",
+  "item": [
+   "Roxxon rig collapse remembered, eight years on"
+  ]
+ },
+ {
+  "kind": "report",
+  "key": "dc-gnu",
+  "item": {
+   "id": "dc-gnu",
+   "u": "mcu",
+   "n": "The Siege of Little Sicily",
+   "yr": 2027,
+   "where": "Frank Castle's building, Little Sicily, New York",
+   "t": "The Punisher: One Last Kill",
+   "cls": "Gang war",
+   "cause": "Ma Gnucci, whose husband and sons Frank Castle killed, puts a bounty on his head and sends every criminal in Little Sicily after him, along with anyone who stands in their way.",
+   "out": "The gangs storm Frank's building and set his apartment on fire, and he fights his way through them to save his neighbors, then across the streets to rescue Dre and his family. Ma Gnucci escapes as police and firefighters arrive.",
+   "loss": [],
+   "fall": [
+    [
+     "Frank takes back his Punisher gear and returns to his war.",
+     "The Punisher: One Last Kill"
+    ]
+   ],
+   "who": [
+    [
+     "st-ma-gnucci",
+     "T"
+    ],
+    [
+     "st-frank-castle",
+     "A"
+    ],
+    [
+     "st-dre",
+     "A"
+    ]
+   ],
+   "tm": [],
+   "obj": [
+    "st-skull-vest",
+    "st-paper-rose"
+   ]
+  }
+ },
+ {
+  "kind": "report",
+  "key": "dc-ripper",
+  "item": {
+   "id": "dc-ripper",
+   "u": "mcu",
+   "n": "The Time Ripper Crisis",
+   "yr": 2024,
+   "where": "Mr. Paradox's TVA station, New York, Earth-10005",
+   "t": "Deadpool & Wolverine",
+   "cls": "Timeline attack",
+   "cause": "Mr. Paradox, acting without his superiors, readies a Time Ripper to speed up the death of Wade Wilson's universe now that its anchor being, Logan, is dead. Cassandra Nova follows Wade and Logan from the Void and takes the machine over to destroy every timeline but the Void.",
+   "out": "Cassandra summons an army of Deadpool variants, who fight Wade and Logan until Peter arrives to distract them. Wade and Logan destroy the Time Ripper together by sharing the burden of its power, Cassandra dies in the blast, and Hunter B-15 arrives to arrest Paradox.",
+   "loss": [
+    [
+     "Cassandra Nova, killed when the Time Ripper is destroyed.",
+     "Deadpool & Wolverine"
+    ],
+    [
+     "Nicepool, killed by the Deadpool variants.",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "fall": [
+    [
+     "B-15 tells them they have saved Earth-10005 and lets Logan stay in Wade's universe.",
+     "Deadpool & Wolverine"
+    ],
+    [
+     "Laura is rescued from the Void, and Logan urges Wade to make up with Vanessa.",
+     "Deadpool & Wolverine"
+    ]
+   ],
+   "who": [
+    [
+     "cassandra-nova",
+     "T"
+    ],
+    [
+     "paradox",
+     "T"
+    ],
+    [
+     "fox-deadpool",
+     "A"
+    ],
+    [
+     "wolverine",
+     "A"
+    ],
+    [
+     "fox-peter-wisdom",
+     "A"
+    ],
+    [
+     "dogpool",
+     "A"
+    ],
+    [
+     "hunter-b-15",
+     "A"
+    ]
+   ],
+   "tm": [
+    [
+     "tva",
+     "A"
+    ]
+   ],
+   "obj": [
+    "time-ripper",
+    "tempad"
+   ]
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m9",
+  "item": {
+   "t": "The Falcon and the Winter Soldier",
+   "f": "Sam Wilson",
+   "to": "Agent",
+   "cl": "Open channel",
+   "re": "Same job",
+   "b": "I'm carrying the shield now. I'm not asking you to salute it. I'm asking you to show up. The world is still putting itself back together after the Blip, and that's the job now."
+  }
+ },
+ {
+  "kind": "message",
+  "key": "m38",
+  "item": {
+   "t": "Captain America (1990)",
+   "k": "tva",
+   "log": 1,
+   "f": "Time Variance Authority",
+   "to": "All TVA personnel",
+   "cl": "Incursion monitoring",
+   "re": "Earth-697064",
+   "b": "A Captain America who woke from the ice to save a President. Nobody woke this world."
+  }
+ },
+ {
+  "kind": "headlines",
+  "key": "Spider-Man (1967)#4",
+  "item": [
+   "Jameson: Spider-Man is a menace to New York"
+  ]
+ },
+ {
+  "kind": "message",
+  "key": "m122",
+  "item": {
+   "t": "X-Men: The Animated Series#1",
+   "k": "cerebro",
+   "id": "x-xtas-1",
+   "f": "Cerebro",
+   "to": "Professor Charles Xavier",
+   "cl": "Xavier's School",
+   "re": "New signature",
+   "b": "New mutant signature detected at a shopping mall. A teenage girl. She makes fireworks with her hands. Her foster parents have called the Mutant Control Agency."
+  }
+ }
+]
