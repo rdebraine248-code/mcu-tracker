@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `48f2c51` (pushed 5 November 2026: the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
+- **main** is at `3e844a5` (pushed 5 November 2026, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
@@ -50,6 +50,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   `atlas/leads_left.json`; fresh 600 at 0%), part 5 the logs (fresh 600 at 1.3%), parts 6 to 9 (Damage Control and Comms 32 fixes,
   titles and insignia, the Multiverse and Incursions 26 fixes) checked and second-checked, but **parts 6 to 9 have no random 600 on
   record**, and the last full content check is from 3 November (`content_full.json`). Those two are what's left of the plan.
+- **Part 1's sample recounted under the wrong-only rule (owner's answer 63, 5 November 2026):** of its 12 confirmed non-employer
+  errors, 7 are wrong statements (Dottie's whole-show key, Ward's HYDRA a season late, zombie Zemo's and Joy's departures that never
+  happen, Deathlok's order, zombie Ikaris in the Survivors, Comanche's ending) and 5 are missing (Matt's Landman and Zack, Fennhoff's
+  Soviet army, the Doctor in Izel's crew, B'Kai undercover, Sam's Air Force): 7 of 612, 1.1%, inside the bar. Part 1 is locked.
 - **Done 5 November 2026 (owner: options 1 and 2, "use a work flow"): parts 6 to 9's random 600 and the full content check.** Records
   in `mockup-data/audit2/s1105/` (`plan.json` seed 1105, `SAMPLE.md`, `LEADS.md`, `results.json`, `accepted.json`, `apply.py`).
   - Full content check (`content_full_1105.json`): no failures in 1,356 states and 15,896 texts; leads: 46 places, 38 alive-again.
@@ -68,7 +72,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     and just the insignia unlock after what if (any check in what if even a single episode counts)").** His box is named after Loki S1
     or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
     one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
-  - In the test build (v151, with the Watcher); main waits for the owner's "push".
+  - On main (`3e844a5`, the owner's answer 60).
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 
