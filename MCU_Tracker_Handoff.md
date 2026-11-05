@@ -246,6 +246,15 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   the Chronicoms' branch, where the Network already has Sibyl and the Malicks. `ATLAS_UNI.chronicoms`, pin `u-19859`; file tags for
   those years point there. Area 51 and Malick's estate left the main map (their only entries were from those years).
 - What If...? is in Beyond, each world its own (checked 5 November 2026; a "39 entries on the main map" count was a miscount).
+- **Next major update ideas** (owner, 5 November 2026: wants a new kind of experience that is NOT content heavy, no research, writing
+  or audits; no pick yet, "[No preference]"). All four run only on data the app already has:
+  1. Six Degrees (recommended): a daily puzzle connecting two people through the Network in the fewest steps, each step showing
+     the real stage; scored against the computed shortest path; only watched titles, so spoiler-safe.
+  2. Wrapped: a swipeable year-in-review from watch history (titles, busiest month, most-seen person, Earths and places lit,
+     ties unlocked, streak), ending in one shareable card.
+  3. Time Machine: a slider through story order; the Atlas lights, Network groups form and break, statuses change, up to what
+     has been watched.
+  4. Compare with a friend: progress as a code or QR; shows what both have seen and what to watch to catch up; no server.
 - Families stand together (owner, 4 November 2026: "Why is Laura Barton not part of the Barton family?"): a family circle (rel/out1.json)
   holds every member, parents and siblings included, not only those with no group record; a member stands in it whenever they're in
   no other group (Clint with the Avengers in Endgame, with his family in Hawkeye). And a family or partner tie needs a stage in every
