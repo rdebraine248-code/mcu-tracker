@@ -33,7 +33,18 @@ h1{ margin:0; font:400 28px/1.05 var(--display); letter-spacing:.5px; text-trans
 #card{ touch-action:none; max-height:calc(100dvh - 24px); display:flex; flex-direction:column; transition:transform .35s cubic-bezier(.2,.8,.3,1), top .35s cubic-bezier(.2,.8,.3,1); }
 #card > div{ min-height:0; } #card.big{ top:max(60px, env(safe-area-inset-top, 0px)); } #card.big #vOne:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
 #cMore{ display:none; } #card.big #cMore{ display:block; flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; margin:6px -14px 0; padding:0 14px 8px; touch-action:pan-y; }
-#card.big #sConn{ display:none; } #card.two #cGrip{ visibility:hidden; pointer-events:none; }
+#card.big #sConn{ display:none; }
+/* how two people are connected slides up the same way (owner, 5 November 2026: "should also be scrollable and tapable starting at the
+   top etc just like an individuals"): small, the first of it, fading out; pulled up, all of it, scrolling, from its top */
+#lBody{ margin:6px -14px 0; padding:0 14px 8px; max-height:24vh; overflow:hidden; }
+#lBody.clip{ -webkit-mask-image:linear-gradient(180deg, #000 70%, transparent); mask-image:linear-gradient(180deg, #000 70%, transparent); }
+#card.big #vTwo:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
+#card.big #lBody{ flex:1; min-height:0; max-height:none; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; -webkit-mask-image:none; mask-image:none; }
+#lBody h4{ margin:18px 0 6px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
+#lBody .wrow{ display:block; width:100%; flex:none; margin:0; padding:8px 0 8px 10px !important; border:0 !important; border-left:2px solid var(--kc) !important; border-radius:0 !important; background:none !important; text-align:left; text-transform:none !important; letter-spacing:0 !important; cursor:pointer; }
+#lBody .wrow + .wrow{ margin-top:4px; } #lBody .wrow b{ display:block; color:#fff; font:600 15px/1.25 var(--body); }
+#lBody .wrow span{ display:block; margin-top:3px; color:#AEBBD0; font:14px/1.35 var(--body); } #lBody .wrow span em{ font:10.5px/1 var(--mono); font-style:normal; letter-spacing:1.5px; text-transform:uppercase; margin-right:6px; }
+#lBody .mnone{ margin:0; color:var(--mute); font-size:14px; }
 #cMore h4{ margin:16px 0 7px; font:400 10px/1.3 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
 #cMore .aka{ margin:2px 0 0; color:#C9D3E2; font-size:14.5px; } #cMore .aka b{ color:#fff; font-weight:600; }
 #cMore .crews{ display:flex; flex-wrap:wrap; align-items:center; gap:4px 6px; color:#C9D3E2; font-size:14px; } #cMore .crews i{ color:var(--mute); font-style:normal; }
@@ -119,7 +130,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 #nEmpty{ position:fixed; left:0; right:0; top:calc(var(--hb, 0px) + (100% - var(--hb, 0px)) / 2); transform:translateY(-20px);   /* the circle itself in the middle of the floor */ display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
 #nEmpty[hidden]{ display:none; } html.wait #nEmpty, html.wait #card{ display:none !important; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
 #nEmpty b{ font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; font-weight:400; }
-/* ---------- Six Degrees (a mockup, November 2026; shown only when the app turns it on, netSixOn): link two people you've met through people
+/* ---------- Six Degrees (a mockup, November 2026; shown only when the app turns it on, netMockOn): link two people you've met through people
    they're connected to, in as few links as you can. Every link is a real connection, its latest stage as far as you've watched, so
    nothing is spoiled; par is the shortest chain there is. A new pair whenever you like (owner: no daily puzzle), or pick your own */
 header #hSix{ position:absolute; right:max(20px, env(safe-area-inset-right, 0px)); top:calc(6px + var(--sat, env(safe-area-inset-top, 0px))); display:flex; align-items:center; gap:7px; height:28px; padding:0 12px; border:1px solid #6B5A2A; border-radius:999px; background:rgba(233,196,106,.07); color:var(--both); font:11px/1 var(--mono); letter-spacing:1.5px; text-transform:uppercase; pointer-events:auto; cursor:pointer; }
@@ -189,7 +200,7 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
   <div id="vThree" hidden><small id="tWith"></small><h2 id="tName"></h2><div class="ln"><span><b id="tCount"></b> from their web</span></div>
     <div class="chips"><b>Who was there</b><div class="strip" id="tStrip"></div></div>
     <div class="row"><button type="button" id="tBack">‹ Back to their story</button></div></div>
-  <div id="vTwo" hidden><small>How they're connected</small><h2 id="lName"></h2><ul class="why" id="lWhy"></ul>
+  <div id="vTwo" hidden><small>How they're connected</small><h2 id="lName"></h2><div id="lBody"><ul class="why" id="lWhy"></ul><div id="lMut"></div></div>
     <div class="row"><button type="button" id="lGo"></button></div></div></div>
 <button type="button" id="mBack" hidden>‹ Their web</button>
 <div id="mWho" hidden><i></i><span id="mWhoN"></span><button type="button" id="mWhoX" aria-label="Hide this path">×</button></div>
@@ -332,6 +343,7 @@ fold(Z, 3, p => [p.hx, p.hy], []);
 
 // the camera, and the watch-face lens: whoever is near the middle of the screen is full size and named, the rest shrink toward the edges
 let cam = { x: 0, y: 0 }, zoom = 1, vel = { x: 0, y: 0 }, sel = null, link = null, glide = null;
+let NMOCK = false, MUT = null;   // the test build's mockups on (netMockOn, at the end); MUT: a picked pair's mutual connections
 const start = N.find(p => p.n === 'Steve Rogers') || N[0]; cam.x = start.wx; cam.y = start.wy;
 function lens(p, t) {
   // the watch face: toward the edges people shrink, and they draw in by as much, so the gaps between them shrink too instead of opening up
@@ -411,8 +423,9 @@ function frame(t) {
   // Zoomed out, one thread to each group, as thick as the group is big
   if (sel) { const a = pos[sel.i];
     const thread = (b, c, dash, w, al) => { g.strokeStyle = c; g.lineWidth = w; g.globalAlpha = al; g.setLineDash(dash); g.beginPath(); g.moveTo(a.x, a.y); g.quadraticCurveTo((a.x + b.x) / 2, (a.y + b.y) / 2 - 30, b.x, b.y); g.stroke(); };
-    gathered.forEach(j => { const k = kindOf(sel, N[j]); j !== (link && link.i) && thread(pos[j], KC[k], k === 'enemy' || k === 'rival' ? [4, 4] : [], 1.2, (link ? .12 : .6) * (groupOf(N[j]) ? e : 1)); });
+    gathered.forEach(j => { const k = kindOf(sel, N[j]); j !== (link && link.i) && thread(pos[j], KC[k], k === 'enemy' || k === 'rival' ? [4, 4] : [], 1.2, (link ? (MUT && MUT.has(j) ? .75 : .12) : .6) * (groupOf(N[j]) ? e : 1)); });
     if (e < 1) G.forEach(z => thread(gv.get(z), KC[z.rel], z.rel === 'enemy' || z.rel === 'rival' ? [6, 5] : [], 1.2 + Math.sqrt(z.L.length) * 1.1, (link ? .15 : .7) * (1 - e)));
+    if (link && MUT) { const b = pos[link.i]; MUT.forEach(j => { const k = kindOf(link, N[j]), q = pos[j]; g.strokeStyle = KC[k]; g.lineWidth = 1.4; g.globalAlpha = .75 * (groupOf(N[j]) ? e : 1); g.setLineDash(k === 'enemy' || k === 'rival' ? [4, 4] : []); g.beginPath(); g.moveTo(b.x, b.y); g.quadraticCurveTo((b.x + q.x) / 2, (b.y + q.y) / 2 - 30, q.x, q.y); g.stroke(); }); }   // a mutual connection's thread to the other one too (mockup)
     if (link) thread(pos[link.i], '#E9C46A', [], 3.4, 1);
     g.setLineDash([]); g.globalAlpha = 1; }
   // zoomed out: the groups, each one bubble with its name and head count; its ring in the crew's colour (in a web, in the colour of what they are to them)
@@ -438,7 +451,7 @@ function frame(t) {
     let r = 21 * Math.max(q.s, key ? .7 : 0) * (key ? 1.12 : 1); if (q.x < -30 || q.x > W + 30 || q.y < -30 || q.y > H + 30) continue;
     // someone new since you last looked pops in, a little past full size and back, the way the app's other pages reveal what's new
     let pop = 1; if (p.popAt) { const k = (t - p.popAt) / 420; if (k < 0) continue; if (k < 1) { const c = 1.7; pop = 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); } else p.popAt = 0; } r *= Math.max(0, pop);   // at the first frame the curve sits a hair under zero, which a circle can't take
-    const dim = lit && !lit.has(i) ? .07 : atStop && !atStop.has(i) && !key ? .18 : link && !key ? .35 : 1; g.globalAlpha = dim * fade;
+    const dim = lit && !lit.has(i) ? .07 : atStop && !atStop.has(i) && !key ? .18 : link && !key && !(MUT && MUT.has(i)) ? .35 : 1; g.globalAlpha = dim * fade;
     g.beginPath(); g.arc(q.x, q.y, r, 0, 6.2832); g.fillStyle = '#132036'; g.fill();
     g.lineWidth = key ? 3 : 2; g.strokeStyle = key ? '#E9C46A' : ringOf(p); g.stroke();
     if (sel && wk(p) !== wk(sel) && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
@@ -565,9 +578,9 @@ let cardBig = false, dragged = 0, cd = null;
 const TOPMIN = 60, cardTop = () => card.getBoundingClientRect().top;
 const moreFill = () => { if (sel && card._more !== sel) { card._more = sel; $('cMore').innerHTML = moreHTML(sel, card._L || []); $('cMore').scrollTop = 0; } };   // a new card starts at its top
 const setBig = (v, top) => { if (v) moreFill();
-  if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
+  if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
   card._k = (card._k || 0) + 1; cardBig = v; card.classList.toggle('big', v); card.style.top = v && top != null ? top + 'px' : '';
-  $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) $('cMore').scrollTop = 0; };
+  $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) { $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; } };
 const settle = top => { card.style.transition = '';
   if (top > card._ct - 48) { if (!cardBig) return; card.style.top = card._ct + 'px'; const k = card._k = (card._k || 0) + 1; setTimeout(() => { if (card._k === k && !cd) setBig(false); }, 330); }
   else setBig(true, top < TOPMIN + 48 ? TOPMIN : top); };
@@ -576,20 +589,20 @@ const dragMove = y => { if (!cd) return false; const dy = y - cd.y; if (!cd.on &
   const top = Math.max(TOPMIN, cd.t + dy);
   if (top > card._ct) { if (cardBig) { cardBig = false; card.classList.remove('big'); card.style.top = ''; } card.style.transform = `translateY(${top - card._ct}px)`; cd.down = top - card._ct; return true; }   // below where it rests: on its way out
   cd.down = 0; card.style.transform = '';
-  if (!card.classList.contains('big')) { card.classList.add('big'); $('cMore').scrollTop = 0; }   // every card's list starts at its top (owner)
+  if (!card.classList.contains('big')) { card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; }   // every card's list starts at its top (owner)
   cardBig = true; card.style.top = top + 'px'; return true; };
 const dragEnd = () => { if (!cd) return; const on = cd.on, down = cd.down || 0; cd = null; if (!on) return; dragged = performance.now(); card.style.transition = '';
   if (down > 70) { card.style.transform = ''; home(); return; }   // pulled down far enough: it slides the rest of the way and closes (owner: "slide it all the way down to close it")
   if (down > 0) { card.style.transform = ''; return; } settle(cardTop()); };
-$('cGrip').onclick = () => { if (performance.now() - dragged < 400 || card.classList.contains('two')) return; if (cardBig) { card._ct = card._ct || cardTop(); settle(1e4); } else { card._ct = cardTop(); setBig(true, TOPMIN); } };
-card.addEventListener('pointerdown', e => { if (card.classList.contains('two') || e.target.closest('#cMore, .strip') || e.pointerType === 'touch' && e.target.closest('#cMore')) return; dragStart(e.clientY); cd.pid = e.pointerId; });
+$('cGrip').onclick = () => { if (performance.now() - dragged < 400) return; if (cardBig) { card._ct = card._ct || cardTop(); settle(1e4); } else { card._ct = cardTop(); setBig(true, TOPMIN); } };
+card.addEventListener('pointerdown', e => { if (e.target.closest('#cMore, .strip') || cardBig && e.target.closest('#lBody')) return; dragStart(e.clientY); cd.pid = e.pointerId; });
 addEventListener('pointermove', e => { if (!cd || cd.touch) return; const was = cd.on; dragMove(e.clientY); if (cd.on && !was) try { card.setPointerCapture(cd.pid); } catch (x) {} });   // held only once it's a drag, so a tap still lands on what you tapped
 addEventListener('pointerup', () => { if (cd && !cd.touch) dragEnd(); }); addEventListener('pointercancel', () => { if (cd && !cd.touch) dragEnd(); });
 card.addEventListener('click', e => { if (performance.now() - dragged < 400 && !e.target.closest('#cGrip')) { e.stopPropagation(); e.preventDefault(); } }, true);
-{ const m = $('cMore');
-  m.addEventListener('touchstart', e => { if (m.scrollTop <= 0) { dragStart(e.touches[0].clientY); cd.touch = true; } }, { passive: true });
+['cMore', 'lBody'].forEach(id => { const m = $(id);
+  m.addEventListener('touchstart', e => { if (cardBig && m.scrollTop <= 0) { dragStart(e.touches[0].clientY); cd.touch = true; } }, { passive: true });
   m.addEventListener('touchmove', e => { if (!cd || !cd.touch) return; if (!cd.on && e.touches[0].clientY < cd.y) { cd = null; return; } if (dragMove(e.touches[0].clientY)) e.preventDefault(); }, { passive: false });
-  m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); }
+  m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); });
 function fillCard(p) {
   $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0].split('\u2064')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? worldOf(p) + ' · ' : '') + (c === 'Independent' ? 'No crew' : c); }
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d), cnt = {};
@@ -606,7 +619,7 @@ function fillCard(p) {
 }
 function cardIn() { if (card.classList.contains('on')) return; const k = card._in = (card._in || 0) + 1; card.style.transition = 'none'; void card.offsetHeight; card.style.transition = '';
   requestAnimationFrame(() => requestAnimationFrame(() => { if (card._in === k && sel) card.classList.add('on'); })); }
-function showOne() { card.classList.remove('two'); link = null; stopSel = null; atStop = null; $('vOne').hidden = false; $('vTwo').hidden = true; $('vThree').hidden = true; }
+function showOne() { card.classList.remove('two'); link = null; MUT = null; stopSel = null; atStop = null; $('vOne').hidden = false; $('vTwo').hidden = true; $('vThree').hidden = true; }
 // how two people are connected: what they are to each other, in a sentence, with the title it's shown in; the fights on file; every
 // title they're both in
 function showLink(b) {
@@ -619,9 +632,9 @@ function showLink(b) {
   if (r) r.S.forEach(x => { const m = /^(.*)#(\d+)$/.exec(x.t || ''); if (m && !both.includes(m[1])) both.push(m[1] + ' (from episode ' + m[2] + ')'); });   // met partway through a title
   why.push(['#8EA2C2', 'On screen together', both.length ? list(both) : 'Never in a title together']);
   $('lName').innerHTML = `${a.n}<br>&amp; ${b.n}`; if (worldOf(a) !== worldOf(b)) $('lName').insertAdjacentHTML('beforeend', `<small class="lw">${esc(worldOf(a))} · ${esc(worldOf(b))}</small>`);
-  $('lWhy').innerHTML = why.map(([c, k, v]) => `<li><span style="color:${c}">${k}</span><div>${v}</div></li>`).join('');
+  $('lWhy').innerHTML = why.map(([c, k, v]) => `<li><span style="color:${c}">${k}</span><div>${v}</div></li>`).join(''); mutFill(a, b);
   $('lGo').textContent = 'Lock onto ' + short(b.n) + ' ›';
-  if (cardBig) { card.style.transition = ''; setBig(false); } card.classList.add('two'); $('vOne').hidden = true; $('vTwo').hidden = false;
+  if (cardBig) { card.style.transition = ''; setBig(false); } card.classList.add('two'); $('vOne').hidden = true; $('vTwo').hidden = false; { const lb = $('lBody'); lb.scrollTop = 0; lb.classList.toggle('clip', lb.scrollHeight > lb.clientHeight + 2); }
 }
 $('tBack').onclick = () => showOne();
 $('lGo').onclick = () => lockOn(link);
@@ -926,7 +939,7 @@ $('sList').addEventListener('click', e => { const b = e.target.closest('[data-sp
 // current person's connections. Only people you've met and connections you've seen count, each link showing the latest stage you've
 // watched; par is the shortest chain there is. A pair holds while both stay in the room (the Time Machine or a new tab can take them away)
 let SIX = null;
-self.netSixOn = () => { $('hSix').hidden = false; };
+
 const sixNb = p => p.R.filter(r => N[r.j].vis).map(r => r.j);   // their connections standing in this room
 function sixBfs(a) { const D = new Map([[a.i, 0]]), P = new Map(), Q = [a.i];
   for (let h = 0; h < Q.length; h++) { const x = Q[h]; for (const j of sixNb(N[x])) if (!D.has(j)) { D.set(j, D.get(x) + 1); P.set(j, x); Q.push(j); } } return { D, P }; }
@@ -989,4 +1002,16 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
   if (b && !b.disabled) { const j = +b.dataset.dj; S.ch.push(j); if (j === S.b) S.done = 1; if (navigator.vibrate) try { navigator.vibrate(8); } catch (x) {} sixDraw(); return; }
   if (id === 'dUndo' && S.ch.length > 1) { S.ch.pop(); sixDraw(); return; }
   if (id === 'dShow') { S.done = 2; sixDraw(); $('dBody').scrollTop = 0; } });
+// ---------- the Network's mockups, turned on by the app's test build only (netMockOn): Six Degrees' button, and mutual connections
+self.netMockOn = () => { NMOCK = true; $('hSix').hidden = false; };
+// mutual connections (a mockup, owner, 5 November 2026: "when two people are selected in network, their mutual connections are shown"):
+// in How they're connected, everyone connected to both, with what they are to each, as far as you've watched; in the room they stay lit,
+// with a thread to each of the two. Tapping one shows how they and the one you're locked on are connected
+function mutFill(a, b) { const box = $('lMut'); MUT = null; if (!NMOCK) { box.innerHTML = ''; return; }
+  const B = new Set(conn(b)), L = conn(a).filter(j => B.has(j) && j !== b.i && j !== a.i).map(j => [j, kindOf(a, N[j]), kindOf(b, N[j])])
+    .sort((x, y) => KIND.indexOf(x[1]) - KIND.indexOf(y[1]) || N[y[0]].A.length - N[x[0]].A.length);
+  MUT = new Set(L.map(x => x[0]));
+  box.innerHTML = `<h4>Mutual connections · ${L.length}</h4>` + (L.length ? L.map(([j, ka, kb]) => { const q = N[j];
+    return `<button type="button" class="wrow" style="--kc:${KC[ka]}" data-i="${j}"><b>${esc(q.n)}</b><span><em style="color:${KC[ka]}">${KS[ka]} · ${esc(short(a.n))}</em>${esc(whoLine(a, q, relOf(a, q)))}</span><span><em style="color:${KC[kb]}">${KS[kb]} · ${esc(short(b.n))}</em>${esc(whoLine(b, q, relOf(b, q)))}</span></button>`; }).join('')
+    : '<p class="mnone">None as far as you\'ve watched.</p>'); }
 </script>

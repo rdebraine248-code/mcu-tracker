@@ -12852,8 +12852,8 @@ function tmDecor(v) { const n = TM ? TM.stops.length : tmStops().length, lg = v 
 { const rt0 = renderTimeline; renderTimeline = function (v) { rt0.apply(this, arguments); tmDecor(v); }; }
 tmDecor(document.getElementById("view"));   // the page drawn before this ran
 document.addEventListener("click", e => { const b = e.target.closest(".tm-go"); if (!b) return; if (TM) tmExit(); else tmEnter(); });
-// Six Degrees lives in the Network (a mockup there too, shown only when the app turns it on)
-document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netSixOn) w.netSixOn(); });
+// the Network's mockups (Six Degrees, mutual connections) show only when the app turns them on
+document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netMockOn) w.netMockOn(); });
 /* MOCKUP END */
 /* MOCKUP BEGIN landscape */
 // landscape: Story's header and its mode buttons go in one column of their own (display:contents in portrait), which keeps clear of the ticker
