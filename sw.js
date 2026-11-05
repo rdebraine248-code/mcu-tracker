@@ -31,5 +31,12 @@ self.addEventListener("fetch", e => {
   const r = e.request; if (r.method !== "GET") return;
   if (/^https:\/\/fonts\.(gstatic|googleapis)\.com\//.test(r.url)) { e.respondWith(caches.match(r).then(m => m || fetch(r).then(res => keep(r, res)))); return; }
   if (r.mode === "navigate") { e.respondWith(page(e, r)); return; }
+  // the files' data (data.<hash>.js, mainsplit.py): named by its contents, so a saved copy is always right. It comes from the saved copy,
+  // or the internet whole (never half a file), and a new one clears out the old
+  if (/\/data\.[0-9a-f]{12}\.js$/.test(new URL(r.url).pathname)) { e.respondWith(caches.match(r).then(m => m || fetch(r.url, { cache: "no-cache", credentials: "same-origin" }).then(res => {
+    if (!res.ok) return res; const h = new Headers(res.headers); h.delete("content-encoding"); h.delete("content-length");
+    return res.blob().then(b => { const out = new Response(b, { status: res.status, statusText: res.statusText, headers: h }), copy = out.clone();   // copied before the page reads it
+      e.waitUntil(caches.open(CACHE).then(c => c.put(r, copy).then(() => c.keys()).then(K => Promise.all(K.filter(k => /\/data\.[0-9a-f]{12}\.js$/.test(new URL(k.url).pathname) && k.url !== r.url).map(k => c.delete(k))))).catch(() => {}));
+      return out; }); }))); return; }
   e.respondWith(fetch(new Request(r, { cache: "no-cache" })).then(res => keep(r, res)).catch(() => caches.match(r)));
 });
