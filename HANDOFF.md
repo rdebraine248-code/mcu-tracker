@@ -44,7 +44,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 - **The launch page is 4.34 MB** (main, 5 November 2026; 3.79 MB on 1 November, the content rounds since): over the "about 3.6 MB"
   this file asks for. The sw.js fix covers the error it caused; moving the 1.7 MB of filled-in data (files, episodes, news, messages) into
   its own file loaded after launch, like the Network, would bring it under 3 MB. Offered to the owner, not started.
-- **Audit parts 4 to 9 are still open** (the owner asked, 5 November 2026, "Audit isn't done?"). They need the owner's "use a workflow".
+- **The audit, parts 1 to 9, is done and on main** (since `0695617`, 4 November 2026; records `mockup-data/audit2/`, `STATE.md` ends
+  "AUDIT DONE"). The checklist below had gone stale and still listed parts 4 to 9 as open; a chat on 5 November repeated that to
+  the owner, and found the truth in git before running anything. Part 4 the Atlas (300 places, 164 of 187 leads closed, 3 left in
+  `atlas/leads_left.json`; fresh 600 at 0%), part 5 the logs (fresh 600 at 1.3%), parts 6 to 9 (Damage Control and Comms 32 fixes,
+  titles and insignia, the Multiverse and Incursions 26 fixes) checked and second-checked, but **parts 6 to 9 have no random 600 on
+  record**, and the last full content check is from 3 November (`content_full.json`). Those two are what's left of the plan.
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 
@@ -89,18 +94,14 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
    the Netflix shows and the 1994 cartoon; then a fresh 600.
 3. The "Held" line under a file's entry, before the audit (owner: "I think I want a held line so maybe that needs to happen before
    step 3 audit"), so the audit covers it.
-4. Audit parts 4 to 9, each with its second checker, its random 600 and the full content check.
+4. Audit parts 4 to 9, each with its second checker, its random 600 and the full content check. Done 4 November 2026 except parts
+   6 to 9's random 600 and a fresh full content check (see "Where things stand").
 5. The final round: the whole test suite, the owner's check of the test build, one push to main on their word, the handoff updated.
 6. Landscape, stage 2, last of all (owner: "all the way at the end ... when all is said and done").
 
 **Still open**
-- Audit parts 4 to 9: the Atlas, character logs, Damage Control and Comms, the story lists and boxes, the Agent File, the Incursions
-  wall and the Multiverse, each with its random 600 and the owner's 0 to 1% bar.
-- A fresh random 600 for the Network before part 2 counts as locked.
-- The content check's warnings (not failures): 187 places with no Atlas entry for a title a file puts there, 38 "alive again after
-  Deceased". They predate this round and belong to the Atlas part.
-- Before the audit (owner, 4 November 2026): a "Held" line under a file's entry (the Collection objects that person holds in that title).
-- Test build only: landscape, stage 2.
+- (Updated 5 November 2026.) Everything in the old list here is done: parts 4 to 9, the Network's fresh 600 (1.5%), the Atlas leads
+  (3 left), the Held line. Left: parts 6 to 9's random 600, a fresh full content check, landscape stage 2 (set aside by the owner).
 
 **Not coming back** (owner's calls): the VisionQuest audit, the six October pitches, Doomsday and Secret Wars content.
 
@@ -1280,9 +1281,8 @@ These happened in earlier chats. Each cost the owner time.
 
 - **Audit status (4 November 2026, all on main as of ab088a6):** parts 1 to 3 (people, the Network, the files) are done: checked, second-checked,
   applied, then a fresh random 600 of each rechecked (people 1.6%, the Network 4.3%, files 1.2% wrong, all fixed after a second check),
-  then the Network's last pass over all 7,357 stages, then the owner's answers to the 59 report questions. **Next: parts 4 to 9**
-  (the Atlas, character logs, Damage Control and Comms, the story lists and boxes, the Agent File, the Incursions wall and the
-  Multiverse), each with its random 600. The owner's bar is 0 to 1% wrong; parts 1 to 3's last samples were over it for the Network
+  then the Network's last pass over all 7,357 stages, then the owner's answers to the 59 report questions. Parts 4 to 9 followed the
+  same day (see "Where things stand"), all on main since `0695617`. The owner's bar is 0 to 1% wrong; parts 1 to 3's last samples were over it for the Network
   (4.3%), so a fresh Network sample is owed before calling part 2 locked. Audit records: `mockup-data/audit2/`.
 - **The report page** (questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. Answers come back as comment threads
   (the page's Submit). All 59 answered and done; new questions go on as 60 onward.
