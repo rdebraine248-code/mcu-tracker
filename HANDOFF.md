@@ -17,9 +17,9 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 - **main** is at `835b077`; test build v147 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
-- **Drafted, waiting on the owner's review:** the Time Machine and Six Degrees, both mockups in the test build (see "Drafts: the
-  Time Machine and Six Degrees" under Open items). Next: the owner's answers to the questions asked with them, then changes, then
-  main only on their "push".
+- **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
+  the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
+  owner will come back to them. They stay in the test build; mainprep cuts them from main, so a main push doesn't need them settled.
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 
@@ -1310,7 +1310,7 @@ These happened in earlier chats. Each cost the owner time.
   memories of his attack, not her hallucinations), Peggy an Agents of S.H.I.E.L.D. S7 step (Simmons posing as her in 1955). No step for
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
-- **Drafts: the Time Machine and Six Degrees (5 November 2026, test build v147, mockups, waiting on the owner's review).** The owner
+- **Drafts: the Time Machine and Six Degrees (5 November 2026, test build v147, mockups, on the back burner).** The owner
   asked to "draft up 6 degrees and time machine in the build". Both run only on data the app already has; nothing new was written or
   researched. Screenshots were shown in the chat.
   - **The Time Machine** (`/* MOCKUP BEGIN timemachine */` in index.html's CSS and script). A "Time Machine" pill on the Sacred
@@ -1340,7 +1340,8 @@ These happened in earlier chats. Each cost the owner time.
     spoiler-safe; with the Time Machine on it's that moment's room.
   - **No daily anything** (owner, 5 November 2026: "Wtf is this daily shit nonsense"): no daily puzzle, daily pair, streak or
     anything else that runs on the calendar. A game gives a new round whenever you ask.
-  - **Open questions for the owner (asked in the chat, 5 November 2026):** where the Time Machine's way in goes; Release Order;
+  - **Parked (owner, 5 November 2026: "put them on the back burner"), not to be raised until the owner comes back to them.** Open
+    questions, asked in the chat on 5 November 2026: where the Time Machine's way in goes; Release Order;
     ticks while travelling; Six Degrees per universe or Sacred Timeline only; the names. (The daily pair was cut on the owner's word.)
   - main is untouched: mainprep cuts the timemachine block (checked: no `tmBand` or `netSixOn` call in the main build), and check,
     smoke, ct64 and ct65 pass on a main build with the new network.html.
