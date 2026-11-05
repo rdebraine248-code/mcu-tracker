@@ -6,13 +6,13 @@ all "Standing rules from the owner" and "Mistakes not to repeat". Ask the owner 
 you're unsure. **Never push to main without the owner's explicit "push".** The same handoff also lives in the repo as `HANDOFF.md`;
 if they ever differ, the repo's copy on the working branch is newer.
 
-- **main** is at `835b077` (pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859). The published test build is v145 and matches main (plus the landscape mockup only it carries):
+- **main** is at `835b077` (pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859). The published test build is v146: main plus the landscape mockup and the Time Machine and Six Degrees drafts:
   https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s
 - **The report page** (owner's questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. All 59 questions are
   answered and applied; new questions go on as 60 onward. Answers come back as comment threads (the page's Submit).
-- **Next up:** the owner asked (5 November 2026) to **draft Six Degrees and the Time Machine**, two of the "next major update" ideas
-  under the standing rules (not content heavy: no research, writing or audits; built only from data the app already has). Draft
-  means a design and a mockup for the owner to review, not a build. Everything else is closed: the full pass, the extended cuts,
+- **Drafted (5 November 2026), waiting on the owner's review:** Six Degrees and the Time Machine, two of the "next major update"
+  ideas under the standing rules, both mockups in test build v146 (see "Drafts: the Time Machine and Six Degrees" under Open items).
+  Next: the owner's answers to the questions asked with them, then changes, then main only on their "push". Everything else is closed: the full pass, the extended cuts,
   Jimmy Weeks, the Widows, Dottie and the Team Thor / Earth-19859 Atlas moves are all on main. The landscape layout is set aside
   (owner: "Ignore landscape for now"). Ask every open question in one batch before any test run; the full suite runs only before
   a main push.
@@ -101,7 +101,8 @@ The owner uploads this file to the new chat; nothing needs pasting. Start from t
 - **Working branch `ccr-5d4aa1b8-sj0vmn`** (it carries on from `ccr-9703a988-d86jbb` and `ccr-260b58ec-boqbta`): the source. It holds `index.html` with its data
   placeholders still empty, `mockup-data/` (all the data, the build scripts and the tests) and this file. **Check this branch out**, not
   main. After every push to main it's synced with `git merge -s ours origin/main`, which keeps the source and records main's history.
-  `claude/gracious-cray-lhdt2k` is a mirror of it from the October 2026 chat: push both, so they stay identical.
+  `claude/gracious-cray-lhdt2k` is a mirror of it from the October 2026 chat, and `ccr-537d906a-oxzbql` (the 5 November 2026
+  drafting chat's branch) another: push all three, so they stay identical.
 - Helper scripts written during a session (agent briefs, change appliers, the faction builder) live in that session's scratchpad and are
   gone afterwards. Everything they produced is in the repo: `audit_fix.json`, `raft_teams.json`, `index.html` and the audit records.
 
@@ -129,12 +130,12 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
      Never put the Network back inline on main: the launch page must stay near its old size (about 3.6 MB).
 - **The mockup switch:** `const MOCK = true;` near the top of the script, with `body.mock` for CSS. `mainprep.py` flips it to false for
   main and asserts that it's there. Mockups go between `/* MOCKUP BEGIN ... */` and `/* MOCKUP END */` lines (CSS and script), which
-  `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. None are pending.
+  `mainprep.py` cuts, or behind `MOCK ?` / `MOCK &&` guards. Pending: the Time Machine (`timemachine`) and landscape.
 - **Promoting a mockup to main:** don't just delete its markers. A mockup block often overrides main code at load (reassigns a
   function, deletes entries). Fold it into the code it overrides, delete what it replaced, sweep the CSS and comments it leaves behind,
   rewrite its comments as main's, and update or replace the tests for what it removed.
 - **The published test build** is an artifact at https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (the old one, FpzxqjpMT8r7jSvb69mNKu,
-  is retired). It's at v145 (5 November 2026) and matches main (835b077, pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
+  is retired). It's at v146 (5 November 2026: the Time Machine and Six Degrees drafts) and otherwise matches main (835b077, pushed 5 November 2026: Dottie's episodes, Team Thor on Earth-16828, S.H.I.E.L.D.'s time travel on Earth-19859) except for the landscape mockup, which only it carries. Republish it whenever a mockup changes: copy `out/datapad-test.html` to the scratchpad
   and publish to that URL.
 
 - **The Endgame "On your left" egg plays once per datapad** (owner, November 2026: "forget the Endgame thing"): marking Endgame watched
@@ -1314,7 +1315,37 @@ These happened in earlier chats. Each cost the owner time.
   memories of his attack, not her hallucinations), Peggy an Agents of S.H.I.E.L.D. S7 step (Simmons posing as her in 1955). No step for
   Jameson in Venom: Let There Be Carnage (promotional footage). Uncle Ben keeps his "Intervention" step (the real night Peter relives;
   the spirit guiding him is a vision and stays out). Jean keeps X-Men: The Animated Series seasons 4 and 5.
-- No mockups are pending.
+- **Drafts: the Time Machine and Six Degrees (5 November 2026, test build v146, mockups, waiting on the owner's review).** The owner
+  asked to "draft up 6 degrees and time machine in the build". Both run only on data the app already has; nothing new was written or
+  researched. Screenshots were shown in the chat.
+  - **The Time Machine** (`/* MOCKUP BEGIN timemachine */` in index.html's CSS and script). A "Time Machine" pill on the Sacred
+    Timeline page, under its legend, opens an amber band over the dock (the ticker hides under it while it runs): the stop's year
+    (the timeline's era, "Undated" where it has none) and title, a slider with ‹ ›, "13 / 147", and Present, which leaves it. The stops
+    are the Sacred Timeline's titles you've watched (or reached an episode of), in story order (`DATA.timeline`, always story order).
+    It opens on the last watched title. At a stop, `atlSeenT` and `atlEvSeen` (now `let`, the mockup
+    wraps them) count a title only up to that stop (`tmIdx`: a title's place on the timeline; an episode of a whole show finds its
+    season; a whole show counts once its last season has come), so the Atlas, the Network, the files (steps, statuses, first and last
+    seen), Damage Control and Comms all show the story as it stood then. A title off the Sacred Timeline (the Incursions) is outside
+    time and stays as watched. On the Story page the titles after the stop dim and the stop is ringed. Nothing is saved while it
+    runs (`persist` is held; the state is snapshotted on the way in and put back on the way out, so read marks and the Network's
+    known list are as they were). A tick or an episode changed while travelling brings you back to the present with the tick kept.
+    Checked in headless Chrome: at The Avengers the Atlas lights 111 places of 278 and Tony's file has 4 entries; at Civil War,
+    7 titles, Active, last seen Civil War; back at the present, everything as before.
+  - **Six Degrees** (in the Network: `network/src/hub-src.html`, its CSS block and the script at the end; `network/network-hub.html`
+    rebuilt by putting the existing baked data back into the new source, so nothing else in the Network changed). A gold "Six
+    Degrees" pill at the right of the Network's title, hidden unless the app calls `netSixOn()` (only the app's timemachine mockup
+    block does, so main's network.html carries it hidden). It opens a full-screen sheet like Search: "Daily link · 5 Nov · Sacred
+    Timeline", From and To with Par N between them (the shortest chain), the chain so far (each link with its kind, the latest stage
+    you've watched in full and its title or episode), then the current person's connections by kind with their card lines; pick one
+    to add a link, Undo, Reveal (gives up and shows a shortest chain). Linked: "6 links. 2 over par. The shortest chain is 4 links."
+    with both chains, and "Lock onto <name> ›". The day's pair: two familiar faces in the room you're in (the top fifth by titles seen),
+    three or four links apart where the room allows, seeded by the date and universe; it holds for the day while both stay in the
+    room. Only people you've met and connections you've seen count, so it's spoiler-safe; with the Time Machine on it's that moment's
+    room. Progress isn't saved (reopening the app starts the day's puzzle again).
+  - **Open questions for the owner (asked in the chat, 5 November 2026):** where the Time Machine's way in goes; Release Order;
+    ticks while travelling; Six Degrees per universe or Sacred Timeline only; a saved daily record or streak; the names.
+  - main is untouched: mainprep cuts the timemachine block (checked: no `tmBand` or `netSixOn` call in the main build), and check,
+    smoke, ct64 and ct65 pass on a main build with the new network.html.
 - **Home screen: cut (owner, November 2026: "Cut it completely").** A datapad Home page leading the dock (an Agent ID strip, Up next,
   readouts, every page and archive as a card, then restyled as S.H.I.E.L.D. hardware with dials and a power-up) was tried in the test
   build and removed entirely. Story stays the front page. Don't bring it back unasked.

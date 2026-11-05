@@ -1548,6 +1548,34 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .collpanel .cx-case{ border-color:color-mix(in srgb, var(--ix) 30%, #1E2638); }
 .collpanel.raft .co-chain li::before{ border-color:var(--ix); } .collpanel.raft .co-chain li:last-child::before{ background:var(--ix); box-shadow:0 0 8px var(--ix); }
 
+/* MOCKUP BEGIN timemachine */
+/* the Time Machine (a mockup, November 2026): a band over the dock that steps back through story order. Every page that goes by what
+   you've watched (the Atlas, the Network, the files, Damage Control, Comms) shows the story as it stood then, up to what you've watched */
+.tm-gorow{ margin:-4px 0 16px; }
+.tm-go{ display:inline-flex; align-items:center; gap:8px; padding:6px 13px 6px 10px; border:1px solid #6A4A1C; border-radius:999px; background:rgba(255,179,71,.06); color:#FFB347; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+.tm-go[aria-pressed="true"]{ background:rgba(255,179,71,.18); border-color:#FFB347; } .tm-go:focus-visible{ outline:2px solid #FFB347; outline-offset:2px; } .tm-go svg{ flex:none; }
+#tmBand{ position:fixed; left:0; right:0; bottom:var(--dockh); z-index:79; padding:9px max(16px, env(safe-area-inset-right,0px)) 10px max(16px, env(safe-area-inset-left,0px)); background-color:#0F0C08;
+  background-image:repeating-linear-gradient(90deg, rgba(255,179,71,.05) 0 1px, rgba(0,0,0,0) 1px 6px), linear-gradient(180deg, rgba(255,179,71,.08), rgba(0,0,0,0) 70%); border-top:1px solid #5A3E18; box-shadow:0 -10px 26px rgba(0,0,0,.5); color:#E7D8C2; }
+#tmBand[hidden]{ display:none; }
+.tm-top{ display:flex; align-items:flex-start; gap:12px; } .tm-when{ flex:1; min-width:0; }
+.tm-when small{ display:flex; align-items:center; gap:7px; font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#C08A3E; }
+.tm-when small i{ width:6px; height:6px; border-radius:50%; background:#FFB347; box-shadow:0 0 8px #FFB347; animation:tmPulse 1.6s ease-in-out infinite; } @keyframes tmPulse{ 50%{ opacity:.35; } }
+.tm-when b{ display:block; margin-top:3px; font:400 22px/1.05 'Anton','Impact',sans-serif; letter-spacing:.6px; text-transform:uppercase; color:#FFE2B8; text-shadow:0 0 14px rgba(255,160,50,.45); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tm-when span{ display:block; margin-top:2px; font:500 14px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#C9B79C; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tm-now{ flex:none; margin-top:2px; padding:6px 12px; border:1px solid #FFB347; border-radius:999px; background:transparent; color:#FFB347; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; }
+.tm-track{ display:flex; align-items:center; gap:8px; margin-top:8px; }
+.tm-track > button{ flex:none; width:36px; height:30px; border:1px solid #4A3518; border-radius:10px; background:#17110A; color:#FFB347; display:grid; place-items:center; padding:0; cursor:pointer; touch-action:manipulation; } .tm-track > button:disabled{ opacity:.3; }
+.tm-track output{ flex:none; min-width:52px; text-align:right; font:11px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#9C8664; }
+#tmRange{ flex:1; min-width:0; height:30px; margin:0; background:none; -webkit-appearance:none; appearance:none; touch-action:pan-y; --p:100%; }
+#tmRange::-webkit-slider-runnable-track{ height:4px; border-radius:2px; background:linear-gradient(90deg, #FFB347 var(--p), #3A2A18 var(--p)); }
+#tmRange::-moz-range-track{ height:4px; border-radius:2px; background:linear-gradient(90deg, #FFB347 var(--p), #3A2A18 var(--p)); }
+#tmRange::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; margin-top:-8px; border:2px solid #FFE2B8; border-radius:50%; background:#FFB347; box-shadow:0 0 10px rgba(255,170,60,.8); }
+#tmRange::-moz-range-thumb{ width:16px; height:16px; border:2px solid #FFE2B8; border-radius:50%; background:#FFB347; box-shadow:0 0 10px rgba(255,170,60,.8); }
+#tmRange:focus-visible{ outline:2px solid #FFB347; outline-offset:2px; border-radius:6px; }
+body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the ticker's place while it runs */
+.tl-row.tm-after{ opacity:.28; } .tl-row.tm-at .tl-node{ box-shadow:0 0 0 3px #0F0C08, 0 0 0 5px #FFB347, 0 0 16px #FFB347; }
+/* MOCKUP END */
+
 /* MOCKUP BEGIN landscape */
 .lcol{ display:contents; }   /* Story's header and buttons, held together for landscape; in portrait it isn't there */
 /* landscape (owner, November 2026: "I want to be able to use this app fully in landscape"): on a phone turned sideways the dock becomes a
@@ -4196,14 +4224,15 @@ function epSeas() { if (EP_SEAS) return EP_SEAS; const up = {}, down = {};
 function epReach(t, n) { if (epMax(t) >= n) return true; const S = epSeas(), u = S.up[t];
   if (u && (atlSeenT0(u[0]) || epMax(u[0]) >= u[1] + n)) return true;
   return (S.down[t] || []).some(([st, off, len]) => n > off && n <= off + len && (atlSeenT0(st) || epMax(st) >= n - off)); }
-const atlSeenT = t => epNo(t) ? atlSeenT0(epBase(t)) || epReach(epBase(t), epNo(t)) : atlSeenT0(t);
+// let, not const: the Time Machine mockup steps them back through story order
+let atlSeenT = t => epNo(t) ? atlSeenT0(epBase(t)) || epReach(epBase(t), epNo(t)) : atlSeenT0(t);
 // story order for a title, an episode just after the one before it
 const atlOrd = t => { const o = ATL_ORDER[epBase(t)]; return o == null ? undefined : o + epNo(t) / 1000; };
 const atlSeenStep = x => { { const e = /^In episode (\d+),/.exec(x[0] || ""); if (e) return atlSeenT(x[1] + "#" + e[1]); } const m = /^In season (\d+),/.exec(x[0] || ""), L = m && ATL_SEAS[x[1]];
   const st = L && L.find(t => { const r = / S(\d+)(?:–S(\d+))?$/.exec(t); return r && +m[1] >= +r[1] && +m[1] <= +(r[2] || r[1]); });
   return st ? atlSeenT(st) || atlSeenT(x[1]) : atlSeenT(x[1]); };
 // an Atlas entry that belongs to one season also lights up when just that season is checked
-const atlEvSeen = e => atlSeenT(e[0]) || (!!e[3] && (atlTl(e[3]) || (ATL_BOX[e[3]] || []).some(b => !!state.checks[ck(b, e[3])])));
+let atlEvSeen = e => atlSeenT(e[0]) || (!!e[3] && (atlTl(e[3]) || (ATL_BOX[e[3]] || []).some(b => !!state.checks[ck(b, e[3])])));
 const atlLit = p => !!p.home || (p.uni ? ATLAS_UNI[p.uni].places.some(atlLit) : (p.e || []).some(e => atlEvSeen(e)));   // a universe lights up once anything in it has
 const atlOpenV = v => v === "earth" || ATLAS[v].some(p => !p.home && atlLit(p));
 // what you've read: each place remembers how many of its entries were in when you last opened it. A place with more than that has a dot,
@@ -12763,6 +12792,69 @@ function shatter(x, y) {
     }, 3800);
   }, 650);
 };
+/* MOCKUP BEGIN timemachine */
+// the Time Machine (a mockup, November 2026; owner's "next major update" idea 3): a slider through story order. The stops are the Sacred
+// Timeline's titles you've watched, in its order; at a stop, what you've watched counts only up to there, so the Atlas, the Network, the
+// files, Damage Control and Comms all show the story as it stood then. Nothing is saved while it runs, and leaving it puts everything back.
+// A title off the Sacred Timeline (the Incursions) is outside time and stays as watched. Ticking anything brings you back to the present,
+// with the tick kept
+let TM = null;
+const TM_IX = (() => { const o = {}; DATA.timeline.forEach((e, i) => { if (!(e.t in o)) o[e.t] = i; }); return o; })();
+const tmIdx = t => { const b = epBase(t), n = epNo(t); if (b in TM_IX) return TM_IX[b];
+  const S = ATL_SEAS[b]; if (!S) return -1;
+  if (n) { const d = epSeas().down[b], hit = d && d.find(([st, off, len]) => n > off && n <= off + len); if (hit && hit[0] in TM_IX) return TM_IX[hit[0]]; }
+  const v = S.map(x => TM_IX[x]).filter(x => x != null); return v.length ? Math.max(...v) : -1; };   // a whole show, once its last season has come
+const tmOk = t => { if (!TM || TM.cut === Infinity) return true; const i = tmIdx(t); return i < 0 || i <= TM.cut; };
+{ const seen0 = atlSeenT, ev0 = atlEvSeen;
+  atlSeenT = t => seen0(t) && tmOk(t);
+  atlEvSeen = e => ev0(e) && tmOk(e[3] || e[0]); }
+// the stops: every Sacred Timeline title you've watched, or reached an episode of, in story order
+const tmStops = () => { const real = TM ? TM.real : null; return DATA.timeline.map((e, i) => [e, i]).filter(([e]) => real ? real.has(e.t) : (atlSeenT0(e.t) || epMax(e.t) > 0)); };
+function tmBand() { let b = document.getElementById("tmBand"); if (b) return b;
+  b = document.createElement("div"); b.id = "tmBand"; b.hidden = true; b.setAttribute("role", "region"); b.setAttribute("aria-label", "Time Machine");
+  b.innerHTML = `<div class="tm-top"><div class="tm-when"><small><i></i>Time Machine</small><b id="tmEra"></b><span id="tmT"></span></div><button type="button" class="tm-now" id="tmNow">Present</button></div>
+    <div class="tm-track"><button type="button" id="tmPrev" aria-label="One title back"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3 4.5 7l4 4"/></svg></button><input type="range" id="tmRange" min="0" step="1" aria-label="Story order"><button type="button" id="tmNext" aria-label="One title on"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3l4 4-4 4"/></svg></button><output id="tmN"></output></div>`;
+  document.body.appendChild(b);
+  const R = b.querySelector("#tmRange");
+  R.addEventListener("input", () => tmGo(+R.value));
+  b.querySelector("#tmPrev").addEventListener("click", () => { haptic(8); tmGo(TM.k - 1); });
+  b.querySelector("#tmNext").addEventListener("click", () => { haptic(8); tmGo(TM.k + 1); });
+  b.querySelector("#tmNow").addEventListener("click", () => { haptic(10); tmExit(); });
+  return b; }
+let tmRaf = 0;
+function tmGo(k) { if (!TM) return; const L = TM.stops; k = Math.max(0, Math.min(L.length, k)); TM.k = k; TM.cut = k >= L.length ? Infinity : L[k][1];
+  const b = tmBand(), R = b.querySelector("#tmRange"), e = k < L.length ? L[k][0] : null;
+  R.max = L.length; R.value = k; R.style.setProperty("--p", (L.length ? k / L.length * 100 : 100) + "%");
+  b.querySelector("#tmEra").textContent = e ? (e.era || "Undated") : "Present";
+  b.querySelector("#tmT").innerHTML = e ? tnh(e.t) : "Everything you've watched";
+  b.querySelector("#tmN").textContent = (e ? k + 1 : L.length) + " / " + L.length;
+  b.querySelector("#tmPrev").disabled = k <= 0; b.querySelector("#tmNext").disabled = k >= L.length;
+  if (!tmRaf) tmRaf = requestAnimationFrame(() => { tmRaf = 0; tmRefresh(); }); }
+// every open page redrawn as of the stop: the Story page's timeline dims what comes after it, the rest go by what's watched
+function tmRefresh() { try { renderView(); } catch (e) {} try { if (atlOpen) renderAtlas(); } catch (e) {} try { if (collOpen) renderColl(); } catch (e) {}
+  try { if (commsOpen) renderComms(); } catch (e) {} try { if (NET_SRC && document.getElementById("netFrame").dataset.on) netSync(); } catch (e) {} }
+function tmEnter() { if (TM) return; const real = new Set(tmStops().map(([e]) => e.t)); if (real.size < 2) return;
+  TM = { snap: JSON.stringify(state), ck: JSON.stringify([state.checks, state.eps || {}]), real, k: 0, cut: Infinity }; TM.stops = tmStops();
+  document.body.classList.add("tm"); tmBand().hidden = false; haptic([10, 30, 10]);
+  // it opens on the last title you watched, one stop back from the present, so the first move is already a step into the past
+  tmGo(Math.max(0, TM.stops.length - 1)); }
+function tmExit(keepTicks) { if (!TM) return; const snap = TM.snap; TM = null;
+  { const c = state.checks, ep = state.eps; state = JSON.parse(snap); if (keepTicks) { state.checks = c; if (ep) state.eps = ep; } }   // what was read or opened along the way is put back as it was
+  document.body.classList.remove("tm"); tmBand().hidden = true; tmRefresh(); }
+// nothing is saved while it runs; a tick (or an episode) changed in the meantime brings you back to the present, the tick kept
+{ const persist0 = persist;
+  persist = function () { if (!TM) return persist0.apply(this, arguments);
+    if (JSON.stringify([state.checks, state.eps || {}]) !== TM.ck) { tmExit(true); return persist0(); } }; }
+// the way in: a button on the Sacred Timeline page, under its legend; on that page the titles after the stop dim and the stop is ringed
+function tmDecor(v) { const n = TM ? TM.stops.length : tmStops().length, lg = v && v.querySelector(".tl .legend"); if (!lg || n < 2 || v.querySelector(".tm-go")) return;
+    lg.insertAdjacentHTML("afterend", `<div class="tm-gorow"><button type="button" class="tm-go" aria-pressed="${!!TM}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2.6 8a5.4 5.4 0 1 0 1.6-3.8"/><path d="M2.4 2.2v2.6H5"/><path d="M8 5v3.2l2.2 1.4"/></svg>Time Machine</button></div>`);
+    if (TM && TM.cut !== Infinity) v.querySelectorAll(".tl-row[data-tl]").forEach(r => { const i = TM_IX[r.dataset.tl]; if (i == null) return; r.classList.toggle("tm-after", i > TM.cut); r.classList.toggle("tm-at", i === TM.cut); }); }
+{ const rt0 = renderTimeline; renderTimeline = function (v) { rt0.apply(this, arguments); tmDecor(v); }; }
+tmDecor(document.getElementById("view"));   // the page drawn before this ran
+document.addEventListener("click", e => { const b = e.target.closest(".tm-go"); if (!b) return; if (TM) tmExit(); else tmEnter(); });
+// Six Degrees lives in the Network (a mockup there too, shown only when the app turns it on)
+document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netSixOn) w.netSixOn(); });
+/* MOCKUP END */
 /* MOCKUP BEGIN landscape */
 // landscape: Story's header and its mode buttons go in one column of their own (display:contents in portrait), which keeps clear of the ticker
 { const app = document.getElementById("app"), m = app.querySelector(".mast"), b = app.querySelector(".modes");
