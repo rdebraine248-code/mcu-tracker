@@ -1549,6 +1549,7 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .collpanel.raft .co-chain li::before{ border-color:var(--ix); } .collpanel.raft .co-chain li:last-child::before{ background:var(--ix); box-shadow:0 0 8px var(--ix); }
 
 
+
 </style>
 </head>
 <body>
@@ -4157,14 +4158,15 @@ function epSeas() { if (EP_SEAS) return EP_SEAS; const up = {}, down = {};
 function epReach(t, n) { if (epMax(t) >= n) return true; const S = epSeas(), u = S.up[t];
   if (u && (atlSeenT0(u[0]) || epMax(u[0]) >= u[1] + n)) return true;
   return (S.down[t] || []).some(([st, off, len]) => n > off && n <= off + len && (atlSeenT0(st) || epMax(st) >= n - off)); }
-const atlSeenT = t => epNo(t) ? atlSeenT0(epBase(t)) || epReach(epBase(t), epNo(t)) : atlSeenT0(t);
+// let, not const: the Time Machine mockup steps them back through story order
+let atlSeenT = t => epNo(t) ? atlSeenT0(epBase(t)) || epReach(epBase(t), epNo(t)) : atlSeenT0(t);
 // story order for a title, an episode just after the one before it
 const atlOrd = t => { const o = ATL_ORDER[epBase(t)]; return o == null ? undefined : o + epNo(t) / 1000; };
 const atlSeenStep = x => { { const e = /^In episode (\d+),/.exec(x[0] || ""); if (e) return atlSeenT(x[1] + "#" + e[1]); } const m = /^In season (\d+),/.exec(x[0] || ""), L = m && ATL_SEAS[x[1]];
   const st = L && L.find(t => { const r = / S(\d+)(?:–S(\d+))?$/.exec(t); return r && +m[1] >= +r[1] && +m[1] <= +(r[2] || r[1]); });
   return st ? atlSeenT(st) || atlSeenT(x[1]) : atlSeenT(x[1]); };
 // an Atlas entry that belongs to one season also lights up when just that season is checked
-const atlEvSeen = e => atlSeenT(e[0]) || (!!e[3] && (atlTl(e[3]) || (ATL_BOX[e[3]] || []).some(b => !!state.checks[ck(b, e[3])])));
+let atlEvSeen = e => atlSeenT(e[0]) || (!!e[3] && (atlTl(e[3]) || (ATL_BOX[e[3]] || []).some(b => !!state.checks[ck(b, e[3])])));
 const atlLit = p => !!p.home || (p.uni ? ATLAS_UNI[p.uni].places.some(atlLit) : (p.e || []).some(e => atlEvSeen(e)));   // a universe lights up once anything in it has
 const atlOpenV = v => v === "earth" || ATLAS[v].some(p => !p.home && atlLit(p));
 // what you've read: each place remembers how many of its entries were in when you last opened it. A place with more than that has a dot,
