@@ -63,9 +63,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     (One Last Kill is Queens' Little Sicily; Agent Carter S2's scenes are Los Angeles, not Hollywood; Sousa's 1955 rescue on
     Earth-19859's Los Angeles) or taken off, Agatha's ghost step Deceased (the owner's earlier call, never applied), X-Force's party
     step names Peter too. Left: 20 place leads and 37 alive-again leads, each checked and right as they are.
-  - Not changed, for the owner: the Watcher's insignia opens with Loki S1 though he isn't in it (this file records it as the moment
-    the multiverse opens, on purpose); the checkers would drop it. Asked 5 November 2026.
-  - In the test build (v150); main waits for the owner's "push".
+  - **The Watcher, settled (owner, 5 November 2026: "the name to be revealed after loki s1 when the multiverse opens ... the insignia
+    and just the insignia unlock after what if (any check in what if even a single episode counts)").** His box is named after Loki S1
+    or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
+    one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
+  - In the test build (v151, with the Watcher); main waits for the owner's "push".
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 
