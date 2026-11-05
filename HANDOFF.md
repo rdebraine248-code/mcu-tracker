@@ -31,6 +31,20 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     the two and that card line ("Friend · Steve ...", "Ally · Sam ..."), as far as you've watched; "None as far as you've watched."
     when there are none. In the room they stay lit, with a thread to each of the two. Tapping one shows how they and the one you're
     locked on are connected. `MUT` and `mutFill` in hub-src; no gate (`netMockOn()` now only shows Six Degrees' button). Steve and Sam: 22 mutual connections.
+- **Waiting on the owner's "push": the "No signal" fix in `sw.js`** (owner, 5 November 2026: "sometimes now the no network thing pops
+  up again for often"). The Android app shows its offline page whenever the page itself fails to load. The old offline copy handed the
+  page over as it streamed in and waited on the internet with no limit, so a 4.3 MB page cut off partway or stalled on a weak signal
+  reached the app as an error although a good saved copy was there. Now a page (the app, or the Network in its frame) is handed over
+  only once all of it has arrived; cut off, the saved copy answers; still downloading after 5 seconds, the saved copy answers and the
+  new one finishes in the background for the next open. Found on the way: when network.html failed, the old copy put the whole app in
+  the Network's frame (a second copy that could save over the first); each page now falls back to its own saved copy. Checked with a
+  server that cuts, stalls and drops the page (`mockup-data/tests/swtest.js`: `node tests/swtest.js out/root ../sw.js`): old: cut and stall never load, the frame got the app; new:
+  cut 0.6 s, stall 5.5 s, dropped 0.4 s, all the app, the frame the saved Network. Needs only sw.js on main; the phone picks it up on
+  the next open online, and it reloads once as the new offline copy takes over.
+- **The launch page is 4.34 MB** (main, 5 November 2026; 3.79 MB on 1 November, the content rounds since): over the "about 3.6 MB"
+  this file asks for. The sw.js fix covers the error it caused; moving the 1.7 MB of filled-in data (files, episodes, news, messages) into
+  its own file loaded after launch, like the Network, would bring it under 3 MB. Offered to the owner, not started.
+- **Audit parts 4 to 9 are still open** (the owner asked, 5 November 2026, "Audit isn't done?"). They need the owner's "use a workflow".
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 
