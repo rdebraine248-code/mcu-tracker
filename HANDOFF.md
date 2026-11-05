@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `b5e096e` (pushed 5 November 2026, the owner's "push mutual": mutual connections; before it `6f22626`, How
+- **main** is at `48f2c51` (pushed 5 November 2026: the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
@@ -31,7 +31,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     the two and that card line ("Friend · Steve ...", "Ally · Sam ..."), as far as you've watched; "None as far as you've watched."
     when there are none. In the room they stay lit, with a thread to each of the two. Tapping one shows how they and the one you're
     locked on are connected. `MUT` and `mutFill` in hub-src; no gate (`netMockOn()` now only shows Six Degrees' button). Steve and Sam: 22 mutual connections.
-- **Waiting on the owner's "push": the "No signal" fix in `sw.js`** (owner, 5 November 2026: "sometimes now the no network thing pops
+- **On main (`48f2c51`, the owner's "push"): the "No signal" fix in `sw.js`** (owner, 5 November 2026: "sometimes now the no network thing pops
   up again for often"). The Android app shows its offline page whenever the page itself fails to load. The old offline copy handed the
   page over as it streamed in and waited on the internet with no limit, so a 4.3 MB page cut off partway or stalled on a weak signal
   reached the app as an error although a good saved copy was there. Now a page (the app, or the Network in its frame) is handed over
