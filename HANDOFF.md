@@ -1302,6 +1302,9 @@ These happened in earlier chats. Each cost the owner time.
   then the Network's last pass over all 7,357 stages, then the owner's answers to the 59 report questions. Parts 4 to 9 followed the
   same day (see "Where things stand"), all on main since `0695617`. The owner's bar is 0 to 1% wrong; parts 1 to 3's last samples were over it for the Network
   (4.3%), so a fresh Network sample is owed before calling part 2 locked. Audit records: `mockup-data/audit2/`.
+- **The round report (5 November 2026)**: https://claude.ai/artifact/4VKPvWnF5NY3zcyirGemoX, decisions 60 to 63 (push the audit fixes
+  and the Watcher; slim the launch page; the Doctor Strange & Wong quote; recount part 1's sample under the wrong-only rule). Answers
+  save in its `answers` collection and come back as a comment thread on Submit, like the first report's.
 - **The report page** (questions and answers): https://claude.ai/artifact/ABJLLQ9XwpJvrReuCNjfny. Answers come back as comment threads
   (the page's Submit). All 59 answered and done; new questions go on as 60 onward.
 - **Held (built 4 November 2026; approved by the owner, "Love the held item"; goes to main with the next push):** under a file's entry, beside At and Case, `recHeld` lists
