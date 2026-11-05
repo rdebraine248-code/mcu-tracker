@@ -16,7 +16,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 ## Where things stand (5 November 2026)
 
 - **main** is at `6f22626` (pushed 5 November 2026, the owner's "push": How they're connected slides up and scrolls like a person's
-  card; full suite passed, 35 of 35); test build v148 is main plus the Time Machine and Six Degrees drafts, the mutual connections mockup (and landscape)
+  card; full suite passed, 35 of 35); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
   the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
@@ -26,12 +26,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     at the top etc just like an individuals pop up"). On main (`6f22626`). The grip shows on it, it
     follows your finger and settles small or full, pulled down far it closes; small, it shows the first of it fading out (`#lBody`,
     24vh); full, the whole thing scrolls, always from its top; pulling down from the top of the list drags the card down.
-  - **Mutual connections (mockup, owner, 5 November 2026: "when two people are selected in network, their mutual connections are
-    shown")**: under How they're connected, "Mutual connections · N": everyone connected to both, each with what they are to each of
+  - **Mutual connections (owner, 5 November 2026: "when two people are selected in network, their mutual connections are shown";
+    then "push mutual": no longer a mockup, on for everyone, going to main)**: under How they're connected, "Mutual connections · N": everyone connected to both, each with what they are to each of
     the two and that card line ("Friend · Steve ...", "Ally · Sam ..."), as far as you've watched; "None as far as you've watched."
     when there are none. In the room they stay lit, with a thread to each of the two. Tapping one shows how they and the one you're
-    locked on are connected. Shown only when the app calls `netMockOn()` (`NMOCK`, `MUT`, `mutFill` in hub-src), which only the test
-    build's timemachine block does. Steve and Sam: 22 mutual connections.
+    locked on are connected. `MUT` and `mutFill` in hub-src; no gate (`netMockOn()` now only shows Six Degrees' button). Steve and Sam: 22 mutual connections.
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 

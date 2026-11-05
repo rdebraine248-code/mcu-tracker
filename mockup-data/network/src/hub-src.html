@@ -343,7 +343,7 @@ fold(Z, 3, p => [p.hx, p.hy], []);
 
 // the camera, and the watch-face lens: whoever is near the middle of the screen is full size and named, the rest shrink toward the edges
 let cam = { x: 0, y: 0 }, zoom = 1, vel = { x: 0, y: 0 }, sel = null, link = null, glide = null;
-let NMOCK = false, MUT = null;   // the test build's mockups on (netMockOn, at the end); MUT: a picked pair's mutual connections
+let MUT = null;   // a picked pair's mutual connections (mutFill): lit in the room, with a thread to each of the two
 const start = N.find(p => p.n === 'Steve Rogers') || N[0]; cam.x = start.wx; cam.y = start.wy;
 function lens(p, t) {
   // the watch face: toward the edges people shrink, and they draw in by as much, so the gaps between them shrink too instead of opening up
@@ -425,7 +425,7 @@ function frame(t) {
     const thread = (b, c, dash, w, al) => { g.strokeStyle = c; g.lineWidth = w; g.globalAlpha = al; g.setLineDash(dash); g.beginPath(); g.moveTo(a.x, a.y); g.quadraticCurveTo((a.x + b.x) / 2, (a.y + b.y) / 2 - 30, b.x, b.y); g.stroke(); };
     gathered.forEach(j => { const k = kindOf(sel, N[j]); j !== (link && link.i) && thread(pos[j], KC[k], k === 'enemy' || k === 'rival' ? [4, 4] : [], 1.2, (link ? (MUT && MUT.has(j) ? .75 : .12) : .6) * (groupOf(N[j]) ? e : 1)); });
     if (e < 1) G.forEach(z => thread(gv.get(z), KC[z.rel], z.rel === 'enemy' || z.rel === 'rival' ? [6, 5] : [], 1.2 + Math.sqrt(z.L.length) * 1.1, (link ? .15 : .7) * (1 - e)));
-    if (link && MUT) { const b = pos[link.i]; MUT.forEach(j => { const k = kindOf(link, N[j]), q = pos[j]; g.strokeStyle = KC[k]; g.lineWidth = 1.4; g.globalAlpha = .75 * (groupOf(N[j]) ? e : 1); g.setLineDash(k === 'enemy' || k === 'rival' ? [4, 4] : []); g.beginPath(); g.moveTo(b.x, b.y); g.quadraticCurveTo((b.x + q.x) / 2, (b.y + q.y) / 2 - 30, q.x, q.y); g.stroke(); }); }   // a mutual connection's thread to the other one too (mockup)
+    if (link && MUT) { const b = pos[link.i]; MUT.forEach(j => { const k = kindOf(link, N[j]), q = pos[j]; g.strokeStyle = KC[k]; g.lineWidth = 1.4; g.globalAlpha = .75 * (groupOf(N[j]) ? e : 1); g.setLineDash(k === 'enemy' || k === 'rival' ? [4, 4] : []); g.beginPath(); g.moveTo(b.x, b.y); g.quadraticCurveTo((b.x + q.x) / 2, (b.y + q.y) / 2 - 30, q.x, q.y); g.stroke(); }); }   // a mutual connection's thread to the other one too
     if (link) thread(pos[link.i], '#E9C46A', [], 3.4, 1);
     g.setLineDash([]); g.globalAlpha = 1; }
   // zoomed out: the groups, each one bubble with its name and head count; its ring in the crew's colour (in a web, in the colour of what they are to them)
@@ -1002,12 +1002,12 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
   if (b && !b.disabled) { const j = +b.dataset.dj; S.ch.push(j); if (j === S.b) S.done = 1; if (navigator.vibrate) try { navigator.vibrate(8); } catch (x) {} sixDraw(); return; }
   if (id === 'dUndo' && S.ch.length > 1) { S.ch.pop(); sixDraw(); return; }
   if (id === 'dShow') { S.done = 2; sixDraw(); $('dBody').scrollTop = 0; } });
-// ---------- the Network's mockups, turned on by the app's test build only (netMockOn): Six Degrees' button, and mutual connections
-self.netMockOn = () => { NMOCK = true; $('hSix').hidden = false; };
-// mutual connections (a mockup, owner, 5 November 2026: "when two people are selected in network, their mutual connections are shown"):
+// Six Degrees is a mockup: its button shows only when the app's test build turns it on
+self.netMockOn = () => { $('hSix').hidden = false; };
+// mutual connections (owner, 5 November 2026: "when two people are selected in network, their mutual connections are shown"):
 // in How they're connected, everyone connected to both, with what they are to each, as far as you've watched; in the room they stay lit,
 // with a thread to each of the two. Tapping one shows how they and the one you're locked on are connected
-function mutFill(a, b) { const box = $('lMut'); MUT = null; if (!NMOCK) { box.innerHTML = ''; return; }
+function mutFill(a, b) { const box = $('lMut');
   const B = new Set(conn(b)), L = conn(a).filter(j => B.has(j) && j !== b.i && j !== a.i).map(j => [j, kindOf(a, N[j]), kindOf(b, N[j])])
     .sort((x, y) => KIND.indexOf(x[1]) - KIND.indexOf(y[1]) || N[y[0]].A.length - N[x[0]].A.length);
   MUT = new Set(L.map(x => x[0]));
