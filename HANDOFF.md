@@ -177,6 +177,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
      file, so the phone keeps its saved copy. `sw.js` serves it from the saved copy first, takes it from the internet only whole, and
      clears out old ones; the page retries once if it can't load it. Tests: the full suite runs on the split build (`ROOT` =
      `out/mainroot` with network.html and the icons); the ct tests' routes serve the data file next to the page they're given.
+     Checked 5 November 2026: full suite 37 of 37 on the split build (ct46 and ct47 needed the same route change). Waiting on the owner's "push".
   5. **The Network on main:** after devbuild, replace `/*EARTHS*/{}` the way build_tb.py does and `/*NETWORK*/null` with
      `"url:network.html"`, and copy `network/network-hub.html` to the worktree as `network.html`. `sw.js` saves it for offline (CORE).
      Never put the Network back inline on main: the launch page must stay near its old size (about 3.6 MB).

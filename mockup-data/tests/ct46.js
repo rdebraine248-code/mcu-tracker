@@ -9,7 +9,7 @@ const TL = ["Eyes of Wakanda", "Captain America: The First Avenger", "Agent Cart
   const fails = [], ok = (c, m) => { if (!c) fails.push(m); }, errs = [];
   const page = async seed => { const ctx = await b.newContext({ viewport: { width: 412, height: 900 }, deviceScaleFactor: 2 });
     if (seed) await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); localStorage.setItem('tb-seed', 'next1'); sessionStorage.setItem('x', 1); } }, JSON.stringify(seed));
-    await ctx.route('**/*', r => { const u = r.request().url(); return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(FILE, 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
+    await ctx.route('**/*', r => { const u = r.request().url(); if (/\/data\.[0-9a-f]{12}\.js$/.test(u)) return r.fulfill({ path: require('path').join(require('path').dirname(FILE), u.split('/').pop()), contentType: 'text/javascript' });   /* a split main's files data (mainsplit.py) */ return u === 'http://t/' ? r.fulfill({ body: fs.readFileSync(FILE, 'utf8'), contentType: 'text/html; charset=utf-8' }) : u.startsWith('http://t/') ? r.fulfill({ body: '<!doctype html><title>x</title>', contentType: 'text/html' }) : r.continue(); });
     const p = await ctx.newPage(); p.on('pageerror', e => errs.push(e.message)); await p.goto('http://t/'); await sleep(2500); return p; };
   // 1. everything watched, the combined box finished
   const full = { entered: 1, booted: 1, orderPicked: 1, checks: Object.fromEntries([...OLD.map(t => ['cx-nick-fury-s-h-i-e-l-d::' + t, true]), ...TL.map(t => ['tl::' + t, true])]),
