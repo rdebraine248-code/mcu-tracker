@@ -1,0 +1,417 @@
+[
+ {
+  "batch": "s1105/p6_02.json",
+  "key": "dc-15p",
+  "kind": "wrong",
+  "field": "fall:1",
+  "now": "Detective Eddy Costa, who held his own gun to his head that day, had nightmares about it until Kilgrave died, and offers to work with Jessica.",
+  "fix": [
+   "Detective Eddy Costa, who held his own gun to his head that day, had nightmares about it until Kilgrave died, and offers to work with Jessica.",
+   "Jessica Jones S2"
+  ],
+  "verdict": "confirm",
+  "why": "Costa's own wiki page (fetched myself) says he first appears in JJ202, and he tells Jessica about the nightmares of holding his gun to his head, and that they stopped the day she killed Kilgrave, in JJ205 'AKA The Octopus' (Jessica Jones S2). He is not in S1 at all. Kilgrave dies at the end of S1, so this line can only be revealed in S2. If it showed after S1 it would sit on the wrong title (D2), and seen during S1 it would give away Kilgrave's death. It is the only fall line with no title, so it does not match the [text, title] shape. Adding the title 'Jessica Jones S2', which the app's data already uses, is the smallest fix and leaves the text as it is.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Eddy_Costa&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/p6_04.json",
+  "key": "dc-by-zombie-outbreak",
+  "kind": "missing",
+  "field": "loss",
+  "now": "Loss lines cover Happy Hogan, Sharon Carter, Kurt, Okoye, Bucky Barnes, Vision and most of humanity, but not Hope van Dyne.",
+  "fix": "Add a loss line: [\"Hope van Dyne, wounded and infected on the way to Camp Lehigh.\", \"What If...?\"]",
+  "verdict": "confirm",
+  "why": "Hope van Dyne is one of the survivor group and dies on the way in. On the train she blows up the infected Sharon Carter and is wounded in the blast. The infection spreads, and when the train stops outside Camp Lehigh she grows giant to carry the group through the horde, then dies and later comes back as a zombie. Wikipedia lists her with Hogan and Carter as lost to zombie attacks on the way there. The other survivors' losses are all listed, so leaving her out is a real omission. The proposed line is true, uses the [text, title] shape, and is tied to the right title. It is kind missing, so it does not count toward the owner's wrong-only bar.",
+  "source": "https://en.wikipedia.org/w/index.php?title=What_If...%3F_season_1&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=What_If..._Zombies%3F!&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/p6_04.json",
+  "key": "dc-heir",
+  "kind": "missing",
+  "field": "loss:1",
+  "now": "John King, suffocated in a sealed greenhouse.",
+  "fix": [
+   "John King, suffocated in a sealed greenhouse.",
+   "Ironheart"
+  ],
+  "verdict": "confirm",
+  "why": "John's death is tied to the wrong title. A bare string got in when an earlier accepted amend (dc/accepted.json n 24) wrote only the text into loss:1. In index.html, dcLines = L => L.filter(([, t]) => atlSeenT(t)) destructures the string, so t becomes 'o', its second character. 'o' is not a title, so the line never unlocks and never shows. Ironheart episode 3 confirms the fact: in the Heirlum heist, N.A.T.A.L.I.E. rescues Riri and John is left to suffocate. So pairing the line with 'Ironheart' is the right fix and the smallest one.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Ironheart_(miniseries)&action=raw"
+ },
+ {
+  "batch": "s1105/p7_01.json",
+  "key": "quote:Doctor Strange & Wong",
+  "kind": "wrong",
+  "field": "quote",
+  "now": "Forget everything you think you know.",
+  "fix": "Dormammu, I've come to bargain.",
+  "verdict": "confirm",
+  "why": "I fetched the MCU wiki's Karl_Mordo/Quote page myself. It credits 'I once stood in your place... So might I offer you some advice? Forget everything you think you know.' to Karl Mordo, said to Stephen Strange in Doctor Strange (film). That line does not appear on the Doctor_Strange/Quote or Wong/Quote pages. So a character box for Doctor Strange & Wong gives the line to the wrong character, which is a real attribution error under S7. The proposed replacement, 'Dormammu, I've come to bargain.', is on the Doctor_Strange/Quote page as Doctor Strange's line to Dormammu in Doctor Strange (film). It is Strange's own on-screen line and does not reveal how the film ends.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Karl_Mordo/Quote&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Doctor_Strange/Quote&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:st-frank-castle:4 (The Punisher: One Last Kill) -> Manhattan|city|ny",
+  "kind": "untag",
+  "field": null,
+  "now": "Manhattan",
+  "fix": {
+   "happens_at": "Little Sicily, Queens (Frank's apartment block and the neighborhood's streets); his family's graves are at a cemetery the MCU wiki places in Brooklyn (Green-Wood Cemetery)"
+  },
+  "verdict": "amend",
+  "why": "Nothing in the special takes place in Manhattan. The MCU wiki places Frank's apartment building, Gnucci's Restaurant and Donut in Queens, with Manhattan only in flashbacks, and the app's New York map already has a Queens entry for this title. But the family graves are not in Little Sicily: the MCU wiki lists the cemetery as Green-Wood Cemetery in Brooklyn, and filming took place near it.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Punisher:_One_Last_Kill&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=The_Punisher:_One_Last_Kill&action=raw"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-ma-gnucci:0 (The Punisher: One Last Kill) -> Manhattan|city|ny",
+  "kind": "untag",
+  "field": null,
+  "now": "Manhattan",
+  "fix": {
+   "happens_at": "Little Sicily, Queens"
+  },
+  "verdict": "confirm",
+  "why": "Ma Gnucci confronts Frank near his apartment, and the bounty siege is in Little Sicily (Wikipedia). The MCU wiki puts Little Sicily, the apartment building and Gnucci's Restaurant in Queens. Manhattan appears only in flashbacks.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Punisher:_One_Last_Kill&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:st-dre:0 (The Punisher: One Last Kill) -> Manhattan|city|ny",
+  "kind": "untag",
+  "field": null,
+  "now": "Manhattan",
+  "fix": {
+   "happens_at": "Little Sicily, Queens"
+  },
+  "verdict": "confirm",
+  "why": "Frank saves Dre, Debbie and Charli at their shop, Donut, and Charli gives him the paper flower. The MCU wiki lists Donut under Queens.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Punisher:_One_Last_Kill&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:st-rose-roberts:1 (Agent Carter#13) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles: the Roxxon warehouse, already the Los Angeles place's Agent Carter#13 entry"
+  },
+  "verdict": "confirm",
+  "why": "Rose joins Peggy, Sousa, Jarvis and Samberly on the Roxxon warehouse heist and fights mobsters there. The MCU wiki lists the Roxxon Warehouse and the episode's other locations under Los Angeles, none under Hollywood. The Los Angeles spot already has the #13 entry.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Atomic_Job&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:st-aloysius-samberly:0 (Agent Carter) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles (Roxxon warehouse in #13, SSR office, Stark Pictures studio lot in #18), where the Los Angeles place holds the Agent Carter entries"
+  },
+  "verdict": "confirm",
+  "why": "Samberly's field work is at the Roxxon Warehouse in #13, the Mojave in #16, the waste facility and the Stark Pictures lot in #18, where he sets up the gamma cannon. The MCU wiki lists these places under Los Angeles (except the Mojave). Its Hollywood page redirects to Los Angeles, and no source places any of this in Hollywood.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Aloysius_Samberly&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hollywood_Ending&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:howard-stark:2 (Agent Carter) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles (Howard Stark's estate; the rift is closed at the Stark Pictures Studios Lot); the cannon's first use is at the Isodyne test site in the Mojave Desert"
+  },
+  "verdict": "confirm",
+  "why": "The rift is destroyed at the Stark Pictures Studios Lot, which the MCU wiki gives as Los Angeles. Howard works from his estate. The cannon's first use is at the Isodyne testing area, which the episode page lists under the Mojave Desert. No source says Hollywood.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Destruction_of_the_Zero_Matter_Rift&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Edge_of_Mystery&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-joseph-manfredi:0 (Agent Carter) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles (Joseph Manfredi's estate, the waste management facility he finds for Whitney, and Howard Stark's estate, where he turns to Peggy); the asylum where he visits Whitney is not placed by the sources"
+  },
+  "verdict": "amend",
+  "why": "It is Los Angeles, not Hollywood, but the proposed list is wrong. Manfredi is not at the Stark Pictures lot, and the waste facility scenes are in #17. His Hollywood Ending scenes are at his own estate, at Howard Stark's Estate (where he asks Peggy and Stark for help) and at the asylum. The MCU wiki puts the first two under Los Angeles.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Joseph_Manfredi&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:peggy-carter:4 (Agent Carter) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles, which already holds the Agent Carter #12, #13 and #17 entries"
+  },
+  "verdict": "confirm",
+  "why": "Peggy works out of the Los Angeles SSR office, and Frost is stopped at the Stark Pictures lot. The MCU wiki lists both under Los Angeles, and its Hollywood page redirects to Los Angeles. The Los Angeles spot already has the #12, #13 and #17 entries.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Hollywood_Ending&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Stark_Pictures_Studios_Lot&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:ssr:3 (Agent Carter) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles (the SSR's Los Angeles office at the Auerbach Theatrical Agency)"
+  },
+  "verdict": "confirm",
+  "why": "The SSR's Los Angeles office is the Auerbach Theatrical Agency, and the Council meets at the Arena Club. The MCU wiki gives Los Angeles as the location of both.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Auerbach_Theatrical_Agency&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Arena_Club&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:st-daniel-sousa:1 (Agent Carter) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles (SSR office; Stark Pictures lot; the Auerbach agency, where he and Peggy kiss)"
+  },
+  "verdict": "confirm",
+  "why": "Sousa runs the Auerbach office, Frost is defeated at the Stark Pictures lot, and Peggy kisses him across his desk as he writes his report. The MCU wiki puts all of these in Los Angeles.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Daniel_Sousa&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-dottie-underwood:7 (Agent Carter#14) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Downtown Los Angeles (Chadwick's fundraiser and the Council meeting at the MacArthur Grand Hotel); the escape from Rosemary's is at an FBI prison the sources place only in California"
+  },
+  "verdict": "amend",
+  "why": "It is not Hollywood. But the MCU wiki says the MacArthur Grand Hotel is in downtown Los Angeles, which is the map's Downtown spot. Also, Rosemary's (the FBI prison) is listed only under California, not Los Angeles, so the claim that all the episode's other locations are under Los Angeles is wrong.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=MacArthur_Grand_Hotel&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Rosemary%27s&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-dottie-underwood:8 (Agent Carter#15) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood",
+  "fix": {
+   "happens_at": "Los Angeles (Waverly Memorial Hospital, where she escapes) and the Chadwick Ranch in Santa Clarita"
+  },
+  "verdict": "confirm",
+  "why": "Frost tortures Dottie at the Chadwick Ranch, and Dottie escapes from the car trunk at Waverly Memorial Hospital, which the MCU wiki places in Los Angeles. The episode page lists the ranch under Santa Clarita (the ranch's own page says Los Angeles). No location is in Hollywood.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Monsters&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Waverly_Memorial_Hospital&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:st-daniel-sousa:2 (Agents of S.H.I.E.L.D.#127) -> Hollywood|city|la",
+  "kind": "untag",
+  "field": null,
+  "now": "Hollywood (main Earth)",
+  "fix": {
+   "happens_at": "Earth-19859's map, in 1955 (Area 51, Nevada, and Los Angeles's Hotel Roosevelt), not the main Earth"
+  },
+  "verdict": "confirm",
+  "why": "Out of the Past is set in 1955 and filed under the 'History Altered by Chronicoms' universe, which is Earth-19859 by the owner's rule. Sousa's faked death is at the Hotel Roosevelt in Los Angeles. The app already holds this #127 entry ('Hollywood' sub) on its separate Earth-19859 Los Angeles place, so the main Earth's Hollywood tag is wrong.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Out_of_the_Past&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:st-theo-nelson:0 (Daredevil S3#2) -> Manhattan|city|ny",
+  "kind": "untag",
+  "field": null,
+  "now": "Manhattan",
+  "fix": {
+   "happens_at": "Hell's Kitchen (Nelson's Meats), which already has the Daredevil S3#2 entry for this moment"
+  },
+  "verdict": "confirm",
+  "why": "The MCU wiki gives Nelson's Meats as Hell's Kitchen, Manhattan. The Hell's Kitchen place already has the Daredevil S3#2 entry for Foggy thinking about helping Theo run the shop.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Nelson%27s_Meats&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-gregory-sallinger:0 (Jessica Jones S3#8) -> Hell's Kitchen|city|ny",
+  "kind": "untag",
+  "field": null,
+  "now": "Hell's Kitchen",
+  "fix": {
+   "happens_at": "Manhattan (Dorothy Walker's apartment), whose Jessica Jones S3#8 entry already covers the murder"
+  },
+  "verdict": "confirm",
+  "why": "Sallinger kills Dorothy at her apartment, and his own scenes are at his apartment, a cafe and Tribeca. The MCU wiki gives Dorothy Walker's Apartment and Gregory Sallinger's Apartment as Manhattan, with no Hell's Kitchen tie. The Manhattan place already has the S3#8 entry for the murder.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Dorothy_Walker%27s_Apartment&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=AKA_Camera_Friendly&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-the-hand:2 (Iron Fist S1#10) -> Midtown|city|ny",
+  "kind": "untag",
+  "field": null,
+  "now": "Midtown (Rand Enterprises)",
+  "fix": {
+   "happens_at": "Bakuto's Hand compound outside the city (New York state), and Harold Meachum's penthouse, which is the Manhattan place's Iron Fist S1#10 entry"
+  },
+  "verdict": "confirm",
+  "why": "In #10 the Hand's scenes are at Bakuto's compound (listed under New York state) and in Harold's penthouse. At Rand Enterprises, Harold kills Wilkins and the board reinstates the Meachums and Rand, which is not Hand activity. The Manhattan place already has the #10 entry for Bakuto's visit to Harold.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Black_Tiger_Steals_Heart&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Iron_Fist_season_1&action=raw"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-kasius:0 (Agents of S.H.I.E.L.D.#90) -> future|beyond|",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "Agents of S.H.I.E.L.D.#90",
+   "",
+   "Simmons is brought to Kasius, the Kree ruler of the Lighthouse, who has Sinara kill a wounded servant and makes Simmons serve him in his place."
+  ],
+  "verdict": "confirm",
+  "why": "Simmons is taken to the Lighthouse's upper levels to Kasius, the Lighthouse's ruler. He has Sinara kill the wounded servant Reese and puts Reese's implant in Simmons, making her his servant. The episode's only location is the Lighthouse in the 'Destroyed Earth' future, and the text follows the rules.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Orientation_Part_Two&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-sinara:0 (Agents of S.H.I.E.L.D.#90) -> future|beyond|",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "Agents of S.H.I.E.L.D.#90",
+   "",
+   "Simmons is brought to Kasius, the Kree ruler of the Lighthouse, who has Sinara kill a wounded servant and makes Simmons serve him in his place."
+  ],
+  "verdict": "confirm",
+  "why": "This is the same #90 entry. Sinara orders Simmons taken away at the food distribution and kills Reese on Kasius's order, all at the Lighthouse.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Orientation_Part_Two&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-dottie-underwood:1 (Agent Carter#4) -> Manhattan|city|ny",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "Agent Carter#4",
+   "Manhattan, 1946",
+   "At the Griffith Hotel, Dottie catches the gunman Otto Mink heading for Peggy's room, snaps his neck, keeps his pistol and hides his body in her room."
+  ],
+  "verdict": "confirm",
+  "why": "Mink goes to the Griffith Hotel to kill Peggy. Dottie meets him outside Peggy's room, snaps his neck, takes his pistol and hides the body in her room. The MCU wiki gives the Griffith Hotel as Manhattan.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Blitzkrieg_Button&prop=wikitext&format=json ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Griffith_Hotel&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-dottie-underwood:2 (Agent Carter#5) -> Manhattan|city|ny",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "Agent Carter#5",
+   "Manhattan, 1946",
+   "Over breakfast at the automat, Dottie slips Peggy's room key from her purse, then searches her room at the Griffith and takes a photo of one of Stark's inventions."
+  ],
+  "verdict": "confirm",
+  "why": "In 1946 Dottie knocks Peggy's purse over at the L&L Automat and keeps her room key. She then searches Peggy's room at the Griffith and takes a picture of one of Stark's inventions. Both places are listed under Manhattan, and the 1937 flashback is in Belarus.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Iron_Ceiling&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-dottie-underwood:6 (Agent Carter#9) -> Manhattan|city|ny",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "Agent Carter#9",
+   "Manhattan, 1947",
+   "Dottie robs a bank, but Peggy and Thompson's SSR agents are lying in wait and capture her."
+  ],
+  "verdict": "confirm",
+  "why": "In 1947 Dottie tries to rob the Bowery Savings Bank and is ambushed and captured by Peggy and Thompson. The MCU wiki lists the bank under Manhattan, and Wikipedia sets the scene in New York City.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=The_Lady_in_the_Lake&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=Agent_Carter_season_2&action=raw"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "T:st-ward-meachum:0 (Iron Fist S1#2) -> Manhattan|city|ny",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "Iron Fist S1#2",
+   "Manhattan",
+   "At Birch Psychiatric Hospital, men Ward has sent in as patients try to kill Danny, and he fights them off with the Iron Fist and escapes."
+  ],
+  "verdict": "confirm",
+  "why": "Wikipedia: Ward orders his men, disguised as patients at the hospital, to kill Rand, and Rand uses the Iron Fist to overpower them and escape. The MCU wiki gives Birch Psychiatric Hospital as Manhattan, and the Manhattan place has no S1#2 entry.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Iron_Fist_season_1&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Birch_Psychiatric_Hospital&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:monica-rambeau:1 (WandaVision#4) -> westview|earth|",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "WandaVision#4",
+   "",
+   "Sent by S.W.O.R.D. to help with a missing persons case, Monica finds a strange static field surrounding the town and is pulled inside."
+  ],
+  "verdict": "confirm",
+  "why": "Wikipedia: Monica is sent by Hayward to help Jimmy Woo with a missing persons case in Westview, New Jersey. They find a hexagonal static field around the town, and she is pulled into it. Westview has no WandaVision#4 entry.",
+  "source": "https://en.wikipedia.org/w/index.php?title=WandaVision&action=raw"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:fox-anim-moira-mactaggert:2 (X-Men: The Animated Series#57) -> ax-muir|uni|animx",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "X-Men: The Animated Series#57",
+   "Mutant Research Center",
+   "After Xavier calms him, Proteus comes back to the island with his mother, Moira."
+  ],
+  "verdict": "confirm",
+  "why": "Proteus Part II is episode 57 (Wikipedia). It ends with Proteus going back to Muir Island with Moira, and the Marvel Database lists Muir Island's Mutant Research Center as appearing in it. Muir Island has a #56 entry but no #57 entry, and the text is accurate.",
+  "source": "https://marvel.fandom.com/api.php?action=parse&page=X-Men:_The_Animated_Series_Season_4_5&prop=wikitext&format=json ; https://en.wikipedia.org/w/index.php?title=List_of_X-Men:_The_Animated_Series_episodes&action=raw"
+ },
+ {
+  "batch": "s1105/leads_places.json",
+  "key": "A:vision:4 (VisionQuest#2) -> edinburgh|earth|",
+  "kind": "add",
+  "field": null,
+  "now": null,
+  "fix": [
+   "VisionQuest#2",
+   "",
+   "Vision answers Paladin's summons to the pub where he used to work, refuses to be blackmailed over the captive Tommy, and attacks him before leaving."
+  ],
+  "verdict": "confirm",
+  "why": "In Theseus, Vision follows Paladin's coordinates to The Old Selkie, the Scottish pub where he used to work, which the MCU wiki lists under Edinburgh. He rejects Paladin's threat over the captive, attacks him and leaves. The rescue is at Saint Mabyn's in London, which already has its #2 entry.",
+  "source": "https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Theseus&prop=wikitext&format=json"
+ },
+ {
+  "batch": "s1105/leads_alive.json",
+  "key": "T:agatha-harkness step 4 -> 5 (Allied)",
+  "kind": "wrong",
+  "field": "status of step 'In episode 9, Agatha returns as a ghost and sets out with Billy to find Tommy.'",
+  "now": "Allied",
+  "fix": "Deceased",
+  "verdict": "confirm",
+  "why": "Wikipedia's episode 9 summary for Agatha All Along says 'Agatha, now a ghost' guides Billy, and Billy tries to banish her. She has not come back to life. LEADS.md says status means real status, and the owner already ruled on this exact step in morning_calls.json (T:agatha-harkness #215): 'Agatha's episode 9 ghost step: Deceased, with the return in the text.' The step text already mentions the ghost return. So Allied is wrong and Deceased is right.",
+  "source": "https://en.wikipedia.org/w/index.php?title=Agatha_All_Along&action=raw ; mockup-data/audit2/morning_calls.json"
+ },
+ {
+  "batch": "s1105/leads_alive.json",
+  "key": "A:fox-x-force step 0 -> 1 (Retired)",
+  "kind": "wrong",
+  "field": "text of step 'Shatterstar is alive again at Wade's birthday party, but the rest of the team is still gone.'",
+  "now": "Shatterstar is alive again at Wade's birthday party, but the rest of the team is still gone.",
+  "fix": "Shatterstar and Peter are alive at Wade's birthday party.",
+  "verdict": "confirm",
+  "why": "Deadpool 2's plot says Wade uses Cable's repaired device 'to save the lives of Vanessa and X-Force member Peter'. Deadpool & Wolverine's plot has Wade working with his friend and former X-Force member Peter Wisdom, and Peter later arrives to fight the Deadpool army. The Shatterstar fandom page puts him at Wade's birthday party 'along with Wisdom'. So 'the rest of the team is still gone' is false, because Peter is alive and at the party too. The proposed text sticks to what is on screen. The Retired status itself is fine (Shatterstar's death undone, per the fandom page).",
+  "source": "https://en.wikipedia.org/w/index.php?title=Deadpool_2&action=raw ; https://en.wikipedia.org/w/index.php?title=Deadpool_%26_Wolverine&action=raw ; https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Shatterstar&prop=wikitext&format=json"
+ }
+]

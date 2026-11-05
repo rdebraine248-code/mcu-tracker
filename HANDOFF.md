@@ -50,6 +50,22 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   `atlas/leads_left.json`; fresh 600 at 0%), part 5 the logs (fresh 600 at 1.3%), parts 6 to 9 (Damage Control and Comms 32 fixes,
   titles and insignia, the Multiverse and Incursions 26 fixes) checked and second-checked, but **parts 6 to 9 have no random 600 on
   record**, and the last full content check is from 3 November (`content_full.json`). Those two are what's left of the plan.
+- **Done 5 November 2026 (owner: options 1 and 2, "use a work flow"): parts 6 to 9's random 600 and the full content check.** Records
+  in `mockup-data/audit2/s1105/` (`plan.json` seed 1105, `SAMPLE.md`, `LEADS.md`, `results.json`, `accepted.json`, `apply.py`).
+  - Full content check (`content_full_1105.json`): no failures in 1,356 states and 15,896 texts; leads: 46 places, 38 alive-again.
+  - The random 600, in proportion to each part (Damage Control and Comms 275 of 504, story lists and quotes 165 of 301, the Agent
+    File 96 of 175, the Multiverse, Incursions and Watcher 64 of 117), each finding second-checked by an independent agent: wrong
+    statements 1 (0.4%), 1 (0.6%), 0 and 0, all inside the bar: Eddy Costa's fallout line had no title (now Jessica Jones S2), the
+    Doctor Strange & Wong box quoted Mordo ("Forget everything you think you know"; now "Dormammu, I've come to bargain."). Also
+    fixed, completeness: John King's loss line had no title (Ironheart), Hope van Dyne added to the zombie outbreak's losses.
+  - The leads: 8 new Atlas entries (Dottie at the Griffith Hotel and the bank, Kasius and Sinara at the Lighthouse in 2091, Ward's
+    men at Birch, Monica at Westview, Proteus home to Muir Island, Vision in Edinburgh), 16 At lines moved to the right place
+    (One Last Kill is Queens' Little Sicily; Agent Carter S2's scenes are Los Angeles, not Hollywood; Sousa's 1955 rescue on
+    Earth-19859's Los Angeles) or taken off, Agatha's ghost step Deceased (the owner's earlier call, never applied), X-Force's party
+    step names Peter too. Left: 20 place leads and 37 alive-again leads, each checked and right as they are.
+  - Not changed, for the owner: the Watcher's insignia opens with Loki S1 though he isn't in it (this file records it as the moment
+    the multiverse opens, on purpose); the checkers would drop it. Asked 5 November 2026.
+  - In the test build (v150); main waits for the owner's "push".
 - The landscape layout is set aside (owner: "Ignore landscape for now").
 - Ask every open question in one batch before any test run; the full suite runs only before a main push.
 
