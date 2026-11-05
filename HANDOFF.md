@@ -171,6 +171,13 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   findings from checkers) before running anything long.
 - The full suite (about 15 minutes) runs once, right before a main push. A data-only change gets the quick checks: tests/content.js,
   tests/check.js and the tests that touch what changed (files: ct36, ct49; the Network: ct64, ct65), a couple of minutes.
+- Team Thor is Earth-16828 on the Atlas too (owner, 5 November 2026: "Own Earth-16828 map"): the Marvel Database puts the three shorts
+  there (a branch after Age of Ultron), as the Network already did. `ATLAS_UNI.teamthor` (Australia, Los Angeles), Multiverse pin `u-16828`.
+- Agents of S.H.I.E.L.D.'s 1931 to 1983 episodes are Earth-19859 on the Atlas (owner, 5 November 2026: "Earth-19859 map"): the Marvel
+  Database keeps seasons 6 and 7's present day on the main Earth (the team returns in the finale) and puts the time-travel stretch in
+  the Chronicoms' branch, where the Network already has Sibyl and the Malicks. `ATLAS_UNI.chronicoms`, pin `u-19859`; file tags for
+  those years point there. Area 51 and Malick's estate left the main map (their only entries were from those years).
+- What If...? is in Beyond, each world its own (checked 5 November 2026; a "39 entries on the main map" count was a miscount).
 - Families stand together (owner, 4 November 2026: "Why is Laura Barton not part of the Barton family?"): a family circle (rel/out1.json)
   holds every member, parents and siblings included, not only those with no group record; a member stands in it whenever they're in
   no other group (Clint with the Avengers in Endgame, with his family in Hawkeye). And a family or partner tie needs a stage in every
