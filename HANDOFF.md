@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `171f2bf` (pushed 6 November 2026: New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
+- **main** is at `ec353bb` (pushed 6 November 2026: new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
@@ -79,17 +79,17 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   reveal starts (`EPOP`, set in `reveal()`: a lone member's pop would otherwise end it early). An Earth you knew stays drawn. Recorded
   for the owner with Beyond the MCU from 0 to 100% and the Beyond tab opened (27 Earths, all new). Owner: "Definitely not after"; torn between pop and
   fade; Claude recommended fade; the owner chose pop ("Go pop and push"), so
-  `EARTH_ANIM` is 'pop'. Going to main with the group pop-in and the link-card fixes.
+  `EARTH_ANIM` is 'pop'. On main (`ec353bb`) with the group pop-in and the link-card fixes.
 - **How they're connected, small, is a person's card's height; no card opens slid up on its own** (owner, 6 November 2026: "too
   tall on collapsed view it should be the same size a single persons pop up" and "it sometimes pops up fully open"). Small, the link
   card takes the height of the person's small card it came from (`--lbh`, `card._h1`; it was 369 px against 256). The "fully open"
   cause, found by driving every way in: a card closed while slid up (a tap on the floor) stayed slid up for the next one; `home()` now
   puts it back small (`self.cardReady` guards the start-up call). Back from a link card returns the person's card as you left it, slid
-  up or not (`card._oneBig`). In the test build; main waits for "push".
+  up or not (`card._oneBig`). On main (`ec353bb`).
 - **New groups pop in, groups you knew glow** (owner, 6 November 2026: "new groups should pop in and existing groups should glow").
   Zoomed out, a group whose people are all newcomers pops in like a person (a little past full size and back, 420 ms) at its first
   person's pop time, and isn't drawn before; a group with anyone you'd already met keeps the swell and blue ring. hub-src, the
-  zoomed-out group loop (`gp`, `gs`). In the test build; main waits for "push".
+  zoomed-out group loop (`gp`, `gs`). On main (`ec353bb`).
 - **New Asgard from Endgame on** (owner, 6 November 2026, on Love and Thunder: "Shouldn't they all be new asgard from endgame onward?").
   `TEAM_AUDIT2`: Valkyrie, Korg and Miek New Asgard from Endgame (Thor names Valkyrie king of New Asgard there, Wikipedia's Endgame
   plot; not Love and Thunder); Thor New Asgard in Endgame (he lives there before the heist) and again in Love and Thunder once he
