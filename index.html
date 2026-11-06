@@ -3484,7 +3484,9 @@ const slEntries = c => { const L = DOSSIERS[c.id]; return L ? L.story.filter(([t
 const slAll = c => c.items.every(i => atlSeenT(i.t));
 // a chapter's name is known from the moment it's unlocked (its cover peels on Story), or once every title in it is watched in any list, so
 // following the timeline or a hero's box names the chapters too. The same in the Log, the Personal log and the Agent File
-const slNamed = c => !!state.unlocked[c.id] || slAll(c);
+// and an Extras chapter is known once its character box is opened too (owner, 6 November 2026: finished the Watcher's box, and the
+// Network still had no Beyond): the Characters path gets what the Chapters path gets
+const slNamed = c => !!state.unlocked[c.id] || slAll(c) || Object.entries(MV_CHAPTER).some(([b, ch]) => ch === c.id && !!(state.charOpen || {})[b]);
 const slShown = c => !!c.num || !!state.unlocked[c.id] || ((c.id === INC_ID ? incOpen() : multiverseOpen()) && c.items.some(i => atlSeenT(i.t)));
 const slSeenK = (c, k) => !!((state.dSeen || {})[c.id] || {})[k];
 // a chapter's Period builds from what you've watched, in any order: each stage is one title's own span, and the years join into one range from

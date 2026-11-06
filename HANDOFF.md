@@ -21,6 +21,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
   the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
   owner will come back to them. They stay in the test build; mainprep cuts them from main, so a main push doesn't need them settled.
+- **Waiting on "push" (6 November 2026): an Extras character box opened names its universe** (owner: "I went into characters and
+  finished the watcher, went into networks and its just the sacred timeline stuff? Where's the beyond people and uatu and the what if
+  people"). The Beyond tab only counted the Beyond the MCU chapter box or every title in it watched; the Watcher's box doesn't hold AoS
+  S6, AoS S7 or Team Thor, so a Characters-path user never got it. `slNamed` now also counts the chapter's Extras box being opened
+  (`MV_CHAPTER`). Applies to all four: the Watcher (Beyond), Sony's Spider-Men (Spider-Verse), FoX-Men, Pruned.
 - **Since the last main push (5 November 2026):**
   - **How they're connected slides up like a person's card** (owner, 5 November 2026: "should also be scrollable and tapable starting
     at the top etc just like an individuals pop up"). On main (`6f22626`). The grip shows on it, it
@@ -570,7 +575,10 @@ insignia celebration covers the page.
   discovery eggs in the Atlas. They share one scrolling panel (`collPanel`): opening one starts at the top; backing out of a file returns
   to the list's place (`collY`).
   - **Universe tabs:** Sacred Timeline, Beyond, Spider-Verse, FoX-Men, Pruned (`RF_UNI`, shared by all three). An Extra's tab reads
-    "[ Classified ]" until its chapter box is opened or every title in it is watched (`slNamed`, the Sacred Timeline page's own rule).
+    "[ Classified ]" until its chapter box is opened, its Extras character box is opened (`MV_CHAPTER`, `state.charOpen`: the Watcher
+    opens Beyond, the Sony Spider-Men Spider-Verse, and so on), or every title in it is watched (`slNamed`, the Sacred Timeline page's
+    own rule). The same rule names the Network's universe tabs (`rfUniName`). Owner, 6 November 2026: finished the Watcher's box on the
+    Characters path and the Network showed only the Sacred Timeline.
   - **First seen and Last seen** go by release order, season by season (`seenRk`: the season's title in `DATA.timelineRelease`, else the
     title, else the Chapters path after the rest). Owner's call, October 2026: the Chapters path ignored seasons and crossovers.
   - **Sort switch** under Group by: First seen (the same release-order rank of the first title, ties A to Z, grouped) or A to Z (the whole tab
