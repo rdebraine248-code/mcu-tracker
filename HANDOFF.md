@@ -15,13 +15,13 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `6598b5f` (pushed 6 November 2026: new Earths fade in; before it `ec353bb`, new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
+- **main** is at `823d296` (pushed 6 November 2026: Extras character boxes name their universe tab; full suite 37 of 37; before it `6598b5f`, new Earths fade in; before it `ec353bb`, new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
   the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
   owner will come back to them. They stay in the test build; mainprep cuts them from main, so a main push doesn't need them settled.
-- **Waiting on "push" (6 November 2026): an Extras character box opened names its universe** (owner: "I went into characters and
+- **On main (`823d296`, 6 November 2026): an Extras character box opened names its universe** (owner: "I went into characters and
   finished the watcher, went into networks and its just the sacred timeline stuff? Where's the beyond people and uatu and the what if
   people"). The Beyond tab only counted the Beyond the MCU chapter box or every title in it watched; the Watcher's box doesn't hold AoS
   S6, AoS S7 or Team Thor, so a Characters-path user never got it. `slNamed` now also counts the chapter's Extras box being opened
