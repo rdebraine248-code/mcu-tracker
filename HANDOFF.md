@@ -25,6 +25,15 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   key carries its universe after an invisible separator (`UK`, \u2063, and \u2064 for a circle named like a crew); `moreHTML` printed the
   raw key, so Beyond read "Starforceby", FoX-Men "...fox", and an off-timeline Independent wasn't filtered out. Now it prints the name
   only. Checked over all 1,480 people: no hidden marker and no "Independent" in any Crews line. Network only (network.html).
+- **Waiting on "push" (6 November 2026): one word, Groups** (owner: "I don't really understand the difference between circle and group
+  ... As an end user the rule of crew seems arbitrary"). The reader never sees "crew" or "circle": the card's line is "Groups", the teams
+  they've been in (as far as you've watched) and then the group they stand in now, so a family or a place is named like a team (Peter
+  Quill: The Ravagers > Guardians of the Galaxy > The Quill family; Lila Barton: The Barton family). Before, 210 people standing in a
+  circle had no line at all. The card's top line reads "Independent" (was "No crew"), like the crowd's name on the floor. Inside, crews
+  and circles stay as they were. Rule: don't put "crew" or "circle" in front of the owner or on screen; say "group".
+  - Beyond's circles (`rel/uni/by/circles.json`): the 1988 Peter Quill was in a one-off "The Avengers" circle with the zombie world's
+    Vision (two worlds in one patch, apart from Wendy's Avengers). Recaps of What If...? S2E2 put him in the Pym household with Hope and
+    Goose, so he's in "The Pym family" with Hope; Vision (hiding at Camp Lehigh, no team) is Independent. Beyond has one Avengers now.
 - **On main (`823d296`, 6 November 2026): an Extras character box opened names its universe** (owner: "I went into characters and
   finished the watcher, went into networks and its just the sacred timeline stuff? Where's the beyond people and uatu and the what if
   people"). The Beyond tab only counted the Beyond the MCU chapter box or every title in it watched; the Watcher's box doesn't hold AoS

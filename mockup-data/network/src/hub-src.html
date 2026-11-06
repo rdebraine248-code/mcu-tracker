@@ -181,7 +181,7 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
 .drow button.go{ border-color:#E9C46A; background:#E9C46A; color:#0B1019; } .drow button:disabled{ opacity:.35; }
 </style>
 
-<canvas id="room" aria-label="Everyone you've met, standing in groups by crew."></canvas>
+<canvas id="room" aria-label="Everyone you've met, standing in their groups."></canvas>
 <script>if (window.parent !== window) document.documentElement.classList.add('emb', 'wait');</script>
 <header>
   <h1>Network</h1>
@@ -580,10 +580,12 @@ const vtitles = q => { const T = labs(byOrd(q.A0)); return T.length > 2 ? T.slic
 function moreHTML(p, L) {
   const aka = p.AK.filter(([nm, o]) => o <= CUT && nm !== p.n).map(([nm]) => nm), crews = [];
   // a crew's name as written: off the Sacred Timeline its key carries the universe, unseen (it showed as "Starforceby", owner, 6 November 2026)
-  p.S.filter(x => x[1] >= 0 && crewSeen(x)).map(([c]) => String(c).split('\u2063')[0].split('\u2064')[0]).forEach(c => { if (c !== 'Independent' && !crews.includes(c)) crews.push(c); });
+  // one word for the reader, Groups (owner, 6 November 2026: "I don't really understand the difference between circle and group"): the teams
+  // they've been in, then the group they stand in now, so a family or a place (a circle, inside) is named like any other
+  [...p.S.filter(x => x[1] >= 0 && crewSeen(x)).map(([c]) => c), p.g].map(c => String(c).split('\u2063')[0].split('\u2064')[0]).forEach(c => { if (c !== 'Independent' && !crews.includes(c)) crews.push(c); });
   const T = labs(byOrd(p.A)), out = [];
   if (aka.length) out.push(`<h4>Also known as</h4><p class="aka">${aka.map(a => `<b>${esc(a)}</b>`).join(', ')}</p>`);
-  if (crews.length) out.push(`<h4>Crews</h4><div class="crews">${crews.map(esc).join(' <i>›</i> ')}</div>`);
+  if (crews.length) out.push(`<h4>Groups</h4><div class="crews">${crews.map(esc).join(' <i>›</i> ')}</div>`);
   out.push(`<h4>In ${T.length} title${T.length === 1 ? '' : 's'}</h4><ol class="tl">${T.map(t => `<li>${esc(t)}</li>`).join('')}</ol>`);
   if (L.length) { out.push(`<h4>Who's who</h4>`); let k0 = null;
     L.forEach(([j, k]) => { const q = N[j]; if (k !== k0) { out.push(`<div class="kh" style="color:${KC[k]}"><i style="background:${KC[k]}"></i>${KL[k]}</div>`); k0 = k; }
@@ -630,7 +632,7 @@ card.addEventListener('click', e => { if (performance.now() - dragged < 400 && !
   m.addEventListener('touchmove', e => { if (!cd || !cd.touch) return; if (!cd.on && e.touches[0].clientY < cd.y) { cd = null; return; } if (dragMove(e.touches[0].clientY)) e.preventDefault(); }, { passive: false });
   m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); });
 function fillCard(p) {
-  $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0].split('\u2064')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? worldOf(p) + ' · ' : '') + (c === 'Independent' ? 'No crew' : c); }
+  $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0].split('\u2064')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? worldOf(p) + ' · ' : '') + (c === 'Independent' ? 'Independent' : c); }
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d), cnt = {};
   L.forEach(([, k]) => cnt[k] = (cnt[k] || 0) + 1);
   $('cSum').innerHTML = (KIND.filter(k => cnt[k]).map(k => `<span><i style="background:${KC[k]}"></i><b>${cnt[k]}</b> ${(cnt[k] > 1 ? KL[k] : KS[k]).toLowerCase()}</span>`).join('') || '<span>No connections yet</span>')
