@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `290c01f` (pushed 5 November 2026: Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
+- **main** is at `171f2bf` (pushed 6 November 2026: New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
@@ -83,7 +83,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   which sorts after Civil War, so he had no group in Thor and The Avengers. `TEAM_AUDIT2` A:clint-barton.
 - **A circle shows only from the title that makes it true** (owner, 6 November 2026; the Network's circles never change as you watch,
   so Jane stood in "New Asgard" from Thor). `CIRC_FROM` in hub-src: [circle, title] per person; before the first they stand on their
-  own. The circle check over all 184 circles found seven that showed early: Jane (New Asgard, now from Love and Thunder), Clint (The
+  own. The circle check over all 184 circles found seven that showed early: Jane (New Asgard, now from Love and Thunder; owner's call 3C: not Valhalla, and Heimdall, Odin and the Warriors Three stay with Asgard), Clint (The
   Barton family, from Age of Ultron), Billy (The Maximoff family in WandaVision, The Kaplan family from Agatha All Along), Klaue
   (Klaue's crew, then Killmonger's heist crew from Black Panther), Jack Duquesne (Matt's resistance from Born Again S2), Goose
   (S.A.B.E.R. from The Marvels), the Collector (his museum; the Grandmaster as his brother is never said on screen). A new circle
