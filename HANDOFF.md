@@ -78,8 +78,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   once they've landed); in all three the Earth's name fades in last. A new Earth (all its people new) gets its arrival window when the
   reveal starts (`EPOP`, set in `reveal()`: a lone member's pop would otherwise end it early). An Earth you knew stays drawn. Recorded
   for the owner with Beyond the MCU from 0 to 100% and the Beyond tab opened (27 Earths, all new). Owner: "Definitely not after"; torn between pop and
-  fade; Claude recommended fade (the faint circle is a backdrop, the groups on it pop; 27 Earths popping at once is busy). The test build
-  runs 'fade' (v157) for the owner to try; v156 ran 'pop'. Not on main.
+  fade; Claude recommended fade; the owner chose pop ("Go pop and push"), so
+  `EARTH_ANIM` is 'pop'. Going to main with the group pop-in and the link-card fixes.
 - **How they're connected, small, is a person's card's height; no card opens slid up on its own** (owner, 6 November 2026: "too
   tall on collapsed view it should be the same size a single persons pop up" and "it sometimes pops up fully open"). Small, the link
   card takes the height of the person's small card it came from (`--lbh`, `card._h1`; it was 369 px against 256). The "fully open"

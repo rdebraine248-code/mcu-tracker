@@ -353,7 +353,7 @@ fold(Z, 3, p => [p.hx, p.hy], []);
 // the camera, and the watch-face lens: whoever is near the middle of the screen is full size and named, the rest shrink toward the edges
 let cam = { x: 0, y: 0 }, zoom = 1, vel = { x: 0, y: 0 }, sel = null, link = null, glide = null;
 let MUT = null;
-let EARTH_ANIM = 'fade', EPOP = {}; self.netEarthAnim = v => { EARTH_ANIM = v; };   // EPOP: a new Earth's arrival, [first pop, last landing], set when the reveal starts   // how a new Earth arrives (three to try, owner, 6 November 2026)   // a picked pair's mutual connections (mutFill): lit in the room, with a thread to each of the two
+let EARTH_ANIM = 'pop', EPOP = {}; self.netEarthAnim = v => { EARTH_ANIM = v; };   // EPOP: a new Earth's arrival, [first pop, last landing], set when the reveal starts   // how a new Earth arrives (three to try, owner, 6 November 2026)   // a picked pair's mutual connections (mutFill): lit in the room, with a thread to each of the two
 const start = N.find(p => p.n === 'Steve Rogers') || N[0]; cam.x = start.wx; cam.y = start.wy;
 function lens(p, t) {
   // the watch face: toward the edges people shrink, and they draw in by as much, so the gaps between them shrink too instead of opening up
