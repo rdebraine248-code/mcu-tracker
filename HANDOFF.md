@@ -73,6 +73,27 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
     one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
   - On main (`3e844a5`, the owner's answer 60).
+- **New Asgard from Endgame on** (owner, 6 November 2026, on Love and Thunder: "Shouldn't they all be new asgard from endgame onward?").
+  `TEAM_AUDIT2`: Valkyrie, Korg and Miek New Asgard from Endgame (Thor names Valkyrie king of New Asgard there, Wikipedia's Endgame
+  plot; not Love and Thunder); Thor New Asgard in Endgame (he lives there before the heist) and again in Love and Thunder once he
+  leaves the Guardians (the Wakanda rule: Asgardian or living there), so `thor|Thor: Love and Thunder` left `TEAM_LEFT` and
+  `split.json`; Sif New Asgard from Love and Thunder (she trains the children there); Axl New Asgard. "Asgard" (the people) stays
+  for everyone before.
+- **Clint is S.H.I.E.L.D. from Thor** (found with the above): his S.H.I.E.L.D. stage was keyed to Black Widow (the Budapest past),
+  which sorts after Civil War, so he had no group in Thor and The Avengers. `TEAM_AUDIT2` A:clint-barton.
+- **A circle shows only from the title that makes it true** (owner, 6 November 2026; the Network's circles never change as you watch,
+  so Jane stood in "New Asgard" from Thor). `CIRC_FROM` in hub-src: [circle, title] per person; before the first they stand on their
+  own. The circle check over all 184 circles found seven that showed early: Jane (New Asgard, now from Love and Thunder), Clint (The
+  Barton family, from Age of Ultron), Billy (The Maximoff family in WandaVision, The Kaplan family from Agatha All Along), Klaue
+  (Klaue's crew, then Killmonger's heist crew from Black Panther), Jack Duquesne (Matt's resistance from Born Again S2), Goose
+  (S.A.B.E.R. from The Marvels), the Collector (his museum; the Grandmaster as his brother is never said on screen). A new circle
+  needs its title in `CIRC_FROM` when its name only becomes true later. Check: scratchpad-style `circ2.js` (each person's circles and
+  the title each first shows at).
+- **The audit never covered the Network's circles** (owner, 6 November 2026: "pretty pissed off that this was not caught in the
+  audit ... This is the how many time I caught something that wasn't caught in the audit"). The nine parts checked records,
+  connections and their stages, places, logs, reports, lists, the Agent File and the Multiverse; the circles (built in October) were in
+  none of them, and the content check's too-early sweep didn't look at them either. Lesson: before calling an audit done, list every
+  kind of data the app shows and name the part or test that covers each.
 - **Alioth stands in The Void** (owner, 5 November 2026, asked why Alioth was "part of the Citadel at the end of time" but He Who
   Remains wasn't: option 1). The Citadel was only a circle the Network gives someone with no group; Alioth lives in the Void in all
   its titles and guards the way to the Citadel, so `HOME` in hub-src puts it in The Void. He Who Remains stays with the TVA, his group.

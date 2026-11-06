@@ -295,6 +295,14 @@ const KS = { family: 'Family', partner: 'Partner', friend: 'Friend', mentor: 'Me
 N.forEach(p => { p.n0 = p.n; });
 const nameNow = p => { let k = 0; p.NS.forEach(([, w, o], j) => { if (w && (SEENF ? SEENF(w) : o <= CUT)) k = j; }); return p.NS[k][0]; };
 N.forEach(p => { p.R0 = []; const c = REL.places[p.i]; if (c && p.g === UK('Independent', p.u)) { p.g = p.g0 = p.circ = UK(c, p.u); } });   // a circle is its universe's own
+// a circle shows only from the title that makes it true (owner, 6 November 2026: Jane stood in "New Asgard" from Thor, years before New
+// Asgard exists; the circle check found six more): [circle, title] in order, and before the first one they stand on their own
+const CIRC_FROM = { 'jane-foster': [['New Asgard', 'Thor: Love and Thunder']], 'clint-barton': [['The Barton family', 'Avengers: Age of Ultron']],
+  'billy-maximoff': [['The Maximoff family', 'WandaVision'], ['The Kaplan family', 'Agatha All Along']],   // Billy Kaplan is Agatha All Along's reveal
+  'ulysses-klaue': [["Klaue's crew", 'Avengers: Age of Ultron'], ["Killmonger's heist crew", 'Black Panther']], 'jack-duquesne': [["Matt's resistance", 'Daredevil: Born Again S2']],
+  'goose': [['S.A.B.E.R.', 'The Marvels']],   // S.A.B.E.R. is decades after Captain Marvel's 1995
+  'the-collector': [["The Collector's museum", 'Thor: The Dark World']] };   // the Grandmaster as his brother is never said on screen
+const circNow = p => { const L = CIRC_FROM[p.id]; if (!L) return p.circ; let c = null; L.forEach(([n, t]) => { const i = TT.indexOf(t); if (i >= 0 && seen(i)) c = UK(n, p.u); }); return c; };
 // a connection is a list of stages in story order, each with its kind, the title it begins in and what happens in that stretch; you see
 // the stages up to what you've watched, and its kind is the latest of them
 // each stage carries the short line for this person's card about the other (whoA on a's card, whoB on b's)
@@ -693,7 +701,7 @@ const crewSeen = ([, o, t]) => o < 0 || (SEENF && t >= 0 ? SEENF(DATA.titles[t])
 // a person stands with the group they're in during a title you've watched (owner, November 2026: with only Homecoming watched, Peter
 // stood alone, his school being recorded at Civil War): a group stage counts once its title is watched, or when it comes, in story
 // order, no later than the latest title you've seen them in. Nothing after that shows. The files' Teams rows follow the same rule
-const crewNow = p => { const last = p.A.reduce((m, j) => Math.max(m, ORD[j]), -Infinity), L = p.S.filter(s => crewSeen(s) || (s[1] >= 0 && s[1] <= last)), c = L.length ? L[L.length - 1][0] : UK('Independent', p.u); return String(c).split('\u2063')[0] === 'Independent' && p.circ ? p.circ : c; };
+const crewNow = p => { const last = p.A.reduce((m, j) => Math.max(m, ORD[j]), -Infinity), L = p.S.filter(s => crewSeen(s) || (s[1] >= 0 && s[1] <= last)), c = L.length ? L[L.length - 1][0] : UK('Independent', p.u); return (String(c).split('\u2063')[0] === 'Independent' && p.circ && circNow(p)) || c; };
 const joined = (p, c) => p.T.some(([d, w]) => d === c && (w < 0 ? p.vis : seen(w)));
 function applyCut(v, quiet) {
   CUT = v; const t = performance.now();
