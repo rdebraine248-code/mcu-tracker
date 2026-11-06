@@ -21,6 +21,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
   the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
   owner will come back to them. They stay in the test build; mainprep cuts them from main, so a main push doesn't need them settled.
+- **Waiting on "push" (6 November 2026): the card's Crews line off the Sacred Timeline** (owner: "Why do the crews end in by?"). A crew's
+  key carries its universe after an invisible separator (`UK`, \u2063, and \u2064 for a circle named like a crew); `moreHTML` printed the
+  raw key, so Beyond read "Starforceby", FoX-Men "...fox", and an off-timeline Independent wasn't filtered out. Now it prints the name
+  only. Checked over all 1,480 people: no hidden marker and no "Independent" in any Crews line. Network only (network.html).
 - **On main (`823d296`, 6 November 2026): an Extras character box opened names its universe** (owner: "I went into characters and
   finished the watcher, went into networks and its just the sacred timeline stuff? Where's the beyond people and uatu and the what if
   people"). The Beyond tab only counted the Beyond the MCU chapter box or every title in it watched; the Watcher's box doesn't hold AoS

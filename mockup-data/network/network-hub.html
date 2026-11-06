@@ -579,7 +579,8 @@ const whoLine = (p, q, r) => (r && r.S[r.S.length - 1].w) || (WHO[p.n] || {})[q.
 const vtitles = q => { const T = labs(byOrd(q.A0)); return T.length > 2 ? T.slice(0, 2).join(', ') + ' and ' + (T.length - 2) + ' more' : T.join(' and '); };
 function moreHTML(p, L) {
   const aka = p.AK.filter(([nm, o]) => o <= CUT && nm !== p.n).map(([nm]) => nm), crews = [];
-  p.S.filter(x => x[0] !== 'Independent' && x[1] >= 0 && crewSeen(x)).forEach(([c]) => { if (!crews.includes(c)) crews.push(c); });
+  // a crew's name as written: off the Sacred Timeline its key carries the universe, unseen (it showed as "Starforceby", owner, 6 November 2026)
+  p.S.filter(x => x[1] >= 0 && crewSeen(x)).map(([c]) => String(c).split('\u2063')[0].split('\u2064')[0]).forEach(c => { if (c !== 'Independent' && !crews.includes(c)) crews.push(c); });
   const T = labs(byOrd(p.A)), out = [];
   if (aka.length) out.push(`<h4>Also known as</h4><p class="aka">${aka.map(a => `<b>${esc(a)}</b>`).join(', ')}</p>`);
   if (crews.length) out.push(`<h4>Crews</h4><div class="crews">${crews.map(esc).join(' <i>›</i> ')}</div>`);
