@@ -73,6 +73,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
     one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
   - On main (`3e844a5`, the owner's answer 60).
+- **A new Earth arrives too; three ways to try** (owner, 6 November 2026: only for new Earths; "try three different versions").
+  `EARTH_ANIM` in hub-src: 'pop' (the circle pops in just before its groups), 'fade' (it fades in while they pop), 'after' (it pops in
+  once they've landed); in all three the Earth's name fades in last. A new Earth (all its people new) gets its arrival window when the
+  reveal starts (`EPOP`, set in `reveal()`: a lone member's pop would otherwise end it early). An Earth you knew stays drawn. Recorded
+  for the owner with Beyond the MCU from 0 to 100% and the Beyond tab opened (27 Earths, all new). The test build runs 'pop' until the
+  owner picks. Not on main.
 - **How they're connected, small, is a person's card's height; no card opens slid up on its own** (owner, 6 November 2026: "too
   tall on collapsed view it should be the same size a single persons pop up" and "it sometimes pops up fully open"). Small, the link
   card takes the height of the person's small card it came from (`--lbh`, `card._h1`; it was 369 px against 256). The "fully open"
