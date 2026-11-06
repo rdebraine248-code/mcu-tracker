@@ -73,6 +73,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
     one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
   - On main (`3e844a5`, the owner's answer 60).
+- **New groups pop in, groups you knew glow** (owner, 6 November 2026: "new groups should pop in and existing groups should glow").
+  Zoomed out, a group whose people are all newcomers pops in like a person (a little past full size and back, 420 ms) at its first
+  person's pop time, and isn't drawn before; a group with anyone you'd already met keeps the swell and blue ring. hub-src, the
+  zoomed-out group loop (`gp`, `gs`). In the test build; main waits for "push".
 - **New Asgard from Endgame on** (owner, 6 November 2026, on Love and Thunder: "Shouldn't they all be new asgard from endgame onward?").
   `TEAM_AUDIT2`: Valkyrie, Korg and Miek New Asgard from Endgame (Thor names Valkyrie king of New Asgard there, Wikipedia's Endgame
   plot; not Love and Thunder); Thor New Asgard in Endgame (he lives there before the heist) and again in Love and Thunder once he
