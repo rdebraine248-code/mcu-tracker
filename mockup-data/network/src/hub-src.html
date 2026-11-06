@@ -36,7 +36,7 @@ h1{ margin:0; font:400 28px/1.05 var(--display); letter-spacing:.5px; text-trans
 #card.big #sConn{ display:none; }
 /* how two people are connected slides up the same way (owner, 5 November 2026: "should also be scrollable and tapable starting at the
    top etc just like an individuals"): small, the first of it, fading out; pulled up, all of it, scrolling, from its top */
-#lBody{ margin:6px -14px 0; padding:0 14px 8px; max-height:24vh; overflow:hidden; }
+#lBody{ margin:6px -14px 0; padding:0 14px 8px; max-height:var(--lbh, 24vh); overflow:hidden; }   /* small, the card stands as tall as a person's small card (owner, 6 November 2026) */
 #lBody.clip{ -webkit-mask-image:linear-gradient(180deg, #000 70%, transparent); mask-image:linear-gradient(180deg, #000 70%, transparent); }
 #card.big #vTwo:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
 #card.big #lBody{ flex:1; min-height:0; max-height:none; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; -webkit-mask-image:none; mask-image:none; }
@@ -595,6 +595,7 @@ const setBig = (v, top) => { if (v) moreFill();
   if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
   card._k = (card._k || 0) + 1; cardBig = v; card.classList.toggle('big', v); card.style.top = v && top != null ? top + 'px' : '';
   $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) { $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; } };
+self.cardReady = true;   // home() runs while the page starts, before the card's code exists
 const settle = top => { card.style.transition = '';
   if (top > card._ct - 48) { if (!cardBig) return; card.style.top = card._ct + 'px'; const k = card._k = (card._k || 0) + 1; setTimeout(() => { if (card._k === k && !cd) setBig(false); }, 330); }
   else setBig(true, top < TOPMIN + 48 ? TOPMIN : top); };
@@ -633,11 +634,12 @@ function fillCard(p) {
 }
 function cardIn() { if (card.classList.contains('on')) return; const k = card._in = (card._in || 0) + 1; card.style.transition = 'none'; void card.offsetHeight; card.style.transition = '';
   requestAnimationFrame(() => requestAnimationFrame(() => { if (card._in === k && sel) card.classList.add('on'); })); }
-function showOne() { card.classList.remove('two'); link = null; MUT = null; stopSel = null; atStop = null; $('vOne').hidden = false; $('vTwo').hidden = true; $('vThree').hidden = true; }
+function showOne() { const was2 = card.classList.contains('two'); card.classList.remove('two'); link = null; MUT = null; if (was2 && !!card._oneBig !== cardBig) { card.style.transition = ''; setBig(!!card._oneBig, card._oneBig ? TOPMIN : null); }   /* back to their card as you left it, slid up or not */ stopSel = null; atStop = null; $('vOne').hidden = false; $('vTwo').hidden = true; $('vThree').hidden = true; }
 // how two people are connected: what they are to each other, in a sentence, with the title it's shown in; the fights on file; every
 // title they're both in
 function showLink(b) {
-  const a = sel; link = b; stopSel = null; atStop = null; if (navigator.vibrate) try { navigator.vibrate(8); } catch (e) {}
+  const a = sel; if (!card.classList.contains('two')) { card._oneBig = cardBig; if (!cardBig && card.classList.contains('on')) card._h1 = card.offsetHeight; }   // the person's card as it was, and its small height
+  link = b; stopSel = null; atStop = null; if (navigator.vibrate) try { navigator.vibrate(8); } catch (e) {}
   const list = L => L.length > 5 ? L.slice(0, 5).join(', ') + ' and ' + (L.length - 5) + ' more' : L.join(', ');
   const why = [], fw = labs((a.Fw[b.i] || []).filter(seen)), r = relOf(a, b);
   if (r) r.S.forEach(x => why.push([KC[x.k], KS[x.k], esc(x.d) + (x.t ? `<em>${esc(epShow(x.t))}</em>` : '')]));   // how it has gone so far, stage by stage
@@ -648,7 +650,9 @@ function showLink(b) {
   $('lName').innerHTML = `${a.n}<br>&amp; ${b.n}`; if (worldOf(a) !== worldOf(b)) $('lName').insertAdjacentHTML('beforeend', `<small class="lw">${esc(worldOf(a))} · ${esc(worldOf(b))}</small>`);
   $('lWhy').innerHTML = why.map(([c, k, v]) => `<li><span style="color:${c}">${k}</span><div>${v}</div></li>`).join(''); mutFill(a, b);
   $('lGo').textContent = 'Lock onto ' + short(b.n) + ' ›';
-  if (cardBig) { card.style.transition = ''; setBig(false); } card.classList.add('two'); $('vOne').hidden = true; $('vTwo').hidden = false; { const lb = $('lBody'); lb.scrollTop = 0; lb.classList.toggle('clip', lb.scrollHeight > lb.clientHeight + 2); }
+  if (cardBig) { card.style.transition = ''; setBig(false); } card.classList.add('two'); $('vOne').hidden = true; $('vTwo').hidden = false; { const lb = $('lBody'); lb.scrollTop = 0;
+    if (card._h1) { card.style.setProperty('--lbh', '0px'); const h0 = card.offsetHeight; card.style.setProperty('--lbh', Math.max(48, card._h1 - h0) + 'px'); }   // as tall as the person's small card
+    lb.classList.toggle('clip', lb.scrollHeight > lb.clientHeight + 2); }
 }
 $('tBack').onclick = () => showOne();
 $('lGo').onclick = () => lockOn(link);
@@ -673,6 +677,7 @@ function gather(p, t, again) {
   gathered.forEach((j, k) => { const o = N[j]; if (!prev) o.go = t + 60 + Math.min(k, 40) * 22; else if (prev.has(j)) o.go = 0; else { o.go = t + 250 + n * 70; o.inAt = o.go + 300; o.wx = o.tx + 220; o.wy = o.ty + 120; n++; } });
 }
 function home(quiet) { if (!quiet && mapOn) { mapOn = false; $('mBack').hidden = true; mapLeave(); }
+  if (!quiet && self.cardReady && cardBig) setBig(false);   // closed while slid up: the next card opens small (owner: it "sometimes pops up fully open")
   if (!quiet) { webO = null; if (zoom < .25) glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: cam.x, y1: cam.y, z0: zoom, z1: .35 }; } N.forEach(o => { o.tx = o.hx; o.ty = o.hy; o.go = 0; o.cl = null; o.guest = false; }); gathered = []; clusters = []; sel = null; link = null; tsel = null; story = null; stopSel = null; atStop = null; if (!quiet) { card._in = (card._in || 0) + 1; card.classList.remove('on'); tell(); } }
 function tell() { if (EMB && parent.netCard) parent.netCard(!!(sel || mapOn) || !$('ssheet').hidden || !$('dsheet').hidden); }
 // the Network closed: it opens fresh next time, like every other page (owner, November 2026: "needs to come back to center or starting

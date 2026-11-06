@@ -73,6 +73,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
     one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
   - On main (`3e844a5`, the owner's answer 60).
+- **How they're connected, small, is a person's card's height; no card opens slid up on its own** (owner, 6 November 2026: "too
+  tall on collapsed view it should be the same size a single persons pop up" and "it sometimes pops up fully open"). Small, the link
+  card takes the height of the person's small card it came from (`--lbh`, `card._h1`; it was 369 px against 256). The "fully open"
+  cause, found by driving every way in: a card closed while slid up (a tap on the floor) stayed slid up for the next one; `home()` now
+  puts it back small (`self.cardReady` guards the start-up call). Back from a link card returns the person's card as you left it, slid
+  up or not (`card._oneBig`). In the test build; main waits for "push".
 - **New groups pop in, groups you knew glow** (owner, 6 November 2026: "new groups should pop in and existing groups should glow").
   Zoomed out, a group whose people are all newcomers pops in like a person (a little past full size and back, 420 ms) at its first
   person's pop time, and isn't drawn before; a group with anyone you'd already met keeps the swell and blue ring. hub-src, the
