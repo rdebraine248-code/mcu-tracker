@@ -73,6 +73,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     or any What If...? episode (`charNamedNow`); his insignia, its watermark on the box and its badge wait for What If...? itself, any
     one episode in any list (`whatIfAny`, `embWon`, `wmHTML`); hint "Unlocks after any episode of What If...?".
   - On main (`3e844a5`, the owner's answer 60).
+- **Michelle Jones's names stay as they are** (owner, 6 November 2026: "Forget michelle Jones it was my mistake"): "Michelle" for
+  Homecoming, "MJ" from Far From Home, "Michelle Jones" from No Way Home, alias MJ. Don't reopen.
 - **A new Earth arrives too; three ways to try** (owner, 6 November 2026: only for new Earths; "try three different versions").
   `EARTH_ANIM` in hub-src: 'pop' (the circle pops in just before its groups), 'fade' (it fades in while they pop), 'after' (it pops in
   once they've landed); in all three the Earth's name fades in last. A new Earth (all its people new) gets its arrival window when the
