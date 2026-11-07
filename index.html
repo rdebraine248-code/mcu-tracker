@@ -11432,7 +11432,9 @@ async function snapPlay(next, back) { const prevP = state.snapP || {};   // the 
   const shown = mapHide(), rowCh = boxCh.filter(c => !shown.has(DATA.chars.indexOf(c)) || back);
   const cpCh = [...new Set([...was.cp, ...now.cp])].filter(id => was.cp.has(id) !== now.cp.has(id));
   const rfCh = [...new Set([...was.rf, ...now.rf])].filter(id => was.rf.has(id) !== now.rf.has(id));
-  const pages = [w && w.netSnapPlay ? "net" : null, boxCh.length ? "chars" : null, rowCh.length ? "paths" : null, state.cpIn && cpCh.length ? "cp" : null, state.raftIn && rfCh.length ? "raft" : null].filter(Boolean);
+  // Paths still changes with the Snap (quietly, like any page it doesn't play on), but it's never the page it plays on (owner, 7 November
+  // 2026: "it doesn't fit"; SNAP_PAGE can still pick it, for the tests)
+  const pages = [w && w.netSnapPlay ? "net" : null, boxCh.length ? "chars" : null, window.SNAP_PAGE === "paths" && rowCh.length ? "paths" : null, state.cpIn && cpCh.length ? "cp" : null, state.raftIn && rfCh.length ? "raft" : null].filter(Boolean);
   // a page at random, never the one it played on last time when there's another (owner: "I just got Paths like 6 times in a row")
   const fresh = pages.length > 1 ? pages.filter(x => x !== state.snapPg) : pages;
   const pick = pages.includes(window.SNAP_PAGE) ? window.SNAP_PAGE : fresh[Math.floor(Math.random() * fresh.length)];   // (SNAP_PAGE: a test picks the page)
