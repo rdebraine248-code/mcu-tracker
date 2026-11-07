@@ -13,11 +13,46 @@ Ask the owner with options when something is theirs to decide or you're unsure. 
 There is only this one handoff file (owner, 5 November 2026, option 1: the second copy, `MCU_Tracker_Handoff.md`, duplicated it and
 had to be edited twice; it's gone, and its checklist is below). Don't make another copy.
 
-## Where things stand (5 November 2026)
+## Where things stand (7 November 2026)
 
-- **main** is at `54e3e93` (pushed 7 November 2026: the Snap across the app, folded out of the mockup; full suite 37 of 37; before it `0c7fb46`, the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the Pyms, Dazzler and Carnage staged; full suite 37 of 37; before it `823d296`, Extras character boxes name their universe tab; before it `6598b5f`, new Earths fade in; before it `ec353bb`, new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
-  they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
-  (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
+- **main** is at `MAINHASH` (pushed 7 November 2026, the owner's "Push": the Snap report and its fixes; full suite 37 of 37). Before
+  it: `54e3e93` the Snap across the app; `0c7fb46` the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the
+  Pyms, Dazzler and Carnage staged; `823d296` Extras character boxes name their universe tab; `6598b5f` new Earths fade in; `ec353bb`
+  new groups pop in, the link card's height; `171f2bf` New Asgard from Endgame on, circles from their own titles; `290c01f` Alioth in
+  The Void; `3cd6996` the split launch page; `3e844a5` audit parts 6 to 9, the Watcher; `48f2c51` the "No signal" fix; `b5e096e`
+  mutual connections; `6f22626` How they're connected slides up.
+- **Nothing is waiting on "push".** The owner is testing the Snap and its report on the phone ("I'll test it out later"): expect
+  feedback on the animations (each page), the report's words, the memorial and Last seen.
+- **The test build** (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s, v177 as of this push; republish after any rebuild) is main
+  plus the parked mockups (the Time Machine, Six Degrees, landscape) and the six Stones handed out (`MOCKUP BEGIN snapstones`), so the
+  Gauntlet's Snap is there to try. On main you need all six Stones first.
+- **The working branch** is `ccr-5d4aa1b8-sj0vmn` (source); mirrors `ccr-537d906a-oxzbql` and `claude/gracious-cray-lhdt2k`, pushed
+  with it. After a main push: `git merge -s ours origin/main`, push all three.
+
+## This chat's checklist (5 to 7 November 2026; all on main)
+
+**The Network**
+- [x] How they're connected slides up and scrolls like a person's card; its small height matches a person's card; no card opens slid up on its own.
+- [x] Mutual connections under How they're connected.
+- [x] New groups pop in, groups you knew glow; new Earths fade in while their groups pop (owner's pick of three).
+- [x] Alioth stands in The Void.
+- [x] The Crews line lost its hidden universe code ("Starforceby"); one "Groups" line on every card (teams, then the group they stand in); "Independent" instead of "No crew".
+- [x] Circles: Sacred Timeline (184) checked, seven staged to their titles (Jane, Clint, Billy, Klaue, Jack Duquesne, Goose, the Collector); the other universes (126 people in 81 circles) checked: the 1988 Peter Quill with the Pyms, the zombie Vision Independent, Dazzler and Carnage staged.
+- [x] Extras character boxes name their universe tab (the Watcher opens Beyond, and so on).
+**Groups and data**
+- [x] New Asgard from Endgame on (Thor, Valkyrie, Korg, Miek; Axl, Sif); Jane's New Asgard from Love and Thunder; Clint S.H.I.E.L.D. from Thor.
+- [x] Audit parts 6 to 9: random 600 and the full content check; answers 60 to 63 applied (the Watcher's name and insignia, the slim launch page, Mordo's line kept, part 1 recount).
+- [x] The coverage list (its own section): everything the app shows and what checks it; three gaps named.
+**The app**
+- [x] The "No signal" fix (sw.js buffers whole pages, 5 s fallback); the launch page split (2.97 MB plus `data.<hash>.js`).
+- [x] The Snap across the app: a random half of everyone you've met, every universe, dead or alive (Thanos included: owner); lost from the Network, the Compound, the Raft, their boxes and Paths; played on one page you've found, at random; "Whatever it takes" brings them back.
+- [x] The Snap's animations: the Characters boxes' own dust, light ash, random spots and moments, nothing over the header; lists close up and open round what stays in view; Paths morphs (lines matched title by title, no freeze); the Network draws the dust itself; a pop detector clean on every page both ways.
+- [x] The Snap report: a priority message in Comms signed by the first survivor; the ticker's headlines (no totals); the counts without "of X"; the lost are only names, survivors open their file; a row on the Agent ID; the Vanished memorial as a full page (San Francisco's door, "+N more"), shared names with their Earth; Last seen in the Atlas (the Lost switch); "All accounted for" when undone.
+**Parked (don't raise):** the Time Machine, Six Degrees, landscape stage 2.
+**Offered, not taken:** reading every Network card on screen in every universe (the coverage gap the "by" got through).
+
+## Notes on the November 2026 work (how each piece works and why; read before touching it)
+
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
   the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
   owner will come back to them. They stay in the test build; mainprep cuts them from main, so a main push doesn't need them settled.
@@ -681,6 +716,11 @@ insignia celebration covers the page.
     index is discovered and its file has a watched title.
 
 ## Standing rules from the owner
+
+- **Added 7 November 2026:** don't change how something works unless asked (Thanos was kept out of the Snap unasked: "Did I ask? No");
+  no instruction words anywhere, "scroll" included; a count is fine, "out of X" and totals are not (the files aren't the population);
+  check every animation frame by frame (and with the pop detector) before saying it's done; a long check is the owner's time too, so
+  time it and say so.
 
 ### The owner's answers to the 43 morning-report questions (4 November 2026, submitted on the report page)
 Numbers are the report's (`mockup-data/audit2/owner_answers`). Where the owner wrote "make a call", the call made is marked (call).
