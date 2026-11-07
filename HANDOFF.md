@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `0c7fb46` (pushed 7 November 2026: the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the Pyms, Dazzler and Carnage staged; full suite 37 of 37; before it `823d296`, Extras character boxes name their universe tab; before it `6598b5f`, new Earths fade in; before it `ec353bb`, new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
+- **main** is at `54e3e93` (pushed 7 November 2026: the Snap across the app, folded out of the mockup; full suite 37 of 37; before it `0c7fb46`, the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the Pyms, Dazzler and Carnage staged; full suite 37 of 37; before it `823d296`, Extras character boxes name their universe tab; before it `6598b5f`, new Earths fade in; before it `ec353bb`, new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
@@ -25,7 +25,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   key carries its universe after an invisible separator (`UK`, \u2063, and \u2064 for a circle named like a crew); `moreHTML` printed the
   raw key, so Beyond read "Starforceby", FoX-Men "...fox", and an off-timeline Independent wasn't filtered out. Now it prints the name
   only. Checked over all 1,480 people: no hidden marker and no "Independent" in any Crews line. Network only (network.html).
-- **Mockup in the test build (7 November 2026, v164): the Snap across the whole app** (owner: "if Pepper Potts gets snapped, then her
+- **On main (`54e3e93`, 7 November 2026, owner's "Push"): the Snap across the whole app** (was the v164 mockup; folded in: the hooks lost their `MOCK` guards, the old box-only `snap`/`unsnap` and `dustSweep` went, a save from before keeps its lost boxes until undone (`snapLook`); only the free six Stones stay test-build only, `MOCKUP BEGIN snapstones`) (owner: "if Pepper Potts gets snapped, then her
   Compound file also goes ... his path goes, his character box goes"; answers: every universe; a team box only when every core member
   goes; a shared box drops the lost name on the box and its Paths line; the animation on one of the five pages you've found, at random).
   The Gauntlet's Snap takes a random half of everyone you've met (the Network's people, by file id, dead or alive; `netPool`), kept in
@@ -1329,6 +1329,12 @@ been lost over the different handoffs that I said to remind new chats about, esp
 - A fade read as a blink and a sideways slide as a shake: prefer an instant swap.
 - When the owner reports something desktop can't show, ask for a screen recording, pull frames with ffmpeg and measure them (the phone
   is 1080x2340 screen pixels, 2.5 per page pixel).
+
+- **Next, the owner's idea (7 November 2026): an in-world Snap report** ("how many were snapped, who, where etc right like in the movie";
+  not in an index, not in the Gauntlet's pop-up). Four mockups on one real run at https://claude.ai/artifact/2ntGEEWFUod9UxSDmBjWC6:
+  A a casualty report from the Compound pinned in Comms, signed by a survivor; B breaking news on the ticker; C a Last seen layer in the
+  Atlas (each lost file's last At place); D the Vanished memorial in San Francisco (Endgame). Recommended A delivered by B, with C and
+  D opened from it. Waiting on the owner's pick.
 
 ## Coverage: everything the app shows, and what checks it (7 November 2026)
 
