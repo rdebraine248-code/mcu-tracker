@@ -554,7 +554,9 @@ const dzBack = (L, t) => L.length > 0 && L.every(p => p.landAt && p.landAt > t -
 const onScreen = p => { const q = lens(p, performance.now()); return q.x > 0 && q.x < W && q.y > 150 && q.y < H - 70; };
 const wait = ms => new Promise(r => setTimeout(r, ms));
 // who can be lost: everyone you've met, in every universe you've opened (by file id), and the files merged into another's bubble
-self.netPool = () => ({ ids: N.filter(p => uniOk(p.u) && p.A0.some(j => seen(j))).map(p => p.id), merged: DATA.merged || {} });
+// and, for the Snap's report, each one's name, universe, the group they stand in now and how connected they are
+self.netPool = () => { const L = N.filter(p => uniOk(p.u) && p.A0.some(j => seen(j)));
+  return { ids: L.map(p => p.id), merged: DATA.merged || {}, info: Object.fromEntries(L.map(p => [p.id, [p.n, p.u, crewName(p.g), p.d, worldOf(p)]])) }; };   // and their Earth
 // quietly: who's lost, with nothing played (the Snap played somewhere else in the app, or the app just opened)
 self.netSnapIds = ids => { SNAPS = new Set(ids || []); if (seenKey === null) return; applyCut(CUT, true); if (!sel) N.forEach(p => { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.go = 0; p.inAt = 0; }); };
 // played here: a tab where it touches someone you've met, picked at random, then in close on a random busy group of it
@@ -879,7 +881,8 @@ const FID = id => (Object.entries(DATA.single || {}).find(([, v]) => v === id) |
 // a younger self whose own bubble isn't shown yet (Days of Future Past unwatched) is found in their older self's, their shared past
 function findP(id) { let p = N.find(x => x.id === id && (x.vis || !(DATA.age || {})[id])) || N.find(x => x.id === (DATA.age || {})[id]) || N.find(x => x.id === id) || N.find(x => x.id === (DATA.merged || {})[id]);   /* a merged file (young Charles) finds its bubble */ if (!p) { const f = (parent.THREATS || []).find(o => o.id === id); const nm = f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); p = nm && N.find(x => x.n === nm && x.u === 'mcu'); } return p; }
 self.netGo = id => { const p = findP(id);
-  if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (p.u !== UNI) setWorld(p); lockOn(p); };
+  if (!p) return; if (!p.A.length) { say('Not met yet'); return; } if (SNAPS.has(p.id)) { say('Subject lost in the snap.'); return; }   // the Snap: their card is gone with them
+  if (p.u !== UNI) setWorld(p); lockOn(p); };
 // the app says what's been watched each time the Network opens; when nothing has changed, nothing moves (no re-shuffle, no flash)
 let seenKey = null, needFit = false;
 // an Earth's name written round the inside of its bubble's edge: along the top, or along the bottom when the top is under the header
@@ -1041,7 +1044,7 @@ self.mapAgain = () => { if (MAP && sel) mapBuild(); };
 // you've seen revealed; a pick takes you to them and locks on
 const fold1 = x => x.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, ' ').trim();
 function searchRun() { const q = fold1($('sQ').value); if (!q) { $('sList').innerHTML = '<div class="snone">Type a name, or what they go by.</div>'; return; }
-  const hits = []; N.forEach(p => { if (!(metP(p) && uniOk(p.u))) return; let how = null;
+  const hits = []; N.forEach(p => { if (!(metP(p) && uniOk(p.u)) || SNAPS.has(p.id)) return; let how = null;   // the lost aren't found
     if (fold1(p.n).includes(q)) how = ''; else { const a = p.AK.find(([nm, o]) => o <= CUT && fold1(nm).includes(q)); if (a) how = a[0]; }
     if (how !== null) hits.push([p, how, fold1(p.n).startsWith(q) || (how && fold1(how).startsWith(q)) ? 0 : 1]); });
   hits.sort((a, b) => a[2] - b[2] || b[0].d - a[0].d);

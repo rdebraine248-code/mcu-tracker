@@ -776,6 +776,8 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .hf-arch i{ position:absolute; right:14px; top:50%; transform:translateY(-50%); font-style:normal; font-size:22px; color:var(--ak); }
 .ar-cp{ --ac:#2F4F80; --ab:linear-gradient(135deg,rgba(79,163,255,.14),rgba(11,20,36,.6)); --ak:#8FC1FF; }
 .ar-raft{ --ac:#5A3A36; --ab:linear-gradient(135deg,rgba(224,74,58,.13),rgba(10,15,22,.6)); --ak:#E9897E; }
+/* the Snap's report on your Agent ID while it holds (owner, 7 November 2026: "don't make it an index, make it on the agent card") */
+.hf-snap dt{ color:#E5484D !important; } .hf-snap button{ all:unset; cursor:pointer; color:#F3A5A8; font:inherit; text-decoration:underline; text-decoration-color:#6B2A33; text-underline-offset:3px; }
 .ar-coll{ --ac:#4A3F22; --ab:linear-gradient(135deg,rgba(233,196,106,.13),rgba(23,20,12,.6)); --ak:#E9C46A; }
 .hf-sec{ max-width:760px; margin:22px auto 0; }
 .hf-sec h3{ margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; display:flex; justify-content:space-between; }
@@ -1525,10 +1527,53 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .dc-chips button:active{ transform:scale(.96); }
 .dc-chips span{ padding:7px 12px; border:1px dashed #2C3850; border-radius:999px; color:#AEB8C9; font:15px 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }   /* a name whose index you haven't found yet: on the report, but no way in */
 .dc-chips span.v{ border-color:#4A3236; color:#D9BFC0; } .dc-chips span.o{ border-color:#4A3E20; color:#D8CA9F; }
-.atl-dc{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #4E9E3A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(109,187,138,.10) 0 10px,rgba(109,187,138,.03) 10px 20px); color:#BFF0A6; text-align:left; cursor:pointer; }
-.atl-dc i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(109,187,138,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#6DBB8A; }
-.atl-dc span{ flex:1; } .atl-dc b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
-.atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; } .atl-dc em{ font-style:normal; font-size:18px; color:#6DBB8A; }
+/* the Snap's report (Comms), Last seen (the Atlas) and the Vanished memorial */
+.cm-msg.snap{ --c:#E5484D; }
+.sr{ display:flex; flex-direction:column; gap:7px; margin-top:12px; }
+.sr-k{ font:10.5px 'Share Tech Mono',monospace; letter-spacing:.12em; text-transform:uppercase; color:#8096B8; margin-top:6px; }
+.sr-big{ display:flex; align-items:baseline; gap:8px; } .sr-big b{ font:400 44px/0.95 Anton,Impact,sans-serif; color:#EEF1F6; } .sr-big span{ font:12px 'Share Tech Mono',monospace; color:#9FB4D6; }
+.sr-bars{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:5px 9px; align-items:center; font-size:12.5px; }
+.sr-bars i{ height:6px; border-radius:3px; background:#1A273C; overflow:hidden; } .sr-bars u{ display:block; height:100%; background:#E5484D; border-radius:3px; }
+.sr-bars em{ font:11.5px/1 'Share Tech Mono',monospace; font-style:normal; color:#9FB4D6; text-align:right; align-self:center; }
+.sr-ns{ display:flex; flex-wrap:wrap; gap:5px; }
+.sr-n, .sr-more{ font:12px 'IBM Plex Sans Condensed',sans-serif; border:1px solid #4A2A33; background:rgba(229,72,77,.09); color:#F3C9CB; border-radius:4px; padding:2px 7px; cursor:pointer; }
+.sr-n.ok{ border-color:#1E3B52; background:rgba(95,208,255,.07); color:#CDEBFA; } .sr-more{ background:none; border-style:dashed; color:#9FB4D6; }
+.sr-t{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:3px 10px; margin:0; font-size:13px; } .sr-t dt{ margin:0; } .sr-t dd{ margin:0; font-family:'Share Tech Mono',monospace; color:#9FB4D6; text-align:right; }
+.sr-t a{ color:inherit; text-decoration:underline; text-decoration-color:#4A5C7A; text-underline-offset:3px; cursor:pointer; }
+.sr-sig{ font:11.5px 'Share Tech Mono',monospace; color:#9FB4D6; border-top:1px dashed #22324B; padding-top:9px; margin-top:4px; }
+.atl-lsb{ font:11px 'Share Tech Mono',monospace !important; letter-spacing:.06em; }
+.atl-lsb[aria-pressed="true"]{ background:#E5484D !important; color:#fff !important; border-color:#E5484D !important; }
+.atl-map.snapls .atl-pin:not(.ls){ opacity:.3; } .atl-map.snapls .atl-pin.ls{ z-index:6; }
+.atl-map.snapls .atl-pin.ls i{ background:#E5484D !important; box-shadow:0 0 0 3px rgba(229,72,77,.3), 0 0 12px rgba(229,72,77,.9) !important; }
+.atl-pin .ls-n{ position:absolute; left:0; top:-20px; transform:translateX(-50%); background:#E5484D; color:#fff; font:600 10.5px/1.5 'IBM Plex Sans Condensed',sans-serif; border-radius:8px; padding:0 5px; white-space:nowrap; pointer-events:none; }
+.atl-ls{ margin:10px 0 4px; padding:10px 12px; border:1px solid #6B2A33; border-radius:12px; background:rgba(229,72,77,.07); display:flex; flex-direction:column; gap:7px; }
+.atl-ls > b{ font:12px 'Share Tech Mono',monospace; font-weight:400; letter-spacing:.14em; text-transform:uppercase; color:#F3A5A8; }
+button.atl-vn{ border-color:#6E737B; background:repeating-linear-gradient(135deg,rgba(180,186,194,.09) 0 10px,rgba(180,186,194,.03) 10px 20px); color:#D3D7DC; }
+button.atl-vn i{ border-color:rgba(200,205,212,.5); color:#C9CDD3; } button.atl-vn small, button.atl-vn em{ color:#A9AFB6; }
+.vn-wall{ display:none; }
+#vnPage{ position:fixed; inset:0; z-index:90; overflow-y:auto; overscroll-behavior:contain; background:linear-gradient(180deg,#0B1220 0%,#152238 38%,#1B2A3F 100%); padding:calc(54px + env(safe-area-inset-top,0px)) max(14px, env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(14px, env(safe-area-inset-left,0px)); }
+#vnPage .vn-sky{ position:fixed; inset:0; pointer-events:none; background:radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,.07), transparent 60%); }
+#vnPage .vn-x{ position:fixed; top:calc(10px + env(safe-area-inset-top,0px)); right:max(12px, env(safe-area-inset-right,0px)); z-index:2; width:36px; height:36px; border-radius:50%; border:1px solid rgba(200,205,212,.35); background:rgba(11,18,32,.7); color:#D3D7DC; font-size:20px; line-height:1; cursor:pointer; }
+.vn-mon{ position:relative; max-width:520px; margin:0 auto; }
+.vn-cap{ height:22px; margin:0 6px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6A7078,#4E545C); box-shadow:inset 0 1px 0 rgba(255,255,255,.18); }
+.vn-slab{ padding:28px 18px 30px; background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 12%,transparent 88%,rgba(0,0,0,.22)),radial-gradient(140% 90% at 50% 0%,#5A6068,#3E434A 70%,#353A40); border-left:1px solid #666C74; border-right:1px solid #2E3238;
+  box-shadow:0 30px 60px rgba(0,0,0,.45); display:flex; flex-direction:column; gap:12px; }
+.vn-base{ height:34px; margin:0 -10px; border-radius:0 0 4px 4px; background:linear-gradient(180deg,#4A5058,#30353B); box-shadow:0 18px 30px rgba(0,0,0,.5); }
+.vn-loc{ margin:0; text-align:center; font:11px Cinzel,Georgia,serif; letter-spacing:.32em; color:#A9AFB6; }
+.vn-slab h4{ margin:0; text-align:center; font:700 clamp(34px,10vw,52px)/1.05 Cinzel,'Trajan Pro',Georgia,serif; letter-spacing:.16em; color:#CDD1D6; text-shadow:0 2px 0 rgba(0,0,0,.6),0 -1px 0 rgba(255,255,255,.1); }
+.vn-sub{ margin:0; text-align:center; font:12px Cinzel,Georgia,serif; letter-spacing:.24em; color:#B0B6BD; }
+.vn-rule{ display:block; width:60%; height:1px; margin:6px auto 4px; background:linear-gradient(90deg,transparent,rgba(210,214,220,.5),transparent); }
+.vn-n{ margin:6px 0 0; text-align:center; font:11px Cinzel,Georgia,serif; letter-spacing:.24em; color:#A9AFB6; }
+.vn-tabs{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px; }
+.vn-tabs button{ font:11px Cinzel,Georgia,serif; letter-spacing:.14em; text-transform:uppercase; color:#C9CDD3; background:rgba(0,0,0,.18); border:1px solid rgba(200,205,212,.3); border-radius:999px; padding:4px 11px; cursor:pointer; }
+.vn-tabs button.on{ background:#C9CDD3; color:#2E3238; border-color:#C9CDD3; }
+.vn-cols{ columns:2; column-gap:18px; font:12.5px/1.8 Cinzel,Georgia,serif; letter-spacing:.06em; color:#DADDE1; text-shadow:0 1px 0 rgba(0,0,0,.55),0 -1px 0 rgba(255,255,255,.05); }
+.vn-cols span{ display:block; break-inside:avoid; }
+.vn-cols em{ display:block; font-style:normal; font-size:9.5px; line-height:1.3; letter-spacing:.12em; color:#A9AFB6; white-space:nowrap; margin:-2px 0 3px; }
+.atl-dc, .atl-vn{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #4E9E3A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(109,187,138,.10) 0 10px,rgba(109,187,138,.03) 10px 20px); color:#BFF0A6; text-align:left; cursor:pointer; }
+.atl-dc i, .atl-vn i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(109,187,138,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#6DBB8A; }
+.atl-dc span, .atl-vn span{ flex:1; }.atl-dc b, .atl-vn b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
+.atl-dc small, .atl-vn small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; }.atl-dc em, .atl-vn em{ font-style:normal; font-size:18px; color:#6DBB8A; }
 .hf-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(109,187,138,.10),rgba(109,187,138,.03)); --ak:#6DBB8A; }
 /* each index wears its own colour (owner, November 2026: "the Raft red, Damage Control green, but not neon or slime green"): the title's
    glow, the section heads and a faint tint on its boxes. The Compound is Avengers blue, the Raft red, Damage Control green, the Collection gold */
@@ -1654,7 +1699,7 @@ const epBase = t => { const i = String(t).indexOf("#"); return i < 0 ? t : Strin
 const epTag = t => { const n = epNo(t), b = epBase(t); if (!n) return ""; const L = epList(b) || []; if (L.length < 2) return " · Episode " + n;
   let k = n, i = 0; while (i < L.length - 1 && k > L[i]) { k -= L[i]; i++; } return " S" + (i + 1 + (EPO[b] || 0)) + " · Episode " + k; };
 const tn = t => epNo(t) ? (TNAME[epBase(t)] || epBase(t)).replace((epList(epBase(t)) || []).length > 1 ? / S\d+(?:–S\d+)?$/ : /$^/, "") + epTag(t) : TNAME[t] || t, tnY = t => TYEAR[epBase(t)] ? tn(t) + " (" + TYEAR[epBase(t)] + ")" : tn(t);
-const tnh = t => esc(tn(t)) + (TYEAR[epBase(t)] ? ` <small class="tyr">${TYEAR[epBase(t)]}</small>` : "");
+const tnh = t => String(t).startsWith("__snap:") ? "The Snap" : esc(tn(t)) + (TYEAR[epBase(t)] ? ` <small class="tyr">${TYEAR[epBase(t)]}</small>` : "");
 // a file's step on a long-running show is filed "In season N," so it opens with that season; on screen the season goes with the title
 // ("Agents of S.H.I.E.L.D. S2") and the sentence starts with the story itself
 const stepTxt = x => x[0].replace(/^In (?:season|episode) \d+, (.)/, (m, c) => c.toUpperCase());
@@ -4372,6 +4417,7 @@ function atlPins(map) {   // only places you've charted are on the map; the rest
     return `<button type="button" class="atl-pin${p.home ? " home" : ""}${fresh ? " new" : upd ? " upd" : ""}" data-p="${esc(p.id)}"${fresh || upd ? ` style="--d:${(d++ * step).toFixed(2)}s"` : ""} aria-label="${esc(p.n)}"><i></i><span>${esc(p.n)}</span></button>`; }).join("");
   const els = [...map.querySelectorAll(".atl-pin")];
   map._pins = L.map((p, i) => { const [x, y] = atlXY(p); return { id: p.id, x, y, el: els[i], w: p.home ? 99 : (p.e || []).filter(e => atlEvSeen(e)).length, lw: p.n.length * 7.3 }; });
+  snapLSPins(map);   // the Snap's Last seen layer, when it's on
   // a place only counts as seen once its ping has played out on screen, so leaving early keeps the rest for next time
   const run = map._run = (map._run || 0) + 1;
   L.filter(p => news.includes(p) || upds.includes(p)).forEach((p, i) => setTimeout(() => { if (!atlOpen || map._run !== run || !map.isConnected) return; seen[key(p)] = 1; N[key(p)] = pn(p); persist(); }, (i * step + 1.4) * 1000));
@@ -4392,7 +4438,7 @@ function atlSheet(p, fresh) {   // fresh: the entries that turned up since you l
   evs.forEach(e => { const k = city ? "" : e[1]; let gp = groups.find(x => x[0] === k); if (!gp) groups.push(gp = [k, []]); gp[1].push(e); });
   const spots = [...new Set(evs.map(e => atlSpot(e[1])).filter(Boolean))];
   return `<div class="atl-sh"><div><h3>${esc(p.n)}</h3><small>${esc(p.r)}</small></div><button type="button" class="atl-x" aria-label="Close">×</button></div>
-    ${p.id === "raft" ? `<button type="button" class="atl-raft"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM5.5 2v12M8 2v12M10.5 2v12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></i><span><b>Threat registry</b><small>Every threat on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
+    ${snapSheetBits(p)}${p.id === "raft" ? `<button type="button" class="atl-raft"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2h12v12H2zM5.5 2v12M8 2v12M10.5 2v12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></i><span><b>Threat registry</b><small>Every threat on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${p.id === "compound" && ALLIES.length ? `<button type="button" class="atl-raft atl-cpb"><i aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2.5" y="1.5" width="11" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="6.2" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.8 12c.6-1.7 1.8-2.6 3.2-2.6s2.6.9 3.2 2.6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></i><span><b>Personnel files</b><small>Every hero and ally on file</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${atlView === "city" && atlCity === "ny" && p.id === "Midtown" ? `<button type="button" class="atl-dc"><i aria-hidden="true">DC</i><span><b>Damage Control</b><small>Incident reports</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
     ${p.id === "knowhere" ? `<button type="button" class="atl-coll"><i aria-hidden="true">&#9670;</i><span><b>Visit the Collector</b><small>Taneleer Tivan's archive</small></span><em aria-hidden="true">&#8250;</em></button>` : ""}
@@ -4538,7 +4584,7 @@ function renderAtlas() {
   fv.innerHTML = `<div class="atl">
     <div class="atl-head">${city ? `<button type="button" class="atl-crumb" data-atlv="earth"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Earth</button><span class="atl-cname">${esc(ATL_CITY[atlCity].n)}</span>` : uni ? `<button type="button" class="atl-crumb" ${ATLAS_UNI[atlUni].up ? `data-atlup="${esc(ATLAS_UNI[atlUni].up)}"` : `data-atlv="multi"`}><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>${ATLAS_UNI[atlUni].up ? esc(ATLAS_UNI[ATLAS_UNI[atlUni].up].n) : "Multiverse"}</button><span class="atl-cname">${esc(ATLAS_UNI[atlUni].n)}</span>` : ""}</div>
     <div class="atl-map${geo[0] === "sky" ? " sky " + atlView + (geo[1] === "orbit" ? " orbit" : "") : uni ? " uni" : ""}" id="atlMap"><canvas aria-hidden="true"></canvas><div class="atl-pins"></div>
-      <div class="atl-zoom"><button type="button" data-atlz="1" aria-label="Zoom in">+</button><button type="button" data-atlz="-1" aria-label="Zoom out">−</button><button type="button" data-atlz="0" aria-label="Show everything">Fit</button></div></div>
+      <div class="atl-zoom"><button type="button" data-atlz="1" aria-label="Zoom in">+</button><button type="button" data-atlz="-1" aria-label="Zoom out">−</button><button type="button" data-atlz="0" aria-label="Show everything">Fit</button>${snapLive() ? `<button type="button" class="atl-lsb" data-atlls aria-pressed="${!!state.snapLS}" aria-label="Last seen">Lost</button>` : ""}</div></div>
     <div class="atl-low"><button type="button" class="atl-grip" aria-label="Resize the map"><span>Places &#9652;</span></button><div class="atl-list">${pgQ("atlQ", "Search the Atlas", atlQ)}<div class="atl-res">${atlQ.length > 1 ? atlFindHTML(qNorm(atlQ)) : atlList()}</div></div><div class="atl-sheet" hidden></div></div></div>`;
   const map = document.getElementById("atlMap"), W = fv.clientWidth, room = fv.clientHeight;
   const want = geo[0] === "earth" ? Math.round(133 * W / 360) + 24 : geo[0] === "city" ? Math.round(W * atlCityGeo(geo[1]).h / 1000) : Math.round(W * .92);
@@ -7843,7 +7889,7 @@ function renderFile(fresh) {
   swapIn(fv, `
     <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button>${embNew().length ? '<i class="hf-avdot" aria-hidden="true"></i>' : ""}<div class="hf-tag hf-idtag"><span>Agent ID</span><span class="hf-lvl">${level > 10 ? "" : "Level " + level + " · "}${CLEARANCE[level - 1]}</span></div>
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
-      <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
+      <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}${snapLive() ? `<div class="hf-snap"><dt>The Snap</dt><dd><button type="button" data-arch="snap">${state.snapRep.lostM} unaccounted for ›</button></dd></div>` : ""}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
     ${archSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
@@ -7936,7 +7982,9 @@ function closeFile(fromHistory) {
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
-document.getElementById("fileView").addEventListener("click", ev => { const ar = ev.target.closest("[data-arch]"); if (ar) { haptic(12); openColl(ar.dataset.arch === "coll" ? undefined : ar.dataset.arch); } });
+document.getElementById("fileView").addEventListener("click", ev => { const ar = ev.target.closest("[data-arch]"); if (!ar) return; haptic(12);
+  if (ar.dataset.arch === "snap") { const m = COMMS.find(x => x.snap); if (m) { (state.msgs = state.msgs || {})[msgId(m)] = 1; persist(); } openComms("msg"); return; }   // the report, delivered if the ticker hadn't brought it yet
+  openColl(ar.dataset.arch === "coll" ? undefined : ar.dataset.arch); });
 document.getElementById("fileView").addEventListener("click", ev => {
   const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; refreshRates(); fv.scrollTop = y; return; }
@@ -9896,9 +9944,10 @@ const NEWS_SRC = {"The Fantastic Four: First Steps": "e828", "Cloak & Dagger": "
 const OUTLETS = { whih: ["WHIH NEWSFRONT", "World news", "WHIH"], e828: ["EARTH-828", "Future Foundation broadcast"], bugle: ["DAILY BUGLE", "New York"], bulletin: ["BULLETIN", "Breaking news"] };
 const newsSrc = t => NEWS_SRC[epBase(t)] || "whih";
 const newsKey = (t, i) => t + "::" + (NEWS[t] || [])[i];   // a headline is remembered as read by its words, so a new one can take its place in the story without moving the others
-const newsTitles = () => Object.keys(NEWS).filter(atlSeenT).sort((a, b) => (atlOrd(a) ?? 1e9) - (atlOrd(b) ?? 1e9));
+const newsLiveT = t => atlSeenT(t) || (!!state.snapRep && t === "__snap:" + state.snapRep.id);   // the Snap's headlines are news too
+const newsTitles = () => Object.keys(NEWS).filter(newsLiveT).sort((a, b) => (atlOrd(a) ?? 1e9) - (atlOrd(b) ?? 1e9));
 // anything you've since un-watched forgets its news played, so it breaks again when it comes back
-function newsForget() { const N = state.news = state.news || {}; Object.keys(N).forEach(k => { const t = k.slice(0, k.lastIndexOf("::")); if (!NEWS[t] || !atlSeenT(t)) delete N[k]; }); }
+function newsForget() { const N = state.news = state.news || {}; Object.keys(N).forEach(k => { const t = k.slice(0, k.lastIndexOf("::")); if (!NEWS[t] || !newsLiveT(t)) delete N[k]; }); }
 function newsPending() { newsForget(); return newsTitles().flatMap(t => NEWS[t].map((h, i) => [t, i, h])).filter(([t, i]) => !state.news[newsKey(t, i)]); }
 // news and messages don't wait for you: the ticker runs on every screen (Story, Log, Atlas, Paths, Comms, File),
 // only holding back while a chapter or character box is open, a question is up, or a full-screen effect is playing
@@ -10763,7 +10812,7 @@ newsKeysV2(); perInit();
 // a TVA log notice for an Earth with more than one title only arrives once every one of them is watched
 function msgId(m) { return m.id || m.t; }   // two messages on one title each need their own id
 const MSG_ALSO = Object.fromEntries(COMMS.filter(m => m.also).map(m => [m.t, m.also]));
-const WELCOME = "__welcome", msgLive = t => t === WELCOME ? !!state.booted : MSG_ALSO[t] ? [t, ...MSG_ALSO[t]].every(atlSeenT) : atlSeenT(t);
+const WELCOME = "__welcome", msgLive = t => t === WELCOME ? !!state.booted : t === "__snap" ? !!state.snapRep : MSG_ALSO[t] ? [t, ...MSG_ALSO[t]].every(atlSeenT) : atlSeenT(t);
 function msgForget() { const M = state.msgs = state.msgs || {}; Object.keys(M).forEach(k => { const m = COMMS.find(m => msgId(m) === k); if (!m || !msgLive(m.t)) delete M[k]; }); }
 const msgSeen = () => COMMS.filter(m => msgLive(m.t)).sort((a, b) => (a.t === WELCOME ? -1 : atlOrd(a.t) ?? 1e9) - (b.t === WELCOME ? -1 : atlOrd(b.t) ?? 1e9));
 function msgPending() { msgForget(); return msgSeen().filter(m => !state.msgs[msgId(m)]).map(m => [msgId(m), -1, ({ intercept: "Intercepted: ", email: "New email from ", notice: "Notice from ", tva: "", hack: "", telegram: "Telegram from ", cerebro: "", watcher: "" }[m.k] ?? "Incoming from ") + m.f + ": " + m.re, "msg", m.k === "hack"]); }
@@ -10939,10 +10988,10 @@ document.getElementById("whih").addEventListener("click", () => { haptic(8); con
 // WHIH comes first, then the other worlds' outlets; within each, stories run in Sacred Timeline order, the latest in the story at the top
 const TL_ORDER = (() => { const o = {}; DATA.timeline.forEach((e, i) => { if (!(e.t in o)) o[e.t] = i; }); return o; })();
 // a title missing from the timeline sits with its seasons there (Agent Carter with Agent Carter S1), or else at the bottom
-const cmWhen = t => epNo(t) ? cmWhen(epBase(t)) + epNo(t) / 1000 : TL_ORDER[t] ?? DATA.timeline.findIndex(e => e.t.startsWith(t + " "));
+const cmWhen = t => String(t).startsWith("__snap:") ? 1e9 : epNo(t) ? cmWhen(epBase(t)) + epNo(t) / 1000 : TL_ORDER[t] ?? DATA.timeline.findIndex(e => e.t.startsWith(t + " "));
 // channel chips: Messages sort by who sent them, News by outlet. A dot marks a channel with something you haven't looked at in it yet
 const CM_CHANS = [["", "All"], ["shield", "S.H.I.E.L.D."], ["avengers", "Avengers"], ["tva", "TVA"], ["intercepts", "Intercepts"], ["other", "Other"]];
-const cmChan = m => m.k === "tva" || /Time Variance/.test(m.f) ? "tva" : m.k === "intercept" ? "intercepts"
+const cmChan = m => m.snap ? "avengers" : m.k === "tva" || /Time Variance/.test(m.f) ? "tva" : m.k === "intercept" ? "intercepts"
   : /Avengers Facility|Rhodes|Pepper|Sam Wilson|Tony Stark|Natasha/.test(m.f) ? "avengers" : /S\.H\.I\.E\.L\.D\.|Fury|Maria Hill|Coulson|Mackenzie|Howard Stark/.test(m.f) ? "shield" : "other";
 const CM_OUTLETS = [["", "All"], ["whih", "WHIH"], ["bugle", "Daily Bugle"], ["bulletin", "Bulletin"], ["e828", "Earth-828"]];
 let cmPick = { msg: "", news: "" };
@@ -10965,6 +11014,7 @@ let cmLogOpen = false;
    mockup-data/msg/) ---------- */
 const MSG_REPLY = {};   // message id: [two reply choices]
 function cmExtra(m) {
+  if (m.snap) return snapRepHTML();   // the Snap's report, under its message
   const id = msgId(m), R = MSG_REPLY[id], got = R && (state.cmReply || {})[id];
   return !R ? "" : got != null ? `<div class="cm-rep"><small>You replied</small><p>${esc(R[got])}</p></div>`
     : `<div class="cm-rep"><small>Reply</small><div class="cm-rch">${R.map((c, i) => `<button type="button" data-cmrep="${esc(id)}|${i}">${esc(c)}</button>`).join("")}</div></div>`; }
@@ -11172,11 +11222,55 @@ function snapCommit(set, back) { state.snapP = set; state.dusted = {}; DATA.char
   if (state.mode === "chars") renderView(); if (collOpen) renderColl(); if (mapOpen) snapMapRedraw(); }
 // Paths redrawn without (or with) the lost: the view keeps its zoom and place (owner, 7 November 2026: refitting it "looked funky"), and the
 // new map fades in under the old one (a line's stops and titles change with the lines around it, so sliding the lines didn't work)
-function snapMapRedraw() { const v = MV.s, x = MV.tx, y = MV.ty, old = document.querySelector("#mapView svg"), r = old && old.getBoundingClientRect(), still = old && old.cloneNode(true);
+// Paths redrawn without (or with) the lost, the way the Characters list closes up and opens (owner, 7 November 2026: it "pops up fully
+// spaced out, or fully closed out"): the view keeps its zoom and place, and everything that stays moves from where it was to where it is
+// now on the list's curve (700ms, cubic-bezier(.3,0,.2,1)). A line is sampled along its length before and after and drawn between the
+// two; a stop, a title, a name or a year slides; a stop that changes shape (one line's dot becomes a shared stop) crossfades. Anything new
+// (coming back) waits hidden for its dust
+function snapMapRedraw() { const v = MV.s, x = MV.tx, y = MV.ty, OM = MAP, svg0 = document.querySelector("#mapView svg");
+  const keyOf = (el, M) => el.matches(".lane, .rname") ? (el.matches(".lane") ? "l:" : "n:") + (M.rows[+el.dataset.r] || {}).n : el.matches(".ttl, .nd") ? (el.matches(".ttl") ? "t:" : "s:") + (M.cols[+el.dataset.c] || {}).t
+    : el.matches(".yrl") ? "y:" + el.textContent : el.matches("rect") && el.nextElementSibling && el.nextElementSibling.matches(".yrl") ? "b:" + el.nextElementSibling.textContent : null;
+  const SEL = "#mapG > .lane, #mapG > .rname, #mapG > .ttl, #mapG > .nd, #mapG > .yrl, #mapG > rect";
+  // a line as a curve y(x) (they run left to right), and the x of each title on it: points are matched title by title, not by length
+  // read straight from the line's own commands (M, L, C; it runs left to right): sampling it through the browser froze the page for seconds
+  const dense = path => { const d = path.getAttribute("d") || "", S = []; let cx = 0, cy = 0, X = [], Y = [];
+    d.replace(/([MLC])([^MLC]*)/g, (m, k, a) => { const n = (a.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+      if (k === "M") { cx = n[0]; cy = n[1]; } else if (k === "L") { for (let i = 0; i + 1 < n.length; i += 2) { S.push([0, cx, cy, n[i], n[i + 1]]); cx = n[i]; cy = n[i + 1]; } }
+      else for (let i = 0; i + 5 < n.length; i += 6) { S.push([1, cx, cy, n[i], n[i + 1], n[i + 2], n[i + 3], n[i + 4], n[i + 5]]); cx = n[i + 4]; cy = n[i + 5]; } return ""; });
+    S.forEach(q => { X.push(q[1]); }); return { S, X, x0: S.length ? S[0][1] : 0, x1: cx, y0: S.length ? S[0][2] : cy, y1: cy }; };
+  const yAt = (D, x) => { if (!D.S.length || x <= D.x0) return D.y0; if (x >= D.x1) return D.y1; let lo = 0, hi = D.S.length - 1;
+    while (lo < hi) { const m = (lo + hi + 1) >> 1; if (D.X[m] <= x) lo = m; else hi = m - 1; } const q = D.S[lo];
+    if (!q[0]) { const f = q[3] === q[1] ? 0 : (x - q[1]) / (q[3] - q[1]); return q[2] + (q[4] - q[2]) * f; }
+    const B = (t, a, b, c, e) => { const u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * e; };
+    let a = 0, b = 1; for (let k = 0; k < 22; k++) { const m = (a + b) / 2; if (B(m, q[1], q[3], q[5], q[7]) < x) a = m; else b = m; } return B((a + b) / 2, q[2], q[4], q[6], q[8]); };
+  const colsOf = (M, ri) => Object.fromEntries(M.cols.filter(c => c.m.includes(ri)).map(c => [c.t, c.x]));
+  const before = new Map(); if (svg0) svg0.querySelectorAll(SEL).forEach(el => { const k = keyOf(el, OM); if (!k) return; const ln = el.matches(".lane") && el.querySelector(".lline");
+    before.set(k, { el: el.cloneNode(true), D: ln ? dense(ln) : null, C: ln ? colsOf(OM, +el.dataset.r) : null }); });
   MAP = mapData(mapHide()); buildMap(); MV.s = v; MV.tx = x; MV.ty = y; mapApplyNow();
-  if (!still) return; still.removeAttribute("aria-label"); still.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
-  still.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;pointer-events:none;z-index:1`; document.getElementById("mapView").appendChild(still);
-  still.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 650, easing: "ease-in-out", fill: "forwards" }).onfinish = () => still.remove(); }
+  if (!svg0 || REDUCED) return;
+  const g = document.getElementById("mapG"), tpl = s => String(s).replace(/-?\d+(?:\.\d+)?/g, "#"), nums = s => (String(s).match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+  const jobs = [], fades = [];
+  g.querySelectorAll(SEL).forEach(el => { const k = keyOf(el, MAP), was = k && before.get(k); if (!k) return;
+    if (!was) { el.style.opacity = "0"; fades.push([el, 0, 1]); return; }   // new: fades in at the end, unless the dust has hidden it
+    if (el.matches(".lane")) { const ln = el.querySelector(".lline"), nx = el.querySelector(".lnext"), D1 = dense(ln), C1 = colsOf(MAP, +el.dataset.r), D0 = was.D, C0 = was.C, d1 = ln.getAttribute("d");
+      if (nx) { nx.style.opacity = "0"; fades.push([nx, 0, 1]); }
+      // anchors: the line's start and end, and each title it passes in both maps; between two anchors, sixteen steps
+      const T = Object.keys(C1).filter(t => t in C0).sort((a, b) => C1[a] - C1[b]), A = [[D0.x0, D1.x0], ...T.map(t => [C0[t], C1[t]]), [D0.x1, D1.x1]].filter((q, i, L) => !i || q[0] > L[i - 1][0] && q[1] > L[i - 1][1]);
+      const P = []; A.forEach((q, i) => { if (!i) { P.push(q); return; } const o = A[i - 1]; for (let k = 1; k <= 16; k++) P.push([o[0] + (q[0] - o[0]) * k / 16, o[1] + (q[1] - o[1]) * k / 16]); });
+      const PY = P.map(([a, b]) => [yAt(D0, a), yAt(D1, b)]);
+      jobs.push(e => { ln.setAttribute("d", e >= 1 ? d1 : "M" + P.map(([a, b], i) => (a + (b - a) * e).toFixed(1) + "," + (PY[i][0] + (PY[i][1] - PY[i][0]) * e).toFixed(1)).join(" L")); }); return; }
+    // the same shape, attribute by attribute (x, y, cx, cy, width, height, transform); a different one crossfades with its old self
+    const A = [el, ...el.querySelectorAll("*")], B = [was.el, ...was.el.querySelectorAll("*")];
+    const same = A.length === B.length && A.every((n, i) => n.tagName === B[i].tagName && ["x", "y", "cx", "cy", "width", "height", "transform"].every(at => tpl(n.getAttribute(at) || "") === tpl(B[i].getAttribute(at) || "")));
+    if (!same) { const o = was.el; o.removeAttribute("data-r"); o.removeAttribute("data-c"); o.classList.add("snap-old"); el.before(o); fades.push([o, 1, 0, true]); el.style.opacity = "0"; fades.push([el, 0, 1]); return; }
+    A.forEach((n, i) => ["x", "y", "cx", "cy", "width", "height", "transform"].forEach(at => { const t1 = n.getAttribute(at); if (t1 == null) return; const f = nums(B[i].getAttribute(at)), t = nums(t1), T = tpl(t1);
+      if (f.every((q, j) => q === t[j])) return; jobs.push(e => { let j = 0; n.setAttribute(at, e >= 1 ? t1 : T.replace(/#/g, () => { const q = f[j] + (t[j] - f[j]) * e; j++; return q.toFixed(2); })); }); })); });
+  const ease = q => { let lo = 0, hi = 1; for (let k = 0; k < 18; k++) { const m = (lo + hi) / 2, u = 1 - m; if (3 * u * u * m * .3 + 3 * u * m * m * .2 + m * m * m < q) lo = m; else hi = m; } const m = (lo + hi) / 2, u = 1 - m; return 3 * u * m * m + m * m * m; };
+  const t0 = performance.now(), MS = 700; jobs.forEach(j => j(0));
+  const step = now => { const f = Math.min(1, (now - t0) / MS), e = ease(f); jobs.forEach(j => j(f >= 1 ? 1 : e));
+    fades.forEach(([el, a, b, gone]) => { if (el.style.visibility === "hidden") return; const k = gone ? f : Math.max(0, (f - .6) / .4); el.style.opacity = (a + (b - a) * k).toFixed(3); if (f >= 1) { if (gone) el.remove(); else el.style.opacity = ""; } });
+    if (f < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step); }
 // the indexes' rows move from where they stood to where they stand now, the list kept in place round one that stays
 function snapFlip(change, anchor) { const v = document.getElementById("collPanel"), rows = () => [...v.querySelectorAll("[data-co]")];
   const top = new Map(rows().reverse().map(r => [r.dataset.co, r.getBoundingClientRect().top]));
@@ -11253,8 +11347,11 @@ async function snapPlay(next, back) {
       const gone = (back ? was : now).gone.has(c.id); return [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]` + (gone ? `, #mapView .lane[data-r="${ri}"]` : ""))]; });
     const colEls = T => T.flatMap(tt => { const ci = MAP.cols.findIndex(c => c.t === tt); return ci < 0 ? [] : [...document.querySelectorAll(`#mapView .ttl[data-c="${ci}"], #mapView .nd[data-c="${ci}"]`)]; });
     const before = MAP.cols.map(c => c.t);
-    if (!back) { const after = snapMapCols(next); await snapDust(rowEls(rowCh).concat(colEls(before.filter(t => !after.has(t)))), false, 1700); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
-    else { snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; }); await snapWait(500); await snapDust(L, true, 1400); }
+    if (!back) { const after = snapMapCols(next); await snapDust(rowEls(rowCh).concat(colEls(before.filter(t => !after.has(t)))), false, 1300, 1600); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
+    else { // a shortened name (Falcon) dusts out before the whole name (Falcon & Winter Soldier) dusts in, as on the Characters page
+      const oldN = rowCh.filter(c => !was.gone.has(c.id)).flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); return ri < 0 ? [] : [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]`)]; });
+      if (oldN.length) await snapDust(oldN, false, 700, 300);
+      snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; el.style.opacity = ""; }); await snapWait(750); await snapDust(L, true, 1200, 1600); await snapRest(L); }
     return; }
   // the Compound or the Raft: a universe tab it touches, somewhere random in its list
   const cp = pick === "cp", ids = cp ? cpCh : rfCh, src = cp ? ALLIES : THREATS, U = [...new Set(ids.map(id => rfUniOf(src.find(o => o.id === id))))], u = U[Math.floor(Math.random() * U.length)];
@@ -11272,11 +11369,118 @@ async function snapPlay(next, back) {
 }
 async function snap() { const w = await snapNet(); if (!w) return; const P = w.netPool(); SNAP_MERGED = P.merged || {};
   const again = !!(state.eggs || {}).snap, ids = snapShuffle(P.ids).slice(0, Math.floor(P.ids.length / 2));
-  await snapPlay(Object.fromEntries(ids.map(i => [i, 1])), false); if (again) say("Half of all life erased", null, undefined, undefined, true, undefined, undefined, true); }
-async function unsnap() { const w = await snapNet(); if (w) SNAP_MERGED = w.netPool().merged || {}; await snapPlay({}, true); say("All life restored", null, undefined, undefined, true, undefined, undefined, true); }
+  const rep = snapReport(ids, P); await snapPlay(Object.fromEntries(ids.map(i => [i, 1])), false); state.snapRep = rep; snapNewsSync(); persist(); if (atlOpen) renderAtlas(); if (again) say("Half of all life erased", null, undefined, undefined, true, undefined, undefined, true); }
+async function unsnap() { const w = await snapNet(); if (w) SNAP_MERGED = w.netPool().merged || {}; const n = Object.keys(state.snapP || {}).length; await snapPlay({}, true); state.snapRep = snapBack(n); snapNewsSync(); persist(); if (atlOpen) renderAtlas(); say("All life restored", null, undefined, undefined, true, undefined, undefined, true); }
 // the Network learns who's lost as soon as it loads
 document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow;
   if (w && w.netSnapIds) w.netSnapIds(Object.keys(state.snapP || {})); if (w && w.netPool) setTimeout(() => { try { SNAP_MERGED = w.netPool().merged || {}; } catch (e) {} }, 0); });
+
+// the Snap's report (owner, 7 November 2026: "some in-theme damage or Avengers report on the snap reporting how many were snapped, who,
+// where etc right like in the movie"; then "build the report, ticker, memorial etc ... let me get my hands on everything"). Worked out
+// once, from that Snap's own list, and kept (state.snapRep) until "Whatever it takes": a priority message in Comms from whoever is left to
+// send it, the breaking headlines on the ticker before it, the Vanished memorial in San Francisco (Endgame) and a Last seen layer in the
+// Atlas. Undone, the message becomes "All accounted for", and the memorial and the layer go
+var SNAP_SENDERS = ["natasha-romanoff", "steve-rogers", "james-rhodes", "okoye", "carol-danvers", "nebula", "rocket", "bruce-banner", "wong", "maria-hill", "nick-fury"];
+var SNAP_TEAMS = ["The Avengers", "Guardians of the Galaxy", "S.H.I.E.L.D.", "Wakanda", "The Defenders", "The Eternals", "Masters of the Mystic Arts", "The TVA", "The Fantastic Four", "New Avengers", "The Dora Milaje", "New Asgard", "Asgard"];
+var SNAP_UL = { mcu: "Sacred Timeline", sv: "Spider-Verse", fox: "FoX-Men", pr: "Pruned", by: "Beyond" };
+function snapLive() { return !!state.snapRep && !state.snapRep.back; }
+const snapNewsT = () => state.snapRep ? "__snap:" + state.snapRep.id : "";
+function snapReport(ids, P) { const I = P.info || {}, S = new Set(ids), nm = id => (I[id] || [id])[0], uOf = id => (I[id] || [])[1] || "mcu";
+  // the famous first: the people with their own box, in the boxes' order (the original six first), then everyone else by how connected
+  const FAME = [...new Set(Object.values(SNAP_BOX).flatMap(L => L.flatMap(([, x]) => x)))], fame = id => { const i = FAME.indexOf(id); return i < 0 ? 1e4 - ((I[id] || [])[3] || 0) : i; };
+  const M = P.ids.filter(id => uOf(id) === "mcu"), lostM = M.filter(id => S.has(id)).sort((a, b) => fame(a) - fame(b)), leftM = M.filter(id => !S.has(id)).sort((a, b) => fame(a) - fame(b));
+  const sid = SNAP_SENDERS.find(id => I[id] && !S.has(id)), sender = sid ? nm(sid) : "";
+  const uni = Object.keys(SNAP_UL).filter(u => u !== "mcu").map(u => { const L = P.ids.filter(id => uOf(id) === u); return [u, L.filter(id => S.has(id)).length, L.length]; }).filter(x => x[2]);
+  const grp = {}; M.forEach(id => { const g = (I[id] || [])[2]; if (!g || g === "Independent") return; (grp[g] = grp[g] || [0, 0])[1]++; if (S.has(id)) grp[g][0]++; });
+  const hard = Object.entries(grp).filter(([, v]) => v[1] >= 4).sort((a, b) => b[1][0] / b[1][1] - a[1][0] / a[1][1] || b[1][1] - a[1][1]).slice(0, 4).map(([g, v]) => [g, v[0], v[1]]);
+  // where: each lost file's last watched step that names a place (its At line)
+  const place = {}, file = id => ALLIES.find(o => o.id === id) || THREATS.find(o => o.id === id);
+  ids.forEach(id => { const o = file(id); if (!o) return; const tg = ALLIES.includes(o) ? "A" : "T", st = o.st.filter(atlSeenStep);
+    for (let i = st.length - 1; i >= 0; i--) { const e = AT_CASE[tg + ":" + o.id + ":" + o.st.indexOf(st[i])]; if (!e || !e.at || !e.at.length) continue;
+      const k = e.at[e.at.length - 1]; if (atPlace(k)) (place[k] = place[k] || []).push(id); break; } });
+  const seen = Object.entries(place).filter(([k]) => uOf((place[k] || [])[0]) === "mcu").sort((a, b) => b[1].length - a[1].length).slice(0, 4).map(([k, L]) => [k, L.length]);
+  const look = snapLook(Object.fromEntries(ids.map(i => [i, 1])));
+  const team = Object.entries(grp).filter(([g, v]) => SNAP_TEAMS.includes(g) && v[1] >= 4 && v[0]).sort((a, b) => b[1][0] / b[1][1] - a[1][0] / a[1][1])[0], top = seen[0];
+  const heads = ["Half of Earth gone in an instant"];   // no totals: the files aren't the population (owner)
+  if (lostM.length > 1) heads.push(`${nm(lostM[0])} and ${nm(lostM[1])} among the vanished`);
+  if (top) heads.push(`${atPlace(top[0]).p.n} hardest hit`);
+  if (team) heads.push(team[1][0] === team[1][1] ? `${team[0]} wiped out` : `${team[0]}: only ${team[1][1] - team[1][0]} left`);
+  const by = {}; ids.forEach(id => { (by[uOf(id)] = by[uOf(id)] || []).push([id, nm(id), (I[id] || [])[4] || ""]); });
+  return { id: Date.now(), sender, met: M.length, lostM: lostM.length, total: P.ids.length, lost: ids.length, uni,
+    missing: lostM.slice(0, 12).map(id => [id, nm(id)]), left: leftM.slice(0, 6).map(id => [id, nm(id)]), hard, seen, place, by,
+    cp: ALLIES.filter(o => cpSteps(o).length).length - look.cp.size, rf: THREATS.filter(o => rfSteps(o).length).length - look.rf.size, heads }; }
+function snapBack(n) { const r = state.snapRep || {}; return { id: Date.now(), back: 1, sender: r.sender || "", n,
+  heads: ["The vanished are back in an instant", "Confusion as millions reappear where they stood"] }; }
+// the ticker's headlines and the message, as the app's own news and messages
+function snapNewsSync() { Object.keys(NEWS).forEach(t => { if (t.startsWith("__snap:") && t !== snapNewsT()) delete NEWS[t]; }); if (state.snapRep) NEWS[snapNewsT()] = state.snapRep.heads; }
+COMMS.push({ t: "__snap", k: "snap", snap: 1, to: "Agent", cl: "Priority",
+  get id() { return "__snap:" + (state.snapRep || {}).id; },
+  get f() { const r = state.snapRep || {}; return (r.sender || "S.H.I.E.L.D.") + ", Avengers Compound"; },
+  get re() { return (state.snapRep || {}).back ? "All accounted for" : "Unaccounted for"; },
+  get b() { const r = state.snapRep || {}; return r.back ? `They're back. Everyone, across every universe, standing where they were.`
+    : `Half of the population is gone. This is the count so far. We keep checking.`; } });
+MSG_KIND.snap = "Priority transmission";
+const snapEsc = s => esc(String(s));
+// the ones still here open their file (the Compound's, else the Raft's), once you can reach it (owner, 7 November 2026: "should open
+// their file not their network"); the lost are only names now ("I can still click them, it opens their Network ...")
+function snapNames(L, ok) { return L.map(([id, n]) => !ok ? `<button type="button" class="sr-n" data-snaplost="1">${snapEsc(n)}</button>`
+  : ixFile("A", id) || ixFile("T", id) ? `<button type="button" class="sr-n ok" data-snapfile="${snapEsc(id)}">${snapEsc(n)}</button>` : `<span class="sr-n ok">${snapEsc(n)}</span>`).join(""); }
+function snapRepHTML() { const r = state.snapRep; if (!r || r.back) return "";
+  const pct = (a, t) => Math.round(a / t * 100);
+  return `<div class="sr">
+    <div class="sr-k">Unaccounted for</div><div class="sr-big"><b>${r.lostM}</b></div>
+    ${r.uni.length ? `<div class="sr-k">Across the multiverse</div><div class="sr-bars">${r.uni.map(([u, a, t]) => `<span>${SNAP_UL[u]}</span><i><u style="width:${pct(a, t)}%"></u></i><em>${a}</em>`).join("")}</div>` : ""}
+    <div class="sr-k">Missing</div><div class="sr-ns">${snapNames(r.missing)}${r.lostM > r.missing.length ? `<button type="button" class="sr-more" data-vanished="1">+${r.lostM - r.missing.length} more</button>` : ""}</div>
+    ${r.left.length ? `<div class="sr-k">Still reporting in</div><div class="sr-ns">${snapNames(r.left, 1)}</div>` : ""}
+    ${r.hard.length ? `<div class="sr-k">Hardest hit</div><dl class="sr-t">${r.hard.map(([g, a, t]) => `<dt>${snapEsc(g)}</dt><dd>${a === t ? "Wiped out" : a + " gone"}</dd>`).join("")}</dl>` : ""}
+    ${r.seen.length ? `<div class="sr-k">Last seen</div><dl class="sr-t">${r.seen.map(([k, n]) => `<dt><a role="link" tabindex="0" data-atp="${snapEsc(k)}" data-snapls="1">${snapEsc(atPlace(k).p.n)}</a></dt><dd>${n}</dd>`).join("")}</dl>` : ""}
+    <div class="sr-sig">Files closed: ${r.cp} at the Compound, ${r.rf} on the Raft.${r.sender ? " " + snapEsc(r.sender.split(" ").map(w => w[0]).join(".")) + "." : ""}</div></div>`; }
+// the Atlas: how many of the lost were last seen at a pin, in the view you're looking at
+function snapLSCount(pid) { const r = state.snapRep; if (!snapLive() || !state.snapLS) return 0; const pl = atlPlaces().find(q => q.id === pid) || {}; let n = 0;
+  Object.entries(r.place).forEach(([k, L]) => { const [id, v, sub] = k.split("|");
+    if (atlView === "city" ? v === "city" && sub === atlCity && id === pid : atlView === "uni" ? v === "uni" && sub === atlUni && id === pid
+      : v === atlView && id === pid || atlView === "earth" && v === "city" && !!pl.city && sub === pl.city) n += L.length; });
+  return n; }
+function snapLSNames(pid) { const r = state.snapRep; if (!snapLive() || !state.snapLS) return []; const out = [];
+  Object.entries(r.place).forEach(([k, L]) => { const [id, v, sub] = k.split("|"); if (id === pid && v === atlView && (v !== "city" || sub === atlCity) && (v !== "uni" || sub === atlUni)) out.push(...L); });
+  const nm = {}; Object.values(r.by).forEach(L => L.forEach(([id, n]) => { nm[id] = n; })); return out.map(id => [id, nm[id] || id]); }
+function snapLSPins(map) { if (!map) return; map.classList.toggle("snapls", snapLive() && !!state.snapLS);
+  map.querySelectorAll(".atl-pin").forEach(el => { el.classList.remove("ls"); const b = el.querySelector(".ls-n"); if (b) b.remove();
+    const n = snapLSCount(el.dataset.p); if (!n) return; el.classList.add("ls"); el.insertAdjacentHTML("beforeend", `<b class="ls-n">${n}</b>`); }); }
+// the memorial: every name the Snap took, carved, a tab per universe it touched
+let snapVnU = "mcu";
+function snapWallHTML() { const r = state.snapRep; if (!snapLive()) return ""; const U = Object.keys(SNAP_UL).filter(u => (r.by[u] || []).length), u = U.includes(snapVnU) ? snapVnU : U[0];
+  const last = n => { const m = n.replace(/ \(.*\)$/, "").replace(/^The /, ""); return / the /.test(m) ? m.split(" ")[0] : m.split(" ").slice(-1)[0]; }, C = {};   // by family name; Ronan the Accuser under Ronan
+  // a name several versions share (Wanda Maximoff, and Earth-838's) is carved with each one's Earth; the Sacred Timeline's own stays plain
+  const E0 = r.by[u] || []; E0.forEach(([, n]) => { C[n] = (C[n] || 0) + 1; });
+  const L = E0.map(([, n, e]) => [n, C[n] > 1 && e && e !== "Earth-199999" ? e : ""]).sort((a, b) => last(a[0]).localeCompare(last(b[0])) || a[0].localeCompare(b[0]) || a[1].localeCompare(b[1]))
+    .filter((x, i, A) => !i || x[0] !== A[i - 1][0] || x[1] !== A[i - 1][1]), total = E0.length;
+  return `<button type="button" class="vn-x" aria-label="Close">×</button><div class="vn-sky"></div>
+    <div class="vn-mon"><div class="vn-cap"></div><div class="vn-slab"><p class="vn-loc">SAN FRANCISCO</p><h4>THE VANISHED</h4><p class="vn-sub">IN MEMORY OF THOSE WE LOST</p><i class="vn-rule"></i>
+      ${U.length > 1 ? `<div class="vn-tabs">${U.map(x => `<button type="button" data-vnu="${x}"${x === u ? ' class="on"' : ""}>${SNAP_UL[x]}</button>`).join("")}</div>` : ""}
+      <div class="vn-cols">${L.map(([n, e]) => `<span>${snapEsc(n.toUpperCase())}${e ? ` <em>${snapEsc(e.toUpperCase())}</em>` : ""}</span>`).join("")}</div><p class="vn-n">${total} NAMES</p></div><div class="vn-base"></div></div>`; }
+// the memorial opens as a page of its own, the whole screen (owner, 7 November 2026: "the impression of a true full sized monument");
+// the phone's back closes it and nothing under it
+let vnOpen = false;
+function snapWallOpen() { let pg = document.getElementById("vnPage"); if (!pg) { pg = document.createElement("div"); pg.id = "vnPage"; pg.setAttribute("role", "dialog"); pg.setAttribute("aria-label", "The Vanished"); document.body.appendChild(pg); }
+  pg.innerHTML = snapWallHTML(); pg.hidden = false; pg.scrollTop = 0; vnOpen = true; bodyLock(); try { history.pushState({ mcu: "vanished" }, ""); } catch (e) {}
+  if (!REDUCED) pg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 450, easing: "ease-out" }); }
+function snapWallShut() { const pg = document.getElementById("vnPage"); if (!pg || pg.hidden) return; vnOpen = false; pg.hidden = true; bodyFree(); }
+window.addEventListener("popstate", ev => { if (vnOpen) { snapWallShut(); ev.stopImmediatePropagation(); } }, true);
+document.addEventListener("click", ev => {
+  const n = ev.target.closest("[data-snapfile]"); if (n) { haptic(10); const id = n.dataset.snapfile; fileGo(ixFile("A", id) ? "A" : "T", id); return; }
+  if (ev.target.closest("[data-snaplost]")) { haptic(8); toast("Subject lost in the snap."); return; }
+  if (ev.target.closest("[data-snapls]")) { state.snapLS = 1; persist(); setTimeout(() => snapLSPins(document.getElementById("atlMap")), 60); }   // a Last seen place opens the Atlas with the layer on (the link opens it)
+  if (ev.target.closest("#vnPage .vn-x")) { haptic(8); if (history.state && history.state.mcu === "vanished") history.back(); else snapWallShut(); return; }
+  const vn = ev.target.closest(".atl-vn, [data-vanished]"); if (vn) { haptic(12); snapWallOpen(); return; }
+  const vt = ev.target.closest("[data-vnu]"); if (vt) { haptic(8); snapVnU = vt.dataset.vnu; const pg = document.getElementById("vnPage"); if (pg) { const y = pg.querySelector(".vn-tabs") ? pg.scrollTop : 0; pg.innerHTML = snapWallHTML(); pg.scrollTop = y; } return; }
+  const ls = ev.target.closest("[data-atlls]"); if (ls) { haptic(8); state.snapLS = state.snapLS ? 0 : 1; persist(); ls.setAttribute("aria-pressed", !!state.snapLS); snapLSPins(document.getElementById("atlMap")); }
+});
+snapNewsSync();
+// the place sheet: who was last seen here, while the layer is on; and San Francisco's memorial, while the Snap holds
+function snapSheetBits(p) { const L = snapLSNames(p.id);
+  return (L.length ? `<div class="atl-ls"><b>Last seen here · ${L.length}</b><div class="sr-ns">${snapNames(L)}</div></div>` : "")
+    + (p.id === "sf" && atlView === "earth" && snapLive() ? `<button type="button" class="atl-vn"><i aria-hidden="true">&#8224;</i><span><b>The Vanished</b><small>The memorial</small></span><em aria-hidden="true">&#8250;</em></button>` : ""); }
 
 /* ---------- Character Map: drag to pan, pinch or scroll to zoom, tap a stop or a line ---------- */
 let mapOpen = false, mapBuilt = false, mapFocusI = null;
