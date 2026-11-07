@@ -12994,6 +12994,8 @@ snap = async function () { const w = await snapNet(); if (!w) return; const P = 
   const again = !!(state.eggs || {}).snap, ids = snapShuffle(P.ids).slice(0, Math.floor(P.ids.length / 2));
   await snapPlay(Object.fromEntries(ids.map(i => [i, 1])), false); if (again) say("Half of all life erased", null, undefined, undefined, true, undefined, undefined, true); };
 unsnap = async function () { const w = await snapNet(); if (w) SNAP_MERGED = w.netPool().merged || {}; await snapPlay({}, true); say("All life restored", null, undefined, undefined, true, undefined, undefined, true); };
+// the test build hands you the six Stones, so the Gauntlet's Snap is there to try (main never sees this block)
+{ const S = state.stones = state.stones || {}; STONES.forEach(st => { S[st.id] = 1; }); }
 // the Network learns who's lost as soon as it loads
 document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow;
   if (w && w.netSnapIds) w.netSnapIds(Object.keys(state.snapP || {})); if (w && w.netPool) setTimeout(() => { try { SNAP_MERGED = w.netPool().merged || {}; } catch (e) {} }, 0); });
