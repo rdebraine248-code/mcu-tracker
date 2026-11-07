@@ -1530,9 +1530,9 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .sr{ display:flex; flex-direction:column; gap:7px; margin-top:12px; }
 .sr-k{ font:10.5px 'Share Tech Mono',monospace; letter-spacing:.12em; text-transform:uppercase; color:#8096B8; margin-top:6px; }
 .sr-big{ display:flex; align-items:baseline; gap:8px; } .sr-big b{ font:400 44px/0.95 Anton,Impact,sans-serif; color:#EEF1F6; } .sr-big span{ font:12px 'Share Tech Mono',monospace; color:#9FB4D6; }
-.sr-bars{ display:grid; grid-template-columns:auto minmax(0,1fr); gap:5px 9px; align-items:center; font-size:12.5px; }
+.sr-bars{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:5px 9px; align-items:center; font-size:12.5px; }
 .sr-bars i{ height:6px; border-radius:3px; background:#1A273C; overflow:hidden; } .sr-bars u{ display:block; height:100%; background:#E5484D; border-radius:3px; }
-.sr-bars em{ font:11.5px 'Share Tech Mono',monospace; font-style:normal; color:#9FB4D6; text-align:right; }
+.sr-bars em{ font:11.5px/1 'Share Tech Mono',monospace; font-style:normal; color:#9FB4D6; text-align:right; align-self:center; }
 .sr-ns{ display:flex; flex-wrap:wrap; gap:5px; }
 .sr-n, .sr-more{ font:12px 'IBM Plex Sans Condensed',sans-serif; border:1px solid #4A2A33; background:rgba(229,72,77,.09); color:#F3C9CB; border-radius:4px; padding:2px 7px; cursor:pointer; }
 .sr-n.ok{ border-color:#1E3B52; background:rgba(95,208,255,.07); color:#CDEBFA; } .sr-more{ background:none; border-style:dashed; color:#9FB4D6; }
@@ -11283,9 +11283,17 @@ function snapMapRedraw() { const v = MV.s, x = MV.tx, y = MV.ty, OM = MAP, svg0 
     : el.matches(".yrl") ? "y:" + el.textContent : el.matches("rect") && el.nextElementSibling && el.nextElementSibling.matches(".yrl") ? "b:" + el.nextElementSibling.textContent : null;
   const SEL = "#mapG > .lane, #mapG > .rname, #mapG > .ttl, #mapG > .nd, #mapG > .yrl, #mapG > rect";
   // a line as a curve y(x) (they run left to right), and the x of each title on it: points are matched title by title, not by length
-  const dense = path => { const L = path.getTotalLength(), X = [], Y = []; for (let i = 0; i <= 700; i++) { const q = path.getPointAtLength(L * i / 700); X.push(q.x); Y.push(q.y); } return { X, Y }; };
-  const yAt = (D, x) => { const X = D.X; if (x <= X[0]) return D.Y[0]; if (x >= X[X.length - 1]) return D.Y[X.length - 1]; let lo = 0, hi = X.length - 1;
-    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (X[m] <= x) lo = m; else hi = m; } const f = X[hi] === X[lo] ? 0 : (x - X[lo]) / (X[hi] - X[lo]); return D.Y[lo] + (D.Y[hi] - D.Y[lo]) * f; };
+  // read straight from the line's own commands (M, L, C; it runs left to right): sampling it through the browser froze the page for seconds
+  const dense = path => { const d = path.getAttribute("d") || "", S = []; let cx = 0, cy = 0, X = [], Y = [];
+    d.replace(/([MLC])([^MLC]*)/g, (m, k, a) => { const n = (a.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+      if (k === "M") { cx = n[0]; cy = n[1]; } else if (k === "L") { for (let i = 0; i + 1 < n.length; i += 2) { S.push([0, cx, cy, n[i], n[i + 1]]); cx = n[i]; cy = n[i + 1]; } }
+      else for (let i = 0; i + 5 < n.length; i += 6) { S.push([1, cx, cy, n[i], n[i + 1], n[i + 2], n[i + 3], n[i + 4], n[i + 5]]); cx = n[i + 4]; cy = n[i + 5]; } return ""; });
+    S.forEach(q => { X.push(q[1]); }); return { S, X, x0: S.length ? S[0][1] : 0, x1: cx, y0: S.length ? S[0][2] : cy, y1: cy }; };
+  const yAt = (D, x) => { if (!D.S.length || x <= D.x0) return D.y0; if (x >= D.x1) return D.y1; let lo = 0, hi = D.S.length - 1;
+    while (lo < hi) { const m = (lo + hi + 1) >> 1; if (D.X[m] <= x) lo = m; else hi = m - 1; } const q = D.S[lo];
+    if (!q[0]) { const f = q[3] === q[1] ? 0 : (x - q[1]) / (q[3] - q[1]); return q[2] + (q[4] - q[2]) * f; }
+    const B = (t, a, b, c, e) => { const u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * e; };
+    let a = 0, b = 1; for (let k = 0; k < 22; k++) { const m = (a + b) / 2; if (B(m, q[1], q[3], q[5], q[7]) < x) a = m; else b = m; } return B((a + b) / 2, q[2], q[4], q[6], q[8]); };
   const colsOf = (M, ri) => Object.fromEntries(M.cols.filter(c => c.m.includes(ri)).map(c => [c.t, c.x]));
   const before = new Map(); if (svg0) svg0.querySelectorAll(SEL).forEach(el => { const k = keyOf(el, OM); if (!k) return; const ln = el.matches(".lane") && el.querySelector(".lline");
     before.set(k, { el: el.cloneNode(true), D: ln ? dense(ln) : null, C: ln ? colsOf(OM, +el.dataset.r) : null }); });
@@ -11298,7 +11306,7 @@ function snapMapRedraw() { const v = MV.s, x = MV.tx, y = MV.ty, OM = MAP, svg0 
     if (el.matches(".lane")) { const ln = el.querySelector(".lline"), nx = el.querySelector(".lnext"), D1 = dense(ln), C1 = colsOf(MAP, +el.dataset.r), D0 = was.D, C0 = was.C, d1 = ln.getAttribute("d");
       if (nx) { nx.style.opacity = "0"; fades.push([nx, 0, 1]); }
       // anchors: the line's start and end, and each title it passes in both maps; between two anchors, sixteen steps
-      const T = Object.keys(C1).filter(t => t in C0).sort((a, b) => C1[a] - C1[b]), A = [[D0.X[0], D1.X[0]], ...T.map(t => [C0[t], C1[t]]), [D0.X[D0.X.length - 1], D1.X[D1.X.length - 1]]].filter((q, i, L) => !i || q[0] > L[i - 1][0] && q[1] > L[i - 1][1]);
+      const T = Object.keys(C1).filter(t => t in C0).sort((a, b) => C1[a] - C1[b]), A = [[D0.x0, D1.x0], ...T.map(t => [C0[t], C1[t]]), [D0.x1, D1.x1]].filter((q, i, L) => !i || q[0] > L[i - 1][0] && q[1] > L[i - 1][1]);
       const P = []; A.forEach((q, i) => { if (!i) { P.push(q); return; } const o = A[i - 1]; for (let k = 1; k <= 16; k++) P.push([o[0] + (q[0] - o[0]) * k / 16, o[1] + (q[1] - o[1]) * k / 16]); });
       const PY = P.map(([a, b]) => [yAt(D0, a), yAt(D1, b)]);
       jobs.push(e => { ln.setAttribute("d", e >= 1 ? d1 : "M" + P.map(([a, b], i) => (a + (b - a) * e).toFixed(1) + "," + (PY[i][0] + (PY[i][1] - PY[i][0]) * e).toFixed(1)).join(" L")); }); return; }
@@ -11390,11 +11398,11 @@ async function snapPlay(next, back) {
       const gone = (back ? was : now).gone.has(c.id); return [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]` + (gone ? `, #mapView .lane[data-r="${ri}"]` : ""))]; });
     const colEls = T => T.flatMap(tt => { const ci = MAP.cols.findIndex(c => c.t === tt); return ci < 0 ? [] : [...document.querySelectorAll(`#mapView .ttl[data-c="${ci}"], #mapView .nd[data-c="${ci}"]`)]; });
     const before = MAP.cols.map(c => c.t);
-    if (!back) { const after = snapMapCols(next); await snapDust(rowEls(rowCh).concat(colEls(before.filter(t => !after.has(t)))), false, 1700); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
+    if (!back) { const after = snapMapCols(next); await snapDust(rowEls(rowCh).concat(colEls(before.filter(t => !after.has(t)))), false, 1300, 1600); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
     else { // a shortened name (Falcon) dusts out before the whole name (Falcon & Winter Soldier) dusts in, as on the Characters page
       const oldN = rowCh.filter(c => !was.gone.has(c.id)).flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); return ri < 0 ? [] : [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]`)]; });
-      if (oldN.length) await snapDust(oldN, false, 1000, 600);
-      snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; el.style.opacity = ""; }); await snapWait(800); await snapDust(L, true, 1400); await snapRest(L); }
+      if (oldN.length) await snapDust(oldN, false, 700, 300);
+      snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; el.style.opacity = ""; }); await snapWait(750); await snapDust(L, true, 1200, 1600); await snapRest(L); }
     return; }
   // the Compound or the Raft: a universe tab it touches, somewhere random in its list
   const cp = pick === "cp", ids = cp ? cpCh : rfCh, src = cp ? ALLIES : THREATS, U = [...new Set(ids.map(id => rfUniOf(src.find(o => o.id === id))))], u = U[Math.floor(Math.random() * U.length)];
@@ -11468,10 +11476,11 @@ function snapNames(L, ok) { return L.map(([id, n]) => `<button type="button" cla
 function snapRepHTML() { const r = state.snapRep; if (!r || r.back) return "";
   const pct = (a, t) => Math.round(a / t * 100);
   return `<div class="sr">
-    ${r.uni.length ? `<div class="sr-k">Across the multiverse</div><div class="sr-bars">${r.uni.map(([u, a, t]) => `<span>${SNAP_UL[u]}</span><i><u style="width:${pct(a, t)}%"></u></i>`).join("")}</div>` : ""}
+    <div class="sr-k">Unaccounted for</div><div class="sr-big"><b>${r.lostM}</b></div>
+    ${r.uni.length ? `<div class="sr-k">Across the multiverse</div><div class="sr-bars">${r.uni.map(([u, a, t]) => `<span>${SNAP_UL[u]}</span><i><u style="width:${pct(a, t)}%"></u></i><em>${a}</em>`).join("")}</div>` : ""}
     <div class="sr-k">Missing</div><div class="sr-ns">${snapNames(r.missing)}${r.lostM > r.missing.length ? `<button type="button" class="sr-more" data-vanished="1">+${r.lostM - r.missing.length} more</button>` : ""}</div>
     ${r.left.length ? `<div class="sr-k">Still reporting in</div><div class="sr-ns">${snapNames(r.left, 1)}</div>` : ""}
-    ${r.hard.length ? `<div class="sr-k">Hardest hit</div><dl class="sr-t">${r.hard.map(([g, a, t]) => `<dt>${snapEsc(g)}</dt><dd>${a === t ? "Wiped out" : t - a + " left"}</dd>`).join("")}</dl>` : ""}
+    ${r.hard.length ? `<div class="sr-k">Hardest hit</div><dl class="sr-t">${r.hard.map(([g, a, t]) => `<dt>${snapEsc(g)}</dt><dd>${a === t ? "Wiped out" : a + " gone"}</dd>`).join("")}</dl>` : ""}
     ${r.seen.length ? `<div class="sr-k">Last seen</div><dl class="sr-t">${r.seen.map(([k, n]) => `<dt><a role="link" tabindex="0" data-atp="${snapEsc(k)}" data-snapls="1">${snapEsc(atPlace(k).p.n)}</a></dt><dd>${n}</dd>`).join("")}</dl>` : ""}
     <div class="sr-sig">Files closed: ${r.cp} at the Compound, ${r.rf} on the Raft.${r.sender ? " " + snapEsc(r.sender.split(" ").map(w => w[0]).join(".")) + "." : ""}</div></div>`; }
 // the Atlas: how many of the lost were last seen at a pin, in the view you're looking at

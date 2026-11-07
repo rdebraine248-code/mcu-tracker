@@ -1339,15 +1339,16 @@ been lost over the different handoffs that I said to remind new chats about, esp
   several versions share carved once with a count). Names open their Network card (`data-netid`), places open the Atlas with the layer on.
   Undone: "All accounted for" and two headlines; the memorial and the layer go. The Network's `netPool` now also gives each person's
   name, universe, group and connections. Not on main: built straight into the app's code (no MOCK), so it goes with the next main push.
+- **Paths' redraw no longer freezes the page** (owner, 7 November 2026: "the path animation took a long time to go through and settle"): sampling each line through the browser (`getPointAtLength`) took 8 s before anything moved; lines are now read from their own M/L/C commands (24 ms). Paths' dust is quicker too (1.3 s over 1.6 s; coming back 1.2 s).
 - **Paths closes up and opens like the lists** (owner, 7 November 2026: "it just kind of pops up fully spaced out, or fully closed
   out ... that doesn't match the rest"; and its dots flashed before coming back). `snapMapRedraw` now moves the map on the Characters
   list's curve: each line drawn between its old and new shape, matched title by title (by length they swung); stops, titles, names and
   years slide; a stop that changes shape crossfades (`.snap-old`); anything new waits hidden for its dust. Coming back, a shortened name
   dusts out first. Pop detector clean both ways, several runs.
-- **The Snap report's words (owner, 7 November 2026):** no "of X" and no totals anywhere ("there aren't 1400 people on Earth": the
+- **The Snap report's words (owner, 7 November 2026; corrected the same day: "I want the count of how many are gone, just not out of X"):** the report shows how many are gone (Unaccounted for, a big number; a count beside each universe; Hardest hit "N gone" or "Wiped out"), never "of X" or a total. Earlier wording, kept where it still holds: no "of X" and no totals anywhere ("there aren't 1400 people on Earth": the
   files aren't the population), no Earth number in its heading; the message reads "Half of the population is gone. This is the count so
   far. We keep checking."; the first headline "Half of Earth gone in an instant", a place "hardest hit" with no count, a team "only N
-  left"; Hardest hit reads "N left" or "Wiped out"; the universe bars have no numbers. The wall carves a name several people share once
+  left";  The wall carves a name several people share once
   per Earth, with that Earth under it (the Sacred Timeline's own plain), never "· 2".
 - **Rules from this round (owner, 7 November 2026):** don't change how something works without being asked (I kept Thanos out of the
   Snap unasked: "Why would you exclude Thanos? Did I ask? No"; reverted; anyone can be snapped). No instruction words anywhere, "scroll"
