@@ -1330,11 +1330,18 @@ been lost over the different handoffs that I said to remind new chats about, esp
 - When the owner reports something desktop can't show, ask for a screen recording, pull frames with ffmpeg and measure them (the phone
   is 1080x2340 screen pixels, 2.5 per page pixel).
 
-- **Next, the owner's idea (7 November 2026): an in-world Snap report** ("how many were snapped, who, where etc right like in the movie";
-  not in an index, not in the Gauntlet's pop-up). Four mockups on one real run at https://claude.ai/artifact/2ntGEEWFUod9UxSDmBjWC6:
-  A a casualty report from the Compound pinned in Comms, signed by a survivor; B breaking news on the ticker; C a Last seen layer in the
-  Atlas (each lost file's last At place); D the Vanished memorial in San Francisco (Endgame). Recommended A delivered by B, with C and
-  D opened from it. Waiting on the owner's pick.
+- **Test build (7 November 2026): the Snap report, built** (owner: "build the report, ticker, memorial etc idk about atlas ... build it
+  I guess and let me get my hands on everything"). Worked out once from that Snap's list (`snapReport`, kept in `state.snapRep` until
+  Whatever it takes): a priority message in Comms (`COMMS` entry `__snap`, its fields getters; `cmExtra` draws the report, `snapRepHTML`)
+  signed by the first survivor of `SNAP_SENDERS` (Natasha, Steve, Rhodey, Okoye ...); the ticker's headlines (`NEWS["__snap:<id>"]`,
+  `newsLiveT`); Last seen in the Atlas (a Lost switch beside Fit, red pins with counts, "Last seen here" names on a place's sheet;
+  `snapLSPins`, `snapSheetBits`); the Vanished memorial in San Francisco's sheet (a door like Damage Control's; a tab per universe; a name
+  several versions share carved once with a count). Names open their Network card (`data-netid`), places open the Atlas with the layer on.
+  Undone: "All accounted for" and two headlines; the memorial and the layer go. The Network's `netPool` now also gives each person's
+  name, universe, group and connections. Not on main: built straight into the app's code (no MOCK), so it goes with the next main push.
+- **Rules from this round (owner, 7 November 2026):** don't change how something works without being asked (I kept Thanos out of the
+  Snap unasked: "Why would you exclude Thanos? Did I ask? No"; reverted; anyone can be snapped). No instruction words anywhere, "scroll"
+  included (the memorial mockup said "362 NAMES · SCROLL"; it reads "362 NAMES").
 
 ## Coverage: everything the app shows, and what checks it (7 November 2026)
 
