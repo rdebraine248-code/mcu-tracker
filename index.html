@@ -1547,17 +1547,17 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .atl-pin .ls-n{ position:absolute; left:0; top:-20px; transform:translateX(-50%); background:#E5484D; color:#fff; font:600 10.5px/1.5 'IBM Plex Sans Condensed',sans-serif; border-radius:8px; padding:0 5px; white-space:nowrap; pointer-events:none; }
 .atl-ls{ margin:10px 0 4px; padding:10px 12px; border:1px solid #6B2A33; border-radius:12px; background:rgba(229,72,77,.07); display:flex; flex-direction:column; gap:7px; }
 .atl-ls > b{ font:12px 'Share Tech Mono',monospace; font-weight:400; letter-spacing:.14em; text-transform:uppercase; color:#F3A5A8; }
-.atl-vn{ border-color:#6E737B; background:repeating-linear-gradient(135deg,rgba(180,186,194,.09) 0 10px,rgba(180,186,194,.03) 10px 20px); color:#D3D7DC; }
-.atl-vn i{ border-color:rgba(200,205,212,.5); color:#C9CDD3; }
+button.atl-vn{ border-color:#6E737B; background:repeating-linear-gradient(135deg,rgba(180,186,194,.09) 0 10px,rgba(180,186,194,.03) 10px 20px); color:#D3D7DC; }
+button.atl-vn i{ border-color:rgba(200,205,212,.5); color:#C9CDD3; } button.atl-vn small, button.atl-vn em{ color:#A9AFB6; }
 .vn-wall{ margin:12px 0 8px; padding:18px 14px 16px; border-radius:6px; border:1px solid #555B63; background:linear-gradient(180deg,#4A5058,#3A3F46 60%,#30353B); display:flex; flex-direction:column; gap:9px; }
 .vn-wall h4{ margin:0; text-align:center; font:700 22px Cinzel,'Trajan Pro',Georgia,serif; letter-spacing:.22em; color:#C9CDD3; text-shadow:0 1px 0 rgba(0,0,0,.6),0 -1px 0 rgba(255,255,255,.08); }
 .vn-sub, .vn-n{ margin:0; text-align:center; font:10.5px Cinzel,Georgia,serif; letter-spacing:.2em; color:#A9AFB6; }
 .vn-cols{ columns:2; column-gap:14px; font:11.5px/1.75 Cinzel,Georgia,serif; letter-spacing:.06em; color:#D3D7DC; text-shadow:0 1px 0 rgba(0,0,0,.55); }
 .vn-cols span{ display:block; break-inside:avoid; } .vn-cols em{ display:block; font-style:normal; font-size:9.5px; line-height:1.3; letter-spacing:.12em; color:#A9AFB6; white-space:nowrap; margin:-2px 0 3px; }
-.atl-dc{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #4E9E3A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(109,187,138,.10) 0 10px,rgba(109,187,138,.03) 10px 20px); color:#BFF0A6; text-align:left; cursor:pointer; }
-.atl-dc i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(109,187,138,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#6DBB8A; }
-.atl-dc span{ flex:1; } .atl-dc b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
-.atl-dc small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; } .atl-dc em{ font-style:normal; font-size:18px; color:#6DBB8A; }
+.atl-dc, .atl-vn{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #4E9E3A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(109,187,138,.10) 0 10px,rgba(109,187,138,.03) 10px 20px); color:#BFF0A6; text-align:left; cursor:pointer; }
+.atl-dc i, .atl-vn i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(109,187,138,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#6DBB8A; }
+.atl-dc span, .atl-vn span{ flex:1; }.atl-dc b, .atl-vn b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
+.atl-dc small, .atl-vn small{ display:block; margin-top:1px; font-size:13px; color:#A6C996; }.atl-dc em, .atl-vn em{ font-style:normal; font-size:18px; color:#6DBB8A; }
 .hf-arch .ar-dc{ --ac:#3F7A2E; --ab:linear-gradient(180deg,rgba(109,187,138,.10),rgba(109,187,138,.03)); --ak:#6DBB8A; }
 /* each index wears its own colour (owner, November 2026: "the Raft red, Damage Control green, but not neon or slime green"): the title's
    glow, the section heads and a faint tint on its boxes. The Compound is Avengers blue, the Raft red, Damage Control green, the Collection gold */
@@ -11528,7 +11528,7 @@ snapNewsSync();
 // the place sheet: who was last seen here, while the layer is on; and San Francisco's memorial, while the Snap holds
 function snapSheetBits(p) { const L = snapLSNames(p.id);
   return (L.length ? `<div class="atl-ls"><b>Last seen here · ${L.length}</b><div class="sr-ns">${snapNames(L)}</div></div>` : "")
-    + (p.id === "sf" && atlView === "earth" && snapLive() ? `<button type="button" class="atl-dc atl-vn"><i aria-hidden="true">&#8224;</i><span><b>The Vanished</b><small>The memorial</small></span><em aria-hidden="true">&#8250;</em></button>` : ""); }
+    + (p.id === "sf" && atlView === "earth" && snapLive() ? `<button type="button" class="atl-vn"><i aria-hidden="true">&#8224;</i><span><b>The Vanished</b><small>The memorial</small></span><em aria-hidden="true">&#8250;</em></button>` : ""); }
 
 /* ---------- Character Map: drag to pan, pinch or scroll to zoom, tap a stop or a line ---------- */
 let mapOpen = false, mapBuilt = false, mapFocusI = null;
