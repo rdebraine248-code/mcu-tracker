@@ -34,6 +34,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   (`state.snapPg`); a shared box or line that keeps some of its people loses only the lost part of its name, by dust, and gets it back by
   dust (`snapNameParts` and `snapNarrow` on the Characters page, `snapSvgParts`, `snapSvgSlide` on Paths); nothing dusts away while coming
   back (the detector now also logs any dust-out during the undo); a shortened name keeps the whole name's colours (`snapNameHtml`).
+  Then (owner: "network bring back has no dust"): coming back, the ash gathers in on every page (flakes start where they would have
+  drifted and fly in, `inb`; the Network's dust-in runs 1.8 s). The detector keys names by their box or line, not their text.
 
 ## This chat's checklist (5 to 7 November 2026; all on main)
 

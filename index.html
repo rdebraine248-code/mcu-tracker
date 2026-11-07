@@ -11356,12 +11356,14 @@ const snapInView = el => { const r = el.getBoundingClientRect(); return r.bottom
 // filled the screen), and none off a Paths line (one runs the whole width of the map)
 let snapAC = null, snapAP = [], snapAL = 0;
 function snapAshTick() { const { g } = snapAC; g.clearRect(0, 0, innerWidth, innerHeight); snapAP = snapAP.filter(q => q.l > 0);
-  snapAP.forEach(q => { q.x += q.vx; q.y += q.vy; q.vy -= .015; q.l -= .028; if (q.l > 0) { g.fillStyle = `rgba(${q.c},${q.l})`; g.fillRect(q.x, q.y, q.s, q.s); } });
+  snapAP.forEach(q => { q.x += q.vx; q.y += q.vy; if (!q.inb) q.vy -= .015; q.l -= .028; if (q.l > 0) { const al = q.inb ? Math.min(1, (q.l0 - q.l) * 4) * .9 : q.l; g.fillStyle = `rgba(${q.c},${al})`; g.fillRect(q.x, q.y, q.s, q.s); } });
   if (snapAP.length || snapAL) requestAnimationFrame(snapAshTick); else { snapAC.cv.remove(); snapAC = null; } }
-function snapAsh(el, ms) { if (el.closest && el.closest("#mapView .lane")) return; const r = el.getBoundingClientRect(), rate = Math.min(2.5, Math.max(.6, r.width * r.height / 2200)), t0 = performance.now();
+function snapAsh(el, ms, back) { if (el.closest && el.closest("#mapView .lane")) return; const r = el.getBoundingClientRect(), rate = Math.min(2.5, Math.max(.6, r.width * r.height / 2200)), t0 = performance.now();
   if (!snapAC) { snapAC = cxCanvas(); requestAnimationFrame(snapAshTick); } snapAL++;
-  const emit = now => { const f = (now - t0) / ms; if (f >= .85) { snapAL--; return; }
-    for (let n = rate; n > 0; n--) if (n >= 1 || Math.random() < n) snapAP.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: .5 + Math.random() * 1.4, vy: -.2 - Math.random(), s: 1 + Math.random() * 1.6, l: .9, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
+  const emit = now => { const f = (now - t0) / ms; if (f >= (back ? .75 : .85)) { snapAL--; return; }
+    for (let n = rate; n > 0; n--) if (n >= 1 || Math.random() < n) { const x = r.left + Math.random() * r.width, y = r.top + Math.random() * r.height, vx = .5 + Math.random() * 1.4, vy = -.2 - Math.random(), c = Math.random() < .6 ? "138,125,114" : "200,206,214";
+      if (!back) snapAP.push({ x, y, vx, vy, s: 1 + Math.random() * 1.6, l: .9, c });
+      else { const k = 26 + Math.random() * 14; snapAP.push({ x: x + vx * k, y: y + vy * k, vx: -vx, vy: -vy, s: 1 + Math.random() * 1.6, l: k * .028, l0: k * .028, inb: 1, c }); } }   // coming back it gathers in
     requestAnimationFrame(emit); };
   requestAnimationFrame(emit); }
 // the boxes' dust (snapBox's own filter, the same numbers), without snapBox's canvas: it lays a full-screen canvas over the page for each
@@ -11377,7 +11379,7 @@ function snapFilt(el, ms, back) { const id = "snapF" + (++snapFN);
     if (f0 < 1) requestAnimationFrame(step); else { if (!back) el.style.visibility = "hidden"; el.style.filter = ""; f.parentNode.remove(); } };
   requestAnimationFrame(step); }
 async function snapDust(els, back, ms, spread = 3200) { els = snapShuffle(els); let end = 0;
-  els.forEach(el => { const at = 200 + Math.random() * spread; end = Math.max(end, at + ms); setTimeout(() => { snapFilt(el, ms, back); if (!back) snapAsh(el, ms); }, at); });
+  els.forEach(el => { const at = 200 + Math.random() * spread; end = Math.max(end, at + ms); setTimeout(() => { snapFilt(el, ms, back); snapAsh(el, ms, back); }, at); });
   await snapWait(end + 150); }
 // a box's shortened name, as a set of the lost would leave it
 function snapLookName(set, c) { const k = state.snapP; state.snapP = set; const n = snapName(c); state.snapP = k; return n; }

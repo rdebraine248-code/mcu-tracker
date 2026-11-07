@@ -533,10 +533,13 @@ function dzPaint(L, t) { const live = new Set(), D = DPR;
     if (r > 9) { cg.fillStyle = '#EEF1F6'; cg.font = `400 ${Math.round(r * .78)}px Anton, Impact, sans-serif`; cg.textAlign = 'center'; cg.textBaseline = 'middle'; cg.fillText(initials(p.n), q.x, q.y + 1); }
     if (nm) { cg.font = `600 ${nm.fz}px 'IBM Plex Sans Condensed', sans-serif`; cg.textAlign = 'center'; cg.textBaseline = 'top'; cg.lineWidth = 3.5; cg.lineJoin = 'round'; cg.strokeStyle = '#0B1019'; cg.fillStyle = '#C9D3E2';
       nm.L.forEach((l, j) => { const y = q.y + r + 2 + j * (nm.fz + 1); cg.strokeText(l, q.x, y); cg.fillText(l, q.x, y); }); }
+    // coming back, the ash gathers: flakes start off where it drifted and fly in onto them (owner: "network bring back has no dust")
+    if (z.back && f > 0 && f < .75) for (let k = 0; k < 2; k++) { const tx = q.x - r + Math.random() * 2 * r, ty = q.y - r + Math.random() * 2 * r, n = 26 + Math.random() * 14, vx = .5 + Math.random() * 1.4, vy = -.2 - Math.random();
+      ASH.push({ x: tx + vx * n, y: ty + vy * n, vx: -vx, vy: -vy, s: 1 + Math.random() * 1.6, l: n * .028, l0: n * .028, inb: 1, c: Math.random() < .6 ? '138,125,114' : '200,206,214' }); }
     if (!z.back && f > 0 && f < .85 && Math.random() < .8) ASH.push({ x: q.x - r + Math.random() * 2 * r, y: q.y - r + Math.random() * 2 * r, vx: .5 + Math.random() * 1.4, vy: -.2 - Math.random(), s: 1 + Math.random() * 1.6, l: .9, c: Math.random() < .6 ? '138,125,114' : '200,206,214' });
     if (f >= 1) { if (z.back) delete p.dz; else z.gone = true; } });   // back: drawn on the floor from the next frame, the same frame this canvas goes
   DZ.forEach((el, i) => { if (!live.has(i)) { el.c.remove(); el.svg.remove(); DZ.delete(i); } });
-  if (ASH.length) { ASH = ASH.filter(a => a.l > 0); ASH.forEach(a => { a.x += a.vx; a.y += a.vy; a.vy -= .015; a.l -= .028; if (a.l > 0) { g.globalAlpha = 1; g.fillStyle = `rgba(${a.c},${a.l})`; g.fillRect(a.x, a.y, a.s, a.s); } }); } }
+  if (ASH.length) { ASH = ASH.filter(a => a.l > 0); ASH.forEach(a => { a.x += a.vx; a.y += a.vy; if (!a.inb) a.vy -= .015; a.l -= .028; if (a.l > 0) { const al = a.inb ? Math.min(1, (a.l0 - a.l) * 4) * .9 : a.l; g.globalAlpha = 1; g.fillStyle = `rgba(${a.c},${al})`; g.fillRect(a.x, a.y, a.s, a.s); } }); } }
 // everyone walks from where they stand to their new place together, on the Characters list's curve (700ms, cubic-bezier(.3,0,.2,1)),
 // the view carried along so the group it was on stays put
 function roomMove(ms, spot) { return new Promise(res => { const S = N.filter(p => p.vis).map(p => [p, p.wx, p.wy, p.hx, p.hy]), z = Z.find(z => z.name === spot),
@@ -580,8 +583,8 @@ self.netSnapPlay = async (ids, back) => { const NEW = new Set(ids || []), OLD = 
     swap(); N.forEach(p => { delete p.dz; }); await roomMove(900, best ? best[0] : '');
   } else { // the room opens up with their places empty, the view on the same group; once it's still they gather back, at random
     swap(); const now = performance.now() + 1100;
-    N.forEach(p => { if (p.vis && hit(p)) { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.dz = { back: true, t0: now + Math.random() * 3600, ms: 1400 }; p.landAt = p.dz.t0 + 1400; } });
-    await roomMove(900, z ? z.name : ''); await wait(3600 + 1400 + 400); }
+    N.forEach(p => { if (p.vis && hit(p)) { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.dz = { back: true, t0: now + Math.random() * 3600, ms: 1800 }; p.landAt = p.dz.t0 + 1800; } });
+    await roomMove(900, z ? z.name : ''); await wait(3600 + 1800 + 500); }
   return true; };
 let LIVE = !EMB, looping = LIVE; if (LIVE) requestAnimationFrame(frame);
 new ResizeObserver(() => document.documentElement.style.setProperty('--hb', document.querySelector('header').offsetHeight + 'px')).observe(document.querySelector('header'));   // the empty floor's middle sits below the header
