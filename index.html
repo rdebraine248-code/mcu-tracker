@@ -1551,6 +1551,7 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 button.atl-vn{ border-color:#6E737B; background:repeating-linear-gradient(135deg,rgba(180,186,194,.09) 0 10px,rgba(180,186,194,.03) 10px 20px); color:#D3D7DC; }
 button.atl-vn i{ border-color:rgba(200,205,212,.5); color:#C9CDD3; } button.atl-vn small, button.atl-vn em{ color:#A9AFB6; }
 .vn-wall{ display:none; }
+.snap-mp{ display:inline-block; white-space:pre; overflow:hidden; vertical-align:bottom; }
 #vnPage{ position:fixed; inset:0; z-index:90; overflow-y:auto; overscroll-behavior:contain; background:linear-gradient(180deg,#0B1220 0%,#152238 38%,#1B2A3F 100%); padding:calc(54px + env(safe-area-inset-top,0px)) max(14px, env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(14px, env(safe-area-inset-left,0px)); }
 #vnPage .vn-sky{ position:fixed; inset:0; pointer-events:none; background:radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,.07), transparent 60%); }
 #vnPage .vn-x{ position:fixed; top:calc(10px + env(safe-area-inset-top,0px)); right:max(12px, env(safe-area-inset-right,0px)); z-index:2; width:36px; height:36px; border-radius:50%; border:1px solid rgba(200,205,212,.35); background:rgba(11,18,32,.7); color:#D3D7DC; font-size:20px; line-height:1; cursor:pointer; }
@@ -2310,7 +2311,7 @@ const PART_NAME = { "cx-loki-the-tva": ["Loki", ["Loki S1", "Loki S2"]] };
 const partFull = e => !!(state.named || {})[e.id + ":full"] || PART_NAME[e.id][1].some(atlSeenT);
 // after the Snap a shared box that has lost one of its people goes by those who are left (snapName)
 const boxName = e => snapName(e) || (PART_NAME[e.id] && !partFull(e) ? PART_NAME[e.id][0] : e.title);
-const boxNameHtml = e => snapName(e) ? esc(snapName(e)) : PART_NAME[e.id] && !partFull(e) ? esc(PART_NAME[e.id][0]) : e.titleHtml;
+const boxNameHtml = e => snapName(e) ? snapNameHtml(e) : PART_NAME[e.id] && !partFull(e) ? esc(PART_NAME[e.id][0]) : e.titleHtml;
 // what's been revealed stays revealed: box names, the rest of a partial name, and insignia, kept the moment they're earned
 function nameKeep() {
   const nm = state.named = state.named || {}, eo = state.embOpen = state.embOpen || {};
@@ -11378,6 +11379,43 @@ function snapFilt(el, ms, back) { const id = "snapF" + (++snapFN);
 async function snapDust(els, back, ms, spread = 3200) { els = snapShuffle(els); let end = 0;
   els.forEach(el => { const at = 200 + Math.random() * spread; end = Math.max(end, at + ms); setTimeout(() => { snapFilt(el, ms, back); if (!back) snapAsh(el, ms); }, at); });
   await snapWait(end + 150); }
+// a box's shortened name, as a set of the lost would leave it
+function snapLookName(set, c) { const k = state.snapP; state.snapP = set; const n = snapName(c); state.snapP = k; return n; }
+// the part of a name a box loses or gets back: where the kept name sits inside the whole one (Wanda & Vision, kept "Wanda": " & Vision")
+function snapRanges(full, kept) { if (!kept) return null; const i = full.toLowerCase().indexOf(kept.toLowerCase()); if (i < 0) return null; const R = [];
+  if (i > 0) R.push([0, i]); if (i + kept.length < full.length) R.push([i + kept.length, full.length]); return R; }
+// the lost part of a box's name wrapped in its own spans (its colours kept), so only that part dusts
+function snapNameParts(h, full, kept) { const R = snapRanges(h.textContent, kept); if (!R) return [];
+  const out = []; R.forEach(([a, b]) => { const W = []; let pos = 0; const walk = n => { if (n.nodeType === 3) { const s0 = pos, s1 = pos + n.length; pos = s1; if (s1 <= a || s0 >= b) return;
+      let t = n; if (a > s0) t = t.splitText(a - s0); if (s1 > b) t.splitText(t.length - (s1 - b)); W.push(t); } else [...n.childNodes].forEach(walk); }; walk(h);
+    W.forEach(t => { const sp = document.createElement("span"); sp.className = "snap-mp"; t.before(sp); sp.appendChild(t); out.push(sp); }); });
+  return out; }
+// a part that has gone closes up (the rest slides over), or a part coming back opens its room first
+function snapNarrow(P, open) { if (!P.length) return Promise.resolve(); return new Promise(res => { P.forEach(sp => { const w = sp.scrollWidth; sp.style.maxWidth = (open ? 0 : w) + "px";
+    sp.animate([{ maxWidth: (open ? 0 : w) + "px" }, { maxWidth: (open ? w : 0) + "px" }], { duration: 320, easing: "cubic-bezier(.3,0,.2,1)", fill: "forwards" }); }); setTimeout(res, 340); }); }
+// on Paths a name is SVG text: its lost part is drawn as its own text over the name (that part of the name itself clear), so only it dusts
+function snapSvgParts(t, full, kept) { const txt = t.textContent, R = snapRanges(txt, kept); if (!R) return []; const x = +t.getAttribute("x"), out = [];
+  R.forEach(([a, b]) => { const o = t.cloneNode(false); o.removeAttribute("data-r"); o.classList.add("snap-part"); o.textContent = txt.slice(a, b);
+    o.setAttribute("x", (x + (a ? t.getSubStringLength(0, a) : 0)).toFixed(1)); o._w = t.getSubStringLength(a, b - a); o._a = a; t.after(o); out.push(o); });
+  const keep = R.reduce((s, [a, b]) => s.slice(0, a) + "\u0000".repeat(b - a) + s.slice(b), txt);   // the name itself shows only its kept part
+  t._full = txt; t.innerHTML = [...keep].map((ch, i) => `<tspan${ch === "\u0000" ? ' fill-opacity="0" stroke-opacity="0"' : ""}>${esc(txt[i])}</tspan>`).join(""); out.forEach(o => { o._t = t; }); return out; }
+const snapSvgPre = (P, t) => P.filter(o => o._t === t && o._a === 0).reduce((n, o) => n + o._w, 0);
+// gone: the kept part slides to where the short name will stand
+// (SVG text moves by its own transform attribute: a CSS transform on it didn't take)
+function snapSvgSlide(t, x0, x1, ms) { return new Promise(res => { const t0 = performance.now(), ease = q => 1 - Math.pow(1 - q, 3);
+  const step = now => { const f = Math.min(1, (now - t0) / ms), x = x0 + (x1 - x0) * ease(f); if (Math.abs(x) < .01) t.removeAttribute("transform"); else t.setAttribute("transform", `translate(${x.toFixed(2)},0)`); if (f < 1) requestAnimationFrame(step); else res(); };
+  requestAnimationFrame(step); }); }
+function snapSvgClose(P) { const T = [...new Set(P.map(o => o._t))]; return Promise.all(T.map(t => { const pre = snapSvgPre(P, t); return pre ? snapSvgSlide(t, 0, -pre, 320) : null; })); }
+// coming back: the kept part stays where the short name stood while the map opens, then slides over to make room, and the lost part dusts in
+function snapSvgHold(P) { P.forEach(o => { o.style.visibility = "hidden"; }); [...new Set(P.map(o => o._t))].forEach(t => { const pre = snapSvgPre(P, t); if (pre) t.setAttribute("transform", `translate(${-pre},0)`); }); }
+function snapSvgOpen(P) { const T = [...new Set(P.map(o => o._t))]; P.forEach(o => { o.setAttribute("y", o._t.getAttribute("y")); });   // the map has opened: the parts follow their line
+  return Promise.all(T.map(t => { const pre = snapSvgPre(P, t); return pre ? snapSvgSlide(t, -pre, 0, 320) : null; })); }
+function snapSvgDone(P) { [...new Set(P.map(o => o._t))].forEach(t => { if (t._full) t.textContent = t._full; }); P.forEach(o => o.remove()); }
+// a shortened box name drawn from the whole name's own markup, so it keeps its colours (The Wasp stays gold)
+function snapNameHtml(e) { const kept = snapName(e), d = document.createElement("div"); d.innerHTML = e.titleHtml; const P = snapNameParts(d, e.title, kept);
+  if (!P.length) return esc(kept); P.forEach(sp => sp.remove()); const T = []; const walk = n => { if (n.nodeType === 3) T.push(n); else [...n.childNodes].forEach(walk); }; walk(d);
+  const L = T.filter(t => t.data.trim()); if (L.length) { L[0].data = L[0].data.replace(/^\s+/, ""); L[0].data = L[0].data[0].toUpperCase() + L[0].data.slice(1); L[L.length - 1].data = L[L.length - 1].data.replace(/\s+$/, ""); }
+  return d.innerHTML; }
 // the titles Paths would show with a set of the lost (a title only lost lines pass through leaves the map with them)
 function snapMapCols(set) { const k = state.snapP, d = state.dusted; state.snapP = set; state.dusted = {}; DATA.chars.forEach(c => { if (snapBoxGone(c)) state.dusted[c.id] = true; });
   const T = new Set(mapData(mapHide()).cols.map(c => c.t)); state.snapP = k; state.dusted = d; return T; }
@@ -11386,42 +11424,49 @@ async function snapRest(L) { const rest = L.filter(el => el.style.visibility ===
 // the page kept still round a box in view that isn't changing: after the list closes up (or opens), it's where it was on screen
 function snapKeepTile(ch) { const ids = new Set(ch.map(c => c.id)), a = [...document.querySelectorAll("#view .tile")].find(t => !ids.has(t.dataset.id) && tileInView(t)), y = a && a.getBoundingClientRect().top;
   return () => { if (!a) return; const b = document.querySelector(`#view .tile[data-id="${a.dataset.id}"]`); if (b) window.scrollBy(0, b.getBoundingClientRect().top - y); }; }
-async function snapPlay(next, back) {
+async function snapPlay(next, back) { const prevP = state.snapP || {};   // the lost before this one, for the names they shortened
   const w = await snapNet(), was = snapLook(state.snapP || {}), now = snapLook(next);
   const boxCh = DATA.chars.filter(c => was.gone.has(c.id) !== now.gone.has(c.id) || was.name[c.id] !== now.name[c.id]);
   const shown = mapHide(), rowCh = boxCh.filter(c => !shown.has(DATA.chars.indexOf(c)) || back);
   const cpCh = [...new Set([...was.cp, ...now.cp])].filter(id => was.cp.has(id) !== now.cp.has(id));
   const rfCh = [...new Set([...was.rf, ...now.rf])].filter(id => was.rf.has(id) !== now.rf.has(id));
   const pages = [w && w.netSnapPlay ? "net" : null, boxCh.length ? "chars" : null, rowCh.length ? "paths" : null, state.cpIn && cpCh.length ? "cp" : null, state.raftIn && rfCh.length ? "raft" : null].filter(Boolean);
-  const pick = pages.includes(window.SNAP_PAGE) ? window.SNAP_PAGE : pages[Math.floor(Math.random() * pages.length)];   // (SNAP_PAGE: a test picks the page)
+  // a page at random, never the one it played on last time when there's another (owner: "I just got Paths like 6 times in a row")
+  const fresh = pages.length > 1 ? pages.filter(x => x !== state.snapPg) : pages;
+  const pick = pages.includes(window.SNAP_PAGE) ? window.SNAP_PAGE : fresh[Math.floor(Math.random() * fresh.length)];   // (SNAP_PAGE: a test picks the page)
+  if (pick) { state.snapPg = pick; persist(); }
   if (REDUCED || !pick) { snapCommit(next, back); return; }
   if (pick === "net") { openNet(); await snapWait(500); flash(back ? .75 : .9); await w.netSnapPlay(Object.keys(next), back); snapCommit(next, back); return; }
   if (pick === "chars") { await new Promise(r => toCharacters(r)); flash(back ? .75 : .9); await snapWait(600);
     const tiles = () => boxCh.map(c => document.querySelector(`#view .tile[data-id="${c.id}"]`)).filter(Boolean);
     const heads = () => [...document.querySelectorAll("#view section.saga h3")];
-    if (!back) { const go = tiles().filter(t => now.gone.has(t.dataset.id) && tileInView(t)), rn = tiles().filter(t => !now.gone.has(t.dataset.id) && tileInView(t)).map(t => t.querySelector("h2")).filter(Boolean);
+    // a box that keeps some of its people: only the lost part of its name dusts (Wanda & Vision: "& Vision" goes, "Wanda" stays where it is)
+    const ren = t => !now.gone.has(t.dataset.id) && !was.gone.has(t.dataset.id), parts = (t, set) => { const c = DATA.chars.find(x => x.id === t.dataset.id), h = t.querySelector("h2");
+      return h ? snapNameParts(h, c.title, (set === now ? snapLookName(next, c) : snapLookName(prevP, c)) || "") : []; };
+    if (!back) { const go = tiles().filter(t => now.gone.has(t.dataset.id) && tileInView(t)), P = tiles().filter(t => ren(t) && tileInView(t)).flatMap(t => parts(t, now));
       const hd = [...document.querySelectorAll("#view section.saga")].filter(sec => { const T = [...sec.querySelectorAll(".tile")]; return T.length && T.every(t => now.gone.has(t.dataset.id)); }).map(sec => sec.querySelector("h3")).filter(h => h && tileInView(h));
-      const keep = snapKeepTile(boxCh); await snapDust([...go, ...rn, ...hd], false, 1700); gridFlip(() => { snapCommit(next, back); keep(); });
-      rn.length && boxCh.forEach(c => { const h = document.querySelector(`#view .tile[data-id="${c.id}"] h2`); if (h && !now.gone.has(c.id)) h.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, easing: "ease-out" }); }); }
-    else { const old = tiles().filter(t => !was.gone.has(t.dataset.id) && tileInView(t)).map(t => t.querySelector("h2")).filter(Boolean);
-      if (old.length) await snapDust(old, false, 1000, 600);
-      const keep = snapKeepTile(boxCh), hk = new Set(heads().map(h => h.textContent)); let nh = [];
-      gridFlip(() => { snapCommit(next, back); keep(); tiles().forEach(t => { (was.gone.has(t.dataset.id) ? t : t.querySelector("h2") || t).style.visibility = "hidden"; });
+      const keep = snapKeepTile(boxCh); await snapDust([...go, ...P, ...hd], false, 1700); await snapNarrow(P, false);
+      gridFlip(() => { snapCommit(next, back); keep(); }); }
+    else { const keep = snapKeepTile(boxCh), hk = new Set(heads().map(h => h.textContent)); let nh = [], P = [];
+      gridFlip(() => { snapCommit(next, back); keep(); tiles().forEach(t => { if (was.gone.has(t.dataset.id)) t.style.visibility = "hidden"; });
+        P = tiles().filter(ren).flatMap(t => parts(t, was)); P.forEach(sp => { sp.style.visibility = "hidden"; sp.style.maxWidth = "0px"; });   // the kept part stays where it stood
         nh = heads().filter(h => !hk.has(h.textContent)); nh.forEach(h => { h.style.visibility = "hidden"; }); });
-      await snapWait(750); const L = tiles().map(t => was.gone.has(t.dataset.id) ? t : t.querySelector("h2")).filter(Boolean).concat(nh);
+      await snapWait(750); await snapNarrow(P, true); const L = tiles().filter(t => was.gone.has(t.dataset.id)).concat(nh, P);
       await snapDust(L.filter(snapInView), true, 1400); await snapRest(L); }
     return; }
   if (pick === "paths") { const pt = state.pathT = state.pathT || {}; DATA.map.cols.forEach(c => { if (atlSeenT(c.t)) pt[c.t] = 1; });   // opened already drawn, not drawing on
     if (!mapOpen) openMap(); await snapWait(700); flash(back ? .75 : .9);
-    const rowEls = cs => cs.flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); if (ri < 0) return [];
-      const gone = (back ? was : now).gone.has(c.id); return [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]` + (gone ? `, #mapView .lane[data-r="${ri}"]` : ""))]; });
+    const gone = c => (back ? was : now).gone.has(c.id), renamed = rowCh.filter(c => !now.gone.has(c.id) && !was.gone.has(c.id)), lost = rowCh.filter(gone);
+    const rowEls = cs => cs.flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); return ri < 0 ? [] : [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"], #mapView .lane[data-r="${ri}"]`)]; });
+    const nameParts = (set, cs) => cs.flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title), t = ri < 0 ? null : document.querySelector(`#mapView .rname[data-r="${ri}"]`);
+      return t ? snapSvgParts(t, c.title, snapLookName(set, c) || "") : []; });
     const colEls = T => T.flatMap(tt => { const ci = MAP.cols.findIndex(c => c.t === tt); return ci < 0 ? [] : [...document.querySelectorAll(`#mapView .ttl[data-c="${ci}"], #mapView .nd[data-c="${ci}"]`)]; });
     const before = MAP.cols.map(c => c.t);
-    if (!back) { const after = snapMapCols(next); await snapDust(rowEls(rowCh).concat(colEls(before.filter(t => !after.has(t)))), false, 1300, 1600); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
-    else { // a shortened name (Falcon) dusts out before the whole name (Falcon & Winter Soldier) dusts in, as on the Characters page
-      const oldN = rowCh.filter(c => !was.gone.has(c.id)).flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); return ri < 0 ? [] : [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]`)]; });
-      if (oldN.length) await snapDust(oldN, false, 700, 300);
-      snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; el.style.opacity = ""; }); await snapWait(750); await snapDust(L, true, 1200, 1600); await snapRest(L); }
+    if (!back) { const after = snapMapCols(next), P = nameParts(next, renamed);
+      await snapDust(rowEls(lost).concat(P, colEls(before.filter(t => !after.has(t)))), false, 1300, 1600); await snapSvgClose(P); snapCommit(next, back); }
+    else { // coming back nothing dusts away: what returns dusts in, a shortened name gets its lost part back beside it
+      snapCommit(next, back); const B = new Set(before), L = rowEls(lost).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; el.style.opacity = ""; });
+      const P = nameParts(prevP, renamed); snapSvgHold(P); await snapWait(750); await snapSvgOpen(P); await snapDust(L.concat(P), true, 1200, 1600); await snapRest(L); snapSvgDone(P); }
     return; }
   // the Compound or the Raft: a universe tab it touches, somewhere random in its list
   const cp = pick === "cp", ids = cp ? cpCh : rfCh, src = cp ? ALLIES : THREATS, U = [...new Set(ids.map(id => rfUniOf(src.find(o => o.id === id))))], u = U[Math.floor(Math.random() * U.length)];

@@ -29,6 +29,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 - **The working branch** is `ccr-5d4aa1b8-sj0vmn` (source); mirrors `ccr-537d906a-oxzbql` and `claude/gracious-cray-lhdt2k`, pushed
   with it. After a main push: `git merge -s ours origin/main`, push all three.
 
+- **Waiting on "push" (7 November 2026, after main `85527b0`; owner: Paths "6 times in a row"; "during the bring back Paths sometimes
+  dust 1 or 2 away"; "consistent dust away on away and dust back on bring back"):** the page is never the same twice running
+  (`state.snapPg`); a shared box or line that keeps some of its people loses only the lost part of its name, by dust, and gets it back by
+  dust (`snapNameParts` and `snapNarrow` on the Characters page, `snapSvgParts`, `snapSvgSlide` on Paths); nothing dusts away while coming
+  back (the detector now also logs any dust-out during the undo); a shortened name keeps the whole name's colours (`snapNameHtml`).
+
 ## This chat's checklist (5 to 7 November 2026; all on main)
 
 **The Network**
