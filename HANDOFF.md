@@ -46,6 +46,17 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   - Confirmed for the owner with Bucky alone: his Network bubble, Compound file and Raft file (`winter-soldier`, merged into him)
     go; "Falcon & Winter Soldier" reads "Falcon" on the box and its Paths line; the Thunderbolts box stays; his other-universe
     versions (`by-bucky-1991`, `by-zombie-bucky`) are separate people and stay (they can be lost on their own, by chance).
+  - Owner, 7 November 2026: "Paths pop in before animating back in. Check each animation." Found by a pop detector (the scratchpad's
+    `snapvid/app.js`: every tile, name, heading, row, group, Paths line, name, title and stop, before and after each commit; anything
+    that appears or goes on screen without dust or a fade is a pop), run on each page both ways, several times each (each run is
+    random). Fixed: Paths' titles and stops that only lost lines pass through now dust with them and back (`snapMapCols`); a
+    Characters section heading or index group heading that empties goes with its last box or row, and comes back with them; a
+    shared box's short name dusts out before its whole name dusts in; anything returning off screen is just there, and anything
+    scrolled into view still hidden dusts in (`snapRest`); the lists come back redrawn in one step under the flash (they used to
+    slide, which misjudged what was on screen). The dust there is now `snapFilt` (the boxes' own filter numbers) without
+    `snapBox`'s full-screen canvas per item, which stalled the page for seconds with dozens of rows (rows then showed undusted).
+    The Network: a group's name and an Earth's circle go with the last of their people and wait for them coming back (`dzFade`,
+    `dzBack`, `landAt`). Last runs: no pops on Characters, Paths, the Compound or the Raft, both ways.
 - **On main (`0c7fb46`) (7 November 2026): the other universes' circles checked** (owner: "Just do other circles and coverage list").
   All 126 people in 81 circles read against their titles; six doubtful ones checked against sources. Two showed early, now staged in
   `CIRC_FROM` (which now also takes other-universe people, keeping their baked circle key): Dazzler on Genosha only from X-Men '97 #5

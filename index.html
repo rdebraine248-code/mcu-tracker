@@ -12956,9 +12956,26 @@ function snapAsh(el, ms) { if (el.closest && el.closest("#mapView .lane")) retur
     for (let n = rate; n > 0; n--) if (n >= 1 || Math.random() < n) snapAP.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: .5 + Math.random() * 1.4, vy: -.2 - Math.random(), s: 1 + Math.random() * 1.6, l: .9, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
     requestAnimationFrame(emit); };
   requestAnimationFrame(emit); }
-async function snapDust(els, back, ms) { els = snapShuffle(els); let end = 0;
-  els.forEach(el => { const at = 200 + Math.random() * 3200; end = Math.max(end, at + ms); setTimeout(() => { snapBox(el, ms, back, null, false); if (!back) snapAsh(el, ms); }, at); });
+// the boxes' dust (snapBox's own filter, the same numbers), without snapBox's canvas: it lays a full-screen canvas over the page for each
+// thing it dusts, and dozens of rows at once stalled the page for seconds; the ash here is one shared canvas (snapAsh)
+let snapFN = 0;
+function snapFilt(el, ms, back) { const id = "snapF" + (++snapFN);
+  document.body.insertAdjacentHTML("beforeend", `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="${id}" x="-10%" y="-10%" width="140%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="${1 + snapFN % 97}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="${back ? 90 : 0}" xChannelSelector="R" yChannelSelector="G" result="d"/><feOffset in="d" dx="${back ? 60 : 0}" dy="${back ? -40 : 0}" result="o"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${back ? -9 : 1}" result="m"/><feComposite in="o" in2="m" operator="in"/></filter></svg>`);
+  const f = document.getElementById(id), dm = f.querySelector("feDisplacementMap"), off = f.querySelector("feOffset"), cm = f.querySelector("feColorMatrix"), t0 = performance.now();
+  el.style.filter = `url(#${id})`; if (back) el.style.visibility = "";   // starts fully eaten away, so nothing shows before the first frame
+  const step = now => { const f0 = Math.min(1, (now - t0) / ms), k = back ? 1 - f0 : f0, e = k * k;
+    dm.setAttribute("scale", (90 * e).toFixed(1)); off.setAttribute("dx", (60 * e).toFixed(1)); off.setAttribute("dy", (-40 * e).toFixed(1));
+    cm.setAttribute("values", `0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${(1 - 10 * k).toFixed(2)}`);
+    if (f0 < 1) requestAnimationFrame(step); else { if (!back) el.style.visibility = "hidden"; el.style.filter = ""; f.parentNode.remove(); } };
+  requestAnimationFrame(step); }
+async function snapDust(els, back, ms, spread = 3200) { els = snapShuffle(els); let end = 0;
+  els.forEach(el => { const at = 200 + Math.random() * spread; end = Math.max(end, at + ms); setTimeout(() => { snapFilt(el, ms, back); if (!back) snapAsh(el, ms); }, at); });
   await snapWait(end + 150); }
+// the titles Paths would show with a set of the lost (a title only lost lines pass through leaves the map with them)
+function snapMapCols(set) { const k = state.snapP, d = state.dusted; state.snapP = set; state.dusted = {}; DATA.chars.forEach(c => { if (snapBoxGone(c)) state.dusted[c.id] = true; });
+  const T = new Set(mapData(mapHide()).cols.map(c => c.t)); state.snapP = k; state.dusted = d; return T; }
+async function snapRest(L) { const rest = L.filter(el => el.style.visibility === "hidden"); await snapDust(rest.filter(snapInView), true, 1400, 800);
+  rest.forEach(el => { if (el.style.visibility === "hidden" && !snapInView(el)) el.style.visibility = ""; }); }
 // the page kept still round a box in view that isn't changing: after the list closes up (or opens), it's where it was on screen
 function snapKeepTile(ch) { const ids = new Set(ch.map(c => c.id)), a = [...document.querySelectorAll("#view .tile")].find(t => !ids.has(t.dataset.id) && tileInView(t)), y = a && a.getBoundingClientRect().top;
   return () => { if (!a) return; const b = document.querySelector(`#view .tile[data-id="${a.dataset.id}"]`); if (b) window.scrollBy(0, b.getBoundingClientRect().top - y); }; }
@@ -12974,31 +12991,41 @@ async function snapPlay(next, back) {
   if (pick === "net") { openNet(); await snapWait(500); flash(back ? .75 : .9); await w.netSnapPlay(Object.keys(next), back); snapCommit(next, back); return; }
   if (pick === "chars") { await new Promise(r => toCharacters(r)); flash(back ? .75 : .9); await snapWait(600);
     const tiles = () => boxCh.map(c => document.querySelector(`#view .tile[data-id="${c.id}"]`)).filter(Boolean);
+    const heads = () => [...document.querySelectorAll("#view section.saga h3")];
     if (!back) { const go = tiles().filter(t => now.gone.has(t.dataset.id) && tileInView(t)), rn = tiles().filter(t => !now.gone.has(t.dataset.id) && tileInView(t)).map(t => t.querySelector("h2")).filter(Boolean);
-      const keep = snapKeepTile(boxCh); await snapDust([...go, ...rn], false, 1700); gridFlip(() => { snapCommit(next, back); keep(); });
+      const hd = [...document.querySelectorAll("#view section.saga")].filter(sec => { const T = [...sec.querySelectorAll(".tile")]; return T.length && T.every(t => now.gone.has(t.dataset.id)); }).map(sec => sec.querySelector("h3")).filter(h => h && tileInView(h));
+      const keep = snapKeepTile(boxCh); await snapDust([...go, ...rn, ...hd], false, 1700); gridFlip(() => { snapCommit(next, back); keep(); });
       rn.length && boxCh.forEach(c => { const h = document.querySelector(`#view .tile[data-id="${c.id}"] h2`); if (h && !now.gone.has(c.id)) h.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, easing: "ease-out" }); }); }
-    else { const keep = snapKeepTile(boxCh); gridFlip(() => { snapCommit(next, back); keep(); tiles().forEach(t => { (was.gone.has(t.dataset.id) ? t : t.querySelector("h2") || t).style.visibility = "hidden"; }); });
-      await snapWait(750); const L = tiles().map(t => was.gone.has(t.dataset.id) ? t : t.querySelector("h2")).filter(Boolean);
-      L.filter(el => !snapInView(el)).forEach(el => { el.style.visibility = ""; }); await snapDust(L.filter(snapInView), true, 1400); }
+    else { const old = tiles().filter(t => !was.gone.has(t.dataset.id) && tileInView(t)).map(t => t.querySelector("h2")).filter(Boolean);
+      if (old.length) await snapDust(old, false, 1000, 600);
+      const keep = snapKeepTile(boxCh), hk = new Set(heads().map(h => h.textContent)); let nh = [];
+      gridFlip(() => { snapCommit(next, back); keep(); tiles().forEach(t => { (was.gone.has(t.dataset.id) ? t : t.querySelector("h2") || t).style.visibility = "hidden"; });
+        nh = heads().filter(h => !hk.has(h.textContent)); nh.forEach(h => { h.style.visibility = "hidden"; }); });
+      await snapWait(750); const L = tiles().map(t => was.gone.has(t.dataset.id) ? t : t.querySelector("h2")).filter(Boolean).concat(nh);
+      await snapDust(L.filter(snapInView), true, 1400); await snapRest(L); }
     return; }
   if (pick === "paths") { const pt = state.pathT = state.pathT || {}; DATA.map.cols.forEach(c => { if (atlSeenT(c.t)) pt[c.t] = 1; });   // opened already drawn, not drawing on
     if (!mapOpen) openMap(); await snapWait(700); flash(back ? .75 : .9);
     const rowEls = cs => cs.flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); if (ri < 0) return [];
       const gone = (back ? was : now).gone.has(c.id); return [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]` + (gone ? `, #mapView .lane[data-r="${ri}"]` : ""))]; });
-    if (!back) { await snapDust(rowEls(rowCh), false, 1700); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
-    else { snapCommit(next, back); const L = rowEls(rowCh); L.forEach(el => { el.style.visibility = "hidden"; }); await snapWait(500); await snapDust(L, true, 1400); }
+    const colEls = T => T.flatMap(tt => { const ci = MAP.cols.findIndex(c => c.t === tt); return ci < 0 ? [] : [...document.querySelectorAll(`#mapView .ttl[data-c="${ci}"], #mapView .nd[data-c="${ci}"]`)]; });
+    const before = MAP.cols.map(c => c.t);
+    if (!back) { const after = snapMapCols(next); await snapDust(rowEls(rowCh).concat(colEls(before.filter(t => !after.has(t)))), false, 1700); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
+    else { snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; }); await snapWait(500); await snapDust(L, true, 1400); }
     return; }
   // the Compound or the Raft: a universe tab it touches, somewhere random in its list
   const cp = pick === "cp", ids = cp ? cpCh : rfCh, src = cp ? ALLIES : THREATS, U = [...new Set(ids.map(id => rfUniOf(src.find(o => o.id === id))))], u = U[Math.floor(Math.random() * U.length)];
-  openColl(cp ? "cp" : "raft"); if (cp) cpUni = u; else rfUni = u; renderColl();
+  const openIt = () => { openColl(cp ? "cp" : "raft"); if (cp) cpUni = u; else rfUni = u; renderColl(); };
+  if (!back) openIt();
   const mine = ids.filter(id => rfUniOf(src.find(o => o.id === id)) === u), v = document.getElementById("collPanel"), row = id => v.querySelector(`[data-co="${id}"]`);
   if (!back) { const t = row(mine[Math.floor(Math.random() * mine.length)]); if (t) t.scrollIntoView({ block: "center" }); await snapWait(500); flash(.9); await snapWait(500);
     const go = mine.map(row).filter(r => r && snapInView(r)), stay = [...v.querySelectorAll("[data-co]")].find(r => snapInView(r) && !mine.includes(r.dataset.co));
+    go.push(...[...v.querySelectorAll("section.rf-sec")].filter(sec => { const R = [...sec.querySelectorAll("[data-co]")]; return R.length && R.every(r => mine.includes(r.dataset.co)); }).map(sec => sec.querySelector(".rf-sh")).filter(h => h && snapInView(h)));
     await snapDust(go, false, 1700); snapFlip(() => snapCommit(next, back), stay && stay.dataset.co); }
-  else { flash(.75); const stay = [...v.querySelectorAll("[data-co]")].find(snapInView); snapFlip(() => snapCommit(next, back), stay && stay.dataset.co);
-    const t = row(mine[Math.floor(Math.random() * mine.length)]); if (t) t.scrollIntoView({ block: "center" });
-    const L = mine.map(row).filter(Boolean); L.forEach(r => { r.style.visibility = "hidden"; }); await snapWait(750);
-    L.filter(r => !snapInView(r)).forEach(r => { r.style.visibility = ""; }); await snapDust(L.filter(snapInView), true, 1400); }
+  else { flash(.75); await snapWait(140); openIt(); const hkey = h => h.dataset.rff || h.dataset.cpf, hk = new Set([...v.querySelectorAll(".rf-sh")].map(hkey));
+    snapCommit(next, back); const nh = [...v.querySelectorAll(".rf-sh")].filter(h => !hk.has(hkey(h))), L = mine.map(row).filter(Boolean).concat(nh);
+    const t = row(mine[Math.floor(Math.random() * mine.length)]); if (t) t.scrollIntoView({ block: "center" }); L.forEach(r => { r.style.visibility = "hidden"; });
+    await snapWait(600); await snapDust(L.filter(snapInView), true, 1400); await snapRest(L); }
 }
 snap = async function () { const w = await snapNet(); if (!w) return; const P = w.netPool(); SNAP_MERGED = P.merged || {};
   const again = !!(state.eggs || {}).snap, ids = snapShuffle(P.ids).slice(0, Math.floor(P.ids.length / 2));

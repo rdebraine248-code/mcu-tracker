@@ -423,6 +423,7 @@ function frame(t) {
       // a new Earth (all its people new) arrives too (owner, 6 November 2026; an Earth you knew stays drawn). Three ways to try, EARTH_ANIM:
       // 'pop' pops in just before its groups, 'fade' fades in while they pop, 'after' pops in once they've landed; its name fades in last
       let ea = 1, es = 1, na = 1; const P = EPOP[d.name];
+      { const dl = dzBack(d.L, t) ? Math.max(...d.L.map(p => p.landAt)) : 0, df = dzFade(d.L, t) * (t < dl ? 0 : Math.min(1, (t - dl) / 700)); ea *= df; na *= df; if (!df) return; }   // the Snap: lost with its people, back after them
       if (P) { const p0 = P[0], p1 = P[1], cl = v => Math.max(0, Math.min(1, v)), pc = k => Math.max(0, 1 + 2.7 * Math.pow(k - 1, 3) + 1.7 * Math.pow(k - 1, 2));
         if (EARTH_ANIM === 'fade') { ea = cl((t - p0) / Math.max(420, p1 - p0)); na = cl((t - p1) / 400); }
         else { const st = EARTH_ANIM === 'after' ? p1 : p0 - 150, k = (t - st) / 420; if (k < 0) return; if (k < 1) es = pc(k); na = cl((t - Math.max(p1, st + 420)) / 400); } }
@@ -436,7 +437,7 @@ function frame(t) {
     if (!z.L.length || z.name === 'Independent' || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && z.L.length < 2 && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
     // a new group's name waits for its people (owner, November 2026: "they should pop in or fade in after"): it fades in once the last of
     // them has landed, so the floor is never named before anyone stands on it
-    const land = z.L.reduce((m, p) => Math.max(m, p.inAt || 0, p.popAt > t ? p.popAt + 150 : 0), 0), fin = t < land ? 0 : Math.min(1, (t - land) / 700);
+    const land = z.L.reduce((m, p) => Math.max(m, p.inAt || 0, p.popAt > t ? p.popAt + 150 : 0, dzBack(z.L, t) ? p.landAt : 0), 0), fin = (t < land ? 0 : Math.min(1, (t - land) / 700)) * dzFade(z.L, t);
     if (!fin) return;
     g.globalAlpha = fin * e * (busy() ? .55 : z.big ? .75 : .45) * Math.min(1, c.s * 1.2); g.fillStyle = sel ? KC[z.rel] || '#5FD0FF' : z.col || '#5FD0FF';
     g.font = `${Math.round((z.big ? 11 : 8) * c.s + 3)}px 'Share Tech Mono', monospace`; g.textAlign = 'center';
@@ -545,6 +546,11 @@ function roomMove(ms, spot) { return new Promise(res => { const S = N.filter(p =
     S.forEach(([p, x0, y0, x1, y1]) => { p.wx = p.tx = x0 + (x1 - x0) * e; p.wy = p.ty = y0 + (y1 - y0) * e; p.go = 0; });
     cam.x = c0[0] + (c1[0] - c0[0]) * e; cam.y = c0[1] + (c1[1] - c0[1]) * e; vel.x = vel.y = 0; if (f < 1) requestAnimationFrame(step); else res(); };
   requestAnimationFrame(step); }); }
+// a group's name (or an Earth's circle) when everyone in it is turning to dust: it goes with the last of them
+function dzFade(L, t) { if (!L.length || !L.every(p => p.dz && !p.dz.back)) return 1; if (L.some(p => !p.dz.gone && !p.dz.t0)) return 1;
+  const last = Math.max(...L.map(p => p.dz.gone ? 0 : p.dz.t0)); return last ? Math.max(0, 1 - (t - last) / 1500) : 0; }
+// everyone in it is coming back (none of them stayed): its name waits for them
+const dzBack = (L, t) => L.length > 0 && L.every(p => p.landAt && p.landAt > t - 2200);
 const onScreen = p => { const q = lens(p, performance.now()); return q.x > 0 && q.x < W && q.y > 150 && q.y < H - 70; };
 const wait = ms => new Promise(r => setTimeout(r, ms));
 // who can be lost: everyone you've met, in every universe you've opened (by file id), and the files merged into another's bubble
@@ -572,7 +578,7 @@ self.netSnapPlay = async (ids, back) => { const NEW = new Set(ids || []), OLD = 
     swap(); N.forEach(p => { delete p.dz; }); await roomMove(900, best ? best[0] : '');
   } else { // the room opens up with their places empty, the view on the same group; once it's still they gather back, at random
     swap(); const now = performance.now() + 1100;
-    N.forEach(p => { if (p.vis && hit(p)) { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.dz = { back: true, t0: now + Math.random() * 3600, ms: 1400 }; } });
+    N.forEach(p => { if (p.vis && hit(p)) { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.dz = { back: true, t0: now + Math.random() * 3600, ms: 1400 }; p.landAt = p.dz.t0 + 1400; } });
     await roomMove(900, z ? z.name : ''); await wait(3600 + 1400 + 400); }
   return true; };
 let LIVE = !EMB, looping = LIVE; if (LIVE) requestAnimationFrame(frame);
