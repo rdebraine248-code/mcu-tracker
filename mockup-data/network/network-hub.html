@@ -301,8 +301,12 @@ const CIRC_FROM = { 'jane-foster': [['New Asgard', 'Thor: Love and Thunder']], '
   'billy-maximoff': [['The Maximoff family', 'WandaVision'], ['The Kaplan family', 'Agatha All Along']],   // Billy Kaplan is Agatha All Along's reveal
   'ulysses-klaue': [["Klaue's crew", 'Avengers: Age of Ultron'], ["Killmonger's heist crew", 'Black Panther']], 'jack-duquesne': [["Matt's resistance", 'Daredevil: Born Again S2']],
   'goose': [['S.A.B.E.R.', 'The Marvels']],   // S.A.B.E.R. is decades after Captain Marvel's 1995
-  'the-collector': [["The Collector's museum", 'Thor: The Dark World']] };   // the Grandmaster as his brother is never said on screen
-const circNow = p => { const L = CIRC_FROM[p.id]; if (!L) return p.circ; let c = null; L.forEach(([n, t]) => { const i = TT.indexOf(t); if (i >= 0 && seen(i)) c = UK(n, p.u); }); return c; };
+  'the-collector': [["The Collector's museum", 'Thor: The Dark World']],   // the Grandmaster as his brother is never said on screen
+  // the other universes (owner, 7 November 2026: "just do other circles"): Dazzler is only on Genosha in X-Men '97 (#5, Remember It), not
+  // in the 1992 show; St. Estes is Let There Be Carnage's, not in Venom's end-credits scene
+  'fox-anim-dazzler': [['Genosha', "X-Men '97#5"]], 'sv-carnage-sony': [['St. Estes Home for Unwanted Children', 'Venom: Let There Be Carnage']] };
+// an other-universe circle's key also carries its part (relbake, \u2064): a staged circle with its baked name is that same circle
+const circNow = p => { const L = CIRC_FROM[p.id]; if (!L) return p.circ; let c = null; L.forEach(([n, t]) => { const i = TT.indexOf(t); if (i >= 0 && seen(i)) c = p.circ && String(p.circ).split('\u2063')[0].split('\u2064')[0] === n ? p.circ : UK(n, p.u); }); return c; };
 // a connection is a list of stages in story order, each with its kind, the title it begins in and what happens in that stretch; you see
 // the stages up to what you've watched, and its kind is the latest of them
 // each stage carries the short line for this person's card about the other (whoA on a's card, whoB on b's)

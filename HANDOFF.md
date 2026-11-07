@@ -25,6 +25,13 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   key carries its universe after an invisible separator (`UK`, \u2063, and \u2064 for a circle named like a crew); `moreHTML` printed the
   raw key, so Beyond read "Starforceby", FoX-Men "...fox", and an off-timeline Independent wasn't filtered out. Now it prints the name
   only. Checked over all 1,480 people: no hidden marker and no "Independent" in any Crews line. Network only (network.html).
+- **Waiting on "push" (7 November 2026): the other universes' circles checked** (owner: "Just do other circles and coverage list").
+  All 126 people in 81 circles read against their titles; six doubtful ones checked against sources. Two showed early, now staged in
+  `CIRC_FROM` (which now also takes other-universe people, keeping their baked circle key): Dazzler on Genosha only from X-Men '97 #5
+  (she's Mojo's staff in the 1992 show), Carnage at St. Estes only from Let There Be Carnage (Venom's end-credits scene is a prison).
+  Confirmed as they are: Leech at Worthington Labs, the Brood at Weapon X (X-Men '97 S2E5), Finesse with Daredevil (Your Friendly
+  Neighborhood Spider-Man), Bruce Banner with the Apex. Kept, wording only: "The Essex Corporation" (the film's Essex House).
+  The coverage list is its own section ("Coverage: everything the app shows").
 - **Waiting on "push" (6 November 2026): one word, Groups** (owner: "I don't really understand the difference between circle and group
   ... As an end user the rule of crew seems arbitrary"). The reader never sees "crew" or "circle": the card's line is "Groups", the teams
   they've been in (as far as you've watched) and then the group they stand in now, so a family or a place is named like a team (Peter
@@ -1290,6 +1297,40 @@ been lost over the different handoffs that I said to remind new chats about, esp
 - A fade read as a blink and a sideways slide as a shake: prefer an instant swap.
 - When the owner reports something desktop can't show, ask for a screen recording, pull frames with ffmpeg and measure them (the phone
   is 1080x2340 screen pixels, 2.5 per page pixel).
+
+## Coverage: everything the app shows, and what checks it (7 November 2026)
+
+Owner, 7 November 2026 ("And the audit missed this why? ... Just do other circles and coverage list"). Before calling any audit done,
+walk this list; anything new the app shows gets a line here, with its check, the day it ships. "Audit part N" is `mockup-data/audit2/`
+(the facts, against sources); "ct.." are the tests in `mockup-data/tests/` (the app's behaviour). **GAP** means nothing checks it.
+
+- **Titles, orders and seasons** (Sacred Timeline, release order, chapters, character boxes, episode names and counts): audit part 7;
+  ct42, ct43, ct45, ct46, ct48. **Box quotes:** part 7.
+- **Logs** (recaps, staged rows: period, aliases, affiliation, status): audit part 5.
+- **People's groups and their stages** (`TEAM_AUDIT2`, `TEAM_LEFT`, split.json), shown in the files and as the Network's teams: audit
+  part 1 (locked at 1.1%); ct64 (a person stands in a title's group).
+- **Files** (the Raft, the Compound, the Collection: kind lines, steps, statuses, aliases, factions, At, Case and Held lines, First and
+  Last seen): audit part 3; ct49 to ct53, ct57, ct60 to ct63; `content.js` (nothing too early, nothing pointing nowhere).
+- **The Atlas** (places, pins, Earth maps, the At lines' places): audit part 4; ct54, ct59.
+- **Damage Control** (reports, replays), **news headlines**, **Comms messages**: audit part 6; ct58. The news outlets' names (`SRCX`):
+  **GAP** (not in part 6's brief; small).
+- **The Agent File** (eggs, stones, achievements, insignia, level, keycard): audit part 8; ct40, ct56.
+- **The Multiverse map, the Incursions wall, the Watcher's realities:** audit part 9; ct52 (tabs), ct61.
+- **The Network's connections** (kinds, stages, texts, who lines, episode tags): audit part 2 (fresh 600 at 3.8%, fixed); the episode
+  second pass (`mockup-data/episodes/`). Mutual connections are built from these (no data of their own).
+- **The Network's circles** (families and places someone stands in when they have no team): Sacred Timeline, all 184 checked 6 November
+  2026 (7 staged); the other universes, all 126 people in 81 circles checked 7 November 2026 (the 1988 Peter Quill and the zombie
+  Vision moved; Dazzler and Carnage staged; Leech at Worthington Labs, the Brood at Weapon X, Finesse with Daredevil, Bruce with the Gamma
+  Beasts confirmed). One-off reads: **GAP**, no test keeps a circle from showing before its title (`CIRC_FROM`).
+- **Which Earth a Network person is on** (`earths.json`, the card's top line off the Sacred Timeline): the Earth numbers are part 9's;
+  who stands on which Earth was owner calls, never sampled. **GAP**.
+- **The Network's cards as shown** (the top line, Groups, In N titles, Who's who) and the room's group names, in every universe tab:
+  ct64 and ct65 open cards on the Sacred Timeline only. **GAP**: nothing reads a card off the Sacred Timeline ("Starforceby" got through
+  this way, 6 November 2026). Offered to the owner as "read every card on screen"; not taken up 7 November 2026.
+- **The universe tabs' names** (indexes and the Network): ct52 (`slNamed`, the chapter box, the Extras character box, every title).
+- **Offline and loading** (sw.js, the split data file, the Network's frame): swtest; smoke.
+- **Wording rules** (no em dashes, the owner's words): `check.js`, `content.js`.
+- **Parked mockups** (the Time Machine, Six Degrees, landscape): test build only; not covered, not on main.
 
 ## Mistakes not to repeat
 
