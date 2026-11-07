@@ -2265,8 +2265,9 @@ const charMet = e => !!(state.seen || {})[e.id] || (MET_BY[e.id] || []).some(atl
 // a box whose name holds something you haven't seen yet goes by the part you know: Loki is Loki until the TVA turns up in his show
 const PART_NAME = { "cx-loki-the-tva": ["Loki", ["Loki S1", "Loki S2"]] };
 const partFull = e => !!(state.named || {})[e.id + ":full"] || PART_NAME[e.id][1].some(atlSeenT);
-const boxName = e => PART_NAME[e.id] && !partFull(e) ? PART_NAME[e.id][0] : e.title;
-const boxNameHtml = e => PART_NAME[e.id] && !partFull(e) ? esc(PART_NAME[e.id][0]) : e.titleHtml;
+// (the test build's Snap: a shared box that has lost one of its people goes by those who are left, snapName)
+const boxName = e => (MOCK && snapName(e)) || (PART_NAME[e.id] && !partFull(e) ? PART_NAME[e.id][0] : e.title);
+const boxNameHtml = e => MOCK && snapName(e) ? esc(snapName(e)) : PART_NAME[e.id] && !partFull(e) ? esc(PART_NAME[e.id][0]) : e.titleHtml;
 // what's been revealed stays revealed: box names, the rest of a partial name, and insignia, kept the moment they're earned
 function nameKeep() {
   const nm = state.named = state.named || {}, eo = state.embOpen = state.embOpen || {};
@@ -5032,7 +5033,7 @@ function atlOver(r) { if (atlOpen) { atlGo(r); return; } const st = jkey(history
   openAtlas(); jumpUp(document.getElementById("atlasPanel"), () => closeAtlas(true), st, tok); dockSync(); atlQuiet = Date.now() + 1500; setTimeout(() => atlGo(r), 120); }
 document.addEventListener("click", ev => { const a = ev.target.closest("[data-atp]"), c = ev.target.closest("[data-dcr]"), h = ev.target.closest("[data-held]"); if (!a && !c && !h) return; haptic(8);
   if (a) { const r = atPlace(a.dataset.atp); if (r) atlOver(r); } else if (c) fileGo("D", c.dataset.dcr); else fileGo("C", h.dataset.held); });
-const rfSteps = o => hoKeep(o.st.filter(atlSeenStep), o, "R");
+const rfSteps = o => MOCK && snapGone(o.id) ? [] : hoKeep(o.st.filter(atlSeenStep), o, "R");   // (the test build's Snap: a lost file isn't on file)
 // one person, one status (owner, November 2026: Wanda's Compound file said Fugitive while she had died on the Raft's side): where a file
 // hands over between the indexes, both cards show where the person stands now, the latest step of either file, in this index's words
 const RF2CP = { "Deceased": "Deceased", "Missing": "Missing", "In custody": "Imprisoned", "Captive": "Imprisoned", "At large": "Fugitive", "Active": "Active", "Allied": "Active" };
@@ -5217,7 +5218,7 @@ TEAM_LEFT.clear(); ["aamir-khan|Ms. Marvel","agatha-harkness|WandaVision#8","ais
 const IDMOVE = /*IDMOVE*/{};
 ["raftSeen", "cpSeen", "collSeen"].forEach(k => { const R = state[k]; if (!R) return; Object.keys(R).forEach(id => { const n = IDMOVE[id]; if (n) { R[n] = R[n] || R[id]; delete R[id]; } }); });
 const CP_ST = { "Active": "act", "Off-world": "off", "Retired": "ret", "Fugitive": "fug", "Imprisoned": "imp", "Missing": "mis", "Deceased": "dec" };
-const cpSteps = o => hoKeep(o.st.filter(atlSeenStep), o, "C");
+const cpSteps = o => MOCK && snapGone(o.id) ? [] : hoKeep(o.st.filter(atlSeenStep), o, "C");
 const cpStatusOf = o => personSt(o, "A") || cpStatus(cpSteps(o));
 // the handovers (mockup-data/handover.json, researched November 2026): each person's stretches, the two halves of a title where they
 // switch sides, and a step written for the file that owns a title only the other file told
@@ -5931,7 +5932,7 @@ function awardStone(id, x, y, now) {   // now: the stone lingers a little longer
   haptic([20, 40, 60]);
 }
 function openGauntlet() {
-  const have = state.stones || {}, all = allStones(), snapped = Object.keys(state.dusted || {}).length > 0;
+  const have = state.stones || {}, all = allStones(), snapped = Object.keys(state.dusted || {}).length > 0 || MOCK && Object.keys(state.snapP || {}).length > 0;
   document.getElementById("gCard").innerHTML = `<h2 id="gTitle">Infinity Stones</h2><p class="gsub">${all ? "All six are yours." : STONES.filter(st => have[st.id]).length + " of 6 found"}</p>
     <div class="ggrid">${STONES.map(st => `<div class="gslot"${have[st.id] ? "" : ` data-stone="${st.id}"`}><div class="gem${have[st.id] ? "" : " empty"}" style="${gemVars(st)}"></div><b>${have[st.id] ? st.n : "???"}</b>${have[st.id] ? "" : `<small>${stoneClue(st)}</small>`}</div>`).join("")}</div>
     <div class="gbtns"><button type="button" id="gClose">Close</button>${all ? `<button type="button" class="gsnap" id="gSnap">${snapped ? "Whatever it takes" : "Snap?"}</button>` : ""}</div>`;
@@ -5953,7 +5954,7 @@ document.getElementById("gauntlet").addEventListener("click", ev => {
     if (n === 5 || n === 10) { sm.innerHTML = stoneClue(st); sm.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 }); }
     return;
   }
-  if (ev.target.closest("#gSnap")) { const snapped = Object.keys(state.dusted || {}).length > 0; closeGauntlet(); setTimeout(() => snapped ? unsnap() : snap(), 250); }
+  if (ev.target.closest("#gSnap")) { const snapped = Object.keys(state.dusted || {}).length > 0 || MOCK && Object.keys(state.snapP || {}).length > 0; closeGauntlet(); setTimeout(() => snapped ? unsnap() : snap(), 250); }
 });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && !document.getElementById("gauntlet").hidden) closeGauntlet(); });
 
@@ -11341,7 +11342,7 @@ function mapHide() {
   const fromCh = c => { const ch = DATA.chapters.find(x => x.id === MV_CHAPTER[c.id]); return !!ch && c.items.some(i => ch.items.some(j => j.t === i.t) && atlSeenT(i.t)); };
   // and a character's path stays off the map until you've watched the first title on it, so a new datapad opens on a blank map
   const lit = i => DATA.map.cols.some(c => c.m.includes(i) && atlSeenT(c.t));
-  return new Set(DATA.chars.map((c, i) => c.id === "cx-incursions" || charHidden(c) && !fromCh(c) || !lit(i) ? i : -1).filter(i => i >= 0));
+  return new Set(DATA.chars.map((c, i) => c.id === "cx-incursions" || charHidden(c) && !fromCh(c) || !lit(i) || MOCK && (state.dusted || {})[c.id] ? i : -1).filter(i => i >= 0));   // (and, in the test build, a box lost in the Snap)
 }
 function openMap() {
   // a multiverse character's line shows once their box is revealed, or once you've watched any of their titles from their Extras chapter
@@ -12868,6 +12869,134 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
   if (tk) new MutationObserver(fit).observe(tk, { attributes: true, attributeFilter: ["class", "hidden"] }); fit(); }
 // turning the phone redraws the Atlas for its new shape (map beside the list, or over it)
 { const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
+/* MOCKUP END */
+/* MOCKUP BEGIN snap */
+// the Snap across the app (a mockup, 7 November 2026; owner: "if Pepper Potts gets snapped, then her Compound file also goes ... his path goes,
+// his character box goes; if Vision gets snapped, but not Wanda, the name on his path goes"). With all six Stones, the Gauntlet's Snap takes a
+// random half of everyone you've met, in every universe, dead or alive, by their file: their bubble in the Network, their files in the Compound
+// and the Raft, their name on a shared box and its Paths line ("Wanda & Vision" reads "Wanda"), and a box and its line once nobody in it is
+// left (a team box only once every core member is gone). The animation plays on one page picked at random of those you've found (the Network,
+// the Compound, the Raft, the Characters page, Paths), somewhere random on it; the rest change quietly. "Whatever it takes" brings them back
+// the same way, on a page picked at random again. The dust is the Characters boxes' own (snapBox), at random moments, no screen-wide sweep
+var SNAP_BOX = {   // var, and the functions below declared, not const: the app names its boxes and checks its files while it loads, before this block runs
+  "cx-the-avengers": [["The Avengers", ["tony-stark", "steve-rogers", "thor", "natasha-romanoff", "clint-barton", "bruce-banner"]]],
+  "cx-iron-man": [["Iron Man", ["tony-stark"]]], "cx-captain-america": [["Captain America", ["steve-rogers"]]], "cx-thor": [["Thor", ["thor"]]],
+  "cx-black-widow": [["Black Widow", ["natasha-romanoff"]]], "cx-hawkeye": [["Hawkeye", ["clint-barton"]]], "cx-hulk": [["Hulk", ["bruce-banner"]]],
+  "cx-nick-fury": [["Nick Fury", ["nick-fury"]]],
+  "cx-s-h-i-e-l-d": [["S.H.I.E.L.D.", ["phil-coulson", "st-melinda-may", "st-daisy-johnson", "st-leo-fitz", "st-jemma-simmons", "st-mack", "st-elena-rodriguez", "maria-hill"]]],
+  "cx-captain-marvel": [["Captain Marvel", ["carol-danvers"]]],
+  "cx-ant-man-the-wasp": [["Ant-Man", ["scott-lang"]], ["The Wasp", ["hope-van-dyne"]]],
+  "cx-guardians-of-the-galaxy": [["Guardians of the Galaxy", ["peter-quill", "gamora", "drax", "rocket", "groot", "mantis", "nebula"]]],
+  "cx-spider-man": [["Spider-Man", ["peter-parker"]]],
+  "cx-black-panther-wakanda": [["Black Panther", ["tchalla"]], ["Wakanda", ["shuri", "okoye", "nakia", "m-baku", "ramonda"]]],
+  "cx-doctor-strange-wong": [["Doctor Strange", ["stephen-strange"]], ["Wong", ["wong"]]],
+  "cx-wanda-vision": [["Wanda", ["wanda-maximoff"]], ["Vision", ["vision"]]],
+  "cx-falcon-winter-soldier": [["Falcon", ["sam-wilson"]], ["Winter Soldier", ["bucky-barnes"]]],
+  "cx-loki-the-tva": [["Loki", ["loki"]], ["The TVA", ["mobius-m-mobius", "hunter-b-15", "ouroboros"]]],
+  "cx-the-thunderbolts": [["The Thunderbolts", ["yelena-belova", "bucky-barnes", "alexei-shostakov", "ghost", "john-walker", "bob"]]],
+  "cx-the-fantastic-four": [["The Fantastic Four", ["reed-richards", "sue-storm", "johnny-storm", "ben-grimm"]]],
+  "cx-daredevil": [["Daredevil", ["st-matt-murdock"]]],
+  "cx-shang-chi-the-ten-rings": [["Shang-Chi", ["shang-chi"]], ["The Ten Rings", ["wenwu", "xialing"]]],
+  "cx-the-champions": [["The Champions", ["kamala-khan", "kate-bishop", "riri-williams", "america-chavez", "cassie-lang"]]],
+  "cx-the-defenders": [["The Defenders", ["st-matt-murdock", "st-jessica-jones", "st-luke-cage", "st-danny-rand"]]],
+  "cx-the-punisher": [["The Punisher", ["st-frank-castle"]]],
+  "cx-eternals": [["Eternals", ["sersi", "ikaris", "thena", "kingo", "sprite", "phastos", "makkari", "druig", "gilgamesh", "ajak"]]],
+  "cx-moon-knight": [["Moon Knight", ["marc-spector"]]], "cx-werewolf-by-night": [["Werewolf by Night", ["jack-russell"]]],
+  "cx-the-watcher": [["The Watcher", ["by-the-watcher"]]],
+  "cx-the-sony-spider-men": [["The Sony Spider-Men", ["sv-peter-parker-raimi", "sv-peter-parker-asm", "sv-miles-morales", "sv-gwen-stacy-earth65"]]],
+  "cx-the-fox-men": [["The FoX-Men", ["fox-wolverine", "fox-charles-xavier", "fox-cyclops", "fox-jean-grey", "fox-storm", "fox-magneto", "fox-deadpool"]]],
+  "cx-pruned-characters": [["Pruned Characters", ["pr-blade", "pr-elektra", "pr-punisher", "pr-daredevil", "pr-invisible-woman", "pr-human-torch", "pr-the-thing", "pr-mister-fantastic", "pr-st-black-bolt", "pr-st-tandy-bowen", "pr-st-tyrone-johnson"]]]
+};
+var SNAP_MERGED = {};   // a file merged into another's bubble (the Winter Soldier's Raft file is Bucky's) goes with them
+function snapGone(id) { const S = state.snapP; if (!S) return false; const M = SNAP_MERGED || {}; return !!S[id] || !!(M[id] && S[M[id]]); }
+function snapPartGone(ids) { return ids.every(snapGone); }
+function snapBoxGone(c) { const P = state.snapP && SNAP_BOX && SNAP_BOX[c.id]; return !!P && P.every(([, ids]) => snapPartGone(ids)); }
+function snapName(e) { if (!state.snapP || !SNAP_BOX) return null; const P = SNAP_BOX[e.id]; if (!P || P.length < 2 || !Object.keys(state.snapP).length) return null;
+  const left = P.filter(([, ids]) => !snapPartGone(ids)); return left.length && left.length < P.length ? left.map(x => x[0]).join(" & ") : null; }
+// what a set of the lost looks like across the app
+function snapLook(set) { const keep = state.snapP; state.snapP = set;
+  const r = { gone: new Set(DATA.chars.filter(snapBoxGone).map(c => c.id)), name: Object.fromEntries(DATA.chars.map(c => [c.id, snapName(c) || ""])),
+    cp: new Set(ALLIES.filter(o => cpSteps(o).length).map(o => o.id)), rf: new Set(THREATS.filter(o => rfSteps(o).length).map(o => o.id)) };
+  state.snapP = keep; return r; }
+const snapWait = ms => new Promise(r => setTimeout(r, ms));
+const snapShuffle = L => L.map(x => [Math.random(), x]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+async function snapNet() { if (!NET_SRC) return null; netLoad(); const f = document.getElementById("netFrame");
+  for (let k = 0; k < 80; k++) { const w = f.contentWindow; if (w && w.netPool && w.netSeen) { netSync(); return w; } await snapWait(100); } return null; }
+// the lost, everywhere at once (the page that played it is already showing it)
+function snapCommit(set, back) { state.snapP = set; state.dusted = {}; DATA.chars.forEach(c => { if (snapBoxGone(c)) state.dusted[c.id] = true; });
+  (state.eggs = state.eggs || {})[back ? "unsnap" : "snap"] = 1; persist();
+  const w = document.getElementById("netFrame").contentWindow; if (w && w.netSnapIds) w.netSnapIds(Object.keys(set));
+  if (state.mode === "chars") renderView(); if (collOpen) renderColl(); if (mapOpen) { MAP = mapData(mapHide()); buildMap(); mapFit(); } }
+// the indexes' rows move from where they stood to where they stand now, the list kept in place round one that stays
+function snapFlip(change, anchor) { const v = document.getElementById("collPanel"), rows = () => [...v.querySelectorAll("[data-co]")];
+  const top = new Map(rows().reverse().map(r => [r.dataset.co, r.getBoundingClientRect().top]));
+  const a0 = anchor && v.querySelector(`[data-co="${anchor}"]`), ay = a0 ? a0.getBoundingClientRect().top : null;
+  change();
+  const a1 = anchor && v.querySelector(`[data-co="${anchor}"]`); if (a1 && ay != null) v.scrollTop += a1.getBoundingClientRect().top - ay;
+  rows().forEach(r => { const y0 = top.get(r.dataset.co); if (y0 == null) return; const dy = y0 - r.getBoundingClientRect().top;
+    if (dy) r.animate([{ transform: `translateY(${dy}px)` }, { transform: "none" }], { duration: 700, easing: "cubic-bezier(.3,0,.2,1)" }); }); }
+const snapInView = el => { const r = el.getBoundingClientRect(); return r.bottom > 60 && r.top < innerHeight - 60 && r.width > 0; };
+// each one in view goes (or comes back) at a random moment over a few seconds
+// the ash: a flake or two a frame off whatever is going, in proportion to its size (a box's own 14 a frame, on dozens of rows at once,
+// filled the screen), and none off a Paths line (one runs the whole width of the map)
+let snapAC = null, snapAP = [], snapAL = 0;
+function snapAshTick() { const { g } = snapAC; g.clearRect(0, 0, innerWidth, innerHeight); snapAP = snapAP.filter(q => q.l > 0);
+  snapAP.forEach(q => { q.x += q.vx; q.y += q.vy; q.vy -= .015; q.l -= .028; if (q.l > 0) { g.fillStyle = `rgba(${q.c},${q.l})`; g.fillRect(q.x, q.y, q.s, q.s); } });
+  if (snapAP.length || snapAL) requestAnimationFrame(snapAshTick); else { snapAC.cv.remove(); snapAC = null; } }
+function snapAsh(el, ms) { if (el.closest && el.closest("#mapView .lane")) return; const r = el.getBoundingClientRect(), rate = Math.min(2.5, Math.max(.6, r.width * r.height / 2200)), t0 = performance.now();
+  if (!snapAC) { snapAC = cxCanvas(); requestAnimationFrame(snapAshTick); } snapAL++;
+  const emit = now => { const f = (now - t0) / ms; if (f >= .85) { snapAL--; return; }
+    for (let n = rate; n > 0; n--) if (n >= 1 || Math.random() < n) snapAP.push({ x: r.left + Math.random() * r.width, y: r.top + Math.random() * r.height, vx: .5 + Math.random() * 1.4, vy: -.2 - Math.random(), s: 1 + Math.random() * 1.6, l: .9, c: Math.random() < .6 ? "138,125,114" : "200,206,214" });
+    requestAnimationFrame(emit); };
+  requestAnimationFrame(emit); }
+async function snapDust(els, back, ms) { els = snapShuffle(els); let end = 0;
+  els.forEach(el => { const at = 200 + Math.random() * 3200; end = Math.max(end, at + ms); setTimeout(() => { snapBox(el, ms, back, null, false); if (!back) snapAsh(el, ms); }, at); });
+  await snapWait(end + 150); }
+async function snapPlay(next, back) {
+  const w = await snapNet(), was = snapLook(state.snapP || {}), now = snapLook(next);
+  const boxCh = DATA.chars.filter(c => was.gone.has(c.id) !== now.gone.has(c.id) || was.name[c.id] !== now.name[c.id]);
+  const shown = mapHide(), rowCh = boxCh.filter(c => !shown.has(DATA.chars.indexOf(c)) || back);
+  const cpCh = [...new Set([...was.cp, ...now.cp])].filter(id => was.cp.has(id) !== now.cp.has(id));
+  const rfCh = [...new Set([...was.rf, ...now.rf])].filter(id => was.rf.has(id) !== now.rf.has(id));
+  const pages = [w && w.netSnapPlay ? "net" : null, boxCh.length ? "chars" : null, rowCh.length ? "paths" : null, state.cpIn && cpCh.length ? "cp" : null, state.raftIn && rfCh.length ? "raft" : null].filter(Boolean);
+  const pick = pages.includes(window.SNAP_PAGE) ? window.SNAP_PAGE : pages[Math.floor(Math.random() * pages.length)];   // (SNAP_PAGE: a test picks the page)
+  if (REDUCED || !pick) { snapCommit(next, back); return; }
+  if (pick === "net") { openNet(); await snapWait(500); flash(back ? .75 : .9); await w.netSnapPlay(Object.keys(next), back); snapCommit(next, back); return; }
+  if (pick === "chars") { await new Promise(r => toCharacters(r)); flash(back ? .75 : .9); await snapWait(600);
+    const tiles = () => boxCh.map(c => document.querySelector(`#view .tile[data-id="${c.id}"]`)).filter(Boolean);
+    if (!back) { const go = tiles().filter(t => now.gone.has(t.dataset.id) && tileInView(t)), rn = tiles().filter(t => !now.gone.has(t.dataset.id) && tileInView(t)).map(t => t.querySelector("h2")).filter(Boolean);
+      await snapDust([...go, ...rn], false, 1700); gridFlip(() => { snapCommit(next, back); });
+      rn.length && boxCh.forEach(c => { const h = document.querySelector(`#view .tile[data-id="${c.id}"] h2`); if (h && !now.gone.has(c.id)) h.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, easing: "ease-out" }); }); }
+    else { gridFlip(() => { snapCommit(next, back); tiles().forEach(t => { (was.gone.has(t.dataset.id) ? t : t.querySelector("h2") || t).style.visibility = "hidden"; }); });
+      await snapWait(750); const L = tiles().map(t => was.gone.has(t.dataset.id) ? t : t.querySelector("h2")).filter(Boolean);
+      L.filter(el => !snapInView(el)).forEach(el => { el.style.visibility = ""; }); await snapDust(L.filter(snapInView), true, 1400); }
+    return; }
+  if (pick === "paths") { const pt = state.pathT = state.pathT || {}; DATA.map.cols.forEach(c => { if (atlSeenT(c.t)) pt[c.t] = 1; });   // opened already drawn, not drawing on
+    if (!mapOpen) openMap(); await snapWait(700); flash(back ? .75 : .9);
+    const rowEls = cs => cs.flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); if (ri < 0) return [];
+      const gone = (back ? was : now).gone.has(c.id); return [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]` + (gone ? `, #mapView .lane[data-r="${ri}"]` : ""))]; });
+    if (!back) { await snapDust(rowEls(rowCh), false, 1700); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
+    else { snapCommit(next, back); const L = rowEls(rowCh); L.forEach(el => { el.style.visibility = "hidden"; }); await snapWait(500); await snapDust(L, true, 1400); }
+    return; }
+  // the Compound or the Raft: a universe tab it touches, somewhere random in its list
+  const cp = pick === "cp", ids = cp ? cpCh : rfCh, src = cp ? ALLIES : THREATS, U = [...new Set(ids.map(id => rfUniOf(src.find(o => o.id === id))))], u = U[Math.floor(Math.random() * U.length)];
+  openColl(cp ? "cp" : "raft"); if (cp) cpUni = u; else rfUni = u; renderColl();
+  const mine = ids.filter(id => rfUniOf(src.find(o => o.id === id)) === u), v = document.getElementById("collPanel"), row = id => v.querySelector(`[data-co="${id}"]`);
+  if (!back) { const t = row(mine[Math.floor(Math.random() * mine.length)]); if (t) t.scrollIntoView({ block: "center" }); await snapWait(500); flash(.9); await snapWait(500);
+    const go = mine.map(row).filter(r => r && snapInView(r)), stay = [...v.querySelectorAll("[data-co]")].find(r => snapInView(r) && !mine.includes(r.dataset.co));
+    await snapDust(go, false, 1700); snapFlip(() => snapCommit(next, back), stay && stay.dataset.co); }
+  else { flash(.75); const stay = [...v.querySelectorAll("[data-co]")].find(snapInView); snapFlip(() => snapCommit(next, back), stay && stay.dataset.co);
+    const t = row(mine[Math.floor(Math.random() * mine.length)]); if (t) t.scrollIntoView({ block: "center" });
+    const L = mine.map(row).filter(Boolean); L.forEach(r => { r.style.visibility = "hidden"; }); await snapWait(750);
+    L.filter(r => !snapInView(r)).forEach(r => { r.style.visibility = ""; }); await snapDust(L.filter(snapInView), true, 1400); }
+}
+snap = async function () { const w = await snapNet(); if (!w) return; const P = w.netPool(); SNAP_MERGED = P.merged || {};
+  const again = !!(state.eggs || {}).snap, ids = snapShuffle(P.ids).slice(0, Math.floor(P.ids.length / 2));
+  await snapPlay(Object.fromEntries(ids.map(i => [i, 1])), false); if (again) say("Half of all life erased", null, undefined, undefined, true, undefined, undefined, true); };
+unsnap = async function () { const w = await snapNet(); if (w) SNAP_MERGED = w.netPool().merged || {}; await snapPlay({}, true); say("All life restored", null, undefined, undefined, true, undefined, undefined, true); };
+// the Network learns who's lost as soon as it loads
+document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow;
+  if (w && w.netSnapIds) w.netSnapIds(Object.keys(state.snapP || {})); if (w && w.netPool) setTimeout(() => { try { SNAP_MERGED = w.netPool().merged || {}; } catch (e) {} }, 0); });
 /* MOCKUP END */
 
 </script>

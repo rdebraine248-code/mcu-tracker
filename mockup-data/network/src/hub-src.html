@@ -473,12 +473,16 @@ function frame(t) {
     else if (c.r >= 8) { g.fillStyle = '#9FC3F0'; g.font = `${Math.round(c.r * .9)}px 'Share Tech Mono', monospace`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(n, c.x, c.y + 1); }
     g.textBaseline = 'alphabetic'; g.globalAlpha = 1; if (gs !== 1) g.restore(); });
   // everyone, smallest first so the middle of the room is drawn on top; zoomed out, only the one locked on (and a picked link) stay
-  const order = N.map((p, i) => i).sort((a, b) => pos[a].s - pos[b].s), names = [], rings = [];
+  const order = N.map((p, i) => i).sort((a, b) => pos[a].s - pos[b].s), names = [], rings = [], dzs = [];
   for (const i of order) { const p = N[i], q = pos[i], key = p === sel || p === link, fade = key || !groupOf(p) ? 1 : e; if (fade <= .02 || !(p.vis || p.guest)) continue;
     let r = 21 * Math.max(q.s, key ? .7 : 0) * (key ? 1.12 : 1); if (q.x < -30 || q.x > W + 30 || q.y < -30 || q.y > H + 30) continue;
     // someone new since you last looked pops in, a little past full size and back, the way the app's other pages reveal what's new
     let pop = 1; if (p.popAt) { const k = (t - p.popAt) / 420; if (k < 0) continue; if (k < 1) { const c = 1.7; pop = 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); } else p.popAt = 0; } r *= Math.max(0, pop);   // at the first frame the curve sits a hair under zero, which a circle can't take
     const dim = lit && !lit.has(i) ? .07 : atStop && !atStop.has(i) && !key ? .18 : link && !key && !(MUT && MUT.has(i)) ? .35 : 1; g.globalAlpha = dim * fade;
+    // the Snap: gone to dust, or not back yet, they aren't on the floor; while it happens to them they're drawn on their own little canvas
+    // (dzPaint), the same picture, their name only where the floor would write it, so nothing jumps when they go or come back
+    if (p.dz) { g.globalAlpha = 1; if (p.dz.gone || p.dz.back && t < p.dz.t0) continue; p.dz.nm = null; dzs.push([p, q, r, dim * fade]);
+      if (dim * fade > .3) rings.push([q.x, q.y, r, p]); if (pop >= 1 && ((q.s > .74 && dim === 1 && e > .9) || key)) names.push([p, q, r, key]); continue; }
     g.beginPath(); g.arc(q.x, q.y, r, 0, 6.2832); g.fillStyle = '#132036'; g.fill();
     g.lineWidth = key ? 3 : 2; g.strokeStyle = key ? '#E9C46A' : ringOf(p); g.stroke();
     if (sel && wk(p) !== wk(sel) && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
@@ -491,15 +495,86 @@ function frame(t) {
   for (const [p, q, r, key] of names) { const fz = Math.round(10.5 * Math.max(q.s, key ? .9 : 0) + 1), w = p.n.split(' '), L = w.length > 1 ? [w[0], w.slice(1).join(' ')] : w; g.font = `600 ${fz}px 'IBM Plex Sans Condensed', sans-serif`;
     { const bw = Math.max(...L.map(l => g.measureText(l).width)) / 2 + 2, x0 = q.x - bw, x1 = q.x + bw, y0 = q.y + r + 1, y1 = y0 + L.length * (fz + 1) + 1;
       if (!key && (taken.some(([a, b, c, d]) => x0 < c && x1 > a && y0 < d && y1 > b) || rings.some(([cx, cy, cr, o]) => o !== p && cx + cr * .42 > x0 && cx - cr * .42 < x1 && cy + cr * .42 > y0 && cy - cr * .42 < y1))) continue;
-      taken.push([x0, y0, x1, y1]); } g.textBaseline = 'top'; g.lineWidth = 3.5; g.lineJoin = 'round'; g.strokeStyle = '#0B1019'; g.fillStyle = key ? '#FFFFFF' : '#C9D3E2';
+      taken.push([x0, y0, x1, y1]); } if (p.dz) { p.dz.nm = { L, fz }; continue; } g.textBaseline = 'top'; g.lineWidth = 3.5; g.lineJoin = 'round'; g.strokeStyle = '#0B1019'; g.fillStyle = key ? '#FFFFFF' : '#C9D3E2';
       L.forEach((l, k) => { g.strokeText(l, q.x, q.y + r + 2 + k * (fz + 1)); g.fillText(l, q.x, q.y + r + 2 + k * (fz + 1)); });
       // another version of someone says which one: where they're from
       if (p.cl && sel && (wk(p) !== wk(sel) || sel.V.includes(p.i))) { const vt = earthOf(p) && earthOf(p) !== earthOf(sel) ? earthOf(p) : p.u !== sel.u ? UL[p.u] : vtag(p), y = q.y + r + 2 + L.length * (fz + 1) + 1, f0 = g.fillStyle; g.font = `${Math.max(8, fz - 2)}px 'Share Tech Mono', monospace`; g.fillStyle = '#9FB4D6';
         g.strokeText(vt, q.x, y); g.fillText(vt, q.x, y); g.fillStyle = f0; } }
   g.textBaseline = 'alphabetic';
+  dzPaint(dzs, t);
   mapCross(); drawMap(t, pos);
   requestAnimationFrame(frame);
 }
+
+// ---- the Snap (a mockup in the test build: the app turns it on) ----
+// the app says who is lost (every universe, by their file's id); they stay off the floor until it's undone. When the Snap plays here, each
+// one on screen turns to dust the way the Characters boxes do (the boxes' own SVG filter: turbulence, displacement, the edges eaten away),
+// at random moments all over the screen, with a flake or two of ash; then the room closes up behind them. Undone, the room opens up with
+// their places empty, and they gather back out of the dust one by one
+let SNAPS = new Set();
+const DZ = new Map(); let dzN = 0, ASH = [];
+function dzPaint(L, t) { const live = new Set(), D = DPR;
+  L.forEach(([p, q, r, al]) => { const z = p.dz; live.add(p.i); let el = DZ.get(p.i);
+    if (!el) { const id = 'netDust' + (++dzN), c = document.createElement('canvas'), svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', 0); svg.setAttribute('height', 0); svg.style.position = 'absolute';
+      svg.innerHTML = `<filter id="${id}" x="-10%" y="-10%" width="140%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="${1 + dzN % 97}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/><feOffset in="d" dx="0" dy="0" result="o"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 1" result="m"/><feComposite in="o" in2="m" operator="in"/></filter>`;
+      c.style.cssText = `position:fixed;pointer-events:none;filter:url(#${id})`; cv.after(c, svg);   // just above the floor, under the header
+      el = { c, svg, dm: svg.querySelector('feDisplacementMap'), off: svg.querySelector('feOffset'), cm: svg.querySelector('feColorMatrix') }; DZ.set(p.i, el); }
+    const f = Math.max(0, Math.min(1, (t - z.t0) / z.ms)), k = z.back ? 1 - f : f, e = k * k;
+    el.dm.setAttribute('scale', (40 * e).toFixed(1)); el.off.setAttribute('dx', (26 * e).toFixed(1)); el.off.setAttribute('dy', (-18 * e).toFixed(1));
+    el.cm.setAttribute('values', `0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  9 0 0 0 ${(1 - 10 * k).toFixed(2)}`);
+    const nm = z.nm; let nw = 0; if (nm) { g.font = `600 ${nm.fz}px 'IBM Plex Sans Condensed', sans-serif`; nw = Math.max(...nm.L.map(l => g.measureText(l).width)); }
+    const w = Math.max(2 * r, nw) + 24, h = 2 * r + 12 + (nm ? nm.L.length * (nm.fz + 1) + 4 : 0), x0 = q.x - w / 2, y0 = q.y - r - 6, c = el.c;
+    if (c.width !== Math.ceil(w * D) || c.height !== Math.ceil(h * D)) { c.width = Math.ceil(w * D); c.height = Math.ceil(h * D); c.style.width = w + 'px'; c.style.height = h + 'px'; }
+    c.style.left = x0 + 'px'; c.style.top = y0 + 'px';
+    const cg = c.getContext('2d'); cg.setTransform(D, 0, 0, D, -x0 * D, -y0 * D); cg.clearRect(x0, y0, w, h); cg.globalAlpha = al;
+    cg.beginPath(); cg.arc(q.x, q.y, r, 0, 6.2832); cg.fillStyle = '#132036'; cg.fill(); cg.lineWidth = 2; cg.strokeStyle = ringOf(p); cg.stroke();
+    if (r > 9) { cg.fillStyle = '#EEF1F6'; cg.font = `400 ${Math.round(r * .78)}px Anton, Impact, sans-serif`; cg.textAlign = 'center'; cg.textBaseline = 'middle'; cg.fillText(initials(p.n), q.x, q.y + 1); }
+    if (nm) { cg.font = `600 ${nm.fz}px 'IBM Plex Sans Condensed', sans-serif`; cg.textAlign = 'center'; cg.textBaseline = 'top'; cg.lineWidth = 3.5; cg.lineJoin = 'round'; cg.strokeStyle = '#0B1019'; cg.fillStyle = '#C9D3E2';
+      nm.L.forEach((l, j) => { const y = q.y + r + 2 + j * (nm.fz + 1); cg.strokeText(l, q.x, y); cg.fillText(l, q.x, y); }); }
+    if (!z.back && f > 0 && f < .85 && Math.random() < .8) ASH.push({ x: q.x - r + Math.random() * 2 * r, y: q.y - r + Math.random() * 2 * r, vx: .5 + Math.random() * 1.4, vy: -.2 - Math.random(), s: 1 + Math.random() * 1.6, l: .9, c: Math.random() < .6 ? '138,125,114' : '200,206,214' });
+    if (f >= 1) { if (z.back) delete p.dz; else z.gone = true; } });   // back: drawn on the floor from the next frame, the same frame this canvas goes
+  DZ.forEach((el, i) => { if (!live.has(i)) { el.c.remove(); el.svg.remove(); DZ.delete(i); } });
+  if (ASH.length) { ASH = ASH.filter(a => a.l > 0); ASH.forEach(a => { a.x += a.vx; a.y += a.vy; a.vy -= .015; a.l -= .028; if (a.l > 0) { g.globalAlpha = 1; g.fillStyle = `rgba(${a.c},${a.l})`; g.fillRect(a.x, a.y, a.s, a.s); } }); } }
+// everyone walks from where they stand to their new place together, on the Characters list's curve (700ms, cubic-bezier(.3,0,.2,1)),
+// the view carried along so the group it was on stays put
+function roomMove(ms, spot) { return new Promise(res => { const S = N.filter(p => p.vis).map(p => [p, p.wx, p.wy, p.hx, p.hy]), z = Z.find(z => z.name === spot),
+    c0 = [cam.x, cam.y], c1 = z ? [z.cx, z.cy + 30] : c0, t0 = performance.now(); glide = null;
+  const ease = x => { let lo = 0, hi = 1; for (let k = 0; k < 18; k++) { const m = (lo + hi) / 2, u = 1 - m; if (3 * u * u * m * .3 + 3 * u * m * m * .2 + m * m * m < x) lo = m; else hi = m; } const m = (lo + hi) / 2, u = 1 - m; return 3 * u * m * m + m * m * m; };
+  const step = now => { const f = Math.min(1, (now - t0) / ms), e = ease(f);
+    S.forEach(([p, x0, y0, x1, y1]) => { p.wx = p.tx = x0 + (x1 - x0) * e; p.wy = p.ty = y0 + (y1 - y0) * e; p.go = 0; });
+    cam.x = c0[0] + (c1[0] - c0[0]) * e; cam.y = c0[1] + (c1[1] - c0[1]) * e; vel.x = vel.y = 0; if (f < 1) requestAnimationFrame(step); else res(); };
+  requestAnimationFrame(step); }); }
+const onScreen = p => { const q = lens(p, performance.now()); return q.x > 0 && q.x < W && q.y > 150 && q.y < H - 70; };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+// who can be lost: everyone you've met, in every universe you've opened (by file id), and the files merged into another's bubble
+self.netPool = () => ({ ids: N.filter(p => uniOk(p.u) && p.A0.some(j => seen(j))).map(p => p.id), merged: DATA.merged || {} });
+// quietly: who's lost, with nothing played (the Snap played somewhere else in the app, or the app just opened)
+self.netSnapIds = ids => { SNAPS = new Set(ids || []); if (seenKey === null) return; applyCut(CUT, true); if (!sel) N.forEach(p => { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.go = 0; p.inAt = 0; }); };
+// played here: a tab where it touches someone you've met, picked at random, then in close on a random busy group of it
+self.netSnapPlay = async (ids, back) => { const NEW = new Set(ids || []), OLD = SNAPS, hit = p => back ? OLD.has(p.id) && !NEW.has(p.id) : NEW.has(p.id) && !OLD.has(p.id);
+  if (sel) home(); link = null;
+  const tabs = UNIS.map(([u]) => u).filter(u => u !== 'all' && uniOk(u) && N.some(p => p.u === u && p.A.length && hit(p)));
+  if (tabs.length) setUni(tabs[Math.floor(Math.random() * tabs.length)]);
+  // in close on a random group with plenty happening to it (going, or coming back to it), somewhere new each time
+  const hits = z => back ? N.filter(p => hit(p) && crewName(p.g) === z.name).length : z.L.filter(p => p.vis && hit(p)).length;
+  const B = Z.filter(z => z.name !== 'Independent' && z.L.filter(p => p.vis).length >= 3).map(z => [z, hits(z)]).sort((a, b) => b[1] - a[1]).slice(0, 8).filter(x => x[1] >= 2),
+    z = (B[Math.floor(Math.random() * B.length)] || [Z[0]])[0];
+  if (z) glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: z.cx, y1: z.cy + 30, z0: zoom, z1: 1.0 };
+  await wait(900);
+  // the layout changes under everyone at once; they stay where they stand until roomMove walks them over
+  const swap = () => { SNAPS = NEW; applyCut(CUT, true); N.forEach(p => { if (p.vis && !hit(p)) { p.tx = p.wx; p.ty = p.wy; } }); };
+  if (!back) { const V = N.filter(p => p.vis && hit(p)), now = performance.now(); let end = now;
+    V.forEach(p => { if (onScreen(p)) { const t0 = now + 300 + Math.random() * 5200; p.dz = { t0, ms: 1500 }; end = Math.max(end, t0 + 1500); } else p.dz = { gone: true }; });
+    await wait(end - now + 400);
+    // the room closes up behind them, the view on the group on screen that kept the most people
+    const best = Z.filter(z => z.name !== 'Independent' && z.L.some(onScreen)).map(z => [z.name, z.L.filter(p => !hit(p)).length]).sort((a, b) => b[1] - a[1])[0];
+    swap(); N.forEach(p => { delete p.dz; }); await roomMove(900, best ? best[0] : '');
+  } else { // the room opens up with their places empty, the view on the same group; once it's still they gather back, at random
+    swap(); const now = performance.now() + 1100;
+    N.forEach(p => { if (p.vis && hit(p)) { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.dz = { back: true, t0: now + Math.random() * 3600, ms: 1400 }; } });
+    await roomMove(900, z ? z.name : ''); await wait(3600 + 1400 + 400); }
+  return true; };
 let LIVE = !EMB, looping = LIVE; if (LIVE) requestAnimationFrame(frame);
 new ResizeObserver(() => document.documentElement.style.setProperty('--hb', document.querySelector('header').offsetHeight + 'px')).observe(document.querySelector('header'));   // the empty floor's middle sits below the header
 self.netShow = v => { LIVE = v; if (v) { size(); if (needFit) fitRoom(); reveal(); if (!looping) { looping = true; requestAnimationFrame(frame); } } };
@@ -740,7 +815,7 @@ function applyCut(v, quiet) {
   // the seasons of theirs you've reached an episode of they're in (owner: met in Agent Carter S1's first episode, yet "in 0 titles")
   const epSeen = p => { const S = new Set(); if (SEENF) p.R0.forEach(r => r.S.forEach(x => { if (/#\d+$/.test(x.t) && (p.LS || (p.LS = new Set(labs(p.A0)))).has(lab(x.t)) && SEENF(x.t)) S.add(lab(x.t)); })); return S; };
   WORLD = null;   // one room per universe, its Earths as districts in it
-  N.forEach(p => { const was = p.vis; const es = epSeen(p); p.A = p.A0.filter(j => seen(j) || es.has(LAB[j])); p.vis = p.A.length > 0 && p.u === UNI && (!WORLD || wk(p) === WORLD); p.arrive = p.vis && !was; });
+  N.forEach(p => { const was = p.vis; const es = epSeen(p); p.A = p.A0.filter(j => seen(j) || es.has(LAB[j])); p.vis = p.A.length > 0 && p.u === UNI && (!WORLD || wk(p) === WORLD) && !SNAPS.has(p.id); p.arrive = p.vis && !was; });
   N.forEach(p => { p.F = p.vis ? p.F0.filter(j => N[j].vis && ((p.Fw[j] || []).length ? p.Fw[j].some(seen) : true)) : [];
     p.M = p.vis ? p.M0.filter(j => N[j].vis && p.T.some(([c]) => joined(p, c) && joined(N[j], c))) : [];
     p.R = p.vis ? p.R0.map(cutTie).filter(r => r && (N[r.j].vis || wk(N[r.j]) !== wk(p) && N[r.j].A0.some(seen))) : [];

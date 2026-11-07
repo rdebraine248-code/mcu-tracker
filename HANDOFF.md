@@ -25,6 +25,21 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   key carries its universe after an invisible separator (`UK`, \u2063, and \u2064 for a circle named like a crew); `moreHTML` printed the
   raw key, so Beyond read "Starforceby", FoX-Men "...fox", and an off-timeline Independent wasn't filtered out. Now it prints the name
   only. Checked over all 1,480 people: no hidden marker and no "Independent" in any Crews line. Network only (network.html).
+- **Mockup in the test build (7 November 2026, v164): the Snap across the whole app** (owner: "if Pepper Potts gets snapped, then her
+  Compound file also goes ... his path goes, his character box goes"; answers: every universe; a team box only when every core member
+  goes; a shared box drops the lost name on the box and its Paths line; the animation on one of the five pages you've found, at random).
+  The Gauntlet's Snap takes a random half of everyone you've met (the Network's people, by file id, dead or alive; `netPool`), kept in
+  `state.snapP`; `state.dusted` is now worked out from it (the boxes with nobody left, `SNAP_BOX`: each box's people, part by part).
+  Hooks in main code, all behind `MOCK`: `boxName`/`boxNameHtml` (`snapName`), `mapHide`, `cpSteps`/`rfSteps` (`snapGone`), the
+  Gauntlet's "Whatever it takes" check. The block is `/* MOCKUP BEGIN snap */` at the end of the script; its data is `var` and its
+  helpers declared functions, because the app names boxes and checks files while it loads (a `const` there broke the load).
+  The Network (hub-src, inert on main): `SNAPS` keeps the lost off the floor; `netSnapPlay` picks a tab it touches and a busy group,
+  and the room draws the dust itself (`dzPaint`: each one on their own canvas just above the floor and under the header, the boxes'
+  SVG filter, their name only where the floor writes it, so nothing blinks or jumps), at random over 5 s; the room closes up on the
+  Characters list's curve (`roomMove`) with the view on the group that kept the most people; undone, the room opens with their places
+  empty and they gather back. The Characters page, Paths and the Compound and Raft use `snapBox` at random moments, with ash scaled to
+  each thing's size (`snapAsh`; none off a Paths line), the lists closing up (`snapFlip`). Owner's dust rules from the videos: no
+  screen-wide sweep, light ash only, random spots and moments, no zoom out when it's done. Test: `SNAP_PAGE` forces a page.
 - **On main (`0c7fb46`) (7 November 2026): the other universes' circles checked** (owner: "Just do other circles and coverage list").
   All 126 people in 81 circles read against their titles; six doubtful ones checked against sources. Two showed early, now staged in
   `CIRC_FROM` (which now also takes other-universe people, keeping their baked circle key): Dazzler on Genosha only from X-Men '97 #5
