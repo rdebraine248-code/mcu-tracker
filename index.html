@@ -776,7 +776,8 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .hf-arch i{ position:absolute; right:14px; top:50%; transform:translateY(-50%); font-style:normal; font-size:22px; color:var(--ak); }
 .ar-cp{ --ac:#2F4F80; --ab:linear-gradient(135deg,rgba(79,163,255,.14),rgba(11,20,36,.6)); --ak:#8FC1FF; }
 .ar-raft{ --ac:#5A3A36; --ab:linear-gradient(135deg,rgba(224,74,58,.13),rgba(10,15,22,.6)); --ak:#E9897E; }
-.ar-snap{ --ac:#6B2A33; --ab:linear-gradient(135deg,rgba(229,72,77,.16),rgba(14,10,14,.6)); --ak:#F3A5A8; }
+/* the Snap's report on your Agent ID while it holds (owner, 7 November 2026: "don't make it an index, make it on the agent card") */
+.hf-snap dt{ color:#E5484D !important; } .hf-snap button{ all:unset; cursor:pointer; color:#F3A5A8; font:inherit; text-decoration:underline; text-decoration-color:#6B2A33; text-underline-offset:3px; }
 .ar-coll{ --ac:#4A3F22; --ab:linear-gradient(135deg,rgba(233,196,106,.13),rgba(23,20,12,.6)); --ak:#E9C46A; }
 .hf-sec{ max-width:760px; margin:22px auto 0; }
 .hf-sec h3{ margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; display:flex; justify-content:space-between; }
@@ -7913,8 +7914,6 @@ function archSec() {
     ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
     ["dc", "damagecontrol", "Damage Control", "Incident reports", () => DC.filter(dcSeen).length, "on file"],
     ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
-  // while the Snap holds, its report is filed here too (owner, 7 November 2026): it opens the message in Comms
-  if (snapLive()) L.unshift(["snap", "", "The Snap", "Priority transmission", () => state.snapRep.lostM, "unaccounted for"]);
   if (!L.length) return "";
   return `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${L.map(([m, , t, k, n, w]) => `<button type="button" class="ar-${m}" data-arch="${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em><i aria-hidden="true">&#8250;</i></button>`).join("")}</div></section>`;
 }
@@ -7945,7 +7944,7 @@ function renderFile(fresh) {
   swapIn(fv, `
     <div class="hf-head hf-id"><button type="button" class="hf-ava" id="hfAva" aria-label="Choose your profile picture">${state.avatar && EMBLEMS[state.avatar] ? embHTML(state.avatar) : `<b aria-hidden="true">+</b>`}</button>${embNew().length ? '<i class="hf-avdot" aria-hidden="true"></i>' : ""}<div class="hf-tag hf-idtag"><span>Agent ID</span><span class="hf-lvl">${level > 10 ? "" : "Level " + level + " · "}${CLEARANCE[level - 1]}</span></div>
       <button type="button" class="hf-name hf-code" id="hfCode" aria-label="Set your codename">${state.codename ? esc(state.codename) : `<span>Enter your codename</span>`}</button>
-      <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}</dl>
+      <dl class="hf-rows"><div><dt>Recruited</dt><dd>${esc(recruitDate())}</dd></div><div><dt>Files</dt><dd>${achCount()}</dd></div>${rateRows()}${snapLive() ? `<div class="hf-snap"><dt>The Snap</dt><dd><button type="button" data-arch="snap">${state.snapRep.lostM} unaccounted for ›</button></dd></div>` : ""}</dl>
       <div class="hf-bar"><span style="width:${pct}%"></span></div><div class="hf-strip"><i></i><span>${esc(agentNo())}</span></div>
       <div class="hf-stats">${stat("chapters", "Chapters")}${stat("missions", "Missions")}${stat("artifacts", "Artifacts")}${stat("classified", "Classified")}</div></div>
     ${archSec()}${chPart()}${sect("missions", "Missions")}${sect("artifacts", "Artifacts")}${open.classified ? classPart() : ""}${sect("final", "Final")}
