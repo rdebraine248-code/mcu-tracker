@@ -776,6 +776,7 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .hf-arch i{ position:absolute; right:14px; top:50%; transform:translateY(-50%); font-style:normal; font-size:22px; color:var(--ak); }
 .ar-cp{ --ac:#2F4F80; --ab:linear-gradient(135deg,rgba(79,163,255,.14),rgba(11,20,36,.6)); --ak:#8FC1FF; }
 .ar-raft{ --ac:#5A3A36; --ab:linear-gradient(135deg,rgba(224,74,58,.13),rgba(10,15,22,.6)); --ak:#E9897E; }
+.ar-snap{ --ac:#6B2A33; --ab:linear-gradient(135deg,rgba(229,72,77,.16),rgba(14,10,14,.6)); --ak:#F3A5A8; }
 .ar-coll{ --ac:#4A3F22; --ab:linear-gradient(135deg,rgba(233,196,106,.13),rgba(23,20,12,.6)); --ak:#E9C46A; }
 .hf-sec{ max-width:760px; margin:22px auto 0; }
 .hf-sec h3{ margin:0 0 10px; font:12px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:#7FA6D8; text-transform:uppercase; display:flex; justify-content:space-between; }
@@ -7912,6 +7913,8 @@ function archSec() {
     ["raft", "raft", "The Raft", "Threat registry", () => THREATS.filter(o => rfSteps(o).length).length, "on file"],
     ["dc", "damagecontrol", "Damage Control", "Incident reports", () => DC.filter(dcSeen).length, "on file"],
     ["coll", "collector", "The Collection", "Taneleer Tivan's archive", () => COLLX.filter(o => cxSteps(o).length).length, "catalogued"]].filter(a => ex[a[1]]);
+  // while the Snap holds, its report is filed here too (owner, 7 November 2026): it opens the message in Comms
+  if (snapLive()) L.unshift(["snap", "", "The Snap", "Priority transmission", () => state.snapRep.lostM, "unaccounted for"]);
   if (!L.length) return "";
   return `<section class="hf-sec"><h3><span>Archives</span></h3><div class="hf-arch">${L.map(([m, , t, k, n, w]) => `<button type="button" class="ar-${m}" data-arch="${m}"><small>${esc(k)}</small><b>${esc(t)}</b><em>${n()} ${w}</em><i aria-hidden="true">&#8250;</i></button>`).join("")}</div></section>`;
 }
@@ -8035,7 +8038,9 @@ function closeFile(fromHistory) {
   const b = document.getElementById("btnFile"); if (b) b.focus({ preventScroll: true });
 }
 document.getElementById("fileBack").addEventListener("click", () => { if (document.querySelector("#filePanel .hf-pick")) hfPickClose(); else closeFile(); });
-document.getElementById("fileView").addEventListener("click", ev => { const ar = ev.target.closest("[data-arch]"); if (ar) { haptic(12); openColl(ar.dataset.arch === "coll" ? undefined : ar.dataset.arch); } });
+document.getElementById("fileView").addEventListener("click", ev => { const ar = ev.target.closest("[data-arch]"); if (!ar) return; haptic(12);
+  if (ar.dataset.arch === "snap") { const m = COMMS.find(x => x.snap); if (m) { (state.msgs = state.msgs || {})[msgId(m)] = 1; persist(); } openComms("msg"); return; }   // the report, delivered if the ticker hadn't brought it yet
+  openColl(ar.dataset.arch === "coll" ? undefined : ar.dataset.arch); });
 document.getElementById("fileView").addEventListener("click", ev => {
   const go = ev.target.closest("[data-hfgo]"); if (go) { const sec = document.querySelector(`#fileView [data-hfsec="${go.dataset.hfgo}"]`); if (sec) { haptic(8); sec.scrollIntoView({ block: "start", behavior: REDUCED ? "auto" : "smooth" }); } return; }
   const rp = ev.target.closest("[data-rpg]"); if (rp) { haptic(8); const fv = document.getElementById("fileView"), y = fv.scrollTop; rPg = (rPg + +rp.dataset.rpg + SL_ACTS.length) % SL_ACTS.length; rOpen = null; refreshRates(); fv.scrollTop = y; return; }
