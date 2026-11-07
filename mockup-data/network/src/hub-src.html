@@ -20,7 +20,7 @@ body{ margin:0; overflow:hidden; background-color:var(--bg); background-image:va
 header{ position:fixed; left:0; right:0; top:0; padding-top:calc(6px + var(--sat, env(safe-area-inset-top, 0px))); padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); padding-bottom:28px; pointer-events:none;
   isolation:isolate; }
 header::before{ content:""; position:absolute; inset:0; z-index:-1; background-color:var(--bg); background-image:var(--padimg); background-size:var(--padsize); background-position:0 0; -webkit-mask-image:linear-gradient(180deg, #000 55%, transparent); mask-image:linear-gradient(180deg, #000 55%, transparent); }   /* the screen's own texture, fading out over the room */
-h1{ margin:0; font:400 28px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 18px rgba(109,189,255,.45); }
+h1{ pointer-events:auto; display:inline-block; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; margin:0; font:400 28px/1.05 var(--display); letter-spacing:.5px; text-transform:uppercase; color:#EEF5FF; text-shadow:0 0 18px rgba(109,189,255,.45); }
 .sub{ margin:8px 0 10px; font:11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; }
 .legend{ display:flex; flex-wrap:wrap; gap:4px 14px; font:10.5px/1.4 var(--mono); letter-spacing:2px; text-transform:uppercase; color:var(--mute); }
 .legend b{ font-weight:400; } .lh{ color:var(--hero); } .lf{ color:var(--foe); } .lb{ color:var(--both); }
@@ -134,6 +134,12 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
    they're connected to, in as few links as you can. Every link is a real connection, its latest stage as far as you've watched, so
    nothing is spoiled; par is the shortest chain there is. A new pair whenever you like (owner: no daily puzzle), or pick your own */
 header #hSix{ position:absolute; right:max(20px, env(safe-area-inset-right, 0px)); top:calc(6px + var(--sat, env(safe-area-inset-top, 0px))); display:flex; align-items:center; gap:7px; height:28px; padding:0 12px; border:1px solid #6B5A2A; border-radius:999px; background:rgba(233,196,106,.07); color:var(--both); font:11px/1 var(--mono); letter-spacing:1.5px; text-transform:uppercase; pointer-events:auto; cursor:pointer; }
+#six6{ position:fixed; z-index:6; left:max(12px, env(safe-area-inset-left, 0px)); right:max(12px, env(safe-area-inset-right, 0px)); bottom:max(12px, env(safe-area-inset-bottom, 0px)); padding:10px 14px 12px; border:1px solid #6B5A2A; border-radius:14px; background:rgba(16,22,34,.94); box-shadow:0 10px 30px rgba(0,0,0,.45); display:flex; flex-direction:column; gap:6px; }
+#six6 .g6-top{ display:flex; align-items:center; gap:8px; min-width:0; font:400 19px/1.1 var(--display); text-transform:uppercase; color:#EEF1F6; }
+#six6 .g6-top b{ font-weight:400; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; } #six6 .g6-top i{ font-style:normal; color:#E9C46A; } #six6 .g6-to{ color:#E9C46A; }
+#six6 .g6-st{ margin:0; font:12px 'Share Tech Mono',monospace; letter-spacing:.12em; text-transform:uppercase; color:#C9B27A; }
+#six6 .g6-row{ display:flex; gap:6px; flex-wrap:wrap; } #six6 .g6-row button{ flex:1 1 auto; font:12px 'Share Tech Mono',monospace; letter-spacing:.08em; text-transform:uppercase; color:#EEF1F6; background:#16233A; border:1px solid #2A4570; border-radius:9px; padding:8px 8px; cursor:pointer; }
+#six6 .g6-row button[aria-pressed="true"]{ background:#E9C46A; color:#10161F; border-color:#E9C46A; } #six6 .g6-row button:disabled{ opacity:.4; }
 header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
 #dsheet{ position:fixed; inset:0; display:flex; flex-direction:column; background-color:var(--bg); background-image:var(--padimg); background-size:var(--padsize); }
 #dsheet .tstop{ padding-top:calc(6px + var(--sat, env(safe-area-inset-top, 0px))); align-items:flex-start; } #dsheet .tstop h2{ font-size:28px; line-height:1.05; letter-spacing:.5px; }
@@ -404,10 +410,12 @@ function frame(t) {
     if (x0 <= x1) { const mx = W * .4 / zoom, my = H * .4 / zoom; cam.x = Math.max(x0 - mx, Math.min(x1 + mx, cam.x)); cam.y = Math.max(y0 - my, Math.min(y1 + my, cam.y)); } }
   g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H);   // the page's own screen shows through
   const e = unfold(), G = groups(), gv = new Map(G.map(z => [z, gview(z, t)]));
-  const lit = sel ? new Set([sel.i, ...gathered]) : tsel != null ? new Set(gathered) : null;
+  if (GAME && (GAME.u !== UNI || !N[GAME.a].vis || !N[GAME.b].vis)) gameEnd();   // the room changed under it
+  const gameMem = GAME ? new Set([...GAME.ch, GAME.b, ...(GAME.best || [])]) : null;   // the chain's people stand as themselves however far out
+  const lit = GAME ? new Set([...GAME.ch, GAME.b, ...(GAME.done ? [] : gameNb()), ...(GAME.best || [])]) : sel ? new Set([sel.i, ...gathered]) : tsel != null ? new Set(gathered) : null;
   // each person's spot: their own while zoomed in, drawn into their group's bubble as you zoom out
   const pos = N.map(p => { const q = lens(p, t), z = groupOf(p), c = z && gv.get(z);
-    if (c && e < 1 && p !== sel) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
+    if (c && e < 1 && p !== sel && !(GAME && gameMem.has(p.i))) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
   // the Earth districts: a big faint bubble round each Earth's crews, its name round the inside of its edge (only in the room, not in someone's web)
   if (DIST.length && !busy()) { const C = []; DIST.forEach(d => { if (!d.L.length) return;   // round the spot it was laid out on, wide enough for where its people stand on screen (the lens pulls the edges in)
     const o = lens({ wx: d.x, wy: d.y }, 0); let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; d.L.forEach(p => { const q = pos[p.i]; x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); });
@@ -473,9 +481,15 @@ function frame(t) {
       g.fillText(n + (n > 1 ? ' PEOPLE' : ' PERSON'), c.x, y0 + lh * L.length + fz * .45); }
     else if (c.r >= 8) { g.fillStyle = '#9FC3F0'; g.font = `${Math.round(c.r * .9)}px 'Share Tech Mono', monospace`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(n, c.x, c.y + 1); }
     g.textBaseline = 'alphabetic'; g.globalAlpha = 1; if (gs !== 1) g.restore(); });
+  // Six Degrees: the last link's connections, faint; the shortest chain when shown, white; your chain, gold
+  if (GAME) { const th = (L, col, w, al, dash) => { g.strokeStyle = col; g.lineWidth = w; g.globalAlpha = al; g.setLineDash(dash || []); g.beginPath();
+      L.forEach((j, n) => { const q = pos[j]; if (!n) g.moveTo(q.x, q.y); else { const o = pos[L[n - 1]]; g.quadraticCurveTo((o.x + q.x) / 2, (o.y + q.y) / 2 - 24, q.x, q.y); } }); g.stroke(); g.setLineDash([]); g.globalAlpha = 1; };
+    if (!GAME.done) { const c = gameCur(); gameNb().forEach(j => { if (!GAME.ch.includes(j)) { const k = kindOf(N[c], N[j]); th([c, j], KC[k], 1.2, .45, k === 'enemy' || k === 'rival' ? [4, 4] : []); } }); }
+    if (GAME.best) th(GAME.best, '#EEF1F6', 2, .6, [6, 5]);
+    th(GAME.ch, '#E9C46A', 3.4, 1); }
   // everyone, smallest first so the middle of the room is drawn on top; zoomed out, only the one locked on (and a picked link) stay
   const order = N.map((p, i) => i).sort((a, b) => pos[a].s - pos[b].s), names = [], rings = [], dzs = [];
-  for (const i of order) { const p = N[i], q = pos[i], key = p === sel || p === link, fade = key || !groupOf(p) ? 1 : e; if (fade <= .02 || !(p.vis || p.guest)) continue;
+  for (const i of order) { const p = N[i], q = pos[i], key = p === sel || p === link || !!(gameMem && gameMem.has(i)), fade = key || !groupOf(p) ? 1 : e; if (fade <= .02 || !(p.vis || p.guest)) continue;
     let r = 21 * Math.max(q.s, key ? .7 : 0) * (key ? 1.12 : 1); if (q.x < -30 || q.x > W + 30 || q.y < -30 || q.y > H + 30) continue;
     // someone new since you last looked pops in, a little past full size and back, the way the app's other pages reveal what's new
     let pop = 1; if (p.popAt) { const k = (t - p.popAt) / 420; if (k < 0) continue; if (k < 1) { const c = 1.7; pop = 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); } else p.popAt = 0; } r *= Math.max(0, pop);   // at the first frame the curve sits a hair under zero, which a circle can't take
@@ -485,7 +499,8 @@ function frame(t) {
     if (p.dz) { g.globalAlpha = 1; if (p.dz.gone || p.dz.back && t < p.dz.t0) continue; p.dz.nm = null; dzs.push([p, q, r, dim * fade]);
       if (dim * fade > .3) rings.push([q.x, q.y, r, p]); if (pop >= 1 && ((q.s > .74 && dim === 1 && e > .9) || key)) names.push([p, q, r, key]); continue; }
     g.beginPath(); g.arc(q.x, q.y, r, 0, 6.2832); g.fillStyle = '#132036'; g.fill();
-    g.lineWidth = key ? 3 : 2; g.strokeStyle = key ? '#E9C46A' : ringOf(p); g.stroke();
+    const gk = GAME && (p.i === GAME.a || p.i === GAME.b || GAME.ch.includes(p.i)); g.lineWidth = key || gk ? 3 : 2; g.strokeStyle = key || gk ? '#E9C46A' : ringOf(p); g.stroke();
+    if (GAME && p.i === GAME.b && !GAME.done) { const k = (t % 1600) / 1600; g.globalAlpha = (1 - k) * .9; g.beginPath(); g.arc(q.x, q.y, r + 4 + k * 14, 0, 6.2832); g.strokeStyle = '#E9C46A'; g.lineWidth = 2; g.stroke(); g.globalAlpha = dim * fade; }   // the one to reach
     if (sel && wk(p) !== wk(sel) && !key) { g.setLineDash([3, 3]); g.beginPath(); g.arc(q.x, q.y, r + 5, 0, 6.2832); g.strokeStyle = '#D7E3F5'; g.lineWidth = 1.4; g.stroke(); g.setLineDash([]); }   // from another universe
     if (r > 9) { g.fillStyle = '#EEF1F6'; g.font = `400 ${Math.round(r * .78)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(initials(p.n), q.x, q.y + 1); }
     if (p.inAt && t - p.inAt < 2600) { const k = (t - p.inAt) / 2600; g.globalAlpha = (1 - k) * fade; g.beginPath(); g.arc(q.x, q.y, r + 4 + k * 10, 0, 6.2832); g.strokeStyle = '#5FD0FF'; g.lineWidth = 2.5;   /* blue, like the app's new dots (owner) */ g.stroke(); g.globalAlpha = dim * fade; }   // just walked in
@@ -628,6 +643,7 @@ const $ = id => document.getElementById(id), card = $('card'), toast = $('toast'
 // their people shows how the two are connected, tapping that person again locks onto them instead; a tap on the open floor steps back out
 function tap(x, y) {
   const t = performance.now(); if (mapOn && mcam) return mapTap(x, y);
+  if (GAME && unfold() >= .5) { let best = null, bd = 1e9; N.forEach(p => { if (!p.vis) return; const q = lens(p, t), r = 21 * q.s + 8, d = Math.hypot(q.x - x, q.y - y); if (d < r && d < bd) { bd = d; best = p; } }); if (best) gameTap(best); return; }
   if (sel) { const q = lens(sel, t); if (Math.hypot(q.x - x, q.y - y) < 21 * Math.max(q.s, .7) + 6) return link && showOne(); }
   if (unfold() < .5) { const z = groups().find(z => { const c = gview(z, t); return Math.hypot(c.x - x, c.y - y) < c.r; });
     if (z) { glide = { t0: t, x0: cam.x, y0: cam.y, x1: z.gx, y1: z.gy, z0: zoom, z1: Math.max(1, zoom) }; return; }
@@ -1126,7 +1142,41 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
   if (id === 'dUndo' && S.ch.length > 1) { S.ch.pop(); sixDraw(); return; }
   if (id === 'dShow') { S.done = 2; sixDraw(); $('dBody').scrollTop = 0; } });
 // Six Degrees is a mockup: its button shows only when the app's test build turns it on
-self.netMockOn = () => { $('hSix').hidden = false; };
+// Six Degrees is found, not shown (owner, 7 November 2026: "hidden somewhere else so it's a discovery"): hold the Network's title. It's
+// played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
+let SIX_ON = false; self.netMockOn = () => { SIX_ON = true; };
+{ const h = document.querySelector('header h1'); let t = 0; h.style.touchAction = 'none';
+  h.addEventListener('pointerdown', () => { if (!SIX_ON || GAME) return; clearTimeout(t); t = setTimeout(() => { if (navigator.vibrate) try { navigator.vibrate([10, 40, 10]); } catch (x) {} gameStart(); }, 800); });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => h.addEventListener(n, () => clearTimeout(t))); }
+// ---------- Six Degrees in the room: From and To light up gold, the chain you tap together is drawn as a gold thread, and whoever the
+// last link is connected to stands lit; everyone else dims. Tap one of them to go on; tap a link already in the chain to go back to it
+let GAME = null;
+const gameCur = () => GAME.ch[GAME.ch.length - 1], gameNb = () => new Set(sixNb(N[gameCur()]));
+function gameStart(a, b) { const S = a != null ? sixSet(a, b) : sixNew(); if (S.none || S.par == null) { say('No chain in this room'); return; }
+  if (sel) home(); GAME = { a: S.a, b: S.b, par: S.par, ch: [S.a], done: 0, best: null, u: UNI }; hudDraw(); gameLook(S.a, true); }
+function gameLook(j, both) { const p = N[j], q = N[GAME.b], x = both ? (p.hx + q.hx) / 2 : p.hx, y = both ? (p.hy + q.hy) / 2 : p.hy;
+  const z = both ? Math.max(.86, Math.min(1.2, Math.min(W, H - 260) / (Math.hypot(p.hx - q.hx, p.hy - q.hy) + 240))) : Math.max(zoom, 1);
+  glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: x, y1: y + 40, z0: zoom, z1: z }; }
+// the whole chain in view (as far as the room can pull back while people still stand as themselves, not folded into their groups)
+function gameFit(L) { const X = L.map(j => N[j].hx), Y = L.map(j => N[j].hy), x0 = Math.min(...X), x1 = Math.max(...X), y0 = Math.min(...Y), y1 = Math.max(...Y);
+  const z = Math.max(ZMIN, Math.min(1.2, Math.min((W - 60) / (x1 - x0 + 80), (H - 330) / (y1 - y0 + 80))));
+  glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: (x0 + x1) / 2, y1: (y0 + y1) / 2 + 40, z0: zoom, z1: z }; }
+function gameTap(p) { if (!GAME || GAME.done) return; const i = GAME.ch.indexOf(p.i);
+  if (i >= 0) { if (i < GAME.ch.length - 1) { GAME.ch.length = i + 1; hudDraw(); } return; }   // back along your own chain
+  if (!gameNb().has(p.i)) { say(`Not linked to ${N[gameCur()].n}`); return; }
+  GAME.ch.push(p.i); if (navigator.vibrate) try { navigator.vibrate(8); } catch (x) {}
+  if (p.i === GAME.b) GAME.done = 1; hudDraw(); if (GAME.done) gameFit(GAME.ch); else gameLook(p.i, false); }
+function gameEnd() { GAME = null; $('six6').hidden = true; }
+function hudDraw() { const G = GAME, el = $('six6'); if (!G) { el.hidden = true; return; } el.hidden = false; const n = G.ch.length - 1, over = n - G.par;
+  el.innerHTML = `<div class="g6-top"><b>${esc(N[G.a].n)}</b><i aria-hidden="true">›</i><b class="g6-to">${esc(N[G.b].n)}</b></div>`
+    + (G.done ? `<p class="g6-st">${n} link${n === 1 ? '' : 's'} · ${over ? over + ' over par' : 'par'}</p>` : `<p class="g6-st">Link ${n + 1} · par ${G.par}</p>`)
+    + `<div class="g6-row">${G.done ? `<button type="button" data-g6="best"${G.best ? ' aria-pressed="true"' : ''}>Shortest</button><button type="button" data-g6="new">New pair</button>`
+      : `<button type="button" data-g6="undo"${n ? '' : ' disabled'}>Undo</button><button type="button" data-g6="best"${G.best ? ' aria-pressed="true"' : ''}>Reveal</button><button type="button" data-g6="new">New pair</button>`}<button type="button" data-g6="end">Done</button></div>`; }
+document.body.insertAdjacentHTML('beforeend', '<div id="six6" hidden role="region" aria-label="Six Degrees"></div>');
+$('six6').addEventListener('click', e => { const b = e.target.closest('[data-g6]'); if (!b || b.disabled || !GAME) return; const k = b.dataset.g6;
+  if (k === 'undo' && GAME.ch.length > 1) { GAME.ch.pop(); hudDraw(); gameLook(gameCur(), false); }
+  else if (k === 'best') { if (GAME.best) GAME.best = null; else { GAME.best = sixShortest(); if (!GAME.done) GAME.done = 2; } hudDraw(); gameFit([...GAME.ch, ...(GAME.best || [])]); }
+  else if (k === 'new') gameStart(); else if (k === 'end') gameEnd(); });
 // mutual connections (owner, 5 November 2026: "when two people are selected in network, their mutual connections are shown"):
 // in How they're connected, everyone connected to both, with what they are to each, as far as you've watched; in the room they stay lit,
 // with a thread to each of the two. Tapping one shows how they and the one you're locked on are connected

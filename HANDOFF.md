@@ -1614,6 +1614,15 @@ These happened in earlier chats. Each cost the owner time.
     **New pair** and "Lock onto <name> ›". A new pair is two familiar faces in the room you're in (the top fifth by titles seen), three
     or four links apart where the room allows, at random. Only people you've met and connections you've seen count, so it's
     spoiler-safe; with the Time Machine on it's that moment's room.
+  - **Six Degrees, reworked (owner, 7 November 2026: "make the game in the actual network map ... as I tap on each it becomes a
+    chain instead of the list"; "hidden somewhere else so it's a discovery").** No pill: hold the Network's title (0.8 s; `SIX_ON`
+    still set only by the app's mockup call, so main's network.html has it off). Played in the room (`GAME`, `gameStart`, `gameTap`):
+    From and To in gold rings, To pulsing; the last link's connections lit with faint threads in their kind's colours, everyone else
+    dim; a tap on one adds a gold thread and the view follows; a tap on a link already in the chain goes back to it; a tap on anyone
+    else says "Not linked to N". A bar at the bottom (`#six6`): From › To, "Link N · par P", Undo, Reveal, New pair, Done; linked,
+    "N links · par" or "N over par", Shortest (a white dashed chain), New pair, Done, and the view pulls back to the whole chain
+    (`gameFit`; the chain's people stay standing as themselves, not folded into their groups). The old sheet's code is still there,
+    unreachable; cut it when this is promoted.
   - **No daily anything** (owner, 5 November 2026: "Wtf is this daily shit nonsense"): no daily puzzle, daily pair, streak or
     anything else that runs on the calendar. A game gives a new round whenever you ask.
   - **Parked (owner, 5 November 2026: "put them on the back burner"), not to be raised until the owner comes back to them.** Open
