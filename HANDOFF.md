@@ -15,21 +15,21 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (7 November 2026)
 
-- **main** is at `85527b0` (pushed 7 November 2026, the owner's "Push": the Snap report and its fixes; full suite 37 of 37). Before
-  it: `54e3e93` the Snap across the app; `0c7fb46` the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the
+- **main** is at `25102ef` (pushed 7 November 2026, the owner's "Push it when ready": the Snap's dust both ways, shared names, no page
+  twice running, never on Paths; full suite 37 of 37). Before it: `85527b0` the Snap report and its fixes; `54e3e93` the Snap across the app; `0c7fb46` the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the
   Pyms, Dazzler and Carnage staged; `823d296` Extras character boxes name their universe tab; `6598b5f` new Earths fade in; `ec353bb`
   new groups pop in, the link card's height; `171f2bf` New Asgard from Endgame on, circles from their own titles; `290c01f` Alioth in
   The Void; `3cd6996` the split launch page; `3e844a5` audit parts 6 to 9, the Watcher; `48f2c51` the "No signal" fix; `b5e096e`
   mutual connections; `6f22626` How they're connected slides up.
 - **Nothing is waiting on "push".** The owner is testing the Snap and its report on the phone ("I'll test it out later"): expect
   feedback on the animations (each page), the report's words, the memorial and Last seen.
-- **The test build** (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s, v177 as of this push; republish after any rebuild) is main
+- **The test build** (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s, v179 as of this push; republish after any rebuild) is main
   plus the parked mockups (the Time Machine, Six Degrees, landscape) and the six Stones handed out (`MOCKUP BEGIN snapstones`), so the
   Gauntlet's Snap is there to try. On main you need all six Stones first.
 - **The working branch** is `ccr-5d4aa1b8-sj0vmn` (source); mirrors `ccr-537d906a-oxzbql` and `claude/gracious-cray-lhdt2k`, pushed
   with it. After a main push: `git merge -s ours origin/main`, push all three.
 
-- **Waiting on "push" (7 November 2026, after main `85527b0`; owner: Paths "6 times in a row"; "during the bring back Paths sometimes
+- **On main (`25102ef`, 7 November 2026; after `85527b0`; owner: Paths "6 times in a row"; "during the bring back Paths sometimes
   dust 1 or 2 away"; "consistent dust away on away and dust back on bring back"):** the page is never the same twice running
   (`state.snapPg`); a shared box or line that keeps some of its people loses only the lost part of its name, by dust, and gets it back by
   dust (`snapNameParts` and `snapNarrow` on the Characters page, `snapSvgParts`, `snapSvgSlide` on Paths); nothing dusts away while coming
