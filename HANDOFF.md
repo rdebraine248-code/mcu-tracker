@@ -1344,6 +1344,11 @@ been lost over the different handoffs that I said to remind new chats about, esp
   list's curve: each line drawn between its old and new shape, matched title by title (by length they swung); stops, titles, names and
   years slide; a stop that changes shape crossfades (`.snap-old`); anything new waits hidden for its dust. Coming back, a shortened name
   dusts out first. Pop detector clean both ways, several runs.
+- **The Snap report's words (owner, 7 November 2026):** no "of X" and no totals anywhere ("there aren't 1400 people on Earth": the
+  files aren't the population), no Earth number in its heading; the message reads "Half of the population is gone. This is the count so
+  far. We keep checking."; the first headline "Half of Earth gone in an instant", a place "hardest hit" with no count, a team "only N
+  left"; Hardest hit reads "N left" or "Wiped out"; the universe bars have no numbers. The wall carves a name several people share once
+  per Earth, with that Earth under it (the Sacred Timeline's own plain), never "· 2".
 - **Rules from this round (owner, 7 November 2026):** don't change how something works without being asked (I kept Thanos out of the
   Snap unasked: "Why would you exclude Thanos? Did I ask? No"; reverted; anyone can be snapped). No instruction words anywhere, "scroll"
   included (the memorial mockup said "362 NAMES · SCROLL"; it reads "362 NAMES").

@@ -556,7 +556,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 // who can be lost: everyone you've met, in every universe you've opened (by file id), and the files merged into another's bubble
 // and, for the Snap's report, each one's name, universe, the group they stand in now and how connected they are
 self.netPool = () => { const L = N.filter(p => uniOk(p.u) && p.A0.some(j => seen(j)));
-  return { ids: L.map(p => p.id), merged: DATA.merged || {}, info: Object.fromEntries(L.map(p => [p.id, [p.n, p.u, crewName(p.g), p.d]])) }; };
+  return { ids: L.map(p => p.id), merged: DATA.merged || {}, info: Object.fromEntries(L.map(p => [p.id, [p.n, p.u, crewName(p.g), p.d, worldOf(p)]])) }; };   // and their Earth
 // quietly: who's lost, with nothing played (the Snap played somewhere else in the app, or the app just opened)
 self.netSnapIds = ids => { SNAPS = new Set(ids || []); if (seenKey === null) return; applyCut(CUT, true); if (!sel) N.forEach(p => { p.wx = p.tx = p.hx; p.wy = p.ty = p.hy; p.go = 0; p.inAt = 0; }); };
 // played here: a tab where it touches someone you've met, picked at random, then in close on a random busy group of it
