@@ -25,7 +25,7 @@ const out = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[
     Object.entries(ATLAS_UNI).forEach(([u, U]) => U.places.forEach(p => { if (!p.uni) allPlaces.push(['uni:' + u, p]); }));
     allPlaces.forEach(([m, p]) => (p.e || []).forEach((e, i) => { tagOf('atlas ' + m + ':' + p.id + ':' + i, e[0]); if (e[3]) tagOf('atlas ' + m + ':' + p.id + ':' + i + ' (also)', e[3]); }));
     Object.keys(NEWS).forEach(t => tagOf('news', t));
-    COMMS.forEach(m => { if (m.t !== WELCOME) tagOf('comms ' + (m.id || m.t), m.t); (m.also || []).forEach(t => tagOf('comms also ' + (m.id || m.t), t)); });
+    COMMS.forEach(m => { if (m.t !== WELCOME && !m.snap) tagOf('comms ' + (m.id || m.t), m.t); (m.also || []).forEach(t => tagOf('comms also ' + (m.id || m.t), t)); });
     DC.forEach(d => { tagOf('dc ' + d.id, d.t); ['fall', 'loss'].map(k => [k, d[k]]).forEach(([k, v]) => { if (Array.isArray(v)) v.forEach((x, i) => { if (Array.isArray(x) && typeof x[1] === 'string' && x.length === 2) tagOf('dc ' + d.id + ' ' + k + ':' + i, x[1]); }); }); });
     Object.entries(DOSSIERS).forEach(([id, D]) => Object.entries(D.rows || {}).forEach(([k, L]) => (L || []).forEach((x, i) => { if (Array.isArray(x) && typeof x[1] === 'string') tagOf('log ' + id + ' ' + k + ':' + i, x[1]); })));
     // ---------- 2. links and references
@@ -45,7 +45,9 @@ const out = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[
     [['A', ALLIES], ['T', THREATS], ['C', COLLX]].forEach(([g, F]) => F.forEach(o => { (o.st || []).forEach((x, k) => texts.push([g + ':' + o.id + ':' + k, x[0]])); ['n', 'kind', 'k', 'd', 'desc'].forEach(f => typeof o[f] === 'string' && texts.push([g + ':' + o.id + ' ' + f, o[f]])); }));
     allPlaces.forEach(([m, p]) => { texts.push(['atlas ' + m + ':' + p.id + ' name', p.n + ' / ' + (p.r || '')]); (p.e || []).forEach((e, i) => texts.push(['atlas ' + m + ':' + p.id + ':' + i, (e[1] || '') + ' ' + e[2]])); });
     Object.entries(NEWS).forEach(([t, L]) => L.forEach(h => texts.push(['news ' + t, h])));
-    COMMS.forEach(m => texts.push(['comms ' + (m.id || m.t), JSON.stringify(m)]));
+    // the Snap's report is written when you snap: its words are checked as they read with a sample Snap, and once undone
+    COMMS.forEach(m => { if (!m.snap) { texts.push(['comms ' + (m.id || m.t), JSON.stringify(m)]); return; } const keep = state.snapRep;
+      [{ id: 1, sender: 'Natasha Romanoff' }, { id: 2, back: 1, sender: 'Natasha Romanoff', n: 1 }].forEach(r => { state.snapRep = r; texts.push(['comms the Snap', JSON.stringify({ f: m.f, re: m.re, b: m.b })]); }); state.snapRep = keep; });
     // the boxes, the story lists, the eggs, stones, achievements and insignia: every string they hold
     const consts = { DATA, QUOTES: typeof QUOTES !== 'undefined' ? QUOTES : null, CHAR_QUOTES: typeof CHAR_QUOTES !== 'undefined' ? CHAR_QUOTES : null, EGGS: typeof EGGS !== 'undefined' ? EGGS : null,
       STONES: typeof STONES !== 'undefined' ? STONES : null, STONE_HOW: typeof STONE_HOW !== 'undefined' ? STONE_HOW : null, EMB_HINT, EMBLEM_NAMES, TVA: typeof TVA !== 'undefined' ? TVA : null,

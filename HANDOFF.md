@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (7 November 2026)
 
-- **main** is at `MAINHASH` (pushed 7 November 2026, the owner's "Push": the Snap report and its fixes; full suite 37 of 37). Before
+- **main** is at `85527b0` (pushed 7 November 2026, the owner's "Push": the Snap report and its fixes; full suite 37 of 37). Before
   it: `54e3e93` the Snap across the app; `0c7fb46` the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the
   Pyms, Dazzler and Carnage staged; `823d296` Extras character boxes name their universe tab; `6598b5f` new Earths fade in; `ec353bb`
   new groups pop in, the link card's height; `171f2bf` New Asgard from Endgame on, circles from their own titles; `290c01f` Alioth in
