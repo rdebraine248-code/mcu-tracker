@@ -11273,11 +11273,47 @@ function snapCommit(set, back) { state.snapP = set; state.dusted = {}; DATA.char
   if (state.mode === "chars") renderView(); if (collOpen) renderColl(); if (mapOpen) snapMapRedraw(); }
 // Paths redrawn without (or with) the lost: the view keeps its zoom and place (owner, 7 November 2026: refitting it "looked funky"), and the
 // new map fades in under the old one (a line's stops and titles change with the lines around it, so sliding the lines didn't work)
-function snapMapRedraw() { const v = MV.s, x = MV.tx, y = MV.ty, old = document.querySelector("#mapView svg"), r = old && old.getBoundingClientRect(), still = old && old.cloneNode(true);
+// Paths redrawn without (or with) the lost, the way the Characters list closes up and opens (owner, 7 November 2026: it "pops up fully
+// spaced out, or fully closed out"): the view keeps its zoom and place, and everything that stays moves from where it was to where it is
+// now on the list's curve (700ms, cubic-bezier(.3,0,.2,1)). A line is sampled along its length before and after and drawn between the
+// two; a stop, a title, a name or a year slides; a stop that changes shape (one line's dot becomes a shared stop) crossfades. Anything new
+// (coming back) waits hidden for its dust
+function snapMapRedraw() { const v = MV.s, x = MV.tx, y = MV.ty, OM = MAP, svg0 = document.querySelector("#mapView svg");
+  const keyOf = (el, M) => el.matches(".lane, .rname") ? (el.matches(".lane") ? "l:" : "n:") + (M.rows[+el.dataset.r] || {}).n : el.matches(".ttl, .nd") ? (el.matches(".ttl") ? "t:" : "s:") + (M.cols[+el.dataset.c] || {}).t
+    : el.matches(".yrl") ? "y:" + el.textContent : el.matches("rect") && el.nextElementSibling && el.nextElementSibling.matches(".yrl") ? "b:" + el.nextElementSibling.textContent : null;
+  const SEL = "#mapG > .lane, #mapG > .rname, #mapG > .ttl, #mapG > .nd, #mapG > .yrl, #mapG > rect";
+  // a line as a curve y(x) (they run left to right), and the x of each title on it: points are matched title by title, not by length
+  const dense = path => { const L = path.getTotalLength(), X = [], Y = []; for (let i = 0; i <= 700; i++) { const q = path.getPointAtLength(L * i / 700); X.push(q.x); Y.push(q.y); } return { X, Y }; };
+  const yAt = (D, x) => { const X = D.X; if (x <= X[0]) return D.Y[0]; if (x >= X[X.length - 1]) return D.Y[X.length - 1]; let lo = 0, hi = X.length - 1;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (X[m] <= x) lo = m; else hi = m; } const f = X[hi] === X[lo] ? 0 : (x - X[lo]) / (X[hi] - X[lo]); return D.Y[lo] + (D.Y[hi] - D.Y[lo]) * f; };
+  const colsOf = (M, ri) => Object.fromEntries(M.cols.filter(c => c.m.includes(ri)).map(c => [c.t, c.x]));
+  const before = new Map(); if (svg0) svg0.querySelectorAll(SEL).forEach(el => { const k = keyOf(el, OM); if (!k) return; const ln = el.matches(".lane") && el.querySelector(".lline");
+    before.set(k, { el: el.cloneNode(true), D: ln ? dense(ln) : null, C: ln ? colsOf(OM, +el.dataset.r) : null }); });
   MAP = mapData(mapHide()); buildMap(); MV.s = v; MV.tx = x; MV.ty = y; mapApplyNow();
-  if (!still) return; still.removeAttribute("aria-label"); still.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
-  still.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;pointer-events:none;z-index:1`; document.getElementById("mapView").appendChild(still);
-  still.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 650, easing: "ease-in-out", fill: "forwards" }).onfinish = () => still.remove(); }
+  if (!svg0 || REDUCED) return;
+  const g = document.getElementById("mapG"), tpl = s => String(s).replace(/-?\d+(?:\.\d+)?/g, "#"), nums = s => (String(s).match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+  const jobs = [], fades = [];
+  g.querySelectorAll(SEL).forEach(el => { const k = keyOf(el, MAP), was = k && before.get(k); if (!k) return;
+    if (!was) { el.style.opacity = "0"; fades.push([el, 0, 1]); return; }   // new: fades in at the end, unless the dust has hidden it
+    if (el.matches(".lane")) { const ln = el.querySelector(".lline"), nx = el.querySelector(".lnext"), D1 = dense(ln), C1 = colsOf(MAP, +el.dataset.r), D0 = was.D, C0 = was.C, d1 = ln.getAttribute("d");
+      if (nx) { nx.style.opacity = "0"; fades.push([nx, 0, 1]); }
+      // anchors: the line's start and end, and each title it passes in both maps; between two anchors, sixteen steps
+      const T = Object.keys(C1).filter(t => t in C0).sort((a, b) => C1[a] - C1[b]), A = [[D0.X[0], D1.X[0]], ...T.map(t => [C0[t], C1[t]]), [D0.X[D0.X.length - 1], D1.X[D1.X.length - 1]]].filter((q, i, L) => !i || q[0] > L[i - 1][0] && q[1] > L[i - 1][1]);
+      const P = []; A.forEach((q, i) => { if (!i) { P.push(q); return; } const o = A[i - 1]; for (let k = 1; k <= 16; k++) P.push([o[0] + (q[0] - o[0]) * k / 16, o[1] + (q[1] - o[1]) * k / 16]); });
+      const PY = P.map(([a, b]) => [yAt(D0, a), yAt(D1, b)]);
+      jobs.push(e => { ln.setAttribute("d", e >= 1 ? d1 : "M" + P.map(([a, b], i) => (a + (b - a) * e).toFixed(1) + "," + (PY[i][0] + (PY[i][1] - PY[i][0]) * e).toFixed(1)).join(" L")); }); return; }
+    // the same shape, attribute by attribute (x, y, cx, cy, width, height, transform); a different one crossfades with its old self
+    const A = [el, ...el.querySelectorAll("*")], B = [was.el, ...was.el.querySelectorAll("*")];
+    const same = A.length === B.length && A.every((n, i) => n.tagName === B[i].tagName && ["x", "y", "cx", "cy", "width", "height", "transform"].every(at => tpl(n.getAttribute(at) || "") === tpl(B[i].getAttribute(at) || "")));
+    if (!same) { const o = was.el; o.removeAttribute("data-r"); o.removeAttribute("data-c"); o.classList.add("snap-old"); el.before(o); fades.push([o, 1, 0, true]); el.style.opacity = "0"; fades.push([el, 0, 1]); return; }
+    A.forEach((n, i) => ["x", "y", "cx", "cy", "width", "height", "transform"].forEach(at => { const t1 = n.getAttribute(at); if (t1 == null) return; const f = nums(B[i].getAttribute(at)), t = nums(t1), T = tpl(t1);
+      if (f.every((q, j) => q === t[j])) return; jobs.push(e => { let j = 0; n.setAttribute(at, e >= 1 ? t1 : T.replace(/#/g, () => { const q = f[j] + (t[j] - f[j]) * e; j++; return q.toFixed(2); })); }); })); });
+  const ease = q => { let lo = 0, hi = 1; for (let k = 0; k < 18; k++) { const m = (lo + hi) / 2, u = 1 - m; if (3 * u * u * m * .3 + 3 * u * m * m * .2 + m * m * m < q) lo = m; else hi = m; } const m = (lo + hi) / 2, u = 1 - m; return 3 * u * m * m + m * m * m; };
+  const t0 = performance.now(), MS = 700; jobs.forEach(j => j(0));
+  const step = now => { const f = Math.min(1, (now - t0) / MS), e = ease(f); jobs.forEach(j => j(f >= 1 ? 1 : e));
+    fades.forEach(([el, a, b, gone]) => { if (el.style.visibility === "hidden") return; const k = gone ? f : Math.max(0, (f - .6) / .4); el.style.opacity = (a + (b - a) * k).toFixed(3); if (f >= 1) { if (gone) el.remove(); else el.style.opacity = ""; } });
+    if (f < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step); }
 // the indexes' rows move from where they stood to where they stand now, the list kept in place round one that stays
 function snapFlip(change, anchor) { const v = document.getElementById("collPanel"), rows = () => [...v.querySelectorAll("[data-co]")];
   const top = new Map(rows().reverse().map(r => [r.dataset.co, r.getBoundingClientRect().top]));
@@ -11355,7 +11391,10 @@ async function snapPlay(next, back) {
     const colEls = T => T.flatMap(tt => { const ci = MAP.cols.findIndex(c => c.t === tt); return ci < 0 ? [] : [...document.querySelectorAll(`#mapView .ttl[data-c="${ci}"], #mapView .nd[data-c="${ci}"]`)]; });
     const before = MAP.cols.map(c => c.t);
     if (!back) { const after = snapMapCols(next); await snapDust(rowEls(rowCh).concat(colEls(before.filter(t => !after.has(t)))), false, 1700); snapCommit(next, back); document.querySelectorAll("#mapView .rname").forEach(t => { if (rowCh.some(c => boxName(c) === t.textContent)) t.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700 }); }); }
-    else { snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; }); await snapWait(500); await snapDust(L, true, 1400); }
+    else { // a shortened name (Falcon) dusts out before the whole name (Falcon & Winter Soldier) dusts in, as on the Characters page
+      const oldN = rowCh.filter(c => !was.gone.has(c.id)).flatMap(c => { const ri = MAP.rows.findIndex(r => r.n === c.title); return ri < 0 ? [] : [...document.querySelectorAll(`#mapView .rname[data-r="${ri}"]`)]; });
+      if (oldN.length) await snapDust(oldN, false, 1000, 600);
+      snapCommit(next, back); const B = new Set(before), L = rowEls(rowCh).concat(colEls(MAP.cols.map(c => c.t).filter(t => !B.has(t)))); L.forEach(el => { el.style.visibility = "hidden"; el.style.opacity = ""; }); await snapWait(800); await snapDust(L, true, 1400); await snapRest(L); }
     return; }
   // the Compound or the Raft: a universe tab it touches, somewhere random in its list
   const cp = pick === "cp", ids = cp ? cpCh : rfCh, src = cp ? ALLIES : THREATS, U = [...new Set(ids.map(id => rfUniOf(src.find(o => o.id === id))))], u = U[Math.floor(Math.random() * U.length)];

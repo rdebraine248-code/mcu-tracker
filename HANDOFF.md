@@ -1339,6 +1339,11 @@ been lost over the different handoffs that I said to remind new chats about, esp
   several versions share carved once with a count). Names open their Network card (`data-netid`), places open the Atlas with the layer on.
   Undone: "All accounted for" and two headlines; the memorial and the layer go. The Network's `netPool` now also gives each person's
   name, universe, group and connections. Not on main: built straight into the app's code (no MOCK), so it goes with the next main push.
+- **Paths closes up and opens like the lists** (owner, 7 November 2026: "it just kind of pops up fully spaced out, or fully closed
+  out ... that doesn't match the rest"; and its dots flashed before coming back). `snapMapRedraw` now moves the map on the Characters
+  list's curve: each line drawn between its old and new shape, matched title by title (by length they swung); stops, titles, names and
+  years slide; a stop that changes shape crossfades (`.snap-old`); anything new waits hidden for its dust. Coming back, a shortened name
+  dusts out first. Pop detector clean both ways, several runs.
 - **Rules from this round (owner, 7 November 2026):** don't change how something works without being asked (I kept Thanos out of the
   Snap unasked: "Why would you exclude Thanos? Did I ask? No"; reverted; anyone can be snapped). No instruction words anywhere, "scroll"
   included (the memorial mockup said "362 NAMES · SCROLL"; it reads "362 NAMES").
