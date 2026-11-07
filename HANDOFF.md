@@ -15,24 +15,24 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (5 November 2026)
 
-- **main** is at `823d296` (pushed 6 November 2026: Extras character boxes name their universe tab; full suite 37 of 37; before it `6598b5f`, new Earths fade in; before it `ec353bb`, new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
+- **main** is at `0c7fb46` (pushed 7 November 2026: the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the Pyms, Dazzler and Carnage staged; full suite 37 of 37; before it `823d296`, Extras character boxes name their universe tab; before it `6598b5f`, new Earths fade in; before it `ec353bb`, new groups and Earths pop in, the link card's height; before it `171f2bf`, New Asgard from Endgame on, Clint S.H.I.E.L.D. from Thor, circles from their own titles; full suite 37 of 37; before it `290c01f`, Alioth in The Void; before it `3cd6996`, the split launch page, 2.97 MB plus data.<hash>.js; before it `3e844a5`, the owner's answer 60: audit parts 6 to 9's last fixes, the Watcher, Mordo's line kept; full suite 36 of 36; before it `48f2c51`, the "No signal" fix in sw.js; before it `b5e096e`, mutual connections; before it `6f22626`, How
   they're connected slides up and scrolls like a person's card; full suite passed, 35 of 35, before each); test build v149 is main plus the Time Machine and Six Degrees drafts (and landscape)
   (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s).
 - **On the back burner (owner, 5 November 2026: "I'll get back to these later"):** the Time Machine and Six Degrees, both mockups in
   the test build (see "Drafts: the Time Machine and Six Degrees" under Open items), and their open questions. Don't raise them; the
   owner will come back to them. They stay in the test build; mainprep cuts them from main, so a main push doesn't need them settled.
-- **Waiting on "push" (6 November 2026): the card's Crews line off the Sacred Timeline** (owner: "Why do the crews end in by?"). A crew's
+- **On main (`0c7fb46`) (6 November 2026): the card's Crews line off the Sacred Timeline** (owner: "Why do the crews end in by?"). A crew's
   key carries its universe after an invisible separator (`UK`, \u2063, and \u2064 for a circle named like a crew); `moreHTML` printed the
   raw key, so Beyond read "Starforceby", FoX-Men "...fox", and an off-timeline Independent wasn't filtered out. Now it prints the name
   only. Checked over all 1,480 people: no hidden marker and no "Independent" in any Crews line. Network only (network.html).
-- **Waiting on "push" (7 November 2026): the other universes' circles checked** (owner: "Just do other circles and coverage list").
+- **On main (`0c7fb46`) (7 November 2026): the other universes' circles checked** (owner: "Just do other circles and coverage list").
   All 126 people in 81 circles read against their titles; six doubtful ones checked against sources. Two showed early, now staged in
   `CIRC_FROM` (which now also takes other-universe people, keeping their baked circle key): Dazzler on Genosha only from X-Men '97 #5
   (she's Mojo's staff in the 1992 show), Carnage at St. Estes only from Let There Be Carnage (Venom's end-credits scene is a prison).
   Confirmed as they are: Leech at Worthington Labs, the Brood at Weapon X (X-Men '97 S2E5), Finesse with Daredevil (Your Friendly
   Neighborhood Spider-Man), Bruce Banner with the Apex. Kept, wording only: "The Essex Corporation" (the film's Essex House).
   The coverage list is its own section ("Coverage: everything the app shows").
-- **Waiting on "push" (6 November 2026): one word, Groups** (owner: "I don't really understand the difference between circle and group
+- **On main (`0c7fb46`) (6 November 2026): one word, Groups** (owner: "I don't really understand the difference between circle and group
   ... As an end user the rule of crew seems arbitrary"). The reader never sees "crew" or "circle": the card's line is "Groups", the teams
   they've been in (as far as you've watched) and then the group they stand in now, so a family or a place is named like a team (Peter
   Quill: The Ravagers > Guardians of the Galaxy > The Quill family; Lila Barton: The Barton family). Before, 210 people standing in a
