@@ -40,6 +40,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   empty and they gather back. The Characters page, Paths and the Compound and Raft use `snapBox` at random moments, with ash scaled to
   each thing's size (`snapAsh`; none off a Paths line), the lists closing up (`snapFlip`). Owner's dust rules from the videos: no
   screen-wide sweep, light ash only, random spots and moments, no zoom out when it's done. Test: `SNAP_PAGE` forces a page.
+  - Owner, 7 November 2026: the Characters list closing up lost your place: it now closes up round a box in view that stays
+    (`snapKeepTile`). Paths "looked funky": it was refitted, and sliding its lines didn't work (a line's stops and titles change
+    with the lines around it); now the view keeps its zoom and place and the new map fades in under the old (`snapMapRedraw`).
+  - Confirmed for the owner with Bucky alone: his Network bubble, Compound file and Raft file (`winter-soldier`, merged into him)
+    go; "Falcon & Winter Soldier" reads "Falcon" on the box and its Paths line; the Thunderbolts box stays; his other-universe
+    versions (`by-bucky-1991`, `by-zombie-bucky`) are separate people and stay (they can be lost on their own, by chance).
 - **On main (`0c7fb46`) (7 November 2026): the other universes' circles checked** (owner: "Just do other circles and coverage list").
   All 126 people in 81 circles read against their titles; six doubtful ones checked against sources. Two showed early, now staged in
   `CIRC_FROM` (which now also takes other-universe people, keeping their baked circle key): Dazzler on Genosha only from X-Men '97 #5

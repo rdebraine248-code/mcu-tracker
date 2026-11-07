@@ -12926,7 +12926,14 @@ async function snapNet() { if (!NET_SRC) return null; netLoad(); const f = docum
 function snapCommit(set, back) { state.snapP = set; state.dusted = {}; DATA.chars.forEach(c => { if (snapBoxGone(c)) state.dusted[c.id] = true; });
   (state.eggs = state.eggs || {})[back ? "unsnap" : "snap"] = 1; persist();
   const w = document.getElementById("netFrame").contentWindow; if (w && w.netSnapIds) w.netSnapIds(Object.keys(set));
-  if (state.mode === "chars") renderView(); if (collOpen) renderColl(); if (mapOpen) { MAP = mapData(mapHide()); buildMap(); mapFit(); } }
+  if (state.mode === "chars") renderView(); if (collOpen) renderColl(); if (mapOpen) snapMapRedraw(); }
+// Paths redrawn without (or with) the lost: the view keeps its zoom and place (owner, 7 November 2026: refitting it "looked funky"), and the
+// new map fades in under the old one (a line's stops and titles change with the lines around it, so sliding the lines didn't work)
+function snapMapRedraw() { const v = MV.s, x = MV.tx, y = MV.ty, old = document.querySelector("#mapView svg"), r = old && old.getBoundingClientRect(), still = old && old.cloneNode(true);
+  MAP = mapData(mapHide()); buildMap(); MV.s = v; MV.tx = x; MV.ty = y; mapApplyNow();
+  if (!still) return; still.removeAttribute("aria-label"); still.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
+  still.style.cssText = `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;pointer-events:none;z-index:1`; document.getElementById("mapView").appendChild(still);
+  still.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 650, easing: "ease-in-out", fill: "forwards" }).onfinish = () => still.remove(); }
 // the indexes' rows move from where they stood to where they stand now, the list kept in place round one that stays
 function snapFlip(change, anchor) { const v = document.getElementById("collPanel"), rows = () => [...v.querySelectorAll("[data-co]")];
   const top = new Map(rows().reverse().map(r => [r.dataset.co, r.getBoundingClientRect().top]));
@@ -12952,6 +12959,9 @@ function snapAsh(el, ms) { if (el.closest && el.closest("#mapView .lane")) retur
 async function snapDust(els, back, ms) { els = snapShuffle(els); let end = 0;
   els.forEach(el => { const at = 200 + Math.random() * 3200; end = Math.max(end, at + ms); setTimeout(() => { snapBox(el, ms, back, null, false); if (!back) snapAsh(el, ms); }, at); });
   await snapWait(end + 150); }
+// the page kept still round a box in view that isn't changing: after the list closes up (or opens), it's where it was on screen
+function snapKeepTile(ch) { const ids = new Set(ch.map(c => c.id)), a = [...document.querySelectorAll("#view .tile")].find(t => !ids.has(t.dataset.id) && tileInView(t)), y = a && a.getBoundingClientRect().top;
+  return () => { if (!a) return; const b = document.querySelector(`#view .tile[data-id="${a.dataset.id}"]`); if (b) window.scrollBy(0, b.getBoundingClientRect().top - y); }; }
 async function snapPlay(next, back) {
   const w = await snapNet(), was = snapLook(state.snapP || {}), now = snapLook(next);
   const boxCh = DATA.chars.filter(c => was.gone.has(c.id) !== now.gone.has(c.id) || was.name[c.id] !== now.name[c.id]);
@@ -12965,9 +12975,9 @@ async function snapPlay(next, back) {
   if (pick === "chars") { await new Promise(r => toCharacters(r)); flash(back ? .75 : .9); await snapWait(600);
     const tiles = () => boxCh.map(c => document.querySelector(`#view .tile[data-id="${c.id}"]`)).filter(Boolean);
     if (!back) { const go = tiles().filter(t => now.gone.has(t.dataset.id) && tileInView(t)), rn = tiles().filter(t => !now.gone.has(t.dataset.id) && tileInView(t)).map(t => t.querySelector("h2")).filter(Boolean);
-      await snapDust([...go, ...rn], false, 1700); gridFlip(() => { snapCommit(next, back); });
+      const keep = snapKeepTile(boxCh); await snapDust([...go, ...rn], false, 1700); gridFlip(() => { snapCommit(next, back); keep(); });
       rn.length && boxCh.forEach(c => { const h = document.querySelector(`#view .tile[data-id="${c.id}"] h2`); if (h && !now.gone.has(c.id)) h.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, easing: "ease-out" }); }); }
-    else { gridFlip(() => { snapCommit(next, back); tiles().forEach(t => { (was.gone.has(t.dataset.id) ? t : t.querySelector("h2") || t).style.visibility = "hidden"; }); });
+    else { const keep = snapKeepTile(boxCh); gridFlip(() => { snapCommit(next, back); keep(); tiles().forEach(t => { (was.gone.has(t.dataset.id) ? t : t.querySelector("h2") || t).style.visibility = "hidden"; }); });
       await snapWait(750); const L = tiles().map(t => was.gone.has(t.dataset.id) ? t : t.querySelector("h2")).filter(Boolean);
       L.filter(el => !snapInView(el)).forEach(el => { el.style.visibility = ""; }); await snapDust(L.filter(snapInView), true, 1400); }
     return; }
