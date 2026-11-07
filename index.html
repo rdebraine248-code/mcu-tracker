@@ -11472,7 +11472,9 @@ COMMS.push({ t: "__snap", k: "snap", snap: 1, to: "Agent", cl: "Priority",
     : `Half of the population is gone. This is the count so far. We keep checking.`; } });
 MSG_KIND.snap = "Priority transmission";
 const snapEsc = s => esc(String(s));
-function snapNames(L, ok) { return L.map(([id, n]) => `<button type="button" class="sr-n${ok ? " ok" : ""}" data-netid="${snapEsc(id)}">${snapEsc(n)}</button>`).join(""); }
+// the ones still here open their Network card; the lost are only names now (owner, 7 November 2026: "I can still click them, it opens
+// their Network and then I can still open their file and character log?")
+function snapNames(L, ok) { return L.map(([id, n]) => ok ? `<button type="button" class="sr-n ok" data-netid="${snapEsc(id)}">${snapEsc(n)}</button>` : `<button type="button" class="sr-n" data-snaplost="1">${snapEsc(n)}</button>`).join(""); }
 function snapRepHTML() { const r = state.snapRep; if (!r || r.back) return "";
   const pct = (a, t) => Math.round(a / t * 100);
   return `<div class="sr">
@@ -11508,6 +11510,7 @@ function snapWallHTML() { const r = state.snapRep; if (!snapLive()) return ""; c
     ${U.length > 1 ? `<div class="atl-chips vn-tabs">${U.map(x => `<button type="button" data-vnu="${x}"${x === u ? ' class="on"' : ""}>${SNAP_UL[x]}</button>`).join("")}</div>` : ""}`; }
 document.addEventListener("click", ev => {
   const n = ev.target.closest("[data-netid]"); if (n) { haptic(10); netGoTo(n.dataset.netid); return; }
+  if (ev.target.closest("[data-snaplost]")) { haptic(8); toast("Subject lost in the snap."); return; }
   if (ev.target.closest("[data-snapls]")) { state.snapLS = 1; persist(); setTimeout(() => snapLSPins(document.getElementById("atlMap")), 60); }   // a Last seen place opens the Atlas with the layer on (the link opens it)
   const vn = ev.target.closest(".atl-vn, [data-vanished]"); if (vn) { haptic(12);
     if (vn.matches("[data-vanished]")) { const sf = (ATLAS.earth || []).find(p => p.id === "sf"); if (sf) atlOver({ p: sf, v: "earth", sub: null });
