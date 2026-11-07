@@ -1550,11 +1550,26 @@ body.netup .netpanel{ z-index:62; }   /* opened from a file: over the page the f
 .atl-ls > b{ font:12px 'Share Tech Mono',monospace; font-weight:400; letter-spacing:.14em; text-transform:uppercase; color:#F3A5A8; }
 button.atl-vn{ border-color:#6E737B; background:repeating-linear-gradient(135deg,rgba(180,186,194,.09) 0 10px,rgba(180,186,194,.03) 10px 20px); color:#D3D7DC; }
 button.atl-vn i{ border-color:rgba(200,205,212,.5); color:#C9CDD3; } button.atl-vn small, button.atl-vn em{ color:#A9AFB6; }
-.vn-wall{ margin:12px 0 8px; padding:18px 14px 16px; border-radius:6px; border:1px solid #555B63; background:linear-gradient(180deg,#4A5058,#3A3F46 60%,#30353B); display:flex; flex-direction:column; gap:9px; }
-.vn-wall h4{ margin:0; text-align:center; font:700 22px Cinzel,'Trajan Pro',Georgia,serif; letter-spacing:.22em; color:#C9CDD3; text-shadow:0 1px 0 rgba(0,0,0,.6),0 -1px 0 rgba(255,255,255,.08); }
-.vn-sub, .vn-n{ margin:0; text-align:center; font:10.5px Cinzel,Georgia,serif; letter-spacing:.2em; color:#A9AFB6; }
-.vn-cols{ columns:2; column-gap:14px; font:11.5px/1.75 Cinzel,Georgia,serif; letter-spacing:.06em; color:#D3D7DC; text-shadow:0 1px 0 rgba(0,0,0,.55); }
-.vn-cols span{ display:block; break-inside:avoid; } .vn-cols em{ display:block; font-style:normal; font-size:9.5px; line-height:1.3; letter-spacing:.12em; color:#A9AFB6; white-space:nowrap; margin:-2px 0 3px; }
+.vn-wall{ display:none; }
+#vnPage{ position:fixed; inset:0; z-index:90; overflow-y:auto; overscroll-behavior:contain; background:linear-gradient(180deg,#0B1220 0%,#152238 38%,#1B2A3F 100%); padding:calc(54px + env(safe-area-inset-top,0px)) max(14px, env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(14px, env(safe-area-inset-left,0px)); }
+#vnPage .vn-sky{ position:fixed; inset:0; pointer-events:none; background:radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,.07), transparent 60%); }
+#vnPage .vn-x{ position:fixed; top:calc(10px + env(safe-area-inset-top,0px)); right:max(12px, env(safe-area-inset-right,0px)); z-index:2; width:36px; height:36px; border-radius:50%; border:1px solid rgba(200,205,212,.35); background:rgba(11,18,32,.7); color:#D3D7DC; font-size:20px; line-height:1; cursor:pointer; }
+.vn-mon{ position:relative; max-width:520px; margin:0 auto; }
+.vn-cap{ height:22px; margin:0 6px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#6A7078,#4E545C); box-shadow:inset 0 1px 0 rgba(255,255,255,.18); }
+.vn-slab{ padding:28px 18px 30px; background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 12%,transparent 88%,rgba(0,0,0,.22)),radial-gradient(140% 90% at 50% 0%,#5A6068,#3E434A 70%,#353A40); border-left:1px solid #666C74; border-right:1px solid #2E3238;
+  box-shadow:0 30px 60px rgba(0,0,0,.45); display:flex; flex-direction:column; gap:12px; }
+.vn-base{ height:34px; margin:0 -10px; border-radius:0 0 4px 4px; background:linear-gradient(180deg,#4A5058,#30353B); box-shadow:0 18px 30px rgba(0,0,0,.5); }
+.vn-loc{ margin:0; text-align:center; font:11px Cinzel,Georgia,serif; letter-spacing:.32em; color:#A9AFB6; }
+.vn-slab h4{ margin:0; text-align:center; font:700 clamp(34px,10vw,52px)/1.05 Cinzel,'Trajan Pro',Georgia,serif; letter-spacing:.16em; color:#CDD1D6; text-shadow:0 2px 0 rgba(0,0,0,.6),0 -1px 0 rgba(255,255,255,.1); }
+.vn-sub{ margin:0; text-align:center; font:12px Cinzel,Georgia,serif; letter-spacing:.24em; color:#B0B6BD; }
+.vn-rule{ display:block; width:60%; height:1px; margin:6px auto 4px; background:linear-gradient(90deg,transparent,rgba(210,214,220,.5),transparent); }
+.vn-n{ margin:6px 0 0; text-align:center; font:11px Cinzel,Georgia,serif; letter-spacing:.24em; color:#A9AFB6; }
+.vn-tabs{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px; }
+.vn-tabs button{ font:11px Cinzel,Georgia,serif; letter-spacing:.14em; text-transform:uppercase; color:#C9CDD3; background:rgba(0,0,0,.18); border:1px solid rgba(200,205,212,.3); border-radius:999px; padding:4px 11px; cursor:pointer; }
+.vn-tabs button.on{ background:#C9CDD3; color:#2E3238; border-color:#C9CDD3; }
+.vn-cols{ columns:2; column-gap:18px; font:12.5px/1.8 Cinzel,Georgia,serif; letter-spacing:.06em; color:#DADDE1; text-shadow:0 1px 0 rgba(0,0,0,.55),0 -1px 0 rgba(255,255,255,.05); }
+.vn-cols span{ display:block; break-inside:avoid; }
+.vn-cols em{ display:block; font-style:normal; font-size:9.5px; line-height:1.3; letter-spacing:.12em; color:#A9AFB6; white-space:nowrap; margin:-2px 0 3px; }
 .atl-dc, .atl-vn{ display:flex; align-items:center; gap:12px; width:100%; margin:12px 0 4px; padding:11px 14px; border:1px solid #4E9E3A; border-radius:12px; background:repeating-linear-gradient(135deg,rgba(109,187,138,.10) 0 10px,rgba(109,187,138,.03) 10px 20px); color:#BFF0A6; text-align:left; cursor:pointer; }
 .atl-dc i, .atl-vn i{ flex:none; display:grid; place-items:center; width:30px; height:30px; border:1px solid rgba(109,187,138,.6); border-radius:8px; font-style:normal; font:12px 'Share Tech Mono',monospace; color:#6DBB8A; }
 .atl-dc span, .atl-vn span{ flex:1; }.atl-dc b, .atl-vn b{ display:block; font:13px/1.3 'Share Tech Mono','Courier New',monospace; font-weight:400; letter-spacing:3px; text-transform:uppercase; }
@@ -11509,18 +11524,25 @@ function snapWallHTML() { const r = state.snapRep; if (!snapLive()) return ""; c
   const E0 = r.by[u] || []; E0.forEach(([, n]) => { C[n] = (C[n] || 0) + 1; });
   const L = E0.map(([, n, e]) => [n, C[n] > 1 && e && e !== "Earth-199999" ? e : ""]).sort((a, b) => last(a[0]).localeCompare(last(b[0])) || a[0].localeCompare(b[0]) || a[1].localeCompare(b[1]))
     .filter((x, i, A) => !i || x[0] !== A[i - 1][0] || x[1] !== A[i - 1][1]), total = E0.length;
-  return `<div class="atl-sh"><div><h3>The Vanished</h3><small>San Francisco</small></div><button type="button" class="atl-x" aria-label="Close">×</button></div>
-    <div class="vn-wall"><h4>THE VANISHED</h4><p class="vn-sub">IN MEMORY OF THOSE WE LOST</p><div class="vn-cols">${L.map(([n, e]) => `<span>${snapEsc(n.toUpperCase())}${e ? ` <em>${snapEsc(e.toUpperCase())}</em>` : ""}</span>`).join("")}</div><p class="vn-n">${total} NAMES</p></div>
-    ${U.length > 1 ? `<div class="atl-chips vn-tabs">${U.map(x => `<button type="button" data-vnu="${x}"${x === u ? ' class="on"' : ""}>${SNAP_UL[x]}</button>`).join("")}</div>` : ""}`; }
+  return `<button type="button" class="vn-x" aria-label="Close">×</button><div class="vn-sky"></div>
+    <div class="vn-mon"><div class="vn-cap"></div><div class="vn-slab"><p class="vn-loc">SAN FRANCISCO</p><h4>THE VANISHED</h4><p class="vn-sub">IN MEMORY OF THOSE WE LOST</p><i class="vn-rule"></i>
+      ${U.length > 1 ? `<div class="vn-tabs">${U.map(x => `<button type="button" data-vnu="${x}"${x === u ? ' class="on"' : ""}>${SNAP_UL[x]}</button>`).join("")}</div>` : ""}
+      <div class="vn-cols">${L.map(([n, e]) => `<span>${snapEsc(n.toUpperCase())}${e ? ` <em>${snapEsc(e.toUpperCase())}</em>` : ""}</span>`).join("")}</div><p class="vn-n">${total} NAMES</p></div><div class="vn-base"></div></div>`; }
+// the memorial opens as a page of its own, the whole screen (owner, 7 November 2026: "the impression of a true full sized monument");
+// the phone's back closes it and nothing under it
+let vnOpen = false;
+function snapWallOpen() { let pg = document.getElementById("vnPage"); if (!pg) { pg = document.createElement("div"); pg.id = "vnPage"; pg.setAttribute("role", "dialog"); pg.setAttribute("aria-label", "The Vanished"); document.body.appendChild(pg); }
+  pg.innerHTML = snapWallHTML(); pg.hidden = false; pg.scrollTop = 0; vnOpen = true; bodyLock(); try { history.pushState({ mcu: "vanished" }, ""); } catch (e) {}
+  if (!REDUCED) pg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 450, easing: "ease-out" }); }
+function snapWallShut() { const pg = document.getElementById("vnPage"); if (!pg || pg.hidden) return; vnOpen = false; pg.hidden = true; bodyFree(); }
+window.addEventListener("popstate", ev => { if (vnOpen) { snapWallShut(); ev.stopImmediatePropagation(); } }, true);
 document.addEventListener("click", ev => {
   const n = ev.target.closest("[data-netid]"); if (n) { haptic(10); netGoTo(n.dataset.netid); return; }
   if (ev.target.closest("[data-snaplost]")) { haptic(8); toast("Subject lost in the snap."); return; }
   if (ev.target.closest("[data-snapls]")) { state.snapLS = 1; persist(); setTimeout(() => snapLSPins(document.getElementById("atlMap")), 60); }   // a Last seen place opens the Atlas with the layer on (the link opens it)
-  const vn = ev.target.closest(".atl-vn, [data-vanished]"); if (vn) { haptic(12);
-    if (vn.matches("[data-vanished]")) { const sf = (ATLAS.earth || []).find(p => p.id === "sf"); if (sf) atlOver({ p: sf, v: "earth", sub: null });
-      let k = 0; const put = () => { const sh = document.querySelector(".atl-sheet"); if (sh && !sh.hidden && sh.querySelector("h3")) { sh.innerHTML = snapWallHTML(); sh.scrollTop = 0; } else if (++k < 40) setTimeout(put, 60); }; setTimeout(put, 60); return; }
-    const sh = vn.closest(".atl-sheet"); if (sh) { sh.innerHTML = snapWallHTML(); sh.scrollTop = 0; } return; }
-  const vt = ev.target.closest("[data-vnu]"); if (vt) { haptic(8); snapVnU = vt.dataset.vnu; const sh = vt.closest(".atl-sheet"); if (sh) sh.innerHTML = snapWallHTML(); return; }
+  if (ev.target.closest("#vnPage .vn-x")) { haptic(8); if (history.state && history.state.mcu === "vanished") history.back(); else snapWallShut(); return; }
+  const vn = ev.target.closest(".atl-vn, [data-vanished]"); if (vn) { haptic(12); snapWallOpen(); return; }
+  const vt = ev.target.closest("[data-vnu]"); if (vt) { haptic(8); snapVnU = vt.dataset.vnu; const pg = document.getElementById("vnPage"); if (pg) { const y = pg.querySelector(".vn-tabs") ? pg.scrollTop : 0; pg.innerHTML = snapWallHTML(); pg.scrollTop = y; } return; }
   const ls = ev.target.closest("[data-atlls]"); if (ls) { haptic(8); state.snapLS = state.snapLS ? 0 : 1; persist(); ls.setAttribute("aria-pressed", !!state.snapLS); snapLSPins(document.getElementById("atlMap")); }
 });
 snapNewsSync();
