@@ -1153,7 +1153,7 @@ let SIX_ON = false; self.netMockOn = () => { SIX_ON = true; };
 let GAME = null;
 const gameCur = () => GAME.ch[GAME.ch.length - 1], gameNb = () => new Set(sixNb(N[gameCur()]));
 function gameStart(a, b) { const S = a != null ? sixSet(a, b) : sixNew(); if (S.none || S.par == null) { say('No chain in this room'); return; }
-  if (sel) home(); GAME = { a: S.a, b: S.b, par: S.par, ch: [S.a], done: 0, best: null, u: UNI }; hudDraw(); gameLook(S.a, true); }
+  if (sel) home(); GAME = { a: S.a, b: S.b, par: S.par, ch: [S.a], done: 0, best: null, u: UNI }; hudDraw(); gameLook(S.a, false); }   // the view on where you start (owner)
 function gameLook(j, both) { const p = N[j], q = N[GAME.b], x = both ? (p.hx + q.hx) / 2 : p.hx, y = both ? (p.hy + q.hy) / 2 : p.hy;
   const z = both ? Math.max(.86, Math.min(1.2, Math.min(W, H - 260) / (Math.hypot(p.hx - q.hx, p.hy - q.hy) + 240))) : Math.max(zoom, 1);
   glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: x, y1: y + 40, z0: zoom, z1: z }; }

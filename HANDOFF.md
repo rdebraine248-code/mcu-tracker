@@ -1617,7 +1617,7 @@ These happened in earlier chats. Each cost the owner time.
   - **Six Degrees, reworked (owner, 7 November 2026: "make the game in the actual network map ... as I tap on each it becomes a
     chain instead of the list"; "hidden somewhere else so it's a discovery").** No pill: hold the Network's title (0.8 s; `SIX_ON`
     still set only by the app's mockup call, so main's network.html has it off). Played in the room (`GAME`, `gameStart`, `gameTap`):
-    From and To in gold rings, To pulsing; the last link's connections lit with faint threads in their kind's colours, everyone else
+    the view centres on From (owner: "the camera needs to center on the starting point"); From and To in gold rings, To pulsing; the last link's connections lit with faint threads in their kind's colours, everyone else
     dim; a tap on one adds a gold thread and the view follows; a tap on a link already in the chain goes back to it; a tap on anyone
     else says "Not linked to N". A bar at the bottom (`#six6`): From › To, "Link N · par P", Undo, Reveal, New pair, Done; linked,
     "N links · par" or "N over par", Shortest (a white dashed chain), New pair, Done, and the view pulls back to the whole chain
