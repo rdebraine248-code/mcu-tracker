@@ -46,7 +46,7 @@ for tg in ('A', 'T'): af[tg] = [o for o in af[tg] if not (o.get('q') == 'unfiled
 for x in files:
     a = dict(x['add'])
     if x['tg'] == 'T':   # opposers: names to ids
-        a['opp'] = [[o[0] if o[0] in have or o[0] in mine else (nid(o[0], o[1]) or o[0]), o[1]] for o in a.get('opp', [])]
+        a['opp'] = [[o[0] if o[0] in have or o[0] in mine or o[0].startswith('team:') else (nid(o[0], o[1]) or o[0]), o[1]] for o in a.get('opp', [])]
     af[x['tg']].append({'q': 'unfiled', 'add': a})
 open(p, 'w').write(json.dumps(af, indent=1, ensure_ascii=False) + '\n')
 # the files' episode tags
