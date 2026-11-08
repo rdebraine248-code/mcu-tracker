@@ -49,6 +49,13 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   Agatha, Monica; he had none), the residents' with Wanda, Vision, Agatha, each other, and Mr. Hart with Sharon Davis. Sources: the
   episodes' Wikipedia plots and the MCU wiki's pages (its API, user agent mcu-tracker-research/1.0; WebFetch is refused). Left out:
   Dennis the mailman (no real name). The Network was rebuilt in full; only the six people and three WandaVision episode titles changed.
+- **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
+  app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
+  name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,
+  Falcon and the Winter Soldier or Werewolf by Night pages under those names); 3,757 credited characters, about 1,900 with no file or
+  bubble, 68 of them in two or more titles (Hogun and Volstagg, Maria Castle, Wanda's parents, Evanora Harkness, Anton Vanko, Falsworth,
+  Cameron Klein ...). Approximate: some matches are false (a lone "Dennis" matched Dennis Dunphy), most of the rest are one-scene roles
+  and real newsreaders. Agents of S.H.I.E.L.D. alone has 347. Waiting on the owner to say where to draw the line.
 - **Six Degrees: zoomed out, only the groups holding someone lit stay bright** (owner: "all the groups are lit up").
 
 ## This chat's checklist (5 to 7 November 2026; all on main)
