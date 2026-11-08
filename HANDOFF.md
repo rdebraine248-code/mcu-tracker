@@ -61,6 +61,17 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   pass (sourced draft, independent fact-check, writing pass, Network ties, build and suite) shown to the owner before the rest
   (the "small sample first" rule). Agents that judged by script or wrote one reason for everyone were sent back: check `why` lines
   for repeats before trusting a batch. The full list of who is missing, all universes: https://claude.ai/artifact/YUF7vMo4qR9v7wJ53hSvj3.
+  Second check done (857 checked from full pages, 184 flipped): 626 Sacred Timeline people in (`sel/final_in.json`). Each file still
+  has to pass the name rule when drafted: a name only counts if the screen says or shows it (credits don't count), so Cameron Klein
+  (never named on screen) is out, and a name first shown later is staged (Evanora is "Agatha's mother" until Agatha All Along #6).
+  **The sample (test build v183, working-branch `332a7ec`):** Nic West (Compound, Doctor Strange and Multiverse of Madness, ties to
+  Strange and Christine) and Evanora Harkness (Raft, WandaVision #8 and Agatha All Along #5, ties to Agatha and Alice), new ties in
+  `network/rel/unfiled_out.json` (in relbake's keep list), new adds in `answers_fix.json` with q "unfiled". Waiting on the owner's
+  look before the rest.
+  **The owner's answers (8 November 2026):** (1) crew members inside a group file (The Hood's Crew, Sarge's Crew, The Warriors Three,
+  the Howling Commandos, The Wrecking Crew, The Monster Hunters) get their own files too, and the group file stays, as S.H.I.E.L.D.
+  does; (2) Evanora's coven is The Salemites from WandaVision on (the on-screen name, no spoiler); (3) the hospital: rename only if
+  no title says "Metro-General" on screen. Daredevil does (Claire's hospital), so it stays Metro-General Hospital.
 - **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
   app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
   name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,
