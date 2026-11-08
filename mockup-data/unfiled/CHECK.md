@@ -15,6 +15,8 @@ Your input: the draft (`outNN.json`) and the batch it was written from (`inNN.js
    right episode in `ep` (the LAST event's episode).
 4. Group (`tm`): really their group, named on screen (or the app's existing name for it), staged at the right title, kept until the
    story moves them, the last stage where they really end up.
+- A logo on someone's clothes is not their group (owner, 8 November 2026: Dennis the mailman is a Westview resident, not "Presto" because it's on his shirt). Go by how the story groups them.
+
 5. A or T: the right index for what they do.
 6. Each tie: true, right kind (the main through-line), right title, spoiler-safe, whoA/whoB the right way round (whoA = how B
    appears on A's card). Any important tie missing?

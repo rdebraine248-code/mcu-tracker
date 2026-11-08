@@ -64,6 +64,8 @@ file stays (8 November 2026).
   that title string from 0, and N is the episode number within that title string (within the season when the title string is a
   season; across the whole show when the title string is the show itself, as "Agents of S.H.I.E.L.D." is). Films: none.
 
+- A logo on someone's clothes is not their group (owner, 8 November 2026: Dennis the mailman is a Westview resident, not "Presto" because it's on his shirt). Go by how the story groups them.
+
 ## Network ties
 For each person, their real connections: everyone they share real screen time and a relationship with (usually 2 to 6), to people
 in `network_people` (use that exact name) or to others in your batch. `kind` is the MAIN THROUGH-LINE across everything they share:

@@ -72,6 +72,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   the Howling Commandos, The Wrecking Crew, The Monster Hunters) get their own files too, and the group file stays, as S.H.I.E.L.D.
   does; (2) Evanora's coven is The Salemites from WandaVision on (the on-screen name, no spoiler); (3) the hospital: rename only if
   no title says "Metro-General" on screen. Daredevil does (Claire's hospital), so it stays Metro-General Hospital.
+  **Owner, 8 November 2026: "Dennis group should not be presto wth because thats what it says on his shirt? His group is obviously
+  westview residents."** A logo on clothes is not a group; go by how the story groups people. Dennis stands with the Westview
+  residents (Network place in the Westview circle, file `tm` Independent like theirs). Both briefs (`mockup-data/unfiled/DRAFT.md`,
+  `CHECK.md`) carry the rule.
 - **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
   app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
   name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,
