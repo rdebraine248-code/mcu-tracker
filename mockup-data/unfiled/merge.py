@@ -43,8 +43,11 @@ def season(title, ep):
 # answers_fix: drop earlier batch adds, keep the sample's, add these
 p = MD + 'answers_fix.json'; af = json.load(open(p)); mine = set(ids)
 for tg in ('A', 'T'): af[tg] = [o for o in af[tg] if not (o.get('q') == 'unfiled' and o.get('add', {}).get('id') in mine)]
+TMFIX = {'The Howling Commandos': 'Howling Commandos'}   # the spelling the members' own files use
+def tmfix(v): return TMFIX.get(v, v) if isinstance(v, str) else [[TMFIX.get(g, g), t] for g, t in v]
 for x in files:
     a = dict(x['add'])
+    if 'tm' in a: a['tm'] = tmfix(a['tm'])
     if x['tg'] == 'T':   # opposers: names to ids
         a['opp'] = [[o[0] if o[0] in have or o[0] in mine or o[0].startswith('team:') else (nid(o[0], o[1]) or o[0]), o[1]] for o in a.get('opp', [])]
     af[x['tg']].append({'q': 'unfiled', 'add': a})
