@@ -130,7 +130,7 @@ html.emb header .seen, body.emb header .seen{ display:none !important; } html.wa
 #nEmpty{ position:fixed; left:0; right:0; top:calc(var(--hb, 0px) + (100% - var(--hb, 0px)) / 2); transform:translateY(-20px);   /* the circle itself in the middle of the floor */ display:flex; flex-direction:column; align-items:center; gap:14px; pointer-events:none; }
 #nEmpty[hidden]{ display:none; } html.wait #nEmpty, html.wait #card{ display:none !important; } #nEmpty svg{ width:200px; height:40px; overflow:visible; }
 #nEmpty b{ font:400 11px/1.4 var(--mono); letter-spacing:3px; text-transform:uppercase; color:#7FA6D8; font-weight:400; }
-/* ---------- Six Degrees (a mockup, November 2026; shown only when the app turns it on, netMockOn): link two people you've met through people
+/* ---------- Six Degrees (November 2026; on main from 8 November 2026, found by holding the Network's title): link two people you've met through people
    they're connected to, in as few links as you can. Every link is a real connection, its latest stage as far as you've watched, so
    nothing is spoiled; par is the shortest chain there is. A new pair whenever you like (owner: no daily puzzle), or pick your own */
 header #hSix{ position:absolute; right:max(20px, env(safe-area-inset-right, 0px)); top:calc(6px + var(--sat, env(safe-area-inset-top, 0px))); display:flex; align-items:center; gap:7px; height:28px; padding:0 12px; border:1px solid #6B5A2A; border-radius:999px; background:rgba(233,196,106,.07); color:var(--both); font:11px/1 var(--mono); letter-spacing:1.5px; text-transform:uppercase; pointer-events:auto; cursor:pointer; }
@@ -1144,7 +1144,7 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
 // Six Degrees is a mockup: its button shows only when the app's test build turns it on
 // Six Degrees is found, not shown (owner, 7 November 2026: "hidden somewhere else so it's a discovery"): hold the Network's title. It's
 // played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
-let SIX_ON = false; self.netMockOn = () => { SIX_ON = true; };
+let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
 { const h = document.querySelector('header h1'); let t = 0; h.style.touchAction = 'none';
   h.addEventListener('pointerdown', () => { if (!SIX_ON || GAME) return; clearTimeout(t); t = setTimeout(() => { if (navigator.vibrate) try { navigator.vibrate([10, 40, 10]); } catch (x) {} gameStart(); }, 800); });
   ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => h.addEventListener(n, () => clearTimeout(t))); }
