@@ -466,7 +466,7 @@ function frame(t) {
     const gp = n && z.L.every(p => p.popAt) ? Math.min(...z.L.map(p => p.popAt)) : 0; let gs = 1;
     if (gp) { const k = (t - gp) / 420; if (k < 0) return; if (k < 1) { const cc = 1.7; gs = Math.max(0, 1 + (cc + 1) * Math.pow(k - 1, 3) + cc * Math.pow(k - 1, 2)); } }
     if (gs !== 1) { g.save(); g.translate(c.x, c.y); g.scale(gs, gs); g.translate(-c.x, -c.y); }
-    const dim = link && !z.L.includes(link) ? .45 : 1; g.globalAlpha = (1 - e) * dim;
+    const dim = GAME ? (z.L.some(p => lit.has(p.i)) ? 1 : .18) : link && !z.L.includes(link) ? .45 : 1; g.globalAlpha = (1 - e) * dim;   // in Six Degrees, only the groups holding someone lit (owner)
     // someone new joined the group: zoomed out you can't see them pop in, so the group does (owner, November 2026): a little swell, and the
     // blue ring the newcomers get, once for each wave arriving
     const nw = z.L.reduce((m, p) => p.inAt && t >= p.popAt && t - p.popAt < 2600 && (!m || p.popAt < m) ? p.popAt : m, 0), nk = nw ? (t - nw) / 2600 : 1;

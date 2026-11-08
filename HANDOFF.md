@@ -40,6 +40,17 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   still changes with every Snap (lines and names go with their people), quietly. The animation picks from the Network, Characters, the
   Compound and the Raft. `SNAP_PAGE = "paths"` still plays it there, for the tests.
 
+- **Waiting on "push" (8 November 2026): Westview** (owner: "Do the Westview residents ... have files or network bubbles?"; "Yes do
+  both"). Six new Compound files (`answers_fix.json` A, q "westview"): John Collins (Herb), Sarah Proctor (Dottie Jones), Harold Proctor
+  (Phil Jones), Isabel Matsueda (Beverly), Abilash Tandon (Norm), Arthur Hart (Vision's boss; his real name, Todd Davis, is only
+  mentioned in Agatha All Along, so the file keeps Mr. Hart's), each with its episodes (`ep_tags.json` st) and its sitcom name as an
+  alias, like Sharon Davis's. In the Network they stand in a new "Westview" group (`rel/out1.json` places, with Ralph), and 20 ties
+  (`rel/westview_out.json`, read by relbake's keep list; `rel/ep_tags.json`): Ralph Bohner's six (Wanda, Billy, Tommy, Vision,
+  Agatha, Monica; he had none), the residents' with Wanda, Vision, Agatha, each other, and Mr. Hart with Sharon Davis. Sources: the
+  episodes' Wikipedia plots and the MCU wiki's pages (its API, user agent mcu-tracker-research/1.0; WebFetch is refused). Left out:
+  Dennis the mailman (no real name). The Network was rebuilt in full; only the six people and three WandaVision episode titles changed.
+- **Six Degrees: zoomed out, only the groups holding someone lit stay bright** (owner: "all the groups are lit up").
+
 ## This chat's checklist (5 to 7 November 2026; all on main)
 
 **The Network**
