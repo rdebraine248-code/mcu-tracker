@@ -15,13 +15,15 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (7 November 2026)
 
-- **main** is at `25102ef` (pushed 7 November 2026, the owner's "Push it when ready": the Snap's dust both ways, shared names, no page
+- **main** is at `3e49355` (pushed 8 November 2026, the owner's "Push westview and 6degrees": Westview's six residents and Six
+  Degrees, on for everyone; full suite 37 of 37). Before it `25102ef` (pushed 7 November 2026, the owner's "Push it when ready": the Snap's dust both ways, shared names, no page
   twice running, never on Paths; full suite 37 of 37). Before it: `85527b0` the Snap report and its fixes; `54e3e93` the Snap across the app; `0c7fb46` the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the
   Pyms, Dazzler and Carnage staged; `823d296` Extras character boxes name their universe tab; `6598b5f` new Earths fade in; `ec353bb`
   new groups pop in, the link card's height; `171f2bf` New Asgard from Endgame on, circles from their own titles; `290c01f` Alioth in
   The Void; `3cd6996` the split launch page; `3e844a5` audit parts 6 to 9, the Watcher; `48f2c51` the "No signal" fix; `b5e096e`
   mutual connections; `6f22626` How they're connected slides up.
-- **Nothing is waiting on "push".** The owner is testing the Snap and its report on the phone ("I'll test it out later"): expect
+- **Nothing is waiting on "push".** Six Degrees is on main (`SIX_ON` true in hub-src; hold the Network's title; the old
+  `#hSix` button stays hidden). The owner is testing the Snap and its report on the phone ("I'll test it out later"): expect
   feedback on the animations (each page), the report's words, the memorial and Last seen.
 - **The test build** (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s, v179 as of this push; republish after any rebuild) is main
   plus the parked mockups (the Time Machine, Six Degrees, landscape) and the six Stones handed out (`MOCKUP BEGIN snapstones`), so the
@@ -40,7 +42,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   still changes with every Snap (lines and names go with their people), quietly. The animation picks from the Network, Characters, the
   Compound and the Raft. `SNAP_PAGE = "paths"` still plays it there, for the tests.
 
-- **Waiting on "push" (8 November 2026): Westview** (owner: "Do the Westview residents ... have files or network bubbles?"; "Yes do
+- **On main (`3e49355`, 8 November 2026): Westview** (owner: "Do the Westview residents ... have files or network bubbles?"; "Yes do
   both"). Six new Compound files (`answers_fix.json` A, q "westview"): John Collins (Herb), Sarah Proctor (Dottie Jones), Harold Proctor
   (Phil Jones), Isabel Matsueda (Beverly), Abilash Tandon (Norm), Arthur Hart (Vision's boss; his real name, Todd Davis, is only
   mentioned in Agatha All Along, so the file keeps Mr. Hart's), each with its episodes (`ep_tags.json` st) and its sitcom name as an
@@ -49,6 +51,16 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   Agatha, Monica; he had none), the residents' with Wanda, Vision, Agatha, each other, and Mr. Hart with Sharon Davis. Sources: the
   episodes' Wikipedia plots and the MCU wiki's pages (its API, user agent mcu-tracker-research/1.0; WebFetch is refused). Left out:
   Dennis the mailman (no real name). The Network was rebuilt in full; only the six people and three WandaVision episode titles changed.
+- **Adding the left-out characters (owner, 8 November 2026: "Just do it I guess", leaning to main, recurring and named film parts;
+  then: "they won't have had the writing and quality passes ... Just do it").** The owner's rule for who counts: a name, lines, a part
+  in the plot, judged on screen and never on billing (the first list's "main / recurring / top-billed" tiers came from the wikis' credit
+  lists and were wrong: Elias Spector "main" for one flashback, Tullk and Eir "top-billed"). Sacred Timeline first. Selection: every
+  candidate's MCU wiki biography (scratchpad `wv/bios.json`), 410 single short scenes left out unjudged, 1,664 judged one by one
+  (`sel/BRIEF.md`, outputs `sel/o*.json`: 689 in), then an independent second check from the full pages (`sel/VERIFY.md`, `sel/w*.json`),
+  which also drops anyone a group file already covers (The Warriors Three, The Castle family). Then two sample files through every
+  pass (sourced draft, independent fact-check, writing pass, Network ties, build and suite) shown to the owner before the rest
+  (the "small sample first" rule). Agents that judged by script or wrote one reason for everyone were sent back: check `why` lines
+  for repeats before trusting a batch. The full list of who is missing, all universes: https://claude.ai/artifact/YUF7vMo4qR9v7wJ53hSvj3.
 - **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
   app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
   name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,
