@@ -108,7 +108,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   - Shows with no transcripts (1967 Spider-Man, most of the 1994 show, Spider-Man Unlimited): a name counts only when an episode
     plot summary uses it, not a cast list; unsupported statuses go to At large.
   - Ties between new people from different batches of one show: 240 candidate pairs (same episode, no tie yet, scratchpad
-    `build/xpairs.py`), drafted (XTIES.md) and fact-checked (XCHECK.md) as chk81 to chk86: 98 ties, the rest skipped as shared
+    `build/xpairs.py`), drafted (XTIES.md) and fact-checked (XCHECK.md) as chk81 to chk86: 106 ties, the rest skipped as shared
     crowds. All 338 new files are merged (sv 136, fox 135, pr 44, by 23); two have no tie (Governor Barkley, Master Mold 2055).
   - Seen on the way, not changed: the app's Otto file (Your Friendly Neighborhood Spider-Man) dates Ross's arrest of Octavius #9,
     the transcript has #8.
