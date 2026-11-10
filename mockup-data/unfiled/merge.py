@@ -22,8 +22,8 @@ for x in files:
     if s67(x) and not x['add']['id'].startswith('by-'): x['add']['id'] = 'by-' + (x['add']['id'] if x['add']['id'].startswith('st-') else 'st-' + x['add']['id'])
 NEW = {}
 for x in files:
-    a = x['add']; n = a['n']
-    for nm in ([n] if isinstance(n, str) else [s[0] for s in n]): NEW[nm] = a['id']
+    a = x['add']; n = a['n']; ts = {base(st[1]) for st in a['st']}
+    for nm in ([n] if isinstance(n, str) else [s[0] for s in n]): NEW.setdefault(nm, []).append((a['id'], ts))
 ids = [x['add']['id'] for x in files]
 dups = {i for i in ids if ids.count(i) > 1}
 # the same person drafted twice (two wiki pages for one person): same final name and a shared title
@@ -42,7 +42,11 @@ have = set(re.findall(r'\{"id": "([^"]+)"', s))
 clash = [i for i in ids if i in have]
 if clash: problems.append('ids the app already has: ' + ', '.join(clash))
 def nid(name, title):
-    if name in NEW: return NEW[name]
+    if name in NEW:
+        c = NEW[name]
+        if len(c) == 1: return c[0][0]
+        m = [i for i, ts in c if base(title) in ts]
+        if len(m) == 1: return m[0]
     c = BYN.get(name) or []
     if len(c) == 1: return c[0][0]
     m = [x for x in c if base(title) in x[1]]
