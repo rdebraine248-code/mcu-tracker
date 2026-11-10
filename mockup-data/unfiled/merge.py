@@ -59,7 +59,7 @@ def nid(name, title):
     if len(m3) == 1: return m3[0]
     problems.append(f'tie name {name} ({title}): {len(c)} matches'); return None
 def season(title, ep):
-    if title in SEAS and ep:
+    if title in SEAS and ep and f'{title} S1' in H['titles']:   # only shows the Network splits by season
         k = 0
         for si, cnt in enumerate(SEAS[title]):
             if ep <= k + cnt: return f'{title} S{si + 1}', ep - k
@@ -84,7 +84,7 @@ for x in files:
 open(p, 'w').write(json.dumps(et, indent=0, ensure_ascii=False))
 # Network ties: the sample's first, then these; season titles for the shows the Network splits by season
 p = MD + 'network/rel/unfiled_out.json'; uo = json.load(open(p)); sample = [t for t in uo['keep'] if t['a'] in ('Nic West', 'Evanora Harkness')]
-rel = json.load(open(MD + 'network/rel/ep_tags.json')); keep = []
+rel = json.load(open(MD + 'network/rel/ep_tags.json')); keep = []; uni = []
 for t in ties:
     st2 = []
     for i, sg in enumerate(t['stages']):
@@ -93,8 +93,11 @@ for t in ties:
         if ep:
             A, B = nid(t['a'], title), nid(t['b'], title)
             if A and B: rel['|'.join(sorted([A, B])) + f'|{title}|{i}'] = ep
-    keep.append({'a': t['a'], 'b': t['b'], 'stages': st2})
+    A0, B0 = nid(t['a'], st2[0]['title']), nid(t['b'], st2[0]['title'])
+    if A0 and B0 and (A0.startswith('by-') or B0.startswith('by-')): uni.append({'a': A0, 'b': B0, 'stages': st2})   # Beyond: by id, with the other universes
+    else: keep.append({'a': t['a'], 'b': t['b'], 'stages': st2})
 uo['keep'] = sample + keep; json.dump(uo, open(p, 'w'), indent=1, ensure_ascii=False)
+json.dump(uni, open(MD + 'network/rel/uni/newfiles/extra_unfiled.json', 'w'), indent=1, ensure_ascii=False)
 open(MD + 'network/rel/ep_tags.json', 'w').write(json.dumps(rel, indent=0, ensure_ascii=False))
-print(len(batches), 'batches |', len(files), 'files (A', sum(1 for x in files if x['tg'] == 'A'), 'T', sum(1 for x in files if x['tg'] == 'T'), ') |', len(keep), 'ties')
+print(len(batches), 'batches |', len(files), 'files (A', sum(1 for x in files if x['tg'] == 'A'), 'T', sum(1 for x in files if x['tg'] == 'T'), ') |', len(keep), 'ties, Beyond', len(uni))
 print('problems:', len(problems)); [print(' ', q) for q in problems[:40]]
