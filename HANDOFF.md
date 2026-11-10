@@ -107,8 +107,9 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   Anna Kravinoff, Thaddeus Paine, Retch, Jimmy O'Hoolihan, Abraham Cornelius; Toxin is covered by Patrick Mulligan's file.
   **Owner, 10 November 2026: the show counts are "Way too lopsided"** (Agents of S.H.I.E.L.D. near 200, Daredevil 100, the other
   Netflix shows around 50, films around 30); picked "Cut one-episode guests": a new show person whose whole presence is ONE
-  episode is dropped unless that episode's plot turns on them (the episode's villain, the case or victim it is about). People in
-  more than one episode, or also in another title, stay.
+  episode is dropped unless that episode's plot turns on them (the episode's villain, the case or victim it is about), or
+  ("Unless the connection is important like family, spouse, boss etc") they are family, a spouse or partner, or the boss of
+  someone the app has a file for. People in more than one episode, or also in another title, stay.
   **Under way (10 November 2026):** 360 selected, drafted in batches 51 to 79 (scratchpad `build/`, DRAFT2.md, CHECK2.md, copies in
   `mockup-data/unfiled/`), each fact-checked and merged as it lands (not on main). Calls made on the way, for the owner to see:
   - Silent appearances, one rule as the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): a step when
