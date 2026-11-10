@@ -51,7 +51,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(!bad.length, 'every hand-made link resolves: ' + bad.join(', '));
   // holders go by their file's name (names_fix.json "hold"), and Item 47's Bennie is spelled as the film spells him
   const nm = await p.evaluate(() => { const out = [], all = JSON.stringify([THREATS, ALLIES, COLLX]);
-    if (/Benny/.test(all)) out.push('Benny still in the data');
+    if (/Benny/.test(JSON.stringify([THREATS, ALLIES, COLLX].flat().filter(o => (o.st || []).some(x => /Item 47/.test(x[1])))))) out.push('Benny still in the data');   // Item 47's; Born Again's Benny Cafaro is another man
     if (/AIDA/.test(all + JSON.stringify(DC))) out.push('AIDA still in the data');
     // one person, one name in every universe (October 2026): a variant goes by the main universe's name
     const nm1 = (L, id) => { const f = L.find(x => x.id === id); return f && (Array.isArray(f.n) ? f.n[f.n.length - 1][0] : f.n); };
