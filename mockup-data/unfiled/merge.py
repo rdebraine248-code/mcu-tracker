@@ -59,6 +59,8 @@ RT = [(r['from'], set(r.get('titles', []))) for r in json.load(open(MD + 'networ
 # one name, two files in one title, settled by hand: the film's own Wade, not the Weapon XI variant he shoots in the end credits
 PIN = {('Wade Wilson', 'Deadpool 2'): 'fox-deadpool'}
 WHATIF = {'What If...?'}; NOFILE = []
+# the title's own lead when the app also has variants of him by the same name (Spider Wars' Spider-Men, Earth-42's Prowler)
+MAIN = {('Peter Parker', 'Spider-Man (1994)'): 'sv-peter-parker-1994', ('Miles Morales', 'Spider-Man: Across the Spider-Verse'): 'sv-miles-morales'}
 def nid(name, title, prefer=None, at=None):
     # everyone who goes by this name, new files and the app's own, settled by the title the tie is in, then by universe, then the plain-name file
     if (name, base(title)) in PIN: return PIN[(name, base(title))]
@@ -75,6 +77,7 @@ def nid(name, title, prefer=None, at=None):
     u = prefer or ('by' if re.search(r' S[67]$', title) else 'mcu')
     m2 = [x for x in (m or c) if x[2] == u]
     if len(m2) == 1: return m2[0][0]
+    if (name, base(title)) in MAIN: return MAIN[(name, base(title))]   # after the episode test, so a variant in its own episode still wins
     slug = re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
     m3 = [x[0] for x in (m or c) if x[0] == slug]
     if len(m3) == 1: return m3[0]
