@@ -115,6 +115,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   appearance (Seth Honicky out); a family or boss tie counts only to someone who stays on their own merits, not to another
   one-episode guest (Carlo Eastman, Dwayne Blaskowski, Ana and Manuel Silva out). Sacred Timeline after the cut: 1,135 people
   (Agents of S.H.I.E.L.D. 148, Daredevil 84, Jessica Jones 72, Luke Cage 70, Born Again 52, The Punisher 50).
+  Owner ("Ok same treatment then push"): the same one-episode check on the other universes' shows (What If...? left out, its
+  episodes are films), scratchpad `sel5/`, 185 candidates; then the main push.
   **Under way (10 November 2026):** 360 selected, drafted in batches 51 to 79 (scratchpad `build/`, DRAFT2.md, CHECK2.md, copies in
   `mockup-data/unfiled/`), each fact-checked and merged as it lands (not on main). Calls made on the way, for the owner to see:
   - Silent appearances, one rule as the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): a step when
