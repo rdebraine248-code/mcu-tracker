@@ -76,8 +76,9 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   westview residents."** A logo on clothes is not a group; go by how the story groups people. Dennis stands with the Westview
   residents (Network place in the Westview circle, file `tm` Independent like theirs). Both briefs (`mockup-data/unfiled/DRAFT.md`,
   `CHECK.md`) carry the rule.
-- **The left-out characters, built (10 November 2026; test build v184, waiting on "push").** 499 new Sacred Timeline files (292
-  Compound, 207 Raft) plus the two samples, 1,382 new Network ties (all by id, in `network/rel/uni/newfiles/extra_unfiled.json`; the
+- **The left-out characters, built (10 November 2026; test build v185, full suite 37 of 37, waiting on "push").** 514 new Sacred
+  Timeline files (299 Compound, 215 Raft; 15 of them from the owner's re-check of the 391 film and Disney+ people the weak first pass
+  had judged out: Costel, Zrinka, Gef, Greller, Yakan, Ponytail Express and others). First 499 plus the two samples, 1,382 new Network ties (all by id, in `network/rel/uni/newfiles/extra_unfiled.json`; the
   samples' by name in `rel/unfiled_out.json`), the Network now 1,987 people. Everything for it is in `mockup-data/unfiled/`: the
   briefs (`DRAFT.md`, `CHECK.md`), `validate.py`, `merge.py` (rerunnable: rebuilds the adds from all `chk*.json`), the 40 checked
   batches and `dropped.json` (135 people the checks dropped, each with why: no name said or shown on screen, no lines, already in
@@ -91,6 +92,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   the shared-name new people by id only. Notable drops: Tullk and Eir (never named on screen), Gabe Jones, Falsworth and Dernier
   (named only in the credits; the Howling Commandos group file covers them), Cameron Klein (credits only). VisionQuest covered to
   episode 7 (episode 8 had no source yet).
+  **Next (owner: "do the same for the other universes"; "What If episodes are basically mini movies"):** 1,111 candidates in the
+  Spider-Verse, FoX-Men, Pruned and Beyond (scratchpad `sel2/`, one careful pass, `VERIFY.md`): each What If episode judged as its own
+  short film; a version of someone the app names elsewhere goes by that name (no name test), judged on lines and story part. The
+  wikis started answering 429 under 20 parallel readers: unread people are marked "pending" and checked again later.
 - **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
   app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
   name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,
