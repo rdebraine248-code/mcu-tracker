@@ -42,9 +42,15 @@ _af0 = json.load(open(MD + 'answers_fix.json')); have -= {o['add']['id'] for tg 
 clash = [i for i in ids if i in have]
 if clash: problems.append('ids the app already has: ' + ', '.join(clash))
 def uof(i): m = re.match(r'(sv|fox|pr|by)-', i); return m.group(1) if m else 'mcu'
+# the owner's retarget answers: a file whose steps in a title moved to another file is not that title's person (Logan in Logan)
+RT = [(r['from'], set(r.get('titles', []))) for r in json.load(open(MD + 'network/rel/retarget.json'))['rules'] if r.get('titles')]
+# one name, two files in one title, settled by hand: the film's own Wade, not the Weapon XI variant he shoots in the end credits
+PIN = {('Wade Wilson', 'Deadpool 2'): 'fox-deadpool'}
 def nid(name, title, prefer=None):
     # everyone who goes by this name, new files and the app's own, settled by the title the tie is in, then by universe, then the plain-name file
+    if (name, base(title)) in PIN: return PIN[(name, base(title))]
     c = [(i, ts, uof(i)) for i, ts in NEW.get(name, [])] + [x for x in BYN.get(name, []) if x[0] not in {y[0] for y in NEW.get(name, [])}]
+    c = [x for x in c if not any(x[0] == f and base(title) in ts for f, ts in RT)]
     if len(c) == 1: return c[0][0]
     m = [x for x in c if base(title) in x[1]]
     if len(m) == 1: return m[0][0]
