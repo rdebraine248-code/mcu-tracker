@@ -37,7 +37,8 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const TH = THREATS.filter(o => !o.grp);
     // one person, one bubble (owner, October 2026): a Raft file under another id but the same name as a Compound file is the same person
     // and merges into it; two pairs share a name but are different people, so they stay apart
-    const APART = new Set(['white-vision', 'binary', 'sv-venom-sony', 'karl-mordo-838']), byName = {}, as = {};
+    const APART = new Set(['white-vision', 'binary', 'sv-venom-sony', 'karl-mordo-838',
+      /* the left-out characters (November 2026): a villain who shares a hero's name but is someone else */ 'st-oconnor-fbi', 'st-grace', 'tomas', 'john-king', 'diego']), byName = {}, as = {};
     ALLIES.filter(o => rfUniOf(o) === 'mcu' && !o.grp).forEach(o => byName[nm(o)] = o.id);
     TH.forEach(o => { if (rfUniOf(o) === 'mcu' && !P[o.id] && !APART.has(o.id) && byName[nm(o)]) as[o.id] = byName[nm(o)]; });
     // and two whose Raft files go by their villain names: Deathlok is Mike Peterson, Lash is Andrew Garner (one person, one bubble)

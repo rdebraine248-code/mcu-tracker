@@ -6,7 +6,10 @@ const H = JSON.parse(fs.readFileSync(__dirname + '/hub.json')), SL = JSON.parse(
 // "Vision", Binary is "Maria Rambeau"): a name means the main one; they're reached by id only
 // a Sacred Timeline name shared with someone else (S.W.O.R.D.'s Vision, Binary, every Earth-838 variant) goes to the Sacred Timeline one;
 // the others are reached by id only (Mordo's ties had all gone to Earth-838's Mordo)
-const BY_ID_ONLY = new Set(['white-vision', 'binary', 'wanda-maximoff-838', 'billy-maximoff-838', 'tommy-maximoff-838', 'christine-palmer-838', 'stephen-strange-838', 'maria-rambeau-838', 'reed-richards-838', 'karl-mordo-838']);
+const BY_ID_ONLY = new Set(['white-vision', 'binary', 'wanda-maximoff-838', 'billy-maximoff-838', 'tommy-maximoff-838', 'christine-palmer-838', 'stephen-strange-838', 'maria-rambeau-838', 'reed-richards-838', 'karl-mordo-838',
+  // the left-out characters (November 2026) who share a name with someone: their ties come by id (rel/uni/newfiles/extra_unfiled.json)
+  'st-aisha-axton', 'st-kyle-assistant', 'st-kyle', 'st-philip-cabroni', 'st-philip', 'st-roy-bartender', 'st-roy-hardin', 'st-ruben-mackenzie', 'st-ruben',
+  'st-shirley', 'shirley-sagar-skrull', 'john-king', 'st-john-donnelly']);
 const ix = new Map(H.nodes.map((n, i) => [n[0], i]).filter(([, i]) => (H.nodes[i][10] || 'mcu') === 'mcu' && !BY_ID_ONLY.has(H.nodes[i][11])));   // relationships are Sacred Timeline ones, by name
 const so = t => { { const m = /^(.*)#(\d+)$/.exec(t); if (m) { const b = so(m[1]); return b < 0 ? b : b + m[2] / 1000; } } let i = SL.indexOf(t); if (i < 0) i = SL.findIndex(x => x.startsWith(t + ' S') || x.startsWith(t + ':') || x.startsWith(t + ' (')); return i; };
 const KINDS = ['family', 'partner', 'friend', 'mentor', 'boss', 'ally', 'rival', 'enemy'];

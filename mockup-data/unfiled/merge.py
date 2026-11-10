@@ -43,20 +43,16 @@ _af0 = json.load(open(MD + 'answers_fix.json')); have -= {o['add']['id'] for tg 
 clash = [i for i in ids if i in have]
 if clash: problems.append('ids the app already has: ' + ', '.join(clash))
 def nid(name, title):
-    if name in NEW:
-        c = NEW[name]
-        if len(c) == 1: return c[0][0]
-        m = [i for i, ts in c if base(title) in ts]
-        if len(m) == 1: return m[0]
-    c = BYN.get(name) or []
+    # everyone who goes by this name, new files and the app's own, settled by the title the tie is in, then by universe, then the plain-name file
+    c = [(i, ts, 'by' if i.startswith('by-') else 'mcu') for i, ts in NEW.get(name, [])] + [x for x in BYN.get(name, []) if x[0] not in {y[0] for y in NEW.get(name, [])}]
     if len(c) == 1: return c[0][0]
     m = [x for x in c if base(title) in x[1]]
     if len(m) == 1: return m[0][0]
     u = 'by' if re.search(r' S[67]$', title) else 'mcu'
     m2 = [x for x in (m or c) if x[2] == u]
     if len(m2) == 1: return m2[0][0]
-    slug = re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')   # a shared name: the main file is the one whose id is the plain name (Vision, not White Vision)
-    m3 = [x[0] for x in c if x[0] == slug and base(title) in x[1]]
+    slug = re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
+    m3 = [x[0] for x in (m or c) if x[0] == slug]
     if len(m3) == 1: return m3[0]
     problems.append(f'tie name {name} ({title}): {len(c)} matches'); return None
 def season(title, ep):
@@ -98,8 +94,9 @@ for t in ties:
             A, B = nid(t['a'], title), nid(t['b'], title)
             if A and B: rel['|'.join(sorted([A, B])) + f'|{title}|{i}'] = ep
     A0, B0 = nid(t['a'], st2[0]['title']), nid(t['b'], st2[0]['title'])
-    if A0 and B0 and (A0.startswith('by-') or B0.startswith('by-')): uni.append({'a': A0, 'b': B0, 'stages': st2})   # Beyond: by id, with the other universes
-    else: keep.append({'a': t['a'], 'b': t['b'], 'stages': st2})
+    # every new tie goes by id (a name two people share, John, Ruben, Aisha, would take the wrong one by name), with the other universes' ties
+    if A0 and B0: uni.append({'a': A0, 'b': B0, 'stages': st2})
+    else: problems.append(f"tie not placed: {t['a']} | {t['b']}")
 for k in [k for k in rel if set(k.split('|')[:2]) & stale]: del rel[k]
 uo['keep'] = sample + keep; json.dump(uo, open(p, 'w'), indent=1, ensure_ascii=False)
 json.dump(uni, open(MD + 'network/rel/uni/newfiles/extra_unfiled.json', 'w'), indent=1, ensure_ascii=False)
