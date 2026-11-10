@@ -23,6 +23,11 @@ NEW = {}
 for x in files:
     a = x['add']; n = a['n']; ts = {base(st[1]) for st in a['st']}
     for nm in ([n] if isinstance(n, str) else [s[0] for s in n]): NEW.setdefault(nm, []).append((a['id'], ts))
+# the owner's one-episode cut (cut.json): out of the app with their ties; kept in NEW so a tie to them is recognized and left out
+import os
+CUT = set(json.load(open('cut.json'))['cut']) if os.path.exists('cut.json') else set()
+CUT |= {'by-' + (i if i.startswith('st-') else 'st-' + i) for i in CUT}   # the same people after the seasons 6 and 7 rename
+files = [x for x in files if x['add']['id'] not in CUT]
 ids = [x['add']['id'] for x in files]
 dups = {i for i in ids if ids.count(i) > 1}
 # the same person drafted twice (two wiki pages for one person): same final name and a shared title
@@ -120,10 +125,11 @@ for t in ties:
         st2.append({k: v for k, v in {**sg, 'title': title}.items() if k != 'ep'})
         if ep:
             at = (sg['title'], sg.get('ep')); A = nid(t['a'], title, None, at); B = nid(t['b'], title, uof(A) if A else None, at)
-            if A and B: rel['|'.join(sorted([A, B])) + f'|{title}|{i}'] = ep
+            if A and B and A not in CUT and B not in CUT: rel['|'.join(sorted([A, B])) + f'|{title}|{i}'] = ep
     at0 = (t['stages'][0]['title'], t['stages'][0].get('ep'))
     A0 = nid(t['a'], st2[0]['title'], None, at0); B0 = nid(t['b'], st2[0]['title'], uof(A0) if A0 else None, at0)   # the other side from the new person's universe first
     # every new tie goes by id (a name two people share, John, Ruben, Aisha, would take the wrong one by name), with the other universes' ties
+    if A0 in CUT or B0 in CUT: continue
     if A0 and B0: uni.append({'a': A0, 'b': B0, 'stages': st2})
     elif NOFILE and NOFILE[-1].split(' in ')[0] in (t['a'], t['b']): skipped.append(f"{t['a']} | {t['b']} ({NOFILE[-1]}: the app has no file for that version)")
     else: problems.append(f"tie not placed: {t['a']} | {t['b']}")
