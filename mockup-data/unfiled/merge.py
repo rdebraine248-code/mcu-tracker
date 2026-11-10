@@ -8,11 +8,18 @@ def base(t): t = re.sub(r'#\d+$', '', t); t = re.sub(r' S\d+(?:[–-]S?\d+)?$', 
 # Network names to ids (the Sacred Timeline), with the titles each is in, to settle a shared name by title
 BYN = {}
 for n in H['nodes']:
-    if n[10] != 'mcu': continue
-    BYN.setdefault(n[0], []).append((n[11], {base(H['titles'][i]) for i in n[7]}))
+    if n[10] not in ('mcu', 'by'): continue
+    BYN.setdefault(n[0], []).append((n[11], {base(H['titles'][i]) for i in n[7]}, n[10]))
 batches = sorted(glob.glob('chk*.json')); files, ties, problems = [], [], []
 for f in batches:
     d = json.load(open(f)); files += d['files']; ties += d['ties']
+def s67(x):
+    for st in x['add']['st']:
+        m = re.match(r'In season (\d+),', st[0])
+        if not (st[1].startswith('Agents of S.H.I.E.L.D.') and (m and int(m.group(1)) >= 6 or re.search(r' S[67]$', st[1]))): return False
+    return True
+for x in files:
+    if s67(x) and not x['add']['id'].startswith('by-'): x['add']['id'] = 'by-' + (x['add']['id'] if x['add']['id'].startswith('st-') else 'st-' + x['add']['id'])
 NEW = {}
 for x in files:
     a = x['add']; n = a['n']
@@ -30,8 +37,11 @@ def nid(name, title):
     if name in NEW: return NEW[name]
     c = BYN.get(name) or []
     if len(c) == 1: return c[0][0]
-    m = [i for i, ts in c if base(title) in ts]
-    if len(m) == 1: return m[0]
+    m = [x for x in c if base(title) in x[1]]
+    if len(m) == 1: return m[0][0]
+    u = 'by' if re.search(r' S[67]$', title) else 'mcu'
+    m2 = [x for x in (m or c) if x[2] == u]
+    if len(m2) == 1: return m2[0][0]
     problems.append(f'tie name {name} ({title}): {len(c)} matches'); return None
 def season(title, ep):
     if title in SEAS and ep:
