@@ -15,8 +15,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (7 November 2026)
 
-- **main** is at `3e49355` (pushed 8 November 2026, the owner's "Push westview and 6degrees": Westview's six residents and Six
-  Degrees, on for everyone; full suite 37 of 37). Before it `25102ef` (pushed 7 November 2026, the owner's "Push it when ready": the Snap's dust both ways, shared names, no page
+- **main** is at `99945b6` (pushed 10 November 2026, the owner's "Ok same treatment then push": the left-out characters in every
+  universe, the film people under credited names, the one-episode cut (131 out); 2,257 people in the Network; full suite 37 of 37).
+  Before it `3e49355` (8 November 2026, the owner's "Push westview and 6degrees": Westview's six residents and Six Degrees, on for
+  everyone). Before that `25102ef` (pushed 7 November 2026, the owner's "Push it when ready": the Snap's dust both ways, shared names, no page
   twice running, never on Paths; full suite 37 of 37). Before it: `85527b0` the Snap report and its fixes; `54e3e93` the Snap across the app; `0c7fb46` the Network's Groups line, no hidden universe code, the 1988 Peter Quill with the
   Pyms, Dazzler and Carnage staged; `823d296` Extras character boxes name their universe tab; `6598b5f` new Earths fade in; `ec353bb`
   new groups pop in, the link card's height; `171f2bf` New Asgard from Endgame on, circles from their own titles; `290c01f` Alioth in
@@ -116,7 +118,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   one-episode guest (Carlo Eastman, Dwayne Blaskowski, Ana and Manuel Silva out). Sacred Timeline after the cut: 1,135 people
   (Agents of S.H.I.E.L.D. 148, Daredevil 84, Jessica Jones 72, Luke Cage 70, Born Again 52, The Punisher 50).
   Owner ("Ok same treatment then push"): the same one-episode check on the other universes' shows (What If...? left out, its
-  episodes are films), scratchpad `sel5/`, 185 candidates; then the main push.
+  episodes are films), scratchpad `sel5/`, 185 candidates, 34 cut (verdicts in `unfiled/oneepisode_other/`; all 131 cuts in
+  `unfiled/cut.json`). On main `99945b6`.
   **Under way (10 November 2026):** 360 selected, drafted in batches 51 to 79 (scratchpad `build/`, DRAFT2.md, CHECK2.md, copies in
   `mockup-data/unfiled/`), each fact-checked and merged as it lands (not on main). Calls made on the way, for the owner to see:
   - Silent appearances, one rule as the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): a step when
