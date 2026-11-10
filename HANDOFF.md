@@ -110,6 +110,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   episode is dropped unless that episode's plot turns on them (the episode's villain, the case or victim it is about), or
   ("Unless the connection is important like family, spouse, boss etc") they are family, a spouse or partner, or the boss of
   someone the app has a file for. People in more than one episode, or also in another title, stay.
+  Done: 383 possible one-episode guests checked (scratchpad `sel4/`, CUT.md; verdicts in `mockup-data/unfiled/oneepisode/`), 97 cut
+  (`unfiled/cut.json`, read by merge.py, which drops them and their ties). Calls on top of the checkers: a corpse is not an
+  appearance (Seth Honicky out); a family or boss tie counts only to someone who stays on their own merits, not to another
+  one-episode guest (Carlo Eastman, Dwayne Blaskowski, Ana and Manuel Silva out). Sacred Timeline after the cut: 1,135 people
+  (Agents of S.H.I.E.L.D. 148, Daredevil 84, Jessica Jones 72, Luke Cage 70, Born Again 52, The Punisher 50).
   **Under way (10 November 2026):** 360 selected, drafted in batches 51 to 79 (scratchpad `build/`, DRAFT2.md, CHECK2.md, copies in
   `mockup-data/unfiled/`), each fact-checked and merged as it lands (not on main). Calls made on the way, for the owner to see:
   - Silent appearances, one rule as the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): a step when
