@@ -96,6 +96,10 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   Spider-Verse, FoX-Men, Pruned and Beyond (scratchpad `sel2/`, one careful pass, `VERIFY.md`): each What If episode judged as its own
   short film; a version of someone the app names elsewhere goes by that name (no name test), judged on lines and story part. The
   wikis started answering 429 under 20 parallel readers: unread people are marked "pending" and checked again later.
+  **Owner, 10 November 2026: the name-on-screen rule is too strict for films** ("Their names needed to be said on screen is a
+  bad rule i think. May times maybe characters won't have their names mentioned"; picked "Films only"). In films, someone cut only
+  because the screen never says their name gets a file under their credited name when they have lines and a real part on screen
+  (Doris Toomes, Erik's mother, Nixon, Eir, Tullk, Madame B., Morita ...). Shows keep the name rule.
   **Under way (10 November 2026):** 360 selected, drafted in batches 51 to 79 (scratchpad `build/`, DRAFT2.md, CHECK2.md, copies in
   `mockup-data/unfiled/`), each fact-checked and merged as it lands (not on main). Calls made on the way, for the owner to see:
   - Silent appearances, one rule as the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): a step when
