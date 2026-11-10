@@ -76,6 +76,21 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   westview residents."** A logo on clothes is not a group; go by how the story groups people. Dennis stands with the Westview
   residents (Network place in the Westview circle, file `tm` Independent like theirs). Both briefs (`mockup-data/unfiled/DRAFT.md`,
   `CHECK.md`) carry the rule.
+- **The left-out characters, built (10 November 2026; test build v184, waiting on "push").** 499 new Sacred Timeline files (292
+  Compound, 207 Raft) plus the two samples, 1,382 new Network ties (all by id, in `network/rel/uni/newfiles/extra_unfiled.json`; the
+  samples' by name in `rel/unfiled_out.json`), the Network now 1,987 people. Everything for it is in `mockup-data/unfiled/`: the
+  briefs (`DRAFT.md`, `CHECK.md`), `validate.py`, `merge.py` (rerunnable: rebuilds the adds from all `chk*.json`), the 40 checked
+  batches and `dropped.json` (135 people the checks dropped, each with why: no name said or shown on screen, no lines, already in
+  the app, or drafted twice). How it ran: 40 batches by title, each drafted from the wiki and episode transcripts
+  (springfieldspringfield.co.uk), then an independent fact-check of every claim, every drop re-tested, then the format check. People
+  only in Agents of S.H.I.E.L.D. seasons 6 and 7 got `by-st-` ids (they stay in Beyond). Owner rules applied: a name the story says
+  or shows (credits don't count, staged until said); a logo on clothes is not a group; crew members get their own files and the
+  group file stays (Hogun, Fandral, Volstagg in The Warriors Three; the Hood's Crew); footage-only appearances (archive footage, a
+  play) are not steps. Shared names: hub2's `APART` keeps five villains apart from same-name heroes (O'Connor, Grace, Tomas, John,
+  Diego), its `NOTV` keeps 21 same-name people in one universe from being linked as other versions, relbake's `BY_ID_ONLY` takes
+  the shared-name new people by id only. Notable drops: Tullk and Eir (never named on screen), Gabe Jones, Falsworth and Dernier
+  (named only in the credits; the Howling Commandos group file covers them), Cameron Klein (credits only). VisionQuest covered to
+  episode 7 (episode 8 had no source yet).
 - **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
   app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
   name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,
