@@ -96,6 +96,19 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   Spider-Verse, FoX-Men, Pruned and Beyond (scratchpad `sel2/`, one careful pass, `VERIFY.md`): each What If episode judged as its own
   short film; a version of someone the app names elsewhere goes by that name (no name test), judged on lines and story part. The
   wikis started answering 429 under 20 parallel readers: unread people are marked "pending" and checked again later.
+  **Under way (10 November 2026):** 360 selected, drafted in batches 51 to 79 (scratchpad `build/`, DRAFT2.md, CHECK2.md, copies in
+  `mockup-data/unfiled/`), each fact-checked and merged as it lands (not on main). Calls made on the way, for the owner to see:
+  - Silent appearances, one rule as the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): a step when
+    the person is part of what happens on screen (Tusk flocking to Genosha, Araki in the throne room as it vanishes, Caliban
+    enslaved on the dam), none for a bare glimpse (Leech and Sunder "glimpsed among the Morlocks") or recap and photo spots.
+  - merge.py settles shared names: the owner's retarget answers (Logan in Logan is the film's own Logan), each What If episode by
+    its episode number (Ross, Natasha, Bucky), a title's lead over its variants (1994 Peter over the Spider Wars Spider-Men, Miles
+    over Earth-42's Prowler), and leaves out a What If tie whose other side is a version the app has no file for (Bruce Banner in
+    #3, Bucky Barnes in #19: both could get files under the versions rule).
+  - Shows with no transcripts (1967 Spider-Man, most of the 1994 show, Spider-Man Unlimited): a name counts only when an episode
+    plot summary uses it, not a cast list; unsupported statuses go to At large.
+  - Still to do: one pass for ties between new people from different batches of one show (1994 batches 72 to 74, the X-Men
+    animated batches, Spectacular's Flash, Glory Grant and Jean DeWolff), then rebuild, full suite, test build.
 - **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
   app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
   name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,

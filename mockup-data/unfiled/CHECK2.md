@@ -45,3 +45,8 @@ Write `chkNN.json` (NN = the batch number) in this folder: the CORRECTED batch i
 "dropped"}), plus "changes": [{"page": "...", "where": "...", "was": "...", "now": "...", "why": "...", "source": "URL"}] listing
 every change you made. Change only what a source shows is wrong; no rewording for style. Validate with a short Python script (same
 checks as DRAFT.md). Reply with one line: files, changes, newly dropped.
+
+## Silent appearances (one rule for every batch)
+As the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): keep a step when the person is part of what
+happens on screen, even without lines (flocking to Genosha, enslaved on the dam, in the throne room as it vanishes). No step for a
+bare glimpse in a crowd with nothing happening to them, a recap, a photo or replayed footage.
