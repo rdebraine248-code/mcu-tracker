@@ -100,6 +100,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   bad rule i think. May times maybe characters won't have their names mentioned"; picked "Films only"). In films, someone cut only
   because the screen never says their name gets a file under their credited name when they have lines and a real part on screen
   (Doris Toomes, Erik's mother, Nixon, Eir, Tullk, Madame B., Morita ...). Shows keep the name rule.
+  Done: 221 film people cut for the name re-judged (scratchpad `sel3/`, JUDGE.md; copies in `mockup-data/unfiled/filmnames/`),
+  56 passed, drafted and fact-checked as batches 91 to 97 (FILMNAME.md over DRAFT2/CHECK2): 49 files merged under credited names.
+  A credit that is only a description ("Jack's Father", "Kraven's Mother", "Shaman") is not a name: out unless another film's
+  credits name them (Sope and Zawavari are named in Wakanda Forever's). Still out on lines or part: Doris Toomes, Eir, Troy,
+  Anna Kravinoff, Thaddeus Paine, Retch, Jimmy O'Hoolihan, Abraham Cornelius; Toxin is covered by Patrick Mulligan's file.
   **Under way (10 November 2026):** 360 selected, drafted in batches 51 to 79 (scratchpad `build/`, DRAFT2.md, CHECK2.md, copies in
   `mockup-data/unfiled/`), each fact-checked and merged as it lands (not on main). Calls made on the way, for the owner to see:
   - Silent appearances, one rule as the app's own files do it (Psylocke and Warren "among the mutants on Genosha"): a step when
