@@ -39,6 +39,7 @@ if dups: problems.append('duplicate ids across batches: ' + ', '.join(sorted(dup
 D = MD + 'out/mainroot/'; import os
 s = open(D + [q for q in os.listdir(D) if q.startswith('data.')][0], encoding='utf8').read()
 have = set(re.findall(r'\{"id": "([^"]+)"', s))
+_af0 = json.load(open(MD + 'answers_fix.json')); have -= {o['add']['id'] for tg in ('A', 'T') for o in _af0[tg] if o.get('q') == 'unfiled'}   # our own adds, in the build from an earlier run
 clash = [i for i in ids if i in have]
 if clash: problems.append('ids the app already has: ' + ', '.join(clash))
 def nid(name, title):
@@ -67,7 +68,9 @@ def season(title, ep):
     return title, ep
 # answers_fix: drop earlier batch adds, keep the sample's, add these
 p = MD + 'answers_fix.json'; af = json.load(open(p)); mine = set(ids)
-for tg in ('A', 'T'): af[tg] = [o for o in af[tg] if not (o.get('q') == 'unfiled' and o.get('add', {}).get('id') in mine)]
+SAMPLE = {'nic-west', 'evanora-harkness'}   # the owner's two-file sample, added by hand before the batches
+stale = {o['add']['id'] for tg in ('A', 'T') for o in af[tg] if o.get('q') == 'unfiled' and o['add']['id'] not in SAMPLE} - mine   # ids an earlier run added, since renamed
+for tg in ('A', 'T'): af[tg] = [o for o in af[tg] if not (o.get('q') == 'unfiled' and o.get('add', {}).get('id') not in SAMPLE)]
 TMFIX = {'The Howling Commandos': 'Howling Commandos'}   # the spelling the members' own files use
 def tmfix(v): return TMFIX.get(v, v) if isinstance(v, str) else [[TMFIX.get(g, g), t] for g, t in v]
 for x in files:
@@ -79,6 +82,7 @@ for x in files:
 open(p, 'w').write(json.dumps(af, indent=1, ensure_ascii=False) + '\n')
 # the files' episode tags
 p = MD + 'ep_tags.json'; et = json.load(open(p))
+for k in [k for k in et['st'] if k.split(':', 1)[1] in stale]: del et['st'][k]
 for x in files:
     if x.get('ep'): et['st'][f"{x['tg']}:{x['add']['id']}"] = x['ep']
 open(p, 'w').write(json.dumps(et, indent=0, ensure_ascii=False))
@@ -96,8 +100,9 @@ for t in ties:
     A0, B0 = nid(t['a'], st2[0]['title']), nid(t['b'], st2[0]['title'])
     if A0 and B0 and (A0.startswith('by-') or B0.startswith('by-')): uni.append({'a': A0, 'b': B0, 'stages': st2})   # Beyond: by id, with the other universes
     else: keep.append({'a': t['a'], 'b': t['b'], 'stages': st2})
+for k in [k for k in rel if set(k.split('|')[:2]) & stale]: del rel[k]
 uo['keep'] = sample + keep; json.dump(uo, open(p, 'w'), indent=1, ensure_ascii=False)
 json.dump(uni, open(MD + 'network/rel/uni/newfiles/extra_unfiled.json', 'w'), indent=1, ensure_ascii=False)
 open(MD + 'network/rel/ep_tags.json', 'w').write(json.dumps(rel, indent=0, ensure_ascii=False))
 print(len(batches), 'batches |', len(files), 'files (A', sum(1 for x in files if x['tg'] == 'A'), 'T', sum(1 for x in files if x['tg'] == 'T'), ') |', len(keep), 'ties, Beyond', len(uni))
-print('problems:', len(problems)); [print(' ', q) for q in problems[:40]]
+print('stale ids removed:', len(stale)); print('problems:', len(problems)); [print(' ', q) for q in problems[:40]]
