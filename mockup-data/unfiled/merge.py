@@ -58,6 +58,7 @@ def uof(i): m = re.match(r'(sv|fox|pr|by)-', i); return m.group(1) if m else 'mc
 RT = [(r['from'], set(r.get('titles', []))) for r in json.load(open(MD + 'network/rel/retarget.json'))['rules'] if r.get('titles')]
 # one name, two files in one title, settled by hand: the film's own Wade, not the Weapon XI variant he shoots in the end credits
 PIN = {('Wade Wilson', 'Deadpool 2'): 'fox-deadpool'}
+WHATIF = {'What If...?'}; NOFILE = []
 def nid(name, title, prefer=None, at=None):
     # everyone who goes by this name, new files and the app's own, settled by the title the tie is in, then by universe, then the plain-name file
     if (name, base(title)) in PIN: return PIN[(name, base(title))]
@@ -69,6 +70,8 @@ def nid(name, title, prefer=None, at=None):
     if at and at[1]:   # the tie's own title and episode: the one version who is in that episode
         me = [x for x in (m or c) if (at[0], at[1]) in EPS.get(x[0], set())]
         if len(me) == 1: return me[0][0]
+        if not me and at[0] in WHATIF and len(m) > 1:   # every version the app has in What If...? is from another episode: no file for this one
+            NOFILE.append(f'{name} in {at[0]} #{at[1]}'); return None
     u = prefer or ('by' if re.search(r' S[67]$', title) else 'mcu')
     m2 = [x for x in (m or c) if x[2] == u]
     if len(m2) == 1: return m2[0][0]
@@ -105,7 +108,7 @@ for x in files:
 open(p, 'w').write(json.dumps(et, indent=0, ensure_ascii=False))
 # Network ties: the sample's first, then these; season titles for the shows the Network splits by season
 p = MD + 'network/rel/unfiled_out.json'; uo = json.load(open(p)); sample = [t for t in uo['keep'] if t['a'] in ('Nic West', 'Evanora Harkness')]
-rel = json.load(open(MD + 'network/rel/ep_tags.json')); keep = []; uni = []
+rel = json.load(open(MD + 'network/rel/ep_tags.json')); keep = []; uni = []; skipped = []
 for t in ties:
     st2 = []
     for i, sg in enumerate(t['stages']):
@@ -118,10 +121,12 @@ for t in ties:
     A0 = nid(t['a'], st2[0]['title'], None, at0); B0 = nid(t['b'], st2[0]['title'], uof(A0) if A0 else None, at0)   # the other side from the new person's universe first
     # every new tie goes by id (a name two people share, John, Ruben, Aisha, would take the wrong one by name), with the other universes' ties
     if A0 and B0: uni.append({'a': A0, 'b': B0, 'stages': st2})
+    elif NOFILE and NOFILE[-1].split(' in ')[0] in (t['a'], t['b']): skipped.append(f"{t['a']} | {t['b']} ({NOFILE[-1]}: the app has no file for that version)")
     else: problems.append(f"tie not placed: {t['a']} | {t['b']}")
 for k in [k for k in rel if set(k.split('|')[:2]) & stale]: del rel[k]
 uo['keep'] = sample + keep; json.dump(uo, open(p, 'w'), indent=1, ensure_ascii=False)
 json.dump(uni, open(MD + 'network/rel/uni/newfiles/extra_unfiled.json', 'w'), indent=1, ensure_ascii=False)
 open(MD + 'network/rel/ep_tags.json', 'w').write(json.dumps(rel, indent=0, ensure_ascii=False))
+for k in skipped: print('  tie left out:', k)
 print(len(batches), 'batches |', len(files), 'files (A', sum(1 for x in files if x['tg'] == 'A'), 'T', sum(1 for x in files if x['tg'] == 'T'), ') |', len(keep), 'ties, Beyond', len(uni))
 print('stale ids removed:', len(stale)); print('problems:', len(problems)); [print(' ', q) for q in problems[:40]]
