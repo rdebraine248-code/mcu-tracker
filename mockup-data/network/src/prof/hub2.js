@@ -90,7 +90,9 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
         p.NS ? p.NS.map(([a, w]) => [a, w || '', w ? so(w) + (+((/#(\d+)$/.exec(w) || [])[1] || 0)) / 10000 : -1]) : null]; }),
       // other versions of the same person: the same name in another file, and two the MCU names differently
       variants: (() => { const by = {}; ids.forEach(id => (by[P[id].n] = by[P[id].n] || []).push(idx[id])); const V = [];
-        Object.values(by).forEach(L => { for (let a = 0; a < L.length; a++) for (let b = a + 1; b < L.length; b++) V.push([L[a], L[b]]); });
+        // the left-out characters (November 2026) who only share a name with someone in their own universe: different people, not versions
+        const NOTV = new Set(['diego', 'john-king', 'shirley-sagar-skrull', 'st-aisha-axton', 'st-diego', 'st-grace', 'st-grace-bennett', 'st-john-donnelly', 'st-kyle', 'st-kyle-assistant', 'st-oconnor', 'st-oconnor-fbi', 'st-philip', 'st-philip-cabroni', 'st-roy-bartender', 'st-roy-hardin', 'st-ruben', 'st-ruben-mackenzie', 'st-shirley', 'st-tomas-ciancio', 'tomas']);
+        Object.values(by).forEach(L => { for (let a = 0; a < L.length; a++) for (let b = a + 1; b < L.length; b++) { const A = ids[L[a]], B = ids[L[b]]; if ((NOTV.has(A) || NOTV.has(B)) && P[A].u === P[B].u) continue; V.push([L[a], L[b]]); } });
         const st = ids.find(id => P[id].u === 'mcu' && P[id].n === 'Stephen Strange'); ['sinister-strange', 'by-strange-supreme', 'defender-strange'].forEach(id => { if (P[id] && st) V.push([idx[st], idx[id]]); });
         return V; })() };
   } catch (e) { return { err: e.stack }; } }, SPL); if (d.err) { console.log(d.err); process.exit(1); }
