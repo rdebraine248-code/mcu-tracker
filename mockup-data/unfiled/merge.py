@@ -54,6 +54,9 @@ def nid(name, title):
     u = 'by' if re.search(r' S[67]$', title) else 'mcu'
     m2 = [x for x in (m or c) if x[2] == u]
     if len(m2) == 1: return m2[0][0]
+    slug = re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')   # a shared name: the main file is the one whose id is the plain name (Vision, not White Vision)
+    m3 = [x[0] for x in c if x[0] == slug and base(title) in x[1]]
+    if len(m3) == 1: return m3[0]
     problems.append(f'tie name {name} ({title}): {len(c)} matches'); return None
 def season(title, ep):
     if title in SEAS and ep:
