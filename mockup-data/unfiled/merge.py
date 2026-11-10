@@ -27,11 +27,23 @@ ids = [x['add']['id'] for x in files]
 dups = {i for i in ids if ids.count(i) > 1}
 # the same person drafted twice (two wiki pages for one person): same final name and a shared title
 def fname(x): n = x['add']['n']; return n if isinstance(n, str) else n[-1][0]
+# episodes each file is in, by step title: What If...? is one title for every episode, and each episode is its own story (the owner's rule)
+EPS = {}
+_et0 = json.load(open(MD + 'ep_tags.json'))['st']
+for k, v in _et0.items(): EPS.setdefault(k.split(':', 1)[1], set()).update((t.rsplit('|', 1)[0], e) for t, e in v.items())
+for x in files: EPS[x['add']['id']] = {(t.rsplit('|', 1)[0], e) for t, e in (x.get('ep') or {}).items()}
+def apart(x, y, shared):   # two files with the same name in a title are two people when, in every title they share, their episodes never meet
+    ex, ey = EPS.get(x['add']['id'], set()), EPS.get(y['add']['id'], set())
+    for t in shared:
+        a, b = {e for tt, e in ex if tt == t}, {e for tt, e in ey if tt == t}
+        if not a or not b or a & b: return False
+    return True
 seen = {}
 for x in files:
     k = fname(x).lower(); ts = {st[1] for st in x['add']['st']}
     for y in seen.get(k, []):
-        if ts & {st[1] for st in y['add']['st']}: problems.append(f"same person twice? {fname(x)}: {x['add']['id']} and {y['add']['id']}")
+        sh = ts & {st[1] for st in y['add']['st']}
+        if sh and not apart(x, y, sh): problems.append(f"same person twice? {fname(x)}: {x['add']['id']} and {y['add']['id']}")
     seen.setdefault(k, []).append(x)
 if dups: problems.append('duplicate ids across batches: ' + ', '.join(sorted(dups)))
 # ids already in the app
@@ -46,7 +58,7 @@ def uof(i): m = re.match(r'(sv|fox|pr|by)-', i); return m.group(1) if m else 'mc
 RT = [(r['from'], set(r.get('titles', []))) for r in json.load(open(MD + 'network/rel/retarget.json'))['rules'] if r.get('titles')]
 # one name, two files in one title, settled by hand: the film's own Wade, not the Weapon XI variant he shoots in the end credits
 PIN = {('Wade Wilson', 'Deadpool 2'): 'fox-deadpool'}
-def nid(name, title, prefer=None):
+def nid(name, title, prefer=None, at=None):
     # everyone who goes by this name, new files and the app's own, settled by the title the tie is in, then by universe, then the plain-name file
     if (name, base(title)) in PIN: return PIN[(name, base(title))]
     c = [(i, ts, uof(i)) for i, ts in NEW.get(name, [])] + [x for x in BYN.get(name, []) if x[0] not in {y[0] for y in NEW.get(name, [])}]
@@ -54,6 +66,9 @@ def nid(name, title, prefer=None):
     if len(c) == 1: return c[0][0]
     m = [x for x in c if base(title) in x[1]]
     if len(m) == 1: return m[0][0]
+    if at and at[1]:   # the tie's own title and episode: the one version who is in that episode
+        me = [x for x in (m or c) if (at[0], at[1]) in EPS.get(x[0], set())]
+        if len(me) == 1: return me[0][0]
     u = prefer or ('by' if re.search(r' S[67]$', title) else 'mcu')
     m2 = [x for x in (m or c) if x[2] == u]
     if len(m2) == 1: return m2[0][0]
@@ -97,9 +112,10 @@ for t in ties:
         title, ep = season(sg['title'], sg.get('ep'))
         st2.append({k: v for k, v in {**sg, 'title': title}.items() if k != 'ep'})
         if ep:
-            A = nid(t['a'], title); B = nid(t['b'], title, uof(A) if A else None)
+            at = (sg['title'], sg.get('ep')); A = nid(t['a'], title, None, at); B = nid(t['b'], title, uof(A) if A else None, at)
             if A and B: rel['|'.join(sorted([A, B])) + f'|{title}|{i}'] = ep
-    A0 = nid(t['a'], st2[0]['title']); B0 = nid(t['b'], st2[0]['title'], uof(A0) if A0 else None)   # the other side from the new person's universe first
+    at0 = (t['stages'][0]['title'], t['stages'][0].get('ep'))
+    A0 = nid(t['a'], st2[0]['title'], None, at0); B0 = nid(t['b'], st2[0]['title'], uof(A0) if A0 else None, at0)   # the other side from the new person's universe first
     # every new tie goes by id (a name two people share, John, Ruben, Aisha, would take the wrong one by name), with the other universes' ties
     if A0 and B0: uni.append({'a': A0, 'b': B0, 'stages': st2})
     else: problems.append(f"tie not placed: {t['a']} | {t['b']}")
