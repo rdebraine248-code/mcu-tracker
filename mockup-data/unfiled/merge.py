@@ -57,7 +57,8 @@ def uof(i): m = re.match(r'(sv|fox|pr|by)-', i); return m.group(1) if m else 'mc
 # the owner's retarget answers: a file whose steps in a title moved to another file is not that title's person (Logan in Logan)
 RT = [(r['from'], set(r.get('titles', []))) for r in json.load(open(MD + 'network/rel/retarget.json'))['rules'] if r.get('titles')]
 # one name, two files in one title, settled by hand: the film's own Wade, not the Weapon XI variant he shoots in the end credits
-PIN = {('Wade Wilson', 'Deadpool 2'): 'fox-deadpool'}
+PIN = {('Wade Wilson', 'Deadpool 2'): 'fox-deadpool',
+       ('Green Goblin', 'The Spectacular Spider-Man'): 'sv-green-goblin-ssm'}   # that show's Goblin file goes by Norman Osborn
 WHATIF = {'What If...?'}; NOFILE = []
 # the title's own lead when the app also has variants of him by the same name (Spider Wars' Spider-Men, Earth-42's Prowler)
 MAIN = {('Peter Parker', 'Spider-Man (1994)'): 'sv-peter-parker-1994', ('Miles Morales', 'Spider-Man: Across the Spider-Verse'): 'sv-miles-morales'}
