@@ -107,8 +107,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     #3, Bucky Barnes in #19: both could get files under the versions rule).
   - Shows with no transcripts (1967 Spider-Man, most of the 1994 show, Spider-Man Unlimited): a name counts only when an episode
     plot summary uses it, not a cast list; unsupported statuses go to At large.
-  - Still to do: one pass for ties between new people from different batches of one show (1994 batches 72 to 74, the X-Men
-    animated batches, Spectacular's Flash, Glory Grant and Jean DeWolff), then rebuild, full suite, test build.
+  - Ties between new people from different batches of one show: 240 candidate pairs (same episode, no tie yet, scratchpad
+    `build/xpairs.py`), drafted (XTIES.md) and fact-checked (XCHECK.md) as chk81 to chk86: 98 ties, the rest skipped as shared
+    crowds. All 338 new files are merged (sv 136, fox 135, pr 44, by 23); two have no tie (Governor Barkley, Master Mold 2055).
+  - Seen on the way, not changed: the app's Otto file (Your Friendly Neighborhood Spider-Man) dates Ross's arrest of Octavius #9,
+    the transcript has #8.
 - **Supporting characters with no presence (owner, 8 November 2026: "How many other supporting characters not have presence in this
   app?").** A scripted sweep (the scratchpad's `wv/sweep.py`, cached; the MCU wiki's Cast and Credits lists through its API, matched by
   name, name parts and aliases against every file and Network name): of 127 title groups, 80 were found on the wiki (it has no Sony, Fox,
