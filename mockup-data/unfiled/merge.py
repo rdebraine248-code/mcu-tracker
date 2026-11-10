@@ -26,6 +26,14 @@ for x in files:
     for nm in ([n] if isinstance(n, str) else [s[0] for s in n]): NEW[nm] = a['id']
 ids = [x['add']['id'] for x in files]
 dups = {i for i in ids if ids.count(i) > 1}
+# the same person drafted twice (two wiki pages for one person): same final name and a shared title
+def fname(x): n = x['add']['n']; return n if isinstance(n, str) else n[-1][0]
+seen = {}
+for x in files:
+    k = fname(x).lower(); ts = {st[1] for st in x['add']['st']}
+    for y in seen.get(k, []):
+        if ts & {st[1] for st in y['add']['st']}: problems.append(f"same person twice? {fname(x)}: {x['add']['id']} and {y['add']['id']}")
+    seen.setdefault(k, []).append(x)
 if dups: problems.append('duplicate ids across batches: ' + ', '.join(sorted(dups)))
 # ids already in the app
 D = MD + 'out/mainroot/'; import os
