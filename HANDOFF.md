@@ -833,6 +833,10 @@ insignia celebration covers the page.
 
 ## Standing rules from the owner
 
+- **Added 11 November 2026 (owner, on Darren Cross not showing in Kang's Empire): dying at the turn keeps the group.** Someone who
+  turns on their group and dies in the same scene stays in the group they served (Darren in Kang's Empire for Quantumania). People
+  who leave a group and live on stay Independent (or in their next group) as before.
+
 - **Added 7 November 2026:** don't change how something works unless asked (Thanos was kept out of the Snap unasked: "Did I ask? No");
   no instruction words anywhere, "scroll" included; a count is fine, "out of X" and totals are not (the files aren't the population);
   check every animation frame by frame (and with the pop detector) before saying it's done; a long check is the owner's time too, so
