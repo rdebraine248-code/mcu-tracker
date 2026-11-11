@@ -31,7 +31,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(r.v2 === 1 && !r.seen['r0.5'] && r.seen['r0.' + r.only[1]] && r.seen.d, 'old read mark carried to the new Period (' + JSON.stringify(r.seen) + ')');
   ok(r.key, 'everything watched: the plain last-stage key');
   const want = { ch1: '1942 to 2012', ch1in: '1942 to 2008', ch2: '1995 to 2014', ch2cm: '1995', ch7: 'Outside of time, and 2023 to 2024', ch7wv: '2023',
-    ch8: '2025', ch6: '2016 to 2024', ch9: "Across Wakanda's history, and 2025 to 2026", ch11: 'The Quantum Realm, and outside of time', ch11all: 'Across the multiverse, and 2028',
+    ch8: '2025', ch6: '2016 to 2024', ch9: "Across Wakanda's history, and 2025 to 2028", ch11: 'The Quantum Realm, and outside of time', ch11all: 'Across the multiverse, and 2028',
     by: 'Other realities, and 1931 onward', fox: '1845 to 2029, and another world', foxA: 'Another world', foxB: '2000s', foxC: '1845 to the 2000s',
     sv: 'Countless worlds', sv2: 'One world', inc: 'Three worlds, lost' };
   Object.entries(want).forEach(([k, w]) => ok(r.cases[k] === w, k + ': want ' + w + ', got ' + r.cases[k]));
