@@ -838,6 +838,8 @@ insignia celebration covers the page.
   entire show").** It stays Chapter 9's last title (Generations: fathers and sons; it closes Billy looking for Tommy). Its finale's
   post-credits scene (Doctor Doom) is not split into its own entry (owner: "It's not a big enough end credit to be split"). Work in
   the scratchpad `vq/` (sources, briefs VQ_FILES.md, VQ_LOGS.md, VQ_PLACES.md). The episode names 5 to 8 are in `episodes_a.json`.
+  Owner, 11 November 2026: "Keep Logan, push when ready" (Earth-17315 Logan keeps his Deadpool & Wolverine step, so he stays in the
+  Sacred Timeline room with no connections there; the VisionQuest update goes to main once files, ties, rebuild and suite are done).
 
 - **Added 11 November 2026 (owner, on Darren Cross not showing in Kang's Empire): dying at the turn keeps the group.** Someone who
   turns on their group and dies in the same scene stays in the group they served (Darren in Kang's Empire for Quantumania). People
