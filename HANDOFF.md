@@ -835,7 +835,12 @@ insignia celebration covers the page.
 
 - **Added 11 November 2026 (owner, on Darren Cross not showing in Kang's Empire): dying at the turn keeps the group.** Someone who
   turns on their group and dies in the same scene stays in the group they served (Darren in Kang's Empire for Quantumania). People
-  who leave a group and live on stay Independent (or in their next group) as before.
+  who leave a group and live on stay Independent (or in their next group) as before. Done: of 122 people who join and leave a
+  group within one title, the 42 whose step there ends Deceased were checked (scratchpad `turn/`); 12 turn and die in the same
+  scene and now end in the group they served (`TURN_KEEP` in index.html, after `TEAM_AUDIT2`, drops their closing Independent:
+  Darren Cross, Ivan Vanko, Maya Hansen, Jackson Brice, Leland Owlsley, N'Jobu, Daniel Blake, Kayla Silverfox, Caliban, Jack Murdock
+  (2003), Dora Skirth, Aaron Davis with his Prowler file); 21 leave and live on (unchanged); 9 are the zombie world, which keeps its
+  own rule (killed or destroyed, they leave their group).
 
 - **Added 7 November 2026:** don't change how something works unless asked (Thanos was kept out of the Snap unasked: "Did I ask? No");
   no instruction words anywhere, "scroll" included; a count is fine, "out of X" and totals are not (the files aren't the population);
