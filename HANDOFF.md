@@ -834,6 +834,11 @@ insignia celebration covers the page.
 
 ## Standing rules from the owner
 
+- **VisionQuest aired in full (owner, 11 November 2026: "Indexes, files, networks, logs, paths, all need to be updated for the
+  entire show").** It stays Chapter 9's last title (Generations: fathers and sons; it closes Billy looking for Tommy). Its finale's
+  post-credits scene (Doctor Doom) is not split into its own entry (owner: "It's not a big enough end credit to be split"). Work in
+  the scratchpad `vq/` (sources, briefs VQ_FILES.md, VQ_LOGS.md, VQ_PLACES.md). The episode names 5 to 8 are in `episodes_a.json`.
+
 - **Added 11 November 2026 (owner, on Darren Cross not showing in Kang's Empire): dying at the turn keeps the group.** Someone who
   turns on their group and dies in the same scene stays in the group they served (Darren in Kang's Empire for Quantumania). People
   who leave a group and live on stay Independent (or in their next group) as before. Done: of 122 people who join and leave a
