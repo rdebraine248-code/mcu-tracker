@@ -15,7 +15,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (7 November 2026)
 
-- **main** is at `99945b6` (pushed 10 November 2026, the owner's "Ok same treatment then push": the left-out characters in every
+- **main** is at `d5c26f9` (pushed 11 November 2026, the owner's "Push": dying at the turn keeps the group, Darren Cross in
+  Kang's Empire and eleven others; full suite 37 of 37). Before it `99945b6` (pushed 10 November 2026, the owner's "Ok same treatment then push": the left-out characters in every
   universe, the film people under credited names, the one-episode cut (131 out); 2,257 people in the Network; full suite 37 of 37).
   Before it `3e49355` (8 November 2026, the owner's "Push westview and 6degrees": Westview's six residents and Six Degrees, on for
   everyone). Before that `25102ef` (pushed 7 November 2026, the owner's "Push it when ready": the Snap's dust both ways, shared names, no page
