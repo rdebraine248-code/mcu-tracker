@@ -838,6 +838,13 @@ insignia celebration covers the page.
   entire show").** It stays Chapter 9's last title (Generations: fathers and sons; it closes Billy looking for Tommy). Its finale's
   post-credits scene (Doctor Doom) is not split into its own entry (owner: "It's not a big enough end credit to be split"). Work in
   the scratchpad `vq/` (sources, briefs VQ_FILES.md, VQ_LOGS.md, VQ_PLACES.md). The episode names 5 to 8 are in `episodes_a.json`.
+  Done (all fact-checked by a second pass; copies in `mockup-data/unfiled/visionquest/`): the files through episode 8 (answers_fix q
+  "vq", each file's steps before VisionQuest kept, then its checked VisionQuest steps; ep_tags), Ultron's VisionQuest steps, Billy, Raza
+  and both Wanda files' steps, new Simon Moorhouse, Victoria Horton and The NEST; the three logs' entries and rows; the Atlas; the
+  Network (rel/stage_fix_zzzzzzzzzzzzzzzzz_visionquest.json for existing connections, rel/uni/newfiles/extra_visionquest.json for new
+  ones): 51 connections with VisionQuest stages. Episode 8 had no transcript: its claims rest on Wikipedia and at least one of three
+  recaps (single-recap details were cut). Left out by the rules: Clancy (one episode, named only in subtitle labels), Violette Horton
+  (subtitle label only), the earlier Paladins, the bots, Doctor Doom (the hooded figure is never named).
   Owner, 11 November 2026: "Keep Logan, push when ready" (Earth-17315 Logan keeps his Deadpool & Wolverine step, so he stays in the
   Sacred Timeline room with no connections there; the VisionQuest update goes to main once files, ties, rebuild and suite are done).
 
