@@ -620,6 +620,7 @@ node tests/ct35.js                                                              
 | ct63 | The Held line: the Collection objects a person holds under a title's last entry, gated by the Collection, linked both ways |
 | ct64 | A person shows the group they're in during a title you've watched (Peter at Midtown with only Homecoming), files and Network alike |
 | ct65 | A file opened from the Network: its group opens the Compound filtered by that group, and back returns to the Network |
+| ct66 | No one's last group comes from a scene set in the past inside a later title (Endgame's 2012 visit): Sitwell, Pierce and Rollins end in HYDRA, Rumlow Independent |
 
 **Fixed (November 2026):** six tests had been failing since before the 176c87b main push, five because the app had moved on and one
 over a real bug. ct54 (a pill from earlier was still up; now it waits), ct61 (the Character log button left the rings; now the eye's
@@ -834,6 +835,11 @@ insignia celebration covers the page.
     index is discovered and its file has a watched title.
 
 ## Standing rules from the owner
+
+- **Added 12 November 2026: a scene set in the past inside a later title doesn't move anyone** (owner, on Jasper Sitwell ending in
+  S.H.I.E.L.D.: "fix it that way"). Endgame's trip to 2012 meets Sitwell, Pierce, Rollins and Rumlow inside S.H.I.E.L.D.; their files
+  listed that stage first (as their earliest), but group stages sort by their title's place in the timeline, so it came out last.
+  `PAST_VISIT` in index.html (after `TURN_KEEP`) drops those stages; they end in HYDRA (Rumlow Independent). ct66 checks it.
 
 - **VisionQuest aired in full (owner, 11 November 2026: "Indexes, files, networks, logs, paths, all need to be updated for the
   entire show").** It stays Chapter 9's last title (Generations: fathers and sons; it closes Billy looking for Tommy). Its finale's
@@ -1573,6 +1579,12 @@ walk this list; anything new the app shows gets a line here, with its check, the
 - **Parked mockups** (the Time Machine, Six Degrees, landscape): test build only; not covered, not on main.
 
 ## Mistakes not to repeat
+
+- **A stage written for story order, sorted by title order (November 2026):** the group audit put Endgame's 2012 stage first in
+  Sitwell's, Pierce's, Rollins's and Rumlow's files, meaning "earliest", but every group stage is ordered by its title's place in the
+  timeline, so Endgame's came out last and left all four in S.H.I.E.L.D. with everything watched (the owner found it). Each stage was
+  checked as true for its title; nobody checked where the person ends. After any group change, check the last group with the whole
+  timeline watched (ct66 does it for past visits in later titles).
 
 - **A gate on the wrong record name (November 2026):** the Case lines and the links into Damage Control asked `earned("damagecontrol")`,
   but the Agent File records a discovery as `egg-damagecontrol`, so no one ever saw a Case line (the owner found it). `dcFound()` reads
