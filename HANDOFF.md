@@ -13,9 +13,46 @@ Ask the owner with options when something is theirs to decide or you're unsure. 
 There is only this one handoff file (owner, 5 November 2026, option 1: the second copy, `MCU_Tracker_Handoff.md`, duplicated it and
 had to be edited twice; it's gone, and its checklist is below). Don't make another copy.
 
-## Where things stand (7 November 2026)
+## Where things stand (12 November 2026)
 
-- **main** is at `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
+- **main is at `7e792af`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 38 of 38
+  (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
+  ct35, content and swtest).
+- **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
+  the Network rebuild in `network/src/prof`, the test build, the split `out/mainroot`). Then the suite, then (only on the owner's
+  "push") the main push in "Build and push" below. `mockup-data/tools/lastgroup.js` dumps every file's runtime groups and steps (used to
+  compare a file's last group with the Network's).
+- **The test build:** https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s (v191; republish `out/datapad-test.html` after any rebuild).
+  It is main plus the parked mockups (the Time Machine, landscape stage 1) and the six Stones handed out (`MOCKUP BEGIN snapstones`).
+- **The working branch** is `ccr-5d4aa1b8-sj0vmn` (source); mirrors `ccr-537d906a-oxzbql` and `claude/gracious-cray-lhdt2k`, pushed
+  with it. After a main push: `git merge -s ours origin/main`, push all three.
+- **What the last chats did (9 to 12 November 2026), all on main:**
+  - The left-out characters in every universe (Sacred Timeline 514 files, the other universes 338, the film people under credited
+    names 49), each drafted from transcripts and wiki pages and fact-checked by a second pass, then the owner's one-episode cut (131
+    out). Briefs, scripts and every batch's checked file are in `mockup-data/unfiled/` (merge.py, validate.py, DRAFT/CHECK briefs,
+    chk*.json, cut.json, filmnames/, oneepisode/, oneepisode_other/). merge.py rebuilds the q "unfiled" adds from the chk files.
+  - VisionQuest in full through episode 8 (files, logs, Atlas, Network): `mockup-data/unfiled/visionquest/`.
+  - Group fixes: dying at the turn keeps the group (`TURN_KEEP`), a past scene in a later title doesn't move anyone (`PAST_VISIT` in
+    index.html, `split.json` "past" for the Network; ct66).
+- **Open with the owner (don't act without a yes):**
+  - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
+    seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
+    Home, Multiverse of Madness, Quantumania, Loki S2); Gods Among Us (Shang-Chi, Eternals, Moon Knight, Werewolf by Night, Love and
+    Thunder, the Holiday Special, Vol. 3); New Blood (Ms. Marvel, Wakanda Forever, Eyes of Wakanda, Ironheart, Agatha All Along, The
+    Marvels); The Kingpin's City (She-Hulk, Echo, Born Again S1, S2, One Last Kill, S3); Shadow Government (Secret Invasion, Brave New
+    World, Thunderbolts*, Wonder Man, VisionQuest); Last Stand of the Multiverse (Deadpool & Wolverine, First Steps, Brand New Day,
+    Doomsday, Secret Wars). The owner hasn't decided; the next step offered was a two-chapter sample (opening and closing text) first.
+  - VisionQuest stays Chapter 9's last title for now (owner). If a later title confirms on screen that the Ten Rings' adamantium came
+    from the Celestial, VisionQuest moves to Chapter 10 after Born Again S2 (agreed reasoning, 11 November 2026).
+  - VisionQuest episode 8 had no transcript: its steps, ties and log lines rest on Wikipedia and recaps. When a transcript appears,
+    check them against it.
+  - Offered, not taken: files for What If's Bruce Banner (#3) and Bucky Barnes (#19) versions (their ties were left out).
+  - Seen, not changed: the Your Friendly Neighborhood Spider-Man Otto file dates Ross's arrest of Octavius #9; the transcript has #8.
+  - The Snap and its report: the owner said they'd test on the phone; feedback may come (animations, the report's words, the memorial,
+    Last seen).
+  - Parked (don't raise): the Time Machine, landscape stage 2.
+- **History:**
+  - Main's pushes, newest first: `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
   longer decides anyone's group, Sitwell, Pierce, Rollins, Rumlow, Yondu, Foggy, Janet and others; full suite 38 of 38 with ct66).
   Before it `45d7459` (pushed 11 November 2026, the owner's "push when ready": VisionQuest in full, files, logs, Atlas and
   Network through the finale; full suite 37 of 37). Before it `d5c26f9` (11 November 2026, the owner's "Push": dying at the turn keeps the group, Darren Cross in
@@ -28,14 +65,6 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   new groups pop in, the link card's height; `171f2bf` New Asgard from Endgame on, circles from their own titles; `290c01f` Alioth in
   The Void; `3cd6996` the split launch page; `3e844a5` audit parts 6 to 9, the Watcher; `48f2c51` the "No signal" fix; `b5e096e`
   mutual connections; `6f22626` How they're connected slides up.
-- **Nothing is waiting on "push".** Six Degrees is on main (`SIX_ON` true in hub-src; hold the Network's title; the old
-  `#hSix` button stays hidden). The owner is testing the Snap and its report on the phone ("I'll test it out later"): expect
-  feedback on the animations (each page), the report's words, the memorial and Last seen.
-- **The test build** (https://claude.ai/artifact/LJbjs1D5nCM5BCKhqKdv4s, v179 as of this push; republish after any rebuild) is main
-  plus the parked mockups (the Time Machine, Six Degrees, landscape) and the six Stones handed out (`MOCKUP BEGIN snapstones`), so the
-  Gauntlet's Snap is there to try. On main you need all six Stones first.
-- **The working branch** is `ccr-5d4aa1b8-sj0vmn` (source); mirrors `ccr-537d906a-oxzbql` and `claude/gracious-cray-lhdt2k`, pushed
-  with it. After a main push: `git merge -s ours origin/main`, push all three.
 
 - **On main (`25102ef`, 7 November 2026; after `85527b0`; owner: Paths "6 times in a row"; "during the bring back Paths sometimes
   dust 1 or 2 away"; "consistent dust away on away and dust back on bring back"):** the page is never the same twice running
@@ -837,6 +866,13 @@ insignia celebration covers the page.
     index is discovered and its file has a watched title.
 
 ## Standing rules from the owner
+
+- **Added 11 November 2026: when the owner asks what you think, say what you think.** Asked where VisionQuest belongs, a chat put the
+  owner's own question back as options; owner: "I asked what you think and what you did was just ask me the question I had." Give a
+  clear opinion with the reasons; options are for decisions that are the owner's to make, after you've said your pick.
+- **The owner's chapter rules (11 to 12 November 2026):** a chapter needs a theme, a story with a beginning, middle and end, and a
+  reason for being; not too long or too short; each title leads into the next within it, and each chapter into the next. A small
+  credit scene isn't split into its own entry ("It's not a big enough end credit to be split").
 
 - **Added 12 November 2026: a scene set in the past inside a later title doesn't move anyone** (owner, on Jasper Sitwell ending in
   S.H.I.E.L.D.: "fix it that way"). Endgame's trip to 2012 meets Sitwell, Pierce, Rollins and Rumlow inside S.H.I.E.L.D.; their files
