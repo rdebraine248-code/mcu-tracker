@@ -44,7 +44,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   tags are back as `af463e9` had them; Roxy Glass's Deke Squad stage is fixed in `chk08.json` too (it was only in answers_fix, so a
   rerun reverted it); `tools/rebuild.sh` now stops on any "no step", "no file" or "dup" line. Checked: the seven VisionQuest-touched
   new files equal `45d7459`'s exactly; nothing else in the files changed; in the Network only Virgil Horton, Jocasta and Paladin
-  changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything.
+  changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
+  of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
