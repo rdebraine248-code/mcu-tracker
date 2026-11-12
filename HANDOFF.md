@@ -15,7 +15,9 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (7 November 2026)
 
-- **main** is at `45d7459` (pushed 11 November 2026, the owner's "push when ready": VisionQuest in full, files, logs, Atlas and
+- **main** is at `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
+  longer decides anyone's group, Sitwell, Pierce, Rollins, Rumlow, Yondu, Foggy, Janet and others; full suite 38 of 38 with ct66).
+  Before it `45d7459` (pushed 11 November 2026, the owner's "push when ready": VisionQuest in full, files, logs, Atlas and
   Network through the finale; full suite 37 of 37). Before it `d5c26f9` (11 November 2026, the owner's "Push": dying at the turn keeps the group, Darren Cross in
   Kang's Empire and eleven others; full suite 37 of 37). Before it `99945b6` (pushed 10 November 2026, the owner's "Ok same treatment then push": the left-out characters in every
   universe, the film people under credited names, the one-episode cut (131 out); 2,257 people in the Network; full suite 37 of 37).
