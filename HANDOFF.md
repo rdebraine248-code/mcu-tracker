@@ -840,6 +840,14 @@ insignia celebration covers the page.
   S.H.I.E.L.D.: "fix it that way"). Endgame's trip to 2012 meets Sitwell, Pierce, Rollins and Rumlow inside S.H.I.E.L.D.; their files
   listed that stage first (as their earliest), but group stages sort by their title's place in the timeline, so it came out last.
   `PAST_VISIT` in index.html (after `TURN_KEEP`) drops those stages; they end in HYDRA (Rumlow Independent). ct66 checks it.
+  The same check over every file (the app's files take the last group in the order written; the Network re-sorts by title order) found
+  more, fixed in the Network by `split.json` "past" ("file id|title" -> the title it happens before; hub2.js `soP`): Yondu (the
+  Holiday Special's memory of him as a Ravager; he ends with the Guardians), Foggy (Born Again S2's look back; he ends in Nelson,
+  Murdock & Page), Janet (Quantumania's thirty years with the rebels; she ends Independent), the cartoon En Sabah Nur (X-Men '97 S2's
+  ancient Egypt; he ends with his Horsemen), the 1967, Unlimited and Spectacular Peter Parkers (their own shows before Across the
+  Spider-Verse, where they join the Spider-Society). Roxy Glass's Deke Squad stage was keyed to all of S7 instead of her episode, 133.
+  ct66 checks all twelve in the Network. What's left differing between file and Network is by rule: Independent only counting at a
+  real departure, and the zombie world.
 
 - **VisionQuest aired in full (owner, 11 November 2026: "Indexes, files, networks, logs, paths, all need to be updated for the
   entire show").** It stays Chapter 9's last title (Generations: fathers and sons; it closes Billy looking for Tommy). Its finale's

@@ -63,8 +63,11 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     // the owner's rule (November 2026): a person stays in a group until the story moves them. A title on their own isn't a move, so a file's
     // "Independent" only counts where it's a real departure (split.json "left": file id|title). A person's groups can also be written out
     // step by step (split.json "steps": id -> [[group, title key]]), the zombie world episode by episode
+    // a group stage set in the past inside a later title (owner, 12 November 2026: a past scene doesn't move anyone): split.json "past",
+    // "file id|title" -> the title it happens before in the story; it sorts there, so the group someone ends in is where their own story ends
+    const PASTO = SPL.past || {}, soP = (w, f) => { const t = PASTO[f + '|' + w]; return t ? so(t) - 0.5 : so(w); };
     const LEFT = new Set(SPL.left || []); Object.entries(P).forEach(([id, q]) => { if (SPL.steps && SPL.steps[id]) q.TM = SPL.steps[id].map(([c, w]) => [c, w, 'step']); else q.TM = q.TM.filter(([c, w, f]) => c !== 'Independent' || LEFT.has(f + '|' + w)); });
-    Object.values(P).forEach(q => { const st = new Map(); q.TM.forEach(([c, w]) => { const k = w ? so(w) : -1; st.has(k) || st.set(k, new Set()); st.get(k).add(c); }); q.ST = [...st].sort((a, b) => a[0] - b[0]); });
+    Object.values(P).forEach(q => { const st = new Map(); q.TM.forEach(([c, w, f]) => { const k = w ? soP(w, f) : -1; st.has(k) || st.set(k, new Set()); st.get(k).add(c); }); q.ST = [...st].sort((a, b) => a[0] - b[0]); });
     const active = (q, c, t) => { const x = so(t); let on = false; for (const [k, set] of q.ST) { if (k > x) break; if (k < 0) { if (set.has(c)) return true; continue; } on = set.has(c); } return on; };
     const ids = Object.keys(P).sort((a, b) => (P[a].u !== 'mcu') - (P[b].u !== 'mcu')), idx = Object.fromEntries(ids.map((id, i) => [id, i])), byTeam = {};
     ids.forEach(id => P[id].T.forEach(([t]) => t !== 'Independent' && (byTeam[t] = byTeam[t] || []).push(id)));
@@ -77,13 +80,13 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
       // Wanda to everyone who was ever in HYDRA)
       mine.forEach(c => byTeam[c].forEach(o => { if (o !== id && !p.L.has(o) && [...p.AS].some(t => P[o].AS.has(t) && active(p, c, t) && active(P[o], c, t))) M.add(o); }));
       const sh = x => crews(x).filter(t => mine.includes(t)).length;
-      const TMs = p.TM.map(([c, w], k) => [c, w ? so(w) + (+((/#(\d+)$/.exec(w) || [])[1] || 0)) / 10000 : -1, k]).sort((x, y) => x[1] - y[1] || x[2] - y[2]), g = TMs.length ? TMs[TMs.length - 1][0] : 'Independent';   // where the story leaves them
+      const TMs = p.TM.map(([c, w, f], k) => [c, w ? soP(w, f) + (+((/#(\d+)$/.exec(w) || [])[1] || 0)) / 10000 : -1, k]).sort((x, y) => x[1] - y[1] || x[2] - y[2]), g = TMs.length ? TMs[TMs.length - 1][0] : 'Independent';   // where the story leaves them
       return [p.n, p.k, g,
         [...p.L].sort((a, b) => deg(b[0]) - deg(a[0])).map(([o, w]) => [idx[o], ...[...w].map(ti)]),
         [...M].sort((a, b) => sh(b) - sh(a) || deg0(b) - deg0(a)).map(x => idx[x]),
         deg(id), p.T.filter(x => x[0] !== 'Independent').map(([t, w]) => [t, w ? ti(w) : -1]), [...new Set([...p.A].map(ti))],
         // their crews as the story goes: each group with the story-order place of the title they're in it from, the current one last
-        p.TM.map(([c, w], k) => [c, w ? so(w) + (+((/#(\d+)$/.exec(w) || [])[1] || 0)) / 10000 : -1, k, w]).sort((x, y) => x[1] - y[1] || x[2] - y[2]).map(([c, o, , w]) => [c, o, w ? ti(w) : -1]),
+        p.TM.map(([c, w, f], k) => [c, w ? soP(w, f) + (+((/#(\d+)$/.exec(w) || [])[1] || 0)) / 10000 : -1, k, w]).sort((x, y) => x[1] - y[1] || x[2] - y[2]).map(([c, o, , w]) => [c, o, w ? ti(w) : -1]),
         // the other names they go by, for search, each with where it's first said (story order), so a name that's a reveal stays hidden
         (() => { const m = new Map(); p.AL.forEach(([a, w]) => { if (!a || a === p.n) return; const o = w ? so(w) : -1; if (!m.has(a) || o < m.get(a)) m.set(a, o); }); return [...m]; })(), p.u, id, p.dk,
         // staged names (the files' own): the name they go by from each title or episode, so a card shows a cover name until the reveal

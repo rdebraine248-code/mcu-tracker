@@ -22,5 +22,13 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(r.four['alexander-pierce'] === 'HYDRA', 'Pierce ends in HYDRA (got ' + r.four['alexander-pierce'] + ')');
   ok(r.four['jack-rollins'] === 'HYDRA', 'Rollins ends in HYDRA (got ' + r.four['jack-rollins'] + ')');
   ok(r.four['brock-rumlow'] === 'Independent', 'Rumlow ends Independent (got ' + r.four['brock-rumlow'] + ')');
+  // the Network sorts group stages by each title's place in the timeline: a past stage must not come out last there either
+  // (split.json "past", 12 November 2026): Yondu, Foggy, Janet, the cartoon Apocalypse, Roxy Glass, three cartoon Peter Parkers
+  const net = fs.readFileSync(require('path').join(require('path').dirname(process.argv[2]), 'network.html'), 'utf8'), at = net.indexOf('const DATA = ');
+  let N = null; try { const src = net.slice(at + 13); let d = 0, i = 0, q = false, e = false; for (; i < src.length; i++) { const c = src[i]; if (q) { if (e) e = false; else if (c === '\\') e = true; else if (c === '"') q = false; continue; } if (c === '"') q = true; else if (c === '{') d++; else if (c === '}' && !--d) break; } N = JSON.parse(src.slice(0, i + 1)).nodes; } catch (x) { fails.push('the Network data does not parse: ' + x.message); }
+  if (N) { const now = id => (N.find(n => n[11] === id) || [])[2];
+    [['jasper-sitwell', 'HYDRA'], ['alexander-pierce', 'HYDRA'], ['jack-rollins', 'HYDRA'], ['brock-rumlow', 'Independent'], ['yondu', 'Guardians of the Galaxy'],
+     ['st-foggy-nelson', 'Nelson, Murdock & Page'], ['janet-van-dyne', 'Independent'], ['fox-anim-apocalypse', 'The Horsemen of Apocalypse'], ['by-st-roxy-glass', 'S.H.I.E.L.D.'],
+     ['sv-peter-parker-1967', 'Spider-Society'], ['sv-peter-parker-smu', 'Spider-Society'], ['sv-peter-parker-ssm', 'Spider-Society']].forEach(([id, g]) => ok(now(id) === g, 'Network: ' + id + ' ends in ' + g + ' (got ' + now(id) + ')')); }
   ok(!errs.length, 'page errors: ' + errs.join(' | '));
   console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok'); await b.close(); process.exit(fails.length ? 1 : 0); })();
