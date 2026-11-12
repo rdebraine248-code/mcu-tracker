@@ -3,7 +3,8 @@
 set -e
 cd /home/user/mcu-tracker/mockup-data
 python3 mainprep.py out/main_src.html >/dev/null
-SRC=out/main_src.html python3 devbuild.py out/main.html 2>&1 | grep -iE "no step|no file|error|warn" | head || true
+SRC=out/main_src.html python3 devbuild.py out/main.html > out/build.log 2>&1
+if grep -iE "no step|no file|error|warn|dup" out/build.log; then echo "BUILD PRINTED THE LINES ABOVE: a broken op, fix it first (out/build.log)"; exit 1; fi
 python3 - <<'PY'
 import json
 s=open('out/main.html',encoding='utf8').read(); E=json.load(open('network/rel/uni/earth/earths.json',encoding='utf8'))

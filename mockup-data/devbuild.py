@@ -452,8 +452,11 @@ for _pf,_L in (('prose_coll.json',collx),('prose_raft.json',threats),('prose_cp.
 # "add" a new file; "drop": true removes one; "set" replaces fields (null removes one); "steps": [[old step, [new steps]], ...] swaps
 # one step (matched exactly on its text and title) for others, an empty list deleting it; "into" (with drop) sends the dropped file's
 # saved marks on to another id. "C" (the Collection) takes the same ops
+# Adds go first, so an op on a new file works wherever it sits in the list (unfiled/merge.py re-appends its adds at the end each run,
+# which once put VisionQuest's finale steps for seven new files before the files existed, and the build skipped them).
 for _g,_L in (('T',threats),('A',allies),('C',collx)):
-    for op in load('answers_fix.json',{}).get(_g,[]):
+    _ops=load('answers_fix.json',{}).get(_g,[])
+    for op in sorted(_ops,key=lambda o:'add' not in o):
         if 'add' in op:
             if any(o['id']==op['add']['id'] for o in _L): print('answers: dup',op['add']['id']); continue
             _L.append(op['add']); continue

@@ -15,7 +15,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `7e792af`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 38 of 38
+- **main is at `7e792af`.** **Waiting on "push": the VisionQuest finale fix below** (the working branch's build differs from main
+  only there). Full suite: 38 of 38
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
@@ -34,6 +35,16 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   - VisionQuest in full through episode 8 (files, logs, Atlas, Network): `mockup-data/unfiled/visionquest/`.
   - Group fixes: dying at the turn keeps the group (`TURN_KEEP`), a past scene in a later title doesn't move anyone (`PAST_VISIT` in
     index.html, `split.json` "past" for the Network; ct66).
+- **Found 12 November 2026 (new chat), fixed on the working branch, waiting on "push":** main `7e792af` lost VisionQuest's finale
+  for three new files. Virgil Horton reads "The Client", Independent, with his episode 7 steps. Jocasta and Paladin also stop at
+  episode 7, and Paladin's kind line is the old one. Cause: `7e792af`'s commit reran `unfiled/merge.py`, which re-appends its "unfiled" adds
+  at the end of `answers_fix.json`, so VisionQuest's `q "vq"` edits to those files came before the files existed and the build
+  skipped them (the 7 "answers: no file" lines no one read), and it rewrote their `ep_tags.json` entries back to the episode-7 ones.
+  Fixed: devbuild applies `answers_fix` adds before edits; merge.py leaves the tags of a file a later op rewrites alone; the three
+  tags are back as `af463e9` had them; Roxy Glass's Deke Squad stage is fixed in `chk08.json` too (it was only in answers_fix, so a
+  rerun reverted it); `tools/rebuild.sh` now stops on any "no step", "no file" or "dup" line. Checked: the seven VisionQuest-touched
+  new files equal `45d7459`'s exactly; nothing else in the files changed; in the Network only Virgil Horton, Jocasta and Paladin
+  changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything.
 - **Open with the owner (don't act without a yes):**
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
@@ -1625,6 +1636,12 @@ walk this list; anything new the app shows gets a line here, with its check, the
 - **Parked mockups** (the Time Machine, Six Degrees, landscape): test build only; not covered, not on main.
 
 ## Mistakes not to repeat
+
+- **Rerunning a generator over hand edits, and not reading the build (November 2026):** `unfiled/merge.py` rebuilds its adds and
+  episode tags from the `chk*.json` batches. Rerun after VisionQuest and the Roxy Glass fix (both edited elsewhere), it put the
+  adds after VisionQuest's edits and reverted the tags and Roxy's stage. The build printed 7 "answers: no file" lines and the
+  push went out anyway. Fix data at its source (the chk file a generator reads), never only in its output; after any rerun,
+  `git diff` what it wrote; and read every line the build prints (rebuild.sh now stops on them).
 
 - **A stage written for story order, sorted by title order (November 2026):** the group audit put Endgame's 2012 stage first in
   Sitwell's, Pierce's, Rollins's and Rumlow's files, meaning "earliest", but every group stage is ordered by its title's place in the

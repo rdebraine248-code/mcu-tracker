@@ -112,8 +112,9 @@ open(p, 'w').write(json.dumps(af, indent=1, ensure_ascii=False) + '\n')
 # the files' episode tags
 p = MD + 'ep_tags.json'; et = json.load(open(p))
 for k in [k for k in et['st'] if k.split(':', 1)[1] in stale]: del et['st'][k]
+owned = {f"{tg}:{o['id']}" for tg in ('A', 'T') for o in af[tg] if 'st' in o.get('set', {})}   # files whose steps a later op rewrites (VisionQuest's "vq") keep that op's tags
 for x in files:
-    if x.get('ep'): et['st'][f"{x['tg']}:{x['add']['id']}"] = x['ep']
+    if x.get('ep') and f"{x['tg']}:{x['add']['id']}" not in owned: et['st'][f"{x['tg']}:{x['add']['id']}"] = x['ep']
 open(p, 'w').write(json.dumps(et, indent=0, ensure_ascii=False))
 # Network ties: the sample's first, then these; season titles for the shows the Network splits by season
 p = MD + 'network/rel/unfiled_out.json'; uo = json.load(open(p)); sample = [t for t in uo['keep'] if t['a'] in ('Nic West', 'Evanora Harkness')]
