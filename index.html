@@ -1641,16 +1641,26 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
   /* Story: the header stands in its own column on the left, pinned and scrolling on its own; the boxes are the page on the right
      (owner, November 2026: "left and right column should act separately"; the shared, sticky column overlapped when scrolled far) */
   #app.wrap{ max-width:none; padding-left:calc(var(--lcolw) + 26px); }
-  #app .lcol{ display:block; position:fixed; z-index:3; top:0; bottom:var(--tkh, 0px); left:var(--dockw); width:var(--lcolw); box-sizing:border-box; overflow-y:auto; overscroll-behavior:contain;
-    padding:0 0 14px 20px; background:none; scrollbar-width:none; }   /* no backing of its own: the page's screen shows through, the TVA's amber on the Sacred Timeline (owner: "the orange is split with the blue") */
+  /* the column is a side panel of its own (owner, 13 November 2026: it "doesn't look designed with intent just 2 columns split down the
+     middle", and it scrolled on the phone): a faint surface with a hairline edge like the dock rail; the title, the progress and its
+     status stacked; the three views as a list down the panel, the one you're in lit. All of it fits a phone's 384px without scrolling */
+  #app .lcol{ display:flex; flex-direction:column; gap:8px; position:fixed; z-index:3; top:0; bottom:var(--tkh, 0px); left:var(--dockw); width:var(--lcolw); box-sizing:border-box;
+    overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; padding:calc(6px + env(safe-area-inset-top,0px)) 18px 12px 20px;
+    background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.008)); border-right:1px solid var(--line); }
   #app .lcol::-webkit-scrollbar{ display:none; }
-  :root{ --lcolw:clamp(230px, 32vw, 340px); }
-  #app .mast{ flex-direction:column; align-items:stretch; gap:10px; padding-top:calc(6px + env(safe-area-inset-top,0px)); padding-bottom:12px; border-bottom:0; }
-  #app .mast h1{ white-space:normal; font-size:28px; line-height:1.02; }   /* every page's title size (owner, 13 November 2026) */
-  #app .mast h1::before{ white-space:normal; right:0; }   /* the glow wraps with its title, instead of trailing off across the boxes */
+  :root{ --lcolw:clamp(220px, 29vw, 300px); }
+  #app.wrap{ max-width:none; padding-left:calc(var(--lcolw) + 26px); }
+  #app .mast{ flex-direction:column; flex-wrap:nowrap; align-items:stretch; gap:6px; padding:0; border-bottom:0; }
+  #app .mast h1{ white-space:normal; font-size:28px; line-height:1.02; }   /* every page's title size */
+  #app .mast h1::before{ white-space:normal; right:0; }
+  #app .mast .sub{ margin:2px 0 0; font-size:13px; }
   #app .meter{ flex:none; min-width:0; }
-  #app .modes{ flex-direction:row; flex-wrap:wrap; justify-content:flex-start; align-items:stretch; gap:6px; margin:0; }
-  #app .modes button{ padding:7px 12px; font-size:14px; }
+  #app .meter .num{ font-size:24px; } #app .meter .num small{ font-size:13px; } #app .meter .num .nowline{ font-size:15px; } #app .meter .pct{ font-size:17px; }
+  #app .meter .barrow{ margin-top:6px; }
+  #app .mstatus{ margin-top:6px; font-size:11px; }
+  #app .modes{ flex-direction:column; flex-wrap:nowrap; align-items:stretch; gap:4px; margin:auto 0 0; }
+  #app .modes button{ display:flex; align-items:center; width:100%; padding:7px 12px; border-radius:10px; border:1px solid transparent; background:none; color:var(--muted); font-size:15px; text-align:left; }
+  #app .modes button[aria-pressed="true"]{ background:var(--ink); color:var(--shell); border-color:var(--ink); }
   /* every page's title at one height, as upright: a title that shares its row with tabs stands at the top of the row, not its middle */
   .dockpg .maptop > h2{ align-self:flex-start; }
   /* Atlas: the map on the left, its list beside it */

@@ -550,7 +550,10 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   screen shows through it. **One header standard, as upright** (owner, 13 November 2026: "In portrait, all the pages and the headers
   all look the same ... Story is two columns, network has a very obvious straight line border cut through"): Story keeps its two
   columns (made one column for a moment and the owner: "Why did you make story 1 column? It looks worse now"; the note pointed out a
-  difference, it didn't ask for a change), its title now 28px like every page's; every page's title at the top of its row (`.dockpg .maptop > h2{ align-self:flex-start }`); the Network's title
+  difference, it didn't ask for a change), its title now 28px like every page's; its column is now a side panel (owner: it "doesn't
+  look designed with intent just 2 columns split down the middle", and on the phone, about 832x384 sideways, it scrolled): a faint
+  surface with a hairline edge, the title, progress and status stacked, the three views as a list down it with the one you're in lit,
+  fitting 384px (352 with the ticker) without scrolling; every page's title at the top of its row (`.dockpg .maptop > h2{ align-self:flex-start }`); the Network's title
   28px and its bar's backing fading out over the room (no edge). Checked upright and sideways: the Log, the Atlas and the Network
   keep their headers pinned and Comms and the Agent File scroll theirs away, in both orientations (the owner asked; answered).
   Next: the indexes (the Compound, the Raft, the Collection) and their files, then the Log's Paths.
