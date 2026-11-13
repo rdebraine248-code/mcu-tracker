@@ -602,7 +602,7 @@ Close the app fully (swipe it from recent apps) and reopen it online first.
   the Chronicoms' branch, where the Network already has Sibyl and the Malicks. `ATLAS_UNI.chronicoms`, pin `u-19859`; file tags for
   those years point there. Area 51 and Malick's estate left the main map (their only entries were from those years).
 - What If...? is in Beyond, each world its own (checked 5 November 2026; a "39 entries on the main map" count was a miscount).
-- **Next major update ideas** (owner, 5 November 2026: wants a new kind of experience that is NOT content heavy, no research, writing
+- **Next major update ideas, all cut since (Six Degrees and the Time Machine parked; the rest cut 13 November 2026)** (owner, 5 November 2026: wants a new kind of experience that is NOT content heavy, no research, writing
   or audits; no pick yet, "[No preference]"). All four run only on data the app already has:
   1. Six Degrees (recommended): a daily puzzle connecting two people through the Network in the fewest steps, each step showing
      the real stage; scored against the computed shortest path; only watched titles, so spoiler-safe.
@@ -1764,6 +1764,9 @@ These happened in earlier chats. Each cost the owner time.
   of the passed entries are rechecked from scratch; the owner's bar is 0%, at worst 0.5 to 1% ("if I can't get 0% wrong then .5-1%"):
   0 wrong in 600 passes, 1 to 3 are fixed with their pattern and a fresh 600 drawn, more goes back through the part. 4) The full content
   check again after each part. The audit's agents need the owner's "use a workflow".
+- **Cut (owner, 13 November 2026: "These are all terrible and useless"):** Origins (a tree of where powers come from), the Codex
+  (a staged glossary), Redacted (guess a blacked-out file), and Wrapped and Compare with a friend ("should have been cut"). Don't
+  pitch any of them again.
 - **Owner's calls, November 2026:** the six ideas pitched in October (the Doomsday update, a watch diary, time on the clock, a release
   radar, a home screen widget, a share card) are cut: don't pitch them again. Dropped, don't raise again: Doomsday and Secret Wars
   content, the Encore revisit, Banner and Doom, the sky's first-minute redraws, confirming the cold-start fix. The weakly fitting kinds
