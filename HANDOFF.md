@@ -538,8 +538,13 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   column with a compact head that scrolls away** (the name smaller, the label, quote and count on one line, then the bar), so the screen
   goes to the titles. A two-column box (head on the left, titles scrolling on the right) was tried first and rejected (owner: "Why do I
   need to look at the title on the left hand side? I don't. Think a little bit about actual usability before doing some changes"):
-  sideways, height is what's short and the titles are what's used, so give them the room and let the label go. Next: the Network
-  (title, search and tabs take 40% of the height), then the indexes and files.
+  sideways, height is what's short and the titles are what's used, so give them the room and let the label go.
+  **The Network (test build v203; owner: "Network looks bad the top section hides so much"):** its title, search and universe tabs
+  share one row; a person's card is a panel on the right with their whole file scrolling inside it (`#cMore` filled on open), and
+  the camera frames them in the middle of the room left of it (`landCard`: half the panel's width, in place of portrait's lift).
+  Built into hub-src behind `html.land`, which only the app's landscape mockup sets (`netLandOn`), so main's network.html carries it
+  switched off. **The Sacred Timeline's left column has no backing** (owner: "the orange is split with the blue"): the page's own
+  screen shows through it. Next: the indexes (the Compound, the Raft, the Collection) and their files, then the Log's Paths.
 
 - **A box's head** (owner, November 2026): no Back row; **Close** (a thin pill, no focus ring round it) stands at the title's right,
   and the chapter label (CH. 1, EXTRAS) sits under the title, before the quote; a character's **Profile** takes that line, in the label's

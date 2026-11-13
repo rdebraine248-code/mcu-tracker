@@ -185,6 +185,25 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
 .dpk li button span{ flex:none; font:12px/1.6 var(--mono); color:var(--mute); }
 .dnote{ margin:14px 2px 0; color:#C9D3E2; font-size:14.5px; line-height:1.4; }
 .drow button.go{ border-color:#E9C46A; background:#E9C46A; color:#0B1019; } .drow button:disabled{ opacity:.35; }
+/* landscape (a mockup: the app's test build turns it on with netLandOn; main never does). A phone on its side is short, and the room is
+   what you look at: the title, search and universe tabs share one row, and a person's card stands on the right as a panel, its whole
+   file scrolling inside it, so the room beside it stays in view (owner, 13 November 2026: "Network looks bad the top section hides so much") */
+@media (orientation: landscape) and (max-height: 540px){
+  html.land header{ display:flex; flex-wrap:wrap; align-items:center; column-gap:12px; row-gap:6px; padding-bottom:10px; }
+  html.land header h1{ flex:none; font-size:24px; }
+  html.land header #hSearch{ flex:0 1 230px; width:auto; margin:0; padding:7px 12px; font-size:14px; }
+  html.land .unis{ flex:1 1 0; min-width:0; margin:0; padding:0 0 2px; }
+  html.land .unis button{ padding:6px 12px; font-size:13.5px; }
+  html.land .worlds{ flex:0 0 100%; margin-top:0; }
+  html.land #card{ left:auto !important; right:max(12px, env(safe-area-inset-right, 0px)) !important; width:min(380px, 44vw) !important; top:calc(var(--hb, 60px) + 4px) !important;
+    bottom:max(12px, env(safe-area-inset-bottom, 0px)) !important; max-height:none !important; transform:translateX(calc(100% + 24px)) !important; }
+  html.land #card.on{ transform:none !important; }
+  html.land #cGrip{ display:none !important; }
+  html.land #card #vOne:not([hidden]), html.land #card #vTwo:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
+  html.land #card #cMore{ display:block; flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; margin:6px -14px 0; padding:0 14px 8px; touch-action:pan-y; }
+  html.land #card #sConn{ display:none; }
+  html.land #card #lBody{ flex:1; min-height:0; max-height:none; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; -webkit-mask-image:none; mask-image:none; }
+}
 </style>
 
 <canvas id="room" aria-label="Everyone you've met, standing in their groups."></canvas>
@@ -660,7 +679,8 @@ const short = n => n.replace(/^(The|Dr\.|Doctor|Captain|Agent|King|Queen|Prince|
 function lockOn(p, t) {
   if (!p.vis && p.u !== UNI) { setWorld(p); say('Crossing into ' + (earthOf(p) || (UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u])), 1800); }   // across universes, you go with them
   const lines = mapOn; gather(p, t || performance.now());
-  if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx, y1: p.hy + 70 / zoom, z0: zoom, z1: Math.max(.9, zoom) };
+  const [ox, oy] = landCard();   // where the card leaves room: above it in portrait, beside it on the left in landscape
+  if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx + ox / Math.max(.9, zoom), y1: p.hy + oy / zoom, z0: zoom, z1: Math.max(.9, zoom) };
   fillCard(p); if (navigator.vibrate) try { navigator.vibrate(10); } catch (e) {}
 }
 const WHO = {
@@ -1144,7 +1164,11 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
 // Six Degrees is a mockup: its button shows only when the app's test build turns it on
 // Six Degrees is found, not shown (owner, 7 November 2026: "hidden somewhere else so it's a discovery"): hold the Network's title. It's
 // played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
-let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
+let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
+self.netLandOn = () => { document.documentElement.classList.add('land'); };   // the app's landscape mockup only
+const LANDQ = matchMedia('(orientation: landscape) and (max-height: 540px)'), landOn = () => document.documentElement.classList.contains('land') && LANDQ.matches;
+const landCard = () => landOn() ? [(card.offsetWidth + 24) / 2, 0] : [0, 70];
+{ const fc0 = fillCard; fillCard = function () { const r = fc0.apply(this, arguments); if (landOn()) requestAnimationFrame(() => { card._more = null; moreFill(); }); return r; }; }   // the panel shows the whole file at once   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
 { const h = document.querySelector('header h1'); let t = 0; h.style.touchAction = 'none';
   h.addEventListener('pointerdown', () => { if (!SIX_ON || GAME) return; clearTimeout(t); t = setTimeout(() => { if (navigator.vibrate) try { navigator.vibrate([10, 40, 10]); } catch (x) {} gameStart(); }, 800); });
   ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => h.addEventListener(n, () => clearTimeout(t))); }

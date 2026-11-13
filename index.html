@@ -1642,7 +1642,7 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
      (owner, November 2026: "left and right column should act separately"; the shared, sticky column overlapped when scrolled far) */
   #app.wrap{ max-width:none; padding-left:calc(var(--lcolw) + 26px); }
   #app .lcol{ display:block; position:fixed; z-index:3; top:0; bottom:var(--tkh, 0px); left:var(--dockw); width:var(--lcolw); box-sizing:border-box; overflow-y:auto; overscroll-behavior:contain;
-    padding:0 0 14px 20px; background:linear-gradient(90deg, #0B1019 85%, rgba(11,16,25,0)); scrollbar-width:none; }
+    padding:0 0 14px 20px; background:none; scrollbar-width:none; }   /* no backing of its own: the page's screen shows through, the TVA's amber on the Sacred Timeline (owner: "the orange is split with the blue") */
   #app .lcol::-webkit-scrollbar{ display:none; }
   :root{ --lcolw:clamp(230px, 32vw, 340px); }
   #app .mast{ flex-direction:column; align-items:stretch; gap:10px; padding-top:calc(6px + env(safe-area-inset-top,0px)); padding-bottom:12px; border-bottom:0; }
@@ -13302,6 +13302,9 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
   if (tk) new MutationObserver(fit).observe(tk, { attributes: true, attributeFilter: ["class", "hidden"] }); fit(); }
 // turning the phone redraws the Atlas for its new shape (map beside the list, or over it)
 { const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
+// the Network's own landscape layout (its header on one row, a person's card as a panel on the right) is switched on only here
+document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netLandOn) w.netLandOn(); });
+{ const w = document.getElementById("netFrame").contentWindow; try { if (w && w.netLandOn) w.netLandOn(); } catch (e) {} }
 /* MOCKUP END */
 /* MOCKUP BEGIN snapstones */
 // the test build hands you the six Stones, so the Gauntlet's Snap is there to try (main never sees this block)
