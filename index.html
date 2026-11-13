@@ -1728,6 +1728,7 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
 .pl-roster .pl-chip.was{ border-style:dashed; border-color:#6FD39A; color:#9FE2BC; }
 .pl-locked{ flex:1; display:grid; place-items:center; text-align:center; font:13px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#6F7C95; }
 .dock button#plBtn[aria-current="page"]{ color:#EEF1F6; }
+body.playing .whih{ display:none !important; }   /* the news ticker stands down while you play: the buttons are at the foot */
 @media (orientation: landscape) and (max-height: 540px){
   .playpage{ right:var(--dockw); bottom:0; }
   .pl-top{ flex-wrap:nowrap; padding-bottom:6px; } .pl-tabs{ flex:1 1 0; }
@@ -13394,8 +13395,8 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
   let room = null, stop = null, raf = 0;
   const loop = fn => { cancelAnimationFrame(raf); const t0 = performance.now(); const go = now => { if (pg.hidden) return; fn(now - t0); raf = requestAnimationFrame(go); }; raf = requestAnimationFrame(go); };
   const canvas = host => { const c = document.createElement("canvas"); host.appendChild(c); const g = c.getContext("2d"); const fit = () => { const r = host.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); c.width = Math.max(1, r.width * d); c.height = Math.max(1, r.height * d); g.setTransform(d, 0, 0, d, 0, 0); c._w = r.width; c._h = r.height; }; fit(); c._fit = fit; return { c, g }; };
-  const open = () => { pg.hidden = false; document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", "false")); btn.setAttribute("aria-current", "page"); show(room || "lab"); };
-  const close = () => { if (pg.hidden) return; pg.hidden = true; btn.setAttribute("aria-current", "false"); cancelAnimationFrame(raf); if (stop) stop(); };
+  const open = () => { pg.hidden = false; document.body.classList.add("playing"); document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", "false")); btn.setAttribute("aria-current", "page"); show(room || "lab"); };
+  const close = () => { if (pg.hidden) return; pg.hidden = true; document.body.classList.remove("playing"); btn.setAttribute("aria-current", "false"); cancelAnimationFrame(raf); if (stop) stop(); };
   btn.addEventListener("click", () => pg.hidden ? open() : null);
   dock.addEventListener("click", e => { if (e.target.closest("[data-dock]")) close(); }, true);
   pg.querySelector(".pl-tabs").addEventListener("click", e => { const b = e.target.closest("[data-room]"); if (b) show(b.dataset.room); });
