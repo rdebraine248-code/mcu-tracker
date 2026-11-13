@@ -15,7 +15,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `3cb8065`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 38 of 38
+- **main is at `3cb8065`.** **Waiting on "push": the Network fix (Phastos's son Jack apart from Hammer's Jack, Ben and Jack in
+  Phastos's family, no versions by first name alone; see "Mistakes not to repeat").** Full suite: 39 of 39 (13 November 2026)
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest; ct67 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
