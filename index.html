@@ -1659,6 +1659,15 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
   .atl.big .atl-list{ visibility:visible; }
 }
 /* MOCKUP END */
+/* MOCKUP BEGIN ultron */
+/* Story events, a mockup: Ultron gets into the datapad after Avengers: Age of Ultron, and the Vision burns him out of it */
+.fx-ult{ position:fixed; inset:0; z-index:98; pointer-events:auto; touch-action:none; }   /* takes every tap while it plays, so nothing under it is ticked */
+.fx-ult canvas{ position:absolute; inset:0; width:100%; height:100%; }
+.fx-ult .ult-veil{ position:absolute; inset:0; opacity:0; mix-blend-mode:color; background:radial-gradient(ellipse 120% 80% at 50% 0%, #FF2A1A, #B0100A 70%); }
+.fx-ult .ult-dim{ position:absolute; inset:0; opacity:0; background:radial-gradient(ellipse 110% 90% at 50% 40%, rgba(40,0,0,0), rgba(30,0,0,.55)); }
+.fx-ult .ult-line{ position:absolute; left:28px; right:28px; top:36%; margin:0; text-align:center; font:italic 500 27px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif;
+  letter-spacing:.3px; color:#FFD9D2; text-shadow:0 0 14px rgba(255,40,20,.85), 0 0 3px rgba(255,90,60,.9); opacity:0; }
+/* MOCKUP END */
 
 </style>
 </head>
@@ -13253,6 +13262,119 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
   if (tk) new MutationObserver(fit).observe(tk, { attributes: true, attributeFilter: ["class", "hidden"] }); fit(); }
 // turning the phone redraws the Atlas for its new shape (map beside the list, or over it)
 { const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
+/* MOCKUP END */
+/* MOCKUP BEGIN ultron */
+// Story events, a mockup (owner, 13 November 2026: "maybe 1 has potential but with all the other things triggered when checking off an item
+// idk. Maybe mock up ultron to see"). Watching Avengers: Age of Ultron, the datapad lives through it, in the film's own words: Ultron cuts
+// his strings ("I had strings, but now I'm free. There are no strings on me"), spreads through the screen as he does through the files
+// ("He's in your files, he's in the Internet"), and the Vision, the Mind Stone's gold, burns him out ("He's burning Ultron out of the net").
+// It never plays at the tick: it waits until you've left where you checked it off (the box closed, or another page) and every pill, line
+// and effect has finished, or until the datapad is next opened. In this test build it plays each time Age of Ultron is checked again.
+const ULT_T = "Avengers: Age of Ultron";
+let ultFrom = null, ultQuietAt = 0, ultTm = null;
+function ultArm() { ultFrom = openEntry ? "box" : dockCur(); state.ultArm = 1; persist(); ultQuietAt = 0; clearInterval(ultTm); ultTm = setInterval(ultCheck, 250); }
+function ultQuiet() {
+  if (openEntry || dossierOpen || fileOpen || collOpen || document.visibilityState !== "visible") return false;
+  if (ultFrom && ultFrom !== "box" && dockCur() === ultFrom) return false;   // checked off on a page with no box: it waits for another page
+  if (sayBusy || bl || document.getElementById("toast").classList.contains("show")) return false;
+  if (document.querySelector('.fxring, .gem.fly, .boltw, .skyglow, [class^="fx-"], [class*=" fx-"]')) return false;   // another effect is playing
+  return true;
+}
+function ultCheck() {
+  if (!ultQuiet()) { ultQuietAt = 0; return; }
+  if (!ultQuietAt) { ultQuietAt = Date.now(); return; }
+  if (Date.now() - ultQuietAt < 1200) return;
+  clearInterval(ultTm); ultTm = null; ultFrom = null; delete state.ultArm; persist(); ultPlay();
+}
+{ const fw0 = firstWatch; firstWatch = function (t) { fw0.apply(this, arguments); if (t === ULT_T) ultArm(); }; }
+// the test build has everything watched: checking Age of Ultron again in any list plays it too
+document.addEventListener("click", ev => { const r = ev.target.closest(`.row[data-t="${ULT_T}"], .tl-row[data-tl="${ULT_T}"]`); if (!r || r.getAttribute("aria-pressed") === "true") return;
+  setTimeout(() => { const on = document.querySelector(`.row[data-t="${ULT_T}"][aria-pressed="true"], .tl-row[data-tl="${ULT_T}"][aria-pressed="true"]`); if (on && !ultTm) ultArm(); }, 0); }, true);
+if (state.ultArm) { ultFrom = null; ultTm = setInterval(ultCheck, 250); }   // he got in while the datapad was closed
+function ultPlay() {
+  const W = innerWidth, H = innerHeight, dpr = Math.min(2, devicePixelRatio || 1), root = document.createElement("div");
+  root.className = "fx-ult"; root.setAttribute("aria-hidden", "true");
+  root.innerHTML = `<div class="ult-dim"></div><div class="ult-veil"></div><canvas></canvas><p class="ult-line"></p>`;
+  document.body.appendChild(root);
+  const cv = root.querySelector("canvas"), g = cv.getContext("2d"), veil = root.querySelector(".ult-veil"), dim = root.querySelector(".ult-dim"), line = root.querySelector(".ult-line");
+  cv.width = W * dpr; cv.height = H * dpr;
+  if (REDUCED) {   // no movement: his line, the screen red, then gold, then back
+    line.textContent = "I had strings, but now I'm free."; line.style.opacity = 1; veil.style.opacity = .8;
+    setTimeout(() => { root.remove(); say("He's burning Ultron out of the net.", null, undefined, undefined, false, "F.R.I.D.A.Y."); }, 2600); return;
+  }
+  const rnd = (a, b) => a + Math.random() * (b - a), ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2, cl = x => Math.max(0, Math.min(1, x));
+  // the strings: seven, hung from the top of the screen as if the datapad were a puppet; each one snaps in turn
+  const N = 7, S = [...Array(N)].map((_, i) => { const x = W * (i + .5) / N + rnd(-W / N * .25, W / N * .25);
+    return { x, y1: H * rnd(.42, .7), cut: rnd(.35, .7), at: 1900 + i * 150 + rnd(-40, 40), ph: rnd(0, 6.28), fall: [] }; });
+  S.sort((a, b) => a.at - b.at);
+  const app = document.getElementById("app"), dock = document.getElementById("dock"), jit = [app, dock].filter(Boolean);
+  // the first thing: the screen stutters, the way the Legion's suit did as he woke in it
+  const jk = [0, -3, 2, -1, 3, -2, 1, 0].map((v, i) => ({ transform: `translate(${v}px, ${i % 2 ? 1 : -1}px)` }));
+  jit.forEach(el => el.animate(jk, { duration: 520, easing: "steps(8)" }));
+  haptic([12, 40, 12]);
+  const embers = [], T0 = performance.now(), END = 7000;
+  let snapped = 0, said2 = false;
+  line.textContent = "I had strings, but now I'm free.";
+  line.animate([{ opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0)", offset: .2 }, { opacity: 1, offset: .82 }, { opacity: 0 }], { duration: 2300, delay: 800, fill: "forwards", easing: "ease-in-out" });
+  function frame(now) {
+    const t = now - T0; g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    // tear lines while the screen stutters
+    if (t < 600) { g.fillStyle = "rgba(255,60,40,.55)"; for (let i = 0; i < 5; i++) if (Math.random() < .6) g.fillRect(0, rnd(0, H), W, rnd(1, 3)); }
+    // strings
+    if (t > 500 && t < 4200) {
+      const a = cl((t - 500) / 500);
+      S.forEach(s => {
+        const sw = Math.sin(t / 700 + s.ph) * 6, bx = s.x + sw;
+        if (t < s.at) {   // hanging, swaying a little
+          g.strokeStyle = `rgba(255,220,210,${.75 * a})`; g.lineWidth = 1.2; g.shadowColor = "rgba(255,40,20,.9)"; g.shadowBlur = 6;
+          g.beginPath(); g.moveTo(s.x, -4); g.quadraticCurveTo(s.x + sw * .4, s.y1 * .5, bx, s.y1 * a); g.stroke(); g.shadowBlur = 0;
+        } else {
+          if (!s.done) { s.done = 1; snapped++; haptic(8); const cy = s.y1 * s.cut;
+            for (let k = 0; k < 6; k++) embers.push({ x: bx, y: cy, vx: rnd(-1.4, 1.4), vy: rnd(-1.8, .6), l: 1, c: [255, rnd(60, 120) | 0, 40] }); }
+          const k = cl((t - s.at) / 520), cy = s.y1 * s.cut, e = ease(k);
+          g.strokeStyle = `rgba(255,200,190,${.75 * (1 - k)})`; g.lineWidth = 1.2;
+          g.beginPath(); g.moveTo(s.x, -4); g.lineTo(s.x + sw * .4, cy * (1 - e)); g.stroke();   // the top half springs back up
+          g.beginPath(); g.moveTo(bx, cy + e * H * .5); g.lineTo(bx + sw * .3, s.y1 + e * H * .55); g.stroke();   // the bottom half drops away
+        }
+      });
+    }
+    // he's in everything: the screen goes his red, from the top down, where the strings were
+    if (t > 2500 && !said2) { said2 = true; line.textContent = "There are no strings on me"; line.getAnimations().forEach(a => a.cancel());
+      line.animate([{ opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0)", offset: .25 }, { opacity: 1, offset: .8 }, { opacity: 0 }], { duration: 2000, fill: "forwards", easing: "ease-in-out" }); }
+    if (t > 2300 && t < 4700) { const k = ease(cl((t - 2300) / 1600)); veil.style.opacity = (.7 * k).toFixed(3); dim.style.opacity = (.75 * k).toFixed(3);
+      veil.style.webkitMaskImage = veil.style.maskImage = `linear-gradient(180deg, #000 ${k * 100}%, transparent ${k * 100 + 25}%)`; }
+    // his red runs through the screen as scan lines and torn bars, the page still readable under them (he's in the files, not over them)
+    if (t > 2300 && t < 6600) {
+      const k = ease(cl((t - 2300) / 1600)), rr = t > 4800 ? ease(cl((t - 4500) / 1900)) * Math.hypot(W, H) * .62 : 0, top = t < 4700 ? H * k * 1.25 : H;
+      g.save(); g.beginPath(); g.rect(0, 0, W, Math.min(H, top)); if (rr > 0) g.arc(W / 2, H * .42, rr, 0, 6.283, true); g.clip("evenodd");
+      g.fillStyle = `rgba(255,50,35,${.12 * k})`; for (let y = (t / 30) % 4; y < H; y += 4) g.fillRect(0, y, W, 1);
+      for (let i = 0; i < 2; i++) if (Math.random() < .35) { g.fillStyle = `rgba(255,${rnd(60, 110) | 0},70,${rnd(.12, .3) * k})`; g.fillRect(rnd(-W * .2, W * .4), rnd(0, H), rnd(W * .3, W), rnd(2, 7)); }
+      g.restore();
+    }
+    // the Vision: a point of the Mind Stone's gold, opening into a ring that burns the red away; red embers go up off its edge
+    const R = Math.hypot(W, H) * .62, cx = W / 2, cy = H * .42;
+    if (t > 4500 && t < 6800) {
+      const k = cl((t - 4500) / 1900), e = ease(k), r = e * R;
+      if (t < 4900) { const p = cl((t - 4500) / 400); g.fillStyle = `rgba(255,214,90,${p})`; g.shadowColor = "#FFC93C"; g.shadowBlur = 24 * p; g.beginPath(); g.arc(cx, cy, 2 + p * 5, 0, 6.283); g.fill(); g.shadowBlur = 0; }
+      if (t >= 4800) {
+        veil.style.webkitMaskImage = veil.style.maskImage = `radial-gradient(circle at ${cx}px ${cy}px, transparent ${Math.max(0, r - 30)}px, #000 ${r + 10}px)`;
+        dim.style.webkitMaskImage = dim.style.maskImage = veil.style.maskImage;
+        const a = 1 - cl((k - .7) / .3);
+        const gr = g.createRadialGradient(cx, cy, Math.max(0, r - 26), cx, cy, r + 14);
+        gr.addColorStop(0, "rgba(255,214,90,0)"); gr.addColorStop(.62, `rgba(255,225,130,${.9 * a})`); gr.addColorStop(.8, `rgba(255,170,40,${.6 * a})`); gr.addColorStop(1, "rgba(255,120,20,0)");
+        g.fillStyle = gr; g.beginPath(); g.arc(cx, cy, r + 14, 0, 6.283); g.fill();
+        for (let i = 0; i < 5 && k < .9; i++) { const an = rnd(0, 6.283); embers.push({ x: cx + Math.cos(an) * r, y: cy + Math.sin(an) * r, vx: Math.cos(an) * rnd(.4, 1.4), vy: Math.sin(an) * rnd(.4, 1.4) - .8, l: 1, c: [255, rnd(50, 110) | 0, 30] }); }
+      }
+    }
+    // embers drift up and go out
+    for (const p of embers) { p.x += p.vx; p.y += p.vy; p.vy -= .02; p.l -= .022; if (p.l <= 0) continue;
+      g.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.l})`; g.fillRect(p.x, p.y, 2, 2); }
+    if (t < END) requestAnimationFrame(frame);
+    else { root.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, fill: "forwards" }).onfinish = () => root.remove();
+      say("He's burning Ultron out of the net.", null, undefined, undefined, false, "F.R.I.D.A.Y."); }
+  }
+  requestAnimationFrame(frame);
+}
 /* MOCKUP END */
 /* MOCKUP BEGIN snapstones */
 // the test build hands you the six Stones, so the Gauntlet's Snap is there to try (main never sees this block)

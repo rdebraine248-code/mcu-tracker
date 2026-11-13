@@ -46,6 +46,15 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
+  - **Story events, the Ultron mockup (test build v193, `MOCKUP BEGIN ultron`; owner, 13 November 2026: "maybe 1 has potential but
+    with all the other things triggered when checking off an item idk. Maybe mock up ultron to see").** After Age of Ultron is watched,
+    Ultron gets into the datapad: the screen stutters, seven strings hang and snap ("I had strings, but now I'm free."), his red runs
+    down the screen as scan lines and torn bars ("There are no strings on me"), then a point of the Mind Stone's gold opens into a ring
+    that burns him out, and F.R.I.D.A.Y.'s line follows as a pill ("He's burning Ultron out of the net."). All three lines checked in
+    the film's transcript. It never plays at the tick: it waits until you've left where you checked it off (box closed, or another
+    page), with no pill, line or effect running, for 1.2 s; or the next open (`state.ultArm`). Test build: plays again each time Age of
+    Ultron is checked. Waiting on the owner's look (MP4 shown). Other story events offered: The Winter Soldier, Endgame's five years,
+    No Way Home's spell.
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
     Home, Multiverse of Madness, Quantumania, Loki S2); Gods Among Us (Shang-Chi, Eternals, Moon Knight, Werewolf by Night, Love and
