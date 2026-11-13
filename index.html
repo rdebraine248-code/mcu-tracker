@@ -1680,6 +1680,30 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
   #panel .pin > .pbar{ margin:8px 0 10px; }
 }
 /* MOCKUP END */
+/* MOCKUP BEGIN navint */
+/* no dock bar: the six pages as a row of icons at the top right of every page, in the title row, upright and sideways (owner, 13 November
+   2026: "maybe no dock/ integrated buttons might be better"; "Mock that up into the actual test build"). The test build switches between
+   this and the bar */
+body.navint{ --dockh:0px; --dockw:0px; padding-right:0 !important; }
+body.navint .dock{ top:calc(6px + env(safe-area-inset-top,0px)) !important; right:max(12px, env(safe-area-inset-right,0px)) !important; left:auto !important; bottom:auto !important;
+  width:auto !important; height:34px !important; flex-direction:row !important; gap:0; padding:0 3px !important; border:1px solid #222A3A !important; border-radius:999px; background:rgba(10,14,23,.92) !important; box-shadow:0 6px 18px rgba(0,0,0,.35); }
+body.navint .dock button{ flex:none; width:32px; font-size:0; letter-spacing:0; gap:0; }
+body.navint .dock svg{ width:17px; height:17px; }
+body.navint .dock button.nw::after{ top:4px; left:calc(50% + 5px); }
+body.navint .dock.rise{ animation:none; }
+body.navint .dock{ z-index:80; }   /* over a page's own header (the Log's); an open box still covers it (#panel ~ .dock) */
+/* upright, a title line has the icons at its end and the page's tabs drop to a full-width line of their own under it; sideways, where the
+   title and its tabs share one row, that row leaves room for them */
+body.navint .dockpg .maptop > :not(h2){ flex-basis:100%; }
+@media (orientation: landscape) and (max-height: 540px){
+  body.navint .dockpg .maptop{ padding-right:calc(214px + env(safe-area-inset-right,0px)) !important; }
+  body.navint .dockpg .maptop > :not(h2){ flex-basis:auto; }
+  body.navint #logHead .pgtitle{ margin-right:214px; }
+}
+body.navint #app .mast h1{ white-space:normal; font-size:28px; line-height:1.02; margin-right:206px; }
+body.navint #app .mast h1::before{ white-space:normal; right:0; }
+@media (orientation: landscape) and (max-height: 540px){ body.navint #app .mast h1{ margin-right:0; } body.navint #app .saga:first-of-type > h3, body.navint #app .tl-head{ padding-right:214px; } }
+/* MOCKUP END */
 
 </style>
 </head>
@@ -13318,6 +13342,16 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
 // the Network's own landscape layout (its header on one row, a person's card as a panel on the right) is switched on only here
 document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netLandOn) w.netLandOn(); });
 { const w = document.getElementById("netFrame").contentWindow; try { if (w && w.netLandOn) w.netLandOn(); } catch (e) {} }
+/* MOCKUP END */
+/* MOCKUP BEGIN navint */
+// the test build's switch between the dock bar and the icons in the title row; the Network follows it
+{ let on = true; try { on = localStorage.getItem("tbNav") !== "bar"; } catch (e) {}
+  const net = () => { const w = document.getElementById("netFrame").contentWindow; try { if (w && w.netNavOn) w.netNavOn(on); } catch (e) {} };
+  const set = v => { on = v; document.body.classList.toggle("navint", on); try { localStorage.setItem("tbNav", on ? "top" : "bar"); } catch (e) {} net(); const b = document.getElementById("tbNavBtn"); if (b) b.textContent = "Test · dock: " + (on ? "icons" : "bar"); };
+  document.getElementById("netFrame").addEventListener("load", net);
+  const add = () => { const box = document.getElementById("tbProg"); if (!box || document.getElementById("tbNavBtn")) return; const b = document.createElement("button"); b.type = "button"; b.id = "tbNavBtn";
+    b.setAttribute("style", document.getElementById("tbProgBtn").getAttribute("style") + ";display:block;margin-top:6px"); b.onclick = () => set(!on); box.appendChild(b); set(on); };
+  set(on); if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", add); else setTimeout(add, 0); setTimeout(add, 800); }
 /* MOCKUP END */
 /* MOCKUP BEGIN snapstones */
 // the test build hands you the six Stones, so the Gauntlet's Snap is there to try (main never sees this block)

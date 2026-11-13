@@ -194,6 +194,7 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
 .dpk li button span{ flex:none; font:12px/1.6 var(--mono); color:var(--mute); }
 .dnote{ margin:14px 2px 0; color:#C9D3E2; font-size:14.5px; line-height:1.4; }
 .drow button.go{ border-color:#E9C46A; background:#E9C46A; color:#0B1019; } .drow button:disabled{ opacity:.35; }
+@media (orientation: landscape) and (max-height: 540px){ html.navint.land header{ padding-right:calc(214px + env(safe-area-inset-right, 0px)); } }   /* the app's test build, sideways: room for its page icons at the end of the one-row bar (upright they sit beside the title) */
 /* landscape (a mockup: the app's test build turns it on with netLandOn; main never does). A phone on its side is short, and the room is
    what you look at: the title, search and universe tabs share one row, and a person's card stands on the right as a panel, its whole
    file scrolling inside it, so the room beside it stays in view (owner, 13 November 2026: "Network looks bad the top section hides so much") */
@@ -1189,6 +1190,7 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
 // played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
 let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
 self.netLandOn = () => { document.documentElement.classList.add('land'); };   // the app's landscape mockup only
+self.netNavOn = on => { document.documentElement.classList.toggle('navint', !!on); };   // the app's test build: the pages' icons stand at the top right, so the bar leaves room
 const LANDQ = matchMedia('(orientation: landscape) and (max-height: 540px)'), landOn = () => document.documentElement.classList.contains('land') && LANDQ.matches;
 const landCard = () => landOn() ? [(card.offsetWidth + 24) / 2, 0] : [0, 70];
 { const fc0 = fillCard; fillCard = function () { const r = fc0.apply(this, arguments); if (landOn()) requestAnimationFrame(() => { card._more = null; moreFill(); card.scrollTop = 0; }); return r; }; }   // the panel shows the whole file at once, from its top   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
