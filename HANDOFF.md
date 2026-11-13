@@ -46,6 +46,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
+  - **The 16 new eggs, a pool offered (13 November 2026), waiting on the owner's picks:** Network: Forget me (No Way Home), The
+    Council (Kang's variants); Comms: Commercial break (WandaVision's ads), Trish Talk (Jessica Jones); Compound: Sweet Christmas (Luke
+    Cage), The switchboard (Agent Carter), Ironheart's suit; Collection: Cerebro (X-Men), The Iron Fist, Captain Carter's shield (What
+    If); Damage Control: Task force (Born Again), Maximum effort (Deadpool & Wolverine), Midland Circle (The Defenders); Raft: Plastic
+    prison (X2), Smile (Kilgrave); Paths: The dance (Endgame). First four proposed: Assemble and Hello, Peter. moved, Commercial break,
+    Plastic prison. Each mocked up with an MP4, every line and scene checked against its title first.
   - **Eggs: an even spread (owner, 13 November 2026).** Story holds 39 of the 64 eggs (Atlas 14, Logs 4, anywhere 3, Comms 2, Agent
     File 1, Paths 1; Network, Compound, Raft, Collection and Damage Control none); by source Infinity Saga 32, Multiverse Saga 22,
     Marvel TV 4, the Extras 4, whole MCU 2; films 46, shows 16. The goal: an even spread over pages and over sagas, films and shows.
@@ -78,7 +84,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   - Seen, not changed: the Your Friendly Neighborhood Spider-Man Otto file dates Ross's arrest of Octavius #9; the transcript has #8.
   - The Snap and its report: the owner said they'd test on the phone; feedback may come (animations, the report's words, the memorial,
     Last seen).
-  - Parked (don't raise): the Time Machine, landscape stage 2.
+  - Parked (don't raise): the Time Machine.
 - **History:**
   - Main's pushes, newest first: `6f8eba9` (13 November 2026, the owner's "Sure push": the Mind Stone egg redesigned; full suite 39 of
   39). Before it `4621b25` (13 November 2026, the owner's "Push.": the Network's Jack fix, network.html only;
@@ -527,8 +533,12 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   scrolling on its own, clear of the ticker (`--tkh`), while the boxes are the page on the right (owner: "left and right column should act
   separately"; the shared sticky column overlapped when scrolled far); the Atlas puts its map left and its list right, and redraws when the phone turns; a page's title
   and its tabs share one row.
-- **Stage 2 (next):** the box panels, the Log, the Network's own header and card, the indexes and their files, then dialogs, toasts,
-  eggs and the boot screen.
+- **Stage 2 (under way; owner, 13 November 2026: "lets continue landscape"):** the box panels, the Log, the Network's own header and
+  card, the indexes and their files, then dialogs, toasts, eggs and the boot screen. Done (test build v201): **an open box splits like
+  Story**, its name, label, quote, progress and Completed in a left column (`--lcolw`, Story's width), its titles a column of their own
+  on the right scrolling on its own (`#panel` doesn't scroll; the list's height is set from where it starts, `landBox`, re-measured
+  after `renderPanel` and `pinTop` and on turning). Checked: the last title reachable, Chapter 7's banner, Chapter 4's split, a
+  character box. Next: the Network (title, search and tabs take 40% of the height), then the indexes and files.
 
 - **A box's head** (owner, November 2026): no Back row; **Close** (a thin pill, no focus ring round it) stands at the title's right,
   and the chapter label (CH. 1, EXTRAS) sits under the title, before the quote; a character's **Profile** takes that line, in the label's
