@@ -15,8 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `7e792af`.** **Waiting on "push": the VisionQuest finale fix below** (the working branch's build differs from main
-  only there). Full suite: 38 of 38
+- **main is at `3cb8065`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 38 of 38
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
@@ -35,7 +34,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   - VisionQuest in full through episode 8 (files, logs, Atlas, Network): `mockup-data/unfiled/visionquest/`.
   - Group fixes: dying at the turn keeps the group (`TURN_KEEP`), a past scene in a later title doesn't move anyone (`PAST_VISIT` in
     index.html, `split.json` "past" for the Network; ct66).
-- **Found 12 November 2026 (new chat), fixed on the working branch, waiting on "push":** main `7e792af` lost VisionQuest's finale
+- **Found 12 November 2026 (new chat), on main `3cb8065` (13 November 2026, the owner's "Push"):** main `7e792af` lost VisionQuest's finale
   for three new files. Virgil Horton reads "The Client", Independent, with his episode 7 steps. Jocasta and Paladin also stop at
   episode 7, and Paladin's kind line is the old one. Cause: `7e792af`'s commit reran `unfiled/merge.py`, which re-appends its "unfiled" adds
   at the end of `answers_fix.json`, so VisionQuest's `q "vq"` edits to those files came before the files existed and the build
@@ -64,7 +63,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     Last seen).
   - Parked (don't raise): the Time Machine, landscape stage 2.
 - **History:**
-  - Main's pushes, newest first: `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
+  - Main's pushes, newest first: `3cb8065` (13 November 2026, the owner's "Push": VisionQuest's finale back for Virgil Horton,
+  Jocasta and Paladin; full suite 38 of 38). Before it `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
   longer decides anyone's group, Sitwell, Pierce, Rollins, Rumlow, Yondu, Foggy, Janet and others; full suite 38 of 38 with ct66).
   Before it `45d7459` (pushed 11 November 2026, the owner's "push when ready": VisionQuest in full, files, logs, Atlas and
   Network through the finale; full suite 37 of 37). Before it `d5c26f9` (11 November 2026, the owner's "Push": dying at the turn keeps the group, Darren Cross in
