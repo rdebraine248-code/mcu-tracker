@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `4621b25`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 39 of 39
+- **main is at `6f8eba9`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 39 of 39
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest; ct67 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
@@ -57,18 +57,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     ("thunderbolts through and through"), Glorious purpose ("paths aren't timelines", and the Sacred Timeline page is already
     "Loki galore"). 16 new eggs (to 80, a fifth Agent File page) "could work", in the lesser pages, high quality. The audit page
     (https://claude.ai/artifact/C3UE6Zb2qccNeG5DxF2jAX, "move into files") is superseded: don't use it.
-  - **The Mind Stone egg (test build v200, `MOCKUP BEGIN mindstone`).** A re-enactment of the lab (J.A.R.V.I.S.'s gold sphere,
-    Ultron's blue cloud) was built from the owner's frames and rejected ("looks bad"). Now the original web, taken further (owner:
-    "fix the original design to extend the line design and then change it in shape not just color when it becomes gold and vision
-    and then instead of just shrinking ... sizzle away or burrow into the network of the datapad"): the red web spreads from the
-    finger over the whole screen (the titles plus an even spread of points); let go too soon and Ultron wins as before (red, unchanged);
-    held, it turns gold and every thread straightens into the Mind Stone's cut as a wireframe, glows, then shrinks into the finger as
-    the original did and the Stone wakes there. Burrowing into the titles and dock with sparks was tried and cut (owner: "I hate the
-    lines that quickly run through the titles. also the sparkles are stuck ... just have it shrink like normal"). Ultron's web has
-    depth (owner: "Make ultron a bit more intricate. Right now its flat 2d plane"): near and far points drifting with parallax,
-    near threads brighter and thicker, two fibres braided round each thread, a fainter web behind; the fibres fade as it turns gold
-    and in Ultron's win too. Test build v200;
-    MP4s shown; waiting on the owner.
+  - **The Mind Stone egg, redesigned, on main (`6f8eba9`, 13 November 2026).** The original web kept and taken further: Ultron's red
+    web spreads from the finger over the whole screen with depth (near and far points drifting with parallax, two fibres braided round
+    each thread, a fainter web behind); let go too soon and Ultron wins (red, as before); held, it turns gold and every thread
+    straightens into the Mind Stone's cut as a wireframe, glows, then shrinks into the finger and the Stone wakes there. Tried and cut
+    on the way: a re-enactment of the lab (J.A.R.V.I.S.'s gold sphere, Ultron's blue cloud: "looks bad"), and the threads burrowing
+    into the titles and the dock ("I hate the lines that quickly run through the titles").
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
     Home, Multiverse of Madness, Quantumania, Loki S2); Gods Among Us (Shang-Chi, Eternals, Moon Knight, Werewolf by Night, Love and
@@ -86,7 +80,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     Last seen).
   - Parked (don't raise): the Time Machine, landscape stage 2.
 - **History:**
-  - Main's pushes, newest first: `4621b25` (13 November 2026, the owner's "Push.": the Network's Jack fix, network.html only;
+  - Main's pushes, newest first: `6f8eba9` (13 November 2026, the owner's "Sure push": the Mind Stone egg redesigned; full suite 39 of
+  39). Before it `4621b25` (13 November 2026, the owner's "Push.": the Network's Jack fix, network.html only;
   full suite 39 of 39 with ct67). Before it `3cb8065` (13 November 2026, the owner's "Push": VisionQuest's finale back for Virgil Horton,
   Jocasta and Paladin; full suite 38 of 38). Before it `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
   longer decides anyone's group, Sitwell, Pierce, Rollins, Rumlow, Yondu, Foggy, Janet and others; full suite 38 of 38 with ct66).
