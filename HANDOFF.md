@@ -57,14 +57,17 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     ("thunderbolts through and through"), Glorious purpose ("paths aren't timelines", and the Sacred Timeline page is already
     "Loki galore"). 16 new eggs (to 80, a fifth Agent File page) "could work", in the lesser pages, high quality. The audit page
     (https://claude.ai/artifact/C3UE6Zb2qccNeG5DxF2jAX, "move into files") is superseded: don't use it.
-  - **The Mind Stone egg (test build v199, `MOCKUP BEGIN mindstone`).** A re-enactment of the lab (J.A.R.V.I.S.'s gold sphere,
+  - **The Mind Stone egg (test build v200, `MOCKUP BEGIN mindstone`).** A re-enactment of the lab (J.A.R.V.I.S.'s gold sphere,
     Ultron's blue cloud) was built from the owner's frames and rejected ("looks bad"). Now the original web, taken further (owner:
     "fix the original design to extend the line design and then change it in shape not just color when it becomes gold and vision
     and then instead of just shrinking ... sizzle away or burrow into the network of the datapad"): the red web spreads from the
     finger over the whole screen (the titles plus an even spread of points); let go too soon and Ultron wins as before (red, unchanged);
     held, it turns gold and every thread straightens into the Mind Stone's cut as a wireframe, glows, then shrinks into the finger as
     the original did and the Stone wakes there. Burrowing into the titles and dock with sparks was tried and cut (owner: "I hate the
-    lines that quickly run through the titles. also the sparkles are stuck ... just have it shrink like normal"). Test build v199;
+    lines that quickly run through the titles. also the sparkles are stuck ... just have it shrink like normal"). Ultron's web has
+    depth (owner: "Make ultron a bit more intricate. Right now its flat 2d plane"): near and far points drifting with parallax,
+    near threads brighter and thicker, two fibres braided round each thread, a fainter web behind; the fibres fade as it turns gold
+    and in Ultron's win too. Test build v200;
     MP4s shown; waiting on the owner.
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
