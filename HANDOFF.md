@@ -548,9 +548,9 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   Built into hub-src behind `html.land`, which only the app's landscape mockup sets (`netLandOn`), so main's network.html carries it
   switched off. **The Sacred Timeline's left column has no backing** (owner: "the orange is split with the blue"): the page's own
   screen shows through it. **One header standard, as upright** (owner, 13 November 2026: "In portrait, all the pages and the headers
-  all look the same ... Story is two columns, network has a very obvious straight line border cut through"): Story is one column
-  again (stage 1's left column is gone; its title at 28px like every page, the progress beside it, the path buttons under, all
-  scrolling away); every page's title at the top of its row (`.dockpg .maptop > h2{ align-self:flex-start }`); the Network's title
+  all look the same ... Story is two columns, network has a very obvious straight line border cut through"): Story keeps its two
+  columns (made one column for a moment and the owner: "Why did you make story 1 column? It looks worse now"; the note pointed out a
+  difference, it didn't ask for a change), its title now 28px like every page's; every page's title at the top of its row (`.dockpg .maptop > h2{ align-self:flex-start }`); the Network's title
   28px and its bar's backing fading out over the room (no edge). Checked upright and sideways: the Log, the Atlas and the Network
   keep their headers pinned and Comms and the Agent File scroll theirs away, in both orientations (the owner asked; answered).
   Next: the indexes (the Compound, the Raft, the Collection) and their files, then the Log's Paths.

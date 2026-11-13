@@ -1638,15 +1638,19 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
   /* a page's title and its tabs share one row, so the page starts higher */
   .dockpg .maptop{ flex-wrap:nowrap; padding-bottom:8px; }
   .dockpg .maptop .atl-views{ flex:1 1 0; min-width:0; flex-basis:0; margin-top:0; padding-top:0; }
-  /* Story keeps one column, as upright (owner, 13 November 2026: "In portrait, all the pages and the headers all look the same ...
-     Story is two columns"): the title at every page's height and size, the progress beside it, the path buttons under them, all
-     scrolling away with the boxes. (A left column of its own, stage 1, is gone.) */
+  /* Story: the header stands in its own column on the left, pinned and scrolling on its own; the boxes are the page on the right
+     (owner, November 2026: "left and right column should act separately"; the shared, sticky column overlapped when scrolled far) */
+  #app.wrap{ max-width:none; padding-left:calc(var(--lcolw) + 26px); }
+  #app .lcol{ display:block; position:fixed; z-index:3; top:0; bottom:var(--tkh, 0px); left:var(--dockw); width:var(--lcolw); box-sizing:border-box; overflow-y:auto; overscroll-behavior:contain;
+    padding:0 0 14px 20px; background:none; scrollbar-width:none; }   /* no backing of its own: the page's screen shows through, the TVA's amber on the Sacred Timeline (owner: "the orange is split with the blue") */
+  #app .lcol::-webkit-scrollbar{ display:none; }
   :root{ --lcolw:clamp(230px, 32vw, 340px); }
-  #app .mast{ flex-wrap:nowrap; align-items:flex-start; gap:12px 28px; padding-bottom:12px; }
-  #app .mast h1{ font-size:28px; white-space:nowrap; }
-  #app .meter{ flex:0 1 320px; min-width:0; }
-  #app .modes{ justify-content:flex-start; gap:8px; margin:14px 0 4px; }
-  #app .modes button{ padding:8px 16px; font-size:15px; }
+  #app .mast{ flex-direction:column; align-items:stretch; gap:10px; padding-top:calc(6px + env(safe-area-inset-top,0px)); padding-bottom:12px; border-bottom:0; }
+  #app .mast h1{ white-space:normal; font-size:28px; line-height:1.02; }   /* every page's title size (owner, 13 November 2026) */
+  #app .mast h1::before{ white-space:normal; right:0; }   /* the glow wraps with its title, instead of trailing off across the boxes */
+  #app .meter{ flex:none; min-width:0; }
+  #app .modes{ flex-direction:row; flex-wrap:wrap; justify-content:flex-start; align-items:stretch; gap:6px; margin:0; }
+  #app .modes button{ padding:7px 12px; font-size:14px; }
   /* every page's title at one height, as upright: a title that shares its row with tabs stands at the top of the row, not its middle */
   .dockpg .maptop > h2{ align-self:flex-start; }
   /* Atlas: the map on the left, its list beside it */
