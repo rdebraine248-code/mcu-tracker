@@ -40,7 +40,11 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
     const APART = new Set(['white-vision', 'binary', 'sv-venom-sony', 'karl-mordo-838',
       /* the left-out characters (November 2026): a villain who shares a hero's name but is someone else */ 'st-oconnor-fbi', 'st-grace', 'tomas', 'john-king', 'diego']), byName = {}, as = {};
     ALLIES.filter(o => rfUniOf(o) === 'mcu' && !o.grp).forEach(o => byName[nm(o)] = o.id);
-    TH.forEach(o => { if (rfUniOf(o) === 'mcu' && !P[o.id] && !APART.has(o.id) && byName[nm(o)]) as[o.id] = byName[nm(o)]; });
+    // a name alone isn't enough (owner, 13 November 2026: Phastos's son Jack was merged with Hammer's assistant Jack): the two files must
+    // also share a title, so two people who never meet can't become one bubble
+    const ttl = o => new Set((o.st || []).map(x => String(x[1]).replace(/#\d+$/, '').replace(/ S\d+.*$/, ''))), meet = (a, b) => { const B = ttl(b); return [...ttl(a)].some(t => B.has(t)); };
+    const AL = Object.fromEntries(ALLIES.map(o => [o.id, o]));
+    TH.forEach(o => { const a = byName[nm(o)]; if (rfUniOf(o) === 'mcu' && !P[o.id] && !APART.has(o.id) && a && meet(o, AL[a])) as[o.id] = a; });
     // and two whose Raft files go by their villain names: Deathlok is Mike Peterson, Lash is Andrew Garner (one person, one bubble)
     Object.assign(as, { 'st-deathlok': 'st-mike-peterson', 'st-lash': 'st-andrew-garner' });
     // in every universe, a hero file the app links to its villain file (o.rf) is the same person: one bubble (owner: "one person each").
@@ -95,7 +99,11 @@ const { open } = require('/home/user/mcu-tracker/mockup-data/tests/h.js');
       variants: (() => { const by = {}; ids.forEach(id => (by[P[id].n] = by[P[id].n] || []).push(idx[id])); const V = [];
         // the left-out characters (November 2026) who only share a name with someone in their own universe: different people, not versions
         const NOTV = new Set(['diego', 'john-king', 'shirley-sagar-skrull', 'st-aisha-axton', 'st-diego', 'st-grace', 'st-grace-bennett', 'st-john-donnelly', 'st-kyle', 'st-kyle-assistant', 'st-oconnor', 'st-oconnor-fbi', 'st-philip', 'st-philip-cabroni', 'st-roy-bartender', 'st-roy-hardin', 'st-ruben', 'st-ruben-mackenzie', 'st-shirley', 'st-tomas-ciancio', 'tomas']);
-        Object.values(by).forEach(L => { for (let a = 0; a < L.length; a++) for (let b = a + 1; b < L.length; b++) { const A = ids[L[a]], B = ids[L[b]]; if ((NOTV.has(A) || NOTV.has(B)) && P[A].u === P[B].u) continue; V.push([L[a], L[b]]); } });
+        // and people in any universe who only share a first name or a codename with someone (owner, 13 November 2026: Phastos's son Jack was
+        // shown as a version of Hammer's assistant, a boy on a bridge, a network head and Essex's creature): never versions by name
+        const NOTVER = new Set(['jack-eternals', 'jack-hammer', 'sv-jack-asm', 'sv-jack-mnbn', 'fox-anim-jack', 'st-bobby', 'fox-bobby', 'dave', 'pr-st-dave',
+          'luis', 'by-luis-conquistador', 'st-sergei', 'by-sergei-christmas', 'raza', 'fox-anim-raza', 'talos', 'fox-anim-talos', 'st-blackwell', 'sv-blackwell-1967']);
+        Object.values(by).forEach(L => { for (let a = 0; a < L.length; a++) for (let b = a + 1; b < L.length; b++) { const A = ids[L[a]], B = ids[L[b]]; if ((NOTV.has(A) || NOTV.has(B)) && P[A].u === P[B].u) continue; if (NOTVER.has(A) || NOTVER.has(B)) continue; V.push([L[a], L[b]]); } });
         const st = ids.find(id => P[id].u === 'mcu' && P[id].n === 'Stephen Strange'); ['sinister-strange', 'by-strange-supreme', 'defender-strange'].forEach(id => { if (P[id] && st) V.push([idx[st], idx[id]]); });
         return V; })() };
   } catch (e) { return { err: e.stack }; } }, SPL); if (d.err) { console.log(d.err); process.exit(1); }

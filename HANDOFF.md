@@ -17,7 +17,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 - **main is at `3cb8065`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 38 of 38
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
-  ct35, content and swtest).
+  ct35, content and swtest; ct67 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
   the Network rebuild in `network/src/prof`, the test build, the split `out/mainroot`). Then the suite, then (only on the owner's
   "push") the main push in "Build and push" below. `mockup-data/tools/lastgroup.js` dumps every file's runtime groups and steps (used to
@@ -46,17 +46,21 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
-  - **Eggs: where they live, and new ones (owner, 13 November 2026: "1. I need a redesign of the ultron and vision lines in the stone
-    egg 2. Need eggs for pages created after eggs finished (networks, indexes comms) 3. ... now that they have files maybe those should
-    be moved there. Same with ultron vision, other stones").** The owner asked for a line-item audit before anything moves: the page is
-    https://claude.ai/artifact/C3UE6Zb2qccNeG5DxF2jAX (answers in its `answers` collection, one doc per item, read with ArtifactData).
-    It proposes: the Mind Stone re-enacting Age of Ultron (the lab's neurons, Ultron tearing J.A.R.V.I.S. apart, J.A.R.V.I.S. gathered,
-    Thor's lightning, the Stone's gold; owner picked "Re-enact the film"); single-person box eggs into that person's file; team eggs into
-    a group file where one exists, else kept; the four log mascots kept in the logs (hidden there); the Stones never on their own
-    Collection files (owner: "It would be so stupid to have a 6 stones found in the stones page on index. Then they wouldn't be hidden"),
-    each in a person's file (Mind the Vision, Soul Natasha, Power Peter Quill or T'Challa, Reality Jane Foster since the Hex is not the
-    Reality Stone, Time Strange, Space Loki or Red Skull); eight new egg candidates in fours (Network, Comms, Raft, Compound, Damage
-    Control, Collection). Waiting on the owner's picks.
+  - **Eggs: an even spread (owner, 13 November 2026).** Story holds 39 of the 64 eggs (Atlas 14, Logs 4, anywhere 3, Comms 2, Agent
+    File 1, Paths 1; Network, Compound, Raft, Collection and Damage Control none); by source Infinity Saga 32, Multiverse Saga 22,
+    Marvel TV 4, the Extras 4, whole MCU 2; films 46, shows 16. The goal: an even spread over pages and over sagas, films and shows.
+    Rules from the owner: never put an egg inside one file or one connection ("Having like 3 eggs in an index of 600 would be
+    impossible to find"); a move needs a real new home and a plan, not "move it to their file"; new eggs go to the least-represented
+    pages and must be full scenes with many moving parts that tell a story (the Champions, the Hex, Black Widow), never a picture
+    popping in and out. Moves decided: **Assemble to the Network** (the Avengers' group in the room) and **Hello, Peter. to the Raft**
+    (its Spider-Verse tab). Stay where they are (owner): the Uni-Mind ("not a fan"), One last page ("a big fury moment"), Redacted
+    ("thunderbolts through and through"), Glorious purpose ("paths aren't timelines", and the Sacred Timeline page is already
+    "Loki galore"). 16 new eggs (to 80, a fifth Agent File page) "could work", in the lesser pages, high quality. The audit page
+    (https://claude.ai/artifact/C3UE6Zb2qccNeG5DxF2jAX, "move into files") is superseded: don't use it.
+  - **The Mind Stone egg, re-enacted (test build v196, `MOCKUP BEGIN mindstone`; owner's frames from Age of Ultron as reference):**
+    J.A.R.V.I.S. is the gold sphere of rings and interface fragments, Ultron the blue tangle of strands; his blue lightning strikes
+    the sphere. Let go too soon: the sphere breaks apart and the titles corrupt in Ultron's blue (ultronWins is blue now). Held:
+    Ultron breaks off, the gold gathers, Thor's lightning, the Vision's cut gem. MP4s shown; waiting on the owner.
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
     Home, Multiverse of Madness, Quantumania, Loki S2); Gods Among Us (Shang-Chi, Eternals, Moon Knight, Werewolf by Night, Love and
@@ -1652,6 +1656,16 @@ walk this list; anything new the app shows gets a line here, with its check, the
 - **Parked mockups** (the Time Machine, Six Degrees, landscape): test build only; not covered, not on main.
 
 ## Mistakes not to repeat
+
+- **Matching people by name alone, again (November 2026):** the Network merges a Raft file into a Compound file of the same name,
+  and links same-name people across universes as "other versions". When the left-out characters went in, Phastos's son Jack (the
+  Compound) was merged with Hammer's assistant Jack (the Raft): he stood in Hammer Industries with Hammer's and Vanko's ties, out of his
+  family's circle, and five Jacks plus Bobby, Dave, Luis, Sergei, Raza, Talos and Blackwell were each other's "versions". The owner
+  found it ("so fucking obvious things that you think would have been caught when I did a multi day god damn audit"). Fixed: a
+  name merge also needs a shared title (hub2.js), `NOTVER` keeps first-name and codename matches from being versions, Ben and Jack
+  stand in "Phastos's family" (one spelling; the old "Phastos' family" entry went), and ct67 checks every person's current group
+  against their own file, every merge for a shared title, and the version links. After adding people, run ct67 and read every new
+  person's card in the Network.
 
 - **Rerunning a generator over hand edits, and not reading the build (November 2026):** `unfiled/merge.py` rebuilds its adds and
   episode tags from the `chk*.json` batches. Rerun after VisionQuest and the Roxy Glass fix (both edited elsewhere), it put the

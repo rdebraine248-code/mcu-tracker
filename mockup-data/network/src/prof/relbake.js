@@ -9,7 +9,7 @@ const H = JSON.parse(fs.readFileSync(__dirname + '/hub.json')), SL = JSON.parse(
 const BY_ID_ONLY = new Set(['white-vision', 'binary', 'wanda-maximoff-838', 'billy-maximoff-838', 'tommy-maximoff-838', 'christine-palmer-838', 'stephen-strange-838', 'maria-rambeau-838', 'reed-richards-838', 'karl-mordo-838',
   // the left-out characters (November 2026) who share a name with someone: their ties come by id (rel/uni/newfiles/extra_unfiled.json)
   'st-aisha-axton', 'st-kyle-assistant', 'st-kyle', 'st-philip-cabroni', 'st-philip', 'st-roy-bartender', 'st-roy-hardin', 'st-ruben-mackenzie', 'st-ruben',
-  'st-shirley', 'shirley-sagar-skrull', 'john-king', 'st-john-donnelly']);
+  'st-shirley', 'shirley-sagar-skrull', 'john-king', 'st-john-donnelly', 'jack-eternals', 'jack-hammer']);
 const ix = new Map(H.nodes.map((n, i) => [n[0], i]).filter(([, i]) => (H.nodes[i][10] || 'mcu') === 'mcu' && !BY_ID_ONLY.has(H.nodes[i][11])));   // relationships are Sacred Timeline ones, by name
 const so = t => { { const m = /^(.*)#(\d+)$/.exec(t); if (m) { const b = so(m[1]); return b < 0 ? b : b + m[2] / 1000; } } let i = SL.indexOf(t); if (i < 0) i = SL.findIndex(x => x.startsWith(t + ' S') || x.startsWith(t + ':') || x.startsWith(t + ' (')); return i; };
 const KINDS = ['family', 'partner', 'friend', 'mentor', 'boss', 'ally', 'rival', 'enemy'];
@@ -67,7 +67,7 @@ let kaCut = 0, kaFix = 0; if (fs.existsSync(R + 'knowaudit_out.json')) { const K
   for (let k = out.length - 1; k >= 0; k--) { const [a, b] = out[k], key = pk(a, b);
     if (cut.has(key)) { out.splice(k, 1); kaCut++; continue; }
     const f = fix.get(key); if (f) { const flip = idOf(f.a) !== a; out[k][2] = f.stages.map(x => { const st = [KINDS.indexOf(x.kind), tIx(x.title), x.text, x.whoA || '', x.whoB || '']; return flip ? [st[0], st[1], st[2], st[4], st[3]] : st; }); kaFix++; } } }
-const SAME_P = { 'Deathlok': 'Mike Peterson', 'Lash': 'Andrew Garner' }, places = {}; [1, 2, 3, 4].forEach(k => JSON.parse(fs.readFileSync(R + 'out' + k + '.json')).places.forEach(p => { const i = ix.get(SAME_P[p.name] || p.name); if (i != null && p.circle && p.with !== 'none') places[i] = p.circle; }));
+const SAME_P = { 'Deathlok': 'Mike Peterson', 'Lash': 'Andrew Garner' }, places = {}; [1, 2, 3, 4].forEach(k => JSON.parse(fs.readFileSync(R + 'out' + k + '.json')).places.forEach(p => { const i = p.id ? H.nodes.findIndex(n => n[11] === p.id) : ix.get(SAME_P[p.name] || p.name); if (i != null && i >= 0 && p.circle && p.with !== 'none') places[i] = p.circle; }));
 // circles for the other universes' crewless people, from each part's review ({ id: circle })
 let uc = 0; if (fs.existsSync(R + 'uni')) fs.readdirSync(R + 'uni').forEach(d => { const f = R + 'uni/' + d + '/circles.json'; if (!fs.existsSync(f)) return;
   Object.entries(JSON.parse(fs.readFileSync(f))).forEach(([id, c]) => { const i = idOf(id); if (i != null && c && H.nodes[i][2] === 'Independent') { const [cn, w] = String(c).split('@'); places[i] = cn + '\u2064' + d + (w || ''); uc++; }   /* "Name@world": one name, separate worlds */   /* a circle belongs to its part: two worlds' "Parker family" stay apart (the key carries it, unseen) */ }); });
