@@ -15,8 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `3cb8065`.** **Waiting on "push": the Network fix (Phastos's son Jack apart from Hammer's Jack, Ben and Jack in
-  Phastos's family, no versions by first name alone; see "Mistakes not to repeat").** Full suite: 39 of 39 (13 November 2026)
+- **main is at `4621b25`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 39 of 39
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest; ct67 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
@@ -79,7 +78,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     Last seen).
   - Parked (don't raise): the Time Machine, landscape stage 2.
 - **History:**
-  - Main's pushes, newest first: `3cb8065` (13 November 2026, the owner's "Push": VisionQuest's finale back for Virgil Horton,
+  - Main's pushes, newest first: `4621b25` (13 November 2026, the owner's "Push.": the Network's Jack fix, network.html only;
+  full suite 39 of 39 with ct67). Before it `3cb8065` (13 November 2026, the owner's "Push": VisionQuest's finale back for Virgil Horton,
   Jocasta and Paladin; full suite 38 of 38). Before it `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
   longer decides anyone's group, Sitwell, Pierce, Rollins, Rumlow, Yondu, Foggy, Janet and others; full suite 38 of 38 with ct66).
   Before it `45d7459` (pushed 11 November 2026, the owner's "push when ready": VisionQuest in full, files, logs, Atlas and
