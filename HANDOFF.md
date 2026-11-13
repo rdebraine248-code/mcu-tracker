@@ -547,7 +547,13 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   the camera frames them in the middle of the room left of it (`landCard`: half the panel's width, in place of portrait's lift).
   Built into hub-src behind `html.land`, which only the app's landscape mockup sets (`netLandOn`), so main's network.html carries it
   switched off. **The Sacred Timeline's left column has no backing** (owner: "the orange is split with the blue"): the page's own
-  screen shows through it. Next: the indexes (the Compound, the Raft, the Collection) and their files, then the Log's Paths.
+  screen shows through it. **One header standard, as upright** (owner, 13 November 2026: "In portrait, all the pages and the headers
+  all look the same ... Story is two columns, network has a very obvious straight line border cut through"): Story is one column
+  again (stage 1's left column is gone; its title at 28px like every page, the progress beside it, the path buttons under, all
+  scrolling away); every page's title at the top of its row (`.dockpg .maptop > h2{ align-self:flex-start }`); the Network's title
+  28px and its bar's backing fading out over the room (no edge). Checked upright and sideways: the Log, the Atlas and the Network
+  keep their headers pinned and Comms and the Agent File scroll theirs away, in both orientations (the owner asked; answered).
+  Next: the indexes (the Compound, the Raft, the Collection) and their files, then the Log's Paths.
 
 - **A box's head** (owner, November 2026): no Back row; **Close** (a thin pill, no focus ring round it) stands at the title's right,
   and the chapter label (CH. 1, EXTRAS) sits under the title, before the quote; a character's **Profile** takes that line, in the label's

@@ -201,7 +201,8 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
   /* the bar: the title, the universes as tabs like the Log's (mono capitals, the one you're in lit with a glowing line), search as a
      round button at the end (owner, 13 November 2026: the boxed pills and the search field in one row "looks cheap") */
   html.land header{ display:flex; flex-wrap:wrap; align-items:center; column-gap:18px; row-gap:4px; padding-bottom:12px; }
-  html.land header h1{ flex:none; font-size:24px; }
+  html.land header h1{ flex:none; font-size:28px; align-self:flex-start; }   /* every page's title, its size and height */
+  html.land header::before{ bottom:-40px; -webkit-mask-image:linear-gradient(180deg, #000 45%, transparent); mask-image:linear-gradient(180deg, #000 45%, transparent); }   /* fading out over the room, no edge */
   html.land .unis{ order:1; flex:1 1 0; min-width:0; gap:4px; margin:0; padding:0; align-self:stretch; align-items:stretch; }
   html.land .unis button{ position:relative; border:0; border-radius:0; background:none; padding:10px 10px 9px; color:#6F7C95; font:13px/1 'Share Tech Mono', 'Courier New', monospace; letter-spacing:2px; text-transform:uppercase; }
   html.land .unis button[aria-selected="true"]{ background:none; color:#EEF1F6; }
