@@ -890,6 +890,10 @@ insignia celebration covers the page.
 
 ## Standing rules from the owner
 
+- **Added 13 November 2026: never describe a design in text. Build it and show it** (owner: "How many times do i have to say I dint
+  care about design breakdown by text. Either mp4 or mock it up my god"). Any look or animation goes to the owner as a mockup in the
+  test build with an MP4, never as a written plan, an audit line or a report page. Text is for decisions about where things go.
+
 - **Added 11 November 2026: when the owner asks what you think, say what you think.** Asked where VisionQuest belongs, a chat put the
   owner's own question back as options; owner: "I asked what you think and what you did was just ask me the question I had." Give a
   clear opinion with the reasons; options are for decisions that are the owner's to make, after you've said your pick.
