@@ -543,7 +543,7 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   tabs like the Log's (mono capitals, a glowing line under the one you're in) and search as a round button (the first try, pills and a
   search field in one row, "looks cheap"); a person's card is a panel on the right that scrolls as one piece, name and file together,
   only its buttons pinned at the foot (owner: "if the network popup isnt interactive it shouldnt be stagnant and should scroll with
-  the rest of the pop up"; asked whether portrait's card should do the same), the file filled on open (`#cMore`), and
+  the rest of the pop up"), the file filled on open (`#cMore`), and
   the camera frames them in the middle of the room left of it (`landCard`: half the panel's width, in place of portrait's lift).
   Built into hub-src behind `html.land`, which only the app's landscape mockup sets (`netLandOn`), so main's network.html carries it
   switched off. **The Sacred Timeline's left column has no backing** (owner: "the orange is split with the blue"): the page's own
@@ -916,6 +916,11 @@ insignia celebration covers the page.
     index is discovered and its file has a watched title.
 
 ## Standing rules from the owner
+
+- **Added 13 November 2026: what you only read scrolls; what you use stays** (owner: "if the network popup isnt interactive it
+  shouldnt be stagnant and should scroll with the rest of the pop up"; then "Yes do portrait too"). The Network's card at full height
+  is one scroll, upright and sideways: name, summary and file move together; only the grip (top) and the buttons (foot) stay; pulled
+  down from its very top it slides back down (touch handlers on the card, not the file). Built 13 November 2026, waiting on "push".
 
 - **Added 13 November 2026: never describe a design in text. Build it and show it** (owner: "How many times do i have to say I dint
   care about design breakdown by text. Either mp4 or mock it up my god"). Any look or animation goes to the owner as a mockup in the

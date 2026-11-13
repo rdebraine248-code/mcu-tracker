@@ -34,6 +34,15 @@ h1{ pointer-events:auto; display:inline-block; -webkit-user-select:none; user-se
 #card > div{ min-height:0; } #card.big{ top:max(60px, env(safe-area-inset-top, 0px)); } #card.big #vOne:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
 #cMore{ display:none; } #card.big #cMore{ display:block; flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; margin:6px -14px 0; padding:0 14px 8px; touch-action:pan-y; }
 #card.big #sConn{ display:none; }
+/* full height, the card is one scroll (owner, 13 November 2026: "if the network popup isnt interactive it shouldnt be stagnant and
+   should scroll with the rest of the pop up ... Yes do portrait too"): the name, the summary and the file move together; only what you
+   use stays, the grip at the top and the buttons at the foot. Pulled down from its top, it slides back down as before */
+#card.big{ overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; padding-bottom:0; }
+#card.big #vOne:not([hidden]), #card.big #vTwo:not([hidden]){ display:block; }
+#card.big #cMore, #card.big #lBody{ overflow:visible; flex:none; max-height:none; }
+#card.big #cGrip{ position:sticky !important; top:-12px; z-index:3; height:26px; margin:-12px -14px 0; width:calc(100% + 28px); background:rgb(14,24,40) !important; }
+#card.big #cGrip::before{ top:12px; }
+#card.big #cRow, #card.big #vTwo .row{ position:sticky; bottom:0; z-index:2; margin-left:-14px; margin-right:-14px; padding:10px 14px max(14px, env(safe-area-inset-bottom, 0px)); background:linear-gradient(180deg, rgba(14,24,40,0), rgb(14,24,40) 30%); }
 /* how two people are connected slides up the same way (owner, 5 November 2026: "should also be scrollable and tapable starting at the
    top etc just like an individuals"): small, the first of it, fading out; pulled up, all of it, scrolling, from its top */
 #lBody{ margin:6px -14px 0; padding:0 14px 8px; max-height:var(--lbh, 24vh); overflow:hidden; }   /* small, the card stands as tall as a person's small card (owner, 6 November 2026) */
@@ -739,11 +748,11 @@ function moreHTML(p, L) {
 // list down from its top drags the card down too
 let cardBig = false, dragged = 0, cd = null;
 const TOPMIN = 60, cardTop = () => card.getBoundingClientRect().top;
-const moreFill = () => { if (sel && card._more !== sel) { card._more = sel; $('cMore').innerHTML = moreHTML(sel, card._L || []); $('cMore').scrollTop = 0; } };   // a new card starts at its top
+const moreFill = () => { if (sel && card._more !== sel) { card._more = sel; $('cMore').innerHTML = moreHTML(sel, card._L || []); $('cMore').scrollTop = 0; card.scrollTop = 0; } };   // a new card starts at its top
 const setBig = (v, top) => { if (v) moreFill();
-  if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
+  if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; card.scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
   card._k = (card._k || 0) + 1; cardBig = v; card.classList.toggle('big', v); card.style.top = v && top != null ? top + 'px' : '';
-  $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) { $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; } };
+  $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) { $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; card.scrollTop = 0; } };
 self.cardReady = true;   // home() runs while the page starts, before the card's code exists
 const settle = top => { card.style.transition = '';
   if (top > card._ct - 48) { if (!cardBig) return; card.style.top = card._ct + 'px'; const k = card._k = (card._k || 0) + 1; setTimeout(() => { if (card._k === k && !cd) setBig(false); }, 330); }
@@ -753,20 +762,23 @@ const dragMove = y => { if (!cd) return false; const dy = y - cd.y; if (!cd.on &
   const top = Math.max(TOPMIN, cd.t + dy);
   if (top > card._ct) { if (cardBig) { cardBig = false; card.classList.remove('big'); card.style.top = ''; } card.style.transform = `translateY(${top - card._ct}px)`; cd.down = top - card._ct; return true; }   // below where it rests: on its way out
   cd.down = 0; card.style.transform = '';
-  if (!card.classList.contains('big')) { card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; }   // every card's list starts at its top (owner)
+  if (!card.classList.contains('big')) { card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; card.scrollTop = 0; }   // every card's list starts at its top (owner)
   cardBig = true; card.style.top = top + 'px'; return true; };
 const dragEnd = () => { if (!cd) return; const on = cd.on, down = cd.down || 0; cd = null; if (!on) return; dragged = performance.now(); card.style.transition = '';
   if (down > 70) { card.style.transform = ''; home(); return; }   // pulled down far enough: it slides the rest of the way and closes (owner: "slide it all the way down to close it")
   if (down > 0) { card.style.transform = ''; return; } settle(cardTop()); };
 $('cGrip').onclick = () => { if (performance.now() - dragged < 400) return; if (cardBig) { card._ct = card._ct || cardTop(); settle(1e4); } else { card._ct = cardTop(); setBig(true, TOPMIN); } };
-card.addEventListener('pointerdown', e => { if (e.target.closest('#cMore, .strip') || cardBig && e.target.closest('#lBody')) return; dragStart(e.clientY); cd.pid = e.pointerId; });
+card.addEventListener('pointerdown', e => { if (e.target.closest('#cMore, .strip') || cardBig && e.target.closest('#lBody') || landOn()) return;   // sideways the card is a panel and never slides
+  if (cardBig && e.pointerType === 'touch' && !e.target.closest('#cGrip')) return;   // full height, a finger scrolls the card; the touch handlers pull it down from its top
+  dragStart(e.clientY); cd.pid = e.pointerId; });
 addEventListener('pointermove', e => { if (!cd || cd.touch) return; const was = cd.on; dragMove(e.clientY); if (cd.on && !was) try { card.setPointerCapture(cd.pid); } catch (x) {} });   // held only once it's a drag, so a tap still lands on what you tapped
 addEventListener('pointerup', () => { if (cd && !cd.touch) dragEnd(); }); addEventListener('pointercancel', () => { if (cd && !cd.touch) dragEnd(); });
 card.addEventListener('click', e => { if (performance.now() - dragged < 400 && !e.target.closest('#cGrip')) { e.stopPropagation(); e.preventDefault(); } }, true);
-['cMore', 'lBody'].forEach(id => { const m = $(id);
-  m.addEventListener('touchstart', e => { if (cardBig && m.scrollTop <= 0) { dragStart(e.touches[0].clientY); cd.touch = true; } }, { passive: true });
+// full height, the card scrolls as one: a finger pulling down from its very top slides it back down (the grip drags it any time)
+{ const m = card;
+  m.addEventListener('touchstart', e => { if (cardBig && m.scrollTop <= 0 && !e.target.closest('#cGrip') && !(document.documentElement.classList.contains('land') && LANDQ.matches)) { dragStart(e.touches[0].clientY); cd.touch = true; } }, { passive: true });
   m.addEventListener('touchmove', e => { if (!cd || !cd.touch) return; if (!cd.on && e.touches[0].clientY < cd.y) { cd = null; return; } if (dragMove(e.touches[0].clientY)) e.preventDefault(); }, { passive: false });
-  m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); });
+  m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); }
 function fillCard(p) {
   $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0].split('\u2064')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? worldOf(p) + ' · ' : '') + (c === 'Independent' ? 'Independent' : c); }
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d), cnt = {};
