@@ -57,10 +57,13 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     ("thunderbolts through and through"), Glorious purpose ("paths aren't timelines", and the Sacred Timeline page is already
     "Loki galore"). 16 new eggs (to 80, a fifth Agent File page) "could work", in the lesser pages, high quality. The audit page
     (https://claude.ai/artifact/C3UE6Zb2qccNeG5DxF2jAX, "move into files") is superseded: don't use it.
-  - **The Mind Stone egg, re-enacted (test build v196, `MOCKUP BEGIN mindstone`; owner's frames from Age of Ultron as reference):**
-    J.A.R.V.I.S. is the gold sphere of rings and interface fragments, Ultron the blue tangle of strands; his blue lightning strikes
-    the sphere. Let go too soon: the sphere breaks apart and the titles corrupt in Ultron's blue (ultronWins is blue now). Held:
-    Ultron breaks off, the gold gathers, Thor's lightning, the Vision's cut gem. MP4s shown; waiting on the owner.
+  - **The Mind Stone egg (test build v198, `MOCKUP BEGIN mindstone`).** A re-enactment of the lab (J.A.R.V.I.S.'s gold sphere,
+    Ultron's blue cloud) was built from the owner's frames and rejected ("looks bad"). Now the original web, taken further (owner:
+    "fix the original design to extend the line design and then change it in shape not just color when it becomes gold and vision
+    and then instead of just shrinking ... sizzle away or burrow into the network of the datapad"): the red web spreads from the
+    finger over the whole screen (the titles plus an even spread of points); let go too soon and Ultron wins as before (red, unchanged);
+    held, it turns gold and every thread straightens into the Mind Stone's cut as a wireframe, glows, then breaks up and burrows along
+    the page's own lines into the titles and the dock, sizzling, each title it reaches lighting gold. MP4s shown; waiting on the owner.
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
     Home, Multiverse of Madness, Quantumania, Loki S2); Gods Among Us (Shang-Chi, Eternals, Moon Knight, Werewolf by Night, Love and

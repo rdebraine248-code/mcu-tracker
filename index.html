@@ -13255,106 +13255,92 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
 { const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
 /* MOCKUP END */
 /* MOCKUP BEGIN mindstone */
-// The Mind Stone, re-enacted from Age of Ultron's lab (owner, 13 November 2026, with the film's frames as reference): J.A.R.V.I.S. is a
-// gold sphere of rings and interface fragments; the A.I. from the Stone is a chaotic blue cloud of strands, "like neurons firing"; it
-// lashes out at J.A.R.V.I.S. in blue lightning. Let go too soon and Ultron wins: the sphere breaks apart and his blue takes the screen,
-// the titles corrupting. Hold on and J.A.R.V.I.S. holds: the blue cloud breaks off, the gold gathers in, Thor's lightning strikes, and it
-// wakes as the Mind Stone's gold, the gem the Vision carries.
-ultronWins = function () {
-  haptic([30, 20, 30, 20, 60, 40, 120]);
-  veil("fxl", "z-index:96;background:radial-gradient(ellipse at 50% 60%, rgba(40,150,255,.22), rgba(0,30,80,.62))", [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 1, offset: .8 }, { opacity: 0 }], 2600);
-  fxScope().animate([{ transform: "none" }, { transform: "translateX(3px)" }, { transform: "translateX(-4px)" }, { transform: "translateX(2px)" }, { transform: "none" }], { duration: 300, iterations: 4, easing: "steps(4, end)" });
-  const GL = "01#%&/<>ULTRON", its = listItems().filter(it => { const r = it.t.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }), orig = its.map(it => it.t.textContent);
-  let n = 0;
-  const iv = setInterval(() => {
-    const lvl = Math.min(.7, n / 12);
-    its.forEach((it, k) => { if (!it.t.isConnected) return; it.t.textContent = orig[k].split("").map(ch => ch !== " " && Math.random() < lvl ? GL[Math.floor(Math.random() * GL.length)] : ch).join(""); it.t.style.color = "#9FE6FF"; it.t.style.textShadow = "0 0 8px rgba(60,170,255,.95)"; });
-    if (++n >= 22) { clearInterval(iv); its.forEach((it, k) => { if (it.t.isConnected) { it.t.textContent = orig[k]; it.t.style.color = ""; it.t.style.textShadow = ""; } }); }
-  }, 90);
-};
+// The Mind Stone, the original web kept and taken further (owner, 13 November 2026: "fix the original design to extend the line design
+// and then change it in shape not just color when it becomes gold and vision and then instead of just shrinking ... sizzle away or
+// burrow into the network of the datapad"). Hold Age of Ultron: the web spreads out from your finger across the whole screen, red. Let go
+// too soon and Ultron wins, as before. Hold on and it turns gold and reshapes itself, every thread straightening into the Mind Stone's
+// cut, the gem the Vision wears; it glows, then breaks up and burrows into the datapad, each thread running along the page's own lines
+// into a title or the dock, sizzling as it goes, and the titles it reaches light up gold.
 mindStone = function (x, y) {
   if (REDUCED) { awardStone("mind", x, y); return; }
   if (mindHold) return;
   const hold = mindHold = { up: false }, W = innerWidth, H = innerHeight, dpr = Math.min(2, devicePixelRatio || 1);
   const cv = document.createElement("canvas"); cv.className = "fx-canvas"; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
-  const g = cv.getContext("2d"), T = 5600, t0 = performance.now(), rnd = (a, b) => a + Math.random() * (b - a);
+  const g = cv.getContext("2d"), T = 5400, t0 = performance.now(), rnd = (a, b) => a + Math.random() * (b - a);
   const cl = v => Math.max(0, Math.min(1, v)), ez = v => v * v * (3 - 2 * v), mix = (a, b, f) => a + (b - a) * f;
-  const M = Math.min(W, H), JX = W / 2, JY = H * .3, JR = M * .3, UX = W / 2, UY = H * .68, UR = M * .3, CX = W / 2, CY = H * .44;
-  // J.A.R.V.I.S.: rings at many tilts, broken into arcs, and small rectangular interface fragments over the sphere
-  const rings = [...Array(14)].map((_, i) => ({ tx: rnd(0, 6.283), tz: rnd(-1.5, 1.5), r: i < 4 ? rnd(.25, .55) : rnd(.6, 1), dash: [...Array(5)].map(() => [rnd(0, 6.283), rnd(.3, 1.4)]), sp: rnd(.6, 1.6) * (i % 2 ? 1 : -1), w: rnd(.8, 2.2) }));
-  const frags = [...Array(460)].map(() => { const u = rnd(-1, 1), th = rnd(0, 6.283), rr = Math.random() < .6 ? rnd(.85, 1.03) : rnd(.3, .85), r = Math.sqrt(1 - u * u) * rr; return { x: Math.cos(th) * r, y: u * rr, z: Math.sin(th) * r, w: rnd(1.5, 9), h: Math.random() < .25 ? rnd(2, 4.5) : rnd(.8, 1.5), fl: rnd(0, 6.283), ox: 0, oy: 0 }; });
-  // Ultron: strands growing out of a knot, never the same twice
-  const strands = [...Array(90)].map(() => ({ a: rnd(0, 6.283), len: rnd(.35, 1.1), k1: rnd(.5, 2.4), k2: rnd(0, 6.283), w: rnd(.5, 1.4), c: rnd(.4, 1.3) }));
-  let failAt = 0, awarded = false, bolts = [], boltAt = 0, thor = null, shards = null;
-  const rot = (p, a, b) => { const ca = Math.cos(a), sa = Math.sin(a), X = p.x * ca + p.z * sa, Z = -p.x * sa + p.z * ca, cb = Math.cos(b), sb = Math.sin(b); return [X, p.y * cb - Z * sb, p.y * sb + Z * cb]; };
-  const zap = (x0, y0, x1, y1, n) => { const P = [[x0, y0]]; let ox = 0; for (let i = 1; i < n; i++) { const f = i / n; ox = ox * .5 + rnd(-1, 1) * 9; P.push([mix(x0, x1, f) + ox * Math.sin(f * Math.PI) * 1.6, mix(y0, y1, f) + rnd(-1, 1) * 4]); } P.push([x1, y1]); return P; };
-  const stroke = (P, layers) => layers.forEach(([c, w]) => { g.strokeStyle = c; g.lineWidth = w; g.beginPath(); P.forEach(([px, py], i) => i ? g.lineTo(px, py) : g.moveTo(px, py)); g.stroke(); });
+  // the web: a node at each title on screen, and more spread evenly over the whole screen, so it reaches every corner
+  const its = listItems().filter(it => { const r = it.t.getBoundingClientRect(); return r.width && r.bottom > 0 && r.top < H; });
+  const nodes = its.map(it => { const r = it.t.getBoundingClientRect(); return { x: r.left + Math.min(r.width, 160) * Math.random(), y: r.top + r.height / 2 }; });
+  const GX = 5, GY = 9; for (let a = 0; a < GX; a++) for (let b = 0; b < GY; b++) nodes.push({ x: (a + .5) / GX * W + rnd(-.3, .3) * W / GX, y: (b + .5) / GY * H + rnd(-.3, .3) * H / GY });
+  const maxD = Math.max(...nodes.map(n => Math.hypot(n.x - x, n.y - y)));
+  nodes.forEach(n => { n.d = Math.hypot(n.x - x, n.y - y); n.t = n.d / maxD * .85; n.x0 = n.x; n.y0 = n.y; });
+  const links = [];
+  nodes.forEach((a, i) => nodes.map((b, j) => [j, Math.hypot(a.x - b.x, a.y - b.y)]).filter(([j]) => j !== i).sort((p, q) => p[1] - q[1]).slice(0, 3)
+    .forEach(([j]) => { if (!links.some(l => l.a === j && l.b === i)) links.push({ a: i, b: j, t: Math.max(a.t, nodes[j].t) + .05, ph: Math.random() }); }));
+  // the gold shape: the Mind Stone's cut as a wireframe, its outline, its table and the facets between; every node is given a place on it
+  const gx = W / 2, gy = H * .44, gs = Math.min(W * .44, H * .3);
+  const O = [[-1, 0], [-.5, -.58], [.5, -.58], [1, 0], [.5, .58], [-.5, .58]].map(([u, v]) => [gx + u * gs, gy + v * gs]);
+  const I = [[-.45, 0], [-.22, -.26], [.22, -.26], [.45, 0], [.22, .26], [-.22, .26]].map(([u, v]) => [gx + u * gs, gy + v * gs]);
+  const E = []; for (let k = 0; k < 6; k++) { E.push([O[k], O[(k + 1) % 6]]); E.push([I[k], I[(k + 1) % 6]]); E.push([O[k], I[k]]); }
+  const len = e => Math.hypot(e[1][0] - e[0][0], e[1][1] - e[0][1]), tot = E.reduce((a, e) => a + len(e), 0), N = nodes.length;
+  const slots = []; E.forEach((e, ei) => { const n = Math.max(1, Math.round(len(e) / tot * N)); for (let k = 0; k < n; k++) { const f = (k + 1) / (n + 1); slots.push({ x: mix(e[0][0], e[1][0], f), y: mix(e[0][1], e[1][1], f), e: ei, f }); } });
+  while (slots.length > N) slots.splice(Math.floor(Math.random() * slots.length), 1);
+  while (slots.length < N) { const e = E[Math.floor(Math.random() * E.length)], f = Math.random(); slots.push({ x: mix(e[0][0], e[1][0], f), y: mix(e[0][1], e[1][1], f), e: E.indexOf(e), f }); }
+  const ang = (px, py) => Math.atan2(py - gy, px - gx);
+  const byA = nodes.map((n, i) => [i, ang(n.x0, n.y0)]).sort((p, q) => p[1] - q[1]), sA = slots.map((sl, i) => [i, ang(sl.x, sl.y)]).sort((p, q) => p[1] - q[1]);
+  byA.forEach(([ni], k) => { const sl = slots[sA[k][0]]; nodes[ni].tx = sl.x; nodes[ni].ty = sl.y; nodes[ni].e = sl.e; nodes[ni].f = sl.f; });
+  const onEdge = E.map((_, ei) => nodes.map((n, i) => [i, n]).filter(([, n]) => n.e === ei).sort((p, q) => p[1].f - q[1].f).map(([i]) => i));
+  // where each thread burrows: a title on screen or a button on the dock, along the page's own lines (across, then down)
+  const sinks = [...its.map(it => it.t), ...document.querySelectorAll("#dock [data-dock]")].filter(el => { const r = el.getBoundingClientRect(); return r.width && r.bottom > 0 && r.top < H; });
+  nodes.forEach(n => { const el = sinks[Math.floor(Math.random() * sinks.length)]; n.sink = el; if (el) { const r = el.getBoundingClientRect(); n.sx = r.left + Math.min(14, r.width / 2); n.sy = r.top + r.height / 2; } n.go = .86 + Math.random() * .08; n.in = false; });
+  const sparks = []; let failAt = 0, awarded = false, extra = null, extraLinks = null, lit = new Set();
   const draw = now => {
-    const t = now - t0, f = t / T; g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H); g.globalCompositeOperation = "lighter"; g.lineCap = "round";
-    if (hold.up && f < .6 && !failAt) { failAt = now; ultronWins(); }
-    const fc = failAt ? cl((now - failAt) / 2200) : 0;
-    const jForm = ez(cl(f / .2)), uForm = ez(cl((f - .1) / .2)), attack = failAt ? 1 : cl((f - .3) / .06) * (1 - cl((f - .52) / .08));
-    const flee = failAt ? 0 : ez(cl((f - .58) / .14)), gather = failAt ? 0 : ez(cl((f - .62) / .14));
-    const jx = mix(JX, CX, gather), jy = mix(JY, CY, gather), jr = JR * jForm * (1 - gather * .9), spin = t / 2600;
-    const jA = failAt ? 1 - cl(fc / .5) : 1 - cl((f - .82) / .06);
-    // J.A.R.V.I.S.
-    if (jA > 0 && !shards) {
-      const hz = g.createRadialGradient(jx, jy, jr * .2, jx, jy, jr * 1.15); hz.addColorStop(0, `rgba(255,150,40,${.22 * jA})`); hz.addColorStop(.75, `rgba(255,120,20,${.1 * jA})`); hz.addColorStop(1, "rgba(255,110,20,0)"); g.fillStyle = hz; g.beginPath(); g.arc(jx, jy, jr * 1.15, 0, 6.283); g.fill();
-      rings.forEach(R => { for (const [st, ln] of R.dash) { g.beginPath(); for (let k = 0; k <= 14; k++) { const th = st + spin * R.sp + ln * k / 14, p = { x: Math.cos(th) * R.r, y: 0, z: Math.sin(th) * R.r }, q1 = rot(p, R.tx, R.tz), q = rot({ x: q1[0], y: q1[1], z: q1[2] }, spin * .4, .3);
-          const px = jx + q[0] * jr, py = jy + q[1] * jr; k ? g.lineTo(px, py) : g.moveTo(px, py); }
-        g.strokeStyle = `rgba(255,${170 + 40 * Math.sin(st)},70,${.6 * jA})`; g.lineWidth = R.w; g.stroke(); } });
-      frags.forEach(F => { const q = rot(F, spin, .3), d = (q[2] + 1) / 2, fl = .55 + .45 * Math.sin(t / 120 + F.fl);
-        g.fillStyle = `rgba(255,${Math.round(150 + 80 * d)},${Math.round(50 + 70 * d)},${(.35 + .65 * d) * fl * jA})`; g.fillRect(jx + q[0] * jr + F.ox, jy + q[1] * jr + F.oy, F.w * (.5 + .5 * d), F.h); });
-      [.22, .34, .48].forEach((r, i) => { g.strokeStyle = `rgba(255,210,110,${.6 * jA})`; g.lineWidth = i ? 1 : 1.8; g.beginPath(); g.arc(jx, jy, jr * r, spin * (i % 2 ? -2 : 2.4), spin * (i % 2 ? -2 : 2.4) + 4.6); g.stroke(); });
-      const cg = g.createRadialGradient(jx, jy, 0, jx, jy, jr * .5); cg.addColorStop(0, `rgba(255,240,200,${.8 * jA})`); cg.addColorStop(.3, `rgba(255,170,60,${.35 * jA})`); cg.addColorStop(1, "rgba(255,140,30,0)");
-      g.fillStyle = cg; g.beginPath(); g.arc(jx, jy, jr * .5, 0, 6.283); g.fill();
+    const f = (now - t0) / T; g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    if (hold.up && f < .52 && !failAt) { failAt = now; ultronWins(); }
+    if (failAt) {   // let go too soon: Ultron wins, and his red web spreads through the whole app
+      const c = Math.min(1, (now - failAt) / 2600), grow = Math.min(1, c / .45), a = c < .8 ? 1 : 1 - (c - .8) / .2;
+      if (!extra) { extra = Array.from({ length: 34 }, () => ({ x: Math.random() * W, y: Math.random() * H })); const all = nodes.concat(extra);
+        extraLinks = extra.flatMap(e => all.filter(o => o !== e).sort((p, q) => Math.hypot(p.x - e.x, p.y - e.y) - Math.hypot(q.x - e.x, q.y - e.y)).slice(0, 2).map(o => [e, o])); }
+      g.lineWidth = 1.4; g.shadowColor = "rgba(255,30,30,.95)"; g.shadowBlur = 12; g.strokeStyle = `rgba(255,45,45,${.75 * a})`; g.fillStyle = `rgba(255,70,70,${a})`;
+      links.forEach(l => { const A = nodes[l.a], B = nodes[l.b]; g.beginPath(); g.moveTo(A.x, A.y); g.lineTo(B.x, B.y); g.stroke(); });
+      extraLinks.forEach(([e, o]) => { if (Math.random() < .06) return; g.beginPath(); g.moveTo(o.x, o.y); g.lineTo(mix(o.x, e.x, grow), mix(o.y, e.y, grow)); g.stroke(); });
+      nodes.concat(grow > .9 ? extra : []).forEach(n => { g.beginPath(); g.arc(n.x, n.y, 2.6, 0, Math.PI * 2); g.fill(); });
+      if (c < 1) requestAnimationFrame(draw); else { cv.remove(); mindHold = null; }
+      return;
     }
-    // J.A.R.V.I.S. torn apart: his fragments and arcs thrown off
-    if (failAt && fc > .18 && !shards) shards = frags.map(F => { const q = rot(F, spin, .3), a = Math.atan2(q[1], q[0]); return { x: JX + q[0] * JR, y: JY + q[1] * JR, vx: Math.cos(a) * rnd(1.5, 7), vy: Math.sin(a) * rnd(1.5, 7), w: F.w, h: F.h }; });
-    if (shards) shards.forEach(S => { S.x += S.vx; S.y += S.vy; S.vx *= .975; S.vy *= .975; g.fillStyle = `rgba(255,180,80,${1 - fc})`; g.fillRect(S.x, S.y, S.w, S.h); });
-    // Ultron: a blue cloud of strands, neurons firing along them
-    const uA = failAt ? 1 - cl((fc - .75) / .25) : (1 - flee);
-    const ux = UX, uy = mix(UY, UY + H * .2, flee), ur = UR * uForm * (failAt ? 1 + fc * 1.6 : 1);
-    if (uA > 0 && uForm > 0) strands.forEach((S, i) => {
-      g.beginPath(); let px = ux, py = uy; g.moveTo(px, py);
-      for (let k = 1; k <= 14; k++) { const f2 = k / 14, a = S.a + Math.sin(t / 600 * S.k1 + S.k2 + f2 * 4 * S.c) * 1.1 + Math.sin(t / 97 + i + k) * .15; px = ux + Math.cos(a) * ur * S.len * f2 + rnd(-1.2, 1.2); py = uy + Math.sin(a) * ur * S.len * f2 * .85 + rnd(-1.2, 1.2); g.lineTo(px, py); }
-      g.strokeStyle = `rgba(${40 + (i % 4) * 25},${150 + (i % 3) * 30},255,${.42 * uA})`; g.lineWidth = S.w; g.stroke();
-      if (Math.random() < .25) { g.fillStyle = `rgba(220,245,255,${.9 * uA})`; g.fillRect(px - 1, py - 1, 2.5, 2.5); }
-    });
-    if (uA > 0 && uForm > 0) { const ug = g.createRadialGradient(ux, uy, 0, ux, uy, ur * .6); ug.addColorStop(0, `rgba(200,240,255,${.6 * uA})`); ug.addColorStop(.35, `rgba(40,150,255,${.3 * uA})`); ug.addColorStop(1, "rgba(20,100,255,0)"); g.fillStyle = ug; g.beginPath(); g.arc(ux, uy, ur * .6, 0, 6.283); g.fill();
-      const uh = g.createRadialGradient(ux, uy, 0, ux, uy, ur * 1.1); uh.addColorStop(0, `rgba(30,120,255,${.18 * uA})`); uh.addColorStop(1, "rgba(30,120,255,0)"); g.fillStyle = uh; g.beginPath(); g.arc(ux, uy, ur * 1.1, 0, 6.283); g.fill(); }
-    // the attack: blue lightning from Ultron into J.A.R.V.I.S., white where it lands
-    if (attack > 0 && (!failAt || fc < .6)) {
-      if (now - boltAt > 70) { boltAt = now; const n = failAt ? 5 : 1 + Math.round(attack * 2); bolts = [...Array(n)].map(() => { const a = rnd(-.9, .9) + Math.PI / 2, hx = jx + Math.cos(a + Math.PI) * jr * rnd(.1, .7), hy = jy + Math.sin(a + Math.PI) * jr * rnd(.1, .7) * -1 + jr * .3; const P = zap(ux + rnd(-8, 8), uy - ur * .2, hx, hy, 22), br = [...Array(3)].map(() => { const k = 4 + Math.floor(rnd(0, 14)), [bx, by] = P[k]; return zap(bx, by, bx + rnd(-40, 40), by + rnd(-30, 10), 7); }); return { P, br, hx, hy }; });
-        if (!failAt) { haptic(6); frags.forEach(F => { if (Math.random() < .03) { F.ox += rnd(-5, 5); F.oy += rnd(-5, 5); } }); } }
-      bolts.forEach(B => { stroke(B.P, [["rgba(40,140,255,.3)", 7], ["rgba(120,210,255,.8)", 2.2], ["rgba(240,250,255,.95)", 1]]); B.br.forEach(Q => stroke(Q, [["rgba(60,150,255,.3)", 4], ["rgba(170,225,255,.75)", 1]]));
-        const hg = g.createRadialGradient(B.hx, B.hy, 0, B.hx, B.hy, 30); hg.addColorStop(0, "rgba(255,255,255,.95)"); hg.addColorStop(.4, "rgba(120,200,255,.6)"); hg.addColorStop(1, "rgba(60,140,255,0)"); g.fillStyle = hg; g.beginPath(); g.arc(B.hx, B.hy, 30, 0, 6.283); g.fill(); });
-    }
-    frags.forEach(F => { F.ox *= .96; F.oy *= .96; });
-    // Thor's lightning into the gathered gold
-    if (!failAt && f > .76 && f < .85) {
-      if (!thor) { thor = []; let bx = CX + rnd(-.15, .15) * W, by = -10; while (by < CY) { thor.push([bx, by]); by += rnd(18, 40); bx += rnd(-17, 17); } thor.push([CX, CY]); haptic([30, 20, 80]); fxRing(CX, CY, 120, "#CFE9FF", 500, 0, 3); }
-      if (Math.random() < .8) stroke(thor, [["rgba(150,200,255,.35)", 9], ["rgba(220,240,255,.9)", 3], ["#FFFFFF", 1.2]]);
-    }
-    g.globalCompositeOperation = "source-over";
-    // the Mind Stone: a cut gem, wider than tall, as the Vision wears it
-    if (!failAt && f > .82) {
-      const q = ez(cl((f - .82) / .08)), fade = f > .95 ? 1 - (f - .95) / .05 : 1, sz = 30 * q, cx = CX, cy = CY;
-      const gr = g.createRadialGradient(cx, cy, 0, cx, cy, 120 * q); gr.addColorStop(0, `rgba(255,214,90,${.55 * fade})`); gr.addColorStop(1, "rgba(255,190,40,0)");
-      g.fillStyle = gr; g.beginPath(); g.arc(cx, cy, 120 * q, 0, 6.283); g.fill();
-      const O = [[-1, 0], [-.5, -.58], [.5, -.58], [1, 0], [.5, .58], [-.5, .58]].map(([u, v]) => [cx + u * sz, cy + v * sz]);
-      const I = [[-.45, 0], [-.22, -.26], [.22, -.26], [.45, 0], [.22, .26], [-.22, .26]].map(([u, v]) => [cx + u * sz, cy + v * sz]);
-      const poly = A => { g.beginPath(); A.forEach(([px, py], k) => k ? g.lineTo(px, py) : g.moveTo(px, py)); g.closePath(); };
-      g.shadowColor = "#FFC93C"; g.shadowBlur = 24 * q;
-      const gm = g.createLinearGradient(cx - sz, cy - sz * .6, cx + sz, cy + sz * .6); gm.addColorStop(0, `rgba(255,240,170,${fade})`); gm.addColorStop(.5, `rgba(250,196,46,${fade})`); gm.addColorStop(1, `rgba(196,128,14,${fade})`);
-      g.fillStyle = gm; poly(O); g.fill(); g.shadowBlur = 0;
-      for (let k = 0; k < 6; k++) { const a = O[k], b = O[(k + 1) % 6], c = I[(k + 1) % 6], d = I[k]; g.fillStyle = `rgba(${k < 3 ? "255,248,215" : "150,90,0"},${(k < 3 ? .18 + k * .06 : .14 + (k - 3) * .05) * fade})`; poly([a, b, c, d]); g.fill(); }
-      g.fillStyle = `rgba(255,236,150,${.9 * fade})`; poly(I); g.fill();
-      g.strokeStyle = `rgba(255,250,225,${.55 * fade})`; g.lineWidth = .8; poly(O); g.stroke(); poly(I); g.stroke();
-      g.fillStyle = `rgba(255,255,255,${.85 * fade})`; g.beginPath(); g.ellipse(cx - sz * .12, cy - sz * .12, sz * .1, sz * .05, -.4, 0, 6.283); g.fill();
-    }
-    if (!failAt && f >= .88 && !awarded) { awarded = true; awardStone("mind", CX, CY); fxRing(CX, CY, 150, "#FFE27A", 800, 0, 4); }
-    if (failAt ? fc < 1 : f < 1) requestAnimationFrame(draw); else { cv.remove(); mindHold = null; }
+    const form = cl(f / .36), gold = ez(cl((f - .34) / .14)), mor = f2 => ez(cl((f - .4 - f2 * .1) / .2));
+    const col = a => `rgba(255,${Math.round(mix(60, 210, gold))},${Math.round(mix(60, 80, gold))},${a})`;
+    // positions: where it formed, moving onto the gem, then (burrowing) off along the page's lines
+    nodes.forEach(n => { const m = mor(n.d / maxD); n.m = m; n.x = mix(n.x0, n.tx, m); n.y = mix(n.y0, n.ty, m);
+      if (f > n.go && n.sx != null) { const b = cl((f - n.go) / .07), turn = Math.abs(n.sx - n.tx) / (Math.abs(n.sx - n.tx) + Math.abs(n.sy - n.ty) + 1);
+        n.bx = b < turn ? mix(n.tx, n.sx, b / turn) : n.sx; n.by = b < turn ? n.ty : mix(n.ty, n.sy, (b - turn) / (1 - turn)); n.b = b;
+        if (Math.random() < .5) sparks.push({ x: n.bx, y: n.by, vx: rnd(-1.2, 1.2), vy: rnd(-1.2, 1.2), l: 1 });
+        if (b >= 1 && !n.in) { n.in = true; if (n.sink && !lit.has(n.sink)) { lit.add(n.sink); n.sink.animate([{ color: "#FFE27A", textShadow: "0 0 10px rgba(255,210,80,.95)", filter: "drop-shadow(0 0 6px rgba(255,210,80,.9))" }, { color: "", textShadow: "none", filter: "none" }], { duration: 900, easing: "ease-out" }); if (lit.size % 3 === 1) haptic(6); } } } });
+    const gone = n => f > n.go;
+    g.lineCap = "round"; g.shadowColor = col(.9); g.shadowBlur = 10; g.lineWidth = 1.2;
+    // the web's own threads, fading as they straighten into the gem
+    links.forEach(l => { const A = nodes[l.a], B = nodes[l.b], p = cl((form - l.t) / .2); if (!p || gone(A) || gone(B)) return; const fade = 1 - Math.min(A.m, B.m);
+      if (fade <= .02) return; g.strokeStyle = col(.55 * fade); g.beginPath(); g.moveTo(A.x, A.y); g.lineTo(mix(A.x, B.x, p), mix(A.y, B.y, p)); g.stroke();
+      if (p === 1 && f < .5) { const q = (f * 3 + l.ph) % 1; g.fillStyle = col(.95 * fade); g.beginPath(); g.arc(mix(A.x, B.x, q), mix(A.y, B.y, q), 1.8, 0, 6.283); g.fill(); } });
+    // the gem's edges, drawn through the nodes that have reached them; a pulse runs round while it glows
+    E.forEach((e, ei) => { const L = onEdge[ei], P = [e[0], ...L.map(i => [nodes[i].x, nodes[i].y]), e[1]], m = L.length ? Math.min(...L.map(i => nodes[i].m)) : mor(.5); if (m <= .02) return;
+      const leave = L.length ? Math.max(...L.map(i => cl((f - nodes[i].go) / .02))) : cl((f - .9) / .03), a = m * (1 - leave); if (a <= 0) return;
+      g.strokeStyle = `rgba(255,214,90,${.85 * a})`; g.lineWidth = 1.6; g.beginPath(); P.forEach(([px, py], k) => k ? g.lineTo(px, py) : g.moveTo(px, py)); g.stroke();
+      if (leave > 0 && Math.random() < .6) { const q = Math.random(), [ax, ay] = e[0], [bx, by] = e[1]; sparks.push({ x: mix(ax, bx, q), y: mix(ay, by, q), vx: rnd(-1.5, 1.5), vy: rnd(-1.5, 1.5), l: 1 }); }   // sizzling as it breaks
+      if (f > .66 && f < .86) { const q = ((f - .66) * 4 + ei / 18) % 1, [ax, ay] = e[0], [bx, by] = e[1]; g.fillStyle = "rgba(255,248,215,.95)"; g.beginPath(); g.arc(mix(ax, bx, q), mix(ay, by, q), 2, 0, 6.283); g.fill(); } });
+    // the stone's light, at the heart of the gem while it holds
+    if (f > .62 && f < .95) { const q = ez(cl((f - .62) / .12)) * (1 - cl((f - .88) / .07)), gr = g.createRadialGradient(gx, gy, 0, gx, gy, gs * .7);
+      gr.addColorStop(0, `rgba(255,248,210,${.75 * q})`); gr.addColorStop(.35, `rgba(255,214,90,${.35 * q})`); gr.addColorStop(1, "rgba(255,190,40,0)"); g.shadowBlur = 0; g.fillStyle = gr; g.beginPath(); g.arc(gx, gy, gs * .7, 0, 6.283); g.fill(); }
+    // nodes: on the web, on the gem, then each one a running spark burrowing along the page into a title or the dock
+    g.shadowBlur = 10;
+    nodes.forEach(n => { if (form < n.t) return;
+      if (gone(n)) { if (n.in || n.bx == null) return; g.fillStyle = "rgba(255,240,170,1)"; g.beginPath(); g.arc(n.bx, n.by, 2.4, 0, 6.283); g.fill();
+        g.strokeStyle = "rgba(255,214,90,.55)"; g.lineWidth = 1.2; g.beginPath(); g.moveTo(n.bx, n.by); g.lineTo(n.bx === n.sx ? n.bx : n.bx - Math.sign(n.sx - n.tx) * 26, n.bx === n.sx ? n.by - Math.sign(n.sy - n.ty) * 26 : n.by); g.stroke(); return; }
+      g.fillStyle = col(.95); g.beginPath(); g.arc(n.x, n.y, 2.6, 0, 6.283); g.fill(); });
+    g.shadowBlur = 0;
+    for (const s of sparks) { s.x += s.vx; s.y += s.vy; s.l -= .07; if (s.l > 0) { g.fillStyle = `rgba(255,${Math.round(200 + 40 * s.l)},120,${s.l})`; g.fillRect(s.x, s.y, 1.6, 1.6); } }
+    if (f >= .84 && !awarded) { awarded = true; awardStone("mind", gx, gy); fxRing(gx, gy, 150, "#FFE27A", 800, 0, 4); }
+    if (f < 1.05 || sparks.some(s => s.l > 0)) { if (sparks.length > 900) sparks.splice(0, sparks.length - 900); requestAnimationFrame(draw); } else { cv.remove(); mindHold = null; }
   };
   requestAnimationFrame(draw);
   haptic([10, 80, 10, 80, 10, 80, 10, 600, 30, 400, 80]);
