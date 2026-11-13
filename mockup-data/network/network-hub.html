@@ -189,20 +189,30 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
    what you look at: the title, search and universe tabs share one row, and a person's card stands on the right as a panel, its whole
    file scrolling inside it, so the room beside it stays in view (owner, 13 November 2026: "Network looks bad the top section hides so much") */
 @media (orientation: landscape) and (max-height: 540px){
-  html.land header{ display:flex; flex-wrap:wrap; align-items:center; column-gap:12px; row-gap:6px; padding-bottom:10px; }
+  /* the bar: the title, the universes as tabs like the Log's (mono capitals, the one you're in lit with a glowing line), search as a
+     round button at the end (owner, 13 November 2026: the boxed pills and the search field in one row "looks cheap") */
+  html.land header{ display:flex; flex-wrap:wrap; align-items:center; column-gap:18px; row-gap:4px; padding-bottom:12px; }
   html.land header h1{ flex:none; font-size:24px; }
-  html.land header #hSearch{ flex:0 1 230px; width:auto; margin:0; padding:7px 12px; font-size:14px; }
-  html.land .unis{ flex:1 1 0; min-width:0; margin:0; padding:0 0 2px; }
-  html.land .unis button{ padding:6px 12px; font-size:13.5px; }
-  html.land .worlds{ flex:0 0 100%; margin-top:0; }
+  html.land .unis{ order:1; flex:1 1 0; min-width:0; gap:4px; margin:0; padding:0; align-self:stretch; align-items:stretch; }
+  html.land .unis button{ position:relative; border:0; border-radius:0; background:none; padding:10px 10px 9px; color:#6F7C95; font:13px/1 'Share Tech Mono', 'Courier New', monospace; letter-spacing:2px; text-transform:uppercase; }
+  html.land .unis button[aria-selected="true"]{ background:none; color:#EEF1F6; }
+  html.land .unis button[aria-selected="true"]::before{ content:""; position:absolute; left:10px; right:10px; bottom:0; height:2px; border-radius:2px; background:#5FD0FF; box-shadow:0 0 8px rgba(95,211,255,.6); }
+  html.land .unis button.nw::after{ top:4px; right:2px; }
+  html.land header #hSearch{ order:2; flex:none; width:36px; height:36px; margin:0; padding:0; justify-content:center; border-radius:50%; }
+  html.land header #hSearch span{ display:none; }
+  html.land .worlds{ order:3; flex:0 0 100%; margin-top:0; }
   html.land #card{ left:auto !important; right:max(12px, env(safe-area-inset-right, 0px)) !important; width:min(380px, 44vw) !important; top:calc(var(--hb, 60px) + 4px) !important;
     bottom:max(12px, env(safe-area-inset-bottom, 0px)) !important; max-height:none !important; transform:translateX(calc(100% + 24px)) !important; }
   html.land #card.on{ transform:none !important; }
   html.land #cGrip{ display:none !important; }
-  html.land #card #vOne:not([hidden]), html.land #card #vTwo:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
-  html.land #card #cMore{ display:block; flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; margin:6px -14px 0; padding:0 14px 8px; touch-action:pan-y; }
+  /* the card is one scroll: what you read (name, summary, the file) moves together, and only the buttons, the part you use, stay at its
+     foot (owner, 13 November 2026: "if the network popup isnt interactive it shouldnt be stagnant and should scroll with the rest") */
+  html.land #card{ display:block !important; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; padding-bottom:0 !important; }
+  html.land #card #vOne:not([hidden]), html.land #card #vTwo:not([hidden]){ display:block; }
+  html.land #card #cMore{ display:block; overflow:visible; margin:6px 0 0; padding:0 0 8px; }
+  html.land #card #cRow, html.land #card #vTwo .row{ position:sticky; bottom:0; z-index:2; margin:0 -14px; padding:10px 14px max(12px, env(safe-area-inset-bottom, 0px)); background:linear-gradient(180deg, rgba(18,24,38,0), #121826 30%); }
   html.land #card #sConn{ display:none; }
-  html.land #card #lBody{ flex:1; min-height:0; max-height:none; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; -webkit-mask-image:none; mask-image:none; }
+  html.land #card #lBody{ max-height:none; overflow:visible; -webkit-mask-image:none; mask-image:none; }
 }
 </style>
 
@@ -1168,7 +1178,7 @@ let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
 self.netLandOn = () => { document.documentElement.classList.add('land'); };   // the app's landscape mockup only
 const LANDQ = matchMedia('(orientation: landscape) and (max-height: 540px)'), landOn = () => document.documentElement.classList.contains('land') && LANDQ.matches;
 const landCard = () => landOn() ? [(card.offsetWidth + 24) / 2, 0] : [0, 70];
-{ const fc0 = fillCard; fillCard = function () { const r = fc0.apply(this, arguments); if (landOn()) requestAnimationFrame(() => { card._more = null; moreFill(); }); return r; }; }   // the panel shows the whole file at once   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
+{ const fc0 = fillCard; fillCard = function () { const r = fc0.apply(this, arguments); if (landOn()) requestAnimationFrame(() => { card._more = null; moreFill(); card.scrollTop = 0; }); return r; }; }   // the panel shows the whole file at once, from its top   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
 { const h = document.querySelector('header h1'); let t = 0; h.style.touchAction = 'none';
   h.addEventListener('pointerdown', () => { if (!SIX_ON || GAME) return; clearTimeout(t); t = setTimeout(() => { if (navigator.vibrate) try { navigator.vibrate([10, 40, 10]); } catch (x) {} gameStart(); }, 800); });
   ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => h.addEventListener(n, () => clearTimeout(t))); }

@@ -539,8 +539,11 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   goes to the titles. A two-column box (head on the left, titles scrolling on the right) was tried first and rejected (owner: "Why do I
   need to look at the title on the left hand side? I don't. Think a little bit about actual usability before doing some changes"):
   sideways, height is what's short and the titles are what's used, so give them the room and let the label go.
-  **The Network (test build v203; owner: "Network looks bad the top section hides so much"):** its title, search and universe tabs
-  share one row; a person's card is a panel on the right with their whole file scrolling inside it (`#cMore` filled on open), and
+  **The Network (test build v204; owner: "Network looks bad the top section hides so much"):** one bar: the title, the universes as
+  tabs like the Log's (mono capitals, a glowing line under the one you're in) and search as a round button (the first try, pills and a
+  search field in one row, "looks cheap"); a person's card is a panel on the right that scrolls as one piece, name and file together,
+  only its buttons pinned at the foot (owner: "if the network popup isnt interactive it shouldnt be stagnant and should scroll with
+  the rest of the pop up"; asked whether portrait's card should do the same), the file filled on open (`#cMore`), and
   the camera frames them in the middle of the room left of it (`landCard`: half the panel's width, in place of portrait's lift).
   Built into hub-src behind `html.land`, which only the app's landscape mockup sets (`netLandOn`), so main's network.html carries it
   switched off. **The Sacred Timeline's left column has no backing** (owner: "the orange is split with the blue"): the page's own
