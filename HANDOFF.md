@@ -46,12 +46,14 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
-  - **No dock bar, the pages as icons in the title row (test build v209, `MOCKUP BEGIN navint`; owner, 13 November 2026: "maybe no
-    dock/ integrated buttons might be better ... Mock that up into the actual test build", portrait too).** The six pages are a small
-    row of icons at the top right of every page, in the title row, upright and sideways (same spot everywhere); upright the page's
-    tabs and search drop to a full-width line under the title; sideways the title row leaves room for them (the Network too, via
-    `netNavOn`); an open box covers them. A test-only switch under "Test · start from" ("Test · dock: icons / bar", kept in
-    localStorage `tbNav`) flips back to the bar (upright at the bottom, sideways on the right). Waiting on the owner's try.
+  - **The Play page (test build, `MOCKUP BEGIN play`; owner, 13 November 2026: "a page to play as though this datapad is in universe
+    ... fully interactive play place"; asked which room: "Mock them all up so I can decide what to keep/cut/improve").** A Play
+    button on the test build's dock opens four rooms as tabs, each open once its title is watched: the Workshop (the Collection's
+    armor you've seen, as a turning hologram: suit up, diagnostics, repulsors, flight), the Compound (incidents you've watched as
+    alerts; send up to four heroes you've met; the debrief marks who really answered, from Damage Control's `who`, and shows the real
+    outcome), the Bridge (four rotors, lift off once all spin, cloak, a threat scan), the TVA (the Sacred Timeline branching; prune
+    with the TemPad's three charges before it breaks). Flagged to the owner: dispatch sits near the cut War Room and the banned lineup
+    builder. The icons-in-the-title-row dock was tried and dropped (owner: "Do the dock as before").
   - **The 16 new eggs, a pool offered (13 November 2026), waiting on the owner's picks:** Network: Forget me (No Way Home), The
     Council (Kang's variants); Comms: Commercial break (WandaVision's ads), Trish Talk (Jessica Jones); Compound: Sweet Christmas (Luke
     Cage), The switchboard (Agent Carter), Ironheart's suit; Collection: Cerebro (X-Men), The Iron Fist, Captain Carter's shield (What

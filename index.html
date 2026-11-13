@@ -1620,12 +1620,10 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
 .tl-row.tm-after{ opacity:.28; } .tl-row.tm-at .tl-node{ box-shadow:0 0 0 3px #0F0C08, 0 0 0 5px #FFB347, 0 0 16px #FFB347; }
 /* MOCKUP END */
 
-/* MOCKUP BEGIN landscape */
 .lcol{ display:contents; }   /* Story's header and buttons, held together for landscape; in portrait it isn't there */
 /* landscape (owner, November 2026: "I want to be able to use this app fully in landscape"): on a phone turned sideways the dock becomes a
-   rail down the left, clear of the camera, so the pages get the whole height; every page moves over to make room for it */
+   rail down the right (owner, 13 November 2026), so the pages get the whole height; every page moves over to make room for it */
 @media (orientation: landscape) and (max-height: 540px){
-  /* the rail stands on the right (owner, 13 November 2026: "I meant right side") */
   :root{ --dockh:0px; --dockw:calc(68px + env(safe-area-inset-right,0px)); }
   body{ padding-bottom:0; padding-right:var(--dockw); }
   .dock{ top:0; left:auto; right:0; bottom:0; width:var(--dockw); height:auto; flex-direction:column; padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) 0; border-top:0; border-left:1px solid #222A3A; }
@@ -1679,32 +1677,63 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
   #panel .pin > .pquote.cq{ font-size:15px; }
   #panel .pin > .pbar{ margin:8px 0 10px; }
 }
-/* MOCKUP END */
-/* MOCKUP BEGIN navint */
-/* no dock bar: the six pages as a row of icons at the top right of every page, in the title row, upright and sideways (owner, 13 November
-   2026: "maybe no dock/ integrated buttons might be better"; "Mock that up into the actual test build"). The test build switches between
-   this and the bar */
-body.navint{ --dockh:0px; --dockw:0px; padding-right:0 !important; }
-body.navint .dock{ top:calc(6px + env(safe-area-inset-top,0px)) !important; right:max(12px, env(safe-area-inset-right,0px)) !important; left:auto !important; bottom:auto !important;
-  width:auto !important; height:34px !important; flex-direction:row !important; gap:0; padding:0 3px !important; border:1px solid #222A3A !important; border-radius:999px; background:rgba(10,14,23,.92) !important; box-shadow:0 6px 18px rgba(0,0,0,.35); }
-body.navint .dock button{ flex:none; width:32px; font-size:0; letter-spacing:0; gap:0; }
-body.navint .dock svg{ width:17px; height:17px; }
-body.navint .dock button.nw::after{ top:4px; left:calc(50% + 5px); }
-body.navint .dock.rise{ animation:none; }
-body.navint .dock{ z-index:80; }   /* over a page's own header (the Log's); an open box still covers it (#panel ~ .dock) */
-/* upright, a title line has the icons at its end and the page's tabs drop to a full-width line of their own under it; sideways, where the
-   title and its tabs share one row, that row leaves room for them */
-body.navint .dockpg .maptop > :not(h2){ flex-basis:100%; }
-@media (orientation: landscape) and (max-height: 540px){
-  body.navint .dockpg .maptop{ padding-right:calc(214px + env(safe-area-inset-right,0px)) !important; }
-  body.navint .dockpg .maptop > :not(h2){ flex-basis:auto; }
-  body.navint #logHead .pgtitle{ margin-right:214px; }
-}
-body.navint #app .mast h1{ white-space:normal; font-size:28px; line-height:1.02; margin-right:206px; }
-body.navint #app .mast h1::before{ white-space:normal; right:0; }
-@media (orientation: landscape) and (max-height: 540px){ body.navint #app .mast h1{ margin-right:0; } body.navint #app .saga:first-of-type > h3, body.navint #app .tl-head{ padding-right:214px; } }
-/* MOCKUP END */
 
+/* MOCKUP BEGIN play */
+/* the Play page (owner, 13 November 2026: "a page to play as though this datapad is in universe ... fully interactive play place";
+   "Mock them all up so I can decide what to keep/cut/improve"): four rooms, each run on what you've watched */
+.playpage{ position:fixed; left:0; right:0; top:0; bottom:var(--dockh); z-index:70; display:flex; flex-direction:column; background-color:#0B1019; background-image:var(--padimg); background-size:var(--padsize); color:#EEF1F6; }
+.playpage[hidden]{ display:none; }
+.pl-top{ display:flex; flex-wrap:wrap; align-items:center; gap:6px 14px; padding:calc(6px + env(safe-area-inset-top,0px)) 20px 10px; }
+.pl-top h2{ margin:0; font:400 28px/1.05 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
+.pl-tabs{ display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; flex:1 1 100%; }
+.pl-tabs::-webkit-scrollbar{ display:none; }
+.pl-tabs button{ position:relative; flex:none; border:0; background:none; padding:9px 10px 10px; color:#6F7C95; font:13px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
+.pl-tabs button[aria-selected="true"]{ color:#EEF1F6; }
+.pl-tabs button[aria-selected="true"]::after{ content:""; position:absolute; left:10px; right:10px; bottom:0; height:2px; border-radius:2px; background:var(--plc, #5FD0FF); box-shadow:0 0 8px var(--plc, #5FD0FF); }
+.pl-room{ position:relative; flex:1; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+.pl-stage{ position:relative; flex:1; min-height:180px; }
+.pl-stage canvas{ position:absolute; inset:0; width:100%; height:100%; }
+.pl-bar{ display:flex; flex-wrap:wrap; gap:8px; padding:10px 16px 12px; border-top:1px solid #1C2538; background:rgba(8,12,20,.85); }
+.pl-btn{ flex:1 1 0; min-width:84px; padding:11px 10px; border:1px solid #2A3A56; border-radius:12px; background:linear-gradient(180deg,#152035,#0F1726); color:#D6E6FA; font:12px/1.1 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; transition:transform .1s ease, border-color .2s ease, box-shadow .2s ease; }
+.pl-btn:active{ transform:scale(.96); }
+.pl-btn.on{ border-color:var(--plc, #5FD0FF); color:#fff; box-shadow:0 0 12px color-mix(in srgb, var(--plc, #5FD0FF) 45%, transparent), inset 0 0 12px color-mix(in srgb, var(--plc, #5FD0FF) 20%, transparent); }
+.pl-btn:disabled{ opacity:.4; }
+.pl-btn:focus-visible, .pl-chip:focus-visible, .pl-tabs button:focus-visible{ outline:2px solid #7FA6D8; outline-offset:2px; }
+.pl-strip{ display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; padding:2px 16px 10px; }
+.pl-strip::-webkit-scrollbar{ display:none; }
+.pl-chip{ flex:none; padding:7px 12px; border:1px solid #2A3140; border-radius:999px; background:#121826; color:#C9D3E3; font:13px/1.1 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; cursor:pointer; touch-action:manipulation; white-space:nowrap; }
+.pl-chip[aria-pressed="true"]{ border-color:var(--plc, #5FD0FF); color:#fff; background:color-mix(in srgb, var(--plc, #5FD0FF) 16%, #121826); }
+.pl-hud{ position:absolute; left:16px; top:10px; right:16px; pointer-events:none; display:flex; justify-content:space-between; gap:12px; font:11px/1.5 'Share Tech Mono','Courier New',monospace; letter-spacing:1.5px; text-transform:uppercase; color:#7FA6D8; }
+.pl-hud b{ display:block; color:#EEF1F6; font:400 20px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; }
+.pl-log{ position:absolute; left:16px; bottom:10px; right:16px; pointer-events:none; font:12px/1.45 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; color:#9FC3FF; text-shadow:0 0 6px rgba(0,0,0,.9); }
+.pl-log i{ font-style:normal; color:var(--plc, #5FD0FF); }
+.pl-cards{ flex:1; min-height:0; overflow-y:auto; padding:2px 16px 12px; display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap:10px; align-content:start; }
+.pl-card{ position:relative; text-align:left; padding:12px 14px; border:1px solid #2A3140; border-radius:12px; background:#111827; color:#EEF1F6; cursor:pointer; touch-action:manipulation; }
+.pl-card small{ display:block; font:10.5px/1.4 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; text-transform:uppercase; color:#FF6B5E; }
+.pl-card b{ display:block; margin-top:3px; font:600 16px/1.25 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
+.pl-card span{ display:block; margin-top:2px; font-size:13px; color:#9AA3B2; }
+.pl-card.done small{ color:#6FD39A; }
+.pl-card .ping{ position:absolute; right:12px; top:14px; width:9px; height:9px; border-radius:50%; background:#FF6B5E; box-shadow:0 0 0 0 rgba(255,107,94,.6); animation:plping 1.6s infinite; }
+.pl-card.done .ping{ background:#6FD39A; animation:none; }
+@keyframes plping{ 70%{ box-shadow:0 0 0 10px rgba(255,107,94,0); } 100%{ box-shadow:0 0 0 0 rgba(255,107,94,0); } }
+.pl-sheet{ position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; background:rgba(9,13,22,.97); }
+.pl-sheet[hidden]{ display:none; }
+.pl-sheet .pl-scroll{ flex:1; min-height:0; overflow-y:auto; padding:12px 16px; }
+.pl-sheet h3{ margin:4px 0 6px; font:400 24px/1.1 'Anton','Impact',sans-serif; letter-spacing:.5px; text-transform:uppercase; }
+.pl-sheet p{ margin:0 0 12px; color:#C9D3E3; font-size:15px; line-height:1.45; }
+.pl-sheet h4{ margin:14px 0 6px; font:400 10.5px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2.5px; text-transform:uppercase; color:#7FA6D8; }
+.pl-roster{ display:flex; flex-wrap:wrap; gap:6px; }
+.pl-roster .pl-chip.hit{ border-color:#6FD39A; color:#DFFFEA; background:rgba(111,211,154,.14); }
+.pl-roster .pl-chip.miss{ opacity:.5; text-decoration:line-through; }
+.pl-roster .pl-chip.was{ border-style:dashed; border-color:#6FD39A; color:#9FE2BC; }
+.pl-locked{ flex:1; display:grid; place-items:center; text-align:center; font:13px/1.6 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; text-transform:uppercase; color:#6F7C95; }
+.dock button#plBtn[aria-current="page"]{ color:#EEF1F6; }
+@media (orientation: landscape) and (max-height: 540px){
+  .playpage{ right:var(--dockw); bottom:0; }
+  .pl-top{ flex-wrap:nowrap; padding-bottom:6px; } .pl-tabs{ flex:1 1 0; }
+  .pl-bar{ padding:8px 16px; } .pl-btn{ padding:9px 8px; }
+}
+/* MOCKUP END */
 </style>
 </head>
 <body>
@@ -13331,7 +13360,6 @@ document.addEventListener("click", e => { const b = e.target.closest(".tm-go"); 
 // Six Degrees (a mockup in the Network) shows only when the app turns it on
 document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netMockOn) w.netMockOn(); });
 /* MOCKUP END */
-/* MOCKUP BEGIN landscape */
 // landscape: Story's header and its mode buttons go in one column of their own (display:contents in portrait), which keeps clear of the ticker
 { const app = document.getElementById("app"), m = app.querySelector(".mast"), b = app.querySelector(".modes");
   if (m && b) { const c = document.createElement("div"); c.className = "lcol"; m.before(c); c.append(m, b); }
@@ -13339,19 +13367,217 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
   if (tk) new MutationObserver(fit).observe(tk, { attributes: true, attributeFilter: ["class", "hidden"] }); fit(); }
 // turning the phone redraws the Atlas for its new shape (map beside the list, or over it)
 { const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
-// the Network's own landscape layout (its header on one row, a person's card as a panel on the right) is switched on only here
+// the Network's own landscape layout (its bar on one row, a person's card as a panel on the right): network.html keeps it off on its own, the app turns it on
 document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netLandOn) w.netLandOn(); });
 { const w = document.getElementById("netFrame").contentWindow; try { if (w && w.netLandOn) w.netLandOn(); } catch (e) {} }
-/* MOCKUP END */
-/* MOCKUP BEGIN navint */
-// the test build's switch between the dock bar and the icons in the title row; the Network follows it
-{ let on = true; try { on = localStorage.getItem("tbNav") !== "bar"; } catch (e) {}
-  const net = () => { const w = document.getElementById("netFrame").contentWindow; try { if (w && w.netNavOn) w.netNavOn(on); } catch (e) {} };
-  const set = v => { on = v; document.body.classList.toggle("navint", on); try { localStorage.setItem("tbNav", on ? "top" : "bar"); } catch (e) {} net(); const b = document.getElementById("tbNavBtn"); if (b) b.textContent = "Test · dock: " + (on ? "icons" : "bar"); };
-  document.getElementById("netFrame").addEventListener("load", net);
-  const add = () => { const box = document.getElementById("tbProg"); if (!box || document.getElementById("tbNavBtn")) return; const b = document.createElement("button"); b.type = "button"; b.id = "tbNavBtn";
-    b.setAttribute("style", document.getElementById("tbProgBtn").getAttribute("style") + ";display:block;margin-top:6px"); b.onclick = () => set(!on); box.appendChild(b); set(on); };
-  set(on); if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", add); else setTimeout(add, 0); setTimeout(add, 800); }
+/* MOCKUP BEGIN play */
+// The Play page, four rooms to try (owner, 13 November 2026: "Mock them all up so I can decide what to keep/cut/improve"): Tony's
+// workshop (the armor you've seen, suited up, scanned, flown), the Compound's dispatch board (incidents you've watched come in; you send
+// a team; the debrief shows who really answered and what happened), the Helicarrier's bridge (four rotors, lift off, cloak, scan) and a
+// TVA desk (the Sacred Timeline branching; prune the branches before it breaks). Each room opens once its title is watched
+{ const ROOMS = [
+    { id: "lab", n: "Workshop", t: "Iron Man", c: "#FF9A3C" },
+    { id: "ops", n: "Compound", t: "Avengers: Age of Ultron", c: "#5FD0FF" },
+    { id: "deck", n: "Bridge", t: "The Avengers", c: "#9FC3FF" },
+    { id: "tva", n: "TVA", t: "Loki S1", c: "#FFB347" } ];
+  const mcu = o => !/^(by|sv|fox|pr)-/.test(o.id);
+  const nameOf = o => Array.isArray(o.n) ? ((o.n.filter(x => !x[1] || atlSeenT(String(x[1]).replace(/#\d+$/, ""))).pop() || o.n[0])[0]) : o.n;
+  const seenObj = o => (o.st || []).some(s => atlSeenT(String(s[1]).replace(/#\d+$/, "")));
+  const rnd = (a, b) => a + Math.random() * (b - a), cl = v => Math.max(0, Math.min(1, v)), ez = v => v * v * (3 - 2 * v), mix = (a, b, f) => a + (b - a) * f;
+  // the page and its button on the dock
+  const pg = document.createElement("div"); pg.className = "playpage"; pg.id = "playPage"; pg.hidden = true;
+  pg.innerHTML = `<div class="pl-top"><h2>Play</h2><div class="pl-tabs" role="tablist">${ROOMS.map(r => `<button type="button" role="tab" data-room="${r.id}" aria-selected="false">${r.n}</button>`).join("")}</div></div><div class="pl-room" id="plRoom"></div>`;
+  document.body.appendChild(pg);
+  const dock = document.getElementById("dock"), btn = document.createElement("button");
+  btn.type = "button"; btn.id = "plBtn"; btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="11" rx="5.5"/><path d="M7 10.5v4M5 12.5h4"/><circle cx="15.5" cy="11.5" r=".9" fill="currentColor"/><circle cx="17.8" cy="13.6" r=".9" fill="currentColor"/></svg>Play`;
+  dock.appendChild(btn);
+  let room = null, stop = null, raf = 0;
+  const loop = fn => { cancelAnimationFrame(raf); const t0 = performance.now(); const go = now => { if (pg.hidden) return; fn(now - t0); raf = requestAnimationFrame(go); }; raf = requestAnimationFrame(go); };
+  const canvas = host => { const c = document.createElement("canvas"); host.appendChild(c); const g = c.getContext("2d"); const fit = () => { const r = host.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); c.width = Math.max(1, r.width * d); c.height = Math.max(1, r.height * d); g.setTransform(d, 0, 0, d, 0, 0); c._w = r.width; c._h = r.height; }; fit(); c._fit = fit; return { c, g }; };
+  const open = () => { pg.hidden = false; document.querySelectorAll("#dock [data-dock]").forEach(b => b.setAttribute("aria-current", "false")); btn.setAttribute("aria-current", "page"); show(room || "lab"); };
+  const close = () => { if (pg.hidden) return; pg.hidden = true; btn.setAttribute("aria-current", "false"); cancelAnimationFrame(raf); if (stop) stop(); };
+  btn.addEventListener("click", () => pg.hidden ? open() : null);
+  dock.addEventListener("click", e => { if (e.target.closest("[data-dock]")) close(); }, true);
+  pg.querySelector(".pl-tabs").addEventListener("click", e => { const b = e.target.closest("[data-room]"); if (b) show(b.dataset.room); });
+  addEventListener("resize", () => { if (!pg.hidden && room) show(room); });
+  function show(id) { room = id; cancelAnimationFrame(raf); if (stop) { stop(); stop = null; }
+    const R = ROOMS.find(r => r.id === id); pg.style.setProperty("--plc", R.c);
+    pg.querySelectorAll("[data-room]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.room === id)));
+    const host = document.getElementById("plRoom"); host.innerHTML = "";
+    if (!atlSeenT(R.t)) { host.innerHTML = `<div class="pl-locked">Classified<br>${esc(R.t)}</div>`; return; }
+    ({ lab, ops, deck, tva })[id](host, R); }
+
+  // ---------- Tony's workshop: a suit on the stage as a turning hologram; suit up, diagnostics, repulsors, flight ----------
+  function lab(host, R) {
+    const suits = COLLX.filter(o => o.c === "armor" && mcu(o) && seenObj(o));
+    const IRON = /iron|mark|rescue|hulkbuster|war machine|ironheart|monger/i;
+    let cur = suits.find(o => o.id === "iron-man-armor") || suits[0];
+    host.innerHTML = `<div class="pl-strip">${suits.map(o => `<button type="button" class="pl-chip" data-s="${o.id}" aria-pressed="${o === cur}">${esc(nameOf(o))}</button>`).join("")}</div>
+      <div class="pl-stage"><div class="pl-hud"><div><span>Armor bay</span><b id="plSuit"></b></div><div style="text-align:right"><span>Status</span><b id="plStat">Standby</b></div></div><div class="pl-log" id="plLog"></div></div>
+      <div class="pl-bar"><button type="button" class="pl-btn" data-a="up">Suit up</button><button type="button" class="pl-btn" data-a="scan">Diagnostics</button><button type="button" class="pl-btn" data-a="rep">Repulsors</button><button type="button" class="pl-btn" data-a="fly">Flight</button></div>`;
+    const stage = host.querySelector(".pl-stage"), { c, g } = canvas(stage), log = host.querySelector("#plLog");
+    let S = { up: 0, upAt: -1, on: false, scanAt: -1, blasts: [], fly: 0, flyOn: false, sparks: [], lines: [] };
+    const say = txt => { S.lines.push(txt); if (S.lines.length > 3) S.lines.shift(); log.innerHTML = S.lines.map(l => `<div><i>J.A.R.V.I.S.</i> · ${esc(l)}</div>`).join(""); };
+    const pick = o => { cur = o; S = { up: 0, upAt: -1, on: false, scanAt: -1, blasts: [], fly: 0, flyOn: false, sparks: [], lines: [] }; log.innerHTML = "";
+      host.querySelectorAll("[data-s]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.s === o.id))); host.querySelector("#plSuit").textContent = nameOf(o); host.querySelector("#plStat").textContent = "Standby";
+      host.querySelectorAll(".pl-btn").forEach(b => b.classList.remove("on")); say(nameOf(o) + " in the bay"); };
+    pick(cur);
+    host.querySelector(".pl-strip").addEventListener("click", e => { const b = e.target.closest("[data-s]"); if (b) pick(suits.find(o => o.id === b.dataset.s)); });
+    const stat = t => { host.querySelector("#plStat").textContent = t; };
+    host.querySelector(".pl-bar").addEventListener("click", e => { const b = e.target.closest("[data-a]"); if (!b) return; const a = b.dataset.a, now = performance.now();
+      if (a === "up") { if (S.up >= 1 || S.upAt >= 0) return; S.upAt = now; b.classList.add("on"); say("Assembling " + nameOf(cur)); haptic([10, 40, 10, 40, 10]); }
+      if (a === "scan") { S.scanAt = now; say("Running diagnostics"); haptic(8); }
+      if (a === "rep") { if (!S.on) { say("Power it up first"); return; } const w = c._w, h = c._h, cx = w / 2; [[cx - 46, h * .5], [cx + 46, h * .5]].forEach(([x, y], i) => S.blasts.push({ x, y, at: now + i * 120 })); say("Repulsors fired"); haptic([30, 20, 50]); }
+      if (a === "fly") { if (!S.on) { say("Power it up first"); return; } S.flyOn = !S.flyOn; b.classList.toggle("on", S.flyOn); say(S.flyOn ? "Thrusters at full" : "Setting down"); stat(S.flyOn ? "Airborne" : "Online"); } });
+    // the figure, as segments in a 2D pose; "turning" squeezes x by the angle
+    const P = { head: [0, -150], neck: [0, -124], sh: [[-38, -112], [38, -112]], el: [[-52, -66], [52, -66]], ha: [[-56, -22], [56, -22]], hip: [[-22, -20], [22, -20]], kn: [[-26, 34], [26, 34]], ft: [[-28, 92], [28, 92]] };
+    const SEG = [[P.neck, P.sh[0]], [P.neck, P.sh[1]], [P.sh[0], P.el[0]], [P.el[0], P.ha[0]], [P.sh[1], P.el[1]], [P.el[1], P.ha[1]], [P.sh[0], P.hip[0]], [P.sh[1], P.hip[1]], [P.hip[0], P.hip[1]], [P.hip[0], P.kn[0]], [P.kn[0], P.ft[0]], [P.hip[1], P.kn[1]], [P.kn[1], P.ft[1]], [P.neck, [0, -40]], [[0, -40], [-22, -20]], [[0, -40], [22, -20]], [P.sh[0], [0, -90]], [P.sh[1], [0, -90]]];
+    SEG.forEach(s => { s.fx = rnd(-1, 1); s.fy = rnd(-1, 1); });
+    loop(t => { const w = c._w, h = c._h, now = performance.now(); g.clearRect(0, 0, w, h);
+      const iron = IRON.test(nameOf(cur)), main = iron ? [255, 120, 60] : [95, 211, 255], trim = iron ? [255, 205, 90] : [200, 240, 255];
+      const col = (rgb, a) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a})`;
+      if (S.upAt >= 0) { S.up = cl((now - S.upAt) / 1300); if (S.up >= 1 && !S.on) { S.on = true; stat("Online"); say(iron ? "Arc reactor online" : "Power online"); haptic(20); } }
+      const sc = Math.min(1.25, (h - 70) / 270), cx = w / 2, cy = h * .56 - S.fly * 26;
+      if (S.flyOn) S.fly = Math.min(1, S.fly + .02); else S.fly = Math.max(0, S.fly - .02);
+      const turn = Math.cos(t / 2200) * .85 + .15, X = x => cx + x * sc * turn, Y = y => cy + y * sc + Math.sin(t / 380) * 4 * S.fly;
+      // the bay floor: a ring of light and a grid
+      g.strokeStyle = col(main, .25); g.lineWidth = 1; g.beginPath(); g.ellipse(cx, h * .56 + 96 * sc, 90 * sc, 16 * sc, 0, 0, 6.283); g.stroke();
+      for (let k = -4; k <= 4; k++) { g.strokeStyle = col(main, .06); g.beginPath(); g.moveTo(cx + k * 40 * sc, h * .56 + 96 * sc - 10); g.lineTo(cx + k * 70 * sc, h); g.stroke(); }
+      // the frame's ghost, always there
+      g.lineCap = "round"; g.strokeStyle = col(main, .18); g.lineWidth = 1;
+      SEG.forEach(([a, b]) => { g.beginPath(); g.moveTo(X(a[0]), Y(a[1])); g.lineTo(X(b[0]), Y(b[1])); g.stroke(); });
+      g.beginPath(); g.ellipse(X(0), Y(-150), 15 * sc * Math.max(.3, Math.abs(turn)), 19 * sc, 0, 0, 6.283); g.stroke();
+      // the plates, flying in as it suits up
+      if (S.up > 0) { SEG.forEach((s, i) => { const k = ez(cl(S.up * 1.6 - i / SEG.length * .6)); if (!k) return; const [a, b] = s, ox = s.fx * 220 * (1 - k), oy = s.fy * 160 * (1 - k);
+          g.strokeStyle = col(i % 3 ? main : trim, .9 * k); g.lineWidth = 5 * sc * k + 1; g.shadowColor = col(main, .8); g.shadowBlur = 10 * k;
+          g.beginPath(); g.moveTo(X(a[0]) + ox, Y(a[1]) + oy); g.lineTo(X(b[0]) + ox, Y(b[1]) + oy); g.stroke();
+          if (k > 0 && k < 1 && Math.random() < .3) S.sparks.push({ x: X(b[0]) + ox, y: Y(b[1]) + oy, vx: rnd(-2, 2), vy: rnd(-2, 1), l: 1 }); });
+        const k = ez(cl(S.up * 1.4 - .4)); if (k) { g.fillStyle = col(trim, .9 * k); g.beginPath(); g.ellipse(X(0), Y(-150), 15 * sc * Math.max(.3, Math.abs(turn)), 19 * sc, 0, 0, 6.283); g.fill(); }
+        g.shadowBlur = 0; }
+      // powered: the chest light and the eyes
+      if (S.on) { const p = .75 + .25 * Math.sin(t / 300), r = 9 * sc; const gr = g.createRadialGradient(X(0), Y(-94), 0, X(0), Y(-94), r * 4); gr.addColorStop(0, `rgba(230,250,255,${p})`); gr.addColorStop(.3, `rgba(120,220,255,${.6 * p})`); gr.addColorStop(1, "rgba(95,211,255,0)");
+        g.fillStyle = gr; g.beginPath(); g.arc(X(0), Y(-94), r * 4, 0, 6.283); g.fill();
+        if (Math.abs(turn) > .35) { g.fillStyle = "rgba(220,245,255,.95)"; g.fillRect(X(-8) - 4, Y(-154), 8 * Math.abs(turn), 2.5); g.fillRect(X(8) - 4, Y(-154), 8 * Math.abs(turn), 2.5); } }
+      // flight: thrusters under the feet and in the palms
+      if (S.fly > 0) [[P.ft[0], 1], [P.ft[1], 1], [P.ha[0], .6], [P.ha[1], .6]].forEach(([pt, s]) => { const x = X(pt[0]), y = Y(pt[1]) + 6, L = (24 + Math.random() * 18) * S.fly * s * sc;
+        const gr = g.createLinearGradient(x, y, x, y + L); gr.addColorStop(0, "rgba(255,255,255,.95)"); gr.addColorStop(.3, "rgba(140,220,255,.8)"); gr.addColorStop(1, "rgba(95,211,255,0)"); g.fillStyle = gr; g.beginPath(); g.moveTo(x - 5 * s, y); g.lineTo(x + 5 * s, y); g.lineTo(x, y + L); g.fill(); });
+      // the scan line, and its readouts
+      if (S.scanAt >= 0) { const k = (now - S.scanAt) / 1600; if (k < 1) { const y = mix(cy - 175 * sc, cy + 100 * sc, k); g.strokeStyle = col(trim, .9); g.lineWidth = 2; g.shadowColor = col(trim, 1); g.shadowBlur = 12; g.beginPath(); g.moveTo(cx - 110 * sc, y); g.lineTo(cx + 110 * sc, y); g.stroke(); g.shadowBlur = 0; }
+        else if (S.scanAt > 0) { S.scanAt = -2; say(S.on ? "All systems nominal" : "Suit offline, frame sound"); } }
+      // repulsor blasts from the palms
+      S.blasts = S.blasts.filter(b => now - b.at < 600); S.blasts.forEach(b => { const k = (now - b.at) / 600; if (k < 0) return; const x = X(b.x > cx ? 56 : -56), y = Y(-22);
+        g.strokeStyle = `rgba(200,240,255,${1 - k})`; g.lineWidth = 3; g.beginPath(); g.arc(x, y, 8 + k * 70, 0, 6.283); g.stroke(); g.fillStyle = `rgba(255,255,255,${(1 - k) * .9})`; g.beginPath(); g.arc(x, y, 7 * (1 - k) + 2, 0, 6.283); g.fill(); });
+      S.sparks = S.sparks.filter(s => (s.l -= .04) > 0); S.sparks.forEach(s => { s.x += s.vx; s.y += s.vy; s.vy += .08; g.fillStyle = `rgba(255,200,120,${s.l})`; g.fillRect(s.x, s.y, 2, 2); });
+    }); }
+
+  // ---------- the Compound: incidents you've watched come in; send a team; the debrief ----------
+  function ops(host, R) {
+    const all = DC.filter(d => d.u === "mcu" && atlSeenT(d.t) && (d.who || []).some(w => w[1] === "A"));
+    const pool = all.sort(() => Math.random() - .5).slice(0, 8), done = {};
+    const heroes = ALLIES.filter(o => mcu(o) && !o.grp && seenObj(o)).sort((a, b) => (b.st || []).length - (a.st || []).length).slice(0, 36);
+    host.innerHTML = `<div class="pl-cards" id="plInc"></div><div class="pl-sheet" id="plSh" hidden></div>`;
+    const list = () => { host.querySelector("#plInc").innerHTML = pool.map((d, i) => `<button type="button" class="pl-card${done[d.id] ? " done" : ""}" data-i="${i}"><i class="ping"></i><small>${done[d.id] ? "Debriefed · " + done[d.id] : esc(d.cls || "Incident")}</small><b>${esc(d.n)}</b><span>${esc(d.where || "")}</span></button>`).join(""); };
+    list();
+    const sh = host.querySelector("#plSh");
+    host.querySelector("#plInc").addEventListener("click", e => { const b = e.target.closest("[data-i]"); if (!b) return; brief(pool[+b.dataset.i]); });
+    function brief(d) { const team = new Set();
+      sh.hidden = false; sh.innerHTML = `<div class="pl-scroll"><small style="font:10.5px/1.4 'Share Tech Mono',monospace;letter-spacing:2px;color:#FF6B5E;text-transform:uppercase">${esc(d.cls || "Incident")} · ${esc(d.where || "")}</small><h3>${esc(d.n)}</h3><p>${esc(d.cause || "")}</p><h4>Your team · up to four</h4><div class="pl-roster" id="plTeam">${heroes.map(o => `<button type="button" class="pl-chip" data-h="${o.id}" aria-pressed="false">${esc(nameOf(o))}</button>`).join("")}</div></div>
+        <div class="pl-bar"><button type="button" class="pl-btn" data-a="back">Board</button><button type="button" class="pl-btn" data-a="go" disabled>Dispatch</button></div>`;
+      sh.querySelector("#plTeam").addEventListener("click", e => { const b = e.target.closest("[data-h]"); if (!b || sh._sent) return; const id = b.dataset.h;
+        if (team.has(id)) team.delete(id); else if (team.size < 4) team.add(id); b.setAttribute("aria-pressed", String(team.has(id))); sh.querySelector('[data-a="go"]').disabled = !team.size; haptic(6); });
+      sh.querySelector(".pl-bar").addEventListener("click", e => { const b = e.target.closest("[data-a]"); if (!b) return;
+        if (b.dataset.a === "back") { sh.hidden = true; list(); return; }
+        if (b.dataset.a === "go" && !sh._sent) { sh._sent = true; b.disabled = true; b.textContent = "En route"; haptic([20, 40, 20]);
+          setTimeout(() => debrief(d, team), 1400); } }); }
+    function debrief(d, team) {
+      const was = new Set((d.who || []).filter(w => w[1] === "A").map(w => w[0])), hit = [...team].filter(id => was.has(id));
+      done[d.id] = hit.length + " of " + team.size + " on record";   // a score, not a total
+      const nm = id => { const o = ALLIES.find(x => x.id === id); return o ? nameOf(o) : id; };
+      sh.innerHTML = `<div class="pl-scroll"><small style="font:10.5px/1.4 'Share Tech Mono',monospace;letter-spacing:2px;color:#6FD39A;text-transform:uppercase">Debrief · ${esc(d.t)}</small><h3>${esc(d.n)}</h3>
+        <h4>Your team</h4><div class="pl-roster">${[...team].map(id => `<span class="pl-chip ${was.has(id) ? "hit" : "miss"}">${esc(nm(id))}</span>`).join("")}</div>
+        <h4>Who answered</h4><div class="pl-roster">${[...was].filter(id => ALLIES.some(o => o.id === id)).map(id => `<span class="pl-chip ${team.has(id) ? "hit" : "was"}">${esc(nm(id))}</span>`).join("")}</div>
+        <h4>What happened</h4><p>${esc(d.out || "")}</p></div><div class="pl-bar"><button type="button" class="pl-btn" data-a="back">Board</button></div>`;
+      haptic(hit.length ? [20, 30, 60] : 12);
+      sh.querySelector(".pl-bar").addEventListener("click", () => { sh.hidden = true; list(); }); }
+  }
+
+  // ---------- the Helicarrier's bridge: four rotors, lift off, cloak, scan ----------
+  function deck(host, R) {
+    host.innerHTML = `<div class="pl-stage"><div class="pl-hud"><div><span>Altitude</span><b id="plAlt">0 ft</b></div><div style="text-align:right"><span>Rotors</span><b id="plRot">0 of 4</b></div></div><div class="pl-log" id="plLog"></div></div>
+      <div class="pl-bar">${[1, 2, 3, 4].map(n => `<button type="button" class="pl-btn" data-r="${n - 1}">Rotor ${n}</button>`).join("")}<button type="button" class="pl-btn" data-a="lift" disabled>Lift off</button><button type="button" class="pl-btn" data-a="cloak">Cloak</button><button type="button" class="pl-btn" data-a="scan">Scan</button></div>`;
+    const stage = host.querySelector(".pl-stage"), { c, g } = canvas(stage), log = host.querySelector("#plLog"), lines = [];
+    const say = txt => { lines.push(txt); if (lines.length > 3) lines.shift(); log.innerHTML = lines.map(l => `<div><i>Bridge</i> · ${esc(l)}</div>`).join(""); };
+    const S = { rot: [0, 0, 0, 0], on: [false, false, false, false], alt: 0, lift: false, cloak: 0, cloakOn: false, scanAt: -1, ang: [0, 0, 0, 0] };
+    const blips = DC.filter(d => d.u === "mcu" && atlSeenT(d.t)).slice(0, 14).map(() => [rnd(0, 6.283), rnd(.25, .95)]);
+    say("All decks report ready");
+    host.querySelector(".pl-bar").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+      if (b.dataset.r != null) { const i = +b.dataset.r; S.on[i] = !S.on[i]; b.classList.toggle("on", S.on[i]); say("Rotor " + (i + 1) + (S.on[i] ? " spinning up" : " spinning down")); haptic(10); }
+      if (b.dataset.a === "lift") { S.lift = !S.lift; b.classList.toggle("on", S.lift); b.textContent = S.lift ? "Hold" : "Lift off"; say(S.lift ? "Lifting off" : "Holding altitude"); haptic([30, 30, 60]); }
+      if (b.dataset.a === "cloak") { S.cloakOn = !S.cloakOn; b.classList.toggle("on", S.cloakOn); say(S.cloakOn ? "Retro-reflection panels engaged" : "Panels off"); }
+      if (b.dataset.a === "scan") { S.scanAt = performance.now(); say("Scanning for threats"); } });
+    loop(t => { const w = c._w, h = c._h, now = performance.now(); g.clearRect(0, 0, w, h);
+      S.on.forEach((on, i) => { S.rot[i] = on ? Math.min(1, S.rot[i] + .008) : Math.max(0, S.rot[i] - .012); S.ang[i] += S.rot[i] * .45; });
+      const ready = S.rot.every(r => r > .95); host.querySelector('[data-a="lift"]').disabled = !ready && !S.lift;
+      if (S.lift && ready) S.alt = Math.min(1, S.alt + .0025); else if (!ready) S.alt = Math.max(0, S.alt - .004);
+      S.cloak = S.cloakOn ? Math.min(1, S.cloak + .02) : Math.max(0, S.cloak - .03);
+      host.querySelector("#plAlt").textContent = Math.round(S.alt * 30000).toLocaleString() + " ft"; host.querySelector("#plRot").textContent = S.rot.filter(r => r > .95).length + " of 4";
+      // sky and sea; the sea falls away as she climbs, clouds pass
+      const hz = h * (.62 + S.alt * .5); const sky = g.createLinearGradient(0, 0, 0, hz); sky.addColorStop(0, "#0B1830"); sky.addColorStop(1, "#2B4F7A"); g.fillStyle = sky; g.fillRect(0, 0, w, Math.min(h, hz));
+      if (hz < h) { const sea = g.createLinearGradient(0, hz, 0, h); sea.addColorStop(0, "#1B3A5C"); sea.addColorStop(1, "#08121F"); g.fillStyle = sea; g.fillRect(0, hz, w, h - hz);
+        g.strokeStyle = "rgba(160,200,240,.08)"; for (let k = 0; k < 12; k++) { const y = hz + (k * k) * 3 + ((t / 40) % 6); if (y < h) { g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); } } }
+      for (let k = 0; k < 6; k++) { const x = ((k * 197 - t * (.02 + S.alt * .12)) % (w + 240) + w + 240) % (w + 240) - 120, y = h * (.15 + (k % 3) * .14) + (1 - S.alt) * h * .4; g.fillStyle = `rgba(220,232,250,${.05 + S.alt * .1})`; g.beginPath(); g.ellipse(x, y, 90, 16, 0, 0, 6.283); g.fill(); }
+      // the carrier, seen from astern and above: the deck, the island, a rotor at each corner
+      const cx = w / 2, cy = h * .58 - S.alt * h * .18 + Math.sin(t / 900) * 2 * S.alt, s = Math.min(w / 520, h / 300), A = 1 - S.cloak * .9;
+      g.save(); g.translate(cx, cy); g.scale(s, s); g.globalAlpha = A;
+      g.fillStyle = "#3A4658"; g.beginPath(); g.moveTo(-210, 10); g.lineTo(210, 10); g.lineTo(170, 40); g.lineTo(-170, 40); g.closePath(); g.fill();
+      g.fillStyle = "#4E5D73"; g.beginPath(); g.moveTo(-220, -6); g.lineTo(220, -6); g.lineTo(210, 10); g.lineTo(-210, 10); g.closePath(); g.fill();
+      g.fillStyle = "#5C6E88"; g.fillRect(60, -40, 50, 34); g.fillRect(80, -58, 12, 18);
+      g.strokeStyle = "rgba(255,210,120,.5)"; g.setLineDash([10, 8]); g.beginPath(); g.moveTo(-190, 0); g.lineTo(40, 0); g.stroke(); g.setLineDash([]);
+      [[-160, 26], [160, 26], [-110, 42], [110, 42]].forEach(([x, y], i) => { g.save(); g.translate(x, y); g.strokeStyle = "#6F82A0"; g.lineWidth = 6; g.beginPath(); g.ellipse(0, 0, 46, 13, 0, 0, 6.283); g.stroke();
+        const r = S.rot[i]; if (r > 0) { g.strokeStyle = `rgba(160,220,255,${.3 + .5 * r})`; g.lineWidth = 3; for (let k = 0; k < 4; k++) { const a = S.ang[i] + k * Math.PI / 2; g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(a) * 42, Math.sin(a) * 11); g.stroke(); }
+          const gr = g.createRadialGradient(0, 4, 0, 0, 4, 40); gr.addColorStop(0, `rgba(140,210,255,${.35 * r})`); gr.addColorStop(1, "rgba(140,210,255,0)"); g.fillStyle = gr; g.beginPath(); g.ellipse(0, 6, 46, 18, 0, 0, 6.283); g.fill(); }
+        g.restore(); });
+      g.restore(); g.globalAlpha = 1;
+      if (S.cloak > 0) { g.save(); g.translate(cx, cy); g.scale(s, s); g.strokeStyle = `rgba(200,230,255,${.35 * S.cloak * (.6 + .4 * Math.sin(t / 120))})`; g.lineWidth = 1.2; for (let k = -200; k <= 200; k += 14) { g.beginPath(); g.moveTo(k, -6); g.lineTo(k * .82, 40); g.stroke(); } g.restore(); }
+      // the threat scan: a sweep with what you've watched as blips
+      if (S.scanAt >= 0) { const k = (now - S.scanAt) / 2600; if (k < 1) { const rx = w - 80, ry = 80, rr = 56, a = k * 6.283 * 1.5;
+          g.strokeStyle = "rgba(95,211,255,.5)"; g.lineWidth = 1; [1, .66, .33].forEach(f => { g.beginPath(); g.arc(rx, ry, rr * f, 0, 6.283); g.stroke(); });
+          g.fillStyle = "rgba(95,211,255,.25)"; g.beginPath(); g.moveTo(rx, ry); g.arc(rx, ry, rr, a - .5, a); g.closePath(); g.fill();
+          blips.forEach(([ba, br]) => { const d = ((a - ba) % 6.283 + 6.283) % 6.283; if (d < 4) { g.fillStyle = `rgba(255,107,94,${1 - d / 4})`; g.beginPath(); g.arc(rx + Math.cos(ba) * rr * br, ry + Math.sin(ba) * rr * br, 3, 0, 6.283); g.fill(); } }); }
+        else { S.scanAt = -1; say(blips.length + " incidents on file"); } }
+    }); }
+
+  // ---------- a TVA desk: the Sacred Timeline branching; prune the branches before it breaks ----------
+  function tva(host, R) {
+    const variants = ALLIES.filter(o => mcu(o) && seenObj(o) && /loki|sylvie|variant/i.test(nameOf(o))).map(nameOf);
+    host.innerHTML = `<div class="pl-stage"><div class="pl-hud"><div><span>Branches</span><b id="plBr">0</b></div><div style="text-align:right"><span>Pruned</span><b id="plPr">0</b></div></div><div class="pl-log" id="plLog"></div></div>
+      <div class="pl-bar"><button type="button" class="pl-btn" data-a="prune">Prune</button><button type="button" class="pl-btn" data-a="reset">Reset charge</button></div>`;
+    const stage = host.querySelector(".pl-stage"), { c, g } = canvas(stage), log = host.querySelector("#plLog"), lines = [];
+    const say = txt => { lines.push(txt); if (lines.length > 3) lines.shift(); log.innerHTML = lines.map(l => `<div><i>TVA</i> · ${esc(l)}</div>`).join(""); };
+    const S = { br: [], pruned: 0, charge: 3, next: 900, fizz: [] };
+    say("Monitoring the Sacred Timeline");
+    host.querySelector(".pl-bar").addEventListener("click", e => { const b = e.target.closest("[data-a]"); if (!b) return;
+      if (b.dataset.a === "prune") { const live = S.br.filter(x => !x.cut); if (!live.length) { say("No branches to prune"); return; } if (!S.charge) { say("TemPad out of charge"); return; }
+        const x = live.sort((p, q) => q.len - p.len)[0]; x.cut = performance.now(); S.charge--; S.pruned++; host.querySelector("#plPr").textContent = S.pruned; haptic([20, 30, 40]);
+        say((variants.length ? variants[Math.floor(Math.random() * variants.length)] : "A variant") + " pruned · charge " + S.charge); }
+      if (b.dataset.a === "reset") { S.charge = 3; say("TemPad recharged"); haptic(8); } });
+    loop(t => { const w = c._w, h = c._h, now = performance.now(), y0 = h * .55; g.clearRect(0, 0, w, h);
+      // a branch splits off now and then; left alone it grows and splits again
+      if (t > S.next) { S.next = t + rnd(1400, 2600) - Math.min(900, S.pruned * 40); S.br.push({ x: w * rnd(.55, .85), dir: Math.random() < .5 ? -1 : 1, len: 0, born: now, cut: 0 }); say("Nexus event detected"); haptic(6); }
+      S.br.forEach(b => { if (!b.cut) b.len = Math.min(1, b.len + .0016); });
+      const live = S.br.filter(b => !b.cut); host.querySelector("#plBr").textContent = live.length;
+      const danger = cl((live.length - 3) / 4);
+      // the Sacred Timeline itself
+      g.shadowColor = "#FFB347"; g.shadowBlur = 14; g.strokeStyle = `rgba(255,179,71,${.9})`; g.lineWidth = 4; g.beginPath(); g.moveTo(0, y0); for (let x = 0; x <= w; x += 8) g.lineTo(x, y0 + Math.sin(x / 40 + t / 600) * (1 + danger * 6)); g.stroke(); g.shadowBlur = 0;
+      S.br.forEach(b => { const k = b.cut ? 1 - cl((now - b.cut) / 700) : 1; if (k <= 0) return; const L = b.len * w * .5, x1 = b.x - L, y1 = y0 + b.dir * (30 + b.len * h * .32);
+        g.strokeStyle = b.cut ? `rgba(255,120,40,${k})` : `rgba(255,190,90,${.75})`; g.lineWidth = 3 * k + .5; g.beginPath(); g.moveTo(b.x, y0); g.bezierCurveTo(b.x - L * .3, y0, x1 + L * .3, y1, x1, y1); g.stroke();
+        if (b.len > .55 && !b.cut) { g.strokeStyle = "rgba(255,190,90,.45)"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(mix(b.x, x1, .6), mix(y0, y1, .8)); g.quadraticCurveTo(mix(b.x, x1, .8), y1 - b.dir * 30, x1 - 30, y1 - b.dir * 40); g.stroke(); }
+        if (b.cut && Math.random() < .6) { const q = Math.random(); S.fizz.push({ x: mix(b.x, x1, q), y: mix(y0, y1, q * q), l: 1, vx: rnd(-1, 1), vy: rnd(-1.5, .5) }); } });
+      S.br = S.br.filter(b => !b.cut || now - b.cut < 700);
+      S.fizz = S.fizz.filter(f => (f.l -= .03) > 0); S.fizz.forEach(f => { f.x += f.vx; f.y += f.vy; g.fillStyle = `rgba(255,150,60,${f.l})`; g.fillRect(f.x, f.y, 2, 2); });
+      if (danger > 0) { g.fillStyle = `rgba(255,60,40,${danger * .12 * (1 + Math.sin(t / 150)) / 2})`; g.fillRect(0, 0, w, h); if (danger >= 1 && !S.warned) { S.warned = true; say("Branches out of control: the timeline is breaking"); haptic([60, 40, 60, 40, 120]); } } else S.warned = false;
+    }); }
+}
 /* MOCKUP END */
 /* MOCKUP BEGIN snapstones */
 // the test build hands you the six Stones, so the Gauntlet's Snap is there to try (main never sees this block)
