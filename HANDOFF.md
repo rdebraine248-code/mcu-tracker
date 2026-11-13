@@ -534,11 +534,12 @@ mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn
   separately"; the shared sticky column overlapped when scrolled far); the Atlas puts its map left and its list right, and redraws when the phone turns; a page's title
   and its tabs share one row.
 - **Stage 2 (under way; owner, 13 November 2026: "lets continue landscape"):** the box panels, the Log, the Network's own header and
-  card, the indexes and their files, then dialogs, toasts, eggs and the boot screen. Done (test build v201): **an open box splits like
-  Story**, its name, label, quote, progress and Completed in a left column (`--lcolw`, Story's width), its titles a column of their own
-  on the right scrolling on its own (`#panel` doesn't scroll; the list's height is set from where it starts, `landBox`, re-measured
-  after `renderPanel` and `pinTop` and on turning). Checked: the last title reachable, Chapter 7's banner, Chapter 4's split, a
-  character box. Next: the Network (title, search and tabs take 40% of the height), then the indexes and files.
+  card, the indexes and their files, then dialogs, toasts, eggs and the boot screen. Done (test build v202): **an open box keeps one
+  column with a compact head that scrolls away** (the name smaller, the label, quote and count on one line, then the bar), so the screen
+  goes to the titles. A two-column box (head on the left, titles scrolling on the right) was tried first and rejected (owner: "Why do I
+  need to look at the title on the left hand side? I don't. Think a little bit about actual usability before doing some changes"):
+  sideways, height is what's short and the titles are what's used, so give them the room and let the label go. Next: the Network
+  (title, search and tabs take 40% of the height), then the indexes and files.
 
 - **A box's head** (owner, November 2026): no Back row; **Close** (a thin pill, no focus ring round it) stands at the title's right,
   and the chapter label (CH. 1, EXTRAS) sits under the title, before the quote; a character's **Profile** takes that line, in the label's
@@ -1670,6 +1671,10 @@ walk this list; anything new the app shows gets a line here, with its check, the
 - **Parked mockups** (the Time Machine, Six Degrees, landscape): test build only; not covered, not on main.
 
 ## Mistakes not to repeat
+
+- **Laying out a page without asking what it's used for (November 2026):** landscape's open box was split into a header column and a
+  title column because Story's page had been; the owner: "Think a little bit about actual usability before doing some changes". Before
+  any layout change, name what the person does on that page and give that the room.
 
 - **Matching people by name alone, again (November 2026):** the Network merges a Raft file into a Compound file of the same name,
   and links same-name people across universes as "other versions". When the left-out characters went in, Phastos's son Jack (the
