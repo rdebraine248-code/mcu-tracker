@@ -528,7 +528,7 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
 Owner, November 2026: "I want this app to work in landscape mode ... I want to be able to use this app fully in landscape". It's a
 mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn't carry it until it's promoted. One media query,
 `(orientation: landscape) and (max-height: 540px)` (phones on their side; tablets keep the portrait layout).
-- **Stage 1 (done; owner: "atlas and left column buttons look great"):** the dock is a rail down the left (`--dockw`; `--dockh` is 0), every page moves over for it, the ticker runs along
+- **Stage 1 (done; owner: "atlas and left column buttons look great"):** the dock is a rail down the side (`--dockw`; `--dockh` is 0; **on the right since 13 November 2026**, owner: "I meant right side", with Story's panel alone on the left), every page moves over for it, the ticker runs along
   the bottom of the content; Story's header and its mode buttons stand in a column of their own on the left (`.lcol`, `display:contents` in portrait), pinned and
   scrolling on its own, clear of the ticker (`--tkh`), while the boxes are the page on the right (owner: "left and right column should act
   separately"; the shared sticky column overlapped when scrolled far); the Atlas puts its map left and its list right, and redraws when the phone turns; a page's title

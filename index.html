@@ -1625,14 +1625,15 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
 /* landscape (owner, November 2026: "I want to be able to use this app fully in landscape"): on a phone turned sideways the dock becomes a
    rail down the left, clear of the camera, so the pages get the whole height; every page moves over to make room for it */
 @media (orientation: landscape) and (max-height: 540px){
-  :root{ --dockh:0px; --dockw:calc(68px + env(safe-area-inset-left,0px)); }
-  body{ padding-bottom:0; padding-left:var(--dockw); }
-  .dock{ top:0; right:auto; bottom:0; width:var(--dockw); height:auto; flex-direction:column; padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px); border-top:0; border-right:1px solid #222A3A; }
+  /* the rail stands on the right (owner, 13 November 2026: "I meant right side") */
+  :root{ --dockh:0px; --dockw:calc(68px + env(safe-area-inset-right,0px)); }
+  body{ padding-bottom:0; padding-right:var(--dockw); }
+  .dock{ top:0; left:auto; right:0; bottom:0; width:var(--dockw); height:auto; flex-direction:column; padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) 0; border-top:0; border-left:1px solid #222A3A; }
   .dock button{ gap:4px; font-size:8.5px; letter-spacing:1px; }
   .dock svg{ width:20px; height:20px; }
-  @keyframes dockinl{ from{ transform:translateX(-100%); opacity:0; } to{ transform:none; opacity:1; } }
+  @keyframes dockinl{ from{ transform:translateX(100%); opacity:0; } to{ transform:none; opacity:1; } }
   .dock.rise{ animation-name:dockinl; }
-  .filepanel, .mappanel, .netpanel, .dossier:not(.plog), #logHead, .whih, .hf-pick{ left:var(--dockw); }
+  .filepanel, .mappanel, .netpanel, .dossier:not(.plog), #logHead, .whih, .hf-pick{ left:0; right:var(--dockw); }
   .whih{ bottom:env(safe-area-inset-bottom,0px); }
   .wrap, .dockpg .maptop, .fileview{ padding-right:max(20px, env(safe-area-inset-right,0px)); }
   /* a page's title and its tabs share one row, so the page starts higher */
@@ -1644,8 +1645,8 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
   /* the column is a side panel of its own (owner, 13 November 2026: it "doesn't look designed with intent just 2 columns split down the
      middle", and it scrolled on the phone): a faint surface with a hairline edge like the dock rail; the title, the progress and its
      status stacked; the three views as a list down the panel, the one you're in lit. All of it fits a phone's 384px without scrolling */
-  #app .lcol{ display:flex; flex-direction:column; gap:8px; position:fixed; z-index:3; top:0; bottom:var(--tkh, 0px); left:var(--dockw); width:var(--lcolw); box-sizing:border-box;
-    overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; padding:calc(6px + env(safe-area-inset-top,0px)) 18px 12px 20px;
+  #app .lcol{ display:flex; flex-direction:column; gap:8px; position:fixed; z-index:3; top:0; bottom:var(--tkh, 0px); left:0; width:var(--lcolw); box-sizing:border-box;
+    overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; padding:calc(6px + env(safe-area-inset-top,0px)) 18px 12px max(20px, env(safe-area-inset-left,0px));
     background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.008)); border-right:1px solid var(--line); }
   #app .lcol::-webkit-scrollbar{ display:none; }
   :root{ --lcolw:clamp(220px, 29vw, 300px); }
