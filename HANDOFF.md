@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `6f8eba9`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 39 of 39
+- **main is at `cba03a9`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 39 of 39
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest; ct67 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
@@ -92,9 +92,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   - Seen, not changed: the Your Friendly Neighborhood Spider-Man Otto file dates Ross's arrest of Octavius #9; the transcript has #8.
   - The Snap and its report: the owner said they'd test on the phone; feedback may come (animations, the report's words, the memorial,
     Last seen).
-  - Parked (don't raise): the Time Machine.
+  - Parked (don't raise): the Time Machine. Landscape stage 2 left: the indexes and their files, dialogs, pills, eggs.
 - **History:**
-  - Main's pushes, newest first: `6f8eba9` (13 November 2026, the owner's "Sure push": the Mind Stone egg redesigned; full suite 39 of
+  - Main's pushes, newest first: `cba03a9` (13 November 2026, the owner's "push landscape": landscape stage 1 and stage 2 so far,
+  promoted from the test build (the dock as a rail on the right, Story's side panel, open boxes in one column with a compact head, the
+  Network's one-row bar and its card as a side panel, every title at one height), and the Network's card scrolling as one piece
+  upright; full suite 39 of 39). Before it `6f8eba9` (13 November 2026, the owner's "Sure push": the Mind Stone egg redesigned; full suite 39 of
   39). Before it `4621b25` (13 November 2026, the owner's "Push.": the Network's Jack fix, network.html only;
   full suite 39 of 39 with ct67). Before it `3cb8065` (13 November 2026, the owner's "Push": VisionQuest's finale back for Virgil Horton,
   Jocasta and Paladin; full suite 38 of 38). Before it `7e792af` (pushed 12 November 2026, the owner's "fix it that way and push": a past scene in a later title no
@@ -531,10 +534,10 @@ python3 build_tb.py "what this test build is for"          # -> out/datapad-test
   and the tally says "1 partner", not "1 partners". It's a preview, so it's small (owner: "it's supposed to be a preview, not the whole damn file"); it doesn't drag or zoom (tried,
   then cut: owner, November 2026), and only "Open Network ›" at its bottom right opens the Network ("See all N" is gone).
 
-### Landscape (in progress, test build only)
+### Landscape (on main since cba03a9; stage 2 still in progress)
 
 Owner, November 2026: "I want this app to work in landscape mode ... I want to be able to use this app fully in landscape". It's a
-mockup (`/* MOCKUP BEGIN landscape */` in the CSS and the script), so main doesn't carry it until it's promoted. One media query,
+part of the app since 13 November 2026 (promoted from the test build; no mockup markers), one media query,
 `(orientation: landscape) and (max-height: 540px)` (phones on their side; tablets keep the portrait layout).
 - **Stage 1 (done; owner: "atlas and left column buttons look great"):** the dock is a rail down the side (`--dockw`; `--dockh` is 0; **on the right since 13 November 2026**, owner: "I meant right side", with Story's panel alone on the left), every page moves over for it, the ticker runs along
   the bottom of the content; Story's header and its mode buttons stand in a column of their own on the left (`.lcol`, `display:contents` in portrait), pinned and
