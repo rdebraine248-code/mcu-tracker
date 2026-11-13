@@ -46,6 +46,17 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
+  - **Eggs: where they live, and new ones (owner, 13 November 2026: "1. I need a redesign of the ultron and vision lines in the stone
+    egg 2. Need eggs for pages created after eggs finished (networks, indexes comms) 3. ... now that they have files maybe those should
+    be moved there. Same with ultron vision, other stones").** The owner asked for a line-item audit before anything moves: the page is
+    https://claude.ai/artifact/C3UE6Zb2qccNeG5DxF2jAX (answers in its `answers` collection, one doc per item, read with ArtifactData).
+    It proposes: the Mind Stone re-enacting Age of Ultron (the lab's neurons, Ultron tearing J.A.R.V.I.S. apart, J.A.R.V.I.S. gathered,
+    Thor's lightning, the Stone's gold; owner picked "Re-enact the film"); single-person box eggs into that person's file; team eggs into
+    a group file where one exists, else kept; the four log mascots kept in the logs (hidden there); the Stones never on their own
+    Collection files (owner: "It would be so stupid to have a 6 stones found in the stones page on index. Then they wouldn't be hidden"),
+    each in a person's file (Mind the Vision, Soul Natasha, Power Peter Quill or T'Challa, Reality Jane Foster since the Hex is not the
+    Reality Stone, Time Strange, Space Loki or Red Skull); eight new egg candidates in fours (Network, Comms, Raft, Compound, Damage
+    Control, Collection). Waiting on the owner's picks.
   - **A new chapter organization for the Multiverse Saga.** The owner asked for one from scratch; the proposal (12 November 2026) is
     seven chapters: Aftermath (WandaVision, The Falcon and the Winter Soldier, Black Widow, Hawkeye); Fractures (Loki S1, No Way
     Home, Multiverse of Madness, Quantumania, Loki S2); Gods Among Us (Shang-Chi, Eternals, Moon Knight, Werewolf by Night, Love and
