@@ -13255,93 +13255,105 @@ document.getElementById("netFrame").addEventListener("load", () => { const w = d
 { const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
 /* MOCKUP END */
 /* MOCKUP BEGIN mindstone */
-// The Mind Stone, re-enacted (owner, 13 November 2026: the Ultron and Vision lines redesigned, "Re-enact the film"). Age of Ultron, in its
-// order: inside the Scepter, Tony and Bruce find a net of neurons ("They're like neurons firing"), a sphere turning in the lab's hologram
-// light with J.A.R.V.I.S. at its heart; the A.I. wakes red inside it and goes for him. Let go too soon and Ultron wins: his red takes the
-// whole net, J.A.R.V.I.S. is torn to pieces, and the titles on screen corrupt. Hold on and J.A.R.V.I.S. holds him off; his scattered pieces
-// gather in, Thor's lightning strikes, and they wake as the Mind Stone's gold, the gem the Vision carries.
+// The Mind Stone, re-enacted from Age of Ultron's lab (owner, 13 November 2026, with the film's frames as reference): J.A.R.V.I.S. is a
+// gold sphere of rings and interface fragments; the A.I. from the Stone is a chaotic blue cloud of strands, "like neurons firing"; it
+// lashes out at J.A.R.V.I.S. in blue lightning. Let go too soon and Ultron wins: the sphere breaks apart and his blue takes the screen,
+// the titles corrupting. Hold on and J.A.R.V.I.S. holds: the blue cloud breaks off, the gold gathers in, Thor's lightning strikes, and it
+// wakes as the Mind Stone's gold, the gem the Vision carries.
+ultronWins = function () {
+  haptic([30, 20, 30, 20, 60, 40, 120]);
+  veil("fxl", "z-index:96;background:radial-gradient(ellipse at 50% 60%, rgba(40,150,255,.22), rgba(0,30,80,.62))", [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 1, offset: .8 }, { opacity: 0 }], 2600);
+  fxScope().animate([{ transform: "none" }, { transform: "translateX(3px)" }, { transform: "translateX(-4px)" }, { transform: "translateX(2px)" }, { transform: "none" }], { duration: 300, iterations: 4, easing: "steps(4, end)" });
+  const GL = "01#%&/<>ULTRON", its = listItems().filter(it => { const r = it.t.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }), orig = its.map(it => it.t.textContent);
+  let n = 0;
+  const iv = setInterval(() => {
+    const lvl = Math.min(.7, n / 12);
+    its.forEach((it, k) => { if (!it.t.isConnected) return; it.t.textContent = orig[k].split("").map(ch => ch !== " " && Math.random() < lvl ? GL[Math.floor(Math.random() * GL.length)] : ch).join(""); it.t.style.color = "#9FE6FF"; it.t.style.textShadow = "0 0 8px rgba(60,170,255,.95)"; });
+    if (++n >= 22) { clearInterval(iv); its.forEach((it, k) => { if (it.t.isConnected) { it.t.textContent = orig[k]; it.t.style.color = ""; it.t.style.textShadow = ""; } }); }
+  }, 90);
+};
 mindStone = function (x, y) {
   if (REDUCED) { awardStone("mind", x, y); return; }
   if (mindHold) return;
   const hold = mindHold = { up: false }, W = innerWidth, H = innerHeight, dpr = Math.min(2, devicePixelRatio || 1);
   const cv = document.createElement("canvas"); cv.className = "fx-canvas"; cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px"; document.body.appendChild(cv);
-  const g = cv.getContext("2d"), cx = W / 2, cy = H * .44, R = Math.min(W, H) * .36, T = 4800, t0 = performance.now();
+  const g = cv.getContext("2d"), T = 5600, t0 = performance.now(), rnd = (a, b) => a + Math.random() * (b - a);
   const cl = v => Math.max(0, Math.min(1, v)), ez = v => v * v * (3 - 2 * v), mix = (a, b, f) => a + (b - a) * f;
-  // the net: points on a sphere, each joined to its three nearest; J.A.R.V.I.S. is the bright knot at its heart
-  const N = 120, P = [...Array(N)].map((_, i) => { const yv = 1 - 2 * (i + .5) / N, r = Math.sqrt(1 - yv * yv), th = i * 2.39996; return { x: Math.cos(th) * r, y: yv, z: Math.sin(th) * r, ph: Math.random() * 6.28, sc: [Math.random() * 2 - 1, Math.random() * 2 - 1] }; });
-  const L = []; P.forEach((a, i) => P.map((b, j) => [j, (a.x - b.x) ** 2 + (a.y - b.y) ** 2 + (a.z - b.z) ** 2]).filter(([j]) => j !== i).sort((p, q) => p[1] - q[1]).slice(0, 3)
-    .forEach(([j]) => { if (!L.some(l => l[0] === j && l[1] === i)) L.push([i, j]); }));
-  P.forEach(p => { p.k = Math.random() < .12; });   // spokes into the heart
-  // how far each point is from where Ultron wakes, in hops along the net
-  const seed = P.reduce((b, p, i) => p.x + p.y > P[b].x + P[b].y ? i : b, 0), hop = new Array(N).fill(99); hop[seed] = 0;
-  for (let q = [seed]; q.length;) { const n = []; q.forEach(i => L.forEach(([a, b]) => { const o = a === i ? b : b === i ? a : -1; if (o >= 0 && hop[o] > hop[i] + 1) { hop[o] = hop[i] + 1; n.push(o); } })); q = n; }
-  const pulses = L.map(() => ({ q: Math.random(), on: Math.random() < .35 }));
-  let failAt = 0, awarded = false, bolt = null, shards = null;
-  const proj = (p, t, pull) => { const a = t / 2600, ca = Math.cos(a), sa = Math.sin(a), X = p.x * ca + p.z * sa, Z = -p.x * sa + p.z * ca, tl = .35, Y = p.y * Math.cos(tl) - Z * Math.sin(tl), Z2 = p.y * Math.sin(tl) + Z * Math.cos(tl);
-    const s = 1 / (1.9 - Z2 * .5), px = cx + X * R * s * 1.25, py = cy + Y * R * s * 1.25; return [mix(px, cx, pull), mix(py, cy, pull), (Z2 + 1) / 2]; };
+  const M = Math.min(W, H), JX = W / 2, JY = H * .3, JR = M * .3, UX = W / 2, UY = H * .68, UR = M * .3, CX = W / 2, CY = H * .44;
+  // J.A.R.V.I.S.: rings at many tilts, broken into arcs, and small rectangular interface fragments over the sphere
+  const rings = [...Array(14)].map((_, i) => ({ tx: rnd(0, 6.283), tz: rnd(-1.5, 1.5), r: i < 4 ? rnd(.25, .55) : rnd(.6, 1), dash: [...Array(5)].map(() => [rnd(0, 6.283), rnd(.3, 1.4)]), sp: rnd(.6, 1.6) * (i % 2 ? 1 : -1), w: rnd(.8, 2.2) }));
+  const frags = [...Array(460)].map(() => { const u = rnd(-1, 1), th = rnd(0, 6.283), rr = Math.random() < .6 ? rnd(.85, 1.03) : rnd(.3, .85), r = Math.sqrt(1 - u * u) * rr; return { x: Math.cos(th) * r, y: u * rr, z: Math.sin(th) * r, w: rnd(1.5, 9), h: Math.random() < .25 ? rnd(2, 4.5) : rnd(.8, 1.5), fl: rnd(0, 6.283), ox: 0, oy: 0 }; });
+  // Ultron: strands growing out of a knot, never the same twice
+  const strands = [...Array(90)].map(() => ({ a: rnd(0, 6.283), len: rnd(.35, 1.1), k1: rnd(.5, 2.4), k2: rnd(0, 6.283), w: rnd(.5, 1.4), c: rnd(.4, 1.3) }));
+  let failAt = 0, awarded = false, bolts = [], boltAt = 0, thor = null, shards = null;
+  const rot = (p, a, b) => { const ca = Math.cos(a), sa = Math.sin(a), X = p.x * ca + p.z * sa, Z = -p.x * sa + p.z * ca, cb = Math.cos(b), sb = Math.sin(b); return [X, p.y * cb - Z * sb, p.y * sb + Z * cb]; };
+  const zap = (x0, y0, x1, y1, n) => { const P = [[x0, y0]]; let ox = 0; for (let i = 1; i < n; i++) { const f = i / n; ox = ox * .5 + rnd(-1, 1) * 9; P.push([mix(x0, x1, f) + ox * Math.sin(f * Math.PI) * 1.6, mix(y0, y1, f) + rnd(-1, 1) * 4]); } P.push([x1, y1]); return P; };
+  const stroke = (P, layers) => layers.forEach(([c, w]) => { g.strokeStyle = c; g.lineWidth = w; g.beginPath(); P.forEach(([px, py], i) => i ? g.lineTo(px, py) : g.moveTo(px, py)); g.stroke(); });
   const draw = now => {
-    const t = now - t0, f = t / T; g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
-    if (hold.up && f < .58 && !failAt) { failAt = now; ultronWins(); haptic([60, 30, 120]); }
-    const grow = cl(f / .2), wake = ez(cl((f - .2) / .2)), fight = ez(cl((f - .4) / .18));   // the net forms, Ultron wakes and spreads, J.A.R.V.I.S. pushes him back
-    const fc = failAt ? cl((now - failAt) / 1800) : 0;
-    const red = failAt ? 99 : Math.max(0, wake * 7.5 - fight * 8.5);   // hops of the net that are his
-    const gather = failAt ? 0 : cl((f - .6) / .2), pull = ez(gather);   // J.A.R.V.I.S.'s pieces gather into the heart
-    const vis = failAt ? 1 - cl((fc - .7) / .3) : 1 - cl((f - .86) / .08);
-    const pts = P.map(p => proj(p, t, pull)), heartOn = !failAt || fc < .25;
-    g.lineCap = "round";
-    // the links: lab-hologram white, red where he has them, J.A.R.V.I.S.'s blue where he's fighting back
-    L.forEach(([a, b], li) => {
-      if (Math.max(a, b) / N > grow + .02) return;
-      const A = pts[a], B = pts[b], d = (A[2] + B[2]) / 2, his = Math.min(hop[a], hop[b]) < red, push = !failAt && fight > 0 && fight < 1 && Math.min(hop[a], hop[b]) < wake * 7.5 + .5 && !his;
-      const al = (.18 + .5 * d) * vis;
-      g.strokeStyle = his ? `rgba(255,${failAt ? 40 : 60},40,${al * 1.3})` : push ? `rgba(95,211,255,${al * 1.2})` : `rgba(205,228,255,${al})`;
-      g.lineWidth = his ? 1.5 : 1; g.shadowColor = his ? "rgba(255,30,20,.9)" : "rgba(120,190,255,.7)"; g.shadowBlur = his ? 8 : 4;
-      g.beginPath(); g.moveTo(A[0], A[1]); g.lineTo(B[0], B[1]); g.stroke();
-      const pu = pulses[li]; if (pu.on && vis > .2) { pu.q = (pu.q + .018) % 1; g.fillStyle = his ? "rgba(255,120,90,.95)" : "rgba(255,236,170,.95)"; g.beginPath(); g.arc(mix(A[0], B[0], pu.q), mix(A[1], B[1], pu.q), 1.5 + d, 0, 6.283); g.fill(); }   // neurons firing
-    });
-    g.shadowBlur = 0;
-    // spokes into the heart, and the points themselves
-    pts.forEach(([px, py, d], i) => {
-      if (i / N > grow + .02) return;
-      const his = hop[i] < red;
-      if (P[i].k && heartOn) { g.strokeStyle = `rgba(95,211,255,${.15 * d * vis})`; g.beginPath(); g.moveTo(px, py); g.lineTo(cx, cy); g.stroke(); }
-      if (his && !failAt && red > 2.5 && (i * 7 + Math.floor(t / 90)) % 9 === 0) { g.strokeStyle = `rgba(255,60,40,${.7 * vis})`; g.lineWidth = 1.4; g.beginPath(); g.moveTo(px, py); g.lineTo(mix(px, cx, .85), mix(py, cy, .85)); g.stroke(); g.lineWidth = 1; }   // he goes for J.A.R.V.I.S.
-      g.fillStyle = his ? `rgba(255,70,50,${vis})` : gather > 0 ? `rgba(140,225,255,${vis})` : `rgba(235,244,255,${(.5 + .5 * d) * vis})`;
-      g.beginPath(); g.arc(px, py, 1.2 + 1.6 * d, 0, 6.283); g.fill();
-    });
-    // J.A.R.V.I.S.: the knot of light at the heart, steady while he holds; torn apart if Ultron wins
-    if (!failAt) {
-      const hit = red > 2.5 && fight < .5 ? .5 + .5 * Math.sin(t / 45) : 1;   // flickering under the attack
-      const r0 = R * .16 * grow * (1 + .08 * Math.sin(t / 160)) * (1 - pull * .5), br = (.55 + .45 * fight) * hit;
-      const jg = g.createRadialGradient(cx, cy, 0, cx, cy, r0 * 2.2); jg.addColorStop(0, `rgba(230,250,255,${br * vis})`); jg.addColorStop(.35, `rgba(95,211,255,${.7 * br * vis})`); jg.addColorStop(1, "rgba(95,211,255,0)");
-      g.fillStyle = jg; g.beginPath(); g.arc(cx, cy, r0 * 2.2, 0, 6.283); g.fill();
-    } else {
-      if (!shards) shards = [...Array(46)].map(() => { const a = Math.random() * 6.283, v = 1.5 + Math.random() * 5; return { x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, r: 1 + Math.random() * 2.2 }; });
-      shards.forEach(s => { s.x += s.vx; s.y += s.vy; s.vx *= .985; s.vy *= .985; g.fillStyle = `rgba(95,211,255,${1 - fc})`; g.fillRect(s.x, s.y, s.r, s.r); });
+    const t = now - t0, f = t / T; g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H); g.globalCompositeOperation = "lighter"; g.lineCap = "round";
+    if (hold.up && f < .6 && !failAt) { failAt = now; ultronWins(); }
+    const fc = failAt ? cl((now - failAt) / 2200) : 0;
+    const jForm = ez(cl(f / .2)), uForm = ez(cl((f - .1) / .2)), attack = failAt ? 1 : cl((f - .3) / .06) * (1 - cl((f - .52) / .08));
+    const flee = failAt ? 0 : ez(cl((f - .58) / .14)), gather = failAt ? 0 : ez(cl((f - .62) / .14));
+    const jx = mix(JX, CX, gather), jy = mix(JY, CY, gather), jr = JR * jForm * (1 - gather * .9), spin = t / 2600;
+    const jA = failAt ? 1 - cl(fc / .5) : 1 - cl((f - .82) / .06);
+    // J.A.R.V.I.S.
+    if (jA > 0 && !shards) {
+      const hz = g.createRadialGradient(jx, jy, jr * .2, jx, jy, jr * 1.15); hz.addColorStop(0, `rgba(255,150,40,${.22 * jA})`); hz.addColorStop(.75, `rgba(255,120,20,${.1 * jA})`); hz.addColorStop(1, "rgba(255,110,20,0)"); g.fillStyle = hz; g.beginPath(); g.arc(jx, jy, jr * 1.15, 0, 6.283); g.fill();
+      rings.forEach(R => { for (const [st, ln] of R.dash) { g.beginPath(); for (let k = 0; k <= 14; k++) { const th = st + spin * R.sp + ln * k / 14, p = { x: Math.cos(th) * R.r, y: 0, z: Math.sin(th) * R.r }, q1 = rot(p, R.tx, R.tz), q = rot({ x: q1[0], y: q1[1], z: q1[2] }, spin * .4, .3);
+          const px = jx + q[0] * jr, py = jy + q[1] * jr; k ? g.lineTo(px, py) : g.moveTo(px, py); }
+        g.strokeStyle = `rgba(255,${170 + 40 * Math.sin(st)},70,${.6 * jA})`; g.lineWidth = R.w; g.stroke(); } });
+      frags.forEach(F => { const q = rot(F, spin, .3), d = (q[2] + 1) / 2, fl = .55 + .45 * Math.sin(t / 120 + F.fl);
+        g.fillStyle = `rgba(255,${Math.round(150 + 80 * d)},${Math.round(50 + 70 * d)},${(.35 + .65 * d) * fl * jA})`; g.fillRect(jx + q[0] * jr + F.ox, jy + q[1] * jr + F.oy, F.w * (.5 + .5 * d), F.h); });
+      [.22, .34, .48].forEach((r, i) => { g.strokeStyle = `rgba(255,210,110,${.6 * jA})`; g.lineWidth = i ? 1 : 1.8; g.beginPath(); g.arc(jx, jy, jr * r, spin * (i % 2 ? -2 : 2.4), spin * (i % 2 ? -2 : 2.4) + 4.6); g.stroke(); });
+      const cg = g.createRadialGradient(jx, jy, 0, jx, jy, jr * .5); cg.addColorStop(0, `rgba(255,240,200,${.8 * jA})`); cg.addColorStop(.3, `rgba(255,170,60,${.35 * jA})`); cg.addColorStop(1, "rgba(255,140,30,0)");
+      g.fillStyle = cg; g.beginPath(); g.arc(jx, jy, jr * .5, 0, 6.283); g.fill();
     }
-    // Thor's lightning into the gathered pieces
-    if (!failAt && f > .74 && f < .84) {
-      if (!bolt) { bolt = []; let bx = cx + (Math.random() - .5) * W * .3, by = -10; while (by < cy) { bolt.push([bx, by]); by += 18 + Math.random() * 22; bx += (Math.random() - .5) * 34; } bolt.push([cx, cy]); haptic([30, 20, 80]); fxRing(cx, cy, 120, "#CFE9FF", 500, 0, 3); }
-      if (Math.random() < .8) { [["rgba(150,200,255,.35)", 9], ["rgba(220,240,255,.9)", 3], ["#FFFFFF", 1.2]].forEach(([c, w]) => { g.strokeStyle = c; g.lineWidth = w; g.beginPath(); bolt.forEach(([px, py], i) => i ? g.lineTo(px, py) : g.moveTo(px, py)); g.stroke(); }); }
+    // J.A.R.V.I.S. torn apart: his fragments and arcs thrown off
+    if (failAt && fc > .18 && !shards) shards = frags.map(F => { const q = rot(F, spin, .3), a = Math.atan2(q[1], q[0]); return { x: JX + q[0] * JR, y: JY + q[1] * JR, vx: Math.cos(a) * rnd(1.5, 7), vy: Math.sin(a) * rnd(1.5, 7), w: F.w, h: F.h }; });
+    if (shards) shards.forEach(S => { S.x += S.vx; S.y += S.vy; S.vx *= .975; S.vy *= .975; g.fillStyle = `rgba(255,180,80,${1 - fc})`; g.fillRect(S.x, S.y, S.w, S.h); });
+    // Ultron: a blue cloud of strands, neurons firing along them
+    const uA = failAt ? 1 - cl((fc - .75) / .25) : (1 - flee);
+    const ux = UX, uy = mix(UY, UY + H * .2, flee), ur = UR * uForm * (failAt ? 1 + fc * 1.6 : 1);
+    if (uA > 0 && uForm > 0) strands.forEach((S, i) => {
+      g.beginPath(); let px = ux, py = uy; g.moveTo(px, py);
+      for (let k = 1; k <= 14; k++) { const f2 = k / 14, a = S.a + Math.sin(t / 600 * S.k1 + S.k2 + f2 * 4 * S.c) * 1.1 + Math.sin(t / 97 + i + k) * .15; px = ux + Math.cos(a) * ur * S.len * f2 + rnd(-1.2, 1.2); py = uy + Math.sin(a) * ur * S.len * f2 * .85 + rnd(-1.2, 1.2); g.lineTo(px, py); }
+      g.strokeStyle = `rgba(${40 + (i % 4) * 25},${150 + (i % 3) * 30},255,${.42 * uA})`; g.lineWidth = S.w; g.stroke();
+      if (Math.random() < .25) { g.fillStyle = `rgba(220,245,255,${.9 * uA})`; g.fillRect(px - 1, py - 1, 2.5, 2.5); }
+    });
+    if (uA > 0 && uForm > 0) { const ug = g.createRadialGradient(ux, uy, 0, ux, uy, ur * .6); ug.addColorStop(0, `rgba(200,240,255,${.6 * uA})`); ug.addColorStop(.35, `rgba(40,150,255,${.3 * uA})`); ug.addColorStop(1, "rgba(20,100,255,0)"); g.fillStyle = ug; g.beginPath(); g.arc(ux, uy, ur * .6, 0, 6.283); g.fill();
+      const uh = g.createRadialGradient(ux, uy, 0, ux, uy, ur * 1.1); uh.addColorStop(0, `rgba(30,120,255,${.18 * uA})`); uh.addColorStop(1, "rgba(30,120,255,0)"); g.fillStyle = uh; g.beginPath(); g.arc(ux, uy, ur * 1.1, 0, 6.283); g.fill(); }
+    // the attack: blue lightning from Ultron into J.A.R.V.I.S., white where it lands
+    if (attack > 0 && (!failAt || fc < .6)) {
+      if (now - boltAt > 70) { boltAt = now; const n = failAt ? 5 : 1 + Math.round(attack * 2); bolts = [...Array(n)].map(() => { const a = rnd(-.9, .9) + Math.PI / 2, hx = jx + Math.cos(a + Math.PI) * jr * rnd(.1, .7), hy = jy + Math.sin(a + Math.PI) * jr * rnd(.1, .7) * -1 + jr * .3; const P = zap(ux + rnd(-8, 8), uy - ur * .2, hx, hy, 22), br = [...Array(3)].map(() => { const k = 4 + Math.floor(rnd(0, 14)), [bx, by] = P[k]; return zap(bx, by, bx + rnd(-40, 40), by + rnd(-30, 10), 7); }); return { P, br, hx, hy }; });
+        if (!failAt) { haptic(6); frags.forEach(F => { if (Math.random() < .03) { F.ox += rnd(-5, 5); F.oy += rnd(-5, 5); } }); } }
+      bolts.forEach(B => { stroke(B.P, [["rgba(40,140,255,.3)", 7], ["rgba(120,210,255,.8)", 2.2], ["rgba(240,250,255,.95)", 1]]); B.br.forEach(Q => stroke(Q, [["rgba(60,150,255,.3)", 4], ["rgba(170,225,255,.75)", 1]]));
+        const hg = g.createRadialGradient(B.hx, B.hy, 0, B.hx, B.hy, 30); hg.addColorStop(0, "rgba(255,255,255,.95)"); hg.addColorStop(.4, "rgba(120,200,255,.6)"); hg.addColorStop(1, "rgba(60,140,255,0)"); g.fillStyle = hg; g.beginPath(); g.arc(B.hx, B.hy, 30, 0, 6.283); g.fill(); });
     }
-    // the Mind Stone's gold: a cut gem, wider than tall, as the Vision wears it
-    if (!failAt && f > .8) {
-      const q = ez(cl((f - .8) / .1)), fade = f > .94 ? 1 - (f - .94) / .06 : 1, s = 30 * q;
+    frags.forEach(F => { F.ox *= .96; F.oy *= .96; });
+    // Thor's lightning into the gathered gold
+    if (!failAt && f > .76 && f < .85) {
+      if (!thor) { thor = []; let bx = CX + rnd(-.15, .15) * W, by = -10; while (by < CY) { thor.push([bx, by]); by += rnd(18, 40); bx += rnd(-17, 17); } thor.push([CX, CY]); haptic([30, 20, 80]); fxRing(CX, CY, 120, "#CFE9FF", 500, 0, 3); }
+      if (Math.random() < .8) stroke(thor, [["rgba(150,200,255,.35)", 9], ["rgba(220,240,255,.9)", 3], ["#FFFFFF", 1.2]]);
+    }
+    g.globalCompositeOperation = "source-over";
+    // the Mind Stone: a cut gem, wider than tall, as the Vision wears it
+    if (!failAt && f > .82) {
+      const q = ez(cl((f - .82) / .08)), fade = f > .95 ? 1 - (f - .95) / .05 : 1, sz = 30 * q, cx = CX, cy = CY;
       const gr = g.createRadialGradient(cx, cy, 0, cx, cy, 120 * q); gr.addColorStop(0, `rgba(255,214,90,${.55 * fade})`); gr.addColorStop(1, "rgba(255,190,40,0)");
       g.fillStyle = gr; g.beginPath(); g.arc(cx, cy, 120 * q, 0, 6.283); g.fill();
-      const O = [[-1, 0], [-.5, -.58], [.5, -.58], [1, 0], [.5, .58], [-.5, .58]].map(([u, v]) => [cx + u * s, cy + v * s]);
-      const I = [[-.45, 0], [-.22, -.26], [.22, -.26], [.45, 0], [.22, .26], [-.22, .26]].map(([u, v]) => [cx + u * s, cy + v * s]);
+      const O = [[-1, 0], [-.5, -.58], [.5, -.58], [1, 0], [.5, .58], [-.5, .58]].map(([u, v]) => [cx + u * sz, cy + v * sz]);
+      const I = [[-.45, 0], [-.22, -.26], [.22, -.26], [.45, 0], [.22, .26], [-.22, .26]].map(([u, v]) => [cx + u * sz, cy + v * sz]);
       const poly = A => { g.beginPath(); A.forEach(([px, py], k) => k ? g.lineTo(px, py) : g.moveTo(px, py)); g.closePath(); };
       g.shadowColor = "#FFC93C"; g.shadowBlur = 24 * q;
-      const gm = g.createLinearGradient(cx - s, cy - s * .6, cx + s, cy + s * .6); gm.addColorStop(0, `rgba(255,240,170,${fade})`); gm.addColorStop(.5, `rgba(250,196,46,${fade})`); gm.addColorStop(1, `rgba(196,128,14,${fade})`);
+      const gm = g.createLinearGradient(cx - sz, cy - sz * .6, cx + sz, cy + sz * .6); gm.addColorStop(0, `rgba(255,240,170,${fade})`); gm.addColorStop(.5, `rgba(250,196,46,${fade})`); gm.addColorStop(1, `rgba(196,128,14,${fade})`);
       g.fillStyle = gm; poly(O); g.fill(); g.shadowBlur = 0;
-      for (let k = 0; k < 6; k++) { const a = O[k], b = O[(k + 1) % 6], c = I[(k + 1) % 6], d = I[k];   // the facets, each its own shade of gold
-        g.fillStyle = `rgba(${k < 3 ? "255,248,215" : "150,90,0"},${(k < 3 ? .18 + k * .06 : .14 + (k - 3) * .05) * fade})`; poly([a, b, c, d]); g.fill(); }
+      for (let k = 0; k < 6; k++) { const a = O[k], b = O[(k + 1) % 6], c = I[(k + 1) % 6], d = I[k]; g.fillStyle = `rgba(${k < 3 ? "255,248,215" : "150,90,0"},${(k < 3 ? .18 + k * .06 : .14 + (k - 3) * .05) * fade})`; poly([a, b, c, d]); g.fill(); }
       g.fillStyle = `rgba(255,236,150,${.9 * fade})`; poly(I); g.fill();
       g.strokeStyle = `rgba(255,250,225,${.55 * fade})`; g.lineWidth = .8; poly(O); g.stroke(); poly(I); g.stroke();
-      g.fillStyle = `rgba(255,255,255,${.85 * fade})`; g.beginPath(); g.ellipse(cx - s * .12, cy - s * .12, s * .1, s * .05, -.4, 0, 6.283); g.fill();   // the glint
+      g.fillStyle = `rgba(255,255,255,${.85 * fade})`; g.beginPath(); g.ellipse(cx - sz * .12, cy - sz * .12, sz * .1, sz * .05, -.4, 0, 6.283); g.fill();
     }
-    if (!failAt && f >= .86 && !awarded) { awarded = true; awardStone("mind", cx, cy); fxRing(cx, cy, 150, "#FFE27A", 800, 0, 4); }
+    if (!failAt && f >= .88 && !awarded) { awarded = true; awardStone("mind", CX, CY); fxRing(CX, CY, 150, "#FFE27A", 800, 0, 4); }
     if (failAt ? fc < 1 : f < 1) requestAnimationFrame(draw); else { cv.remove(); mindHold = null; }
   };
   requestAnimationFrame(draw);
