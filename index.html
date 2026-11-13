@@ -1593,6 +1593,63 @@ button.atl-vn i{ border-color:rgba(200,205,212,.5); color:#C9CDD3; } button.atl-
 .collpanel.raft .co-chain li::before{ border-color:var(--ix); } .collpanel.raft .co-chain li:last-child::before{ background:var(--ix); box-shadow:0 0 8px var(--ix); }
 
 
+.lcol{ display:contents; }   /* Story's header and buttons, held together for landscape; in portrait it isn't there */
+/* landscape (owner, November 2026: "I want to be able to use this app fully in landscape"): on a phone turned sideways the dock becomes a
+   rail down the right (owner, 13 November 2026), so the pages get the whole height; every page moves over to make room for it */
+@media (orientation: landscape) and (max-height: 540px){
+  :root{ --dockh:0px; --dockw:calc(68px + env(safe-area-inset-right,0px)); }
+  body{ padding-bottom:0; padding-right:var(--dockw); }
+  .dock{ top:0; left:auto; right:0; bottom:0; width:var(--dockw); height:auto; flex-direction:column; padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) 0; border-top:0; border-left:1px solid #222A3A; }
+  .dock button{ gap:4px; font-size:8.5px; letter-spacing:1px; }
+  .dock svg{ width:20px; height:20px; }
+  @keyframes dockinl{ from{ transform:translateX(100%); opacity:0; } to{ transform:none; opacity:1; } }
+  .dock.rise{ animation-name:dockinl; }
+  .filepanel, .mappanel, .netpanel, .dossier:not(.plog), #logHead, .whih, .hf-pick{ left:0; right:var(--dockw); }
+  .whih{ bottom:env(safe-area-inset-bottom,0px); }
+  .wrap, .dockpg .maptop, .fileview{ padding-right:max(20px, env(safe-area-inset-right,0px)); }
+  /* a page's title and its tabs share one row, so the page starts higher */
+  .dockpg .maptop{ flex-wrap:nowrap; padding-bottom:8px; }
+  .dockpg .maptop .atl-views{ flex:1 1 0; min-width:0; flex-basis:0; margin-top:0; padding-top:0; }
+  /* Story: the header stands in its own column on the left, pinned and scrolling on its own; the boxes are the page on the right
+     (owner, November 2026: "left and right column should act separately"; the shared, sticky column overlapped when scrolled far) */
+  #app.wrap{ max-width:none; padding-left:calc(var(--lcolw) + 26px); }
+  /* the column is a side panel of its own (owner, 13 November 2026: it "doesn't look designed with intent just 2 columns split down the
+     middle", and it scrolled on the phone): a faint surface with a hairline edge like the dock rail; the title, the progress and its
+     status stacked; the three views as a list down the panel, the one you're in lit. All of it fits a phone's 384px without scrolling */
+  #app .lcol{ display:flex; flex-direction:column; gap:8px; position:fixed; z-index:3; top:0; bottom:var(--tkh, 0px); left:0; width:var(--lcolw); box-sizing:border-box;
+    overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; padding:calc(6px + env(safe-area-inset-top,0px)) 18px 12px max(20px, env(safe-area-inset-left,0px));
+    background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.008)); border-right:1px solid var(--line); }
+  #app .lcol::-webkit-scrollbar{ display:none; }
+  :root{ --lcolw:clamp(220px, 29vw, 300px); }
+  #app.wrap{ max-width:none; padding-left:calc(var(--lcolw) + 26px); }
+  #app .mast{ flex-direction:column; flex-wrap:nowrap; align-items:stretch; gap:6px; padding:0; border-bottom:0; }
+  #app .mast h1{ white-space:normal; font-size:28px; line-height:1.02; }   /* every page's title size */
+  #app .mast h1::before{ white-space:normal; right:0; }
+  #app .mast .sub{ margin:2px 0 0; font-size:13px; }
+  #app .meter{ flex:none; min-width:0; }
+  #app .meter .num{ font-size:24px; } #app .meter .num small{ font-size:13px; } #app .meter .num .nowline{ font-size:15px; } #app .meter .pct{ font-size:17px; }
+  #app .meter .barrow{ margin-top:6px; }
+  #app .mstatus{ margin-top:6px; font-size:11px; }
+  #app .modes{ flex-direction:column; flex-wrap:nowrap; align-items:stretch; gap:4px; margin:auto 0 0; }
+  #app .modes button{ display:flex; align-items:center; width:100%; padding:7px 12px; border-radius:10px; border:1px solid transparent; background:none; color:var(--muted); font-size:15px; text-align:left; }
+  #app .modes button[aria-pressed="true"]{ background:var(--ink); color:var(--shell); border-color:var(--ink); }
+  /* every page's title at one height, as upright: a title that shares its row with tabs stands at the top of the row, not its middle */
+  .dockpg .maptop > h2{ align-self:flex-start; }
+  /* Atlas: the map on the left, its list beside it */
+  .atl{ flex-direction:row; }
+  .atl-map{ flex:1 1 58% !important; height:auto !important; border-top:0; border-right:1px solid #1C2538; }
+  .atl-low{ flex:0 0 42%; border-top:0; }
+  .atl-grip{ display:none; }
+  .atl.big .atl-list{ visibility:visible; }
+  /* stage 2: an open box keeps one column (owner, 13 November 2026: "Character boxes don't need two columns. Why do I need to look at
+     the title on the left hand side?"). Sideways the height is what's short and the titles are what you use: the head is compact (the name
+     smaller, the label, quote and count on one line) and scrolls away with the list, so the whole screen goes to the titles */
+  #panel .pin{ max-width:860px; }
+  #panel .pin h2.big{ font-size:clamp(24px, 3.2vw, 36px) !important; }
+  #panel .pin > .psub, #panel .pin > .pquote.cq, #panel .pin > .ptxt{ display:inline-block; vertical-align:baseline; margin:6px 18px 0 0; max-width:none; }
+  #panel .pin > .pquote.cq{ font-size:15px; }
+  #panel .pin > .pbar{ margin:8px 0 10px; }
+}
 
 </style>
 </head>
@@ -13153,6 +13210,16 @@ function shatter(x, y) {
     }, 3800);
   }, 650);
 };
+// landscape: Story's header and its mode buttons go in one column of their own (display:contents in portrait), which keeps clear of the ticker
+{ const app = document.getElementById("app"), m = app.querySelector(".mast"), b = app.querySelector(".modes");
+  if (m && b) { const c = document.createElement("div"); c.className = "lcol"; m.before(c); c.append(m, b); }
+  const tk = document.getElementById("whih"), fit = () => document.documentElement.style.setProperty("--tkh", tk && !tk.hidden && tk.classList.contains("in") ? tk.offsetHeight + "px" : "0px");
+  if (tk) new MutationObserver(fit).observe(tk, { attributes: true, attributeFilter: ["class", "hidden"] }); fit(); }
+// turning the phone redraws the Atlas for its new shape (map beside the list, or over it)
+{ const q = matchMedia("(orientation: landscape) and (max-height: 540px)"); if (q.addEventListener) q.addEventListener("change", () => { if (atlOpen) renderAtlas(); }); }
+// the Network's own landscape layout (its bar on one row, a person's card as a panel on the right): network.html keeps it off on its own, the app turns it on
+document.getElementById("netFrame").addEventListener("load", () => { const w = document.getElementById("netFrame").contentWindow; if (w && w.netLandOn) w.netLandOn(); });
+{ const w = document.getElementById("netFrame").contentWindow; try { if (w && w.netLandOn) w.netLandOn(); } catch (e) {} }
 
 </script>
 </body>

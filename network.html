@@ -34,6 +34,15 @@ h1{ pointer-events:auto; display:inline-block; -webkit-user-select:none; user-se
 #card > div{ min-height:0; } #card.big{ top:max(60px, env(safe-area-inset-top, 0px)); } #card.big #vOne:not([hidden]){ flex:1; display:flex; flex-direction:column; min-height:0; }
 #cMore{ display:none; } #card.big #cMore{ display:block; flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; margin:6px -14px 0; padding:0 14px 8px; touch-action:pan-y; }
 #card.big #sConn{ display:none; }
+/* full height, the card is one scroll (owner, 13 November 2026: "if the network popup isnt interactive it shouldnt be stagnant and
+   should scroll with the rest of the pop up ... Yes do portrait too"): the name, the summary and the file move together; only what you
+   use stays, the grip at the top and the buttons at the foot. Pulled down from its top, it slides back down as before */
+#card.big{ overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; padding-bottom:0; }
+#card.big #vOne:not([hidden]), #card.big #vTwo:not([hidden]){ display:block; }
+#card.big #cMore, #card.big #lBody{ overflow:visible; flex:none; max-height:none; }
+#card.big #cGrip{ position:sticky !important; top:-12px; z-index:3; height:26px; margin:-12px -14px 0; width:calc(100% + 28px); background:rgb(14,24,40) !important; }
+#card.big #cGrip::before{ top:12px; }
+#card.big #cRow, #card.big #vTwo .row{ position:sticky; bottom:0; z-index:2; margin-left:-14px; margin-right:-14px; padding:10px 14px max(14px, env(safe-area-inset-bottom, 0px)); background:linear-gradient(180deg, rgba(14,24,40,0), rgb(14,24,40) 30%); }
 /* how two people are connected slides up the same way (owner, 5 November 2026: "should also be scrollable and tapable starting at the
    top etc just like an individuals"): small, the first of it, fading out; pulled up, all of it, scrolling, from its top */
 #lBody{ margin:6px -14px 0; padding:0 14px 8px; max-height:var(--lbh, 24vh); overflow:hidden; }   /* small, the card stands as tall as a person's small card (owner, 6 November 2026) */
@@ -185,6 +194,36 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
 .dpk li button span{ flex:none; font:12px/1.6 var(--mono); color:var(--mute); }
 .dnote{ margin:14px 2px 0; color:#C9D3E2; font-size:14.5px; line-height:1.4; }
 .drow button.go{ border-color:#E9C46A; background:#E9C46A; color:#0B1019; } .drow button:disabled{ opacity:.35; }
+/* landscape, switched on by the app (netLandOn; network.html opened on its own keeps the portrait layout). A phone on its side is short, and the room is
+   what you look at: the title, search and universe tabs share one row, and a person's card stands on the right as a panel, its whole
+   file scrolling inside it, so the room beside it stays in view (owner, 13 November 2026: "Network looks bad the top section hides so much") */
+@media (orientation: landscape) and (max-height: 540px){
+  /* the bar: the title, the universes as tabs like the Log's (mono capitals, the one you're in lit with a glowing line), search as a
+     round button at the end (owner, 13 November 2026: the boxed pills and the search field in one row "looks cheap") */
+  html.land header{ display:flex; flex-wrap:wrap; align-items:center; column-gap:18px; row-gap:4px; padding-bottom:12px; }
+  html.land header h1{ flex:none; font-size:28px; align-self:flex-start; }   /* every page's title, its size and height */
+  html.land header::before{ bottom:-40px; -webkit-mask-image:linear-gradient(180deg, #000 45%, transparent); mask-image:linear-gradient(180deg, #000 45%, transparent); }   /* fading out over the room, no edge */
+  html.land .unis{ order:1; flex:1 1 0; min-width:0; gap:4px; margin:0; padding:0; align-self:stretch; align-items:stretch; }
+  html.land .unis button{ position:relative; border:0; border-radius:0; background:none; padding:10px 10px 9px; color:#6F7C95; font:13px/1 'Share Tech Mono', 'Courier New', monospace; letter-spacing:2px; text-transform:uppercase; }
+  html.land .unis button[aria-selected="true"]{ background:none; color:#EEF1F6; }
+  html.land .unis button[aria-selected="true"]::before{ content:""; position:absolute; left:10px; right:10px; bottom:0; height:2px; border-radius:2px; background:#5FD0FF; box-shadow:0 0 8px rgba(95,211,255,.6); }
+  html.land .unis button.nw::after{ top:4px; right:2px; }
+  html.land header #hSearch{ order:2; flex:none; width:36px; height:36px; margin:0; padding:0; justify-content:center; border-radius:50%; }
+  html.land header #hSearch span{ display:none; }
+  html.land .worlds{ order:3; flex:0 0 100%; margin-top:0; }
+  html.land #card{ left:auto !important; right:max(12px, env(safe-area-inset-right, 0px)) !important; width:min(380px, 44vw) !important; top:calc(var(--hb, 60px) + 4px) !important;
+    bottom:max(12px, env(safe-area-inset-bottom, 0px)) !important; max-height:none !important; transform:translateX(calc(100% + 24px)) !important; }
+  html.land #card.on{ transform:none !important; }
+  html.land #cGrip{ display:none !important; }
+  /* the card is one scroll: what you read (name, summary, the file) moves together, and only the buttons, the part you use, stay at its
+     foot (owner, 13 November 2026: "if the network popup isnt interactive it shouldnt be stagnant and should scroll with the rest") */
+  html.land #card{ display:block !important; overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; padding-bottom:0 !important; }
+  html.land #card #vOne:not([hidden]), html.land #card #vTwo:not([hidden]){ display:block; }
+  html.land #card #cMore{ display:block; overflow:visible; margin:6px 0 0; padding:0 0 8px; }
+  html.land #card #cRow, html.land #card #vTwo .row{ position:sticky; bottom:0; z-index:2; margin:0 -14px; padding:10px 14px max(12px, env(safe-area-inset-bottom, 0px)); background:linear-gradient(180deg, rgba(18,24,38,0), #121826 30%); }
+  html.land #card #sConn{ display:none; }
+  html.land #card #lBody{ max-height:none; overflow:visible; -webkit-mask-image:none; mask-image:none; }
+}
 </style>
 
 <canvas id="room" aria-label="Everyone you've met, standing in their groups."></canvas>
@@ -660,7 +699,8 @@ const short = n => n.replace(/^(The|Dr\.|Doctor|Captain|Agent|King|Queen|Prince|
 function lockOn(p, t) {
   if (!p.vis && p.u !== UNI) { setWorld(p); say('Crossing into ' + (earthOf(p) || (UL[p.u] === 'Spider-Verse' ? 'the Spider-Verse' : UL[p.u])), 1800); }   // across universes, you go with them
   const lines = mapOn; gather(p, t || performance.now());
-  if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx, y1: p.hy + 70 / zoom, z0: zoom, z1: Math.max(.9, zoom) };
+  const [ox, oy] = landCard();   // where the card leaves room: above it in portrait, beside it on the left in landscape
+  if (lines) { mapEnter(); } else glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: p.hx + ox / Math.max(.9, zoom), y1: p.hy + oy / zoom, z0: zoom, z1: Math.max(.9, zoom) };
   fillCard(p); if (navigator.vibrate) try { navigator.vibrate(10); } catch (e) {}
 }
 const WHO = {
@@ -709,11 +749,11 @@ function moreHTML(p, L) {
 // list down from its top drags the card down too
 let cardBig = false, dragged = 0, cd = null;
 const TOPMIN = 60, cardTop = () => card.getBoundingClientRect().top;
-const moreFill = () => { if (sel && card._more !== sel) { card._more = sel; $('cMore').innerHTML = moreHTML(sel, card._L || []); $('cMore').scrollTop = 0; } };   // a new card starts at its top
+const moreFill = () => { if (sel && card._more !== sel) { card._more = sel; $('cMore').innerHTML = moreHTML(sel, card._L || []); $('cMore').scrollTop = 0; card.scrollTop = 0; } };   // a new card starts at its top
 const setBig = (v, top) => { if (v) moreFill();
-  if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
+  if (v && !card.classList.contains('big') && top != null) { card.style.transition = 'none'; card.style.top = cardTop() + 'px'; card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; card.scrollTop = 0; void card.offsetHeight; card.style.transition = ''; }   // slides up from where it stands, the way it slides down, its list at the top
   card._k = (card._k || 0) + 1; cardBig = v; card.classList.toggle('big', v); card.style.top = v && top != null ? top + 'px' : '';
-  $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) { $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; } };
+  $('cGrip').setAttribute('aria-expanded', v); $('cGrip').setAttribute('aria-label', v ? 'Show less' : 'Show more about them'); if (!v) { $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; card.scrollTop = 0; } };
 self.cardReady = true;   // home() runs while the page starts, before the card's code exists
 const settle = top => { card.style.transition = '';
   if (top > card._ct - 48) { if (!cardBig) return; card.style.top = card._ct + 'px'; const k = card._k = (card._k || 0) + 1; setTimeout(() => { if (card._k === k && !cd) setBig(false); }, 330); }
@@ -723,20 +763,23 @@ const dragMove = y => { if (!cd) return false; const dy = y - cd.y; if (!cd.on &
   const top = Math.max(TOPMIN, cd.t + dy);
   if (top > card._ct) { if (cardBig) { cardBig = false; card.classList.remove('big'); card.style.top = ''; } card.style.transform = `translateY(${top - card._ct}px)`; cd.down = top - card._ct; return true; }   // below where it rests: on its way out
   cd.down = 0; card.style.transform = '';
-  if (!card.classList.contains('big')) { card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; }   // every card's list starts at its top (owner)
+  if (!card.classList.contains('big')) { card.classList.add('big'); $('cMore').scrollTop = 0; $('lBody').scrollTop = 0; card.scrollTop = 0; }   // every card's list starts at its top (owner)
   cardBig = true; card.style.top = top + 'px'; return true; };
 const dragEnd = () => { if (!cd) return; const on = cd.on, down = cd.down || 0; cd = null; if (!on) return; dragged = performance.now(); card.style.transition = '';
   if (down > 70) { card.style.transform = ''; home(); return; }   // pulled down far enough: it slides the rest of the way and closes (owner: "slide it all the way down to close it")
   if (down > 0) { card.style.transform = ''; return; } settle(cardTop()); };
 $('cGrip').onclick = () => { if (performance.now() - dragged < 400) return; if (cardBig) { card._ct = card._ct || cardTop(); settle(1e4); } else { card._ct = cardTop(); setBig(true, TOPMIN); } };
-card.addEventListener('pointerdown', e => { if (e.target.closest('#cMore, .strip') || cardBig && e.target.closest('#lBody')) return; dragStart(e.clientY); cd.pid = e.pointerId; });
+card.addEventListener('pointerdown', e => { if (e.target.closest('#cMore, .strip') || cardBig && e.target.closest('#lBody') || landOn()) return;   // sideways the card is a panel and never slides
+  if (cardBig && e.pointerType === 'touch' && !e.target.closest('#cGrip')) return;   // full height, a finger scrolls the card; the touch handlers pull it down from its top
+  dragStart(e.clientY); cd.pid = e.pointerId; });
 addEventListener('pointermove', e => { if (!cd || cd.touch) return; const was = cd.on; dragMove(e.clientY); if (cd.on && !was) try { card.setPointerCapture(cd.pid); } catch (x) {} });   // held only once it's a drag, so a tap still lands on what you tapped
 addEventListener('pointerup', () => { if (cd && !cd.touch) dragEnd(); }); addEventListener('pointercancel', () => { if (cd && !cd.touch) dragEnd(); });
 card.addEventListener('click', e => { if (performance.now() - dragged < 400 && !e.target.closest('#cGrip')) { e.stopPropagation(); e.preventDefault(); } }, true);
-['cMore', 'lBody'].forEach(id => { const m = $(id);
-  m.addEventListener('touchstart', e => { if (cardBig && m.scrollTop <= 0) { dragStart(e.touches[0].clientY); cd.touch = true; } }, { passive: true });
+// full height, the card scrolls as one: a finger pulling down from its very top slides it back down (the grip drags it any time)
+{ const m = card;
+  m.addEventListener('touchstart', e => { if (cardBig && m.scrollTop <= 0 && !e.target.closest('#cGrip') && !(document.documentElement.classList.contains('land') && LANDQ.matches)) { dragStart(e.touches[0].clientY); cd.touch = true; } }, { passive: true });
   m.addEventListener('touchmove', e => { if (!cd || !cd.touch) return; if (!cd.on && e.touches[0].clientY < cd.y) { cd = null; return; } if (dragMove(e.touches[0].clientY)) e.preventDefault(); }, { passive: false });
-  m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); });
+  m.addEventListener('touchend', () => { if (cd && cd.touch) dragEnd(); }); m.addEventListener('touchcancel', () => { if (cd && cd.touch) dragEnd(); }); }
 function fillCard(p) {
   $('cName').textContent = p.n; { const c = String(p.g).split('\u2063')[0].split('\u2064')[0]; $('cCrew').textContent = (p.u !== 'mcu' ? worldOf(p) + ' · ' : '') + (c === 'Independent' ? 'Independent' : c); }
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d), cnt = {};
@@ -1144,7 +1187,11 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
 // Six Degrees is a mockup: its button shows only when the app's test build turns it on
 // Six Degrees is found, not shown (owner, 7 November 2026: "hidden somewhere else so it's a discovery"): hold the Network's title. It's
 // played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
-let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
+let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
+self.netLandOn = () => { document.documentElement.classList.add('land'); };   // the app turns its landscape layout on
+const LANDQ = matchMedia('(orientation: landscape) and (max-height: 540px)'), landOn = () => document.documentElement.classList.contains('land') && LANDQ.matches;
+const landCard = () => landOn() ? [(card.offsetWidth + 24) / 2, 0] : [0, 70];
+{ const fc0 = fillCard; fillCard = function () { const r = fc0.apply(this, arguments); if (landOn()) requestAnimationFrame(() => { card._more = null; moreFill(); card.scrollTop = 0; }); return r; }; }   // the panel shows the whole file at once, from its top   // on for everyone (owner, 8 November 2026: "Push westview and 6degrees")
 { const h = document.querySelector('header h1'); let t = 0; h.style.touchAction = 'none';
   h.addEventListener('pointerdown', () => { if (!SIX_ON || GAME) return; clearTimeout(t); t = setTimeout(() => { if (navigator.vibrate) try { navigator.vibrate([10, 40, 10]); } catch (x) {} gameStart(); }, 800); });
   ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => h.addEventListener(n, () => clearTimeout(t))); }
