@@ -46,7 +46,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
-  - **The Civil War, a Network egg (test build v214; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
+  - **The Civil War, a Network egg (test build v215; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
     and Steve's card (How they're connected): the card goes, and everyone you've met in the Sacred Timeline crosses the floor; Steve and
     Tony face off in front, the Leipzig airport teams line up behind them (Cap: Bucky, Sam, Wanda, Clint, Scott, Sharon; Iron Man:
     Natasha, Rhodey, T'Challa, Vision, Peter, Thaddeus and Everett Ross), Zemo alone behind the gap, everyone else on a side at random
@@ -62,7 +62,12 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     Sam and Rhodey, Clint and Natasha, Wanda and Vision with red and gold glows, Scott growing into Giant-Man via `CW.size` until Peter
     brings him down); then one even sea (`cwSea`): everyone in blue-and-red pairs on a honeycomb, each pair trading blows; then home
     (`cwEnd`): each walks back from where they stood, colour easing to their group's (`cwHome`), zoom held unfolded so no one jumps into
-    a bubble, and the floor's names and Earths fade back in once all are home (`cwFade`). Built in hub-src without a mockup switch (network.html on main would carry it): a
+    a bubble, and the floor's names and Earths fade back in once all are home (`cwFade`).
+    Then (owner: "SC, ER, and TR aren't doing anything ... support fight starts then ensemble fight starts. They should be evenly spaced
+    out ... like a staged choreographed play ... a harmonic sea of blue v red. the transition back to normal looks great"; test build
+    v215): Sharon duels Everett Ross; Thaddeus Ross leads Team Iron Man's crowd (he isn't at the airport); the duels never stop, the
+    crowds pour in round them; the sea is an even stage (rows 96 by 74 apart, every other row offset, the middle left to the duels),
+    every pair moving in time with a ripple running outward from the middle. Built in hub-src without a mockup switch (network.html on main would carry it): a
     main push needs the owner's yes and its Agent File entry. **The egg plan:** an egg in every main file (owner: "EVERY (or most) main
     characters/bad guys/items get an index egg (even if its moving the character box ones over) then a few other supporting/minor ones
     too to make it truly secret"); tier counts by titles a file is in: 5+ titles 107 (Compound 54, Raft 10, Collection 43), 3+ 302.

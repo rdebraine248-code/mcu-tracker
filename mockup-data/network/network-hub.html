@@ -1200,7 +1200,7 @@ let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
 // other side back, Vision cuts his line across the tarmac, Peter webs Steve's shield; then both crowds charge and fight all over the room,
 // and everyone goes home
 const CW_CAP = ['steve-rogers', 'bucky-barnes', 'sam-wilson', 'wanda-maximoff', 'clint-barton', 'scott-lang', 'sharon-carter'];
-const CW_IRON = ['tony-stark', 'natasha-romanoff', 'james-rhodes', 'tchalla', 'vision', 'peter-parker', 'thaddeus-ross', 'everett-ross'];
+const CW_IRON = ['tony-stark', 'natasha-romanoff', 'james-rhodes', 'tchalla', 'vision', 'peter-parker', 'everett-ross'];   // Thaddeus Ross isn't at the airport: he leads Iron Man's crowd
 const CW_C = ['#5B8DEF', '#E0483A'];
 function civilWar() {
   if (CW || UNI !== 'mcu') return; const byId = id => N.find(p => p.id === id && p.vis);
@@ -1218,6 +1218,7 @@ function civilWar() {
   const set = new Set(place.map(q => q[0])), rest = room.filter(p => !set.has(p)).sort(() => Math.random() - .5);
   const cells = sd => { const C = []; for (let r = 0; r < 60; r++) for (let q = -40; q <= 40; q++) { const x = cx + sd * (300 + r * 48 + (q & 1) * 24), y = cy + q * 44; C.push([x, y, Math.hypot(r * 48, q * 44 * 1.6)]); } return C.sort((a, b) => a[2] - b[2]); };
   const L = cells(-1), R = cells(1); let li = 0, ri = 0;
+  const ross = byId('thaddeus-ross'); if (ross) { rest.splice(rest.indexOf(ross), 1); place.push([ross, R[ri][0], R[ri][1], 1, 14]); ri++; }   // the Accords' man, front of Team Iron Man's crowd
   rest.forEach((p, k) => { const sd = k % 2 ? 1 : -1, c = sd < 0 ? L[li++] : R[ri++]; place.push([p, c[0], c[1], sd, 14 + c[2] / 60]); });
   place.forEach(([p, x, y, sd, d]) => { p.tx = x; p.ty = y; p.go = t + 200 + d * 45 + Math.random() * 120; if (sd) { col.set(p.i, CW_C[sd < 0 ? 0 : 1]); side.set(p.i, sd); } });
   if (zemo) col.set(zemo.i, '#3B4152');
@@ -1234,7 +1235,7 @@ function civilWar() {
 // duels as the people themselves: each pair steps in and circles, blows sparking between them (Steve and Tony, Bucky and T'Challa, Sam and
 // Rhodey, Clint and Natasha, Wanda and Vision); Scott swells into Giant-Man and Peter brings him down. Then one even sea: everyone in
 // red-and-blue duelling pairs on a honeycomb across the middle. Then home, each colour easing back to their group's as they walk
-const CW_DUEL = [['steve-rogers', 'tony-stark'], ['bucky-barnes', 'tchalla'], ['sam-wilson', 'james-rhodes'], ['clint-barton', 'natasha-romanoff'], ['wanda-maximoff', 'vision'], ['scott-lang', 'peter-parker']];
+const CW_DUEL = [['steve-rogers', 'tony-stark'], ['bucky-barnes', 'tchalla'], ['sam-wilson', 'james-rhodes'], ['clint-barton', 'natasha-romanoff'], ['wanda-maximoff', 'vision'], ['scott-lang', 'peter-parker'], ['sharon-carter', 'everett-ross']];
 function cwFight() { const C = CW; if (!C || C.phase !== 'stand') return; C.phase = 'duel'; C.f0 = performance.now(); const { cx, cy, byId } = C;
   if (navigator.vibrate) try { navigator.vibrate([60, 40, 120, 40, 60, 40, 200]); } catch (e) {}
   // the duels: each pair meets at a point between the two teams, the leaders' in the middle, the rest round them
@@ -1243,18 +1244,18 @@ function cwFight() { const C = CW; if (!C || C.phase !== 'stand') return; C.phas
     return { A, B, x: cx + Math.cos(ang) * R * 1.2, y: cy + Math.sin(ang) * R * .9, ph: Math.random() * 6.283, sp: .9 + Math.random() * .5 }; }).filter(Boolean);
   C.size = new Map(); C.sparks = [];
   setTimeout(() => cwSea(C), 4600); }
-function cwSea(C) { if (CW !== C || C.phase !== 'duel') return; C.phase = 'sea'; C.s0 = performance.now(); C.size.clear();
-  // pairs: one of each side, shuffled; the duellists stay together, in the middle of the sea
-  const blue = C.room.filter(p => C.side.get(p.i) === -1), red = C.room.filter(p => C.side.get(p.i) === 1), used = new Set(), pairs = [];
-  C.duels.forEach(d => { pairs.push([d.A, d.B]); used.add(d.A); used.add(d.B); });
-  const B = blue.filter(p => !used.has(p)).sort(() => Math.random() - .5), R2 = red.filter(p => !used.has(p)).sort(() => Math.random() - .5);
-  for (let k = 0; k < Math.max(B.length, R2.length); k++) pairs.push([B[k] || null, R2[k] || null]);
-  // a honeycomb of cells, nearest the middle first, one pair to a cell
-  const D = 66, cells = []; for (let r = -40; r <= 40; r++) for (let q = -40; q <= 40; q++) { const x = C.cx + (q + (r & 1) * .5) * D, y = C.cy + r * D * .8; cells.push([x, y, Math.hypot(x - C.cx, (y - C.cy) * 1.25)]); }
+function cwSea(C) { if (CW !== C || C.phase !== 'duel') return; C.phase = 'sea'; C.s0 = performance.now();
+  // the duellists stay where they are, still fighting; everyone else pairs up, one of each side, and takes a spot round them
+  const used = new Set(); C.duels.forEach(d => { used.add(d.A); used.add(d.B); });
+  const B = C.room.filter(p => C.side.get(p.i) === -1 && !used.has(p)).sort(() => Math.random() - .5), R2 = C.room.filter(p => C.side.get(p.i) === 1 && !used.has(p)).sort(() => Math.random() - .5);
+  const ross = R2.findIndex(p => p.id === 'thaddeus-ross'); if (ross > 0) R2.unshift(R2.splice(ross, 1)[0]);
+  const pairs = []; for (let k = 0; k < Math.max(B.length, R2.length); k++) pairs.push([B[k] || null, R2[k] || null]);
+  // an even stage: rows of spots, each row offset by half, the middle left to the duels
+  const DX = 96, DY = 74, cells = []; for (let r = -40; r <= 40; r++) for (let q = -30; q <= 30; q++) { const x = C.cx + (q + (r & 1) * .5) * DX, y = C.cy + r * DY, d = Math.hypot((x - C.cx) / 1.25, y - C.cy); if (d > 230) cells.push([x, y, d]); }
   cells.sort((a, b) => a[2] - b[2]);
-  C.sea = pairs.map((pr, k) => ({ A: pr[0], B: pr[1], x: cells[k][0], y: cells[k][1], ph: Math.random() * 6.283, d: cells[k][2] }));
-  C.sea.forEach(c => [c.A, c.B].forEach(p => { if (p) p.go = C.s0 + c.d * 1.6 + Math.random() * 120; }));
-  setTimeout(() => cwEnd(), 5200); }
+  C.sea = pairs.map((pr, k) => ({ A: pr[0], B: pr[1], x: cells[k][0], y: cells[k][1], d: cells[k][2] }));
+  C.sea.forEach(c => [c.A, c.B].forEach(p => { if (p) p.go = C.s0 + (c.d - 230) * 1.4 + Math.random() * 100; }));
+  setTimeout(() => cwEnd(), 6200); }
 function cwEnd() { const C = CW; if (!C || C.phase === 'end') return; const t1 = performance.now(); C.phase = 'end'; C.home = t1; C.size && C.size.clear();
   C.room.forEach(p => { p.d0 = Math.max(1, Math.hypot(p.wx - p.hx, p.wy - p.hy)); p.tx = p.hx; p.ty = p.hy; p.go = t1 + Math.random() * 400; });
   if (zoom < FOLD[1]) glide = { t0: t1, x0: cam.x, y0: cam.y, x1: cam.x, y1: cam.y, z0: zoom, z1: FOLD[1] + .02 };   // people stay themselves, never folding into a bubble mid-walk
@@ -1275,7 +1276,7 @@ function cwDraw(now) { const C = CW; if (!C) return; const fx = C.fx, g2 = C.g, 
   const spark = (x, y, c) => C.sparks.push({ x, y, t: now, c });
   // Zemo in the shadows: a dark pool round him
   if (C.zemo && C.phase !== 'end') { const [x, y] = at(C.zemo); const gr = g2.createRadialGradient(x, y, 0, x, y, 90); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, 90, 0, 6.283); g2.fill(); }
-  if (C.phase === 'duel') { const f = now - C.f0;
+  if (C.phase === 'duel' || C.phase === 'sea') { const f = now - C.f0;
     C.duels.forEach((d, k) => { const w = (now / 1000) * d.sp + d.ph, gap = 26 + Math.sin(now / 160 + d.ph) * 8;   // they circle, closing in to strike and backing off
       d.A.tx = d.x - Math.cos(w) * gap; d.A.ty = d.y - Math.sin(w) * gap * .6; d.B.tx = d.x + Math.cos(w) * gap; d.B.ty = d.y + Math.sin(w) * gap * .6; d.A.go = d.B.go = 0;
       if (gap < 21 && Math.random() < .35) { const [x1, y1] = at(d.A), [x2, y2] = at(d.B); spark((x1 + x2) / 2, (y1 + y2) / 2, k ? '255,236,190' : '255,255,255'); } });
@@ -1285,9 +1286,9 @@ function cwDraw(now) { const C = CW; if (!C) return; const fx = C.fx, g2 = C.g, 
     // Wanda's red and Vision's gold, as glows round them while they duel
     const wv = C.duels.find(d => d.A.id === 'wanda-maximoff'); if (wv) [[wv.A, '255,40,80'], [wv.B, '255,205,90']].forEach(([p, c]) => { const [x, y] = at(p), r = 34 + Math.sin(now / 120) * 6;
       const gr = g2.createRadialGradient(x, y, 8, x, y, r); gr.addColorStop(0, `rgba(${c},.45)`); gr.addColorStop(1, `rgba(${c},0)`); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, r, 0, 6.283); g2.fill(); }); }
-  if (C.phase === 'sea') { C.sea.forEach(c => { const w = now / 230 + c.ph, gap = 15 + Math.sin(w) * 5;   // every pair trading blows in its own cell
-      if (c.A) { c.A.tx = c.x - gap; c.A.ty = c.y + Math.cos(w * .7) * 3; } if (c.B) { c.B.tx = c.x + gap; c.B.ty = c.y - Math.cos(w * .7) * 3; }
-      if (c.A && c.B && gap < 11 && now > (c.A.go || 0) + 400 && Math.random() < .25) { const [x, y] = at({ wx: c.x, wy: c.y }); if (x > 0 && y > 0 && x < innerWidth && y < innerHeight) spark(x, y, '255,236,190'); } }); }
+  if (C.phase === 'sea') { C.sea.forEach(c => { const w = now / 320 - c.d / 240, gap = 20 + Math.sin(w) * 7, bob = Math.cos(w) * 3;   // every pair in time, a ripple running outward
+      if (c.A) { c.A.tx = c.x - gap; c.A.ty = c.y + bob; } if (c.B) { c.B.tx = c.x + gap; c.B.ty = c.y - bob; }
+      if (c.A && c.B && Math.sin(w) < -.97 && now > (c.A.go || 0) + 500 && Math.random() < .5) { const [x, y] = at({ wx: c.x, wy: c.y }); if (x > 0 && y > 0 && x < innerWidth && y < innerHeight) spark(x, y, '255,236,190'); } }); }
   // the sparks: a small cross of light where a blow lands
   C.sparks = C.sparks.filter(s => now - s.t < 260); C.sparks.forEach(s => { const k = (now - s.t) / 260, L = 3 + k * 7; g2.strokeStyle = `rgba(${s.c},${1 - k})`; g2.lineWidth = 1.6;
     for (let r = 0; r < 4; r++) { const a = r * 1.5708 + .785; g2.beginPath(); g2.moveTo(s.x + Math.cos(a) * 2, s.y + Math.sin(a) * 2); g2.lineTo(s.x + Math.cos(a) * L, s.y + Math.sin(a) * L); g2.stroke(); } });
