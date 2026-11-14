@@ -61,6 +61,9 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     characters/bad guys/items get an index egg (even if its moving the character box ones over) then a few other supporting/minor ones
     too to make it truly secret"); tier counts by titles a file is in: 5+ titles 107 (Compound 54, Raft 10, Collection 43), 3+ 302.
     The Agent File already tracks every egg with locked rows and hints; at this size it needs a section per index.
+    **The egg plan page:** https://claude.ai/artifact/MBUUmqKYw5ZLeSrAsqhNHj (picks in its `picks` collection, read with ArtifactData):
+    107 ideas, tier 1 (Compound 52, Raft 5, Collection 35; 18 moved from boxes; the Tesseract stays; specimens left out) and 15 secret
+    ones in minor files. Each fact-checked against the titles before listing; each kept one is mocked up before it's built.
   - **The Play page (test build, `MOCKUP BEGIN play`; owner, 13 November 2026: "a page to play as though this datapad is in universe
     ... fully interactive play place"; asked which room: "Mock them all up so I can decide what to keep/cut/improve").** A Play
     button on the test build's dock opens four rooms as tabs, each open once its title is watched: the Workshop (the Collection's
