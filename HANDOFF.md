@@ -46,7 +46,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
-  - **The Civil War, a Network egg (test build v220; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
+  - **The Civil War, a Network egg (test build v221; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
     and Steve's card (How they're connected): the card goes, and everyone you've met in the Sacred Timeline crosses the floor; Steve and
     Tony face off in front, the Leipzig airport teams line up behind them (Cap: Bucky, Sam, Wanda, Clint, Scott, Sharon; Iron Man:
     Natasha, Rhodey, T'Challa, Vision, Peter, Thaddeus and Everett Ross), Zemo alone behind the gap, everyone else on a side at random
@@ -88,6 +88,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     v220): the stage is set where the camera already looks (`cx = cam.x, cy = cam.y - 40`), so the camera never moves at the start (it
     used to glide down from the card's lifted view to the two's midpoint); the pull back to see both sides starts 1.5 s in, while
     they walk; a glide given a future start no longer runs backwards (k clamped at 0). Measured: every bubble still for 700 ms.
+    Then (owner: "What happens when some supporting characters havent been found yet or if there are an uneven number"; v221): it
+    never starts before Civil War is watched (Steve and Tony are connected from The Avengers, so it could have spoiled it); anyone not
+    met is left out and their half circle spreads evenly; a duel missing one side is dropped and the other fights in the crowd; the sea
+    takes full pairs only, and anyone left over joins a pair on their own side as a third, two on one, at their teammate's shoulder.
+    Checked with T'Challa and Natasha unmet: five duels, no empty cell, no one idle.
     How it starts: in the Network, Steve's card, tap Tony in his connections (How they're connected), hold the two names for a second. Built in hub-src without a mockup switch (network.html on main would carry it): a
     main push needs the owner's yes and its Agent File entry. **The egg plan:** an egg in every main file (owner: "EVERY (or most) main
     characters/bad guys/items get an index egg (even if its moving the character box ones over) then a few other supporting/minor ones

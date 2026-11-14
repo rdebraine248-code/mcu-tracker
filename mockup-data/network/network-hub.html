@@ -1207,7 +1207,8 @@ const CW_CAP = ['steve-rogers', 'bucky-barnes', 'sam-wilson', 'wanda-maximoff', 
 const CW_IRON = ['tony-stark', 'natasha-romanoff', 'james-rhodes', 'tchalla', 'vision', 'peter-parker', 'everett-ross'];   // Thaddeus Ross isn't at the airport: he leads Iron Man's crowd
 const CW_C = ['#5B8DEF', '#E0483A'];
 function civilWar() {
-  if (CW || UNI !== 'mcu') return; const byId = id => N.find(p => p.id === id && p.vis);
+  if (CW || UNI !== 'mcu') return; const cwT = TT.indexOf('Captain America: Civil War'); if (cwT < 0 || !seen(cwT)) return;   // never before Civil War is watched
+  const byId = id => N.find(p => p.id === id && p.vis);
   const steve = byId('steve-rogers'), tony = byId('tony-stark'); if (!steve || !tony) return;
   const t = performance.now();
   // the way in (owner: "still jumps into the animation ... how the card and lines disappear"): the room as it stood, lines and all, fades
@@ -1261,12 +1262,17 @@ function cwSea(C) { if (CW !== C || C.phase !== 'duel') return; C.phase = 'sea';
   const used = new Set(); C.duels.forEach(d => { used.add(d.A); used.add(d.B); });
   const B = C.room.filter(p => C.side.get(p.i) === -1 && !used.has(p)).sort(() => Math.random() - .5), R2 = C.room.filter(p => C.side.get(p.i) === 1 && !used.has(p)).sort(() => Math.random() - .5);
   const ross = R2.findIndex(p => p.id === 'thaddeus-ross'); if (ross > 0) R2.unshift(R2.splice(ross, 1)[0]);
-  const pairs = []; for (let k = 0; k < Math.max(B.length, R2.length); k++) pairs.push([B[k] || null, R2[k] || null]);
+  const used2 = new Set(); C.duels.forEach(d => { used2.add(d.A); used2.add(d.B); });
+  const lone = C.room.filter(p => C.side.has(p.i) && !used2.has(p) && ![...B, ...R2].includes(p));   // a duellist whose partner you haven't met
+  const n = Math.min(B.length, R2.length), pairs = []; for (let k = 0; k < n; k++) pairs.push([B[k], R2[k]]);
+  const extra = [...B.slice(n), ...R2.slice(n), ...lone];   // no one left alone: each joins a pair on their own side (owner: "an uneven number")
   // an even stage: rows of spots, each row offset by half, the middle left to the duels
   const DX = 96, DY = 74, cells = []; for (let r = -40; r <= 40; r++) for (let q = -30; q <= 30; q++) { const x = C.cx + (q + (r & 1) * .5) * DX, y = C.cy + r * DY, d = Math.hypot((x - C.cx) / 1.25, y - C.cy); if (d > 230) cells.push([x, y, d]); }
   cells.sort((a, b) => a[2] - b[2]);
   C.sea = pairs.map((pr, k) => ({ A: pr[0], B: pr[1], x: cells[k][0], y: cells[k][1], d: cells[k][2] }));
-  C.sea.forEach(c => { const t0 = C.s0 + 300 + (c.d - 230) * 1.1 + Math.random() * 100; if (c.A) cwMove(c.A, c.x - 20, c.y, t0); if (c.B) cwMove(c.B, c.x + 20, c.y, t0); });
+  extra.forEach((p, k) => { const c = C.sea[Math.min(C.sea.length - 1, Math.floor((k + .5) * C.sea.length / Math.max(1, extra.length)))]; if (!c) return; (c.X = c.X || []).push(p); });
+  C.sea.forEach(c => { const t0 = C.s0 + 300 + (c.d - 230) * 1.1 + Math.random() * 100; if (c.A) cwMove(c.A, c.x - 20, c.y, t0); if (c.B) cwMove(c.B, c.x + 20, c.y, t0);
+    (c.X || []).forEach((p, j) => { const sd = C.side.get(p.i); cwMove(p, c.x + sd * 34, c.y + (j % 2 ? -16 : 16), t0 + 80); }); });
   setTimeout(() => cwEnd(), 9000); }
 function cwEnd() { const C = CW; if (!C || C.phase === 'end') return; const t1 = performance.now(); C.phase = 'end'; C.home = t1; C.size && C.size.clear();
   C.room.forEach(p => { p.cw = null; p.d0 = Math.max(1, Math.hypot(p.wx - p.hx, p.wy - p.hy)); p.tx = p.hx; p.ty = p.hy; p.go = t1 + Math.random() * 400; });
@@ -1314,7 +1320,8 @@ function cwDraw(now) { const C = CW; if (!C) return; const fx = C.fx, g2 = C.g, 
     // Wanda's red and Vision's gold, as glows round them while they duel
     const wv = C.duels.find(d => d.A.id === 'wanda-maximoff'); if (wv) [[wv.A, '255,40,80'], [wv.B, '255,205,90']].forEach(([p, c]) => { const [x, y] = at(p), r = 34 + Math.sin(now / 120) * 6;
       const gr = g2.createRadialGradient(x, y, 8, x, y, r); gr.addColorStop(0, `rgba(${c},.45)`); gr.addColorStop(1, `rgba(${c},0)`); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, r, 0, 6.283); g2.fill(); }); }
-  if (C.phase === 'sea') { C.sea.forEach(c => { if ((c.A && c.A.cw) || (c.B && c.B.cw)) return; if (c.ax == null) c.ax = (Math.random() - .5) * .3; cwJab(c, now, (x, y) => spark(x, y, '255,236,190'), at, 20); }); }
+  if (C.phase === 'sea') { C.sea.forEach(c => { (c.X || []).forEach((p, j) => { if (p.cw) return; const sd = C.side.get(p.i), mate = sd < 0 ? c.A : c.B; if (!mate) return; p.tx = mate.tx + sd * 16 + (Math.random() - .5) * 3; p.ty = mate.ty + (j % 2 ? -18 : 18); p.go = 0; });
+    if ((c.A && c.A.cw) || (c.B && c.B.cw)) return; if (c.ax == null) c.ax = (Math.random() - .5) * .3; cwJab(c, now, (x, y) => spark(x, y, '255,236,190'), at, 20); }); }
   // the sparks: a small cross of light where a blow lands
   C.sparks = C.sparks.filter(s => now - s.t < 260); C.sparks.forEach(s => { const k = (now - s.t) / 260, L = 3 + k * 7; g2.strokeStyle = `rgba(${s.c},${1 - k})`; g2.lineWidth = 1.6;
     for (let r = 0; r < 4; r++) { const a = r * 1.5708 + .785; g2.beginPath(); g2.moveTo(s.x + Math.cos(a) * 2, s.y + Math.sin(a) * 2); g2.lineTo(s.x + Math.cos(a) * L, s.y + Math.sin(a) * L); g2.stroke(); } });
