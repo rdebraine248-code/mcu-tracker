@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `0d8ae71`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 40 of 40
+- **main is at `c0e0886`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 40 of 40
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest; ct67 and ct68 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
@@ -149,7 +149,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     Last seen).
   - Parked (don't raise): the Time Machine. Landscape stage 2 left: the indexes and their files, dialogs, pills, eggs.
 - **History:**
-  - Main's pushes, newest first: `0d8ae71` (14 November 2026, the owner's "Push.": a character log covers the dock however it was
+  - Main's pushes, newest first: `c0e0886` (14 November 2026, the owner's "push. Now the eggs": the Civil War egg in the Network, recorded in the Agent File as egg 65 when its finish plays; the Agent File's pages grow with the eggs, sixteen or fewer a page, so 5 pages of 13; 40 of 40), `0d8ae71` (14 November 2026, the owner's "Push.": a character log covers the dock however it was
   opened, from the Network, a file or Paths; ct68; full suite 40 of 40). Before it `cba03a9` (13 November 2026, the owner's "push landscape": landscape stage 1 and stage 2 so far,
   promoted from the test build (the dock as a rail on the right, Story's side panel, open boxes in one column with a compact head, the
   Network's one-row bar and its card as a side panel, every title at one height), and the Network's card scrolling as one piece
@@ -2142,3 +2142,7 @@ These happened in earlier chats. Each cost the owner time.
 - Specimens in the Collection. Fact-check passes over the Collection, specimens and organizations, and a chain-of-custody pass.
 - Agent Carter in story order. AoS and Agent Carter folded into the Chapters, with save migration.
 - Weighted clearance levels. Stones on the amber line. The ABC shows' files on the MCU tab, with the five duplicates merged.
+
+## The egg redraft (14 November 2026)
+- The effect kit: 17 effects that only use the file itself (Rewrite, Recolor, Knock, Fade, Stamp, Counter, Glitch, Slash, Assemble, Freeze, Glow, Stitch, Shrink/Grow, Split, Rewind, Dust, Warp), mocked on Drax's Compound file as an MP4. The kit's code is in the session scratchpad (fx/fxkit.js), not in index.html yet.
+- The redrafted list (86 eggs, each tagged with its effect) is on the egg plan page, https://claude.ai/artifact/MBUUmqKYw5ZLeSrAsqhNHj (db collection `picks`, ids r0 to r85). Waiting on the owner's keep/cut/change; nothing is built until they've picked.
