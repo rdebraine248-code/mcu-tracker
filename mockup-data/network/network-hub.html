@@ -224,6 +224,7 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
   html.land #card #sConn{ display:none; }
   html.land #card #lBody{ max-height:none; overflow:visible; -webkit-mask-image:none; mask-image:none; }
 }
+#cwShot{ position:fixed; left:0; top:0; width:100%; height:100%; pointer-events:none; }   /* just over the room, under the header */
 #cwFx{ position:fixed; inset:0; width:100%; height:100%; z-index:5; pointer-events:none; }
 #cwTags{ position:fixed; left:0; right:0; top:calc(var(--hb, 120px) + 4px); z-index:6; display:flex; justify-content:center; gap:12px; align-items:baseline; padding:0 20px; pointer-events:none; font:400 22px/1 var(--display); letter-spacing:1px; text-transform:uppercase; text-shadow:0 0 14px rgba(0,0,0,.9); }
 #cwTags span{ font:400 15px/1 var(--display); letter-spacing:1px; color:#9FB2CC; text-transform:uppercase; }
@@ -1208,8 +1209,13 @@ const CW_C = ['#5B8DEF', '#E0483A'];
 function civilWar() {
   if (CW || UNI !== 'mcu') return; const byId = id => N.find(p => p.id === id && p.vis);
   const steve = byId('steve-rogers'), tony = byId('tony-stark'); if (!steve || !tony) return;
-  if (sel || link) home();   // the card goes: the room is the scene
-  const t = performance.now(), room = N.filter(p => p.vis && p.u === 'mcu' && !SNAPS.has(p.id));
+  const t = performance.now();
+  // the way in (owner: "still jumps into the animation ... how the card and lines disappear"): the room as it stood, lines and all, fades
+  // away over the live one, the card slides off, and no one moves until their walk begins
+  if (sel || link) { try { const sh = document.createElement('canvas'); sh.id = 'cwShot'; sh.width = cv.width; sh.height = cv.height; sh.getContext('2d').drawImage(cv, 0, 0); cv.after(sh);
+      sh.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, easing: 'ease-out', fill: 'forwards' }).onfinish = () => sh.remove(); } catch (e) {}
+    home(); N.forEach(p => { p.tx = p.wx; p.ty = p.wy; p.go = 0; }); }
+  const room = N.filter(p => p.vis && p.u === 'mcu' && !SNAPS.has(p.id));
   const cx = (steve.hx + tony.hx) / 2, cy = (steve.hy + tony.hy) / 2, col = new Map(), place = [], side = new Map();
   const capT = CW_CAP.map(byId).filter(Boolean), ironT = CW_IRON.map(byId).filter(Boolean), zemo = byId('helmut-zemo');
   place.push([steve, cx - 50, cy, -1, 0], [tony, cx + 50, cy, 1, 0]);
@@ -1223,7 +1229,7 @@ function civilWar() {
   const L = cells(-1), R = cells(1); let li = 0, ri = 0;
   const ross = byId('thaddeus-ross'); if (ross) { rest.splice(rest.indexOf(ross), 1); place.push([ross, R[ri][0], R[ri][1], 1, 14]); ri++; }   // the Accords' man, front of Team Iron Man's crowd
   rest.forEach((p, k) => { const sd = k % 2 ? 1 : -1, c = sd < 0 ? L[li++] : R[ri++]; place.push([p, c[0], c[1], sd, 14 + c[2] / 60]); });
-  place.forEach(([p, x, y, sd, d]) => { cwMove(p, x, y, t + 700 + d * 40 + Math.random() * 160); if (sd) { col.set(p.i, CW_C[sd < 0 ? 0 : 1]); side.set(p.i, sd); } });
+  place.forEach(([p, x, y, sd, d]) => { cwMove(p, x, y, t + 700 + d * 40 + Math.random() * 160, true); if (sd) { col.set(p.i, CW_C[sd < 0 ? 0 : 1]); side.set(p.i, sd); } });
   if (zemo) col.set(zemo.i, '#3B4152');
   glide = { t0: t + 250, x0: cam.x, y0: cam.y, x1: cx, y1: cy + 40, z0: zoom, z1: Math.max(.72, Math.min(1, W / 560)), ms: 1600 };   // the card slides away first, then a slow drift
   const fx = document.createElement('canvas'); fx.id = 'cwFx'; document.body.appendChild(fx);
@@ -1272,9 +1278,9 @@ function cwEnd() { const C = CW; if (!C || C.phase === 'end') return; const t1 =
 // each person's colour on the walk home: their side's, easing into their group's as they near their spot
 const cwRGB = h => { const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(String(h).trim()); return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : [142, 162, 194]; };
 // a walk to a spot: eased in and out, longer for a longer way (owner: "they should MOVE there not ZIIIIP there")
-function cwMove(p, x, y, t0) { const d = Math.hypot(x - p.wx, y - p.wy); p.cw = { x0: p.wx, y0: p.wy, x1: x, y1: y, t0, d: Math.min(2600, 900 + d * 1.6) }; p.tx = x; p.ty = y; p.go = 0; p.d1 = Math.max(1, d); }
+function cwMove(p, x, y, t0, turn) { const d = Math.hypot(x - p.wx, y - p.wy); p.cw = { x0: p.wx, y0: p.wy, x1: x, y1: y, t0, d: Math.min(2600, 900 + d * 1.6) }; p.tx = x; p.ty = y; p.go = 0; p.d1 = Math.max(1, d); p.turn = !!turn; }   // turn: the first walk, when their colour turns to their side's
 // on the way there, their group's colour easing into their side's
-function cwGo(p) { const a = cwRGB((p.z && p.z.col) || NOCREW), b = cwRGB(CW.col.get(p.i)), k = p.cw ? Math.max(0, Math.min(1, 1 - Math.hypot(p.wx - p.cw.x1, p.wy - p.cw.y1) / (p.d1 || 1))) : 1;
+function cwGo(p) { if (!p.turn) return CW.col.get(p.i); const a = cwRGB((p.z && p.z.col) || NOCREW), b = cwRGB(CW.col.get(p.i)), k = p.cw ? Math.max(0, Math.min(1, 1 - Math.hypot(p.wx - p.cw.x1, p.wy - p.cw.y1) / (p.d1 || 1))) : 1;
   return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',')})`; }
 function cwHome(p) { const a = cwRGB(CW.col.get(p.i)), b = cwRGB((p.z && p.z.col) || NOCREW), k = Math.max(0, Math.min(1, 1 - Math.hypot(p.wx - p.hx, p.wy - p.hy) / (p.d0 || 1)));
   return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',')})`; }
