@@ -46,7 +46,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
-  - **The Civil War, a Network egg (test build v217; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
+  - **The Civil War, a Network egg (test build v218; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
     and Steve's card (How they're connected): the card goes, and everyone you've met in the Sacred Timeline crosses the floor; Steve and
     Tony face off in front, the Leipzig airport teams line up behind them (Cap: Bucky, Sam, Wanda, Clint, Scott, Sharon; Iron Man:
     Natasha, Rhodey, T'Challa, Vision, Peter, Thaddeus and Everett Ross), Zemo alone behind the gap, everyone else on a side at random
@@ -73,7 +73,13 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     small shifts between), the fighters stepping sharper than the room (`kFight`), a spark at each contact, none over the header.
     Then (owner, 14 November 2026; test build v217): the duels and the crowds' fight start together; Zemo steps out of the shadows to an
     empty spot just behind the duels when it starts (the sea used to close over him); the title reads "Team Cap vs Team Iron Man", as
-    the film's own campaign put it (owner: "should be X vs Y"). Built in hub-src without a mockup switch (network.html on main would carry it): a
+    the film's own campaign put it (owner: "should be X vs Y").
+    Then (owner: "the transition from normal network into egg is jarring ... the bubbles move into position too quickly, they should
+    MOVE there not ZIIIIP there"; test build v218): the card slides away, the camera drifts slowly (`glide.ms` 1600, eased), people ease
+    out of their group bubbles (`CW.unf` over 900 ms) while the floor's names and the Earths fade out, and everyone walks to their spot
+    on an eased path that takes longer for a longer way (`cwMove`, 900 to 2600 ms), their colour turning from their group's to their
+    side's as they go (`cwGo`); the duellists and the sea's pairs walk to their spots the same way and start fighting on arrival.
+    How it starts: in the Network, Steve's card, tap Tony in his connections (How they're connected), hold the two names for a second. Built in hub-src without a mockup switch (network.html on main would carry it): a
     main push needs the owner's yes and its Agent File entry. **The egg plan:** an egg in every main file (owner: "EVERY (or most) main
     characters/bad guys/items get an index egg (even if its moving the character box ones over) then a few other supporting/minor ones
     too to make it truly secret"); tier counts by titles a file is in: 5+ titles 107 (Compound 54, Raft 10, Collection 43), 3+ 302.
