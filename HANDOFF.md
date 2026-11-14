@@ -15,9 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `cba03a9`** and matches the working branch's build exactly. **Waiting on the suite, then pushing (owner: "Push"): a character log covers the dock however it was opened** (from the Network, a
-  file or Paths the dock stood on top of it, `body.jumped .dock` beating the log; now `jumpCls` sets `jumpprof` when a log is the page on
-  top and the dock drops under it; a file opened over a log still shows the dock). ct68 checks seven ways in, upright and sideways. Full suite: 39 of 39
+- **main is at `0d8ae71`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 40 of 40
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest; ct67 and ct68 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
@@ -96,7 +94,8 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
     Last seen).
   - Parked (don't raise): the Time Machine. Landscape stage 2 left: the indexes and their files, dialogs, pills, eggs.
 - **History:**
-  - Main's pushes, newest first: `cba03a9` (13 November 2026, the owner's "push landscape": landscape stage 1 and stage 2 so far,
+  - Main's pushes, newest first: `0d8ae71` (14 November 2026, the owner's "Push.": a character log covers the dock however it was
+  opened, from the Network, a file or Paths; ct68; full suite 40 of 40). Before it `cba03a9` (13 November 2026, the owner's "push landscape": landscape stage 1 and stage 2 so far,
   promoted from the test build (the dock as a rail on the right, Story's side panel, open boxes in one column with a compact head, the
   Network's one-row bar and its card as a side panel, every title at one height), and the Network's card scrolling as one piece
   upright; full suite 39 of 39). Before it `6f8eba9` (13 November 2026, the owner's "Sure push": the Mind Stone egg redesigned; full suite 39 of
