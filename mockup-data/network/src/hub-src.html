@@ -404,7 +404,7 @@ fold(Z, 3, p => [p.hx, p.hy], []);
 
 // the camera, and the watch-face lens: whoever is near the middle of the screen is full size and named, the rest shrink toward the edges
 let cam = { x: 0, y: 0 }, zoom = 1, vel = { x: 0, y: 0 }, sel = null, link = null, glide = null;
-let MUT = null, CW = null;   // CW: the Civil War egg while it plays (a mockup)
+let MUT = null, CW = null, CWOFF = 0;   // CWOFF: when the Civil War's last person got home; the floor's names fade back in from then   // CW: the Civil War egg while it plays (a mockup)
 let EARTH_ANIM = 'fade', EPOP = {}; self.netEarthAnim = v => { EARTH_ANIM = v; };   // EPOP: a new Earth's arrival, [first pop, last landing], set when the reveal starts   // how a new Earth arrives (three to try, owner, 6 November 2026)   // a picked pair's mutual connections (mutFill): lit in the room, with a thread to each of the two
 const start = N.find(p => p.n === 'Steve Rogers') || N[0]; cam.x = start.wx; cam.y = start.wy;
 function lens(p, t) {
@@ -435,7 +435,7 @@ function crewColors() { const done = [];
     const rad = Math.max(30, ...z.cells.map(([x, y]) => Math.hypot(x, y))), near = done.filter(o => Math.hypot(o.x - z.x, o.y - z.y) < o.rad + rad + S * 2.2).map(o => o.col);
     let k = hcode(z.name) % CPAL.length; for (let n = 0; n < CPAL.length && near.includes(CPAL[k]); n++) k = (k + 1) % CPAL.length;
     z.col = CPAL[k]; z.rad = rad; done.push(z); }); }
-const ringOf = p => { if (CW && CW.col.has(p.i)) return CW.col.get(p.i); if (sel && p.cl && p !== sel) return KC[p.cl.rel] || NOCREW; return (p.z && p.z.col) || NOCREW; };
+const ringOf = p => { if (CW && CW.col.has(p.i)) return CW.home ? cwHome(p) : CW.col.get(p.i); if (sel && p.cl && p !== sel) return KC[p.cl.rel] || NOCREW; return (p.z && p.z.col) || NOCREW; };
 crewColors();   /* the built room's colours */
 const fought = (a, b) => a.F.includes(b.i);
 function wrap(text, w, max) { const out = []; let line = '';
@@ -456,7 +456,7 @@ function frame(t) {
   const gameMem = GAME ? new Set([...GAME.ch, GAME.b, ...(GAME.best || [])]) : null;   // the chain's people stand as themselves however far out
   const lit = GAME ? new Set([...GAME.ch, GAME.b, ...(GAME.done ? [] : gameNb()), ...(GAME.best || [])]) : sel ? new Set([sel.i, ...gathered]) : tsel != null ? new Set(gathered) : null;
   // each person's spot: their own while zoomed in, drawn into their group's bubble as you zoom out
-  const pos = N.map(p => { const q = lens(p, t), z = groupOf(p), c = z && gv.get(z);
+  const pos = N.map(p => { const q = lens(p, t), z = groupOf(p), c = z && gv.get(z); if (CW && CW.size && CW.size.has(p.i)) q.s *= CW.size.get(p.i);   // Giant-Man
     if (c && e < 1 && p !== sel && !(GAME && gameMem.has(p.i))) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
   // the Earth districts: a big faint bubble round each Earth's crews, its name round the inside of its edge (only in the room, not in someone's web)
   if (DIST.length && !busy() && !CW) { const C = []; DIST.forEach(d => { if (!d.L.length) return;   // round the spot it was laid out on, wide enough for where its people stand on screen (the lens pulls the edges in)
@@ -478,8 +478,8 @@ function frame(t) {
         if (EARTH_ANIM === 'fade') { ea = cl((t - p0) / Math.max(420, p1 - p0)); na = cl((t - p1) / 400); }
         else { const st = EARTH_ANIM === 'after' ? p1 : p0 - 150, k = (t - st) / 420; if (k < 0) return; if (k < 1) es = pc(k); na = cl((t - Math.max(p1, st + 420)) / 400); } }
       if (es !== 1) { g.save(); g.translate(cx, cy); g.scale(es, es); g.translate(-cx, -cy); }
-      g.globalAlpha = ea; g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.fillStyle = 'rgba(95,130,190,.05)'; g.fill(); g.lineWidth = 1.2; g.strokeStyle = 'rgba(127,166,216,.35)'; g.setLineDash([6, 6]); g.stroke(); g.setLineDash([]);
-      g.globalAlpha = ea * na; if (d.name && na > 0) arcName(d.name.toUpperCase(), cx, cy, R, Math.min(fs, Math.max(8, R - r0 - 2)), cy - R < 150);
+      g.globalAlpha = ea * cwFade(t); g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.fillStyle = 'rgba(95,130,190,.05)'; g.fill(); g.lineWidth = 1.2; g.strokeStyle = 'rgba(127,166,216,.35)'; g.setLineDash([6, 6]); g.stroke(); g.setLineDash([]);
+      g.globalAlpha = ea * na * cwFade(t); if (d.name && na > 0) arcName(d.name.toUpperCase(), cx, cy, R, Math.min(fs, Math.max(8, R - r0 - 2)), cy - R < 150);
       g.globalAlpha = 1; if (es !== 1) g.restore(); }); }   /* inside its own bubble, so a name never strays onto the Earth next door */
   // the floor: each crew's name written where it stands; a lone person's crew only once you're close (owner, November 2026: any group of two
   // or more is named at normal zoom, so the Dora Milaje read as a group from Black Panther on)
@@ -489,7 +489,7 @@ function frame(t) {
     // them has landed, so the floor is never named before anyone stands on it
     const land = z.L.reduce((m, p) => Math.max(m, p.inAt || 0, p.popAt > t ? p.popAt + 150 : 0, dzBack(z.L, t) ? p.landAt : 0), 0), fin = (t < land ? 0 : Math.min(1, (t - land) / 700)) * dzFade(z.L, t);
     if (!fin) return;
-    g.globalAlpha = fin * e * (busy() ? .55 : z.big ? .75 : .45) * Math.min(1, c.s * 1.2); g.fillStyle = sel ? KC[z.rel] || '#5FD0FF' : z.col || '#5FD0FF';
+    g.globalAlpha = cwFade(t) * fin * e * (busy() ? .55 : z.big ? .75 : .45) * Math.min(1, c.s * 1.2); g.fillStyle = sel ? KC[z.rel] || '#5FD0FF' : z.col || '#5FD0FF';
     g.font = `${Math.round((z.big ? 11 : 8) * c.s + 3)}px 'Share Tech Mono', monospace`; g.textAlign = 'center';
     g.letterSpacing = '2px'; g.fillText(z.name.toUpperCase(), c.x, c.y); g.letterSpacing = '0px'; g.globalAlpha = 1; });
   // the threads of whoever is locked on: blue to those they served with, red dashes to those they fought; a link picked out in gold.
@@ -1225,58 +1225,72 @@ function civilWar() {
   const fx = document.createElement('canvas'); fx.id = 'cwFx'; document.body.appendChild(fx);
   const tag = document.createElement('div'); tag.id = 'cwTags'; tag.innerHTML = '<b style="color:#8DB2FF">Team Cap</b><span>Civil War</span><b style="color:#FF7A6B">Team Iron Man</b>'; document.body.appendChild(tag);
   tag.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 900, fill: 'both' });
-  CW = { col, side, t0: t, room, phase: 'stand', cx, cy, steve, tony, zemo, fx, g: fx.getContext('2d'), tag, byId, hits: [] };
+  CW = { col, side, t0: t, room, phase: 'stand', cx, cy, steve, tony, zemo, fx, g: fx.getContext('2d'), tag, byId, sparks: [], size: new Map() };
   if (navigator.vibrate) try { navigator.vibrate([30, 60, 30, 60, 80]); } catch (e) {}
   requestAnimationFrame(cwDraw);
 }
-// the big finish
-function cwFight() { const C = CW; if (!C || C.phase !== 'stand') return; C.phase = 'fight'; C.f0 = performance.now(); const t = C.f0, { cx, cy, steve, tony, byId } = C;
+// the big finish (owner, 14 November 2026, on the first try: "the supporting character fight looks awful. the ensemble fight is a mess and is
+// not an even spaced out well staged single red v blue sea ... then they all go back ... it blinks into their original color"). The airport
+// duels as the people themselves: each pair steps in and circles, blows sparking between them (Steve and Tony, Bucky and T'Challa, Sam and
+// Rhodey, Clint and Natasha, Wanda and Vision); Scott swells into Giant-Man and Peter brings him down. Then one even sea: everyone in
+// red-and-blue duelling pairs on a honeycomb across the middle. Then home, each colour easing back to their group's as they walk
+const CW_DUEL = [['steve-rogers', 'tony-stark'], ['bucky-barnes', 'tchalla'], ['sam-wilson', 'james-rhodes'], ['clint-barton', 'natasha-romanoff'], ['wanda-maximoff', 'vision'], ['scott-lang', 'peter-parker']];
+function cwFight() { const C = CW; if (!C || C.phase !== 'stand') return; C.phase = 'duel'; C.f0 = performance.now(); const { cx, cy, byId } = C;
   if (navigator.vibrate) try { navigator.vibrate([60, 40, 120, 40, 60, 40, 200]); } catch (e) {}
-  // Steve and Tony charge into each other
-  steve.tx = cx - 10; tony.tx = cx + 10; steve.go = tony.go = t;
-  // Wanda's red throws the nearest of the other side back
-  const wanda = byId('wanda-maximoff'); C.wandaHit = C.room.filter(p => C.side.get(p.i) === 1 && p !== tony).sort((a, b) => Math.hypot(a.tx - cx, a.ty - cy) - Math.hypot(b.tx - cx, b.ty - cy)).slice(0, 3);
-  setTimeout(() => { C.wandaHit.forEach(p => { p.tx += 70; p.ty += (Math.random() - .5) * 40; p.go = 0; }); }, 2300);
-  // then everyone charges: both crowds pour into the middle and mix, each fighting someone from the other side
-  setTimeout(() => { if (CW !== C) return; C.phase = 'melee'; C.m0 = performance.now(); const span = Math.min(900, Math.max(260, Math.sqrt(C.room.length) * 22));
-    C.room.forEach(p => { if (p === C.zemo) return; p.tx = cx + (Math.random() - .5) * span * 2; p.ty = cy + (Math.random() - .5) * span * 1.4; p.go = C.m0 + Math.random() * 600; }); }, 4600);
-  setTimeout(() => cwEnd(), 9200); }
-function cwEnd() { const C = CW; if (!C) return; const t1 = performance.now(); C.phase = 'end';
-  C.room.forEach(p => { p.tx = p.hx; p.ty = p.hy; p.go = t1 + Math.random() * 500; });
-  C.tag.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }).onfinish = () => C.tag.remove();
-  setTimeout(() => { C.fx.remove(); if (CW === C) CW = null; }, 1200); }
-// the effects over the room: drawn where each person stands on screen
+  // the duels: each pair meets at a point between the two teams, the leaders' in the middle, the rest round them
+  C.duels = CW_DUEL.map(([a, b], k) => { const A = byId(a), B = byId(b); if (!A || !B) return null;
+    const ang = k ? (k - 1) / (CW_DUEL.length - 1) * 6.283 : 0, R = k ? 150 : 0;
+    return { A, B, x: cx + Math.cos(ang) * R * 1.2, y: cy + Math.sin(ang) * R * .9, ph: Math.random() * 6.283, sp: .9 + Math.random() * .5 }; }).filter(Boolean);
+  C.size = new Map(); C.sparks = [];
+  setTimeout(() => cwSea(C), 4600); }
+function cwSea(C) { if (CW !== C || C.phase !== 'duel') return; C.phase = 'sea'; C.s0 = performance.now(); C.size.clear();
+  // pairs: one of each side, shuffled; the duellists stay together, in the middle of the sea
+  const blue = C.room.filter(p => C.side.get(p.i) === -1), red = C.room.filter(p => C.side.get(p.i) === 1), used = new Set(), pairs = [];
+  C.duels.forEach(d => { pairs.push([d.A, d.B]); used.add(d.A); used.add(d.B); });
+  const B = blue.filter(p => !used.has(p)).sort(() => Math.random() - .5), R2 = red.filter(p => !used.has(p)).sort(() => Math.random() - .5);
+  for (let k = 0; k < Math.max(B.length, R2.length); k++) pairs.push([B[k] || null, R2[k] || null]);
+  // a honeycomb of cells, nearest the middle first, one pair to a cell
+  const D = 66, cells = []; for (let r = -40; r <= 40; r++) for (let q = -40; q <= 40; q++) { const x = C.cx + (q + (r & 1) * .5) * D, y = C.cy + r * D * .8; cells.push([x, y, Math.hypot(x - C.cx, (y - C.cy) * 1.25)]); }
+  cells.sort((a, b) => a[2] - b[2]);
+  C.sea = pairs.map((pr, k) => ({ A: pr[0], B: pr[1], x: cells[k][0], y: cells[k][1], ph: Math.random() * 6.283, d: cells[k][2] }));
+  C.sea.forEach(c => [c.A, c.B].forEach(p => { if (p) p.go = C.s0 + c.d * 1.6 + Math.random() * 120; }));
+  setTimeout(() => cwEnd(), 5200); }
+function cwEnd() { const C = CW; if (!C || C.phase === 'end') return; const t1 = performance.now(); C.phase = 'end'; C.home = t1; C.size && C.size.clear();
+  C.room.forEach(p => { p.d0 = Math.max(1, Math.hypot(p.wx - p.hx, p.wy - p.hy)); p.tx = p.hx; p.ty = p.hy; p.go = t1 + Math.random() * 400; });
+  if (zoom < FOLD[1]) glide = { t0: t1, x0: cam.x, y0: cam.y, x1: cam.x, y1: cam.y, z0: zoom, z1: FOLD[1] + .02 };   // people stay themselves, never folding into a bubble mid-walk
+  C.tag.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: 'forwards' }).onfinish = () => C.tag.remove();
+  const done = () => { if (CW !== C) return; const far = C.room.some(p => Math.hypot(p.wx - p.hx, p.wy - p.hy) > 1.5);
+    if (far && performance.now() - t1 < 6000) { setTimeout(done, 150); return; } C.fx.remove(); CW = null; CWOFF = performance.now(); };
+  setTimeout(done, 600); }
+// each person's colour on the walk home: their side's, easing into their group's as they near their spot
+const cwRGB = h => { const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(String(h).trim()); return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : [142, 162, 194]; };
+function cwHome(p) { const a = cwRGB(CW.col.get(p.i)), b = cwRGB((p.z && p.z.col) || NOCREW), k = Math.max(0, Math.min(1, 1 - Math.hypot(p.wx - p.hx, p.wy - p.hy) / (p.d0 || 1)));
+  return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',')})`; }
+const cwFade = t => CW ? 0 : CWOFF ? Math.min(1, (t - CWOFF) / 800) : 1;   // the floor's names and the Earths fade back once everyone is home
+// the effects over the room, and the fighters' moves, each frame
 function cwDraw(now) { const C = CW; if (!C) return; const fx = C.fx, g2 = C.g, dpr = Math.min(2, devicePixelRatio || 1);
   if (fx.width !== Math.round(innerWidth * dpr)) { fx.width = Math.round(innerWidth * dpr); fx.height = Math.round(innerHeight * dpr); }
   g2.setTransform(dpr, 0, 0, dpr, 0, 0); g2.clearRect(0, 0, innerWidth, innerHeight);
-  const at = p => { const q = lens(p, now); return [q.x, q.y, q.s]; }, cl = v => Math.max(0, Math.min(1, v));
+  const at = p => { const q = lens(p, now); return [q.x, q.y]; }, cl = v => Math.max(0, Math.min(1, v));
+  const spark = (x, y, c) => C.sparks.push({ x, y, t: now, c });
   // Zemo in the shadows: a dark pool round him
-  if (C.zemo) { const [x, y] = at(C.zemo); const gr = g2.createRadialGradient(x, y, 0, x, y, 90); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, 90, 0, 6.283); g2.fill(); }
-  if (C.phase === 'fight' || C.phase === 'melee') { const f = now - C.f0, by = C.byId;
-    // the clash: a flash and a ring where shield meets repulsor
-    if (f > 600 && f < 1700) { const k = (f - 600) / 1100, [x1, y1] = at(C.steve), [x2, y2] = at(C.tony), x = (x1 + x2) / 2, y = (y1 + y2) / 2;
-      g2.strokeStyle = `rgba(255,255,255,${1 - k})`; g2.lineWidth = 3; g2.beginPath(); g2.arc(x, y, 10 + k * 90, 0, 6.283); g2.stroke();
-      const gr = g2.createRadialGradient(x, y, 0, x, y, 40); gr.addColorStop(0, `rgba(255,255,255,${(1 - k) * .95})`); gr.addColorStop(1, 'rgba(160,200,255,0)'); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, 40, 0, 6.283); g2.fill(); }
-    // Giant-Man: Scott grows huge behind his team, then is brought down
-    const scott = by('scott-lang'); if (scott && f > 1300 && f < 4400) { const [x, y] = at(scott), up = cl((f - 1300) / 700), down = cl((f - 3700) / 700), r = 12 + 72 * up * (1 - down);
-      g2.globalAlpha = .9; g2.fillStyle = 'rgba(14,24,40,.9)'; g2.strokeStyle = CW_C[0]; g2.lineWidth = 3 + 4 * up; g2.beginPath(); g2.arc(x, y - r * .25, r, 0, 6.283); g2.fill(); g2.stroke();
-      g2.fillStyle = '#EEF5FF'; g2.font = `400 ${Math.round(r * .7)}px Anton, Impact, sans-serif`; g2.textAlign = 'center'; g2.textBaseline = 'middle'; g2.fillText('SL', x, y - r * .25); g2.globalAlpha = 1; }
-    // Wanda's red: wisps from her to the ones she throws
-    const wanda = by('wanda-maximoff'); if (wanda && f > 1900 && f < 3600) { const [x, y] = at(wanda), k = cl((f - 1900) / 400) * (1 - cl((f - 3200) / 400));
-      (C.wandaHit || []).forEach((p, i) => { const [x2, y2] = at(p); g2.strokeStyle = `rgba(255,40,70,${.85 * k})`; g2.lineWidth = 2.5; g2.shadowColor = '#FF2650'; g2.shadowBlur = 14;
-        for (let w = 0; w < 3; w++) { g2.beginPath(); g2.moveTo(x, y); g2.bezierCurveTo(x + (x2 - x) * .3, y - 50 + Math.sin(now / 90 + i + w) * 30, x + (x2 - x) * .7, y2 + 50 + Math.cos(now / 80 + w) * 30, x2, y2); g2.stroke(); } });
-      g2.shadowBlur = 0; }
-    // Vision's beam: a line cut across the tarmac in front of Steve's team
-    const vis = by('vision'); if (vis && f > 2600 && f < 4200) { const [x, y] = at(vis), k = cl((f - 2600) / 300) * (1 - cl((f - 3900) / 300)), [sx, sy] = at(C.steve), sweep = cl((f - 2700) / 900), tx = sx - 40, ty = sy - 140 + sweep * 280;
-      g2.strokeStyle = `rgba(255,214,90,${k})`; g2.lineWidth = 4; g2.shadowColor = '#FFC93C'; g2.shadowBlur = 18; g2.beginPath(); g2.moveTo(x, y); g2.lineTo(tx, ty); g2.stroke();
-      g2.strokeStyle = `rgba(255,170,60,${.7 * k})`; g2.lineWidth = 3; g2.beginPath(); g2.moveTo(sx - 40, sy - 140); g2.lineTo(tx, ty); g2.stroke(); g2.shadowBlur = 0; }
-    // Peter webs Steve's shield
-    const pp = by('peter-parker'); if (pp && f > 3300 && f < 4600) { const [x, y] = at(pp), [sx, sy] = at(C.steve), k = cl((f - 3300) / 200) * (1 - cl((f - 4300) / 300));
-      g2.strokeStyle = `rgba(255,255,255,${.9 * k})`; g2.lineWidth = 1.6; [-6, 6].forEach(o => { g2.beginPath(); g2.moveTo(x, y); g2.lineTo(sx + o, sy + o); g2.stroke(); }); }
-    // the melee: blows land between people of the two sides who are close
-    if (C.phase === 'melee') { if (Math.random() < .9) { for (let n = 0; n < 4; n++) { const a = C.room[Math.floor(Math.random() * C.room.length)]; if (!a || !C.side.has(a.i)) continue; const [x, y, s] = at(a); if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) continue; C.hits.push({ x: x + (Math.random() - .5) * 10, y: y + (Math.random() - .5) * 10, t: now, c: C.side.get(a.i) < 0 ? '170,200,255' : '255,170,150' }); } }
-      C.hits = C.hits.filter(h => now - h.t < 420); C.hits.forEach(h => { const k = (now - h.t) / 420; g2.strokeStyle = `rgba(${h.c},${1 - k})`; g2.lineWidth = 2; g2.beginPath(); g2.arc(h.x, h.y, 4 + k * 16, 0, 6.283); g2.stroke();
-        for (let r = 0; r < 4; r++) { const a = r * 1.57 + .4; g2.beginPath(); g2.moveTo(h.x + Math.cos(a) * 4, h.y + Math.sin(a) * 4); g2.lineTo(h.x + Math.cos(a) * (8 + k * 12), h.y + Math.sin(a) * (8 + k * 12)); g2.stroke(); } }); } }
+  if (C.zemo && C.phase !== 'end') { const [x, y] = at(C.zemo); const gr = g2.createRadialGradient(x, y, 0, x, y, 90); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, 90, 0, 6.283); g2.fill(); }
+  if (C.phase === 'duel') { const f = now - C.f0;
+    C.duels.forEach((d, k) => { const w = (now / 1000) * d.sp + d.ph, gap = 26 + Math.sin(now / 160 + d.ph) * 8;   // they circle, closing in to strike and backing off
+      d.A.tx = d.x - Math.cos(w) * gap; d.A.ty = d.y - Math.sin(w) * gap * .6; d.B.tx = d.x + Math.cos(w) * gap; d.B.ty = d.y + Math.sin(w) * gap * .6; d.A.go = d.B.go = 0;
+      if (gap < 21 && Math.random() < .35) { const [x1, y1] = at(d.A), [x2, y2] = at(d.B); spark((x1 + x2) / 2, (y1 + y2) / 2, k ? '255,236,190' : '255,255,255'); } });
+    // Giant-Man: Scott grows, then Peter brings him down
+    const sc = C.duels.find(d => d.A.id === 'scott-lang'); if (sc) { const up = cl((f - 900) / 700), down = cl((f - 3000) / 500); C.size.set(sc.A.i, 1 + 2.4 * up * (1 - down) * (1 - down));
+      if (f > 3000 && f < 3300 && Math.random() < .6) { const [x, y] = at(sc.A); spark(x, y, '255,255,255'); } }
+    // Wanda's red and Vision's gold, as glows round them while they duel
+    const wv = C.duels.find(d => d.A.id === 'wanda-maximoff'); if (wv) [[wv.A, '255,40,80'], [wv.B, '255,205,90']].forEach(([p, c]) => { const [x, y] = at(p), r = 34 + Math.sin(now / 120) * 6;
+      const gr = g2.createRadialGradient(x, y, 8, x, y, r); gr.addColorStop(0, `rgba(${c},.45)`); gr.addColorStop(1, `rgba(${c},0)`); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, r, 0, 6.283); g2.fill(); }); }
+  if (C.phase === 'sea') { C.sea.forEach(c => { const w = now / 230 + c.ph, gap = 15 + Math.sin(w) * 5;   // every pair trading blows in its own cell
+      if (c.A) { c.A.tx = c.x - gap; c.A.ty = c.y + Math.cos(w * .7) * 3; } if (c.B) { c.B.tx = c.x + gap; c.B.ty = c.y - Math.cos(w * .7) * 3; }
+      if (c.A && c.B && gap < 11 && now > (c.A.go || 0) + 400 && Math.random() < .25) { const [x, y] = at({ wx: c.x, wy: c.y }); if (x > 0 && y > 0 && x < innerWidth && y < innerHeight) spark(x, y, '255,236,190'); } }); }
+  // the sparks: a small cross of light where a blow lands
+  C.sparks = C.sparks.filter(s => now - s.t < 260); C.sparks.forEach(s => { const k = (now - s.t) / 260, L = 3 + k * 7; g2.strokeStyle = `rgba(${s.c},${1 - k})`; g2.lineWidth = 1.6;
+    for (let r = 0; r < 4; r++) { const a = r * 1.5708 + .785; g2.beginPath(); g2.moveTo(s.x + Math.cos(a) * 2, s.y + Math.sin(a) * 2); g2.lineTo(s.x + Math.cos(a) * L, s.y + Math.sin(a) * L); g2.stroke(); } });
   requestAnimationFrame(cwDraw); }
 self.netCivilWar = civilWar;
 // the hold: on Tony and Steve's card, press the two names for a moment
