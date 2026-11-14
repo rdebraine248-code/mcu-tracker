@@ -443,7 +443,8 @@ function wrap(text, w, max) { const out = []; let line = '';
   out.push(line); if (out.length > max) { out.length = max; out[max - 1] += '…'; } return out; }
 function frame(t) {
   if (!LIVE) { looping = false; return; }
-  for (const p of N) { if (t < p.go) continue; const k = REDUCED ? 1 : .085; p.wx += (p.tx - p.wx) * k; p.wy += (p.ty - p.wy) * k; }
+  const kFight = CW && (CW.phase === 'duel' || CW.phase === 'sea');   // the Civil War's fighters move sharp, not gliding
+  for (const p of N) { if (t < p.go) continue; const k = REDUCED ? 1 : kFight && CW.side.has(p.i) ? .3 : .085; p.wx += (p.tx - p.wx) * k; p.wy += (p.ty - p.wy) * k; }
   if (glide) { const k = Math.min(1, (t - glide.t0) / 560), e = 1 - Math.pow(1 - k, 3); cam.x = glide.x0 + (glide.x1 - glide.x0) * e; cam.y = glide.y0 + (glide.y1 - glide.y0) * e;
     if (glide.z1) zoom = glide.z0 + (glide.z1 - glide.z0) * e; if (k >= 1) glide = null; }
   else if (!drag && mapK() < .5) { cam.x -= vel.x; cam.y -= vel.y; vel.x *= .92; vel.y *= .92; }
@@ -1268,27 +1269,36 @@ const cwRGB = h => { const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.ex
 function cwHome(p) { const a = cwRGB(CW.col.get(p.i)), b = cwRGB((p.z && p.z.col) || NOCREW), k = Math.max(0, Math.min(1, 1 - Math.hypot(p.wx - p.hx, p.wy - p.hy) / (p.d0 || 1)));
   return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * k)).join(',')})`; }
 const cwFade = t => CW ? 0 : CWOFF ? Math.min(1, (t - CWOFF) / 800) : 1;   // the floor's names and the Earths fade back once everyone is home
+// one exchange in a fight, each frame: A and B face each other along the pair's axis; every 260 to 900 ms one of them lunges, the other is
+// knocked back or slips to the side; in between they hold, shifting their feet. The blow lands as a spark (owner: "too much like dancing ...
+// their 1v1 movements need a little bit eraticness")
+function cwJab(c, now, spark, at, base) { const ax = c.ax || 0, ux = Math.cos(ax), uy = Math.sin(ax), vx = -uy, vy = ux;
+  if (!c.st || now > c.st.next) { const atk = Math.random() < .5 ? 1 : -1, kind = Math.random();
+    c.st = { t0: now, next: now + 260 + Math.random() * 640, atk, lunge: 10 + Math.random() * 10, back: kind < .65 ? 6 + Math.random() * 8 : 2, side: kind >= .65 ? (Math.random() < .5 ? -1 : 1) * (8 + Math.random() * 8) : 0,
+      jx: (Math.random() - .5) * 10, jy: (Math.random() - .5) * 8, hit: false }; }
+  const S = c.st, k = (now - S.t0) / 160, strike = k < 1 ? Math.sin(k * Math.PI) : 0, hold = Math.min(1, k), gap = base;
+  const a = S.atk > 0 ? c.A : c.B, d = S.atk > 0 ? c.B : c.A, dir = S.atk > 0 ? 1 : -1;   // dir: the way the attacker faces
+  const ox = c.x + S.jx * hold * .5, oy = c.y + S.jy * hold * .5;
+  if (a) { const g = gap - S.lunge * strike; a.tx = ox - dir * ux * g + (Math.random() - .5) * 1.5; a.ty = oy - dir * uy * g + (Math.random() - .5) * 1.5; a.go = 0; }
+  if (d) { const g = gap + S.back * hold; d.tx = ox + dir * ux * g + vx * S.side * hold; d.ty = oy + dir * uy * g + vy * S.side * hold; d.go = 0; }
+  if (!S.hit && k > .45 && c.A && c.B) { S.hit = true; const [x, y] = at({ wx: c.x, wy: c.y }); if (x > 0 && y > 0 && x < innerWidth && y < innerHeight) spark(x, y); } }
 // the effects over the room, and the fighters' moves, each frame
 function cwDraw(now) { const C = CW; if (!C) return; const fx = C.fx, g2 = C.g, dpr = Math.min(2, devicePixelRatio || 1);
   if (fx.width !== Math.round(innerWidth * dpr)) { fx.width = Math.round(innerWidth * dpr); fx.height = Math.round(innerHeight * dpr); }
   g2.setTransform(dpr, 0, 0, dpr, 0, 0); g2.clearRect(0, 0, innerWidth, innerHeight);
   const at = p => { const q = lens(p, now); return [q.x, q.y]; }, cl = v => Math.max(0, Math.min(1, v));
-  const spark = (x, y, c) => C.sparks.push({ x, y, t: now, c });
+  const hb = (document.querySelector('header') || {}).offsetHeight || 0, spark = (x, y, c) => { if (y > hb + 8) C.sparks.push({ x, y, t: now, c }); };   // never over the header
   // Zemo in the shadows: a dark pool round him
   if (C.zemo && C.phase !== 'end') { const [x, y] = at(C.zemo); const gr = g2.createRadialGradient(x, y, 0, x, y, 90); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, 90, 0, 6.283); g2.fill(); }
   if (C.phase === 'duel' || C.phase === 'sea') { const f = now - C.f0;
-    C.duels.forEach((d, k) => { const w = (now / 1000) * d.sp + d.ph, gap = 26 + Math.sin(now / 160 + d.ph) * 8;   // they circle, closing in to strike and backing off
-      d.A.tx = d.x - Math.cos(w) * gap; d.A.ty = d.y - Math.sin(w) * gap * .6; d.B.tx = d.x + Math.cos(w) * gap; d.B.ty = d.y + Math.sin(w) * gap * .6; d.A.go = d.B.go = 0;
-      if (gap < 21 && Math.random() < .35) { const [x1, y1] = at(d.A), [x2, y2] = at(d.B); spark((x1 + x2) / 2, (y1 + y2) / 2, k ? '255,236,190' : '255,255,255'); } });
+    C.duels.forEach((d, k) => { if (d.ax == null) d.ax = (Math.random() - .5) * .9; cwJab(d, now, (x, y) => spark(x, y, k ? '255,236,190' : '255,255,255'), at, k ? 22 : 26); });
     // Giant-Man: Scott grows, then Peter brings him down
     const sc = C.duels.find(d => d.A.id === 'scott-lang'); if (sc) { const up = cl((f - 900) / 700), down = cl((f - 3000) / 500); C.size.set(sc.A.i, 1 + 2.4 * up * (1 - down) * (1 - down));
       if (f > 3000 && f < 3300 && Math.random() < .6) { const [x, y] = at(sc.A); spark(x, y, '255,255,255'); } }
     // Wanda's red and Vision's gold, as glows round them while they duel
     const wv = C.duels.find(d => d.A.id === 'wanda-maximoff'); if (wv) [[wv.A, '255,40,80'], [wv.B, '255,205,90']].forEach(([p, c]) => { const [x, y] = at(p), r = 34 + Math.sin(now / 120) * 6;
       const gr = g2.createRadialGradient(x, y, 8, x, y, r); gr.addColorStop(0, `rgba(${c},.45)`); gr.addColorStop(1, `rgba(${c},0)`); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, r, 0, 6.283); g2.fill(); }); }
-  if (C.phase === 'sea') { C.sea.forEach(c => { const w = now / 320 - c.d / 240, gap = 20 + Math.sin(w) * 7, bob = Math.cos(w) * 3;   // every pair in time, a ripple running outward
-      if (c.A) { c.A.tx = c.x - gap; c.A.ty = c.y + bob; } if (c.B) { c.B.tx = c.x + gap; c.B.ty = c.y - bob; }
-      if (c.A && c.B && Math.sin(w) < -.97 && now > (c.A.go || 0) + 500 && Math.random() < .5) { const [x, y] = at({ wx: c.x, wy: c.y }); if (x > 0 && y > 0 && x < innerWidth && y < innerHeight) spark(x, y, '255,236,190'); } }); }
+  if (C.phase === 'sea') { C.sea.forEach(c => { if (now < Math.max(c.A ? c.A.go || 0 : 0, c.B ? c.B.go || 0 : 0)) return; if (c.ax == null) c.ax = (Math.random() - .5) * .3; cwJab(c, now, (x, y) => spark(x, y, '255,236,190'), at, 20); }); }
   // the sparks: a small cross of light where a blow lands
   C.sparks = C.sparks.filter(s => now - s.t < 260); C.sparks.forEach(s => { const k = (now - s.t) / 260, L = 3 + k * 7; g2.strokeStyle = `rgba(${s.c},${1 - k})`; g2.lineWidth = 1.6;
     for (let r = 0; r < 4; r++) { const a = r * 1.5708 + .785; g2.beginPath(); g2.moveTo(s.x + Math.cos(a) * 2, s.y + Math.sin(a) * 2); g2.lineTo(s.x + Math.cos(a) * L, s.y + Math.sin(a) * L); g2.stroke(); } });
