@@ -313,6 +313,8 @@ body:has(#whih.in:not([hidden])) .mapact{ bottom:44px; }   /* the news ticker ru
 .xgo1{ padding:3px 10px; border:1px solid currentColor; border-radius:999px; background:none; color:inherit; font:11px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1.2px; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
 .dfiles{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; } .dfiles .dpath{ margin-top:0; }
 body.jumped .dock, body.jumplog #logHead{ z-index:86 !important; }   /* over a page a link opened on top; the Log header only while Paths is the page on top, never over a character log or file opened from it */
+body.jumpprof .dock{ z-index:40 !important; }   /* a character log on top covers the dock however it was opened (the Network, Paths, a file), as one opened
+   from its box does (owner, 13 November 2026: from the Network the dock stood on top of it); a file opened over a log still shows it */
 .dpath{ display:inline-block; margin-top:4px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; padding:7px 13px; font:12px/1.2 'Share Tech Mono','Courier New',monospace; letter-spacing:1px; cursor:pointer; opacity:.9; }
 .tl-switch{ display:inline-flex; border:1px solid #3A2A18; border-radius:999px; padding:2px; }
 .tl-switch button{ border:0; background:transparent; color:#C9B79C; font-family:'Share Tech Mono','Courier New',monospace; font-size:12px; letter-spacing:1px; padding:5px 11px; border-radius:999px; cursor:pointer; touch-action:manipulation; }
@@ -3626,7 +3628,8 @@ const JUMPS = [], jkey = h => (h && h.mcu || "") + "|" + (h && h.cr || "");
 let jtN = 0, unwindTok = null;
 const jstamp = () => { const t = ++jtN; try { history.replaceState({ ...(history.state || {}), jt: t }, ""); } catch (e) {} return t; };
 function jumpUp(el, close, st, tok) { el.style.zIndex = String(81 + JUMPS.length);   /* over a profile too (80) */ JUMPS.push({ st, el, close, tok }); jumpCls(); }
-function jumpCls() { const top = JUMPS[JUMPS.length - 1]; document.body.classList.toggle("jumped", !!top); document.body.classList.toggle("jumplog", !!top && top.el.id === "mapPanel"); }
+function jumpCls() { const top = JUMPS[JUMPS.length - 1]; document.body.classList.toggle("jumped", !!top); document.body.classList.toggle("jumplog", !!top && top.el.id === "mapPanel");
+  document.body.classList.toggle("jumpprof", !!top && top.el.id === "dossier" && top.el.classList.contains("plog")); }
 function unwind(n) { if (n <= 0) return; const L = JUMPS.splice(JUMPS.length - n), tok = L[0].tok;
   L.reverse().forEach(j => { j.close(); j.el.style.zIndex = ""; }); jumpSweep(); dockSync();
   if (!(history.state && history.state.jt === tok)) { unwindTok = tok; history.back(); } }
