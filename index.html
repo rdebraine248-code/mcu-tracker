@@ -6669,6 +6669,18 @@ function pinCopy() {
   for (const k of panel.style) if (k.startsWith("--")) w.style.setProperty(k, panel.style.getPropertyValue(k));   // and its colors: the ticks' boxes are drawn in --boxc, and went blank on the copy
   return w;
 }
+// a frozen copy of what's behind the open box's titles (its band, its watermark, the Watcher's light): pinCopy has only the titles, and a
+// copy without these made the backdrop vanish the moment the copy took over. Anything moving in it is copied at the same point of its motion
+function panelBack() {
+  const pr = panel.getBoundingClientRect(), w = document.createElement("div"), f = document.createElement("div");
+  w.className = "panel fx-panelcopy"; for (const k of panel.style) if (k.startsWith("--")) w.style.setProperty(k, panel.style.getPropertyValue(k));
+  f.style.cssText = `position:absolute;left:${pr.left + panel.clientLeft}px;top:${pr.top + panel.clientTop - panel.scrollTop}px;width:${panel.clientWidth}px;height:${panel.scrollHeight}px;overflow:visible;pointer-events:none`;
+  [...panel.children].filter(e => !e.matches(".pin")).forEach(e => { const c = e.cloneNode(true); c.removeAttribute("id"); c.querySelectorAll("[id]").forEach(x => x.removeAttribute("id"));
+    const O = [e, ...e.querySelectorAll("*")], C = [c, ...c.querySelectorAll("*")];
+    O.forEach((o, i) => { const a = o.getAnimations().find(x => x instanceof CSSAnimation); if (a && C[i] && a.currentTime != null) C[i].style.animationDelay = `-${a.currentTime}ms`; });
+    f.appendChild(c); });
+  w.appendChild(f); return w;
+}
 function panelBg(el) { const cs = getComputedStyle(panel); el.style.backgroundColor = cs.backgroundColor; el.style.backgroundImage = cs.backgroundImage; el.style.backgroundSize = cs.backgroundSize; el.style.backgroundPosition = cs.backgroundPosition; }
 
 /* ---------- Spider-Verse: the glitch. Hold the box title ---------- */
@@ -13340,7 +13352,7 @@ function shatter(x, y) {
   const clearCracks = () => { cracks.splice(0).forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => c.remove()); };
   // 1. the Watcher's box cracks and falls away, and the other reality is right behind it. Its pieces go in while it cracks, matching it exactly,
   // so they're drawn before the other reality is: put in at the break, a phone showed the other reality for a frame first, a blink
-  const angs1 = crackAt(x, y, 0), shards1 = cut(x, y, angs1, sh => { panelBg(sh); sh.appendChild(pinCopy()); });
+  const angs1 = crackAt(x, y, 0), shards1 = cut(x, y, angs1, sh => { panelBg(sh); sh.appendChild(panelBack()); sh.appendChild(pinCopy()); });
   setTimeout(() => {
     document.body.appendChild(alt);
     fall(shards1);
