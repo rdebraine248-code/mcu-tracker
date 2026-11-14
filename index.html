@@ -444,7 +444,13 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
   background:linear-gradient(90deg, rgba(220,225,235,0), #F4F7FB 22%, #B9C3D3 65%, rgba(185,195,211,0)); box-shadow:0 0 0 1px rgba(20,25,35,.35), 0 0 10px rgba(230,236,245,.85); }
 .fx-crack{ position:fixed; z-index:99; pointer-events:none; height:1.6px; transform-origin:0 50%; background:linear-gradient(90deg, rgba(255,255,255,.95), rgba(210,225,255,.55)); box-shadow:0 0 4px rgba(200,220,255,.9); }
 .fx-shard{ position:fixed; inset:0; z-index:98; pointer-events:none; overflow:hidden; }
-.fx-lock{ position:fixed; inset:0; z-index:100; touch-action:none; }   /* over an effect you only watch: taps and scrolls don't reach the box under it */
+.fx-lock{ position:fixed; inset:0; z-index:100; touch-action:none; }
+/* Extremis in Pepper's file: red heat glowing inside every item, a crisp burning line round each, the text burning with it. --xh is how hot */
+.xm-hot{ --xh:0; }
+.xm-hot::after{ content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:min(1, var(--xh));
+  box-shadow:inset 0 0 0 calc(1px + 1px * var(--xh)) rgba(255,70,30,.95), inset 0 0 calc(10px + 20px * var(--xh)) rgba(255,35,0,1), 0 0 calc(12px * var(--xh)) rgba(255,30,0,.6);
+  background:radial-gradient(120% 90% at var(--xx,50%) 60%, rgba(255,40,0,.32), transparent 70%); mix-blend-mode:screen; }
+.xm-txt{ text-shadow:0 0 calc(9px * var(--xh, 0)) rgba(255,40,0,var(--xh, 0)), 0 0 1px rgba(255,190,160,var(--xh, 0)); }   /* over an effect you only watch: taps and scrolls don't reach the box under it */
 .fx-band{ position:fixed; left:0; right:0; z-index:98; pointer-events:none; overflow:hidden; }
 .fx-clone{ position:absolute; margin:0 !important; pointer-events:none; }
 .fx-panelcopy{ position:absolute !important; inset:0 !important; z-index:auto !important; overflow:hidden !important; background:transparent !important; pointer-events:none; }
@@ -1646,11 +1652,12 @@ button.atl-vn i{ border-color:rgba(200,205,212,.5); color:#C9CDD3; } button.atl-
   /* stage 2: an open box keeps one column (owner, 13 November 2026: "Character boxes don't need two columns. Why do I need to look at
      the title on the left hand side?"). Sideways the height is what's short and the titles are what you use: the head is compact (the name
      smaller, the label, quote and count on one line) and scrolls away with the list, so the whole screen goes to the titles */
-  #panel .pin{ max-width:860px; }
-  #panel .pin h2.big{ font-size:clamp(24px, 3.2vw, 36px) !important; }
-  #panel .pin > .psub, #panel .pin > .pquote.cq, #panel .pin > .ptxt{ display:inline-block; vertical-align:baseline; margin:6px 18px 0 0; max-width:none; }
-  #panel .pin > .pquote.cq{ font-size:15px; }
-  #panel .pin > .pbar{ margin:8px 0 10px; }
+  /* the box's own copies, that the Watcher's egg breaks and the other reality it shows, are laid out the same way, or they jump when they take over from it */
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin{ max-width:860px; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin h2.big{ font-size:clamp(24px, 3.2vw, 36px) !important; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin > :is(.psub, .pquote.cq, .ptxt){ display:inline-block; vertical-align:baseline; margin:6px 18px 0 0; max-width:none; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin > .pquote.cq{ font-size:15px; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin > .pbar{ margin:8px 0 10px; }
 }
 
 </style>
@@ -4869,6 +4876,53 @@ document.getElementById("collView").addEventListener("pointerdown", ev => {
   CX_LIVE[b.dataset.live](b, ev);
 });
 
+/* ---------- eggs in the Compound's own files (owner, 14 November 2026: an egg uses the file itself, nothing drawn over it) ---------- */
+// Drax: after Infinity War, open his file and touch nothing. "I have mastered the ability of standing so still I become invisible": the
+// whole file fades away to nothing, and that's the egg; the first touch brings him back (and does nothing else)
+let draxT = 0, draxGone = null, draxEat = 0;
+const draxHere = () => collOpen && collMode === "cp" && collRec === "drax" && !document.getElementById("collPanel").hidden;
+function draxArm() { clearTimeout(draxT); if (draxGone && !draxGone.effect.target.isConnected) draxGone = null;
+  if (!draxHere() || draxGone || !atlSeenT("Avengers: Infinity War")) return; draxT = setTimeout(draxFade, 7000); }
+function draxFade() { if (!draxHere()) return; if (REDUCED) { found("drax"); return; }
+  const r = document.querySelector("#collView .co-rec"); if (!r) return;
+  draxGone = r.animate([{ opacity: 1, filter: "blur(0px)" }, { opacity: .6, filter: "blur(0px)", offset: .35 }, { opacity: 0, filter: "blur(2px)" }], { duration: 3200, easing: "ease-in", fill: "forwards" });
+  draxGone.onfinish = () => { if (draxGone) found("drax"); }; }
+function draxBack(ev) { if (!draxGone) { draxArm(); return; }
+  const a = draxGone, r = a.effect.target, gone = a.playState === "finished"; draxGone = null;
+  if (gone && ev.type === "pointerdown") draxEat = performance.now();   // the touch that brings him back isn't a tap on whatever was under it
+  a.cancel(); if (r.isConnected) r.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: "ease-out" });
+  draxArm(); }
+{ const cp = document.getElementById("collPanel");
+  ["pointerdown", "wheel", "keydown", "scroll"].forEach(n => cp.addEventListener(n, draxBack, { capture: true, passive: true }));
+  cp.addEventListener("click", ev => { if (performance.now() - draxEat < 600) { ev.stopPropagation(); ev.preventDefault(); } }, true); }
+
+// Pepper: after Iron Man 3, hold her name (or her mark) in her file. Extremis: every item of the file catches at once and the fire never goes
+// out while it burns, each item throbbing between bright and brighter on its own beat, the whole file hotter and hotter, then it dies down
+let xmOn = false;
+document.getElementById("collView").addEventListener("pointerdown", ev => {
+  if (ev.button > 0 || xmOn || collMode !== "cp" || collRec !== "pepper-potts" || !atlSeenT("Iron Man 3") || !ev.target.closest(".cp-id h3, .cp-id .cp-ph")) return;
+  cxHold(ev, 600, extremis); });
+function extremis() {
+  if (REDUCED) { found("extremis"); return; }
+  const r = document.querySelector("#collView .co-rec"); if (!r || xmOn) return; xmOn = true; haptic([20, 40, 20, 40, 60]);
+  const q = s => [...r.querySelectorAll(s)], items = [r.querySelector(".cp-id"), r.querySelector(".cp-ph"), ...q(".co-aka, .cp-teams > button, .cp-rf, .co-chain > li")].filter(Boolean);
+  const texts = q("h3, p, b, a, small, i, em").filter(e => !e.children.length), all = items.concat(texts), pos = new Map();
+  items.forEach(e => { if (getComputedStyle(e).position === "static") { pos.set(e, e.style.position); e.style.position = "relative"; } e.classList.add("xm-hot"); });
+  texts.forEach(e => e.classList.add("xm-txt"));
+  const ph = new Map(), on = new Map(); all.forEach(e => { ph.set(e, Math.random() * 6.28); on.set(e, Math.random() * 180); });   // all at once, give or take a breath
+  const BURN = 9000, COOL = 2500;
+  const end = () => { items.forEach(e => { e.classList.remove("xm-hot"); e.style.removeProperty("--xh"); e.style.removeProperty("--xx"); if (pos.has(e)) e.style.position = pos.get(e); });
+    texts.forEach(e => { e.classList.remove("xm-txt"); e.style.removeProperty("--xh"); }); xmOn = false; };
+  fxRun(BURN + COOL + 200, t => {
+    if (!r.isConnected) return true;   // the file closed or redrew: it stops there
+    const grow = Math.min(1, t / BURN), cool = t < BURN ? 1 : Math.max(0, 1 - (t - BURN) / COOL);   // it only gets hotter, then it dies
+    all.forEach(e => { const k = Math.min(1, Math.max(0, (t - on.get(e)) / 350)), p = ph.get(e);
+      const throb = .5 + .5 * Math.sin(t / 230 + p) * Math.sin(t / 600 + p * 2);   // bright, brighter, back to bright: never near off
+      e.style.setProperty("--xh", (k * cool * (.62 + .5 * grow) * (.8 + .25 * throb)).toFixed(3)); e.style.setProperty("--xx", (40 + 20 * Math.sin(t / 450 + p)).toFixed(0) + "%"); });
+  }, () => { end(); if (r.isConnected) found("extremis"); });
+}
+{ const rc0 = renderColl; renderColl = function () { const o = rc0.apply(this, arguments); draxArm(); return o; }; }
+
 /* ---------- the Collector's archive, every object: the third index, beside the Raft's villains and the Compound's heroes. Every object gets
    a case the first time it's seen, and its card follows it title by title: who holds it, and whether it's in use, locked away, lost or destroyed.
    No drawings: each case shows the mark of its kind */
@@ -7602,7 +7656,9 @@ const EGGS = [
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
   ["doom", "Doom", "Hold on to Doomsday.", "Hold any Avengers: Doomsday title.", 2],
   ["postcredits", "Post-credits", "Stay until the very end.", "When the Chapters, Sacred Timeline or Characters page reads Multiverse Completed, scroll to the very end of it and wait.", 2],
-  ["civilwar", "Civil War", "Two of them split, and everyone takes a side.", "After Captain America: Civil War, in the Network, open how Steve and Tony are connected, hold their names, then tap the room.", 1]
+  ["extremis", "Extremis", "Something in Pepper's file is burning up.", "After Iron Man 3, hold Pepper Potts's name in her file in the Compound.", 1],
+  ["civilwar", "Civil War", "Two of them split, and everyone takes a side.", "After Captain America: Civil War, in the Network, open how Steve and Tony are connected, hold their names, then tap the room.", 1],
+  ["drax", "Invisible", "Drax has mastered standing so still he can't be seen.", "After Avengers: Infinity War, open Drax's file in the Compound and don't touch anything for a few seconds.", 1]
 ];
 // each Avengers film is a mission, named for what the team had to do (Doomsday and Secret Wars keep their titles until they are out)
 const MISSION_NAMES = { "The Avengers": "Save New York", "Avengers: Age of Ultron": "Stop Ultron", "Avengers: Infinity War": "Face Thanos", "Avengers: Endgame": "Assemble" };
@@ -13194,11 +13250,12 @@ function shatter(x, y) {
     const mid = sh._mid, d = R * (1.1 + Math.random() * .4), dx = Math.cos(mid) * d, dy = Math.sin(mid) * d + R * .25, rot = (Math.random() - .5) * 70;
     sh.animate([{ transform: "none" }, { transform: `translate(${dx * .06}px,${dy * .06}px) rotate(${rot * .04}deg)`, offset: .2 }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)` }], { duration: 1700, easing: "cubic-bezier(.5,0,.6,1)", fill: "forwards" }).onfinish = () => sh.remove(); });
   const clearCracks = () => { cracks.splice(0).forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => c.remove()); };
-  // 1. the Watcher's box cracks and falls away, and the other reality is right behind it
-  const angs1 = crackAt(x, y, 0);
+  // 1. the Watcher's box cracks and falls away, and the other reality is right behind it. Its pieces go in while it cracks, matching it exactly,
+  // so they're drawn before the other reality is: put in at the break, a phone showed the other reality for a frame first, a blink
+  const angs1 = crackAt(x, y, 0), shards1 = cut(x, y, angs1, sh => { panelBg(sh); sh.appendChild(pinCopy()); });
   setTimeout(() => {
     document.body.appendChild(alt);
-    fall(cut(x, y, angs1, sh => { panelBg(sh); sh.appendChild(pinCopy()); }));
+    fall(shards1);
     clearCracks(); haptic([80, 40, 120]);
     // 2. a few seconds there; then it cracks too, and shatters back to the Watcher. Its pieces go in once the Watcher's have fallen away
     // (both sets at once are more full-screen layers than a phone can draw, and it drew pieces without their backgrounds), stacked over it,
