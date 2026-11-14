@@ -46,12 +46,17 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
-  - **The Civil War, a Network egg (test build v212; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
+  - **The Civil War, a Network egg (test build v213; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
     and Steve's card (How they're connected): the card goes, and everyone you've met in the Sacred Timeline crosses the floor; Steve and
     Tony face off in front, the Leipzig airport teams line up behind them (Cap: Bucky, Sam, Wanda, Clint, Scott, Sharon; Iron Man:
     Natasha, Rhodey, T'Challa, Vision, Peter, Thaddeus and Everett Ross), Zemo alone behind the gap, everyone else on a side at random
     in the two crowds; blue and red, "Team Cap · Civil War · Team Iron Man" across the top; no group bubbles or names while it plays
-    (`CW`). A tap or ten seconds and they go home. Built in hub-src without a mockup switch (network.html on main would carry it): a
+    (`CW`). Then (owner: "the supporting ... as a semi circle half back around the main person ... Zemo is too close and looks like a
+    referee ... Have this page be stagnant ... so I can scroll and see whos on what team ... then touching ... activates the 2nd half of
+    the egg with a big finish"): each team in a half circle behind its leader; Zemo far back in a dark pool, dimmed; the stand-off holds
+    while you pan and pinch; a tap plays the finish (`cwFight`): Steve and Tony clash, Scott grows into Giant-Man, Wanda's red throws three
+    of the other side back, Vision cuts his line, Peter webs Steve's shield, then both crowds charge and fight all over the room (blows
+    flashing between them, `#cwFx`), and everyone goes home (`cwEnd`). Built in hub-src without a mockup switch (network.html on main would carry it): a
     main push needs the owner's yes and its Agent File entry. **The egg plan:** an egg in every main file (owner: "EVERY (or most) main
     characters/bad guys/items get an index egg (even if its moving the character box ones over) then a few other supporting/minor ones
     too to make it truly secret"); tier counts by titles a file is in: 5+ titles 107 (Compound 54, Raft 10, Collection 43), 3+ 302.

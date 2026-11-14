@@ -224,6 +224,7 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
   html.land #card #sConn{ display:none; }
   html.land #card #lBody{ max-height:none; overflow:visible; -webkit-mask-image:none; mask-image:none; }
 }
+#cwFx{ position:fixed; inset:0; width:100%; height:100%; z-index:5; pointer-events:none; }
 #cwTags{ position:fixed; left:0; right:0; top:calc(var(--hb, 120px) + 4px); z-index:6; display:flex; justify-content:space-between; align-items:center; padding:0 20px; pointer-events:none; font:400 22px/1 var(--display); letter-spacing:1px; text-transform:uppercase; text-shadow:0 0 14px rgba(0,0,0,.9); }
 #cwTags span{ font:11px/1 var(--mono); letter-spacing:3px; color:#9FB2CC; }
 </style>
@@ -675,7 +676,7 @@ cv.addEventListener('pointermove', e => { if (!pts.has(e.pointerId)) return; pts
   if (mapOn && mcam) { const ms = mscale(); mcam.x -= dx / ms; mcam.y -= dy / ms; } else { cam.x -= dx / zoom; cam.y -= dy / zoom; vel = { x: dx / zoom, y: dy / zoom }; }
   drag.x = e.clientX; drag.y = e.clientY; });
 const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch0 = null;
-  if (drag && !drag.moved) tap(e.clientX, e.clientY); drag = null; };
+  if (drag && !drag.moved) { if (CW) { if (CW.phase === 'stand' && performance.now() - CW.t0 > 1500) cwFight(); } else tap(e.clientX, e.clientY); } drag = null; };   // the Civil War: a tap plays its finish
 cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
 cv.addEventListener('wheel', e => { e.preventDefault(); glide = null; const f = e.deltaY < 0 ? 1.08 : .93; if (mapOn) setMZ(mz * f, e.clientX, e.clientY); else setZoom(zoom * f); }, { passive: false });
 
@@ -1191,11 +1192,13 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
 // played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
 let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
 // ---------- the Civil War (a mockup, owner, 14 November 2026: "tony and steve's relationship makes the network split down the middle like civil
-// war with everyone taking sides (maybe by random unless they were in the movie then those go their actual sides) and the movie characters
-// go to the front so its staged tony and steve then their real team then the remaining network random team"). Hold the names on Tony and
-// Steve's card (How they're connected). Everyone you've met in the Sacred Timeline crosses the floor: Steve and Tony face off in front,
-// the airport's two teams line up behind them as they stood at Leipzig, the Rosses with the Accords and Sharon with Steve, Zemo alone
-// in the middle at the back, and everyone else takes a side at random behind them. A tap anywhere, or ten seconds, and they all go home
+// war with everyone taking sides ... the movie characters go to the front"; then: the teams in a half circle round their leader, Zemo far
+// back in the shadows, the stand-off holding so you can look round it, and a tap for "a big finish"). Hold the names on Tony and Steve's
+// card. Everyone you've met in the Sacred Timeline crosses the floor: Steve and Tony face off in front, the Leipzig teams in a half circle
+// behind each, the Rosses with the Accords and Sharon with Steve; everyone else on a side at random in two crowds; Zemo alone, dim, far
+// behind. It holds while you pan and pinch. A tap and it plays: Steve and Tony clash, Scott grows into Giant-Man, Wanda's red throws the
+// other side back, Vision cuts his line across the tarmac, Peter webs Steve's shield; then both crowds charge and fight all over the room,
+// and everyone goes home
 const CW_CAP = ['steve-rogers', 'bucky-barnes', 'sam-wilson', 'wanda-maximoff', 'clint-barton', 'scott-lang', 'sharon-carter'];
 const CW_IRON = ['tony-stark', 'natasha-romanoff', 'james-rhodes', 'tchalla', 'vision', 'peter-parker', 'thaddeus-ross', 'everett-ross'];
 const CW_C = ['#5B8DEF', '#E0483A'];
@@ -1204,31 +1207,77 @@ function civilWar() {
   const steve = byId('steve-rogers'), tony = byId('tony-stark'); if (!steve || !tony) return;
   if (sel || link) home();   // the card goes: the room is the scene
   const t = performance.now(), room = N.filter(p => p.vis && p.u === 'mcu' && !SNAPS.has(p.id));
-  const cx = (steve.hx + tony.hx) / 2, cy = (steve.hy + tony.hy) / 2, col = new Map(), place = [];
-  const team = (L, sd) => L.map(byId).filter(Boolean);
-  const capT = team(CW_CAP, -1), ironT = team(CW_IRON, 1), zemo = byId('helmut-zemo');
-  // the front: Steve and Tony, a few paces apart, facing each other
-  place.push([steve, cx - 44, cy, -1, 0], [tony, cx + 44, cy, 1, 0]);
-  // the airport: each team in two short rows behind its leader
-  [[capT.slice(1), -1], [ironT.slice(1), 1]].forEach(([L, sd]) => L.forEach((p, k) => place.push([p, cx + sd * (100 + Math.floor(k / 2) * 50), cy + (k % 2 ? 30 : -30), sd, 1 + k])));
-  if (zemo) place.push([zemo, cx, cy + 190, 0, 12]);
-  // everyone else: a side at random, packed in behind, nearest the front first
+  const cx = (steve.hx + tony.hx) / 2, cy = (steve.hy + tony.hy) / 2, col = new Map(), place = [], side = new Map();
+  const capT = CW_CAP.map(byId).filter(Boolean), ironT = CW_IRON.map(byId).filter(Boolean), zemo = byId('helmut-zemo');
+  place.push([steve, cx - 50, cy, -1, 0], [tony, cx + 50, cy, 1, 0]);
+  // each team in a half circle behind its leader
+  [[capT.slice(1), -1, cx - 50], [ironT.slice(1), 1, cx + 50]].forEach(([L, sd, lx]) => L.forEach((p, k) => {
+    const a = (sd < 0 ? Math.PI : 0) + (k / Math.max(1, L.length - 1) - .5) * 2.5, R = 108;
+    place.push([p, lx + Math.cos(a) * R, cy + Math.sin(a) * R, sd, 1 + k]); }));
+  if (zemo) place.push([zemo, cx, cy + 560, 0, 20]);   // far back, in the shadows
   const set = new Set(place.map(q => q[0])), rest = room.filter(p => !set.has(p)).sort(() => Math.random() - .5);
   const cells = sd => { const C = []; for (let r = 0; r < 60; r++) for (let q = -40; q <= 40; q++) { const x = cx + sd * (300 + r * 48 + (q & 1) * 24), y = cy + q * 44; C.push([x, y, Math.hypot(r * 48, q * 44 * 1.6)]); } return C.sort((a, b) => a[2] - b[2]); };
   const L = cells(-1), R = cells(1); let li = 0, ri = 0;
   rest.forEach((p, k) => { const sd = k % 2 ? 1 : -1, c = sd < 0 ? L[li++] : R[ri++]; place.push([p, c[0], c[1], sd, 14 + c[2] / 60]); });
-  place.forEach(([p, x, y, sd, d]) => { p.tx = x; p.ty = y; p.go = t + 200 + d * 45 + Math.random() * 120; if (sd) col.set(p.i, CW_C[sd < 0 ? 0 : 1]); });
-  glide = { t0: t, x0: cam.x, y0: cam.y, x1: cx, y1: cy + 40, z0: zoom, z1: Math.max(.72, Math.min(1, W / 560)) };   // both sides in view, everyone as themselves (no group bubbles while it plays)
-  CW = { col, t0: t, room };
+  place.forEach(([p, x, y, sd, d]) => { p.tx = x; p.ty = y; p.go = t + 200 + d * 45 + Math.random() * 120; if (sd) { col.set(p.i, CW_C[sd < 0 ? 0 : 1]); side.set(p.i, sd); } });
+  if (zemo) col.set(zemo.i, '#3B4152');
+  glide = { t0: t, x0: cam.x, y0: cam.y, x1: cx, y1: cy + 40, z0: zoom, z1: Math.max(.72, Math.min(1, W / 560)) };
+  const fx = document.createElement('canvas'); fx.id = 'cwFx'; document.body.appendChild(fx);
   const tag = document.createElement('div'); tag.id = 'cwTags'; tag.innerHTML = '<b style="color:#8DB2FF">Team Cap</b><span>Civil War</span><b style="color:#FF7A6B">Team Iron Man</b>'; document.body.appendChild(tag);
   tag.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 900, fill: 'both' });
+  CW = { col, side, t0: t, room, phase: 'stand', cx, cy, steve, tony, zemo, fx, g: fx.getContext('2d'), tag, byId, hits: [] };
   if (navigator.vibrate) try { navigator.vibrate([30, 60, 30, 60, 80]); } catch (e) {}
-  const end = () => { if (!CW) return; const t1 = performance.now(); removeEventListener('pointerdown', end, true); clearTimeout(CW.tm);
-    CW.room.forEach(p => { p.tx = p.hx; p.ty = p.hy; p.go = t1 + Math.random() * 500; });
-    tag.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }).onfinish = () => tag.remove();
-    setTimeout(() => { CW = null; }, 1100); };
-  setTimeout(() => addEventListener('pointerdown', end, true), 1500); CW.tm = setTimeout(end, 10000);
+  requestAnimationFrame(cwDraw);
 }
+// the big finish
+function cwFight() { const C = CW; if (!C || C.phase !== 'stand') return; C.phase = 'fight'; C.f0 = performance.now(); const t = C.f0, { cx, cy, steve, tony, byId } = C;
+  if (navigator.vibrate) try { navigator.vibrate([60, 40, 120, 40, 60, 40, 200]); } catch (e) {}
+  // Steve and Tony charge into each other
+  steve.tx = cx - 10; tony.tx = cx + 10; steve.go = tony.go = t;
+  // Wanda's red throws the nearest of the other side back
+  const wanda = byId('wanda-maximoff'); C.wandaHit = C.room.filter(p => C.side.get(p.i) === 1 && p !== tony).sort((a, b) => Math.hypot(a.tx - cx, a.ty - cy) - Math.hypot(b.tx - cx, b.ty - cy)).slice(0, 3);
+  setTimeout(() => { C.wandaHit.forEach(p => { p.tx += 70; p.ty += (Math.random() - .5) * 40; p.go = 0; }); }, 2300);
+  // then everyone charges: both crowds pour into the middle and mix, each fighting someone from the other side
+  setTimeout(() => { if (CW !== C) return; C.phase = 'melee'; C.m0 = performance.now(); const span = Math.min(900, Math.max(260, Math.sqrt(C.room.length) * 22));
+    C.room.forEach(p => { if (p === C.zemo) return; p.tx = cx + (Math.random() - .5) * span * 2; p.ty = cy + (Math.random() - .5) * span * 1.4; p.go = C.m0 + Math.random() * 600; }); }, 4600);
+  setTimeout(() => cwEnd(), 9200); }
+function cwEnd() { const C = CW; if (!C) return; const t1 = performance.now(); C.phase = 'end';
+  C.room.forEach(p => { p.tx = p.hx; p.ty = p.hy; p.go = t1 + Math.random() * 500; });
+  C.tag.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }).onfinish = () => C.tag.remove();
+  setTimeout(() => { C.fx.remove(); if (CW === C) CW = null; }, 1200); }
+// the effects over the room: drawn where each person stands on screen
+function cwDraw(now) { const C = CW; if (!C) return; const fx = C.fx, g2 = C.g, dpr = Math.min(2, devicePixelRatio || 1);
+  if (fx.width !== Math.round(innerWidth * dpr)) { fx.width = Math.round(innerWidth * dpr); fx.height = Math.round(innerHeight * dpr); }
+  g2.setTransform(dpr, 0, 0, dpr, 0, 0); g2.clearRect(0, 0, innerWidth, innerHeight);
+  const at = p => { const q = lens(p, now); return [q.x, q.y, q.s]; }, cl = v => Math.max(0, Math.min(1, v));
+  // Zemo in the shadows: a dark pool round him
+  if (C.zemo) { const [x, y] = at(C.zemo); const gr = g2.createRadialGradient(x, y, 0, x, y, 90); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, 90, 0, 6.283); g2.fill(); }
+  if (C.phase === 'fight' || C.phase === 'melee') { const f = now - C.f0, by = C.byId;
+    // the clash: a flash and a ring where shield meets repulsor
+    if (f > 600 && f < 1700) { const k = (f - 600) / 1100, [x1, y1] = at(C.steve), [x2, y2] = at(C.tony), x = (x1 + x2) / 2, y = (y1 + y2) / 2;
+      g2.strokeStyle = `rgba(255,255,255,${1 - k})`; g2.lineWidth = 3; g2.beginPath(); g2.arc(x, y, 10 + k * 90, 0, 6.283); g2.stroke();
+      const gr = g2.createRadialGradient(x, y, 0, x, y, 40); gr.addColorStop(0, `rgba(255,255,255,${(1 - k) * .95})`); gr.addColorStop(1, 'rgba(160,200,255,0)'); g2.fillStyle = gr; g2.beginPath(); g2.arc(x, y, 40, 0, 6.283); g2.fill(); }
+    // Giant-Man: Scott grows huge behind his team, then is brought down
+    const scott = by('scott-lang'); if (scott && f > 1300 && f < 4400) { const [x, y] = at(scott), up = cl((f - 1300) / 700), down = cl((f - 3700) / 700), r = 12 + 72 * up * (1 - down);
+      g2.globalAlpha = .9; g2.fillStyle = 'rgba(14,24,40,.9)'; g2.strokeStyle = CW_C[0]; g2.lineWidth = 3 + 4 * up; g2.beginPath(); g2.arc(x, y - r * .25, r, 0, 6.283); g2.fill(); g2.stroke();
+      g2.fillStyle = '#EEF5FF'; g2.font = `400 ${Math.round(r * .7)}px Anton, Impact, sans-serif`; g2.textAlign = 'center'; g2.textBaseline = 'middle'; g2.fillText('SL', x, y - r * .25); g2.globalAlpha = 1; }
+    // Wanda's red: wisps from her to the ones she throws
+    const wanda = by('wanda-maximoff'); if (wanda && f > 1900 && f < 3600) { const [x, y] = at(wanda), k = cl((f - 1900) / 400) * (1 - cl((f - 3200) / 400));
+      (C.wandaHit || []).forEach((p, i) => { const [x2, y2] = at(p); g2.strokeStyle = `rgba(255,40,70,${.85 * k})`; g2.lineWidth = 2.5; g2.shadowColor = '#FF2650'; g2.shadowBlur = 14;
+        for (let w = 0; w < 3; w++) { g2.beginPath(); g2.moveTo(x, y); g2.bezierCurveTo(x + (x2 - x) * .3, y - 50 + Math.sin(now / 90 + i + w) * 30, x + (x2 - x) * .7, y2 + 50 + Math.cos(now / 80 + w) * 30, x2, y2); g2.stroke(); } });
+      g2.shadowBlur = 0; }
+    // Vision's beam: a line cut across the tarmac in front of Steve's team
+    const vis = by('vision'); if (vis && f > 2600 && f < 4200) { const [x, y] = at(vis), k = cl((f - 2600) / 300) * (1 - cl((f - 3900) / 300)), [sx, sy] = at(C.steve), sweep = cl((f - 2700) / 900), tx = sx - 40, ty = sy - 140 + sweep * 280;
+      g2.strokeStyle = `rgba(255,214,90,${k})`; g2.lineWidth = 4; g2.shadowColor = '#FFC93C'; g2.shadowBlur = 18; g2.beginPath(); g2.moveTo(x, y); g2.lineTo(tx, ty); g2.stroke();
+      g2.strokeStyle = `rgba(255,170,60,${.7 * k})`; g2.lineWidth = 3; g2.beginPath(); g2.moveTo(sx - 40, sy - 140); g2.lineTo(tx, ty); g2.stroke(); g2.shadowBlur = 0; }
+    // Peter webs Steve's shield
+    const pp = by('peter-parker'); if (pp && f > 3300 && f < 4600) { const [x, y] = at(pp), [sx, sy] = at(C.steve), k = cl((f - 3300) / 200) * (1 - cl((f - 4300) / 300));
+      g2.strokeStyle = `rgba(255,255,255,${.9 * k})`; g2.lineWidth = 1.6; [-6, 6].forEach(o => { g2.beginPath(); g2.moveTo(x, y); g2.lineTo(sx + o, sy + o); g2.stroke(); }); }
+    // the melee: blows land between people of the two sides who are close
+    if (C.phase === 'melee') { if (Math.random() < .9) { for (let n = 0; n < 4; n++) { const a = C.room[Math.floor(Math.random() * C.room.length)]; if (!a || !C.side.has(a.i)) continue; const [x, y, s] = at(a); if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) continue; C.hits.push({ x: x + (Math.random() - .5) * 10, y: y + (Math.random() - .5) * 10, t: now, c: C.side.get(a.i) < 0 ? '170,200,255' : '255,170,150' }); } }
+      C.hits = C.hits.filter(h => now - h.t < 420); C.hits.forEach(h => { const k = (now - h.t) / 420; g2.strokeStyle = `rgba(${h.c},${1 - k})`; g2.lineWidth = 2; g2.beginPath(); g2.arc(h.x, h.y, 4 + k * 16, 0, 6.283); g2.stroke();
+        for (let r = 0; r < 4; r++) { const a = r * 1.57 + .4; g2.beginPath(); g2.moveTo(h.x + Math.cos(a) * 4, h.y + Math.sin(a) * 4); g2.lineTo(h.x + Math.cos(a) * (8 + k * 12), h.y + Math.sin(a) * (8 + k * 12)); g2.stroke(); } }); } }
+  requestAnimationFrame(cwDraw); }
 self.netCivilWar = civilWar;
 // the hold: on Tony and Steve's card, press the two names for a moment
 { let hold = null; const nm = $('lName');
