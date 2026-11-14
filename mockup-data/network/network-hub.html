@@ -1195,7 +1195,7 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
 // Six Degrees is found, not shown (owner, 7 November 2026: "hidden somewhere else so it's a discovery"): hold the Network's title. It's
 // played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
 let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
-// ---------- the Civil War (a mockup, owner, 14 November 2026: "tony and steve's relationship makes the network split down the middle like civil
+// ---------- the Civil War (an egg, owner, 14 November 2026: "tony and steve's relationship makes the network split down the middle like civil
 // war with everyone taking sides ... the movie characters go to the front"; then: the teams in a half circle round their leader, Zemo far
 // back in the shadows, the stand-off holding so you can look round it, and a tap for "a big finish"). Hold the names on Tony and Steve's
 // card. Everyone you've met in the Sacred Timeline crosses the floor: Steve and Tony face off in front, the Leipzig teams in a half circle
@@ -1248,6 +1248,7 @@ function civilWar() {
 const CW_DUEL = [['steve-rogers', 'tony-stark'], ['bucky-barnes', 'tchalla'], ['sam-wilson', 'james-rhodes'], ['clint-barton', 'natasha-romanoff'], ['wanda-maximoff', 'vision'], ['scott-lang', 'peter-parker'], ['sharon-carter', 'everett-ross']];
 function cwFight() { const C = CW; if (!C || C.phase !== 'stand') return; C.phase = 'duel'; C.f0 = performance.now(); const { cx, cy, byId } = C;
   if (navigator.vibrate) try { navigator.vibrate([60, 40, 120, 40, 60, 40, 200]); } catch (e) {}
+  if (EMB) try { parent.found && parent.found('civilwar'); } catch (e) {}   // found once the finish plays: the Agent File's Civil War
   // the duels: each pair meets at a point between the two teams, the leaders' in the middle, the rest round them
   C.duels = CW_DUEL.map(([a, b], k) => { const A = byId(a), B = byId(b); if (!A || !B) return null;
     const ang = k ? (k - 1) / (CW_DUEL.length - 1) * 6.283 : 0, R = k ? 150 : 0;

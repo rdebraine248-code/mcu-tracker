@@ -1983,7 +1983,9 @@ These happened in earlier chats. Each cost the owner time.
   readouts, every page and archive as a card, then restyled as S.H.I.E.L.D. hardware with dials and a power-up) was tried in the test
   build and removed entirely. Story stays the front page. Don't bring it back unasked.
 - **The Classified eggs:** the audit is at https://claude.ai/artifact/5tqx9SYTYccbT2whKbNgfJ (64 ranked, cuts, fixes, gaps, 40 ideas). The
-  owner kept all 64, so the Agent File stays at 4 pages of 16. Pages must stay even: add eggs in fours. Its bug list, by number: fixed
+  owner kept all 64. The Agent File's eggs are split as evenly as possible over its pages, and the number of pages grows as eggs are
+  added so no page gets long (owner, 14 November 2026: "My rule was never to add agent files by groups of 4 ... It was to split them
+  evenly (or as much as possible) over x amount of pages ever growing as more eggs are added"; "add eggs in fours" was a misreading). Its bug list, by number: fixed
   are #4 (the replays' back door), #8 (the mouse holds take a 10px wobble), #9 (On your left's edge counts only above the titles, never
   beside one), #10 (Sorcerer Supreme's rings reach 120px round the corner, never the Profile button) and #11 to #17 (every wrong hint and
   how-to, text only; Marvel Studios is now titled The Marvel Cinematic Universe, like its card). The rest are features, not bugs (owner,

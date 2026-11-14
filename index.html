@@ -7688,7 +7688,8 @@ const EGGS = [
   ["fantastic", "Fantastic", "Four of them, four powers, one burst of taps each.", "Tap the name in The Fantastic Four box four times quickly. Each run of four shows one power; see all four.", 2],
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
   ["doom", "Doom", "Hold on to Doomsday.", "Hold any Avengers: Doomsday title.", 2],
-  ["postcredits", "Post-credits", "Stay until the very end.", "When the Chapters, Sacred Timeline or Characters page reads Multiverse Completed, scroll to the very end of it and wait.", 2]
+  ["postcredits", "Post-credits", "Stay until the very end.", "When the Chapters, Sacred Timeline or Characters page reads Multiverse Completed, scroll to the very end of it and wait.", 2],
+  ["civilwar", "Civil War", "Two of them split, and everyone takes a side.", "After Captain America: Civil War, in the Network, open how Steve and Tony are connected, hold their names, then tap the room.", 1]
 ];
 // each Avengers film is a mission, named for what the team had to do (Doomsday and Secret Wars keep their titles until they are out)
 const MISSION_NAMES = { "The Avengers": "Save New York", "Avengers: Age of Ultron": "Stop Ultron", "Avengers: Infinity War": "Face Thanos", "Avengers: Endgame": "Assemble" };
@@ -8027,7 +8028,8 @@ function rateSec() {
     <h3 class="ract"><span>${A[2]() ? A[1] : "Act " + A[0]}</span><span class="hf-pager"><button type="button" data-rpg="-1" aria-label="Previous Act">&#8249;</button><span class="hf-pgn">${rPg + 1}/${SL_ACTS.length}</span><button type="button" data-rpg="1" aria-label="Next Act">&#8250;</button></span></h3>
     <div class="rcells">${chs.map(cell).join("")}</div>${list}</section>`;
 }
-let fileOpen = false, hfPage = 1, hfChPg = 1; const achTaps = {}, HF_PAGES = 4;
+let fileOpen = false, hfPage = 1, hfChPg = 1; const achTaps = {}, HF_PAGES = Math.max(1, Math.ceil(EGGS.length / 16));   // the eggs split as evenly as
+// they can over as many pages as keep each to sixteen or fewer, a page more whenever they'd grow past it (owner, 14 November 2026)
 // put new markup in place, swapping only the top-level blocks that changed, so everything else on screen stays exactly as it was
 function swapIn(host, html) {
   const tmp = document.createElement("div"); tmp.innerHTML = html;
