@@ -1673,11 +1673,12 @@ body.tm .whih, body.tm #tbProg{ visibility:hidden; }   /* the band takes the tic
   /* stage 2: an open box keeps one column (owner, 13 November 2026: "Character boxes don't need two columns. Why do I need to look at
      the title on the left hand side?"). Sideways the height is what's short and the titles are what you use: the head is compact (the name
      smaller, the label, quote and count on one line) and scrolls away with the list, so the whole screen goes to the titles */
-  #panel .pin{ max-width:860px; }
-  #panel .pin h2.big{ font-size:clamp(24px, 3.2vw, 36px) !important; }
-  #panel .pin > .psub, #panel .pin > .pquote.cq, #panel .pin > .ptxt{ display:inline-block; vertical-align:baseline; margin:6px 18px 0 0; max-width:none; }
-  #panel .pin > .pquote.cq{ font-size:15px; }
-  #panel .pin > .pbar{ margin:8px 0 10px; }
+  /* the box's own copies, that the Watcher's egg breaks and the other reality it shows, are laid out the same way, or they jump when they take over from it */
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin{ max-width:860px; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin h2.big{ font-size:clamp(24px, 3.2vw, 36px) !important; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin > :is(.psub, .pquote.cq, .ptxt){ display:inline-block; vertical-align:baseline; margin:6px 18px 0 0; max-width:none; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin > .pquote.cq{ font-size:15px; }
+  :is(#panel, .fx-panelcopy, .fx-altbox) .pin > .pbar{ margin:8px 0 10px; }
 }
 
 /* MOCKUP BEGIN play */
@@ -13282,11 +13283,12 @@ function shatter(x, y) {
     const mid = sh._mid, d = R * (1.1 + Math.random() * .4), dx = Math.cos(mid) * d, dy = Math.sin(mid) * d + R * .25, rot = (Math.random() - .5) * 70;
     sh.animate([{ transform: "none" }, { transform: `translate(${dx * .06}px,${dy * .06}px) rotate(${rot * .04}deg)`, offset: .2 }, { transform: `translate(${dx}px,${dy}px) rotate(${rot}deg)` }], { duration: 1700, easing: "cubic-bezier(.5,0,.6,1)", fill: "forwards" }).onfinish = () => sh.remove(); });
   const clearCracks = () => { cracks.splice(0).forEach(c => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: "forwards" }).onfinish = () => c.remove()); };
-  // 1. the Watcher's box cracks and falls away, and the other reality is right behind it
-  const angs1 = crackAt(x, y, 0);
+  // 1. the Watcher's box cracks and falls away, and the other reality is right behind it. Its pieces go in while it cracks, matching it exactly,
+  // so they're drawn before the other reality is: put in at the break, a phone showed the other reality for a frame first, a blink
+  const angs1 = crackAt(x, y, 0), shards1 = cut(x, y, angs1, sh => { panelBg(sh); sh.appendChild(pinCopy()); });
   setTimeout(() => {
     document.body.appendChild(alt);
-    fall(cut(x, y, angs1, sh => { panelBg(sh); sh.appendChild(pinCopy()); }));
+    fall(shards1);
     clearCracks(); haptic([80, 40, 120]);
     // 2. a few seconds there; then it cracks too, and shatters back to the Watcher. Its pieces go in once the Watcher's have fallen away
     // (both sets at once are more full-screen layers than a phone can draw, and it drew pieces without their backgrounds), stacked over it,
