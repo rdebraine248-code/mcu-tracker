@@ -15,7 +15,7 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `cba03a9`** and matches the working branch's build exactly. **Nothing is waiting on "push".** Full suite: 39 of 39
+- **main is at `cba03a9`** and matches the working branch's build exactly. **Waiting on "push": a character log opened from the Network covers the dock** (it stood on top: `body.jumped .dock` beat the log; now `body.jumped:has(.dossier.plog:not([hidden])) .dock` drops it, as from Story). Full suite: 39 of 39
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
   ct35, content and swtest; ct67 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
