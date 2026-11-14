@@ -46,6 +46,16 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
   changed (plus the room's layout, as S.W.O.R.D. gains a member); merge.py now reruns with no change to anything. Full suite 38
   of 38 on the fixed build (12.5 minutes); test build v192.
 - **Open with the owner (don't act without a yes):**
+  - **The Civil War, a Network egg (test build v212; hub-src's `civilWar`, the owner's idea, 14 November 2026).** Hold the names on Tony
+    and Steve's card (How they're connected): the card goes, and everyone you've met in the Sacred Timeline crosses the floor; Steve and
+    Tony face off in front, the Leipzig airport teams line up behind them (Cap: Bucky, Sam, Wanda, Clint, Scott, Sharon; Iron Man:
+    Natasha, Rhodey, T'Challa, Vision, Peter, Thaddeus and Everett Ross), Zemo alone behind the gap, everyone else on a side at random
+    in the two crowds; blue and red, "Team Cap · Civil War · Team Iron Man" across the top; no group bubbles or names while it plays
+    (`CW`). A tap or ten seconds and they go home. Built in hub-src without a mockup switch (network.html on main would carry it): a
+    main push needs the owner's yes and its Agent File entry. **The egg plan:** an egg in every main file (owner: "EVERY (or most) main
+    characters/bad guys/items get an index egg (even if its moving the character box ones over) then a few other supporting/minor ones
+    too to make it truly secret"); tier counts by titles a file is in: 5+ titles 107 (Compound 54, Raft 10, Collection 43), 3+ 302.
+    The Agent File already tracks every egg with locked rows and hints; at this size it needs a section per index.
   - **The Play page (test build, `MOCKUP BEGIN play`; owner, 13 November 2026: "a page to play as though this datapad is in universe
     ... fully interactive play place"; asked which room: "Mock them all up so I can decide what to keep/cut/improve").** A Play
     button on the test build's dock opens four rooms as tabs, each open once its title is watched: the Workshop (the Collection's

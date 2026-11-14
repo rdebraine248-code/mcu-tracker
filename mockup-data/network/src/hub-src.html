@@ -224,6 +224,8 @@ header #hSix svg{ flex:none; } header #hSix:focus-visible{ outline:2px solid var
   html.land #card #sConn{ display:none; }
   html.land #card #lBody{ max-height:none; overflow:visible; -webkit-mask-image:none; mask-image:none; }
 }
+#cwTags{ position:fixed; left:0; right:0; top:calc(var(--hb, 120px) + 4px); z-index:6; display:flex; justify-content:space-between; align-items:center; padding:0 20px; pointer-events:none; font:400 22px/1 var(--display); letter-spacing:1px; text-transform:uppercase; text-shadow:0 0 14px rgba(0,0,0,.9); }
+#cwTags span{ font:11px/1 var(--mono); letter-spacing:3px; color:#9FB2CC; }
 </style>
 
 <canvas id="room" aria-label="Everyone you've met, standing in their groups."></canvas>
@@ -401,7 +403,7 @@ fold(Z, 3, p => [p.hx, p.hy], []);
 
 // the camera, and the watch-face lens: whoever is near the middle of the screen is full size and named, the rest shrink toward the edges
 let cam = { x: 0, y: 0 }, zoom = 1, vel = { x: 0, y: 0 }, sel = null, link = null, glide = null;
-let MUT = null;
+let MUT = null, CW = null;   // CW: the Civil War egg while it plays (a mockup)
 let EARTH_ANIM = 'fade', EPOP = {}; self.netEarthAnim = v => { EARTH_ANIM = v; };   // EPOP: a new Earth's arrival, [first pop, last landing], set when the reveal starts   // how a new Earth arrives (three to try, owner, 6 November 2026)   // a picked pair's mutual connections (mutFill): lit in the room, with a thread to each of the two
 const start = N.find(p => p.n === 'Steve Rogers') || N[0]; cam.x = start.wx; cam.y = start.wy;
 function lens(p, t) {
@@ -416,8 +418,8 @@ const ZMIN = .25, ZMAX = 1.7, FOLD = [.56, .84];
 const unfold = () => { const a = Math.max(0, Math.min(1, (zoom - FOLD[0]) / (FOLD[1] - FOLD[0]))); return a * a * (3 - 2 * a); };
 let tsel = null;   // a title whose people are gathered, or null
 const busy = () => sel || tsel != null;
-const groups = () => (busy() ? clusters : Z).filter(z => z.fold);
-const groupOf = p => { const z = busy() ? p.cl : p.z; return z && z.fold ? z : null; };
+const groups = () => CW ? [] : (busy() ? clusters : Z).filter(z => z.fold);
+const groupOf = p => { if (CW) return null; const z = busy() ? p.cl : p.z; return z && z.fold ? z : null; };
 function gview(z, t) {   // a group's bubble on screen
   const c = lens({ wx: z.gx, wy: z.gy, ph: 0 }, t), e = lens({ wx: z.gx + z.gr, wy: z.gy, ph: 0 }, t);
   return { x: c.x, y: c.y, r: Math.max(5, Math.hypot(e.x - c.x, e.y - c.y) * .92) };
@@ -432,7 +434,7 @@ function crewColors() { const done = [];
     const rad = Math.max(30, ...z.cells.map(([x, y]) => Math.hypot(x, y))), near = done.filter(o => Math.hypot(o.x - z.x, o.y - z.y) < o.rad + rad + S * 2.2).map(o => o.col);
     let k = hcode(z.name) % CPAL.length; for (let n = 0; n < CPAL.length && near.includes(CPAL[k]); n++) k = (k + 1) % CPAL.length;
     z.col = CPAL[k]; z.rad = rad; done.push(z); }); }
-const ringOf = p => { if (sel && p.cl && p !== sel) return KC[p.cl.rel] || NOCREW; return (p.z && p.z.col) || NOCREW; };
+const ringOf = p => { if (CW && CW.col.has(p.i)) return CW.col.get(p.i); if (sel && p.cl && p !== sel) return KC[p.cl.rel] || NOCREW; return (p.z && p.z.col) || NOCREW; };
 crewColors();   /* the built room's colours */
 const fought = (a, b) => a.F.includes(b.i);
 function wrap(text, w, max) { const out = []; let line = '';
@@ -456,7 +458,7 @@ function frame(t) {
   const pos = N.map(p => { const q = lens(p, t), z = groupOf(p), c = z && gv.get(z);
     if (c && e < 1 && p !== sel && !(GAME && gameMem.has(p.i))) { q.x = c.x + (q.x - c.x) * e; q.y = c.y + (q.y - c.y) * e; } return q; });
   // the Earth districts: a big faint bubble round each Earth's crews, its name round the inside of its edge (only in the room, not in someone's web)
-  if (DIST.length && !busy()) { const C = []; DIST.forEach(d => { if (!d.L.length) return;   // round the spot it was laid out on, wide enough for where its people stand on screen (the lens pulls the edges in)
+  if (DIST.length && !busy() && !CW) { const C = []; DIST.forEach(d => { if (!d.L.length) return;   // round the spot it was laid out on, wide enough for where its people stand on screen (the lens pulls the edges in)
     const o = lens({ wx: d.x, wy: d.y }, 0); let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; d.L.forEach(p => { const q = pos[p.i]; x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y); });
     const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;   // round its people as they stand, so it moves with them (owner: it slid against its bubbles)
     let R = 0; d.L.forEach(p => { R = Math.max(R, Math.hypot(pos[p.i].x - cx, pos[p.i].y - cy) + 21 * pos[p.i].s); });
@@ -480,7 +482,7 @@ function frame(t) {
       g.globalAlpha = 1; if (es !== 1) g.restore(); }); }   /* inside its own bubble, so a name never strays onto the Earth next door */
   // the floor: each crew's name written where it stands; a lone person's crew only once you're close (owner, November 2026: any group of two
   // or more is named at normal zoom, so the Dora Milaje read as a group from Black Panther on)
-  if (e > 0) (busy() ? G : Z.filter(z => z.fold || z.L.length >= 2)).forEach(z => { const c = lens({ wx: z.cx, wy: z.cy + z.ly, ph: 0 }, 0);   // a pair is named too, though only three or more fold into a bubble
+  if (e > 0 && !CW) (busy() ? G : Z.filter(z => z.fold || z.L.length >= 2)).forEach(z => { const c = lens({ wx: z.cx, wy: z.cy + z.ly, ph: 0 }, 0);   // a pair is named too, though only three or more fold into a bubble
     if (!z.L.length || z.name === 'Independent' || c.s < .32 || c.y < 130 || c.y > H - 20 || (!z.big && z.L.length < 2 && c.s < .8) || (busy() && z.L.length < 2)) return;   // around a lock, a lone person's crew shows when zoomed out
     // a new group's name waits for its people (owner, November 2026: "they should pop in or fade in after"): it fades in once the last of
     // them has landed, so the floor is never named before anyone stands on it
@@ -1188,6 +1190,51 @@ $('dBody').addEventListener('click', e => { const S = SIX; if (!S || S.none) ret
 // Six Degrees is found, not shown (owner, 7 November 2026: "hidden somewhere else so it's a discovery"): hold the Network's title. It's
 // played in the room itself, tapping your way across it ("as I tap on each, it becomes a chain")
 let SIX_ON = true; self.netMockOn = () => { SIX_ON = true; };
+// ---------- the Civil War (a mockup, owner, 14 November 2026: "tony and steve's relationship makes the network split down the middle like civil
+// war with everyone taking sides (maybe by random unless they were in the movie then those go their actual sides) and the movie characters
+// go to the front so its staged tony and steve then their real team then the remaining network random team"). Hold the names on Tony and
+// Steve's card (How they're connected). Everyone you've met in the Sacred Timeline crosses the floor: Steve and Tony face off in front,
+// the airport's two teams line up behind them as they stood at Leipzig, the Rosses with the Accords and Sharon with Steve, Zemo alone
+// in the middle at the back, and everyone else takes a side at random behind them. A tap anywhere, or ten seconds, and they all go home
+const CW_CAP = ['steve-rogers', 'bucky-barnes', 'sam-wilson', 'wanda-maximoff', 'clint-barton', 'scott-lang', 'sharon-carter'];
+const CW_IRON = ['tony-stark', 'natasha-romanoff', 'james-rhodes', 'tchalla', 'vision', 'peter-parker', 'thaddeus-ross', 'everett-ross'];
+const CW_C = ['#5B8DEF', '#E0483A'];
+function civilWar() {
+  if (CW || UNI !== 'mcu') return; const byId = id => N.find(p => p.id === id && p.vis);
+  const steve = byId('steve-rogers'), tony = byId('tony-stark'); if (!steve || !tony) return;
+  if (sel || link) home();   // the card goes: the room is the scene
+  const t = performance.now(), room = N.filter(p => p.vis && p.u === 'mcu' && !SNAPS.has(p.id));
+  const cx = (steve.hx + tony.hx) / 2, cy = (steve.hy + tony.hy) / 2, col = new Map(), place = [];
+  const team = (L, sd) => L.map(byId).filter(Boolean);
+  const capT = team(CW_CAP, -1), ironT = team(CW_IRON, 1), zemo = byId('helmut-zemo');
+  // the front: Steve and Tony, a few paces apart, facing each other
+  place.push([steve, cx - 44, cy, -1, 0], [tony, cx + 44, cy, 1, 0]);
+  // the airport: each team in two short rows behind its leader
+  [[capT.slice(1), -1], [ironT.slice(1), 1]].forEach(([L, sd]) => L.forEach((p, k) => place.push([p, cx + sd * (100 + Math.floor(k / 2) * 50), cy + (k % 2 ? 30 : -30), sd, 1 + k])));
+  if (zemo) place.push([zemo, cx, cy + 190, 0, 12]);
+  // everyone else: a side at random, packed in behind, nearest the front first
+  const set = new Set(place.map(q => q[0])), rest = room.filter(p => !set.has(p)).sort(() => Math.random() - .5);
+  const cells = sd => { const C = []; for (let r = 0; r < 60; r++) for (let q = -40; q <= 40; q++) { const x = cx + sd * (300 + r * 48 + (q & 1) * 24), y = cy + q * 44; C.push([x, y, Math.hypot(r * 48, q * 44 * 1.6)]); } return C.sort((a, b) => a[2] - b[2]); };
+  const L = cells(-1), R = cells(1); let li = 0, ri = 0;
+  rest.forEach((p, k) => { const sd = k % 2 ? 1 : -1, c = sd < 0 ? L[li++] : R[ri++]; place.push([p, c[0], c[1], sd, 14 + c[2] / 60]); });
+  place.forEach(([p, x, y, sd, d]) => { p.tx = x; p.ty = y; p.go = t + 200 + d * 45 + Math.random() * 120; if (sd) col.set(p.i, CW_C[sd < 0 ? 0 : 1]); });
+  glide = { t0: t, x0: cam.x, y0: cam.y, x1: cx, y1: cy + 40, z0: zoom, z1: Math.max(.72, Math.min(1, W / 560)) };   // both sides in view, everyone as themselves (no group bubbles while it plays)
+  CW = { col, t0: t, room };
+  const tag = document.createElement('div'); tag.id = 'cwTags'; tag.innerHTML = '<b style="color:#8DB2FF">Team Cap</b><span>Civil War</span><b style="color:#FF7A6B">Team Iron Man</b>'; document.body.appendChild(tag);
+  tag.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 900, fill: 'both' });
+  if (navigator.vibrate) try { navigator.vibrate([30, 60, 30, 60, 80]); } catch (e) {}
+  const end = () => { if (!CW) return; const t1 = performance.now(); removeEventListener('pointerdown', end, true); clearTimeout(CW.tm);
+    CW.room.forEach(p => { p.tx = p.hx; p.ty = p.hy; p.go = t1 + Math.random() * 500; });
+    tag.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }).onfinish = () => tag.remove();
+    setTimeout(() => { CW = null; }, 1100); };
+  setTimeout(() => addEventListener('pointerdown', end, true), 1500); CW.tm = setTimeout(end, 10000);
+}
+self.netCivilWar = civilWar;
+// the hold: on Tony and Steve's card, press the two names for a moment
+{ let hold = null; const nm = $('lName');
+  nm.addEventListener('pointerdown', () => { const a = sel && sel.id, b = link && link.id; if (!((a === 'steve-rogers' && b === 'tony-stark') || (a === 'tony-stark' && b === 'steve-rogers'))) return;
+    hold = setTimeout(() => { hold = null; civilWar(); }, 800); });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(e => nm.addEventListener(e, () => { clearTimeout(hold); hold = null; })); }
 self.netLandOn = () => { document.documentElement.classList.add('land'); };   // the app turns its landscape layout on
 const LANDQ = matchMedia('(orientation: landscape) and (max-height: 540px)'), landOn = () => document.documentElement.classList.contains('land') && LANDQ.matches;
 const landCard = () => landOn() ? [(card.offsetWidth + 24) / 2, 0] : [0, 70];
