@@ -447,7 +447,7 @@ function frame(t) {
   const kFight = CW && (CW.phase === 'duel' || CW.phase === 'sea');   // the Civil War's fighters move sharp, not gliding
   for (const p of N) { if (p.cw) { const w = p.cw, k = (t - w.t0) / w.d; if (k < 0) continue; if (k < 1) { const e2 = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; p.wx = w.x0 + (w.x1 - w.x0) * e2; p.wy = w.y0 + (w.y1 - w.y0) * e2; continue; } p.wx = w.x1; p.wy = w.y1; p.cw = null; }   // the Civil War: walking to a spot
     if (t < p.go) continue; const k = REDUCED ? 1 : kFight && CW.side.has(p.i) ? .3 : .085; p.wx += (p.tx - p.wx) * k; p.wy += (p.ty - p.wy) * k; }
-  if (glide) { const k = Math.min(1, (t - glide.t0) / (glide.ms || 560)), e = glide.ms ? (k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2) : 1 - Math.pow(1 - k, 3); cam.x = glide.x0 + (glide.x1 - glide.x0) * e; cam.y = glide.y0 + (glide.y1 - glide.y0) * e;
+  if (glide) { const k = Math.max(0, Math.min(1, (t - glide.t0) / (glide.ms || 560))), e = glide.ms ? (k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2) : 1 - Math.pow(1 - k, 3); cam.x = glide.x0 + (glide.x1 - glide.x0) * e; cam.y = glide.y0 + (glide.y1 - glide.y0) * e;
     if (glide.z1) zoom = glide.z0 + (glide.z1 - glide.z0) * e; if (k >= 1) glide = null; }
   else if (!drag && mapK() < .5) { cam.x -= vel.x; cam.y -= vel.y; vel.x *= .92; vel.y *= .92; }
   if (!glide && mapK() < .5) { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; const b = busy(), L = b ? gathered.map(j => N[j]).concat(sel ? [sel] : []) : N;
@@ -1216,7 +1216,7 @@ function civilWar() {
       sh.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, easing: 'ease-out', fill: 'forwards' }).onfinish = () => sh.remove(); } catch (e) {}
     home(); N.forEach(p => { p.tx = p.wx; p.ty = p.wy; p.go = 0; }); }
   const room = N.filter(p => p.vis && p.u === 'mcu' && !SNAPS.has(p.id));
-  const cx = (steve.hx + tony.hx) / 2, cy = (steve.hy + tony.hy) / 2, col = new Map(), place = [], side = new Map();
+  const cx = cam.x, cy = cam.y - 40, col = new Map(), place = [], side = new Map();   // the stage is where you're already looking: the camera never moves (owner: it "jumps the bubbles down")
   const capT = CW_CAP.map(byId).filter(Boolean), ironT = CW_IRON.map(byId).filter(Boolean), zemo = byId('helmut-zemo');
   place.push([steve, cx - 50, cy, -1, 0], [tony, cx + 50, cy, 1, 0]);
   // each team in a half circle behind its leader
@@ -1231,7 +1231,7 @@ function civilWar() {
   rest.forEach((p, k) => { const sd = k % 2 ? 1 : -1, c = sd < 0 ? L[li++] : R[ri++]; place.push([p, c[0], c[1], sd, 14 + c[2] / 60]); });
   place.forEach(([p, x, y, sd, d]) => { cwMove(p, x, y, t + 700 + d * 40 + Math.random() * 160, true); if (sd) { col.set(p.i, CW_C[sd < 0 ? 0 : 1]); side.set(p.i, sd); } });
   if (zemo) col.set(zemo.i, '#3B4152');
-  glide = { t0: t + 250, x0: cam.x, y0: cam.y, x1: cx, y1: cy + 40, z0: zoom, z1: Math.max(.72, Math.min(1, W / 560)), ms: 1600 };   // the card slides away first, then a slow drift
+  setTimeout(() => { if (CW && CW.t0 === t) glide = { t0: performance.now(), x0: cam.x, y0: cam.y, x1: cam.x, y1: cam.y, z0: zoom, z1: Math.max(.72, Math.min(1, W / 560)), ms: 2200 }; }, 1500);   // a slow pull back, once they're walking
   const fx = document.createElement('canvas'); fx.id = 'cwFx'; document.body.appendChild(fx);
   const tag = document.createElement('div'); tag.id = 'cwTags'; tag.innerHTML = '<b style="color:#8DB2FF">Team Cap</b><span>vs</span><b style="color:#FF7A6B">Team Iron Man</b>'; document.body.appendChild(tag);   // the title as the film's own campaign put it: Team Cap vs Team Iron Man
   tag.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: 1800, fill: 'both' });
