@@ -15,9 +15,11 @@ had to be edited twice; it's gone, and its checklist is below). Don't make anoth
 
 ## Where things stand (12 November 2026)
 
-- **main is at `cba03a9`** and matches the working branch's build exactly. **Waiting on "push": a character log opened from the Network covers the dock** (it stood on top: `body.jumped .dock` beat the log; now `body.jumped:has(.dossier.plog:not([hidden])) .dock` drops it, as from Story). Full suite: 39 of 39
+- **main is at `cba03a9`** and matches the working branch's build exactly. **Waiting on the suite, then pushing (owner: "Push"): a character log covers the dock however it was opened** (from the Network, a
+  file or Paths the dock stood on top of it, `body.jumped .dock` beating the log; now `jumpCls` sets `jumpprof` when a log is the page on
+  top and the dock drops under it; a file opened over a log still shows the dock). ct68 checks seven ways in, upright and sideways. Full suite: 39 of 39
   (`mockup-data/tools/suite.sh <logname>`, logs to `$LOGDIR` or /tmp; it runs check, smoke, feat, ct32, ct36, ct37b, ct38 to ct66,
-  ct35, content and swtest; ct67 added 13 November 2026).
+  ct35, content and swtest; ct67 and ct68 added 13 November 2026).
 - **Build everything:** `bash mockup-data/tools/rebuild.sh "note for the test build"` (main build with the Network and Earth map put in,
   the Network rebuild in `network/src/prof`, the test build, the split `out/mainroot`). Then the suite, then (only on the owner's
   "push") the main push in "Build and push" below. `mockup-data/tools/lastgroup.js` dumps every file's runtime groups and steps (used to
