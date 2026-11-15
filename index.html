@@ -5126,9 +5126,9 @@ function renderCx() {
     let pst = null, ph = null;
     v.innerHTML = `<div class="co co-rec uf cx"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>The Collection</button>
       ${ufHead("cx", o, S, { label: "Collection lot", no: cxNo(o).replace(/^LOT /, ""), st, sc: CX_ST[st], mark: `<span class="cx-obj">${cxGlyph(o.c)}</span>`, live: CX_LIVE[o.id] ? o.id : "", name: cxName(o), desc: cxKind(o), facts: ufObjFacts(o, S) })}
-      ${(X => (X.quote || X.props ? `<div class="co-h">Properties</div>${X.quote ? `<p class="uf-quote">${esc(X.quote)}</p>` : ""}${X.props ? `<p class="uf-txt">${esc(X.props)}</p>` : ""}` : ""))(FILEX[o.id] || {})}
+      ${(X => (X.quote || X.props ? `<div class="co-h">Properties</div>${X.quote ? `<p class="uf-quote">${esc(X.quote)}</p>` : ""}${X.props ? `<p class="uf-txt">${esc(X.props)}</p>` : ""}` : ""))({ quote: fxOne((FILEX[o.id] || {}).quote), props: fxList((FILEX[o.id] || {}).props).join(" ") })}
       ${(hands.length || ufAlso(o).length) && !cxSpec(o) ? `<div class="co-h">Who's held it</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}${ufAlso(o).map(([n, a]) => a ? `<button type="button" data-cxo="A:${esc(a.id)}">${esc(n)}</button>` : `<button type="button" disabled>${esc(n)}</button>`).join("")}</div>` : ""}
-      ${(X => X.cont ? `<div class="co-h">Containment</div><p class="uf-txt">${esc(X.cont)}</p>` : "")(FILEX[o.id] || {})}
+      ${(X => X.cont ? `<div class="co-h">Containment</div><p class="uf-txt">${esc(X.cont)}</p>` : "")({ cont: fxOne((FILEX[o.id] || {}).cont) })}
       <div class="co-h">${cxSpec(o) ? "Field notes" : "Chain of custody"}</div>
       <ol class="co-chain cx-chain">${S.map(x => { if (x[4]) return `<li class="s-past"><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${x[3] && x[3] !== "Nobody" ? `<span class="cx-hd">${esc(x[3])}</span>` : ""}<span class="rf-chg s-past">${esc(x[4])}</span></small></li>`;
         const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
@@ -5353,6 +5353,11 @@ const uniTile = (o, cls) => { const n = rfUniName(RF_UNI.find(u => u[0] === rfUn
 const FILEX = /*FILEX*/{};
 // a person on file in both indexes is one person: the Raft file reads the Compound file's entry
 const fxOf = o => FILEX[o.id] || (() => { const a = ALLIES.find(x => x.rf === o.id); return (a && FILEX[a.id]) || {}; })();
+// spoiler-free (owner, 15 November 2026: "everything should be spoiler free"): every researched value is a stage, [value, title], shown only
+// once that title is watched; Index, Identity, Origin, Containment and the quote show their latest open stage, Abilities, Properties and
+// Who's held it every open one
+const fxList = L => (L || []).filter(x => Array.isArray(x) && atlSeenT(x[1])).map(x => x[0]);
+const fxOne = L => fxList(L).pop() || "";
 const ufTwin = o => ALLIES.includes(o) ? THREATS.find(t => t.id === o.rf) : ALLIES.find(a => a.rf === o.id);
 // the reports a file is in, as far as you've watched (and only once Damage Control is found)
 const ufReports = (o, tg) => { if (!dcFound()) return []; const tw = tg !== "C" && ufTwin(o), ids = new Set([o.id, tw && tw.id].filter(Boolean));
@@ -5367,10 +5372,10 @@ const ufWhere = (tg, o, S) => {   // a person on file in both indexes: their lat
   for (let i = L.length - 1; i >= 0; i--) { const [g, f, x] = L[i]; if (x[1] !== lt) continue; const e = AT_CASE[g + ":" + f.id + ":" + f.st.indexOf(x)] || {};
     const at = (e.at || []).map(k => [k, atPlace(k)]).filter(([, r]) => r && atlLit(r.p)); if (at.length) return at[at.length - 1]; } return null; };
 function ufObjFacts(o, S) { const X = FILEX[o.id] || {}, R = ufReports(o, "C"), uniN = rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))), e = uniN !== "[ Classified ]" && earthOfFile(o);
-  return [["Kind", esc(cxTyName(o.c))], [cxSpec(o) ? "Home world" : "Held by", esc(cxHolder(S))], ["Origin", X.origin ? esc(X.origin) : ""], ["Universe", uniN + (e ? ` · ${esc(e)}` : ""), 1],
+  return [["Kind", esc(cxTyName(o.c))], [cxSpec(o) ? "Home world" : "Held by", esc(cxHolder(S))], ["Origin", fxOne(X.origin) ? esc(fxOne(X.origin)) : ""], ["Universe", uniN + (e ? ` · ${esc(e)}` : ""), 1],
     ["Incident reports", R.length ? `<button type="button" class="uf-go" data-ufinc="C:${esc(o.id)}">${R.length}<em aria-hidden="true">&#8250;</em></button>` : ""],
     ["Your signature", o.id === "sokovia-accords" && state.accords ? (state.accords.v === "signed" ? "On file" : "Refused") : ""]]; }
-const ufAlso = o => ((FILEX[o.id] || {}).alsoHeld || []).map(n => [n, ALLIES.find(a => cpName(a) === n && ixFile("A", a.id))]);
+const ufAlso = o => fxList((FILEX[o.id] || {}).alsoHeld).map(n => [n, ALLIES.find(a => cpName(a) === n && ixFile("A", a.id))]);
 function ufHead(kind, o, S, p) {   // p: { label, no, st, sc, mark, name, desc, facts: [[label, html, wide]], live }
   const fact = ([k, v, w]) => v ? `<div${w ? ' class="w"' : ""}><dt>${esc(k)}</dt><dd>${v}</dd></div>` : "";
   return `<div class="uf-card s-${p.sc}"><div class="uf-top"><span>${esc(p.label)} ${esc(p.no)}</span><b class="uf-st">${esc(p.st)}</b></div>
@@ -5385,12 +5390,12 @@ function ufPath(kind, o, S0) { const tw = kind !== "cx" && ufTwin(o), S = tw ? S
 // the facts every person's card shares; the Raft adds the real name behind a codename and the threat class
 function ufPersonFacts(tg, o, S) { const X = fxOf(o), al = alNow(o), rn = tg === "T" ? rnNow(o) : [], R = ufReports(o, tg), bx = boxOfFile(o), log = bx && boxShown(bx) ? DATA.chars.find(c => c.id === bx) : null;
   const uniN = rfUniName(RF_UNI.find(u => u[0] === rfUniOf(o))), e = uniN !== "[ Classified ]" && earthOfFile(o);
-  return [["Aliases", al.length ? al.map(esc).join(" · ") : "", 1], ["Real name", rn.length ? esc(rn[0]) : "", 1], ["Index", X.idx ? esc(X.idx) : ""], ["Identity", X.ident ? esc(X.ident) : ""],
+  return [["Aliases", al.length ? al.map(esc).join(" · ") : "", 1], ["Real name", rn.length ? esc(rn[0]) : "", 1], ["Index", fxOne(X.idx) ? esc(fxOne(X.idx)) : ""], ["Identity", fxOne(X.ident) ? esc(fxOne(X.ident)) : ""],
     ["Threat", tg === "T" && rfClass(o) ? esc(rfClass(o)) : ""], ["Universe", uniN + (e ? ` · ${esc(e)}` : ""), 1],
     ["Incident reports", R.length ? `<button type="button" class="uf-go" data-ufinc="${tg}:${esc(o.id)}">${R.length}<em aria-hidden="true">&#8250;</em></button>` : ""],
     ["Character log", log ? `<button type="button" class="uf-go" data-xprof="${log.id}">${esc(log.title)}<em aria-hidden="true">&#8250;</em></button>` : ""]]; }
 // the sections a person's file shares, after Teams/Factions: registrations, then (in the renderer) what's on file and where they were last
-const ufAbilities = o => { const X = fxOf(o); return X.ab && X.ab.length ? `<div class="co-h">Abilities</div><p class="uf-txt">${X.ab.map(esc).join(" · ")}</p>` : ""; };
+const ufAbilities = o => { const A = fxList(fxOf(o).ab); return A.length ? `<div class="co-h">Abilities</div><p class="uf-txt">${A.map(esc).join(" · ")}</p>` : ""; };
 // spoiler-safe (owner, 15 November 2026: "Sokovia and blip line item are hidden until their movies right"): the Accords once Civil War is
 // watched; the Blip once you've reached one of this person's steps from Infinity War on (either file), so a later reveal isn't given early
 const UF_IW = () => DATA.timeline.findIndex(e => e.t === "Avengers: Infinity War");

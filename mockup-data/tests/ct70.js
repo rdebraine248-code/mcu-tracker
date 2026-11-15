@@ -17,9 +17,13 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
     state.eggs = Object.assign(state.eggs || {}, { compound: 1, raft: 1, collector: 1, damagecontrol: 1 }); persist(); renderAll(); setInterval(() => { try { sayQ.length = 0; } catch (e) {} }, 50); });
   // the fixed terms
   const bad = await p.evaluate(() => { const IDX = ['Human', 'Enhanced', 'Super soldier', 'Mutant', 'Inhuman', 'Sorcerer', 'Witch', 'Werewolf', 'Vampire', 'Artificial intelligence', 'Synthezoid', 'Robot', 'Cyborg', 'Asgardian', 'Frost Giant', 'Eternal', 'Deviant', 'Celestial', 'Kree', 'Skrull', 'Alien', 'Cosmic being'];
-    return Object.entries(FILEX).filter(([id, x]) => (x.idx && !IDX.includes(x.idx)) || (x.ident && !['Public', 'Secret', 'Exposed', 'Forgotten'].includes(x.ident)) || (x.accords && !['Signed', 'Not signed'].includes(x.accords)) || (x.blip && !['Blipped', 'Not blipped'].includes(x.blip))
+    // every researched value is a stage [value, title] whose title the app knows (everything is watched here, so each must be open)
+    const stg = L => Array.isArray(L) && L.every(x => Array.isArray(x) && x.length === 2 && typeof x[0] === 'string' && atlSeenT(x[1]));
+    return Object.entries(FILEX).filter(([id, x]) => ['idx', 'ident', 'ab', 'origin', 'props', 'cont', 'quote', 'alsoHeld'].some(k => k in x && !stg(x[k]))
+      || (x.idx || []).some(s => !IDX.includes(s[0])) || (x.ident || []).some(s => !['Public', 'Secret', 'Exposed', 'Forgotten'].includes(s[0]))
+      || (x.accords && !['Signed', 'Not signed'].includes(x.accords)) || (x.blip && !['Blipped', 'Not blipped'].includes(x.blip))
       || ![...ALLIES, ...THREATS, ...COLLX].some(o => o.id === id)).map(([id]) => id); });
-  ok(!bad.length, 'researched fields off their fixed terms, or for no file: ' + bad.join(', '));
+  ok(!bad.length, 'researched fields off their fixed terms, not staged by a known title, or for no file: ' + bad.join(', '));
   const open = async (m, tg, id) => { await p.evaluate(m => { try { closeColl(true); } catch (e) {} openColl(m); }, m); await sleep(300); await p.evaluate(([tg, id]) => fileGo(tg, id), [tg, id]); await sleep(700); };
   const card = () => p.evaluate(() => { const r = document.querySelector('#collView .uf'), c = r && r.querySelector('.uf-card');
     return c ? { kind: r.className, top: c.querySelector('.uf-top span').textContent, st: c.querySelector('.uf-st').textContent, name: c.querySelector('h3').textContent,
@@ -52,5 +56,7 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
   // the Accords only once Civil War is watched, the Blip only once you've reached the person after the Snap
   await p.evaluate(() => { const L = DATA.timeline.map(e => e.t), n = L.indexOf('Avengers: Age of Ultron'); state.checks = {}; DATA.chapters.forEach(c => c.items.forEach(i => { const k = L.indexOf(i.t); if (k >= 0 && k <= n) state.checks[ck(c, i.t)] = true; })); persist(); renderAll(); });
   await open('cp', 'A', 'wanda-maximoff'); ok(!(await p.evaluate(() => document.querySelector('#collView .uf-rows'))), 'Accords or Blip shown before their films');
+  await open('cp', 'A', 'wanda-maximoff'); c = await card(); ok(c && c.facts.Index === 'Enhanced' && !/Reality warping/.test(await p.evaluate(() => (document.querySelector('#collView .uf-txt') || {}).textContent || '')), 'before WandaVision her file already shows what WandaVision reveals ' + JSON.stringify(c && c.facts));
+  await open('coll', 'C', 'mjolnir'); ok(!(await p.evaluate(() => [...document.querySelectorAll('#collView .cx-hands button')].some(b => /Steve Rogers/.test(b.textContent)))), 'Mjolnir names Steve among its holders before Endgame');
   ok(!errs.length, 'page errors: ' + errs.slice(0, 2).join(' | '));
   await b.close(); console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok: the files, one layout'); process.exit(fails.length ? 1 : 0); })();
