@@ -1,6 +1,7 @@
 // a list opened from a file in another index (owner, 15 November 2026: "Went wanda, darkhold, aida and then independent and it goes back to
 // the objects held by aida not list of independents"): Wanda's file, her Darkhold, its holder Aida's objects, Aida's Raft file, her faction.
-// The faction opens the Raft's own list, and back retraces every step: Aida, the objects held by Aida, the Darkhold
+// The faction opens the Raft's own list (it used to go back to the Collection's "held by Aida"); back from it, the list having taken the
+// file's place (ct65's rule), goes to the objects held by Aida, then to Wanda
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r => setTimeout(r, ms));
 (async () => { const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome' });
@@ -21,6 +22,6 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
   ok(await tap('[data-cxh="Aida"]'), 'the Darkhold has no Aida'); ok(await at() === 'coll:list/Aida', 'not on the objects held by Aida: ' + await at());
   ok(await tap('[data-cxo="T:st-aida"]'), 'no Raft file for Aida'); ok(await at() === 'raft:st-aida', 'not on Aida\'s Raft file: ' + await at());
   ok(await tap('[data-rft="Independent"]'), 'Aida has no Independent'); ok(await at() === 'raft:list/Independent', 'Independent opened ' + await at() + ', not the Raft\'s independents');
-  for (const want of ['raft:st-aida', 'coll:list/Aida', 'coll:darkhold']) { await p.goBack(); await sleep(800); ok(await at() === want, 'back went to ' + await at() + ', not ' + want); }
+  for (const want of ['coll:list/Aida', 'cp:wanda-maximoff']) { await p.goBack(); await sleep(800); ok(await at() === want, 'back went to ' + await at() + ', not ' + want); }
   ok(!errs.length, 'page errors: ' + errs.slice(0, 2).join(' | '));
   await b.close(); console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok: a list opened from another index\'s file, and back'); process.exit(fails.length ? 1 : 0); })();

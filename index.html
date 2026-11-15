@@ -4938,12 +4938,10 @@ function collRestore() {   // back landed on a step from another index or anothe
   collRec = h.cr || null; renderColl(); document.getElementById("collPanel").scrollTop = h.cr ? 0 : h.y || 0; return true;
 }
 // back to the list: the step below if the file was opened from it; a file opened straight from somewhere else (the Network, another file)
-// has no list under it, so the list opens on top of the file (owner, November 2026: a group in Kate's file, opened from the Network,
-// threw you back to the Network instead of the Compound filtered by that group; 15 November 2026: back from that list returns to the file)
+// has no list under it, so the list takes the file's place there (owner, November 2026: a group in Kate's file, opened from the Network,
+// threw you back to the Network instead of the Compound filtered by that group)
 function collGrid(fromHistory) { if (!fromHistory && navAt("collrec")) { if (history.state.g) { navBack(); return; }
-    // a list opened from a file with no list of its own under it is a step on top of it, so back returns to the file (owner, 15 November
-    // 2026: Wanda, the Darkhold, Aida, Independent; back from the independents went past Aida's file, and from "held by Aida" past the Darkhold's)
-    try { history.replaceState({ ...history.state, y: document.getElementById("collPanel").scrollTop }, ""); history.pushState({ mcu: "coll", cm: collMode }, ""); } catch (e) {} collY = 0; }
+    try { history.replaceState({ mcu: "coll", cm: collMode }, ""); } catch (e) {} collY = 0; }
   collRec = null; renderColl(); document.getElementById("collPanel").scrollTop = collY; }
 document.getElementById("collView").addEventListener("input", ev => { if (ev.target.id !== "cxQ") return; cxQ = ev.target.value; cxHoldF = ""; const v = document.getElementById("collView");
   v.querySelector(".pg-qx").hidden = !cxQ; v.querySelector(".cx-body").innerHTML = cxBody(); v.querySelectorAll("[data-cxu]").forEach(b => b.setAttribute("aria-selected", b.dataset.cxu === cxUni)); });
