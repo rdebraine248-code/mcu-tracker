@@ -13,16 +13,16 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(await p.evaluate(() => !ROW_EGGS["Captain America: The First Avenger"]), 'The First Avenger row holds no egg');
   ok(await p.evaluate(() => STONE_HOW.space.includes('Collection')), 'the answer points to the Collection');
   await p.evaluate(() => { openColl("coll"); collShow("tesseract"); }); await sleep(400);
-  ok(await p.evaluate(() => document.querySelector('.cx-big').dataset.live === 'tesseract'), 'the Tesseract case can be handled');
-  ok(await p.evaluate(() => { openColl("coll"); collShow("scepter"); return !document.querySelector('.cx-big[data-live]'); }), 'a case that does nothing is left alone');
+  ok(await p.evaluate(() => document.querySelector('.uf-mark').dataset.live === 'tesseract'), 'the Tesseract case can be handled');
+  ok(await p.evaluate(() => { openColl("coll"); collShow("scepter"); return !document.querySelector('.uf-mark[data-live]'); }), 'a case that does nothing is left alone');
   await p.evaluate(() => collShow("tesseract")); await sleep(300);
-  const ctr = () => p.evaluate(() => { const r = document.querySelector('.cx-big .cx-obj').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+  const ctr = () => p.evaluate(() => { const r = document.querySelector('.uf-mark .cx-obj').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
   let [x, y] = await ctr();
   // a short carry: it settles back, nothing earned
   await p.mouse.move(x, y); await p.mouse.down(); await sleep(600); ok(await p.evaluate(() => !!document.querySelector('.fx-cxg')), 'holding lifts the mark out');
-  ok(await p.evaluate(() => document.querySelector('.cx-big .cx-obj').style.opacity === '0'), 'and the case empties');
+  ok(await p.evaluate(() => document.querySelector('.uf-mark .cx-obj').style.opacity === '0'), 'and the case empties');
   await p.mouse.move(x + 20, y + 10); await p.mouse.up(); await sleep(900);
-  ok(await p.evaluate(() => !(state.stones || {}).space && document.querySelector('.cx-big .cx-obj').style.opacity === ''), 'a short carry settles back');
+  ok(await p.evaluate(() => !(state.stones || {}).space && document.querySelector('.uf-mark .cx-obj').style.opacity === ''), 'a short carry settles back');
   // carried off: the Tesseract takes it, and the stone is yours
   [x, y] = await ctr(); await p.mouse.move(x, y); await p.mouse.down(); await sleep(600);
   for (let k = 1; k <= 8; k++) await p.mouse.move(x - 10 * k, y + 40 * k);

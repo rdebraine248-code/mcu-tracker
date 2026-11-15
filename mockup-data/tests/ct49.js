@@ -21,7 +21,7 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
       return p.evaluate(() => ({ head: document.querySelector('.tf-bar b').textContent, gf: ((document.querySelector('.tf-bar [data-co]') || {}).dataset || {}).co || null,
         rows: document.querySelectorAll('.rf-row').length })); };
     out.order = await roster('ebony-maw'); out.hydra = await roster('st-grant-ward');
-    await tags(p, 'winter-soldier'); out.now = await p.evaluate(() => ({ head: document.querySelector('.rf-head small').textContent, cur: [...document.querySelectorAll('[data-rft].cur')].map(x => x.dataset.rft), past: [...document.querySelectorAll('[data-rft].past')].map(x => x.dataset.rft) })); out.back = await p.evaluate(() => [...document.querySelectorAll('[data-rfcp]')].map(x => x.dataset.rfcp));
+    await tags(p, 'winter-soldier'); out.now = await p.evaluate(() => ({ head: document.querySelector('#collView .uf-top span').textContent, cur: [...document.querySelectorAll('[data-rft].cur')].map(x => x.dataset.rft), past: [...document.querySelectorAll('[data-rft].past')].map(x => x.dataset.rft) })); out.back = await p.evaluate(() => [...document.querySelectorAll('[data-rfcp]')].map(x => x.dataset.rfcp));
     await p.click('[data-rfcp]'); await sleep(700); out.hero = await p.evaluate(() => [collMode, collRec]);
     out.grp = await p.evaluate(() => { openColl('raft'); collRec = null; rfTeamF = ''; rfGrp = 'tm'; renderColl(); return { label: [...document.querySelectorAll('[data-rfg]')].map(x => x.textContent),
       secs: [...document.querySelectorAll('.rf-sh span')].map(x => x.textContent) }; });
@@ -31,7 +31,7 @@ const save = w => JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, raftIn
   // with Infinity War watched he stands with Wakanda, where he lives in that film, though Black Panther (where the file records it) isn't
   // watched: a person shows the group they're in during a title you've watched (owner, November 2026)
   ok(r.bucky.includes('HYDRA') && r.bucky[r.bucky.length - 1] === 'Wakanda', 'the Winter Soldier served HYDRA ' + JSON.stringify(r.bucky));
-  ok(/Wakanda$/.test(r.now.head) && r.now.cur.join() === 'Wakanda' && r.now.past.includes('HYDRA') && r.now.past.includes('U.S. Army'), 'HYDRA and his war years are former, Wakanda current ' + JSON.stringify(r.now));
+  ok(/^Threat file \d{4}$/.test(r.now.head) && r.now.cur.join() === 'Wakanda' && r.now.past.includes('HYDRA') && r.now.past.includes('U.S. Army'), 'HYDRA and his war years are former, Wakanda current ' + JSON.stringify(r.now));
   ok(r.order.head === 'The Black Order' && r.order.gf === null && r.order.rows >= 5, 'Black Order roster, its team file gone ' + JSON.stringify(r.order));
   ok(r.hydra.head === 'HYDRA' && r.hydra.gf === 'hydra', 'HYDRA roster keeps its group file ' + JSON.stringify(r.hydra));
   ok(JSON.stringify(r.back) === '["bucky-barnes"]' && r.hero.join() === 'cp,bucky-barnes', 'the Winter Soldier links back to Bucky ' + JSON.stringify([r.back, r.hero]));

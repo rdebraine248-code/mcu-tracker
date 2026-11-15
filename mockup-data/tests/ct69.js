@@ -35,7 +35,7 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
 
   // Pepper, before Iron Man 3: holding her name does nothing
   await upTo('Iron Man 2'); await open('pepper-potts');
-  const hold = async () => { const r = await p.evaluate(() => { const h = document.querySelector('#collView .cp-id h3').getBoundingClientRect(); return [h.left + 30, h.top + h.height / 2]; });
+  const hold = async () => { const r = await p.evaluate(() => { const h = document.querySelector('#collView .uf-who h3').getBoundingClientRect(); return [h.left + 30, h.top + h.height / 2]; });
     await p.mouse.move(r[0], r[1]); await p.mouse.down(); await sleep(800); await p.mouse.up(); };
   await hold(); await sleep(600); ok(!(await p.evaluate(() => document.querySelectorAll('.xm-hot').length)), 'Extremis ran before Iron Man 3');
   // after it: every item catches at once, and never drops near off while it burns

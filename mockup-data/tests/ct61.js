@@ -31,7 +31,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   ok(await p.evaluate(() => state.accords && state.accords.v === 'signed' && !document.querySelector('.acc-ov')) && await E('accords'), 'signed, on file');
   // the Tesseract, still in the Collection: carried off, it gives its stone
   await p.evaluate(() => { if (openEntry) closePanel(); openColl('coll'); collShow('tesseract'); }); await sleep(600);
-  let [x, y] = await p.evaluate(() => { const r = document.querySelector('.cx-big .cx-obj').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+  let [x, y] = await p.evaluate(() => { const r = document.querySelector('.uf-mark .cx-obj').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
   await p.mouse.move(x, y); await p.mouse.down(); await sleep(600); for (let k = 1; k <= 8; k++) await p.mouse.move(x - 10 * k, y + 40 * k); await p.mouse.up(); await sleep(5500);
   ok(await p.evaluate(() => !!(state.stones || {}).space), 'the Tesseract gives the Space Stone');
   await p.evaluate(() => closeColl()); await sleep(600);

@@ -19,7 +19,7 @@ const fs = require('fs'), sleep = ms => new Promise(r => setTimeout(r, ms));
   await p.evaluate(() => document.querySelector('[data-cprf]').click()); await sleep(600);
   let w = await where(); ok(w.mode === 'raft' && w.rec, 'the Raft file opens: ' + JSON.stringify(w));
   await back(); w = await where(); ok(w.open && w.mode === 'cp' && w.rec === id, 'back returns to the Compound file: ' + JSON.stringify(w));
-  ok(await p.evaluate(() => !!document.querySelector('#collPanel .cp-id')), 'and it is drawn as a Compound file');
+  ok(await p.evaluate(() => !!document.querySelector('#collPanel .uf.cp .uf-card')), 'and it is drawn as a Compound file');
   await back(); w = await where(); ok(w.open && w.mode === 'cp' && !w.rec, 'then to the Compound list: ' + JSON.stringify(w));
   await back(); w = await where(); ok(!w.open && w.atl, 'then out to the Atlas: ' + JSON.stringify(w));
   // the other way: a villain's hero file, and back

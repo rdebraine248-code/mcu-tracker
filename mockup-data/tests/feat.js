@@ -17,7 +17,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await page.fill('#rfQ', 'loki'); await sleep(300);
   r.raftQ = await page.evaluate(() => [...document.querySelectorAll('.rf-body .rf-row b')].map(b => b.textContent).slice(0, 4));
   await page.evaluate(() => document.querySelector('.rf-body .rf-row').click()); await sleep(400);
-  r.record = await page.evaluate(() => document.querySelector('.rf-head h3').textContent + ' / ' + document.querySelector('.rf-head small').textContent);
+  r.record = await page.evaluate(() => document.querySelector('#collView .uf-who h3').textContent + ' / ' + document.querySelector('#collView .uf-top span').textContent);
   await page.evaluate(() => history.back()); await sleep(500); await page.evaluate(() => history.back()); await sleep(700);
   r.afterBack = await page.evaluate(() => ({ coll: collOpen, atlas: atlOpen }));
   await page.fill('#atlQ', 'vormir'); await sleep(300);
