@@ -5391,7 +5391,12 @@ function ufPersonFacts(tg, o, S) { const X = fxOf(o), al = alNow(o), rn = tg ===
     ["Character log", log ? `<button type="button" class="uf-go" data-xprof="${log.id}">${esc(log.title)}<em aria-hidden="true">&#8250;</em></button>` : ""]]; }
 // the sections a person's file shares, after Teams/Factions: registrations, then (in the renderer) what's on file and where they were last
 const ufAbilities = o => { const X = fxOf(o); return X.ab && X.ab.length ? `<div class="co-h">Abilities</div><p class="uf-txt">${X.ab.map(esc).join(" · ")}</p>` : ""; };
-const ufRegs = o => { const X = fxOf(o), L = [["Sokovia Accords", X.accords], ["The Blip", X.blip]].filter(r => r[1]);
+// spoiler-safe (owner, 15 November 2026: "Sokovia and blip line item are hidden until their movies right"): the Accords once Civil War is
+// watched; the Blip once you've reached one of this person's steps from Infinity War on (either file), so a later reveal isn't given early
+const UF_IW = () => DATA.timeline.findIndex(e => e.t === "Avengers: Infinity War");
+const ufPostSnap = (tg, o, S) => { const tw = tg !== "C" && ufTwin(o), L = tw ? S.concat(tg === "A" ? rfSteps(tw) : cpSteps(tw)) : S, iw = UF_IW();
+  return iw >= 0 && L.some(x => DATA.timeline.findIndex(e => e.t === x[1]) >= iw); };
+const ufRegs = (o, tg, S) => { const X = fxOf(o), L = [["Sokovia Accords", X.accords && atlSeenT("Captain America: Civil War") && X.accords], ["The Blip", X.blip && ufPostSnap(tg, o, S) && X.blip]].filter(r => r[1]);
   return L.length ? `<div class="co-h">Registrations</div><dl class="uf-rows">${L.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : ""; };
 const ufOnFile = (tg, o, S) => { const I = ufItems(tg, o, S);
   return I.length ? `<div class="co-h">Items on file</div><div class="cp-teams">${I.map(c => `<button type="button" data-held="${esc(c.id)}">${esc(cxName(c))}</button>`).join("")}</div>` : ""; };
@@ -5410,7 +5415,7 @@ function renderRaft() {
     let prev = null;
     v.innerHTML = `<div class="co co-rec uf rf"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Threat registry</button>
       ${ufHead("rf", o, S, { label: "Threat file", no: rfNo(o).replace(/^FILE /, ""), st, sc: RF_ST[st], mark: `<span class="cp-ph">${esc(cpInit(rfName(o)))}</span>`, name: rfName(o), desc: rfKind(o), facts: ufPersonFacts("T", o, S) })}
-      ${ufAbilities(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft", o)}</div>${ufRegs(o)}
+      ${ufAbilities(o)}<div class="co-h">Factions</div><div class="cp-teams">${tmChips(o.tm, "data-rft", o)}</div>${ufRegs(o, "T", S)}
       ${(L => L.length ? `<div class="co-h">Opposed by</div><div class="cp-teams rf-opps">${L.map(t => `<button type="button" data-rfo="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "")(rfOpps(o))}
       ${state.cpIn && !hoChain(o, "R", S).some(x => x.ho) ? ALLIES.filter(a => a.rf === o.id && cpSteps(a).length && !coverOn(o, cpName(a)) && !coverOn(a, rfName(o))).map(a => `<button type="button" class="cp-rf to-cp" data-rfcp="${esc(a.id)}"><span><small>Also on file</small><b>The Compound · ${esc(cpName(a))}</b></span><em aria-hidden="true">&#8250;</em></button>`).join("") : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       ${ufOnFile("T", o, S)}${ufLast("T", o, S)}
@@ -5548,7 +5553,7 @@ function renderCp() {
     let prev = null;
     v.innerHTML = `<div class="co co-rec uf cp"><button type="button" class="co-crumb" data-co-back><svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Personnel files</button>
       ${ufHead("cp", o, S, { label: "Personnel file", no: cpNo(o).replace(/^ID /, ""), st, sc: CP_ST[st], em: !!(o.em && EMBLEMS[o.em] && embOpen(o.em)), mark: cpBadge(o), name: cpName(o), desc: cpKind(o), facts: ufPersonFacts("A", o, S) })}
-      ${ufAbilities(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt", o)}</div>${ufRegs(o)}
+      ${ufAbilities(o)}<div class="co-h">Teams</div><div class="cp-teams">${tmChips(o.tm, "data-cpt", o)}</div>${ufRegs(o, "A", S)}
       ${rf && !hoChain(o, "C", S).some(x => x.ho) ? `<button type="button" class="cp-rf" data-cprf="${esc(rf.id)}"><span><small>Also on file</small><b>The Raft · ${esc(rfName(rf))}</b></span><em aria-hidden="true">&#8250;</em></button>` : ""}${NET_SRC && !o.grp ? `<div class="cp-rf to-net"><span class="np" data-np="${esc(o.id)}"><small>Connections</small></span><button type="button" class="np-open" data-netgo="${esc(o.id)}">Open Network<em aria-hidden="true">&#8250;</em></button></div>` : ""}
       ${ufOnFile("A", o, S)}${ufLast("A", o, S)}
       <div class="co-h">Service record</div>

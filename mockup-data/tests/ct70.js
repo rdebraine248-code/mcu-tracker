@@ -49,5 +49,8 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
   await open('coll', 'C', 'tesseract'); ok(await p.evaluate(() => document.querySelector('#collView .uf-mark').dataset.live === 'tesseract'), 'the Tesseract can still be handled');
   // a file the research doesn't cover has no researched facts, and nothing else missing
   await open('cp', 'A', 'christine-everhart'); c = await card(); ok(c && !c.facts.Index && c.facts.Universe && c.ends === 2, 'a file without research ' + JSON.stringify(c && c.facts));
+  // the Accords only once Civil War is watched, the Blip only once you've reached the person after the Snap
+  await p.evaluate(() => { const L = DATA.timeline.map(e => e.t), n = L.indexOf('Avengers: Age of Ultron'); state.checks = {}; DATA.chapters.forEach(c => c.items.forEach(i => { const k = L.indexOf(i.t); if (k >= 0 && k <= n) state.checks[ck(c, i.t)] = true; })); persist(); renderAll(); });
+  await open('cp', 'A', 'wanda-maximoff'); ok(!(await p.evaluate(() => document.querySelector('#collView .uf-rows'))), 'Accords or Blip shown before their films');
   ok(!errs.length, 'page errors: ' + errs.slice(0, 2).join(' | '));
   await b.close(); console.log(fails.length ? 'FAIL\n' + fails.join('\n') : 'ok: the files, one layout'); process.exit(fails.length ? 1 : 0); })();
