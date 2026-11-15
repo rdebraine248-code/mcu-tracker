@@ -32,7 +32,7 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
   // the three indexes, one layout
   await open('cp', 'A', 'wanda-maximoff'); let c = await card();
   ok(c && /uf cp/.test(c.kind) && /^Personnel file \d{4}$/.test(c.top) && c.name === 'Wanda Maximoff' && c.ends === 2, 'Wanda\'s card ' + JSON.stringify(c && [c.kind, c.top, c.ends]));
-  ok(c && c.facts.Index === 'Enhanced' && c.facts.Aliases && c.facts.Universe && /^\d+›$/.test(c.facts['Incident reports'] || ''), 'Wanda\'s facts ' + JSON.stringify(c && c.facts));
+  ok(c && c.facts.Index === 'Witch' && c.facts.Aliases && c.facts.Universe && /^\d+›$/.test(c.facts['Incident reports'] || ''), 'Wanda\'s facts ' + JSON.stringify(c && c.facts));
   ok(c && ['Abilities', 'Teams', 'Registrations'].every(h => c.heads.includes(h)) && !c.heads.includes('Incident reports'), 'Wanda\'s sections ' + JSON.stringify(c && c.heads));
   ok(c && !c.heads.includes('Last known location'), 'Wanda\'s latest title names no place, so the file names none (it once said Westview)');
   // the incident count opens her reports alone; back comes down to her file

@@ -5128,7 +5128,7 @@ function renderCx() {
       ${ufHead("cx", o, S, { label: "Collection lot", no: cxNo(o).replace(/^LOT /, ""), st, sc: CX_ST[st], mark: `<span class="cx-obj">${cxGlyph(o.c)}</span>`, live: CX_LIVE[o.id] ? o.id : "", name: cxName(o), desc: cxKind(o), facts: ufObjFacts(o, S) })}
       ${(X => (X.quote || X.props ? `<div class="co-h">Properties</div>${X.quote ? `<p class="uf-quote">${esc(X.quote)}</p>` : ""}${X.props ? `<p class="uf-txt">${esc(X.props)}</p>` : ""}` : ""))({ quote: fxOne((FILEX[o.id] || {}).quote), props: fxList((FILEX[o.id] || {}).props).join(" ") })}
       ${(hands.length || ufAlso(o).length) && !cxSpec(o) ? `<div class="co-h">Who's held it</div><div class="cx-hands">${hands.map(h => `<button type="button" data-cxh="${esc(h)}">${esc(h)}</button>`).join("")}${ufAlso(o).map(([n, a]) => a ? `<button type="button" data-cxo="A:${esc(a.id)}">${esc(n)}</button>` : `<button type="button" disabled>${esc(n)}</button>`).join("")}</div>` : ""}
-      ${(X => X.cont ? `<div class="co-h">Containment</div><p class="uf-txt">${esc(X.cont)}</p>` : "")({ cont: fxOne((FILEX[o.id] || {}).cont) })}
+      ${(X => X.cont ? `<div class="co-h">Containment</div><p class="uf-txt">${esc(X.cont)}</p>` : "")({ cont: fxList((FILEX[o.id] || {}).cont).join(" ") })}
       <div class="co-h">${cxSpec(o) ? "Field notes" : "Chain of custody"}</div>
       <ol class="co-chain cx-chain">${S.map(x => { if (x[4]) return `<li class="s-past"><p>${esc(stepTxt(x))}</p><small>${stepTtl(x)}${x[3] && x[3] !== "Nobody" ? `<span class="cx-hd">${esc(x[3])}</span>` : ""}<span class="rf-chg s-past">${esc(x[4])}</span></small></li>`;
         const chg = x[2] && x[2] !== pst ? `<span class="rf-chg s-${CX_ST[x[2]]}">${esc(x[2])}</span>` : "", hd = x[3] && x[3] !== ph ? `<span class="cx-hd">${esc(x[3])}</span>` : "";
@@ -5354,8 +5354,8 @@ const FILEX = /*FILEX*/{};
 // a person on file in both indexes is one person: the Raft file reads the Compound file's entry
 const fxOf = o => FILEX[o.id] || (() => { const a = ALLIES.find(x => x.rf === o.id); return (a && FILEX[a.id]) || {}; })();
 // spoiler-free (owner, 15 November 2026: "everything should be spoiler free"): every researched value is a stage, [value, title], shown only
-// once that title is watched; Index, Identity, Origin, Containment and the quote show their latest open stage, Abilities, Properties and
-// Who's held it every open one
+// once that title is watched; Index, Identity, Origin and the quote show their latest open stage; Abilities, Properties, Containment and
+// Who's held it every open one, in order
 const fxList = L => (L || []).filter(x => Array.isArray(x) && atlSeenT(x[1])).map(x => x[0]);
 const fxOne = L => fxList(L).pop() || "";
 const ufTwin = o => ALLIES.includes(o) ? THREATS.find(t => t.id === o.rf) : ALLIES.find(a => a.rf === o.id);
