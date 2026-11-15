@@ -16,7 +16,7 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
   await p.evaluate(() => { [...DATA.chapters, ...DATA.chars].forEach(c => c.items.forEach(i => { state.checks[ck(c, i.t)] = true; }));
     state.eggs = Object.assign(state.eggs || {}, { compound: 1, raft: 1, collector: 1, damagecontrol: 1 }); persist(); renderAll(); setInterval(() => { try { sayQ.length = 0; } catch (e) {} }, 50); });
   // the fixed terms
-  const bad = await p.evaluate(() => { const IDX = ['Human', 'Enhanced', 'Super soldier', 'Mutant', 'Inhuman', 'Sorcerer', 'Witch', 'Werewolf', 'Artificial intelligence', 'Synthezoid', 'Robot', 'Cyborg', 'Asgardian', 'Frost Giant', 'Eternal', 'Deviant', 'Celestial', 'Kree', 'Skrull', 'Alien', 'Cosmic being'];
+  const bad = await p.evaluate(() => { const IDX = ['Human', 'Enhanced', 'Super soldier', 'Mutant', 'Inhuman', 'Sorcerer', 'Witch', 'Werewolf', 'Vampire', 'Artificial intelligence', 'Synthezoid', 'Robot', 'Cyborg', 'Asgardian', 'Frost Giant', 'Eternal', 'Deviant', 'Celestial', 'Kree', 'Skrull', 'Alien', 'Cosmic being'];
     return Object.entries(FILEX).filter(([id, x]) => (x.idx && !IDX.includes(x.idx)) || (x.ident && !['Public', 'Secret', 'Exposed', 'Forgotten'].includes(x.ident)) || (x.accords && !['Signed', 'Not signed'].includes(x.accords)) || (x.blip && !['Blipped', 'Not blipped'].includes(x.blip))
       || ![...ALLIES, ...THREATS, ...COLLX].some(o => o.id === id)).map(([id]) => id); });
   ok(!bad.length, 'researched fields off their fixed terms, or for no file: ' + bad.join(', '));
