@@ -5378,7 +5378,7 @@ function ufHead(kind, o, S, p) {   // p: { label, no, st, sc, mark, name, desc, 
     <dl class="uf-facts">${p.facts.map(fact).join("")}</dl></div>${ufPath(kind, o, S)}`; }
 // the path, one line: first seen at one end, last seen at the other (a circle at each end, even seen once), the count in the middle
 function ufPath(kind, o, S0) { const tw = kind !== "cx" && ufTwin(o), S = tw ? S0.concat(ALLIES.includes(o) ? rfSteps(tw) : cpSteps(tw)) : S0;
-  if (!S.length) return ""; const a = seenTtl(S), b = seenTtl(S, 1), n = new Set(S.map(x => x[1])).size, one = n < 2 || a === b;
+  if (!S.length) return ""; const a = seenTtl(S), b = seenTtl(S, 1), n = new Set(S.map(x => stepTtl(x).replace(/ · Episode .*$/, ""))).size, one = a === b;   // a show's seasons count as its titles, as the two ends show them
   const id = kind !== "cx" && boxOfFile(o), pa = id ? boxPath(id) : "", mid = one ? "Seen once" : n + " titles";
   return `<div class="uf-path"><div class="uf-line"><i></i><span></span>${pa ? `<button type="button" class="uf-mid" data-dpath="${esc(pa)}">${mid}<em aria-hidden="true">&#8250;</em></button>` : `<span class="uf-mid">${mid}</span>`}<span></span><i></i></div>
     <div class="uf-ends"><div><small>${one ? "Seen in" : "First seen"}</small>${a}</div>${one ? "" : `<div><small>Last seen</small>${b}</div>`}</div></div>`; }
