@@ -302,9 +302,10 @@ function packer(GAP) { const CELL = S * 2, grid = new Map(), k = (x, y) => Math.
   const fits = (z, ox, oy) => z.pts.every(([x, y, r]) => { const X = ox + x, Y = oy + y, cx = Math.floor(X / CELL), cy = Math.floor(Y / CELL);
     for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const [a, b, rr] of grid.get((cx + i) * 4096 + cy + j) || []) if (Math.hypot(a - X, b - Y) < r + rr + GAP) return false;
     return true; });
-  return { add, place(z, zi, first) { let spot = [0, 0];
-    if (!first) find: for (let R = S * .35; ; R += S * .35) { const n = Math.max(8, Math.round(R * 6.2832 / (S * .35))), a0 = zi * 2.4;
-      for (let m = 0; m < n; m++) { const a = a0 + m / n * 6.2832, x = R * Math.cos(a), y = R * Math.sin(a) * .92; if (blk[at(x, y)]) continue; if (fits(z, x, y)) { spot = [x, y]; break find; } } }
+  // place: the first spot, ring by ring out from a point (the middle, or where the crews it's tied to stand), from a starting radius
+  return { add, place(z, zi, first, tx = 0, ty = 0, r0 = S * .35) { let spot = [tx, ty];
+    if (!first) find: for (let R = r0; ; R += S * .35) { const n = Math.max(8, Math.round(R * 6.2832 / (S * .35))), a0 = zi * 2.4;
+      for (let m = 0; m < n; m++) { const a = a0 + m / n * 6.2832, x = tx + R * Math.cos(a), y = ty + R * Math.sin(a) * .92; if (blk[at(x, y)]) continue; if (fits(z, x, y)) { spot = [x, y]; break find; } } }
     z.x = spot[0]; z.y = spot[1]; z.pts.forEach(([x, y, r]) => add(z.x + x, z.y + y, r)); } }; }
 // relationships: every connection explicit, with its kind, what it is, and the title it's shown in; and a circle (a family, a school,
 // a town) for anyone with no crew, so they stand with their people instead of alone
@@ -913,7 +914,30 @@ function applyCut(v, quiet) {
     const lk = UNI + '|' + (WORLD || ''), sig = [...Wd].map(([w, by]) => w + '\u0001' + [...by].map(([k, L]) => k + '\u0002' + L.map(p => p.i).join(',')).join('\u0003')).join('\u0004'), got = LAY.get(lk);
     if (got && got.sig === sig) { Z = got.Z; DIST = got.DIST; } else {
     const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => ZFIRST(b[0]) - ZFIRST(a[0]) || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
-      const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
+      // where a crew stands follows who it's tied to (owner, 16 November 2026: "there should be soft relationships between where bubbles and
+      // groups are placed. But right now it feels random"). Someone on their own belongs to the crew they're most tied to (one tied only to
+      // another loner goes with that loner's crew); the crews go down biggest first,
+      // then always the one with the most ties to those already down, as near as it fits to them and drawn toward the middle, each with
+      // its loners right beside it; anyone tied to no one in the room stands at the edge, so the spots between crews
+      // go to people who belong there
+      const P = packer(S * .07), zOf = new Map(), Wt = ZZ.map(() => new Map()), done = ZZ.map(() => false), score = ZZ.map(() => 0), one = zi => ZZ[zi].L.length === 1;
+      ZZ.forEach((z, zi) => z.L.forEach(p => zOf.set(p, zi)));
+      ZZ.forEach((z, zi) => z.L.forEach(p => p.R.forEach(r => { const zj = zOf.get(N[r.j]); if (zj == null || zj === zi) return; Wt[zi].set(zj, (Wt[zi].get(zj) || 0) + 1); })));
+      const best = (zi, ok) => { let j = -1, w = 0; Wt[zi].forEach((k, x) => { if (ok(x) && k > w) { w = k; j = x; } }); return j; };
+      const anc = ZZ.map((z, zi) => one(zi) ? best(zi, x => !one(x)) : -1);
+      ZZ.forEach((z, zi) => { if (one(zi) && anc[zi] < 0) { const l = best(zi, x => one(x) && anc[x] >= 0); if (l >= 0) anc[zi] = anc[l]; } });
+      const sat = ZZ.map(() => []); ZZ.forEach((z, zi) => { if (anc[zi] >= 0) sat[anc[zi]].push(zi); });
+      sat.forEach(L => L.sort((x, y) => (Wt[y].get(anc[y]) || 0) - (Wt[x].get(anc[x]) || 0) || ZZ[y].L[0].d - ZZ[x].L[0].d));
+      let edge = 0, n = 0; const PULL = .3;   // toward the middle, so the room stays as tight as it was
+      const put = (zi, how) => { const z = ZZ[zi]; how(z); done[zi] = true; n++; edge = Math.max(edge, Math.hypot(z.x, z.y)); Wt[zi].forEach((k, j) => { if (!done[j]) score[j] += k; }); };
+      while (n < ZZ.length) { let b = -1; for (let i = 0; i < ZZ.length; i++) if (!done[i] && anc[i] < 0 && (b < 0 || score[i] > score[b] || (score[b] === 0 && score[i] === 0 && one(b) && !one(i)))) b = i;
+        if (b < 0) break;
+        let tx = 0, ty = 0, w = 0; Wt[b].forEach((k, j) => { if (done[j]) { tx += ZZ[j].x * k; ty += ZZ[j].y * k; w += k; } });
+        if (one(b) && !w) break;   // only loners tied to no one are left: they go last, at the edge
+        put(b, z => !n ? P.place(z, b, true) : w ? P.place(z, b, false, tx / w * PULL, ty / w * PULL) : P.place(z, b, false, 0, 0));
+        sat[b].forEach(i => put(i, z => P.place(z, i, false, ZZ[b].x, ZZ[b].y))); }   // its own loners, right beside it, before anyone crowds round
+      ZZ.forEach((z, zi) => { if (!done[zi]) put(zi, z => P.place(z, zi, false, 0, 0, Math.max(S * .35, edge * .85))); });   // tied to no one in the room: at the edge
+      const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
     // districts as a honeycomb (owner, November 2026: "too much empty space", "not sensibly placed", "the little Earth by itself looks
     // ridiculous", like the Apple Watch's app grid): the biggest in the middle, everyone pulled toward it and pushed apart to one even gap,
