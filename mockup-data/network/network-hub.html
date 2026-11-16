@@ -311,7 +311,7 @@ function packer(GAP) { const CELL = S * 2, grid = new Map(), k = (x, y) => Math.
 const REL = DATA.rel || { kinds: [], titles: [], ord: [], ties: [], places: {} };
 const KIND = ['family', 'partner', 'friend', 'mentor', 'boss', 'ally', 'rival', 'enemy', 'variant'];
 // the universes, as the indexes have them
-const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-Men'], ['by', 'Beyond'], ['pr', 'Pruned']], UL = Object.fromEntries(UNIS);   /* no All universes: it mixed every world together and was slow (owner, November 2026) */
+const UNIS = [['mcu', 'Sacred Timeline'], ['by', 'Beyond'], ['sv', 'Spider-Verse'], ['fox', 'FoX-Men'], ['pr', 'Pruned']], UL = Object.fromEntries(UNIS);   /* no All universes: it mixed every world together and was slow (owner, November 2026); the app's order everywhere (owner, 16 November 2026): Sacred Timeline, Beyond, Spider-Verse, FoX-Men, Pruned, Incursions */
 let UNI = 'mcu', UNIOK = null;
 // each Earth is its own room (owner, November 2026: "I thought we separated them by Earths ... having Wolverine next to Logan"): inside a
 // universe, a row of Earth chips picks the world; the films' Earth-10005 and the cartoons' Earth-92131 never stand in one room

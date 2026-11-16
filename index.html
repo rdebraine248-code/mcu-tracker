@@ -4729,7 +4729,9 @@ const ATL_GROUPS = {
   cosmos: [["Near Earth", "saber marvell"], ["The Nine Realms", "asgard vanaheim jotunheim svartalfheim muspelheim nidavellir"], ["Across the galaxy", "*"]],
   beyond: [["Other dimensions", "quantum mirror dark kunlun noor duat valhalla shadow eternity witches framework"], ["Outside time", "tva citadel void future"]],
   incursions: [["Terminated", "*"]],
-  multi: [["Outside every reality", "watcher gap"], ["Other Earths", "e838 e828 sinister binary"], ["Other universes", "u-fox u-foxtrn u-fox17315 u-animx u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-67 u-751263 u-26496 u-blade u-daredevil u-punisher u-ff u-pruned u-16828 u-19859"], ["What If...? realities", "*"]] };
+  // the app's order (owner, 16 November 2026: "Sacred, beyond, spiderverse, foxxmen, pruned, incursions"): Beyond's worlds (What If...? and
+  // the two Beyond Earths) first, then the Spider-Verse's, the FoX-Men's and the Pruned ones, each under its own heading
+  multi: [["Outside every reality", "watcher gap"], ["Other Earths", "e838 e828 sinister binary"], ["What If...? realities", "*"], ["Beyond", "u-16828 u-19859"], ["Spider-Verse", "u-raimi u-amazing u-miles u-e65 u-mumbattan u-nueva u-e42 u-noir u-yfnsm u-sony u-67 u-751263 u-26496"], ["FoX-Men", "u-fox u-foxtrn u-fox17315 u-animx"], ["Pruned", "u-blade u-daredevil u-punisher u-ff u-pruned"]] };   // each universe its own heading: a group lists its worlds A to Z
 // the Atlas's search: every place you've charted, on any of its maps (a city's spots and other universes included), by name, region,
 // title or what happened there. It only finds what's lit, so it can't give anything away
 let atlQ = "";
