@@ -4402,7 +4402,9 @@ const ATL_SEAS = (() => { const m = {}; [...DATA.timeline, ...DATA.timelineRelea
 const ATL_ORDER = (() => { const o = {}; let i = 0; [...DATA.chapters, ...DATA.chars].forEach(c => c.items.forEach(it => { if (!(it.t in o)) o[it.t] = i++; }));
   Object.keys(ATL_SEAS).forEach(b => { if (!(b in o)) { const v = ATL_SEAS[b].map(t => o[t]).filter(x => x != null); if (v.length) o[b] = Math.min(...v); } }); return o; })();   // a whole show sits with its first season
 const ATL_BOX = (() => { const m = {}; [...DATA.chapters, ...DATA.chars].forEach(b => b.items.forEach(it => (m[it.t] = m[it.t] || []).push(b))); return m; })();
-const ATL_VIEWS = [["earth", "Earth"], ["cosmos", "Cosmos"], ["beyond", "Beyond"], ["multi", "Multiverse"], ["incursions", "Incursions"]];
+// the places beyond reality are "Dimensions", not "Beyond", so they aren't taken for the Beyond the MCU universe (owner, 16 November 2026);
+// the view keeps its id, "beyond"
+const ATL_VIEWS = [["earth", "Earth"], ["cosmos", "Cosmos"], ["beyond", "Dimensions"], ["multi", "Multiverse"], ["incursions", "Incursions"]];
 let atlView = "earth", atlCity = null, atlUni = null, atlSel = null, atlPath = null, atlRaf = 0, atlT = null, atlOpen = false;
 const atlTs = {}, atlSky = {}, atlCityPath = {};
 // the timelines (and Fury's box) split some shows into seasons; in the other boxes they are one checkmark for the whole show
@@ -7883,7 +7885,7 @@ const EGGS = [
   ["quantum", "Quantum Realm", "In Scott and Hope's box, think small.", "Pinch the Ant-Man & the Wasp box smaller (on a computer, hold Ctrl and scroll down).", 1],
   ["radar", "World on fire", "Matt can hear your heartbeat. Tap one out.", "Tap a heartbeat on Daredevil's name: two quick taps, a pause, two quick taps.", 1],
   ["runes", "Sorcerer Supreme", "The circles in the corner are more than decoration.", "In the Doctor Strange & Wong box, double-tap the rings in the top right corner, or the eye drawn in them.", 1],
-  ["bargain", "I've come to bargain", "In the Dark Dimension, come to bargain. Again.", "After Doctor Strange, in the Atlas Beyond, hold the Dark Dimension.", 1],
+  ["bargain", "I've come to bargain", "In the Dark Dimension, come to bargain. Again.", "After Doctor Strange, in the Atlas Dimensions, hold the Dark Dimension.", 1],
   ["webs", "Thwip", "Your friendly neighborhood web-slinger needs a spot to land.", "Double-tap an empty spot in Spider-Man's box.", 1],
   ["jameson", "Menace", "The Bugle has a scoop, and Jameson wants to shout it.", "After Spider-Man (2002), Spider-Man 2, Spider-Man 3 or either Amazing Spider-Man, the Daily Bugle has a headline in Comms: hold its name above the headline.", 1],
   ["defenders", "Four colors", "Four heroes, four colors, all at once.", "Tap The Defenders box with four fingers at once (on a computer, hold the name).", 1],
@@ -7894,7 +7896,7 @@ const EGGS = [
   ["tenrings", "Ten rings", "The Ten Rings are already on Shang-Chi's box. Wake one.", "In the Shang-Chi & The Ten Rings box, tap one of the rings at the top.", 2],
   ["eternals", "The Uni-Mind", "Hold the Eternals together, as one mind.", "Hold anywhere in the Eternals box.", 2],
   ["moon", "Fractured", "Hold on to Moon Knight. Who's in control?", "Hold the name in the Moon Knight box.", 2],
-  ["scales", "Weighing the heart", "In the Duat, Taweret weighs the heart.", "After Moon Knight, in the Atlas Beyond, hold the Duat.", 2],
+  ["scales", "Weighing the heart", "In the Duat, Taweret weighs the heart.", "After Moon Knight, in the Atlas Dimensions, hold the Duat.", 2],
   ["doodles", "Doodles", "Kamala doodles on everything. So can you.", "Draw a long line starting on the name in The Champions box.", 2],
   ["shatter", "New realities", "The Watcher guides you through new realities.", "Hold anywhere in The Watcher's box or the Beyond the MCU chapter.", 2],
   ["werewolf", "Bloodstone", "The Bloodstone glows red in Werewolf by Night.", "Hold the name or the Bloodstone watermark in the Werewolf by Night box.", 2],
@@ -7906,7 +7908,7 @@ const EGGS = [
   ["variant", "Variant", "Every face on the Character Map has a variant.", "Hold a character's name in the Character Map.", 2],
   ["xmen8", "Mutant powers", "Ten powers among the children of the atom, one at a time.", "Hold the name of a FoX-Men box, one power per hold, until you've seen all ten.", 2],
   ["alioth", "Alioth", "Something at the end of time is hungry.", "Hold anywhere in the Pruned Characters box or the Pruned Timelines chapter.", 2],
-  ["witchroad", "The Witches' Road", "Down, down, down the road.", "After Agatha All Along, in the Atlas Beyond, hold the Witches' Road.", 2],
+  ["witchroad", "The Witches' Road", "Down, down, down the road.", "After Agatha All Along, in the Atlas Dimensions, hold the Witches' Road.", 2],
   ["fantastic", "Fantastic", "Four of them, four powers, one burst of taps each.", "Tap the name in The Fantastic Four box four times quickly. Each run of four shows one power; see all four.", 2],
   ["tbolts", "Redacted", "Valentina keeps files on everyone. Black it out.", "Swipe across the name in The Thunderbolts box until it's all blacked out.", 2],
   ["doom", "Doom", "Hold on to Doomsday.", "Hold any Avengers: Doomsday title.", 2],
