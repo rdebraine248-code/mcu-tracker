@@ -12,16 +12,21 @@ const fs = require('fs'), path = require('path'), sleep = ms => new Promise(r =>
   await ctx.addInitScript(s => { if (!sessionStorage.getItem('x')) { localStorage.setItem('mcu-watch-tracker-v1', s); sessionStorage.setItem('x', 1); } }, JSON.stringify({ entered: 1, booted: 1, orderPicked: 1, checks: {} }));
   const p = await ctx.newPage(), errs = []; p.on('pageerror', e => errs.push(e.message));
   await p.goto('http://t/'); await sleep(1800);
-  await p.evaluate(() => { state.eggs = { compound: 1, ironhud: 1, drax: 1, extremis: 1 }; persist(); renderAll(); setInterval(() => { try { sayQ.length = 0; } catch (e) {} }, 50); });
+  await p.evaluate(() => { state.eggs = { compound: 1, ironhud: 1, webs: 1, groot: 1, drax: 1, extremis: 1 }; persist(); renderAll(); setInterval(() => { try { sayQ.length = 0; } catch (e) {} }, 50); });
   ok(await p.evaluate(() => EGGS.every(e => EGG_AT[e[0]] && EGG_SECS.some(s => s[0] === EGG_AT[e[0]][0]) && EGG_AT[e[0]][1]) && Object.keys(EGG_AT).length === EGGS.length), 'an egg with no sector or place, or a place for no egg');
   await p.evaluate(() => openFile()); await sleep(600);
   const t = await p.evaluate(() => [...document.querySelectorAll('#fileView .af-s')].map(e => [e.dataset.afs, e.querySelector('.n').textContent, !!e.querySelector('.stamp')]));
   ok(t.reduce((n, x) => n + +x[1].split('/')[1], 0) === await p.evaluate(() => EGGS.length), 'the sectors don\'t add up to every egg ' + JSON.stringify(t));
-  ok(t.some(x => x[0] === 'compound' && x[1] === '2/2' && x[2]) && t.some(x => x[0] === 'story' && x[1].startsWith('1/') && !x[2]), 'sector counts or cleared stamps wrong ' + JSON.stringify(t));
+  ok(t.some(x => x[0] === 'compound' && x[1] === '2/2' && x[2]) && t.some(x => x[0] === 'story' && x[1].startsWith('3/') && !x[2]), 'sector counts or cleared stamps wrong ' + JSON.stringify(t));
   await p.tap('#fileView [data-afs=compound]'); await sleep(700);
   const c = await p.evaluate(() => [...document.querySelectorAll('.afp .cd')].map(e => e.textContent.trim()));
   ok(c.length === 2 && c.every(x => /^Recovered/.test(x)) && c.some(x => /Drax's file/.test(x)), 'the Compound pop-up ' + JSON.stringify(c));
   await p.goBack(); await sleep(600); ok(await p.evaluate(() => !document.querySelector('.afp') && fileOpen), 'back did not close just the pop-up');
+  // the cards keep the dots' order: a found egg stays where its dot is
+  await p.tap('#fileView [data-afs=story]'); await sleep(700);
+  ok(await p.evaluate(() => { const d = [...document.querySelectorAll('.afp .top .af-tk i')].map(i => i.classList.contains('on')), c = [...document.querySelectorAll('.afp .cd')].map(e => e.classList.contains('f')); return d.length === c.length && d.every((x, i) => x === c[i]) && c.some((x, i) => x && c.slice(0, i).includes(false)); }), 'the cards are not in the dots\' order');
+  ok(await p.evaluate(() => ![...document.querySelectorAll('.afp .cd')].some(c => c.scrollHeight > c.clientHeight + 1)), 'a card\'s text spills out of it');
+  await p.goBack(); await sleep(600);
   await p.tap('#fileView [data-afs=story]'); await sleep(700);
   ok(await p.evaluate(() => [...document.querySelectorAll('.afp .cd.lk')].every(e => e.textContent.trim() === '[ Classified ]')), 'a locked egg shows something besides [ Classified ]');
   for (let i = 0; i < 10; i++) { await p.tap('.afp .cd.lk >> nth=0'); await sleep(40); }

@@ -813,16 +813,16 @@ body[data-hex-era="3"] .hx-band{ opacity:1; }
 .afp .top .af-tk{ gap:3px; } .afp .top .af-tk i{ max-width:16px; height:5px; }
 .afp .cls{ position:absolute; right:12px; top:12px; width:34px; height:34px; border-radius:50%; border:1px solid color-mix(in srgb, var(--c) 40%, #2A3346); background:rgba(10,15,24,.6); color:#C9D4E6; font:18px/1 sans-serif; cursor:pointer; touch-action:manipulation; }
 .afp .stamp{ position:absolute; right:56px; top:22px; transform:rotate(-10deg); font:700 13px/1 'Share Tech Mono','Courier New',monospace; letter-spacing:3px; color:var(--c); border:2px solid var(--c); padding:5px 9px 4px; border-radius:4px; }
-.afp .body{ flex:1; overflow:auto; overscroll-behavior:contain; padding:14px 14px 18px; display:grid; grid-template-columns:1fr 1fr; gap:8px; align-content:start; }
-.afp .cd{ text-align:left; border:1px solid #1E283A; border-radius:10px; padding:10px 11px; background:rgba(255,255,255,.02); color:#E6EDF8; font:inherit; min-height:74px; display:flex; flex-direction:column; gap:3px; opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .3s ease, border-color .2s; }
-.afp.on .cd{ opacity:1; transform:none; }
+.afp .body{ flex:1; overflow:auto; overscroll-behavior:contain; padding:14px 14px 18px; display:grid; grid-template-columns:1fr 1fr; gap:8px; align-content:start; grid-auto-rows:max-content; }   /* a scrolling grid squeezes its rows to the cards' min-height otherwise, and two-line text spills */
+.afp .cd{ text-align:left; border:1px solid #1E283A; border-radius:10px; padding:10px 11px; background:rgba(255,255,255,.02); color:#E6EDF8; font:inherit; min-height:74px; display:block; opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .3s ease, border-color .2s; }
+.afp.on .cd{ opacity:1; transform:none; } .afp .cd > *{ display:block; } .afp .cd > * + *{ margin-top:3px; }
 .afp .cd.f{ border-color:color-mix(in srgb, var(--c) 70%, #1E283A); background:linear-gradient(160deg, color-mix(in srgb, var(--c) 14%, transparent), transparent); box-shadow:0 0 12px color-mix(in srgb, var(--c) 14%, transparent); }
 .afp .cd .lb{ font:10px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:var(--c); text-transform:uppercase; }
 .afp .cd .nm{ font:600 15px/1.2 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; }
 .afp .cd .wh{ font:12px/1.3 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#8A98B0; }
-.afp .cd.lk{ cursor:pointer; touch-action:manipulation; } .afp .cd.lk .nm{ font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#6E7C94; margin:auto 0; text-transform:uppercase; }
+.afp .cd.lk{ cursor:pointer; touch-action:manipulation; display:flex; flex-direction:column; justify-content:center; } .afp .cd.lk .nm{ font:12px/1.3 'Share Tech Mono','Courier New',monospace; letter-spacing:2px; color:#6E7C94; text-transform:uppercase; }
 .afp .cd.lk small{ display:block; font:12px/1.35 'IBM Plex Sans Condensed','Arial Narrow',sans-serif; color:#C9D4E6; }
-.afp .cd.lk:has(small) .nm{ margin:0; }
+.afp .cd.lk:has(small){ justify-content:flex-start; }
 .afp .cd.hf-glow{ animation:hfGlow 2.2s ease-out; }
 @media (prefers-reduced-motion: reduce){ .afp, .afp .cd{ transition:none; transform:none; } }
 
@@ -8333,7 +8333,7 @@ function afSecOpen(k, from, glow) { if (afPop) afShut(true); const s = EGG_SECS.
     const n = achTaps[a.id] || 0, tip = n >= 20 ? a.x : n >= 10 ? a.h : "";
     return `<button type="button" class="cd lk cl" data-ach="${esc(a.id)}" ${d}><span class="nm">[ Classified ]</span>${tip ? `<small>${esc(tip)}</small>` : ""}</button>`; };
   pn.innerHTML = `<div class="top"><small>Classified · ${esc(s[2])}</small><h4>${esc(s[1])}</h4><div class="cnt">${g} of ${L.length} recovered</div><div class="af-tk">${L.map(a => `<i${earned(a.id) ? ' class="on"' : ""}></i>`).join("")}</div>${g === L.length ? '<span class="stamp">CLEARED</span>' : ""}<button type="button" class="cls" aria-label="Close">✕</button></div>
-    <div class="body">${[...L.filter(a => earned(a.id)), ...L.filter(a => !earned(a.id))].map(card).join("")}</div>`;
+    <div class="body">${L.map(card).join("")}</div>`;   // the cards in the dots' order, found or not, so each dot is its card (owner, 16 November 2026)
   document.body.append(bd, pn); afPop = { bd, pn };   // over everything, the dock and the ticker too
   try { history.pushState({ mcu: "afsec" }, ""); } catch (e) {}
   const on = () => { bd.classList.add("on"); pn.classList.add("on"); }; if (REDUCED) on(); else requestAnimationFrame(() => requestAnimationFrame(on));
