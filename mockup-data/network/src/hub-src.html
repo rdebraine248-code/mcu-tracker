@@ -315,7 +315,7 @@ const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-M
 let UNI = 'mcu', UNIOK = null;
 // each Earth is its own room (owner, November 2026: "I thought we separated them by Earths ... having Wolverine next to Logan"): inside a
 // universe, a row of Earth chips picks the world; the films' Earth-10005 and the cartoons' Earth-92131 never stand in one room
-let WORLD = null, DIST = [];   // DIST: the room's Earth districts, each { name, L: its people }
+let WORLD = null, DIST = []; const LAY = new Map();   // LAY: each tab's laid-out room, kept while its crews stay the same   // DIST: the room's Earth districts, each { name, L: its people }
 // where someone stands in the Network: their Earth, unless their story lives elsewhere (owner, November 2026: Sylvie "was born there
 // but that's not where she belongs"; "the Void is definitely a better bubble"). Their files keep the Earth they come from
 const HOME = { 'sylvie': 'Earth-199999', 'he-who-remains': 'Earth-199999', 'kang': 'Earth-199999', 'america-chavez': 'Earth-199999',
@@ -908,6 +908,10 @@ function applyCut(v, quiet) {
     N.forEach(p => { if (p.vis && homeOf(p) === 'The Void') p.g = UK('The Void', p.u); });
     // no catch-all bubble (owner, November 2026): someone in no group stands on their own, not in an "Independent" crowd
     const Wd = new Map(); N.forEach(p => { if (p.vis) { const w = wk(p), key = String(p.g).split('\u2063')[0] === 'Independent' ? p.g + '\u2064' + p.i : p.g; Wd.has(w) || Wd.set(w, new Map()); const by = Wd.get(w); by.has(key) || by.set(key, []); by.get(key).push(p); } });
+    // the same people in the same crews lay out the same way: a tab you come back to reuses its room (owner, 16 November 2026: going to the
+    // Sacred Timeline tab took a beat each time; packing its crews took about a second and a half)
+    const lk = UNI + '|' + (WORLD || ''), sig = [...Wd].map(([w, by]) => w + '\u0001' + [...by].map(([k, L]) => k + '\u0002' + L.map(p => p.i).join(',')).join('\u0003')).join('\u0004'), got = LAY.get(lk);
+    if (got && got.sig === sig) { Z = got.Z; DIST = got.DIST; } else {
     const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => ZFIRST(b[0]) - ZFIRST(a[0]) || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
       const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
@@ -927,7 +931,7 @@ function applyCut(v, quiet) {
     for (let it = 0; it < 240; it++) { D.forEach((d, di) => { if (!di) return; d.x *= .96; d.y *= .975; }); sep(6); }   // settle: pulled in, then pushed back to the gap
     sep(400);
     Z = []; D.forEach(d => d.ZZ.forEach(z => { z.x += d.x; z.y += d.y; Z.push(z); }));
-    DIST = D.length > 1 ? D.map(d => ({ name: d.w.split('|')[1] || '', L: d.ZZ.flatMap(z => z.L), Rw: d.R - S * .3, x: d.x, y: d.y })) : []; }
+    DIST = D.length > 1 ? D.map(d => ({ name: d.w.split('|')[1] || '', L: d.ZZ.flatMap(z => z.L), Rw: d.R - S * .3, x: d.x, y: d.y })) : []; LAY.set(lk, { sig, Z, DIST }); } }
   Z.forEach(z => { z.cx = z.x; z.cy = z.y; z.villains = z.L.filter(p => p.k === 'T').length;
     z.L.forEach((p, k) => { p.z = z; p.hx = z.x + z.cells[k][0]; p.hy = z.y + z.cells[k][1]; if (!keep) { p.tx = p.hx; p.ty = p.hy; }
       if (p.arrive && !quiet && !keep) { p.wx = p.hx + (Math.random() - .5) * 300; p.wy = p.hy + 260; p.go = t + Math.random() * 600; p.inAt = p.go + 300; } }); });
@@ -975,7 +979,13 @@ function fitRoom() { if (!W || !H || sel) { needFit = !sel; return; } needFit = 
 // up to a dozen, taken a kind at a time in turn so every kind shows (three enemies never all fall off the end), then back in kind order
 const pick12 = L => { if (L.length <= 12) return L; const by = KIND.map(k => L.filter(x => x[1] === k)), out = []; for (let r = 0; out.length < 12; r++) by.forEach(g => { if (g[r] && out.length < 12) out.push(g[r]); });
   return out.sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d); };
-self.netPreview = id => { const p = findP(id); if (!p || !p.vis) return null;
+// a file's preview of someone outside the tab the Network last showed (owner, 16 November 2026: Christine Palmer's in the Beyond tab had
+// no lines; with the Network left on the Sacred Timeline every Beyond file's did the same, and the other way round): their ties as of
+// what you've watched, whatever tab is open
+self.netPreview = id => { const p = findP(id); if (!p) return null; let keep = null;
+  if (!p.vis) { const met = q => q.A.length > 0 && !SNAPS.has(q.id); if (!met(p)) return null; keep = p.R; p.R = p.R0.map(cutTie).filter(r => r && met(N[r.j])); }
+  try { return npOf(p); } finally { if (keep) p.R = keep; } };
+const npOf = p => {
   const L = conn(p).map(j => [j, kindOf(p, N[j])]).sort((a, b) => KIND.indexOf(a[1]) - KIND.indexOf(b[1]) || N[b[0]].d - N[a[0]].d);
   const ini = n => String(n).replace(/^((The|Dr\.|Doctor|Colonel|General|Agent|Captain|Senator|Mister|Mr\.|Mrs\.|Ms\.|King|Queen|Prince|Princess|Lord|Lady|Professor|Sergeant|Major|Director|Detective|Officer|Uncle|Aunt) )+/, '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
   const K = KIND.map(k => { const c = L.filter(x => x[1] === k).length; return [c === 1 ? KS[k] : KL[k], KC[k], c, k]; }).filter(x => x[2]);   // "1 partner", "3 friends"
