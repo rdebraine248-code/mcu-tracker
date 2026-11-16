@@ -302,7 +302,7 @@ function packer(GAP) { const CELL = S * 2, grid = new Map(), k = (x, y) => Math.
   const fits = (z, ox, oy) => z.pts.every(([x, y, r]) => { const X = ox + x, Y = oy + y, cx = Math.floor(X / CELL), cy = Math.floor(Y / CELL);
     for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const [a, b, rr] of grid.get((cx + i) * 4096 + cy + j) || []) if (Math.hypot(a - X, b - Y) < r + rr + GAP) return false;
     return true; });
-  return { add, place(z, zi, first) { let spot = [0, 0];
+  return { add, fits, place(z, zi, first) { let spot = [0, 0];
     if (!first) find: for (let R = S * .35; ; R += S * .35) { const n = Math.max(8, Math.round(R * 6.2832 / (S * .35))), a0 = zi * 2.4;
       for (let m = 0; m < n; m++) { const a = a0 + m / n * 6.2832, x = R * Math.cos(a), y = R * Math.sin(a) * .92; if (blk[at(x, y)]) continue; if (fits(z, x, y)) { spot = [x, y]; break find; } } }
     z.x = spot[0]; z.y = spot[1]; z.pts.forEach(([x, y, r]) => add(z.x + x, z.y + y, r)); } }; }
@@ -311,7 +311,7 @@ function packer(GAP) { const CELL = S * 2, grid = new Map(), k = (x, y) => Math.
 const REL = DATA.rel || { kinds: [], titles: [], ord: [], ties: [], places: {} };
 const KIND = ['family', 'partner', 'friend', 'mentor', 'boss', 'ally', 'rival', 'enemy', 'variant'];
 // the universes, as the indexes have them
-const UNIS = [['mcu', 'Sacred Timeline'], ['sv', 'Spider-Verse'], ['fox', 'FoX-Men'], ['by', 'Beyond'], ['pr', 'Pruned']], UL = Object.fromEntries(UNIS);   /* no All universes: it mixed every world together and was slow (owner, November 2026) */
+const UNIS = [['mcu', 'Sacred Timeline'], ['by', 'Beyond'], ['sv', 'Spider-Verse'], ['fox', 'FoX-Men'], ['pr', 'Pruned']], UL = Object.fromEntries(UNIS);   /* no All universes: it mixed every world together and was slow (owner, November 2026); the app's order everywhere (owner, 16 November 2026): Sacred Timeline, Beyond, Spider-Verse, FoX-Men, Pruned, Incursions */
 let UNI = 'mcu', UNIOK = null;
 // each Earth is its own room (owner, November 2026: "I thought we separated them by Earths ... having Wolverine next to Logan"): inside a
 // universe, a row of Earth chips picks the world; the films' Earth-10005 and the cartoons' Earth-92131 never stand in one room
@@ -913,7 +913,23 @@ function applyCut(v, quiet) {
     const lk = UNI + '|' + (WORLD || ''), sig = [...Wd].map(([w, by]) => w + '\u0001' + [...by].map(([k, L]) => k + '\u0002' + L.map(p => p.i).join(',')).join('\u0003')).join('\u0004'), got = LAY.get(lk);
     if (got && got.sig === sig) { Z = got.Z; DIST = got.DIST; } else {
     const D = [...Wd].map(([w, by]) => { const ZZ = [...by].sort((a, b) => ZFIRST(b[0]) - ZFIRST(a[0]) || b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([name, L]) => patch(name, L.sort((a, b) => b.d - a.d), true));
-      const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi)); const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
+      const P = packer(S * .07); ZZ.forEach((z, zi) => P.place(z, zi, !zi));
+      // the room stays as packed; only who stands in the single spots changes (owner, 16 November 2026: the spots between crews "should be
+      // reserved to people that are somewhat connected to the groups around them"; not the crews pulled apart): each loner tied to a crew
+      // takes the free single spot nearest it, the closest pairs first, and those tied to no crew here fill what's left as they were
+      { const one = ZZ.filter(z => z.L.length === 1), crewOf = new Map(); ZZ.forEach(z => { if (z.L.length > 1) z.L.forEach(p => crewOf.set(p, z)); });
+        const slots = one.map(z => [z.x, z.y]), pairs = [], Q = packer(S * .07);   // Q: the room without its loners, then each as they're set down
+        ZZ.forEach(z => { if (z.L.length > 1) z.pts.forEach(([x, y, r]) => Q.add(z.x + x, z.y + y, r)); });
+        one.forEach((z, a) => { const w = new Map(); z.L[0].R.forEach(r => { const c = crewOf.get(N[r.j]); if (c) w.set(c, (w.get(c) || 0) + 1); });
+          let c = null, k = 0; w.forEach((n, x) => { if (n > k) { k = n; c = x; } }); if (!c) return;
+          slots.forEach(([x, y], b) => pairs.push([Math.hypot(x - c.x, y - c.y) - k * S * .01, a, b])); });
+        pairs.sort((u, v) => u[0] - v[0]); const at = new Map(), used = new Set();
+        const set = (a, b) => { const z = one[a]; z.x = slots[b][0]; z.y = slots[b][1]; z.pts.forEach(([x, y, r]) => Q.add(z.x + x, z.y + y, r)); at.set(a, b); used.add(b); };
+        // a loner takes a spot only where all of them, name and all, fits with the usual gap: a longer name never crowds its neighbours
+        for (const [, a, b] of pairs) if (!at.has(a) && !used.has(b) && Q.fits(one[a], slots[b][0], slots[b][1])) set(a, b);
+        one.forEach((z, a) => { if (at.has(a)) return; let b = slots.findIndex((s, i) => !used.has(i) && Q.fits(z, s[0], s[1]));
+          if (b >= 0) set(a, b); else { Q.place(z, a + 1, false); at.set(a, -1); } }); }   // no spot fits: the next free one out, as packed
+      const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
     // districts as a honeycomb (owner, November 2026: "too much empty space", "not sensibly placed", "the little Earth by itself looks
     // ridiculous", like the Apple Watch's app grid): the biggest in the middle, everyone pulled toward it and pushed apart to one even gap,
