@@ -928,7 +928,7 @@ function applyCut(v, quiet) {
         // a loner takes a spot only where all of them, name and all, fits with the usual gap: a longer name never crowds its neighbours
         for (const [, a, b] of pairs) if (!at.has(a) && !used.has(b) && Q.fits(one[a], slots[b][0], slots[b][1])) set(a, b);
         one.forEach((z, a) => { if (at.has(a)) return; let b = slots.findIndex((s, i) => !used.has(i) && Q.fits(z, s[0], s[1]));
-          if (b >= 0) set(a, b); else { Q.place(z, a + 1, false); z.pts.forEach(() => {}); at.set(a, -1); } }); }   // no spot fits: the next free one out, as packed
+          if (b >= 0) set(a, b); else { Q.place(z, a + 1, false); at.set(a, -1); } }); }   // no spot fits: the next free one out, as packed
       const pts = []; ZZ.forEach(z => z.pts.forEach(([x, y, r]) => pts.push([z.x + x, z.y + y, r])));
       return { w, ZZ, pts, n: ZZ.reduce((a, z) => a + z.L.length, 0) }; }).sort((a, b) => b.n - a.n);
     // districts as a honeycomb (owner, November 2026: "too much empty space", "not sensibly placed", "the little Earth by itself looks
